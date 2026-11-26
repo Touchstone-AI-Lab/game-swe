@@ -35,8 +35,9 @@
         <span>GameSWE</span>
       </a>
       <nav class="nav-links" aria-label="Sections">
-        <a href="#overview">Overview</a>
         <a href="#games">Games</a>
+        <a href="#overview">Why</a>
+        <a href="#tasks">Tasks</a>
         <a href="#harness">Harness</a>
         <a href="#results">Results</a>
         <a href="#paper">Paper</a>
@@ -65,7 +66,7 @@
           <span class="eyebrow"><i></i><span>LIVING BENCHMARK · <span data-bind="totals.games"></span> GAMES · <span data-bind="totals.languages"></span> LANGUAGES</span></span>
           <h1>GameSWE</h1>
           <p class="hero-sub">Evaluating coding agents in live game runtimes.</p>
-          <p class="hero-lede">Agents repair and build mods for real games. Each submission is compiled, loaded into the game or its dedicated server, and judged by tests that run inside it. No mocks, no LLM judges.</p>
+          <p class="hero-lede">Agents fix and build mods for real games. The running game is the judge.</p>
 
           <dl class="hero-stats" aria-label="Benchmark summary">
             <div><dt>Tasks</dt><dd data-bind="totals.tasks"></dd></div>
@@ -80,8 +81,11 @@
               <button type="button" class="panel-close" id="panel-close" aria-label="Close game details">×</button>
             </header>
             <div class="panel-title">
-              <h3 id="panel-name"></h3>
-              <p id="panel-runtime"></p>
+              <img id="panel-cover" class="panel-cover" alt="" width="48" height="72" />
+              <div>
+                <h3 id="panel-name"></h3>
+                <p id="panel-runtime"></p>
+              </div>
             </div>
             <dl class="panel-rows">
               <div><dt>Language</dt><dd id="panel-lang"></dd></div>
@@ -120,106 +124,255 @@
       </div>
     </section>
 
+    <!-- Games: the twelve covers -->
+    <section id="games" class="band wrap reveal">
+      <div class="head head-row">
+        <div>
+          <span class="eyebrow"><i></i>TWELVE GAMES</span>
+          <h2>Twelve real games.<br /><span class="dim">Each with its own language and toolchain.</span></h2>
+        </div>
+        <div class="seg lang-filter" role="tablist" aria-label="Filter games by language" id="lang-filter">
+          <button role="tab" type="button" data-lang="" aria-selected="true">All</button>
+          <button role="tab" type="button" data-lang="Lua" aria-selected="false">Lua</button>
+          <button role="tab" type="button" data-lang="Java" aria-selected="false">Java</button>
+          <button role="tab" type="button" data-lang="C#" aria-selected="false">C#</button>
+          <button role="tab" type="button" data-lang="SourcePawn" aria-selected="false">SourcePawn</button>
+        </div>
+      </div>
+      <div class="cover-grid" id="game-grid"></div>
+      <p class="grid-key"><span><b class="k-rep"></b>Repair</span><span><b class="k-con-bar"></b>Construction</span><span>Select a cover to find the game on the globe.</span></p>
+    </section>
+
     <!-- Why live runtimes -->
     <section id="overview" class="band wrap reveal">
       <div class="head">
         <span class="eyebrow"><i></i>WHY A LIVE RUNTIME</span>
         <h2>Repository tests pass.<br /><span class="dim">The game still breaks.</span></h2>
-        <p class="lede">Coding agents are usually graded by a repository's own tests. Much software runs inside a host program instead, where correctness depends on runtime state, lifecycle events and third-party code loaded beside it. GameSWE checks agents' code in that setting, inside the shipped game or its dedicated server.</p>
       </div>
-      <div class="props">
-        <article class="prop">
-          <span class="prop-n">01</span>
+      <div class="why">
+        <article class="why-card">
+          <div class="w-art w-judge" aria-hidden="true">
+            <div class="mini-win">
+              <p class="mw-bar"><i></i><i></i><i></i><span>live game</span></p>
+              <ul>
+                <li><span>F2P</span><b><i></i></b><em>✓</em></li>
+                <li><span>F2P</span><b><i></i></b><em>✓</em></li>
+                <li><span>P2P</span><b><i></i></b><em>✓</em></li>
+              </ul>
+            </div>
+          </div>
           <h3>The game is the judge</h3>
-          <p>The verdict comes from the running game, not from mocks, model-written tests or LLM judges. A mod that calls an interface the game does not expose fails the way it would for players.</p>
+          <p>No mocks, no LLM judges.</p>
         </article>
-        <article class="prop">
-          <span class="prop-n">02</span>
-          <h3>Stateful, with a lifecycle</h3>
-          <p>Tests drive the game's lifecycle. A reloaded Minecraft config must register new commands and drop old ones. Garry's Mod loadouts must survive death, respawn and a server restart.</p>
+        <article class="why-card">
+          <div class="w-art w-cycle" aria-hidden="true">
+            <svg viewBox="0 0 96 96" width="96" height="96"><circle class="c-track" cx="48" cy="48" r="34" /><circle class="c-run" cx="48" cy="48" r="34" pathLength="100" /></svg>
+            <span class="words"><em>reload</em><em>respawn</em><em>restart</em></span>
+          </div>
+          <h3>State and lifecycle</h3>
+          <p>Configs reload, players respawn, servers restart.</p>
         </article>
-        <article class="prop">
-          <span class="prop-n">03</span>
+        <article class="why-card">
+          <div class="w-art w-mods" aria-hidden="true">
+            <div class="slot">
+              <span class="chip c1">target mod</span>
+              <span class="chip c2">third-party</span>
+              <span class="chip c3">third-party</span>
+            </div>
+          </div>
           <h3>Mods share one runtime</h3>
-          <p>Mods for one game come from different authors and often touch the same objects. When a target mod depends on others, it runs with them loaded: <b data-bind="totals.thirdPartyTasks"></b> tasks pin third-party mods.</p>
+          <p><b data-bind="totals.thirdPartyTasks"></b> tasks load pinned third-party mods.</p>
         </article>
-        <article class="prop">
-          <span class="prop-n">04</span>
-          <h3>Real, varied ecosystems</h3>
-          <p>Twelve games, five languages (Lua and GLua, Java, C#, SourcePawn, Squirrel), several mod loaders, and both desktop games and dedicated servers.</p>
+        <article class="why-card">
+          <div class="w-art w-langs" aria-hidden="true">
+            <div class="strip-mask"><div class="strip" id="why-strip"></div></div>
+          </div>
+          <h3>Twelve ecosystems</h3>
+          <p>Lua, Java, C#, SourcePawn, Squirrel.</p>
         </article>
       </div>
     </section>
 
-    <!-- Task types -->
+    <!-- Task types, shown as before/after examples -->
     <section id="tasks" class="band wrap reveal">
       <div class="head">
         <span class="eyebrow"><i></i>TWO KINDS OF TASK</span>
-        <h2>Fix a mod, or build one.<br /><span class="dim">The tests stay hidden.</span></h2>
-        <p class="lede">The agent gets a task description, the initial code, and documentation of the game's interfaces. It never sees the tests, the third-party mods or the game itself.</p>
+        <h2>Fix a mod, or build one.<br /><span class="dim">Drag the slider to compare.</span></h2>
       </div>
-      <div class="kinds">
-        <article class="kind">
-          <header><span class="kind-dot rep" aria-hidden="true"></span><h3>Repair</h3><b><span data-bind="totals.repair"></span> tasks</b></header>
-          <p>Start from an existing mod and its bug reports. Find what is wrong or missing and fix it through the interfaces the code already uses.</p>
-          <dl class="specs">
-            <div><dt>Starting code</dt><dd><span data-bind="totals.medianRepairLoc" data-fmt="int"></span> lines <small>median</small></dd></div>
-            <div><dt>Reference patch</dt><dd><span data-bind="totals.medianRepairPatch"></span> lines changed <small>median</small></dd></div>
+      <div class="examples">
+        <article class="ex">
+          <header class="ex-head">
+            <span class="ex-kind rep"><i></i>Repair</span>
+            <span class="ex-game"><img src="./games/stardew-valley-t.webp" alt="" width="18" height="27" />Stardew Valley · C#</span>
+            <b><span data-bind="totals.repair"></span> tasks</b>
+          </header>
+          <h3>Automate: report standalone machines</h3>
+          <div class="compare" data-compare>
+            <img class="c-img" src="./art/sdv-before.webp" alt="Before: the machine report has no entry for a standalone machine" width="800" height="554" loading="lazy" />
+            <div class="c-after"><img class="c-img" src="./art/sdv-after.webp" alt="After: the standalone furnace is reported through the existing API" width="800" height="554" loading="lazy" /></div>
+            <span class="c-tag bad">Not reported</span>
+            <span class="c-tag good">Reported via API</span>
+            <span class="c-handle" aria-hidden="true"><i></i></span>
+            <input class="c-range" type="range" min="0" max="100" value="50" aria-label="Compare the Automate mod before and after the repair" />
+          </div>
+          <div class="ex-diff" aria-label="Patch intent">
+            <p class="del"><span>−</span>Skip standalone machines</p>
+            <p class="add"><span>+</span>Report via existing API</p>
+          </div>
+          <dl class="ex-stats">
+            <div><dt>Starts from</dt><dd><span data-bind="totals.medianRepairLoc" data-fmt="int"></span> lines</dd></div>
+            <div><dt>Reference fix</dt><dd><span data-bind="totals.medianRepairPatch"></span> lines</dd></div>
+            <div><dt>Input</dt><dd>bug report</dd></div>
           </dl>
         </article>
-        <article class="kind">
-          <header><span class="kind-dot con" aria-hidden="true"></span><h3>Construction</h3><b><span data-bind="totals.construct"></span> tasks</b></header>
-          <p>Start from an empty project, or a skeleton of at most 15 lines, plus a feature request. Build the mod on the APIs the game provides.</p>
-          <dl class="specs">
-            <div><dt>Starting code</dt><dd>≤ 15 lines</dd></div>
-            <div><dt>Reference solution</dt><dd><span data-bind="totals.medianConstructAdded"></span> lines added <small>median</small></dd></div>
+        <article class="ex">
+          <header class="ex-head">
+            <span class="ex-kind con"><i></i>Construction</span>
+            <span class="ex-game"><img src="./games/palworld-t.webp" alt="" width="18" height="27" />Palworld · Lua</span>
+            <b><span data-bind="totals.construct"></span> tasks</b>
+          </header>
+          <h3>Workforce Matching: assign every job</h3>
+          <div class="compare" data-compare>
+            <img class="c-img" src="./art/pal-before.webp" alt="Before: one of two jobs has a Pal assigned" width="800" height="460" loading="lazy" />
+            <div class="c-after"><img class="c-img" src="./art/pal-after.webp" alt="After: both jobs have a Pal assigned" width="800" height="460" loading="lazy" /></div>
+            <span class="c-tag bad">1 / 2 jobs assigned</span>
+            <span class="c-tag good">2 / 2 jobs assigned</span>
+            <span class="c-handle" aria-hidden="true"><i></i></span>
+            <input class="c-range" type="range" min="0" max="100" value="50" aria-label="Compare Palworld before and after the new mod" />
+          </div>
+          <div class="ex-diff" aria-label="Patch intent">
+            <p class="add"><span>+</span>Optimize Pal assignments</p>
+            <p class="ctx"><span> </span>new mod, built on the game's APIs</p>
+          </div>
+          <dl class="ex-stats">
+            <div><dt>Starts from</dt><dd>≤ 15 lines</dd></div>
+            <div><dt>Reference mod</dt><dd>≈<span data-bind="totals.medianConstructAdded" data-fmt="round"></span> lines</dd></div>
+            <div><dt>Input</dt><dd>feature request</dd></div>
           </dl>
         </article>
       </div>
-      <dl class="facts">
-        <div><dt>Tests per task</dt><dd><span data-bind="totals.medianF2P"></span> F2P · <span data-bind="totals.medianP2P"></span> P2P <small>median</small></dd></div>
-        <div><dt>Candidates</dt><dd><span data-bind="totals.candidates"></span> → <span data-bind="totals.tasks"></span></dd></div>
-        <div><dt>Validation</dt><dd>Reference passes, initial code fails, then a human plays it through</dd></div>
-        <div><dt>Releases</dt><dd>New tasks over time; each release is fixed</dd></div>
-      </dl>
-    </section>
+      <p class="ex-note">Line counts are medians over each task type. Screens are from the paper's figures.</p>
 
-    <!-- Games -->
-    <section id="games" class="band wrap reveal">
-      <div class="head">
-        <span class="eyebrow"><i></i>TWELVE GAMES</span>
-        <h2>Twelve games, each with its own toolchain.<br /><span class="dim">Desktop clients and dedicated servers.</span></h2>
-        <p class="lede">Every game is a separate ecosystem, with its own language, mod loader and conventions. Being good at one does not carry over to the next. Select a game to find it on the globe.</p>
+      <div class="sees">
+        <div class="sees-col">
+          <p class="sees-h">The agent gets</p>
+          <ul>
+            <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z" /><path d="M14 3v5h5M9 13h6M9 17h4" /></svg>Task description</li>
+            <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m8 8-4 4 4 4M16 8l4 4-4 4M13.5 5l-3 14" /></svg>Starting code</li>
+            <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 19V5a2 2 0 0 1 2-2h14v15H6a2 2 0 0 0 0 4h14" /></svg>Game API docs</li>
+          </ul>
+        </div>
+        <div class="sees-col off">
+          <p class="sees-h">It never sees</p>
+          <ul>
+            <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 3h6M10 3v6l-5 9a2 2 0 0 0 1.7 3h10.6a2 2 0 0 0 1.7-3l-5-9V3M7.5 15h9" /></svg>The tests</li>
+            <li><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="7" width="20" height="11" rx="5" /><path d="M7 10.5v4M5 12.5h4M15.5 12h.01M18 14h.01" /></svg>The game</li>
+            <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 4.5a2.5 2.5 0 0 1 5 0V6h4v4h-1.5a2.5 2.5 0 0 0 0 5H18v4h-4v-1.5a2.5 2.5 0 0 0-5 0V19H5v-4h1.5a2.5 2.5 0 0 0 0-5H5V6h4z" /></svg>Third-party mods</li>
+          </ul>
+        </div>
+        <div class="sees-funnel">
+          <p class="sf-n"><span data-bind="totals.candidates"></span><i aria-hidden="true">→</i><span data-bind="totals.tasks"></span></p>
+          <p class="sf-l">candidates kept after validation and a human playthrough</p>
+          <div class="sf-bar" aria-hidden="true"><b></b></div>
+        </div>
       </div>
-      <div class="game-grid" id="game-grid"></div>
-      <p class="grid-key"><span><b class="k-rep"></b>Repair tasks</span><span><b class="k-con-bar"></b>Construction tasks</span><span>Bar length is each type's share of the game's tasks.</span></p>
     </section>
 
-    <!-- Harness -->
+    <!-- Harness, as an animated run -->
     <section id="harness" class="band wrap reveal">
       <div class="head">
         <span class="eyebrow"><i></i>LIVE-RUNTIME HARNESS</span>
-        <h2>Four stages, all in the real game.<br /><span class="dim">A task is resolved only if every stage passes.</span></h2>
+        <h2>Four stages, all in the real game.<br /><span class="dim">Resolved only if every stage passes.</span></h2>
       </div>
-      <div class="harness">
-        <ol class="pipeline" aria-label="Harness stages">
-          <li><span class="stage-n">01</span><h3>Build</h3><p>Compile the submission with the game's own modding toolchain.</p></li>
-          <li><span class="stage-n">02</span><h3>Load</h3><p>Load it into the real game or its dedicated server, together with the pinned third-party mods.</p></li>
-          <li><span class="stage-n">03</span><h3>Test in game</h3><p>Run fail-to-pass and pass-to-pass scenarios inside the running game.</p></li>
-          <li><span class="stage-n">04</span><h3>Teardown</h3><p>End the session and check that it shuts down cleanly.</p></li>
-        </ol>
-        <aside class="spec-card">
-          <p class="spec-title"><i></i>Evaluation protocol</p>
-          <dl class="panel-rows">
-            <div><dt>Agent scaffold</dt><dd data-bind="totals.scaffold"></dd></div>
-            <div><dt>Limits</dt><dd><span data-bind="totals.stepLimit"></span> steps · <span data-bind="totals.wallMinutes"></span> min</dd></div>
-            <div><dt>Game access</dt><dd>None</dd></div>
-            <div><dt>Network</dt><dd>Model endpoint only</dd></div>
-            <div><dt>Attempts</dt><dd>1 per model per task</dd></div>
-            <div><dt>Total</dt><dd><span data-bind="totals.attempts" data-fmt="int"></span> attempts</dd></div>
-          </dl>
-        </aside>
+      <div class="run" id="run">
+        <div class="run-steps" role="tablist" aria-label="Harness stages">
+          <button role="tab" type="button" aria-selected="true" aria-controls="pane-0" id="step-0" data-ms="3400">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 4H7a2 2 0 0 0-2 2v4l-2 2 2 2v4a2 2 0 0 0 2 2h1M16 4h1a2 2 0 0 1 2 2v4l2 2-2 2v4a2 2 0 0 1-2 2h-1" /></svg>
+            <span><b>Build</b><small>Game's own toolchain</small></span>
+            <i class="rs-bar"><i></i></i>
+          </button>
+          <button role="tab" type="button" aria-selected="false" aria-controls="pane-1" id="step-1" data-ms="3600">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 8 12 3 3 8v8l9 5 9-5z" /><path d="m3 8 9 5 9-5M12 13v8" /></svg>
+            <span><b>Load</b><small>Real game or server</small></span>
+            <i class="rs-bar"><i></i></i>
+          </button>
+          <button role="tab" type="button" aria-selected="false" aria-controls="pane-2" id="step-2" data-ms="6400">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 3h6M10 3v6l-5 9a2 2 0 0 0 1.7 3h10.6a2 2 0 0 0 1.7-3l-5-9V3M7.5 15h9" /></svg>
+            <span><b>Test in game</b><small>F2P and P2P scenarios</small></span>
+            <i class="rs-bar"><i></i></i>
+          </button>
+          <button role="tab" type="button" aria-selected="false" aria-controls="pane-3" id="step-3" data-ms="4200">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v9" /><path d="M6.4 6.4a8 8 0 1 0 11.2 0" /></svg>
+            <span><b>Teardown</b><small>Clean shutdown</small></span>
+            <i class="rs-bar"><i></i></i>
+          </button>
+        </div>
+
+        <div class="run-screen">
+          <p class="win-bar"><i></i><i></i><i></i><span>minecraft · paper server · BlockTrail</span><em>illustrative run</em></p>
+          <div class="run-pane on" role="tabpanel" id="pane-0" aria-labelledby="step-0">
+            <div class="term">
+              <p class="ln" style="--d:0"><b>$</b> build BlockTrail <small>Java · Paper API</small></p>
+              <p class="ln dim" style="--d:500">resolving dependencies…</p>
+              <p class="ln dim" style="--d:1000">compiling sources…</p>
+              <p class="ln ok" style="--d:1700"><b>✓</b> BlockTrail.jar</p>
+            </div>
+            <div class="pane-art build-art" aria-hidden="true">
+              <span class="file f1">.java</span><span class="file f2">.java</span><span class="file f3">.yml</span>
+              <span class="jar">BlockTrail.jar</span>
+            </div>
+          </div>
+          <div class="run-pane" role="tabpanel" id="pane-1" aria-labelledby="step-1" hidden>
+            <div class="term">
+              <p class="ln" style="--d:0"><b>$</b> start paper-server</p>
+              <p class="ln dim" style="--d:500">load BlockTrail.jar</p>
+              <p class="ln dim" style="--d:1000">load pinned third-party plugins</p>
+              <p class="ln ok" style="--d:1700"><b>✓</b> world ready</p>
+            </div>
+            <div class="pane-art load-art" aria-hidden="true">
+              <img src="./art/mc-1.webp" alt="" width="440" height="362" loading="lazy" />
+              <span class="load-ring"></span>
+            </div>
+          </div>
+          <div class="run-pane" role="tabpanel" id="pane-2" aria-labelledby="step-2" hidden>
+            <div class="frames" aria-hidden="true">
+              <figure style="--d:0"><img src="./art/mc-1.webp" alt="" width="440" height="362" loading="lazy" /><figcaption>Place TNT</figcaption></figure>
+              <figure style="--d:1400"><img src="./art/mc-2.webp" alt="" width="440" height="373" loading="lazy" /><figcaption>Blast logged</figcaption></figure>
+              <figure style="--d:2800"><img src="./art/mc-3.webp" alt="" width="440" height="392" loading="lazy" /><figcaption>Roll back</figcaption></figure>
+            </div>
+            <ul class="tests">
+              <li class="ln" style="--d:3300"><span class="tk f2p">F2P</span>wall restored after rollback<b>✓</b></li>
+              <li class="ln" style="--d:3800"><span class="tk f2p">F2P</span>filter by actor, area, time<b>✓</b></li>
+              <li class="ln" style="--d:4300"><span class="tk f2p">F2P</span>undo marks survive a reload<b>✓</b></li>
+              <li class="ln" style="--d:4800"><span class="tk p2p">P2P</span>other plugins unaffected<b>✓</b></li>
+            </ul>
+          </div>
+          <div class="run-pane" role="tabpanel" id="pane-3" aria-labelledby="step-3" hidden>
+            <div class="term">
+              <p class="ln" style="--d:0"><b>$</b> stop paper-server</p>
+              <p class="ln dim" style="--d:500">saving world, unloading plugins…</p>
+              <p class="ln ok" style="--d:1100"><b>✓</b> clean shutdown</p>
+            </div>
+            <div class="pane-art verdict" aria-hidden="true">
+              <p class="stamp">Resolved</p>
+              <ol><li>Build</li><li>Load</li><li>Test</li><li>Teardown</li></ol>
+            </div>
+          </div>
+        </div>
       </div>
+      <div class="tk-key">
+        <p><span class="tk f2p">F2P</span>Fails on the starting code, must pass after the change.</p>
+        <p><span class="tk p2p">P2P</span>Passes before, must still pass after.</p>
+      </div>
+      <ul class="proto" aria-label="Evaluation protocol">
+        <li><b data-bind="totals.scaffold"></b></li>
+        <li><b data-bind="totals.stepLimit"></b> steps</li>
+        <li><b data-bind="totals.wallMinutes"></b> min</li>
+        <li>No game access</li>
+        <li>Model endpoint only</li>
+        <li>1 attempt per task</li>
+        <li><b data-bind="totals.attempts" data-fmt="int"></b> attempts</li>
+      </ul>
     </section>
 
     <!-- Results -->
@@ -227,7 +380,7 @@
       <div class="head">
         <span class="eyebrow"><i></i>RESULTS</span>
         <h2>The best agent resolves <span data-bind="models.0.overall" data-fmt="pct"></span>.<br /><span class="dim">Most failures show up only in the game.</span></h2>
-        <p class="lede">Seven frontier and open-weight models, one attempt per task, all in the same scaffold. The headline rate averages the twelve per-game rates, so every game counts equally.</p>
+        <p class="lede">Seven models, one attempt per task, same scaffold. Every game counts equally.</p>
       </div>
 
       <div class="card board">
@@ -318,7 +471,8 @@
         <article class="abstract">
           <p class="abstract-tag"><span class="pill">Anonymous submission · under review</span></p>
           <h3>Abstract</h3>
-          <p>Coding agents are increasingly evaluated on repository-level tasks, where a change is judged by the repository's own tests. Yet much software runs inside a live host program, where correctness depends on runtime state, lifecycle events, and third-party components loaded alongside it. We introduce GameSWE, a benchmark of 150 repair and construction tasks built from open-source mods for 12 popular games across five programming languages. Each submission is compiled, loaded into the real game or its dedicated server together with the pinned third-party mods it depends on, and judged by fail-to-pass and pass-to-pass tests executed in the live runtime, without mocks or LLM judges. Across seven frontier and open-weight models, the best agent resolves 69.0% of tasks while three models remain at or below 25.0%, and even the best agent's per-game rate ranges from 40.0% to 93.3%. Our analysis shows that 70.0% of unresolved attempts end with the agent submitting its work as complete, and in at least 31.0% the agent reports that its own checks pass, yet the submission fails in the runtime, with failures concentrated at the boundary between code and host: interfaces the ecosystem does not provide, host conventions beyond the code, and logic not connected to the game's lifecycle. GameSWE provides a reproducible testbed for coding agents whose code must work where it runs.</p>
+          <p class="abs-text" id="abs-text">Coding agents are increasingly evaluated on repository-level tasks, where a change is judged by the repository's own tests. Yet much software runs inside a live host program, where correctness depends on runtime state, lifecycle events, and third-party components loaded alongside it. We introduce GameSWE, a benchmark of 150 repair and construction tasks built from open-source mods for 12 popular games across five programming languages. Each submission is compiled, loaded into the real game or its dedicated server together with the pinned third-party mods it depends on, and judged by fail-to-pass and pass-to-pass tests executed in the live runtime, without mocks or LLM judges. Across seven frontier and open-weight models, the best agent resolves 69.0% of tasks while three models remain at or below 25.0%, and even the best agent's per-game rate ranges from 40.0% to 93.3%. Our analysis shows that 70.0% of unresolved attempts end with the agent submitting its work as complete, and in at least 31.0% the agent reports that its own checks pass, yet the submission fails in the runtime, with failures concentrated at the boundary between code and host: interfaces the ecosystem does not provide, host conventions beyond the code, and logic not connected to the game's lifecycle. GameSWE provides a reproducible testbed for coding agents whose code must work where it runs.</p>
+          <button type="button" class="abs-more" id="abs-more" aria-expanded="false" aria-controls="abs-text">Read the full abstract</button>
         </article>
         <div class="links">
           <div class="link-card off">
@@ -344,7 +498,7 @@
       </div>
       <div class="foot-col">
         <h4>Benchmark</h4>
-        <a href="#overview">Overview</a><a href="#games">Games</a><a href="#results">Results</a><a href="https://touchstone-ai-lab.github.io/swe-game-tasks/">Task catalogue ↗</a>
+        <a href="#games">Games</a><a href="#tasks">Tasks</a><a href="#harness">Harness</a><a href="#results">Results</a><a href="https://touchstone-ai-lab.github.io/swe-game-tasks/">Task catalogue ↗</a>
       </div>
       <div class="foot-col">
         <h4>Touchstone AI</h4>
@@ -352,7 +506,7 @@
       </div>
     </div>
     <div class="wrap foot-legal">
-      <p>Game names belong to their publishers. Model names and logos are their owners' trademarks and identify the models only. Logos: <a href="./THIRD-PARTY-NOTICES.txt">third-party notices</a>.</p>
+      <p>Game names, cover art and screenshots belong to their publishers and are shown only to identify each game. Model names and logos are their owners' trademarks. Logos: <a href="./THIRD-PARTY-NOTICES.txt">third-party notices</a>.</p>
       <p>© 2026 Touchstone AI</p>
     </div>
   </footer>

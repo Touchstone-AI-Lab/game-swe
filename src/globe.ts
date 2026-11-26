@@ -2,7 +2,7 @@
 // repair tasks are filled, construction tasks are rings. Game labels are HTML buttons placed over the
 // canvas each frame and faded out as their cluster turns away.
 
-export interface GlobeGame { slug: string; name: string; sub: string; repair: number; construct: number }
+export interface GlobeGame { slug: string; name: string; sub: string; thumb: string; repair: number; construct: number }
 
 interface Vec { x: number; y: number; z: number }
 interface Task { p: Vec; game: number; construct: boolean }
@@ -71,9 +71,10 @@ export function createGlobe(opts: {
     b.className = 'g-label';
     b.dataset.game = g.slug;
     b.setAttribute('aria-pressed', 'false');
-    b.innerHTML = `<strong></strong><span></span>`;
+    b.innerHTML = `<img alt="" width="16" height="24" /><span class="gl-t"><strong></strong><span></span></span>`;
+    b.querySelector('img')!.src = g.thumb;
     b.querySelector('strong')!.textContent = g.name;
-    b.querySelector('span')!.textContent = g.sub;
+    b.querySelector('.gl-t > span')!.textContent = g.sub;
     b.addEventListener('click', () => select(selected === gi ? null : g.slug));
     b.addEventListener('focus', () => { if (selected < 0) aim(gi); });
     labels.append(b);

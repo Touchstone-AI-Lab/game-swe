@@ -29,5 +29,13 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
+Game artwork in games/ is each game's cover art, resized: Minecraft from its Microsoft Store
+listing, the other eleven from their Steam store pages. The art, names and logos belong to the
+games' publishers and are shown only to identify each game.
+
+Images in art/ are cropped from the GameSWE paper's figures: the Stardew Valley and Palworld
+before/after screens from the teaser figure, and the Minecraft BlockTrail scenes from the task
+examples figure (backgrounds removed).
+
 Fonts: Geist and Geist Mono (Vercel), via @fontsource-variable, under the SIL Open Font
 License 1.1.
