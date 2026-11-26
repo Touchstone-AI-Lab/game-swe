@@ -140,14 +140,6 @@ strip.innerHTML = [...games, ...games].map((g) => `<img src="${cover(g.slug)}" a
 const T = data.totals as Record<string, number>;
 document.querySelector<HTMLElement>('.sf-bar')?.style.setProperty('--keep', `${((T.tasks / T.candidates) * 100).toFixed(1)}%`);
 
-// Abstract: four lines until opened
-const absBtn = $('abs-more');
-absBtn.addEventListener('click', () => {
-  const open = absBtn.closest('.abstract')!.classList.toggle('open');
-  absBtn.setAttribute('aria-expanded', String(open));
-  absBtn.textContent = open ? 'Show less' : 'Read the full abstract';
-});
-
 const fromHash = () => {
   const m = /^#game=([a-z0-9-]+)$/.exec(location.hash);
   if (m && games.some((g) => g.slug === m[1])) choose(m[1]);

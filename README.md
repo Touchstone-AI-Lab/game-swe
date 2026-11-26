@@ -19,10 +19,11 @@ is read from `src/data.json` through `data-bind` attributes or the chart code, s
 
 - `src/globe.ts`: the hero globe, a 2D canvas with one dot per task (repair filled, construction ringed) clustered by game.
 - `src/results.ts`: leaderboard, per-game heatmap, stage bar and attempt funnel.
-- `src/explain.ts`: the before/after sliders in the task section and the auto-playing four-stage run in the harness section.
+- `src/explain.ts`: the before/after sliders in the task section, the typed task-authoring terminal in the pipeline section, and the auto-playing four-stage run in the harness section. The terminal sessions are illustrative and follow the paper's construction and validation steps.
 - `public/icons/`: model logos from LobeHub Icons (MIT), listed in `public/THIRD-PARTY-NOTICES.txt`.
 - `public/games/`: cover art for the 12 games (`<slug>.webp`, 360×540) and thumbnails (`<slug>-t.webp`), from the Steam and Microsoft Store listings.
 - `public/art/`: before/after screens and Minecraft scenes cropped from the paper's figures, used by the task and harness explainers.
+- `public/touchstone.png`: the Touchstone AI logo used in the nav, footer and favicon, copied from the Touchstone-AI-Lab.github.io repository.
 - `public/og.png`: the social card, a capture of the hero in the dark theme.
 
-The paper is under double-blind review, so the page names no authors and links neither the paper nor the code yet.
+The paper is under double-blind review, so the page names no authors and has no paper section; the GitHub links point to https://github.com/Touchstone-AI-Lab/game-swe.

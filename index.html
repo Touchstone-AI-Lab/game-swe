@@ -14,7 +14,7 @@
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="theme-color" content="#fbfbfa" />
   <link rel="canonical" href="https://touchstone-ai-lab.github.io/bench/game-swe/" />
-  <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
+  <link rel="icon" type="image/png" href="./touchstone.png" />
   <script>
     // Set the theme before first paint: a stored choice wins, otherwise follow the system.
     (function () {
@@ -31,23 +31,23 @@
   <header class="nav">
     <div class="nav-in">
       <a class="brand" href="#top" aria-label="GameSWE, back to top">
-        <span class="brand-mark" aria-hidden="true"></span>
+        <img class="brand-logo" src="./touchstone.png" alt="" width="24" height="24" />
         <span>GameSWE</span>
       </a>
       <nav class="nav-links" aria-label="Sections">
         <a href="#games">Games</a>
         <a href="#overview">Why</a>
         <a href="#tasks">Tasks</a>
+        <a href="#pipeline">Pipeline</a>
         <a href="#harness">Harness</a>
         <a href="#results">Results</a>
-        <a href="#paper">Paper</a>
       </nav>
       <div class="nav-tools">
         <button class="icon-btn" id="theme-btn" type="button" aria-label="Switch to dark theme" title="Toggle theme">
           <svg class="i-moon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3h.39a7.5 7.5 0 0 0 7.92 12.45A9 9 0 1 1 12 3z" /></svg>
           <svg class="i-sun" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4" /><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41" /></svg>
         </button>
-        <a class="icon-btn" href="https://github.com/Touchstone-AI-Lab" aria-label="Touchstone AI on GitHub">
+        <a class="icon-btn" href="https://github.com/Touchstone-AI-Lab/game-swe" aria-label="GameSWE on GitHub">
           <svg viewBox="0 0 16 16" width="17" height="17" fill="currentColor" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z" /></svg>
         </a>
       </div>
@@ -98,9 +98,9 @@
           </aside>
 
           <div class="hero-btns">
-            <a class="btn primary" href="#results">See results <span aria-hidden="true">↓</span></a>
+            <a class="btn primary" href="#results">Results <span aria-hidden="true">↓</span></a>
+            <a class="btn" href="https://github.com/Touchstone-AI-Lab/game-swe"><svg viewBox="0 0 16 16" width="15" height="15" fill="currentColor" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z" /></svg>GitHub</a>
             <a class="btn" href="https://touchstone-ai-lab.github.io/swe-game-tasks/">Task catalogue <span aria-hidden="true">↗</span></a>
-            <span class="pill" title="The paper is under double-blind review">Paper · under review</span>
           </div>
         </div>
 
@@ -270,10 +270,42 @@
             <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 4.5a2.5 2.5 0 0 1 5 0V6h4v4h-1.5a2.5 2.5 0 0 0 0 5H18v4h-4v-1.5a2.5 2.5 0 0 0-5 0V19H5v-4h1.5a2.5 2.5 0 0 0 0-5H5V6h4z" /></svg>Third-party mods</li>
           </ul>
         </div>
-        <div class="sees-funnel">
-          <p class="sf-n"><span data-bind="totals.candidates"></span><i aria-hidden="true">→</i><span data-bind="totals.tasks"></span></p>
-          <p class="sf-l">candidates kept after validation and a human playthrough</p>
-          <div class="sf-bar" aria-hidden="true"><b></b></div>
+      </div>
+    </section>
+
+    <!-- How a task is made: a typed terminal session beside a checklist -->
+    <section id="pipeline" class="band wrap reveal">
+      <div class="head">
+        <span class="eyebrow"><i></i>HOW A TASK IS MADE</span>
+        <h2>From an open-source mod to a task.<br /><span class="dim">Checked in the live game, then played by a human.</span></h2>
+      </div>
+      <div class="author">
+        <div class="tw" id="author">
+          <div class="tw-bar">
+            <i></i><i></i><i></i>
+            <div class="tw-tabs" role="tablist" aria-label="Example task">
+              <button role="tab" type="button" aria-selected="true" data-script="repair">SG-062 · Stardew Valley</button>
+              <button role="tab" type="button" aria-selected="false" data-script="construct">SG-105 · Minecraft</button>
+            </div>
+            <em>illustrative</em>
+          </div>
+          <div class="tw-body" id="author-out" role="log" aria-label="Task authoring session"></div>
+          <button class="tw-replay" type="button" id="author-replay"><span aria-hidden="true">↻</span> Replay</button>
+        </div>
+        <div class="checks-card">
+          <ol class="checks" id="author-checks">
+            <li data-k="source"><b>1</b><span><strong>Open-source mod</strong><small>Source, revision, license</small></span></li>
+            <li data-k="task"><b>2</b><span><strong>Initial code, reference</strong><small>A defect or a spec, plus a solution</small></span></li>
+            <li data-k="tests"><b>3</b><span><strong>Hand-written tests</strong><small>F2P for the change, P2P for the rest</small></span></li>
+            <li data-k="ref"><b>4</b><span><strong>Reference passes</strong><small>Every test, in the live game</small></span></li>
+            <li data-k="init"><b>5</b><span><strong>Initial code fails</strong><small>Every F2P fails, every P2P passes</small></span></li>
+            <li data-k="play"><b>6</b><span><strong>Human playthrough</strong><small>The game matches the description</small></span></li>
+          </ol>
+          <div class="sees-funnel">
+            <p class="sf-n"><span data-bind="totals.candidates"></span><i aria-hidden="true">→</i><span data-bind="totals.tasks"></span></p>
+            <p class="sf-l">candidates kept</p>
+            <div class="sf-bar" aria-hidden="true"><b></b></div>
+          </div>
         </div>
       </div>
     </section>
@@ -344,7 +376,7 @@
               <li class="ln" style="--d:3300"><span class="tk f2p">F2P</span>wall restored after rollback<b>✓</b></li>
               <li class="ln" style="--d:3800"><span class="tk f2p">F2P</span>filter by actor, area, time<b>✓</b></li>
               <li class="ln" style="--d:4300"><span class="tk f2p">F2P</span>undo marks survive a reload<b>✓</b></li>
-              <li class="ln" style="--d:4800"><span class="tk p2p">P2P</span>other plugins unaffected<b>✓</b></li>
+              <li class="ln" style="--d:4800"><span class="tk f2p">F2P</span>never rolls back twice<b>✓</b></li>
             </ul>
           </div>
           <div class="run-pane" role="tabpanel" id="pane-3" aria-labelledby="step-3" hidden>
@@ -393,7 +425,6 @@
             <button role="tab" type="button" data-metric="overall" aria-selected="true">Overall</button>
             <button role="tab" type="button" data-metric="repair" aria-selected="false">Repair</button>
             <button role="tab" type="button" data-metric="construct" aria-selected="false">Construction</button>
-            <button role="tab" type="button" data-metric="f2pOnly" aria-selected="false">F2P only</button>
           </div>
         </div>
         <div class="board-axis" aria-hidden="true"><span>0</span><span>25</span><span>50</span><span>75</span><span>100%</span></div>
@@ -461,48 +492,21 @@
       <p class="foot-note">One attempt per model per task. Snapshot of the submitted paper, <span data-bind="asOf"></span>; numbers may change in later releases.</p>
     </section>
 
-    <!-- Paper -->
-    <section id="paper" class="band wrap reveal">
-      <div class="head">
-        <span class="eyebrow"><i></i>PAPER</span>
-        <h2>GameSWE: Evaluating Coding Agents<br /><span class="dim">in Live Game Runtimes</span></h2>
-      </div>
-      <div class="paper">
-        <article class="abstract">
-          <p class="abstract-tag"><span class="pill">Anonymous submission · under review</span></p>
-          <h3>Abstract</h3>
-          <p class="abs-text" id="abs-text">Coding agents are increasingly evaluated on repository-level tasks, where a change is judged by the repository's own tests. Yet much software runs inside a live host program, where correctness depends on runtime state, lifecycle events, and third-party components loaded alongside it. We introduce GameSWE, a benchmark of 150 repair and construction tasks built from open-source mods for 12 popular games across five programming languages. Each submission is compiled, loaded into the real game or its dedicated server together with the pinned third-party mods it depends on, and judged by fail-to-pass and pass-to-pass tests executed in the live runtime, without mocks or LLM judges. Across seven frontier and open-weight models, the best agent resolves 69.0% of tasks while three models remain at or below 25.0%, and even the best agent's per-game rate ranges from 40.0% to 93.3%. Our analysis shows that 70.0% of unresolved attempts end with the agent submitting its work as complete, and in at least 31.0% the agent reports that its own checks pass, yet the submission fails in the runtime, with failures concentrated at the boundary between code and host: interfaces the ecosystem does not provide, host conventions beyond the code, and logic not connected to the game's lifecycle. GameSWE provides a reproducible testbed for coding agents whose code must work where it runs.</p>
-          <button type="button" class="abs-more" id="abs-more" aria-expanded="false" aria-controls="abs-text">Read the full abstract</button>
-        </article>
-        <div class="links">
-          <div class="link-card off">
-            <b>Paper</b><span>Posted after the review period.</span><small>Coming soon</small>
-          </div>
-          <a class="link-card" href="https://touchstone-ai-lab.github.io/swe-game-tasks/">
-            <b>Task catalogue</b><span>Every public task, with its number, game, type and per-model outcome.</span><small>swe-game-tasks <span aria-hidden="true">↗</span></small>
-          </a>
-          <div class="link-card off">
-            <b>Code and environments</b><span>Harness, pinned runtimes and scripts.</span><small>Coming soon</small>
-          </div>
-          <p class="cite-note">Citation will be posted after review.</p>
-        </div>
-      </div>
-    </section>
   </main>
 
   <footer class="site">
     <div class="wrap foot">
       <div class="foot-brand">
-        <a class="brand" href="#top"><span class="brand-mark" aria-hidden="true"></span><span>GameSWE</span></a>
+        <a class="brand" href="#top"><img class="brand-logo" src="./touchstone.png" alt="" width="24" height="24" /><span>GameSWE</span></a>
         <p>A Touchstone AI benchmark for coding agents in live game runtimes.</p>
       </div>
       <div class="foot-col">
         <h4>Benchmark</h4>
-        <a href="#games">Games</a><a href="#tasks">Tasks</a><a href="#harness">Harness</a><a href="#results">Results</a><a href="https://touchstone-ai-lab.github.io/swe-game-tasks/">Task catalogue ↗</a>
+        <a href="#games">Games</a><a href="#tasks">Tasks</a><a href="#pipeline">Pipeline</a><a href="#results">Results</a><a href="https://github.com/Touchstone-AI-Lab/game-swe">Source code ↗</a><a href="https://touchstone-ai-lab.github.io/swe-game-tasks/">Task catalogue ↗</a>
       </div>
       <div class="foot-col">
         <h4>Touchstone AI</h4>
-        <a href="../../">All projects</a><a href="https://touchstoneai.org/">touchstoneai.org ↗</a><a href="https://github.com/Touchstone-AI-Lab">GitHub ↗</a>
+        <a href="../../">All projects</a><a href="https://touchstoneai.org/">touchstoneai.org ↗</a><a href="https://github.com/Touchstone-AI-Lab">GitHub org ↗</a>
       </div>
     </div>
     <div class="wrap foot-legal">

@@ -1,7 +1,7 @@
 // Results section: leaderboard with metric tabs, per-game heatmap, stage bar and attempt funnel.
 import { data, icon, pct, type Model } from './data';
 
-type Metric = 'overall' | 'repair' | 'construct' | 'f2pOnly';
+type Metric = 'overall' | 'repair' | 'construct';
 type Kind = 'all' | 'rep' | 'con';
 
 const T = data.totals as Record<string, number>;
@@ -9,9 +9,8 @@ const DESC: Record<Metric, string> = {
   overall: `Average of the ${T.games} per-game resolution rates; each game counts equally.`,
   repair: `Pooled over the ${T.repair} repair tasks.`,
   construct: `Pooled over the ${T.construct} construction tasks.`,
-  f2pOnly: 'Rescored so a task counts as resolved when every fail-to-pass test passes, ignoring pass-to-pass tests.',
 };
-const METRIC_NAME: Record<Metric, string> = { overall: 'Overall', repair: 'Repair', construct: 'Construction', f2pOnly: 'F2P only' };
+const METRIC_NAME: Record<Metric, string> = { overall: 'Overall', repair: 'Repair', construct: 'Construction' };
 const FUNNEL: [keyof Model['funnel'], string][] = [
   ['changed', 'Changed the code'], ['reachedTests', 'Reached the tests'], ['f2p', 'Passed all F2P'],
   ['f2pAndP2p', 'Passed F2P and P2P'], ['resolved', 'Resolved'],
@@ -71,8 +70,7 @@ function initBoard() {
   const counts = (m: Model): string => {
     if (metric === 'overall') return `${m.resolved} of ${T.tasks} tasks resolved`;
     if (metric === 'repair') return `${Math.round((m.repair * T.repair) / 100)} of ${T.repair} repair tasks`;
-    if (metric === 'construct') return `${Math.round((m.construct * T.construct) / 100)} of ${T.construct} construction tasks`;
-    return `vs ${pct(m.overall)} with the full harness`;
+    return `${Math.round((m.construct * T.construct) / 100)} of ${T.construct} construction tasks`;
   };
   for (const m of data.models) {
     const li = rows.get(m.slug)!;

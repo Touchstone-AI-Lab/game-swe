@@ -97,8 +97,173 @@ function initRun(run: HTMLElement) {
   show(0);
 }
 
+/* Task authoring: a typed terminal session, with the checklist beside it following along */
+type Line = { k?: string; cmd?: string; out?: string; spin?: [string, string]; done?: string };
+const m = (s: string) => `<span class="t-m">${s}</span>`;
+const ok = '<span class="t-g">✓</span>', no = '<span class="t-r">✗</span>';
+const f2p = (s: string) => `<span class="tk f2p">F2P</span> ${s}`, p2p = (s: string) => `<span class="tk p2p">P2P</span> ${s}`;
+const SCRIPTS: Record<string, Line[]> = {
+  repair: [
+    { k: 'source', cmd: 'new-task stardew-valley --repair --mod Automate' },
+    { out: `${m('source   ')} Automate · open source · license recorded` },
+    { k: 'task', out: `${m('initial  ')} item bugs: duplicate, repeated, lost output` },
+    { out: `${m('reference')} the working version of the mod` },
+    { k: 'tests', cmd: 'add-tests' },
+    { out: f2p('no duplicate output') },
+    { out: f2p('no repeated collection') },
+    { out: f2p('10 stored + 1 produced = 11 total') },
+    { out: p2p('normal machine output still delivered') },
+    { k: 'ref', cmd: 'validate --solution reference' },
+    { spin: ['booting Stardew Valley + SMAPI', 'ready'] },
+    { out: `${ok} F2P 3/3   ${ok} P2P 1/1   <span class="t-g">all pass</span>` },
+    { k: 'init', cmd: 'validate --solution initial' },
+    { spin: ['booting Stardew Valley + SMAPI', 'ready'] },
+    { out: `${no} F2P 0/3 ${m('(must fail)')}   ${ok} P2P 1/1   <span class="t-g">valid</span>` },
+    { k: 'play', cmd: 'playtest' },
+    { spin: ['a reviewer plays it through in game', 'confirmed'] },
+    { done: 'SG-062 accepted' },
+  ],
+  construct: [
+    { k: 'source', cmd: 'new-task minecraft --construct --feature BlockTrail' },
+    { out: `${m('source   ')} open-source plugin · license recorded` },
+    { k: 'task', out: `${m('initial  ')} an empty Paper plugin project` },
+    { out: `${m('reference')} block logging and rollback, written for the task` },
+    { k: 'tests', cmd: 'add-tests' },
+    { out: f2p('rollback restores the wall after TNT') },
+    { out: f2p('filter by actor, area and time') },
+    { out: f2p('undo marks persist across reloads') },
+    { out: f2p('never roll back twice') },
+    { out: m('no P2P tests: the project starts empty') },
+    { k: 'ref', cmd: 'validate --solution reference' },
+    { spin: ['starting the Paper server', 'ready'] },
+    { out: `${ok} F2P 4/4   <span class="t-g">all pass</span>` },
+    { k: 'init', cmd: 'validate --solution initial' },
+    { spin: ['starting the Paper server', 'ready'] },
+    { out: `${no} F2P 0/4 ${m('(must fail)')}   <span class="t-g">valid</span>` },
+    { k: 'play', cmd: 'playtest' },
+    { spin: ['a reviewer plays it through in game', 'confirmed'] },
+    { done: 'SG-105 accepted' },
+  ],
+};
+const SPIN = '⠋⠙⠹⠸⠼⠴⠦⠧⠇⠏';
+const CHAR_MS = 30;
+const lineMs = (l: Line) => (l.cmd ? 420 + l.cmd.length * CHAR_MS + 180 : l.spin ? 1250 : l.done ? 450 : 120);
+
+function renderLines(body: HTMLElement, lines: Line[]) {
+  body.innerHTML = lines.map((l) => {
+    if (l.cmd) return `<p class="tl cmd"><span class="ty"></span><span class="rest"></span></p>`;
+    if (l.spin) return `<p class="tl out">${m('▸')} ${l.spin[0]} <span class="sp">${SPIN[0]}</span></p>`;
+    if (l.done) return `<p class="tl done"><span>✓</span> ${l.done}</p>`;
+    return `<p class="tl out">${l.out}</p>`;
+  }).join('');
+  const ps = [...body.children] as HTMLElement[];
+  lines.forEach((l, i) => { if (l.cmd) ps[i].querySelector('.rest')!.textContent = l.cmd; });
+  return ps;
+}
+
+function initAuthor(root: HTMLElement) {
+  const body = root.querySelector<HTMLElement>('#author-out')!;
+  const tabs = [...root.querySelectorAll<HTMLButtonElement>('.tw-tabs [role=tab]')];
+  const replay = root.querySelector<HTMLButtonElement>('#author-replay')!;
+  const checks = [...document.querySelectorAll<HTMLElement>('#author-checks li')];
+  const order = checks.map((c) => c.dataset.k!);
+  const caret = document.createElement('i');
+  caret.className = 'caret';
+
+  let name = 'repair', lines: Line[] = [], ps: HTMLElement[] = [];
+  let idx = 0, t = 0, hold = 0, auto = true, last = 0;
+
+  const mark = (k: string | 'all' | null) => {
+    const at = k === 'all' ? order.length : k ? order.indexOf(k) : -1;
+    checks.forEach((c, i) => { c.classList.toggle('done', i < at); c.classList.toggle('on', i === at); });
+  };
+  const finishLine = (i: number) => {
+    const l = lines[i], p = ps[i];
+    p.classList.add('show');
+    if (l.cmd) { p.querySelector('.ty')!.textContent = l.cmd; p.querySelector('.rest')!.textContent = ''; }
+    if (l.spin) p.querySelector('.sp')!.outerHTML = `<span class="t-g">${l.spin[1]}</span>`;
+  };
+  const load = (n: string) => {
+    name = n; lines = SCRIPTS[n]; ps = renderLines(body, lines);
+    idx = 0; t = 0; hold = 0; last = 0;
+    tabs.forEach((b) => { const on = b.dataset.script === n; b.setAttribute('aria-selected', String(on)); b.tabIndex = on ? 0 : -1; });
+    root.classList.remove('finished');
+    mark(null);
+    if (reduced.matches) { lines.forEach((_, i) => finishLine(i)); idx = lines.length; mark('all'); root.classList.add('finished'); }
+  };
+
+  // Reserve the height of the longest session so the page does not jump.
+  const fit = () => {
+    const probe = body.cloneNode() as HTMLElement;
+    probe.removeAttribute('id');
+    probe.style.cssText = `position:absolute;visibility:hidden;left:0;right:0;top:0;min-height:0`;
+    root.append(probe);
+    let h = 0;
+    for (const k of Object.keys(SCRIPTS)) { renderLines(probe, SCRIPTS[k]).forEach((p) => p.classList.add('show')); h = Math.max(h, probe.offsetHeight); }
+    probe.remove();
+    body.style.minHeight = `${h}px`;
+  };
+
+  const step = (dt: number) => {
+    if (idx >= lines.length) {
+      if (!auto) return;
+      hold += dt;
+      if (hold > 4200) load(name === 'repair' ? 'construct' : 'repair');
+      return;
+    }
+    t += dt;
+    while (idx < lines.length) {
+      const l = lines[idx], p = ps[idx], need = lineMs(l);
+      if (!p.classList.contains('show')) {
+        p.classList.add('show');
+        if (l.k) mark(l.k);
+        if (l.done) mark('all');
+      }
+      if (t < need) {
+        if (l.cmd) {
+          const n = Math.max(0, Math.min(l.cmd.length, Math.floor((t - 420) / CHAR_MS)));
+          const ty = p.querySelector('.ty')!;
+          ty.textContent = l.cmd.slice(0, n);
+          ty.append(caret);
+          p.querySelector('.rest')!.textContent = l.cmd.slice(n);
+        } else if (l.spin) {
+          p.querySelector('.sp')!.textContent = SPIN[Math.floor(t / 80) % SPIN.length];
+        }
+        return;
+      }
+      t -= need;
+      finishLine(idx);
+      idx++;
+    }
+    caret.remove();
+    root.classList.add('finished');
+  };
+
+  whileVisible(root, (now) => {
+    const dt = last ? Math.min(64, now - last) : 0;
+    last = now;
+    step(dt);
+  });
+  tabs.forEach((b, i) => {
+    b.addEventListener('click', () => { auto = false; load(b.dataset.script!); });
+    b.addEventListener('keydown', (e) => {
+      const d = e.key === 'ArrowRight' ? 1 : e.key === 'ArrowLeft' ? -1 : 0;
+      if (!d) return;
+      const n = tabs[(i + d + tabs.length) % tabs.length];
+      n.focus(); auto = false; load(n.dataset.script!);
+    });
+  });
+  replay.addEventListener('click', () => load(name));
+  let rt = 0;
+  addEventListener('resize', () => { clearTimeout(rt); rt = window.setTimeout(fit, 200); });
+  fit();
+  load('repair');
+}
+
 export function initExplainers() {
   document.querySelectorAll<HTMLElement>('[data-compare]').forEach(initCompare);
   const run = document.getElementById('run');
   if (run) initRun(run);
+  const author = document.getElementById('author');
+  if (author) initAuthor(author);
 }
