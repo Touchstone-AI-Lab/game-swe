@@ -19,7 +19,7 @@ is read from `src/data.json` through `data-bind` attributes or the chart code, s
 
 - `src/globe.ts`: the hero globe, a 2D canvas with one dot per task (repair filled, construction ringed) clustered by game.
 - `src/results.ts`: leaderboard, per-game heatmap, stage bar and attempt funnel.
-- `src/explain.ts`: the before/after sliders in the task section, the typed task-authoring terminal in the pipeline section, and the auto-playing four-stage run in the harness section. The terminal sessions are illustrative and follow the paper's construction and validation steps.
+- `src/explain.ts`: the before/after sliders in the task section, the typed rhenium terminal in the pipeline section, and the auto-playing four-stage run in the harness section. The terminal replays real `rhenium runtime prepare`, `rhenium run` and `rhenium benchmark` sessions on SG-105 (output trimmed with jq, the task key masked because task keys stay private); the two agent runs are the paper's actual Claude Opus 5.5 and GPT-6 Astra attempts.
 - `public/icons/`: model logos from LobeHub Icons (MIT), listed in `public/THIRD-PARTY-NOTICES.txt`.
 - `public/games/`: cover art for the 12 games (`<slug>.webp`, 360×540) and thumbnails (`<slug>-t.webp`), from the Steam and Microsoft Store listings.
 - `public/art/`: before/after screens and Minecraft scenes cropped from the paper's figures, used by the task and harness explainers.

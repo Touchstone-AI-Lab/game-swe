@@ -28,6 +28,7 @@
   --st-4: #9b3608;
   --hair: #e8e6e2;
   --ok: #1f8a52;
+  --bad: #c9372c;
   --shadow: 0 10px 34px -12px rgba(20, 16, 10, 0.14);
   --glass: color-mix(in srgb, var(--bg) 86%, transparent);
   --sans: 'Geist Variable', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
@@ -59,6 +60,7 @@
   --st-4: #ffb27f;
   --hair: #26272b;
   --ok: #4cc987;
+  --bad: #f0645a;
   --shadow: 0 14px 40px -14px rgba(0, 0, 0, 0.7);
 }
 
@@ -361,21 +363,24 @@ button { font: inherit; color: inherit; }
 .tw-tabs button:hover { color: #d7d8dc; }
 .tw-tabs [aria-selected='true'] { background: rgba(255, 255, 255, .09); color: #f0f1f3; }
 .tw-bar em { flex: none; margin-left: auto; padding: 1px 8px; border: 1px solid rgba(255, 255, 255, .12); border-radius: 999px; font: 500 .64rem/1.6 var(--mono); font-style: normal; color: #8b8e97; }
-.tw-body { padding: 18px 22px 24px; font: 500 .8rem/1.85 var(--mono); }
-.tl { margin: 0; white-space: pre-wrap; overflow-wrap: anywhere; visibility: hidden; }
+.tw-body { padding: 18px 22px 56px; font: 500 .8rem/1.85 var(--mono); }
+.tl { margin: 0; white-space: pre-wrap; word-break: break-all; visibility: hidden; }
 .tl.show { visibility: visible; }
 .tl.cmd { padding-left: 1.25em; text-indent: -1.25em; color: #f0f1f3; }
 .tl.cmd::before { content: '$ '; color: var(--accent); font-weight: 700; }
 .tl.cmd:not(:first-child) { margin-top: 8px; }
-.tl.out { padding-left: 2.5em; text-indent: -1.25em; color: #c9cbd1; }
+.tl.out { padding-left: 1.25em; text-indent: -1.25em; color: #c9cbd1; }
 .tl .rest { visibility: hidden; }
-.tl.done { margin-top: 8px; color: #5fd897; font-weight: 600; }
-.tl.done span { display: inline-grid; place-items: center; width: 1.3em; height: 1.3em; margin-right: 4px; border-radius: 50%; background: rgba(95, 216, 151, .16); }
+.tl.out .c { visibility: hidden; }
+.tl.out.full .c { visibility: visible; }
+.tl.cmd.note { color: #7c7f88; }
+.tl.cmd.note::before { color: #7c7f88; }
 .t-m { color: #6f727b; }
 .t-g { color: #5fd897; }
 .t-r { color: #ff8a7e; }
-.tw .f2p { color: #ffb184; background: rgba(255, 122, 51, .16); }
-.tw .p2p { color: #8cc2ff; background: rgba(51, 140, 237, .18); }
+.t-k { color: #8cb4ff; }
+.t-s { color: #e6c07b; }
+.t-n { color: #d7d8dc; }
 .caret { display: inline-block; width: .55em; height: 1.05em; margin-left: 1px; vertical-align: -0.18em; background: #e8e9ec; animation: blink 1s steps(1) infinite; }
 @keyframes blink { 50% { opacity: 0; } }
 .tw-replay { position: absolute; right: 14px; bottom: 14px; display: inline-flex; align-items: center; gap: 6px; padding: 5px 11px; border: 1px solid rgba(255, 255, 255, .14); border-radius: 8px; background: #17181c; color: #d7d8dc; font: 500 .72rem var(--mono); cursor: pointer; opacity: 0; pointer-events: none; transition: opacity .3s, border-color .15s; }
@@ -391,6 +396,9 @@ button { font: inherit; color: inherit; }
 .checks li.on b { border-color: var(--accent); color: var(--accent-ink); box-shadow: 0 0 0 4px color-mix(in srgb, var(--accent) 14%, transparent); }
 .checks li.done b { border-color: var(--ok); background: var(--ok); color: transparent; }
 .checks li.done b::after { content: '✓'; position: absolute; color: #fff; font-size: .78rem; }
+.checks li.fail b { border-color: var(--bad); background: var(--bad); color: transparent; }
+.checks li.fail b::after { content: '✗'; position: absolute; color: #fff; font-size: .78rem; }
+.checks li.fail strong { color: var(--fg); }
 .checks li.on strong, .checks li.done strong { color: var(--fg); }
 .checks-card .sees-funnel { margin-top: auto; padding: 16px 20px 20px; border-top: 1px solid var(--line); }
 .checks-card .sf-n { font-size: 1.6rem; }
@@ -638,7 +646,8 @@ button { font: inherit; color: inherit; }
   .ex-stats dd { font-size: .8rem; }
   .ex-stats div + div { padding-left: 10px; }
   .sees { grid-template-columns: 1fr; }
-  .tw-body { padding: 14px 14px 18px; font-size: .68rem; }
+  .tw-body { padding: 14px 14px 52px; font-size: .66rem; }
+  .tl.cmd, .tl.out { padding-left: 0; text-indent: 0; }
   .tw-bar { padding-left: 12px; }
   .tw-bar > i, .tw-bar em { display: none; }
   .tw-tabs { margin-left: 0; }

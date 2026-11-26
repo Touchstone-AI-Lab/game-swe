@@ -77,7 +77,7 @@
 
           <aside class="game-panel" id="game-panel" hidden aria-live="polite">
             <header>
-              <a class="panel-link" href="https://touchstone-ai-lab.github.io/swe-game-tasks/"><i></i>Task catalogue <span aria-hidden="true">↗</span></a>
+              <span class="panel-link"><i></i>Game details</span>
               <button type="button" class="panel-close" id="panel-close" aria-label="Close game details">×</button>
             </header>
             <div class="panel-title">
@@ -100,7 +100,6 @@
           <div class="hero-btns">
             <a class="btn primary" href="#results">Results <span aria-hidden="true">↓</span></a>
             <a class="btn" href="https://github.com/Touchstone-AI-Lab/game-swe"><svg viewBox="0 0 16 16" width="15" height="15" fill="currentColor" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z" /></svg>GitHub</a>
-            <a class="btn" href="https://touchstone-ai-lab.github.io/swe-game-tasks/">Task catalogue <span aria-hidden="true">↗</span></a>
           </div>
         </div>
 
@@ -276,30 +275,31 @@
     <!-- How a task is made: a typed terminal session beside a checklist -->
     <section id="pipeline" class="band wrap reveal">
       <div class="head">
-        <span class="eyebrow"><i></i>HOW A TASK IS MADE</span>
-        <h2>From an open-source mod to a task.<br /><span class="dim">Checked in the live game, then played by a human.</span></h2>
+        <span class="eyebrow"><i></i>VALIDATE, THEN EVALUATE</span>
+        <h2>Validate a task, then test agents on it.<br /><span class="dim">Real rhenium commands on SG-105.</span></h2>
       </div>
       <div class="author">
         <div class="tw" id="author">
           <div class="tw-bar">
             <i></i><i></i><i></i>
             <div class="tw-tabs" role="tablist" aria-label="Example task">
-              <button role="tab" type="button" aria-selected="true" data-script="repair">SG-062 · Stardew Valley</button>
-              <button role="tab" type="button" aria-selected="false" data-script="construct">SG-105 · Minecraft</button>
+              <button role="tab" type="button" aria-selected="true" data-script="validate">Validate SG-105</button>
+              <button role="tab" type="button" aria-selected="false" data-script="opus">Claude Opus 5.5</button>
+              <button role="tab" type="button" aria-selected="false" data-script="astra">GPT-6 Astra</button>
             </div>
-            <em>illustrative</em>
+            <em>rhenium</em>
           </div>
-          <div class="tw-body" id="author-out" role="log" aria-label="Task authoring session"></div>
+          <div class="tw-body" id="author-out" role="log" aria-label="rhenium terminal session"></div>
           <button class="tw-replay" type="button" id="author-replay"><span aria-hidden="true">↻</span> Replay</button>
         </div>
         <div class="checks-card">
           <ol class="checks" id="author-checks">
-            <li data-k="source"><b>1</b><span><strong>Open-source mod</strong><small>Source, revision, license</small></span></li>
-            <li data-k="task"><b>2</b><span><strong>Initial code, reference</strong><small>A defect or a spec, plus a solution</small></span></li>
-            <li data-k="tests"><b>3</b><span><strong>Hand-written tests</strong><small>F2P for the change, P2P for the rest</small></span></li>
-            <li data-k="ref"><b>4</b><span><strong>Reference passes</strong><small>Every test, in the live game</small></span></li>
-            <li data-k="init"><b>5</b><span><strong>Initial code fails</strong><small>Every F2P fails, every P2P passes</small></span></li>
-            <li data-k="play"><b>6</b><span><strong>Human playthrough</strong><small>The game matches the description</small></span></li>
+            <li data-k="rt"><b>1</b><span><strong>Pinned runtime</strong><small>Prepared once, then verified</small></span></li>
+            <li data-k="ref"><b>2</b><span><strong>Reference passes</strong><small>Score 100 on the live server</small></span></li>
+            <li data-k="start"><b>3</b><span><strong>Starter fails</strong><small>It builds; in-game cases fail</small></span></li>
+            <li data-k="play"><b>4</b><span><strong>Human playthrough</strong><small>The game matches the exam</small></span></li>
+            <li data-k="agent"><b>5</b><span><strong>Agent attempt</strong><small>mini-swe-agent, up to 100 steps</small></span></li>
+            <li data-k="score"><b>6</b><span><strong>Scored in the game</strong><small>Once, by the same checks</small></span></li>
           </ol>
           <div class="sees-funnel">
             <p class="sf-n"><span data-bind="totals.candidates"></span><i aria-hidden="true">→</i><span data-bind="totals.tasks"></span></p>
@@ -308,6 +308,7 @@
           </div>
         </div>
       </div>
+      <p class="ex-note">Output is trimmed with jq. The task key is masked because task keys stay private. Both agent runs are the actual SG-105 attempts from the paper's evaluation.</p>
     </section>
 
     <!-- Harness, as an animated run -->
@@ -502,7 +503,7 @@
       </div>
       <div class="foot-col">
         <h4>Benchmark</h4>
-        <a href="#games">Games</a><a href="#tasks">Tasks</a><a href="#pipeline">Pipeline</a><a href="#results">Results</a><a href="https://github.com/Touchstone-AI-Lab/game-swe">Source code ↗</a><a href="https://touchstone-ai-lab.github.io/swe-game-tasks/">Task catalogue ↗</a>
+        <a href="#games">Games</a><a href="#tasks">Tasks</a><a href="#pipeline">Pipeline</a><a href="#results">Results</a><a href="https://github.com/Touchstone-AI-Lab/game-swe">Source code ↗</a>
       </div>
       <div class="foot-col">
         <h4>Touchstone AI</h4>
