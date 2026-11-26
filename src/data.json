@@ -1,0 +1,792 @@
+{
+ "asOf": "2026-11-21",
+ "totals": {
+  "tasks": 150,
+  "repair": 100,
+  "construct": 50,
+  "games": 12,
+  "models": 7,
+  "attempts": 1050,
+  "languages": 5,
+  "candidates": 250,
+  "thirdPartyTasks": 20,
+  "medianF2P": 11,
+  "medianP2P": 4,
+  "medianRepairLoc": 8918,
+  "medianRepairPatch": 54,
+  "medianConstructAdded": 379.5,
+  "stepLimit": 100,
+  "wallMinutes": 90,
+  "scaffold": "mini-swe-agent"
+ },
+ "models": [
+  {
+   "slug": "claude-opus-5-5",
+   "name": "Claude Opus 5.5",
+   "icon": "claude-color.svg",
+   "overall": 69.0,
+   "repair": 75.0,
+   "construct": 56.0,
+   "f2pOnly": 72.5,
+   "resolved": 103,
+   "funnel": {
+    "changed": 99.3,
+    "reachedTests": 96.7,
+    "f2p": 72.0,
+    "f2pAndP2p": 70.7,
+    "resolved": 68.7
+   }
+  },
+  {
+   "slug": "gpt-6-astra",
+   "name": "GPT-6 Astra",
+   "icon": "openai.svg",
+   "overall": 61.0,
+   "repair": 71.0,
+   "construct": 44.0,
+   "f2pOnly": 62.7,
+   "resolved": 93,
+   "funnel": {
+    "changed": 100.0,
+    "reachedTests": 93.3,
+    "f2p": 63.3,
+    "f2pAndP2p": 63.3,
+    "resolved": 62.0
+   }
+  },
+  {
+   "slug": "kimi-k3-1-pro",
+   "name": "Kimi K3.1 Pro",
+   "icon": "kimi-color.svg",
+   "overall": 49.5,
+   "repair": 61.0,
+   "construct": 26.0,
+   "f2pOnly": 51.9,
+   "resolved": 74,
+   "funnel": {
+    "changed": 99.3,
+    "reachedTests": 89.3,
+    "f2p": 52.0,
+    "f2pAndP2p": 51.3,
+    "resolved": 49.3
+   }
+  },
+  {
+   "slug": "deepseek-v4-1-flash",
+   "name": "DeepSeek-V4.1-Flash",
+   "icon": "deepseek-color.svg",
+   "overall": 44.9,
+   "repair": 56.0,
+   "construct": 22.0,
+   "f2pOnly": 47.7,
+   "resolved": 67,
+   "funnel": {
+    "changed": 98.7,
+    "reachedTests": 92.0,
+    "f2p": 47.3,
+    "f2pAndP2p": 44.7,
+    "resolved": 44.7
+   }
+  },
+  {
+   "slug": "minimax-m3-1-flash",
+   "name": "MiniMax M3.1 Flash",
+   "icon": "minimax-color.svg",
+   "overall": 25.0,
+   "repair": 35.0,
+   "construct": 4.0,
+   "f2pOnly": 25.0,
+   "resolved": 37,
+   "funnel": {
+    "changed": 98.0,
+    "reachedTests": 76.0,
+    "f2p": 24.7,
+    "f2pAndP2p": 24.7,
+    "resolved": 24.7
+   }
+  },
+  {
+   "slug": "glm-5-3-flash",
+   "name": "GLM 5.3 Flash",
+   "icon": "zhipu-color.svg",
+   "overall": 22.5,
+   "repair": 26.0,
+   "construct": 16.0,
+   "f2pOnly": 23.3,
+   "resolved": 34,
+   "funnel": {
+    "changed": 53.3,
+    "reachedTests": 46.0,
+    "f2p": 23.3,
+    "f2pAndP2p": 22.7,
+    "resolved": 22.7
+   }
+  },
+  {
+   "slug": "qwen-3-8-27b",
+   "name": "Qwen 3.8 27B",
+   "icon": "qwen-color.svg",
+   "overall": 17.2,
+   "repair": 24.0,
+   "construct": 2.0,
+   "f2pOnly": 17.2,
+   "resolved": 25,
+   "funnel": {
+    "changed": 85.3,
+    "reachedTests": 65.3,
+    "f2p": 16.7,
+    "f2pAndP2p": 16.7,
+    "resolved": 16.7
+   }
+  }
+ ],
+ "games": [
+  {
+   "slug": "minecraft",
+   "name": "Minecraft",
+   "language": "Java",
+   "runtime": "Paper server",
+   "tasks": 15,
+   "repair": 10,
+   "construct": 5,
+   "best": 100.0,
+   "bestModels": [
+    "gpt-6-astra"
+   ],
+   "mean": 74.3,
+   "scores": {
+    "claude-opus-5-5": {
+     "all": 93.3,
+     "rep": 100.0,
+     "con": 80.0
+    },
+    "gpt-6-astra": {
+     "all": 100.0,
+     "rep": 100.0,
+     "con": 100.0
+    },
+    "kimi-k3-1-pro": {
+     "all": 80.0,
+     "rep": 90.0,
+     "con": 60.0
+    },
+    "deepseek-v4-1-flash": {
+     "all": 73.3,
+     "rep": 90.0,
+     "con": 40.0
+    },
+    "minimax-m3-1-flash": {
+     "all": 66.7,
+     "rep": 90.0,
+     "con": 20.0
+    },
+    "glm-5-3-flash": {
+     "all": 60.0,
+     "rep": 60.0,
+     "con": 60.0
+    },
+    "qwen-3-8-27b": {
+     "all": 46.7,
+     "rep": 70.0,
+     "con": 0.0
+    }
+   }
+  },
+  {
+   "slug": "stardew-valley",
+   "name": "Stardew Valley",
+   "language": "C#",
+   "runtime": "Desktop game · SMAPI",
+   "tasks": 11,
+   "repair": 9,
+   "construct": 2,
+   "best": 81.8,
+   "bestModels": [
+    "claude-opus-5-5"
+   ],
+   "mean": 46.8,
+   "scores": {
+    "claude-opus-5-5": {
+     "all": 81.8,
+     "rep": 88.9,
+     "con": 50.0
+    },
+    "gpt-6-astra": {
+     "all": 63.6,
+     "rep": 77.8,
+     "con": 0.0
+    },
+    "kimi-k3-1-pro": {
+     "all": 54.5,
+     "rep": 66.7,
+     "con": 0.0
+    },
+    "deepseek-v4-1-flash": {
+     "all": 72.7,
+     "rep": 88.9,
+     "con": 0.0
+    },
+    "minimax-m3-1-flash": {
+     "all": 18.2,
+     "rep": 22.2,
+     "con": 0.0
+    },
+    "glm-5-3-flash": {
+     "all": 27.3,
+     "rep": 33.3,
+     "con": 0.0
+    },
+    "qwen-3-8-27b": {
+     "all": 9.1,
+     "rep": 11.1,
+     "con": 0.0
+    }
+   }
+  },
+  {
+   "slug": "garrys-mod",
+   "name": "Garry's Mod",
+   "language": "GLua",
+   "runtime": "Dedicated server",
+   "tasks": 17,
+   "repair": 12,
+   "construct": 5,
+   "best": 52.9,
+   "bestModels": [
+    "kimi-k3-1-pro"
+   ],
+   "mean": 30.3,
+   "scores": {
+    "claude-opus-5-5": {
+     "all": 47.1,
+     "rep": 66.7,
+     "con": 0.0
+    },
+    "gpt-6-astra": {
+     "all": 47.1,
+     "rep": 66.7,
+     "con": 0.0
+    },
+    "kimi-k3-1-pro": {
+     "all": 52.9,
+     "rep": 75.0,
+     "con": 0.0
+    },
+    "deepseek-v4-1-flash": {
+     "all": 29.4,
+     "rep": 41.7,
+     "con": 0.0
+    },
+    "minimax-m3-1-flash": {
+     "all": 23.5,
+     "rep": 33.3,
+     "con": 0.0
+    },
+    "glm-5-3-flash": {
+     "all": 5.9,
+     "rep": 8.3,
+     "con": 0.0
+    },
+    "qwen-3-8-27b": {
+     "all": 5.9,
+     "rep": 8.3,
+     "con": 0.0
+    }
+   }
+  },
+  {
+   "slug": "dont-starve-together",
+   "name": "Don't Starve Together",
+   "language": "Lua",
+   "runtime": "Dedicated server",
+   "tasks": 15,
+   "repair": 5,
+   "construct": 10,
+   "best": 80.0,
+   "bestModels": [
+    "gpt-6-astra"
+   ],
+   "mean": 37.1,
+   "scores": {
+    "claude-opus-5-5": {
+     "all": 73.3,
+     "rep": 60.0,
+     "con": 80.0
+    },
+    "gpt-6-astra": {
+     "all": 80.0,
+     "rep": 80.0,
+     "con": 80.0
+    },
+    "kimi-k3-1-pro": {
+     "all": 40.0,
+     "rep": 60.0,
+     "con": 30.0
+    },
+    "deepseek-v4-1-flash": {
+     "all": 26.7,
+     "rep": 40.0,
+     "con": 20.0
+    },
+    "minimax-m3-1-flash": {
+     "all": 13.3,
+     "rep": 40.0,
+     "con": 0.0
+    },
+    "glm-5-3-flash": {
+     "all": 13.3,
+     "rep": 40.0,
+     "con": 0.0
+    },
+    "qwen-3-8-27b": {
+     "all": 13.3,
+     "rep": 40.0,
+     "con": 0.0
+    }
+   }
+  },
+  {
+   "slug": "terraria",
+   "name": "Terraria",
+   "language": "C#",
+   "runtime": "Dedicated server · tModLoader",
+   "tasks": 10,
+   "repair": 10,
+   "construct": 0,
+   "best": 60.0,
+   "bestModels": [
+    "claude-opus-5-5"
+   ],
+   "mean": 28.6,
+   "scores": {
+    "claude-opus-5-5": {
+     "all": 60.0,
+     "rep": 60.0,
+     "con": null
+    },
+    "gpt-6-astra": {
+     "all": 50.0,
+     "rep": 50.0,
+     "con": null
+    },
+    "kimi-k3-1-pro": {
+     "all": 50.0,
+     "rep": 50.0,
+     "con": null
+    },
+    "deepseek-v4-1-flash": {
+     "all": 20.0,
+     "rep": 20.0,
+     "con": null
+    },
+    "minimax-m3-1-flash": {
+     "all": 10.0,
+     "rep": 10.0,
+     "con": null
+    },
+    "glm-5-3-flash": {
+     "all": 10.0,
+     "rep": 10.0,
+     "con": null
+    },
+    "qwen-3-8-27b": {
+     "all": 0.0,
+     "rep": 0.0,
+     "con": null
+    }
+   }
+  },
+  {
+   "slug": "rimworld",
+   "name": "RimWorld",
+   "language": "C#",
+   "runtime": "Desktop game",
+   "tasks": 10,
+   "repair": 10,
+   "construct": 0,
+   "best": 60.0,
+   "bestModels": [
+    "claude-opus-5-5",
+    "kimi-k3-1-pro"
+   ],
+   "mean": 44.3,
+   "scores": {
+    "claude-opus-5-5": {
+     "all": 60.0,
+     "rep": 60.0,
+     "con": null
+    },
+    "gpt-6-astra": {
+     "all": 50.0,
+     "rep": 50.0,
+     "con": null
+    },
+    "kimi-k3-1-pro": {
+     "all": 60.0,
+     "rep": 60.0,
+     "con": null
+    },
+    "deepseek-v4-1-flash": {
+     "all": 50.0,
+     "rep": 50.0,
+     "con": null
+    },
+    "minimax-m3-1-flash": {
+     "all": 30.0,
+     "rep": 30.0,
+     "con": null
+    },
+    "glm-5-3-flash": {
+     "all": 50.0,
+     "rep": 50.0,
+     "con": null
+    },
+    "qwen-3-8-27b": {
+     "all": 10.0,
+     "rep": 10.0,
+     "con": null
+    }
+   }
+  },
+  {
+   "slug": "mindustry",
+   "name": "Mindustry",
+   "language": "Java",
+   "runtime": "Headless server",
+   "tasks": 15,
+   "repair": 5,
+   "construct": 10,
+   "best": 73.3,
+   "bestModels": [
+    "claude-opus-5-5"
+   ],
+   "mean": 47.6,
+   "scores": {
+    "claude-opus-5-5": {
+     "all": 73.3,
+     "rep": 80.0,
+     "con": 70.0
+    },
+    "gpt-6-astra": {
+     "all": 60.0,
+     "rep": 80.0,
+     "con": 50.0
+    },
+    "kimi-k3-1-pro": {
+     "all": 60.0,
+     "rep": 60.0,
+     "con": 60.0
+    },
+    "deepseek-v4-1-flash": {
+     "all": 66.7,
+     "rep": 80.0,
+     "con": 60.0
+    },
+    "minimax-m3-1-flash": {
+     "all": 26.7,
+     "rep": 60.0,
+     "con": 10.0
+    },
+    "glm-5-3-flash": {
+     "all": 26.7,
+     "rep": 40.0,
+     "con": 20.0
+    },
+    "qwen-3-8-27b": {
+     "all": 20.0,
+     "rep": 60.0,
+     "con": 0.0
+    }
+   }
+  },
+  {
+   "slug": "palworld",
+   "name": "Palworld",
+   "language": "Lua · UE4SS",
+   "runtime": "Dedicated server",
+   "tasks": 10,
+   "repair": 0,
+   "construct": 10,
+   "best": 40.0,
+   "bestModels": [
+    "claude-opus-5-5"
+   ],
+   "mean": 7.1,
+   "scores": {
+    "claude-opus-5-5": {
+     "all": 40.0,
+     "rep": null,
+     "con": 40.0
+    },
+    "gpt-6-astra": {
+     "all": 0.0,
+     "rep": null,
+     "con": 0.0
+    },
+    "kimi-k3-1-pro": {
+     "all": 0.0,
+     "rep": null,
+     "con": 0.0
+    },
+    "deepseek-v4-1-flash": {
+     "all": 0.0,
+     "rep": null,
+     "con": 0.0
+    },
+    "minimax-m3-1-flash": {
+     "all": 0.0,
+     "rep": null,
+     "con": 0.0
+    },
+    "glm-5-3-flash": {
+     "all": 0.0,
+     "rep": null,
+     "con": 0.0
+    },
+    "qwen-3-8-27b": {
+     "all": 10.0,
+     "rep": null,
+     "con": 10.0
+    }
+   }
+  },
+  {
+   "slug": "binding-of-isaac",
+   "name": "The Binding of Isaac",
+   "language": "Lua",
+   "runtime": "Desktop game",
+   "tasks": 18,
+   "repair": 10,
+   "construct": 8,
+   "best": 61.1,
+   "bestModels": [
+    "claude-opus-5-5"
+   ],
+   "mean": 27.0,
+   "scores": {
+    "claude-opus-5-5": {
+     "all": 61.1,
+     "rep": 70.0,
+     "con": 50.0
+    },
+    "gpt-6-astra": {
+     "all": 55.6,
+     "rep": 60.0,
+     "con": 50.0
+    },
+    "kimi-k3-1-pro": {
+     "all": 22.2,
+     "rep": 30.0,
+     "con": 12.5
+    },
+    "deepseek-v4-1-flash": {
+     "all": 33.3,
+     "rep": 50.0,
+     "con": 12.5
+    },
+    "minimax-m3-1-flash": {
+     "all": 0.0,
+     "rep": 0.0,
+     "con": 0.0
+    },
+    "glm-5-3-flash": {
+     "all": 16.7,
+     "rep": 0.0,
+     "con": 37.5
+    },
+    "qwen-3-8-27b": {
+     "all": 0.0,
+     "rep": 0.0,
+     "con": 0.0
+    }
+   }
+  },
+  {
+   "slug": "left-4-dead-2",
+   "name": "Left 4 Dead 2",
+   "language": "SourcePawn · Squirrel",
+   "runtime": "Dedicated server",
+   "tasks": 10,
+   "repair": 10,
+   "construct": 0,
+   "best": 70.0,
+   "bestModels": [
+    "claude-opus-5-5",
+    "gpt-6-astra"
+   ],
+   "mean": 35.7,
+   "scores": {
+    "claude-opus-5-5": {
+     "all": 70.0,
+     "rep": 70.0,
+     "con": null
+    },
+    "gpt-6-astra": {
+     "all": 70.0,
+     "rep": 70.0,
+     "con": null
+    },
+    "kimi-k3-1-pro": {
+     "all": 50.0,
+     "rep": 50.0,
+     "con": null
+    },
+    "deepseek-v4-1-flash": {
+     "all": 40.0,
+     "rep": 40.0,
+     "con": null
+    },
+    "minimax-m3-1-flash": {
+     "all": 20.0,
+     "rep": 20.0,
+     "con": null
+    },
+    "glm-5-3-flash": {
+     "all": 0.0,
+     "rep": 0.0,
+     "con": null
+    },
+    "qwen-3-8-27b": {
+     "all": 0.0,
+     "rep": 0.0,
+     "con": null
+    }
+   }
+  },
+  {
+   "slug": "balatro",
+   "name": "Balatro",
+   "language": "Lua",
+   "runtime": "Desktop game",
+   "tasks": 10,
+   "repair": 10,
+   "construct": 0,
+   "best": 100.0,
+   "bestModels": [
+    "gpt-6-astra"
+   ],
+   "mean": 78.6,
+   "scores": {
+    "claude-opus-5-5": {
+     "all": 90.0,
+     "rep": 90.0,
+     "con": null
+    },
+    "gpt-6-astra": {
+     "all": 100.0,
+     "rep": 100.0,
+     "con": null
+    },
+    "kimi-k3-1-pro": {
+     "all": 80.0,
+     "rep": 80.0,
+     "con": null
+    },
+    "deepseek-v4-1-flash": {
+     "all": 60.0,
+     "rep": 60.0,
+     "con": null
+    },
+    "minimax-m3-1-flash": {
+     "all": 80.0,
+     "rep": 80.0,
+     "con": null
+    },
+    "glm-5-3-flash": {
+     "all": 60.0,
+     "rep": 60.0,
+     "con": null
+    },
+    "qwen-3-8-27b": {
+     "all": 80.0,
+     "rep": 80.0,
+     "con": null
+    }
+   }
+  },
+  {
+   "slug": "slay-the-spire",
+   "name": "Slay the Spire",
+   "language": "Java",
+   "runtime": "Desktop game · ModTheSpire",
+   "tasks": 9,
+   "repair": 9,
+   "construct": 0,
+   "best": 77.8,
+   "bestModels": [
+    "claude-opus-5-5"
+   ],
+   "mean": 38.1,
+   "scores": {
+    "claude-opus-5-5": {
+     "all": 77.8,
+     "rep": 77.8,
+     "con": null
+    },
+    "gpt-6-astra": {
+     "all": 55.6,
+     "rep": 55.6,
+     "con": null
+    },
+    "kimi-k3-1-pro": {
+     "all": 44.4,
+     "rep": 44.4,
+     "con": null
+    },
+    "deepseek-v4-1-flash": {
+     "all": 66.7,
+     "rep": 66.7,
+     "con": null
+    },
+    "minimax-m3-1-flash": {
+     "all": 11.1,
+     "rep": 11.1,
+     "con": null
+    },
+    "glm-5-3-flash": {
+     "all": 0.0,
+     "rep": 0.0,
+     "con": null
+    },
+    "qwen-3-8-27b": {
+     "all": 11.1,
+     "rep": 11.1,
+     "con": null
+    }
+   }
+  }
+ ],
+ "findings": {
+  "attempts": 1050,
+  "unresolved": 617,
+  "stages": [
+   {
+    "key": "unchanged",
+    "label": "Left the code unchanged",
+    "n": 99
+   },
+   {
+    "key": "preTest",
+    "label": "Failed to build or load",
+    "n": 113
+   },
+   {
+    "key": "f2pFail",
+    "label": "Failed fail-to-pass tests in the game",
+    "n": 389
+   },
+   {
+    "key": "later",
+    "label": "Passed F2P tests, still unresolved",
+    "n": 16
+   }
+  ],
+  "inGameFail": 389,
+  "inGameFailShare": 37.0,
+  "submitted": 432,
+  "submittedShare": 70.0,
+  "claims": 191,
+  "claimsShare": 31.0,
+  "rho": 0.81
+ }
+}

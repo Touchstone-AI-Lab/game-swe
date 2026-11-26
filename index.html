@@ -1,0 +1,362 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>GameSWE — Evaluating Coding Agents in Live Game Runtimes</title>
+  <meta name="description" content="GameSWE is a benchmark of 150 repair and construction tasks for coding agents, built from open-source mods for 12 games and judged inside the live game runtime." />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Touchstone AI" />
+  <meta property="og:title" content="GameSWE — Evaluating Coding Agents in Live Game Runtimes" />
+  <meta property="og:description" content="150 mod repair and construction tasks across 12 games. Every submission is built, loaded and tested inside the real game." />
+  <meta property="og:url" content="https://touchstone-ai-lab.github.io/bench/game-swe/" />
+  <meta property="og:image" content="https://touchstone-ai-lab.github.io/bench/game-swe/og.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="theme-color" content="#fbfbfa" />
+  <link rel="canonical" href="https://touchstone-ai-lab.github.io/bench/game-swe/" />
+  <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
+  <script>
+    // Set the theme before first paint: a stored choice wins, otherwise follow the system.
+    (function () {
+      var stored = null;
+      try { stored = localStorage.getItem('gameswe-theme'); } catch (e) {}
+      var dark = window.matchMedia && matchMedia('(prefers-color-scheme: dark)').matches;
+      document.documentElement.setAttribute('data-theme', stored || (dark ? 'dark' : 'light'));
+    })();
+  </script>
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+
+  <header class="nav">
+    <div class="nav-in">
+      <a class="brand" href="#top" aria-label="GameSWE, back to top">
+        <span class="brand-mark" aria-hidden="true"></span>
+        <span>GameSWE</span>
+      </a>
+      <nav class="nav-links" aria-label="Sections">
+        <a href="#overview">Overview</a>
+        <a href="#games">Games</a>
+        <a href="#harness">Harness</a>
+        <a href="#results">Results</a>
+        <a href="#paper">Paper</a>
+      </nav>
+      <div class="nav-tools">
+        <button class="icon-btn" id="theme-btn" type="button" aria-label="Switch to dark theme" title="Toggle theme">
+          <svg class="i-moon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3h.39a7.5 7.5 0 0 0 7.92 12.45A9 9 0 1 1 12 3z" /></svg>
+          <svg class="i-sun" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4" /><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41" /></svg>
+        </button>
+        <a class="icon-btn" href="https://github.com/Touchstone-AI-Lab" aria-label="Touchstone AI on GitHub">
+          <svg viewBox="0 0 16 16" width="17" height="17" fill="currentColor" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z" /></svg>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <nav class="crumbs wrap" aria-label="Breadcrumb">
+    <a href="../../">Touchstone AI</a><span aria-hidden="true">»</span><span>Bench</span><span aria-hidden="true">»</span><span aria-current="page">GameSWE</span>
+  </nav>
+
+  <main id="main">
+    <!-- Hero: copy and stats on the left, the task globe on the right. -->
+    <section id="top" class="hero-wrap">
+      <div class="hero" id="hero">
+        <div class="hero-copy">
+          <span class="eyebrow"><i></i><span>LIVING BENCHMARK · <span data-bind="totals.games"></span> GAMES · <span data-bind="totals.languages"></span> LANGUAGES</span></span>
+          <h1>GameSWE</h1>
+          <p class="hero-sub">Evaluating coding agents in live game runtimes.</p>
+          <p class="hero-lede">Agents repair and build mods for real games. Each submission is compiled, loaded into the game or its dedicated server, and judged by tests that run inside it. No mocks, no LLM judges.</p>
+
+          <dl class="hero-stats" aria-label="Benchmark summary">
+            <div><dt>Tasks</dt><dd data-bind="totals.tasks"></dd></div>
+            <div><dt>Games</dt><dd data-bind="totals.games" data-pad="2"></dd></div>
+            <div><dt>Languages</dt><dd data-bind="totals.languages" data-pad="2"></dd></div>
+            <div><dt>Models</dt><dd data-bind="totals.models" data-pad="2"></dd></div>
+          </dl>
+
+          <aside class="game-panel" id="game-panel" hidden aria-live="polite">
+            <header>
+              <a class="panel-link" href="https://touchstone-ai-lab.github.io/swe-game-tasks/"><i></i>Task catalogue <span aria-hidden="true">↗</span></a>
+              <button type="button" class="panel-close" id="panel-close" aria-label="Close game details">×</button>
+            </header>
+            <div class="panel-title">
+              <h3 id="panel-name"></h3>
+              <p id="panel-runtime"></p>
+            </div>
+            <dl class="panel-rows">
+              <div><dt>Language</dt><dd id="panel-lang"></dd></div>
+              <div><dt>Tasks</dt><dd id="panel-tasks"></dd></div>
+              <div><dt>Best</dt><dd id="panel-best"></dd></div>
+              <div><dt>Mean of 7 models</dt><dd id="panel-mean"></dd></div>
+            </dl>
+            <p class="panel-cap">Resolution rate in this game</p>
+            <ol class="mini-bars" id="panel-bars"></ol>
+          </aside>
+
+          <div class="hero-btns">
+            <a class="btn primary" href="#results">See results <span aria-hidden="true">↓</span></a>
+            <a class="btn" href="https://touchstone-ai-lab.github.io/swe-game-tasks/">Task catalogue <span aria-hidden="true">↗</span></a>
+            <span class="pill" title="The paper is under double-blind review">Paper · under review</span>
+          </div>
+        </div>
+
+        <div class="globe-stage" id="globe-stage">
+          <div class="orbit orbit-one" aria-hidden="true"></div>
+          <div class="orbit orbit-two" aria-hidden="true"></div>
+          <div class="globe-box">
+            <canvas class="globe" id="globe" aria-hidden="true"></canvas>
+            <div class="globe-labels" id="globe-labels" role="group" aria-label="Games in GameSWE"></div>
+          </div>
+          <div class="readout" aria-live="polite">
+            <span id="readout-main">Select a game</span>
+            <small id="readout-sub">Click a label · drag to explore</small>
+          </div>
+          <div class="globe-key" aria-hidden="true">
+            <span><b class="k-rep"></b>Repair</span>
+            <span><b class="k-con"></b>Construction</span>
+            <small>1 dot = 1 task</small>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Why live runtimes -->
+    <section id="overview" class="band wrap reveal">
+      <div class="head">
+        <span class="eyebrow"><i></i>WHY A LIVE RUNTIME</span>
+        <h2>Repository tests pass.<br /><span class="dim">The game still breaks.</span></h2>
+        <p class="lede">Coding agents are usually graded by a repository's own tests. Much software runs inside a host program instead, where correctness depends on runtime state, lifecycle events and third-party code loaded beside it. GameSWE checks agents' code in that setting, inside the shipped game or its dedicated server.</p>
+      </div>
+      <div class="props">
+        <article class="prop">
+          <span class="prop-n">01</span>
+          <h3>The game is the judge</h3>
+          <p>The verdict comes from the running game, not from mocks, model-written tests or LLM judges. A mod that calls an interface the game does not expose fails the way it would for players.</p>
+        </article>
+        <article class="prop">
+          <span class="prop-n">02</span>
+          <h3>Stateful, with a lifecycle</h3>
+          <p>Tests drive the game's lifecycle. A reloaded Minecraft config must register new commands and drop old ones. Garry's Mod loadouts must survive death, respawn and a server restart.</p>
+        </article>
+        <article class="prop">
+          <span class="prop-n">03</span>
+          <h3>Mods share one runtime</h3>
+          <p>Mods for one game come from different authors and often touch the same objects. When a target mod depends on others, it runs with them loaded: <b data-bind="totals.thirdPartyTasks"></b> tasks pin third-party mods.</p>
+        </article>
+        <article class="prop">
+          <span class="prop-n">04</span>
+          <h3>Real, varied ecosystems</h3>
+          <p>Twelve games, five languages (Lua and GLua, Java, C#, SourcePawn, Squirrel), several mod loaders, and both desktop games and dedicated servers.</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- Task types -->
+    <section id="tasks" class="band wrap reveal">
+      <div class="head">
+        <span class="eyebrow"><i></i>TWO KINDS OF TASK</span>
+        <h2>Fix a mod, or build one.<br /><span class="dim">The tests stay hidden.</span></h2>
+        <p class="lede">The agent gets a task description, the initial code, and documentation of the game's interfaces. It never sees the tests, the third-party mods or the game itself.</p>
+      </div>
+      <div class="kinds">
+        <article class="kind">
+          <header><span class="kind-dot rep" aria-hidden="true"></span><h3>Repair</h3><b><span data-bind="totals.repair"></span> tasks</b></header>
+          <p>Start from an existing mod and its bug reports. Find what is wrong or missing and fix it through the interfaces the code already uses.</p>
+          <dl class="specs">
+            <div><dt>Starting code</dt><dd><span data-bind="totals.medianRepairLoc" data-fmt="int"></span> lines <small>median</small></dd></div>
+            <div><dt>Reference patch</dt><dd><span data-bind="totals.medianRepairPatch"></span> lines changed <small>median</small></dd></div>
+          </dl>
+        </article>
+        <article class="kind">
+          <header><span class="kind-dot con" aria-hidden="true"></span><h3>Construction</h3><b><span data-bind="totals.construct"></span> tasks</b></header>
+          <p>Start from an empty project, or a skeleton of at most 15 lines, plus a feature request. Build the mod on the APIs the game provides.</p>
+          <dl class="specs">
+            <div><dt>Starting code</dt><dd>≤ 15 lines</dd></div>
+            <div><dt>Reference solution</dt><dd><span data-bind="totals.medianConstructAdded"></span> lines added <small>median</small></dd></div>
+          </dl>
+        </article>
+      </div>
+      <dl class="facts">
+        <div><dt>Tests per task</dt><dd><span data-bind="totals.medianF2P"></span> F2P · <span data-bind="totals.medianP2P"></span> P2P <small>median</small></dd></div>
+        <div><dt>Candidates</dt><dd><span data-bind="totals.candidates"></span> → <span data-bind="totals.tasks"></span></dd></div>
+        <div><dt>Validation</dt><dd>Reference passes, initial code fails, then a human plays it through</dd></div>
+        <div><dt>Releases</dt><dd>New tasks over time; each release is fixed</dd></div>
+      </dl>
+    </section>
+
+    <!-- Games -->
+    <section id="games" class="band wrap reveal">
+      <div class="head">
+        <span class="eyebrow"><i></i>TWELVE GAMES</span>
+        <h2>Twelve games, each with its own toolchain.<br /><span class="dim">Desktop clients and dedicated servers.</span></h2>
+        <p class="lede">Every game is a separate ecosystem, with its own language, mod loader and conventions. Being good at one does not carry over to the next. Select a game to find it on the globe.</p>
+      </div>
+      <div class="game-grid" id="game-grid"></div>
+      <p class="grid-key"><span><b class="k-rep"></b>Repair tasks</span><span><b class="k-con-bar"></b>Construction tasks</span><span>Bar length is each type's share of the game's tasks.</span></p>
+    </section>
+
+    <!-- Harness -->
+    <section id="harness" class="band wrap reveal">
+      <div class="head">
+        <span class="eyebrow"><i></i>LIVE-RUNTIME HARNESS</span>
+        <h2>Four stages, all in the real game.<br /><span class="dim">A task is resolved only if every stage passes.</span></h2>
+      </div>
+      <div class="harness">
+        <ol class="pipeline" aria-label="Harness stages">
+          <li><span class="stage-n">01</span><h3>Build</h3><p>Compile the submission with the game's own modding toolchain.</p></li>
+          <li><span class="stage-n">02</span><h3>Load</h3><p>Load it into the real game or its dedicated server, together with the pinned third-party mods.</p></li>
+          <li><span class="stage-n">03</span><h3>Test in game</h3><p>Run fail-to-pass and pass-to-pass scenarios inside the running game.</p></li>
+          <li><span class="stage-n">04</span><h3>Teardown</h3><p>End the session and check that it shuts down cleanly.</p></li>
+        </ol>
+        <aside class="spec-card">
+          <p class="spec-title"><i></i>Evaluation protocol</p>
+          <dl class="panel-rows">
+            <div><dt>Agent scaffold</dt><dd data-bind="totals.scaffold"></dd></div>
+            <div><dt>Limits</dt><dd><span data-bind="totals.stepLimit"></span> steps · <span data-bind="totals.wallMinutes"></span> min</dd></div>
+            <div><dt>Game access</dt><dd>None</dd></div>
+            <div><dt>Network</dt><dd>Model endpoint only</dd></div>
+            <div><dt>Attempts</dt><dd>1 per model per task</dd></div>
+            <div><dt>Total</dt><dd><span data-bind="totals.attempts" data-fmt="int"></span> attempts</dd></div>
+          </dl>
+        </aside>
+      </div>
+    </section>
+
+    <!-- Results -->
+    <section id="results" class="band wrap reveal">
+      <div class="head">
+        <span class="eyebrow"><i></i>RESULTS</span>
+        <h2>The best agent resolves <span data-bind="models.0.overall" data-fmt="pct"></span>.<br /><span class="dim">Most failures show up only in the game.</span></h2>
+        <p class="lede">Seven frontier and open-weight models, one attempt per task, all in the same scaffold. The headline rate averages the twelve per-game rates, so every game counts equally.</p>
+      </div>
+
+      <div class="card board">
+        <div class="card-head">
+          <div>
+            <h3>Leaderboard</h3>
+            <p class="card-sub" id="board-desc"></p>
+          </div>
+          <div class="seg" role="tablist" aria-label="Metric" id="board-tabs">
+            <button role="tab" type="button" data-metric="overall" aria-selected="true">Overall</button>
+            <button role="tab" type="button" data-metric="repair" aria-selected="false">Repair</button>
+            <button role="tab" type="button" data-metric="construct" aria-selected="false">Construction</button>
+            <button role="tab" type="button" data-metric="f2pOnly" aria-selected="false">F2P only</button>
+          </div>
+        </div>
+        <div class="board-axis" aria-hidden="true"><span>0</span><span>25</span><span>50</span><span>75</span><span>100%</span></div>
+        <ol class="board-rows" id="board-rows"></ol>
+      </div>
+
+      <div class="card heat">
+        <div class="card-head">
+          <div>
+            <h3>Per-game resolution rate</h3>
+            <p class="card-sub">Percent of a game's tasks resolved. A dash means the game has no tasks of that type.</p>
+          </div>
+          <div class="seg" role="tablist" aria-label="Task type" id="heat-tabs">
+            <button role="tab" type="button" data-kind="all" aria-selected="true">All</button>
+            <button role="tab" type="button" data-kind="rep" aria-selected="false">Repair</button>
+            <button role="tab" type="button" data-kind="con" aria-selected="false">Construction</button>
+          </div>
+        </div>
+        <div class="heat-scroll" tabindex="0" aria-label="Per-game results table, scrolls sideways">
+          <table class="heat-table" id="heat-table"></table>
+        </div>
+        <div class="heat-legend" aria-hidden="true"><span>0%</span><b></b><span>100%</span></div>
+      </div>
+
+      <div class="findings">
+        <div class="stat">
+          <p class="stat-v" data-bind="findings.inGameFailShare" data-fmt="pct"></p>
+          <p class="stat-l">of all <span data-bind="findings.attempts" data-fmt="int"></span> attempts reach the tests in the running game and fail a fail-to-pass test.</p>
+        </div>
+        <div class="stat">
+          <p class="stat-v" data-bind="findings.submittedShare" data-fmt="pct"></p>
+          <p class="stat-l">of the <span data-bind="findings.unresolved"></span> unresolved attempts end with the agent submitting its work as complete.</p>
+        </div>
+        <div class="stat">
+          <p class="stat-v">≥<span data-bind="findings.claimsShare" data-fmt="pct"></span></p>
+          <p class="stat-l">of unresolved attempts end with the agent saying its own checks pass.</p>
+        </div>
+        <div class="stat">
+          <p class="stat-v" data-bind="findings.rho"></p>
+          <p class="stat-l">mean Spearman correlation between each game's model ranking and the overall ranking.</p>
+        </div>
+      </div>
+
+      <div class="duo">
+        <div class="card stages">
+          <h3>Where unresolved attempts stop</h3>
+          <p class="card-sub">All <span data-bind="findings.unresolved"></span> unresolved attempts, by the last harness stage they reached.</p>
+          <div class="seg-bar" id="stage-bar" role="img"></div>
+          <ul class="stage-legend" id="stage-legend"></ul>
+        </div>
+        <div class="card funnel">
+          <div class="card-head tight">
+            <div>
+              <h3>Attempt funnel</h3>
+              <p class="card-sub">Share of 150 tasks that reach each stage.</p>
+            </div>
+            <label class="select">
+              <span class="sr">Model</span>
+              <select id="funnel-model"></select>
+            </label>
+          </div>
+          <ol class="funnel-rows" id="funnel-rows"></ol>
+        </div>
+      </div>
+      <p class="foot-note">One attempt per model per task. Snapshot of the submitted paper, <span data-bind="asOf"></span>; numbers may change in later releases.</p>
+    </section>
+
+    <!-- Paper -->
+    <section id="paper" class="band wrap reveal">
+      <div class="head">
+        <span class="eyebrow"><i></i>PAPER</span>
+        <h2>GameSWE: Evaluating Coding Agents<br /><span class="dim">in Live Game Runtimes</span></h2>
+      </div>
+      <div class="paper">
+        <article class="abstract">
+          <p class="abstract-tag"><span class="pill">Anonymous submission · under review</span></p>
+          <h3>Abstract</h3>
+          <p>Coding agents are increasingly evaluated on repository-level tasks, where a change is judged by the repository's own tests. Yet much software runs inside a live host program, where correctness depends on runtime state, lifecycle events, and third-party components loaded alongside it. We introduce GameSWE, a benchmark of 150 repair and construction tasks built from open-source mods for 12 popular games across five programming languages. Each submission is compiled, loaded into the real game or its dedicated server together with the pinned third-party mods it depends on, and judged by fail-to-pass and pass-to-pass tests executed in the live runtime, without mocks or LLM judges. Across seven frontier and open-weight models, the best agent resolves 69.0% of tasks while three models remain at or below 25.0%, and even the best agent's per-game rate ranges from 40.0% to 93.3%. Our analysis shows that 70.0% of unresolved attempts end with the agent submitting its work as complete, and in at least 31.0% the agent reports that its own checks pass, yet the submission fails in the runtime, with failures concentrated at the boundary between code and host: interfaces the ecosystem does not provide, host conventions beyond the code, and logic not connected to the game's lifecycle. GameSWE provides a reproducible testbed for coding agents whose code must work where it runs.</p>
+        </article>
+        <div class="links">
+          <div class="link-card off">
+            <b>Paper</b><span>Posted after the review period.</span><small>Coming soon</small>
+          </div>
+          <a class="link-card" href="https://touchstone-ai-lab.github.io/swe-game-tasks/">
+            <b>Task catalogue</b><span>Every public task, with its number, game, type and per-model outcome.</span><small>swe-game-tasks <span aria-hidden="true">↗</span></small>
+          </a>
+          <div class="link-card off">
+            <b>Code and environments</b><span>Harness, pinned runtimes and scripts.</span><small>Coming soon</small>
+          </div>
+          <p class="cite-note">Citation will be posted after review.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site">
+    <div class="wrap foot">
+      <div class="foot-brand">
+        <a class="brand" href="#top"><span class="brand-mark" aria-hidden="true"></span><span>GameSWE</span></a>
+        <p>A Touchstone AI benchmark for coding agents in live game runtimes.</p>
+      </div>
+      <div class="foot-col">
+        <h4>Benchmark</h4>
+        <a href="#overview">Overview</a><a href="#games">Games</a><a href="#results">Results</a><a href="https://touchstone-ai-lab.github.io/swe-game-tasks/">Task catalogue ↗</a>
+      </div>
+      <div class="foot-col">
+        <h4>Touchstone AI</h4>
+        <a href="../../">All projects</a><a href="https://touchstoneai.org/">touchstoneai.org ↗</a><a href="https://github.com/Touchstone-AI-Lab">GitHub ↗</a>
+      </div>
+    </div>
+    <div class="wrap foot-legal">
+      <p>Game names belong to their publishers. Model names and logos are their owners' trademarks and identify the models only. Logos: <a href="./THIRD-PARTY-NOTICES.txt">third-party notices</a>.</p>
+      <p>© 2026 Touchstone AI</p>
+    </div>
+  </footer>
+
+  <script type="module" src="/src/main.ts"></script>
+</body>
+</html>
