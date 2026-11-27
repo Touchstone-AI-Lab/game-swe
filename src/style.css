@@ -98,17 +98,13 @@ button { font: inherit; color: inherit; }
 [data-theme='dark'] .i-moon { opacity: 0; transform: rotate(-90deg) scale(0); }
 [data-theme='dark'] .i-sun { opacity: 1; transform: none; }
 
-.crumbs { margin-top: 26px; margin-bottom: 12px; font-size: 13.5px; font-weight: 300; color: var(--muted-fg); display: flex; gap: 8px; }
-.crumbs a { text-decoration: none; opacity: .9; }
-.crumbs a:hover { color: var(--accent-ink); }
-.crumbs [aria-current] { color: var(--fg-2); }
 
 /* Eyebrow with a glowing dot */
 .eyebrow { display: inline-flex; align-items: center; gap: .6rem; font: 700 .72rem/1.4 var(--mono); letter-spacing: .12em; color: var(--muted-fg); }
 .eyebrow i, .panel-link i, .spec-title i { flex: none; width: .48rem; height: .48rem; border-radius: 50%; background: var(--accent); box-shadow: 0 0 0 5px color-mix(in srgb, var(--accent) 15%, transparent); }
 
 /* Hero panel */
-.hero-wrap { width: var(--wrap); margin-inline: auto; }
+.hero-wrap { width: var(--wrap); margin: 28px auto 0; }
 .hero {
   position: relative; display: grid; grid-template-columns: minmax(340px, .82fr) minmax(480px, 1.18fr);
   min-height: 580px; border: 1px solid var(--line); border-radius: 14px; background: var(--surface); overflow: hidden;
