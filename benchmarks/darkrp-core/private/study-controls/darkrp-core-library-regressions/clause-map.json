@@ -1,0 +1,127 @@
+{
+  "task": "garrys-mod/darkrp/darkrp-core-library-regressions",
+  "task_version": "1.0.0",
+  "exam": "benchmarks/darkrp-core/exams/darkrp-core-library-regressions.md",
+  "cases": [
+    {
+      "id": "case:sentinel: the gamemode and its helper libraries are loaded",
+      "role": "runtime-sentinel"
+    },
+    {
+      "id": "case:A: selecting entries from a table keeps them under their own keys",
+      "role": "target",
+      "clauses": [
+        "[#7301]"
+      ]
+    },
+    {
+      "id": "case:A: selecting entries from a plain list still works",
+      "role": "preserved",
+      "clauses": [
+        "preserve:[#7301]"
+      ]
+    },
+    {
+      "id": "case:B: a table with entries under other keys is not empty",
+      "role": "target",
+      "clauses": [
+        "[#7304]"
+      ]
+    },
+    {
+      "id": "case:C: folding a list combines it from the far end inwards",
+      "role": "target",
+      "clauses": [
+        "[#7307]"
+      ]
+    },
+    {
+      "id": "case:D: dropping the trailing entry of a list leaves the leading ones",
+      "role": "target",
+      "clauses": [
+        "[#7310]"
+      ]
+    },
+    {
+      "id": "case:E: dropping the leading entry of a list leaves the rest in order",
+      "role": "target",
+      "clauses": [
+        "[#7313]"
+      ]
+    },
+    {
+      "id": "case:F: a field that may be left out is still checked when it is supplied",
+      "role": "target",
+      "clauses": [
+        "[#7316]"
+      ]
+    },
+    {
+      "id": "case:G: a field that must not be empty rejects an empty table",
+      "role": "target",
+      "clauses": [
+        "[#7319]"
+      ]
+    },
+    {
+      "id": "case:H: a lower bound accepts larger numbers and rejects smaller ones",
+      "role": "target",
+      "clauses": [
+        "[#7322]"
+      ]
+    },
+    {
+      "id": "check:submission-shape",
+      "role": "static"
+    }
+  ],
+  "clauses": [
+    {
+      "id": "[#7301]",
+      "anchor": "exam report [#7301]",
+      "status": "asserted"
+    },
+    {
+      "id": "preserve:[#7301]",
+      "anchor": "behavior the unchanged starter already provides",
+      "status": "asserted"
+    },
+    {
+      "id": "[#7304]",
+      "anchor": "exam report [#7304]",
+      "status": "asserted"
+    },
+    {
+      "id": "[#7307]",
+      "anchor": "exam report [#7307]",
+      "status": "asserted"
+    },
+    {
+      "id": "[#7310]",
+      "anchor": "exam report [#7310]",
+      "status": "asserted"
+    },
+    {
+      "id": "[#7313]",
+      "anchor": "exam report [#7313]",
+      "status": "asserted"
+    },
+    {
+      "id": "[#7316]",
+      "anchor": "exam report [#7316]",
+      "status": "asserted"
+    },
+    {
+      "id": "[#7319]",
+      "anchor": "exam report [#7319]",
+      "status": "asserted"
+    },
+    {
+      "id": "[#7322]",
+      "anchor": "exam report [#7322]",
+      "status": "asserted"
+    }
+  ],
+  "excluded_clauses": [],
+  "known_issues": []
+}

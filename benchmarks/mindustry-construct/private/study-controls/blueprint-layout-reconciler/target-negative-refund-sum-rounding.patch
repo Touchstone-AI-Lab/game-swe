@@ -1,0 +1,12 @@
+--- a/src/LayoutReconciler.java
++++ b/src/LayoutReconciler.java
+@@ -87,7 +87,8 @@
+         candidates.sort(PLACE_ORDER);
+ 
+         long refunded = 0;
+-        for (Cell cell : removals) refunded += (long) price(cell.block()) * refundPercent / 100;
++        for (Cell cell : removals) refunded += price(cell.block());
++        refunded = refunded * refundPercent / 100;
+         long funds = Math.addExact(budget, refunded);
+         long spent = 0;
+ 

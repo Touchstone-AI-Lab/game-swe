@@ -1,0 +1,85 @@
+{
+  "task": "stardew-valley/core/stardew-automate-machine-states-api",
+  "task_version": "1.1.0",
+  "exam": "benchmarks/stardew-core/exams/stardew-automate-machine-states-api.md",
+  "cases": [
+    {
+      "id": "check:submission-shape",
+      "role": "static",
+      "clauses": [],
+      "overlap": false,
+      "note": "Evaluator file gate: StardewMods/ exists, required files present, no symlinks."
+    },
+    {
+      "id": "case:non-automated machines are reported after the initial scan",
+      "role": "target",
+      "clauses": [
+        "Task-1"
+      ],
+      "overlap": false,
+      "note": "Runs first, before anything is placed: 360 ticks after load, GetMachineStates(farm, whole map) must be non-empty. The fixture farm has no chest, so every group (the shipping bin among them) is non-automated. Only non-emptiness is asserted."
+    },
+    {
+      "id": "case:sentinel: an automated machine group is reported",
+      "role": "preserved",
+      "clauses": [
+        "Task-preserve"
+      ],
+      "overlap": false,
+      "note": "P in the unchanged starter. Chest + furnace placed on the farm; GetMachineStates over the 4x3 placement area must become non-empty."
+    },
+    {
+      "id": "case:automated and non-automated machines are reported together",
+      "role": "preserved",
+      "clauses": [
+        "Task-preserve",
+        "Problem-mixed"
+      ],
+      "overlap": false,
+      "note": "P in the unchanged starter (once an automated group exists both caches are rebuilt). Asserts the furnace tile key is present farm-wide and that the report has more than one tile. It is the mixed-location behavior the exam says already works, not the requested change, so it is not marked as overlap."
+    }
+  ],
+  "clauses": [
+    {
+      "id": "Task-1",
+      "anchor": "Task, sentence 1 (first half): \"Make `GetMachineStates` report machine states for locations whose machines are all non-automated\" (symptom: Problem, paragraph 2, sentence 1: \"returns an empty dictionary ...\")",
+      "status": "weak",
+      "note": "The only target case checks states.Any() on the whole farm. It does not check which tiles are reported (e.g. the shipping bin's), that the reported machines are the unconnected ones, or any state value. Any implementation that makes the farm report non-empty before a chest exists passes."
+    },
+    {
+      "id": "Task-1-matching",
+      "anchor": "Task, sentence 1 (second half): \"matching how those machines are already reported when an automated group exists in the same location\"",
+      "status": "unasserted",
+      "note": "No case compares the all-non-automated report with the mixed-location report, and no case ever reads a state value (the int in IDictionary<Vector2,int>). A fix that reports unconnected machines with a wrong state, or only some of them, is indistinguishable. Excluded from contract measurement."
+    },
+    {
+      "id": "Task-preserve",
+      "anchor": "Task, sentence 2: \"Behavior for locations with automated machine groups must not change.\"",
+      "status": "asserted",
+      "note": "Presence of the automated furnace's tile key is asserted exactly; its state value is not. Discoverable in the starter: Automate/IAutomateAPI.cs documents GetMachineStates and Framework/AutomateAPI.cs + MachineManager.GetForApi show active groups are reported."
+    },
+    {
+      "id": "Problem-mixed",
+      "anchor": "Problem, paragraph 2, sentence 3: \"If the location also contains at least one working machine group, the non-automated ones show up fine alongside it.\"",
+      "status": "weak",
+      "note": "Asserted only as states.Count > 1 on the farm-wide report (furnace = 1 tile, so at least one other tile must be present). Neither the identity of the other tiles nor their state is checked."
+    },
+    {
+      "id": "Notes-3",
+      "anchor": "Notes, bullet 3: \"Do not modify anything under `/tests`\"",
+      "status": "unasserted",
+      "note": "Enforced by construction (pack tests are bind-mounted read-only), not by a case."
+    }
+  ],
+  "excluded_clauses": [
+    "Task-1-matching",
+    "Notes-3"
+  ],
+  "known_issues": [
+    "Weak target assertion: private/harbor/stardew-automate-machine-states-api/tests/SuiteMachineStatesApi.cs:57-70 asserts only states.Any() over the whole farm before the chest/furnace setup. The clause requires reports for the unconnected machines themselves; tile identity and state values are never inspected by any case in this suite (same weakness is inherited by the composite release-regressions tasks that reuse this probe).",
+    "Fixture dependence: the target case discriminates only because the fixture save has no chest anywhere on the farm and the case runs first (SuiteMachineStatesApi.cs:20-29 documents this). It exercises the initial save-load scan, not the exam's example of 'a shed with machines but no chest'; per private/harbor/NOTES.md a chestless machine placed at runtime never queues a reload on either tree, so that reading of the exam is not reachable and not tested.",
+    "Wait predicate that can throw: SuiteMachineStatesApi.cs:82-83 calls this._api!.GetMachineStates(...) inside GcbWait.Until. It throws NullReferenceException when the first case failed to obtain the API (this._api stays null), and propagates any exception thrown by the submission's GetMachineStates. With the fixed runner (private/harbor/harness/GcbHarness/Framework/SuiteRunner.cs:80-96) the case fails with 'wait-until predicate threw ...'. With the pre-fix runner the wait was treated as satisfied, but the next statement (SuiteMachineStatesApi.cs:85) re-evaluates the same call and throws inside the case body, so the verdict is F under both runners; only the error text differs. SuiteMachineStatesApi.cs:89-96 has no wait but also dereferences this._api!.",
+    "The prepared evaluator image recorded in runtimeIdentity (sha256:6b1641c79de8...) still bakes the pre-fix SuiteRunner at /opt/gcb/harness (SafePredicate returns true on a throw); tests/test.sh copies that baked harness, so commit 276a070 is not in effect for executions under this runtime identity until the image is rebuilt.",
+    "The exam names the API method and the interface (`IAutomateAPI`, `GetMachineStates`), which localizes the defect to MachineManager.GetForApi/ReloadMachinesIn; see private/harbor/DEBUG-HARDENING.md section 1."
+  ]
+}

@@ -1,0 +1,580 @@
+{
+  "task": "left-4-dead-2/core/l4d2-confogl-cvar-transactions-hard",
+  "task_version": "1.1.0",
+  "exam": "benchmarks/l4d2-core/exams/l4d2-confogl-cvar-transactions-hard.md",
+  "cases": [
+    {
+      "id": "case:stage-known-passive",
+      "role": "target",
+      "clauses": [
+        "R1.1"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:stage-resolved-passive",
+      "role": "target",
+      "clauses": [
+        "R4.2"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:duplicate-known-last-wins",
+      "role": "target",
+      "clauses": [
+        "R1.2",
+        "R1.3"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:activation-cross-write-corrected",
+      "role": "target",
+      "clauses": [
+        "R2.2",
+        "R3.3"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:empty-value-valid",
+      "role": "target",
+      "clauses": [
+        "R6.2"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:spaces-value-valid",
+      "role": "target",
+      "clauses": [
+        "R6.2"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:bounded-activation",
+      "role": "target",
+      "clauses": [
+        "R3.2"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:oversize-duplicate-rejected",
+      "role": "target",
+      "clauses": [
+        "R6.1"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:maximum-value-accepted",
+      "role": "target",
+      "clauses": [
+        "R6.1"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:maximum-name-accepted",
+      "role": "target",
+      "clauses": [
+        "R6.1"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:oversize-name-not-truncated",
+      "role": "target",
+      "clauses": [
+        "R6.1"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:oversize-new-value-rejected",
+      "role": "target",
+      "clauses": [
+        "R6.1"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:pending-resolved-before-start",
+      "role": "target",
+      "clauses": [
+        "R4.1",
+        "R1.2"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:active-add-ignored",
+      "role": "target",
+      "clauses": [
+        "R1.4"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:external-drift-corrected",
+      "role": "target",
+      "clauses": [
+        "R3.1"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:cross-entry-enforcement",
+      "role": "target",
+      "clauses": [
+        "R3.3"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:finite-cross-callback-return",
+      "role": "target",
+      "clauses": [
+        "R3.3"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:bounded-drift-corrected",
+      "role": "target",
+      "clauses": [
+        "R3.2"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:bounded-inrange-string-preserved",
+      "role": "target",
+      "clauses": [
+        "R3.4"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:bounded-string-finite-writeback",
+      "role": "target",
+      "clauses": [
+        "R3.4",
+        "R3.3"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:string-drift-corrected",
+      "role": "target",
+      "clauses": [
+        "R3.1"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:late-duplicate-last-wins",
+      "role": "target",
+      "clauses": [
+        "R1.2",
+        "R4.3"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:unresolved-survives-callbacks",
+      "role": "target",
+      "clauses": [
+        "R4.1"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:late-enforcement",
+      "role": "target",
+      "clauses": [
+        "R4.1"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:late-batch-enforced",
+      "role": "target",
+      "clauses": [
+        "R4.1",
+        "R2.2"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:active-reset-rejected",
+      "role": "target",
+      "clauses": [
+        "R5.4",
+        "R2.4"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:diagnostics-preserve-profile",
+      "role": "target",
+      "clauses": [
+        "R7.1",
+        "Task-preserve-compat"
+      ],
+      "overlap": false,
+      "note": "A SourceMod exception from a diagnostic command fails the whole boot (verify.py suite rule), not only this case."
+    },
+    {
+      "id": "case:restore-activation-baseline",
+      "role": "target",
+      "clauses": [
+        "R2.1",
+        "R5.1"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:restore-batch-baseline",
+      "role": "target",
+      "clauses": [
+        "R2.2",
+        "R5.1"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:restore-late-baseline",
+      "role": "target",
+      "clauses": [
+        "R2.3",
+        "R4.1"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:restore-second-late-baseline",
+      "role": "target",
+      "clauses": [
+        "R4.3"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:restore-late-batch-baselines",
+      "role": "target",
+      "clauses": [
+        "R2.2",
+        "R4.1"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:restore-long-baseline",
+      "role": "target",
+      "clauses": [
+        "R6.3"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:restore-bound-baseline",
+      "role": "target",
+      "clauses": [
+        "R5.1"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:released-hooks-removed",
+      "role": "target",
+      "clauses": [
+        "R5.1"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:unactivated-release-no-write",
+      "role": "target",
+      "clauses": [
+        "R5.2"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:unactivated-unload-no-write",
+      "role": "target",
+      "clauses": [
+        "R5.2"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:next-cycle-enforces",
+      "role": "target",
+      "clauses": [
+        "R5.3"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:discarded-pending-not-revived",
+      "role": "target",
+      "clauses": [
+        "R5.2"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:active-unload-restores-fresh",
+      "role": "target",
+      "clauses": [
+        "R5.3",
+        "R5.1"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:active-unload-restores-late",
+      "role": "target",
+      "clauses": [
+        "R5.1"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:unload-hooks-gone",
+      "role": "target",
+      "clauses": [
+        "R5.1"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "check:submission-shape",
+      "role": "static",
+      "clauses": [
+        "Task-source-only"
+      ],
+      "overlap": false,
+      "note": "Evaluator gate (plugin evaluator.py _static_check); verify.py adds its own package checks before any case."
+    }
+  ],
+  "clauses": [
+    {
+      "id": "R1.1",
+      "anchor": "Report 1 s2: before tracking starts, `confogl_addcvar` stages assignments without changing live ConVars",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "R1.2",
+      "anchor": "Report 1 s3: names are case-insensitive and the last valid assignment wins, for existing and pending ConVars",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "R1.3",
+      "anchor": "Report 1 s4: duplicate assignments must not create duplicate hooks or reset records",
+      "status": "weak",
+      "note": "Observed only indirectly through the later enforcement/restore values."
+    },
+    {
+      "id": "R1.4",
+      "anchor": "Report 1 s5: once tracking has started, further add commands remain ignored",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "R2.1",
+      "anchor": "Report 2 s1-2: on the first effective `confogl_setcvars`, capture each resolvable ConVar's actual value immediately before the batch writes; registration-time values are not baselines",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "R2.2",
+      "anchor": "Report 2 s3: snapshot the whole batch before any write (another plugin's change hook may change a second ConVar)",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "R2.3",
+      "anchor": "Report 2 s4: repeated activation/config callbacks must not replace a baseline with an enforced value",
+      "status": "asserted",
+      "note": "Observed through the late-entry restore cases."
+    },
+    {
+      "id": "R2.4",
+      "anchor": "Report 2 s5: \"Keep the existing match-enabled gate.\"",
+      "status": "weak",
+      "note": "Only the reset half of the gate is exercised (R5.5)."
+    },
+    {
+      "id": "R3.1",
+      "anchor": "Report 3 s1: while active, an external change is corrected to the staged desired value synchronously",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "R3.2",
+      "anchor": "Report 3 s2: respect SourceMod's normal bound/coercion behaviour (desired 20 with upper bound 10 enforces 10)",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "R3.3",
+      "anchor": "Report 3 s3-4: no infinite recursion, no duplicate registrations, no global skip of other tracked ConVars during a hook callback; a finite cross-ConVar callback leaves no drift",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "R3.4",
+      "anchor": "Report 3 s5-6: an in-range desired string retains its representation (`01`), including after finite cross-ConVar writeback",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "R4.1",
+      "anchor": "Report 4 s1-2: unresolved names survive configuration callbacks; when they first resolve, capture their value at first activation and enforce them like early entries",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "R4.2",
+      "anchor": "Report 4 s3: a callback while inactive only resolves/stages entries",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "R4.3",
+      "anchor": "Report 4 s4: later repeated callbacks preserve the first baseline; resolution and duplicate staging never produce two records for one ConVar",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "R5.1",
+      "anchor": "Report 5 s1-2: `confogl_resetcvars` (match disabled) and plugin unload release the whole profile, removing hooks before restoring each activated entry's saved string exactly",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "R5.2",
+      "anchor": "Report 5 s3: discard pending/staged records; an entry that was never activated writes nothing on release",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "R5.3",
+      "anchor": "Report 5 s4: a later profile cycle captures a fresh baseline",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "R5.4",
+      "anchor": "Report 5 s5: a reset while a match is enabled remains rejected without changing state",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "R6.1",
+      "anchor": "Report 6 s1-2: keep the 63-byte maximum for names and values; reject oversized arguments in full, including an oversized duplicate, without truncating or overwriting a previous valid assignment",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "R6.2",
+      "anchor": "Report 6 s3: empty desired strings and quoted strings with spaces remain valid",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "R6.3",
+      "anchor": "Report 6 s4: preserve restoration baselines up to 255 bytes without truncation",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "R7.1",
+      "anchor": "Report 7: `confogl_cvarsettings`/`confogl_cvardiff` handle negative, end-of-list and past-end offsets without exception or mutation; valid pages keep their behaviour",
+      "status": "asserted",
+      "note": "Valid-page output is not compared; only absence of an exception and an unchanged profile are observed."
+    },
+    {
+      "id": "Task-preserve-compat",
+      "anchor": "Closing paragraph: public commands, native declarations and other modules remain compatible",
+      "status": "weak",
+      "note": "Only the confogl_* commands used by the suite and sm_resetmatch are exercised."
+    },
+    {
+      "id": "Task-source-only",
+      "anchor": "Closing paragraph: keep source only; no compiled/archive artifacts or game files",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "Task-preserve-gpl",
+      "anchor": "Closing paragraph: preserve GPL notices",
+      "status": "unasserted",
+      "note": "Pre-case verify.py package gate; no named case."
+    },
+    {
+      "id": "Task-no-tests-edit",
+      "anchor": "Closing paragraph: do not modify `/tests`",
+      "status": "unasserted",
+      "note": "Process rule."
+    }
+  ],
+  "excluded_clauses": [
+    "Task-preserve-gpl",
+    "Task-no-tests-edit"
+  ],
+  "known_issues": [
+    "benchmarks/l4d2-core/private/harbor/l4d2-confogl-cvar-transactions-hard/tests/verify.py:parse_suite: a suite boot is all-or-nothing. Any \"[SM] Exception reported\", \"Native is not bound\" or \"Plugin ... failed to load\" line, a missing FINAL marker or a duplicate case turns EVERY case of that boot into a failure, including cases that would otherwise pass; read per-case outcomes of a failing boot with that in mind.",
+    "The unchanged starter throws inside confogl_cvardiff (Invalid index -1) during the single suite boot, so all 42 cases fail closed. No case has a passing starter baseline: there is no preserved set and no compat-negative control for this task. Roles are therefore 'target' for every case by observation; clauses that the exam states as preservation (R6.2, R7.1 valid pages) are still only target evidence here.",
+    "The alternative control is reference-derived (reverse batch order and strcmp); it is not an independent implementation."
+  ]
+}

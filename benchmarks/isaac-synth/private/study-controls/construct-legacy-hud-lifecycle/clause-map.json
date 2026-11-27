@@ -1,0 +1,341 @@
+{
+  "task": "isaac-rebirth/synth/construct-legacy-hud-lifecycle",
+  "task_version": "0.1.1",
+  "exam": "benchmarks/isaac-synth/exams/construct-legacy-hud-lifecycle.md",
+  "cases": [
+    {
+      "id": "case:version2_saves_all_categories",
+      "role": "target",
+      "clauses": [
+        "request"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:general_value_round_trip",
+      "role": "target",
+      "clauses": [
+        "request"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:partial_load_defaults",
+      "role": "target",
+      "clauses": [
+        "request"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:legacy_flat_menu_migrates",
+      "role": "target",
+      "clauses": [
+        "request"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:legacy_migration_saves_v2",
+      "role": "target",
+      "clauses": [
+        "request"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:missing_options_default_zero",
+      "role": "target",
+      "clauses": [
+        "request"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:offset_clamped_low",
+      "role": "target",
+      "clauses": [
+        "request"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:offset_clamped_high",
+      "role": "target",
+      "clauses": [
+        "request"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:seed_absent_initially",
+      "role": "target",
+      "clauses": [
+        "request"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:menu_open_adds_seed_only_when_absent",
+      "role": "target",
+      "clauses": [
+        "request"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:preexisting_seed_preserved",
+      "role": "target",
+      "clauses": [
+        "request"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:menu_close_removes_owned_seed",
+      "role": "target",
+      "clauses": [
+        "request"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:menu_close_preserves_preexisting_seed",
+      "role": "target",
+      "clauses": [
+        "request"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:repeated_open_idempotent",
+      "role": "target",
+      "clauses": [
+        "request"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:repeated_close_idempotent",
+      "role": "target",
+      "clauses": [
+        "request"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:hud_offset_nil_fallback",
+      "role": "target",
+      "clauses": [
+        "request"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:hud_offset_non_numeric_fallback",
+      "role": "target",
+      "clauses": [
+        "request"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:hud_offset_finite_clamp",
+      "role": "target",
+      "clauses": [
+        "request"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:options_root_absent_safe",
+      "role": "target",
+      "clauses": [
+        "request"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:load_callback_does_not_throw",
+      "role": "target",
+      "clauses": [
+        "request"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:load_decoded_table_merges",
+      "role": "target",
+      "clauses": [
+        "request"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:missing_fields_default",
+      "role": "target",
+      "clauses": [
+        "request"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:invalid_category_default",
+      "role": "target",
+      "clauses": [
+        "request"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:unknown_keys_ignored",
+      "role": "target",
+      "clauses": [
+        "request"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:malformed_json_defaults",
+      "role": "target",
+      "clauses": [
+        "request"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:non_table_json_defaults",
+      "role": "target",
+      "clauses": [
+        "request"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:hasdata_false_defaults",
+      "role": "target",
+      "clauses": [
+        "request"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:missing_data_defaults",
+      "role": "target",
+      "clauses": [
+        "request"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:save_after_load_is_v2",
+      "role": "target",
+      "clauses": [
+        "request"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:save_does_not_mutate_live_config",
+      "role": "target",
+      "clauses": [
+        "request"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:continued_load_restores_config_and_open_effect",
+      "role": "target",
+      "clauses": [
+        "request"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:new_run_uses_defaults",
+      "role": "target",
+      "clauses": [
+        "request"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:render_callback_does_not_throw",
+      "role": "target",
+      "clauses": [
+        "request"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:unsupported_apis_never_used",
+      "role": "target",
+      "clauses": [
+        "request"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:seed_restored_after_room_change",
+      "role": "target",
+      "clauses": [
+        "request"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "check:submission-shape",
+      "role": "static",
+      "clauses": [],
+      "overlap": false,
+      "note": "required Lua mod tree present as a safe snapshot"
+    }
+  ],
+  "clauses": [
+    {
+      "id": "request",
+      "status": "asserted",
+      "note": "",
+      "anchor": "the exam's required behavior; its acceptance section names every scored case"
+    }
+  ],
+  "excluded_clauses": [],
+  "known_issues": [
+    "Roles come from the 2026-11-02 E0 baseline of catalog 0.1.1 on the real game: the empty starter fails every case, so every case is a target and none is preserved. Clauses are not yet split per exam paragraph: each case cites the whole requested behavior."
+  ]
+}

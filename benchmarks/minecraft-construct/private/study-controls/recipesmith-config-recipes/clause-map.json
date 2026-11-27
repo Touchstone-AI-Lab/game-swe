@@ -1,0 +1,239 @@
+{
+  "task": "minecraft/construct/recipesmith-config-recipes",
+  "task_version": "1.3.0",
+  "exam": "benchmarks/minecraft-construct/exams/recipesmith-config-recipes.md",
+  "cases": [
+    {
+      "id": "check:submission-shape",
+      "role": "static",
+      "clauses": [
+        "S1"
+      ],
+      "overlap": false,
+      "note": "required skeleton files present, no symlinks or compiled artifacts"
+    },
+    {
+      "id": "check:offline-build",
+      "role": "static",
+      "clauses": [
+        "S1"
+      ],
+      "overlap": false,
+      "note": "the plugin builds offline with the restored pom.xml and names itself Recipesmith"
+    },
+    {
+      "id": "server:Recipesmith is enabled",
+      "role": "runtime-sentinel",
+      "clauses": [],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "server:the default recipe file is written and loaded",
+      "role": "target",
+      "clauses": [
+        "R1",
+        "R3"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "server:plugin.yml declares the recipes command and permission",
+      "role": "target",
+      "clauses": [
+        "R7"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "server:shaped recipes craft their result anywhere in the grid",
+      "role": "target",
+      "clauses": [
+        "R2",
+        "R3"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "server:ingredient lists and tags accept any listed material",
+      "role": "target",
+      "clauses": [
+        "R2"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "server:shapeless recipes ignore positions but count items",
+      "role": "target",
+      "clauses": [
+        "R2"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "server:cooking and stonecutting recipes carry their settings",
+      "role": "target",
+      "clauses": [
+        "R2",
+        "R3"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "server:a smelting recipe cooks in a real furnace",
+      "role": "target",
+      "clauses": [
+        "R2",
+        "R3"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "server:recipes are registered under the plugin namespace",
+      "role": "target",
+      "clauses": [
+        "R3"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "server:invalid recipes are skipped with the first reason",
+      "role": "target",
+      "clauses": [
+        "R4",
+        "R6"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "server:reload removes recipes deleted from the file",
+      "role": "target",
+      "clauses": [
+        "R6"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "server:disabled vanilla recipes cannot be crafted",
+      "role": "target",
+      "clauses": [
+        "R5",
+        "R6"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "server:reload restores vanilla recipes that are no longer disabled",
+      "role": "target",
+      "clauses": [
+        "R6",
+        "R5"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "server:disable and enable edit the file",
+      "role": "target",
+      "clauses": [
+        "R7",
+        "R5"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "server:list shows the loaded recipes",
+      "role": "target",
+      "clauses": [
+        "R7",
+        "R4"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "server:permissions are enforced",
+      "role": "target",
+      "clauses": [
+        "R7"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "server:malformed commands show usage",
+      "role": "target",
+      "clauses": [
+        "R7"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "server:tagged ingredients craft a MiniMessage-named item with lore",
+      "role": "target",
+      "clauses": [
+        "R2",
+        "R3"
+      ],
+      "overlap": false,
+      "note": "The case composes existing public requirements in one live-server interaction."
+    }
+  ],
+  "clauses": [
+    {
+      "id": "R1",
+      "anchor": "The recipe file, 1: default recipes.yml",
+      "status": "asserted"
+    },
+    {
+      "id": "R2",
+      "anchor": "The recipe file, 2: recipe entries, ingredients, results",
+      "status": "asserted"
+    },
+    {
+      "id": "R3",
+      "anchor": "The recipe file, 3: registration under recipesmith:<id> as the matching recipe type",
+      "status": "asserted"
+    },
+    {
+      "id": "R4",
+      "anchor": "The recipe file, 4: validation order and reasons",
+      "status": "asserted"
+    },
+    {
+      "id": "R5",
+      "anchor": "The recipe file, 5: disabled vanilla recipes",
+      "status": "asserted"
+    },
+    {
+      "id": "R6",
+      "anchor": "Reload and commands, 6: reload report, removal and restoration",
+      "status": "asserted"
+    },
+    {
+      "id": "R7",
+      "anchor": "Reload and commands, 7: subcommands, replies, permissions, usage lines",
+      "status": "asserted"
+    },
+    {
+      "id": "S1",
+      "anchor": "Skeleton and build: keep the plugin name and main class; the frozen pom.xml builds the plugin offline",
+      "status": "asserted"
+    }
+  ],
+  "excluded_clauses": [],
+  "known_issues": []
+}

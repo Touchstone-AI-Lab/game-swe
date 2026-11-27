@@ -1,0 +1,15 @@
+control	kind	base	overlay	root	note
+alternative-a	alternative	starter	tree:alternative-a	.	structurally different implementation written from the public exam only
+target-negative-blocked-hop-allowed	target-negative	reference	patch:target-negative-blocked-hop-allowed.patch	.	fails: hidden:blocked and removed nodes leave routing; hidden:commit is exactly once and rejects changed routes
+target-negative-charge-without-funds-check	target-negative	reference	patch:target-negative-charge-without-funds-check.patch	.	fails: server:real travel charges gold and moves the player
+target-negative-commit-skips-revalidation	target-negative	reference	patch:target-negative-commit-skips-revalidation.patch	.	fails: hidden:commit is exactly once and rejects changed routes; server:removed anchor invalidates routes and rolls back travel
+target-negative-cooldown-before-dedupe	target-negative	reference	patch:target-negative-cooldown-before-dedupe.patch	.	fails: hidden:time validation snapshot freshness and save load; server:real travel charges gold and moves the player; server:state persists and listeners are released
+target-negative-cooldown-boundary-inclusive	target-negative	reference	patch:target-negative-cooldown-boundary-inclusive.patch	.	fails: hidden:reserve deduplicates prices and honors time boundaries; hidden:time validation snapshot freshness and save load
+target-negative-expiry-boundary-exclusive	target-negative	reference	patch:target-negative-expiry-boundary-exclusive.patch	.	fails: hidden:reserve deduplicates prices and honors time boundaries
+target-negative-listeners-leak-on-removal	target-negative	reference	patch:target-negative-listeners-leak-on-removal.patch	.	fails: server:state persists and listeners are released
+target-negative-no-onremove-cleanup	target-negative	reference	patch:target-negative-no-onremove-cleanup.patch	.	fails: server:removed anchor invalidates routes and rolls back travel
+target-negative-no-rollback-on-commit-failure	target-negative	reference	patch:target-negative-no-rollback-on-commit-failure.patch	.	fails: server:removed anchor invalidates routes and rolls back travel
+target-negative-rounding-floor	target-negative	reference	patch:target-negative-rounding-floor.patch	.	fails: hidden:nodes and links enforce ids caps rounding and length; hidden:commit is exactly once and rejects changed routes
+target-negative-save-drops-request-history	target-negative	reference	patch:target-negative-save-drops-request-history.patch	.	fails: hidden:time validation snapshot freshness and save load; server:state persists and listeners are released
+target-negative-skips-proximity-check	target-negative	reference	patch:target-negative-skips-proximity-check.patch	.	fails: server:real travel charges gold and moves the player
+target-negative-tiebreak-ignores-hops	target-negative	reference	patch:target-negative-tiebreak-ignores-hops.patch	.	fails: hidden:cheapest route breaks ties by hops then node order; hidden:commit is exactly once and rejects changed routes

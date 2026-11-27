@@ -1,0 +1,29 @@
+{
+  "schema_version": 1,
+  "source_manifest": "runtime-manifest-load-v3.json",
+  "source_manifest_sha256": "e4fe2de832d76d0784ac75e934dd285bf9301ae9bb4ee1161b88c7f5227dcf68",
+  "assets_sha256": "0d7ad74d2cdcb25f554e1542a831cf4eb07adc8b0457a5c39cfb563f16bc7fcd",
+  "copied_authored_files": {
+    "tasks/durable_charge/probe.py": {
+      "size": 2428,
+      "sha256": "979b5d5f5bc3fd68d72b71b2ab2bd2ec6b53b4ed91862dc4f39e2dbe741ace55"
+    },
+    "tasks/durable_charge/load_diag_v1/probe.py": {
+      "size": 723,
+      "sha256": "c2be1df1a75b5101f27c76f92fd381b996a9df5bc405e3716ffa0cf305097b5a"
+    },
+    "tasks/durable_charge/load_diag_v1/mod/diagnostic.lua": {
+      "size": 6207,
+      "sha256": "39c47e3ed01208450d1d3d61a0343eee6d0641fef7ade7f64134dd9c46f076e7"
+    },
+    "tasks/durable_charge/load_diag_v1/mod/load_diag.json": {
+      "size": 315,
+      "sha256": "9b11411c2100e936d0737e059dd5107f4f9b3ecd64821c23bd428de86aa0120c"
+    },
+    "tasks/durable_charge/save_probe_v3/probe.py": {
+      "size": 4967,
+      "sha256": "ad8c5289440e924816a37701e86cd404306193f35fa47cafa821683bccc0aa66"
+    }
+  },
+  "modified_source": false
+}

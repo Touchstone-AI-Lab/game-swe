@@ -1,0 +1,20 @@
+{
+  "Format": "2.4.0",
+  "Changes": [
+    {
+      "Action": "Load",
+      "Target": "Mods/GameCodeBench/Probe",
+      "FromFile": "assets/probe.json"
+    },
+    {
+      "Action": "EditData",
+      "Target": "Mods/GameCodeBench/Probe",
+      "Entries": {
+        "flag": "{{i18n: gcb.flag}}",
+        "negative": "{{i18n: gcb.negative}}",
+        "greeting": "{{i18n: gcb.greeting}}",
+        "static": "constant"
+      }
+    }
+  ]
+}

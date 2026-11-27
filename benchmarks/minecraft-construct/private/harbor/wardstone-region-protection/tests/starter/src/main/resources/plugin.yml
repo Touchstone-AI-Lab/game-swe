@@ -1,0 +1,5 @@
+name: Wardstone
+version: 1.0.0
+main: com.example.wardstone.WardstonePlugin
+api-version: '1.21'
+description: Cuboid region protection

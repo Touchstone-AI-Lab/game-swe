@@ -1,0 +1,40 @@
+{
+  "schema_version": 1,
+  "runtimes": [
+    {
+      "id": "afterbirth-plus-1.06.t1",
+      "name": "The Binding of Isaac: Afterbirth+ native Linux runtime",
+      "version": "Steam build 22878971",
+      "provider": "steam",
+      "restricted": true,
+      "host_platforms": ["linux-x64"],
+      "source": {
+        "kind": "steam-depots",
+        "appId": 250900,
+        "os": "linux",
+        "officialClient": true,
+        "depots": [
+          {"id": 250903, "manifest": "367036646469636831"},
+          {"id": 250906, "manifest": "274330258716671855"},
+          {"id": 250909, "manifest": "5041024818858406088"}
+        ],
+        "expectedFiles": ["isaac.x64"],
+        "sha256": {
+          "isaac.x64": "4cf33d83b79338bf4b302a3d8b554d88a96c017c0a7bec0deb625bbaac1f0f15"
+        }
+      }
+    }
+  ],
+  "task_bindings": {
+    "isaac-exodus-release-regressions": ["afterbirth-plus-1.06.t1"],
+    "isaac-exodus-tear-trajectory": ["afterbirth-plus-1.06.t1"],
+    "isaac-exodus-active-item-state": ["afterbirth-plus-1.06.t1"],
+    "isaac-exodus-orphaned-effects": ["afterbirth-plus-1.06.t1"],
+    "isaac-exodus-projectiles-and-targets": ["afterbirth-plus-1.06.t1"],
+    "isaac-exodus-room-floor-state": ["afterbirth-plus-1.06.t1"],
+    "isaac-exodus-numeric-arithmetic": ["afterbirth-plus-1.06.t1"],
+    "isaac-exodus-passive-reshapers": ["afterbirth-plus-1.06.t1"],
+    "isaac-exodus-callback-wiring": ["afterbirth-plus-1.06.t1"],
+    "isaac-exodus-mixed-triage": ["afterbirth-plus-1.06.t1"]
+  }
+}

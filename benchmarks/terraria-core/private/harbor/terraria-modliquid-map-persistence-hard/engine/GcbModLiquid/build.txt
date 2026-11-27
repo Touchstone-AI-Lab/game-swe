@@ -1,0 +1,7 @@
+author = GameCodeBench
+displayName = GameCodeBench ModLiquid engine verifier
+version = 0.1.0
+hideCode = true
+hideResources = true
+includeSource = false
+buildIgnore = *.csproj, obj\*, bin\*

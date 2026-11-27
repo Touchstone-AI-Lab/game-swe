@@ -1,0 +1,422 @@
+{
+  "task": "balatro/core/seeded-effect-stream-v1",
+  "task_version": "0.2.0",
+  "exam": "benchmarks/balatro/public/v02/seeded-effect-stream-v1/CONTRACT.md",
+  "cases": [
+    {
+      "id": "position:1",
+      "role": "setup",
+      "clauses": [
+        "ses-mod-identity"
+      ],
+      "overlap": false,
+      "note": "clean1.initial"
+    },
+    {
+      "id": "position:2",
+      "role": "preserved",
+      "clauses": [
+        "ses-native-discard-count",
+        "ses-cards-and-rules-unaltered"
+      ],
+      "overlap": false,
+      "note": "clean1.actions"
+    },
+    {
+      "id": "position:3",
+      "role": "target",
+      "clauses": [
+        "ses-one-reward-per-discard",
+        "ses-multi-card-one-reward",
+        "ses-selection-no-effect",
+        "ses-stream-key",
+        "ses-reward-mapping",
+        "ses-no-reset-or-extra-draws",
+        "ses-cash-added-by-ready"
+      ],
+      "overlap": false,
+      "note": "clean1.payouts"
+    },
+    {
+      "id": "position:4",
+      "role": "runtime-sentinel",
+      "clauses": [],
+      "overlap": false,
+      "note": "clean1.native_noise"
+    },
+    {
+      "id": "position:5",
+      "role": "preserved",
+      "clauses": [
+        "ses-observation-no-effect",
+        "ses-cash-added-by-ready"
+      ],
+      "overlap": false,
+      "note": "clean1.stable"
+    },
+    {
+      "id": "position:6",
+      "role": "runtime-sentinel",
+      "clauses": [
+        "ses-joker-remains-owned",
+        "ses-cards-and-rules-unaltered"
+      ],
+      "overlap": false,
+      "note": "clean1.sealed"
+    },
+    {
+      "id": "position:7",
+      "role": "setup",
+      "clauses": [
+        "ses-mod-identity"
+      ],
+      "overlap": false,
+      "note": "clean2.initial"
+    },
+    {
+      "id": "position:8",
+      "role": "preserved",
+      "clauses": [
+        "ses-native-discard-count",
+        "ses-cards-and-rules-unaltered"
+      ],
+      "overlap": false,
+      "note": "clean2.actions"
+    },
+    {
+      "id": "position:9",
+      "role": "target",
+      "clauses": [
+        "ses-one-reward-per-discard",
+        "ses-multi-card-one-reward",
+        "ses-selection-no-effect",
+        "ses-stream-key",
+        "ses-reward-mapping",
+        "ses-no-reset-or-extra-draws",
+        "ses-cash-added-by-ready"
+      ],
+      "overlap": false,
+      "note": "clean2.payouts"
+    },
+    {
+      "id": "position:10",
+      "role": "runtime-sentinel",
+      "clauses": [],
+      "overlap": false,
+      "note": "clean2.native_noise"
+    },
+    {
+      "id": "position:11",
+      "role": "preserved",
+      "clauses": [
+        "ses-observation-no-effect",
+        "ses-cash-added-by-ready"
+      ],
+      "overlap": false,
+      "note": "clean2.stable"
+    },
+    {
+      "id": "position:12",
+      "role": "runtime-sentinel",
+      "clauses": [
+        "ses-joker-remains-owned",
+        "ses-cards-and-rules-unaltered"
+      ],
+      "overlap": false,
+      "note": "clean2.sealed"
+    },
+    {
+      "id": "position:13",
+      "role": "setup",
+      "clauses": [
+        "ses-mod-identity"
+      ],
+      "overlap": false,
+      "note": "noise.initial"
+    },
+    {
+      "id": "position:14",
+      "role": "preserved",
+      "clauses": [
+        "ses-native-discard-count",
+        "ses-cards-and-rules-unaltered"
+      ],
+      "overlap": false,
+      "note": "noise.actions"
+    },
+    {
+      "id": "position:15",
+      "role": "target",
+      "clauses": [
+        "ses-one-reward-per-discard",
+        "ses-multi-card-one-reward",
+        "ses-selection-no-effect",
+        "ses-scoring-no-effect",
+        "ses-stream-key",
+        "ses-reward-mapping",
+        "ses-no-reset-or-extra-draws",
+        "ses-no-shared-streams",
+        "ses-cash-added-by-ready"
+      ],
+      "overlap": false,
+      "note": "noise.payouts"
+    },
+    {
+      "id": "position:16",
+      "role": "preserved",
+      "clauses": [
+        "ses-scoring-no-effect",
+        "ses-no-chips-or-mult",
+        "ses-native-lucky-unaltered",
+        "ses-lucky-money-separate"
+      ],
+      "overlap": false,
+      "note": "noise.native_noise"
+    },
+    {
+      "id": "position:17",
+      "role": "preserved",
+      "clauses": [
+        "ses-observation-no-effect",
+        "ses-cash-added-by-ready"
+      ],
+      "overlap": false,
+      "note": "noise.stable"
+    },
+    {
+      "id": "position:18",
+      "role": "runtime-sentinel",
+      "clauses": [
+        "ses-joker-remains-owned",
+        "ses-cards-and-rules-unaltered"
+      ],
+      "overlap": false,
+      "note": "noise.sealed"
+    },
+    {
+      "id": "position:19",
+      "role": "setup",
+      "clauses": [
+        "ses-mod-identity"
+      ],
+      "overlap": false,
+      "note": "other.initial"
+    },
+    {
+      "id": "position:20",
+      "role": "preserved",
+      "clauses": [
+        "ses-native-discard-count",
+        "ses-cards-and-rules-unaltered"
+      ],
+      "overlap": false,
+      "note": "other.actions"
+    },
+    {
+      "id": "position:21",
+      "role": "target",
+      "clauses": [
+        "ses-one-reward-per-discard",
+        "ses-multi-card-one-reward",
+        "ses-selection-no-effect",
+        "ses-stream-key",
+        "ses-reward-mapping",
+        "ses-no-reset-or-extra-draws",
+        "ses-different-seed-own-sequence",
+        "ses-cash-added-by-ready"
+      ],
+      "overlap": false,
+      "note": "other.payouts"
+    },
+    {
+      "id": "position:22",
+      "role": "runtime-sentinel",
+      "clauses": [],
+      "overlap": false,
+      "note": "other.native_noise"
+    },
+    {
+      "id": "position:23",
+      "role": "preserved",
+      "clauses": [
+        "ses-observation-no-effect",
+        "ses-cash-added-by-ready"
+      ],
+      "overlap": false,
+      "note": "other.stable"
+    },
+    {
+      "id": "position:24",
+      "role": "runtime-sentinel",
+      "clauses": [
+        "ses-joker-remains-owned",
+        "ses-cards-and-rules-unaltered"
+      ],
+      "overlap": false,
+      "note": "other.sealed"
+    },
+    {
+      "id": "position:25",
+      "role": "preserved",
+      "clauses": [
+        "ses-same-seed-reproduces"
+      ],
+      "overlap": false,
+      "note": "reproduce"
+    },
+    {
+      "id": "position:26",
+      "role": "target",
+      "clauses": [
+        "ses-scoring-no-effect",
+        "ses-no-reset-or-extra-draws",
+        "ses-same-seed-reproduces",
+        "ses-no-shared-streams"
+      ],
+      "overlap": false,
+      "note": "isolated"
+    },
+    {
+      "id": "position:27",
+      "role": "preserved",
+      "clauses": [
+        "ses-different-seed-own-sequence"
+      ],
+      "overlap": false,
+      "note": "different_seed"
+    }
+  ],
+  "clauses": [
+    {
+      "id": "ses-mod-identity",
+      "anchor": "CONTRACT.md paragraph 1: \"Keep the supplied mod identity and manifest.\"",
+      "status": "asserted",
+      "note": "The initial cases read the Joker key j_ses_private_stream. Manifest bytes are enforced at sealing (plugins/balatro/src/rhenium_balatro/submission.py:32-47), not by a case."
+    },
+    {
+      "id": "ses-one-reward-per-discard",
+      "anchor": "CONTRACT.md paragraph 2: \"Each real, successful player discard operation grants one integer cash reward from 1 through 9.\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "ses-multi-card-one-reward",
+      "anchor": "CONTRACT.md paragraph 2: \"An operation discarding several cards still receives exactly one reward.\"",
+      "status": "asserted",
+      "note": "Discard sizes 1, 2, 3, 1 in every scene."
+    },
+    {
+      "id": "ses-selection-no-effect",
+      "anchor": "CONTRACT.md paragraph 2: \"Selecting cards, observing/displaying state, ordinary scoring, and other native effects grant no reward from this Joker and must not consume its reward sequence.\"",
+      "status": "weak",
+      "note": "Cards are selected only inside the harness discard action; no scene selects cards without discarding."
+    },
+    {
+      "id": "ses-observation-no-effect",
+      "anchor": "CONTRACT.md paragraph 2: \"Selecting cards, observing/displaying state, ordinary scoring, and other native effects grant no reward from this Joker and must not consume its reward sequence.\"",
+      "status": "asserted",
+      "note": "Dollars are compared across at least 8 frames before each discard and at the end of each scene."
+    },
+    {
+      "id": "ses-scoring-no-effect",
+      "anchor": "CONTRACT.md paragraph 2: \"Selecting cards, observing/displaying state, ordinary scoring, and other native effects grant no reward from this Joker and must not consume its reward sequence.\"",
+      "status": "asserted",
+      "note": "One native Lucky hand in the noise scene: its income and the later rewards are both compared."
+    },
+    {
+      "id": "ses-stream-key",
+      "anchor": "CONTRACT.md paragraph 3: \"a dedicated native seeded unit stream with the exact key `ses_private_v1`\"",
+      "status": "asserted",
+      "note": "Checked through the oracle reward values, not by reading the key. This matches the permission for an equivalent implementation."
+    },
+    {
+      "id": "ses-reward-mapping",
+      "anchor": "CONTRACT.md paragraph 3: \"On each qualifying operation, use its next unit draw `u` and award `1 + floor(9*u)` dollars.\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "ses-no-reset-or-extra-draws",
+      "anchor": "CONTRACT.md paragraph 3: \"Do not reset the sequence between operations or consume extra draws.\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "ses-same-seed-reproduces",
+      "anchor": "CONTRACT.md paragraph 3: \"Same seeded runs and discard sequences must reproduce the same rewards despite unrelated native gameplay\"",
+      "status": "asserted",
+      "note": "Two clean processes and one process with a Lucky hand, all on STREAM01."
+    },
+    {
+      "id": "ses-different-seed-own-sequence",
+      "anchor": "CONTRACT.md paragraph 3: \"a different run seed uses its own sequence\"",
+      "status": "asserted",
+      "note": "other.payouts holds the exact STREAM02 values; different_seed only checks inequality."
+    },
+    {
+      "id": "ses-no-shared-streams",
+      "anchor": "CONTRACT.md paragraph 3: \"Do not share native Lucky or other effect streams.\"",
+      "status": "asserted",
+      "note": "Lucky is the only competing stream exercised; sharing any other key is caught by the oracle values alone."
+    },
+    {
+      "id": "ses-cash-added-by-ready",
+      "anchor": "CONTRACT.md paragraph 4: \"The cash must actually be added once by the time that discard completes and the controller becomes ready.\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "ses-joker-remains-owned",
+      "anchor": "CONTRACT.md paragraph 4: \"The Joker remains owned\"",
+      "status": "asserted",
+      "note": "The sealed cases compare the owned Joker rows with the initial ones."
+    },
+    {
+      "id": "ses-no-chips-or-mult",
+      "anchor": "CONTRACT.md paragraph 4: \"adds no Chips or Mult\"",
+      "status": "asserted",
+      "note": "Only the single noise-scene hand is scored; its chips must equal the native value."
+    },
+    {
+      "id": "ses-native-discard-count",
+      "anchor": "CONTRACT.md paragraph 4: \"does not alter cards, native discard counts, native Lucky effects, or other game rules\"",
+      "status": "asserted",
+      "note": "One discard counter increment per operation."
+    },
+    {
+      "id": "ses-cards-and-rules-unaltered",
+      "anchor": "CONTRACT.md paragraph 4: \"does not alter cards, native discard counts, native Lucky effects, or other game rules\"",
+      "status": "weak",
+      "note": "Selected cards reach the discard pile and the deck stays at 52. Card attributes are not compared, and other game rules are open-ended."
+    },
+    {
+      "id": "ses-native-lucky-unaltered",
+      "anchor": "CONTRACT.md paragraph 4: \"does not alter cards, native discard counts, native Lucky effects, or other game rules\"",
+      "status": "asserted",
+      "note": "Both native Lucky keys are drawn during the noise hand."
+    },
+    {
+      "id": "ses-lucky-money-separate",
+      "anchor": "CONTRACT.md paragraph 4: \"Native Lucky money, when applicable, remains separate from this Joker's reward.\"",
+      "status": "weak",
+      "note": "One fixed Lucky draw; hand income must equal the native money. Whether that draw paid could not be determined, so the check may hold only at zero."
+    },
+    {
+      "id": "ses-common-cost-four",
+      "anchor": "CONTRACT.md paragraph 4: \"Preserve its ordinary Common identity and cost 4.\"",
+      "status": "unasserted",
+      "note": "Observed rows hold id, key, edition and added only (tasks/seeded_effect_stream/v1/private/mod/fixture.lua:29-34). Rarity and cost are never read, and the Joker is not bought."
+    },
+    {
+      "id": "ses-edit-scope",
+      "anchor": "CONTRACT.md paragraph 5: \"Only the candidate Lua is editable\"",
+      "status": "unasserted",
+      "note": "Enforced when the submission is sealed (plugins/balatro/src/rhenium_balatro/submission.py:32-47), not by a case."
+    }
+  ],
+  "excluded_clauses": [
+    "ses-common-cost-four",
+    "ses-edit-scope"
+  ],
+  "known_issues": []
+}

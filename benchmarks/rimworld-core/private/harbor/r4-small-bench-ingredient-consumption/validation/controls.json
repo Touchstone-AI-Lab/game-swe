@@ -1,0 +1,103 @@
+{
+  "schemaVersion": 3,
+  "catalogVersion": "0.3.2",
+  "privateProtocol": "rhenium-rimworld-private-v3",
+  "assertionManifestSha256": "86e011302af3808bbc11e427b87931cc249d290d33fe5529d52057f05632fd84",
+  "runtime": "rimworld/rimworld-1.6.4871-linux-x64",
+  "engineAssertionsRan": true,
+  "evidenceGeneration": {
+    "status": "run",
+    "date": "2026-09-24",
+    "host": "Linux x86_64 Docker host (NixOS), networkless evaluation",
+    "path": "rhenium run and rhenium-study e0 run through the Hub",
+    "note": "verifier repairs of 2026-09-24 first; see docs/games/rimworld.md#engine-validation-2026-09-24"
+  },
+  "plannedMatrix": {
+    "oracle": {
+      "expectedPassed": 16,
+      "expectedFailed": 0
+    },
+    "base": {
+      "expectedPassed": 6,
+      "expectedFailed": 10
+    },
+    "nop": {
+      "expectedPassed": 6,
+      "expectedFailed": 10
+    }
+  },
+  "plannedOutcomesAreAuthoringExpectations": true,
+  "referenceCompile": {
+    "status": "passed",
+    "date": "2026-09-24"
+  },
+  "containerBuild": {
+    "status": "passed",
+    "date": "2026-09-24"
+  },
+  "realEngine": {
+    "status": "passed",
+    "date": "2026-09-24"
+  },
+  "reusablePriorEvidence": false,
+  "oracle": {
+    "status": "passed",
+    "evidenceProtocol": "rhenium-rimworld-private-v3",
+    "runs": [
+      "run-d5cd9fa7aa0743c3",
+      "run-cbcbdf8df90f4f0d",
+      "run-5992b56afd4e46b5"
+    ],
+    "score": 100.0,
+    "passed": 16,
+    "failed": 0,
+    "identicalCaseOutcomes": true
+  },
+  "base": {
+    "status": "failed-targets-only",
+    "evidenceProtocol": "rhenium-rimworld-private-v3",
+    "run": "run-fdbc4769d7244f5c",
+    "score": 10.0,
+    "passed": 10,
+    "failed": 6,
+    "failedCases": [
+      "duplicate-costs-aggregate",
+      "interaction-cell-origin",
+      "multiple-stacks-exact",
+      "partial-stack-preserved",
+      "radius-boundary-included",
+      "small-bench-adjacent"
+    ]
+  },
+  "nop": {
+    "status": "failed-targets-only",
+    "evidenceProtocol": "rhenium-rimworld-private-v3",
+    "run": "run-8a61e2220042417a",
+    "score": 10.0,
+    "passed": 10,
+    "failed": 6,
+    "failedCases": [
+      "duplicate-costs-aggregate",
+      "interaction-cell-origin",
+      "multiple-stacks-exact",
+      "partial-stack-preserved",
+      "radius-boundary-included",
+      "small-bench-adjacent"
+    ],
+    "materialization": "rhenium-study e0 starter control (Hub workspace copy)"
+  },
+  "authoringRevision": 3,
+  "negativeControls": {
+    "status": "not-run",
+    "kind": "authoring expectations",
+    "mutations": [
+      "omit one started resource restoration registration while another same-name registration remains",
+      "leave a task field or collection changed",
+      "throw during restoration",
+      "leave an extra Rand push",
+      "candidate operation throws: complete failed if fixture integrity remains healthy"
+    ],
+    "studyControls": "private/study-controls/r4-small-bench-ingredient-consumption/NOTES.md"
+  },
+  "plannedCountsNeedEngineReconciliation": false
+}

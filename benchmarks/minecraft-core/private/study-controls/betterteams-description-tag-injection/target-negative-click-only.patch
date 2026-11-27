@@ -1,0 +1,12 @@
+--- a/BetterTeams/src/main/java/com/booksaw/betterTeams/commands/team/InfoCommand.java
++++ b/BetterTeams/src/main/java/com/booksaw/betterTeams/commands/team/InfoCommand.java
+@@ -34,7 +34,8 @@
+ 
+ 		infoMessages.add(MessageManager.getMessage("info.name", team.getDisplayName()));
+ 		if (team.getDescription() != null && !team.getDescription().isEmpty()) {
+-			infoMessages.add(MessageManager.getMessage("info.description", team.getDescription()));
++			String description = team.getDescription().replace("<click", "\\<click");
++			infoMessages.add(MessageManager.getMessage("info.description", description));
+ 		}
+ 
+ 		infoMessages.add(MessageManager.getMessage("info.open", team.isOpen()));

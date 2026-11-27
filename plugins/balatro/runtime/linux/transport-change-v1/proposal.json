@@ -1,0 +1,17 @@
+{
+  "status": "proposal_only_not_applied",
+  "base_commit": "9052d76f14723293f6c6b2cecaa791a5c4ae68f3",
+  "base_file": "core/server.lua",
+  "base_sha256": "668c10439162949e10dbf3f67d85a8d349d32cc0a58a32bb5dbf1e8bde47e928",
+  "replacement_sha256": "816874dedcd933d44a8854451215f27458294df8f8cf1db3562386f4aa4d5250",
+  "patch_sha256": "c084a78f4919a6acfcc558c1abb71670d95a5221d2febc5e3e78ce3f3290af5b",
+  "proposed_derived_sha256": "e58590bf9507887be409b083ffe40a5f2ad14671a169f28faddf4cf2113b0e2f",
+  "original_line_endings_preserved": true,
+  "function_changed_only": "send_raw",
+  "maximum_write_seconds": 1,
+  "original_rpc_timeout_unchanged": true,
+  "fixed_dependencies_modified": false,
+  "game_execution_approved": false,
+  "upstream_license": "MIT",
+  "license_sha256": "27f5c67daafeec4e5810bf38df33a991333ae582a0778bc40886f6f324c90fc2"
+}

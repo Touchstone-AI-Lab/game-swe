@@ -1,0 +1,61 @@
+diff --git a/sourcemod/scripting/l4dd/l4dd_forwards.sp b/sourcemod/scripting/l4dd/l4dd_forwards.sp
+--- a/sourcemod/scripting/l4dd/l4dd_forwards.sp
++++ b/sourcemod/scripting/l4dd/l4dd_forwards.sp
+@@ -280,6 +280,9 @@
+ // Features: handles multiple detours for 1 forward, and multiple forwards for 1 detour. Also force enabling a detour without any forward using it.
+ void SetupDetours(GameData hGameData = null)
+ {
++	int iPipebombPrjIndex;
++	int iPipebombDtnIndex;
++
+ 	if( g_bCreatedDetours == false )
+ 	{
+ 		g_aDetoursHooked = new ArrayList();
+diff --git a/sourcemod/scripting/l4dd/l4dd_forwards.sp b/sourcemod/scripting/l4dd/l4dd_forwards.sp
+--- a/sourcemod/scripting/l4dd/l4dd_forwards.sp
++++ b/sourcemod/scripting/l4dd/l4dd_forwards.sp
+@@ -436,6 +439,7 @@
+ 	CreateDetour(hGameData,			DTR_BossZombiePlayerBot_ChooseVictim_Pre,					DTR_BossZombiePlayerBot_ChooseVictim_Post,					"L4DD::BossZombiePlayerBot::ChooseVictim",							"L4D2_OnChooseVictim",							true);
+ 	CreateDetour(hGameData,			DTR_CTerrorPlayer_MaterializeFromGhost_Pre,					DTR_CTerrorPlayer_MaterializeFromGhost_Post,				"L4DD::CTerrorPlayer::MaterializeFromGhost",						"L4D_OnMaterializeFromGhostPre");
+ 	CreateDetour(hGameData,			DTR_CTerrorPlayer_MaterializeFromGhost_Pre,					DTR_CTerrorPlayer_MaterializeFromGhost_Post,				"L4DD::CTerrorPlayer::MaterializeFromGhost",						"L4D_OnMaterializeFromGhost",					true);
++	iPipebombPrjIndex = g_iSmallIndex;
+ 	CreateDetour(hGameData,			DTR_CPipeBombProjectile_Create_Pre,							DTR_CPipeBombProjectile_Create_Post,						"L4DD::CPipeBombProjectile::Create",								"L4D_PipeBombProjectile_Pre");
+ 	CreateDetour(hGameData,			DTR_CPipeBombProjectile_Create_Pre,							DTR_CPipeBombProjectile_Create_Post,						"L4DD::CPipeBombProjectile::Create",								"L4D_PipeBombProjectile_Post",					true);
+ 	CreateDetour(hGameData,			DTR_CPipeBombProjectile_Create_Pre,							DTR_CPipeBombProjectile_Create_Post,						"L4DD::CPipeBombProjectile::Create",								"L4D_PipeBombProjectile_PostHandled",			true);
+diff --git a/sourcemod/scripting/l4dd/l4dd_forwards.sp b/sourcemod/scripting/l4dd/l4dd_forwards.sp
+--- a/sourcemod/scripting/l4dd/l4dd_forwards.sp
++++ b/sourcemod/scripting/l4dd/l4dd_forwards.sp
+@@ -459,10 +463,33 @@
+ 	CreateDetour(hGameData,			DTR_CMolotovProjectile_Detonate_Pre,						DTR_CMolotovProjectile_Detonate,							"L4DD::CMolotovProjectile::Detonate",								"L4D_Molotov_Detonate");
+ 	CreateDetour(hGameData,			DTR_CMolotovProjectile_Detonate_Pre,						DTR_CMolotovProjectile_Detonate,							"L4DD::CMolotovProjectile::Detonate",								"L4D_Molotov_Detonate_Post",					true);
+ 	CreateDetour(hGameData,			DTR_CMolotovProjectile_Detonate_Pre,						DTR_CMolotovProjectile_Detonate,							"L4DD::CMolotovProjectile::Detonate",								"L4D_Molotov_Detonate_PostHandled",				true);
++	iPipebombDtnIndex = g_iSmallIndex;
+ 	CreateDetour(hGameData,			DTR_CPipeBombProjectile_Detonate_Pre,						DTR_CPipeBombProjectile_Detonate,							"L4DD::CPipeBombProjectile::Detonate",								"L4D_PipeBomb_Detonate");
+ 	CreateDetour(hGameData,			DTR_CPipeBombProjectile_Detonate_Pre,						DTR_CPipeBombProjectile_Detonate,							"L4DD::CPipeBombProjectile::Detonate",								"L4D_PipeBomb_Detonate_Post",					true);
+ 	CreateDetour(hGameData,			DTR_CPipeBombProjectile_Detonate_Pre,						DTR_CPipeBombProjectile_Detonate,							"L4DD::CPipeBombProjectile::Detonate",								"L4D_PipeBomb_Detonate_PostHandled",			true);
+ 	CreateDetour(hGameData,			DTR_CTerrorPlayer_Extinguish,								INVALID_FUNCTION,											"L4DD::CTerrorPlayer::Extinguish",									"L4D_PlayerExtinguish");
++
++	if( g_bCreatedDetours )
++	{
++		int status = g_aDetoursHooked.Get(iPipebombPrjIndex);
++		if( !status ) status = g_aDetoursHooked.Get(iPipebombDtnIndex);
++
++		bool forceBreakable = status > 0;
++		g_aForceDetours.Set(g_iLargeIndex, forceBreakable);
++
++		// CheckRequiredDetours builds its required-detour set before this flag is
++		// refreshed. Apply the dependency during this pass as well, so the first
++		// map does not leave CBreakableProp::Break unhooked.
++		if( forceBreakable )
++		{
++			int breakableStatus = g_aDetoursHooked.Get(g_iSmallIndex);
++			if( breakableStatus == 0 )
++				g_aDetoursHooked.Set(g_iSmallIndex, -1);
++			else if( breakableStatus == -2 )
++				g_aDetoursHooked.Set(g_iSmallIndex, 1);
++		}
++	}
++
+ 	CreateDetour(hGameData,			DTR_CBreakableProp_Break_Pre,								DTR_CBreakableProp_Break_Post,								"L4DD::CBreakableProp::Break",										"L4D_CBreakableProp_Break");
+ 	CreateDetour(hGameData,			DTR_CTerrorPlayer_OnVomitedUpon,							DTR_CTerrorPlayer_OnVomitedUpon_Post,						"L4DD::CTerrorPlayer::OnVomitedUpon",								"L4D_OnVomitedUpon");
+ 	CreateDetour(hGameData,			DTR_CTerrorPlayer_OnVomitedUpon,							DTR_CTerrorPlayer_OnVomitedUpon_Post,						"L4DD::CTerrorPlayer::OnVomitedUpon",								"L4D_OnVomitedUpon_Post",						true);

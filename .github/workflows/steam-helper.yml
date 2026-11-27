@@ -1,0 +1,32 @@
+name: Steam helper
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        include:
+          - rid: linux-x64
+            os: ubuntu-latest
+          - rid: win-x64
+            os: ubuntu-latest
+          - rid: osx-arm64
+            os: macos-14
+          - rid: osx-x64
+            os: macos-14
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: "9.0.x"
+      - run: providers/steam/helper/build-helper.sh "${{ matrix.rid }}" dist
+      - uses: actions/upload-artifact@v4
+        with:
+          name: rhenium-steam-helper-${{ matrix.rid }}
+          path: dist/${{ matrix.rid }}

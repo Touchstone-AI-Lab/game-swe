@@ -1,0 +1,358 @@
+diff -ruN a/addons/sourcemod/scripting/l4d2lib.sp b/addons/sourcemod/scripting/l4d2lib.sp
+--- a/addons/sourcemod/scripting/l4d2lib.sp
++++ b/addons/sourcemod/scripting/l4d2lib.sp
+@@ -145,6 +145,9 @@
+ #if MODULE_MAPINFO || MODULE_ROUNDS
+ public void OnMapEnd()
+ {
++#if MODULE_TANKS
++	Tanks_RoundStart();
++#endif
+ #if MODULE_MAPINFO
+ 	MapInfo_OnMapEnd_Update();
+ #endif
+diff -ruN a/addons/sourcemod/scripting/l4d2lib/mapinfo.sp b/addons/sourcemod/scripting/l4d2lib/mapinfo.sp
+--- a/addons/sourcemod/scripting/l4d2lib/mapinfo.sp
++++ b/addons/sourcemod/scripting/l4d2lib/mapinfo.sp
+@@ -62,7 +62,7 @@
+ 
+ void MapInfo_OnMapEnd_Update()
+ {
+-	KvRewind(g_hMIData);
++	if (g_hMIData != null) KvRewind(g_hMIData);
+ 	g_bMapDataAvailable = false;
+ 
+ 	for (int i = 0; i <= MAXPLAYERS; i++) {
+@@ -77,8 +77,8 @@
+ 
+ void MapInfo_Reload()
+ {
+-	MI_KV_Close();
+ 	MI_KV_Load();
++	MI_KV_UpdateMapInfo();
+ }
+ 
+ void MapInfo_PlayerDisconnect_Event(Event hEvent)
+@@ -107,7 +107,7 @@
+ 			BuildPath(Path_SM, sNameBuff, sizeof(sNameBuff), MAPINFO_PATH);
+ 		}
+ 
+-		KvRewind(g_hMIData);
++		if (g_hMIData != null) KvRewind(g_hMIData);
+ 
+ 		KeyValuesToFile(g_hMIData, sNameBuff);
+ 
+@@ -198,7 +198,7 @@
+ 			BuildPath(Path_SM, sNameBuff, sizeof(sNameBuff), MAPINFO_PATH);
+ 		}
+ 
+-		KvRewind(g_hMIData);
++		if (g_hMIData != null) KvRewind(g_hMIData);
+ 		KeyValuesToFile(g_hMIData, sNameBuff);
+ 
+ 		ReplyToCommand(iClient, "mapinfo.txt has been updated!");
+@@ -219,7 +219,7 @@
+ {
+ 	char sNameBuff[PLATFORM_MAX_PATH];
+ 
+-	g_hMIData = CreateKeyValues("MapInfo");
++	KeyValues incoming = new KeyValues("MapInfo");
+ 	//LGO_BuildConfigPath(sNameBuff, sizeof(sNameBuff), "mapinfo.txt"); //Build our filepath
+ 	if (g_bConfogl) {
+ 		LGO_BuildConfigPath(sNameBuff, sizeof(sNameBuff), "mapinfo.txt");
+@@ -227,10 +227,24 @@
+ 		BuildPath(Path_SM, sNameBuff, sizeof(sNameBuff), MAPINFO_PATH);
+ 	}
+ 
+-	if (!FileToKeyValues(g_hMIData, sNameBuff)) {
+-		LogError("[MI] Couldn't load MapInfo data!");
+-		MI_KV_Close();
+-	}
++	SMCParser syntax = new SMCParser();
++    SMCError parsed = syntax.ParseFile(sNameBuff);
++    delete syntax;
++    if (parsed != SMCError_Okay || !incoming.ImportFromFile(sNameBuff)) {
++        delete incoming;
++        LogMessage("[MI] MapInfo import failed; retaining previous data.");
++        return;
++    }
++    MI_KV_Close();
++    g_hMIData = incoming;
++}
++
++static bool MI_SelectMap()
++{
++    if (g_hMIData == null) return false;
++    g_hMIData.Rewind();
++    char map[128];GetCurrentMap(map,sizeof(map));
++    return g_hMIData.JumpToKey(map, false);
+ }
+ 
+ static void MI_KV_UpdateMapInfo()
+@@ -238,7 +252,7 @@
+ 	char sCurMap[128];
+ 	GetCurrentMap(sCurMap, sizeof(sCurMap));
+ 
+-	if (KvJumpToKey(g_hMIData, sCurMap)) {
++	if (MI_SelectMap()) {
+ 		KvGetVector(g_hMIData, "start_point", g_fStartPoint);
+ 		KvGetVector(g_hMIData, "end_point", g_fEndPoint);
+ 
+@@ -246,7 +260,7 @@
+ 		g_fStartExtraDist = KvGetFloat(g_hMIData, "start_extra_dist");
+ 		g_fEndDist = KvGetFloat(g_hMIData, "end_dist");
+ 
+-		// KvRewind(g_hMIData);
++		// if (g_hMIData != null) KvRewind(g_hMIData);
+ 		g_bMapDataAvailable = true;
+ 	} else {
+ 		g_bMapDataAvailable = false;
+@@ -323,15 +337,18 @@
+ static int IsEntityInSaferoom(int iEntity)
+ {
+ 	int iResult = eSaferoom_Neither;
++    if (iEntity <= 0 || iEntity >= GetMaxEntities() || !IsValidEntity(iEntity)
++        || !HasEntProp(iEntity, Prop_Send, "m_vecOrigin")) return iResult;
+ 
+ 	float fOrigins[3];
+ 	GetEntPropVector(iEntity, Prop_Send, "m_vecOrigin", fOrigins);
+ 
+-	if ((GetVectorDistance(fOrigins, g_fStartPoint) <= (g_fStartExtraDist > g_fStartDist ? g_fStartExtraDist : g_fStartDist))) {
++	float radius = g_fStartExtraDist > g_fStartDist ? g_fStartExtraDist : g_fStartDist;
++	if (radius >= 0.0 && GetVectorDistance(fOrigins, g_fStartPoint, true) <= radius * radius) {
+ 		iResult |= eSaferoom_Start;
+ 	}
+ 
+-	if (GetVectorDistance(fOrigins, g_fEndPoint) <= g_fEndDist) {
++	if (g_fEndDist >= 0.0 && GetVectorDistance(fOrigins, g_fEndPoint, true) <= g_fEndDist * g_fEndDist) {
+ 		iResult |= eSaferoom_End;
+ 	}
+ 
+@@ -351,7 +368,7 @@
+ int _native_GetMapStartOrigin(Handle hPlugin, int iNumParams)
+ {
+ 	float fOrigin[3];
+-	GetNativeArray(1, fOrigin, sizeof(fOrigin));
++	// Output-only array; no input read required.
+ 
+ 	for (int i = 0; i < sizeof(fOrigin); i++) {
+ 		fOrigin[i] = g_fStartPoint[i];
+@@ -365,7 +382,7 @@
+ int _native_GetMapEndOrigin(Handle hPlugin, int iNumParams)
+ {
+ 	float fOrigin[3];
+-	GetNativeArray(1, fOrigin, sizeof(fOrigin));
++	// Output-only array; no input read required.
+ 	
+ 	for (int i = 0; i < sizeof(fOrigin); i++) {
+ 		fOrigin[i] = g_fEndPoint[i];
+@@ -401,7 +418,7 @@
+ 	GetNativeString(1, sKey, iNewLen);
+ 
+ 	int iDefVal = GetNativeCell(2);
+-	return KvGetNum(g_hMIData, sKey, iDefVal);
++	return MI_SelectMap() ? KvGetNum(g_hMIData, sKey, iDefVal) : iDefVal;
+ }
+ 
+ int _native_GetMapValueFloat(Handle hPlugin, int iNumParams)
+@@ -415,7 +432,7 @@
+ 
+ 	float fDefVal = GetNativeCell(2);
+ 
+-	return view_as<int>(KvGetFloat(g_hMIData, sKey, fDefVal));
++	return view_as<int>(MI_SelectMap() ? KvGetFloat(g_hMIData, sKey, fDefVal) : fDefVal);
+ }
+ 
+ int _native_GetMapValueVector(Handle hPlugin, int iNumParams)
+@@ -430,7 +447,8 @@
+ 	float fDefval[3], fValue[3];
+ 	GetNativeArray(3, fDefval, 3);
+ 
+-	KvGetVector(g_hMIData, sKey, fValue, fDefval);
++	if (MI_SelectMap()) KvGetVector(g_hMIData, sKey, fValue, fDefval);
++	else fValue = fDefval;
+ 	
+ 	SetNativeArray(2, fValue, 3);
+ 	return 1;
+@@ -452,10 +470,12 @@
+ 	GetNativeString(4, sDefVal, iNewLen);
+ 
+ 	iLen = GetNativeCell(3);
+-	iNewLen = iLen + 1;
++	if (iLen <= 0) return 1;
++	iNewLen = iLen;
+ 	char[] sBuf = new char[iNewLen];
+ 	
+-	KvGetString(g_hMIData, sKey, sBuf, iNewLen, sDefVal);
++	if (MI_SelectMap()) KvGetString(g_hMIData, sKey, sBuf, iNewLen, sDefVal);
++	else strcopy(sBuf, iNewLen, sDefVal);
+ 
+ 	SetNativeString(2, sBuf, iNewLen);
+ 	return 1;
+@@ -472,10 +492,25 @@
+ 
+ 	KeyValues hKv = GetNativeCell(1);
+ 
+-	if (KvJumpToKey(g_hMIData, sKey, false)) {
++	if (MI_SelectMap() && MI_SelectSubsection(sKey)) {
+ 		KvCopySubkeys(g_hMIData, hKv);
+ 		KvGoBack(g_hMIData);
+ 	}
+ 	
+ 	return 1;
+ }
++
++static bool MI_SelectSubsection(const char[] path)
++{
++    int start = 0, length = strlen(path);
++    char part[256];
++    for (int i = 0; i <= length; i++) {
++        if (path[i] != '/' && path[i] != 0) continue;
++        int size = i-start;
++        if (size <= 0 || size >= sizeof(part)) return false;
++        strcopy(part, size+1, path[start]);
++        if (!g_hMIData.JumpToKey(part, false)) return false;
++        start = i+1;
++    }
++    return true;
++}
+diff -ruN a/addons/sourcemod/scripting/l4d2lib/tanks.sp b/addons/sourcemod/scripting/l4d2lib/tanks.sp
+--- a/addons/sourcemod/scripting/l4d2lib/tanks.sp
++++ b/addons/sourcemod/scripting/l4d2lib/tanks.sp
+@@ -34,82 +34,74 @@
+ 	ResetStatus();
+ }
+ 
+-void Tanks_TankSpawn(Event hEvent)
++static int g_TankSerial;
++
++static bool TankValid(int client)
+ {
+-	if (g_bIsTankActive) {
+-		return;
+-	}
+-
+-	g_bIsTankActive = true;
+-
+-	g_iTankClient = GetClientOfUserId(hEvent.GetInt("userid"));
+-
+-	Call_StartForward(g_hFwdFirstTankSpawn);
+-	Call_PushCell(g_iTankClient);
+-	Call_Finish();
++    return client > 0 && client <= MaxClients && IsClientInGame(client)
++        && !IsClientInKickQueue(client) && IsPlayerAlive(client)
++        && GetClientTeam(client) == 3 && GetEntProp(client, Prop_Send, "m_zombieClass") == 8;
+ }
+ 
+-void Tanks_ItemPickup(Event hEvent)
++void Tanks_TankSpawn(Event event)
+ {
+-	if (!g_bIsTankActive) {
+-		return;
+-	}
+-	
+-	char sItem[64];
+-	hEvent.GetString("item", sItem, sizeof(sItem));
+-	
+-	if (strcmp(sItem, "tank_claw") == 0) {
+-		int iPrevTank = g_iTankClient;
+-		g_iTankClient = GetClientOfUserId(hEvent.GetInt("userid"));
+-
+-		if (g_hTankDeathTimer != null) {
+-			KillTimer(g_hTankDeathTimer);
+-			g_hTankDeathTimer = null;
+-		}
+-
+-		Call_StartForward(g_hFwdTankPassControl);
+-		Call_PushCell(iPrevTank);
+-		Call_PushCell(g_iTankClient);
+-		Call_PushCell(g_iTankPassCount);
+-		Call_Finish();
+-
+-		g_iTankPassCount++;
+-	}
++    int client = GetClientOfUserId(event.GetInt("userid"));
++    if (!TankValid(client)) return;
++    if (g_bIsTankActive && GetClientFromSerial(g_TankSerial) == g_iTankClient) return;
++    ResetStatus();
++    g_bIsTankActive = true;
++    g_iTankClient = client;
++    g_TankSerial = GetClientSerial(client);
++    Call_StartForward(g_hFwdFirstTankSpawn);
++    Call_PushCell(client);
++    Call_Finish();
+ }
+ 
+-void Tanks_PlayerDeath(Event hEvent)
++void Tanks_ItemPickup(Event event)
+ {
+-	if (!g_bIsTankActive) {
+-		return;
+-	}
+-
+-	int iClient = GetClientOfUserId(hEvent.GetInt("userid"));
+-	if (iClient != g_iTankClient) {
+-		return;
+-	}
+-
+-	g_hTankDeathTimer = CreateTimer(0.5, TankDeath_Timer);
++    if (!g_bIsTankActive) return;
++    if (GetClientFromSerial(g_TankSerial) != g_iTankClient) { ResetStatus(); return; }
++    char item[64];event.GetString("item", item, sizeof(item));
++    int client = GetClientOfUserId(event.GetInt("userid"));
++    if (!StrEqual(item, "tank_claw") || !TankValid(client) || client == g_iTankClient) return;
++    int previous = g_iTankClient, passes = g_iTankPassCount;
++    g_iTankPassCount += 1;
++    g_iTankClient = client;
++    g_TankSerial = GetClientSerial(client);
++    delete g_hTankDeathTimer;
++    Call_StartForward(g_hFwdTankPassControl);
++    Call_PushCell(previous);Call_PushCell(client);Call_PushCell(passes);
++    Call_Finish();
+ }
+ 
+-Action TankDeath_Timer(Handle hTimer)
++void Tanks_PlayerDeath(Event event)
+ {
+-	Call_StartForward(g_hFwdTankDeath);
+-	Call_PushCell(g_iTankClient);
+-	Call_Finish();
++    int client = GetClientOfUserId(event.GetInt("userid"));
++    if (!g_bIsTankActive || client != g_iTankClient || GetClientFromSerial(g_TankSerial) != client
++        || g_hTankDeathTimer != null) return;
++    g_hTankDeathTimer = CreateTimer(0.5, TankDeath_Timer, g_TankSerial, TIMER_FLAG_NO_MAPCHANGE);
++}
+ 
+-	ResetStatus();
++Action TankDeath_Timer(Handle timer, int serial)
++{
++    if (timer != g_hTankDeathTimer) return Plugin_Stop;
++    g_hTankDeathTimer = null;
++    int client = GetClientFromSerial(serial);
++    if (!g_bIsTankActive || serial != g_TankSerial || client != g_iTankClient || client <= 0) {
++        ResetStatus();return Plugin_Stop;
++    }
++    ResetStatus();
++    Call_StartForward(g_hFwdTankDeath);Call_PushCell(client);Call_Finish();
++    return Plugin_Stop;
++}
+ 
+-	return Plugin_Stop;
++public void OnClientDisconnect(int client)
++{
++    if (g_bIsTankActive && client == g_iTankClient) ResetStatus();
+ }
+ 
+ static void ResetStatus()
+ {
+-	g_bIsTankActive = false;
+-	g_iTankClient = -1;
+-	g_iTankPassCount = 0;
+-
+-	if (g_hTankDeathTimer != null) {
+-		KillTimer(g_hTankDeathTimer);
+-		g_hTankDeathTimer = null;
+-	}
++    g_bIsTankActive = false;g_iTankClient = -1;g_iTankPassCount = 0;g_TankSerial = 0;
++    delete g_hTankDeathTimer;
+ }

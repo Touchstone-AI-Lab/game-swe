@@ -1,0 +1,12 @@
+--- a/spigot/src/main/java/ru/brikster/chatty/Chatty.java
++++ b/spigot/src/main/java/ru/brikster/chatty/Chatty.java
+@@ -192,6 +192,9 @@
+         Command<CommandSender> infoCommand = Command
+                 .<CommandSender>newBuilder("chatty", CommandMeta.simple().build())
+                 .handler(handler -> {
++                    if (!(handler.getSender() instanceof org.bukkit.entity.Player)) {
++                        return;
++                    }
+                     Component component = MiniMessage.miniMessage().deserialize(
+                             "<gold><bold>Chatty</bold></gold> <gray>(v" + getDescription().getVersion() + ")</gray> - chat management system by <green>@Brikster</green>.<newline>" +
+                             "Links: <click:open_url:'https://github.com/Brikster/Chatty'><aqua>GitHub</aqua></click><newline>" +

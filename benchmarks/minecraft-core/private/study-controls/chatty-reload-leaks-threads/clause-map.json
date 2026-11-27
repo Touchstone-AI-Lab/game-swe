@@ -1,0 +1,885 @@
+{
+  "task": "minecraft/core/chatty-reload-leaks-threads",
+  "task_version": "0.2.0",
+  "exam": "benchmarks/minecraft-core/exams/chatty-reload-leaks-threads.md",
+  "cases": [
+    {
+      "id": "check:submission-shape",
+      "role": "static",
+      "clauses": [
+        "scope-1"
+      ],
+      "overlap": false,
+      "note": "required files present, no symlinks or compiled artifacts"
+    },
+    {
+      "id": "check:offline-build",
+      "role": "static",
+      "clauses": [
+        "scope-1",
+        "scope-2"
+      ],
+      "overlap": false,
+      "note": "repository builds offline after frozen paths are restored"
+    },
+    {
+      "id": "server:plugin is enabled",
+      "role": "runtime-sentinel",
+      "clauses": [],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "server:reload picks up a changed notifications.yml",
+      "role": "preserved",
+      "clauses": [
+        "task-6"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "server:notifications keep ticking after a reload",
+      "role": "preserved",
+      "clauses": [
+        "task-6"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "server:bStats metrics stay scheduled after a reload",
+      "role": "preserved",
+      "clauses": [
+        "task-4"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "server:previous ticker is stopped by a reload",
+      "role": "target",
+      "clauses": [
+        "task-2"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "server:cancelling a ticker that never started does not throw",
+      "role": "target",
+      "clauses": [
+        "task-3"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "server:reloads do not leak ticker or bStats threads",
+      "role": "target",
+      "clauses": [
+        "task-1"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "server:turning metrics off stops the bStats thread on reload",
+      "role": "target",
+      "clauses": [
+        "task-4"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "unit:ru.brikster.chatty.ConstantsTest.matchesLowercaseReplacementKey()",
+      "role": "preserved",
+      "clauses": [
+        "scope-3"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "unit:ru.brikster.chatty.ConstantsTest.doesNotMatchUnrelatedPlaceholders()",
+      "role": "preserved",
+      "clauses": [
+        "scope-3"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "unit:ru.brikster.chatty.ConstantsTest.findsReplacementKeyInsideText()",
+      "role": "preserved",
+      "clauses": [
+        "scope-3"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "unit:ru.brikster.chatty.ConstantsTest.matchesUppercaseReplacementKey()",
+      "role": "preserved",
+      "clauses": [
+        "scope-3"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "unit:ru.brikster.chatty.adventure.NativeAudienceAdapterTest.serializesClickAndHoverInLegacyCompatibleSchema()",
+      "role": "preserved",
+      "clauses": [
+        "scope-3"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "unit:ru.brikster.chatty.chat.construct.ComponentFromContextConstructorImplTest.resolvesPlaceholdersInsideMessageFormat()",
+      "role": "preserved",
+      "clauses": [
+        "scope-3"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "unit:ru.brikster.chatty.chat.construct.ComponentFromContextConstructorImplTest.doesNotResolvePlaceholdersTypedByThePlayer()",
+      "role": "preserved",
+      "clauses": [
+        "scope-3"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "unit:ru.brikster.chatty.chat.message.transform.decorations.PlayerDecorationsFormatterTest.stripsSectionCodesForPlayerWithoutPermission()",
+      "role": "preserved",
+      "clauses": [
+        "scope-3"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "unit:ru.brikster.chatty.chat.message.transform.decorations.PlayerDecorationsFormatterTest.keepsAmpersandCodesLiteralWithoutPermission()",
+      "role": "preserved",
+      "clauses": [
+        "scope-3"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "unit:ru.brikster.chatty.chat.message.transform.decorations.PlayerDecorationsFormatterTest.stripsSectionCodesEvenForPlayerWithDecorationPermission()",
+      "role": "preserved",
+      "clauses": [
+        "scope-3"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "unit:ru.brikster.chatty.chat.message.transform.decorations.PlayerDecorationsFormatterTest.appliesAmpersandColorsWithPermission()",
+      "role": "preserved",
+      "clauses": [
+        "scope-3"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "unit:ru.brikster.chatty.chat.message.transform.stage.early.moderation.ModerationReplacementTest.treatsABackslashInTheReplacementAsText()",
+      "role": "preserved",
+      "clauses": [
+        "scope-3"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "unit:ru.brikster.chatty.chat.message.transform.stage.early.moderation.ModerationReplacementTest.treatsADollarSignInTheReplacementAsText()",
+      "role": "preserved",
+      "clauses": [
+        "scope-3"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "unit:ru.brikster.chatty.chat.message.transform.stage.early.moderation.ModerationReplacementTest.survivesAReplacementEndingInADollarSign()",
+      "role": "preserved",
+      "clauses": [
+        "scope-3"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "unit:ru.brikster.chatty.chat.selection.ChatSelectorImplTest.picksTheLongestMatchingSymbol()",
+      "role": "preserved",
+      "clauses": [
+        "scope-3"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "unit:ru.brikster.chatty.chat.selection.ChatSelectorImplTest.letsAnExplicitSymbolOverrideTheSwitchedChat()",
+      "role": "preserved",
+      "clauses": [
+        "scope-3"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "unit:ru.brikster.chatty.chat.selection.ChatSelectorImplTest.picksTheLongestMatchingSymbolWhateverTheRegistrationOrder()",
+      "role": "preserved",
+      "clauses": [
+        "scope-3"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "unit:ru.brikster.chatty.chat.selection.ChatSelectorImplTest.sendsTheNextMessageIntoTheChatTheCommandRequested()",
+      "role": "preserved",
+      "clauses": [
+        "scope-3"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "unit:ru.brikster.chatty.chat.selection.ChatSelectorImplTest.skipsChatsTheSenderMayNotUse()",
+      "role": "preserved",
+      "clauses": [
+        "scope-3"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "unit:ru.brikster.chatty.chat.selection.ChatSelectorImplTest.returnsNothingWhenNoChatMatches()",
+      "role": "preserved",
+      "clauses": [
+        "scope-3"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "unit:ru.brikster.chatty.chat.selection.ChatSelectorImplTest.ignoresASwitchedChatTheSenderMayNoLongerUse()",
+      "role": "preserved",
+      "clauses": [
+        "scope-3"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "unit:ru.brikster.chatty.chat.selection.ChatSelectorImplTest.usesTheSwitchedChatWhenNoSymbolIsGiven()",
+      "role": "preserved",
+      "clauses": [
+        "scope-3"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "unit:ru.brikster.chatty.config.file.ConfigGenerationTest.[1] class ru.brikster.chatty.config.file.SettingsConfig",
+      "role": "preserved",
+      "clauses": [
+        "scope-3"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "unit:ru.brikster.chatty.config.file.ConfigGenerationTest.[2] class ru.brikster.chatty.config.file.ChatsConfig",
+      "role": "preserved",
+      "clauses": [
+        "scope-3"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "unit:ru.brikster.chatty.config.file.ConfigGenerationTest.[3] class ru.brikster.chatty.config.file.PmConfig",
+      "role": "preserved",
+      "clauses": [
+        "scope-3"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "unit:ru.brikster.chatty.config.file.ConfigGenerationTest.[4] class ru.brikster.chatty.config.file.MessagesConfig",
+      "role": "preserved",
+      "clauses": [
+        "scope-3"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "unit:ru.brikster.chatty.config.file.ConfigGenerationTest.[5] class ru.brikster.chatty.config.file.VanillaConfig",
+      "role": "preserved",
+      "clauses": [
+        "scope-3"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "unit:ru.brikster.chatty.config.file.ConfigGenerationTest.[6] class ru.brikster.chatty.config.file.ModerationConfig",
+      "role": "preserved",
+      "clauses": [
+        "scope-3"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "unit:ru.brikster.chatty.config.file.ConfigGenerationTest.[7] class ru.brikster.chatty.config.file.NotificationsConfig",
+      "role": "preserved",
+      "clauses": [
+        "scope-3"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "unit:ru.brikster.chatty.config.file.ConfigGenerationTest.[8] class ru.brikster.chatty.config.file.ReplacementsConfig",
+      "role": "preserved",
+      "clauses": [
+        "scope-3"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "unit:ru.brikster.chatty.config.file.ConfigGenerationTest.[9] class ru.brikster.chatty.config.file.ProxyConfig",
+      "role": "preserved",
+      "clauses": [
+        "scope-3"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "unit:ru.brikster.chatty.config.file.CrossServerRangeTest.loadsAChatConfiguredForCrossServerChat()",
+      "role": "preserved",
+      "clauses": [
+        "scope-3"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "unit:ru.brikster.chatty.config.file.LanguageFilesTest.[1] ru-RU",
+      "role": "preserved",
+      "clauses": [
+        "scope-3"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "unit:ru.brikster.chatty.config.file.LanguageFilesTest.[2] de-DE",
+      "role": "preserved",
+      "clauses": [
+        "scope-3"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "unit:ru.brikster.chatty.config.file.LanguageFilesTest.[3] es-ES",
+      "role": "preserved",
+      "clauses": [
+        "scope-3"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "unit:ru.brikster.chatty.config.file.LanguageFilesTest.[4] zh-CN",
+      "role": "preserved",
+      "clauses": [
+        "scope-3"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "unit:ru.brikster.chatty.config.file.UserEditedConfigTest.reloadsAfterMessagesAreAddedToANotificationList()",
+      "role": "preserved",
+      "clauses": [
+        "scope-3"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "unit:ru.brikster.chatty.config.file.UserEditedConfigTest.reloadsAfterAWholeNotificationListIsAdded()",
+      "role": "preserved",
+      "clauses": [
+        "scope-3"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "unit:ru.brikster.chatty.config.migration.V2ConfigMigratorTest.migratesVanillaMessages()",
+      "role": "preserved",
+      "clauses": [
+        "scope-3"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "unit:ru.brikster.chatty.config.migration.V2ConfigMigratorTest.migratesSettingsAndMentions()",
+      "role": "preserved",
+      "clauses": [
+        "scope-3"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "unit:ru.brikster.chatty.config.migration.V2ConfigMigratorTest.clampsCapsValuesV3WouldReject()",
+      "role": "preserved",
+      "clauses": [
+        "scope-3"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "unit:ru.brikster.chatty.config.migration.V2ConfigMigratorTest.leavesTheLanguageAloneForAnUnknownLocale()",
+      "role": "preserved",
+      "clauses": [
+        "scope-3"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "unit:ru.brikster.chatty.config.migration.V2ConfigMigratorTest.skipsChatsDisabledInV2()",
+      "role": "preserved",
+      "clauses": [
+        "scope-3"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "unit:ru.brikster.chatty.config.migration.V2ConfigMigratorTest.migratesPmWithTranslatedPlaceholders()",
+      "role": "preserved",
+      "clauses": [
+        "scope-3"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "unit:ru.brikster.chatty.config.migration.V2ConfigMigratorTest.migratesModeration()",
+      "role": "preserved",
+      "clauses": [
+        "scope-3"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "unit:ru.brikster.chatty.config.migration.V2ConfigMigratorTest.migratesChatsPreservingRangeAndClampingCooldown()",
+      "role": "preserved",
+      "clauses": [
+        "scope-3"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "unit:ru.brikster.chatty.config.migration.V2ConfigMigratorTest.migratesTheChatCommandAndItsAliases()",
+      "role": "preserved",
+      "clauses": [
+        "scope-3"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "unit:ru.brikster.chatty.config.migration.V2ConfigMigratorTest.expandsSpyFormatPlaceholder()",
+      "role": "preserved",
+      "clauses": [
+        "scope-3"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "unit:ru.brikster.chatty.config.migration.V2ConfigMigratorTest.migratesUnderscoredAndBareLocales()",
+      "role": "preserved",
+      "clauses": [
+        "scope-3"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "unit:ru.brikster.chatty.config.migration.V2ConfigMigratorTest.migratesLocaleToTheV3LanguageCode()",
+      "role": "preserved",
+      "clauses": [
+        "scope-3"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "unit:ru.brikster.chatty.config.migration.V2ConfigMigratorTest.writesASpyFormatEvenWhenV2HadNoSpySection()",
+      "role": "preserved",
+      "clauses": [
+        "scope-3"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "unit:ru.brikster.chatty.convert.ColourSpellingMatrixTest.gradientIsSupported()",
+      "role": "preserved",
+      "clauses": [
+        "scope-3"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "unit:ru.brikster.chatty.convert.ColourSpellingMatrixTest.miniMessageNamedColourIsSupported()",
+      "role": "preserved",
+      "clauses": [
+        "scope-3"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "unit:ru.brikster.chatty.convert.ColourSpellingMatrixTest.ampersandHexIsSupported()",
+      "role": "preserved",
+      "clauses": [
+        "scope-3"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "unit:ru.brikster.chatty.convert.ColourSpellingMatrixTest.bareHashHexIsNotAColourCode()",
+      "role": "preserved",
+      "clauses": [
+        "scope-3"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "unit:ru.brikster.chatty.convert.ColourSpellingMatrixTest.spigotSpreadHexIsSupported()",
+      "role": "preserved",
+      "clauses": [
+        "scope-3"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "unit:ru.brikster.chatty.convert.ColourSpellingMatrixTest.sectionSignColourIsSupported()",
+      "role": "preserved",
+      "clauses": [
+        "scope-3"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "unit:ru.brikster.chatty.convert.ColourSpellingMatrixTest.miniMessageHexIsSupported()",
+      "role": "preserved",
+      "clauses": [
+        "scope-3"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "unit:ru.brikster.chatty.convert.ColourSpellingMatrixTest.rainbowIsSupported()",
+      "role": "preserved",
+      "clauses": [
+        "scope-3"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "unit:ru.brikster.chatty.convert.ColourSpellingMatrixTest.legacyAmpersandColourIsSupported()",
+      "role": "preserved",
+      "clauses": [
+        "scope-3"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "unit:ru.brikster.chatty.convert.ColourSpellingMatrixTest.legacyDecorationIsSupported()",
+      "role": "preserved",
+      "clauses": [
+        "scope-3"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "unit:ru.brikster.chatty.convert.message.LegacyToMiniMessageConverterTest.convertSectionCodesIsCaseInsensitive()",
+      "role": "preserved",
+      "clauses": [
+        "scope-3"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "unit:ru.brikster.chatty.convert.message.LegacyToMiniMessageConverterTest.convertSectionCodesLeavesPlainTextUntouched()",
+      "role": "preserved",
+      "clauses": [
+        "scope-3"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "unit:ru.brikster.chatty.convert.message.LegacyToMiniMessageConverterTest.convertSectionCodesIgnoresAmpersandCodes()",
+      "role": "preserved",
+      "clauses": [
+        "scope-3"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "unit:ru.brikster.chatty.convert.message.LegacyToMiniMessageConverterTest.convertSectionCodesConvertsResetCode()",
+      "role": "preserved",
+      "clauses": [
+        "scope-3"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "unit:ru.brikster.chatty.convert.message.LegacyToMiniMessageConverterTest.convertsAmpersandColorCode()",
+      "role": "preserved",
+      "clauses": [
+        "scope-3"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "unit:ru.brikster.chatty.convert.message.LegacyToMiniMessageConverterTest.convertSectionCodesStripsStraySectionSigns()",
+      "role": "preserved",
+      "clauses": [
+        "scope-3"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "unit:ru.brikster.chatty.convert.message.LegacyToMiniMessageConverterTest.convertsDecorationCode()",
+      "role": "preserved",
+      "clauses": [
+        "scope-3"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "unit:ru.brikster.chatty.convert.message.LegacyToMiniMessageConverterTest.messageWithLegacyCodesSurvivesTheConstructPipeline()",
+      "role": "preserved",
+      "clauses": [
+        "scope-3"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "unit:ru.brikster.chatty.convert.message.LegacyToMiniMessageConverterTest.convertsSectionColorCode()",
+      "role": "preserved",
+      "clauses": [
+        "scope-3"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "unit:ru.brikster.chatty.convert.message.LegacyToMiniMessageConverterTest.convertSectionCodesMakesBotMessageSafeForStrictMiniMessage()",
+      "role": "preserved",
+      "clauses": [
+        "scope-3"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "unit:ru.brikster.chatty.convert.message.LegacyToMiniMessageConverterTest.convertsHexColorCode()",
+      "role": "preserved",
+      "clauses": [
+        "scope-3"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "unit:ru.brikster.chatty.convert.message.LegacyToMiniMessageConverterTest.leavesPlainTextUntouched()",
+      "role": "preserved",
+      "clauses": [
+        "scope-3"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "unit:ru.brikster.chatty.convert.message.LegacyToMiniMessageConverterTest.convertSectionCodesConvertsSectionColorCode()",
+      "role": "preserved",
+      "clauses": [
+        "scope-3"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "unit:ru.brikster.chatty.notification.ActionbarNotificationSoundTest.playsTheSoundOncePerMessageRatherThanEveryTick()",
+      "role": "preserved",
+      "clauses": [
+        "scope-3"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "unit:ru.brikster.chatty.notification.ActionbarNotificationSoundTest.playsNoSoundWhenNoneIsConfigured()",
+      "role": "preserved",
+      "clauses": [
+        "scope-3"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "unit:ru.brikster.chatty.pm.targets.RemotePmMessageTargetTest.resolvesByNameWhenTheProxyDoesNotKnowTheUuid()",
+      "role": "preserved",
+      "clauses": [
+        "scope-3"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "unit:ru.brikster.chatty.pm.targets.RemotePmMessageTargetTest.resolvesByUuidWhenTheProxyKnowsIt()",
+      "role": "preserved",
+      "clauses": [
+        "scope-3"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "unit:ru.brikster.chatty.util.AdventureUtilTest.leavesTextWithoutMatchesUnchanged()",
+      "role": "preserved",
+      "clauses": [
+        "scope-3"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "unit:ru.brikster.chatty.util.AdventureUtilTest.preservesClickEventOfReplacementComponent()",
+      "role": "preserved",
+      "clauses": [
+        "scope-3"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "unit:ru.brikster.chatty.util.AdventureUtilTest.replacesPlaceholderWithComponent()",
+      "role": "preserved",
+      "clauses": [
+        "scope-3"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "unit:ru.brikster.chatty.util.AdventureUtilTest.keepsTextWhenReplacementFunctionReturnsNull()",
+      "role": "preserved",
+      "clauses": [
+        "scope-3"
+      ],
+      "overlap": false,
+      "note": ""
+    }
+  ],
+  "clauses": [
+    {
+      "id": "task-1",
+      "anchor": "Task, first bullet: after any number of reloads the set of live plugin-owned threads does not grow",
+      "status": "asserted"
+    },
+    {
+      "id": "task-2",
+      "anchor": "Task, second bullet: the replaced ticker stops for good and every ExecutorService it holds is shut down",
+      "status": "asserted"
+    },
+    {
+      "id": "task-3",
+      "anchor": "Task, third bullet: cancelTicking() on a ticker that never started returns normally",
+      "status": "asserted"
+    },
+    {
+      "id": "task-4",
+      "anchor": "Task, fourth bullet: bStats follows send-metrics across reloads (alive when on, gone after it is switched off)",
+      "status": "asserted"
+    },
+    {
+      "id": "task-5",
+      "anchor": "Task, fifth bullet: the Redisson client of the replaced configuration is shut down",
+      "status": "unasserted",
+      "note": "no Redis in the verifier; part of the repair but not graded"
+    },
+    {
+      "id": "task-6",
+      "anchor": "Task, sixth bullet: reload still succeeds, picks up changed configuration and notifications keep ticking",
+      "status": "asserted"
+    },
+    {
+      "id": "scope-1",
+      "anchor": "Task, closing paragraphs: keep the change inside plugin/spigot/src/main/java and keep the reflected types and fields",
+      "status": "weak",
+      "note": "only enforced through the build, the restored frozen paths and the reflective lookups"
+    },
+    {
+      "id": "scope-2",
+      "anchor": "Task, closing paragraph: build files, wrapper and tests are frozen",
+      "status": "asserted"
+    },
+    {
+      "id": "scope-3",
+      "anchor": "Task, sixth bullet: every upstream unit test keeps passing",
+      "status": "asserted"
+    }
+  ],
+  "excluded_clauses": [],
+  "known_issues": []
+}

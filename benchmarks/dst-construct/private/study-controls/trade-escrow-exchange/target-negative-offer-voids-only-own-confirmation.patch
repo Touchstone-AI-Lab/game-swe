@@ -1,0 +1,13 @@
+--- a/scripts/tradeescrow/escrow.lua
++++ b/scripts/tradeescrow/escrow.lua
+@@ -282,9 +282,7 @@
+     side.items = copy_items(items)
+     side.revision = revision
+     -- Any accepted change, by either party, voids BOTH confirmations.
+-    for _, party in ipairs(trade.order) do
+-        trade.sides[party].confirmed = false
+-    end
++    side.confirmed = false
+     return result(true, "offered", trade, { revision = revision })
+ end
+ 

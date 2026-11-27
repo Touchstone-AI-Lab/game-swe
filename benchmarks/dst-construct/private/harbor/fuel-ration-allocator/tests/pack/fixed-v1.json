@@ -1,0 +1,273 @@
+{
+  "id": "rhenium-dst-v2",
+  "version": "2.1.0",
+  "game": "dst",
+  "name": {
+    "en": "Rhenium: Original Don't Starve Together Systems Tasks",
+    "zh": "Rhenium：《饥荒联机版》原创系统工程题"
+  },
+  "description": {
+    "en": "Ten independently authored hard engineering tasks built only around base-game Don't Starve Together APIs, prefabs, components, and assets.",
+    "zh": "十道独立设计的高难度工程题，仅使用《饥荒联机版》原版 API、prefab、组件与资源。"
+  },
+  "tasks": [
+    {
+      "id": "fuel-ration-allocator",
+      "difficulty": "hard",
+      "title": {
+        "en": "Server-authoritative Camp Fuel Ration Allocator",
+        "zh": "服务端权威营地燃料配给器"
+      },
+      "summary": {
+        "en": "Ration a shared fuel depot to tracked fires by priority class and integer max-min fairness, reserving each share until the real fueled component has accepted it.",
+        "zh": "按优先级分类和整数 max-min 公平把共享燃料库配给给被跟踪的火堆，每份配额在真实 fueled 组件接受之前只是预留。"
+      },
+      "brief": {
+        "en": "Create a pure integer allocator plus a master-simulation world component. Players deposit whitelisted fuel items from their real inventory into a bounded depot; each round the server reports real fuel levels, plans shares class by class with water-filling, a per-round cap and a reserve floor, adds fuel through fueled:DoDelta, commits what was really accepted, rolls back the rest, and persists depot, open round, request history and contributions.",
+        "zh": "创建纯整数配给核心和主模拟世界组件。玩家把白名单内的燃料物品从真实库存存入有容量上限的燃料库；每轮由服务端上报真实燃料水位，按优先级逐类做注水式分配（含单轮上限与保底库存），通过 fueled:DoDelta 加燃料，按真实接受量提交、其余回滚，并持久化库存、未结束轮次、请求历史与玩家贡献。"
+      },
+      "requirements": {
+        "en": [
+          "Export Allocator.new(options), Allocator.load(data, options), deposit(request_id, player_id, units, now), lookup(request_id, player_id), register(consumer_id, priority, capacity, now), unregister(consumer_id, now), report(consumer_id, level, now), plan(round_id, now), commit(round_id, consumer_id, delivered_units, now), abort(round_id, consumer_id, now), close(round_id, now), snapshot(now), and save(now).",
+          "Validate in the published order: finite non-negative non-decreasing time, identifiers of 1 to 64 characters, then integer quantities; reject fractions, NaN, infinities, negatives and non-numbers with the published codes and without changing state or the clock.",
+          "Deduplicate deposits by (player_id, request_id), replaying the first recorded outcome; accept only the free space of the depot (partial), reject with depot_full when none is free, and count reserved units against depot_capacity.",
+          "Plan class by class in ascending priority; inside a class hand out one unit at a time to the unsatisfied consumer holding the fewest units, ties to the smallest consumer id, never above min(demand, max_units_per_round) and never touching reserve_floor units.",
+          "Allow one open round; a plan retry with the open id returns the identical shares without reserving again, another id is round_open, and closed ids answer round_closed forever.",
+          "Settle each share exactly once: commit delivers at most the planned units and returns the rest, abort returns everything, repeats replay the first settlement, close aborts pending shares, and unregistering a consumer aborts its pending share.",
+          "Treat report time as measurement time: strictly older than the consumer's last report is stale, levels clamp to capacity, and reports never touch the global clock.",
+          "Snapshots are fresh and deterministically ordered; save/load round-trips plain data including clock, an open round with partially settled shares, request history, closed round ids and per-player contributions. The world component runs only on the master simulation and persists this state through OnSave/OnLoad."
+        ],
+        "zh": [
+          "导出 Allocator.new(options)、Allocator.load(data, options)、deposit、lookup、register、unregister、report、plan、commit、abort、close、snapshot 与 save，参数顺序以题面为准。",
+          "按公布顺序校验：有限、非负、不回退的时间，1 到 64 字符的标识，再到整数数量；小数、NaN、无穷、负数和非 number 以公布的错误码拒绝，且不改变状态和时钟。",
+          "存入按 (player_id, request_id) 去重并重放首次结果；只接受燃料库的剩余空间（partial），没有空间时以 depot_full 拒绝，预留单位同样占用 depot_capacity。",
+          "按优先级升序逐类分配；类内每次把一个单位给当前分得最少且未满足的消费者，平局取最小 consumer id，不超过 min(demand, max_units_per_round)，且不动用 reserve_floor。",
+          "同一时间只允许一个未结束轮次；用同一 id 重试 plan 返回完全相同的份额且不重复预留，其它 id 返回 round_open，已关闭的 id 永远返回 round_closed。",
+          "每份配额恰好结算一次：commit 最多交付计划单位并退回其余，abort 全部退回，重复调用重放首次结算，close 中止未结算份额，注销消费者会中止其未结算份额。",
+          "report 的时间是测量时间：严格早于该消费者上次上报的为 stale，水位按 capacity 截断，且 report 不读写全局时钟。",
+          "快照为新表且顺序确定；save/load 以纯数据往返时钟、含部分结算份额的未结束轮次、请求历史、已关闭轮次 id 与玩家贡献。世界组件仅在主模拟运行，并通过 OnSave/OnLoad 持久化该状态。"
+        ]
+      },
+      "api_usage": {
+        "en": [
+          "Attach with AddPrefabPostInit(\"world\", ...) behind inst.ismastersim and inst:AddComponent(\"fuelration\"); register AddModRPCHandler(\"rhenium_fuel\", \"deposit\", function(player, request_id, item_prefab, count)) and take identity from player.userid.",
+          "Read entity.components.fueled.maxfuel and currentfuel; capacity = floor(maxfuel / 15), level = min(capacity, ceil(currentfuel / 15)); deliver with fueled:DoDelta(units * 15) and commit floor((after - before) / 15) clamped to the planned units.",
+          "Check inventory:Has(prefab, count) and remove with inventory:ConsumeByName(prefab, count) (or RemoveItem) all-or-nothing, crediting the depot only after the items are gone.",
+          "Listen with ListenForEvent(\"onremove\", fn, entity) per tracked entity and remove the same function with RemoveEventCallback in Untrack and OnRemoveFromEntity; run rounds from self.inst:DoPeriodicTask and cancel the task with task:Cancel().",
+          "Expose Track, Untrack, Deposit, RunRound, Snapshot, OnSave, OnLoad and OnRemoveFromEntity; OnLoad keeps time non-decreasing although GetTime() restarts, closes a restored open round and reconciles consumers with the entities still tracked."
+        ],
+        "zh": [
+          "在 inst.ismastersim 保护下用 AddPrefabPostInit(\"world\", ...) 与 inst:AddComponent(\"fuelration\") 挂载；注册 AddModRPCHandler(\"rhenium_fuel\", \"deposit\", function(player, request_id, item_prefab, count))，身份取自 player.userid。",
+          "读取 entity.components.fueled.maxfuel 与 currentfuel；capacity = floor(maxfuel / 15)，level = min(capacity, ceil(currentfuel / 15))；用 fueled:DoDelta(units * 15) 交付，并按 floor((after - before) / 15) 截断到计划单位后提交。",
+          "用 inventory:Has(prefab, count) 预检，用 inventory:ConsumeByName(prefab, count)（或 RemoveItem）整体移除，物品确实移除后才记入燃料库。",
+          "对每个被跟踪实体 ListenForEvent(\"onremove\", fn, entity)，并在 Untrack 与 OnRemoveFromEntity 中用同一函数 RemoveEventCallback；用 self.inst:DoPeriodicTask 运行周期轮次并以 task:Cancel() 取消。",
+          "公开 Track、Untrack、Deposit、RunRound、Snapshot、OnSave、OnLoad 与 OnRemoveFromEntity；OnLoad 在 GetTime() 重新计时的情况下保持时间不回退，关闭恢复出的未结束轮次，并按仍被跟踪的实体对账消费者。"
+        ]
+      },
+      "acceptance": {
+        "en": [
+          "Units are conserved: deposited_total always equals available + reserved + delivered_total and the depot never goes negative.",
+          "Retried deposits, plans, commits, aborts and closes never move units twice.",
+          "Priority, fairness, the per-round cap and the reserve floor are visible in exact integer shares.",
+          "An open round with partially settled shares, request history and contributions survive save and load.",
+          "The dedicated server verifies real inventory removal, real fueled.currentfuel increases per share, release of removed fires, reload reconciliation and listener/task cleanup."
+        ],
+        "zh": [
+          "单位守恒：deposited_total 恒等于 available + reserved + delivered_total，库存不会为负。",
+          "重试的存入、计划、提交、中止与关闭不会让单位移动两次。",
+          "优先级、公平性、单轮上限和保底库存体现在精确的整数份额上。",
+          "含部分结算份额的未结束轮次、请求历史与玩家贡献在保存加载后保持一致。",
+          "专服验证真实库存扣除、真实 fueled.currentfuel 按份额上升、被移除火堆的释放、重载对账以及监听与任务清理。"
+        ]
+      },
+      "domains": [
+        "resource-allocation",
+        "fairness",
+        "fueled",
+        "persistence"
+      ],
+      "estimated_minutes": 390,
+      "core_module": "scripts/fuelration/allocator.lua",
+      "hidden_test": "hidden/fuel-ration-allocator.lua",
+      "server_test": "server/fuel-ration-allocator.lua",
+      "hidden_cases": [
+        "quantities and time are validated before any state change",
+        "deposits deduplicate and respect depot capacity",
+        "plan is priority ordered max-min fair with cap and floor",
+        "plan retries are identical and only one round is open",
+        "shares settle exactly once and rollback returns units",
+        "snapshots are fresh and save load preserves an open round"
+      ],
+      "server_cases": [
+        "fuelration is attached with server authority",
+        "deposit removes real items and credits the depot once",
+        "round fuels real fires by priority and fairness",
+        "removed fires are released and state survives reload"
+      ],
+      "required_files": [
+        "modinfo.lua",
+        "modmain.lua",
+        "scripts/fuelration/allocator.lua",
+        "scripts/components/fuelration.lua"
+      ],
+      "minimum_lua_lines": 260,
+      "integration_checks": [
+        {
+          "id": "fuel-authority",
+          "label": {
+            "en": "Master authority",
+            "zh": "主模拟权威"
+          },
+          "weight": 4,
+          "groups": [
+            {
+              "name": "guard",
+              "any_of": [
+                "TheWorld\\.ismastersim",
+                "inst\\.ismastersim",
+                "world\\.ismastersim"
+              ]
+            },
+            {
+              "name": "world hook",
+              "any_of": [
+                "AddPrefabPostInit\\s*\\(\\s*[\\\"']world[\\\"']"
+              ]
+            },
+            {
+              "name": "server component",
+              "any_of": [
+                "AddComponent\\s*\\(\\s*[\\\"']fuelration[\\\"']"
+              ]
+            }
+          ],
+          "none_of": [
+            "TODO",
+            "IMPLEMENT\\s+ME"
+          ]
+        },
+        {
+          "id": "fuel-real-components",
+          "label": {
+            "en": "Real fueled and inventory components",
+            "zh": "真实 fueled 与 inventory 组件"
+          },
+          "weight": 4,
+          "groups": [
+            {
+              "name": "fueled component",
+              "any_of": [
+                "components\\.fueled"
+              ]
+            },
+            {
+              "name": "fuel levels",
+              "any_of": [
+                "\\.currentfuel"
+              ]
+            },
+            {
+              "name": "fuel capacity",
+              "any_of": [
+                "\\.maxfuel"
+              ]
+            },
+            {
+              "name": "deliver fuel",
+              "any_of": [
+                ":DoDelta\\s*\\("
+              ]
+            },
+            {
+              "name": "inventory precheck",
+              "any_of": [
+                ":Has\\s*\\("
+              ]
+            },
+            {
+              "name": "inventory removal",
+              "any_of": [
+                ":ConsumeByName\\s*\\(",
+                ":RemoveItem\\s*\\("
+              ]
+            }
+          ]
+        },
+        {
+          "id": "fuel-rpc-identity",
+          "label": {
+            "en": "Validated RPC and server identity",
+            "zh": "经校验的 RPC 与服务端身份"
+          },
+          "weight": 3,
+          "groups": [
+            {
+              "name": "RPC",
+              "any_of": [
+                "AddModRPCHandler\\s*\\(\\s*[\\\"']rhenium_fuel[\\\"']\\s*,\\s*[\\\"']deposit[\\\"']"
+              ]
+            },
+            {
+              "name": "identity",
+              "any_of": [
+                "\\.userid"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "fuel-lifecycle",
+          "label": {
+            "en": "Persistence and cleanup",
+            "zh": "持久化与清理"
+          },
+          "weight": 4,
+          "groups": [
+            {
+              "name": "listen onremove",
+              "any_of": [
+                "ListenForEvent\\s*\\(\\s*[\\\"']onremove[\\\"']"
+              ]
+            },
+            {
+              "name": "remove callback",
+              "any_of": [
+                "RemoveEventCallback\\s*\\(\\s*[\\\"']onremove[\\\"']"
+              ]
+            },
+            {
+              "name": "periodic round",
+              "any_of": [
+                "DoPeriodicTask\\s*\\("
+              ]
+            },
+            {
+              "name": "cancel task",
+              "any_of": [
+                ":Cancel\\s*\\("
+              ]
+            },
+            {
+              "name": "save/load",
+              "any_of": [
+                ":OnSave\\s*\\("
+              ]
+            },
+            {
+              "name": "load",
+              "any_of": [
+                ":OnLoad\\s*\\("
+              ]
+            },
+            {
+              "name": "component removal",
+              "any_of": [
+                ":OnRemoveFromEntity\\s*\\("
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

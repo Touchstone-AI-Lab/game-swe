@@ -1,0 +1,54 @@
+{
+  "protocol": "v2",
+  "task": "shop-price-coherence-v2",
+  "slot": "H2",
+  "target_difficulty": "hard",
+  "calibration_status": "unmeasured",
+  "calibration_model": null,
+  "calibration_evidence": [],
+  "formal_integration_status": "not_implemented",
+  "files": {
+    "CONTRACT.md": {
+      "size": 4193,
+      "sha256": "a3587c3bdf20f5735f16dc6f71b65312637e5802cd9681e97a3fe34c04f3d386"
+    },
+    "README.md": {
+      "size": 1373,
+      "sha256": "62521eff01c1fa4aecc8b7a68225b9bace38e592b9e0a70ad384bd2e2bb1259d"
+    },
+    "API.md": {
+      "size": 5014,
+      "sha256": "930780f75150f42a7c2deabfb4011d9aec93b0602888e3ccafdc4005d5cc3e09"
+    },
+    "starter/main.lua": {
+      "size": 176,
+      "sha256": "7de53f38224035c053e7cb6dbfa8c3402cf9e006934820e4fe2f71d7fc57b9f7"
+    },
+    "starter/adapter.lua": {
+      "size": 2567,
+      "sha256": "d1533a05357eedeba5085fab7d9aefc3716217c1b935ffc94c2234b300cd7bc3"
+    },
+    "starter/lib/pricing.lua": {
+      "size": 565,
+      "sha256": "a48a63b117e347bba49fdf536b97632bc765ec207ed4072c5d68ac26fc53043a"
+    },
+    "starter/lib/ledger.lua": {
+      "size": 3595,
+      "sha256": "baa323c3ae620f7a8a69fc5c45cff7c2b3438a2de57699eb02057696b4fa08b4"
+    },
+    "starter/shop_price_coherence_v2.json": {
+      "size": 309,
+      "sha256": "5f54926880aa80a79f8450e35821dbe02bb064a185161323e42b783db5034dc0"
+    }
+  },
+  "content_sha256": "e7d51c97a23054e0ac004f302d59b05d3a303834e6c30b643ad9036a9eb0ec5f",
+  "editable_files": [
+    "starter/main.lua",
+    "starter/adapter.lua",
+    "starter/lib/pricing.lua",
+    "starter/lib/ledger.lua"
+  ],
+  "immutable_files": [
+    "starter/shop_price_coherence_v2.json"
+  ]
+}

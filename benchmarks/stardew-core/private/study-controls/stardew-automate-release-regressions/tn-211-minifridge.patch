@@ -1,0 +1,11 @@
+diff -ruN a/Automate/Framework/AutomateConstants.cs b/Automate/Framework/AutomateConstants.cs
+--- a/Automate/Framework/AutomateConstants.cs
++++ b/Automate/Framework/AutomateConstants.cs
+@@ -19,7 +19,6 @@
+             return
+             [
+                 "130", // chest
+-                "216", // mini-fridge
+                 "232", // stone chest
+                 "256", // Junimo chest
+                 "BigChest",

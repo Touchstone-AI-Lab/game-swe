@@ -1,0 +1,63 @@
+--- a/spigot/src/main/java/ru/brikster/chatty/Chatty.java
++++ b/spigot/src/main/java/ru/brikster/chatty/Chatty.java
+@@ -79,6 +79,10 @@
+ import java.nio.file.Files;
+ import java.nio.file.Path;
+ import java.util.ArrayList;
++import java.util.Iterator;
++import java.util.LinkedHashMap;
++import java.util.LinkedHashSet;
++import java.util.Set;
+ import java.util.List;
+ import java.util.Map;
+ import java.util.concurrent.ConcurrentHashMap;
+@@ -90,6 +94,8 @@
+ 
+     private final Map<String, ProxyingCommandHandler<CommandSender>> proxyingCommandHandlerMap = new ConcurrentHashMap<>();
+ 
++    private final Set<String> registeredChatCommandNames = new LinkedHashSet<>();
++
+     private Injector injector;
+ 
+     private NotificationTicker notificationTicker;
+@@ -320,6 +326,10 @@
+ 
+         ChattyApiImpl.updateInstance(new ChattyApiImpl(injector.getInstance(ChatRegistry.class).getChats()));
+ 
++        if (syncCommandManager != null) {
++            registerChatCommands();
++        }
++
+         MetricsSender metricsSender = new MetricsSender();
+         injector.injectMembers(metricsSender);
+         metricsSender.run();
+@@ -444,24 +454,24 @@
+     }
+ 
+     private void registerChatCommands() {
+-        ChatCommandHandler handler = injector.getInstance(ChatCommandHandler.class);
+         for (Chat chat : injector.getInstance(ChatRegistry.class).getChats().values()) {
+             ChatCommand chatCommand = chat.getCommand();
+-            if (chatCommand == null) {
++            if (chatCommand == null || !registeredChatCommandNames.add(chatCommand.getName())) {
+                 continue;
+             }
++            String chatId = chat.getId();
+             String[] aliases = chatCommand.getAliases().toArray(new String[0]);
+             syncCommandManager.command(syncCommandManager
+                     .commandBuilder(chatCommand.getName(), aliases)
+                     .senderType(Player.class)
+                     .argument(StringArgument.<CommandSender>builder("message").greedy().asOptional().build())
+                     .handler(context -> {
+-                        context.set("chat-id", chat.getId());
+-                        handler.execute(context);
++                        context.set("chat-id", chatId);
++                        injector.getInstance(ChatCommandHandler.class).execute(context);
+                     })
+                     .build());
+             getLogger().log(Level.INFO, "Registered chat command /{0} for chat \"{1}\"",
+-                    new Object[]{chatCommand.getName(), chat.getId()});
++                    new Object[]{chatCommand.getName(), chatId});
+         }
+     }
+ 

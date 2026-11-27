@@ -1,0 +1,22 @@
+control	kind	base	overlay	root	note
+alternative-a	alternative	starter	tree:alternative-a	.	structurally different implementation written from the public exam only
+target-negative-clock-advances-before-validation	target-negative	reference	patch:target-negative-clock-advances-before-validation.patch	.	fails: 
+target-negative-closed-round-id-reusable	target-negative	reference	patch:target-negative-closed-round-id-reusable.patch	.	fails: 
+target-negative-dedupe-ignores-player	target-negative	reference	patch:target-negative-dedupe-ignores-player.patch	.	fails: 
+target-negative-fairness-tie-to-largest-id	target-negative	reference	patch:target-negative-fairness-tie-to-largest-id.patch	.	fails: 
+target-negative-load-drops-open-round	target-negative	reference	patch:target-negative-load-drops-open-round.patch	.	fails: 
+target-negative-plan-retry-recomputes	target-negative	reference	patch:target-negative-plan-retry-recomputes.patch	.	fails: 
+target-negative-repeat-commit-settles-again	target-negative	reference	patch:target-negative-repeat-commit-settles-again.patch	.	fails: 
+target-negative-reserve-floor-ignored	target-negative	reference	patch:target-negative-reserve-floor-ignored.patch	.	fails: 
+target-negative-reserved-units-ignore-capacity	target-negative	reference	patch:target-negative-reserved-units-ignore-capacity.patch	.	fails: 
+target-negative-server-commits-planned-without-measuring	target-negative	reference	patch:target-negative-server-commits-planned-without-measuring.patch	.	fails: 
+target-negative-server-level-rounds-down	target-negative	reference	patch:target-negative-server-level-rounds-down.patch	.	fails: 
+target-negative-server-load-skips-reconcile	target-negative	reference	patch:target-negative-server-load-skips-reconcile.patch	.	fails: 
+target-negative-server-onremove-handler-does-nothing	target-negative	reference	patch:target-negative-server-onremove-handler-does-nothing.patch	.	fails: 
+target-negative-server-retry-removes-items-again	target-negative	reference	patch:target-negative-server-retry-removes-items-again.patch	.	fails: 
+target-negative-server-rpc-wrong-argument-order	target-negative	reference	patch:target-negative-server-rpc-wrong-argument-order.patch	.	fails: 
+target-negative-server-session-time-without-offset	target-negative	reference	patch:target-negative-server-session-time-without-offset.patch	.	fails: 
+target-negative-server-task-not-cancelled	target-negative	reference	patch:target-negative-server-task-not-cancelled.patch	.	fails: 
+target-negative-snapshot-leaks-consumer-rows	target-negative	reference	patch:target-negative-snapshot-leaks-consumer-rows.patch	.	fails: 
+target-negative-stale-report-accepted	target-negative	reference	patch:target-negative-stale-report-accepted.patch	.	fails: 
+target-negative-unregister-keeps-share-reserved	target-negative	reference	patch:target-negative-unregister-keeps-share-reserved.patch	.	fails: 

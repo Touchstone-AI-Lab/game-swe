@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <OutputType>Exe</OutputType>
+    <LangVersion>preview</LangVersion>
+    <ImplicitUsings>disable</ImplicitUsings>
+    <Nullable>disable</Nullable>
+    <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
+    <CandidateRoot Condition="'$(CandidateRoot)' == ''">../environment/starlight-river</CandidateRoot>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="$(CandidateRoot)/Content/Abilities/Ability.cs" Link="Production/Ability.cs" />
+    <Compile Include="$(CandidateRoot)/Content/Abilities/AbilityHandler.cs" Link="Production/AbilityHandler.cs" />
+    <Compile Include="$(CandidateRoot)/Content/Abilities/ShardSet.cs" Link="Production/ShardSet.cs" />
+    <Compile Include="$(CandidateRoot)/Content/Abilities/InfusionItem.cs" Link="Production/InfusionItem.cs" />
+    <Compile Include="$(CandidateRoot)/Content/Abilities/InfusionTier.cs" Link="Production/InfusionTier.cs" />
+    <Compile Include="$(CandidateRoot)/Content/Packets/AbilityProgress.cs" Link="Production/AbilityProgress.cs" />
+    <Compile Include="$(CandidateRoot)/Content/Packets/StartAbility.cs" Link="Production/StartAbility.cs" />
+    <Compile Include="VerifierSupport.cs" />
+    <Compile Include="Program.cs" />
+  </ItemGroup>
+</Project>

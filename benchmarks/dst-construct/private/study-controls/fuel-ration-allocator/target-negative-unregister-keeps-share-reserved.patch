@@ -1,0 +1,13 @@
+--- a/scripts/fuelration/allocator.lua
++++ b/scripts/fuelration/allocator.lua
+@@ -201,10 +201,6 @@
+     end
+     local returned = 0
+     local share = self.round ~= nil and self.round.shares[consumer_id] or nil
+-    if share ~= nil and share.status == "pending" then
+-        returned = share.units
+-        self:_settle(share, "aborted", 0)
+-    end
+     self.consumers[consumer_id] = nil
+     return { ok = true, status = "unregistered", returned = returned }
+ end

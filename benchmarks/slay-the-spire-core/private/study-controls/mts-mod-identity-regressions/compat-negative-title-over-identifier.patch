@@ -1,0 +1,13 @@
+diff --git a/src/main/java/com/evacipated/cardcrawl/modthespire/ModInfo.java b/src/main/java/com/evacipated/cardcrawl/modthespire/ModInfo.java
+index a404941..19a7521 100644
+--- a/src/main/java/com/evacipated/cardcrawl/modthespire/ModInfo.java
++++ b/src/main/java/com/evacipated/cardcrawl/modthespire/ModInfo.java
+@@ -59,7 +59,7 @@ public class ModInfo implements Serializable
+     }
+ 
+     public String getIDName() {
+-        if (ID == null || ID.isEmpty()) {
++        if (ID == null || ID.isEmpty() || Name != null) {
+             return Name;
+         } else {
+             return ID;

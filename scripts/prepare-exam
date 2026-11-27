@@ -1,0 +1,71 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+usage() {
+  cat >&2 <<'EOF'
+Usage: prepare-exam <game-id/pack-id/task-id> <attempt-dir> [strict|practice]
+
+The selected benchmark plugin creates the public bundle. The attempt directory
+must be empty and must live outside the benchmark repository.
+EOF
+}
+
+fail() {
+  printf 'prepare-exam: %s\n' "$1" >&2
+  exit 2
+}
+
+if [[ ${1:-} == "-h" || ${1:-} == "--help" ]]; then
+  usage
+  exit 0
+fi
+
+if (( $# < 2 || $# > 3 )); then
+  usage
+  exit 2
+fi
+
+task_key=$1
+destination_input=$2
+mode=${3:-strict}
+root=$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd -P)
+scorer="$root/scripts/score-exam"
+benchmark_path=${RHENIUM_BENCHMARK_PATH:-$root/benchmarks}
+state_dir=${RHENIUM_STATE_DIR:-$root/.rhenium/hub}
+cache_dir=${RHENIUM_CACHE_DIR:-$state_dir/cache}
+database_url=${RHENIUM_DATABASE_URL:-sqlite:///$state_dir/state.sqlite}
+
+case "$mode" in
+  strict|practice) ;;
+  *) fail "mode must be strict or practice" ;;
+esac
+
+parent_input=$(dirname "$destination_input")
+[[ -d "$parent_input" ]] || fail "attempt parent directory does not exist: $parent_input"
+[[ ! -L "$destination_input" ]] || fail "attempt path must not be a symbolic link: $destination_input"
+if [[ -d "$destination_input" ]] && [[ -n "$(find "$destination_input" -mindepth 1 -maxdepth 1 -print -quit)" ]]; then
+  fail "attempt directory is not empty: $destination_input"
+fi
+
+command=(prepare-attempt "$task_key" "$destination_input" --mode "$mode" --score-command "$scorer")
+common_environment=(
+  RHENIUM_ROOT="$root"
+  RHENIUM_BENCHMARK_PATH="$benchmark_path"
+  RHENIUM_STATE_DIR="$state_dir"
+  RHENIUM_CACHE_DIR="$cache_dir"
+  RHENIUM_DATABASE_URL="$database_url"
+)
+
+if command -v rhenium >/dev/null 2>&1; then
+  env "${common_environment[@]}" rhenium "${command[@]}" >/dev/null
+else
+  env \
+    "${common_environment[@]}" \
+    PYTHONPATH="$root/src${PYTHONPATH:+:$PYTHONPATH}" \
+    python3 -m rhenium.cli "${command[@]}" >/dev/null
+fi
+
+destination=$(cd "$destination_input" && pwd -P)
+printf 'Prepared anonymous %s attempt at %s\n' "$mode" "$destination"
+printf "Start Codex:      cd %q && codex \"\$(cat PROMPT.md)\"\n" "$destination"
+printf "Start Claude Code: cd %q && claude \"\$(cat PROMPT.md)\"\n" "$destination"

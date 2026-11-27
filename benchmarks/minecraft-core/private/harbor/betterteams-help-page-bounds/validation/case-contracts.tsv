@@ -1,0 +1,55 @@
+case	layer	role	public_report
+sort() Tests.testComplexGraph	unit	preserved	upstream unit test must keep passing
+sort() Tests.testHardCircularDependency	unit	preserved	upstream unit test must keep passing
+sort() Tests.testNoDependencies	unit	preserved	upstream unit test must keep passing
+sort() Tests.testTransitiveDependency	unit	preserved	upstream unit test must keep passing
+scanExtensions() Tests.testMixedValidAndInvalid	unit	preserved	upstream unit test must keep passing
+scanExtensions() Tests.testDuplicateNames	unit	preserved	upstream unit test must keep passing
+scanExtensions() Tests.testMultipleValidJars	unit	preserved	upstream unit test must keep passing
+ExtensionClassLoader Global Access Tests.testLoadClassFromOtherExtension	unit	preserved	upstream unit test must keep passing
+ExtensionClassLoader Global Access Tests.testClassNotFound	unit	preserved	upstream unit test must keep passing
+ExtensionClassLoader Global Access Tests.testSelfPriority	unit	preserved	upstream unit test must keep passing
+fromYaml() Loading Tests.testDefaultValues	unit	preserved	upstream unit test must keep passing
+fromYaml() Loading Tests.testNullFile	unit	preserved	upstream unit test must keep passing
+fromYaml() Loading Tests.testMissingYml	unit	preserved	upstream unit test must keep passing
+fromYaml() Loading Tests.testMissingMainInYml	unit	preserved	upstream unit test must keep passing
+fromYaml() Loading Tests.testMissingMainClassInJar	unit	preserved	upstream unit test must keep passing
+fromYaml() Loading Tests.testSuccessfulLoad	unit	preserved	upstream unit test must keep passing
+fromYaml() Loading Tests.testNonExistentFile	unit	preserved	upstream unit test must keep passing
+unload() Tests.testUnloadSuccess	unit	preserved	upstream unit test must keep passing
+enable() Tests.testEnableFailsMissingPluginDep	unit	preserved	upstream unit test must keep passing
+enable() Tests.testEnableAlreadyEnabled	unit	preserved	upstream unit test must keep passing
+enable() Tests.testEnableSuccess	unit	preserved	upstream unit test must keep passing
+disable() Tests.testDisableSuccess	unit	preserved	upstream unit test must keep passing
+disable() Tests.testDisableAlreadyDisabled	unit	preserved	upstream unit test must keep passing
+load() Tests.testLoadWrongMainClass	unit	preserved	upstream unit test must keep passing
+load() Tests.testLoadSuccess	unit	preserved	upstream unit test must keep passing
+load() Tests.testLoadNoJar	unit	preserved	upstream unit test must keep passing
+Full Lifecycle Integration Test.testFullLifecycle	unit	preserved	upstream unit test must keep passing
+Static and Ranked Placeholder Tests.testRankedPlaceholder_RankOutOfBounds	unit	preserved	upstream unit test must keep passing
+Static and Ranked Placeholder Tests.testStaticTeamPlaceholder_TeamNotFound	unit	preserved	upstream unit test must keep passing
+Static and Ranked Placeholder Tests.testRankedPlaceholder_InvalidRank	unit	preserved	upstream unit test must keep passing
+Static and Ranked Placeholder Tests.testRankedPlaceholder_Score	unit	preserved	upstream unit test must keep passing
+Static and Ranked Placeholder Tests.testStaticTeamPlaceholder_Success	unit	preserved	upstream unit test must keep passing
+Static and Ranked Placeholder Tests.testRankedPlaceholder_Balance	unit	preserved	upstream unit test must keep passing
+Static and Ranked Placeholder Tests.testStaticPlayerPlaceholder_PlayerNotFound	unit	preserved	upstream unit test must keep passing
+Static and Ranked Placeholder Tests.testStaticPlayerPlaceholder_Success	unit	preserved	upstream unit test must keep passing
+onRequest() Player-Specific Tests.testPlayerInTeamForInTeamPlaceholder	unit	preserved	upstream unit test must keep passing
+onRequest() Player-Specific Tests.testPlayerNotInTeamForInTeamPlaceholder	unit	preserved	upstream unit test must keep passing
+onRequest() Player-Specific Tests.testDataPlaceholderRequest	unit	preserved	upstream unit test must keep passing
+onRequest() Player-Specific Tests.testRequestWithNullPlayer	unit	preserved	upstream unit test must keep passing
+onRequest() Player-Specific Tests.testStandardPlaceholderRequest	unit	preserved	upstream unit test must keep passing
+onRequest() Player-Specific Tests.testPlayerNotInTeamForTeamSpecificPlaceholder	unit	preserved	upstream unit test must keep passing
+Cache Logic Tests.testInvalidateCache	unit	preserved	upstream unit test must keep passing
+Cache Logic Tests.testPlayerSpecificPlaceholderIsNotCached	unit	preserved	upstream unit test must keep passing
+Cache Logic Tests.testStaticPlaceholderIsCached	unit	preserved	upstream unit test must keep passing
+plugin is enabled	server	sentinel	BetterTeams loads on Paper 1.21.11 with /team registered
+help without a page shows the first page	server	preserved	/team help shows the first page of seven commands
+an explicit page number selects that page	server	preserved	/team help 1 and 2 select those pages
+the last page shows the remaining commands	server	preserved	/team help <last> shows the remaining commands
+help for one command is unchanged	server	preserved	/team help create prints its single help line
+help entries carry the plugin prefix	server	target	help lines start with the configured prefix instead of null
+page zero and negative pages fall back to the first page	server	target	/team help 0 and -1 show the first page without an internal error
+pages past the end show the last page	server	target	pages past the last one show the last page
+a page argument that is not a number shows the first page	server	preserved	a non-numeric page argument shows the first page
+chest claim broadcasts carry the plugin prefix	server	target	/teama chest disableclaims and enableclaims broadcasts start with the prefix instead of null

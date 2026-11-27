@@ -1,0 +1,11 @@
+diff -ru a/src/main/java/com/example/towncrier/CrierCommand.java b/src/main/java/com/example/towncrier/CrierCommand.java
+--- a/src/main/java/com/example/towncrier/CrierCommand.java
++++ b/src/main/java/com/example/towncrier/CrierCommand.java
+@@ -159,7 +159,6 @@
+         }
+         group.interval(Integer.parseInt(args[1]));
+         announcer().save(group);
+-        announcer().start(group);
+         sender.sendMessage("Interval of " + group.name() + " set to " + group.interval() + "s.");
+     }
+ 

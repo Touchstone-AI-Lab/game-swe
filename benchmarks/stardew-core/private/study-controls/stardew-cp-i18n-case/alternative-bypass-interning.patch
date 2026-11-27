@@ -1,0 +1,23 @@
+diff -ruN a/ContentPatcher/Framework/Tokens/ValueProviders/TranslationValueProvider.cs b/ContentPatcher/Framework/Tokens/ValueProviders/TranslationValueProvider.cs
+--- a/ContentPatcher/Framework/Tokens/ValueProviders/TranslationValueProvider.cs
++++ b/ContentPatcher/Framework/Tokens/ValueProviders/TranslationValueProvider.cs
+@@ -1,6 +1,7 @@
+ using System.Collections.Generic;
+ using System.Linq;
+ using ContentPatcher.Framework.Conditions;
++using Pathoschild.Stardew.Common.Utilities;
+ using StardewModdingAPI;
+ using StardewValley;
+ 
+@@ -80,7 +81,10 @@
+                 .UsePlaceholder(false); // allow setting a blank default
+         }
+ 
+-        return InvariantSets.FromValue(translation);
++        // Translation text is authored prose, not a token keyword. Don't route it through the shared predefined sets (which
++        // match case-insensitively and return their own lowercase value); wrap the exact text instead.
++        string text = ((string?)translation)!;
++        return new InvariantSet(text);
+     }
+ 
+ 

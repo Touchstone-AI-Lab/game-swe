@@ -1,0 +1,11 @@
+--- a/scripts/fuelration/allocator.lua
++++ b/scripts/fuelration/allocator.lua
+@@ -571,7 +571,7 @@
+     for _, row in ipairs(data.closed or {}) do
+         self.closed[row.round_id] = { total = row.total, delivered = row.delivered, returned = row.returned }
+     end
+-    if type(data.round) == "table" then
++    if type(data.round) == "table" and data.round.never_restored then
+         local round = {
+             id = data.round.round_id,
+             total = data.round.total or 0,

@@ -1,0 +1,13 @@
+diff --git a/main.lua b/main.lua
+--- a/main.lua
++++ b/main.lua
+@@ -2553,8 +2553,7 @@
+                 repeat
+                     local tear = player:FireTear(player.Position, Vector(10, 0):Rotated(rng:RandomInt(360)), false, true, false)
+                     tear:ChangeVariant(Entities.BASEBALL.variant)
+-                    tear.TearFlags = tear.TearFlags | TearFlags.TEAR_BOUNCE 
+-                    tear.TearFlags = tear.TearFlags | TearFlags.TEAR_CONFUSION
++                    tear:AddTearFlags(TearFlags.TEAR_BOUNCE | TearFlags.TEAR_CONFUSION)
+                     tear.CollisionDamage = player.Damage * 3
+                             
+                     ItemVariables.BASEBALL_MITT.BallsCaught = ItemVariables.BASEBALL_MITT.BallsCaught  - 1

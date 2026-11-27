@@ -1,0 +1,7 @@
+control	expected	observed	status
+broken-starter	at-least-one-intended-failure	30/78 pass; failures span insertion, sync, recipe lifecycle, malformed network frames, graph validation, index compaction, update-loop uniqueness, branch graph, ownership, payment, and item metadata	pass
+oracle	all-cases-pass	78/78 pass	pass
+empty-submission	rejected-before-build	missing production source	pass
+public-smoke-broken	compiles	zero errors and warnings	pass
+public-smoke-oracle	compiles	zero errors and warnings	pass
+contract-map	exact-case-bijection	Program, rubric, and case-contracts contain the same 78 unique names	pass

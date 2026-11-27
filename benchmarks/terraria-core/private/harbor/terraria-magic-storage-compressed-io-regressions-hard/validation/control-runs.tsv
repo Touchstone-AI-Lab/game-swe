@@ -1,0 +1,34 @@
+date	control	candidate_delta	cases_run	passed	result	evidence
+2026-09-21	broken-base	none	44	6	expected-fail	All seven prompt groups contain intended failures; verifier exits 1.
+2026-09-21	empty-submission	no source files	input validation	0	expected-fail	Verifier rejects the missing nine required source entries before build.
+2026-09-21	unrelated-change	00-unrelated-readme.patch	1	0	expected-fail	Documentation-only change leaves scope-flat-bit-frame-compat failing, so it cannot pass the full verifier.
+2026-09-21	oracle-direct	five production files	44	44	pass	Independent full-source oracle copy exits 0 with VERIFICATION_PASSED.
+2026-09-21	solve-script	five production files installed by solution/solve.sh	44	44	pass	Fresh broken copy repaired through the packaged solve script exits 0.
+2026-09-21	predicate-nested-scope-accounting	01-nested-scope-accounting.patch	8	8	pass	Seven target cases plus an unrelated passing guard.
+2026-09-21	predicate-unsigned-64-read	02-unsigned-64-read.patch	5	5	pass	Four target cases plus an unrelated passing guard.
+2026-09-21	predicate-misaligned-64-write	03-misaligned-64-write.patch	7	7	pass	Six target cases plus an unrelated passing guard.
+2026-09-21	predicate-signed-full-width	04-signed-full-width.patch	6	6	pass	Five cases dependent only on sign extension plus an unrelated guard; full-width long integration also requires predicate 02.
+2026-09-21	predicate-long-strings	05-long-strings.patch	8	8	pass	Seven target cases plus an unrelated passing guard.
+2026-09-21	predicate-oversized-string-atomicity	06-oversized-string-atomicity.patch	4	4	pass	Three target cases plus an unrelated passing guard.
+2026-09-21	predicate-network-stack-restore	07-network-stack-restore.patch	9	9	pass	Seven repair-dependent network cases, the readStack preservation guard, and an unrelated passing guard; mixed-list integration also requires predicate 01.
+2026-09-21	public-smoke-broken	none	compile	1	pass	Production source projection builds with zero warnings and zero errors.
+2026-09-21	public-smoke-oracle	five production files	compile	1	pass	Repaired production source projection builds with zero warnings and zero errors.
+2026-09-21	plugin-e2e-broken	none	44	6	expected-fail	Prepared runtime image reports complete=true, passed=false, score 30/100.
+2026-09-21	plugin-e2e-oracle	five production files	44	44	pass	Prepared runtime image reports complete=true, passed=true, score 100/100.
+2026-09-21	revision-2-broken-base	none	54	10	expected-fail	Both new prompt groups contain intended failures; verifier exits 1.
+2026-09-21	revision-2-empty-submission	no source files	input validation	0	expected-fail	Verifier rejects the missing nine required source entries before build.
+2026-09-21	revision-2-unrelated-change	00-unrelated-readme.patch	1	0	expected-fail	Documentation-only change leaves scope-flat-bit-frame-compat failing, so it cannot pass the full verifier.
+2026-09-21	revision-2-oracle-direct	five production files	54	54	pass	Fresh full-source oracle copy exits 0 with VERIFICATION_PASSED.
+2026-09-21	revision-2-solve-script	five production files installed by solution/solve.sh	54	54	pass	Fresh broken copy repaired through the packaged solve script exits 0.
+2026-09-21	predicate-seven-bit-validation	08-seven-bit-validation.patch	7	7	pass	Six target cases plus an unrelated passing guard.
+2026-09-21	predicate-item-handler-isolation	01-nested-scope-accounting.patch + 09-item-handler-isolation.patch	5	5	pass	Four target cases plus an unrelated guard; packet construction also requires the already-declared scope-framing repair.
+2026-09-21	revision-2-public-smoke-broken	none	compile	1	pass	Production source projection builds with zero warnings and zero errors.
+2026-09-21	revision-2-public-smoke-oracle	five production files	compile	1	pass	Repaired production source projection builds with zero warnings and zero errors.
+2026-09-21	revision-2-plugin-e2e-broken	none	54	10	expected-fail	Isolated no-network evaluator image emits reward=0 for the frozen starter.
+2026-09-21	revision-2-plugin-e2e-oracle	five production files	54	54	pass	Isolated no-network evaluator image emits reward=1 for the repaired source.
+2026-09-24	revision-3-broken-base	none	68	11	expected-fail	The prior 54-case starter result plus isolated execution of all 14 new cases shows 13 new failures and one compatibility-guard pass.
+2026-09-24	revision-3-oracle-direct	five production files	68	68	pass	Fresh full-source oracle projection compiles with zero warnings/errors and every behavioral case passes.
+2026-09-24	predicate-send-transaction-atomicity	01-nested-scope-accounting.patch + 07-network-stack-restore.patch + 10-send-transaction-atomicity.patch	10	10	pass	All sender transaction cases pass with only their predeclared framing and decoded-stack prerequisites.
+2026-09-24	predicate-scope-lifecycle-ordering	01-nested-scope-accounting.patch + 11-scope-lifecycle-ordering.patch	4	4	pass	All wrong-order recovery and double-close cases pass with only the established frame-format repair.
+2026-09-24	revision-3-public-smoke-broken	none	compile	1	pass	Frozen production source projection builds with zero warnings and zero errors.
+2026-09-24	revision-3-public-smoke-oracle	five production files	compile	1	pass	Repaired production source projection builds with zero warnings and zero errors.

@@ -1,0 +1,16 @@
+name: TownCrier
+version: 1.0.0
+main: com.example.towncrier.TownCrierPlugin
+api-version: '1.21'
+description: Timed server announcements
+commands:
+  crier:
+    description: Manage the TownCrier announcement groups.
+    usage: /crier <list|now|pause|resume|add|remove|interval|preview|reload>
+permissions:
+  towncrier.admin:
+    description: Allows every /crier subcommand.
+    default: op
+  towncrier.staff:
+    description: Receives announcements of groups restricted to staff.
+    default: op

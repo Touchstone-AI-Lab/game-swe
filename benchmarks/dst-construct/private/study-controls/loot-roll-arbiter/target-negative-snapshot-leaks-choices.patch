@@ -1,0 +1,25 @@
+--- a/scripts/lootroll/arbiter.lua
++++ b/scripts/lootroll/arbiter.lua
+@@ -439,6 +439,14 @@
+     return build_result(roll)
+ end
+ 
++local function copy_map(source)
++    local target = {}
++    for key, value in pairs(source) do
++        target[key] = value
++    end
++    return target
++end
++
+ local function sorted_roll_ids(rolls)
+     local ids = {}
+     for roll_id in pairs(rolls) do
+@@ -482,6 +490,7 @@
+             remaining = open and math.max(0, roll.deadline - now) or 0,
+             total = #roll.eligible,
+             chosen = roll.chosen,
++            choices = copy_map(roll.choices),
+             winner = roll.winner,
+             tier = roll.winner ~= nil and roll.tier or nil,
+         }

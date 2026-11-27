@@ -1,0 +1,12 @@
+diff -ruN a/Automate/Framework/Machines/TerrainFeatures/BushMachine.cs b/Automate/Framework/Machines/TerrainFeatures/BushMachine.cs
+--- a/Automate/Framework/Machines/TerrainFeatures/BushMachine.cs
++++ b/Automate/Framework/Machines/TerrainFeatures/BushMachine.cs
+@@ -68,7 +68,7 @@
+     /// <inheritdoc />
+     public override MachineState GetState()
+     {
+-        if (this.Machine.Location is null || !this.IsInSeason.Value)
++        if (!this.IsInSeason.Value)
+             return MachineState.Disabled;
+ 
+         return this.Machine.tileSheetOffset.Value == 1

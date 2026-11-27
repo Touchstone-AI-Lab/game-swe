@@ -1,0 +1,12 @@
+diff --git a/src/main/java/com/evacipated/cardcrawl/modthespire/ModInfo.java b/src/main/java/com/evacipated/cardcrawl/modthespire/ModInfo.java
+index a404941..0e834d1 100644
+--- a/src/main/java/com/evacipated/cardcrawl/modthespire/ModInfo.java
++++ b/src/main/java/com/evacipated/cardcrawl/modthespire/ModInfo.java
+@@ -214,6 +214,6 @@ public class ModInfo implements Serializable
+ 
+     public static Semver safeVersion(String verString)
+     {
+-        return new Semver(verString, Semver.SemverType.NPM);
++        return new Semver(verString, Semver.SemverType.STRICT);
+     }
+ }

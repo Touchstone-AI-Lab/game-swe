@@ -1,0 +1,60 @@
+case	layer	role	public_report
+ru.brikster.chatty.ConstantsTest.matchesLowercaseReplacementKey()	unit	preserved	upstream unit test must keep passing
+ru.brikster.chatty.ConstantsTest.doesNotMatchUnrelatedPlaceholders()	unit	preserved	upstream unit test must keep passing
+ru.brikster.chatty.ConstantsTest.findsReplacementKeyInsideText()	unit	preserved	upstream unit test must keep passing
+ru.brikster.chatty.ConstantsTest.matchesUppercaseReplacementKey()	unit	preserved	upstream unit test must keep passing
+ru.brikster.chatty.adventure.NativeAudienceAdapterTest.serializesClickAndHoverInLegacyCompatibleSchema()	unit	preserved	upstream unit test must keep passing
+ru.brikster.chatty.chat.message.transform.decorations.PlayerDecorationsFormatterTest.stripsSectionCodesForPlayerWithoutPermission()	unit	preserved	upstream unit test must keep passing
+ru.brikster.chatty.chat.message.transform.decorations.PlayerDecorationsFormatterTest.keepsAmpersandCodesLiteralWithoutPermission()	unit	preserved	upstream unit test must keep passing
+ru.brikster.chatty.chat.message.transform.decorations.PlayerDecorationsFormatterTest.stripsSectionCodesEvenForPlayerWithDecorationPermission()	unit	preserved	upstream unit test must keep passing
+ru.brikster.chatty.chat.message.transform.decorations.PlayerDecorationsFormatterTest.appliesAmpersandColorsWithPermission()	unit	preserved	upstream unit test must keep passing
+ru.brikster.chatty.config.file.ConfigGenerationTest.[1] class ru.brikster.chatty.config.file.SettingsConfig	unit	preserved	upstream unit test must keep passing
+ru.brikster.chatty.config.file.ConfigGenerationTest.[2] class ru.brikster.chatty.config.file.ChatsConfig	unit	preserved	upstream unit test must keep passing
+ru.brikster.chatty.config.file.ConfigGenerationTest.[3] class ru.brikster.chatty.config.file.PmConfig	unit	preserved	upstream unit test must keep passing
+ru.brikster.chatty.config.file.ConfigGenerationTest.[4] class ru.brikster.chatty.config.file.MessagesConfig	unit	preserved	upstream unit test must keep passing
+ru.brikster.chatty.config.file.ConfigGenerationTest.[5] class ru.brikster.chatty.config.file.VanillaConfig	unit	preserved	upstream unit test must keep passing
+ru.brikster.chatty.config.file.ConfigGenerationTest.[6] class ru.brikster.chatty.config.file.ModerationConfig	unit	preserved	upstream unit test must keep passing
+ru.brikster.chatty.config.file.ConfigGenerationTest.[7] class ru.brikster.chatty.config.file.NotificationsConfig	unit	preserved	upstream unit test must keep passing
+ru.brikster.chatty.config.file.ConfigGenerationTest.[8] class ru.brikster.chatty.config.file.ReplacementsConfig	unit	preserved	upstream unit test must keep passing
+ru.brikster.chatty.config.file.ConfigGenerationTest.[9] class ru.brikster.chatty.config.file.ProxyConfig	unit	preserved	upstream unit test must keep passing
+ru.brikster.chatty.config.file.LanguageFilesTest.[1] ru-RU	unit	preserved	upstream unit test must keep passing
+ru.brikster.chatty.config.file.LanguageFilesTest.[2] de-DE	unit	preserved	upstream unit test must keep passing
+ru.brikster.chatty.config.file.LanguageFilesTest.[3] es-ES	unit	preserved	upstream unit test must keep passing
+ru.brikster.chatty.config.file.LanguageFilesTest.[4] zh-CN	unit	preserved	upstream unit test must keep passing
+ru.brikster.chatty.config.migration.V2ConfigMigratorTest.migratesVanillaMessages()	unit	preserved	upstream unit test must keep passing
+ru.brikster.chatty.config.migration.V2ConfigMigratorTest.migratesSettingsAndMentions()	unit	preserved	upstream unit test must keep passing
+ru.brikster.chatty.config.migration.V2ConfigMigratorTest.skipsChatsDisabledInV2()	unit	preserved	upstream unit test must keep passing
+ru.brikster.chatty.config.migration.V2ConfigMigratorTest.migratesChatsWithClampedRangeAndCooldown()	unit	preserved	upstream unit test must keep passing
+ru.brikster.chatty.config.migration.V2ConfigMigratorTest.migratesPmWithTranslatedPlaceholders()	unit	preserved	upstream unit test must keep passing
+ru.brikster.chatty.config.migration.V2ConfigMigratorTest.migratesModeration()	unit	preserved	upstream unit test must keep passing
+ru.brikster.chatty.config.migration.V2ConfigMigratorTest.expandsSpyFormatPlaceholder()	unit	preserved	upstream unit test must keep passing
+ru.brikster.chatty.convert.message.LegacyToMiniMessageConverterTest.convertSectionCodesIsCaseInsensitive()	unit	preserved	upstream unit test must keep passing
+ru.brikster.chatty.convert.message.LegacyToMiniMessageConverterTest.convertSectionCodesLeavesPlainTextUntouched()	unit	preserved	upstream unit test must keep passing
+ru.brikster.chatty.convert.message.LegacyToMiniMessageConverterTest.convertSectionCodesIgnoresAmpersandCodes()	unit	preserved	upstream unit test must keep passing
+ru.brikster.chatty.convert.message.LegacyToMiniMessageConverterTest.convertSectionCodesConvertsResetCode()	unit	preserved	upstream unit test must keep passing
+ru.brikster.chatty.convert.message.LegacyToMiniMessageConverterTest.convertsAmpersandColorCode()	unit	preserved	upstream unit test must keep passing
+ru.brikster.chatty.convert.message.LegacyToMiniMessageConverterTest.convertSectionCodesStripsStraySectionSigns()	unit	preserved	upstream unit test must keep passing
+ru.brikster.chatty.convert.message.LegacyToMiniMessageConverterTest.convertsDecorationCode()	unit	preserved	upstream unit test must keep passing
+ru.brikster.chatty.convert.message.LegacyToMiniMessageConverterTest.messageWithLegacyCodesSurvivesTheConstructPipeline()	unit	preserved	upstream unit test must keep passing
+ru.brikster.chatty.convert.message.LegacyToMiniMessageConverterTest.convertsSectionColorCode()	unit	preserved	upstream unit test must keep passing
+ru.brikster.chatty.convert.message.LegacyToMiniMessageConverterTest.convertSectionCodesMakesBotMessageSafeForStrictMiniMessage()	unit	preserved	upstream unit test must keep passing
+ru.brikster.chatty.convert.message.LegacyToMiniMessageConverterTest.convertsHexColorCode()	unit	preserved	upstream unit test must keep passing
+ru.brikster.chatty.convert.message.LegacyToMiniMessageConverterTest.leavesPlainTextUntouched()	unit	preserved	upstream unit test must keep passing
+ru.brikster.chatty.convert.message.LegacyToMiniMessageConverterTest.convertSectionCodesConvertsSectionColorCode()	unit	preserved	upstream unit test must keep passing
+ru.brikster.chatty.notification.ActionbarNotificationSoundTest.playsTheSoundOncePerMessageRatherThanEveryTick()	unit	preserved	upstream unit test must keep passing
+ru.brikster.chatty.notification.ActionbarNotificationSoundTest.playsNoSoundWhenNoneIsConfigured()	unit	preserved	upstream unit test must keep passing
+ru.brikster.chatty.util.AdventureUtilTest.leavesTextWithoutMatchesUnchanged()	unit	preserved	upstream unit test must keep passing
+ru.brikster.chatty.util.AdventureUtilTest.preservesClickEventOfReplacementComponent()	unit	preserved	upstream unit test must keep passing
+ru.brikster.chatty.util.AdventureUtilTest.replacesPlaceholderWithComponent()	unit	preserved	upstream unit test must keep passing
+ru.brikster.chatty.util.AdventureUtilTest.keepsTextWhenReplacementFunctionReturnsNull()	unit	preserved	upstream unit test must keep passing
+plugin is enabled	server	sentinel	Chatty loads on Paper 1.21.11 with a legacy v2 config.yml present
+chatty command answers the console	server	preserved	/chatty keeps answering the console after the migration
+chats from the legacy config are registered at start-up	server	target	chats declared in the v2 config.yml are registered after the migration
+migrated chats carry a spy format	server	target	the migration writes a usable spy.format for every chat when v2 had no spy section
+chatty reload succeeds on the migrated configuration	server	target	/chatty reload succeeds on the migrated configuration
+the v2 locale is migrated to the v3 language	server	target	general.locale ru becomes language ru-RU and the plugin answers in Russian
+explicit spy formats survive a reload	server	preserved	explicit spy formats in chats.yml keep being applied on reload
+a supported language tag in settings.yml is applied	server	preserved	language de-DE in settings.yml selects German messages
+a v2 spelling of a language is accepted	server	target	language zh_CN in settings.yml selects zh-CN
+an unsupported language is reported and falls back to English	server	target	an unsupported language falls back to English with a warning naming it
+spy section with only enable reloads	server	target	a chats.yml spy block with only enable loads on reload

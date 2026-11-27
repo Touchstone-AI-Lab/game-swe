@@ -1,0 +1,13 @@
+diff --git a/src/main/java/com/evacipated/cardcrawl/modthespire/patcher/ParameterPatchInfo.java b/src/main/java/com/evacipated/cardcrawl/modthespire/patcher/ParameterPatchInfo.java
+index 7df2fd9..d3414a5 100644
+--- a/src/main/java/com/evacipated/cardcrawl/modthespire/patcher/ParameterPatchInfo.java
++++ b/src/main/java/com/evacipated/cardcrawl/modthespire/patcher/ParameterPatchInfo.java
+@@ -214,7 +214,7 @@ abstract class ParameterPatchInfo extends PatchInfo
+                 // to avoid a limitation in the javassist compiler being unable to compile
+                 // multi-dimensional array initializers
+                 src += tmp + " __param" + destInfo.getPosition() + " = new " + paramTypeName + ";\n";
+-                src += "__param" + destInfo.getPosition() + "[0] = " + boxing(getParamName()) + ";\n";
++                src += "__param" + destInfo.getPosition() + "[0] = " + getParamName() + ";\n";
+                 funccallargs += "__param" + destInfo.getPosition();
+ 
+                 postcallsrc  += getParamName() + " = ";

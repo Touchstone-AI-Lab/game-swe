@@ -1,0 +1,143 @@
+{
+  "task": "mindustry/mindustry-core/server-console-regressions",
+  "task_version": "1.0.0",
+  "exam": "benchmarks/mindustry-core/exams/server-console-regressions.md",
+  "cases": [
+    {
+      "id": "check:submission-shape",
+      "role": "static",
+      "clauses": [
+        "scope-1"
+      ],
+      "overlap": false,
+      "note": "the mindustry/ tree with its source roots, no symlinks, VCS metadata or compiled artifacts"
+    },
+    {
+      "id": "check:offline-build",
+      "role": "static",
+      "clauses": [
+        "scope-1"
+      ],
+      "overlap": false,
+      "note": "every Java source under core/src and server/src compiles offline against the pinned server jar"
+    },
+    {
+      "id": "server:the server console answers status",
+      "role": "runtime-sentinel",
+      "clauses": [],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "server:host with a map name starts that map",
+      "role": "preserved",
+      "clauses": [
+        "expected-2"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "server:pause refuses to run without a game",
+      "role": "preserved",
+      "clauses": [
+        "expected-1"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "server:pause on and pause off set the requested state",
+      "role": "target",
+      "clauses": [
+        "expected-1"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "server:shuffle reports the selected mode",
+      "role": "preserved",
+      "clauses": [
+        "expected-2"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "server:host without a map while shuffling is off keeps the console working",
+      "role": "target",
+      "clauses": [
+        "expected-2"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "server:pardon of an unknown ID reports an error",
+      "role": "preserved",
+      "clauses": [
+        "expected-3"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "server:pardon lets a kicked player connect again",
+      "role": "target",
+      "clauses": [
+        "expected-3"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "server:bans can be listed and lifted in one session",
+      "role": "preserved",
+      "clauses": [
+        "expected-4"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "server:player records survive a server restart",
+      "role": "target",
+      "clauses": [
+        "expected-4"
+      ],
+      "overlap": false,
+      "note": ""
+    }
+  ],
+  "clauses": [
+    {
+      "id": "expected-1",
+      "anchor": "Expected behaviour, first bullet: pause on/off set the requested state however often repeated; pause without a game still refuses",
+      "status": "asserted"
+    },
+    {
+      "id": "expected-2",
+      "anchor": "Expected behaviour, second bullet: host without a map under shuffle none does not throw and leaves the server stopped; host <map>, stop, status and shuffle keep working",
+      "status": "asserted"
+    },
+    {
+      "id": "expected-3",
+      "anchor": "Expected behaviour, third bullet: pardon removes the kicks on the ID and on the last known address; unknown IDs still get an error",
+      "status": "asserted"
+    },
+    {
+      "id": "expected-4",
+      "anchor": "Expected behaviour, fourth bullet: player records and ID bans are read back after a restart; ban ip, bans and unban keep working",
+      "status": "asserted"
+    },
+    {
+      "id": "scope-1",
+      "anchor": "Context, last paragraph: changes stay inside mindustry/core/src and mindustry/server/src, which the server build compiles",
+      "status": "weak",
+      "note": "enforced only through the offline build of those source roots"
+    }
+  ],
+  "excluded_clauses": [],
+  "known_issues": []
+}

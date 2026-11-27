@@ -1,0 +1,12 @@
+diff -ruN a/addons/sourcemod/scripting/l4d2lib/mapinfo.sp b/addons/sourcemod/scripting/l4d2lib/mapinfo.sp
+--- a/addons/sourcemod/scripting/l4d2lib/mapinfo.sp
++++ b/addons/sourcemod/scripting/l4d2lib/mapinfo.sp
+@@ -230,7 +230,7 @@
+ 	SMCParser syntax = new SMCParser();
+     SMCError parsed = syntax.ParseFile(sNameBuff);
+     delete syntax;
+-    if (parsed != SMCError_Okay || !incoming.ImportFromFile(sNameBuff)) {
++    if (!incoming.ImportFromFile(sNameBuff)) {
+         delete incoming;
+         LogMessage("[MI] MapInfo import failed; retaining previous data.");
+         return;

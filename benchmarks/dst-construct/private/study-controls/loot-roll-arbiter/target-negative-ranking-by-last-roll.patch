@@ -1,0 +1,17 @@
+--- a/scripts/lootroll/arbiter.lua
++++ b/scripts/lootroll/arbiter.lua
+@@ -97,11 +97,9 @@
+ 
+ local function ranks_before(sequences, left, right, max_rounds)
+     local a, b = sequences[left], sequences[right]
+-    for round = 1, max_rounds do
+-        local x, y = a[round] or -1, b[round] or -1
+-        if x ~= y then
+-            return x > y
+-        end
++    local x, y = a[#a], b[#b]
++    if x ~= y then
++        return x > y
+     end
+     return left < right
+ end

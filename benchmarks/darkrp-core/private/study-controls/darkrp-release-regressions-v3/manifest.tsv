@@ -1,0 +1,5 @@
+control	kind	base	overlay	root	note
+target-negative-job-id	target-negative	reference	patch:target-negative-job-id.patch	.	Reference with group E reverted: DarkRP.createJob returns the undefined global Team (nil) again.
+target-negative-shipment-store-half	target-negative	reference	patch:target-negative-shipment-store-half.patch	.	Reference with only the store half of masking pair F reverted (lookup still lower-cases).
+alternative-independent-fix	alternative	starter	patch:alternative-independent-fix.patch	.	Starter plus an independently written fix for every report (list-first arrested API, case-insensitive fallback scan, shared argument validator).
+alternative-strict-reading	alternative	starter	patch:alternative-strict-reading.patch	.	Same as alternative-independent-fix but group B keys the wake on the physics-init result; valid in the engine, expected to be rejected by the B stand-in (see NOTES.md).

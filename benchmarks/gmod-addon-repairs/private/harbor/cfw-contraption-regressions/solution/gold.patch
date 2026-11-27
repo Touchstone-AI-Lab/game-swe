@@ -1,0 +1,93 @@
+diff --git a/lua/cfw/core/connectivity_sv.lua b/lua/cfw/core/connectivity_sv.lua
+index cfa072c..353a3f4 100644
+--- a/lua/cfw/core/connectivity_sv.lua
++++ b/lua/cfw/core/connectivity_sv.lua
+@@ -28,6 +28,8 @@ function CFW.connect(a, b)
+     -- If a link already exists, add to the link counter
+     -- If not, create a new link between the two entities and resolve their contraptions
+ 
++    if a == b then return end -- Should not happen normally, but ragdolls allow you to constrain to other bones on the same ragdoll, and it is the same entity. We'll head it off here since we don't want to track links that don't actually link anything
++
+     local link = a:GetCFWLink(b)
+ 
+     if link then
+@@ -61,6 +63,8 @@ function CFW.connect(a, b)
+ end
+ 
+ function CFW.disconnect(entA, indexB)
++    if entA:EntIndex() == indexB then return end -- Should not happen normally, but ragdolls allow you to constrain to other bones on the same ragdoll, and it is the same entity
++
+     -- Don't soft error because if _links isn't present then it's a deeper CFW issue, nothing without a _links table should be able to reach this point at all
+     local links = entA._links
+     if not links then ErrorNoHaltWithStack("Contraption Framework Error: Entity had no links. This error generally indicates a deeper problem with CFW.") end
+diff --git a/lua/cfw/core/parenting_sv.lua b/lua/cfw/core/parenting_sv.lua
+index 4747f14..1a94bf9 100644
+--- a/lua/cfw/core/parenting_sv.lua
++++ b/lua/cfw/core/parenting_sv.lua
+@@ -60,7 +60,7 @@ hook.Add("Initialize", "CFW", function()
+                 local detour = detours[newParent:GetClass()]
+ 
+                 -- Store savedParent so we can do CFW_PreParented and CFW_OnParented later on the actual target
+-                if newParent.CFW_OnParented then
++                if newParent.CFW_OnParented or newParent.CFW_PreParented then
+                     savedParent = newParent
+                 end
+ 
+@@ -75,8 +75,10 @@ hook.Add("Initialize", "CFW", function()
+             -- Block parenting to self (why doesn't this just happen earlier on?? that case would never be valid!)
+             if self == newParent then return end
+ 
++            local validSavedParent = IsValid(savedParent)
++
+             -- Check if the parent is willing to accept this child or not
+-            if IsValid(savedParent) and savedParent.CFW_PreParented and savedParent:CFW_PreParented(self) == false then
++            if validSavedParent and savedParent.CFW_PreParented and savedParent:CFW_PreParented(self) == false then
+                 return
+             end
+ 
+@@ -91,7 +93,7 @@ hook.Add("Initialize", "CFW", function()
+             setParent(self, newParent, newAttach, ...)
+ 
+             -- Hook for post-new-child
+-            if IsValid(savedParent) then
++            if validSavedParent and savedParent.CFW_OnParented then
+                 savedParent:CFW_OnParented(self, true)
+             end
+ 
+@@ -102,6 +104,9 @@ hook.Add("Initialize", "CFW", function()
+ 
+             if self._cfwRemoved then return end -- Removed by an undo
+             if oldParent == newParent then return end
++            if (validOldParent and oldParent:IsPlayer()) or (validNewParent and newParent:IsPlayer()) then return end
++            if (validOldParent and oldParent:IsNPC()) or (validNewParent and newParent:IsNPC()) then return end
++            if (validOldParent and oldParent:IsNextBot()) or (validNewParent and newParent:IsNextBot()) then return end
+ 
+             local entClass = self:GetClass()
+             if filter[entClass] then return end
+diff --git a/lua/cfw/extensions/mass_sv.lua b/lua/cfw/extensions/mass_sv.lua
+index e860b07..31fb876 100644
+--- a/lua/cfw/extensions/mass_sv.lua
++++ b/lua/cfw/extensions/mass_sv.lua
+@@ -6,6 +6,7 @@ local setMass = setMass or PHYS.SetMass
+ function PHYS:SetMass(newMass)
+     local ent     = self:GetEntity()
+     local oldMass = ent._mass or 0 -- The 'or 0' handles cases of ents connected before they had a physObj
++    local massDelta = newMass - oldMass
+ 
+     ent._mass = newMass
+ 
+@@ -14,7 +15,13 @@ function PHYS:SetMass(newMass)
+     local con = ent:CFW_GetContraption()
+ 
+     if con then
+-        con.totalMass = con.totalMass + (newMass - oldMass)
++        con.totalMass = con.totalMass + massDelta
++    end
++
++    local family = ent.GetFamily and ent:GetFamily()
++
++    if family then
++        family.totalMass = family.totalMass + massDelta
+     end
+ end
+ 

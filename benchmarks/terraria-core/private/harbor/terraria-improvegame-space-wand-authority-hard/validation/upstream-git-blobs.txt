@@ -1,0 +1,9 @@
+# Git blob IDs from ImproveGame revision 284fa78849f2234e70300f101a92a36db34b256d
+e1ecd790aba7177a403b0bb8b32b20e35a8a1ea0  Content/Items/SpaceWand.Operations.cs
+fa13c762dd4cc2336aa551e450b43677669aa00e  Content/Items/SpaceWand.Shapes.cs
+d817503e36e8ae993e317fb3927eaf912e23d0ee  Content/Packets/SpaceWandOperation.cs
+da8d141a813bd4e85918ddfe403dafcf6f77cb30  LICENSE
+cc0d78a4483bf78f36fec885e6189b23e869b802  build.txt
+
+# The retained source content differs only by repository-mandated CRLF-to-LF
+# normalization; starter-delta.patch records that there is no behavioral delta.

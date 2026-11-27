@@ -1,0 +1,21 @@
+{
+  "version": "M2-v2-design-1",
+  "created_at": "2026-09-20T02:31:04+0800",
+  "status": "specified before candidate authoring",
+  "files": {
+    "CONTRACT.md": "2f6e7e99ebe84425419e45d47e942fa12216b4d437accfc4ec7ca49c77f34918",
+    "CASE-MUTATION-MATRIX.md": "cffafdb2c5e62f074a491ec89b6750487afb2552d07f74e5352c0e6ea73cd6bc",
+    "INDEPENDENCE.md": "8a96ac20b85ced224d7f13cea201789684440b7916cecd1409a34f1f6ab276f8"
+  },
+  "prerequisite": {
+    "path": "validation-deck-prerequisite-v2-dev1.json",
+    "sha256": "63eb2e6f207f1dbfcb4aba2f94d6759e1c9c855113f56c494269dafc2d27e7a6"
+  },
+  "editable_files": [
+    "main.lua",
+    "lib/lifecycle.lua"
+  ],
+  "immutable_files": [
+    "deck_removal_consistency_v2.json"
+  ]
+}

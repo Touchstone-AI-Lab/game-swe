@@ -1,0 +1,12 @@
+diff -ruN a/darkrp/gamemode/modules/money/sh_money.lua b/darkrp/gamemode/modules/money/sh_money.lua
+--- a/darkrp/gamemode/modules/money/sh_money.lua	2026-09-21 05:04:15.332463038 +0800
++++ b/darkrp/gamemode/modules/money/sh_money.lua	2026-09-21 05:48:18.195828135 +0800
+@@ -3,7 +3,7 @@
+ 
+ function pMeta:canAfford(amount)
+     if not amount or self.DarkRPUnInitialized then return false end
+-    return math.floor(amount) >= 0 and (self:getDarkRPVar("money") or 0) - math.ceil(amount) >= 0
++    return math.floor(amount) >= 0 and (self:getDarkRPVar("money") or 0) >= 0
+ end
+ 
+ function entMeta:isMoneyBag()

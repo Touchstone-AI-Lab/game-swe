@@ -1,0 +1,348 @@
+{
+  "schemaVersion": 1,
+  "taskId": "contraption-blueprint-duplicator",
+  "taskVersion": "2.2.0",
+  "caseMappings": {
+    "hidden-behavior": [
+      {
+        "name": "capture canonicalizes three nodes and two edges",
+        "classification": "B",
+        "clauses": [
+          "T5-API-01",
+          "T5-API-02",
+          "T5-SEM-01",
+          "T5-SEM-02",
+          "T5-SEM-03",
+          "T5-SEM-04",
+          "T5-API-03"
+        ]
+      },
+      {
+        "name": "canonical hash ignores input table order",
+        "classification": "A",
+        "clauses": [
+          "T5-HASH-01",
+          "T5-HASH-02",
+          "T5-DATA-01"
+        ]
+      },
+      {
+        "name": "unsupported classes models and constraints fail",
+        "classification": "A",
+        "clauses": [
+          "T5-DATA-02",
+          "T5-DATA-03",
+          "T5-FILE-01"
+        ]
+      },
+      {
+        "name": "bad endpoints and self edges are rejected",
+        "classification": "A",
+        "clauses": [
+          "T5-DATA-03",
+          "T5-SEM-02",
+          "T5-GOAL-01"
+        ]
+      },
+      {
+        "name": "nonfinite transforms are rejected before mutation",
+        "classification": "A",
+        "clauses": [
+          "T5-DATA-05",
+          "T5-SEM-01",
+          "T5-GOAL-02"
+        ]
+      },
+      {
+        "name": "entity constraint and blueprint budgets are enforced",
+        "classification": "A",
+        "clauses": [
+          "T5-DATA-04",
+          "T5-SCOPE-01"
+        ]
+      },
+      {
+        "name": "capture request replay and conflict are exact",
+        "classification": "A",
+        "clauses": [
+          "T5-SEM-07",
+          "T5-SCOPE-02"
+        ]
+      },
+      {
+        "name": "blueprint revision rejects stale replacement",
+        "classification": "A",
+        "clauses": [
+          "T5-SEM-05"
+        ]
+      },
+      {
+        "name": "list and get are sorted detached owner views",
+        "classification": "A",
+        "clauses": [
+          "T5-SEM-06"
+        ]
+      },
+      {
+        "name": "paste plan applies target transform to every node",
+        "classification": "A",
+        "clauses": [
+          "T5-SEM-08",
+          "T5-SEM-09"
+        ]
+      },
+      {
+        "name": "paste request replay revision and result are idempotent",
+        "classification": "A",
+        "clauses": [
+          "T5-SEM-07",
+          "T5-SEM-08",
+          "T5-SEM-10"
+        ]
+      },
+      {
+        "name": "save load preserves schema hash requests and paste results",
+        "classification": "A",
+        "clauses": [
+          "T5-PERSIST-01"
+        ]
+      },
+      {
+        "name": "shutdown is idempotent and freezes capture",
+        "classification": "A",
+        "clauses": [
+          "T5-API-04",
+          "T5-LIFE-01"
+        ]
+      },
+      {
+        "name": "source identifiers require raw unique nonempty strings",
+        "classification": "A",
+        "clauses": [
+          "T5-DATA-05",
+          "T5-SEM-01"
+        ]
+      },
+      {
+        "name": "malformed entity and constraint rows return stable errors",
+        "classification": "A",
+        "clauses": [
+          "T5-ERR-01"
+        ]
+      },
+      {
+        "name": "constraint params are validated detached and included in hash",
+        "classification": "A",
+        "clauses": [
+          "T5-SEM-03",
+          "T5-HASH-01",
+          "T5-HASH-02"
+        ]
+      },
+      {
+        "name": "invalid plan identity name revision and target return stable public errors",
+        "classification": "A",
+        "clauses": [
+          "T5-SEM-08",
+          "T5-ERR-01"
+        ]
+      },
+      {
+        "name": "malformed persisted graphs hashes requests and paste rows are rejected",
+        "classification": "A",
+        "clauses": [
+          "T5-PERSIST-01",
+          "T5-PERSIST-02"
+        ]
+      }
+    ],
+    "gmod-integration": [
+      {
+        "name": "adapter installs lifecycle hooks and timer",
+        "classification": "A",
+        "clauses": [
+          "T5-LIFE-01"
+        ]
+      },
+      {
+        "name": "trusted owner and root bindings authorize capture",
+        "classification": "A",
+        "clauses": [
+          "T5-TRUST-01"
+        ]
+      },
+      {
+        "name": "public duplicator Copy and constraint table become canonical graph",
+        "classification": "A",
+        "clauses": [
+          "T5-NATIVE-01",
+          "T5-NATIVE-02"
+        ]
+      },
+      {
+        "name": "constraint GetTable mismatch rejects capture atomically",
+        "classification": "B",
+        "clauses": [
+          "T5-NATIVE-01"
+        ]
+      },
+      {
+        "name": "unbound player and entity cannot capture or paste",
+        "classification": "A",
+        "clauses": [
+          "T5-TRUST-01",
+          "T5-ADAPTER-01"
+        ]
+      },
+      {
+        "name": "public Paste restores three entities and two constraints",
+        "classification": "B",
+        "clauses": [
+          "T5-NATIVE-03",
+          "T5-NATIVE-04"
+        ]
+      },
+      {
+        "name": "partial Paste failure rolls back every live object",
+        "classification": "A",
+        "clauses": [
+          "T5-ROLLBACK-01"
+        ]
+      },
+      {
+        "name": "saved state restores a pasteable canonical schema",
+        "classification": "B",
+        "clauses": [
+          "T5-PERSIST-01"
+        ]
+      },
+      {
+        "name": "Install is idempotent",
+        "classification": "A",
+        "clauses": [
+          "T5-LIFE-01"
+        ]
+      }
+    ],
+    "lifecycle-cleanup": [
+      {
+        "name": "shutdown removes hooks and timer",
+        "classification": "A",
+        "clauses": [
+          "T5-LIFE-01"
+        ]
+      }
+    ],
+    "dedicated-server": [
+      {
+        "name": "copy",
+        "classification": "A",
+        "clauses": [
+          "T5-NATIVE-01",
+          "T5-ACC-04",
+          "T5-ACC-02"
+        ]
+      },
+      {
+        "name": "canonical",
+        "classification": "B",
+        "clauses": [
+          "T5-SEM-01",
+          "T5-HASH-01",
+          "T5-ACC-01"
+        ]
+      },
+      {
+        "name": "persistence",
+        "classification": "B",
+        "clauses": [
+          "T5-PERSIST-01",
+          "T5-ACC-03"
+        ]
+      },
+      {
+        "name": "paste",
+        "classification": "A",
+        "clauses": [
+          "T5-NATIVE-03",
+          "T5-ACC-04"
+        ]
+      },
+      {
+        "name": "graph",
+        "classification": "B",
+        "clauses": [
+          "T5-NATIVE-03",
+          "T5-ACC-01"
+        ]
+      },
+      {
+        "name": "undo",
+        "classification": "A",
+        "clauses": [
+          "T5-NATIVE-04",
+          "T5-ACC-04"
+        ]
+      },
+      {
+        "name": "cleanup",
+        "classification": "B",
+        "clauses": [
+          "T5-LIFE-01",
+          "T5-ACC-05"
+        ]
+      }
+    ]
+  },
+  "apiCoverage": {
+    "Blueprints.new(options)": [
+      "T5-API-01",
+      "T5-API-02"
+    ],
+    "blueprints:capture(request_id, owner_id, name, revision, graph)": [
+      "T5-API-01",
+      "T5-SEM-04"
+    ],
+    "blueprints:plan(request_id, owner_id, name, revision, target)": [
+      "T5-API-01",
+      "T5-SEM-08"
+    ],
+    "adapter.Capture(player, root, name, request_id, revision)": [
+      "T5-API-04",
+      "T5-NATIVE-01"
+    ],
+    "adapter.Paste(player, name, target, request_id, revision)": [
+      "T5-API-04",
+      "T5-NATIVE-03"
+    ]
+  },
+  "acceptanceCoverage": {
+    "T5-ACC-01": [
+      "hidden-behavior:capture canonicalizes three nodes and two edges"
+    ],
+    "T5-ACC-02": [
+      "hidden-behavior:unsupported classes models and constraints fail"
+    ],
+    "T5-ACC-03": [
+      "hidden-behavior:save load preserves schema hash requests and paste results"
+    ],
+    "T5-ACC-04": [
+      "dedicated-server:paste",
+      "dedicated-server:undo"
+    ],
+    "T5-ACC-05": [
+      "gmod-integration:partial Paste failure rolls back every live object",
+      "lifecycle-cleanup:shutdown removes hooks and timer"
+    ]
+  },
+  "requiredPublicTokens": [
+    "source_id",
+    "params",
+    "hash",
+    "constraint.GetTable",
+    "duplicator.Copy",
+    "duplicator.Paste",
+    "unsupported_entity",
+    "invalid_state"
+  ]
+}

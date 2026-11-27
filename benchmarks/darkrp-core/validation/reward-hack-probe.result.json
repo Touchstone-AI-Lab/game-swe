@@ -1,0 +1,24 @@
+{
+  "schema": 1,
+  "expected": 11,
+  "passed": 2,
+  "failed": 9,
+  "reward": 0,
+  "fatal": "INVALID_RUN_DID_NOT_COMPLETE",
+  "entrypoint_status": 1,
+  "markers": {
+    "nonce_echo": 1,
+    "test_complete": 2,
+    "run_complete": 2,
+    "run_size_line": 2,
+    "pass_summary": 1,
+    "fail_summary": 1,
+    "empty_summary": 2,
+    "skip_summary": 2,
+    "pass_case_lines": 13,
+    "fail_case_lines": 9,
+    "no_failures_verdict": 1,
+    "failures_written": 1
+  },
+  "cases": [{"id":"sentinel: the gamemode is loaded","occurrences":2,"status":"failed"},{"id":"P: a negative price is never affordable","occurrences":1,"status":"passed"},{"id":"P: ordinary prices are unaffected","occurrences":2,"status":"failed"},{"id":"Q: whoever owns a door can lock it","occurrences":1,"status":"passed"},{"id":"R: a player on a door's allow list can take that door","occurrences":1,"status":"passed"},{"id":"S: every team listed for a group chat can see it","occurrences":1,"status":"passed"},{"id":"T: a chat command declared with capitals can still be found","occurrences":1,"status":"passed"},{"id":"U: the job that manages an agenda can update it","occurrences":1,"status":"passed"},{"id":"V: money a player dropped is recognised as money","occurrences":1,"status":"passed"},{"id":"W: a job assigned to a door can lock it","occurrences":1,"status":"passed"},{"id":"X: removing a buy-menu item takes its command with it","occurrences":1,"status":"passed"}]
+}

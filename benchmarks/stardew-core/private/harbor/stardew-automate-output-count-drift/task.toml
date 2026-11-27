@@ -1,0 +1,59 @@
+schema_version = "1.1"
+
+[task]
+name = "gamecodebench/stardew-automate-output-count-drift"
+description = "One engineered defect in how Automate stores a finished output onto an existing chest stack: the game's addToStack returns the leftover count, and the base tree treats it as the added count. Three player reports show the same root cause as duplication, a furnace that never empties, and vanishing bars."
+authors = ["Jiaxuan Luo"]
+keywords = ["stardew-valley", "smapi", "csharp", "game-modding", "symptom-only", "engine-api-semantics"]
+
+[metadata]
+category = "programming"
+difficulty = "easy"
+tags = ["game-modding", "smapi", "stardew-valley", "csharp", "bug-fix"]
+source_repo = "https://github.com/Pathoschild/StardewMods"
+source_license = "MIT"
+source_mod = "Automate"
+base_ref = "automate/2.6.1 with one engineered defect in Framework/Storage/ChestContainer.cs"
+fix_commit = "none: engineered defect; the reference repair restores upstream automate/2.6.1"
+task_kind = "symptom-only"
+game_version = "1.6.15"
+smapi_version = "4.1.10"
+
+# note (luojiaxuan): the defect exists in no upstream history, so neither the shipped
+# changelog nor pretraining names it. Item.addToStack returns how many items did NOT
+# fit; the base tree reads that value as the number added. The tree's other call site
+# (DataBasedBuildingMachine) shows the correct reading, so the semantics are
+# recoverable from the repository without the game DLL.
+#
+# One root cause, three chest states, each a report and an assertion:
+#   free slots, existing stack  -> the bar is stored twice (duplication)
+#   no free slot, stack has room -> the store "fails", the furnace never empties,
+#                                   and each retry adds another bar
+#   no free slot, stack maxed    -> the leftover is counted as stored and the bar is lost
+# A symptom-local patch (returning after any merge, or assuming the whole stack was
+# added) fixes the first two states and loses the bar in the third.
+
+[verifier]
+network_mode = "no-network"
+timeout_sec = 2400.0
+
+[agent]
+# note (luojiaxuan): mini-swe-agent runs inside the container and calls the model API
+# from there, so a blanket no-network kills it. github.com and nuget.org stay off the
+# list: the reference repair is the upstream automate/2.6.1 file itself.
+network_mode = "allowlist"
+allowed_hosts = ["api.anthropic.com"]
+timeout_sec = 7200.0
+
+[environment]
+network_mode = "no-network"
+build_timeout_sec = 3600.0
+cpus = 6
+memory_mb = 16384
+storage_mb = 30720
+gpus = 0
+mcp_servers = []
+
+# note (luojiaxuan): same isolation and responsible-release posture as the rest of the Stardew suite:
+# game files staged locally from the operator's own copy, never committed; images
+# stay private; pretraining contamination is not addressed by isolation.

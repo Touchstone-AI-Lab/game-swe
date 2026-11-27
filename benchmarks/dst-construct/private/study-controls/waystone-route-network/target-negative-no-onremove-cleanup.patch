@@ -1,0 +1,11 @@
+diff -ruN a/scripts/components/waystonenetwork.lua b/scripts/components/waystonenetwork.lua
+--- a/scripts/components/waystonenetwork.lua	2026-09-22 01:12:00.695361388 +0800
++++ b/scripts/components/waystonenetwork.lua	2026-09-22 01:12:00.727992565 +0800
+@@ -82,7 +82,6 @@
+     local binding = { entity = entity }
+     binding.on_remove = function()
+         self:_Unbind(node_id)
+-        self.network:remove_node(node_id, self:_Now())
+     end
+     entity:ListenForEvent("onremove", binding.on_remove)
+     self.bound[node_id] = binding

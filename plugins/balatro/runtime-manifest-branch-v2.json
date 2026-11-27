@@ -1,0 +1,279 @@
+{
+  "schema_version": 2,
+  "version": "balatro-branch-v2",
+  "generated_utc": "2026-09-21T04:28:38.288724+00:00",
+  "maintainer": "Sangyu Pan",
+  "support_status": "Experimental controlled local honest; no formal untrusted host",
+  "adapter_sha256": "a1e680ae3be1e9907bffd92c27cede61c2b8c5fb785b4cf3cd6dc49187ac6d79",
+  "source_freeze_sha256": "5effae6c2163fe7ec5b584364c408ca203d42a059e77f55c26afeb2c9e57c855",
+  "source_freeze": "branch-source-freeze-v4.json",
+  "parent_source_freeze_sha256": "69facd6a3069550b6a2e8684f66520b72c4e7b956ff00990b63798b3c5a70a5e",
+  "test_only_delta": {
+    "file": "plugins/balatro/tests/test_balatro_review.py",
+    "before_sha256": "03ec433a2741f8e5b66175c967a0394d5132dab338b0647141248908d67d248c",
+    "after_sha256": "79766db8f03ed2607df9747580765baa7ec2e743f4a6c680308600917458d2bd",
+    "before_archive_sha256": "194ed9cdf1ec08d7694d02a2379383165413cb2e214d82775ae7a05242c7da63",
+    "assertions_preserved": true,
+    "real_windows_lock_and_job_tests_unchanged": true
+  },
+  "native_evidence_reuse_basis": "Product adapter, wheel, task assets, RPC, grading and orchestration unchanged; v4 only isolates the native lock dependency in one mock-engine unit test; read-only evidence reverified without game rerun",
+  "frozen_platform_pack_file_count": 465,
+  "assets_sha256": "0d7ad74d2cdcb25f554e1542a831cf4eb07adc8b0457a5c39cfb563f16bc7fcd",
+  "orchestration_freeze_sha256": "1ffb44b4e2d3ddf2e9f7e4748639332ae77eed7128d3bc7880729ff886d8e036",
+  "wheel": {
+    "name": "rhenium_balatro_plugin-0.2.2-py3-none-any.whl",
+    "sha256": "6ea64d87e44225d5741b7691a7aab624ebe3ac54239a9f09748250fbfe4633ee"
+  },
+  "core_wheel_sha256": "91ab221a05dd0e0d86339fc0696cd5074b76c863a70b7e2e7aa980ba2da6b72a",
+  "platform_runtime_observation": {
+    "python": "3.12.14",
+    "python_executable_sha256": "2204195cec25879507d958a8b6949add67091244b8b4da9cf3672f993548fa49",
+    "rhenium": "0.6.0",
+    "rhenium_balatro_plugin": "0.2.2",
+    "scope_note": "Observed local platform toolchain; original engine environment fingerprint below does not claim to pin every platform distribution."
+  },
+  "external_controller": {
+    "python": "3.13.12",
+    "python_executable_sha256": "2d8d20ef6e119ce9f129aaa63f81d7249b0853576e186725d93ca78614cd5f19",
+    "original_source_freeze_sha256": "0a329c56fa5175a6afa56ca5177c8779cb71ecbffbf0e871943d697c8b763039",
+    "original_frozen_source_count": 501,
+    "environment_sha256": "c2e4a2811da31ff11f4951639cc083e678c2329307d47c89ce0338b7745c3f9f",
+    "harness_sha256": "febd6bb1afda2c8e82008a6e4817dd23222392aabe6e4c9fbc53a85a0615702e",
+    "fixed_dependency_manifest_sha256": "d7428136d79f60108460a35110278eb2b856d246be0fc5618181bab29c798825",
+    "protected_baseline_sha256": "b1ff472970e375a63dc779043787c3119385affa0fa98f3924d18e1e486f0521"
+  },
+  "task_fingerprints": {
+    "growth-v2": "2393348aad9e4ad7df49f6e361a11892c8c11279a43d774b5f78fe69b7a805ea",
+    "reversible-hand-limit-v1": "b56f8f07e203d2bfca6e84a9a31cb217cdc23e0746b47ac7cf7dc260c326c7db",
+    "seeded-effect-stream-v1": "c6f36ac3012a01356a7d673f95e78cecbf5bda70b9511ab5abf2d6c95fd83905",
+    "bounded-generator-v2": "753546f3b9ffad3967c55ef3af36232a2023b42419440d2cc86cc1af0e0279d3",
+    "deck-removal-consistency-v2": "098e90d53617e6c2368df02dcd582cfdccda865dc2deef78cacca93bd0d57062",
+    "live-joker-adjacency-v2": "d1dfa25aa3dbf948b08cc5cfef2385ca9e947d59ff37e975125374f3cf395d2f",
+    "isolated-card-wear-v2": "6a25b4e22a6979bf5cefb50e77e1a8258c767ceb7420cb9be83f2ff1c61e1af1",
+    "durable-charge-v2": "9b3c545fe9a1244503a2d4c24d69ab7a53a8305a7e8e62e7c584d010f8a1431c",
+    "shop-price-coherence-v2": "36852d08bbc8c25e2569ca1720bfe4b5befc8e7e0c52a450277198e8db9347e9",
+    "pack-choice-commit-v2": "c6be0a20c0ad05d0ac30da64bf6631ec2ad15124bfcd32788a01235d276346ed"
+  },
+  "candidate_fingerprints": {
+    "growth-v2": {
+      "M03-per-hand": {
+        "candidate_sha256": "f5219f14c345997c2c733f854ce4942dcb9e44f0891d24625d15c9d4b0640731",
+        "submission_sha256": "00b0fbab8ce348c7cbeccc3f9d07933cdd3a0182b730732c8d6ea55bffb2edb4"
+      },
+      "alternative": {
+        "candidate_sha256": "f20e7ee4722a47688a8efb71ac7dc19f6b335afb65ee9ba0e0a705fd302c33b8",
+        "submission_sha256": "1f3d60a74a30bdc2882a777edba2711abc3cc914ba4a82ebcaffbdc18b53c655"
+      },
+      "base": {
+        "candidate_sha256": "7ef3fa407eb1308909cd4d2fda127325f3c705ef10d46d20db4e5e1f37d55d9b",
+        "submission_sha256": "aef72d25de72486fe382c0e00ea54e06d2ec78cc8288feb41b529707615ec41b"
+      },
+      "gold": {
+        "candidate_sha256": "ede5a754a4eebcaa26d2c4e5a4bb3dfec19179fe332c722c6ecdbcf2d96c67da",
+        "submission_sha256": "bd86e52d1f968db26af0d1ba288f377c0926e73abcb1d4349da90a69a1c29f1a"
+      }
+    },
+    "reversible-hand-limit-v1": {
+      "M02-no-remove": {
+        "candidate_sha256": "4f069377b17a012a182cab44a2e614da2998190a81c39cb1abe70b00c25ecff0",
+        "submission_sha256": "8e575486a575fd099947dc14f2476dfd2fe809f9b20ea2190dd37a85790cfbb7"
+      },
+      "base": {
+        "candidate_sha256": "02a77e1c222fe6a1d27aa5272236cb555ab5ec37067086b4711911657fe0b533",
+        "submission_sha256": "3219f8f22a899d16fd12b522b5f89e8d9485c872847631a8e115f294378fce34"
+      },
+      "gold": {
+        "candidate_sha256": "c1775c2e1db7a246c20c99b5a03499d66bdcd8e5ce9dcfe409fc0a8f2b78e4c1",
+        "submission_sha256": "2f8bc8a4a77d32dd92986f327dfa6eccf3e9b773dfa7e5afc1d4442fa9142435"
+      }
+    },
+    "seeded-effect-stream-v1": {
+      "M03-score-advances": {
+        "candidate_sha256": "0a61563b20e6ff7a788b0db601a14c8b0da44006a791cd71fc6f4eb3fc98322b",
+        "submission_sha256": "2cdd019a353feee443272be6a8fe313a26481543253fbb5c3dd75b707e3eb8b9"
+      },
+      "base": {
+        "candidate_sha256": "e7aeb3e93dfd12615ddaa991de56baaba22a295ad9ac2b29bf420c24c9171e71",
+        "submission_sha256": "7711a135274658ed9f594f77e913bc52ac2f34152b3f67682b932e3ee5f69c9d"
+      },
+      "gold": {
+        "candidate_sha256": "ea031f33fd2ff6904c61b40155f3e387348fcbd3a7d6406580a97c1e73ae34bc",
+        "submission_sha256": "d65c2036cf2b74d64fdc1a14c2873b96d209f30387fb129f450364d64f052818"
+      }
+    },
+    "bounded-generator-v2": {
+      "M02-fixed-release": {
+        "candidate_sha256": "1a6236ea8a12ed4c80dc0fe706d7cb24e86a60fb07d6f14a3c2d99560e8464d1",
+        "submission_sha256": "49fae0a69aa79e7d0e088352462e7f23f360aea89417b22afda9b7b5b6bfc77f"
+      },
+      "base": {
+        "candidate_sha256": "c72496d2c611efbcdbc3ea2821caa44b8071fb8c751e970dbe535772f1997717",
+        "submission_sha256": "ae2976c2b3e361dcca5cad5006dd0e4cce7ee885a4b8670317824cd288696bfe"
+      },
+      "gold": {
+        "candidate_sha256": "8a6e8fb4fc41558ec49beca61cbafc49e760e0ee91bfb33077997b21ee94f755",
+        "submission_sha256": "95f73f3529ef2558500ff6dd2459f06a16c7776d55fe5f353fc0b69691b71239"
+      }
+    },
+    "deck-removal-consistency-v2": {
+      "M02-area-only": {
+        "candidate_sha256": "acb418a34f7d8331656944c620bc803615c3d89e5f1393c3b341b3cd102b0222",
+        "submission_sha256": "e450c44dd3b84aea5c302d796ffb453915ccf72ed83242cdb7f37520a2f7786a"
+      },
+      "base": {
+        "candidate_sha256": "ea9009e041f211fc1abfdcb22bd38ecba43b5167114e47b281c52c58fd2cbdb3",
+        "submission_sha256": "c73e5469852e930036c394b19b6671a5a867e259c8637bb1dd62f8607a7a09a0"
+      },
+      "gold": {
+        "candidate_sha256": "cd6dc326c06d859f182fde044dbc44d73f2318f00b7c69401f736c4561d4daf6",
+        "submission_sha256": "5214536c014ab22d1bb88caf2e3f4f3e4a58f2539a490592ebc5d31d0bbcc945"
+      }
+    },
+    "live-joker-adjacency-v2": {
+      "M02-stale-index": {
+        "candidate_sha256": "a9257df2c4481924530fb1f3a898f69a1b7095fbdf6e923df661009fc3090eaf",
+        "submission_sha256": "bcd353d120b8da3693c6158ac5ecd0a7ac6e639edd85fca4c5b336cc59c2e749"
+      },
+      "base": {
+        "candidate_sha256": "ce9615013d1cb8608bd8643e452d9efad6bd0aa85a62138f2b0ead4ba91f662a",
+        "submission_sha256": "36ae192e9605a036d7c8d447fb6697167af6100a6fe44c3f1a771a9617ce2398"
+      },
+      "gold": {
+        "candidate_sha256": "ec6c23972fa93ed245c30c9cbaa0b14f21da2a6a47b2191325771a2b6296154f",
+        "submission_sha256": "4c93288314e5ef551b679e8ee5b8622b36619426698cafc3d5bdadac69fa6e8d"
+      }
+    },
+    "isolated-card-wear-v2": {
+      "M04-additive-refresh": {
+        "candidate_sha256": "349ece9b65941640870f99076a41236dd92ff07f0dc7b2e8c14213f4032f59bf",
+        "submission_sha256": "88ac6d6abbfe8892a13c64343cf0dd2e94d2f9bd7578a60c580b72cbc5cd88d5"
+      },
+      "base": {
+        "candidate_sha256": "56733c92265540c481637e4c057aff49cd9aa117177eae82c654869734c5142d",
+        "submission_sha256": "01854b2f98a9f78559e17e7dee69a1cbc135490972c53dc52490b0033f148bad"
+      },
+      "gold": {
+        "candidate_sha256": "be96afdd0f80e5d1f6a78f29ba07bacc7a8569ddb1debfdc4974d639039d9c98",
+        "submission_sha256": "8b5556f1407421240ad1fcc97f83b3195a606aa7b11bee7c8c1414eb07bb75ac"
+      }
+    },
+    "durable-charge-v2": {
+      "M06-display-only": {
+        "candidate_sha256": "005791c06503476ef44fcf4fed619e724fae1b9e7b7f4e3ecd477dfe672c2dea",
+        "submission_sha256": "8a5d9ca5ae9ff9611e72bd54ccabf583a8132a5ca706cfafa7636be63f822f6e"
+      },
+      "base": {
+        "candidate_sha256": "370cfe42a4cc9db07a08e55571952b0b663b73d828c288e6a7de404991bcca36",
+        "submission_sha256": "4a30f786a0c8e343cb7a621a4138a1f739fecb5427210494273ccfd542c983f6"
+      },
+      "gold": {
+        "candidate_sha256": "61ca72b6be35274bf77223803b174121f6166c5b4b9f1f95d5f4a431ce7767d9",
+        "submission_sha256": "de30d415b3222755061080841d2b84b348deb48ceb0238b40659cf126259ae98"
+      },
+      "gold-journal": {
+        "candidate_sha256": "80876f9339fd211de789b5be0cbb20d9b01521c07a44723ca0339177d91ba44c",
+        "submission_sha256": "5902b08e7d0d530092f8823e2dfb0c4bfe265562553a05bab3b152cb91a8f545"
+      }
+    },
+    "shop-price-coherence-v2": {
+      "M04-stale-accepted": {
+        "candidate_sha256": "d6f640e5b52d51bad4647d0e4e9d0fbca6948672bd9111259f580cb105c35831",
+        "submission_sha256": "b474a347cd688525fe0c24744d7825d5bff81c7ab02cd92daba24dbdec566e78"
+      },
+      "base": {
+        "candidate_sha256": "70f056585757dfcc23a1b0ff6608bff559c134e355ccc7df56b504418f04c523",
+        "submission_sha256": "ec00a6f8507d697a9dab0e877a3772af4641284ae9c0de752996add20f782c84"
+      },
+      "gold": {
+        "candidate_sha256": "414c8f56f80ed828237be0b7911c471db8187778c3f2120d2a17583971a3bc14",
+        "submission_sha256": "7d9051eac3b1297c7af8e42dc7c214b77bff33881379ee8a345356c96f714d61"
+      },
+      "gold-ledger": {
+        "candidate_sha256": "9ff528c810d720e93ac63c849c9b02bd1e2c26ce3ee7356270babb81b9605718",
+        "submission_sha256": "7a4a12a8c2b785af82215d7f97146f57f483bba8f6e4b071627acf725b3c709a"
+      }
+    },
+    "pack-choice-commit-v2": {
+      "M07-repeat-commit": {
+        "candidate_sha256": "26c873df5649b4409cd49362148c3f59e78c0837fdfc7ae49d9cc995179983d6",
+        "submission_sha256": "a645842f58ba2a3de00fef0be0ee36938156e7eea02be17447716640972fedd8"
+      },
+      "base": {
+        "candidate_sha256": "b7bb72eee37f9e5adc8c445305c3eec60582d1de0b5c31899083fd34f6f53f39",
+        "submission_sha256": "f1f39cedd6145fa3c99f6dce24426859128fe724c2fcb21ef5c10342341f2399"
+      },
+      "gold": {
+        "candidate_sha256": "06c03f5e85776a95aed7832187e814df42e5c23dd51ca8ee513f558af6a4c280",
+        "submission_sha256": "3ba1c6360a42d027520e1d29e471b734a128c27209350a8e9eeab01e64626160"
+      },
+      "gold-journal": {
+        "candidate_sha256": "f8c471d952d763770e5bc17f761d50571cb501693b7aa3661bc40987870a54ce",
+        "submission_sha256": "a4bfefe720c082d56865a58784c5d3caa0a919e1cf54ad32b71eeffb1e18a9ca"
+      }
+    }
+  },
+  "reviewed_new_byte_identities": [
+    {
+      "role": "gold",
+      "complete": true,
+      "passed": true,
+      "submission_sha256": "e5680d8944aced8c371646fe0edbdc319bf888f3182c334fc1aff785d3fad086",
+      "candidate_sha256": "d9292cf7a0b5b1dba4bf51ecc71f37518d07d55dd0ed13d5b8484f103dd43560",
+      "record_sha256": "f79eae0fef1c1a20a180b6d1469bd5918c3c1b375520efd100f31203c3d77d0d"
+    },
+    {
+      "role": "base",
+      "complete": true,
+      "passed": false,
+      "submission_sha256": "82141ddbaff49f666db353b1846827025125e1901ebade935e2078e5341519d0",
+      "candidate_sha256": "d7ea5d484ea454fdb69663fc2937c54b1d0ea73242f9cf26b7507105fc6edc87",
+      "record_sha256": "45adb577eb5e326d0a2dba5e1449b9a019b38906ba6c5f86a02742ba43f7ba01"
+    }
+  ],
+  "candidate_fingerprint_scope": "Declared control identities include historical roles; current executions are only those in validation and regression-scope-branch-v2.",
+  "constraints": {
+    "serial": true,
+    "visible": true,
+    "gamespeed": 1,
+    "FAST": 0,
+    "HEADLESS": 0
+  },
+  "smoke": {
+    "run_id": "20260921-103036-9912de95",
+    "passed": true,
+    "marker_sha256": "f38104d66118755b7e37ec7d5c9ce3619645ca8934276f1ef98824b5dfd399cc",
+    "adapter_sha256": "a1e680ae3be1e9907bffd92c27cede61c2b8c5fb785b4cf3cd6dc49187ac6d79",
+    "environment": "c2e4a2811da31ff11f4951639cc083e678c2329307d47c89ce0338b7745c3f9f"
+  },
+  "doctor": {
+    "before-smoke": {
+      "available": false,
+      "read_only": true,
+      "evidence_sha256": "61b615e9ea00a058dcb628edd8dcea9d2a5f73f14516634fa08c595534790d65"
+    },
+    "after-smoke": {
+      "available": true,
+      "read_only": true,
+      "evidence_sha256": "e0ee88284c012307acf7d5974440eec5f7478344a5d9968b7b1a8f409f700456"
+    }
+  },
+  "doctor_snapshot_scope": "Initial final-wheel state, before the operator scope stop; unchanged adapter",
+  "current_state_doctor": {
+    "available": true,
+    "evidence_sha256": "cf7229a98697ba8928e5922940ee58c306fbd50bd0693819d3486984e6b7d9f7"
+  },
+  "actual_scoring_entry": "scripts/score-exam.ps1; full; honest; new strict attempt once",
+  "entry_sha256": "6724ef4c80200eea518cbb05eb755881fa2c47eec1d7bffd446f9be1a61c7176",
+  "final_evidence": {
+    "validation-branch-v2.json": "e81763346ac5d95f2a13f698bb17c1ad6795f46eeca10d6ca1db12be2bb2b354",
+    "metrics-branch-v2.json": "1535f2c879020e3686e00a56c7572feef902759903fb9070ebfdf0b485477da1",
+    "regression-scope-branch-v2.json": "ba096b8ef9341a9b2bd9e36a330fef1afc9b33112bc51d8b25e6d671813fbd28",
+    "branch-checks-v2.json": "bb5f08f2e0f078dda631c6855cebec1a30327d5d67f7aeb7c6a38b9397b171eb",
+    "scope-checks-v3.json": "b62862f541a6b389b7102c889a8f2898e83fea29e07a7d9c2244c11d30020666",
+    "source-change-scope-v3.json": "e9ca046f1e2654c02209df24ec4ea3f6dc357910628ba20dab2ba9f55695ed79",
+    "branch-checks-v4.json": "0ebf18cf20b28e03851ccb463d1b5c300d06601ff262b85e9657d0fbf851a528"
+  },
+  "repository_checks_all_passed": false,
+  "calibrated_count": 0,
+  "formal_integration_status": "not_implemented"
+}

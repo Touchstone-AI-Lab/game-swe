@@ -1,0 +1,4 @@
+control	kind	base	overlay	root	note
+target-negative-refund-sum-rounding	target-negative	reference	patch:target-negative-refund-sum-rounding.patch	.	refunds are rounded down once on the sum of the removals, not per removal
+target-negative-placement-rows-first	target-negative	reference	patch:target-negative-placement-rows-first.patch	.	placement candidates are ordered by row and column only, ignoring the larger-size-first rule
+target-negative-place-without-footprint-check	target-negative	reference	patch:target-negative-place-without-footprint-check.patch	.	the adapter places a building without checking that its footprint tiles are free air tiles

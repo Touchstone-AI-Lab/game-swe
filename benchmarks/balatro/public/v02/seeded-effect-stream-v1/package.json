@@ -1,0 +1,35 @@
+{
+  "protocol": "v2",
+  "task": "seeded-effect-stream-v1",
+  "slot": "E3",
+  "target_difficulty": "easy",
+  "calibration_status": "unmeasured",
+  "calibration_model": null,
+  "calibration_evidence": [],
+  "formal_integration_status": "not_implemented",
+  "files": {
+    "CONTRACT.md": {
+      "size": 2070,
+      "sha256": "605548f73d9df347cae304d3b32140a20de9d5473eac6e29ab449202ff325cfc"
+    },
+    "README.md": {
+      "size": 1373,
+      "sha256": "62521eff01c1fa4aecc8b7a68225b9bace38e592b9e0a70ad384bd2e2bb1259d"
+    },
+    "starter/joker.lua": {
+      "size": 463,
+      "sha256": "fda35dde91757461512cc160eb64918c07ff4a871353d77f01c2da6cbf441426"
+    },
+    "starter/seeded_effect_stream.json": {
+      "size": 321,
+      "sha256": "c4627b6f56d7e94d7f95a427c1ecda3bd6420fa6ed620fcedc35ca20271362b0"
+    }
+  },
+  "content_sha256": "3489e7de51bf3877131400781705b94f93cb0730b1d0c3da88e062c9c26f4bdc",
+  "editable_files": [
+    "starter/joker.lua"
+  ],
+  "immutable_files": [
+    "starter/seeded_effect_stream.json"
+  ]
+}

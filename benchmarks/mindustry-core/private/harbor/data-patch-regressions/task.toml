@@ -1,0 +1,64 @@
+schema_version = "1.4"
+
+artifacts = ["/app/mindustry"]
+
+[task]
+name = "rhenium/mindustry-data-patch-regressions"
+version = "1.0.0"
+description = "Repair the Mindustry v159.7 server sources so server data patches can use server-defined content, fully reconfigure build towers and respect planet restrictions."
+authors = [{ name = "Rhenium" }]
+keywords = ["mindustry", "java", "game-source", "repository-debugging", "data-patches", "content", "server-console"]
+
+[metadata]
+category = "programming"
+difficulty = "hard"
+tags = ["mindustry", "java", "repository-debugging"]
+task_kind = "repository-debugging"
+game = "Mindustry (dedicated server)"
+game_version = "Mindustry v159.7"
+language = "Java 17"
+build_tool = "mindustry-source"
+source_repo = "https://github.com/Anuken/Mindustry"
+source_release = "v159.7"
+base_commit = "c9686eb5d0ae5dd47ee02c40f99f7d5018ccbc8c"
+fix_commits = ["e25b7280890aa50edcd0b53f7f4fea9ca4808fb0", "15c9ea4cc9e2964ac8e0cc6e3a1c8e6bc3b8aa17", "feab7aa908fa6135e32d8d31f0a74d42041f55e3"]
+source_license = "GPL-3.0"
+expected_server_cases = 7
+content_reference = "benchmarks/mindustry-core/exams/data-patch-regressions.md"
+content_reference_pack = "rhenium-mindustry-v2"
+harbor_reference_repository = "https://github.com/harbor-framework/harbor"
+harbor_reference_revision = "9a2e3b135cc8fb1e41131020f83370cb2f12ae93"
+verification_profile = "rhenium-mindustry-full"
+real_server_validation = "in-verifier; Mindustry v159.7 dedicated server"
+
+[verifier]
+network_mode = "no-network"
+timeout_sec = 2400.0
+user = "root"
+environment_mode = "separate"
+
+[verifier.environment]
+network_mode = "no-network"
+
+[agent]
+# The image contains mini-swe-agent. A Harbor job supplies only the model
+# endpoint hostname through agents[].extra_allowed_hosts.
+network_mode = "allowlist"
+allowed_hosts = []
+timeout_sec = 14400.0
+user = "agent"
+
+[environment]
+network_mode = "no-network"
+build_timeout_sec = 3600.0
+cpus = 4
+memory_mb = 8192
+storage_mb = 16384
+gpus = 0
+mcp_servers = []
+
+[verifier.env]
+
+[environment.env]
+
+[solution.env]

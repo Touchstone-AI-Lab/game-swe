@@ -1,0 +1,9 @@
+{"cases":[
+  {"name":"deterministic assignment","category":"core","maximum":7},
+  {"name":"duplicate and stale revision","category":"validation","maximum":5},
+  {"name":"heartbeat timeout and reassignment","category":"core","maximum":6},
+  {"name":"death and replacement","category":"fault-injection","maximum":7},
+  {"name":"save reload determinism","category":"persistence","maximum":10},
+  {"name":"real mono lifecycle","category":"integration","maximum":25},
+  {"name":"active plugin and real headless world","category":"integration","maximum":10}
+]}

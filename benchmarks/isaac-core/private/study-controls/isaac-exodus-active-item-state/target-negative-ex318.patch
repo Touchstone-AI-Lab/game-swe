@@ -1,0 +1,41 @@
+--- a/main.lua
++++ b/main.lua
+@@ -332,8 +332,6 @@
+                     { EntityType.ENTITY_MOMS_HEART, EntityType.ENTITY_SATAN, EntityType.ENTITY_ISAAC }
+                 }
+             },
+-            ANAMNESIS = { IsHolding = false, Charge = 0 },
+-
+             ---<<MISCELLANEOUS>>--
+             CHARGE_BAR = { Bar = Sprite(), Scale = Vector(1, 1) },
+             
+@@ -5690,29 +5688,6 @@
+ 
+ Exodus:AddCallback(ModCallbacks.MC_USE_ITEM, Exodus.anamnesisUse, ItemId.ANAMNESIS)
+ 
+-function Exodus:anamnesisUpdate()
+-    local player = Isaac.GetPlayer(0)
+-
+-    if player:HasCollectible(ItemId.ANAMNESIS) then
+-        if not ItemVariables.ANAMNESIS.IsHolding then
+-            if player:GetActiveCharge() == 6 and ItemVariables.ANAMNESIS.Charge ~= 6 then
+-                player:SetActiveCharge(0)
+-                ItemVariables.ANAMNESIS.Charge = 0
+-            elseif player:GetActiveCharge() ~= ItemVariables.ANAMNESIS.Charge then
+-                player:SetActiveCharge(ItemVariables.ANAMNESIS.Charge)
+-            end
+-
+-            ItemVariables.ANAMNESIS.IsHolding = true
+-        else
+-            ItemVariables.ANAMNESIS.Charge = player:GetActiveCharge()
+-        end
+-    elseif ItemVariables.ANAMNESIS.IsHolding then
+-        ItemVariables.ANAMNESIS.IsHolding = false
+-    end
+-end
+-
+-Exodus:AddCallback(ModCallbacks.MC_POST_UPDATE, Exodus.anamnesisUpdate)
+-
+ --<<<BIRDBATH>>>--
+ function Exodus:birdbathUse()
+     local player = Isaac.GetPlayer(0)

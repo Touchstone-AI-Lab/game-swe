@@ -1,0 +1,63 @@
+schema_version = "1.4"
+
+artifacts = ["/workspace/mod-liquid-lib"]
+
+[task]
+name = "gamecodebench/terraria-modliquid-map-persistence-hard"
+version = "0.3.0"
+description = "Repair atomic custom-liquid registry generations, transactional .tlmap persistence, and fail-closed map hooks in ModLiquid Library."
+authors = [{ name = "PrinsYin" }]
+keywords = ["terraria", "tmodloader", "modliquid", "csharp", "registries", "binary-format", "rle", "transactions", "il-hooks"]
+
+[metadata]
+category = "programming"
+difficulty = "hard"
+tags = ["game-modding", "terraria", "tmodloader", "repository-debugging", "registries", "binary-format", "rle", "transactions", "il-hooks"]
+task_kind = "repository-debugging"
+game = "Terraria"
+game_build = "1.4.4.9"
+tmodloader_api = "1.4.4 stable API"
+source_repo = "https://github.com/Lion8cake/ModLiquidLib"
+source_license = "MIT"
+base_commit = "282498893150b53d2e52efe26be0813aa8c8e193"
+source_mod_version = "2025.12.0.0"
+evaluation_boundary = "layered offline .NET 8 source projection plus pinned real tModLoader 2026.7.3.0 dedicated-server assertions against Terraria 1.4.4.9; disclosed client-only behavior remains source-projection-only"
+expected_private_cases = 103
+independent_defect_groups = 17
+public_smoke_command = "python3 tools/smoke.py"
+validation_status = "revision-3 oracle 103/103 and starter 38/103 controls completed"
+
+[verifier]
+environment_mode = "separate"
+network_mode = "no-network"
+timeout_sec = 900.0
+user = "root"
+
+[verifier.environment]
+network_mode = "no-network"
+cpus = 4
+memory_mb = 4096
+storage_mb = 8192
+gpus = 0
+mcp_servers = []
+
+[agent]
+user = "root"
+network_mode = "allowlist"
+allowed_hosts = ["api.openai.com"]
+timeout_sec = 7200.0
+
+[environment]
+network_mode = "no-network"
+build_timeout_sec = 1200.0
+cpus = 4
+memory_mb = 4096
+storage_mb = 8192
+gpus = 0
+mcp_servers = []
+
+[verifier.env]
+
+[environment.env]
+
+[solution.env]

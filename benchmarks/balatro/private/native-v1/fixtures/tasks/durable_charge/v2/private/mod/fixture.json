@@ -1,0 +1,19 @@
+{
+  "id": "poc_dc2_fixture",
+  "name": "Durable Charge v2 private fixture",
+  "author": [
+    "Balatro PoC"
+  ],
+  "description": "Reviewed capability controls, one fixture, read-only telemetry",
+  "prefix": "dc2f",
+  "main_file": "fixture.lua",
+  "version": "2.0.0",
+  "priority": 100006,
+  "dependencies": [
+    "Steamodded (>=1.~)",
+    "balatrobot",
+    "poc_bg_observer",
+    "poc_load_diag",
+    "durable_charge_v2"
+  ]
+}

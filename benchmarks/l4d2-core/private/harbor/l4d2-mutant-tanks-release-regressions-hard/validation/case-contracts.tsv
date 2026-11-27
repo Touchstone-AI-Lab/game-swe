@@ -1,0 +1,58 @@
+case	group	role	public_contract
+runtime_core_loaded	config	guard	The submitted Mutant Tanks core compiles, loads, and retains its upstream plugin identity.
+runtime_primary_ability_module_loaded	config	guard	The submitted primary abilities aggregate compiles and loads with Hypno registered.
+runtime_warp_module_loaded	config	guard	The submitted secondary abilities aggregate compiles and loads with its upstream plugin identity.
+config_reload_dispatches_callbacks	config	guard	Initial load and sm_mt_reload each deliver at least twenty observable MT_OnConfigsLoaded callbacks before the scoped argument checks run.
+config_forward_preserves_basic_arguments	config	guard	An ordinary General/Type Range callback preserves value 1-3, type -1, admin -1, mode 1, special false, and an empty special-section name on initial load and reload.
+config_forward_preserves_special_context	config	target	On initial load and reload, both Tank-type Health/Smoker Base Health=777 (type 1) and plugin-level Health/Smoker Base Health=606 (type -1) preserve admin -1, mode 1, special true, and exact special-section name Special.
+health_smoker_mutation_completes	health	guard	The public MT_SpawnTank native creates the requested custom mutant Smoker through normal server lifecycle callbacks.
+health_type_explicit_si_override_remains	health	guard	An explicit Tank-type Smoker base 777 plus extra 111 remains authoritative in both live and maximum engine health.
+health_plugin_si_fallback_beats_generic_defaults	health	target	When the selected Tank type omits Health, plugin-level Smoker base 606 plus extra 6 wins in both live and maximum engine health.
+warp_unpinned_survivor_still_moves	warp	guard	An initialized guaranteed on-hit Warp relocates an eligible unpinned survivor through the normal SDKHooks damage callback.
+warp_smoker_pin_is_preserved	warp	target	After the same attacker proves Warp is available on its paired unpinned control, a survivor with a real Smoker-class tongue owner stays in place.
+warp_hunter_pin_is_preserved	warp	target	After the same attacker proves Warp is available on its paired unpinned control, a survivor with a real Hunter-class pounce attacker stays in place.
+warp_jockey_pin_is_preserved	warp	target	After the same attacker proves Warp is available on its paired unpinned control, a survivor with a real Jockey-class attacker stays in place.
+warp_charger_pin_is_preserved	warp	target	After the same attacker proves Warp is available on its paired unpinned control, a survivor with a real Charger-class pummel attacker stays in place.
+boss_four_stage_evolution_completes	boss	target	A live configured type-1 Boss crosses four engine-health thresholds and reaches public types 2, 3, 4, and 5 in order without disappearing or raising a SourceMod exception.
+boss_final_stage_timer_remains_healthy	boss	target	The live type-5 final Boss remains valid beyond multiple repeating timer ticks without an out-of-bounds failure.
+reward_ab_two_real_tank_rewards_observed	reward_stacking	guard	Two real configured Tank deaths in A-then-B order credit the same survivor with combined Damage Boost and Ammo rewards through public apply=true callbacks.
+reward_ab_stacked_damage_before_replacement	reward_stacking	target	After A then B, a real base-10 SMG hit deals exactly 15 damage because the later larger 2.0 multiplier does not add to or replace the active 1.5 value.
+reward_ab_stacked_ammo_before_replacement	reward_stacking	target	After A then B, the first regeneration tick adds exactly 10 rounds to both an empty real SMG magazine and empty reserve because the later larger value does not add or replace.
+reward_ab_replacement_target_keeps_damage	reward_stacking	target	After bot_player_replace, the incoming survivor retains the A-then-B reward and a real base-10 SMG hit still deals exactly 15 damage.
+reward_ab_replacement_old_owner_loses_damage	reward_stacking	guard	After bot_player_replace, the replaced survivor no longer owns the reward and a real base-10 SMG hit deals exactly 10 damage.
+reward_ab_replacement_target_keeps_ammo	reward_stacking	target	After bot_player_replace, the incoming survivor's independently equipped empty real SMG receives exactly 10 magazine and reserve rounds on the first regeneration tick.
+reward_ab_replacement_old_owner_loses_ammo	reward_stacking	guard	After bot_player_replace, the replaced survivor's independently equipped empty real SMG receives no regeneration from stale reward state.
+reward_ab_public_expiry_forward_observed	reward_stacking	guard	Across the complete post-expiry observation window, the migrated combined A-then-B reward emits exactly one public apply=false callback for the incoming survivor.
+reward_ab_expiry_restores_baseline_damage	reward_stacking	guard	After A-then-B reward expiry, a real base-10 SMG hit by the incoming survivor deals exactly 10 damage.
+reward_ab_expiry_stops_ammo_regeneration	reward_stacking	guard	After A-then-B reward expiry, the incoming survivor's empty real SMG remains empty across a full regeneration interval.
+reward_ba_two_real_tank_rewards_observed	reward_stacking	guard	Two real configured Tank deaths in B-then-A order credit the same survivor with combined Damage Boost and Ammo rewards through public apply=true callbacks.
+reward_ba_stacked_damage_before_replacement	reward_stacking	guard	After B then A, a real base-10 SMG hit deals exactly 35 damage because the later smaller 1.5 multiplier adds to the active 2.0 value.
+reward_ba_stacked_ammo_before_replacement	reward_stacking	guard	After B then A, the first regeneration tick adds exactly 30 rounds to both an empty real SMG magazine and empty reserve.
+reward_ba_replacement_target_keeps_damage	reward_stacking	guard	After bot_player_replace, the incoming survivor retains the B-then-A reward and a real base-10 SMG hit still deals exactly 35 damage.
+reward_ba_replacement_old_owner_loses_damage	reward_stacking	guard	After the B-then-A handoff, the replaced survivor returns to exactly 10 damage.
+reward_ba_replacement_target_keeps_ammo	reward_stacking	guard	After the B-then-A handoff, the incoming survivor's independently equipped empty real SMG receives exactly 30 magazine and reserve rounds on the first regeneration tick.
+reward_ba_replacement_old_owner_loses_ammo	reward_stacking	guard	After the B-then-A handoff, the replaced survivor's independently equipped empty real SMG receives no regeneration.
+reward_ba_public_expiry_forward_observed	reward_stacking	guard	Across the complete post-expiry observation window, the migrated combined B-then-A reward emits exactly one public apply=false callback for the incoming survivor.
+reward_ba_expiry_restores_baseline_damage	reward_stacking	guard	After B-then-A reward expiry, a real base-10 SMG hit by the incoming survivor deals exactly 10 damage.
+reward_ba_expiry_stops_ammo_regeneration	reward_stacking	guard	After B-then-A reward expiry, the incoming survivor's empty real SMG remains empty across a full regeneration interval.
+hypno_view1_disabled_spawns_one_shield	hypno	target	Within a bounded post-spawn observation window, Hypno View=1 creates exactly one owner-parented shield even when gameplay activation is disabled; same-forward completion is not required.
+hypno_tank_removal_cleans_shield	hypno	target	Removing the owning Tank removes its shield and invalidates the old entref.
+hypno_respawn_uses_new_shield_entref	hypno	target	A later Tank lifecycle owns exactly one new shield and does not reuse the removed shield entref.
+hypno_view0_never_spawns_shield	hypno	target	Hypno View=0 creates no shield at spawn or after ordinary ability activation.
+hypno_view0_gameplay_hit_still_applies	hypno	guard	An enabled guaranteed View=0 Hypno hit still applies its divided reflected-damage gameplay effect while producing no visual shield.
+hypno_view1_enabled_activation_does_not_duplicate	hypno	target	An enabled View=1 Tank has the same single owner-parented shield before and after ordinary ability activation.
+hypno_round_and_plugin_cleanup_leave_no_orphans	hypno	target	Round reset and unloading the primary ability aggregate each remove all Hypno shields without an orphan or SourceMod exception.
+panic_explicit_uncommon_type_guard_works	panic_fallback	guard	Panic mode 2 with chance 100, amount 1, and explicit Panic Type=8 captures exactly one real infected entity total, and that entity is a Clown uncommon infected.
+panic_empty_type_spawns_one_uncommon	panic_fallback	target	Under the same controlled activation, documented Panic Type=0 random fallback captures exactly one real infected entity total rather than none or multiple entities.
+panic_fallback_uncommon_uses_allowed_model	panic_fallback	target	The sole captured Panic Type=0 fallback entity uses one of the seven documented uncommon-infected models.
+rainbow_reward_animates_before_takeover	rainbow_transfer	guard	A real class-8 Tank death credits the survivor through MT_OnRewardSurvivor(apply=true), and the survivor's active rainbow body reward changes render RGB before replacement.
+rainbow_bot_to_player_migrates_animation	rainbow_transfer	target	After bot_player_replace, the replacement survivor continues the active rainbow render-color animation.
+rainbow_old_bot_stops_after_takeover	rainbow_transfer	target	After bot_player_replace, the replaced bot remains at a stable neutral render color.
+rainbow_player_to_bot_migrates_animation	rainbow_transfer	target	After player_bot_replace, the replacement idle bot continues the still-active rainbow render-color animation.
+rainbow_old_player_stops_after_idle	rainbow_transfer	target	After player_bot_replace, the replaced player remains at a stable neutral render color.
+acid_melee_cooldown_blocks_window_repeat	cooldown	target	Two real Tank-claw hits inside Acid Cooldown=2 create exactly one Tank-owned spitter projectile.
+ammo_melee_cooldown_blocks_window_repeat	cooldown	target	Two real Tank-claw hits inside Ammo Cooldown=2 drain a 100-round primary magazine and reserve exactly once to 90/90.
+acid_melee_cooldown_recovers_after_expiry	cooldown	guard	A later real Tank-claw hit after Acid Cooldown=2 expires creates the second Tank-owned spitter projectile.
+ammo_melee_cooldown_recovers_after_expiry	cooldown	guard	A later real Tank-claw hit after Ammo Cooldown=2 expires drains the primary magazine and reserve a second time to 80/80.
+acid_zero_cooldown_allows_cross_second_repeat	cooldown	guard	Acid Cooldown=0 permits two cross-second real Tank-claw hits to create two Tank-owned spitter projectiles.
+ammo_zero_cooldown_allows_cross_second_repeat	cooldown	guard	Ammo Cooldown=0 permits two cross-second real Tank-claw hits to drain the 100-round primary magazine and reserve twice to 80/80.

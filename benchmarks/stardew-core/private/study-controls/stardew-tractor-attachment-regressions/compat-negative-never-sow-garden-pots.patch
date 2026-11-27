@@ -1,0 +1,15 @@
+diff --git a/TractorMod/Framework/Attachments/SeedAttachment.cs b/TractorMod/Framework/Attachments/SeedAttachment.cs
+index 2a81c22..b03443f 100644
+--- a/TractorMod/Framework/Attachments/SeedAttachment.cs
++++ b/TractorMod/Framework/Attachments/SeedAttachment.cs
+@@ -51,6 +51,10 @@ internal class SeedAttachment : BaseAttachment
+         if (item is not { Stack: > 0 })
+             return false;
+ 
++        // skip garden pots
++        if (tileObj is IndoorPot)
++            return false;
++
+         // get dirt
+         if (!this.TryGetHoeDirt(tileFeature, tileObj, out HoeDirt? dirt, out bool dirtCoveredByObj, out IndoorPot? pot) || dirt.crop != null || pot?.bush.Value is not null)
+             return false;

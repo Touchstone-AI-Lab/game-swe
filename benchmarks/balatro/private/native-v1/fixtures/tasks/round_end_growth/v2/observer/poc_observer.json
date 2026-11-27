@@ -1,0 +1,1 @@
+{"id":"poc_observer","name":"Growth v2 observation","author":["Balatro PoC"],"description":"Sealed mixed-eights fixture and raw observations","prefix":"pocobs","main_file":"observer.lua","version":"0.2.0","priority":100001,"dependencies":["Steamodded (>=1.~)","balatrobot","round_end_growth"]}

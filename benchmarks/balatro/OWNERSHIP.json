@@ -1,0 +1,8 @@
+{
+  "schema_version": 1,
+  "maintainers": [{"name": "Sangyu Pan"}],
+  "identity_source": "Explicit user response in the integration maintenance task, 2026-09-21",
+  "contact_status": "not provided",
+  "ownership_scope": "Self-authored candidate tasks and integration maintenance",
+  "license_boundary": "This record grants no rights to Balatro or third-party dependencies. No licensed content is included."
+}

@@ -1,0 +1,13 @@
+diff --git a/src/main/java/com/evacipated/cardcrawl/modthespire/lib/SpireReturn.java b/src/main/java/com/evacipated/cardcrawl/modthespire/lib/SpireReturn.java
+index 0e7995a..daf79dc 100644
+--- a/src/main/java/com/evacipated/cardcrawl/modthespire/lib/SpireReturn.java
++++ b/src/main/java/com/evacipated/cardcrawl/modthespire/lib/SpireReturn.java
+@@ -39,7 +39,7 @@ public final class SpireReturn<T>
+ 
+     public static SpireReturn<Void> Return()
+     {
+-        return Return(null);
++        return Continue();
+     }
+ 
+     public T get()

@@ -1,0 +1,10 @@
+--- a/lua/rhenium_loadout_profiles/profiles.lua
++++ b/lua/rhenium_loadout_profiles/profiles.lua
+@@ -39,6 +39,6 @@
+ function Profiles:preferred(p)local x=self.players[p];return x and x.preferred or nil end
+ function Profiles:plan(p)local x=self.players[p];local v=x and x.preferred and x.profiles[x.preferred];if not v then return nil,"not_found"end;return cp(v.plan)end
+ function Profiles:disconnect(p,now)if type(now)=="number"and now==now and now>=0 and now>self.last_now then self.last_now=now end;return true,"retained",{player_id=p}end
+-function Profiles:save(now)if type(now)=="number"and now==now and now>=0 and now>self.last_now then self.last_now=now end;return{schema_version=1,last_now=self.last_now,players=cp(self.players),requests=cp(self.requests)}end
++function Profiles:save(now)if type(now)=="number"and now==now and now>=0 and now>self.last_now then self.last_now=now end;return{schema_version=1,last_now=self.last_now,players={},requests=cp(self.requests)}end
+ function Profiles:shutdown()self.stopped=true;return true,"shutdown"end
+ return Profiles

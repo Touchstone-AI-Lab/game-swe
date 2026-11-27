@@ -1,0 +1,122 @@
+--- a/spigot/src/main/java/ru/brikster/chatty/Chatty.java
++++ b/spigot/src/main/java/ru/brikster/chatty/Chatty.java
+@@ -79,6 +79,10 @@
+ import java.nio.file.Files;
+ import java.nio.file.Path;
+ import java.util.ArrayList;
++import java.util.Iterator;
++import java.util.LinkedHashMap;
++import java.util.LinkedHashSet;
++import java.util.Set;
+ import java.util.List;
+ import java.util.Map;
+ import java.util.concurrent.ConcurrentHashMap;
+@@ -90,6 +94,25 @@
+ 
+     private final Map<String, ProxyingCommandHandler<CommandSender>> proxyingCommandHandlerMap = new ConcurrentHashMap<>();
+ 
++    /** Chat commands currently registered with the sync command manager, by command name. */
++    private final Map<String, ChatCommandRegistration> registeredChatCommands = new LinkedHashMap<>();
++
++    private static final class ChatCommandRegistration {
++        private final String chatId;
++        private final Set<String> aliases;
++
++        private ChatCommandRegistration(String chatId, Set<String> aliases) {
++            this.chatId = chatId;
++            this.aliases = aliases;
++        }
++
++        private boolean matches(Chat chat) {
++            ChatCommand command = chat.getCommand();
++            return command != null && chatId.equals(chat.getId())
++                    && aliases.equals(new LinkedHashSet<>(command.getAliases()));
++        }
++    }
++
+     private Injector injector;
+ 
+     private NotificationTicker notificationTicker;
+@@ -147,7 +170,6 @@
+         }
+ 
+         registerChattyCommand();
+-        registerChatCommands();
+ 
+         releasePlayerLoginEvent();
+     }
+@@ -320,6 +342,10 @@
+ 
+         ChattyApiImpl.updateInstance(new ChattyApiImpl(injector.getInstance(ChatRegistry.class).getChats()));
+ 
++        if (syncCommandManager != null) {
++            syncChatCommands();
++        }
++
+         MetricsSender metricsSender = new MetricsSender();
+         injector.injectMembers(metricsSender);
+         metricsSender.run();
+@@ -443,25 +469,54 @@
+                 .build());
+     }
+ 
+-    private void registerChatCommands() {
+-        ChatCommandHandler handler = injector.getInstance(ChatCommandHandler.class);
++    /**
++     * Brings the registered chat commands in line with the chats currently in the registry:
++     * commands that vanished or changed are unregistered, missing ones are registered, and
++     * unchanged ones are left untouched (re-registering them would drop their aliases).
++     */
++    private void syncChatCommands() {
++        Map<String, Chat> wanted = new LinkedHashMap<>();
+         for (Chat chat : injector.getInstance(ChatRegistry.class).getChats().values()) {
+-            ChatCommand chatCommand = chat.getCommand();
+-            if (chatCommand == null) {
++            if (chat.getCommand() != null) {
++                wanted.put(chat.getCommand().getName(), chat);
++            }
++        }
++        Iterator<Map.Entry<String, ChatCommandRegistration>> current = registeredChatCommands.entrySet().iterator();
++        while (current.hasNext()) {
++            Map.Entry<String, ChatCommandRegistration> entry = current.next();
++            Chat chat = wanted.get(entry.getKey());
++            if (chat != null && entry.getValue().matches(chat)) {
++                continue;
++            }
++            try {
++                syncCommandManager.deleteRootCommand(entry.getKey());
++            } catch (Throwable t) {
++                getLogger().log(Level.WARNING, "Could not unregister chat command /" + entry.getKey(), t);
++            }
++            current.remove();
++            getLogger().log(Level.INFO, "Unregistered chat command /{0}", entry.getKey());
++        }
++        for (Map.Entry<String, Chat> entry : wanted.entrySet()) {
++            String name = entry.getKey();
++            if (registeredChatCommands.containsKey(name)) {
+                 continue;
+             }
+-            String[] aliases = chatCommand.getAliases().toArray(new String[0]);
++            Chat chat = entry.getValue();
++            String chatId = chat.getId();
++            Set<String> aliases = new LinkedHashSet<>(chat.getCommand().getAliases());
+             syncCommandManager.command(syncCommandManager
+-                    .commandBuilder(chatCommand.getName(), aliases)
++                    .commandBuilder(name, aliases.toArray(new String[0]))
+                     .senderType(Player.class)
+                     .argument(StringArgument.<CommandSender>builder("message").greedy().asOptional().build())
+                     .handler(context -> {
+-                        context.set("chat-id", chat.getId());
+-                        handler.execute(context);
++                        context.set("chat-id", chatId);
++                        // Resolved at execution time so a reload's new injector is used.
++                        injector.getInstance(ChatCommandHandler.class).execute(context);
+                     })
+                     .build());
++            registeredChatCommands.put(name, new ChatCommandRegistration(chatId, aliases));
+             getLogger().log(Level.INFO, "Registered chat command /{0} for chat \"{1}\"",
+-                    new Object[]{chatCommand.getName(), chat.getId()});
++                    new Object[]{name, chatId});
+         }
+     }
+ 

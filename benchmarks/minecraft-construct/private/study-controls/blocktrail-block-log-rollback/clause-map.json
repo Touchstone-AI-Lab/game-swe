@@ -1,0 +1,371 @@
+{
+  "task": "minecraft/construct/blocktrail-block-log-rollback",
+  "task_version": "1.3.0",
+  "exam": "benchmarks/minecraft-construct/exams/blocktrail-block-log-rollback.md",
+  "cases": [
+    {
+      "id": "check:submission-shape",
+      "role": "static",
+      "clauses": [
+        "S1"
+      ],
+      "overlap": false,
+      "note": "required skeleton files present, no symlinks or compiled artifacts"
+    },
+    {
+      "id": "check:offline-build",
+      "role": "static",
+      "clauses": [
+        "S1"
+      ],
+      "overlap": false,
+      "note": "the plugin builds offline with the restored pom.xml and names itself BlockTrail"
+    },
+    {
+      "id": "server:BlockTrail is enabled",
+      "role": "runtime-sentinel",
+      "clauses": [],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "server:default config.yml is written on first enable",
+      "role": "target",
+      "clauses": [
+        "R5"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "server:plugin.yml declares the trail command and permissions",
+      "role": "target",
+      "clauses": [
+        "R7"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "server:a broken block is recorded and shown by lookup",
+      "role": "target",
+      "clauses": [
+        "R2",
+        "R3",
+        "R9",
+        "R10"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "server:a placed block records the material it replaced",
+      "role": "target",
+      "clauses": [
+        "R2",
+        "R4",
+        "R9"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "server:lookup lists every change at a block newest first",
+      "role": "target",
+      "clauses": [
+        "R10",
+        "R9"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "server:cancelled changes are not recorded",
+      "role": "target",
+      "clauses": [
+        "R1"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "server:ignored materials are not recorded",
+      "role": "target",
+      "clauses": [
+        "R4",
+        "R5"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "server:only the configured worlds are recorded",
+      "role": "target",
+      "clauses": [
+        "R4",
+        "R14"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "server:each exploded block is recorded",
+      "role": "target",
+      "clauses": [
+        "R2",
+        "R4",
+        "R1"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "server:changes.log uses the documented line format",
+      "role": "target",
+      "clauses": [
+        "R6",
+        "R2"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "server:player lists an actor's changes with paging",
+      "role": "target",
+      "clauses": [
+        "R11",
+        "R8"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "server:lookup and player validate their arguments",
+      "role": "target",
+      "clauses": [
+        "R8",
+        "R10",
+        "R11"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "server:rollback restores broken and placed blocks",
+      "role": "target",
+      "clauses": [
+        "R12"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "server:rollback undoes changes newest first",
+      "role": "target",
+      "clauses": [
+        "R12"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "server:rollback only touches the actor's changes inside the radius",
+      "role": "target",
+      "clauses": [
+        "R12",
+        "R8"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "server:rollback skips blocks that changed since",
+      "role": "target",
+      "clauses": [
+        "R12"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "server:rolled back changes are marked and never rolled back twice",
+      "role": "target",
+      "clauses": [
+        "R12",
+        "R6",
+        "R9"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "server:rollback validates radius and time",
+      "role": "target",
+      "clauses": [
+        "R8",
+        "R12"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "server:a real TNT explosion is recorded and rolled back",
+      "role": "target",
+      "clauses": [
+        "R2",
+        "R12"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "server:rollback honours the time window",
+      "role": "target",
+      "clauses": [
+        "R12",
+        "R14",
+        "R3"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "server:purge removes old changes and rewrites the log",
+      "role": "target",
+      "clauses": [
+        "R13",
+        "R3"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "server:reload reads changes and rollback marks from disk",
+      "role": "target",
+      "clauses": [
+        "R14",
+        "R6",
+        "R3"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "server:permissions are enforced",
+      "role": "target",
+      "clauses": [
+        "R7"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "server:rollback combines actor, radius and time filters",
+      "role": "target",
+      "clauses": [
+        "R12"
+      ],
+      "overlap": false,
+      "note": "The case composes existing public requirements in one live-server interaction."
+    },
+    {
+      "id": "server:malformed commands show usage",
+      "role": "target",
+      "clauses": [
+        "R7"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "server:rollback restores directional block data and skips stale states",
+      "role": "target",
+      "clauses": [
+        "R2",
+        "R6",
+        "R12"
+      ],
+      "overlap": false,
+      "note": ""
+    }
+  ],
+  "clauses": [
+    {
+      "id": "R1",
+      "anchor": "Recording changes, 1: MONITOR priority, cancelled events never recorded",
+      "status": "asserted"
+    },
+    {
+      "id": "R2",
+      "anchor": "Recording changes, 2: fields of a break, place and explosion change",
+      "status": "asserted"
+    },
+    {
+      "id": "R3",
+      "anchor": "Recording changes, 3: ids count up and continue after a reload",
+      "status": "asserted"
+    },
+    {
+      "id": "R4",
+      "anchor": "Recording changes, 4: ignored materials and world filter",
+      "status": "asserted"
+    },
+    {
+      "id": "R5",
+      "anchor": "Configuration, 5: default config.yml values",
+      "status": "asserted"
+    },
+    {
+      "id": "R6",
+      "anchor": "The change log file, 6: changes.log line format and undo lines",
+      "status": "asserted"
+    },
+    {
+      "id": "R7",
+      "anchor": "Commands, 7: subcommands, validation order, permissions, usage lines",
+      "status": "asserted"
+    },
+    {
+      "id": "R8",
+      "anchor": "Commands, 8: argument validation replies",
+      "status": "asserted"
+    },
+    {
+      "id": "R9",
+      "anchor": "Commands, 9: change lines and the rolled-back suffix",
+      "status": "asserted"
+    },
+    {
+      "id": "R10",
+      "anchor": "Commands, 10: lookup",
+      "status": "asserted"
+    },
+    {
+      "id": "R11",
+      "anchor": "Commands, 11: player paging",
+      "status": "asserted"
+    },
+    {
+      "id": "R12",
+      "anchor": "Commands, 12: rollback by actor, area and time, newest first, skipping changed blocks",
+      "status": "asserted"
+    },
+    {
+      "id": "R13",
+      "anchor": "Commands, 13: purge rewrites the log",
+      "status": "asserted"
+    },
+    {
+      "id": "R14",
+      "anchor": "Commands, 14: reload",
+      "status": "asserted"
+    },
+    {
+      "id": "S1",
+      "anchor": "Skeleton and build: keep the plugin name and main class; the frozen pom.xml builds the plugin offline",
+      "status": "asserted"
+    }
+  ],
+  "excluded_clauses": [],
+  "known_issues": []
+}

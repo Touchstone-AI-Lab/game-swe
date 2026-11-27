@@ -1,0 +1,13 @@
+diff --git a/Common/IO/StringCompressor.cs b/Common/IO/StringCompressor.cs
+--- a/Common/IO/StringCompressor.cs
++++ b/Common/IO/StringCompressor.cs
+@@ -19,6 +19,9 @@ namespace MagicStorage.Common.IO {
+ 		/// This method is optimized for short (length &lt; 32) ASCII strings
+ 		/// </summary>
+ 		public static void WriteTo(ValueWriter writer, string value) {
++			if (value.Length > ushort.MaxValue)
++				throw new ArgumentOutOfRangeException(nameof(value), $"String length must be at most {ushort.MaxValue} UTF-16 code units");
++
+ 			// Metadata for the string is included in a prefix of bits
+ 			// Metadata is optimized for short ASCII strings
+ 

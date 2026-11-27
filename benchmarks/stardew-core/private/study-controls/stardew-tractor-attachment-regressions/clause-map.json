@@ -1,0 +1,185 @@
+{
+  "task": "stardew-valley/core/stardew-tractor-attachment-regressions",
+  "task_version": "1.2.0",
+  "exam": "benchmarks/stardew-core/exams/stardew-tractor-attachment-regressions.md",
+  "cases": [
+    {
+      "id": "check:submission-shape",
+      "role": "static",
+      "clauses": [],
+      "overlap": false,
+      "note": "Evaluator file gate: StardewMods/ exists, required files present, no symlinks."
+    },
+    {
+      "id": "case:setup: the player builds a garage and rides the tractor",
+      "role": "setup",
+      "clauses": [],
+      "overlap": false,
+      "note": "Garage built instantly, its stable spawns the tractor, the player walks up and mounts it; passes on every tree."
+    },
+    {
+      "id": "case:axe: a sapling is cleared when sapling clearing is on",
+      "role": "preserved",
+      "clauses": [
+        "Report-axe-saplings",
+        "Task-preserve-saplings"
+      ],
+      "overlap": false,
+      "note": "A stage-2 cherry sapling next to the tractor is cleared by the axe."
+    },
+    {
+      "id": "case:axe: a full-grown fruit tree is left alone when grown-tree chopping is off",
+      "role": "target",
+      "clauses": [
+        "Report-axe-grown"
+      ],
+      "overlap": false,
+      "note": "A fully grown cherry tree next to the tractor keeps its health and is not felled."
+    },
+    {
+      "id": "case:seeds: an empty garden pot is sown",
+      "role": "preserved",
+      "clauses": [
+        "Report-seeds-empty-pot",
+        "Task-preserve-empty-pots"
+      ],
+      "overlap": false,
+      "note": "Parsnip seeds are sown into an empty garden pot."
+    },
+    {
+      "id": "case:seeds: a garden pot holding a bush is not sown",
+      "role": "target",
+      "clauses": [
+        "Report-seeds-bush-pot"
+      ],
+      "overlap": false,
+      "note": "A garden pot holding a tea bush gets no crop."
+    },
+    {
+      "id": "case:custom attachments: a placeable item is placed around the tractor",
+      "role": "preserved",
+      "clauses": [
+        "Report-custom-torch",
+        "Task-preserve-custom-placeable"
+      ],
+      "overlap": false,
+      "note": "Holding torches (listed in CustomAttachments) places torches around the tractor."
+    },
+    {
+      "id": "case:custom attachments: an item that can't be placed is never put on the ground",
+      "role": "target",
+      "clauses": [
+        "Report-custom-parsnip"
+      ],
+      "overlap": false,
+      "note": "Holding parsnips (listed in CustomAttachments) places none and keeps the stack."
+    },
+    {
+      "id": "case:pickaxe: placed objects are broken when that option is on",
+      "role": "preserved",
+      "clauses": [
+        "Report-pickaxe-objects",
+        "Task-preserve-break-objects"
+      ],
+      "overlap": false,
+      "note": "A placed torch next to the tractor is broken with Break Objects on."
+    },
+    {
+      "id": "case:pickaxe: stones stay when stone breaking is off",
+      "role": "target",
+      "clauses": [
+        "Report-pickaxe-stones"
+      ],
+      "overlap": false,
+      "note": "A field stone next to the tractor survives with Break Mine Stones off and Break Objects on."
+    }
+  ],
+  "clauses": [
+    {
+      "id": "Report-axe-grown",
+      "anchor": "Problem, report 'Axe and grown fruit trees', sentences 1-2 and 3b: grown fruit trees are chopped although 'Chop Fruit Trees (Grown)' is off; they should be left alone",
+      "status": "asserted",
+      "note": "One fully grown cherry tree probed."
+    },
+    {
+      "id": "Report-axe-saplings",
+      "anchor": "Problem, report 'Axe and grown fruit trees', sentence 3a: saplings should be cleared",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "Report-seeds-bush-pot",
+      "anchor": "Problem, report 'Seeds and garden pots', sentences 1-2: seeds are sown into pots that already hold a bush",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "Report-seeds-empty-pot",
+      "anchor": "Problem, report 'Seeds and garden pots', sentence 3: empty garden pots and ordinary tilled soil should still be sown",
+      "status": "weak",
+      "note": "Empty garden pots are probed; ordinary tilled soil is not."
+    },
+    {
+      "id": "Report-custom-torch",
+      "anchor": "Problem, report 'Custom attachments', sentence 2: torches get placed as expected",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "Report-custom-parsnip",
+      "anchor": "Problem, report 'Custom attachments', sentences 3-4: parsnips are dropped on the ground; items the game doesn't let you place by hand shouldn't be placed",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "Report-pickaxe-stones",
+      "anchor": "Problem, report 'Pickaxe and stones', sentences 1-3: with Break Mine Stones off and Break Objects on, stones are smashed anyway; they should only break when Break Mine Stones is on",
+      "status": "asserted",
+      "note": "A farm field stone is probed; stones inside the mines are not."
+    },
+    {
+      "id": "Report-pickaxe-objects",
+      "anchor": "Problem, report 'Pickaxe and stones', last sentence: placed objects like torches should still be broken",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "Task-preserve-saplings",
+      "anchor": "Task, sentence 2: saplings are cleared when that option is on",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "Task-preserve-empty-pots",
+      "anchor": "Task, sentence 2: empty garden pots are sown",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "Task-preserve-custom-placeable",
+      "anchor": "Task, sentence 2: placeable custom attachments are placed",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "Task-preserve-break-objects",
+      "anchor": "Task, sentence 2: placed objects are broken when that option is on",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "Notes-3",
+      "anchor": "Notes, bullet 3: Do not modify anything under /tests",
+      "status": "unasserted",
+      "note": "Enforced by construction (tests are mounted read-only), not by a case."
+    }
+  ],
+  "excluded_clauses": [
+    "Notes-3"
+  ],
+  "known_issues": [
+    "The three target cases that check that something was left alone (grown fruit tree, bush pot, field stone) are read right after the matching preserved case has shown that the tractor worked on the same patch; if the tractor did nothing at all, the preserved case fails first.",
+    "The suite uses one fixed config.json, so each option is probed in one setting only (for example, stone breaking is only probed switched off).",
+    "Field stones and fruit trees are added to the farm's object and terrain-feature collections directly, the way world generation adds them; torches and garden pots are placed with the game's placement action."
+  ]
+}

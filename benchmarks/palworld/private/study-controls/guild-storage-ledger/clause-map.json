@@ -1,0 +1,163 @@
+{
+  "task": "palworld/core/guild-storage-ledger",
+  "task_version": "1.2.0",
+  "exam": "benchmarks/palworld/exams/guild-storage-ledger.md",
+  "cases": [
+    {
+      "id": "check:required-files",
+      "role": "static"
+    },
+    {
+      "id": "check:lua-syntax",
+      "role": "static"
+    },
+    {
+      "id": "hidden:cycles are strictly monotonic and stale cycles are inert",
+      "role": "target",
+      "clauses": [
+        "request"
+      ]
+    },
+    {
+      "id": "hidden:bundles, members and counts are validated on the server",
+      "role": "target",
+      "clauses": [
+        "request"
+      ]
+    },
+    {
+      "id": "hidden:retries never double-spend quota",
+      "role": "target",
+      "clauses": [
+        "request"
+      ]
+    },
+    {
+      "id": "hidden:commit and rollback each consume a token exactly once",
+      "role": "target",
+      "clauses": [
+        "request"
+      ]
+    },
+    {
+      "id": "hidden:snapshot is fresh, ordered and free of private structures",
+      "role": "target",
+      "clauses": [
+        "request"
+      ]
+    },
+    {
+      "id": "hidden:save and load round-trip quota, outcomes and token sequencing",
+      "role": "target",
+      "clauses": [
+        "request"
+      ]
+    },
+    {
+      "id": "check:implementation-depth",
+      "role": "static"
+    },
+    {
+      "id": "check:supply-authority",
+      "role": "target",
+      "clauses": [
+        "integration:supply-authority"
+      ],
+      "note": "regular-expression gate over the submitted source, not an execution"
+    },
+    {
+      "id": "check:supply-delivery",
+      "role": "target",
+      "clauses": [
+        "integration:supply-delivery"
+      ],
+      "note": "regular-expression gate over the submitted source, not an execution"
+    },
+    {
+      "id": "check:supply-persistence",
+      "role": "target",
+      "clauses": [
+        "integration:supply-persistence"
+      ],
+      "note": "regular-expression gate over the submitted source, not an execution"
+    },
+    {
+      "id": "check:supply-lifecycle",
+      "role": "target",
+      "clauses": [
+        "integration:supply-lifecycle"
+      ],
+      "note": "regular-expression gate over the submitted source, not an execution"
+    },
+    {
+      "id": "check:supply-manifest",
+      "role": "target",
+      "clauses": [
+        "integration:supply-manifest"
+      ],
+      "note": "regular-expression gate over the submitted source, not an execution"
+    },
+    {
+      "id": "server:dedicated server context is available",
+      "role": "target",
+      "clauses": [
+        "request"
+      ]
+    },
+    {
+      "id": "server:guild storage service is published",
+      "role": "target",
+      "clauses": [
+        "request"
+      ]
+    },
+    {
+      "id": "server:the server resolves quotas and rolls back failed delivery",
+      "role": "target",
+      "clauses": [
+        "request"
+      ]
+    },
+    {
+      "id": "server:guild storage state reloads",
+      "role": "target",
+      "clauses": [
+        "request"
+      ]
+    }
+  ],
+  "clauses": [
+    {
+      "id": "request",
+      "anchor": "exam body; split into individual clauses during review",
+      "status": "asserted"
+    },
+    {
+      "id": "integration:supply-authority",
+      "anchor": "host-integration section; source-pattern gate supply-authority",
+      "status": "weak"
+    },
+    {
+      "id": "integration:supply-delivery",
+      "anchor": "host-integration section; source-pattern gate supply-delivery",
+      "status": "weak"
+    },
+    {
+      "id": "integration:supply-persistence",
+      "anchor": "host-integration section; source-pattern gate supply-persistence",
+      "status": "weak"
+    },
+    {
+      "id": "integration:supply-lifecycle",
+      "anchor": "host-integration section; source-pattern gate supply-lifecycle",
+      "status": "weak"
+    },
+    {
+      "id": "integration:supply-manifest",
+      "anchor": "host-integration section; source-pattern gate supply-manifest",
+      "status": "weak"
+    }
+  ],
+  "excluded_clauses": [],
+  "known_issues": []
+}

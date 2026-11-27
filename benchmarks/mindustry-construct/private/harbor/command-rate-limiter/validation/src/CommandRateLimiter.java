@@ -1,0 +1,8 @@
+import java.util.*;
+public final class CommandRateLimiter {
+ public record Policy(int capacity,int refill,long windowTicks,long banTicks){} public record Decision(String player,boolean allowed,int remaining,long bannedUntil){} public record State(String player,int tokens,long windowStart,long bannedUntil){} public record PersistedState(long lastTick,List<State> states){}
+ private final Policy p; private long lastTick=-1; private final TreeMap<String,State> states=new TreeMap<>();
+ public CommandRateLimiter(Policy p){this(p,new PersistedState(-1,List.of()));} public CommandRateLimiter(Policy p,PersistedState s){if(p==null||p.capacity()<=0||p.refill()<=0||p.windowTicks()<=0||p.banTicks()<0||s==null)throw new IllegalArgumentException();this.p=p;lastTick=s.lastTick();for(State x:s.states())states.put(x.player(),x);}
+ public Decision allow(String player,long tick){if(player==null||player.isBlank()||tick<0||tick<lastTick)throw new IllegalArgumentException();State s=states.getOrDefault(player,new State(player,p.capacity(),tick,0));long windows=(tick-s.windowStart())/p.windowTicks();int tokens=s.tokens();long start=s.windowStart();if(windows>0){tokens=Math.min(p.capacity(),tokens+(int)Math.min(Integer.MAX_VALUE,windows*p.refill()));start+=windows*p.windowTicks();}boolean allowed=tick>=s.bannedUntil()&&tokens>0;long ban=s.bannedUntil();if(allowed)tokens--;else if(tick>=ban)ban=tick+p.banTicks();State n=new State(player,tokens,start,ban);states.put(player,n);lastTick=tick;return new Decision(player,allowed,tokens,ban);}
+ public List<State> snapshot(){return List.copyOf(states.values());} public PersistedState save(){return new PersistedState(lastTick,snapshot());}
+}

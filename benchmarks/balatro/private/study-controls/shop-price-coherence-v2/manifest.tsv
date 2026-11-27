@@ -1,0 +1,7 @@
+control	kind	base	overlay	root	note
+M01-round-each	target-negative	starter	pack:private/native-v1/controls/shop-price-coherence-v2/M01-round-each	starter	frozen mutant: fails only requested-change cases
+M02-remove-all	target-negative	starter	pack:private/native-v1/controls/shop-price-coherence-v2/M02-remove-all	starter	frozen mutant: fails only requested-change cases
+M04-stale-accepted	compat-negative	starter	pack:private/native-v1/controls/shop-price-coherence-v2/M04-stale-accepted	starter	frozen mutant: every requested-change case passes and a preserved case fails
+M06-view-alias	target-negative	starter	pack:private/native-v1/controls/shop-price-coherence-v2/M06-view-alias	starter	frozen mutant: fails only requested-change cases
+M07-no-dedup	compat-negative	starter	pack:private/native-v1/controls/shop-price-coherence-v2/M07-no-dedup	starter	frozen mutant: every requested-change case passes and a preserved case fails
+gold-ledger	alternative	starter	pack:private/native-v1/controls/shop-price-coherence-v2/gold-ledger	starter	frozen independent correct implementation

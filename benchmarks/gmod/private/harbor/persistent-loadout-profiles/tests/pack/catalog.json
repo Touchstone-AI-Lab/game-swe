@@ -1,0 +1,195 @@
+{
+  "id": "rhenium-gmod-v2",
+  "version": "2.2.0",
+  "game": "garrys-mod",
+  "runtime": {
+    "app_id": 4020,
+    "branch": "stable",
+    "build_id": "23150012",
+    "platform": "windows-x86_64",
+    "linux_build_id": "23150012"
+  },
+  "contract_traceability_required": true,
+  "name": {
+    "en": "Rhenium Garry's Mod Server Systems",
+    "zh": "Rhenium Garry's Mod 服务端系统题（五题正式版）"
+  },
+  "description": {
+    "en": "Five server-authoritative clean-room GMod tasks for Sandbox on gm_flatgrass.",
+    "zh": "面向 Sandbox/gm_flatgrass 的服务端权威 clean-room GMod 五题。"
+  },
+  "tasks": [
+    {
+      "id": "persistent-loadout-profiles",
+      "difficulty": "hard",
+      "task_version": "2.2.0",
+      "title": {
+        "en": "Persistent Loadout Profiles",
+        "zh": "持久化玩家 Loadout Profiles"
+      },
+      "summary": {
+        "en": "Persist named authoritative weapon and ammo profiles.",
+        "zh": "持久化命名的服务端权威武器与弹药配置。"
+      },
+      "brief": {
+        "en": "Restore canonical loadouts across death, respawn, disconnect and restart.",
+        "zh": "跨死亡、重生、断线和重启恢复规范 loadout。"
+      },
+      "requirements": {
+        "en": [
+          "[T3-DATA-03] Enforce the closed four-weapon allowlist.",
+          "[T3-DATA-04] Enforce Pistol 200, SMG1 120, and Buckshot 32 aggregate caps.",
+          "[T3-SEM-01] Limit each player to five profiles and four unique weapons per profile.",
+          "[T3-SEM-02] Preserve primary/secondary ammo while producing sorted merged plans.",
+          "[T3-SEM-04] Deduplicate put/select requests and reject stale revisions.",
+          "[T3-PERSIST-02] Persist profiles, preference, revisions, time, and replay.",
+          "[T3-ROLLBACK-01] Stop Apply at the first failed phase.",
+          "[T3-LIFE-01] Preserve profiles across disconnect and clean lifecycle state on shutdown."
+        ],
+        "zh": [
+          "[T3-DATA-03] 强制封闭的四种武器 allowlist。",
+          "[T3-DATA-04] 强制 Pistol 200、SMG1 120、Buckshot 32 的聚合上限。",
+          "[T3-SEM-01] 每玩家最多五个 profile，每 profile 最多四把不同武器。",
+          "[T3-SEM-02] 保留 primary/secondary 弹药并生成排序合并计划。",
+          "[T3-SEM-04] 去重 put/select 请求并拒绝旧 revision。",
+          "[T3-PERSIST-02] 持久化 profile、偏好、revision、时间与重放。",
+          "[T3-ROLLBACK-01] Apply 在第一个失败阶段立即停止。",
+          "[T3-LIFE-01] 断线保留 profile，Shutdown 清理生命周期状态。"
+        ]
+      },
+      "api_usage": {
+        "en": [
+          "[T3-NATIVE-01] Strip weapons before every Apply.",
+          "[T3-NATIVE-03] Remove all ammunition before granting the canonical plan.",
+          "[T3-NATIVE-04] Give sorted weapons and merged ammo through Player APIs.",
+          "[T3-NATIVE-05] Select the first successfully granted weapon.",
+          "[T3-NATIVE-02] Restore through real PlayerSpawn and paired lifecycle Hooks."
+        ],
+        "zh": [
+          "[T3-NATIVE-01] 每次 Apply 先 StripWeapons。",
+          "[T3-NATIVE-03] 发放规范计划前 RemoveAllAmmo。",
+          "[T3-NATIVE-04] 通过 Player API 发放排序武器与合并弹药。",
+          "[T3-NATIVE-05] 选择第一把成功发放的武器。",
+          "[T3-NATIVE-02] 通过真实 PlayerSpawn 与成对生命周期 Hook 恢复。"
+        ]
+      },
+      "acceptance": {
+        "en": [
+          "Profile limits, closed allowlists, and exact ammo caps are enforced.",
+          "Primary and secondary ammo merge once into detached sorted plans.",
+          "Replay, revisions, disconnect, and two-process persistence remain stable.",
+          "Real Bot spawn restores weapons and canonical ammunition.",
+          "Partial Give stops before ammo and shutdown leaves no lifecycle residue."
+        ],
+        "zh": [
+          "Profile 限制、封闭 allowlist 与精确弹药上限均被强制。",
+          "Primary/secondary 弹药只合并一次并形成 detached 排序计划。",
+          "重放、revision、断线与两进程持久化保持稳定。",
+          "真实 Bot 重生恢复武器与规范弹药。",
+          "部分 Give 失败会在发弹前停止，关闭后无生命周期残留。"
+        ]
+      },
+      "domains": [
+        "player-lifecycle",
+        "persistence",
+        "server-authority"
+      ],
+      "estimated_minutes": 360,
+      "public_exam": {
+        "path": "exams/persistent-loadout-profiles.md",
+        "sha256": "113ecd54ad75d2aaa0e8b1029c7ff3ba35e64b40b95306b177f1efb9bac8e075",
+        "interfaces": [
+          "Profiles.new(options)",
+          "profiles:put(request_id, player_id, profile_name, spec, revision)",
+          "profiles:select(request_id, player_id, profile_name, revision)",
+          "adapter.Apply(player)",
+          "adapter.Shutdown()"
+        ],
+        "contract_evidence": [
+          "T3-DATA-03",
+          "T3-DATA-04",
+          "T3-SEM-04",
+          "T3-PERSIST-02",
+          "T3-ROLLBACK-01"
+        ],
+        "acceptance_evidence": [
+          "T3-ACC-01",
+          "T3-ACC-02",
+          "T3-ACC-03",
+          "T3-ACC-04",
+          "T3-ACC-05"
+        ]
+      },
+      "required_files": [
+        "addon.json",
+        "lua/rhenium_loadout_profiles/profiles.lua",
+        "lua/rhenium_loadout_profiles/server.lua"
+      ],
+      "core_module": "lua/rhenium_loadout_profiles/profiles.lua",
+      "server_module": "lua/rhenium_loadout_profiles/server.lua",
+      "evaluation": {
+        "hidden_suite": "private/tasks/persistent-loadout-profiles/hidden/persistent-loadout-profiles.lua",
+        "hidden_cases": [
+          "multiple named profiles and preferred selection",
+          "weapon and ammo allowlists reject unknown values",
+          "shared ammo is merged once and sorted",
+          "ammo caps are checked after aggregation",
+          "primary and secondary ammo remain explicit",
+          "request retries are exact and conflicts fail",
+          "profile and preferred revisions reject stale writes",
+          "profile and weapon count limits are enforced",
+          "plans and stored profiles are detached",
+          "disconnect retains persistent profiles",
+          "save load preserves preference revisions and replay",
+          "shutdown is idempotent and freezes writes",
+          "legal request identifiers freeze parameter and business failures",
+          "malformed persisted profiles choices requests and plans are rejected"
+        ],
+        "integration_suite": "private/tasks/persistent-loadout-profiles/integration/persistent-loadout-profiles-integration.lua",
+        "integration_cases": [
+          "adapter installs only meaningful spawn and disconnect hooks",
+          "trusted binding overrides all payload identity",
+          "Apply orders Strip Give Ammo and selection",
+          "shared ammo is granted once at the merged amount",
+          "spawn hook reapplies without accumulating pickups",
+          "partial Give failure stops before ammo",
+          "disconnect removes object binding but retains profile",
+          "Install is idempotent"
+        ],
+        "lifecycle_cases": [
+          "shutdown removes all meaningful hooks"
+        ],
+        "traceability": "private/tasks/persistent-loadout-profiles/contract-traceability.json",
+        "mutations": "private/tasks/persistent-loadout-profiles/mutations.json",
+        "suite_timeout_seconds": 8
+      },
+      "server_runtime": {
+        "task_version": "2.2.0",
+        "addon_manifest": "private/tasks/persistent-loadout-profiles/server/addon.json",
+        "lua_entry": "private/tasks/persistent-loadout-profiles/server/persistent-loadout-profiles-suite.lua",
+        "suite_id": "rhenium-gmod-loadout-profiles-v3",
+        "runtime_namespace": "persistent-loadout-profiles-v3",
+        "submission_addon_name": "rhenium_loadout_profiles_submission",
+        "private_suite_addon_name": "zz_rhenium_loadout_profiles_private",
+        "expected_cases": [
+          "profiles",
+          "spawn",
+          "ammo",
+          "failure",
+          "identity",
+          "persistence",
+          "cleanup"
+        ],
+        "phases": [
+          "A",
+          "B"
+        ],
+        "timeout_seconds": 180
+      },
+      "source": {
+        "path": "sources/persistent-loadout-profiles.json",
+        "sha256": "49554f30482403fc08535f69fea16e0f398cb72343c784a06c8a42d1379a1f9f"
+      }
+    }
+  ]
+}

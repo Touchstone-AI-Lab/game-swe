@@ -1,0 +1,5 @@
+control	kind	base	overlay	root	note
+target-negative-unnamed-warning	target-negative	starter	patch:target-negative-unnamed-warning.patch	plugin	per-channel catch that warns without the channel id: reload survives, the warning does not name the channel
+target-negative-whole-loop	target-negative	starter	patch:target-negative-whole-loop.patch	plugin	catch around the whole loop: the plugin survives but later channels are lost and nothing is named; fails both targets, no preserved case
+compat-negative-player-only-info	compat-negative	reference	patch:compat-negative-player-only-info.patch	plugin	info command silently ignores non-player senders; notification targets and reload remain repaired
+alternative-a	alternative	starter	tree:alternative-a	plugin	independent fix written from the 0.2.0 exam: a per-channel registrar with its own stay check, warning by channel id

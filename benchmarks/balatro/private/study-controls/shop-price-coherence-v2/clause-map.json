@@ -1,0 +1,1291 @@
+{
+  "task": "balatro/core/shop-price-coherence-v2",
+  "task_version": "0.2.0",
+  "exam": "benchmarks/balatro/public/v02/shop-price-coherence-v2/CONTRACT.md",
+  "cases": [
+    {
+      "id": "position:1",
+      "role": "target",
+      "clauses": [
+        "api-export",
+        "price-formula",
+        "reduce-then-round-once",
+        "api-quote",
+        "api-core-isolated",
+        "core-api-integrated"
+      ],
+      "overlap": false,
+      "note": "core.formula"
+    },
+    {
+      "id": "position:2",
+      "role": "target",
+      "clauses": [
+        "api-remove",
+        "api-add",
+        "api-view",
+        "api-new",
+        "independent-removal"
+      ],
+      "overlap": false,
+      "note": "core.ownership"
+    },
+    {
+      "id": "position:3",
+      "role": "preserved",
+      "clauses": [
+        "api-quote",
+        "no-compounding"
+      ],
+      "overlap": true,
+      "note": "core.pure_query"
+    },
+    {
+      "id": "position:4",
+      "role": "target",
+      "clauses": [
+        "api-detached",
+        "api-view"
+      ],
+      "overlap": false,
+      "note": "core.view_alias"
+    },
+    {
+      "id": "position:5",
+      "role": "preserved",
+      "clauses": [
+        "api-commit-record",
+        "api-commit-result",
+        "coupon-consumed-once"
+      ],
+      "overlap": true,
+      "note": "core.versions"
+    },
+    {
+      "id": "position:6",
+      "role": "preserved",
+      "clauses": [
+        "api-commit-record",
+        "api-commit-result",
+        "coupon-consumed-once"
+      ],
+      "overlap": true,
+      "note": "core.noneligible"
+    },
+    {
+      "id": "position:7",
+      "role": "preserved",
+      "clauses": [
+        "api-commit-stale",
+        "api-rejection-atomic"
+      ],
+      "overlap": false,
+      "note": "core.stale"
+    },
+    {
+      "id": "position:8",
+      "role": "target",
+      "clauses": [
+        "api-detached",
+        "api-commit-funds",
+        "api-rejection-atomic",
+        "api-failed-id-reusable"
+      ],
+      "overlap": false,
+      "note": "core.funds_atomic"
+    },
+    {
+      "id": "position:9",
+      "role": "target",
+      "clauses": [
+        "api-detached",
+        "api-commit-mismatch",
+        "api-rejection-atomic",
+        "api-failed-id-reusable"
+      ],
+      "overlap": false,
+      "note": "core.quote_atomic"
+    },
+    {
+      "id": "position:10",
+      "role": "preserved",
+      "clauses": [
+        "api-commit-replay",
+        "api-commit-offer",
+        "api-commit-order"
+      ],
+      "overlap": true,
+      "note": "core.dedup"
+    },
+    {
+      "id": "position:11",
+      "role": "preserved",
+      "clauses": [
+        "api-commit-replay",
+        "api-detached",
+        "api-input-no-alias",
+        "api-core-isolated"
+      ],
+      "overlap": true,
+      "note": "core.receipt_alias"
+    },
+    {
+      "id": "position:12",
+      "role": "preserved",
+      "clauses": [
+        "api-commit-invalid",
+        "api-returns-not-raises",
+        "api-rejection-atomic",
+        "api-add",
+        "api-remove",
+        "api-quote",
+        "api-quote-shape"
+      ],
+      "overlap": false,
+      "note": "core.invalid_atomic"
+    },
+    {
+      "id": "position:13",
+      "role": "target",
+      "clauses": [
+        "api-order-independent",
+        "price-formula"
+      ],
+      "overlap": false,
+      "note": "core.order"
+    },
+    {
+      "id": "position:14",
+      "role": "setup",
+      "clauses": [],
+      "overlap": false,
+      "note": "normal.prepared"
+    },
+    {
+      "id": "position:15",
+      "role": "preserved",
+      "clauses": [
+        "rule-joker-costs",
+        "native-price-rule-consumable",
+        "quote-debit-agree",
+        "debit-keeps-agreed-price",
+        "transaction-objects-preserved"
+      ],
+      "overlap": false,
+      "note": "normal.flat.buy"
+    },
+    {
+      "id": "position:16",
+      "role": "preserved",
+      "clauses": [
+        "offers-reflect-changes",
+        "native-price-rule-consumable"
+      ],
+      "overlap": true,
+      "note": "normal.flat.buy.quotes"
+    },
+    {
+      "id": "position:17",
+      "role": "preserved",
+      "clauses": [
+        "rule-joker-costs",
+        "native-price-rule-consumable",
+        "quote-debit-agree",
+        "debit-keeps-agreed-price",
+        "transaction-objects-preserved"
+      ],
+      "overlap": true,
+      "note": "normal.ratio1.buy"
+    },
+    {
+      "id": "position:18",
+      "role": "preserved",
+      "clauses": [
+        "offers-reflect-changes",
+        "native-price-rule-consumable"
+      ],
+      "overlap": true,
+      "note": "normal.ratio1.buy.quotes"
+    },
+    {
+      "id": "position:19",
+      "role": "preserved",
+      "clauses": [
+        "rule-joker-costs",
+        "native-price-rule-consumable",
+        "quote-debit-agree",
+        "debit-keeps-agreed-price",
+        "transaction-objects-preserved"
+      ],
+      "overlap": true,
+      "note": "normal.ratio2.buy"
+    },
+    {
+      "id": "position:20",
+      "role": "preserved",
+      "clauses": [
+        "offers-reflect-changes",
+        "native-price-rule-consumable"
+      ],
+      "overlap": true,
+      "note": "normal.ratio2.buy.quotes"
+    },
+    {
+      "id": "position:21",
+      "role": "preserved",
+      "clauses": [
+        "rule-joker-costs",
+        "native-price-rule-consumable",
+        "quote-debit-agree",
+        "debit-keeps-agreed-price",
+        "transaction-objects-preserved"
+      ],
+      "overlap": true,
+      "note": "normal.coupon.buy"
+    },
+    {
+      "id": "position:22",
+      "role": "runtime-sentinel",
+      "clauses": [],
+      "overlap": false,
+      "note": "normal.coupon.buy.quotes"
+    },
+    {
+      "id": "position:23",
+      "role": "preserved",
+      "clauses": [
+        "reroll-fee-native",
+        "transaction-objects-preserved"
+      ],
+      "overlap": false,
+      "note": "normal.reroll1"
+    },
+    {
+      "id": "position:24",
+      "role": "preserved",
+      "clauses": [
+        "new-offers-current-rules",
+        "price-formula",
+        "flat-reduction",
+        "ratio-factor",
+        "coupon-allowance",
+        "no-compounding",
+        "native-price-rule-consumable"
+      ],
+      "overlap": true,
+      "note": "normal.reroll1.quotes"
+    },
+    {
+      "id": "position:25",
+      "role": "preserved",
+      "clauses": [
+        "native-price-rule-consumable",
+        "quote-debit-agree",
+        "debit-keeps-agreed-price",
+        "transaction-objects-preserved"
+      ],
+      "overlap": true,
+      "note": "normal.planet.buy"
+    },
+    {
+      "id": "position:26",
+      "role": "preserved",
+      "clauses": [
+        "api-adapter-noneligible",
+        "coupon-consumed-once",
+        "offers-reflect-changes",
+        "price-formula"
+      ],
+      "overlap": true,
+      "note": "normal.planet.buy.quotes"
+    },
+    {
+      "id": "position:27",
+      "role": "preserved",
+      "clauses": [
+        "eligible-offers",
+        "price-formula",
+        "quote-debit-agree",
+        "debit-keeps-agreed-price",
+        "transaction-objects-preserved",
+        "api-native-base",
+        "api-adapter-real-acquisitions",
+        "coupon-allowance",
+        "flat-reduction",
+        "ratio-factor",
+        "core-api-integrated"
+      ],
+      "overlap": true,
+      "note": "normal.first.buy"
+    },
+    {
+      "id": "position:28",
+      "role": "target",
+      "clauses": [
+        "coupon-consumed-once",
+        "offers-reflect-changes",
+        "reduce-then-round-once",
+        "price-formula",
+        "api-adapter-real-acquisitions"
+      ],
+      "overlap": false,
+      "note": "normal.first.buy.quotes"
+    },
+    {
+      "id": "position:29",
+      "role": "target",
+      "clauses": [
+        "eligible-offers",
+        "price-formula",
+        "quote-debit-agree",
+        "debit-keeps-agreed-price",
+        "transaction-objects-preserved",
+        "api-native-base",
+        "api-adapter-real-acquisitions",
+        "reduce-then-round-once",
+        "coupon-consumed-once"
+      ],
+      "overlap": false,
+      "note": "normal.second.buy"
+    },
+    {
+      "id": "position:30",
+      "role": "preserved",
+      "clauses": [
+        "offers-reflect-changes",
+        "price-formula",
+        "spent-coupon-stays-spent"
+      ],
+      "overlap": false,
+      "note": "normal.second.buy.quotes"
+    },
+    {
+      "id": "position:31",
+      "role": "preserved",
+      "clauses": [
+        "native-sale-value",
+        "independent-removal",
+        "transaction-objects-preserved"
+      ],
+      "overlap": false,
+      "note": "normal.ratio.sell"
+    },
+    {
+      "id": "position:32",
+      "role": "target",
+      "clauses": [
+        "independent-removal",
+        "offers-reflect-changes",
+        "price-formula",
+        "spent-coupon-stays-spent",
+        "api-adapter-physical-source",
+        "discounted-not-new-base"
+      ],
+      "overlap": false,
+      "note": "normal.ratio.sell.quotes"
+    },
+    {
+      "id": "position:33",
+      "role": "target",
+      "clauses": [
+        "eligible-offers",
+        "price-formula",
+        "quote-debit-agree",
+        "debit-keeps-agreed-price",
+        "transaction-objects-preserved",
+        "api-native-base",
+        "api-adapter-real-acquisitions",
+        "independent-removal"
+      ],
+      "overlap": false,
+      "note": "normal.post_remove.buy"
+    },
+    {
+      "id": "position:34",
+      "role": "runtime-sentinel",
+      "clauses": [],
+      "overlap": false,
+      "note": "normal.post_remove.buy.quotes"
+    },
+    {
+      "id": "position:35",
+      "role": "preserved",
+      "clauses": [
+        "reroll-fee-native",
+        "transaction-objects-preserved"
+      ],
+      "overlap": false,
+      "note": "normal.reroll2"
+    },
+    {
+      "id": "position:36",
+      "role": "target",
+      "clauses": [
+        "new-offers-current-rules",
+        "spent-coupon-stays-spent",
+        "independent-removal",
+        "price-formula",
+        "no-compounding",
+        "native-price-rule-consumable",
+        "discounted-not-new-base"
+      ],
+      "overlap": false,
+      "note": "normal.reroll2.quotes"
+    },
+    {
+      "id": "position:37",
+      "role": "preserved",
+      "clauses": [
+        "rule-joker-costs",
+        "native-price-rule-consumable",
+        "quote-debit-agree",
+        "debit-keeps-agreed-price",
+        "transaction-objects-preserved"
+      ],
+      "overlap": true,
+      "note": "normal.flat2.buy"
+    },
+    {
+      "id": "position:38",
+      "role": "target",
+      "clauses": [
+        "flat-reduction",
+        "offers-reflect-changes",
+        "price-formula",
+        "native-price-rule-consumable"
+      ],
+      "overlap": false,
+      "note": "normal.flat2.buy.quotes"
+    },
+    {
+      "id": "position:39",
+      "role": "preserved",
+      "clauses": [
+        "rule-joker-costs",
+        "native-price-rule-consumable",
+        "quote-debit-agree",
+        "debit-keeps-agreed-price",
+        "transaction-objects-preserved"
+      ],
+      "overlap": true,
+      "note": "normal.coupon2.buy"
+    },
+    {
+      "id": "position:40",
+      "role": "target",
+      "clauses": [
+        "coupon-allowance",
+        "offers-reflect-changes",
+        "price-formula",
+        "spent-coupon-stays-spent"
+      ],
+      "overlap": false,
+      "note": "normal.coupon2.buy.quotes"
+    },
+    {
+      "id": "position:41",
+      "role": "preserved",
+      "clauses": [
+        "native-price-rule-consumable",
+        "quote-debit-agree",
+        "debit-keeps-agreed-price",
+        "transaction-objects-preserved"
+      ],
+      "overlap": true,
+      "note": "normal.planet2.buy"
+    },
+    {
+      "id": "position:42",
+      "role": "target",
+      "clauses": [
+        "api-adapter-noneligible",
+        "coupon-consumed-once",
+        "offers-reflect-changes",
+        "price-formula"
+      ],
+      "overlap": false,
+      "note": "normal.planet2.buy.quotes"
+    },
+    {
+      "id": "position:43",
+      "role": "target",
+      "clauses": [
+        "eligible-offers",
+        "price-formula",
+        "quote-debit-agree",
+        "debit-keeps-agreed-price",
+        "transaction-objects-preserved",
+        "api-native-base",
+        "api-adapter-real-acquisitions",
+        "coupon-allowance"
+      ],
+      "overlap": false,
+      "note": "normal.third.buy"
+    },
+    {
+      "id": "position:44",
+      "role": "runtime-sentinel",
+      "clauses": [],
+      "overlap": false,
+      "note": "normal.third.buy.quotes"
+    },
+    {
+      "id": "position:45",
+      "role": "preserved",
+      "clauses": [
+        "rule-jokers-no-effects",
+        "native-joker-behavior"
+      ],
+      "overlap": false,
+      "note": "normal.followup"
+    },
+    {
+      "id": "position:46",
+      "role": "preserved",
+      "clauses": [
+        "new-offers-current-rules",
+        "transaction-objects-preserved"
+      ],
+      "overlap": false,
+      "note": "normal.shop2"
+    },
+    {
+      "id": "position:47",
+      "role": "target",
+      "clauses": [
+        "new-offers-current-rules",
+        "spent-coupon-stays-spent",
+        "coupon-consumed-once",
+        "no-compounding",
+        "price-formula",
+        "native-price-rule-consumable",
+        "discounted-not-new-base"
+      ],
+      "overlap": false,
+      "note": "normal.shop2.quotes"
+    },
+    {
+      "id": "position:48",
+      "role": "preserved",
+      "clauses": [
+        "rule-joker-costs",
+        "native-price-rule-consumable",
+        "quote-debit-agree",
+        "debit-keeps-agreed-price",
+        "transaction-objects-preserved"
+      ],
+      "overlap": true,
+      "note": "normal.new_ratio.buy"
+    },
+    {
+      "id": "position:49",
+      "role": "target",
+      "clauses": [
+        "ratio-factor",
+        "offers-reflect-changes",
+        "price-formula"
+      ],
+      "overlap": false,
+      "note": "normal.new_ratio.buy.quotes"
+    },
+    {
+      "id": "position:50",
+      "role": "target",
+      "clauses": [
+        "eligible-offers",
+        "price-formula",
+        "quote-debit-agree",
+        "debit-keeps-agreed-price",
+        "transaction-objects-preserved",
+        "api-native-base",
+        "api-adapter-real-acquisitions",
+        "flat-reduction",
+        "ratio-factor"
+      ],
+      "overlap": false,
+      "note": "normal.new_fib.buy"
+    },
+    {
+      "id": "position:51",
+      "role": "preserved",
+      "clauses": [
+        "offers-reflect-changes",
+        "price-formula"
+      ],
+      "overlap": true,
+      "note": "normal.new_fib.buy.quotes"
+    },
+    {
+      "id": "position:52",
+      "role": "preserved",
+      "clauses": [
+        "no-compounding",
+        "transaction-objects-preserved"
+      ],
+      "overlap": false,
+      "note": "normal.stable"
+    },
+    {
+      "id": "position:53",
+      "role": "runtime-sentinel",
+      "clauses": [],
+      "overlap": false,
+      "note": "normal.sealed"
+    },
+    {
+      "id": "position:54",
+      "role": "preserved",
+      "clauses": [
+        "transaction-objects-preserved"
+      ],
+      "overlap": false,
+      "note": "normal.identities"
+    },
+    {
+      "id": "position:55",
+      "role": "setup",
+      "clauses": [],
+      "overlap": false,
+      "note": "funds.prepared"
+    },
+    {
+      "id": "position:56",
+      "role": "preserved",
+      "clauses": [
+        "rule-joker-costs",
+        "native-price-rule-consumable",
+        "quote-debit-agree",
+        "debit-keeps-agreed-price",
+        "transaction-objects-preserved"
+      ],
+      "overlap": false,
+      "note": "funds.coupon.buy"
+    },
+    {
+      "id": "position:57",
+      "role": "preserved",
+      "clauses": [
+        "coupon-allowance",
+        "offers-reflect-changes",
+        "price-formula",
+        "native-price-rule-consumable"
+      ],
+      "overlap": true,
+      "note": "funds.coupon.buy.quotes"
+    },
+    {
+      "id": "position:58",
+      "role": "preserved",
+      "clauses": [
+        "structured-refusal",
+        "refuse-before-change"
+      ],
+      "overlap": false,
+      "note": "funds.reject"
+    },
+    {
+      "id": "position:59",
+      "role": "preserved",
+      "clauses": [
+        "refuse-before-change",
+        "api-adapter-refusal-no-commit"
+      ],
+      "overlap": false,
+      "note": "funds.unchanged"
+    },
+    {
+      "id": "position:60",
+      "role": "preserved",
+      "clauses": [
+        "native-sale-value",
+        "transaction-objects-preserved",
+        "later-sale-recovers"
+      ],
+      "overlap": false,
+      "note": "funds.recover.sell"
+    },
+    {
+      "id": "position:61",
+      "role": "preserved",
+      "clauses": [
+        "later-sale-recovers",
+        "coupon-allowance",
+        "api-adapter-refusal-no-commit",
+        "price-formula"
+      ],
+      "overlap": true,
+      "note": "funds.recover.sell.quotes"
+    },
+    {
+      "id": "position:62",
+      "role": "preserved",
+      "clauses": [
+        "eligible-offers",
+        "price-formula",
+        "quote-debit-agree",
+        "debit-keeps-agreed-price",
+        "transaction-objects-preserved",
+        "api-native-base",
+        "api-adapter-real-acquisitions",
+        "later-sale-recovers",
+        "coupon-allowance",
+        "api-adapter-refusal-no-commit"
+      ],
+      "overlap": true,
+      "note": "funds.recover.buy"
+    },
+    {
+      "id": "position:63",
+      "role": "preserved",
+      "clauses": [
+        "coupon-consumed-once",
+        "offers-reflect-changes",
+        "price-formula"
+      ],
+      "overlap": true,
+      "note": "funds.recover.buy.quotes"
+    },
+    {
+      "id": "position:64",
+      "role": "preserved",
+      "clauses": [
+        "rule-jokers-no-effects",
+        "native-joker-behavior"
+      ],
+      "overlap": false,
+      "note": "funds.followup"
+    },
+    {
+      "id": "position:65",
+      "role": "preserved",
+      "clauses": [
+        "transaction-objects-preserved"
+      ],
+      "overlap": false,
+      "note": "funds.stable"
+    },
+    {
+      "id": "position:66",
+      "role": "runtime-sentinel",
+      "clauses": [],
+      "overlap": false,
+      "note": "funds.sealed"
+    },
+    {
+      "id": "position:67",
+      "role": "preserved",
+      "clauses": [
+        "transaction-objects-preserved"
+      ],
+      "overlap": false,
+      "note": "funds.identities"
+    },
+    {
+      "id": "position:68",
+      "role": "setup",
+      "clauses": [],
+      "overlap": false,
+      "note": "capacity.prepared"
+    },
+    {
+      "id": "position:69",
+      "role": "preserved",
+      "clauses": [
+        "rule-joker-costs",
+        "native-price-rule-consumable",
+        "quote-debit-agree",
+        "debit-keeps-agreed-price",
+        "transaction-objects-preserved"
+      ],
+      "overlap": false,
+      "note": "capacity.coupon.buy"
+    },
+    {
+      "id": "position:70",
+      "role": "preserved",
+      "clauses": [
+        "coupon-allowance",
+        "offers-reflect-changes",
+        "price-formula",
+        "native-price-rule-consumable"
+      ],
+      "overlap": true,
+      "note": "capacity.coupon.buy.quotes"
+    },
+    {
+      "id": "position:71",
+      "role": "preserved",
+      "clauses": [
+        "structured-refusal",
+        "refuse-before-change"
+      ],
+      "overlap": false,
+      "note": "capacity.reject"
+    },
+    {
+      "id": "position:72",
+      "role": "preserved",
+      "clauses": [
+        "refuse-before-change",
+        "api-adapter-refusal-no-commit"
+      ],
+      "overlap": false,
+      "note": "capacity.unchanged"
+    },
+    {
+      "id": "position:73",
+      "role": "preserved",
+      "clauses": [
+        "native-sale-value",
+        "transaction-objects-preserved",
+        "later-sale-recovers"
+      ],
+      "overlap": false,
+      "note": "capacity.recover.sell"
+    },
+    {
+      "id": "position:74",
+      "role": "preserved",
+      "clauses": [
+        "later-sale-recovers",
+        "coupon-allowance",
+        "api-adapter-refusal-no-commit",
+        "price-formula"
+      ],
+      "overlap": true,
+      "note": "capacity.recover.sell.quotes"
+    },
+    {
+      "id": "position:75",
+      "role": "preserved",
+      "clauses": [
+        "eligible-offers",
+        "price-formula",
+        "quote-debit-agree",
+        "debit-keeps-agreed-price",
+        "transaction-objects-preserved",
+        "api-native-base",
+        "api-adapter-real-acquisitions",
+        "later-sale-recovers",
+        "coupon-allowance",
+        "api-adapter-refusal-no-commit"
+      ],
+      "overlap": true,
+      "note": "capacity.recover.buy"
+    },
+    {
+      "id": "position:76",
+      "role": "preserved",
+      "clauses": [
+        "coupon-consumed-once",
+        "offers-reflect-changes",
+        "price-formula"
+      ],
+      "overlap": true,
+      "note": "capacity.recover.buy.quotes"
+    },
+    {
+      "id": "position:77",
+      "role": "preserved",
+      "clauses": [
+        "rule-jokers-no-effects",
+        "native-joker-behavior"
+      ],
+      "overlap": false,
+      "note": "capacity.followup"
+    },
+    {
+      "id": "position:78",
+      "role": "preserved",
+      "clauses": [
+        "transaction-objects-preserved"
+      ],
+      "overlap": false,
+      "note": "capacity.stable"
+    },
+    {
+      "id": "position:79",
+      "role": "runtime-sentinel",
+      "clauses": [],
+      "overlap": false,
+      "note": "capacity.sealed"
+    },
+    {
+      "id": "position:80",
+      "role": "preserved",
+      "clauses": [
+        "transaction-objects-preserved"
+      ],
+      "overlap": false,
+      "note": "capacity.identities"
+    }
+  ],
+  "clauses": [
+    {
+      "id": "rule-joker-costs",
+      "anchor": "CONTRACT.md paragraph 2: \"There are three ordinary Common rule Jokers\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "flat-reduction",
+      "anchor": "CONTRACT.md paragraph 2: \"Each physical Flat contributes a permanent $1 reduction while owned.\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "ratio-factor",
+      "anchor": "CONTRACT.md paragraph 2: \"Each physical Ratio contributes a multiplicative factor 2/3 while owned.\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "coupon-allowance",
+      "anchor": "CONTRACT.md paragraph 2: \"Each newly acquired Coupon supplies one $2 reduction for the next qualifying successful purchase.\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "independent-removal",
+      "anchor": "CONTRACT.md paragraph 2: \"Multiple instances are independent; selling one removes only its contribution.\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "spent-coupon-stays-spent",
+      "anchor": "CONTRACT.md paragraph 2: \"A spent Coupon remains owned and cannot regain its allowance through display, reroll, moving to another shop or selling another source.\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "rule-jokers-no-effects",
+      "anchor": "CONTRACT.md paragraph 2: \"The rule Jokers have no scoring or periodic cash effects.\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "eligible-offers",
+      "anchor": "CONTRACT.md paragraph 3: \"Eligible offers are ordinary non-rule **Jokers** in the normal shop.\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "native-price-rule-consumable",
+      "anchor": "CONTRACT.md paragraph 3: \"These three rule types themselves, consumables, playing cards, vouchers, boosters and reroll fees retain their ordinary native prices.\"",
+      "status": "asserted",
+      "note": "This clause covers rule Jokers and consumables only; the other goods in the sentence are separate clauses."
+    },
+    {
+      "id": "native-price-other-goods",
+      "anchor": "CONTRACT.md paragraph 3: \"These three rule types themselves, consumables, playing cards, vouchers, boosters and reroll fees retain their ordinary native prices.\"",
+      "status": "unasserted",
+      "note": "Covers playing cards, vouchers and boosters. The fixture removes vouchers (fixture.lua:14-16) and only G.shop_jokers is graded, so none of these is ever quoted or bought."
+    },
+    {
+      "id": "reroll-fee-native",
+      "anchor": "CONTRACT.md paragraph 3: \"These three rule types themselves, consumables, playing cards, vouchers, boosters and reroll fees retain their ordinary native prices.\"",
+      "status": "weak",
+      "note": "Covers reroll fees. The expected debit is the observed reroll_cost (scenario.py:83), not an independent value, so a candidate that lowers the cost itself is not detected."
+    },
+    {
+      "id": "price-formula",
+      "anchor": "CONTRACT.md paragraph 4: \"`max(1, floor((B - F - 2*C) * 2^R / 3^R))`\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "reduce-then-round-once",
+      "anchor": "CONTRACT.md paragraph 5: \"Subtract all fixed reductions first, multiply all rational factors, round down once at the end, then apply the $1 minimum.\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "discounted-not-new-base",
+      "anchor": "CONTRACT.md paragraph 5: \"Neither a previously discounted quote nor its sale value is a new base price.\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "no-compounding",
+      "anchor": "CONTRACT.md paragraph 5: \"Repeated viewing/recalculation must neither compound a discount nor consume a Coupon.\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "coupon-consumed-once",
+      "anchor": "CONTRACT.md paragraph 5: \"Each successful qualifying purchase consumes all the Coupons that contributed to that transaction, once; a nonqualifying purchase consumes none.\"",
+      "status": "asserted",
+      "note": "Two Coupons available at once are exercised in core only; each native purchase has one."
+    },
+    {
+      "id": "offers-reflect-changes",
+      "anchor": "CONTRACT.md paragraph 6: \"Current offers immediately reflect an acquisition, source removal or allowance consumption after that action settles.\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "new-offers-current-rules",
+      "anchor": "CONTRACT.md paragraph 6: \"Offers created by a subsequent native reroll or later normal shop use the current rules.\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "quote-debit-agree",
+      "anchor": "CONTRACT.md paragraph 6: \"UI quotation and actual purchase debit must agree.\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "transaction-objects-preserved",
+      "anchor": "CONTRACT.md paragraph 6: \"Preserve the native bought physical object, remaining offers and unrelated objects; no replacement, duplication, extra reward or refund.\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "native-sale-value",
+      "anchor": "CONTRACT.md paragraph 6: \"Selling gives the normal native sale value and only removes that object's own rule, if any.\"",
+      "status": "weak",
+      "note": "The expected credit is the object's observed sell_cost (scenario.py:77), not an independent value."
+    },
+    {
+      "id": "refuse-before-change",
+      "anchor": "CONTRACT.md paragraph 7: \"Insufficient funds or full native destination capacity must reject before ownership, money, sources or allowances change.\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "later-sale-recovers",
+      "anchor": "CONTRACT.md paragraph 7: \"A later legitimate sale can make the same offer purchasable under the same rules.\"",
+      "status": "asserted",
+      "note": "The capacity scene retries the refused Fibonacci. The funds scene buys j_joker instead (scenario.py:131), so it shows recovery but not the same offer."
+    },
+    {
+      "id": "structured-refusal",
+      "anchor": "CONTRACT.md paragraph 7: \"The fixed buy RPC expresses these refusals as JSON-RPC `BAD_REQUEST` (-32001)\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "debit-keeps-agreed-price",
+      "anchor": "CONTRACT.md paragraph 8: \"A committed transaction must retain the price agreed for that purchased object through the native debit\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "native-joker-behavior",
+      "anchor": "CONTRACT.md paragraph 9: \"Ordinary native purchased Jokers keep their own normal behavior.\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "file-boundary",
+      "anchor": "CONTRACT.md paragraph 10: \"Edit only the four listed Lua files; preserve the manifest and identities.\"",
+      "status": "unasserted",
+      "note": "No evaluator case. The submission gate rejects a changed file set or immutable file before evaluation (plugins/balatro/src/rhenium_balatro/submission.py:28-47)."
+    },
+    {
+      "id": "core-api-integrated",
+      "anchor": "CONTRACT.md paragraph 10: \"Expose the documented core API and integrate it with real game lifecycle callbacks.\"",
+      "status": "weak",
+      "note": "Core and native layers are tested separately; no case observes the adapter calling the core."
+    },
+    {
+      "id": "no-external-alteration",
+      "anchor": "CONTRACT.md paragraph 10: \"Do not change tests, observation/preparation, runtime, dependencies, external files or environment.\"",
+      "status": "unasserted",
+      "note": "No evaluator case. A harness input-integrity field gates the whole result (plugins/balatro/src/rhenium_balatro/evaluator.py:33-37)."
+    },
+    {
+      "id": "api-export",
+      "anchor": "API.md paragraph 1: \"`main.lua` must make `SPC2_MODEL` available\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "api-core-isolated",
+      "anchor": "API.md paragraph 2: \"The core functions must operate on independent, opaque states without using engine globals, changing their inputs, or touching a real game.\"",
+      "status": "weak",
+      "note": "Core cases run inside the live engine at MENU, so engine-global use is not detected. Separate states are used but never held in a way that shows they are independent; input mutation is checked only through replay in core.receipt_alias."
+    },
+    {
+      "id": "api-adapter-own-state",
+      "anchor": "API.md paragraph 2: \"calling `new()` for protocol tests must not reset that live state\"",
+      "status": "unasserted",
+      "note": "fixture.lua:107 requires stage 0 at MENU, so protocol calls always run before any live run exists."
+    },
+    {
+      "id": "api-returns-not-raises",
+      "anchor": "API.md paragraph 2: \"All normal and rejected calls return values; malformed requests listed here are not exceptions.\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "api-order-independent",
+      "anchor": "API.md paragraph 2: \"Order of source acquisition must not change the price.\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "api-new",
+      "anchor": "API.md table row 1: \"Independent state, version 0, no sources or receipts.\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "api-view",
+      "anchor": "API.md table row 2: \"Detached `{version=N, sources={...}}`.\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "api-add",
+      "anchor": "API.md table row 3: \"Add one new source, Coupon initially available.\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "api-remove",
+      "anchor": "API.md table row 4: \"Remove only that owner and increment version once\"",
+      "status": "asserted",
+      "note": "OWNER_MISSING is exercised; INVALID for a bad remove ID is not."
+    },
+    {
+      "id": "api-quote",
+      "anchor": "API.md table row 5: \"Pure query returning `{ok=true,quote=Q}`.\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "api-commit-result",
+      "anchor": "API.md table row 6: \"Validate and record one successful modeled purchase\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "api-quote-shape",
+      "anchor": "API.md paragraph 4: \"Q has exactly six fields\"",
+      "status": "weak",
+      "note": "Only rejection of an extra field is checked; a returned Q is read for .price alone, so its other fields are compared by the candidate's own commit."
+    },
+    {
+      "id": "api-detached",
+      "anchor": "API.md paragraph 4: \"All returned views, quotes and receipts are detached\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "api-input-no-alias",
+      "anchor": "API.md paragraph 4: \"Input tables must not be retained as writable aliases.\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "api-rejection-atomic",
+      "anchor": "API.md paragraph 5: \"All rejection results are exactly `{ok=false,code=CODE}` and leave every observable state, allowance and receipt unchanged.\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "api-failed-id-reusable",
+      "anchor": "API.md paragraph 5: \"This includes failed requests that reuse an ID later for a legal request.\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "api-commit-order",
+      "anchor": "API.md paragraph 5: \"`commit` validates in this order:\"",
+      "status": "weak",
+      "note": "Only replay before the stale check is shown (core.dedup). No request triggers two of the later checks at once, so their relative order is not graded."
+    },
+    {
+      "id": "api-commit-invalid",
+      "anchor": "API.md bullet 1: \"Valid transaction ID, nonnegative integer available money, and Q's exact shape/types/domains\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "api-commit-replay",
+      "anchor": "API.md bullet 2: \"an exact replay of Q and available money returns its original success receipt\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "api-commit-offer",
+      "anchor": "API.md bullet 3: \"A different transaction ID for an already committed physical offer ID returns `OFFER_COMMITTED`.\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "api-commit-stale",
+      "anchor": "API.md bullet 4: \"Q.version must match the current version, else `STALE_QUOTE`.\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "api-commit-mismatch",
+      "anchor": "API.md bullet 5: \"Q.price must equal a fresh computation from Q.base/category and current rules, else `QUOTE_MISMATCH`.\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "api-commit-funds",
+      "anchor": "API.md bullet 6: \"Available money must cover the quote, else `INSUFFICIENT_FUNDS`.\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "api-commit-record",
+      "anchor": "API.md bullet 7: \"increment version **once for that transaction**\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "api-adapter-physical-source",
+      "anchor": "API.md paragraph 6: \"The adapter assigns source identity by physical owned object, not current row index\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "api-adapter-real-acquisitions",
+      "anchor": "API.md paragraph 6: \"it records and consumes only real completed qualifying acquisitions\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "api-adapter-refusal-no-commit",
+      "anchor": "API.md paragraph 6: \"Native funds/capacity rejection occurs before acquisition and must not call a successful commit.\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "api-adapter-noneligible",
+      "anchor": "API.md paragraph 6: \"Noneligible engine purchases need not be recorded in the core, but cannot spend allowances.\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "api-native-base",
+      "anchor": "API.md paragraph 6: \"Price calculation must start from the unmodified native price calculation\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "api-preserve-callbacks",
+      "anchor": "API.md paragraph 6: \"Preserve native callback call counts, arguments, all returns and error behavior when wrapping them.\"",
+      "status": "unasserted",
+      "note": "No case counts callback calls or compares their arguments or returns."
+    }
+  ],
+  "excluded_clauses": [
+    "native-price-other-goods",
+    "file-boundary",
+    "no-external-alteration",
+    "api-adapter-own-state",
+    "api-preserve-callbacks"
+  ],
+  "known_issues": [
+    "Fixture trap: normal.coupon.buy.quotes, normal.post_remove.buy.quotes and normal.third.buy.quotes run on an empty shop because the preceding purchases sold every offer, so the record at benchmarks/balatro/private/native-v1/fixtures/tasks/shop_price_coherence/v2/private/scenario.py:47-50 compares two empty lists. They carry no price evidence and are relabelled runtime-sentinel.",
+    "Fixture trap: core.funds_atomic and core.quote_atomic are target only through the view alias. Their commit logic already works on the starter; they fail because the 'before' view taken at benchmarks/balatro/private/native-v1/fixtures/tasks/shop_price_coherence/v2/private/mod/core_cases.lua:60 and :65 aliases owner rows (public/v02/shop-price-coherence-v2/starter/lib/ledger.lua:26-30) and the later retry mutates it. M06-view-alias fails them for the same reason, so they measure detachment, not the funds or mismatch checks.",
+    "Fixture trap: benchmarks/balatro/private/native-v1/fixtures/tasks/shop_price_coherence/v2/private/scenario.py:53 raises ProtocolError when a required offer is missing, so a candidate that disturbs the shop can end as incomplete_execution with later cases not executed, not as a behavior mismatch."
+  ]
+}

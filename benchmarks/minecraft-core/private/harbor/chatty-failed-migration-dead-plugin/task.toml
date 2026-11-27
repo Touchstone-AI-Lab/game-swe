@@ -1,0 +1,64 @@
+schema_version = "1.4"
+
+artifacts = ["/app/plugin"]
+
+[task]
+name = "gamecodebench/minecraft-chatty-failed-migration-dead-plugin"
+version = "1.0.0"
+description = "Repair Chatty so that a legacy v2 configuration whose migration fails no longer leaves an enabled plugin that handles nothing: quarantine the half-migrated files, tell the operator, start with a default configuration that /chatty reload can use, and migrate caps limits into the range v3 accepts."
+authors = [{ name = "GameCodeBench" }]
+keywords = ["minecraft", "paper", "java", "game-modding", "repository-debugging", "configuration", "migration", "plugin-lifecycle", "error-handling"]
+
+[metadata]
+category = "programming"
+difficulty = "medium"
+tags = ["game-modding", "minecraft", "java", "repository-debugging"]
+task_kind = "repository-debugging"
+game = "Minecraft (Paper dedicated server)"
+game_version = "Paper 1.21.11 build 132"
+language = "Java 21"
+build_tool = "gradle"
+plugin_name = "Chatty"
+source_repo = "https://github.com/Brikster/Chatty"
+base_commit = "b620b36c62fabfaebfbe22a7e305108e77355629"
+source_license = "MIT"
+expected_unit_cases = 54
+expected_server_cases = 7
+content_reference = "benchmarks/minecraft-core/exams/chatty-failed-migration-dead-plugin.md"
+content_reference_pack = "rhenium-minecraft-v1"
+harbor_reference_repository = "https://github.com/harbor-framework/harbor"
+harbor_reference_revision = "9a2e3b135cc8fb1e41131020f83370cb2f12ae93"
+verification_profile = "rhenium-minecraft-full"
+real_server_validation = "in-verifier; Paper 1.21.11 build 132"
+
+[verifier]
+network_mode = "no-network"
+timeout_sec = 2400.0
+user = "root"
+environment_mode = "separate"
+
+[verifier.environment]
+network_mode = "no-network"
+
+[agent]
+# The image contains mini-swe-agent. A Harbor job supplies only the model
+# endpoint hostname through agents[].extra_allowed_hosts.
+network_mode = "allowlist"
+allowed_hosts = []
+timeout_sec = 5400.0
+user = "agent"
+
+[environment]
+network_mode = "no-network"
+build_timeout_sec = 3600.0
+cpus = 4
+memory_mb = 8192
+storage_mb = 16384
+gpus = 0
+mcp_servers = []
+
+[verifier.env]
+
+[environment.env]
+
+[solution.env]

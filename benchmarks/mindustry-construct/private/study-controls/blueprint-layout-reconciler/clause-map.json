@@ -1,0 +1,28 @@
+{
+  "task": "mindustry/construct/blueprint-layout-reconciler",
+  "task_version": "1.0.0",
+  "exam": "benchmarks/mindustry-construct/exams/blueprint-layout-reconciler.md",
+  "cases": [
+    {
+      "id": "check:submission-shape",
+      "role": "static"
+    },
+    {
+      "id": "check:private-headless-verifier",
+      "role": "target",
+      "clauses": [
+        "request"
+      ],
+      "note": "aggregate engine verdict; the evaluator reports no per-case outcomes"
+    }
+  ],
+  "clauses": [
+    {
+      "id": "request",
+      "anchor": "exam body; split into individual clauses during review",
+      "status": "asserted"
+    }
+  ],
+  "excluded_clauses": [],
+  "known_issues": []
+}

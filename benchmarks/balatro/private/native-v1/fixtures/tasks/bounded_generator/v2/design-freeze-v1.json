@@ -1,0 +1,21 @@
+{
+  "version": "M1-v2-design-1",
+  "created_at": "2026-09-20T02:11:31+0800",
+  "status": "specified before candidate authoring",
+  "files": {
+    "CONTRACT.md": "535d5dfaf2ced61f2103d496a31255bb4053e95206b9ab8ff7217787ba773cfd",
+    "CASE-MUTATION-MATRIX.md": "d439c12a452391c2d77f68e5f8617af40dfc4b177fe9bb9e15f967dd4e1654f9",
+    "INDEPENDENCE.md": "1f8bed7f5513e02668cc6c40f207b98458e5f9649855217dfd961a12fc8a3e5d"
+  },
+  "prerequisite": {
+    "path": "validation-bounded-prerequisite-v2-dev1.json",
+    "sha256": "61c248d5209ded88e8cda0183f35b137eafd1667643f1fa25fde54de5092b679"
+  },
+  "editable_files": [
+    "main.lua",
+    "lib/generation.lua"
+  ],
+  "immutable_files": [
+    "bounded_generator_v2.json"
+  ]
+}

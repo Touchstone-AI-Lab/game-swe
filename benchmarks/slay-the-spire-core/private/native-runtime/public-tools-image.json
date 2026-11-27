@@ -1,0 +1,17 @@
+{
+  "image": "ghcr.io/changyiyang/swe-game-sts-tools@sha256:5e13b09ceebaf7e61b2bdc50f1080abd014b079a2fbbdea6e902148add9c374e",
+  "image_id": "sha256:fdb61663d93627b8ac534f6b239eb4fd0216666b4dbb982d2756c33812f364f3",
+  "platform": "linux/amd64",
+  "published_tag": "ghcr.io/changyiyang/swe-game-sts-tools:2026-09-26-fdb61663d936",
+  "upstream_base": "maven@sha256:e20e4fc05fb5480c884a1f750c362ed0e91aca15cec5736e12796713710ec9b3",
+  "recipe": "deps/portable/Dockerfile",
+  "contents": "Java 8, Maven, Xvfb and pinned Ubuntu graphics/runtime packages only",
+  "excluded": [
+    "licensed game",
+    "compiled mod SDKs",
+    "task sources",
+    "verifiers",
+    "solutions",
+    "credentials"
+  ]
+}

@@ -1,0 +1,6 @@
+name: "unit-lease-scheduler-tests"
+displayName: "Unit Lease Scheduler Tests"
+main: "ContractTestRunner"
+version: "1.0.0"
+minGameVersion: 159
+dependencies: [support-unit-leases]

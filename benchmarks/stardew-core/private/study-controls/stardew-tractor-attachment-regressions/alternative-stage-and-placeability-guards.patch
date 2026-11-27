@@ -1,0 +1,71 @@
+diff --git a/TractorMod/Framework/Attachments/AxeAttachment.cs b/TractorMod/Framework/Attachments/AxeAttachment.cs
+index 3592038..0ca8e96 100644
+--- a/TractorMod/Framework/Attachments/AxeAttachment.cs
++++ b/TractorMod/Framework/Attachments/AxeAttachment.cs
+@@ -160,16 +160,13 @@ internal class AxeAttachment : BaseAttachment
+     {
+         var config = this.Config;
+ 
+-        // seed
+-        if (tree.growthStage.Value == Tree.seedStage)
+-            return config.ClearFruitTreeSeeds;
+-
+-        // sapling
+-        if (tree.growthStage.Value < Tree.treeStage)
+-            return config.ClearFruitTreeSaplings;
+-
+-        // full-grown
+-        return config.CutGrownFruitTrees;
++        // fruit trees have their own growth stages (fully grown at FruitTree.treeStage)
++        int stage = tree.growthStage.Value;
++        if (stage >= FruitTree.treeStage)
++            return config.CutGrownFruitTrees;
++        return stage <= FruitTree.seedStage
++            ? config.ClearFruitTreeSeeds
++            : config.ClearFruitTreeSaplings;
+     }
+ 
+     /// <summary>Get whether a given bush should be chopped.</summary>
+diff --git a/TractorMod/Framework/Attachments/CustomAttachment.cs b/TractorMod/Framework/Attachments/CustomAttachment.cs
+index f6cf153..5ad9c5e 100644
+--- a/TractorMod/Framework/Attachments/CustomAttachment.cs
++++ b/TractorMod/Framework/Attachments/CustomAttachment.cs
+@@ -52,6 +52,10 @@ internal class CustomAttachment : BaseAttachment
+         // apply item
+         if (item is { Stack: > 0 } && this.CustomNames.Contains(item.Name))
+         {
++            // only place items the player could place by hand
++            if (item is SObject placeable && !placeable.isPlaceable())
++                return false;
++
+             if (item is SObject obj && obj.canBePlacedHere(location, tile) && obj.placementAction(location, (int)(tile.X * Game1.tileSize), (int)(tile.Y * Game1.tileSize), player))
+             {
+                 this.ConsumeItem(player, item);
+diff --git a/TractorMod/Framework/Attachments/PickaxeAttachment.cs b/TractorMod/Framework/Attachments/PickaxeAttachment.cs
+index b3f1703..c2b329a 100644
+--- a/TractorMod/Framework/Attachments/PickaxeAttachment.cs
++++ b/TractorMod/Framework/Attachments/PickaxeAttachment.cs
+@@ -70,7 +70,7 @@ internal class PickaxeAttachment : BaseAttachment
+ 
+         // break objects
+         bool isMineSpawn = location is MineShaft && tileObj?.IsSpawnedObject == true;
+-        if (this.Config.ClearObjects && tileObj != null && !isMineSpawn)
++        if (this.Config.ClearObjects && tileObj != null && !isMineSpawn && !this.IsBreakableStone(tileObj))
+             return this.UseToolOnTile(tool, tile, player, location);
+ 
+         // break mine containers
+diff --git a/TractorMod/Framework/Attachments/SeedAttachment.cs b/TractorMod/Framework/Attachments/SeedAttachment.cs
+index 0de9bd1..f50f24f 100644
+--- a/TractorMod/Framework/Attachments/SeedAttachment.cs
++++ b/TractorMod/Framework/Attachments/SeedAttachment.cs
+@@ -51,6 +51,10 @@ internal class SeedAttachment : BaseAttachment
+         if (item is not { Stack: > 0 })
+             return false;
+ 
++        // a garden pot holding a bush has no room for a crop
++        if (tileObj is IndoorPot { bush.Value: not null })
++            return false;
++
+         // get dirt
+         if (!this.TryGetHoeDirt(tileFeature, tileObj, out HoeDirt? dirt, out bool dirtCoveredByObj, out _) || dirt.crop != null)
+             return false;

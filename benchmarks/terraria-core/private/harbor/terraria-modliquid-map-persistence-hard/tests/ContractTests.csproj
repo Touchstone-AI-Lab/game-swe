@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <OutputType>Exe</OutputType>
+    <LangVersion>latest</LangVersion>
+    <ImplicitUsings>disable</ImplicitUsings>
+    <Nullable>disable</Nullable>
+    <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
+    <CandidateRoot Condition="'$(CandidateRoot)' == ''">../environment/mod-liquid-lib</CandidateRoot>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="$(CandidateRoot)/IO/MapLiquidIO.cs" Link="Production/MapLiquidIO.cs" />
+    <Compile Include="$(CandidateRoot)/ModLoader/MapEntry.cs" Link="Production/MapEntry.cs" />
+    <Compile Include="$(CandidateRoot)/ModLoader/MapLiquidLoader.cs" Link="Production/MapLiquidLoader.cs" />
+    <Compile Include="$(CandidateRoot)/Hooks/MapHelperHooks.cs" Link="Production/MapHelperHooks.cs" />
+    <Compile Include="$(CandidateRoot)/Hooks/MapLoaderHooks.cs" Link="Production/MapLoaderHooks.cs" />
+    <Compile Include="$(CandidateRoot)/Hooks/WorldMapHooks.cs" Link="Production/WorldMapHooks.cs" />
+    <Compile Include="VerifierSupport.cs" />
+    <Compile Include="HookVerifierSupport.cs" />
+    <Compile Include="Program.cs" />
+  </ItemGroup>
+</Project>

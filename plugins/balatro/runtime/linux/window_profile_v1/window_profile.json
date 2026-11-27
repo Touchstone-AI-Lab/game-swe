@@ -1,0 +1,6 @@
+{
+  "id": "poc_linux_window", "name": "Controlled Linux window profile v1",
+  "author": ["Sangyu Pan"], "description": "Ordinary graphics settings in a fresh isolated profile",
+  "prefix": "poclwin", "main_file": "window.lua", "priority": 100005,
+  "version": "1.0.0", "dependencies": ["Steamodded (>=1.~)", "balatrobot", "poc_control"]
+}

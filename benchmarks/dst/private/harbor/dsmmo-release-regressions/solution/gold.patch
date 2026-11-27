@@ -1,0 +1,75 @@
+diff --git a/mod/scripts/components/DsMMO.lua b/mod/scripts/components/DsMMO.lua
+--- a/mod/scripts/components/DsMMO.lua
++++ b/mod/scripts/components/DsMMO.lua
+@@ -717,16 +717,18 @@
+ 				spawn_to_target("collapse_small", player)
+ 			end
+ 		elseif actionId == "HAUNT" then
+-			local targetN = action.target.prefab
+-			if targetN == "flower_evil" then
+-				spawn_to_target("ground_chunks_breaking", player)
+-				if self:test_skill(SKILLS.fireflies) then
+-					spawn_to_target("collapse_small", action.target)
+-					
+-					local fireflies = SpawnPrefab("fireflies")
+-					fireflies.Transform:SetPosition(action.target.Transform:GetWorldPosition())
+-					fireflies.components.inventoryitem.ondropfn(fireflies)
+-					action.target:Remove()
++			if action.target then
++				local targetN = action.target.prefab
++				if targetN == "flower_evil" then
++					spawn_to_target("ground_chunks_breaking", player)
++					if self:test_skill(SKILLS.fireflies) then
++						spawn_to_target("collapse_small", action.target)
++						
++						local fireflies = SpawnPrefab("fireflies")
++						fireflies.Transform:SetPosition(action.target.Transform:GetWorldPosition())
++						fireflies.components.inventoryitem.ondropfn(fireflies)
++						action.target:Remove()
++					end
+ 				end
+ 			end
+ 		elseif actionId == "ADDFUEL" then
+@@ -744,13 +746,13 @@
+ 			self:get_experience(actionId)
+ 			
+ 			if actionId == "ATTACK" then
+-				if action.target and self:test_skill(SKILLS.attack) then
++				if action.target and self:test_skill(SKILLS.attack) and action.target.components.combat then
+ 					spawn_to_target("explode_small", action.target)
+ 					action.target.SoundEmitter:PlaySound("dontstarve/common/blackpowder_explo")
+ 					action.target.components.combat:GetAttacked(player, TUNING.SPEAR_DAMAGE)
+ 				end
+ 			elseif actionId == "DIG" then
+-				if not action.target.DsMMO_creation and DIG_SKILL_TARGETS[action.invobject.prefab] and self:test_skill(SKILLS.dig) then
++				if not action.target.DsMMO_creation and action.invobject and DIG_SKILL_TARGETS[action.invobject.prefab] and self:test_skill(SKILLS.dig) then
+ 					local items = SKILLS.dig.items
+ 					local r = math.random()
+ 					for k,v in pairs(items) do
+@@ -769,7 +771,7 @@
+ local function onAttacked(player, data)
+ 	player.components.DsMMO:get_experience("ATTACK")
+ 	
+-	if data.attacker.prefab ~= "bee" and data.attacker.prefab ~= "killerbee" and player.components.DsMMO:test_skill(SKILLS.attacked) then
++	if data and data.attacker and data.attacker.prefab ~= "bee" and data.attacker.prefab ~= "killerbee" and data.attacker ~= player and player.components.DsMMO:test_skill(SKILLS.attacked) then
+ 		local bee = SpawnPrefab("bee")
+ 		bee.persists = false
+ 		bee.Transform:SetPosition(player.Transform:GetWorldPosition())
+@@ -1093,7 +1095,7 @@
+ 
+ function DsMMO:OnLoad(data)
+ 	if data.dsmmo_version then
+-		if data.dsmmo_version == VERSION then
++		if data.dsmmo_version == VERSION and data.dsmmo_level_up_rate == LEVEL_UP_RATE then
+ 			self.exp = data.dsmmo_exp
+ 			self.max_exp = data.dsmmo_max_exp
+ 			self.level = data.dsmmo_level
+@@ -1291,7 +1293,7 @@
+ 		for k,v in pairs(self.level) do
+ 			output = output ..k ..":" ..add_spaces(k, 10) ..add_spaces(tostring(v), 2) ..v .."\n"
+ 		end
+-	elseif arg1 == "eat" then
++	elseif arg1 == "eat" and arg2 and arg3 then
+ 		self:use_cannibalism_skill(string.upper(arg2), string.lower(arg3))
+ 		return
+ 	else

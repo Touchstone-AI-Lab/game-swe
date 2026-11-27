@@ -1,0 +1,28 @@
+case	layer	role	public_report
+Wardstone is enabled	server	sentinel	the plugin enables on the real server
+default config.yml is written on first enable	server	target	requirement 7
+plugin.yml declares the ward command and permissions	server	target	requirement 10
+define creates a region and reports its size	server	target	requirement 10; requirement 11; requirement 1
+define validates its arguments	server	target	requirement 10; requirement 1
+define rejects regions above the maximum volume	server	target	requirement 7; requirement 9
+regions.yml stores normalised corners and sorted lists	server	target	requirement 8; requirement 1
+denied breaks are cancelled with a message	server	target	requirement 4; requirement 3
+bounds are inclusive on every axis	server	target	requirement 1; requirement 4
+denied places are cancelled with a message	server	target	requirement 4
+owners and members build in their own region	server	target	requirement 4; requirement 10
+the bypass permission builds everywhere	server	target	requirement 4
+the highest priority region decides	server	target	requirement 3; requirement 10
+deny wins between equal priorities and the first name decides	server	target	requirement 3; requirement 4
+explosions keep blocks in protected regions	server	target	requirement 5
+fire is blocked where the fire flag is denied	server	target	requirement 6
+flags can be changed and cleared	server	target	requirement 2; requirement 10; requirement 8; requirement 11
+flag validates the flag and the value	server	target	requirement 10
+owners and members are managed by name	server	target	requirement 10; requirement 1; requirement 11
+info describes a region	server	target	requirement 11
+at lists the regions at a block by priority	server	target	requirement 10
+delete removes a region and its protection	server	target	requirement 10; requirement 8
+reload reads regions from disk	server	target	requirement 9; requirement 8
+permissions are enforced	server	target	requirement 10
+malformed commands show usage	server	target	requirement 10
+membership in a lower-priority region does not override a higher denial	server	target	requirements 3, 4
+liquid flow respects the destination block-place flag	server	target	requirement 2; requirement 4

@@ -1,0 +1,1 @@
+package actlikeit.patches;public class DungeonMapPatches {public static int atMapEnd(){throw new UnsupportedOperationException("Compile-only optional API");}}

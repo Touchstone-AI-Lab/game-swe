@@ -1,0 +1,6 @@
+name: "power-grid-controller-tests"
+displayName: "Power Grid Controller Tests"
+main: "ContractTestRunner"
+version: "1.0.0"
+minGameVersion: 159
+dependencies: [grid-load-controller]

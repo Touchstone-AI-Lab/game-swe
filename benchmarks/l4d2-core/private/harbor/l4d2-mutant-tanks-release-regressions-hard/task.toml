@@ -1,0 +1,69 @@
+schema_version = "1.4"
+
+artifacts = ["/app/mutant-tanks"]
+
+[task]
+name = "gamecodebench/l4d2-mutant-tanks-release-regressions-hard"
+version = "0.2.1"
+description = "Repair nine release regressions across Mutant Tanks core lifecycle and ability modules."
+authors = [{ name = "PrinsYin" }]
+keywords = ["left4dead2", "sourcemod", "sourcepawn", "mutant-tanks", "debugging", "regression"]
+
+[metadata]
+category = "programming"
+difficulty = "hard"
+tags = ["game-modding", "l4d2", "sourcepawn", "bug-fix", "configuration", "state-machine", "multi-defect"]
+source_repo = "https://github.com/Psykotikism/Mutant_Tanks"
+source_license = "GPL-3.0-or-later"
+base_commit = "c7ef30eea49abce235ef9ff50587aed7cd3c4d5a"
+reference_revisions = "102fa27ca99898089afe07a81a15a40dfb62f03a,05c73241656f7dd4808a40096f8c6bb5d46848f7,5c182e5e3babbabf09485b897161e21c1f5c4749,c7ef30eea49abce235ef9ff50587aed7cd3c4d5a,5cc02e8f0ef489c94f1d69ef10f20ecc7d55621a,21ae4d32263a154a5e809a1957474788173a7bcb,87f1fa419c323cf05496aef3f2eaa8fe84659be3,d8a937d921eff05574c5e9cebf6294354ccde167"
+gold_solution_origin = "seven release regressions seeded into the frozen snapshot and two preserved upstream regressions; repairs follow the cited upstream behavior and deterministic lifecycle contracts"
+task_kind = "repository-debugging"
+game = "Left 4 Dead 2 Dedicated Server"
+game_app_id = "222860"
+game_build = "23990100; depots 222861/4827977561765481436 and 222863/868244163643826330"
+expected_private_cases = 57
+expected_server_cases = 57
+independent_defect_groups = 9
+seeded_regressions = 7
+preserved_upstream_regressions = 2
+independent_behavior_groups = 9
+public_smoke_command = "python3 tools/smoke.py"
+agent_toolchain = "SourceMod/spcomp64 1.12.0.7246; mini-swe-agent 2.4.6; litellm 1.95.0"
+validation_contract = "v14-hypno-deferred-spawn-window"
+validation_evidence = "see validation/revision-controls.json"
+
+[verifier]
+environment_mode = "separate"
+network_mode = "no-network"
+timeout_sec = 2100.0
+user = "root"
+
+[verifier.environment]
+network_mode = "no-network"
+cpus = 4
+memory_mb = 12288
+storage_mb = 32768
+gpus = 0
+mcp_servers = []
+
+[agent]
+user = "agent"
+network_mode = "allowlist"
+allowed_hosts = ["api.openai.com"]
+timeout_sec = 5400.0
+
+[environment]
+network_mode = "no-network"
+build_timeout_sec = 1800.0
+cpus = 4
+memory_mb = 8192
+storage_mb = 20480
+gpus = 0
+mcp_servers = []
+
+[verifier.env]
+
+[environment.env]
+
+[solution.env]

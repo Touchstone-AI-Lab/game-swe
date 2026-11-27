@@ -1,0 +1,7 @@
+control	expected	observed	status
+broken-starter	at-least-one-intended-failure	25/82 pass; failures cover registry, isolation, identity, serialization, target, custom and built-in presets, definition snapshots, live rebase, and safe lookup	pass
+oracle	all-cases-pass	82/82 pass	pass
+empty-submission	rejected-before-build	missing required production source	pass
+unrelated-readme-only	still-fails	behavior remains 25/82	pass
+public-smoke-broken	compiles	zero errors and warnings	pass
+public-smoke-oracle	compiles	zero errors and warnings	pass

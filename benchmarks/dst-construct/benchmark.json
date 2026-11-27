@@ -1,0 +1,7 @@
+{
+  "schema_version": 2,
+  "pack_id": "construct",
+  "plugin": "dst",
+  "catalog": "fixed-v1.json",
+  "runtime_catalog": "runtimes.json"
+}

@@ -1,0 +1,45 @@
+{
+  "schema_version": 1,
+  "runtimes": [
+    {
+      "id": "gmod-gluatest-darkrp",
+      "name": "Headless Garry's Mod dedicated server with GLuaTest",
+      "version": "gluatest x86-64 @ sha256:23cd97d4",
+      "provider": "container",
+      "restricted": false,
+      "host_platforms": [
+        "linux-x64"
+      ],
+      "source": {
+        "kind": "container-image",
+        "image": "ghcr.io/cfc-servers/gluatest/x86-64@sha256:23cd97d4fa9cf44fc16cabed6b973e117581769725b5735c533d10da7fe0b1fb",
+        "expectedFiles": [
+          "home/steam/gmodserver/entrypoint.sh"
+        ]
+      }
+    }
+  ],
+  "task_bindings": {
+    "darkrp-release-regressions-v3": [
+      "gmod-gluatest-darkrp"
+    ],
+    "darkrp-live-server-regressions": [
+      "gmod-gluatest-darkrp"
+    ],
+    "darkrp-door-economy-regressions": [
+      "gmod-gluatest-darkrp"
+    ],
+    "darkrp-core-library-regressions": [
+      "gmod-gluatest-darkrp"
+    ],
+    "darkrp-registration-regressions": [
+      "gmod-gluatest-darkrp"
+    ],
+    "darkrp-money-regressions": [
+      "gmod-gluatest-darkrp"
+    ],
+    "darkrp-persistence-regressions": [
+      "gmod-gluatest-darkrp"
+    ]
+  }
+}

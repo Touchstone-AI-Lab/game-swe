@@ -1,0 +1,121 @@
+{
+  "task": "slay-the-spire/core/mts-mod-identity-regressions-r2",
+  "task_version": "1.8.0",
+  "exam": "benchmarks/slay-the-spire-core/exams/mts-mod-identity-regressions-r2.md",
+  "cases": [
+    {
+      "id": "check:submission-shape",
+      "role": "static",
+      "clauses": [],
+      "overlap": false,
+      "note": "source tree present, no symlinks, VCS metadata or compiled artifacts outside build output"
+    },
+    {
+      "id": "case:gcb.ModIdentityTest.aBlankIdentifierFallsBackToTheName",
+      "role": "target",
+      "clauses": [
+        "report-802"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:gcb.ModIdentityTest.aModWithAnIdIsNotTheSameAsOneWithout",
+      "role": "target",
+      "clauses": [
+        "report-805"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:gcb.ModIdentityTest.ordinaryVersionStringsAreAccepted",
+      "role": "target",
+      "clauses": [
+        "report-808"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:gcb.ModIdentityTest.aRequirementResolvesToTheFirstMatch",
+      "role": "target",
+      "clauses": [
+        "report-811"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:gcb.ModIdentityTest.control_aNormalModIsKnownByItsId",
+      "role": "preserved",
+      "clauses": [
+        "preserve"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:gcb.ModIdentityTest.control_aModWithoutAnIdIsKnownByItsName",
+      "role": "preserved",
+      "clauses": [
+        "preserve"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:gcb.ByRefBoxingTest.byRefWritesBackThroughAWrapperArray",
+      "role": "preserved",
+      "clauses": [
+        "preserve"
+      ],
+      "overlap": false,
+      "note": "patch-engine regression check shared with the other tasks; not touched by this task's defects"
+    }
+  ],
+  "clauses": [
+    {
+      "id": "report-802",
+      "anchor": "Problem, report #802: a blank identifier leaves the mod with a blank label",
+      "status": "asserted"
+    },
+    {
+      "id": "report-805",
+      "anchor": "Problem, report #805: a mod with an identifier and one without are treated as the same",
+      "status": "asserted"
+    },
+    {
+      "id": "report-808",
+      "anchor": "Problem, report #808: a two-part version such as 1.0 stops the mod loading",
+      "status": "asserted"
+    },
+    {
+      "id": "report-811",
+      "anchor": "Problem, report #811: a requirement is resolved against a later spare copy",
+      "status": "asserted"
+    },
+    {
+      "id": "preserve",
+      "anchor": "What to do, notes: behaviour that already works must keep working",
+      "status": "asserted"
+    },
+    {
+      "id": "scope-tests",
+      "anchor": "What to do, notes: do not change anything under /tests and add no test files",
+      "status": "unasserted",
+      "note": "enforced only indirectly: the verifier replaces the private suite, and an extra test changes the observed count, which makes the run incomplete"
+    },
+    {
+      "id": "fix-causes",
+      "anchor": "What to do, notes: fix the causes, do not special-case a report or work around it in a caller",
+      "status": "unasserted",
+      "note": "generalisation is probed only through the several inputs each assertion uses"
+    }
+  ],
+  "excluded_clauses": [],
+  "known_issues": [
+    "`check:native-engine` is left out: it is the evaluator's all-or-nothing verdict over the same per-case outcomes, so mapping it would count a preserved-case failure as a target failure.",
+    "Clauses and roles carry over from `mts-mod-identity-regressions` (same exam and assertions); the 2026-11-02 E0 baseline on the real game observed the same starter failures."
+  ]
+}

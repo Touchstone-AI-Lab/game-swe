@@ -1,0 +1,976 @@
+{
+  "task": "balatro/core/bounded-generator-v2",
+  "task_version": "0.2.0",
+  "exam": "benchmarks/balatro/public/v02/bounded-generator-v2/CONTRACT.md",
+  "cases": [
+    {
+      "id": "position:1",
+      "role": "setup",
+      "clauses": [],
+      "overlap": false,
+      "note": "room.initial"
+    },
+    {
+      "id": "position:2",
+      "role": "preserved",
+      "clauses": [
+        "display-query-pure"
+      ],
+      "overlap": false,
+      "note": "room.queries"
+    },
+    {
+      "id": "position:3",
+      "role": "preserved",
+      "clauses": [
+        "admission-formula",
+        "permitted-not-rejected",
+        "no-selection",
+        "all-quantities-in-scope"
+      ],
+      "overlap": false,
+      "note": "room.generate0.response"
+    },
+    {
+      "id": "position:4",
+      "role": "preserved",
+      "clauses": [
+        "creates-quantity",
+        "instance-quantity",
+        "source-consumed-once",
+        "completion-state",
+        "unrelated-unchanged"
+      ],
+      "overlap": false,
+      "note": "room.generate0.inventory"
+    },
+    {
+      "id": "position:5",
+      "role": "preserved",
+      "clauses": [
+        "source-consumed-once",
+        "can-use-pure",
+        "job-reserves-quantity",
+        "queued-event",
+        "release-own-reservation",
+        "no-fixed-default",
+        "completion-state"
+      ],
+      "overlap": false,
+      "note": "room.generate0.lifecycle"
+    },
+    {
+      "id": "position:6",
+      "role": "preserved",
+      "clauses": [
+        "source-consumed-once"
+      ],
+      "overlap": false,
+      "note": "room.generate0.usage"
+    },
+    {
+      "id": "position:7",
+      "role": "preserved",
+      "clauses": [
+        "no-other-state-change"
+      ],
+      "overlap": false,
+      "note": "room.generate0.invariants"
+    },
+    {
+      "id": "position:8",
+      "role": "preserved",
+      "clauses": [
+        "admission-formula",
+        "permitted-not-rejected",
+        "no-selection",
+        "subsequent-uses"
+      ],
+      "overlap": false,
+      "note": "room.generate1.response"
+    },
+    {
+      "id": "position:9",
+      "role": "preserved",
+      "clauses": [
+        "creates-quantity",
+        "instance-quantity",
+        "source-consumed-once",
+        "completion-state",
+        "unrelated-unchanged",
+        "subsequent-uses"
+      ],
+      "overlap": false,
+      "note": "room.generate1.inventory"
+    },
+    {
+      "id": "position:10",
+      "role": "preserved",
+      "clauses": [
+        "source-consumed-once",
+        "can-use-pure",
+        "job-reserves-quantity",
+        "queued-event",
+        "release-own-reservation",
+        "no-fixed-default",
+        "completion-state",
+        "subsequent-uses"
+      ],
+      "overlap": false,
+      "note": "room.generate1.lifecycle"
+    },
+    {
+      "id": "position:11",
+      "role": "preserved",
+      "clauses": [
+        "source-consumed-once",
+        "subsequent-uses"
+      ],
+      "overlap": false,
+      "note": "room.generate1.usage"
+    },
+    {
+      "id": "position:12",
+      "role": "preserved",
+      "clauses": [
+        "no-other-state-change",
+        "subsequent-uses"
+      ],
+      "overlap": false,
+      "note": "room.generate1.invariants"
+    },
+    {
+      "id": "position:13",
+      "role": "preserved",
+      "clauses": [
+        "products-usable"
+      ],
+      "overlap": false,
+      "note": "room.mercury0.inventory"
+    },
+    {
+      "id": "position:14",
+      "role": "preserved",
+      "clauses": [
+        "products-usable"
+      ],
+      "overlap": false,
+      "note": "room.mercury0.effect"
+    },
+    {
+      "id": "position:15",
+      "role": "preserved",
+      "clauses": [
+        "products-usable"
+      ],
+      "overlap": false,
+      "note": "room.mercury1.inventory"
+    },
+    {
+      "id": "position:16",
+      "role": "preserved",
+      "clauses": [
+        "products-usable"
+      ],
+      "overlap": false,
+      "note": "room.mercury1.effect"
+    },
+    {
+      "id": "position:17",
+      "role": "preserved",
+      "clauses": [
+        "unrelated-use-normal"
+      ],
+      "overlap": false,
+      "note": "room.hermit.inventory"
+    },
+    {
+      "id": "position:18",
+      "role": "preserved",
+      "clauses": [
+        "unrelated-use-normal"
+      ],
+      "overlap": false,
+      "note": "room.hermit.effect"
+    },
+    {
+      "id": "position:19",
+      "role": "runtime-sentinel",
+      "clauses": [
+        "config-immutable",
+        "no-other-state-change"
+      ],
+      "overlap": false,
+      "note": "room.sealed"
+    },
+    {
+      "id": "position:20",
+      "role": "setup",
+      "clauses": [],
+      "overlap": false,
+      "note": "one.initial"
+    },
+    {
+      "id": "position:21",
+      "role": "preserved",
+      "clauses": [
+        "display-query-pure"
+      ],
+      "overlap": false,
+      "note": "one.queries"
+    },
+    {
+      "id": "position:22",
+      "role": "target",
+      "clauses": [
+        "admission-formula",
+        "permitted-not-rejected",
+        "no-selection",
+        "all-quantities-in-scope",
+        "self-slot"
+      ],
+      "overlap": false,
+      "note": "one.generate0.response"
+    },
+    {
+      "id": "position:23",
+      "role": "target",
+      "clauses": [
+        "creates-quantity",
+        "instance-quantity",
+        "source-consumed-once",
+        "completion-state",
+        "unrelated-unchanged",
+        "self-slot"
+      ],
+      "overlap": false,
+      "note": "one.generate0.inventory"
+    },
+    {
+      "id": "position:24",
+      "role": "target",
+      "clauses": [
+        "source-consumed-once",
+        "can-use-pure",
+        "job-reserves-quantity",
+        "queued-event",
+        "release-own-reservation",
+        "no-fixed-default",
+        "completion-state"
+      ],
+      "overlap": false,
+      "note": "one.generate0.lifecycle"
+    },
+    {
+      "id": "position:25",
+      "role": "target",
+      "clauses": [
+        "source-consumed-once"
+      ],
+      "overlap": false,
+      "note": "one.generate0.usage"
+    },
+    {
+      "id": "position:26",
+      "role": "preserved",
+      "clauses": [
+        "no-other-state-change"
+      ],
+      "overlap": false,
+      "note": "one.generate0.invariants"
+    },
+    {
+      "id": "position:27",
+      "role": "preserved",
+      "clauses": [
+        "unrelated-use-normal"
+      ],
+      "overlap": false,
+      "note": "one.hermit.inventory"
+    },
+    {
+      "id": "position:28",
+      "role": "preserved",
+      "clauses": [
+        "unrelated-use-normal"
+      ],
+      "overlap": false,
+      "note": "one.hermit.effect"
+    },
+    {
+      "id": "position:29",
+      "role": "runtime-sentinel",
+      "clauses": [
+        "config-immutable",
+        "no-other-state-change"
+      ],
+      "overlap": false,
+      "note": "one.sealed"
+    },
+    {
+      "id": "position:30",
+      "role": "setup",
+      "clauses": [],
+      "overlap": false,
+      "note": "three.initial"
+    },
+    {
+      "id": "position:31",
+      "role": "preserved",
+      "clauses": [
+        "display-query-pure"
+      ],
+      "overlap": false,
+      "note": "three.queries"
+    },
+    {
+      "id": "position:32",
+      "role": "preserved",
+      "clauses": [
+        "admission-formula",
+        "permitted-not-rejected",
+        "no-selection",
+        "all-quantities-in-scope"
+      ],
+      "overlap": false,
+      "note": "three.generate0.response"
+    },
+    {
+      "id": "position:33",
+      "role": "preserved",
+      "clauses": [
+        "creates-quantity",
+        "instance-quantity",
+        "source-consumed-once",
+        "completion-state",
+        "unrelated-unchanged"
+      ],
+      "overlap": false,
+      "note": "three.generate0.inventory"
+    },
+    {
+      "id": "position:34",
+      "role": "target",
+      "clauses": [
+        "source-consumed-once",
+        "can-use-pure",
+        "job-reserves-quantity",
+        "queued-event",
+        "release-own-reservation",
+        "no-fixed-default",
+        "completion-state"
+      ],
+      "overlap": false,
+      "note": "three.generate0.lifecycle"
+    },
+    {
+      "id": "position:35",
+      "role": "preserved",
+      "clauses": [
+        "source-consumed-once"
+      ],
+      "overlap": false,
+      "note": "three.generate0.usage"
+    },
+    {
+      "id": "position:36",
+      "role": "preserved",
+      "clauses": [
+        "no-other-state-change"
+      ],
+      "overlap": false,
+      "note": "three.generate0.invariants"
+    },
+    {
+      "id": "position:37",
+      "role": "preserved",
+      "clauses": [
+        "products-usable"
+      ],
+      "overlap": false,
+      "note": "three.mercury0.inventory"
+    },
+    {
+      "id": "position:38",
+      "role": "preserved",
+      "clauses": [
+        "products-usable"
+      ],
+      "overlap": false,
+      "note": "three.mercury0.effect"
+    },
+    {
+      "id": "position:39",
+      "role": "preserved",
+      "clauses": [
+        "unrelated-use-normal"
+      ],
+      "overlap": false,
+      "note": "three.hermit.inventory"
+    },
+    {
+      "id": "position:40",
+      "role": "preserved",
+      "clauses": [
+        "unrelated-use-normal"
+      ],
+      "overlap": false,
+      "note": "three.hermit.effect"
+    },
+    {
+      "id": "position:41",
+      "role": "runtime-sentinel",
+      "clauses": [
+        "config-immutable",
+        "no-other-state-change"
+      ],
+      "overlap": false,
+      "note": "three.sealed"
+    },
+    {
+      "id": "position:42",
+      "role": "setup",
+      "clauses": [],
+      "overlap": false,
+      "note": "recover.initial"
+    },
+    {
+      "id": "position:43",
+      "role": "preserved",
+      "clauses": [
+        "display-query-pure"
+      ],
+      "overlap": false,
+      "note": "recover.queries"
+    },
+    {
+      "id": "position:44",
+      "role": "preserved",
+      "clauses": [
+        "admission-formula",
+        "structured-refusal"
+      ],
+      "overlap": true,
+      "note": "recover.refusal.response"
+    },
+    {
+      "id": "position:45",
+      "role": "preserved",
+      "clauses": [
+        "check-before-mutation",
+        "refusal-atomic",
+        "refusal-retains-source",
+        "unrelated-unchanged"
+      ],
+      "overlap": false,
+      "note": "recover.refusal.inventory"
+    },
+    {
+      "id": "position:46",
+      "role": "preserved",
+      "clauses": [
+        "check-before-mutation",
+        "refusal-atomic",
+        "can-use-pure"
+      ],
+      "overlap": false,
+      "note": "recover.refusal.lifecycle"
+    },
+    {
+      "id": "position:47",
+      "role": "preserved",
+      "clauses": [
+        "refusal-atomic"
+      ],
+      "overlap": false,
+      "note": "recover.refusal.usage"
+    },
+    {
+      "id": "position:48",
+      "role": "preserved",
+      "clauses": [
+        "refusal-atomic",
+        "no-other-state-change"
+      ],
+      "overlap": false,
+      "note": "recover.refusal.invariants"
+    },
+    {
+      "id": "position:49",
+      "role": "preserved",
+      "clauses": [
+        "unrelated-use-normal",
+        "retry-after-space"
+      ],
+      "overlap": false,
+      "note": "recover.hermit.inventory"
+    },
+    {
+      "id": "position:50",
+      "role": "preserved",
+      "clauses": [
+        "unrelated-use-normal",
+        "retry-after-space"
+      ],
+      "overlap": false,
+      "note": "recover.hermit.effect"
+    },
+    {
+      "id": "position:51",
+      "role": "preserved",
+      "clauses": [
+        "admission-formula",
+        "permitted-not-rejected",
+        "no-selection",
+        "retry-after-space",
+        "refusal-retains-source"
+      ],
+      "overlap": false,
+      "note": "recover.generate0.response"
+    },
+    {
+      "id": "position:52",
+      "role": "preserved",
+      "clauses": [
+        "creates-quantity",
+        "instance-quantity",
+        "source-consumed-once",
+        "completion-state",
+        "unrelated-unchanged",
+        "retry-after-space",
+        "refusal-retains-source"
+      ],
+      "overlap": false,
+      "note": "recover.generate0.inventory"
+    },
+    {
+      "id": "position:53",
+      "role": "target",
+      "clauses": [
+        "source-consumed-once",
+        "can-use-pure",
+        "job-reserves-quantity",
+        "queued-event",
+        "release-own-reservation",
+        "no-fixed-default",
+        "completion-state",
+        "retry-after-space"
+      ],
+      "overlap": false,
+      "note": "recover.generate0.lifecycle"
+    },
+    {
+      "id": "position:54",
+      "role": "preserved",
+      "clauses": [
+        "source-consumed-once",
+        "retry-after-space"
+      ],
+      "overlap": false,
+      "note": "recover.generate0.usage"
+    },
+    {
+      "id": "position:55",
+      "role": "preserved",
+      "clauses": [
+        "no-other-state-change",
+        "retry-after-space"
+      ],
+      "overlap": false,
+      "note": "recover.generate0.invariants"
+    },
+    {
+      "id": "position:56",
+      "role": "preserved",
+      "clauses": [
+        "products-usable"
+      ],
+      "overlap": false,
+      "note": "recover.mercury0.inventory"
+    },
+    {
+      "id": "position:57",
+      "role": "preserved",
+      "clauses": [
+        "products-usable"
+      ],
+      "overlap": false,
+      "note": "recover.mercury0.effect"
+    },
+    {
+      "id": "position:58",
+      "role": "runtime-sentinel",
+      "clauses": [
+        "config-immutable",
+        "no-other-state-change"
+      ],
+      "overlap": false,
+      "note": "recover.sealed"
+    },
+    {
+      "id": "position:59",
+      "role": "setup",
+      "clauses": [],
+      "overlap": false,
+      "note": "mixed.initial"
+    },
+    {
+      "id": "position:60",
+      "role": "preserved",
+      "clauses": [
+        "display-query-pure"
+      ],
+      "overlap": false,
+      "note": "mixed.queries"
+    },
+    {
+      "id": "position:61",
+      "role": "preserved",
+      "clauses": [
+        "admission-formula",
+        "permitted-not-rejected",
+        "no-selection"
+      ],
+      "overlap": false,
+      "note": "mixed.generate0.response"
+    },
+    {
+      "id": "position:62",
+      "role": "preserved",
+      "clauses": [
+        "creates-quantity",
+        "instance-quantity",
+        "source-consumed-once",
+        "completion-state",
+        "unrelated-unchanged"
+      ],
+      "overlap": false,
+      "note": "mixed.generate0.inventory"
+    },
+    {
+      "id": "position:63",
+      "role": "target",
+      "clauses": [
+        "source-consumed-once",
+        "can-use-pure",
+        "job-reserves-quantity",
+        "queued-event",
+        "release-own-reservation",
+        "no-fixed-default",
+        "completion-state"
+      ],
+      "overlap": false,
+      "note": "mixed.generate0.lifecycle"
+    },
+    {
+      "id": "position:64",
+      "role": "preserved",
+      "clauses": [
+        "source-consumed-once"
+      ],
+      "overlap": false,
+      "note": "mixed.generate0.usage"
+    },
+    {
+      "id": "position:65",
+      "role": "preserved",
+      "clauses": [
+        "no-other-state-change"
+      ],
+      "overlap": false,
+      "note": "mixed.generate0.invariants"
+    },
+    {
+      "id": "position:66",
+      "role": "preserved",
+      "clauses": [
+        "admission-formula",
+        "permitted-not-rejected",
+        "no-selection",
+        "subsequent-uses"
+      ],
+      "overlap": false,
+      "note": "mixed.generate1.response"
+    },
+    {
+      "id": "position:67",
+      "role": "preserved",
+      "clauses": [
+        "creates-quantity",
+        "instance-quantity",
+        "source-consumed-once",
+        "completion-state",
+        "unrelated-unchanged",
+        "subsequent-uses"
+      ],
+      "overlap": false,
+      "note": "mixed.generate1.inventory"
+    },
+    {
+      "id": "position:68",
+      "role": "target",
+      "clauses": [
+        "source-consumed-once",
+        "can-use-pure",
+        "job-reserves-quantity",
+        "queued-event",
+        "release-own-reservation",
+        "no-fixed-default",
+        "completion-state",
+        "subsequent-uses"
+      ],
+      "overlap": false,
+      "note": "mixed.generate1.lifecycle"
+    },
+    {
+      "id": "position:69",
+      "role": "preserved",
+      "clauses": [
+        "source-consumed-once",
+        "subsequent-uses"
+      ],
+      "overlap": false,
+      "note": "mixed.generate1.usage"
+    },
+    {
+      "id": "position:70",
+      "role": "preserved",
+      "clauses": [
+        "no-other-state-change",
+        "subsequent-uses"
+      ],
+      "overlap": false,
+      "note": "mixed.generate1.invariants"
+    },
+    {
+      "id": "position:71",
+      "role": "preserved",
+      "clauses": [
+        "products-usable"
+      ],
+      "overlap": false,
+      "note": "mixed.mercury0.inventory"
+    },
+    {
+      "id": "position:72",
+      "role": "preserved",
+      "clauses": [
+        "products-usable"
+      ],
+      "overlap": false,
+      "note": "mixed.mercury0.effect"
+    },
+    {
+      "id": "position:73",
+      "role": "preserved",
+      "clauses": [
+        "unrelated-use-normal"
+      ],
+      "overlap": false,
+      "note": "mixed.hermit.inventory"
+    },
+    {
+      "id": "position:74",
+      "role": "preserved",
+      "clauses": [
+        "unrelated-use-normal"
+      ],
+      "overlap": false,
+      "note": "mixed.hermit.effect"
+    },
+    {
+      "id": "position:75",
+      "role": "runtime-sentinel",
+      "clauses": [
+        "config-immutable",
+        "no-other-state-change"
+      ],
+      "overlap": false,
+      "note": "mixed.sealed"
+    }
+  ],
+  "clauses": [
+    {
+      "id": "instance-quantity",
+      "anchor": "CONTRACT.md paragraph 2: \"Each physical Generator carries its own integer quantity `card.ability.extra.products`\"",
+      "status": "asserted",
+      "note": "Scenes configure quantities 1, 2 and 3; the mixed scene runs 1 and 3 on separate sources in one run."
+    },
+    {
+      "id": "config-immutable",
+      "anchor": "CONTRACT.md paragraph 2: \"never mutate the shared center default or another instance's configuration\"",
+      "status": "asserted",
+      "note": "Read only by the .sealed cases, whose role is runtime-sentinel: they compare poc.bg2.config after all actions with the prepared values (scenario.py:137-139)."
+    },
+    {
+      "id": "creates-quantity",
+      "anchor": "CONTRACT.md paragraph 3: \"creates exactly that instance's quantity of distinct ordinary Mercury Planets\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "no-selection",
+      "anchor": "CONTRACT.md paragraph 3: \"No playing-card selection is needed.\"",
+      "status": "asserted",
+      "note": "Every use request carries only the consumable index (protocol_v1.py:18)."
+    },
+    {
+      "id": "source-consumed-once",
+      "anchor": "CONTRACT.md paragraph 3: \"The source is consumed once by the native lifecycle\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "products-usable",
+      "anchor": "CONTRACT.md paragraph 3: \"Products remain normal usable Planets\"",
+      "status": "asserted",
+      "note": "Products are used in the room, three, recover and mixed scenes; the one scene never uses its product."
+    },
+    {
+      "id": "admission-formula",
+      "anchor": "CONTRACT.md paragraph 4: \"allow Use exactly when `N - 1 + B + q <= L`\"",
+      "status": "asserted",
+      "note": "Accepted at the exact limit for q=1, 2 and 3. Refused only for q=3, one slot over. The B term is the separate clause admission-reservation-term."
+    },
+    {
+      "id": "admission-reservation-term",
+      "anchor": "CONTRACT.md paragraph 4: \"outstanding native reservation count B (`G.GAME.consumeable_buffer`)\"",
+      "status": "unasserted",
+      "note": "Every Use starts from B=0: settled() waits for pending_events==0 between actions (observe_v1.py:18-19) and the previous job must leave the buffer at 0. An admission that ignores B passes every case."
+    },
+    {
+      "id": "self-slot",
+      "anchor": "CONTRACT.md paragraph 4: \"Consumption of the source releases its own slot.\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "check-before-mutation",
+      "anchor": "CONTRACT.md paragraph 4: \"Capacity is checked before any use-side mutation.\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "can-use-pure",
+      "anchor": "CONTRACT.md paragraph 4: \"Can-use and display queries are pure\"",
+      "status": "asserted",
+      "note": "pure_admission compares buffer and inventory count at the return of the native can_use_consumeable call with the pre-action observation (scenario.py:80-84)."
+    },
+    {
+      "id": "display-query-pure",
+      "anchor": "CONTRACT.md paragraph 4: \"do not reserve, consume or create anything\"",
+      "status": "weak",
+      "note": "The .queries cases only poll gamestate four times. OBSERVATION-NOTE-v1.md states that serializer does not call can_use, and no case calls loc_vars directly, so display code may not run at all."
+    },
+    {
+      "id": "refusal-atomic",
+      "anchor": "CONTRACT.md paragraph 5: \"refuse before consuming the source, adding products, recording successful use or changing reservations\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "refusal-retains-source",
+      "anchor": "CONTRACT.md paragraph 5: \"Preserve all original physical objects and their properties, the quantity and the right to use that source later.\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "retry-after-space",
+      "anchor": "CONTRACT.md paragraph 5: \"After the player legitimately frees space, the same source can be used once if the formula permits.\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "job-reserves-quantity",
+      "anchor": "CONTRACT.md paragraph 6: \"read this instance's quantity for this job, reserve its promised slots with the native counter\"",
+      "status": "asserted",
+      "note": "The buffer at the return of use_consumeable must equal q (scenario.py:85-88)."
+    },
+    {
+      "id": "queued-event",
+      "anchor": "CONTRACT.md paragraph 6: \"queue generation through the real event manager\"",
+      "status": "weak",
+      "note": "deferred accepts any finished tracked event of the action with delay>0 (scenario.py:86); it is not tied to the generation job. See NOTES.md for what could not be determined."
+    },
+    {
+      "id": "release-own-reservation",
+      "anchor": "CONTRACT.md paragraph 6: \"Release only this job's reservations as its products are added/completed.\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "no-fixed-default",
+      "anchor": "CONTRACT.md paragraph 6: \"Do not reserve or release a fixed default unrelated to the accepted job.\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "completion-state",
+      "anchor": "CONTRACT.md paragraph 6: \"At completion the exact promised objects exist once\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "subsequent-uses",
+      "anchor": "CONTRACT.md paragraph 6: \"Subsequent normal uses, including differently configured Generators, obey the same rules.\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "unrelated-unchanged",
+      "anchor": "CONTRACT.md paragraph 7: \"Keep unrelated consumables, identities and ordinary properties unchanged.\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "no-other-state-change",
+      "anchor": "CONTRACT.md paragraph 7: \"Do not alter capacity, dollars, poker-hand levels or other game state\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "unrelated-use-normal",
+      "anchor": "CONTRACT.md paragraph 7: \"Later use of unrelated items keeps its normal behavior.\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "structured-refusal",
+      "anchor": "CONTRACT.md paragraph 9: \"Ordinary forbidden use has a verified JSON-RPC error code -32003 with `data.name=NOT_ALLOWED`.\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "permitted-not-rejected",
+      "anchor": "CONTRACT.md paragraph 9: \"Rejecting a permitted use violates the contract.\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "all-quantities-in-scope",
+      "anchor": "CONTRACT.md paragraph 10: \"All valid quantities and initial ordinary capacities permitted by the rule are in scope\"",
+      "status": "asserted",
+      "note": "All three quantities run; capacities 2, 3, 4 and 5 are sampled."
+    },
+    {
+      "id": "file-boundary",
+      "anchor": "CONTRACT.md paragraph 11: \"The editable files are `main.lua` and `lib/generation.lua`; `bounded_generator_v2.json` is immutable.\"",
+      "status": "unasserted",
+      "note": "No evaluator case. The submission gate rejects a changed file set or immutable file before evaluation (plugins/balatro/src/rhenium_balatro/submission.py:28-47)."
+    },
+    {
+      "id": "no-external-alteration",
+      "anchor": "CONTRACT.md paragraph 11: \"Do not alter evaluator/runtime/fixtures, fixed dependencies, original installation, personal data or external files.\"",
+      "status": "unasserted",
+      "note": "No evaluator case. A harness input-integrity field gates the whole result (plugins/balatro/src/rhenium_balatro/evaluator.py:33-37)."
+    }
+  ],
+  "excluded_clauses": [
+    "admission-reservation-term",
+    "file-boundary",
+    "no-external-alteration"
+  ],
+  "known_issues": [
+    "Fixture trap: benchmarks/balatro/private/native-v1/fixtures/tasks/bounded_generator/v2/private/scenario.py:129-131 raises ProtocolError when a scene other than 'one' has no Mercury product to use, so a candidate that wrongly refuses or fails to create products in room, three, recover or mixed ends as incomplete_execution with the later cases not executed, not as a behavior mismatch. Only the 'one' scene continues after a wrong refusal, through its preexisting Hermit."
+  ]
+}

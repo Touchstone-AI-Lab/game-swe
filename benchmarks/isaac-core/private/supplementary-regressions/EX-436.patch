@@ -1,0 +1,68 @@
+diff --git a/main.lua b/main.lua
+--- a/main.lua
++++ b/main.lua
+@@ -701,6 +701,16 @@
+     end
+ end
+ 
++function Exodus:ApplyChildsLeash(familiar)
++    local player = Isaac.GetPlayer(0)
++    
++    if player:HasTrinket(TrinketType.TRINKET_CHILD_LEASH) then
++        local distance = familiar.OrbitDistance
++        distance.X = distance.X / 2
++        distance.Y = distance.Y / 2
++    end
++end
++
+ local function getEntityFromRef(entityRef)
+     for i, ent in pairs(Isaac.GetRoomEntities()) do
+         if ent.Index == entityRef.Entity.Index and ent.InitSeed == entityRef.Entity.InitSeed then
+@@ -3843,10 +3853,7 @@
+     
+     hippo.EntityCollisionClass = EntityCollisionClass.ENTCOLL_ENEMIES
+     hippo.OrbitDistance = Vector(35 + (hippo.State * 15), 35 + (hippo.State * 15))
+-    
+-    if player:HasTrinket(TrinketType.TRINKET_CHILD_LEASH) then
+-        hippo.OrbitDistance = hippo.OrbitDistance / 2
+-    end
++    Exodus:ApplyChildsLeash(hippo)
+     
+     hippo.OrbitSpeed = 0.03
+     hippo.FireCooldown = 32
+@@ -4002,10 +4009,7 @@
+     end
+ 
+     sun.OrbitDistance = Vector(64, 64)
+-    
+-    if player:HasTrinket(TrinketType.TRINKET_CHILD_LEASH) then
+-        sun.OrbitDistance = sun.OrbitDistance / 2
+-    end
++    Exodus:ApplyChildsLeash(sun)
+     
+     sun.OrbitSpeed = 0.02
+ 
+@@ -4051,10 +4055,7 @@
+     end
+ 
+     shadow.OrbitDistance = Vector(64, 64)
+-    
+-    if player:HasTrinket(TrinketType.TRINKET_CHILD_LEASH) then
+-        shadow.OrbitDistance = shadow.OrbitDistance / 2
+-    end
++    Exodus:ApplyChildsLeash(shadow)
+     
+     shadow.OrbitSpeed = 0.02
+ 
+@@ -4251,10 +4252,7 @@
+     end
+ 
+     robo.OrbitDistance = Vector(64, 64)
+-    
+-    if player:HasTrinket(TrinketType.TRINKET_CHILD_LEASH) then
+-        robo.OrbitDistance = robo.OrbitDistance / 2
+-    end
++    Exodus:ApplyChildsLeash(robo)
+     
+     robo.OrbitSpeed = 0.03
+ 

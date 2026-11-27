@@ -1,0 +1,590 @@
+{
+  "task": "dst/construct/trade-escrow-exchange",
+  "task_version": "2.1.0",
+  "exam": "benchmarks/dst-construct/exams/trade-escrow-exchange.md",
+  "cases": [
+    {
+      "id": "check:required-files",
+      "role": "static",
+      "clauses": [
+        "deliver-1"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "check:lua-syntax",
+      "role": "static",
+      "clauses": [],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "hidden:rejected offers leave revision and confirmations untouched",
+      "role": "target",
+      "clauses": [
+        "deliver-2",
+        "deliver-3",
+        "return-1",
+        "return-2",
+        "return-3",
+        "return-4",
+        "core-1",
+        "core-2a",
+        "core-2c",
+        "core-6",
+        "core-7"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "hidden:any accepted offer change voids both confirmations",
+      "role": "target",
+      "clauses": [
+        "deliver-2",
+        "deliver-3",
+        "return-1",
+        "return-3",
+        "return-4",
+        "core-1",
+        "core-2c",
+        "core-7",
+        "core-8",
+        "core-9"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "hidden:replays are idempotent and revisions strictly increase",
+      "role": "target",
+      "clauses": [
+        "deliver-2",
+        "deliver-3",
+        "return-1",
+        "return-2",
+        "return-3",
+        "return-4",
+        "core-1",
+        "core-2a",
+        "core-2c",
+        "core-2e",
+        "core-3a",
+        "core-3b",
+        "core-3c",
+        "core-3d",
+        "core-5",
+        "core-8"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "hidden:expiry boundary is exact and tick is deterministic",
+      "role": "target",
+      "clauses": [
+        "deliver-2",
+        "deliver-3",
+        "return-1",
+        "return-2",
+        "return-3",
+        "return-4",
+        "core-1",
+        "core-2a",
+        "core-2b",
+        "core-2d",
+        "core-2e",
+        "core-3a",
+        "core-3c",
+        "core-3d",
+        "core-4a",
+        "core-4c"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "hidden:settlement plan is ordered and settling is exclusive",
+      "role": "target",
+      "clauses": [
+        "deliver-2",
+        "deliver-3",
+        "return-1",
+        "return-2",
+        "return-3",
+        "return-4",
+        "core-1",
+        "core-2e",
+        "core-3c",
+        "core-4b",
+        "core-9",
+        "core-10"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "hidden:snapshot is fresh and save load round-trips settling",
+      "role": "target",
+      "clauses": [
+        "deliver-2",
+        "deliver-3",
+        "return-5",
+        "core-3a",
+        "core-3c",
+        "core-3d",
+        "core-5",
+        "core-9",
+        "core-11",
+        "core-12"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "check:implementation-depth",
+      "role": "static",
+      "clauses": [],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "check:escrow-authority",
+      "role": "target",
+      "clauses": [
+        "dst-1",
+        "dst-10"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "check:escrow-inventory",
+      "role": "target",
+      "clauses": [
+        "dst-6b",
+        "dst-6c",
+        "dst-7"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "check:escrow-rpc",
+      "role": "target",
+      "clauses": [
+        "dst-8a"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "check:escrow-lifecycle",
+      "role": "target",
+      "clauses": [
+        "dst-4g",
+        "dst-9a",
+        "dst-9b",
+        "dst-9c",
+        "api-1"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "server:trade escrow component is attached on the master simulation",
+      "role": "target",
+      "clauses": [
+        "deliver-1",
+        "dst-1",
+        "dst-2",
+        "dst-3",
+        "dst-4a",
+        "dst-9a",
+        "dst-9b",
+        "dst-9c",
+        "dst-10",
+        "api-1"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "server:confirmed trade swaps real inventory stacks exactly",
+      "role": "target",
+      "clauses": [
+        "deliver-2",
+        "dst-2",
+        "dst-4a",
+        "dst-4b",
+        "dst-4c",
+        "dst-4d",
+        "dst-5",
+        "dst-6c",
+        "dst-7"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "server:failed settlement restores both inventories and reopens",
+      "role": "target",
+      "clauses": [
+        "dst-2",
+        "dst-4c",
+        "dst-4d",
+        "dst-5",
+        "dst-6b",
+        "dst-6c",
+        "dst-6d"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "server:departure, rpc input and crash recovery keep state consistent",
+      "role": "target",
+      "clauses": [
+        "deliver-2",
+        "dst-2",
+        "dst-3",
+        "dst-4a",
+        "dst-4b",
+        "dst-4d",
+        "dst-4e",
+        "dst-4f",
+        "dst-4g",
+        "dst-6a",
+        "dst-8a",
+        "dst-8b"
+      ],
+      "overlap": false,
+      "note": ""
+    }
+  ],
+  "clauses": [
+    {
+      "id": "deliver-1",
+      "anchor": "Required deliverables paragraph 1 (file list): \"scripts/tradeescrow/escrow.lua\" (modinfo.lua / modmain.lua / scripts/tradeescrow/escrow.lua / scripts/components/tradeescrow.lua)",
+      "status": "asserted",
+      "note": "Evaluator required-files check; the server suite only runs when modmain.lua and the component load."
+    },
+    {
+      "id": "deliver-2",
+      "anchor": "Required deliverables paragraph 2: \"The core module must be able to run in a plain Lua environment without objects such as\" GLOBAL, TheWorld, GetTime, require, os (compatible with Lua 5.1 and 5.4); \"all time is passed in only through the `now` parameter\"",
+      "status": "asserted",
+      "note": "The hidden sandbox (Lua 5.4, no require/os) loads the core; the dedicated server (Lua 5.1) runs the same core. 'Time only via now' is observed because every case drives time through now."
+    },
+    {
+      "id": "deliver-3",
+      "anchor": "Required deliverables paragraph 2: \"The module returns a table and exports:\" Escrow.new ... escrow:save(now) (names and argument order)",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "return-1",
+      "anchor": "Return values and data shapes paragraph 2: \"every method returns a **newly created** result table that contains at least a boolean `ok` and a string `code`\"",
+      "status": "asserted",
+      "note": "Freshness is checked once (case 3 mutates a returned result before repeating the call)."
+    },
+    {
+      "id": "return-2",
+      "anchor": "Return values and data shapes paragraph 2: \"Whenever `trade_id` refers to an existing trade (including failure results\"; \"the result must also contain `phase`\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "return-3",
+      "anchor": "Return values and data shapes table: \"Additional fields of each method on success\" (success code plus trade_id, expires_at, revision, ready, plan, expired)",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "return-4",
+      "anchor": "Return values and data shapes paragraph 3: \"On failure `ok = false` and `code` is one of the following\" (15 failure codes)",
+      "status": "asserted",
+      "note": "Every one of the 15 failure codes is produced by at least one hidden assertion."
+    },
+    {
+      "id": "return-5",
+      "anchor": "Return values and data shapes paragraph 4: \"`snapshot(now)` returns `{ trades = { ... } }`\"; \"`trades` is an array in ascending `trade_id` order that **includes closed trades**\"; \"exactly two entries, ascending by party id\"; \"ascending by prefab\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "core-1",
+      "anchor": "Core semantics item 1: \"return `invalid_argument` and **do nothing at all** (not even expiry processing)\"",
+      "status": "asserted",
+      "note": "Invalid trade_id, party_id, a_id == b_id, now, revision, seen_revision, items and ok are each exercised; the no-expiry rule is case 4."
+    },
+    {
+      "id": "core-2a",
+      "anchor": "Core semantics item 2: \"all process in the following order and return at the first hit\" steps (1) to (6) (including not_a_party before the phase table)",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "core-2b",
+      "anchor": "Core semantics item 2: \"(2) perform exactly the same expiry processing as `tick(now)`\"; \"trades expired this way never appear again in the `expired` of any later `tick`\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "core-2c",
+      "anchor": "Core semantics item 2: \"Apart from the expiry in step (2), a failed call must not change any state\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "core-2d",
+      "anchor": "Core semantics item 2: \"`snapshot(now)` and `save(now)` likewise perform step (2) first, before reading\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "core-2e",
+      "anchor": "Core semantics item 2, phase table: \"Method \\ current phase\" (offer/confirm/cancel/begin_settle/finish_settle x five phases)",
+      "status": "asserted",
+      "note": "All 30 cells are exercised: open/settling/settled in case 5, canceled in case 3, expired in case 4."
+    },
+    {
+      "id": "core-3a",
+      "anchor": "Core semantics item 3: \"when it is closed, `trade_closed` (a closed id can never be reused)\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "core-3b",
+      "anchor": "Core semantics item 3: \"when it is not closed and the parties are the same pair (regardless of the order of a and b), idempotent success `opened`, changing no state and returning the original `expires_at`; otherwise `trade_exists`\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "core-3c",
+      "anchor": "Core semantics item 3: \"`a_id` or `b_id` is currently in another in-progress trade -> `party_busy`\"; \"the party is released immediately when the trade closes\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "core-3d",
+      "anchor": "Core semantics item 3: \"Otherwise create the trade: phase `open`, `opened_at = now`, `expires_at = now + options.ttl`, and for both parties `revision = 0`, empty `items` and `confirmed = false`\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "core-4a",
+      "anchor": "Core semantics item 4: \"Only the `open` phase expires: a trade expires if and only if `now >= expires_at`\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "core-4b",
+      "anchor": "Core semantics item 4: \"`settling` never expires.\"; \"the original `expires_at` stays in force\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "core-4c",
+      "anchor": "Core semantics item 4: \"`tick(now)` turns every trade that satisfies the condition into `expired`\"; \"the `expired` array lists only the ids newly expired by this call, in ascending order; when `now` is not a number it returns `invalid_argument`\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "core-5",
+      "anchor": "Core semantics item 5: \"smaller -> `stale_revision`\"; \"idempotent success `offered`, **with no side effect at all**\"; \"equal but with different content -> `revision_conflict`\"; \"Revisions only have to be strictly increasing; they need not be consecutive\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "core-6",
+      "anchor": "Core semantics item 6: \"may be an empty table\"; \"-> `too_many_prefabs`\"; \"(or a key that is not a non-empty string) -> `prefab_not_allowed`\"; \"-> `invalid_count`\"; \"A rejected offer does not consume a revision and does not clear any confirmation\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "core-7",
+      "anchor": "Core semantics item 7: \"An accepted new revision (even when its content is identical to the old offer) stores a copy of `items`, updates the revision, and sets the `confirmed` of **both parties** to `false`\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "core-8",
+      "anchor": "Core semantics item 8: \"`seen_revision` must equal the **other party's** current revision (0 when the other party has never offered), otherwise `stale_confirmation` and no confirmation is changed\"; \"is an idempotent success\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "core-9",
+      "anchor": "Core semantics item 9: \"-> `not_ready`; otherwise the phase becomes `settling` and `plan` is returned\"; \"sorted by `from` ascending and then by `prefab` ascending\"; \"returns a `plan` with the same content; every returned `plan` is a new table\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "core-10",
+      "anchor": "Core semantics item 10: \"turns `settling` into `settled`\"; \"turns `settling` back into `open` and clears both parties' confirmations (offers and revisions are kept), and after both parties confirm again the trade can be settled again\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "core-11",
+      "anchor": "Core semantics item 11: \"`snapshot(now)` returns a completely new table on every call (including all nested tables)\"; \"modifying the returned value must not affect internal state\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "core-12",
+      "anchor": "Core semantics item 12: \"`save(now)` returns a new table made up only of tables, strings, numbers and booleans\"; \"must fully restore all trades\"; \"modifying `save_data` after loading must not affect the loaded instance. `Escrow.load(nil, options)` returns an empty, usable instance\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "dst-1",
+      "anchor": "DST integration item 1: \"Attach the world component `tradeescrow` only on the master simulation\" through AddPrefabPostInit for world",
+      "status": "asserted",
+      "note": "Attachment on the master sim is observed; 'not on clients' can only be checked by regex on a dedicated server."
+    },
+    {
+      "id": "dst-2",
+      "anchor": "DST integration item 2: \"stores the core instance in the field `self.escrow`\"; \"`allowed_prefabs` is exactly `twigs`, `cutgrass`, `flint`, `log`, `rocks`, `max_distinct = 4`, `ttl = 120`\"",
+      "status": "asserted",
+      "note": "All five prefabs are accepted, goldnugget is rejected, 5 distinct prefabs are rejected and 4 accepted, ttl is read from the core snapshot."
+    },
+    {
+      "id": "dst-3",
+      "anchor": "DST integration item 3: \"`Now()` returns `saved clock offset + GetTime()`\"; \"after `OnLoad`, `Now()` must continue from the saved value instead of going back to 0\"",
+      "status": "weak",
+      "note": "The synchronous suite cannot restart the server, so it only sees Now() return a number and not go backwards across OnLoad in the same session. A plain GetTime() clock would pass."
+    },
+    {
+      "id": "dst-4a",
+      "anchor": "DST integration item 4 Open: invalid_player; \"generates a non-empty string `trade_id` that does not repeat during the whole lifetime of the save (including after save and load)\"; \"returning a table containing `ok`, `code` and `trade_id`\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "dst-4b",
+      "anchor": "DST integration item 4 Offer: \"takes that player's current revision plus 1 as the new revision\"; \"returning the core result\"; \"`Offer` does not check inventory\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "dst-4c",
+      "anchor": "DST integration item 4 Confirm: \"when `seen_revision` is `nil`, use the other party's revision as the server currently sees it\"; \"otherwise pass it to the core unchanged\"; \"With `ready == true`, perform settlement synchronously **within the same call**\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "dst-4d",
+      "anchor": "DST integration item 4 Cancel: \"call the core `cancel` and return its result\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "dst-4e",
+      "anchor": "DST integration item 4 OnPlayerLeft: \"cancel the `open` trade that the player is in and forget the player's entity\"",
+      "status": "weak",
+      "note": "Cancellation is asserted; forgetting the entity is not observable through the published surface."
+    },
+    {
+      "id": "dst-4f",
+      "anchor": "DST integration item 4 Recover: \"call `finish_settle(id, false, now)` for every `settling` trade\"; \"return `{ ok = true, recovered = { trade_id values in ascending order } }`\"",
+      "status": "asserted",
+      "note": "Only one settling trade exists at a time in the suite, so the ascending order of recovered is not exercised."
+    },
+    {
+      "id": "dst-4g",
+      "anchor": "DST integration item 4: \"`OnSave()` returns a serializable table; `OnLoad(data)` restores the core, the `trade_id` generator and the clock, and performs the same recovery as `Recover()`\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "dst-5",
+      "anchor": "DST integration item 5: \"remember, by `userid`, the player entity that most recently appeared in `Open`/`Offer`/`Confirm`/`Cancel`, and use it at settlement to obtain both parties' `inventory`\"",
+      "status": "asserted",
+      "note": "Fixture players are not in AllPlayers, so settlement only works through the remembered entities."
+    },
+    {
+      "id": "dst-6a",
+      "anchor": "DST integration item 6 step (1): \"either party's entity is missing or `not entity:IsValid()` -> do not call `begin_settle`\"; returns counterparty_unavailable; \"confirmations stay unchanged\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "dst-6b",
+      "anchor": "DST integration item 6 steps (2)-(3): \"verify holdings with the giver's `inventory:Has(prefab, count)`; if any is insufficient -> `finish_settle(false)`\"; returns insufficient_items; \"both inventories are unchanged\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "dst-6c",
+      "anchor": "DST integration item 6 steps (4) and (6): \"take the items out of both inventories, then hand them to the other party with `inventory:GiveItem`\"; \"everything succeeded -> `finish_settle(true)`\"; returns settled",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "dst-6d",
+      "anchor": "DST integration item 6 step (5): \"any item cannot fully enter the receiver's inventory\"; \"to what it was before settlement (including picking up items that were dropped on the ground)\"; finish_settle(false), returns delivery_failed",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "dst-7",
+      "anchor": "DST integration item 7: \"Item quantities must be strictly conserved and exact: an offered quantity may span multiple item stacks\"; \"Real item entities must be moved\"; \"when a whole stack is transferred and the receiver previously had no item of the same kind\"; \"is that original entity\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "dst-8a",
+      "anchor": "DST integration item 8: \"Register four server-side Mod RPCs in the namespace `rhenium_trade`\" (open, offer, confirm, cancel)",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "dst-8b",
+      "anchor": "DST integration item 8: \"The variadic arguments of `offer` must be pairs of\"; \"when any other type appears (including an entity or a table), the number of arguments is odd, or a prefab is repeated, the whole request is dropped and state is unchanged; a valid request is equivalent to calling\"; \"When the `seen_revision` of `confirm` is not a number, the request is dropped\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "dst-8c",
+      "anchor": "DST integration item 8: \"for `open`, the server uses `target_userid` to look up the other party in `AllPlayers`\"",
+      "status": "unasserted",
+      "note": "A headless server has no connected players, so AllPlayers is empty; only the handler's existence is asserted."
+    },
+    {
+      "id": "dst-9a",
+      "anchor": "DST integration item 9: \"listen for the world event `ms_playerleft` and call `self:OnPlayerLeft(player)` in the callback\"",
+      "status": "weak",
+      "note": "The listener's existence is observed (its removal lowers the world's ms_playerleft callback count); the event itself is never pushed because ~40 base-game listeners would receive a fake player, so the delegation is regex-only."
+    },
+    {
+      "id": "dst-9b",
+      "anchor": "DST integration item 9: \"use `DoPeriodicTask` to periodically call the core `tick(self:Now())`\"",
+      "status": "weak",
+      "note": "The task's existence is observed through TheWorld.pendingtasks; that it calls tick cannot be seen by a synchronous suite."
+    },
+    {
+      "id": "dst-9c",
+      "anchor": "DST integration item 9: \"`OnRemoveFromEntity` must `RemoveEventCallback` with the same function object and `Cancel()` the periodic task\"; \"again; the component must be able to attach normally again\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "dst-10",
+      "anchor": "DST integration item 10: \"must not print to the log any line containing the words `error`, `failed` or `missing`; it must not leave `TODO`, `IMPLEMENT ME` or placeholder implementations\"",
+      "status": "asserted",
+      "note": "Log lines naming the mod with those words make the evaluator fail the whole server run; TODO / IMPLEMENT ME are none_of patterns."
+    },
+    {
+      "id": "api-1",
+      "anchor": "Base-game API contract, last paragraph: \"The component uses the base-game `Class` form and hooks into the lifecycle with\" OnSave / OnLoad / OnRemoveFromEntity",
+      "status": "weak",
+      "note": "Methods are called with a receiver by the suite; the Class form itself is only implied by require-able component loading."
+    }
+  ],
+  "excluded_clauses": [
+    "dst-8c"
+  ],
+  "known_issues": []
+}

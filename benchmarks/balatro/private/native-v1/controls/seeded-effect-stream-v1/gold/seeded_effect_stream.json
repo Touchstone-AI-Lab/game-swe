@@ -1,0 +1,15 @@
+{
+  "id": "seeded_effect_stream",
+  "name": "Private Stream",
+  "author": [
+    "Balatro PoC"
+  ],
+  "description": "Authored deterministic discard reward repair task",
+  "prefix": "ses",
+  "main_file": "joker.lua",
+  "priority": 0,
+  "version": "1.0.0",
+  "dependencies": [
+    "Steamodded (>=1.~)"
+  ]
+}

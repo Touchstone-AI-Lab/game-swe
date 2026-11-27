@@ -1,0 +1,44 @@
+{
+  "schemaVersion": 1,
+  "authoringRevision": 2,
+  "authoringExpectationsOnly": true,
+  "engineValidated": false,
+  "controls": [
+    {
+      "control": "no-resize",
+      "mustFailCases": [
+        "collapse-default",
+        "expand-from-combined"
+      ]
+    },
+    {
+      "control": "default-flags",
+      "mustFailCases": [
+        "flags-follow-tabs",
+        "edited-visibility-preserved"
+      ]
+    },
+    {
+      "control": "open-window-only",
+      "mustFailCases": [
+        "closed-window-tabs",
+        "closed-view-recomputed"
+      ]
+    },
+    {
+      "control": "stale-view",
+      "mustFailCases": [
+        "closed-view-recomputed",
+        "open-view-recomputed"
+      ]
+    },
+    {
+      "control": "closed-window-only",
+      "mustFailCases": [
+        "open-view-recomputed",
+        "open-window-relayout",
+        "explicit-open-refresh"
+      ]
+    }
+  ]
+}

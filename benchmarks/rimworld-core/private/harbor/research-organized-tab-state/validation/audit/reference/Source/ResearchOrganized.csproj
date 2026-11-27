@@ -1,0 +1,8 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <!-- Build settings, game references, and assembly staging are repository-local. -->
+  <PropertyGroup>
+    <RootNamespace>ResearchOrganized</RootNamespace>
+    <AssemblyName>ResearchOrganized</AssemblyName>
+    <UnityModules>CoreModule;IMGUIModule</UnityModules>
+  </PropertyGroup>
+</Project>

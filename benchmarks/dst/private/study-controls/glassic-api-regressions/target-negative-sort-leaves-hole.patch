@@ -1,0 +1,11 @@
+--- a/modmain.lua
++++ b/modmain.lua
+@@ -347,7 +347,7 @@
+ 		local recipes = filter.recipes
+ 		if get_index(recipes, a) then
+ 			if force_sort or table.contains(recipes, b) then
+-				table.remove(recipes, get_index(recipes, a))
++				recipes[get_index(recipes, a)] = nil
+ 				target_position = #recipes + 1
+ 			end
+ 		end

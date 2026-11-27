@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "version": "balatro-native-maintenance-v1",
+  "created_utc": "2026-09-21T00:24:17.429643+00:00",
+  "native_matrix_passed": true,
+  "whole_repository_checks_passed": false,
+  "engine_validated_count": 10,
+  "public_candidate_pack_count": 10,
+  "calibrated_count": 0,
+  "formal_integration_status": "not_implemented",
+  "files": {
+    "plugins/balatro/README.md": "dddce37872b7cd1041b7e8e012145ab69442eb4026dd3aadc453e34df5fefc92",
+    "plugins/balatro/INTEGRATION-PLAN-v1.md": "0abdf82d0ec065bf75754f9ff1a2e1225b421bc130b11b1179c6429929e23cb1",
+    "plugins/balatro/NATIVE-REPORT-v1.md": "41f1b85e4b73688efd16e1640c7f32e3a04ce5bee9927f15f35888aef8324f2c",
+    "plugins/balatro/REPLAY-native-v1.md": "1f06401fddd2f08f1f4edfde1f08ce8f7a0945a2a0040efa99600126ed6e9598",
+    "plugins/balatro/RUNTIME-APPROVAL-v1.md": "59df77fd9487707efe28f0cd4bcc1780656d10ddfb00aa3cc312bf79f7e6547a",
+    "plugins/balatro/NATIVE-VALIDATION-PLAN-v1.md": "8603e15467cb94e5ede6fdb96e9d0e736ef05116ba5aa59c9b6af8a307689746",
+    "plugins/balatro/native-source-freeze-v1.json": "56ed6461eb2ecfad5ee2a0ad3ae6dc1a50e25b3a41db1d832ac4c689f1501270",
+    "plugins/balatro/validation-native-v1.json": "27506ae526a262e9933f8d0cef94c1fd61ddf6ea3350503d804a57e5ba3eb7bd",
+    "plugins/balatro/runtime-manifest-native-v1.json": "451e2d3a37137c8ad09261c658b1b048f119e9e339aaedcbe91db0a1a4ee8175",
+    "plugins/balatro/metrics-native-v1.json": "8c89aaad0b149153ea782ca6e7f38af0785fe2ca604ebde671a2495074f89547",
+    "plugins/balatro/regression-scope-native-v1.json": "fecf527c774738db492f0e00a6d1fb937f5f8783dfe201d2d46df85b2f0b600d",
+    "plugins/balatro/preservation-native-v1.json": "cf1c6bc8dd454b50387f5f72a0c5941282b370948aaba711701063e36f8613c8",
+    "docs/games/balatro-integration.md": "ce15ae6856b795e64b3e5e5cdf17483a3c12b72e39c2d588b90af7e0fc47f0c7"
+  },
+  "report_aggregation_script_sha256": "f55bcca7ac125f5baedd072455f8ed203bee5f76b1b9b82ca9ae3b9078f184d0",
+  "final_document_checks": {
+    "powershell_replay_syntax": "passed",
+    "working_and_staged_diff_check": "passed"
+  }
+}

@@ -1,0 +1,182 @@
+{
+  "task": "stardew-valley/core/stardew-automate-release-regressions",
+  "task_version": "1.1.0",
+  "exam": "benchmarks/stardew-core/exams/stardew-automate-release-regressions.md",
+  "cases": [
+    {
+      "id": "check:submission-shape",
+      "role": "static",
+      "clauses": [],
+      "overlap": false,
+      "note": "file-existence gate: the catalog's required_files (exactly the files the gold patch touches) must exist and the tree must contain no symlink; every listed file already exists in the starter, so it constrains nothing"
+    },
+    {
+      "id": "case:machine overlay data is available right after a save loads",
+      "role": "target",
+      "clauses": [
+        "#213"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:sentinel: a chest feeds an adjacent furnace",
+      "role": "preserved",
+      "clauses": [
+        "#211-preserve",
+        "Task-preserve"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:sentinel: the finished bar is collected into the chest",
+      "role": "preserved",
+      "clauses": [
+        "#211-preserve",
+        "Task-preserve"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:the API reports the automated machine group",
+      "role": "preserved",
+      "clauses": [
+        "#213-preserve",
+        "Task-preserve"
+      ],
+      "overlap": false,
+      "note": "not named 'sentinel:' but PASS_TO_PASS: it passes in the unchanged starter and checks the API path report #213 says already works"
+    },
+    {
+      "id": "case:mini-fridge feeds an adjacent furnace",
+      "role": "target",
+      "clauses": [
+        "#211"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:furnace output is collected back into the mini-fridge",
+      "role": "target",
+      "clauses": [
+        "#211"
+      ],
+      "overlap": false,
+      "note": "depends on the previous case: it first asserts that the fridge furnace is smelting (SuiteComposite.cs:135)"
+    },
+    {
+      "id": "case:a zero-size output is discarded and the machine empties",
+      "role": "target",
+      "clauses": [
+        "#216"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:the machine resumes processing input after the discard",
+      "role": "target",
+      "clauses": [
+        "#216"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:setup: build a Junimo hut with a connected chest",
+      "role": "setup",
+      "clauses": [],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:sentinel: fertilizer and gems are moved out of the hut per config",
+      "role": "preserved",
+      "clauses": [
+        "#218-preserve",
+        "Task-preserve"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:seeds stay in the hut when the seed behavior is Ignore",
+      "role": "target",
+      "clauses": [
+        "#218"
+      ],
+      "overlap": false,
+      "note": ""
+    }
+  ],
+  "clauses": [
+    {
+      "id": "#211",
+      "anchor": "Problem, report [#211]: 'The furnace next to my mini-fridge just sits there ... and nothing gets collected into it anymore either'",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "#211-preserve",
+      "anchor": "Problem, report [#211], sentence 3: 'My regular chests and stone chests out in the yard are fine'",
+      "status": "asserted",
+      "note": "only a regular chest (BC)130 is exercised; stone chests are not"
+    },
+    {
+      "id": "#213",
+      "anchor": "Problem, report [#213]: 'Right after a save loads, the API returns nothing at all for locations that clearly contain machines'",
+      "status": "weak",
+      "note": "SuiteComposite.cs:78 only asserts GetMachineStates(farm, whole map).Any() after 360 idle ticks. One reported tile (the shipping bin) satisfies it; the report's other location ('a shed full of kegs'), the completeness of the result ('all the machines that were missing') and the state values are never checked."
+    },
+    {
+      "id": "#213-preserve",
+      "anchor": "Problem, report [#213], sentence 3: 'The moment the player sets up any chest next to any machine, everything pops into the overlay at once'",
+      "status": "weak",
+      "note": "SuiteComposite.cs:110-113 only asserts .Any() inside the sentinel rectangle after a chest+furnace group exists; it does not check that 'everything pops into the overlay', i.e. that chestless machines elsewhere are reported too."
+    },
+    {
+      "id": "#216",
+      "anchor": "Problem, report [#216]: 'the machine shows as ready, but Automate never empties it, never feeds it new input ... Emptying the stuck machine by hand in vanilla just discards a broken item'",
+      "status": "asserted",
+      "note": "asserted for a furnace whose finished output has Stack = 0; see known_issues for the under-determined report"
+    },
+    {
+      "id": "#218",
+      "anchor": "Problem, report [#218]: 'I set seeds to Ignore ... but Automate still moves them out into my chests'",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "#218-preserve",
+      "anchor": "Problem, report [#218], last sentence: 'The gem option works exactly as advertised' (and fertilizer follows its own option)",
+      "status": "asserted",
+      "note": "checked for gems and fertilizer at MoveIntoChests only (tests/mod-config.json)"
+    },
+    {
+      "id": "Task-preserve",
+      "anchor": "Task, sentence 2: 'Behavior on the paths that already work must not change.'",
+      "status": "weak",
+      "note": "open-ended clause; the suite samples three working paths (chest -> furnace -> chest, API after a group exists, hut fertilizer/gems)"
+    },
+    {
+      "id": "Notes-tests",
+      "anchor": "Notes, bullet 3: 'Do not modify anything under /tests.'",
+      "status": "unasserted",
+      "note": "no case; the evaluator mounts /tests read-only, so the clause cannot be violated in scoring and carries no behavioural content"
+    }
+  ],
+  "excluded_clauses": [
+    "Notes-tests"
+  ],
+  "known_issues": [
+    "Answer-key leak (DEBUG-HARDENING.md section 0): the composite starters used to ship Automate/docs/release-notes.md entries naming the reverted fixes. Verified for this task on the current tree: grep for 'mini-fridge', 'zero-size', 'GetMachineStates' and 'seed behavior' in benchmarks/stardew-core/private/harbor/stardew-automate-release-regressions/environment/StardewMods/Automate/docs/release-notes.md and in the Hub workspace returns nothing; all four entries are gone. The leak is therefore closed for the starter that E0 materialises (commit a483c85, which precedes the catalog 1.1.0 bump b5915a1; the prepared 1.1.0 image bakes the scrubbed notes too).",
+    "Report #216 never says the stuck output has an empty stack; the fixture produces the wedge only by setting heldObject.Stack = 0 (SuiteComposite.cs:160). DEBUG-HARDENING.md section 6 records the competing reading: 'a broken item' can be read as an item with missing data (the codebase has `catch (KeyNotFoundException) // invalid/broken item` in ChestContainer). A repair of that reading is rejected although the report as written admits it.",
+    "benchmarks/stardew-core/private/harbor/stardew-automate-release-regressions/tests/SuiteComposite.cs:78 only asserts GetMachineStates(farm, whole map).Any() after 360 idle ticks. One reported tile (the shipping bin) satisfies it; the report's other location ('a shed full of kegs'), the completeness of the result ('all the machines that were missing') and the state values are never checked. NOTES.md risk register ('Task 3 confound') warns that the unfixed tree passes this probe spuriously if any automated group exists when the save loads; in the E0 baseline the starter fails it, so the confound did not occur with the fixture save.",
+    "benchmarks/stardew-core/catalog.json:207 publishes a diagnosis the exam withholds (brief: 'Restore mini-fridge, API scan, malformed-output, and Junimo configuration behavior.'); the text is copied into the Hub's public tasks.json. The exam itself gives observations only.",
+    "The prepared evaluator image used for the E0 runs (sha256:fc201c743dc9) bakes /opt/gcb/harness with the SuiteRunner that predates commit 276a070: there a throwing wait predicate is treated as SATISFIED (`return true`) instead of failing the case (repo version: benchmarks/stardew-core/private/harbor/harness/GcbHarness/Framework/SuiteRunner.cs:80-95). Predicates that can throw in this suite: ApiReportsGroup `_api!` (SuiteComposite.cs:111), MachineResumes `_brokenFurnace!` (:172). In each of them the statement after the wait dereferences the same null/throwing object, so the case still fails under the old runner; no spurious pass was found, but the image does not contain the fix the repository claims.",
+    "Case order is load-bearing (suite class comment): 'furnace output is collected back into the mini-fridge' and 'the machine resumes ...' fail whenever the case before them failed, so each of #211 and #216 contributes two correlated failures, not two independent observations."
+  ]
+}

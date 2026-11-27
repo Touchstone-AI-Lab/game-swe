@@ -1,0 +1,11 @@
+--- a/solution/BlueprintReconcilerPlugin.java
++++ b/solution/BlueprintReconcilerPlugin.java
+@@ -39,7 +39,7 @@
+         for (int y = bottom; y <= top; y++) {
+             for (int x = left; x <= right; x++) {
+                 Tile tile = Vars.world.tile(x, y);
+-                if (tile != null && tile.build != null) seen.add(tile.build);
++                if (tile != null && tile.build != null && tile.build.tile == tile) seen.add(tile.build);
+             }
+         }
+         List<LayoutReconciler.Cell> cells = new ArrayList<>();

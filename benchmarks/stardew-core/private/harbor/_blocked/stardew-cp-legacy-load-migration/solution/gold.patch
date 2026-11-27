@@ -1,0 +1,428 @@
+diff --git a/ContentPatcher/Framework/Migrations/Internal/VanillaAssetFactory.cs b/ContentPatcher/Framework/Migrations/Internal/VanillaAssetFactory.cs
+new file mode 100644
+index 00000000..537ad016
+--- /dev/null
++++ b/ContentPatcher/Framework/Migrations/Internal/VanillaAssetFactory.cs
+@@ -0,0 +1,50 @@
++using System;
++using System.Diagnostics.CodeAnalysis;
++using Force.DeepCloner;
++using StardewValley;
++
++namespace ContentPatcher.Framework.Migrations.Internal
++{
++    /// <summary>A factory which produces a copy of an asset's original data without mod edits applied.</summary>
++    /// <typeparam name="T">The asset type.</typeparam>
++    internal class VanillaAssetFactory<T>
++        where T : class
++    {
++        /*********
++        ** Fields
++        *********/
++        /// <summary>The loaded asset data.</summary>
++        private readonly Lazy<T> Data;
++
++
++        /*********
++        ** Public methods
++        *********/
++        /// <summary>Construct an instance.</summary>
++        /// <param name="load">The asset name to load.</param>
++        public VanillaAssetFactory(Func<LocalizedContentManager, T> load)
++        {
++            this.Data = new Lazy<T>(() => VanillaAssetFactory<T>.LoadVanillaData(load));
++        }
++
++        /// <summary>Get a fresh copy of the asset with no edits applied.</summary>
++        [return: NotNull]
++        public T GetFreshCopy()
++        {
++            return this.Data.Value.DeepClone();
++        }
++
++
++        /*********
++        ** Private methods
++        *********/
++        /// <summary>Load the vanilla data for an asset without mod edits applied.</summary>
++        /// <typeparam name="T">The asset data type.</typeparam>
++        /// <param name="load">Load the asset from a content manager.</param>
++        public static T LoadVanillaData<T>(Func<LocalizedContentManager, T> load)
++        {
++            using var content = new LocalizedContentManager(Game1.content.ServiceProvider, Game1.content.RootDirectory);
++            return load(content);
++        }
++    }
++}
+diff --git a/ContentPatcher/Framework/Migrations/Migration_2_0.ForBigCraftablesInformation.cs b/ContentPatcher/Framework/Migrations/Migration_2_0.ForBigCraftablesInformation.cs
+index cd19dea2..260a207d 100644
+--- a/ContentPatcher/Framework/Migrations/Migration_2_0.ForBigCraftablesInformation.cs
++++ b/ContentPatcher/Framework/Migrations/Migration_2_0.ForBigCraftablesInformation.cs
+@@ -26,6 +26,12 @@ namespace ContentPatcher.Framework.Migrations
+             /// <summary>The 1.6 asset name.</summary>
+             private const string NewAssetName = "Data/BigCraftables";
+ 
++            /// <summary>The vanilla data without mod edits applied, used as the base when a pre-1.6 content pack loads the asset.</summary>
++            private readonly VanillaAssetFactory<Dictionary<string, BigCraftableData>> OriginalData = new(DataLoader.BigCraftables);
++
++            /// <summary>The numeric bigcraftable IDs added in Stardew Valley 1.6.</summary>
++            private readonly HashSet<string> NumericIdsAddedIn16 = new() { "221", "262", "263" };
++
+ 
+             /*********
+             ** Public methods
+@@ -45,10 +51,13 @@ namespace ContentPatcher.Framework.Migrations
+             /// <inheritdoc />
+             public bool TryApplyLoadPatch<T>(LoadPatch patch, IAssetName assetName, [NotNullWhen(true)] ref T? asset, out string? error)
+             {
+-                Dictionary<string, string> tempData = patch.Load<Dictionary<string, string>>(this.GetOldAssetName(assetName));
+-                Dictionary<string, BigCraftableData> newData = new();
+-                this.MergeIntoNewFormat(newData, tempData, null);
+-                asset = (T)(object)newData;
++                var data = this.OriginalData.GetFreshCopy();
++                var dataBackup = this.GetOldFormat(data);
++
++                var legacyLoad = patch.Load<Dictionary<string, string>>(this.GetOldAssetName(assetName));
++                this.MergeIntoNewFormat(data, legacyLoad, dataBackup);
++
++                asset = (T)(object)data;
+ 
+                 error = null;
+                 return true;
+@@ -114,7 +123,12 @@ namespace ContentPatcher.Framework.Migrations
+                 foreach (string key in asset.Keys)
+                 {
+                     if (!from.ContainsKey(key))
++                    {
++                        if (!int.TryParse(key, out _) || this.NumericIdsAddedIn16.Contains(key))
++                            continue; // don't remove 1.6 content for a pre-1.6 content pack (usually a load patch)
++
+                         asset.Remove(key);
++                    }
+                 }
+ 
+                 // apply entries
+diff --git a/ContentPatcher/Framework/Migrations/Migration_2_0.ForBlueprints.cs b/ContentPatcher/Framework/Migrations/Migration_2_0.ForBlueprints.cs
+index 2415d493..9f67535d 100644
+--- a/ContentPatcher/Framework/Migrations/Migration_2_0.ForBlueprints.cs
++++ b/ContentPatcher/Framework/Migrations/Migration_2_0.ForBlueprints.cs
+@@ -27,6 +27,12 @@ namespace ContentPatcher.Framework.Migrations
+             /// <summary>The 1.6 asset name.</summary>
+             private const string NewAssetName = "Data/Buildings";
+ 
++            /// <summary>The building IDs added in Stardew Valley 1.6.</summary>
++            private readonly HashSet<string> BuildingIdsAddedIn16 = new() { "Cabin", "Pet Bowl", "Farmhouse" };
++
++            /// <summary>The vanilla data without mod edits applied, used as the base when a pre-1.6 content pack loads the asset.</summary>
++            private readonly VanillaAssetFactory<Dictionary<string, BuildingData>> OriginalData = new(DataLoader.Buildings);
++
+ 
+             /*********
+             ** Public methods
+@@ -46,10 +52,13 @@ namespace ContentPatcher.Framework.Migrations
+             /// <inheritdoc />
+             public bool TryApplyLoadPatch<T>(LoadPatch patch, IAssetName assetName, [NotNullWhen(true)] ref T? asset, out string? error)
+             {
+-                Dictionary<string, string> tempData = patch.Load<Dictionary<string, string>>(this.GetOldAssetName(assetName));
+-                Dictionary<string, BuildingData> newData = new();
+-                this.MergeIntoNewFormat(newData, tempData, null);
+-                asset = (T)(object)newData;
++                var data = this.OriginalData.GetFreshCopy();
++                var dataBackup = this.GetOldFormat(data);
++
++                var legacyLoad = patch.Load<Dictionary<string, string>>(this.GetOldAssetName(assetName));
++                this.MergeIntoNewFormat(data, legacyLoad, dataBackup);
++
++                asset = (T)(object)data;
+ 
+                 error = null;
+                 return true;
+@@ -124,7 +133,12 @@ namespace ContentPatcher.Framework.Migrations
+                 foreach (string key in asset.Keys)
+                 {
+                     if (!from.ContainsKey(key))
++                    {
++                        if (this.BuildingIdsAddedIn16.Contains(key))
++                            continue; // don't remove 1.6 content for a pre-1.6 content pack (usually a load patch)
++
+                         asset.Remove(key);
++                    }
+                 }
+ 
+                 // apply entries
+@@ -135,7 +149,7 @@ namespace ContentPatcher.Framework.Migrations
+                     if (!asset.TryGetValue(key, out BuildingData? entry))
+                     {
+                         isNew = true;
+-                        entry = new BuildingData()
++                        entry = new BuildingData
+                         {
+                             Name = key,
+                             Description = "...",
+@@ -176,7 +190,7 @@ namespace ContentPatcher.Framework.Migrations
+                         );
+ 
+                         entry.IndoorMap = ArgUtility.Get(fields, 7, entry.IndoorMap, allowBlank: false);
+-                        if (string.IsNullOrWhiteSpace(entry.IndoorMap) || entry.IndoorMapType == "null")
++                        if (string.IsNullOrWhiteSpace(entry.IndoorMap) || entry.IndoorMap == "null")
+                             entry.IndoorMap = null;
+ 
+                         entry.Name = RuntimeMigrationHelper.MigrateLiteralTextToTokenizableField(ArgUtility.Get(fields, 8), ArgUtility.Get(backupFields, 8), entry.Name);
+diff --git a/ContentPatcher/Framework/Migrations/Migration_2_0.ForCrops.cs b/ContentPatcher/Framework/Migrations/Migration_2_0.ForCrops.cs
+index 2a43873e..1f899a18 100644
+--- a/ContentPatcher/Framework/Migrations/Migration_2_0.ForCrops.cs
++++ b/ContentPatcher/Framework/Migrations/Migration_2_0.ForCrops.cs
+@@ -23,6 +23,9 @@ namespace ContentPatcher.Framework.Migrations
+             /// <summary>The asset name.</summary>
+             private const string AssetName = "Data/Crops";
+ 
++            /// <summary>The vanilla data without mod edits applied, used as the base when a pre-1.6 content pack loads the asset.</summary>
++            private readonly VanillaAssetFactory<Dictionary<string, CropData>> OriginalData = new(DataLoader.Crops);
++
+ 
+             /*********
+             ** Public methods
+@@ -42,10 +45,13 @@ namespace ContentPatcher.Framework.Migrations
+             /// <inheritdoc />
+             public bool TryApplyLoadPatch<T>(LoadPatch patch, IAssetName assetName, [NotNullWhen(true)] ref T? asset, out string? error)
+             {
+-                Dictionary<string, string> tempData = patch.Load<Dictionary<string, string>>(assetName);
+-                Dictionary<string, CropData> newData = new();
+-                this.MergeIntoNewFormat(newData, tempData, null);
+-                asset = (T)(object)newData;
++                var data = this.OriginalData.GetFreshCopy();
++                var dataBackup = this.GetOldFormat(data);
++
++                var legacyLoad = patch.Load<Dictionary<string, string>>(assetName);
++                this.MergeIntoNewFormat(data, legacyLoad, dataBackup);
++
++                asset = (T)(object)data;
+ 
+                 error = null;
+                 return true;
+diff --git a/ContentPatcher/Framework/Migrations/Migration_2_0.ForLocations.cs b/ContentPatcher/Framework/Migrations/Migration_2_0.ForLocations.cs
+index 6cdbdffb..50fbf526 100644
+--- a/ContentPatcher/Framework/Migrations/Migration_2_0.ForLocations.cs
++++ b/ContentPatcher/Framework/Migrations/Migration_2_0.ForLocations.cs
+@@ -45,8 +45,8 @@ namespace ContentPatcher.Framework.Migrations
+             /// <summary>The backing cache for <see cref="ParseEffectiveSeasons"/>.</summary>
+             private readonly Dictionary<string, IReadOnlySet<Season>?> ParseSeasonsCache = new();
+ 
+-            /// <summary>The 'create on load' data for each location loaded from the asset directly without applying mod edits.</summary>
+-            private Dictionary<string, CreateLocationData>? OriginalCreateLocationData;
++            /// <summary>The vanilla data without mod edits applied, used as the base when a pre-1.6 content pack loads the asset.</summary>
++            private readonly VanillaAssetFactory<Dictionary<string, LocationData>> OriginalData = new(DataLoader.Locations);
+ 
+ 
+             /*********
+@@ -67,10 +67,13 @@ namespace ContentPatcher.Framework.Migrations
+             /// <inheritdoc />
+             public bool TryApplyLoadPatch<T>(LoadPatch patch, IAssetName assetName, [NotNullWhen(true)] ref T? asset, out string? error)
+             {
+-                Dictionary<string, string> tempData = patch.Load<Dictionary<string, string>>(assetName);
+-                Dictionary<string, LocationData> newData = new();
+-                this.MergeIntoNewFormat(newData, tempData, null, null, patch.ContentPack.Manifest.UniqueID);
+-                asset = (T)(object)newData;
++                var data = this.OriginalData.GetFreshCopy();
++                var dataBackup = this.GetOldFormat(data, out HashSet<string> skippedDueToNoData);
++
++                var legacyLoad = patch.Load<Dictionary<string, string>>(assetName);
++                this.MergeIntoNewFormat(data, legacyLoad, dataBackup, skippedDueToNoData, patch.ContentPack.Manifest.UniqueID);
++
++                asset = (T)(object)data;
+ 
+                 error = null;
+                 return true;
+@@ -182,7 +185,10 @@ namespace ContentPatcher.Framework.Migrations
+                         isNew = true;
+                         targetLocationEntry = new LocationData
+                         {
+-                            CreateOnLoad = this.GetDefaultCreateOnLoad(locationName)
++                            CreateOnLoad = new()
++                            {
++                                MapPath = $"Maps\\{locationName}"
++                            }
+                         };
+                     }
+ 
+@@ -215,36 +221,6 @@ namespace ContentPatcher.Framework.Migrations
+                 return locationName is "Default" || locationName?.StartsWith("Farm_") is true;
+             }
+ 
+-            /// <summary>Get the default 'create on load' data for a location.</summary>
+-            /// <param name="locationName">The location name.</param>
+-            private CreateLocationData GetDefaultCreateOnLoad(string locationName)
+-            {
+-                // use vanilla CreateOnLoad if applicable
+-                if (!locationName.StartsWith("Custom_"))
+-                {
+-                    if (this.OriginalCreateLocationData is null)
+-                    {
+-                        using var content = new LocalizedContentManager(Game1.content.ServiceProvider, Game1.content.RootDirectory);
+-                        this.OriginalCreateLocationData = DataLoader.Locations(content).ToDictionary(p => p.Key, p => p.Value.CreateOnLoad);
+-                    }
+-                    if (this.OriginalCreateLocationData.TryGetValue(locationName, out CreateLocationData? data))
+-                    {
+-                        return new CreateLocationData
+-                        {
+-                            MapPath = data.MapPath,
+-                            Type = data.Type,
+-                            AlwaysActive = data.AlwaysActive
+-                        };
+-                    }
+-                }
+-
+-                // else use conventional pre-1.6 value
+-                return new()
+-                {
+-                    MapPath = $"Maps\\{locationName}"
+-                };
+-            }
+-
+             /// <summary>Merge pre-1.6 forage data into the new asset.</summary>
+             /// <param name="locationName">The internal location name being edited.</param>
+             /// <param name="fromFields">The pre-1.6 data to merge into the asset.</param>
+diff --git a/ContentPatcher/Framework/Migrations/Migration_2_0.ForNpcDispositions.cs b/ContentPatcher/Framework/Migrations/Migration_2_0.ForNpcDispositions.cs
+index 2f1ff142..1c20b939 100644
+--- a/ContentPatcher/Framework/Migrations/Migration_2_0.ForNpcDispositions.cs
++++ b/ContentPatcher/Framework/Migrations/Migration_2_0.ForNpcDispositions.cs
+@@ -27,6 +27,12 @@ namespace ContentPatcher.Framework.Migrations
+             /// <summary>The 1.6 asset name.</summary>
+             private const string NewAssetName = "Data/Characters";
+ 
++            /// <summary>The NPC names added in Stardew Valley 1.6.</summary>
++            private readonly HashSet<string> NpcNamesAddedIn16 = new() { "???", "Bear", "Birdie", "Bouncer", "Gil", "Governor", "Grandpa", "Gunther", "Henchman", "Mister Qi", "Morris", "Old Mariner", "Welwick" };
++
++            /// <summary>The vanilla data without mod edits applied, used as the base when a pre-1.6 content pack loads the asset.</summary>
++            private readonly VanillaAssetFactory<Dictionary<string, CharacterData>> OriginalData = new(DataLoader.Characters);
++
+ 
+             /*********
+             ** Public methods
+@@ -46,10 +52,13 @@ namespace ContentPatcher.Framework.Migrations
+             /// <inheritdoc />
+             public bool TryApplyLoadPatch<T>(LoadPatch patch, IAssetName assetName, [NotNullWhen(true)] ref T? asset, out string? error)
+             {
+-                Dictionary<string, string> tempData = patch.Load<Dictionary<string, string>>(this.GetOldAssetName(assetName));
+-                Dictionary<string, CharacterData> newData = new();
+-                this.MergeIntoNewFormat(newData, tempData, null);
+-                asset = (T)(object)newData;
++                var data = this.OriginalData.GetFreshCopy();
++                var dataBackup = this.GetOldFormat(data);
++
++                var legacyLoad = patch.Load<Dictionary<string, string>>(this.GetOldAssetName(assetName));
++                this.MergeIntoNewFormat(data, legacyLoad, dataBackup);
++
++                asset = (T)(object)data;
+ 
+                 error = null;
+                 return true;
+@@ -117,7 +126,12 @@ namespace ContentPatcher.Framework.Migrations
+                 foreach (string key in asset.Keys)
+                 {
+                     if (!from.ContainsKey(key))
++                    {
++                        if (this.NpcNamesAddedIn16.Contains(key))
++                            continue; // don't remove 1.6 content for a pre-1.6 content pack (usually a load patch)
++
+                         asset.Remove(key);
++                    }
+                 }
+ 
+                 // apply entries
+diff --git a/ContentPatcher/Framework/Migrations/Migration_2_0.ForObjectInformation.cs b/ContentPatcher/Framework/Migrations/Migration_2_0.ForObjectInformation.cs
+index 7d61869f..a6689082 100644
+--- a/ContentPatcher/Framework/Migrations/Migration_2_0.ForObjectInformation.cs
++++ b/ContentPatcher/Framework/Migrations/Migration_2_0.ForObjectInformation.cs
+@@ -28,6 +28,12 @@ namespace ContentPatcher.Framework.Migrations
+             /// <summary>The 1.6 asset name.</summary>
+             private const string NewAssetName = "Data/Objects";
+ 
++            /// <summary>The numeric object IDs added in Stardew Valley 1.6.</summary>
++            private readonly HashSet<string> NumericIdsAddedIn16 = new() { "6", "8", "10", "12", "14", "32", "34", "36", "38", "40", "42", "44", "46", "48", "50", "52", "54", "56", "58", "742" };
++
++            /// <summary>The vanilla data without mod edits applied, used as the base when a pre-1.6 content pack loads the asset.</summary>
++            private readonly VanillaAssetFactory<Dictionary<string, ObjectData>> OriginalData = new(DataLoader.Objects);
++
+ 
+             /*********
+             ** Public methods
+@@ -47,10 +53,13 @@ namespace ContentPatcher.Framework.Migrations
+             /// <inheritdoc />
+             public bool TryApplyLoadPatch<T>(LoadPatch patch, IAssetName assetName, [NotNullWhen(true)] ref T? asset, out string? error)
+             {
+-                Dictionary<string, string> tempData = patch.Load<Dictionary<string, string>>(this.GetOldAssetName(assetName));
+-                Dictionary<string, ObjectData> newData = new();
+-                this.MergeIntoNewFormat(newData, tempData, null, patch.ContentPack.Manifest.UniqueID);
+-                asset = (T)(object)newData;
++                var data = this.OriginalData.GetFreshCopy();
++                var dataBackup = this.GetOldFormat(data);
++
++                var legacyLoad = patch.Load<Dictionary<string, string>>(this.GetOldAssetName(assetName));
++                this.MergeIntoNewFormat(data, legacyLoad, dataBackup, patch.ContentPack.Manifest.UniqueID);
++
++                asset = (T)(object)data;
+ 
+                 error = null;
+                 return true;
+@@ -122,7 +131,12 @@ namespace ContentPatcher.Framework.Migrations
+                 foreach (string key in asset.Keys)
+                 {
+                     if (!from.ContainsKey(key))
++                    {
++                        if (!int.TryParse(key, out _) || this.NumericIdsAddedIn16.Contains(key))
++                            continue; // don't remove 1.6 content for a pre-1.6 content pack (usually a load patch)
++
+                         asset.Remove(key);
++                    }
+                 }
+ 
+                 // apply entries
+diff --git a/ContentPatcher/Framework/Migrations/Migration_2_0.ForWeapons.cs b/ContentPatcher/Framework/Migrations/Migration_2_0.ForWeapons.cs
+index e0693bbf..ec895a41 100644
+--- a/ContentPatcher/Framework/Migrations/Migration_2_0.ForWeapons.cs
++++ b/ContentPatcher/Framework/Migrations/Migration_2_0.ForWeapons.cs
+@@ -21,6 +21,12 @@ namespace ContentPatcher.Framework.Migrations
+             /// <summary>The asset name.</summary>
+             private const string AssetName = "Data/Weapons";
+ 
++            /// <summary>The numeric object IDs added in Stardew Valley 1.6.</summary>
++            private readonly HashSet<string> NumericIdsAddedIn16 = new() { "65", "66" };
++
++            /// <summary>The vanilla data without mod edits applied, used as the base when a pre-1.6 content pack loads the asset.</summary>
++            private readonly VanillaAssetFactory<Dictionary<string, WeaponData>> OriginalData = new(DataLoader.Weapons);
++
+ 
+             /*********
+             ** Public methods
+@@ -40,10 +46,13 @@ namespace ContentPatcher.Framework.Migrations
+             /// <inheritdoc />
+             public bool TryApplyLoadPatch<T>(LoadPatch patch, IAssetName assetName, [NotNullWhen(true)] ref T? asset, out string? error)
+             {
+-                Dictionary<string, string> tempData = patch.Load<Dictionary<string, string>>(assetName);
+-                Dictionary<string, WeaponData> newData = new();
+-                this.MergeIntoNewFormat(newData, tempData, null);
+-                asset = (T)(object)newData;
++                var data = this.OriginalData.GetFreshCopy();
++                var dataBackup = this.GetOldFormat(data);
++
++                var legacyLoad = patch.Load<Dictionary<string, string>>(assetName);
++                this.MergeIntoNewFormat(data, legacyLoad, dataBackup);
++
++                asset = (T)(object)data;
+ 
+                 error = null;
+                 return true;
+@@ -107,7 +116,12 @@ namespace ContentPatcher.Framework.Migrations
+                 foreach (string key in asset.Keys)
+                 {
+                     if (!from.ContainsKey(key))
++                    {
++                        if (this.NumericIdsAddedIn16.Contains(key))
++                            continue; // don't remove 1.6 content for a pre-1.6 content pack (usually a load patch)
++
+                         asset.Remove(key);
++                    }
+                 }
+ 
+                 // apply entries

@@ -1,0 +1,20 @@
+--- a/scripts/combatarbiter/arbiter.lua	2026-09-21 05:43:39.458750078 +0800
++++ b/scripts/combatarbiter/arbiter.lua	2026-09-21 05:43:39.468797147 +0800
+@@ -69,7 +69,7 @@
+     local source_ids = sorted_keys(self.taunts)
+     for index = 1, #source_ids do
+         local taunt = self.taunts[source_ids[index]]
+-        if now >= taunt.expires_at then
++        if now > taunt.expires_at then
+             self.taunts[source_ids[index]] = nil
+             expired[#expired + 1] = taunt.request_id
+         end
+@@ -263,7 +263,7 @@
+     end
+     local ranked = self:_ranked(source_id, now)
+     local taunt = self.taunts[source_id]
+-    if taunt ~= nil and now < taunt.expires_at and self:_is_alive(taunt.target_id) then
++    if taunt ~= nil and now <= taunt.expires_at and self:_is_alive(taunt.target_id) then
+         local threat = 0
+         for index = 1, #ranked do
+             if ranked[index].target_id == taunt.target_id then

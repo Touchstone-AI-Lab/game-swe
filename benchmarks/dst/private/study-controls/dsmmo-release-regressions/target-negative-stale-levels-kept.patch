@@ -1,0 +1,11 @@
+--- a/scripts/components/DsMMO.lua
++++ b/scripts/components/DsMMO.lua
+@@ -1095,7 +1095,7 @@
+ 
+ function DsMMO:OnLoad(data)
+ 	if data.dsmmo_version then
+-		if data.dsmmo_version == VERSION and data.dsmmo_level_up_rate == LEVEL_UP_RATE then
++		if data.dsmmo_version == VERSION then
+ 			self.exp = data.dsmmo_exp
+ 			self.max_exp = data.dsmmo_max_exp
+ 			self.level = data.dsmmo_level

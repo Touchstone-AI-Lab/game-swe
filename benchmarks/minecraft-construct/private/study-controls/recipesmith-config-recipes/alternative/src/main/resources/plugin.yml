@@ -1,0 +1,13 @@
+name: Recipesmith
+version: 1.0.0
+main: com.example.recipesmith.RecipesmithPlugin
+api-version: '1.21'
+description: Custom recipes from a configuration file
+commands:
+  recipes:
+    description: Reload, list, disable and enable Recipesmith recipes
+    usage: /recipes <reload|list|disable|enable>
+permissions:
+  recipesmith.admin:
+    description: Allows /recipes reload, list, disable and enable
+    default: op

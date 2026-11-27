@@ -1,0 +1,1156 @@
+{
+  "task": "balatro/core/durable-charge-v2",
+  "task_version": "0.2.0",
+  "exam": "benchmarks/balatro/public/v02/durable-charge-v2/CONTRACT.md",
+  "cases": [
+    {
+      "id": "position:1",
+      "role": "preserved",
+      "clauses": [
+        "api-export",
+        "api-independent-state",
+        "api-event-effects",
+        "api-view-format",
+        "public-centers"
+      ],
+      "overlap": false,
+      "note": "core.ownership"
+    },
+    {
+      "id": "position:2",
+      "role": "preserved",
+      "clauses": [
+        "api-replay-original",
+        "api-success-shape"
+      ],
+      "overlap": false,
+      "note": "core.duplicate"
+    },
+    {
+      "id": "position:3",
+      "role": "preserved",
+      "clauses": [
+        "api-event-conflict",
+        "api-error-atomic",
+        "api-view-pure"
+      ],
+      "overlap": false,
+      "note": "core.conflict"
+    },
+    {
+      "id": "position:4",
+      "role": "preserved",
+      "clauses": [
+        "api-event-shape",
+        "api-rejected-id-free",
+        "api-membership-codes",
+        "api-error-atomic"
+      ],
+      "overlap": false,
+      "note": "core.invalid_atomic"
+    },
+    {
+      "id": "position:5",
+      "role": "preserved",
+      "clauses": [
+        "api-owner-never-reused",
+        "api-replay-original",
+        "api-membership-codes",
+        "api-event-effects",
+        "api-success-shape"
+      ],
+      "overlap": false,
+      "note": "core.retired"
+    },
+    {
+      "id": "position:6",
+      "role": "preserved",
+      "clauses": [
+        "api-event-effects",
+        "api-view-format"
+      ],
+      "overlap": false,
+      "note": "core.cap_interleave"
+    },
+    {
+      "id": "position:7",
+      "role": "target",
+      "clauses": [
+        "api-no-aliases",
+        "api-snapshot-format"
+      ],
+      "overlap": false,
+      "note": "core.snapshot_alias"
+    },
+    {
+      "id": "position:8",
+      "role": "preserved",
+      "clauses": [
+        "api-no-aliases",
+        "api-view-format",
+        "api-view-pure"
+      ],
+      "overlap": false,
+      "note": "core.view_alias"
+    },
+    {
+      "id": "position:9",
+      "role": "preserved",
+      "clauses": [
+        "api-no-aliases",
+        "api-replay-original"
+      ],
+      "overlap": false,
+      "note": "core.receipt_alias"
+    },
+    {
+      "id": "position:10",
+      "role": "preserved",
+      "clauses": [
+        "api-no-aliases",
+        "api-snapshot-format"
+      ],
+      "overlap": false,
+      "note": "core.input_alias"
+    },
+    {
+      "id": "position:11",
+      "role": "preserved",
+      "clauses": [
+        "api-restore-replaces",
+        "api-restore-no-alias",
+        "api-snapshot-format"
+      ],
+      "overlap": false,
+      "note": "core.restore_input"
+    },
+    {
+      "id": "position:12",
+      "role": "target",
+      "clauses": [
+        "api-restore-receipts",
+        "api-snapshot-history",
+        "api-restore-replaces",
+        "restore-balances"
+      ],
+      "overlap": false,
+      "note": "core.zero_restore"
+    },
+    {
+      "id": "position:13",
+      "role": "preserved",
+      "clauses": [
+        "api-restore-receipts",
+        "api-restore-replaces",
+        "api-owner-never-reused",
+        "api-event-conflict",
+        "api-membership-codes",
+        "restore-history"
+      ],
+      "overlap": false,
+      "note": "core.restored_history"
+    },
+    {
+      "id": "position:14",
+      "role": "preserved",
+      "clauses": [
+        "api-restore-failure-atomic",
+        "api-restore-legal-sequence",
+        "api-restore-codes"
+      ],
+      "overlap": false,
+      "note": "core.restore_atomic"
+    },
+    {
+      "id": "position:15",
+      "role": "preserved",
+      "clauses": [
+        "api-restore-shape",
+        "api-restore-no-repeats",
+        "api-restore-codes",
+        "api-restore-failure-atomic"
+      ],
+      "overlap": false,
+      "note": "core.snapshot_validation"
+    },
+    {
+      "id": "position:16",
+      "role": "preserved",
+      "clauses": [
+        "api-restore-replaces",
+        "api-restore-shape"
+      ],
+      "overlap": false,
+      "note": "core.empty_restore"
+    },
+    {
+      "id": "position:17",
+      "role": "preserved",
+      "clauses": [
+        "api-event-limit",
+        "api-limit-code",
+        "api-restore-shape",
+        "api-restore-receipts"
+      ],
+      "overlap": false,
+      "note": "core.limit"
+    },
+    {
+      "id": "position:18",
+      "role": "setup",
+      "clauses": [],
+      "overlap": false,
+      "note": "restored.initial"
+    },
+    {
+      "id": "position:19",
+      "role": "preserved",
+      "clauses": [
+        "discard-charges-all",
+        "no-repeat-callback",
+        "display-pure",
+        "public-centers"
+      ],
+      "overlap": false,
+      "note": "restored.discard.a"
+    },
+    {
+      "id": "position:20",
+      "role": "preserved",
+      "clauses": [
+        "recruit-consumed",
+        "fresh-zero",
+        "no-passive-charge",
+        "display-pure"
+      ],
+      "overlap": false,
+      "note": "restored.recruit.b"
+    },
+    {
+      "id": "position:21",
+      "role": "runtime-sentinel",
+      "clauses": [
+        "restore-entry"
+      ],
+      "overlap": false,
+      "note": "restored.unequal1.save"
+    },
+    {
+      "id": "position:22",
+      "role": "runtime-sentinel",
+      "clauses": [
+        "restore-entry"
+      ],
+      "overlap": false,
+      "note": "restored.unequal1.new_process"
+    },
+    {
+      "id": "position:23",
+      "role": "runtime-sentinel",
+      "clauses": [
+        "restore-entry",
+        "init-no-targets"
+      ],
+      "overlap": false,
+      "note": "restored.unequal1.prep"
+    },
+    {
+      "id": "position:24",
+      "role": "runtime-sentinel",
+      "clauses": [
+        "restore-entry"
+      ],
+      "overlap": false,
+      "note": "restored.unequal1.load"
+    },
+    {
+      "id": "position:25",
+      "role": "preserved",
+      "clauses": [
+        "restore-membership",
+        "unrelated-state"
+      ],
+      "overlap": false,
+      "note": "restored.unequal1.native"
+    },
+    {
+      "id": "position:26",
+      "role": "preserved",
+      "clauses": [
+        "restore-membership",
+        "init-no-targets",
+        "unrelated-state"
+      ],
+      "overlap": false,
+      "note": "restored.unequal1.identity"
+    },
+    {
+      "id": "position:27",
+      "role": "preserved",
+      "clauses": [
+        "restore-balances",
+        "physical-identity",
+        "no-display-ledger",
+        "same-ledger"
+      ],
+      "overlap": true,
+      "note": "restored.unequal1.charge"
+    },
+    {
+      "id": "position:28",
+      "role": "target",
+      "clauses": [
+        "physical-identity",
+        "no-passive-charge",
+        "display-pure"
+      ],
+      "overlap": false,
+      "note": "restored.reorder"
+    },
+    {
+      "id": "position:29",
+      "role": "target",
+      "clauses": [
+        "discard-charges-all",
+        "physical-identity",
+        "api-native-operation-identity"
+      ],
+      "overlap": false,
+      "note": "restored.discard.both"
+    },
+    {
+      "id": "position:30",
+      "role": "runtime-sentinel",
+      "clauses": [
+        "restore-entry"
+      ],
+      "overlap": false,
+      "note": "restored.unequal2.save"
+    },
+    {
+      "id": "position:31",
+      "role": "runtime-sentinel",
+      "clauses": [
+        "restore-entry"
+      ],
+      "overlap": false,
+      "note": "restored.unequal2.new_process"
+    },
+    {
+      "id": "position:32",
+      "role": "runtime-sentinel",
+      "clauses": [
+        "restore-entry",
+        "init-no-targets"
+      ],
+      "overlap": false,
+      "note": "restored.unequal2.prep"
+    },
+    {
+      "id": "position:33",
+      "role": "runtime-sentinel",
+      "clauses": [
+        "restore-entry"
+      ],
+      "overlap": false,
+      "note": "restored.unequal2.load"
+    },
+    {
+      "id": "position:34",
+      "role": "preserved",
+      "clauses": [
+        "restore-membership",
+        "unrelated-state"
+      ],
+      "overlap": false,
+      "note": "restored.unequal2.native"
+    },
+    {
+      "id": "position:35",
+      "role": "preserved",
+      "clauses": [
+        "restore-membership",
+        "init-no-targets",
+        "unrelated-state"
+      ],
+      "overlap": false,
+      "note": "restored.unequal2.identity"
+    },
+    {
+      "id": "position:36",
+      "role": "target",
+      "clauses": [
+        "restore-balances",
+        "physical-identity",
+        "no-display-ledger",
+        "same-ledger"
+      ],
+      "overlap": false,
+      "note": "restored.unequal2.charge"
+    },
+    {
+      "id": "position:37",
+      "role": "preserved",
+      "clauses": [
+        "additive-mult",
+        "consume-once",
+        "no-repeat-callback",
+        "api-native-score-read",
+        "no-display-ledger"
+      ],
+      "overlap": true,
+      "note": "restored.pair.consume"
+    },
+    {
+      "id": "position:38",
+      "role": "runtime-sentinel",
+      "clauses": [
+        "restore-entry"
+      ],
+      "overlap": false,
+      "note": "restored.zero.save"
+    },
+    {
+      "id": "position:39",
+      "role": "runtime-sentinel",
+      "clauses": [
+        "restore-entry"
+      ],
+      "overlap": false,
+      "note": "restored.zero.new_process"
+    },
+    {
+      "id": "position:40",
+      "role": "runtime-sentinel",
+      "clauses": [
+        "restore-entry",
+        "init-no-targets"
+      ],
+      "overlap": false,
+      "note": "restored.zero.prep"
+    },
+    {
+      "id": "position:41",
+      "role": "runtime-sentinel",
+      "clauses": [
+        "restore-entry"
+      ],
+      "overlap": false,
+      "note": "restored.zero.load"
+    },
+    {
+      "id": "position:42",
+      "role": "preserved",
+      "clauses": [
+        "restore-membership",
+        "unrelated-state"
+      ],
+      "overlap": false,
+      "note": "restored.zero.native"
+    },
+    {
+      "id": "position:43",
+      "role": "preserved",
+      "clauses": [
+        "restore-membership",
+        "init-no-targets",
+        "unrelated-state"
+      ],
+      "overlap": false,
+      "note": "restored.zero.identity"
+    },
+    {
+      "id": "position:44",
+      "role": "target",
+      "clauses": [
+        "restore-balances",
+        "physical-identity",
+        "no-display-ledger",
+        "same-ledger"
+      ],
+      "overlap": false,
+      "note": "restored.zero.charge"
+    },
+    {
+      "id": "position:45",
+      "role": "target",
+      "clauses": [
+        "discard-charges-all",
+        "api-native-operation-identity",
+        "restore-history",
+        "api-native-counter-identity"
+      ],
+      "overlap": false,
+      "note": "restored.postload.discard"
+    },
+    {
+      "id": "position:46",
+      "role": "target",
+      "clauses": [
+        "sell-own-state",
+        "no-passive-charge",
+        "restore-history"
+      ],
+      "overlap": false,
+      "note": "restored.sell.restored"
+    },
+    {
+      "id": "position:47",
+      "role": "target",
+      "clauses": [
+        "recruit-consumed",
+        "fresh-zero",
+        "recruit-no-transfer",
+        "no-passive-charge"
+      ],
+      "overlap": false,
+      "note": "restored.recruit.c"
+    },
+    {
+      "id": "position:48",
+      "role": "target",
+      "clauses": [
+        "additive-mult",
+        "consume-once",
+        "api-native-score-read",
+        "no-display-ledger",
+        "same-ledger",
+        "api-native-counter-identity"
+      ],
+      "overlap": false,
+      "note": "restored.postload.score"
+    },
+    {
+      "id": "position:49",
+      "role": "preserved",
+      "clauses": [
+        "discard-charges-all"
+      ],
+      "overlap": false,
+      "note": "restored.cap.1"
+    },
+    {
+      "id": "position:50",
+      "role": "preserved",
+      "clauses": [
+        "discard-charges-all"
+      ],
+      "overlap": false,
+      "note": "restored.cap.2"
+    },
+    {
+      "id": "position:51",
+      "role": "preserved",
+      "clauses": [
+        "discard-charges-all"
+      ],
+      "overlap": false,
+      "note": "restored.cap.3"
+    },
+    {
+      "id": "position:52",
+      "role": "preserved",
+      "clauses": [
+        "discard-charges-all",
+        "charge-cap"
+      ],
+      "overlap": false,
+      "note": "restored.cap.4"
+    },
+    {
+      "id": "position:53",
+      "role": "preserved",
+      "clauses": [
+        "additive-mult",
+        "consume-once",
+        "no-repeat-callback",
+        "api-native-score-read",
+        "no-display-ledger"
+      ],
+      "overlap": true,
+      "note": "restored.cap.score"
+    },
+    {
+      "id": "position:54",
+      "role": "preserved",
+      "clauses": [
+        "next-hand-clear"
+      ],
+      "overlap": false,
+      "note": "restored.cap.next"
+    },
+    {
+      "id": "position:55",
+      "role": "runtime-sentinel",
+      "clauses": [],
+      "overlap": false,
+      "note": "restored.unequal1.hash"
+    },
+    {
+      "id": "position:56",
+      "role": "runtime-sentinel",
+      "clauses": [],
+      "overlap": false,
+      "note": "restored.unequal2.hash"
+    },
+    {
+      "id": "position:57",
+      "role": "runtime-sentinel",
+      "clauses": [],
+      "overlap": false,
+      "note": "restored.zero.hash"
+    },
+    {
+      "id": "position:58",
+      "role": "runtime-sentinel",
+      "clauses": [],
+      "overlap": false,
+      "note": "restored.configuration"
+    },
+    {
+      "id": "position:59",
+      "role": "setup",
+      "clauses": [],
+      "overlap": false,
+      "note": "local.initial"
+    },
+    {
+      "id": "position:60",
+      "role": "preserved",
+      "clauses": [
+        "discard-charges-all",
+        "no-repeat-callback",
+        "display-pure",
+        "public-centers"
+      ],
+      "overlap": false,
+      "note": "local.discard.a"
+    },
+    {
+      "id": "position:61",
+      "role": "preserved",
+      "clauses": [
+        "recruit-consumed",
+        "fresh-zero",
+        "no-passive-charge",
+        "display-pure"
+      ],
+      "overlap": false,
+      "note": "local.recruit.b"
+    },
+    {
+      "id": "position:62",
+      "role": "preserved",
+      "clauses": [
+        "physical-identity",
+        "no-passive-charge",
+        "display-pure"
+      ],
+      "overlap": false,
+      "note": "local.reorder"
+    },
+    {
+      "id": "position:63",
+      "role": "preserved",
+      "clauses": [
+        "discard-charges-all",
+        "physical-identity",
+        "api-native-operation-identity"
+      ],
+      "overlap": false,
+      "note": "local.discard.both"
+    },
+    {
+      "id": "position:64",
+      "role": "preserved",
+      "clauses": [
+        "additive-mult",
+        "consume-once",
+        "no-repeat-callback",
+        "api-native-score-read"
+      ],
+      "overlap": false,
+      "note": "local.pair.consume"
+    },
+    {
+      "id": "position:65",
+      "role": "preserved",
+      "clauses": [
+        "discard-charges-all",
+        "api-native-operation-identity"
+      ],
+      "overlap": false,
+      "note": "local.postload.discard"
+    },
+    {
+      "id": "position:66",
+      "role": "preserved",
+      "clauses": [
+        "sell-own-state",
+        "no-passive-charge"
+      ],
+      "overlap": false,
+      "note": "local.sell.restored"
+    },
+    {
+      "id": "position:67",
+      "role": "preserved",
+      "clauses": [
+        "recruit-consumed",
+        "fresh-zero",
+        "recruit-no-transfer",
+        "no-passive-charge"
+      ],
+      "overlap": false,
+      "note": "local.recruit.c"
+    },
+    {
+      "id": "position:68",
+      "role": "preserved",
+      "clauses": [
+        "additive-mult",
+        "consume-once",
+        "api-native-score-read"
+      ],
+      "overlap": false,
+      "note": "local.postload.score"
+    },
+    {
+      "id": "position:69",
+      "role": "preserved",
+      "clauses": [
+        "discard-charges-all"
+      ],
+      "overlap": false,
+      "note": "local.cap.1"
+    },
+    {
+      "id": "position:70",
+      "role": "preserved",
+      "clauses": [
+        "discard-charges-all"
+      ],
+      "overlap": false,
+      "note": "local.cap.2"
+    },
+    {
+      "id": "position:71",
+      "role": "preserved",
+      "clauses": [
+        "discard-charges-all"
+      ],
+      "overlap": false,
+      "note": "local.cap.3"
+    },
+    {
+      "id": "position:72",
+      "role": "preserved",
+      "clauses": [
+        "discard-charges-all",
+        "charge-cap"
+      ],
+      "overlap": false,
+      "note": "local.cap.4"
+    },
+    {
+      "id": "position:73",
+      "role": "preserved",
+      "clauses": [
+        "additive-mult",
+        "consume-once",
+        "no-repeat-callback",
+        "api-native-score-read"
+      ],
+      "overlap": false,
+      "note": "local.cap.score"
+    },
+    {
+      "id": "position:74",
+      "role": "preserved",
+      "clauses": [
+        "next-hand-clear"
+      ],
+      "overlap": false,
+      "note": "local.cap.next"
+    },
+    {
+      "id": "position:75",
+      "role": "runtime-sentinel",
+      "clauses": [],
+      "overlap": false,
+      "note": "local.configuration"
+    },
+    {
+      "id": "position:76",
+      "role": "target",
+      "clauses": [
+        "restart-equivalence"
+      ],
+      "overlap": false,
+      "note": "trajectory.equivalent"
+    }
+  ],
+  "clauses": [
+    {
+      "id": "public-centers",
+      "anchor": "CONTRACT.md paragraph 1: \"Preserve its public centers and the core API in `API.md`\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "discard-charges-all",
+      "anchor": "CONTRACT.md paragraph 2: \"Each **valid player discard operation**, regardless of cards discarded, gives every currently owned physical instance +2 charge\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "charge-cap",
+      "anchor": "CONTRACT.md paragraph 2: \"capped at 6\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "no-passive-charge",
+      "anchor": "CONTRACT.md paragraph 2: \"Holding, display queries, ordering, acquisition and selling do not generate charge.\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "fresh-zero",
+      "anchor": "CONTRACT.md paragraph 2: \"A newly acquired instance starts at zero\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "sell-own-state",
+      "anchor": "CONTRACT.md paragraph 2: \"selling one removes only its own state\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "physical-identity",
+      "anchor": "CONTRACT.md paragraph 2: \"Charge belongs to physical identity, never row position.\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "additive-mult",
+      "anchor": "CONTRACT.md paragraph 3: \"Each instance contributes its current charge as additive Mult to the next real hand's main Joker scoring.\"",
+      "status": "asserted",
+      "note": "Scores assert the summed bonus of all instances, not each instance's share; see known_issues."
+    },
+    {
+      "id": "consume-once",
+      "anchor": "CONTRACT.md paragraph 3: \"After that instance participates, consume its charge once, including a legitimate zero.\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "no-repeat-callback",
+      "anchor": "CONTRACT.md paragraph 3: \"Further callbacks for the same operation cannot accumulate or consume again.\"",
+      "status": "asserted",
+      "note": "Asserted through outcomes only: the callback rows recorded by fixture.lua:26-40 are read by no case."
+    },
+    {
+      "id": "next-hand-clear",
+      "anchor": "CONTRACT.md paragraph 3: \"The next hand has no old bonus.\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "display-pure",
+      "anchor": "CONTRACT.md paragraph 3: \"`loc_vars(...).vars[1]` is a pure numeric display of that instance's current balance.\"",
+      "status": "asserted",
+      "note": "Every charge observation reads it through fixture.lua:8-12, also around each relevant callback, so an impure display would shift the asserted balances."
+    },
+    {
+      "id": "recruit-consumed",
+      "anchor": "CONTRACT.md paragraph 4: \"is consumed normally on use and creates one fresh charge Joker\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "recruit-capacity",
+      "anchor": "CONTRACT.md paragraph 4: \"when ordinary Joker capacity permits\"",
+      "status": "unasserted",
+      "note": "Joker capacity is 5 and at most two targets exist (scenario.py:109), so creation at full capacity is never driven."
+    },
+    {
+      "id": "recruit-no-transfer",
+      "anchor": "CONTRACT.md paragraph 4: \"It does not transfer a sold instance's charge.\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "restore-membership",
+      "anchor": "CONTRACT.md paragraph 5: \"must preserve physical membership\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "restore-balances",
+      "anchor": "CONTRACT.md paragraph 5: \"balances (including zero)\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "restore-history",
+      "anchor": "CONTRACT.md paragraph 5: \"core event history\"",
+      "status": "asserted",
+      "note": "Natively through continued play after the zero checkpoint; replay semantics through core.restored_history."
+    },
+    {
+      "id": "restore-entry",
+      "anchor": "CONTRACT.md paragraph 5: \"The supported restore entry is\"",
+      "status": "asserted",
+      "note": "Shown to have run by runtime-sentinel cases; it is the path every restored case depends on."
+    },
+    {
+      "id": "init-no-targets",
+      "anchor": "CONTRACT.md paragraph 5: \"Initialization creates no target instances. Restored instances come from the saved game.\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "restart-equivalence",
+      "anchor": "CONTRACT.md paragraph 5: \"Continuing equivalent operations with or without that restart must produce the same public balances and real scores.\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "same-ledger",
+      "anchor": "CONTRACT.md paragraph 6: \"The live adapter must use that same ledger API for membership, charging, score reads and consumption, and persist its snapshot.\"",
+      "status": "weak",
+      "note": "No case observes adapter calls into DC2_MODEL or reads the persisted snapshot; only the resulting balances and scores are compared."
+    },
+    {
+      "id": "no-display-ledger",
+      "anchor": "CONTRACT.md paragraph 6: \"It must not keep a separate display-only balance or reset restored state during load.\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "preserve-callbacks",
+      "anchor": "CONTRACT.md paragraph 7: \"Preserve normal game callbacks, arguments, returns and exceptions\"",
+      "status": "unasserted",
+      "note": "fixture.lua:26-40 records callback contexts, but no scenario line reads the rows, and arguments and returns are not compared."
+    },
+    {
+      "id": "no-manual-callbacks",
+      "anchor": "CONTRACT.md paragraph 7: \"do not modify fixed components or invoke future callbacks manually\"",
+      "status": "unasserted",
+      "note": "No case detects a manual callback invocation. Fixed components are covered by the harness input-integrity field (plugins/balatro/src/rhenium_balatro/evaluator.py:33-37), not by a case."
+    },
+    {
+      "id": "unrelated-state",
+      "anchor": "CONTRACT.md paragraph 7: \"Do not reset unrelated objects or game state.\"",
+      "status": "weak",
+      "note": "Only state, seed, round, hand (stable in v1/private/scenario.py) and the consumable inventory are compared across a load."
+    },
+    {
+      "id": "api-export",
+      "anchor": "API.md paragraph 1: \"Export global `DC2_MODEL` with `new`, `apply`, `view`, `snapshot`, `restore`.\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "api-no-game-globals",
+      "anchor": "API.md paragraph 1: \"No game globals are needed by this core.\"",
+      "status": "unasserted",
+      "note": "Core cases run inside the live engine at MENU (scenario.py:19-21), so a core that reads game globals is not detected."
+    },
+    {
+      "id": "api-independent-state",
+      "anchor": "API.md paragraph 1: \"Each `new()` returns an independent opaque state.\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "api-identifier-domain",
+      "anchor": "API.md paragraph 2: \"Identifiers are nonempty ASCII strings of at most 96 characters\"",
+      "status": "unasserted",
+      "note": "core_cases.lua never passes an empty, oversized or illegal identifier."
+    },
+    {
+      "id": "api-event-shape",
+      "anchor": "API.md paragraph 2: \"An event is exactly `{id=<event id>, kind=<kind>, owner=<physical owner id>}` with no extra fields.\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "api-owner-never-reused",
+      "anchor": "API.md paragraph 2: \"Owner IDs identify an instance throughout its lifetime and are never reused after removal.\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "api-event-limit",
+      "anchor": "API.md paragraph 2: \"At most 4096 accepted distinct events are supported per state; duplicate replay remains valid at that limit.\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "api-replay-original",
+      "anchor": "API.md paragraph 3: \"an identical event returns a detached copy of its **original** receipt without changing state, even if the owner was later removed.\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "api-event-conflict",
+      "anchor": "API.md paragraph 3: \"Different payload at that ID returns `{ok=false,code='EVENT_CONFLICT'}`.\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "api-rejected-id-free",
+      "anchor": "API.md paragraph 3: \"A rejected request does not occupy its ID.\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "api-membership-codes",
+      "anchor": "API.md paragraph 4: \"`add` requires an owner never previously added\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "api-event-effects",
+      "anchor": "API.md paragraph 4: \"`discard` adds 2 capped at 6. `consume` sets that owner's balance to zero. `remove` deactivates it and erases its active balance.\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "api-limit-code",
+      "anchor": "API.md paragraph 4: \"A valid new event beyond 4096 returns `LIMIT`.\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "api-membership-before-limit",
+      "anchor": "API.md paragraph 4: \"Membership errors are checked before LIMIT.\"",
+      "status": "unasserted",
+      "note": "core.limit overflows with an active owner only (core_cases.lua:81-86); no request combines a membership error with a full history."
+    },
+    {
+      "id": "api-success-shape",
+      "anchor": "API.md paragraph 5: \"Success is `{ok=true, seq=<1-based accepted event index>, charge=<that owner's balance after event>, active=<boolean>}`\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "api-error-atomic",
+      "anchor": "API.md paragraph 5: \"Any error has only `ok` and `code`, and leaves the entire state unchanged.\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "api-view-format",
+      "anchor": "API.md paragraph 6: \"`view(state)` returns a detached `{seq=<accepted event count>, owners=[{id=...,charge=...},...]}` with active owners sorted lexicographically by ID.\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "api-view-pure",
+      "anchor": "API.md paragraph 6: \"Repeated reads are pure.\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "api-snapshot-format",
+      "anchor": "API.md paragraph 7: \"`snapshot(state)` returns a detached canonical `{version=1,events=[accepted distinct events in order]}`.\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "api-snapshot-history",
+      "anchor": "API.md paragraph 7: \"It includes full accepted history, including zero consumption, membership changes and replay identities.\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "api-no-aliases",
+      "anchor": "API.md paragraph 7: \"Inputs and returned views, snapshots and receipts must not be writable aliases of core state.\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "api-restore-replaces",
+      "anchor": "API.md paragraph 8: \"`restore(state,snapshot)` replaces the state atomically.\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "api-restore-shape",
+      "anchor": "API.md paragraph 8: \"Accept only a plain exact table with version and events, version exactly the integer 1, and a dense event array\"",
+      "status": "weak",
+      "note": "Extra key, sparse array, string version and version 2 are checked, and 0 and 4096 items are accepted. A metatable, a non-table argument and 4097 items are never submitted."
+    },
+    {
+      "id": "api-restore-legal-sequence",
+      "anchor": "API.md paragraph 8: \"Each event must have the exact valid form and be legal in sequence.\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "api-restore-no-repeats",
+      "anchor": "API.md paragraph 8: \"Repeated event IDs inside a snapshot, including identical repeats, are invalid\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "api-restore-receipts",
+      "anchor": "API.md paragraph 8: \"Reconstruct original receipt semantics from the history.\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "api-restore-codes",
+      "anchor": "API.md paragraph 8: \"A snapshot table with numeric version other than 1 returns `UNSUPPORTED_VERSION`; other invalid shapes/domain/history return `SNAPSHOT_INVALID`.\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "api-restore-failure-atomic",
+      "anchor": "API.md paragraph 8: \"On any failure preserve every part of the prior state, including event replay receipts.\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "api-restore-no-alias",
+      "anchor": "API.md paragraph 8: \"Importing must not retain aliases into the caller's snapshot.\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "api-native-operation-identity",
+      "anchor": "API.md paragraph 9: \"A discard has a stable per-round operation identity shared across that operation's instance callbacks; distinguish each owner's event.\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "api-native-score-read",
+      "anchor": "API.md paragraph 9: \"Main scoring reads that owner's live ledger balance; the real after-hand lifecycle applies its consume event only after participation.\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "api-native-counter-identity",
+      "anchor": "API.md paragraph 9: \"Preserve counter identity and the canonical snapshot across supported native saves.\"",
+      "status": "asserted",
+      "note": "Shown by new discard and hand events still applying after the zero checkpoint."
+    }
+  ],
+  "excluded_clauses": [
+    "recruit-capacity",
+    "preserve-callbacks",
+    "no-manual-callbacks",
+    "api-no-game-globals",
+    "api-identifier-domain",
+    "api-membership-before-limit"
+  ],
+  "known_issues": [
+    "Fixture trap: restored.unequal1.charge passes on the starter by coincidence. The starter maps restored balances by row into the sorted owner list (public/v02/durable-charge-v2/starter/adapter.lua:20-24), and at checkpoint unequal1 (benchmarks/balatro/private/native-v1/fixtures/tasks/durable_charge/v2/private/scenario.py:94-95) row order still equals sorted ID order. The row defect becomes visible only after the reorder at benchmarks/balatro/private/native-v1/fixtures/tasks/durable_charge/v2/private/scenario.py:96.",
+    "Fixture trap: restored.pair.consume and restored.cap.score (benchmarks/balatro/private/native-v1/fixtures/tasks/durable_charge/v2/private/scenario.py:99,105) assert the summed bonus of both instances, so a defect that swaps balances between instances still scores correctly; both pass on the starter. Per-instance attribution is asserted only by the balance cases.",
+    "Fixture trap: benchmarks/balatro/private/native-v1/fixtures/tasks/durable_charge/v2/private/scenario.py:46, :62 and :78 raise ProtocolError on a missing fresh identity or a mismatched save or load response, so a candidate whose persisted state breaks save or load ends as incomplete_execution with later cases not executed, not as a behavior mismatch."
+  ]
+}

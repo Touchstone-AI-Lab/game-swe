@@ -1,0 +1,35 @@
+{
+  "protocol": "v2",
+  "task": "reversible-hand-limit-v1",
+  "slot": "E2",
+  "target_difficulty": "easy",
+  "calibration_status": "unmeasured",
+  "calibration_model": null,
+  "calibration_evidence": [],
+  "formal_integration_status": "not_implemented",
+  "files": {
+    "CONTRACT.md": {
+      "size": 1654,
+      "sha256": "ede0b0ab912bdfb49088798255475046640b582f79fb5869b00f7b3c5e606fc1"
+    },
+    "README.md": {
+      "size": 1373,
+      "sha256": "62521eff01c1fa4aecc8b7a68225b9bace38e592b9e0a70ad384bd2e2bb1259d"
+    },
+    "starter/joker.lua": {
+      "size": 461,
+      "sha256": "4cb95095e53b8e803043716a738ad08027c93ab80ffb323e3828a9e23a9da4f7"
+    },
+    "starter/reversible_hand_limit.json": {
+      "size": 320,
+      "sha256": "1264fc29a23d780bd8b453d4544a73eebeecd3ea608b8a5709dbb62521562e98"
+    }
+  },
+  "content_sha256": "15b0c1e23da13e3bfab92f73e3dd5a1fbfe73cb7578830493f8e3c25601d1af4",
+  "editable_files": [
+    "starter/joker.lua"
+  ],
+  "immutable_files": [
+    "starter/reversible_hand_limit.json"
+  ]
+}

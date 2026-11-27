@@ -1,0 +1,14 @@
+{
+  "base": {
+    "Label": "base",
+    "Offset": { "X": 1, "Y": 2 }
+  },
+  "fieldObject": {
+    "Label": "field object",
+    "Offset": { "X": 1, "Y": 2 }
+  },
+  "fieldString": {
+    "Label": "field string",
+    "Offset": { "X": 1, "Y": 2 }
+  }
+}

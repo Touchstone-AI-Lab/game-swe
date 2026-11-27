@@ -1,0 +1,5 @@
+control	status	failing_cases	passed	failed	reward	processes	fatals	matches_prediction
+base	predicted	anamnesis_charge,anamnesis_charge_persistence,apocryphon_stats,birdbath_use_spawns,broken_glasses,cursed_metronome,deja_vu_split_guard,grid_worm,grid_worm_bounce,grid_worm_heading,grid_worm_heading_cross_axis,headcase_orphan_lob,lil_rune_algiz_rune,lil_rune_jera_health,lovely_fly_target,ominous_lantern_put_away,ritual_candle,ritual_candle_cadence	36		0			
+gold	predicted	-	54		1			
+base	measured	anamnesis_charge,anamnesis_charge_persistence,apocryphon_stats,birdbath_use_spawns,broken_glasses,cursed_metronome,deja_vu_split_guard,grid_worm,grid_worm_bounce,grid_worm_heading,grid_worm_heading_cross_axis,headcase_orphan_lob,lil_rune_algiz_rune,lil_rune_jera_health,lovely_fly_target,ominous_lantern_put_away,ritual_candle,ritual_candle_cadence	36	18	0	3/3	0	yes
+gold	measured	-	54	0	1	3/3	0	yes

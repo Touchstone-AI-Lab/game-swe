@@ -1,0 +1,17 @@
+{
+  "id": "poc_pc2_fixture",
+  "name": "Pack Choice Commit v2 private fixture",
+  "author": [
+    "Balatro PoC"
+  ],
+  "description": "Reviewed capability booster, initial fixture and passive native telemetry",
+  "prefix": "pc2f",
+  "main_file": "fixture.lua",
+  "version": "2.0.0",
+  "priority": 100006,
+  "dependencies": [
+    "Steamodded (>=1.~)",
+    "balatrobot",
+    "pack_choice_commit_v2"
+  ]
+}

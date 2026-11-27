@@ -1,0 +1,10 @@
+--- a/scripts/components/tradeescrow.lua
++++ b/scripts/components/tradeescrow.lua
+@@ -331,7 +331,6 @@
+     if type(data.clock) == "number" then
+         self.clock_offset = math.max(self.clock_offset, data.clock - GetTime())
+     end
+-    self:Recover()
+ end
+ 
+ function TradeEscrow:OnRemoveFromEntity()

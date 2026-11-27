@@ -1,0 +1,181 @@
+{
+  "task": "garrys-mod/addon-repairs/wiremod-e2-library-regressions",
+  "task_version": "1.0.0",
+  "exam": "benchmarks/gmod-addon-repairs/exams/wiremod-e2-library-regressions.md",
+  "cases": [
+    {
+      "id": "check:submission-shape",
+      "role": "static",
+      "clauses": [
+        "Notes-tests"
+      ],
+      "overlap": false,
+      "note": "Static preflight: the addon tree with lua/ exists, no symbolic links or native modules, no harness tokens outside verbatim upstream lines, no lua/gluatest or lua/tests."
+    },
+    {
+      "id": "case:sentinel: the addon and its script compiler are loaded",
+      "role": "runtime-sentinel",
+      "clauses": [],
+      "overlap": false,
+      "note": "Passes in the starter; only checks that the addon loaded."
+    },
+    {
+      "id": "case:A: clamping a vector clamps every component",
+      "role": "target",
+      "clauses": [
+        "[A]"
+      ],
+      "overlap": false,
+      "note": "Group A. Fails in the unchanged starter, passes with the reference."
+    },
+    {
+      "id": "case:B: converting a fractional number to another base drops the fraction",
+      "role": "target",
+      "clauses": [
+        "[B]"
+      ],
+      "overlap": false,
+      "note": "Group B. Fails in the unchanged starter, passes with the reference."
+    },
+    {
+      "id": "case:preserved: whole numbers still convert to other bases",
+      "role": "preserved",
+      "clauses": [
+        "Task-preserve",
+        "[B]"
+      ],
+      "overlap": true,
+      "note": "Passes in the unchanged starter. Report B: whole numbers convert exactly as before."
+    },
+    {
+      "id": "case:C: complex numbers with a zero part print cleanly",
+      "role": "target",
+      "clauses": [
+        "[C]"
+      ],
+      "overlap": false,
+      "note": "Group C. Fails in the unchanged starter, passes with the reference."
+    },
+    {
+      "id": "case:preserved: complex numbers with both parts print as before",
+      "role": "preserved",
+      "clauses": [
+        "Task-preserve",
+        "[C]"
+      ],
+      "overlap": true,
+      "note": "Passes in the unchanged starter. Report C: two non-zero parts print correctly."
+    },
+    {
+      "id": "case:D: an invalid character code yields an empty string",
+      "role": "target",
+      "clauses": [
+        "[D]"
+      ],
+      "overlap": false,
+      "note": "Group D. Fails in the unchanged starter, passes with the reference."
+    },
+    {
+      "id": "case:preserved: character codes in and out of range behave as before",
+      "role": "preserved",
+      "clauses": [
+        "Task-preserve",
+        "[D]"
+      ],
+      "overlap": true,
+      "note": "Passes in the unchanged starter. Report D: out-of-range codes are already handled (empty string)."
+    },
+    {
+      "id": "case:E: a table built in a loop starts out the same every time",
+      "role": "target",
+      "clauses": [
+        "[E]"
+      ],
+      "overlap": false,
+      "note": "Group E. Fails in the unchanged starter, passes with the reference."
+    },
+    {
+      "id": "case:F: searching an array finds values of every type",
+      "role": "target",
+      "clauses": [
+        "[F]"
+      ],
+      "overlap": false,
+      "note": "Group F. Fails in the unchanged starter, passes with the reference."
+    },
+    {
+      "id": "case:preserved: searching an array for numbers, strings and vectors",
+      "role": "preserved",
+      "clauses": [
+        "Task-preserve",
+        "[F]"
+      ],
+      "overlap": true,
+      "note": "Passes in the unchanged starter. Report F: numbers, strings, vectors and angles are found as expected."
+    }
+  ],
+  "clauses": [
+    {
+      "id": "[A]",
+      "anchor": "Problem, report [A]: clamp(vector, vector, vector) returns wrong X and Z components",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "[B]",
+      "anchor": "Problem, report [B]: toString(number, base) crashes on fractional numbers or bases",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "[C]",
+      "anchor": "Problem, report [C]: complex numbers with a zero part print wrongly",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "[D]",
+      "anchor": "Problem, report [D]: toChar / toUnicodeChar crash on NaN",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "[E]",
+      "anchor": "Problem, report [E]: table(...) evaluated repeatedly shares element types between instances",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "[F]",
+      "anchor": "Problem, report [F]: array:indexOf never finds table-backed types",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "Task-preserve",
+      "anchor": "What to do, Notes bullet 4: behaviour that already works must keep working.",
+      "status": "asserted",
+      "note": "Every preserved case passes on the unchanged starter (validation/README.md) and is kept by the reference."
+    },
+    {
+      "id": "Notes-causes",
+      "anchor": "What to do, Notes bullet 2: fix the causes; do not special-case the exact scenario in a report.",
+      "status": "unasserted",
+      "note": "No case distinguishes a root-cause fix from a special case beyond using inputs other than the ones the report quotes. Excluded: not observable by the suite."
+    },
+    {
+      "id": "Notes-tests",
+      "anchor": "What to do, Notes bullet 3: do not change anything under /tests and do not add test files to the addon.",
+      "status": "weak",
+      "note": "Process constraint. The nearest gate is the static preflight in check:submission-shape (plugins/garrys-mod/src/rhenium_garrys_mod/darkrp/evaluator.py: harness-token scan and the lua/gluatest, lua/tests rejection). Excluded from contract analysis."
+    }
+  ],
+  "excluded_clauses": [
+    "Notes-causes",
+    "Notes-tests"
+  ],
+  "known_issues": [
+    "All cases run E2 through E2Lib.compileScript (world owner, non-strict) and assert inside the program with E2's assert().",
+    "[F] uses distinct component values per typed element because indexOf compares table-backed values by content in the reference too."
+  ]
+}

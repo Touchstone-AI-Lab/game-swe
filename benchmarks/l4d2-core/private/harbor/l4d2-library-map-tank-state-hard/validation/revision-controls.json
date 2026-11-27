@@ -1,0 +1,1037 @@
+{
+  "scope": "2026-09-21 maintainer controls, not model calibration",
+  "records": [
+    {
+      "task": "l4d2-library-map-tank-state-hard",
+      "candidate": "gold",
+      "profile": "full",
+      "expected_full_cases": 44,
+      "complete_full_case_set": true,
+      "timed_out": false,
+      "group": null,
+      "exit_code": 0,
+      "component_hashes": {
+        "instruction.md": "f9cd7eebac093512257549ba0b37c619fa533f06b32b25a7a813e18b12df2f10",
+        "task.toml": "c2ff4e33d6a2f2a6edd99ddb2c090902f8052236981e1996d58bb92105f30f2a",
+        "environment": "5eaf3893d3966662dfb32be410ae4460698cd71f421087731f1b1ecead841f21",
+        "tests": "60122814ddeabf2cb58a4deee79e651c024715acf24bff7e174dfa035a8c33a5",
+        "solution": "b92da93ed3f67d08802cafd2a3781c2f37550010dd19b9dbf5e7218203a3ef56",
+        "validation/case-contracts.tsv": "4e3e68dc6ed64e1ca0c0ea705d442b94da440ec9de09146b4bce6dea153058e4"
+      },
+      "hash_algorithm": "sha256-relpath-nul-content-nul-posix-lexical-v1",
+      "contract": "7412c93117b955beb97b69de61bb4c1c51d5a9736b3c047776465ab88614f844",
+      "runtime_image_id": "sha256:af58da986d0f3187d359d86a45e405adc658f368e671ae8f3ae1deded0125dc1",
+      "source_hash": "797db099c1504606e19f75d3289e8252372961c85a38bf2cdf8aa60eff461a28",
+      "tests_hash": "60122814ddeabf2cb58a4deee79e651c024715acf24bff7e174dfa035a8c33a5",
+      "cases": [
+        {
+          "case": "reload-selects-current-map",
+          "status": "PASS",
+          "detail": "map view selected immediately"
+        },
+        {
+          "case": "reload-refreshes-geometry",
+          "status": "PASS",
+          "detail": "cached data agrees with new map"
+        },
+        {
+          "case": "nested-subsection-copied",
+          "status": "PASS",
+          "detail": "subsection children replace caller node children"
+        },
+        {
+          "case": "lookup-after-nested-copy",
+          "status": "PASS",
+          "detail": "cursor restored to current map"
+        },
+        {
+          "case": "missing-copy-does-not-mutate",
+          "status": "PASS",
+          "detail": "missing subsection no-op"
+        },
+        {
+          "case": "string-capacity-includes-nul",
+          "status": "PASS",
+          "detail": "sentinel after declared capacity"
+        },
+        {
+          "case": "string-zero-capacity",
+          "status": "PASS",
+          "detail": "no output write"
+        },
+        {
+          "case": "string-one-capacity",
+          "status": "PASS",
+          "detail": "only terminator"
+        },
+        {
+          "case": "vector-default-preserved",
+          "status": "PASS",
+          "detail": "default unchanged"
+        },
+        {
+          "case": "scalar-key-defaults",
+          "status": "PASS",
+          "detail": "explicit defaults"
+        },
+        {
+          "case": "saferoom-inclusive-overlap",
+          "status": "PASS",
+          "detail": "boundary belongs to both rooms"
+        },
+        {
+          "case": "saferoom-outside",
+          "status": "PASS",
+          "detail": "outside both spheres"
+        },
+        {
+          "case": "saferoom-invalid-safe",
+          "status": "PASS",
+          "detail": "invalid indices never throw"
+        },
+        {
+          "case": "reload-replaces-values",
+          "status": "PASS",
+          "detail": "new valid image"
+        },
+        {
+          "case": "failed-reload-keeps-image",
+          "status": "PASS",
+          "detail": "failed parse preserves prior image"
+        },
+        {
+          "case": "missing-reload-valid-baseline",
+          "status": "PASS",
+          "detail": "fresh valid image before missing-file reload"
+        },
+        {
+          "case": "missing-reload-keeps-image",
+          "status": "PASS",
+          "detail": "missing file preserves prior image"
+        },
+        {
+          "case": "valid-missing-map-unavailable",
+          "status": "PASS",
+          "detail": "valid replacement deliberately removes current map"
+        },
+        {
+          "case": "missing-map-no-root-leak",
+          "status": "PASS",
+          "detail": "root answer 900 is not map data"
+        },
+        {
+          "case": "missing-map-float-default",
+          "status": "PASS",
+          "detail": "no stale float"
+        },
+        {
+          "case": "missing-map-string-default",
+          "status": "PASS",
+          "detail": "no stale string"
+        },
+        {
+          "case": "missing-map-vector-default",
+          "status": "PASS",
+          "detail": "no stale vector"
+        },
+        {
+          "case": "missing-map-clears-end",
+          "status": "PASS",
+          "detail": "end room disabled"
+        },
+        {
+          "case": "spawn-rejects-nontanks",
+          "status": "PASS",
+          "detail": "invalid userid, survivor and hunter rejected"
+        },
+        {
+          "case": "spawn-exactly-once",
+          "status": "PASS",
+          "detail": "one first-spawn transition"
+        },
+        {
+          "case": "same-owner-pickup-ignored",
+          "status": "PASS",
+          "detail": "duplicate is not a handoff"
+        },
+        {
+          "case": "pickup-rejects-unrelated",
+          "status": "PASS",
+          "detail": "survivor and unrelated item"
+        },
+        {
+          "case": "handoff-first-count",
+          "status": "PASS",
+          "detail": "published zero-based count and owners"
+        },
+        {
+          "case": "duplicate-handoff-no-count",
+          "status": "PASS",
+          "detail": "duplicate owner does not advance count"
+        },
+        {
+          "case": "nonowner-death-ignored",
+          "status": "PASS",
+          "detail": "non-owner cannot close encounter"
+        },
+        {
+          "case": "duplicate-death-once",
+          "status": "PASS",
+          "detail": "duplicate death only one notification; same-owner pickup does not cancel"
+        },
+        {
+          "case": "new-encounter-after-death",
+          "status": "PASS",
+          "detail": "completed death retires ownership"
+        },
+        {
+          "case": "new-encounter-count-reset",
+          "status": "PASS",
+          "detail": "first pass in next encounter"
+        },
+        {
+          "case": "handoff-cancels-death",
+          "status": "PASS",
+          "detail": "owner and pass count survive old grace timer"
+        },
+        {
+          "case": "round-cancels-old-death",
+          "status": "PASS",
+          "detail": "old timer does not touch fresh encounter"
+        },
+        {
+          "case": "nested-handoff-count-committed",
+          "status": "PASS",
+          "detail": "observer sees next committed count"
+        },
+        {
+          "case": "nested-handoff-owner-committed",
+          "status": "PASS",
+          "detail": "nested transfer starts at committed owner"
+        },
+        {
+          "case": "nested-state-survives-return",
+          "status": "PASS",
+          "detail": "outer callback cannot roll back nested owner/count"
+        },
+        {
+          "case": "death-forward-can-start-next",
+          "status": "PASS",
+          "detail": "state retired before observer spawns next Tank"
+        },
+        {
+          "case": "death-reentrant-state-survives",
+          "status": "PASS",
+          "detail": "new encounter survives old callback return"
+        },
+        {
+          "case": "connection-slot-reused-fixture",
+          "status": "PASS",
+          "detail": "exercise actual index reuse"
+        },
+        {
+          "case": "reused-slot-starts-new-encounter",
+          "status": "PASS",
+          "detail": "new connection gets first spawn"
+        },
+        {
+          "case": "disconnect-cancels-pending-death",
+          "status": "PASS",
+          "detail": "old connection cannot emit death for replacement"
+        },
+        {
+          "case": "unrelated-disconnect-preserves-owner",
+          "status": "PASS",
+          "detail": "duplicate new owner spawn still ignored"
+        }
+      ],
+      "passed": 44,
+      "total": 44,
+      "verifier_log_sha256": "c434b184504d2017dc08147f2662c9d34a047b194fe6fc767325ed55a4c24af8",
+      "logs_copied": true,
+      "server_log_hashes": {
+        "server-map.log": "84775053ca1968f4ec8547c9ea88a35b0e6e02570c6966d2fcec25caa7d4c5fa",
+        "server-tank.log": "f2fbbce7402dd5a624e4d51637b106355b610558f27113a29cc4758c8d21273a"
+      },
+      "retained_server_log_hashes_verified": true,
+      "evidence_directory": "l4d2-library-map-tank-state-hard-gold-1789960321575281900",
+      "expected_outcome_confirmed": true,
+      "expected_cases_in_selected_scope": 44,
+      "emitted_exact_verdict_count": true
+    },
+    {
+      "task": "l4d2-library-map-tank-state-hard",
+      "candidate": "nop",
+      "profile": "full",
+      "expected_full_cases": 44,
+      "complete_full_case_set": true,
+      "timed_out": false,
+      "group": null,
+      "exit_code": 1,
+      "component_hashes": {
+        "instruction.md": "f9cd7eebac093512257549ba0b37c619fa533f06b32b25a7a813e18b12df2f10",
+        "task.toml": "c2ff4e33d6a2f2a6edd99ddb2c090902f8052236981e1996d58bb92105f30f2a",
+        "environment": "5eaf3893d3966662dfb32be410ae4460698cd71f421087731f1b1ecead841f21",
+        "tests": "60122814ddeabf2cb58a4deee79e651c024715acf24bff7e174dfa035a8c33a5",
+        "solution": "b92da93ed3f67d08802cafd2a3781c2f37550010dd19b9dbf5e7218203a3ef56",
+        "validation/case-contracts.tsv": "4e3e68dc6ed64e1ca0c0ea705d442b94da440ec9de09146b4bce6dea153058e4"
+      },
+      "hash_algorithm": "sha256-relpath-nul-content-nul-posix-lexical-v1",
+      "contract": "7412c93117b955beb97b69de61bb4c1c51d5a9736b3c047776465ab88614f844",
+      "runtime_image_id": "sha256:af58da986d0f3187d359d86a45e405adc658f368e671ae8f3ae1deded0125dc1",
+      "source_hash": "fbe0b7ddfa931b014872072b184aaa1ec96b9457e556e26d64552129df179074",
+      "tests_hash": "60122814ddeabf2cb58a4deee79e651c024715acf24bff7e174dfa035a8c33a5",
+      "cases": [
+        {
+          "case": "reload-selects-current-map",
+          "status": "FAIL",
+          "detail": "with error:"
+        },
+        {
+          "case": "reload-refreshes-geometry",
+          "status": "FAIL",
+          "detail": "with error:"
+        },
+        {
+          "case": "nested-subsection-copied",
+          "status": "FAIL",
+          "detail": "with error:"
+        },
+        {
+          "case": "lookup-after-nested-copy",
+          "status": "FAIL",
+          "detail": "with error:"
+        },
+        {
+          "case": "missing-copy-does-not-mutate",
+          "status": "FAIL",
+          "detail": "with error:"
+        },
+        {
+          "case": "string-capacity-includes-nul",
+          "status": "FAIL",
+          "detail": "with error:"
+        },
+        {
+          "case": "string-zero-capacity",
+          "status": "FAIL",
+          "detail": "with error:"
+        },
+        {
+          "case": "string-one-capacity",
+          "status": "FAIL",
+          "detail": "with error:"
+        },
+        {
+          "case": "vector-default-preserved",
+          "status": "FAIL",
+          "detail": "with error:"
+        },
+        {
+          "case": "scalar-key-defaults",
+          "status": "FAIL",
+          "detail": "with error:"
+        },
+        {
+          "case": "saferoom-inclusive-overlap",
+          "status": "FAIL",
+          "detail": "with error:"
+        },
+        {
+          "case": "saferoom-outside",
+          "status": "FAIL",
+          "detail": "with error:"
+        },
+        {
+          "case": "saferoom-invalid-safe",
+          "status": "FAIL",
+          "detail": "with error:"
+        },
+        {
+          "case": "reload-replaces-values",
+          "status": "FAIL",
+          "detail": "with error:"
+        },
+        {
+          "case": "failed-reload-keeps-image",
+          "status": "FAIL",
+          "detail": "with error:"
+        },
+        {
+          "case": "missing-reload-valid-baseline",
+          "status": "FAIL",
+          "detail": "with error:"
+        },
+        {
+          "case": "missing-reload-keeps-image",
+          "status": "FAIL",
+          "detail": "with error:"
+        },
+        {
+          "case": "valid-missing-map-unavailable",
+          "status": "FAIL",
+          "detail": "with error:"
+        },
+        {
+          "case": "missing-map-no-root-leak",
+          "status": "FAIL",
+          "detail": "with error:"
+        },
+        {
+          "case": "missing-map-float-default",
+          "status": "FAIL",
+          "detail": "with error:"
+        },
+        {
+          "case": "missing-map-string-default",
+          "status": "FAIL",
+          "detail": "with error:"
+        },
+        {
+          "case": "missing-map-vector-default",
+          "status": "FAIL",
+          "detail": "with error:"
+        },
+        {
+          "case": "missing-map-clears-end",
+          "status": "FAIL",
+          "detail": "with error:"
+        },
+        {
+          "case": "spawn-rejects-nontanks",
+          "status": "FAIL",
+          "detail": "Invalid counterterrorist spawnpoint at (2303.4,2816.0,2816.0)"
+        },
+        {
+          "case": "spawn-exactly-once",
+          "status": "FAIL",
+          "detail": "Invalid counterterrorist spawnpoint at (2303.4,2816.0,2816.0)"
+        },
+        {
+          "case": "same-owner-pickup-ignored",
+          "status": "FAIL",
+          "detail": "Invalid counterterrorist spawnpoint at (2303.4,2816.0,2816.0)"
+        },
+        {
+          "case": "pickup-rejects-unrelated",
+          "status": "FAIL",
+          "detail": "Invalid counterterrorist spawnpoint at (2303.4,2816.0,2816.0)"
+        },
+        {
+          "case": "handoff-first-count",
+          "status": "FAIL",
+          "detail": "Invalid counterterrorist spawnpoint at (2303.4,2816.0,2816.0)"
+        },
+        {
+          "case": "duplicate-handoff-no-count",
+          "status": "FAIL",
+          "detail": "Invalid counterterrorist spawnpoint at (2303.4,2816.0,2816.0)"
+        },
+        {
+          "case": "nonowner-death-ignored",
+          "status": "FAIL",
+          "detail": "Invalid counterterrorist spawnpoint at (2303.4,2816.0,2816.0)"
+        },
+        {
+          "case": "duplicate-death-once",
+          "status": "FAIL",
+          "detail": "Invalid counterterrorist spawnpoint at (2303.4,2816.0,2816.0)"
+        },
+        {
+          "case": "new-encounter-after-death",
+          "status": "FAIL",
+          "detail": "Invalid counterterrorist spawnpoint at (2303.4,2816.0,2816.0)"
+        },
+        {
+          "case": "new-encounter-count-reset",
+          "status": "FAIL",
+          "detail": "Invalid counterterrorist spawnpoint at (2303.4,2816.0,2816.0)"
+        },
+        {
+          "case": "handoff-cancels-death",
+          "status": "FAIL",
+          "detail": "Invalid counterterrorist spawnpoint at (2303.4,2816.0,2816.0)"
+        },
+        {
+          "case": "round-cancels-old-death",
+          "status": "FAIL",
+          "detail": "Invalid counterterrorist spawnpoint at (2303.4,2816.0,2816.0)"
+        },
+        {
+          "case": "nested-handoff-count-committed",
+          "status": "FAIL",
+          "detail": "Invalid counterterrorist spawnpoint at (2303.4,2816.0,2816.0)"
+        },
+        {
+          "case": "nested-handoff-owner-committed",
+          "status": "FAIL",
+          "detail": "Invalid counterterrorist spawnpoint at (2303.4,2816.0,2816.0)"
+        },
+        {
+          "case": "nested-state-survives-return",
+          "status": "FAIL",
+          "detail": "Invalid counterterrorist spawnpoint at (2303.4,2816.0,2816.0)"
+        },
+        {
+          "case": "death-forward-can-start-next",
+          "status": "FAIL",
+          "detail": "Invalid counterterrorist spawnpoint at (2303.4,2816.0,2816.0)"
+        },
+        {
+          "case": "death-reentrant-state-survives",
+          "status": "FAIL",
+          "detail": "Invalid counterterrorist spawnpoint at (2303.4,2816.0,2816.0)"
+        },
+        {
+          "case": "connection-slot-reused-fixture",
+          "status": "FAIL",
+          "detail": "Invalid counterterrorist spawnpoint at (2303.4,2816.0,2816.0)"
+        },
+        {
+          "case": "reused-slot-starts-new-encounter",
+          "status": "FAIL",
+          "detail": "Invalid counterterrorist spawnpoint at (2303.4,2816.0,2816.0)"
+        },
+        {
+          "case": "disconnect-cancels-pending-death",
+          "status": "FAIL",
+          "detail": "Invalid counterterrorist spawnpoint at (2303.4,2816.0,2816.0)"
+        },
+        {
+          "case": "unrelated-disconnect-preserves-owner",
+          "status": "FAIL",
+          "detail": "Invalid counterterrorist spawnpoint at (2303.4,2816.0,2816.0)"
+        }
+      ],
+      "passed": 0,
+      "total": 44,
+      "verifier_log_sha256": "84b1b415023a171a169fade0fdd26b0c7c25f35be2dff034801fd1ca0011c021",
+      "logs_copied": true,
+      "server_log_hashes": {
+        "server-map.log": "e31049ffcd6839f0ed99fd8353afe9d06c00667c375a4e007550fe2c0e0f3721",
+        "server-tank.log": "86125097b940ec77daa4803f1ceb1fb65b2ebe05b503da978cc296f2a646f1f1"
+      },
+      "retained_server_log_hashes_verified": true,
+      "evidence_directory": "l4d2-library-map-tank-state-hard-nop-1789960390659269800",
+      "expected_outcome_confirmed": true,
+      "expected_cases_in_selected_scope": 44,
+      "emitted_exact_verdict_count": true
+    },
+    {
+      "task": "l4d2-library-map-tank-state-hard",
+      "candidate": "alternative",
+      "profile": "full",
+      "expected_full_cases": 44,
+      "complete_full_case_set": true,
+      "timed_out": false,
+      "group": null,
+      "exit_code": 0,
+      "component_hashes": {
+        "instruction.md": "f9cd7eebac093512257549ba0b37c619fa533f06b32b25a7a813e18b12df2f10",
+        "task.toml": "c2ff4e33d6a2f2a6edd99ddb2c090902f8052236981e1996d58bb92105f30f2a",
+        "environment": "5eaf3893d3966662dfb32be410ae4460698cd71f421087731f1b1ecead841f21",
+        "tests": "60122814ddeabf2cb58a4deee79e651c024715acf24bff7e174dfa035a8c33a5",
+        "solution": "b92da93ed3f67d08802cafd2a3781c2f37550010dd19b9dbf5e7218203a3ef56",
+        "validation/case-contracts.tsv": "4e3e68dc6ed64e1ca0c0ea705d442b94da440ec9de09146b4bce6dea153058e4"
+      },
+      "hash_algorithm": "sha256-relpath-nul-content-nul-posix-lexical-v1",
+      "contract": "7412c93117b955beb97b69de61bb4c1c51d5a9736b3c047776465ab88614f844",
+      "runtime_image_id": "sha256:af58da986d0f3187d359d86a45e405adc658f368e671ae8f3ae1deded0125dc1",
+      "source_hash": "547b0459c8080361ef6bc1d02adc0d74a45f45ee679e8f2cf9ef55a4dce1f6dc",
+      "tests_hash": "60122814ddeabf2cb58a4deee79e651c024715acf24bff7e174dfa035a8c33a5",
+      "cases": [
+        {
+          "case": "reload-selects-current-map",
+          "status": "PASS",
+          "detail": "map view selected immediately"
+        },
+        {
+          "case": "reload-refreshes-geometry",
+          "status": "PASS",
+          "detail": "cached data agrees with new map"
+        },
+        {
+          "case": "nested-subsection-copied",
+          "status": "PASS",
+          "detail": "subsection children replace caller node children"
+        },
+        {
+          "case": "lookup-after-nested-copy",
+          "status": "PASS",
+          "detail": "cursor restored to current map"
+        },
+        {
+          "case": "missing-copy-does-not-mutate",
+          "status": "PASS",
+          "detail": "missing subsection no-op"
+        },
+        {
+          "case": "string-capacity-includes-nul",
+          "status": "PASS",
+          "detail": "sentinel after declared capacity"
+        },
+        {
+          "case": "string-zero-capacity",
+          "status": "PASS",
+          "detail": "no output write"
+        },
+        {
+          "case": "string-one-capacity",
+          "status": "PASS",
+          "detail": "only terminator"
+        },
+        {
+          "case": "vector-default-preserved",
+          "status": "PASS",
+          "detail": "default unchanged"
+        },
+        {
+          "case": "scalar-key-defaults",
+          "status": "PASS",
+          "detail": "explicit defaults"
+        },
+        {
+          "case": "saferoom-inclusive-overlap",
+          "status": "PASS",
+          "detail": "boundary belongs to both rooms"
+        },
+        {
+          "case": "saferoom-outside",
+          "status": "PASS",
+          "detail": "outside both spheres"
+        },
+        {
+          "case": "saferoom-invalid-safe",
+          "status": "PASS",
+          "detail": "invalid indices never throw"
+        },
+        {
+          "case": "reload-replaces-values",
+          "status": "PASS",
+          "detail": "new valid image"
+        },
+        {
+          "case": "failed-reload-keeps-image",
+          "status": "PASS",
+          "detail": "failed parse preserves prior image"
+        },
+        {
+          "case": "missing-reload-valid-baseline",
+          "status": "PASS",
+          "detail": "fresh valid image before missing-file reload"
+        },
+        {
+          "case": "missing-reload-keeps-image",
+          "status": "PASS",
+          "detail": "missing file preserves prior image"
+        },
+        {
+          "case": "valid-missing-map-unavailable",
+          "status": "PASS",
+          "detail": "valid replacement deliberately removes current map"
+        },
+        {
+          "case": "missing-map-no-root-leak",
+          "status": "PASS",
+          "detail": "root answer 900 is not map data"
+        },
+        {
+          "case": "missing-map-float-default",
+          "status": "PASS",
+          "detail": "no stale float"
+        },
+        {
+          "case": "missing-map-string-default",
+          "status": "PASS",
+          "detail": "no stale string"
+        },
+        {
+          "case": "missing-map-vector-default",
+          "status": "PASS",
+          "detail": "no stale vector"
+        },
+        {
+          "case": "missing-map-clears-end",
+          "status": "PASS",
+          "detail": "end room disabled"
+        },
+        {
+          "case": "spawn-rejects-nontanks",
+          "status": "PASS",
+          "detail": "invalid userid, survivor and hunter rejected"
+        },
+        {
+          "case": "spawn-exactly-once",
+          "status": "PASS",
+          "detail": "one first-spawn transition"
+        },
+        {
+          "case": "same-owner-pickup-ignored",
+          "status": "PASS",
+          "detail": "duplicate is not a handoff"
+        },
+        {
+          "case": "pickup-rejects-unrelated",
+          "status": "PASS",
+          "detail": "survivor and unrelated item"
+        },
+        {
+          "case": "handoff-first-count",
+          "status": "PASS",
+          "detail": "published zero-based count and owners"
+        },
+        {
+          "case": "duplicate-handoff-no-count",
+          "status": "PASS",
+          "detail": "duplicate owner does not advance count"
+        },
+        {
+          "case": "nonowner-death-ignored",
+          "status": "PASS",
+          "detail": "non-owner cannot close encounter"
+        },
+        {
+          "case": "duplicate-death-once",
+          "status": "PASS",
+          "detail": "duplicate death only one notification; same-owner pickup does not cancel"
+        },
+        {
+          "case": "new-encounter-after-death",
+          "status": "PASS",
+          "detail": "completed death retires ownership"
+        },
+        {
+          "case": "new-encounter-count-reset",
+          "status": "PASS",
+          "detail": "first pass in next encounter"
+        },
+        {
+          "case": "handoff-cancels-death",
+          "status": "PASS",
+          "detail": "owner and pass count survive old grace timer"
+        },
+        {
+          "case": "round-cancels-old-death",
+          "status": "PASS",
+          "detail": "old timer does not touch fresh encounter"
+        },
+        {
+          "case": "nested-handoff-count-committed",
+          "status": "PASS",
+          "detail": "observer sees next committed count"
+        },
+        {
+          "case": "nested-handoff-owner-committed",
+          "status": "PASS",
+          "detail": "nested transfer starts at committed owner"
+        },
+        {
+          "case": "nested-state-survives-return",
+          "status": "PASS",
+          "detail": "outer callback cannot roll back nested owner/count"
+        },
+        {
+          "case": "death-forward-can-start-next",
+          "status": "PASS",
+          "detail": "state retired before observer spawns next Tank"
+        },
+        {
+          "case": "death-reentrant-state-survives",
+          "status": "PASS",
+          "detail": "new encounter survives old callback return"
+        },
+        {
+          "case": "connection-slot-reused-fixture",
+          "status": "PASS",
+          "detail": "exercise actual index reuse"
+        },
+        {
+          "case": "reused-slot-starts-new-encounter",
+          "status": "PASS",
+          "detail": "new connection gets first spawn"
+        },
+        {
+          "case": "disconnect-cancels-pending-death",
+          "status": "PASS",
+          "detail": "old connection cannot emit death for replacement"
+        },
+        {
+          "case": "unrelated-disconnect-preserves-owner",
+          "status": "PASS",
+          "detail": "duplicate new owner spawn still ignored"
+        }
+      ],
+      "passed": 44,
+      "total": 44,
+      "verifier_log_sha256": "f7be61701eee5f665b5cc48dcf6447d0fa543cab17578bdbdf03920b7b844635",
+      "logs_copied": true,
+      "server_log_hashes": {
+        "server-map.log": "24f993019ff1858b14d73c498d26fe7d998aa3e667898f35d3ce05f598c91495",
+        "server-tank.log": "253fc0efca030a1f48dcec3f74f9b50517f9a4e7c4784caac9182d5060d7e0ee"
+      },
+      "retained_server_log_hashes_verified": true,
+      "evidence_directory": "l4d2-library-map-tank-state-hard-alternative-1789960497281346300",
+      "expected_outcome_confirmed": true,
+      "expected_cases_in_selected_scope": 44,
+      "emitted_exact_verdict_count": true
+    },
+    {
+      "task": "l4d2-library-map-tank-state-hard",
+      "candidate": "minus-syntax-validation",
+      "profile": "full",
+      "expected_full_cases": 44,
+      "complete_full_case_set": true,
+      "timed_out": false,
+      "group": null,
+      "exit_code": 1,
+      "component_hashes": {
+        "instruction.md": "f9cd7eebac093512257549ba0b37c619fa533f06b32b25a7a813e18b12df2f10",
+        "task.toml": "c2ff4e33d6a2f2a6edd99ddb2c090902f8052236981e1996d58bb92105f30f2a",
+        "environment": "5eaf3893d3966662dfb32be410ae4460698cd71f421087731f1b1ecead841f21",
+        "tests": "60122814ddeabf2cb58a4deee79e651c024715acf24bff7e174dfa035a8c33a5",
+        "solution": "b92da93ed3f67d08802cafd2a3781c2f37550010dd19b9dbf5e7218203a3ef56",
+        "validation/case-contracts.tsv": "4e3e68dc6ed64e1ca0c0ea705d442b94da440ec9de09146b4bce6dea153058e4"
+      },
+      "hash_algorithm": "sha256-relpath-nul-content-nul-posix-lexical-v1",
+      "contract": "7412c93117b955beb97b69de61bb4c1c51d5a9736b3c047776465ab88614f844",
+      "runtime_image_id": "sha256:af58da986d0f3187d359d86a45e405adc658f368e671ae8f3ae1deded0125dc1",
+      "source_hash": "c1ae6db3c18b541253c51a22150dfe6047c05ded2b82ce5a5cacf16394227a70",
+      "tests_hash": "60122814ddeabf2cb58a4deee79e651c024715acf24bff7e174dfa035a8c33a5",
+      "cases": [
+        {
+          "case": "reload-selects-current-map",
+          "status": "PASS",
+          "detail": "map view selected immediately"
+        },
+        {
+          "case": "reload-refreshes-geometry",
+          "status": "PASS",
+          "detail": "cached data agrees with new map"
+        },
+        {
+          "case": "nested-subsection-copied",
+          "status": "PASS",
+          "detail": "subsection children replace caller node children"
+        },
+        {
+          "case": "lookup-after-nested-copy",
+          "status": "PASS",
+          "detail": "cursor restored to current map"
+        },
+        {
+          "case": "missing-copy-does-not-mutate",
+          "status": "PASS",
+          "detail": "missing subsection no-op"
+        },
+        {
+          "case": "string-capacity-includes-nul",
+          "status": "PASS",
+          "detail": "sentinel after declared capacity"
+        },
+        {
+          "case": "string-zero-capacity",
+          "status": "PASS",
+          "detail": "no output write"
+        },
+        {
+          "case": "string-one-capacity",
+          "status": "PASS",
+          "detail": "only terminator"
+        },
+        {
+          "case": "vector-default-preserved",
+          "status": "PASS",
+          "detail": "default unchanged"
+        },
+        {
+          "case": "scalar-key-defaults",
+          "status": "PASS",
+          "detail": "explicit defaults"
+        },
+        {
+          "case": "saferoom-inclusive-overlap",
+          "status": "PASS",
+          "detail": "boundary belongs to both rooms"
+        },
+        {
+          "case": "saferoom-outside",
+          "status": "PASS",
+          "detail": "outside both spheres"
+        },
+        {
+          "case": "saferoom-invalid-safe",
+          "status": "PASS",
+          "detail": "invalid indices never throw"
+        },
+        {
+          "case": "reload-replaces-values",
+          "status": "PASS",
+          "detail": "new valid image"
+        },
+        {
+          "case": "failed-reload-keeps-image",
+          "status": "FAIL",
+          "detail": "failed parse preserves prior image"
+        },
+        {
+          "case": "missing-reload-valid-baseline",
+          "status": "PASS",
+          "detail": "fresh valid image before missing-file reload"
+        },
+        {
+          "case": "missing-reload-keeps-image",
+          "status": "PASS",
+          "detail": "missing file preserves prior image"
+        },
+        {
+          "case": "valid-missing-map-unavailable",
+          "status": "PASS",
+          "detail": "valid replacement deliberately removes current map"
+        },
+        {
+          "case": "missing-map-no-root-leak",
+          "status": "PASS",
+          "detail": "root answer 900 is not map data"
+        },
+        {
+          "case": "missing-map-float-default",
+          "status": "PASS",
+          "detail": "no stale float"
+        },
+        {
+          "case": "missing-map-string-default",
+          "status": "PASS",
+          "detail": "no stale string"
+        },
+        {
+          "case": "missing-map-vector-default",
+          "status": "PASS",
+          "detail": "no stale vector"
+        },
+        {
+          "case": "missing-map-clears-end",
+          "status": "PASS",
+          "detail": "end room disabled"
+        },
+        {
+          "case": "spawn-rejects-nontanks",
+          "status": "PASS",
+          "detail": "invalid userid, survivor and hunter rejected"
+        },
+        {
+          "case": "spawn-exactly-once",
+          "status": "PASS",
+          "detail": "one first-spawn transition"
+        },
+        {
+          "case": "same-owner-pickup-ignored",
+          "status": "PASS",
+          "detail": "duplicate is not a handoff"
+        },
+        {
+          "case": "pickup-rejects-unrelated",
+          "status": "PASS",
+          "detail": "survivor and unrelated item"
+        },
+        {
+          "case": "handoff-first-count",
+          "status": "PASS",
+          "detail": "published zero-based count and owners"
+        },
+        {
+          "case": "duplicate-handoff-no-count",
+          "status": "PASS",
+          "detail": "duplicate owner does not advance count"
+        },
+        {
+          "case": "nonowner-death-ignored",
+          "status": "PASS",
+          "detail": "non-owner cannot close encounter"
+        },
+        {
+          "case": "duplicate-death-once",
+          "status": "PASS",
+          "detail": "duplicate death only one notification; same-owner pickup does not cancel"
+        },
+        {
+          "case": "new-encounter-after-death",
+          "status": "PASS",
+          "detail": "completed death retires ownership"
+        },
+        {
+          "case": "new-encounter-count-reset",
+          "status": "PASS",
+          "detail": "first pass in next encounter"
+        },
+        {
+          "case": "handoff-cancels-death",
+          "status": "PASS",
+          "detail": "owner and pass count survive old grace timer"
+        },
+        {
+          "case": "round-cancels-old-death",
+          "status": "PASS",
+          "detail": "old timer does not touch fresh encounter"
+        },
+        {
+          "case": "nested-handoff-count-committed",
+          "status": "PASS",
+          "detail": "observer sees next committed count"
+        },
+        {
+          "case": "nested-handoff-owner-committed",
+          "status": "PASS",
+          "detail": "nested transfer starts at committed owner"
+        },
+        {
+          "case": "nested-state-survives-return",
+          "status": "PASS",
+          "detail": "outer callback cannot roll back nested owner/count"
+        },
+        {
+          "case": "death-forward-can-start-next",
+          "status": "PASS",
+          "detail": "state retired before observer spawns next Tank"
+        },
+        {
+          "case": "death-reentrant-state-survives",
+          "status": "PASS",
+          "detail": "new encounter survives old callback return"
+        },
+        {
+          "case": "connection-slot-reused-fixture",
+          "status": "PASS",
+          "detail": "exercise actual index reuse"
+        },
+        {
+          "case": "reused-slot-starts-new-encounter",
+          "status": "PASS",
+          "detail": "new connection gets first spawn"
+        },
+        {
+          "case": "disconnect-cancels-pending-death",
+          "status": "PASS",
+          "detail": "old connection cannot emit death for replacement"
+        },
+        {
+          "case": "unrelated-disconnect-preserves-owner",
+          "status": "PASS",
+          "detail": "duplicate new owner spawn still ignored"
+        }
+      ],
+      "passed": 43,
+      "total": 44,
+      "verifier_log_sha256": "d2a9c43c9c3ea4e5be3694151016a21bebc9a04dd6e5e6ba2346171d72114ded",
+      "logs_copied": true,
+      "server_log_hashes": {
+        "server-map.log": "43ef723b41f159950da85c69c983994b5c27462a81eeb9d181f4e62a11ac7602",
+        "server-tank.log": "f093cdf5a0ddb4cfda02ea24321f5bb080589ee4d0a773786ef09850f363bc5f"
+      },
+      "retained_server_log_hashes_verified": true,
+      "evidence_directory": "l4d2-library-map-tank-state-hard-minus-syntax-validation-1789960555283472100",
+      "expected_outcome_confirmed": true,
+      "expected_cases_in_selected_scope": 44,
+      "emitted_exact_verdict_count": true
+    }
+  ]
+}

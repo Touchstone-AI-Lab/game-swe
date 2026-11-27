@@ -1,0 +1,9 @@
+control	kind	base	overlay	root	note
+tn-211-minifridge	target-negative	reference	patch:tn-211-minifridge.patch	StardewMods	reference with only the #211 fix reverted
+tn-213-api-initial-scan	target-negative	reference	patch:tn-213-api-initial-scan.patch	StardewMods	reference with only the #213 fix reverted
+tn-216-zero-size-output	target-negative	reference	patch:tn-216-zero-size-output.patch	StardewMods	reference with only the #216 fix reverted
+tn-218-hut-seeds	target-negative	reference	patch:tn-218-hut-seeds.patch	StardewMods	reference with only the #218 fix reverted
+tn-221-222-location-identity	target-negative	reference	patch:tn-221-222-location-identity.patch	StardewMods	reference with both halves of the location-key pair reverted (#221/#222)
+tn-221-222-half-fix-key-only	target-negative	reference	patch:tn-221-222-half-fix-key-only.patch	StardewMods	half fix: the location key is unique but GameLocationNameComparer still compares the bare Name
+cn-hut-gems-follow-seed-option	compat-negative	reference	patch:cn-hut-gems-follow-seed-option.patch	StardewMods	every report fixed, but the gem behaviour is read from the seed option, so gems stay in the hut under the test config
+alternative	alternative	starter	patch:alternative.patch	StardewMods	independent repair of every report including the unscored #224; one shared location identity helper instead of two edits

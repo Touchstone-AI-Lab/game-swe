@@ -1,0 +1,13 @@
+--- a/core/src/mindustry/logic/LExecutor.java
++++ b/core/src/mindustry/logic/LExecutor.java
+@@ -716,8 +716,8 @@
+                 }
+             }
+ 
+-            //unrecognized or unhandled property
+-            to.setobj(null);
++            //a missing property clears the result
++            if(sense == null) to.setobj(null);
+         }
+     }
+ 

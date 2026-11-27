@@ -1,0 +1,17 @@
+--- a/scripts/fuelration/allocator.lua
++++ b/scripts/fuelration/allocator.lua
+@@ -110,13 +110,13 @@
+     if problem ~= nil then
+         return fail(problem)
+     end
++    self:_advance(now)
+     if not is_id(request_id) or not is_id(player_id) then
+         return fail("invalid_id")
+     end
+     if not is_integer(units, 1) then
+         return fail("invalid_units")
+     end
+-    self:_advance(now)
+     units = math.floor(units)
+ 
+     local history = self.requests[player_id]

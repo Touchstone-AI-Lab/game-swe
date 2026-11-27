@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="../tModLoader.targets" />
+  <PropertyGroup>
+    <AssemblyName>GcbImproveGameSpaceWand</AssemblyName>
+    <LangVersion>latest</LangVersion>
+    <Nullable>enable</Nullable>
+    <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
+    <CandidateRoot Condition="'$(CandidateRoot)' == ''">/workspace/solution</CandidateRoot>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="GcbImproveGameSpaceWand.cs" />
+    <Compile Include="EngineSupport.cs" />
+    <Compile Include="VerifierSystem.cs" />
+    <Compile Include="$(CandidateRoot)/improvegame/Content/Items/SpaceWand.Shapes.cs" Link="Production/SpaceWand.Shapes.cs" />
+  </ItemGroup>
+</Project>

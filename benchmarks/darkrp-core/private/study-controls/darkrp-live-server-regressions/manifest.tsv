@@ -1,0 +1,5 @@
+control	kind	base	overlay	root	note
+target-negative-usergroup-signal	target-negative	reference	patch:target-negative-usergroup-signal.patch	.	Reference with group T reverted: the previous usergroup is read after it was overwritten (setroot and setaccess).
+target-negative-category-redeclare	target-negative	reference	patch:target-negative-category-redeclare.patch	.	Reference with group BB reverted: re-declaring a category no longer carries its members over.
+compat-negative-hitman-load-only	compat-negative	reference	patch:compat-negative-hitman-load-only.patch	.	Reference plus an over-strict guard: addHitmanTeam additionally refuses every job once the gamemode has finished loading.
+alternative-independent-fix	alternative	starter	patch:alternative-independent-fix.patch	.	Starter plus an independently written fix for all nine reports (shared change-and-signal helper, fixes in createCategory instead of insertCategory, keyed ammo insert).

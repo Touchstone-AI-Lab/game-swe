@@ -1,0 +1,184 @@
+{
+  "task": "palworld/core/pal-workforce-optimal-matching",
+  "task_version": "1.2.0",
+  "exam": "benchmarks/palworld/exams/pal-workforce-optimal-matching.md",
+  "cases": [
+    {
+      "id": "check:required-files",
+      "role": "static"
+    },
+    {
+      "id": "check:lua-syntax",
+      "role": "static"
+    },
+    {
+      "id": "hidden:global matching beats local cheapest-first",
+      "role": "target",
+      "clauses": [
+        "request"
+      ]
+    },
+    {
+      "id": "hidden:priority outranks cardinality cost and lexical preference",
+      "role": "target",
+      "clauses": [
+        "request"
+      ]
+    },
+    {
+      "id": "hidden:zero-priority and zero-cost edges are real work",
+      "role": "target",
+      "clauses": [
+        "request"
+      ]
+    },
+    {
+      "id": "hidden:lexical ties compare raw prefix IDs and unassigned slots",
+      "role": "target",
+      "clauses": [
+        "request"
+      ]
+    },
+    {
+      "id": "hidden:independent exhaustive oracle on deterministic generated graphs",
+      "role": "target",
+      "clauses": [
+        "request"
+      ]
+    },
+    {
+      "id": "hidden:maximum dense graph has deterministic perfect optimum",
+      "role": "target",
+      "clauses": [
+        "request"
+      ]
+    },
+    {
+      "id": "hidden:invalid input and stale revision preserve the last successful plan",
+      "role": "target",
+      "clauses": [
+        "request"
+      ]
+    },
+    {
+      "id": "hidden:empty matching and all caller-owned tables remain detached",
+      "role": "target",
+      "clauses": [
+        "request"
+      ]
+    },
+    {
+      "id": "hidden:save version is explicit and unsupported versions fail closed",
+      "role": "target",
+      "clauses": [
+        "request"
+      ]
+    },
+    {
+      "id": "check:implementation-depth",
+      "role": "static"
+    },
+    {
+      "id": "check:workforce-authority",
+      "role": "target",
+      "clauses": [
+        "integration:workforce-authority"
+      ],
+      "note": "regular-expression gate over the submitted source, not an execution"
+    },
+    {
+      "id": "check:workforce-thread",
+      "role": "target",
+      "clauses": [
+        "integration:workforce-thread"
+      ],
+      "note": "regular-expression gate over the submitted source, not an execution"
+    },
+    {
+      "id": "check:workforce-persistence",
+      "role": "target",
+      "clauses": [
+        "integration:workforce-persistence"
+      ],
+      "note": "regular-expression gate over the submitted source, not an execution"
+    },
+    {
+      "id": "check:workforce-lifecycle",
+      "role": "target",
+      "clauses": [
+        "integration:workforce-lifecycle"
+      ],
+      "note": "regular-expression gate over the submitted source, not an execution"
+    },
+    {
+      "id": "check:workforce-manifest",
+      "role": "target",
+      "clauses": [
+        "integration:workforce-manifest"
+      ],
+      "note": "regular-expression gate over the submitted source, not an execution"
+    },
+    {
+      "id": "server:dedicated server world and documented API are available",
+      "role": "target",
+      "clauses": [
+        "request"
+      ]
+    },
+    {
+      "id": "server:service exposes complete trusted protocol",
+      "role": "target",
+      "clauses": [
+        "request"
+      ]
+    },
+    {
+      "id": "server:server executes distinguishing protocol sequence",
+      "role": "target",
+      "clauses": [
+        "request"
+      ]
+    },
+    {
+      "id": "server:server saves and restores the protocol without silent reset",
+      "role": "target",
+      "clauses": [
+        "request"
+      ]
+    }
+  ],
+  "clauses": [
+    {
+      "id": "request",
+      "anchor": "exam body; split into individual clauses during review",
+      "status": "asserted"
+    },
+    {
+      "id": "integration:workforce-authority",
+      "anchor": "host-integration section; source-pattern gate workforce-authority",
+      "status": "weak"
+    },
+    {
+      "id": "integration:workforce-thread",
+      "anchor": "host-integration section; source-pattern gate workforce-thread",
+      "status": "weak"
+    },
+    {
+      "id": "integration:workforce-persistence",
+      "anchor": "host-integration section; source-pattern gate workforce-persistence",
+      "status": "weak"
+    },
+    {
+      "id": "integration:workforce-lifecycle",
+      "anchor": "host-integration section; source-pattern gate workforce-lifecycle",
+      "status": "weak"
+    },
+    {
+      "id": "integration:workforce-manifest",
+      "anchor": "host-integration section; source-pattern gate workforce-manifest",
+      "status": "weak"
+    }
+  ],
+  "excluded_clauses": [],
+  "known_issues": []
+}

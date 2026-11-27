@@ -1,0 +1,1 @@
+Introduced in catalog 2.0.0 as a new construct task. No prior attempt or outcome is inherited from the retired task. See `benchmarks/palworld/validation/linux-controls.md` for real-engine controls and the portable/engine boundary. Source-pattern gates remain weak evidence.

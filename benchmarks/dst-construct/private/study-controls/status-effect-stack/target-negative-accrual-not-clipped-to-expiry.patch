@@ -1,0 +1,12 @@
+diff -ruN a/scripts/statuseffects/stack.lua b/scripts/statuseffects/stack.lua
+--- a/scripts/statuseffects/stack.lua	2026-09-22 00:59:18.686420789 +0800
++++ b/scripts/statuseffects/stack.lua	2026-09-22 01:14:27.000991237 +0800
+@@ -93,7 +93,7 @@
+         for index = 1, #target.instances do
+             local instance = target.instances[index]
+             local definition = self.effects[instance.effect_id]
+-            local upto = math.min(now, instance.expires_at)
++            local upto = now
+             if upto > instance.cursor then
+                 if definition ~= nil and is_finite(definition.tick_health) then
+                     local amount = definition.tick_health * instance.stacks * (upto - instance.cursor)

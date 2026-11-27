@@ -1,0 +1,19 @@
+# DC2_MODEL — public core API v1
+
+Export global `DC2_MODEL` with `new`, `apply`, `view`, `snapshot`, `restore`. No game globals are needed by this core. Each `new()` returns an independent opaque state. Functions receive that state as their first argument. Internal fields are not part of grading.
+
+Identifiers are nonempty ASCII strings of at most 96 characters using letters, digits, `_ . : -`. An event is exactly `{id=<event id>, kind=<kind>, owner=<physical owner id>}` with no extra fields. Kinds: `add`, `remove`, `discard`, `consume`. Owner IDs identify an instance throughout its lifetime and are never reused after removal. Distinct event IDs are independent of owner IDs. At most 4096 accepted distinct events are supported per state; duplicate replay remains valid at that limit.
+
+`apply(state,event)` first validates the exact event shape/domain. If the event ID has been accepted, an identical event returns a detached copy of its **original** receipt without changing state, even if the owner was later removed. Different payload at that ID returns `{ok=false,code='EVENT_CONFLICT'}`. A rejected request does not occupy its ID.
+
+For a new ID: `add` requires an owner never previously added, creates zero balance; already active returns `OWNER_EXISTS`, previously removed returns `OWNER_RETIRED`. Other kinds require an active owner or return `OWNER_MISSING`. `discard` adds 2 capped at 6. `consume` sets that owner's balance to zero. `remove` deactivates it and erases its active balance. A valid new event beyond 4096 returns `LIMIT`. Membership errors are checked before LIMIT.
+
+Success is `{ok=true, seq=<1-based accepted event index>, charge=<that owner's balance after event>, active=<boolean>}`; remove returns charge=0, active=false. All other successes have active=true. Invalid event shape/domain returns `INVALID`. Any error has only `ok` and `code`, and leaves the entire state unchanged.
+
+`view(state)` returns a detached `{seq=<accepted event count>, owners=[{id=...,charge=...},...]}` with active owners sorted lexicographically by ID. Empty owners is an empty list. Values are numeric 0,2,4,6. Repeated reads are pure.
+
+`snapshot(state)` returns a detached canonical `{version=1,events=[accepted distinct events in order]}`. It includes full accepted history, including zero consumption, membership changes and replay identities. No receipts, game pointers or implementation fields occur in this portable format. Empty events is an empty list. Inputs and returned views, snapshots and receipts must not be writable aliases of core state.
+
+`restore(state,snapshot)` replaces the state atomically. Accept only a plain exact table with version and events, version exactly the integer 1, and a dense event array of 0–4096 items. Each event must have the exact valid form and be legal in sequence. Repeated event IDs inside a snapshot, including identical repeats, are invalid: canonical history contains each once. Reconstruct original receipt semantics from the history. A snapshot table with numeric version other than 1 returns `UNSUPPORTED_VERSION`; other invalid shapes/domain/history return `SNAPSHOT_INVALID`. Return `{ok=true}` on success. On any failure preserve every part of the prior state, including event replay receipts. Importing must not retain aliases into the caller's snapshot.
+
+Native mapping: physical `sort_id` converted to a stable string is a suitable owner ID. A discard has a stable per-round operation identity shared across that operation's instance callbacks; distinguish each owner's event. Main scoring reads that owner's live ledger balance; the real after-hand lifecycle applies its consume event only after participation. Preserve counter identity and the canonical snapshot across supported native saves. Equivalent strategies are accepted; no row index, private field name, file length or candidate label determines correctness.

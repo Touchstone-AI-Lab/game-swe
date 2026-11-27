@@ -1,0 +1,20 @@
+--- a/TotalControl/Source/Patches/ApparelGenPatch.cs
++++ b/TotalControl/Source/Patches/ApparelGenPatch.cs
+@@ -232,7 +232,6 @@
+             }
+         }
+ 
+-        if (thing.def.useHitPoints)
+         {
+             float healthFactor = pawn.kindDef.gearHealthRange.RandomInRange;
+             if (healthFactor < 1f)
+--- a/TotalControl/Source/Patches/WeaponGenPatch.cs
++++ b/TotalControl/Source/Patches/WeaponGenPatch.cs
+@@ -187,7 +187,6 @@
+             }
+         }
+ 
+-        if (thing.def.useHitPoints)
+         {
+             float healthFactor = pawn.kindDef.gearHealthRange.RandomInRange;
+             if (healthFactor < 1f)

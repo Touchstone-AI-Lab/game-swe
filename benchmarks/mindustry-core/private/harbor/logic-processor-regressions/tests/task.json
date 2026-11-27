@@ -1,0 +1,29 @@
+{
+  "schemaVersion": 1,
+  "taskId": "logic-processor-regressions",
+  "starter": "mindustry",
+  "build": {
+    "tool": "mindustry-source",
+    "sourceRoots": [
+      "core/src",
+      "server/src"
+    ],
+    "extraSources": [
+      "annotations/src/main/java/mindustry/annotations/Annotations.java"
+    ],
+    "javaRelease": 17
+  },
+  "serverCases": [
+    "processor output reaches a linked message block",
+    "linked blocks are named after their block type",
+    "sensor reads supported properties",
+    "sensor of an unsupported property yields null",
+    "format fills placeholders in order",
+    "print output is capped at 400 characters",
+    "format fills a placeholder when the print buffer is full",
+    "a replaced linked block is reachable under its new name",
+    "other links keep their names when one linked block is replaced",
+    "processor variables survive a save and reload",
+    "a world processor holding query results can be saved"
+  ]
+}

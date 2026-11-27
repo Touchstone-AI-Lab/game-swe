@@ -1,0 +1,7 @@
+author = GameCodeBench
+displayName = GameCodeBench Starlight ability state engine verifier
+version = 0.1.0
+hideCode = true
+hideResources = true
+includeSource = false
+buildIgnore = *.csproj, obj\*, bin\*

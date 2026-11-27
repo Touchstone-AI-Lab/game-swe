@@ -1,0 +1,432 @@
+{
+  "scope": "2026-09-21 maintainer controls, not model calibration",
+  "records": [
+    {
+      "task": "l4d2-competitive-release-regressions-easy",
+      "candidate": "gold",
+      "profile": "full",
+      "expected_full_cases": 20,
+      "complete_full_case_set": true,
+      "timed_out": false,
+      "group": null,
+      "exit_code": 0,
+      "component_hashes": {
+        "instruction.md": "91b909d3a3f2614081b8f0cab0cfd78efbacb96255dde9eebe7e3cb9d67b7aa5",
+        "task.toml": "0a53828932b7f8ec81bc1a1ca8dfac8173c40c73aa1a3afb6ccb2eaa5cc659d0",
+        "environment": "91ec94395e0fafc51286e0497bd78fad05d60015d5ff844da208ad817726fcb0",
+        "tests": "d2215e347dd850557decb75d8087d9d19d2b041db16b118def224911c41c7a5e",
+        "solution": "426c2ae2cfebfc13b200f1d65bf917c05717eb7ca9c77041ae0c71c23a7c2926",
+        "validation/case-contracts.tsv": "6c8fe68efda7784f0991a20f76b7c9d41a945b99bd61ad879c5c70a9c0da0309"
+      },
+      "hash_algorithm": "sha256-relpath-nul-content-nul-posix-lexical-v1",
+      "contract": "2f10efb1f9b6367331502b9eca205e49c9c4686cc1035a6057de2eb530585c55",
+      "runtime_image_id": "sha256:af58da986d0f3187d359d86a45e405adc658f368e671ae8f3ae1deded0125dc1",
+      "source_hash": "47ccf89d3b27ef9c2176832567299f6b01f19416551409172063f4cbe7298f46",
+      "tests_hash": "d2215e347dd850557decb75d8087d9d19d2b041db16b118def224911c41c7a5e",
+      "cases": [
+        {
+          "case": "incap_runtime_plugin_loaded",
+          "status": "PASS",
+          "detail": "the submitted plugin loads with its established metadata"
+        },
+        {
+          "case": "incap_empty_clip_leaves_reload_unblocked",
+          "status": "PASS",
+          "detail": "an empty clip preserves the seeded timestamp during real player commands"
+        },
+        {
+          "case": "incap_loaded_clip_delays_secondary_attack",
+          "status": "PASS",
+          "detail": "the established loaded-clip shove suppression remains active"
+        },
+        {
+          "case": "incap_exit_releases_applied_delay",
+          "status": "PASS",
+          "detail": "leaving incap clears a delay owned by the plugin"
+        },
+        {
+          "case": "incap_non_survivor_is_unchanged",
+          "status": "PASS",
+          "detail": "the plugin leaves clients outside the Survivor path untouched"
+        },
+        {
+          "case": "incap_missing_active_weapon_is_safe",
+          "status": "PASS",
+          "detail": "real player-command dispatch tolerates a missing active weapon"
+        },
+        {
+          "case": "attributes_runtime_dependencies_loaded",
+          "status": "PASS",
+          "detail": "the submitted plugin metadata, Left4DHooks and verifier observers load together"
+        },
+        {
+          "case": "attributes_outgoing_mode_changes_take_effect",
+          "status": "PASS",
+          "detail": "ordinary and plugin-managed outgoing mode attributes affect engine behavior"
+        },
+        {
+          "case": "attributes_unload_restores_engine_values",
+          "status": "PASS",
+          "detail": "the named Confogl unload forward restores non-stock baselines and clears both multipliers"
+        },
+        {
+          "case": "attributes_second_mode_sees_true_baseline",
+          "status": "PASS",
+          "detail": "a second mode begins and ends at the same non-stock baseline without inherited multipliers"
+        },
+        {
+          "case": "attributes_manual_reset_command_remains_functional",
+          "status": "PASS",
+          "detail": "the documented manual reset restores ordinary and plugin-managed values"
+        },
+        {
+          "case": "attributes_config_reload_behavior_is_preserved",
+          "status": "PASS",
+          "detail": "normal config execution reapplies ordinary values without discarding plugin-managed state"
+        },
+        {
+          "case": "changelevel_runtime_plugin_loaded",
+          "status": "PASS",
+          "detail": "the submitted plugin metadata and verifier-owned Director observer load"
+        },
+        {
+          "case": "changelevel_unique_partial_reaches_full_map",
+          "status": "PASS",
+          "detail": "c1m2 reaches c1m2_streets"
+        },
+        {
+          "case": "changelevel_second_unique_partial_reaches_full_map",
+          "status": "PASS",
+          "detail": "a second unique prefix is resolved generically"
+        },
+        {
+          "case": "changelevel_director_receives_same_full_map",
+          "status": "PASS",
+          "detail": "Director transition work receives each same resolved full map name"
+        },
+        {
+          "case": "changelevel_complete_name_still_works",
+          "status": "PASS",
+          "detail": "an already complete installed map name reaches the engine unchanged"
+        },
+        {
+          "case": "changelevel_director_work_is_preserved_for_complete_name",
+          "status": "PASS",
+          "detail": "the existing Director begin-changelevel work still receives the complete name"
+        },
+        {
+          "case": "changelevel_invalid_name_is_not_rewritten",
+          "status": "PASS",
+          "detail": "invalid input does not move the server to an unrelated map"
+        },
+        {
+          "case": "changelevel_partial_is_honored_while_transitioning",
+          "status": "PASS",
+          "detail": "the resolved full map reaches the engine even after Director transition state is set"
+        }
+      ],
+      "passed": 20,
+      "total": 20,
+      "verifier_log_sha256": "729756141d21781986da15d585c12134025a87fb9fb6d8bfc09dcd1077e15182",
+      "logs_copied": true,
+      "server_log_hashes": {
+        "server-attributes.log": "6f065cb180a64b19d8eba953035cebdd2b0421c8962fa2e44a2556d63673c022",
+        "server-change_full.log": "73e4033823eefd07bf57e8ea665249f7cdf052fad9e6c1f397ea99b0eadba3ee",
+        "server-change_invalid.log": "523a89edcbd8f4e120426efc125290f6c258981dec3e37a74ffd0878a65484e2",
+        "server-change_partial.log": "0bd68faeb66661084ad07e49457afeb3b2ff30c9a2c9884e4c56dd2621c3f360",
+        "server-change_transition.log": "d5eccf1c63babd2445834b502ed144f4e90aa8401babfb716f074dc15899eb2a",
+        "server-incap.log": "7507b800d067b6ce22a38fcce0d51519e64f0cfb267522734652c30c6ca4896a"
+      },
+      "retained_server_log_hashes_verified": true,
+      "evidence_directory": "l4d2-competitive-release-regressions-easy-gold-1789960618436654700",
+      "expected_outcome_confirmed": true,
+      "expected_cases_in_selected_scope": 20,
+      "emitted_exact_verdict_count": true
+    },
+    {
+      "task": "l4d2-competitive-release-regressions-easy",
+      "candidate": "nop",
+      "profile": "full",
+      "expected_full_cases": 20,
+      "complete_full_case_set": true,
+      "timed_out": false,
+      "group": null,
+      "exit_code": 1,
+      "component_hashes": {
+        "instruction.md": "91b909d3a3f2614081b8f0cab0cfd78efbacb96255dde9eebe7e3cb9d67b7aa5",
+        "task.toml": "0a53828932b7f8ec81bc1a1ca8dfac8173c40c73aa1a3afb6ccb2eaa5cc659d0",
+        "environment": "91ec94395e0fafc51286e0497bd78fad05d60015d5ff844da208ad817726fcb0",
+        "tests": "d2215e347dd850557decb75d8087d9d19d2b041db16b118def224911c41c7a5e",
+        "solution": "426c2ae2cfebfc13b200f1d65bf917c05717eb7ca9c77041ae0c71c23a7c2926",
+        "validation/case-contracts.tsv": "6c8fe68efda7784f0991a20f76b7c9d41a945b99bd61ad879c5c70a9c0da0309"
+      },
+      "hash_algorithm": "sha256-relpath-nul-content-nul-posix-lexical-v1",
+      "contract": "2f10efb1f9b6367331502b9eca205e49c9c4686cc1035a6057de2eb530585c55",
+      "runtime_image_id": "sha256:af58da986d0f3187d359d86a45e405adc658f368e671ae8f3ae1deded0125dc1",
+      "source_hash": "aa4254b2ee83c6ef7d6e8ae27b4a3fb4d9dfaa998f94cc5066b8fb5e251ec74d",
+      "tests_hash": "d2215e347dd850557decb75d8087d9d19d2b041db16b118def224911c41c7a5e",
+      "cases": [
+        {
+          "case": "incap_runtime_plugin_loaded",
+          "status": "PASS",
+          "detail": "the submitted plugin loads with its established metadata"
+        },
+        {
+          "case": "incap_empty_clip_leaves_reload_unblocked",
+          "status": "FAIL",
+          "detail": "an empty clip preserves the seeded timestamp during real player commands"
+        },
+        {
+          "case": "incap_loaded_clip_delays_secondary_attack",
+          "status": "PASS",
+          "detail": "the established loaded-clip shove suppression remains active"
+        },
+        {
+          "case": "incap_exit_releases_applied_delay",
+          "status": "PASS",
+          "detail": "leaving incap clears a delay owned by the plugin"
+        },
+        {
+          "case": "incap_non_survivor_is_unchanged",
+          "status": "PASS",
+          "detail": "the plugin leaves clients outside the Survivor path untouched"
+        },
+        {
+          "case": "incap_missing_active_weapon_is_safe",
+          "status": "PASS",
+          "detail": "real player-command dispatch tolerates a missing active weapon"
+        },
+        {
+          "case": "attributes_runtime_dependencies_loaded",
+          "status": "PASS",
+          "detail": "the submitted plugin metadata, Left4DHooks and verifier observers load together"
+        },
+        {
+          "case": "attributes_outgoing_mode_changes_take_effect",
+          "status": "PASS",
+          "detail": "ordinary and plugin-managed outgoing mode attributes affect engine behavior"
+        },
+        {
+          "case": "attributes_unload_restores_engine_values",
+          "status": "FAIL",
+          "detail": "the named Confogl unload forward restores non-stock baselines and clears both multipliers"
+        },
+        {
+          "case": "attributes_second_mode_sees_true_baseline",
+          "status": "FAIL",
+          "detail": "a second mode begins and ends at the same non-stock baseline without inherited multipliers"
+        },
+        {
+          "case": "attributes_manual_reset_command_remains_functional",
+          "status": "PASS",
+          "detail": "the documented manual reset restores ordinary and plugin-managed values"
+        },
+        {
+          "case": "attributes_config_reload_behavior_is_preserved",
+          "status": "PASS",
+          "detail": "normal config execution reapplies ordinary values without discarding plugin-managed state"
+        },
+        {
+          "case": "changelevel_runtime_plugin_loaded",
+          "status": "PASS",
+          "detail": "the submitted plugin metadata and verifier-owned Director observer load"
+        },
+        {
+          "case": "changelevel_unique_partial_reaches_full_map",
+          "status": "FAIL",
+          "detail": "the first unique partial did not reach its installed full map"
+        },
+        {
+          "case": "changelevel_second_unique_partial_reaches_full_map",
+          "status": "FAIL",
+          "detail": "the first transition failed before the second prefix could be tested"
+        },
+        {
+          "case": "changelevel_director_receives_same_full_map",
+          "status": "FAIL",
+          "detail": "the complete Director transition sequence did not run"
+        },
+        {
+          "case": "changelevel_complete_name_still_works",
+          "status": "PASS",
+          "detail": "an already complete installed map name reaches the engine unchanged"
+        },
+        {
+          "case": "changelevel_director_work_is_preserved_for_complete_name",
+          "status": "PASS",
+          "detail": "the existing Director begin-changelevel work still receives the complete name"
+        },
+        {
+          "case": "changelevel_invalid_name_is_not_rewritten",
+          "status": "PASS",
+          "detail": "invalid input does not move the server to an unrelated map"
+        },
+        {
+          "case": "changelevel_partial_is_honored_while_transitioning",
+          "status": "FAIL",
+          "detail": "the transitioning branch did not honor the unique partial name"
+        }
+      ],
+      "passed": 13,
+      "total": 20,
+      "verifier_log_sha256": "1f207d90a8b3990e0e3b22a6efabb0495191caa5d1a527795613ac324e12d112",
+      "logs_copied": true,
+      "server_log_hashes": {
+        "server-attributes.log": "39ed6afb046a1662fe0b545a10d2e5559e2314b7b35bf32d7f5e057239515199",
+        "server-change_full.log": "c4bf1546a9d577b34694d4ff18fb2b49146288cb6e28b1c64aab7c7107bb6733",
+        "server-change_invalid.log": "1af1983730ada9656bd06c683d37a4f395a3df45c3f536958608946605e3ea6a",
+        "server-change_partial.log": "597fc858c4e941dba3d084b540c55ad54b5123b35e417493a1449aefd7e7ac5f",
+        "server-change_transition.log": "bdcef8d6370e5cb74debbc748b0bf8360cc8c91075f585484f386e499b833431",
+        "server-incap.log": "4cef903d6dcf80bcfb9948bcecef50bf53d4617350779d287f39c2f83f034ac2"
+      },
+      "retained_server_log_hashes_verified": true,
+      "evidence_directory": "l4d2-competitive-release-regressions-easy-nop-1789960784186362000",
+      "expected_outcome_confirmed": true,
+      "expected_cases_in_selected_scope": 20,
+      "emitted_exact_verdict_count": true
+    },
+    {
+      "task": "l4d2-competitive-release-regressions-easy",
+      "candidate": "empty-timestamp-rewrite",
+      "profile": "full",
+      "expected_full_cases": 20,
+      "complete_full_case_set": true,
+      "timed_out": false,
+      "group": null,
+      "exit_code": 1,
+      "component_hashes": {
+        "instruction.md": "91b909d3a3f2614081b8f0cab0cfd78efbacb96255dde9eebe7e3cb9d67b7aa5",
+        "task.toml": "0a53828932b7f8ec81bc1a1ca8dfac8173c40c73aa1a3afb6ccb2eaa5cc659d0",
+        "environment": "91ec94395e0fafc51286e0497bd78fad05d60015d5ff844da208ad817726fcb0",
+        "tests": "d2215e347dd850557decb75d8087d9d19d2b041db16b118def224911c41c7a5e",
+        "solution": "426c2ae2cfebfc13b200f1d65bf917c05717eb7ca9c77041ae0c71c23a7c2926",
+        "validation/case-contracts.tsv": "6c8fe68efda7784f0991a20f76b7c9d41a945b99bd61ad879c5c70a9c0da0309"
+      },
+      "hash_algorithm": "sha256-relpath-nul-content-nul-posix-lexical-v1",
+      "contract": "2f10efb1f9b6367331502b9eca205e49c9c4686cc1035a6057de2eb530585c55",
+      "runtime_image_id": "sha256:af58da986d0f3187d359d86a45e405adc658f368e671ae8f3ae1deded0125dc1",
+      "source_hash": "6210c643b5ccfdc5111b8a1497d629e1f194786df801dcaf0e3d7de1d58fc953",
+      "tests_hash": "d2215e347dd850557decb75d8087d9d19d2b041db16b118def224911c41c7a5e",
+      "input_transport": "readonly-linux-volume",
+      "cases": [
+        {
+          "case": "incap_runtime_plugin_loaded",
+          "status": "PASS",
+          "detail": "the submitted plugin loads with its established metadata"
+        },
+        {
+          "case": "incap_empty_clip_leaves_reload_unblocked",
+          "status": "FAIL",
+          "detail": "an empty clip preserves the seeded timestamp during real player commands"
+        },
+        {
+          "case": "incap_loaded_clip_delays_secondary_attack",
+          "status": "PASS",
+          "detail": "the established loaded-clip shove suppression remains active"
+        },
+        {
+          "case": "incap_exit_releases_applied_delay",
+          "status": "PASS",
+          "detail": "leaving incap clears a delay owned by the plugin"
+        },
+        {
+          "case": "incap_non_survivor_is_unchanged",
+          "status": "PASS",
+          "detail": "the plugin leaves clients outside the Survivor path untouched"
+        },
+        {
+          "case": "incap_missing_active_weapon_is_safe",
+          "status": "PASS",
+          "detail": "real player-command dispatch tolerates a missing active weapon"
+        },
+        {
+          "case": "attributes_runtime_dependencies_loaded",
+          "status": "PASS",
+          "detail": "the submitted plugin metadata, Left4DHooks and verifier observers load together"
+        },
+        {
+          "case": "attributes_outgoing_mode_changes_take_effect",
+          "status": "PASS",
+          "detail": "ordinary and plugin-managed outgoing mode attributes affect engine behavior"
+        },
+        {
+          "case": "attributes_unload_restores_engine_values",
+          "status": "PASS",
+          "detail": "the named Confogl unload forward restores non-stock baselines and clears both multipliers"
+        },
+        {
+          "case": "attributes_second_mode_sees_true_baseline",
+          "status": "PASS",
+          "detail": "a second mode begins and ends at the same non-stock baseline without inherited multipliers"
+        },
+        {
+          "case": "attributes_manual_reset_command_remains_functional",
+          "status": "PASS",
+          "detail": "the documented manual reset restores ordinary and plugin-managed values"
+        },
+        {
+          "case": "attributes_config_reload_behavior_is_preserved",
+          "status": "PASS",
+          "detail": "normal config execution reapplies ordinary values without discarding plugin-managed state"
+        },
+        {
+          "case": "changelevel_runtime_plugin_loaded",
+          "status": "PASS",
+          "detail": "the submitted plugin metadata and verifier-owned Director observer load"
+        },
+        {
+          "case": "changelevel_unique_partial_reaches_full_map",
+          "status": "PASS",
+          "detail": "c1m2 reaches c1m2_streets"
+        },
+        {
+          "case": "changelevel_second_unique_partial_reaches_full_map",
+          "status": "PASS",
+          "detail": "a second unique prefix is resolved generically"
+        },
+        {
+          "case": "changelevel_director_receives_same_full_map",
+          "status": "PASS",
+          "detail": "Director transition work receives each same resolved full map name"
+        },
+        {
+          "case": "changelevel_complete_name_still_works",
+          "status": "PASS",
+          "detail": "an already complete installed map name reaches the engine unchanged"
+        },
+        {
+          "case": "changelevel_director_work_is_preserved_for_complete_name",
+          "status": "PASS",
+          "detail": "the existing Director begin-changelevel work still receives the complete name"
+        },
+        {
+          "case": "changelevel_invalid_name_is_not_rewritten",
+          "status": "PASS",
+          "detail": "invalid input does not move the server to an unrelated map"
+        },
+        {
+          "case": "changelevel_partial_is_honored_while_transitioning",
+          "status": "PASS",
+          "detail": "the resolved full map reaches the engine even after Director transition state is set"
+        }
+      ],
+      "passed": 19,
+      "total": 20,
+      "verifier_log_sha256": "feb5c21ecf1cc8aefb7bb45c8ccac43157de987bb28ba2a35e56c7aa015922d8",
+      "logs_copied": true,
+      "server_log_hashes": {
+        "server-attributes.log": "100d13a822fee43d7e8187ebc0b6beb79def2294b1da25a5057b95798e7cabbf",
+        "server-change_full.log": "b37280e93613be3802e022079d41c48e8160d133634978c348e4be78812af80d",
+        "server-change_invalid.log": "292cf331bcd56e9dcdbdd97e8e55976c3e681c43d9e38d3efa6eff82cc31df8c",
+        "server-change_partial.log": "a3c7f81f22b312d2a50c8c1fe9e5b0cec13fa13133bdfc95759041d97c486f36",
+        "server-change_transition.log": "2d7d7d4b0ed265220b679f0bda55af74394669edd8679bfd61c2b918c146ecfa",
+        "server-incap.log": "1b84eafb581a7e848c4e7ac5ecf8fe07e559938adc692e96ad9c058422e33168"
+      },
+      "retained_server_log_hashes_verified": true,
+      "evidence_directory": "l4d2-competitive-release-regressions-easy-empty-timestamp-rewrite-1789961007872462000",
+      "expected_outcome_confirmed": true,
+      "expected_cases_in_selected_scope": 20,
+      "emitted_exact_verdict_count": true
+    }
+  ]
+}

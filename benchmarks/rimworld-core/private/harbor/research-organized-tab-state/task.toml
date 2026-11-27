@@ -1,0 +1,17 @@
+schema_version = "1.1"
+[task]
+name = "gamecodebench/research-organized-tab-state"
+description = "Keep native research-tab state and its persistent window consistent during re-layout"
+authors = []
+keywords = ["rimworld", "csharp", "debugging", "real-game"]
+[metadata]
+category = "programming"
+difficulty = "hard"
+source_repo = "https://github.com/Cruesoe/ResearchOrganized"
+source_license = "MIT"
+base_commit = "8d978d53095287c85da0bda09b73045ff68d244f"
+target_commit = "4941919bf33fb84ff280fa64c500c4439118b5e0"
+catalog_version = "0.4.0"
+authoring_revision = 3
+assertion_count = 22
+scored_scope = "ResearchOrganizedMain tab visibility and persistent-window refresh"

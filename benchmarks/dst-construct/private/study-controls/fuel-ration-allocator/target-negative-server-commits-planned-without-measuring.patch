@@ -1,0 +1,11 @@
+--- a/scripts/components/fuelration.lua
++++ b/scripts/components/fuelration.lua
+@@ -185,7 +185,7 @@
+             fueled:DoDelta(share.units * OPTIONS.unit_size)
+             -- Commit what the real component accepted, not what was planned.
+             local gained = (fueled.currentfuel - before) / OPTIONS.unit_size
+-            local delivered = math.max(0, math.min(share.units, math.floor(gained)))
++            local delivered = gained >= 0 and share.units or 0
+             settled = self.allocator:commit(round_id, share.consumer_id, delivered, now)
+         else
+             settled = self.allocator:abort(round_id, share.consumer_id, now)

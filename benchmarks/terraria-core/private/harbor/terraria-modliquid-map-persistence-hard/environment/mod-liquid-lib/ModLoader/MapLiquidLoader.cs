@@ -1,0 +1,90 @@
+using System;
+using System.Collections.Generic;
+using Terraria.ID;
+using Terraria;
+using Terraria.ModLoader;
+
+namespace ModLiquidLib.ModLoader
+{
+	internal static class MapLiquidLoader
+	{
+		internal static bool initialized = false;
+
+		internal static readonly IDictionary<ushort, IList<MapEntry>> liquidEntries = new Dictionary<ushort, IList<MapEntry>>();
+
+		internal static readonly IDictionary<ushort, ushort> entryToLiquid = new Dictionary<ushort, ushort>();
+
+		public static ushort[] liquidLookup;
+
+		internal static uint Generation { get; private set; }
+
+		internal static int modTileOptions(ushort type)
+		{
+			return MapLoader.tileEntries[type].Count;
+		}
+
+		internal static int modWallOptions(ushort type)
+		{
+			return MapLoader.wallEntries[type].Count;
+		}
+
+		internal static int modLiquidOptions(ushort type)
+		{
+			return liquidEntries[type].Count;
+		}
+
+		internal static void FinishSetup()
+		{
+			if (Main.dedServ)
+			{
+				return;
+			}
+			initialized = true;
+		}
+
+		internal static void PublishEntries(ref IList<Microsoft.Xna.Framework.Color> colors, ref IList<Terraria.Localization.LocalizedText> names)
+		{
+			Array.Resize(ref liquidLookup, LiquidLoader.LiquidCount);
+			foreach (ushort type in liquidEntries.Keys)
+			{
+				liquidLookup[type] = (ushort)(Terraria.Map.MapHelper.modPosition + colors.Count);
+				foreach (MapEntry entry in liquidEntries[type])
+				{
+					ushort mapType = (ushort)(Terraria.Map.MapHelper.modPosition + colors.Count);
+					entryToLiquid[mapType] = type;
+					MapLoader.nameFuncs[mapType] = entry.getName;
+					colors.Add(entry.color);
+					if (entry.name == null)
+						throw new Exception("How did this happen?");
+					names.Add(entry.name);
+				}
+			}
+			Generation++;
+		}
+
+		internal static void UnloadModMap()
+		{
+			liquidEntries.Clear();
+			if (!Main.dedServ)
+			{
+				entryToLiquid.Clear();
+				Array.Resize(ref liquidLookup, LiquidID.Count);
+				initialized = false;
+			}
+		}
+
+		internal static void ModMapOption(ref ushort mapType, int i, int j)
+		{
+			if (entryToLiquid.ContainsKey(mapType))
+			{
+				ModLiquid liquid = LiquidLoader.GetLiquid(entryToLiquid[mapType]);
+				ushort option = liquid.GetMapOption(i, j);
+				if (option < 0 || option >= modLiquidOptions(liquid.Type))
+				{
+					throw new ArgumentOutOfRangeException("Bad map option for liquid " + liquid.Name + " from mod " + liquid.Mod.Name);
+				}
+				mapType += option;
+			}
+		}
+	}
+}

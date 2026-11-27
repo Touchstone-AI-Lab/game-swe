@@ -1,0 +1,218 @@
+{
+  "task": "rimworld/core/total-control-vanilla-gear-generation",
+  "task_version": "0.3.3",
+  "exam": "benchmarks/rimworld-core/exams/total-control-vanilla-gear-generation.md",
+  "cases": [
+    {
+      "id": "check:submission-shape",
+      "role": "static",
+      "clauses": [
+        "delivery"
+      ],
+      "overlap": false,
+      "note": "required C# sources present as a safe snapshot; rejects binaries, links and private-harness markers"
+    },
+    {
+      "id": "case:runtime-defs-ready",
+      "role": "runtime-sentinel",
+      "clauses": [],
+      "overlap": false,
+      "note": "Core, Total Control slice and verifier loaded"
+    },
+    {
+      "id": "case:apparel-explicit-quality",
+      "role": "preserved",
+      "clauses": [
+        "req-1"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:weapon-explicit-quality",
+      "role": "preserved",
+      "clauses": [
+        "req-1"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:apparel-vanilla-quality",
+      "role": "target",
+      "clauses": [
+        "req-2",
+        "req-3"
+      ],
+      "overlap": false,
+      "note": "passes on the starter: the seeded roll yields the category a new thing already has"
+    },
+    {
+      "id": "case:weapon-vanilla-quality",
+      "role": "target",
+      "clauses": [
+        "req-2",
+        "req-3"
+      ],
+      "overlap": false,
+      "note": "passes on the starter: the seeded roll yields the category a new thing already has"
+    },
+    {
+      "id": "case:apparel-low-health",
+      "role": "target",
+      "clauses": [
+        "req-4"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:weapon-low-health",
+      "role": "target",
+      "clauses": [
+        "req-4"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:apparel-min-one-hp",
+      "role": "target",
+      "clauses": [
+        "req-4"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:weapon-min-one-hp",
+      "role": "target",
+      "clauses": [
+        "req-4"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:apparel-full-health",
+      "role": "preserved",
+      "clauses": [
+        "req-5"
+      ],
+      "overlap": true,
+      "note": ""
+    },
+    {
+      "id": "case:weapon-full-health",
+      "role": "preserved",
+      "clauses": [
+        "req-5"
+      ],
+      "overlap": true,
+      "note": ""
+    },
+    {
+      "id": "case:non-hitpoint-apparel",
+      "role": "preserved",
+      "clauses": [
+        "req-4"
+      ],
+      "overlap": true,
+      "note": "gear without hit points keeps the value the game gives it"
+    },
+    {
+      "id": "case:non-hitpoint-weapon",
+      "role": "preserved",
+      "clauses": [
+        "req-4"
+      ],
+      "overlap": true,
+      "note": "gear without hit points keeps the value the game gives it"
+    },
+    {
+      "id": "case:style-preserved",
+      "role": "preserved",
+      "clauses": [
+        "req-5"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:color-preserved",
+      "role": "preserved",
+      "clauses": [
+        "req-5"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:material-preserved",
+      "role": "preserved",
+      "clauses": [
+        "req-5"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:rand-state-restored",
+      "role": "preserved",
+      "clauses": [
+        "req-5"
+      ],
+      "overlap": false,
+      "note": "generation inside a pushed Rand state leaves the outer sequence intact"
+    },
+    {
+      "id": "case:fixture-state-restored",
+      "role": "setup",
+      "clauses": [],
+      "overlap": false,
+      "note": "terminal fixture-restoration gate"
+    }
+  ],
+  "clauses": [
+    {
+      "id": "req-1",
+      "anchor": "Required behavior, bullet 1: an explicitly specified quality is applied unchanged",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "req-2",
+      "anchor": "Required behavior, bullet 2: otherwise quality comes from QualityUtility.GenerateQualityGeneratingPawn for the pawn kind and thing definition",
+      "status": "weak",
+      "note": "both vanilla-quality cases already pass on the starter because the fixed seed rolls the default category"
+    },
+    {
+      "id": "req-3",
+      "anchor": "Required behavior, bullet 3: for Core-only fixtures, no invented Royalty minimum and no required royalty tracker",
+      "status": "weak",
+      "note": "only indirectly: the vanilla-quality cases use a Core pawn without a royalty tracker"
+    },
+    {
+      "id": "req-4",
+      "anchor": "Required behavior, bullet 4: things with hit points draw gearHealthRange and keep at least one hit point below factor one",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "req-5",
+      "anchor": "Required behavior, bullet 5: preserve full hit points at factor one and style, color, material, biocoding, type checks and unrelated generation",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "delivery",
+      "anchor": "closing paragraph: do not add RimWorld, Unity or Harmony binaries, generated output, test results, credentials, Workshop content, assets, saves or logs",
+      "status": "weak",
+      "note": "the snapshot gate rejects binaries, links and harness markers; the other listed artefacts are not checked"
+    }
+  ],
+  "excluded_clauses": [],
+  "known_issues": [
+    "tests/Harness/Verifier.cs gives the Core weapon a CompColorable for color-preserved (Core weapons are not colorable), authors a ThingStyleDef for style-preserved (Core ships none) and compares non-hit-point gear with the hit points the game gives an identical new thing (RimWorld 1.6 leaves them unset)."
+  ]
+}

@@ -1,0 +1,6 @@
+FROM rhenium-terraria-engine-base:v2026.7.3.0
+
+COPY --chown=10001:10001 . /engine/
+
+RUN test "$(find /engine -mindepth 2 -maxdepth 2 -name '*.csproj' -type f | wc -l)" -eq 1 \
+ && test -f /engine/tModLoader.targets

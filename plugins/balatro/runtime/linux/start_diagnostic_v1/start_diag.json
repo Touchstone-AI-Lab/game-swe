@@ -1,0 +1,17 @@
+{
+  "id": "poc_start_diag",
+  "name": "Linux start diagnostic v1",
+  "author": [
+    "Sangyu Pan"
+  ],
+  "description": "Bounded read-only start lifecycle telemetry",
+  "prefix": "pocsd",
+  "main_file": "diagnostic.lua",
+  "priority": 100010,
+  "version": "1.0.0",
+  "dependencies": [
+    "Steamodded (>=1.~)",
+    "balatrobot",
+    "poc_control"
+  ]
+}

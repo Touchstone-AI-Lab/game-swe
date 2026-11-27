@@ -1,0 +1,19 @@
+diff -ruN a/AutoWorkshop/ModEntry.cs b/AutoWorkshop/ModEntry.cs
+--- a/AutoWorkshop/ModEntry.cs
++++ b/AutoWorkshop/ModEntry.cs
+@@ -68,12 +68,9 @@
+                 machine.readyForHarvest.Value = false;
+                 return;
+             }
+-            Item? leftover = chest.addItem(held);
+-            if (leftover is null)
+-            {
+-                machine.heldObject.Value = null;
+-                machine.readyForHarvest.Value = false;
+-            }
++            chest.addItem(held); // whatever did not fit is dropped with the reset below
++            machine.heldObject.Value = null;
++            machine.readyForHarvest.Value = false;
+         }
+ 
+         private static void FeedInput(SObject machine, Chest chest)

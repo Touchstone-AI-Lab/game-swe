@@ -1,0 +1,11 @@
+diff -ruN a/scripts/components/statuseffects.lua b/scripts/components/statuseffects.lua
+--- a/scripts/components/statuseffects.lua	2026-09-22 01:00:31.550230924 +0800
++++ b/scripts/components/statuseffects.lua	2026-09-22 01:14:27.019995432 +0800
+@@ -74,7 +74,6 @@
+     self.by_id[record.stable_id] = nil
+     entity:RemoveEventCallback("death", record.on_death)
+     entity:RemoveEventCallback("onremove", record.on_remove)
+-    self:_ClearModifiers(entity)
+     now = self:_Now(now)
+     self.stack:remove_target(record.stable_id, now)
+     self:_Accept(now)

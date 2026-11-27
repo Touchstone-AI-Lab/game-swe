@@ -1,0 +1,6 @@
+{
+  "id": "poc_load_diag", "name": "PoC load diagnostic v1", "author": ["Balatro PoC"],
+  "description": "Bounded read-only load lifecycle telemetry", "prefix": "pocld",
+  "main_file": "diagnostic.lua", "priority": 100010, "version": "1.0.0",
+  "dependencies": ["Steamodded (>=1.~)", "balatrobot", "poc_control"]
+}

@@ -1,0 +1,1 @@
+{"id":"poc_bg_observer","name":"Bounded lifecycle observer v1","author":["Balatro PoC"],"description":"Passive identity, event and capacity telemetry","prefix":"bgobs","main_file":"observer.lua","version":"1.0.0","priority":100005,"dependencies":["Steamodded (>=1.~)","balatrobot"]}

@@ -1,0 +1,11 @@
+--- a/lua/rhenium_prop_registry/server.lua
++++ b/lua/rhenium_prop_registry/server.lua
+@@ -138,7 +138,7 @@
+ function Server.Shutdown()
+     if not installed then return true, "shutdown" end
+     remove_hooks()
+-    timer.Remove(timer_name)
++    -- mutation: timer intentionally retained
+     if registry ~= nil then registry:shutdown() end
+     registry = nil
+     installed = false

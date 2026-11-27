@@ -1,0 +1,53 @@
+{
+  "plugins/balatro/runtime/linux/save_capability_v1/fixtures/tasks/durable_charge/load_diag_v1/probe.py": {
+    "sha256": "c2be1df1a75b5101f27c76f92fd381b996a9df5bc405e3716ffa0cf305097b5a",
+    "ruff_codes": [
+      "F401",
+      "I001"
+    ]
+  },
+  "plugins/balatro/runtime/linux/save_capability_v1/fixtures/tasks/durable_charge/probe.py": {
+    "sha256": "979b5d5f5bc3fd68d72b71b2ab2bd2ec6b53b4ed91862dc4f39e2dbe741ace55",
+    "ruff_codes": [
+      "E701",
+      "E702",
+      "I001"
+    ]
+  },
+  "plugins/balatro/runtime/linux/save_capability_v1/fixtures/tasks/durable_charge/save_probe_v3/probe.py": {
+    "sha256": "ad8c5289440e924816a37701e86cd404306193f35fa47cafa821683bccc0aa66",
+    "ruff_codes": [
+      "E701",
+      "E702",
+      "I001"
+    ]
+  },
+  "plugins/balatro/src/rhenium_balatro/linux_assets/legacy/poc/checks.py": {
+    "sha256": "c748895eec8a453e0dec0e5bda6ff55e235df73851ce4f78ee5c520c0e66af13",
+    "ruff_codes": [
+      "E501",
+      "E701",
+      "E702",
+      "I001"
+    ]
+  },
+  "plugins/balatro/src/rhenium_balatro/linux_assets/legacy/poc/evaluate.py": {
+    "sha256": "8bfd53a534cc4f3faa13f20fd92c502b1dce7a7085960240abf8e795ddfe14f8",
+    "ruff_codes": [
+      "B905",
+      "E501",
+      "E701",
+      "F401",
+      "I001",
+      "SIM102"
+    ]
+  },
+  "plugins/balatro/src/rhenium_balatro/linux_assets/legacy/poc/rpc.py": {
+    "sha256": "c2fd2ae1566891c1e7ccdcab7bc3329a17a957d476963d3f42f72292998be728",
+    "ruff_codes": [
+      "E501",
+      "E701",
+      "SIM102"
+    ]
+  }
+}

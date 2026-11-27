@@ -1,0 +1,656 @@
+diff --git a/data_static/expression2/tests/regressions/2841.txt b/data_static/expression2/tests/regressions/2841.txt
+new file mode 100644
+index 00000000..86765188
+--- /dev/null
++++ b/data_static/expression2/tests/regressions/2841.txt
+@@ -0,0 +1,7 @@
++## SHOULD_PASS:EXECUTE
++
++function number test() {
++    return 1    
++}
++
++"test"()
+diff --git a/lua/entities/gmod_wire_expression2/base/compiler.lua b/lua/entities/gmod_wire_expression2/base/compiler.lua
+index 50e5adad..0f65e7e9 100644
+--- a/lua/entities/gmod_wire_expression2/base/compiler.lua
++++ b/lua/entities/gmod_wire_expression2/base/compiler.lua
+@@ -10,16 +10,8 @@ local Token, TokenVariant = E2Lib.Tokenizer.Token, E2Lib.Tokenizer.Variant
+ local Node, NodeVariant = E2Lib.Parser.Node, E2Lib.Parser.Variant
+ local Operator = E2Lib.Operator
+ local newE2Table = E2Lib.newE2Table
+-
+ local pairs, ipairs = pairs, ipairs
+ 
+-local TickQuota = GetConVar("wire_expression2_quotatick"):GetInt()
+-
+-cvars.RemoveChangeCallback("wire_expression2_quotatick", "compiler_quota_check")
+-cvars.AddChangeCallback("wire_expression2_quotatick", function(_, old, new)
+-	TickQuota = tonumber(new)
+-end, "compiler_quota_check")
+-
+ ---@class ScopeData
+ ---@field dead "ret"|true?
+ ---@field loop boolean?
+@@ -265,7 +257,7 @@ local CompileVisitors = {
+ 		if self.scope:ResolveData("loop") or self.scope:ResolveData("switch_case") then -- Inside loop or switch case, check if continued or broken
+ 			return function(state) ---@param state RuntimeContext
+ 				state.prf = state.prf + cost
+-				if state.prf > TickQuota then error("perf", 0) end
++				if state.prf > e2_tickquota then error("perf", 0) end
+ 
+ 				for i = 1, nstmts do
+ 					state.trace = traces[i]
+@@ -276,7 +268,7 @@ local CompileVisitors = {
+ 		elseif self.scope:ResolveData("function") then -- If inside a function, check if returned.
+ 			return function(state) ---@param state RuntimeContext
+ 				state.prf = state.prf + cost
+-				if state.prf > TickQuota then error("perf", 0) end
++				if state.prf > e2_tickquota then error("perf", 0) end
+ 
+ 				for i = 1, nstmts do
+ 					state.trace = traces[i]
+@@ -287,7 +279,7 @@ local CompileVisitors = {
+ 		else -- Most optimized case, not inside a function or loop.
+ 			return function(state) ---@param state RuntimeContext
+ 				state.prf = state.prf + cost
+-				if state.prf > TickQuota then error("perf", 0) end
++				if state.prf > e2_tickquota then error("perf", 0) end
+ 
+ 				for i = 1, nstmts do
+ 					state.trace = traces[i]
+@@ -1832,7 +1824,7 @@ local CompileVisitors = {
+ 				local fn = state.funcs[sig] or state.funcs[meta_sig]
+ 				if fn then -- first check if user defined any functions that match signature
+ 					local r = state.funcs_ret[sig] or state.funcs_ret[meta_sig]
+-					if r ~= ret_type then
++					if r ~= ret_type and not (ret_type == nil or r == "") then
+ 						state:forceThrow( "Mismatching return types. Got " .. (r or "void") .. ", expected " .. (ret_type or "void"))
+ 					end
+ 
+@@ -1841,7 +1833,7 @@ local CompileVisitors = {
+ 					fn = wire_expression2_funcs[sig] or wire_expression2_funcs[meta_sig]
+ 					if fn then
+ 						local r = fn[2]
+-						if r ~= ret_type and not (ret_type == nil and r == "") then
++						if r ~= ret_type and not (ret_type == nil or r == "") then
+ 							state:forceThrow( "Mismatching return types. Got " .. (r or "void") .. ", expected " .. (ret_type or "void"))
+ 						end
+ 
+@@ -2132,4 +2124,4 @@ function Compiler:Process(ast)
+ 	end
+ 
+ 	return self:CompileStmt(ast)
+-end
+\ No newline at end of file
++end
+diff --git a/lua/entities/gmod_wire_expression2/core/hologram.lua b/lua/entities/gmod_wire_expression2/core/hologram.lua
+index 4fb32195..a4d07b03 100644
+--- a/lua/entities/gmod_wire_expression2/core/hologram.lua
++++ b/lua/entities/gmod_wire_expression2/core/hologram.lua
+@@ -675,46 +675,46 @@ __e2setcost(30) -- temporary
+ 
+ 
+ e2function entity holoCreate(index, vector position, vector scale, angle ang, vector color, string model)
+-	if not checkOwner(self) then return end
+-	if BlockList[self.player:SteamID()] == true or CheckSpawnTimer( self ) == false then return end
++	if not checkOwner(self) then return NULL end
++	if BlockList[self.player:SteamID()] == true or CheckSpawnTimer( self ) == false then return NULL end
+ 	local Holo = CheckIndex(self, index, true)
+-	if not Holo and checkHoloCount(self) then return end
++	if not Holo and checkHoloCount(self) then return NULL end
+ 
+ 	position = Vector(position[1], position[2], position[3])
+ 	ang = Angle(ang[1], ang[2], ang[3])
+-	local ret = CreateHolo(self, index, position, scale, ang, color, model)
+-	if IsValid(ret) then return ret end
++
++	return CreateHolo(self, index, position, scale, ang, color, model)
+ end
+ 
+ e2function entity holoCreate(index, vector position, vector scale, angle ang, vector4 color, string model)
+-	if not checkOwner(self) then return end
+-	if BlockList[self.player:SteamID()] == true or CheckSpawnTimer( self ) == false then return end
++	if not checkOwner(self) then return NULL end
++	if BlockList[self.player:SteamID()] == true or CheckSpawnTimer( self ) == false then return NULL end
+ 	local Holo = CheckIndex(self, index, true)
+-	if not Holo and checkHoloCount(self) then return end
++	if not Holo and checkHoloCount(self) then return NULL end
+ 
+ 	position = Vector(position[1], position[2], position[3])
+ 	ang = Angle(ang[1], ang[2], ang[3])
+-	local ret = CreateHolo(self, index, position, scale, ang, color, model)
+-	if IsValid(ret) then return ret end
++
++	return CreateHolo(self, index, position, scale, ang, color, model)
+ end
+ 
+ e2function entity holoCreate(index, vector position, vector scale, angle ang, vector color)
+-	if not checkOwner(self) then return end
+-	if BlockList[self.player:SteamID()] == true or CheckSpawnTimer( self ) == false then return end
++	if not checkOwner(self) then return NULL end
++	if BlockList[self.player:SteamID()] == true or CheckSpawnTimer( self ) == false then return NULL end
+ 	local Holo = CheckIndex(self, index, true)
+-	if not Holo and checkHoloCount(self) then return end
++	if not Holo and checkHoloCount(self) then return NULL end
+ 
+ 	position = Vector(position[1], position[2], position[3])
+ 	ang = Angle(ang[1], ang[2], ang[3])
+-	local ret = CreateHolo(self, index, position, scale, ang, color)
+-	if IsValid(ret) then return ret end
++
++	return CreateHolo(self, index, position, scale, ang, color)
+ end
+ 
+ e2function entity holoCreate(index, vector position, vector scale, angle ang, vector4 color)
+-	if not checkOwner(self) then return end
+-	if BlockList[self.player:SteamID()] == true or CheckSpawnTimer( self ) == false then return end
++	if not checkOwner(self) then return NULL end
++	if BlockList[self.player:SteamID()] == true or CheckSpawnTimer( self ) == false then return NULL end
+ 	local Holo = CheckIndex(self, index, true)
+-	if not Holo and checkHoloCount(self) then return end
++	if not Holo and checkHoloCount(self) then return NULL end
+ 
+ 	position = Vector(position[1], position[2], position[3])
+ 	ang = Angle(ang[1], ang[2], ang[3])
+@@ -723,19 +723,19 @@ e2function entity holoCreate(index, vector position, vector scale, angle ang, ve
+ end
+ 
+ e2function entity holoCreate(index, vector position, vector scale, angle ang)
+-	if not checkOwner(self) then return end
+-	if BlockList[self.player:SteamID()] == true or CheckSpawnTimer( self ) == false then return end
++	if not checkOwner(self) then return NULL end
++	if BlockList[self.player:SteamID()] == true or CheckSpawnTimer( self ) == false then return NULL end
+ 	local Holo = CheckIndex(self, index, true)
+-	if not Holo and checkHoloCount(self) then return end
++	if not Holo and checkHoloCount(self) then return NULL end
+ 
+ 	return CreateHolo(self, index, position, scale, ang)
+ end
+ 
+ e2function entity holoCreate(index, vector position, vector scale)
+-	if not checkOwner(self) then return end
+-	if BlockList[self.player:SteamID()] == true or CheckSpawnTimer( self ) == false then return end
++	if not checkOwner(self) then return NULL end
++	if BlockList[self.player:SteamID()] == true or CheckSpawnTimer( self ) == false then return NULL end
+ 	local Holo = CheckIndex(self, index, true)
+-	if not Holo and checkHoloCount(self) then return end
++	if not Holo and checkHoloCount(self) then return NULL end
+ 
+ 	position = Vector(position[1],position[2],position[3])
+ 
+@@ -743,10 +743,10 @@ e2function entity holoCreate(index, vector position, vector scale)
+ end
+ 
+ e2function entity holoCreate(index, vector position)
+-	if not checkOwner(self) then return end
+-	if BlockList[self.player:SteamID()] == true or CheckSpawnTimer( self ) == false then return end
++	if not checkOwner(self) then return NULL end
++	if BlockList[self.player:SteamID()] == true or CheckSpawnTimer( self ) == false then return NULL end
+ 	local Holo = CheckIndex(self, index, true)
+-	if not Holo and checkHoloCount(self) then return end
++	if not Holo and checkHoloCount(self) then return NULL end
+ 
+ 	position = Vector(position[1],position[2],position[3])
+ 
+@@ -754,10 +754,10 @@ e2function entity holoCreate(index, vector position)
+ end
+ 
+ e2function entity holoCreate(index)
+-	if not checkOwner(self) then return end
+-	if BlockList[self.player:SteamID()] == true or CheckSpawnTimer( self ) == false then return end
++	if not checkOwner(self) then return NULL end
++	if BlockList[self.player:SteamID()] == true or CheckSpawnTimer( self ) == false then return NULL end
+ 	local Holo = CheckIndex(self, index, true)
+-	if not Holo and PlayerAmount[self.uid] >= wire_holograms_max:GetInt() then return end
++	if not Holo and PlayerAmount[self.uid] >= wire_holograms_max:GetInt() then return NULL end
+ 
+ 	return CreateHolo(self, index)
+ end
+@@ -834,7 +834,7 @@ end
+ 
+ e2function vector holoScale(index)
+ 	local Holo = CheckIndex(self, index)
+-	if not Holo then return end
++	if not Holo then return Vector(0, 0, 0) end
+ 
+ 	return Holo.scale or Vector(0, 0, 0) -- TODO: maybe 1,1,1?
+ end
+@@ -854,7 +854,7 @@ end
+ 
+ e2function vector holoScaleUnits(index)
+ 	local Holo = CheckIndex(self, index)
+-	if not Holo then return self:throw("Holo at index " .. index .. " does not exist!", Vector(0, 0, 0)) end
++	if not Holo then return Vector(0, 0, 0) end
+ 
+ 	local scale = Holo.scale or Vector(0, 0, 0) -- TODO: maybe 1,1,1?
+ 
+@@ -887,7 +887,7 @@ e2function vector holoBoneScale(index, boneindex)
+ 	if not Holo then return Vector(0, 0, 0) end
+ 	if not CheckBone(self, index, boneindex, Holo) then return Vector(0, 0, 0) end
+ 
+-	return Holo.bone_scale[boneindex] or Vector(1, 1, 1)
++	return (Holo.bone_scale or {})[boneindex] or Vector(1, 1, 1)
+ end
+ 
+ e2function vector holoBoneScale(index, string bone)
+@@ -896,7 +896,7 @@ e2function vector holoBoneScale(index, string bone)
+ 	local boneindex = Holo.ent:LookupBone(bone)
+ 
+ 	if boneindex == nil then return self:throw("Holo at index " .. index .. " does not have a bone ['" .. bone .. "']!", Vector(0, 0, 0)) end
+-	return Holo.bone_scale[boneindex] or Vector(1, 1, 1)
++	return (Holo.bone_scale or {})[boneindex] or Vector(1, 1, 1)
+ end
+ 
+ e2function vector holoBonePos(index, boneindex)
+@@ -1182,7 +1182,7 @@ end
+ 
+ e2function number holoBodygroups(index, bgrp_id)
+ 	local Holo = CheckIndex(self, index)
+-	if not Holo then return end
++	if not Holo then return 0 end
+ 
+ 	return Holo.ent:GetBodygroupCount(bgrp_id)
+ end
+@@ -1368,16 +1368,15 @@ __e2setcost(15)
+ e2function void holoAnim(index, string animation)
+ 	local Holo = CheckIndex(self, index)
+ 	if not Holo then return end
+-	local anim = Holo.ent:LookupSequence(animation)
+-	if anim == -1 then self:throw("'" .. animation .. "' does not exist on this model!", 0) end
++	if Holo.ent:LookupSequence(animation) == -1 then return self:throw("'" .. animation .. "' does not exist on this model!", 0) end
+ 
+-	SetHoloAnim(Holo, anim, 0, 1)
++	SetHoloAnim(Holo, animation, 0, 1)
+ end
+ 
+ e2function void holoAnim(index, string animation, frame)
+ 	local Holo = CheckIndex(self, index)
+ 	if not Holo then return end
+-	if Holo.ent:LookupSequence(animation) == -1 then self:throw("'" .. animation .. "' does not exist on this model!", 0) end
++	if Holo.ent:LookupSequence(animation) == -1 then return self:throw("'" .. animation .. "' does not exist on this model!", 0) end
+ 
+ 	SetHoloAnim(Holo, animation, frame, 1)
+ end
+@@ -1385,7 +1384,7 @@ end
+ e2function void holoAnim(index, string animation, frame, rate)
+ 	local Holo = CheckIndex(self, index)
+ 	if not Holo then return end
+-	if Holo.ent:LookupSequence(animation) == -1 then self:throw("'" .. animation .. "' does not exist on this model!", 0) end
++	if Holo.ent:LookupSequence(animation) == -1 then return self:throw("'" .. animation .. "' does not exist on this model!", 0) end
+ 
+ 	SetHoloAnim(Holo, animation, frame, rate)
+ end
+@@ -1406,7 +1405,7 @@ end
+ 
+ e2function number holoGetAnimFrame(index)
+ 	local Holo = CheckIndex(self, index)
+-	if not Holo then return end
++	if not Holo then return 0 end
+ 
+ 	return Holo.ent:GetCycle()
+ end
+@@ -1420,30 +1419,30 @@ end
+ 
+ e2function array holoGetAnims(index)
+ 	local Holo = CheckIndex(self, index)
+-	if not Holo then return end
++	if not Holo then return {} end
+ 
+ 	return Holo.ent:GetSequenceList()
+ end
+ 
+ e2function number holoAnimLength(index)
+ 	local Holo = CheckIndex(self, index)
+-	if not Holo then return end
++	if not Holo then return 0 end
+ 
+ 	return Holo.ent:SequenceDuration()
+ end
+ 
+ e2function number holoAnimNum(index, string animation)
+ 	local Holo = CheckIndex(self, index)
+-	if not Holo then return end
++	if not Holo then return 0 end
+ 
+-	return Holo.ent:LookupSequence(animation) or 0
++	return Holo.ent:LookupSequence(animation)
+ end
+ 
+ e2function number holoGetAnimGroundSpeed(index, string animation)
+ 	local Holo = CheckIndex(self, index)
+-	if not Holo then return end
++	if not Holo then return 0 end
+ 	local anim = Holo.ent:LookupSequence(animation)
+-	if anim == -1 then self:throw("'" .. animation .. "' does not exist on this model!", 0) end
++	if anim == -1 then return self:throw("'" .. animation .. "' does not exist on this model!", 0) end
+ 
+ 	return Holo.ent:GetSequenceGroundSpeed(anim)
+ end
+@@ -1464,7 +1463,7 @@ end
+ 
+ e2function number holoGetAnimGroundSpeed(index, animation)
+ 	local Holo = CheckIndex(self, index)
+-	if not Holo then return end
++	if not Holo then return 0 end
+ 
+ 	return Holo.ent:GetSequenceGroundSpeed(animation)
+ end
+@@ -1478,16 +1477,16 @@ end
+ 
+ e2function number holoGetPose(index, string pose)
+ 	local Holo = CheckIndex(self, index)
+-	if not Holo then return end
++	if not Holo then return 0 end
+ 
+ 	local pose_param = Holo.ent:LookupPoseParameter(pose)
+-	if pose_param == -1 then self:throw("'" .. pose .. "' pose parameter does not exist on this model!", 0) end
++	if pose_param == -1 then return self:throw("'" .. pose .. "' pose parameter does not exist on this model!", 0) end
+ 	return Holo.ent:GetPoseParameter(pose_param)
+ end
+ 
+ e2function array holoGetPoses(index)
+ 	local Holo = CheckIndex(self, index)
+-	if not Holo then return end
++	if not Holo then return {} end
+ 
+ 	local tbl = {}
+ 	for i = 0, Holo.ent:GetNumPoseParameters() - 1 do
+@@ -1498,10 +1497,10 @@ end
+ 
+ e2function vector2 holoGetPoseRange(index, string pose)
+ 	local Holo = CheckIndex(self, index)
+-	if not Holo then return end
++	if not Holo then return { 0, 0 } end
+ 
+ 	local pose_param = Holo.ent:LookupPoseParameter(pose)
+-	if pose_param == -1 then self:throw("'" .. pose .. "' pose parameter doesn't exist on this model!", 0) end
++	if pose_param == -1 then return self:throw("'" .. pose .. "' pose parameter doesn't exist on this model!", { 0, 0 }) end
+ 	return { Holo.ent:GetPoseParameterRange(pose_param) }
+ end
+ 
+diff --git a/lua/entities/gmod_wire_expression2/core/timer.lua b/lua/entities/gmod_wire_expression2/core/timer.lua
+index 49781bb9..a1da77a5 100644
+--- a/lua/entities/gmod_wire_expression2/core/timer.lua
++++ b/lua/entities/gmod_wire_expression2/core/timer.lua
+@@ -8,14 +8,14 @@ local timerid = 0
+ local function Execute(self, name)
+ 	self.data.timer.runner = name
+ 
+-	self.data['timer'].timers[name] = nil
++	self.data["timer"].timers[name] = nil
+ 
+ 	if(self.entity and self.entity.Execute) then
+ 		self.entity:Execute()
+ 	end
+ 
+-	if !self.data['timer'].timers[name] then
+-		timer.Remove("e2_" .. self.data['timer'].timerid .. "_" .. name)
++	if not self.data["timer"].timers[name] then
++		timer.Remove("e2_" .. self.data["timer"].timerid .. "_" .. name)
+ 	end
+ 
+ 	self.data.timer.runner = nil
+@@ -31,19 +31,19 @@ local function AddTimer(self, name, delay)
+ 			Execute(self, name)
+ 		end)
+ 		timer.Start(timerName)
+-	elseif !self.data['timer'].timers[name] then
++	elseif not self.data["timer"].timers[name] then
+ 		timer.Create(timerName, delay / 1000, 2, function()
+ 			Execute(self, name)
+ 		end)
+ 	end
+ 
+-	self.data['timer'].timers[name] = true
++	self.data["timer"].timers[name] = true
+ end
+ 
+ local function RemoveTimer(self, name)
+-	if self.data['timer'].timers[name] then
+-		timer.Remove("e2_" .. self.data['timer'].timerid .. "_" .. name)
+-		self.data['timer'].timers[name] = nil
++	if self.data["timer"].timers[name] then
++		timer.Remove("e2_" .. self.data["timer"].timerid .. "_" .. name)
++		self.data["timer"].timers[name] = nil
+ 	end
+ end
+ 
+@@ -71,7 +71,7 @@ local function luaTimerGetNextIncrementalKey(self)
+ end
+ 
+ local function luaTimerGetInternalName(entIndex, name)
+-	return entIndex .. '_gmod_wire_expression2_luatimer_' .. name
++	return entIndex .. "_gmod_wire_expression2_luatimer_" .. name
+ end
+ 
+ local function luaTimerExists(self, name)
+@@ -104,11 +104,11 @@ local function luaTimerCreate(self, name, delay, repetitions, callback)
+ 	}
+ 
+ 	timer.Create(internalName, delay, repetitions, function()
+-		if timer.RepsLeft(internalName) == 0 then
++		ent:Execute(callback)
++
++		if timer.RepsLeft(internalName) == 0 and luaTimers[entIndex] then
+ 			luaTimers[entIndex][name] = nil
+ 		end
+-
+-		ent:Execute(callback)
+ 	end)
+ end
+ 
+@@ -128,15 +128,15 @@ end
+ /******************************************************************************/
+ 
+ registerCallback("construct", function(self)
+-	self.data['timer'] = {}
+-	self.data['timer'].timerid = timerid
+-	self.data['timer'].timers = {}
++	self.data["timer"] = {}
++	self.data["timer"].timerid = timerid
++	self.data["timer"].timers = {}
+ 
+ 	timerid = timerid + 1
+ end)
+ 
+ registerCallback("destruct", function(self)
+-	for name,_ in pairs(self.data['timer'].timers) do
++	for name,_ in pairs(self.data["timer"].timers) do
+ 		RemoveTimer(self, name)
+ 	end
+ 
+diff --git a/lua/wire/gates/angle.lua b/lua/wire/gates/angle.lua
+index 265e865b..78fc97a1 100644
+--- a/lua/wire/gates/angle.lua
++++ b/lua/wire/gates/angle.lua
+@@ -88,7 +88,7 @@ GateActions["angle_derive"] = {
+ 		if !A then A = Angle (0, 0, 0) end
+ 		local dT, dA = t - gate.LastT, A - gate.LastA
+ 		gate.LastT, gate.LastA = t, A
+-		if (dT) then
++		if dT ~= 0 then
+ 			return Angle (dA.p/dT, dA.y/dT, dA.r/dT)
+ 		else
+ 			return Angle (0, 0, 0)
+diff --git a/lua/wire/gates/time.lua b/lua/wire/gates/time.lua
+index 6429584d..ad0d12dc 100644
+--- a/lua/wire/gates/time.lua
++++ b/lua/wire/gates/time.lua
+@@ -209,7 +209,7 @@ GateActions["derive"] = {
+ 	name = "Derivative",
+ 	description = "Outputs the rate of change (derivative) of the number.",
+ 	inputs = {"A"},
+-	timed = false,
++	timed = true,
+ 	output = function(gate, A)
+ 		local t = CurTime()
+ 		local dT = t - gate.LastT
+diff --git a/lua/wire/gates/vector.lua b/lua/wire/gates/vector.lua
+index 9826adfa..6178e50a 100644
+--- a/lua/wire/gates/vector.lua
++++ b/lua/wire/gates/vector.lua
+@@ -269,7 +269,7 @@ GateActions["vector_derive"] = {
+ 		if not isvector (A) then A = Vector (0, 0, 0) end
+ 		local dT, dA = t - gate.LastT, A - gate.LastA
+ 		gate.LastT, gate.LastA = t, A
+-		if (dT) then
++		if dT ~= 0 then
+ 			return Vector (dA.x/dT, dA.y/dT, dA.z/dT)
+ 		else
+ 			return Vector (0, 0, 0)
+diff --git a/lua/wire/server/wirelib.lua b/lua/wire/server/wirelib.lua
+index 1eba88b9..8d4a2686 100644
+--- a/lua/wire/server/wirelib.lua
++++ b/lua/wire/server/wirelib.lua
+@@ -46,8 +46,6 @@ local function ParsePortName(namedesctype, fbtype, fbdesc)
+ 	return name, desc, tp
+ end
+ 
+-local Inputs = {}
+-local Outputs = {}
+ local CurLink = {}
+ local CurTime = CurTime
+ 
+@@ -335,14 +333,7 @@ function WireLib.CreateSpecialInputs(ent, names, types, descs)
+ 			Num = n,
+ 		}
+ 
+-		local idx = 1
+-		while (Inputs[idx]) do
+-			idx = idx+1
+-		end
+-		port.Idx = idx
+-
+ 		ent_ports[name] = port
+-		Inputs[idx] = port
+ 	end
+ 
+ 	WireLib._SetInputs(ent)
+@@ -369,15 +360,7 @@ function WireLib.CreateSpecialOutputs(ent, names, types, descs)
+ 			Num = n,
+ 		}
+ 
+-		local idx = 1
+-		while (Outputs[idx]) do
+-			idx = idx+1
+-		end
+-		port.Idx = idx
+-
+-
+ 		ent_ports[name] = port
+-		Outputs[idx] = port
+ 	end
+ 
+ 	WireLib._SetOutputs(ent)
+@@ -418,14 +401,7 @@ function WireLib.AdjustSpecialInputs(ent, names, types, descs)
+ 				Num = n,
+ 			}
+ 
+-			local idx = 1
+-			while (Inputs[idx]) do
+-				idx = idx+1
+-			end
+-			port.Idx = idx
+-
+ 			ent_ports[name] = port
+-			Inputs[idx] = port
+ 		end
+ 	end
+ 
+@@ -470,21 +446,20 @@ function WireLib.AdjustSpecialOutputs(ent, names, types, descs)
+ 	end
+ 
+ 
+-	local i = 0
+-	for n,v in ipairs(names) do
++	for n, v in ipairs(names) do
+ 		local name, desc, tp = ParsePortName(v, types[n] or "NORMAL", descs and descs[n])
+ 
+-		if (ent_ports[name]) then
+-			if tp ~= ent_ports[name].Type then
++		local port = ent_ports[name]
++		if port then
++			if tp ~= port.Type then
+ 				WireLib.DisconnectOutput(ent, name)
+-				ent_ports[name].Type = tp
++				port.Type = tp
+ 			end
+-			WireLib.RemoveOutPort(ent, name)
+-			ent_ports[name].Keep = true
+-			ent_ports[name].Desc = desc
++			port.Keep = true
++			port.Num = n
++			port.Desc = desc
+ 		else
+-			i = i + 1
+-			local port = {
++			port = {
+ 				Keep = true,
+ 				Name = name,
+ 				Desc = desc,
+@@ -492,17 +467,10 @@ function WireLib.AdjustSpecialOutputs(ent, names, types, descs)
+ 				Value = WireLib.GetDefaultForType(tp),
+ 				Connected = {},
+ 				TriggerLimit = 8,
+-				Num = i,
++				Num = n,
+ 			}
+ 
+-			local idx = 1
+-			while (Outputs[idx]) do
+-				idx = idx+1
+-			end
+-			port.Idx = idx
+-
+ 			ent_ports[name] = port
+-			Outputs[idx] = port
+ 		end
+ 	end
+ 
+@@ -591,14 +559,6 @@ function WireLib.Restored(ent, force_outputs)
+ 			if port.Src and (not port.Path) then
+ 				port.Path = { { Entity = port.Src, Pos = Vector(0, 0, 0) } }
+ 			end
+-
+-			local idx = 1
+-			while (Inputs[idx]) do
+-				idx = idx+1
+-			end
+-			port.Idx = idx
+-
+-			Inputs[idx] = port
+ 		end
+ 	end
+ 
+@@ -607,14 +567,6 @@ function WireLib.Restored(ent, force_outputs)
+ 		for _,port in pairs(ent_ports) do
+ 			port.Entity = ent
+ 			port.Type = port.Type or "NORMAL"
+-
+-			local idx = 1
+-			while (Outputs[idx]) do
+-				idx = idx+1
+-			end
+-			port.Idx = idx
+-
+-			Outputs[idx] = port
+ 		end
+ 	elseif (force_outputs) then
+ 		ent.Outputs = WireLib.CreateOutputs(ent, force_outputs)
+@@ -664,7 +616,6 @@ function WireLib.Remove(ent, DontUnList)
+ 					end
+ 				end
+ 			end
+-			Inputs[inport.Idx] = nil
+ 		end
+ 	end
+ 
+@@ -673,7 +624,6 @@ function WireLib.Remove(ent, DontUnList)
+ 	if (ent_ports) then
+ 		for _,outport in pairs(ent_ports) do
+ 			ClearPorts(outport.Connected)
+-			Outputs[outport.Idx] = nil
+ 		end
+ 	end
+ 

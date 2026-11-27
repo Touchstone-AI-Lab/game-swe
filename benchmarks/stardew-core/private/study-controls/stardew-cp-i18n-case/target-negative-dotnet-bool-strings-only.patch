@@ -1,0 +1,16 @@
+diff -ruN a/ContentPatcher/Framework/Tokens/ValueProviders/TranslationValueProvider.cs b/ContentPatcher/Framework/Tokens/ValueProviders/TranslationValueProvider.cs
+--- a/ContentPatcher/Framework/Tokens/ValueProviders/TranslationValueProvider.cs
++++ b/ContentPatcher/Framework/Tokens/ValueProviders/TranslationValueProvider.cs
+@@ -75,7 +75,11 @@
+                 .UsePlaceholder(false); // allow setting a blank default
+         }
+ 
+-        return InvariantSets.FromCaseSensitiveValue(translation);
++        // keep the capitalization of .NET-style boolean text
++        string text = ((string?)translation)!;
++        return text is "True" or "False"
++            ? InvariantSets.FromCaseSensitiveValue(text)
++            : InvariantSets.FromValue(text);
+     }
+ 
+ 

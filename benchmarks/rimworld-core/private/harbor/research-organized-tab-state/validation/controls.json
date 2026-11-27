@@ -1,0 +1,591 @@
+{
+  "schemaVersion": 3,
+  "catalogVersion": "0.4.0",
+  "authoringRevision": 3,
+  "privateProtocol": "rhenium-rimworld-private-v3",
+  "assertionManifestSha256": "526b4dbe63f26dda776b27e4d370f3cb684e897ce48b46df4fd7171c73a3f0d1",
+  "runtime": "rimworld/rimworld-1.6.4871-linux-x64",
+  "engineAssertionsRan": true,
+  "evidenceGeneration": {
+    "status": "run",
+    "date": "2026-10-29",
+    "host": "Linux x86_64 Docker host (NixOS), networkless evaluation",
+    "path": "rhenium run --profile full through the Hub; rhenium-study e0 run for the study controls",
+    "note": "authoring revision 3 verifier repairs first; see docs/games/rimworld.md#research-tab-task-catalog-040"
+  },
+  "identity": {
+    "catalog": "sha256:be6bbaaf6684c516541608e615077b711be26e7f7f019e870cd0fc9b3fb4efd2",
+    "rubric": "sha256:8a2466f75c28053a22e4864cc936f4e37a2101dcbb19c4286f5f3dae1824f24b",
+    "adapterAssembly": "sha256:4bc6e0d004d2433bf1261bd3cff5c8d0ceaabf2a4914689be5e2f3a9139cf2ee",
+    "adapterEvidence": "sha256:b185dbde907ad988f0c203e21a17bd278834aee6e3d051fee441e5100db39153",
+    "buildEvidence": "sha256:e782af784c7b42cd630f8ba58361bd4281fb396d1d115062d41465edc4c73cee",
+    "sourceEvidence": "sha256:4011e5d19d2bd984bd3a00ddf50f1de7521503d4dffbfe3298b329f63dee205d",
+    "runtimeFingerprint": "sha256:f29e50473bdf4c7b782b1589ffb59a850ff2bcfe71b076c3610eecba2e2d93db",
+    "runtimeArtifact": "sha256:b338754d6b3169e458f159d60356ea97b152a34c2a38bd90e8dfc9c0860da80a",
+    "builderImage": "sha256:66a0b020e19f392eb1698822121e3f9569b8c45cd25a868970ac579625584cda",
+    "evaluatorImage": "sha256:f61fc0209732194804341a8621ec54126e96571730dbdddb385fb0f3e7ec28e3"
+  },
+  "plannedMatrix": {
+    "oracle": {
+      "expectedPassed": 22,
+      "expectedFailed": 0
+    },
+    "base": {
+      "complete": true,
+      "passed": false,
+      "note": "fails target cases"
+    },
+    "nop": {
+      "complete": true,
+      "passed": false,
+      "note": "fails target cases"
+    }
+  },
+  "plannedOutcomesAreAuthoringExpectations": true,
+  "referenceCompile": {
+    "status": "passed",
+    "date": "2026-10-29",
+    "note": "every control compiled in the prepared builder role (SDK 8.0.422, locked restore) during its Hub run"
+  },
+  "containerBuild": {
+    "status": "passed",
+    "date": "2026-10-29"
+  },
+  "realEngine": {
+    "status": "passed",
+    "date": "2026-10-29"
+  },
+  "reusablePriorEvidence": false,
+  "oracle": {
+    "status": "passed",
+    "evidenceProtocol": "rhenium-rimworld-private-v3",
+    "runs": [
+      "run-50c8489160074ca7",
+      "run-6b59bb1eabec4946",
+      "run-94276ef7761d4963"
+    ],
+    "score": 100.0,
+    "passed": 22,
+    "failed": 0,
+    "identicalCaseOutcomes": true
+  },
+  "base": {
+    "status": "failed-targets-only",
+    "evidenceProtocol": "rhenium-rimworld-private-v3",
+    "run": "run-df04630b57914c11",
+    "score": 10.0,
+    "passed": 8,
+    "failed": 14,
+    "failedCases": [
+      "closed-view-recomputed",
+      "closed-window-tabs",
+      "collapse-default",
+      "expand-from-combined",
+      "explicit-closed-refresh",
+      "flags-follow-tabs",
+      "hidden-current-tab",
+      "new-tab-default-false",
+      "new-tab-default-true",
+      "open-view-recomputed",
+      "open-window-relayout",
+      "repeated-relayout",
+      "restored-defaults",
+      "selected-project-tab-preferred"
+    ]
+  },
+  "nop": {
+    "status": "failed-targets-only",
+    "evidenceProtocol": "rhenium-rimworld-private-v3",
+    "run": "run-83729fe2022449f7",
+    "score": 10.0,
+    "passed": 8,
+    "failed": 14,
+    "failedCases": [
+      "closed-view-recomputed",
+      "closed-window-tabs",
+      "collapse-default",
+      "expand-from-combined",
+      "explicit-closed-refresh",
+      "flags-follow-tabs",
+      "hidden-current-tab",
+      "new-tab-default-false",
+      "new-tab-default-true",
+      "open-view-recomputed",
+      "open-window-relayout",
+      "repeated-relayout",
+      "restored-defaults",
+      "selected-project-tab-preferred"
+    ],
+    "materialization": "validation/reference_compile.py independent copy of the starter"
+  },
+  "negativeControls": {
+    "status": "run",
+    "plan": "validation/negative-controls.json",
+    "controls": [
+      {
+        "control": "no-resize",
+        "run": "run-7184169c6909484b",
+        "score": 10.0,
+        "complete": true,
+        "failedCases": [
+          "collapse-default",
+          "expand-from-combined",
+          "flags-follow-tabs",
+          "new-tab-default-false",
+          "new-tab-default-true",
+          "repeated-relayout",
+          "restored-defaults"
+        ],
+        "plannedMustFailCases": [
+          "collapse-default",
+          "expand-from-combined"
+        ],
+        "detectedIntendedDefect": true
+      },
+      {
+        "control": "default-flags",
+        "run": "run-47e8af0447c64176",
+        "score": 10.0,
+        "complete": true,
+        "failedCases": [
+          "edited-visibility-preserved",
+          "flags-follow-tabs",
+          "repeated-relayout"
+        ],
+        "plannedMustFailCases": [
+          "edited-visibility-preserved",
+          "flags-follow-tabs"
+        ],
+        "detectedIntendedDefect": true
+      },
+      {
+        "control": "open-window-only",
+        "run": "run-3089a458349c44d7",
+        "score": 10.0,
+        "complete": true,
+        "failedCases": [
+          "closed-view-recomputed",
+          "closed-window-tabs",
+          "explicit-closed-refresh",
+          "hidden-current-tab",
+          "selected-project-tab-preferred"
+        ],
+        "plannedMustFailCases": [
+          "closed-view-recomputed",
+          "closed-window-tabs"
+        ],
+        "detectedIntendedDefect": true
+      },
+      {
+        "control": "stale-view",
+        "run": "run-2937484be45046d7",
+        "score": 10.0,
+        "complete": true,
+        "failedCases": [
+          "closed-view-recomputed",
+          "open-view-recomputed"
+        ],
+        "plannedMustFailCases": [
+          "closed-view-recomputed",
+          "open-view-recomputed"
+        ],
+        "detectedIntendedDefect": true
+      },
+      {
+        "control": "closed-window-only",
+        "run": "run-3667db8d3763413d",
+        "score": 10.0,
+        "complete": true,
+        "failedCases": [
+          "explicit-open-refresh",
+          "open-view-recomputed",
+          "open-window-relayout"
+        ],
+        "plannedMustFailCases": [
+          "explicit-open-refresh",
+          "open-view-recomputed",
+          "open-window-relayout"
+        ],
+        "detectedIntendedDefect": true
+      }
+    ]
+  },
+  "alternative": {
+    "control": "alternative-a",
+    "source": "private/study-controls/research-organized-tab-state/alternative-a",
+    "run": "run-b877e983c7b3426e",
+    "score": 100.0,
+    "passed": 22,
+    "failed": 0
+  },
+  "verifierRepairs": [
+    "observation starts on the first main-thread frame with an entry WindowStack and no pending long event; the finish-loading callback ran before Find.UIRoot existed, so the readiness gate threw",
+    "the view-width fixture calls ResearchProjectDef.GenerateNonOverlappingCoordinates() after moving researchViewX, because the window sizes its view from ResearchViewX"
+  ],
+  "history": [
+    {
+      "schemaVersion": 1,
+      "date": "2026-10-26",
+      "authoringRevision": 2,
+      "catalogVersion": "0.2.0",
+      "registered": false,
+      "status": "reference-compile-validated; real-game acceptance pending",
+      "compileValidated": true,
+      "engineValidated": false,
+      "caseCount": 22,
+      "controlCount": 8,
+      "controls": [
+        {
+          "control": "base",
+          "materializationId": "c97c9bedfe61417993db9bec6c7c8c7d",
+          "candidateSource": "sha256:d17faac869248d3e8a4711c34f1a1f3ffa7a4d25c116f7548f87134ae277f3bc",
+          "assemblies": {
+            "candidate": "89de2903182adfa88351d7f768c319a736ccbe45ee3ef0265e5ec6228ca1b5a6",
+            "verifier": "4735125429ee1f062425fb925cdb96de2e83659aac6baa3e27e4a419099dfc17"
+          },
+          "compileValidated": true,
+          "engineValidated": false,
+          "status": "compile-validated",
+          "warnings": {
+            "candidate": 0,
+            "verifier": 0
+          }
+        },
+        {
+          "control": "oracle",
+          "materializationId": "656a495c48034232af3ca6a180bf11bb",
+          "candidateSource": "sha256:b17eac661dd98a22d53466a1010652aec21ad0c4e74075703856f9a4389ace08",
+          "assemblies": {
+            "candidate": "b1240ea476171aab65cecded42ac0870941c9d9f8bbb4d865b628601d85f21dc",
+            "verifier": "4735125429ee1f062425fb925cdb96de2e83659aac6baa3e27e4a419099dfc17"
+          },
+          "compileValidated": true,
+          "engineValidated": false,
+          "status": "compile-validated",
+          "warnings": {
+            "candidate": 0,
+            "verifier": 0
+          }
+        },
+        {
+          "control": "nop",
+          "materializationId": "91965c296c264b47a626e3acdb7e80ac",
+          "candidateSource": "sha256:d17faac869248d3e8a4711c34f1a1f3ffa7a4d25c116f7548f87134ae277f3bc",
+          "assemblies": {
+            "candidate": "89de2903182adfa88351d7f768c319a736ccbe45ee3ef0265e5ec6228ca1b5a6",
+            "verifier": "4735125429ee1f062425fb925cdb96de2e83659aac6baa3e27e4a419099dfc17"
+          },
+          "compileValidated": true,
+          "engineValidated": false,
+          "status": "compile-validated",
+          "warnings": {
+            "candidate": 0,
+            "verifier": 0
+          }
+        },
+        {
+          "control": "no-resize",
+          "materializationId": "411c7909b6854db8983744163bd7f94c",
+          "candidateSource": "sha256:89a82e648154cd18ea92ab4843eee55029817cabe4b5fbf946ac4deb84d8cf97",
+          "assemblies": {
+            "candidate": "87a023132ca7011a546514aec9f6dbd1b89976997b82612e23ab5a1bc304ec1c",
+            "verifier": "4735125429ee1f062425fb925cdb96de2e83659aac6baa3e27e4a419099dfc17"
+          },
+          "compileValidated": true,
+          "engineValidated": false,
+          "status": "compile-validated",
+          "warnings": {
+            "candidate": 0,
+            "verifier": 0
+          }
+        },
+        {
+          "control": "default-flags",
+          "materializationId": "bf75cfe66bc445ba86a084bfe1a98e13",
+          "candidateSource": "sha256:7a3735f3bc44ed2b5aa7b45cc5202ac54b765f8cb9e8c357020ddfd17ca59a34",
+          "assemblies": {
+            "candidate": "aca27f34c9c6e2c5cde245cc3c6f392e3c3f2f8b6dc1a9194143db5b95e39379",
+            "verifier": "4735125429ee1f062425fb925cdb96de2e83659aac6baa3e27e4a419099dfc17"
+          },
+          "compileValidated": true,
+          "engineValidated": false,
+          "status": "compile-validated",
+          "warnings": {
+            "candidate": 0,
+            "verifier": 0
+          }
+        },
+        {
+          "control": "open-window-only",
+          "materializationId": "0a8ad96a97d9448b957b40bf69cc5eac",
+          "candidateSource": "sha256:892b9c1d30bd921bec1d7e8d36b341b103bb9e7b0d866b3b8d25b43ebc230521",
+          "assemblies": {
+            "candidate": "d4261d56325fba126d2a51b4f1c1246098b4edc4989c050a540d2cec7d05b997",
+            "verifier": "4735125429ee1f062425fb925cdb96de2e83659aac6baa3e27e4a419099dfc17"
+          },
+          "compileValidated": true,
+          "engineValidated": false,
+          "status": "compile-validated",
+          "warnings": {
+            "candidate": 0,
+            "verifier": 0
+          }
+        },
+        {
+          "control": "stale-view",
+          "materializationId": "1ca8d77f1aea4394a0a8f5df70ca5599",
+          "candidateSource": "sha256:a66a7764da2bc2187fad50f132a2fdaf5f2a595e91f1013ede6184cdfbc65a4c",
+          "assemblies": {
+            "candidate": "d212e3a1f107c76af556da14e5abe6cf98d8eddc0ec1d218c3953b7d020b04ea",
+            "verifier": "4735125429ee1f062425fb925cdb96de2e83659aac6baa3e27e4a419099dfc17"
+          },
+          "compileValidated": true,
+          "engineValidated": false,
+          "status": "compile-validated",
+          "warnings": {
+            "candidate": 0,
+            "verifier": 0
+          }
+        },
+        {
+          "control": "closed-window-only",
+          "materializationId": "91e58ebce4b24571a71c74b517172828",
+          "candidateSource": "sha256:68a75100de89a2fe1a1890f506cfd7f9ba115b36b2231a8b467c202f35b88126",
+          "assemblies": {
+            "candidate": "f70238ac2a29d276635183b49118ec25653efc840096f37c5ee56829fa980a1c",
+            "verifier": "4735125429ee1f062425fb925cdb96de2e83659aac6baa3e27e4a419099dfc17"
+          },
+          "compileValidated": true,
+          "engineValidated": false,
+          "status": "compile-validated",
+          "warnings": {
+            "candidate": 0,
+            "verifier": 0
+          }
+        }
+      ],
+      "history": [
+        {
+          "schemaVersion": 1,
+          "date": "2026-10-26",
+          "registered": false,
+          "status": "reference-compile-validated; real-game acceptance pending",
+          "compileValidated": true,
+          "engineValidated": false,
+          "caseCount": 18,
+          "host": {
+            "system": "Darwin",
+            "architecture": "arm64"
+          },
+          "toolchain": {
+            "sdk": "8.0.422",
+            "language": "C#12",
+            "framework": "net472",
+            "dotnetSha256": "c0f8c002e1610b9f3b98b23b4b82d0323917ba85f0b6a969d6f3921c96040575"
+          },
+          "inputManifestSha256": "de917c2da56d9cec5bfe3e47893d509c6c8d09f945c7db3fd1f4342d65c33a86",
+          "controls": [
+            {
+              "control": "base",
+              "materializationId": "0f69a49a8a4d457caa003139d527d18b",
+              "candidateSource": "sha256:d17faac869248d3e8a4711c34f1a1f3ffa7a4d25c116f7548f87134ae277f3bc",
+              "assemblies": {
+                "candidate": "89de2903182adfa88351d7f768c319a736ccbe45ee3ef0265e5ec6228ca1b5a6",
+                "verifier": "c139bd4dcd5a79b25e9473ebebf9de0795c2937d4fac2c84abed9587dfd4452e"
+              },
+              "compileValidated": true,
+              "engineValidated": false,
+              "status": "compile-validated",
+              "warnings": {
+                "candidate": 0,
+                "verifier": 0
+              }
+            },
+            {
+              "control": "oracle",
+              "materializationId": "017c70b7be20435d96158cece5c4942d",
+              "candidateSource": "sha256:b17eac661dd98a22d53466a1010652aec21ad0c4e74075703856f9a4389ace08",
+              "assemblies": {
+                "candidate": "b1240ea476171aab65cecded42ac0870941c9d9f8bbb4d865b628601d85f21dc",
+                "verifier": "c139bd4dcd5a79b25e9473ebebf9de0795c2937d4fac2c84abed9587dfd4452e"
+              },
+              "compileValidated": true,
+              "engineValidated": false,
+              "status": "compile-validated",
+              "warnings": {
+                "candidate": 0,
+                "verifier": 0
+              }
+            },
+            {
+              "control": "nop",
+              "materializationId": "78d4b7cd2cee4e0abdb4c02f918d1b63",
+              "candidateSource": "sha256:d17faac869248d3e8a4711c34f1a1f3ffa7a4d25c116f7548f87134ae277f3bc",
+              "assemblies": {
+                "candidate": "89de2903182adfa88351d7f768c319a736ccbe45ee3ef0265e5ec6228ca1b5a6",
+                "verifier": "c139bd4dcd5a79b25e9473ebebf9de0795c2937d4fac2c84abed9587dfd4452e"
+              },
+              "compileValidated": true,
+              "engineValidated": false,
+              "status": "compile-validated",
+              "warnings": {
+                "candidate": 0,
+                "verifier": 0
+              }
+            },
+            {
+              "control": "no-resize",
+              "materializationId": "4c2c8001f7fa4d1b8da3dbe651350edf",
+              "candidateSource": "sha256:89a82e648154cd18ea92ab4843eee55029817cabe4b5fbf946ac4deb84d8cf97",
+              "assemblies": {
+                "candidate": "87a023132ca7011a546514aec9f6dbd1b89976997b82612e23ab5a1bc304ec1c",
+                "verifier": "c139bd4dcd5a79b25e9473ebebf9de0795c2937d4fac2c84abed9587dfd4452e"
+              },
+              "compileValidated": true,
+              "engineValidated": false,
+              "status": "compile-validated",
+              "warnings": {
+                "candidate": 0,
+                "verifier": 0
+              }
+            },
+            {
+              "control": "default-flags",
+              "materializationId": "4546a102ec9947dbbcc6ae13ad3c274d",
+              "candidateSource": "sha256:7a3735f3bc44ed2b5aa7b45cc5202ac54b765f8cb9e8c357020ddfd17ca59a34",
+              "assemblies": {
+                "candidate": "aca27f34c9c6e2c5cde245cc3c6f392e3c3f2f8b6dc1a9194143db5b95e39379",
+                "verifier": "c139bd4dcd5a79b25e9473ebebf9de0795c2937d4fac2c84abed9587dfd4452e"
+              },
+              "compileValidated": true,
+              "engineValidated": false,
+              "status": "compile-validated",
+              "warnings": {
+                "candidate": 0,
+                "verifier": 0
+              }
+            },
+            {
+              "control": "open-window-only",
+              "materializationId": "ca9bd05d1a71418aa74e8404a20c4092",
+              "candidateSource": "sha256:892b9c1d30bd921bec1d7e8d36b341b103bb9e7b0d866b3b8d25b43ebc230521",
+              "assemblies": {
+                "candidate": "d4261d56325fba126d2a51b4f1c1246098b4edc4989c050a540d2cec7d05b997",
+                "verifier": "c139bd4dcd5a79b25e9473ebebf9de0795c2937d4fac2c84abed9587dfd4452e"
+              },
+              "compileValidated": true,
+              "engineValidated": false,
+              "status": "compile-validated",
+              "warnings": {
+                "candidate": 0,
+                "verifier": 0
+              }
+            }
+          ],
+          "workspaceChecks": {
+            "rimworld": "273 passed",
+            "newAuthoringCases": "23 passed",
+            "ruff": "passed",
+            "mypy": "passed; 261 source files",
+            "fullPython": "7 failed, 2067 passed, 28 skipped, 2 warnings in 660.80s (0:11:00)",
+            "failedTests": [
+              "tests/test_slay_the_spire_native_assets.py::test_native_task_bytes_match_measured_manifest[stslib-block-ledger-r1]",
+              "tests/test_slay_the_spire_native_assets.py::test_native_task_bytes_match_measured_manifest[stslib-icon-layout-r1]",
+              "tests/test_util_hash_tree.py::test_matches_reference_on_adversarial_tree",
+              "tests/test_util_hash_tree.py::test_matches_reference_with_symlinks",
+              "tests/test_util_hash_tree.py::test_root_variants_match_reference",
+              "plugins/mindustry/tests/test_mindustry_construct_runtime_builder.py::test_prepare_builds_from_acquired_source",
+              "plugins/terraria/tests/test_terraria_runtime_builder.py::test_prepare_builds_task_image_from_recorded_source"
+            ],
+            "frontend": "lint/test/build passed; existing lint warnings; one test passed",
+            "shell": "Bash syntax and ShellCheck passed for eight entry points; retired workers/wsl2 scripts absent from current main",
+            "ciYaml": "parsed",
+            "remoteCi": "not-run",
+            "diffWhitespace": "passed",
+            "normalHub": "one exported task discovered; full CLI exits 2 for unprepared runtime",
+            "environment": "Temporary Python 3.12 environment synchronized from uv.lock; devenv unavailable. No engine execution."
+          },
+          "pending": {
+            "linuxRoleImages": "not-run",
+            "realReferenceBaseNop": "not-run",
+            "negativeRuntimeControls": "not-run",
+            "nativeFixtureReadinessAndRestoration": "not-run",
+            "modelDifficultyStudy": "not-run",
+            "admission": "requires real-game controls and review; no formal registration or replacement"
+          },
+          "evidenceLocations": {
+            "compileReport": "/private/tmp/rimworld-research-accepted-inputs-20261026/compile.json",
+            "pythonLog": "/private/tmp/rimworld-research-current-pytest.log",
+            "normalCliSmoke": "/private/tmp/rimworld-research-cli-smoke-20261026/smoke.json"
+          }
+        }
+      ],
+      "pending": {
+        "referenceCompilation": "passed; 16 assemblies, zero warnings and errors",
+        "linuxRoleImages": "not-run",
+        "realReferenceBaseNop": "not-run",
+        "negativeRuntimeControls": "not-run",
+        "nativeFixtureReadinessAndRestoration": "not-run",
+        "modelDifficultyStudy": "not-run"
+      },
+      "inputManifestSha256": "a237f51597ac31c251635420ff8da5381c7ad27e5bfc062af9c2eb05a3df84c1",
+      "host": {
+        "system": "Darwin",
+        "architecture": "arm64"
+      },
+      "toolchain": {
+        "sdk": "8.0.422",
+        "language": "C#12",
+        "framework": "net472",
+        "dotnetSha256": "c0f8c002e1610b9f3b98b23b4b82d0323917ba85f0b6a969d6f3921c96040575"
+      },
+      "resolvedReviewFindings": {
+        "F1": "prior evidence reset before SDK probe; actual successful-report/missing-SDK regression now exits 2 with false evidence",
+        "F2": "four native window/view cases and two corresponding mutants added; engine validation remains unrun"
+      },
+      "workspaceChecks": {
+        "rimworld": "282 passed",
+        "newAuthoringCases": "32 passed",
+        "ruff": "passed",
+        "mypy": "passed; 261 source files",
+        "fullPython": "15 failed, 2070 passed, 26 skipped, 1 warning in 854.11s (0:14:14)",
+        "failedTests": [
+          "tests/test_slay_the_spire_native_assets.py::test_native_task_bytes_match_measured_manifest[stslib-block-ledger-r1]",
+          "tests/test_slay_the_spire_native_assets.py::test_native_task_bytes_match_measured_manifest[stslib-icon-layout-r1]",
+          "tests/test_util_hash_tree.py::test_matches_reference_on_adversarial_tree",
+          "tests/test_util_hash_tree.py::test_matches_reference_with_symlinks",
+          "tests/test_util_hash_tree.py::test_root_variants_match_reference",
+          "plugins/mindustry/tests/test_mindustry_construct_runtime_builder.py::test_prepare_builds_from_acquired_source",
+          "plugins/terraria/tests/test_terraria_runtime_builder.py::test_prepare_builds_task_image_from_recorded_source"
+        ],
+        "initialAdditionalFailures": [
+          "test_an_openai_route_keeps_temperature_zero_and_merges_extra_body",
+          "test_extra_body_on_the_anthropic_route_is_nested",
+          "test_hub_full_profile_uses_native_runtime_when_available",
+          "test_lua_runner_terminates_infinite_submission",
+          "test_output_config_and_omitted_temperature_reach_the_anthropic_request",
+          "test_real_dedicated_server_runs_both_phases_when_available",
+          "test_real_seatbelt_blocks_outside_file_access_and_direct_network",
+          "test_the_thinking_condition_reaches_the_request_body"
+        ],
+        "targetedPermissionRetry": "6 passed, 2 skipped, 1 warning in 15.06s",
+        "remainingFailures": "seven prior LFS/filesystem/Docker failures; full suite is not green",
+        "retryScope": "Only eight additional failures rerun with required permissions; not a second complete suite",
+        "frontend": "lint/test/build passed; eight existing lint warnings; one test passed",
+        "shell": "Bash syntax and ShellCheck passed for six current required entrypoints and two reserve scripts; legacy WSL paths absent",
+        "ciYaml": "parsed; fixed SDK and authoring invocation present",
+        "remoteCi": "not-run",
+        "normalHub": "one exported task discovered; full CLI exits 2 for unprepared runtime",
+        "environment": "Temporary Python 3.12 environment synchronized from uv.lock; devenv unavailable. No real engine execution."
+      },
+      "evidenceLocations": {
+        "compileReport": "/private/tmp/rimworld-reserve-fixes-20261026/compiled-revision-2-final/compile.json",
+        "pythonLog": "/private/tmp/rimworld-reserve-fixes-20261026/full-0.log",
+        "reportReuseRegression": "/private/tmp/rimworld-reserve-fixes-20261026/report-reuse-regression.json",
+        "inputAudit": "/private/tmp/rimworld-reserve-fixes-20261026/input-audit.json",
+        "normalCliSmoke": "/private/tmp/rimworld-reserve-fixes-20261026/hub-smoke.json",
+        "permissionRetry": "/private/tmp/rimworld-reserve-fixes-20261026/permission-retry.log"
+      }
+    }
+  ]
+}

@@ -1,0 +1,94 @@
+{
+  "validated": true,
+  "matrix_audit_sha256": "5fcb923117ab2e4afebb45c4cf970a1699429a9a03d4ae49ac4a11de662da29f",
+  "matrix_results": [
+    {
+      "variant": "base",
+      "passed": 5,
+      "expected": 15,
+      "failed_case_ids": [
+        "alias-existing",
+        "alias-new",
+        "game-color",
+        "late-switch",
+        "switch-add",
+        "switch-delete",
+        "warm-add",
+        "warm-delete",
+        "warm-replace",
+        "warm-undo"
+      ]
+    },
+    {
+      "variant": "gold",
+      "passed": 15,
+      "expected": 15,
+      "failed_case_ids": []
+    },
+    {
+      "variant": "alternative",
+      "passed": 15,
+      "expected": 15,
+      "failed_case_ids": []
+    },
+    {
+      "variant": "alias-only",
+      "passed": 7,
+      "expected": 15,
+      "failed_case_ids": [
+        "game-color",
+        "late-switch",
+        "switch-add",
+        "switch-delete",
+        "warm-add",
+        "warm-delete",
+        "warm-replace",
+        "warm-undo"
+      ]
+    },
+    {
+      "variant": "cache-only",
+      "passed": 10,
+      "expected": 15,
+      "failed_case_ids": [
+        "alias-existing",
+        "alias-new",
+        "late-switch",
+        "switch-add",
+        "switch-delete"
+      ]
+    },
+    {
+      "variant": "switch-only",
+      "passed": 8,
+      "expected": 15,
+      "failed_case_ids": [
+        "alias-existing",
+        "alias-new",
+        "game-color",
+        "warm-add",
+        "warm-delete",
+        "warm-replace",
+        "warm-undo"
+      ]
+    }
+  ],
+  "formal_audit_sha256": "68caab2fc13b6bb335a7e8326263f7e8f5ee044cdb8896d95cdae225caf111d2",
+  "formal_controls": [
+    {
+      "agent": "oracle",
+      "trial": "mts-enum-identity-r2__snnSwTp",
+      "passed": 15,
+      "expected": 15,
+      "reward": 1
+    },
+    {
+      "agent": "nop",
+      "trial": "mts-enum-identity-r2__wP3tKZa",
+      "passed": 5,
+      "expected": 15,
+      "reward": 0
+    }
+  ],
+  "scope": "Historical complete native-runtime controls, including an independently different passing repair. Raw runtime logs remain local; source and receipt hashes identify the frozen evidence."
+}

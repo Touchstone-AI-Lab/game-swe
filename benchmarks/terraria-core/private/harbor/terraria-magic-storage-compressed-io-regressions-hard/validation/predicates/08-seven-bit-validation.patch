@@ -1,0 +1,37 @@
+diff --git a/Common/IO/ValueReader.cs b/Common/IO/ValueReader.cs
+--- a/Common/IO/ValueReader.cs
++++ b/Common/IO/ValueReader.cs
+@@ -166,23 +166,21 @@ namespace MagicStorage.Common.IO {
+ 
+ 		public int Read7BitEncodedInt() {
+ 			int read = 0;
+-			int shift = 0;
+ 
+-			while (shift < BitBuffer128.MAX_INT) {
+-				byte b;
+-				bool more;
++			for (int shift = 0; shift < 28; shift += BitBuffer128.MAX_BYTE - 1) {
++				byte value = ReadByte(BitBuffer128.MAX_BYTE - 1);
++				read |= value << shift;
+ 
+-				b = ReadByte(BitBuffer128.MAX_BYTE - 1);
+-				read |= (b & 0x7F) << shift;
+-				shift += BitBuffer128.MAX_BYTE - 1;
+-				
+-				more = ReadBoolean();
+-
+-				if (!more)
++				if (!ReadBoolean())
+ 					return read;
+ 			}
+ 
+-			throw new FormatException("Invalid 7-bit encoded integer");
++			byte finalValue = ReadByte(BitBuffer128.MAX_BYTE - 1);
++			bool finalContinuation = ReadBoolean();
++			if (finalContinuation || finalValue > 0x0F)
++				throw new FormatException("Invalid 7-bit encoded integer");
++
++			return read | (finalValue << 28);
+ 		}
+ 
+ 		// Specialized methods for handling item data

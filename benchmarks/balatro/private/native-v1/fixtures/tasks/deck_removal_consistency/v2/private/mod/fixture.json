@@ -1,0 +1,18 @@
+{
+  "id": "poc_dr2_fixture",
+  "name": "Physical batch removal private fixture",
+  "author": [
+    "Balatro PoC"
+  ],
+  "description": "Initial mixed scene and passive identity observation",
+  "prefix": "dr2f",
+  "main_file": "fixture.lua",
+  "version": "2.0.0",
+  "priority": 100006,
+  "dependencies": [
+    "Steamodded (>=1.~)",
+    "balatrobot",
+    "poc_bg_observer",
+    "deck_removal_consistency_v2"
+  ]
+}

@@ -1,0 +1,98 @@
+schema_version = "1.1"
+
+[task]
+name = "gamecodebench/mts-loader-internals-regressions"
+description = "ModTheSpire carrying several independent regressions spread across mod-descriptor persistence, mod identity, early-return patch semantics, postfix result forwarding and by-reference parameter marshalling, reported only as user-visible symptoms."
+authors = []
+keywords = ["slay-the-spire", "modthespire", "java", "javassist", "bytecode", "regression"]
+
+[metadata]
+category = "programming"
+difficulty = "hard"
+tags = ["game-modding", "java", "javassist", "bytecode", "bug-fix", "multi-defect"]
+source_repo = "https://github.com/kiooeht/ModTheSpire"
+source_license = "MIT"
+base_commit = "master"
+gold_patch_origin = "author"
+
+# WHAT THIS TASK IS. Seven independent defect groups across four files and three
+# subsystems of ModTheSpire's loader, reported to the model only as seven user-voice
+# symptom reports with the count undisclosed and no mechanism vocabulary.
+#
+#   ModInfo.java          (mod-descriptor persistence + mod identity)
+#     - the authors list is dropped from both the write and the read path, so it
+#       survives only until the launcher first serialises its cache
+#     - equals() additionally requires the display Name to match, so renaming a mod
+#       makes the launcher treat it as a different mod
+#     - the version is read through `new Semver(...)` instead of the loader's own
+#       lenient parser, so a two-component version parses on first read and throws
+#       from the cache afterwards
+#     - hashCode() is reduced to the ID alone, so descriptors that deliberately carry
+#       no ID collapse into a single bucket and all but one disappear
+#
+#   lib/SpireReturn.java  (early-return semantics)
+#     - Return(null) degrades to Continue(), so a prefix that means to take over a
+#       void method cannot; standing aside still works, which is why the report
+#       describes exactly half the behaviour as broken
+#
+#   patcher/PostfixPatchInfo.java (postfix result forwarding)
+#     - the destination-type check is widened from equality to a subtype test, so a
+#       postfix whose parameter is a supertype of the return type claims the result
+#       slot and receives the caller's argument instead of the computed value
+#
+#   patcher/ParameterPatchInfo.java (by-reference marshalling)
+#     - the two unboxing lines in the generated read-back are deleted, so a @ByRef
+#       patch declaring a wrapper type against a primitive parameter produces
+#       bytecode the JVM verifier rejects at class-load time
+#
+# WHY THESE DEFECTS. The lesson from the sibling DarkRP pack and five single-subsystem
+# ModTheSpire tasks: difficulty is the product of (a) defects that do not look like
+# defects from their shape and (b) spread across subsystems. Defect count alone is not
+# a lever. Every defect here was chosen
+# so that the containing function reads as a complete, ordinary implementation: no
+# dangling local, no comment stating the opposite behaviour, no identifier naming the
+# missing step. Each is wrong only against an external contract (the serialisation
+# round trip, the JVM's typing rules, javassist's postfix convention).
+#
+# VERIFIER COVERAGE. 7 reports / 7 defect groups / 16 assertions across 14 test files.
+# Every graded group has a report and every report has an assertion; positive controls
+# assert behaviour that already works on both trees so a scorched-earth rewrite cannot
+# pass. The suite needs no base game, no display and no network.
+#
+# GATE, measured on a real headless build:
+#   base       Tests run: 16, Failures: 4, Errors: 1   BUILD FAILURE
+#   reference  Tests run: 16, Failures: 0, Errors: 0   BUILD SUCCESS
+#
+# ENVIRONMENT NOTES, each of which cost a round to find:
+#   - JDK 8 is required; MTSClassLoader and EnumBusterReflect use sun.misc / sun.reflect,
+#     which Java 17 removed. That failure looks like a missing game dependency and is not.
+#   - The Slay the Spire systemPath dependency is stripped and `patches/**` plus
+#     PackageJar.java are excluded from compilation: they are the only parts that truly
+#     need the paid base game. Everything the task touches builds without it.
+#   - `ui/UpdateWindow.java` carried a dead `import javafx.util.Pair` that OpenJDK 8
+#     cannot resolve. It is unused, so the import is removed; no behaviour changes.
+#   - The verifier runs `mvn -o clean test`. `clean` is load-bearing: a submission copied
+#     in with older timestamps would otherwise be judged up to date against the image's
+#     compiled classes and the verifier would grade stale bytecode.
+
+[verifier]
+network_mode = "no-network"
+timeout_sec = 900.0
+
+[agent]
+# The agent harness runs inside the container and calls the model API from there, so a
+# blanket no-network stops it before it works. github.com is deliberately absent: the
+# upstream sources are one clone away in a public repository, and that is the leak this
+# isolates against. Maven runs offline against a repository warmed at image build time.
+network_mode = "allowlist"
+allowed_hosts = []
+timeout_sec = 5400.0
+
+[environment]
+network_mode = "no-network"
+build_timeout_sec = 2400.0
+cpus = 4
+memory_mb = 8192
+storage_mb = 12288
+gpus = 0
+mcp_servers = []

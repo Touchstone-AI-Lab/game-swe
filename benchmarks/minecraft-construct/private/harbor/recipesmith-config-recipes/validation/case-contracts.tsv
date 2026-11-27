@@ -1,0 +1,19 @@
+case	layer	role	public_report
+Recipesmith is enabled	server	sentinel	the plugin enables on the real server
+the default recipe file is written and loaded	server	target	requirement 1; requirement 3
+plugin.yml declares the recipes command and permission	server	target	requirement 7
+shaped recipes craft their result anywhere in the grid	server	target	requirement 2; requirement 3
+ingredient lists and tags accept any listed material	server	target	requirement 2
+shapeless recipes ignore positions but count items	server	target	requirement 2
+cooking and stonecutting recipes carry their settings	server	target	requirement 2; requirement 3
+a smelting recipe cooks in a real furnace	server	target	requirement 2; requirement 3
+recipes are registered under the plugin namespace	server	target	requirement 3
+invalid recipes are skipped with the first reason	server	target	requirement 4; requirement 6
+reload removes recipes deleted from the file	server	target	requirement 6
+disabled vanilla recipes cannot be crafted	server	target	requirement 5; requirement 6
+reload restores vanilla recipes that are no longer disabled	server	target	requirement 6; requirement 5
+disable and enable edit the file	server	target	requirement 7; requirement 5
+list shows the loaded recipes	server	target	requirement 7; requirement 4
+permissions are enforced	server	target	requirement 7
+malformed commands show usage	server	target	requirement 7
+tagged ingredients craft a MiniMessage-named item with lore	server	target	requirements 2, 3

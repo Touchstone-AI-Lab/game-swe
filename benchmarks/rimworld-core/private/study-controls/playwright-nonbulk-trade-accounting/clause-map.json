@@ -1,0 +1,183 @@
+{
+  "task": "rimworld/core/playwright-nonbulk-trade-accounting",
+  "task_version": "0.3.3",
+  "exam": "benchmarks/rimworld-core/exams/playwright-nonbulk-trade-accounting.md",
+  "cases": [
+    {
+      "id": "check:submission-shape",
+      "role": "static",
+      "clauses": [
+        "delivery"
+      ],
+      "overlap": false,
+      "note": "required C# sources present as a safe snapshot; rejects binaries, links and private-harness markers"
+    },
+    {
+      "id": "case:runtime-defs-ready",
+      "role": "runtime-sentinel",
+      "clauses": [],
+      "overlap": false,
+      "note": "Core, Playwright slice and verifier loaded"
+    },
+    {
+      "id": "case:nonbulk-sale-captured",
+      "role": "target",
+      "clauses": [
+        "req-1"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:nonbulk-sale-counted",
+      "role": "target",
+      "clauses": [
+        "req-3"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:bulk-sale-counted",
+      "role": "preserved",
+      "clauses": [
+        "req-5"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:multiple-scenparts-notified",
+      "role": "preserved",
+      "clauses": [
+        "req-3"
+      ],
+      "overlap": true,
+      "note": ""
+    },
+    {
+      "id": "case:faction-part-notified",
+      "role": "preserved",
+      "clauses": [
+        "req-4"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:null-faction-skipped",
+      "role": "preserved",
+      "clauses": [
+        "req-4"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:purchase-not-counted",
+      "role": "target",
+      "clauses": [
+        "req-1",
+        "req-5"
+      ],
+      "overlap": true,
+      "note": ""
+    },
+    {
+      "id": "case:zero-transfer-not-counted",
+      "role": "target",
+      "clauses": [
+        "req-2"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:empty-tradeable-not-counted",
+      "role": "target",
+      "clauses": [
+        "req-1"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:missing-scenario-not-counted",
+      "role": "preserved",
+      "clauses": [
+        "req-2"
+      ],
+      "overlap": true,
+      "note": ""
+    },
+    {
+      "id": "case:definition-preserved-after-resolve",
+      "role": "target",
+      "clauses": [
+        "req-1",
+        "req-3"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:single-notification",
+      "role": "preserved",
+      "clauses": [
+        "req-3"
+      ],
+      "overlap": true,
+      "note": ""
+    },
+    {
+      "id": "case:fixture-state-restored",
+      "role": "setup",
+      "clauses": [],
+      "overlap": false,
+      "note": "terminal fixture-restoration gate"
+    }
+  ],
+  "clauses": [
+    {
+      "id": "req-1",
+      "anchor": "Required behavior, bullet 1: the prefix captures ThingDef and CountToTransferToDestination only for PlayerSells with an actual thing",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "req-2",
+      "anchor": "Required behavior, bullet 2: the postfix ignores empty state, non-positive counts and missing scenarios",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "req-3",
+      "anchor": "Required behavior, bullet 3: every sell-items part is notified once with the captured definition and count, including non-bulk goods",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "req-4",
+      "anchor": "Required behavior, bullet 4: faction parts are notified only when the trader has a faction, with that faction",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "req-5",
+      "anchor": "Required behavior, bullet 5: preserve bulk accounting; no counting of purchases, zero transfers, null sessions or unrelated parts",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "delivery",
+      "anchor": "closing paragraph: do not add RimWorld, Unity or Harmony binaries, generated output, test results, credentials, Workshop content, assets, saves or logs",
+      "status": "weak",
+      "note": "the snapshot gate rejects binaries, links and harness markers; the other listed artefacts are not checked"
+    }
+  ],
+  "excluded_clauses": [],
+  "known_issues": [
+    "The suite reads the prefix state as a nested public struct Tradeable_ResolveTradePatches.SoldThing with fields Def and Count, and invokes methods named Prefix and Postfix; the exam names none of these.",
+    "tests/Harness/Verifier.cs gives its fixture scenario the player-faction and surface-layer parts RimWorld 1.6 always yields first, and tests/Support.cs gives the scenario-part doubles distinct defs, so the starter's def-based filter behaves as it would in a real game."
+  ]
+}

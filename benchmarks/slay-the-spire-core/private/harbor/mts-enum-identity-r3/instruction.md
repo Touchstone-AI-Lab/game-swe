@@ -1,0 +1,7 @@
+Mods that extend enumeration values do not reliably agree on which objects those values represent. Two declarations using the same name can compare unequal, including declarations for an existing built-in value. Declarations for the same type and name should refer to its one current value; preserve the existing native object when that name already exists. This aliasing rule must not turn an explicit replacement request into a no-op.
+
+After a value is added, explicitly replaced, deleted or restored, newly requested standard Java enumeration queries sometimes disagree with the current values and named constants. Make name lookup, reflective enumeration and newly created complete enum sets observe the current universe and object identities, even if those queries were used earlier. Preserve explicit replacement, deletion and undo semantics; previously returned caller-owned snapshots do not need to be rewritten.
+
+Existing mod dispatch can also take the wrong branch after deleting a value, or crash on a newly added value. Keep ordinary switch behavior for surviving named values and use the existing default branch for new values. This must keep working across subsequent edits and undo, including a switch first exercised after an earlier extension. Preserve ordinary loading, extension annotations and their metadata, public APIs, and unchanged enumeration behavior.
+
+The project is in `/app/modthespire`. Build offline with `mvn -B -o clean test package`. No particular cache, metadata-discovery or state-management design is required.

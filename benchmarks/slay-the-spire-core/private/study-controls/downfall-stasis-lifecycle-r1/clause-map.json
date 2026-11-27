@@ -1,0 +1,372 @@
+{
+  "task": "slay-the-spire/core/downfall-stasis-lifecycle-r1",
+  "task_version": "1.4.0",
+  "exam": "benchmarks/slay-the-spire-core/exams/downfall-stasis-lifecycle-r1.md",
+  "cases": [
+    {
+      "id": "case:engine",
+      "role": "runtime-sentinel",
+      "clauses": [],
+      "overlap": false,
+      "note": "the evaluator's engine/run sentinel; passes on starter and reference"
+    },
+    {
+      "id": "case:normal-return",
+      "role": "preserved",
+      "clauses": [
+        "preserve"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:stale-return",
+      "role": "target",
+      "clauses": [
+        "request"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:normal-volatile",
+      "role": "preserved",
+      "clauses": [
+        "preserve"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:stale-volatile",
+      "role": "target",
+      "clauses": [
+        "request"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:full-hand",
+      "role": "preserved",
+      "clauses": [
+        "preserve"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:placement-normal",
+      "role": "preserved",
+      "clauses": [
+        "preserve"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:placement-moved",
+      "role": "target",
+      "clauses": [
+        "request"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:placement-already-held",
+      "role": "target",
+      "clauses": [
+        "request"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:random-one",
+      "role": "preserved",
+      "clauses": [
+        "preserve"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:random-zero",
+      "role": "target",
+      "clauses": [
+        "request"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:random-empty",
+      "role": "preserved",
+      "clauses": [
+        "preserve"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:return-queued-twice",
+      "role": "target",
+      "clauses": [
+        "request"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:volatile-queued-twice",
+      "role": "target",
+      "clauses": [
+        "request"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:placement-duplicate",
+      "role": "target",
+      "clauses": [
+        "request"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:placement-discard",
+      "role": "preserved",
+      "clauses": [
+        "preserve"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:placement-blocked-unretained",
+      "role": "preserved",
+      "clauses": [
+        "preserve"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:placement-blocked-retained",
+      "role": "preserved",
+      "clauses": [
+        "preserve"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:placement-moved-unretained",
+      "role": "target",
+      "clauses": [
+        "request"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:placement-moved-retained",
+      "role": "target",
+      "clauses": [
+        "request"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:placement-generated",
+      "role": "preserved",
+      "clauses": [
+        "preserve"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:generated-zero",
+      "role": "preserved",
+      "clauses": [
+        "preserve"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:generated-one",
+      "role": "preserved",
+      "clauses": [
+        "preserve"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:generated-two",
+      "role": "preserved",
+      "clauses": [
+        "preserve"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:generated-overflow",
+      "role": "target",
+      "clauses": [
+        "request"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:generated-existing",
+      "role": "target",
+      "clauses": [
+        "request"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:generated-mixed",
+      "role": "target",
+      "clauses": [
+        "request"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:generated-blocked",
+      "role": "preserved",
+      "clauses": [
+        "preserve"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:random-three-draw",
+      "role": "preserved",
+      "clauses": [
+        "preserve"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:random-three-discard",
+      "role": "preserved",
+      "clauses": [
+        "preserve"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:native-dualcast-normal",
+      "role": "preserved",
+      "clauses": [
+        "preserve"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:native-dualcast-volatile",
+      "role": "target",
+      "clauses": [
+        "request"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:native-dualcast-hook",
+      "role": "target",
+      "clauses": [
+        "request"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:native-recursion-normal",
+      "role": "target",
+      "clauses": [
+        "request"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:native-recursion-volatile",
+      "role": "target",
+      "clauses": [
+        "request"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:native-recursion-hook",
+      "role": "target",
+      "clauses": [
+        "request"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:native-recursion-upgraded",
+      "role": "target",
+      "clauses": [
+        "request"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:native-dualcast-lightning",
+      "role": "preserved",
+      "clauses": [
+        "preserve"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "check:submission-shape",
+      "role": "static",
+      "clauses": [],
+      "overlap": false,
+      "note": "required source tree present as a safe snapshot"
+    }
+  ],
+  "clauses": [
+    {
+      "id": "request",
+      "status": "asserted",
+      "note": "",
+      "anchor": "the exam's requested repair (whole exam body)"
+    },
+    {
+      "id": "preserve",
+      "status": "asserted",
+      "note": "",
+      "anchor": "behavior the exam keeps and the unchanged starter already provides"
+    }
+  ],
+  "excluded_clauses": [],
+  "known_issues": [
+    "Roles come from the 2026-10-30 E0 baseline on the real game: a case the unchanged starter already passes is preserved, every other case is a target. Clauses are not yet split per exam paragraph: each target case cites the whole requested repair."
+  ]
+}

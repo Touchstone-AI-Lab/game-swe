@@ -1,0 +1,71 @@
+schema_version = "1.1"
+
+[task]
+name = "gamecodebench/advdupe2-paste-regressions"
+description = "An Advanced Duplicator 2 build with five upstream fixes reverted -- scaled-prop physics, clean-up after a failed generic paste, frozen-object bookkeeping, rope limits and file-name sanitising -- reported only as user-visible symptoms."
+authors = []
+keywords = ["garrysmod", "glua", "lua", "advdupe2", "multi-defect", "regression"]
+
+[metadata]
+category = "programming"
+difficulty = "hard"
+tags = ["game-modding", "glua", "gmod", "advdupe2", "bug-fix", "composite"]
+source_repo = "https://github.com/wiremod/advdupe2"
+source_license = "Apache-2.0"
+base_commit = "e3ffa3c5d772658a11eacfb8570d543636392f9c"
+reverted_fixes = "3c6dda8d8c47d399c010628255d0f63303562959,6c9a4b58829616d25767f6a5e7e3f34dc05ea8c9,ded84ceca0b4cd8c34e04e9d81a4659db37c3f7e,b10d6d6911ec8298a95695bad59f94c90c6db087,2f7359562ee96fa1a3294d4d6ed11dcc43ad2b28"
+gold_patch_origin = "composed-from-upstream-fixes"
+
+# PROVENANCE. The reference is upstream master at base_commit (2026-08-27), vendored
+# whole with its Apache-2.0 LICENSE. The starter is that tree with the five upstream
+# fix commits below reverted together (`git revert --no-commit`, newest first, applied
+# cleanly). Nothing is hand-injected. The only other difference from upstream is that
+# the CI workflow directory and .gitignore are not vendored.
+#   A  3c6dda8d (#546, 2026-07-14)  sv_clipboard.lua  MakeProp skips Activate(), so a
+#                                   pasted prop keeps unscaled physics after
+#                                   SetModelScale
+#   B  6c9a4b58 (#536, 2026-04-10)  sv_clipboard.lua  the generic (unregistered class)
+#                                   path does not collect and remove the entities it
+#                                   created when creation fails
+#   C  ded84cec (2026-01-25)        sv_clipboard.lua  DoGenericPhysics iterates the
+#                                   0-based physics-object table with ipairs, so bone 0
+#                                   is never registered as frozen by the player
+#   D  b10d6d69 (#527, 2025-11-29)  sv_clipboard.lua  ropes are counted as "constraints"
+#                                   and the rope limit is never checked
+#   E  2f735956 (#524, 2025-10-23)  sh_codec.lua (+ client file-browser hunks)
+#                                   SanitizeFilename leaves spaces around / \ and .
+# Two of the fixes (A and C) repair regressions introduced by upstream's own #522
+# clean-up, so the starter reproduces real shipped states of the addon.
+#
+# VERIFIER COVERAGE. 5 reports / 5 groups / 6 target cases + 4 preserved cases +
+# 1 load sentinel = 11 cases. Group D has two cases (counting and enforcement).
+# Every case drives the public duplicator API the tool itself uses
+# (AdvDupe2.duplicator.Copy / Paste, AdvDupe2.Encode / Decode,
+# AdvDupe2.SanitizeFilename) on real entities, bots and constraints, and observes
+# engine state: physics volume, entity lists, Player:UnfreezePhysicsObjects,
+# Player:GetCount, created constraints.
+#
+# VALIDATED. Unchanged starter: complete, the sentinel and all four preserved cases
+# pass, every target case fails. Reference: 11/11. See validation/ in this pack.
+
+[verifier]
+network_mode = "no-network"
+timeout_sec = 1200.0
+
+[agent]
+# The agent harness calls the model API from inside the container; only the model
+# endpoint may be reachable. A Harbor job passes that hostname through
+# `agents[].extra_allowed_hosts`; github.com stays unreachable because the upstream
+# repository contains the fixes.
+network_mode = "allowlist"
+allowed_hosts = []
+timeout_sec = 5400.0
+
+[environment]
+network_mode = "no-network"
+build_timeout_sec = 2400.0
+cpus = 6
+memory_mb = 16384
+storage_mb = 20480
+gpus = 0
+mcp_servers = []

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<metadata>
+  <name>Construct Room RNG Verifier</name>
+  <directory>gcb_construct_room_rng_suite</directory>
+  <id>construct-room-rng-suite</id>
+  <description>Private verifier companion mod.</description>
+  <version>1.0.0</version>
+</metadata>

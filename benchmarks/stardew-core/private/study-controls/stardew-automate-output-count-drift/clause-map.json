@@ -1,0 +1,53 @@
+{
+  "task": "stardew-valley/core/stardew-automate-output-count-drift",
+  "task_version": "1.2.0",
+  "exam": "benchmarks/stardew-core/exams/stardew-automate-output-count-drift.md",
+  "cases": [
+    {
+      "id": "case:sentinel: a chest feeds an adjacent furnace",
+      "role": "runtime-sentinel"
+    },
+    {
+      "id": "case:sentinel: the first finished bar is stored in the empty chest",
+      "role": "runtime-sentinel"
+    },
+    {
+      "id": "case:a finished bar joining an existing stack adds exactly one bar",
+      "role": "target",
+      "clauses": [
+        "request"
+      ]
+    },
+    {
+      "id": "case:setup: the chest has no free slot left",
+      "role": "setup"
+    },
+    {
+      "id": "case:with no free slot, a bar that fits the stack is stored and the furnace empties",
+      "role": "target",
+      "clauses": [
+        "request"
+      ]
+    },
+    {
+      "id": "case:with no free slot and a maxed stack, the finished bar stays in the furnace",
+      "role": "target",
+      "clauses": [
+        "request"
+      ]
+    },
+    {
+      "id": "check:submission-shape",
+      "role": "static"
+    }
+  ],
+  "clauses": [
+    {
+      "id": "request",
+      "anchor": "exam body; split into individual clauses during review",
+      "status": "asserted"
+    }
+  ],
+  "excluded_clauses": [],
+  "known_issues": []
+}

@@ -1,0 +1,10 @@
+control	kind	base	overlay	root	note
+alternative-second-reference	alternative	starter	tree:alternative-second-reference	.	second authored reference (graph-rows): row-list blueprint/request/paste storage instead of the oracle's keyed owner map
+alternative-strict-reading	alternative	starter	tree:alternative-strict-reading	.	graph-rows with undisclosed conventions replaced: own hook/timer names (<prefix>.<HookEvent>) and no HookPrefix/TimerName export; expected to show problems
+alternative-strict-reading-layout	alternative	starter	tree:alternative-strict-reading-layout	.	graph-rows with only the save-state list key renamed (blueprint_rows instead of blueprints); T5-PERSIST-01 fixes no key names; expected to show problems
+alternative-strict-reading-params	alternative	starter	tree:alternative-strict-reading-params	.	graph-rows with one change: unknown constraint params keys are dropped instead of rejected (T5-SEM-03 requires only that at least Bone1/Bone2/forcelimit/nocollide round-trip); malformed values of the four known keys are still rejected; expected to show problems
+target-transform-x-skipped	target-negative	reference	patch:target-transform-x-skipped.patch	.	mutation: paste plan does not apply the target x translation
+constraint-params-omitted-from-hash	target-negative	reference	patch:constraint-params-omitted-from-hash.patch	.	mutation: constraint params do not contribute to the canonical hash
+gettable-graph-mismatch-ignored	target-negative	reference	patch:gettable-graph-mismatch-ignored.patch	.	mutation: Capture ignores a constraint.GetTable/duplicator.Copy mismatch
+partial-paste-not-rolled-back	target-negative	reference	patch:partial-paste-not-rolled-back.patch	.	mutation: a partially failed Paste leaves live objects
+shutdown-leaks-timer	target-negative	reference	patch:shutdown-leaks-timer.patch	.	lifecycle mutation: Shutdown keeps the named timer

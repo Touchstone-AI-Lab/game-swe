@@ -1,0 +1,194 @@
+diff -ruN a/addons/sourcemod/scripting/confoglcompmod/CvarSettings.sp b/addons/sourcemod/scripting/confoglcompmod/CvarSettings.sp
+--- a/addons/sourcemod/scripting/confoglcompmod/CvarSettings.sp
++++ b/addons/sourcemod/scripting/confoglcompmod/CvarSettings.sp
+@@ -11,7 +11,10 @@
+ enum struct CVSEntry
+ {
+ 	ConVar CVSE_cvar;
+-	char CVSE_oldval[CVS_CVAR_MAXLEN];
++	char CVSE_oldval[256];
++	char CVSE_enforced[256];
++	bool CVSE_active;
++	bool CVSE_writing;
+ 	char CVSE_newval[CVS_CVAR_MAXLEN];
+ }
+ 
+@@ -94,7 +97,7 @@
+ 		return Plugin_Handled;
+ 	}
+ 
+-	char cvar[CVS_CVAR_MAXLEN], newval[CVS_CVAR_MAXLEN];
++	char cvar[CVS_CVAR_MAXLEN + 1], newval[CVS_CVAR_MAXLEN + 1];
+ 	GetCmdArg(1, cvar, sizeof(cvar));
+ 	GetCmdArg(2, newval, sizeof(newval));
+ 
+@@ -179,7 +182,7 @@
+ 	GetCmdArg(1, buffer, sizeof(buffer));
+ 	int offset = StringToInt(buffer);
+ 
+-	if (offset > cvscount) {
++	if (offset < 0 || offset > cvscount) {
+ 		return Plugin_Handled;
+ 	}
+ 
+@@ -210,39 +213,66 @@
+ 
+ static void ClearAllSettings()
+ {
+-	bTrackingStarted = false;
+-	int iSize = CvarSettingsArray.Length;
+-
+-	CVSEntry cvsetting;
+-
+-	for (int i = 0; i < iSize; i++) {
+-		CvarSettingsArray.GetArray(i, cvsetting, sizeof(cvsetting));
+-
+-		(cvsetting.CVSE_cvar).RemoveChangeHook(CVS_ConVarChange);
+-		(cvsetting.CVSE_cvar).SetString(cvsetting.CVSE_oldval);
+-	}
+-
+-	CvarSettingsArray.Clear();
+-	PendingCvarsArray.Clear();
++    bTrackingStarted = false;
++    CVSEntry entry;
++    for (int i=0; i<CvarSettingsArray.Length; i++) {
++        CvarSettingsArray.GetArray(i, entry, sizeof(entry));
++        if (entry.CVSE_active) entry.CVSE_cvar.RemoveChangeHook(CVS_ConVarChange);
++    }
++    for (int i=0; i<CvarSettingsArray.Length; i++) {
++        CvarSettingsArray.GetArray(i, entry, sizeof(entry));
++        if (entry.CVSE_active) entry.CVSE_cvar.SetString(entry.CVSE_oldval);
++    }
++    CvarSettingsArray.Clear();
++    PendingCvarsArray.Clear();
+ }
+ 
+ static void SetEnforcedCvars()
+ {
+-	int iSize = CvarSettingsArray.Length;
+-
+-	CVSEntry cvsetting;
+-
+-	for (int i = 0; i < iSize; i++) {
+-		CvarSettingsArray.GetArray(i, cvsetting, sizeof(cvsetting));
+-
+-		#if CVARS_DEBUG
+-			char debug_buffer[CVS_CVAR_MAXLEN];
+-			(cvsetting.CVSE_cvar).GetName(debug_buffer, sizeof(debug_buffer));
+-			LogMessage("[%s] cvar = %s, newval = %s", CVS_MODULE_NAME, debug_buffer, cvsetting.CVSE_newval);
+-		#endif
+-
+-		(cvsetting.CVSE_cvar).SetString(cvsetting.CVSE_newval);
+-	}
++    CVSEntry entry;
++    // Capture the whole batch before invoking any engine write/change hook.
++    for (int i=0; i<CvarSettingsArray.Length; i++) {
++        CvarSettingsArray.GetArray(i, entry, sizeof(entry));
++        if (!entry.CVSE_active) {
++            entry.CVSE_cvar.GetString(entry.CVSE_oldval, sizeof(entry.CVSE_oldval));
++            entry.CVSE_active = true;
++            entry.CVSE_cvar.AddChangeHook(CVS_ConVarChange);
++            CvarSettingsArray.SetArray(i, entry, sizeof(entry));
++        }
++    }
++    bTrackingStarted = true;
++    for (int i=CvarSettingsArray.Length-1; i>=0; i--) CVS_ApplyEntry(i);
++}
++
++static void CVS_ApplyEntry(int index)
++{
++    CVSEntry entry;
++    CvarSettingsArray.GetArray(index, entry, sizeof(entry));
++    if (!entry.CVSE_active || entry.CVSE_writing) return;
++    entry.CVSE_writing = true;
++    CvarSettingsArray.SetArray(index, entry, sizeof(entry));
++    do {
++        entry.CVSE_cvar.SetString(entry.CVSE_newval);
++    } while (!CVS_MatchesDesired(entry));
++    entry.CVSE_cvar.GetString(entry.CVSE_enforced, sizeof(entry.CVSE_enforced));
++    entry.CVSE_writing = false;
++    CvarSettingsArray.SetArray(index, entry, sizeof(entry));
++}
++
++static bool CVS_MatchesDesired(CVSEntry entry)
++{
++    float low, high;
++    bool hasLow = entry.CVSE_cvar.GetBounds(ConVarBound_Lower, low);
++    bool hasHigh = entry.CVSE_cvar.GetBounds(ConVarBound_Upper, high);
++    if (hasLow || hasHigh) {
++        float desired = StringToFloat(entry.CVSE_newval);
++        bool clamped = false;
++        if (hasLow && desired < low) { desired = low; clamped = true; }
++        if (hasHigh && desired > high) { desired = high; clamped = true; }
++        if (clamped) return entry.CVSE_cvar.FloatValue == desired;
++    }
++    char current[256];entry.CVSE_cvar.GetString(current, sizeof(current));
++    return StrEqual(current, entry.CVSE_newval);
+ }
+ 
+ static void AddCvar(const char[] cvar, const char[] newval)
+@@ -275,7 +305,8 @@
+ 		(existingEntry.CVSE_cvar).GetName(cvarBuffer, CVS_CVAR_MAXLEN);
+ 
+ 		if (strcmp(cvar, cvarBuffer, false) == 0) {
+-			Debug_LogError(CVS_MODULE_NAME, "Attempt to track ConVar %s, which is already being tracked.", cvar);
++			strcopy(existingEntry.CVSE_newval, CVS_CVAR_MAXLEN, newval);
++			CvarSettingsArray.SetArray(i, existingEntry, sizeof(existingEntry));
+ 			return;
+ 		}
+ 	}
+@@ -287,7 +318,8 @@
+ 		PendingCvarsArray.GetArray(i, pendingEntry, sizeof(pendingEntry));
+ 
+ 		if (strcmp(cvar, pendingEntry.CVSP_name, false) == 0) {
+-			Debug_LogError(CVS_MODULE_NAME, "Attempt to track ConVar %s, which is already pending late-bind.", cvar);
++			strcopy(pendingEntry.CVSP_newval, CVS_CVAR_MAXLEN, newval);
++			PendingCvarsArray.SetArray(i, pendingEntry, sizeof(pendingEntry));
+ 			return;
+ 		}
+ 	}
+@@ -311,15 +343,16 @@
+ 
+ static void PushTrackedCvar(ConVar cvar, const char[] newval)
+ {
+-	char cvarBuffer[CVS_CVAR_MAXLEN];
+-	cvar.GetString(cvarBuffer, CVS_CVAR_MAXLEN);
++	char cvarBuffer[256];
++	cvar.GetString(cvarBuffer, sizeof(cvarBuffer));
+ 
+ 	CVSEntry newEntry;
+ 	newEntry.CVSE_cvar = cvar;
+-	strcopy(newEntry.CVSE_oldval, CVS_CVAR_MAXLEN, cvarBuffer);
++	newEntry.CVSE_active = false;
++	newEntry.CVSE_writing = false;
+ 	strcopy(newEntry.CVSE_newval, CVS_CVAR_MAXLEN, newval);
+ 
+-	cvar.AddChangeHook(CVS_ConVarChange);
++	// Hooks belong to activation, not registration.
+ 
+ #if CVARS_DEBUG
+ 	char cvarName[CVS_CVAR_MAXLEN];
+@@ -355,12 +388,14 @@
+ 
+ static void CVS_ConVarChange(ConVar hConVar, const char[] sOldValue, const char[] sNewValue)
+ {
+-	if (bTrackingStarted) {
+-		char sName[CVS_CVAR_MAXLEN];
+-		hConVar.GetName(sName, sizeof(sName));
+-
+-		PrintToServer("[Confogl] Tracked Server CVar '%s' changed from '%s' to '%s' !!!", sName, sOldValue, sNewValue);
+-		//PrintToChatAll("[Confogl] Tracked Server CVar '%s' changed from '%s' to '%s' !!!", sName, sOldValue, sNewValue);
+-		CPrintToChatAll("{blue}[{default}Confogl{blue}]{default} Tracked Server CVar '{green}%s{default}' changed from '{blue}%s{default}' to '{blue}%s{default}' !!!", sName, sOldValue, sNewValue);
+-	}
+-}
++    if (!bTrackingStarted) return;
++    CVSEntry entry;
++    for (int i=0; i<CvarSettingsArray.Length; i++) {
++        CvarSettingsArray.GetArray(i, entry, sizeof(entry));
++        if (entry.CVSE_cvar == hConVar) {
++            char current[256];hConVar.GetString(current, sizeof(current));
++            if (strcmp(current, entry.CVSE_enforced) != 0) CVS_ApplyEntry(i);
++            return;
++        }
++    }
++}

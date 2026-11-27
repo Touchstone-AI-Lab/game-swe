@@ -1,0 +1,11 @@
+case	layer	role	public_report
+payload blocks and units load on the pinned server	server	sentinel	payload conveyors take payloads and megas can carry them
+payload conveyors pass payloads along	server	preserved	a payload moves from one payload conveyor to the next
+a team payload conveyor keeps its payload through a save	server	preserved	a team payload conveyor keeps its payload on it through a save
+a derelict payload conveyor keeps its payload through a save	server	target	a derelict payload conveyor keeps its payload on it through a save
+a builder's queued plans survive a save	server	preserved	a poly with 40 queued plans keeps them through a save
+a builder with more than a thousand queued plans survives a save	server	target	a poly with 1200 queued plans keeps them through a save
+a unit sets down its own team's block near a core	server	preserved	a mega sets down a sharded wall near a sharded core
+a unit cannot set down an enemy block inside a core's protected area	server	preserved	a mega cannot set down a crux wall inside a sharded core's protected area
+a unit sets down a derelict block far from any core	server	preserved	a mega sets down a derelict wall far from any core
+a unit can set down a carried derelict block near a core	server	target	a mega sets down a derelict wall inside a core's protected area

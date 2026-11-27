@@ -1,0 +1,11 @@
+--- a/scripts/lootroll/arbiter.lua
++++ b/scripts/lootroll/arbiter.lua
+@@ -236,7 +236,7 @@
+ end
+ 
+ local function settle(self, roll, now)
+-    local at = math.min(now, roll.deadline)
++    local at = now
+     local need, greed = {}, {}
+     for index = 1, #roll.eligible do
+         local player_id = roll.eligible[index]

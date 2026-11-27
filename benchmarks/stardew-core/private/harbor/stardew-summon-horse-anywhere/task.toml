@@ -1,0 +1,67 @@
+schema_version = "1.1"
+
+[task]
+name = "gamecodebench/stardew-summon-horse-anywhere"
+description = "Generation task: write a new SMAPI mod from a natural-language requirement so the horse flute summons the player's horse indoors, without changing any other summoning rule."
+authors = ["Jiaxuan Luo"]
+keywords = ["stardew-valley", "smapi", "csharp", "game-modding", "generation"]
+
+[metadata]
+category = "programming"
+difficulty = "medium"
+tags = ["game-modding", "smapi", "stardew-valley", "csharp", "generation"]
+source_repo = "https://github.com/Pathoschild/StardewMods"
+source_license = "MIT"
+source_mod = "HorseFluteAnywhere"
+base_ref = "empty mod skeleton"
+fix_commit = "n/a — reference solution follows Pathoschild HorseFluteAnywhere (MIT)"
+task_kind = "generation"
+game_version = "1.6.15"
+smapi_version = "4.1.10"
+
+# Generation task derived from the upstream mod's user-facing behavior. The
+# agent starts from an empty project and the reference implementation remains
+# private to the evaluator.
+
+[verifier]
+network_mode = "no-network"
+timeout_sec = 2400.0
+
+[agent]
+# mini-swe-agent runs INSIDE the container and calls the model API from there, so a
+# blanket no-network kills it before it does any work. Everything else it needs is
+# baked into the image; github.com / nuget.org are deliberately NOT listed because
+# the reference fixes are upstream commits.
+network_mode = "allowlist"
+allowed_hosts = ["api.anthropic.com"]
+timeout_sec = 7200.0
+
+[environment]
+network_mode = "no-network"
+build_timeout_sec = 3600.0
+cpus = 6
+memory_mb = 16384
+storage_mb = 30720
+gpus = 0
+mcp_servers = []
+
+# Same isolation and responsible-release posture as the rest of the Stardew suite:
+# game files staged locally from the operator's own copy, never committed; images
+# stay private; pretraining contamination is not addressed by isolation.
+
+# GENERATION DESIGN — this is the suite's first task of the proposal's FIRST category
+# ("mod generation, in which an agent implements a new mod from a natural-language
+# requirement"). Every other task here is category two (debugging).
+#
+# The agent starts from an empty ModEntry and the requirement text. The reference
+# implementation is NEVER in the environment; it lives only in solution/reference/.
+#
+# FAIRNESS: the suite names no technique, patch target, or class. It drives the game's
+# own horse-flute use action and reads the world for the outcome, so any implementation
+# that produces the behaviour passes. The outdoor case is a sentinel that vanilla
+# already satisfies, so a submission that summons indoors by disabling the feature's
+# ordinary rules is caught.
+#
+# The requirement is derived from the upstream mod's own README ("summon your horse
+# anywhere, even indoors or in caves/dungeons"), normalised into acceptance criteria —
+# the workflow the proposal describes for generation tasks.

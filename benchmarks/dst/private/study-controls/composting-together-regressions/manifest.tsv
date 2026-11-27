@@ -1,0 +1,5 @@
+control	kind	base	overlay	root	note
+target-negative-debug-durations-kept	target-negative	reference	patch:target-negative-debug-durations-kept.patch	mod	Reference that still ships the test durations of 0.025 days.
+target-negative-old-load-restoration	target-negative	reference	patch:target-negative-old-load-restoration.patch	mod	Reference whose OnLoad still restores state the old way: idle piles become finished and finished piles lose their harvest tag.
+compat-negative-composting-lost-on-load	compat-negative	reference	patch:compat-negative-composting-lost-on-load.patch	mod	Reference whose OnLoad treats a pile that was composting as empty, which fixes the idle-pile report but loses running batches.
+alternative-a	alternative	starter	tree:alternative-a	mod	Independent fix: named cost locals, production durations, events instead of player speech, ResetBatch on harvest, explicit phase restoration on load, DONE checked first.

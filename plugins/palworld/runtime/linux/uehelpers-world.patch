@@ -1,0 +1,29 @@
+--- UEHelpers.lua
++++ UEHelpers.lua
+@@ -93,17 +93,16 @@
+ 
+ ---Returns the main UWorld
+ ---@return UWorld
++local NativeWorldApiReady = false
++ExecuteInGameThread(function() NativeWorldApiReady = true end)
++
+ function UEHelpers.GetWorld()
+-    local PlayerController = UEHelpers.GetPlayerController()
+-    if PlayerController:IsValid() then
+-        return PlayerController:GetWorld()
+-    else
+-        local GameInstance = UEHelpers.GetGameInstance()
+-        if GameInstance:IsValid() then
+-            return GameInstance:GetWorld()
+-        end
+-    end
+-    return CreateInvalidObject() ---@type UWorld
++    if not NativeWorldApiReady then return CreateInvalidObject() end
++    local World = FindFirstOf("World")
++    if World ~= nil and World:IsValid() then
++        return World
++    end
++    return CreateInvalidObject()
+ end
+ 
+ ---Returns UWorld->PersistentLevel

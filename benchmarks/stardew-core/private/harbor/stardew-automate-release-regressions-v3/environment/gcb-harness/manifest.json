@@ -1,0 +1,9 @@
+{
+  "Name": "GameCodeBench Harness",
+  "Author": "GameCodeBench",
+  "Version": "0.1.0",
+  "Description": "Verifier harness: loads the fixture save, runs the task's assertion suite against live game state, writes a JSON verdict, and exits.",
+  "UniqueID": "GameCodeBench.Harness",
+  "EntryDll": "GcbHarness.dll",
+  "MinimumApiVersion": "4.0.0"
+}

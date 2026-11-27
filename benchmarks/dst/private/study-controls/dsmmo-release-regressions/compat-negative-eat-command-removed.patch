@@ -1,0 +1,12 @@
+--- a/scripts/components/DsMMO.lua
++++ b/scripts/components/DsMMO.lua
+@@ -1293,9 +1293,6 @@
+ 		for k,v in pairs(self.level) do
+ 			output = output ..k ..":" ..add_spaces(k, 10) ..add_spaces(tostring(v), 2) ..v .."\n"
+ 		end
+-	elseif arg1 == "eat" and arg2 and arg3 then
+-		self:use_cannibalism_skill(string.upper(arg2), string.lower(arg3))
+-		return
+ 	else
+ 		if self._info_entity and self._info_entity.entity:IsValid() then
+ 			self._info_entity.Transform:SetPosition(self.player.Transform:GetWorldPosition())

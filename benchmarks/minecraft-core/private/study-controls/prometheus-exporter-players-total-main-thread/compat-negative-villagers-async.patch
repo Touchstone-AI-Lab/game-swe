@@ -1,0 +1,12 @@
+--- a/src/main/java/de/sldk/mc/metrics/Villagers.java
++++ b/src/main/java/de/sldk/mc/metrics/Villagers.java
+@@ -82,4 +82,9 @@
+             return Objects.hash(type, profession, level);
+         }
+     }
++
++    @Override
++    protected boolean isAsyncCapable() {
++        return true;
++    }
+ }

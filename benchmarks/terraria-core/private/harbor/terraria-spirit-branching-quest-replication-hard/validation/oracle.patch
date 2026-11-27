@@ -1,0 +1,1113 @@
+diff --git a/benchmarks/terraria-core/private/harbor/terraria-spirit-branching-quest-replication-hard/environment/spirit-mod/Mechanics/QuestSystem/Quest.cs b/benchmarks/terraria-core/private/harbor/terraria-spirit-branching-quest-replication-hard/solution/after/Mechanics/QuestSystem/Quest.cs
+index 30c29960..59943b36 100644
+--- a/benchmarks/terraria-core/private/harbor/terraria-spirit-branching-quest-replication-hard/environment/spirit-mod/Mechanics/QuestSystem/Quest.cs
++++ b/benchmarks/terraria-core/private/harbor/terraria-spirit-branching-quest-replication-hard/solution/after/Mechanics/QuestSystem/Quest.cs
+@@ -26,6 +26,7 @@ namespace SpiritMod.Mechanics.QuestSystem
+ 		private bool _questCompleted;
+ 		private bool _rewardsGiven;
+ 		private int _completedCounter = 0;
++		private byte[] _completedTaskPath = Array.Empty<byte>();
+ 		private bool _previouslyUnavailable = false;
+ 
+ 		internal List<string> _altNames;
+@@ -195,11 +196,24 @@ namespace SpiritMod.Mechanics.QuestSystem
+ 
+ 			if (_currentTask.CheckCompletion())
+ 			{
+-				_completedCounter++; //This counter is here so the HUD works. that's all.
++				byte[] taskPath = Array.Empty<byte>();
++				if (_currentTask is BranchingTask branch && !branch.TryGetSelectedPath(out taskPath))
++				{
++					ResetCompletionDebounce();
++					return;
++				}
++				taskPath ??= Array.Empty<byte>();
++				if (_completedCounter == 0 || _completedTaskPath.SequenceEqual(taskPath))
++					_completedCounter++;
++				else
++					_completedCounter = 1;
++				_completedTaskPath = (byte[])taskPath.Clone();
+ 
+ 				if (_completedCounter >= 3)
+-					RunCompletion();
++					RunCompletionCore(null, taskPath);
+ 			}
++			else
++				ResetCompletionDebounce();
+ 
+ 			if (IsQuestPossible() && _previouslyUnavailable)
+ 			{
+@@ -209,45 +223,91 @@ namespace SpiritMod.Mechanics.QuestSystem
+ 		}
+ 
+ 		internal void RunCompletion(int taskArgument = byte.MaxValue)
++		{
++			if (taskArgument < byte.MinValue || taskArgument > byte.MaxValue)
++				return;
++			byte value = (byte)taskArgument;
++			RunCompletionCore(null, value == byte.MaxValue ? Array.Empty<byte>() : new[] { value });
++		}
++
++		internal void RunCompletion(int expectedTaskId, byte taskArgument)
++			=> RunCompletionCore(expectedTaskId, taskArgument == byte.MaxValue ? Array.Empty<byte>() : new[] { taskArgument });
++
++		internal void RunCompletion(int expectedTaskId, byte[] taskPath)
++			=> RunCompletionCore(expectedTaskId, taskPath);
++
++		private void RunCompletionCore(int? expectedTaskId, IReadOnlyList<byte> advertisedPath)
+ 		{
+ 			if (IsCompleted)
+ 				return;
++			if (expectedTaskId.HasValue && (_currentTask == null || _currentTask.TaskID != expectedTaskId.Value))
++				return;
+ 
+-			// Set branched tasks's next task to complete properly
+-			// This is hacky and I don't like it but it should work
+-			if (QuestManager.Quiet && _currentTask is BranchingTask branchTask && taskArgument != byte.MaxValue)
+-				_currentTask = branchTask.Tasks.ElementAt(taskArgument);
++			QuestTask selectedChild = _currentTask;
++			QuestTask terminal = _currentTask;
++			BranchingTask branchTask = _currentTask as BranchingTask;
++			BranchingTask[] wrappers = Array.Empty<BranchingTask>();
++			byte[] taskPath = advertisedPath?.ToArray() ?? Array.Empty<byte>();
++			if (branchTask != null)
++			{
++				if (!QuestManager.Quiet && !branchTask.TryGetSelectedPath(out taskPath))
++					return;
++				if (!branchTask.TryResolvePath(taskPath, out selectedChild, out terminal, out wrappers))
++					return;
++			}
++			else if (taskPath.Length != 0)
++				return;
+ 
+-			if (_currentTask is not null) //This should only be true when the quest is force-completed
++			QuestStateSnapshot snapshot = QuestStateSnapshot.Capture(this);
++			try
+ 			{
+-				if (!QuestManager.Quiet && Main.netMode == NetmodeID.MultiplayerClient) //Tell server to progress the quest.
++				if (terminal is not null) //This should only be true when the quest is force-completed
+ 				{
+-					ModPacket packet = SpiritMod.Instance.GetPacket(MessageType.Quest, 5);
+-					packet.Write((byte)QuestMessageType.ProgressOrComplete);
+-					packet.Write(true);
+-					packet.Write(QuestName);
+-
+-					if (_currentTask is not BranchingTask branch)
+-						packet.Write(byte.MaxValue);
+-					else
+-						packet.Write(branch.taskSlotForMP);
+-
+-					packet.Write((byte)Main.myPlayer);
+-					packet.Send();
++					if (!QuestManager.Quiet && Main.netMode == NetmodeID.MultiplayerClient) //Tell server to progress the quest.
++					{
++						ModPacket packet = SpiritMod.Instance.GetPacket(MessageType.Quest, 10 + taskPath.Length);
++						packet.Write((byte)QuestMessageType.ProgressOrComplete);
++						packet.Write(true);
++						packet.Write(QuestName);
++						packet.Write(_currentTask.TaskID);
++						packet.Write((byte)taskPath.Length);
++						foreach (byte slot in taskPath)
++							packet.Write(slot);
++						packet.Write((byte)Main.myPlayer);
++						packet.Send();
++					}
++
++					QuestTask successor = terminal.NextTask;
++					foreach (BranchingTask wrapper in wrappers)
++						wrapper.Completed = true;
++					if (branchTask != null)
++						branchTask.CommitPath(taskPath, successor);
++					terminal.Completed = true;
++					selectedChild.Completed = true;
++					selectedChild.Deactivate();
++					_currentTask = successor;
++					ResetCompletionDebounce();
+ 				}
+ 
+-				_currentTask.Completed = true;
+-				_currentTask.Deactivate();
+-				_currentTask = _currentTask.NextTask;
++				if (_currentTask is null) //Quest completed
++				{
++					OnQuestComplete();
++					QuestManager.DeactivateQuest(this);
++				}
++				else //Quest continues
++					_currentTask.Activate(this);
+ 			}
+-
+-			if (_currentTask is null) //Quest completed
++			catch
+ 			{
+-				OnQuestComplete();
+-				QuestManager.DeactivateQuest(this);
++				snapshot.Restore(this);
++				throw;
+ 			}
+-			else //Quest continues
+-				_currentTask.Activate(this);
++		}
++
++		private void ResetCompletionDebounce()
++		{
++			_completedCounter = 0;
++			_completedTaskPath = Array.Empty<byte>();
+ 		}
+ 
+ 		public virtual bool IsQuestPossible() => true;
+@@ -260,25 +320,174 @@ namespace SpiritMod.Mechanics.QuestSystem
+ 
+ 		public virtual byte[] GetTaskDataBuffer()
+ 		{
+-			byte[] buffer = new byte[16];
+-			using (var stream = new MemoryStream(buffer))
+-			{
+-				using var writer = new BinaryWriter(stream);
+-				writer.Write(_currentTask.TaskID);
+-				_currentTask.WriteData(writer);
+-			}
+-			return buffer;
++			if (_currentTask == null)
++				throw new InvalidOperationException("A completed quest has no current task data.");
++			byte[] payload = SerializeTask(_currentTask);
++			if (payload.Length > ushort.MaxValue)
++				throw new InvalidDataException("Quest task data exceeds 65535 bytes.");
++
++			using var stream = new MemoryStream();
++			using var writer = new BinaryWriter(stream);
++			writer.Write(_currentTask.TaskID);
++			writer.Write((ushort)payload.Length);
++			writer.Write(payload);
++			writer.Flush();
++			return stream.ToArray();
+ 		}
+ 
+ 		public virtual void ReadFromDataBuffer(byte[] buffer)
+ 		{
++			if (buffer == null || buffer.Length < sizeof(int) + sizeof(ushort))
++				throw new InvalidDataException("Quest task data is missing its framed header.");
++
+ 			using var stream = new MemoryStream(buffer);
+ 			using var reader = new BinaryReader(stream);
+ 			int taskId = reader.ReadInt32();
++			int payloadLength = reader.ReadUInt16();
++			if (payloadLength != stream.Length - stream.Position)
++				throw new InvalidDataException("Quest task payload length does not match its frame.");
++			byte[] payload = reader.ReadBytes(payloadLength);
++			QuestTask task;
++			try
++			{
++				task = _tasks[taskId];
++			}
++			catch (Exception error) when (error is ArgumentException || error is IndexOutOfRangeException || error is KeyNotFoundException)
++			{
++				throw new InvalidDataException($"Unknown quest task identifier {taskId}.", error);
++			}
++			if (task == null)
++				throw new InvalidDataException($"Unknown quest task identifier {taskId}.");
++
++			QuestStateSnapshot snapshot = QuestStateSnapshot.Capture(this);
++			try
++			{
++				ReadTaskExactly(task, payload);
++				if (ReferenceEquals(_currentTask, task))
++					return;
++
++				_currentTask?.Deactivate();
++				_currentTask = task;
++				task.Activate(this); //Fixes branch quests being poorly reloaded
++			}
++			catch
++			{
++				snapshot.Restore(this);
++				throw;
++			}
++		}
+ 
+-			_currentTask = _tasks[taskId];
+-			_currentTask.ReadData(reader);
+-			_currentTask.Activate(this); //Fixes branch quests being poorly reloaded
++		internal void RunStateTransaction(Action action)
++		{
++			if (action == null)
++				throw new ArgumentNullException(nameof(action));
++			QuestStateSnapshot snapshot = QuestStateSnapshot.Capture(this);
++			try
++			{
++				action();
++			}
++			catch
++			{
++				snapshot.Restore(this);
++				throw;
++			}
++		}
++
++		private static byte[] SerializeTask(QuestTask task)
++		{
++			using var stream = new MemoryStream();
++			using (var writer = new BinaryWriter(stream, Encoding.UTF8, true))
++				task.WriteData(writer);
++			return stream.ToArray();
++		}
++
++		private static void ReadTaskExactly(QuestTask task, byte[] payload)
++		{
++			using var stream = new MemoryStream(payload, writable: false);
++			using var reader = new BinaryReader(stream);
++			task.ReadData(reader);
++			if (stream.Position != stream.Length)
++				throw new InvalidDataException("Quest task did not consume its complete payload.");
++		}
++
++		private sealed class QuestStateSnapshot
++		{
++			private readonly QuestTask _currentTask;
++			private readonly bool _questActive;
++			private readonly bool _questUnlocked;
++			private readonly bool _questCompleted;
++			private readonly bool _rewardsGiven;
++			private readonly int _completedCounter;
++			private readonly byte[] _completedTaskPath;
++			private readonly bool _previouslyUnavailable;
++			private readonly int _unlockTime;
++			private readonly int _activeTime;
++			private readonly TaskState[] _tasks;
++
++			private QuestStateSnapshot(Quest quest, TaskState[] tasks)
++			{
++				_currentTask = quest._currentTask;
++				_questActive = quest._questActive;
++				_questUnlocked = quest._questUnlocked;
++				_questCompleted = quest._questCompleted;
++				_rewardsGiven = quest._rewardsGiven;
++				_completedCounter = quest._completedCounter;
++				_completedTaskPath = (byte[])quest._completedTaskPath.Clone();
++				_previouslyUnavailable = quest._previouslyUnavailable;
++				_unlockTime = quest.UnlockTime;
++				_activeTime = quest.ActiveTime;
++				_tasks = tasks;
++			}
++
++			internal static QuestStateSnapshot Capture(Quest quest)
++			{
++				var registered = new List<QuestTask>();
++				if (quest._tasks?.AllTasks != null)
++					registered.AddRange(quest._tasks.AllTasks.Where(task => task != null));
++				if (quest._currentTask != null && !registered.Contains(quest._currentTask))
++					registered.Add(quest._currentTask);
++
++				TaskState[] states = registered.Distinct().Select(task => new TaskState(task)).ToArray();
++				return new QuestStateSnapshot(quest, states);
++			}
++
++			internal void Restore(Quest quest)
++			{
++				foreach (TaskState state in _tasks)
++					ReadTaskExactly(state.Task, state.Payload);
++				foreach (TaskState state in _tasks)
++				{
++					state.Task.Completed = state.Completed;
++					state.Task.NextTask = state.NextTask;
++				}
++
++				quest._currentTask = _currentTask;
++				quest._questActive = _questActive;
++				quest._questUnlocked = _questUnlocked;
++				quest._questCompleted = _questCompleted;
++				quest._rewardsGiven = _rewardsGiven;
++				quest._completedCounter = _completedCounter;
++				quest._completedTaskPath = (byte[])_completedTaskPath.Clone();
++				quest._previouslyUnavailable = _previouslyUnavailable;
++				quest.UnlockTime = _unlockTime;
++				quest.ActiveTime = _activeTime;
++			}
++
++			private sealed class TaskState
++			{
++				internal QuestTask Task { get; }
++				internal bool Completed { get; }
++				internal QuestTask NextTask { get; }
++				internal byte[] Payload { get; }
++
++				internal TaskState(QuestTask task)
++				{
++					Task = task;
++					Completed = task.Completed;
++					NextTask = task.NextTask;
++					Payload = SerializeTask(task);
++				}
++			}
+ 		}
+ 
+ 		public void GiveRewards()
+diff --git a/benchmarks/terraria-core/private/harbor/terraria-spirit-branching-quest-replication-hard/environment/spirit-mod/Mechanics/QuestSystem/QuestMultiplayer.cs b/benchmarks/terraria-core/private/harbor/terraria-spirit-branching-quest-replication-hard/solution/after/Mechanics/QuestSystem/QuestMultiplayer.cs
+index 0f4995c4..1a10072c 100644
+--- a/benchmarks/terraria-core/private/harbor/terraria-spirit-branching-quest-replication-hard/environment/spirit-mod/Mechanics/QuestSystem/QuestMultiplayer.cs
++++ b/benchmarks/terraria-core/private/harbor/terraria-spirit-branching-quest-replication-hard/solution/after/Mechanics/QuestSystem/QuestMultiplayer.cs
+@@ -1,8 +1,10 @@
+-﻿using System.IO;
++using System;
++using System.IO;
+ using System.Linq;
+ using Terraria;
+ using Terraria.ID;
+ using Terraria.ModLoader;
++using SpiritMod.Mechanics.QuestSystem.Tasks;
+ 
+ namespace SpiritMod.Mechanics.QuestSystem
+ {
+@@ -10,184 +12,294 @@ namespace SpiritMod.Mechanics.QuestSystem
+ 	{
+ 		internal static void HandlePacket(BinaryReader reader, QuestMessageType messageType, bool forServer)
+ 		{
+-			if (forServer) //The server handles informing all clients that we need X thing done
++			if (forServer)
++				HandleServerPacket(reader, messageType);
++			else
++				HandleClientPacket(reader, messageType);
++		}
++
++		private static void HandleServerPacket(BinaryReader reader, QuestMessageType messageType)
++		{
++			if (messageType == QuestMessageType.Deactivate || messageType == QuestMessageType.Activate || messageType == QuestMessageType.Unlock)
+ 			{
++				string name = reader.ReadString();
++				byte playerId = reader.ReadByte();
++				if (!AtEnd(reader) || playerId >= Main.maxPlayers || !CanApplyQuestTransition(name, messageType))
++					return;
++
+ 				if (messageType == QuestMessageType.Deactivate)
+-				{
+-					ModPacket packet = SpiritMod.Instance.GetPacket(MessageType.Quest, 4);
+-					packet.Write((byte)QuestMessageType.Deactivate);    //Packet requires a QuestMessageType and a forServer bool
+-					packet.Write(false);                                //That way I don't need to spam MessageTypes but there's
+-					string name = reader.ReadString();                  //Still the functionality there
+-					packet.Write(name);                                 //The rest of the params depend on the QuestMessageType
+-					packet.Send(-1, reader.ReadByte());
+-
+-					DeactivateQuest(name); //Deactivate quest on server to ensure incoming clients are synced properly. Do this for everything.
+-				}
++					DeactivateQuest(name);
+ 				else if (messageType == QuestMessageType.Activate)
+-				{
+-					ModPacket packet = SpiritMod.Instance.GetPacket(MessageType.Quest, 4);
+-					packet.Write((byte)QuestMessageType.Activate);
+-					packet.Write(false);
+-					string name = reader.ReadString();
+-					packet.Write(name);
+-					packet.Send(-1, reader.ReadByte());
+-
+ 					ActivateQuest(name);
+-				}
+-				else if (messageType == QuestMessageType.ProgressOrComplete)
+-				{
+-					ModPacket packet = SpiritMod.Instance.GetPacket(MessageType.Quest, 5);
+-					packet.Write((byte)QuestMessageType.ProgressOrComplete);
+-					packet.Write(false);
+-					string name = reader.ReadString();
+-					packet.Write(name);
+-					byte taskId = reader.ReadByte();
+-					packet.Write(taskId); // Task ID for branching quests
+-					packet.Send(-1, reader.ReadByte());
+-
+-					CompleteQuestOrTask(name, taskId);
+-				}
+-				else if (messageType == QuestMessageType.ObtainQuestBook)
+-				{
+-					ModPacket packet = SpiritMod.Instance.GetPacket(MessageType.Quest, 3);
+-					packet.Write((byte)QuestMessageType.ObtainQuestBook);
+-					packet.Write(false);
+-					packet.Send(-1, reader.ReadByte());
+-
+-					QuestManager.UnlockQuestBook(false);
+-				}
+-				else if (messageType == QuestMessageType.Unlock)
+-				{
+-					ModPacket packet = SpiritMod.Instance.GetPacket(MessageType.Quest, 4);
+-					packet.Write((byte)QuestMessageType.Unlock);
+-					packet.Write(false);
+-					string name = reader.ReadString();
+-					packet.Write(name);
+-					packet.Send(-1, reader.ReadByte());
+-
++				else
+ 					UnlockQuest(name);
+-				}
+-				else if (messageType == QuestMessageType.SyncNPCQueue)
+-				{
+-					ModPacket packet = SpiritMod.Instance.GetPacket(MessageType.Quest, 4);
+-					packet.Write((byte)QuestMessageType.SyncNPCQueue);
+-					packet.Write(false);
+-					ushort npcID = reader.ReadUInt16();
+-					packet.Write(npcID);
+-					packet.Send(-1, reader.ReadByte());
+ 
+-					RemoveFromNPCQueue(npcID);
+-				}
++				ModPacket packet = SpiritMod.Instance.GetPacket(MessageType.Quest, 4);
++				packet.Write((byte)messageType);
++				packet.Write(false);
++				packet.Write(name);
++				packet.Send(-1, playerId);
++				return;
++			}
++
++			if (messageType == QuestMessageType.ProgressOrComplete)
++			{
++				string name = reader.ReadString();
++				int expectedTaskId = reader.ReadInt32();
++				byte[] taskPath = ReadTaskPath(reader);
++				byte playerId = reader.ReadByte();
++				if (!AtEnd(reader) || playerId >= Main.maxPlayers || !CanCompleteQuestOrTask(name, expectedTaskId, taskPath))
++					return;
++
++				CompleteQuestOrTask(name, expectedTaskId, taskPath);
++				ModPacket packet = SpiritMod.Instance.GetPacket(MessageType.Quest, 10 + taskPath.Length);
++				packet.Write((byte)QuestMessageType.ProgressOrComplete);
++				packet.Write(false);
++				packet.Write(name);
++				packet.Write(expectedTaskId);
++				packet.Write((byte)taskPath.Length);
++				foreach (byte slot in taskPath)
++					packet.Write(slot);
++				packet.Send(-1, playerId);
++				return;
++			}
++
++			if (messageType == QuestMessageType.ObtainQuestBook)
++			{
++				byte playerId = reader.ReadByte();
++				if (!AtEnd(reader) || playerId >= Main.maxPlayers || QuestManager.QuestBookUnlocked)
++					return;
++
++				UnlockQuestBook();
++				ModPacket packet = SpiritMod.Instance.GetPacket(MessageType.Quest, 3);
++				packet.Write((byte)QuestMessageType.ObtainQuestBook);
++				packet.Write(false);
++				packet.Send(-1, playerId);
++				return;
+ 			}
+-			else //And then we clear it up with clients
++
++			if (messageType == QuestMessageType.SyncNPCQueue)
+ 			{
++				ushort npcID = reader.ReadUInt16();
++				byte playerId = reader.ReadByte();
++				if (!AtEnd(reader) || playerId >= Main.maxPlayers || !TryRemoveFromNPCQueue(npcID))
++					return;
++
++				ModPacket packet = SpiritMod.Instance.GetPacket(MessageType.Quest, 4);
++				packet.Write((byte)QuestMessageType.SyncNPCQueue);
++				packet.Write(false);
++				packet.Write(npcID);
++				packet.Send(-1, playerId);
++			}
++		}
++
++		private static void HandleClientPacket(BinaryReader reader, QuestMessageType messageType)
++		{
++			if (messageType == QuestMessageType.Deactivate || messageType == QuestMessageType.Activate || messageType == QuestMessageType.Unlock)
++			{
++				string name = reader.ReadString();
++				if (!AtEnd(reader) || !CanApplyQuestTransition(name, messageType))
++					return;
+ 				if (messageType == QuestMessageType.Deactivate)
+-					DeactivateQuest(reader.ReadString());
++					DeactivateQuest(name);
+ 				else if (messageType == QuestMessageType.Activate)
+-					ActivateQuest(reader.ReadString());
+-				else if (messageType == QuestMessageType.ProgressOrComplete)
+-					CompleteQuestOrTask(reader.ReadString(), reader.ReadByte());
+-				else if (messageType == QuestMessageType.SyncOnNPCLoot) //Client only as this is only run on the server
+-					ModContent.GetInstance<QuestGlobalNPC>().ClientNPCLoot(Main.npc[reader.ReadByte()]);
+-				else if (messageType == QuestMessageType.ObtainQuestBook)
+-					QuestManager.UnlockQuestBook(false);
+-				else if (messageType == QuestMessageType.Unlock)
+-					UnlockQuest(reader.ReadString());
+-				else if (messageType == QuestMessageType.SyncNPCQueue)
+-					RemoveFromNPCQueue(reader.ReadUInt16());
++					ActivateQuest(name);
++				else
++					UnlockQuest(name);
++				return;
++			}
++
++			if (messageType == QuestMessageType.ProgressOrComplete)
++			{
++				string name = reader.ReadString();
++				int expectedTaskId = reader.ReadInt32();
++				byte[] taskPath = ReadTaskPath(reader);
++				if (AtEnd(reader) && CanCompleteQuestOrTask(name, expectedTaskId, taskPath))
++					CompleteQuestOrTask(name, expectedTaskId, taskPath);
++				return;
++			}
++
++			if (messageType == QuestMessageType.SyncOnNPCLoot)
++			{
++				int npcIndex = reader.ReadByte();
++				if (AtEnd(reader) && npcIndex >= 0 && npcIndex < Main.npc.Length)
++					ModContent.GetInstance<QuestGlobalNPC>().ClientNPCLoot(Main.npc[npcIndex]);
++				return;
++			}
++
++			if (messageType == QuestMessageType.ObtainQuestBook)
++			{
++				if (AtEnd(reader) && !QuestManager.QuestBookUnlocked)
++					UnlockQuestBook();
++				return;
++			}
++
++			if (messageType == QuestMessageType.SyncNPCQueue)
++			{
++				ushort npcID = reader.ReadUInt16();
++				if (AtEnd(reader))
++					RemoveFromNPCQueue(npcID);
+ 			}
+ 		}
+ 
+ 		/// <summary>Writes name, a long bitflag value containing StoredQuestData, and the Buffer if it has one.</summary>
+ 		public static void WriteQuestToPacket(ModPacket packet, Quest quest)
+ 		{
+-			packet.Write(quest.QuestName);
++			if (packet == null || quest == null)
++				throw new ArgumentNullException(packet == null ? nameof(packet) : nameof(quest));
++
++			StoredQuestData data = QuestWorld.ToStoredQuest(quest) ?? throw new InvalidDataException("Quest snapshot data is missing.");
++			byte[] buffer = data.Buffer == null ? null : (byte[])data.Buffer.Clone();
++			if (buffer != null && buffer.Length > byte.MaxValue)
++				throw new InvalidDataException("Quest task buffers cannot exceed 255 bytes.");
+ 
+-			var data = QuestWorld.ToStoredQuest(quest);
+-			long flags = 0;
+-			flags += (long)data.TimeLeftActive << 48;
+-			flags += (long)data.TimeLeftUnlocked << 32;
++			long flags = (long)(ushort)data.TimeLeftActive << 48;
++			flags |= (long)(ushort)data.TimeLeftUnlocked << 32;
+ 			flags |= (long)data.RewardsGiven.ToInt() << 16;
+ 			flags |= (long)data.IsCompleted.ToInt() << 15;
+ 			flags |= (long)data.IsActive.ToInt() << 14;
+ 			flags |= (long)data.IsUnlocked.ToInt() << 13;
+-			packet.Write(flags);
+ 
+-			bool hasBuffer = data.Buffer != null && data.Buffer.Length > 0;
+-			packet.Write((byte)(hasBuffer ? data.Buffer.Length : 0));
+-			if (hasBuffer)
+-				for (int i = 0; i < data.Buffer.Length; ++i)
+-					packet.Write(data.Buffer[i]);
++			packet.Write(quest.QuestName);
++			packet.Write(flags);
++			packet.Write((byte)(buffer?.Length ?? 0));
++			if (buffer != null)
++				foreach (byte value in buffer)
++					packet.Write(value);
+ 		}
+ 
+ 		public static StoredQuestData ReadQuestFromLong(long flags)
+ 		{
+-			bool rewarded = (flags & 0b_10000000000000000) == 0b_10000000000000000;
+-			bool completed = (flags & 0b_1000000000000000) == 0b_1000000000000000;
+-			bool active = (flags & 0b_100000000000000) == 0b_100000000000000;
+-			bool unlocked = (flags & 0b_10000000000000) == 0b_10000000000000;
+-			short timeActive = (short)((flags & 0b_111111111111111100000000000000000000000000000000000000000000000) >> 48);
+-			short timeUnlock = (short)((flags & 0b_111111111111111100000000000000000000000000000000) >> 32);
+-
+ 			return new StoredQuestData
+ 			{
+-				IsUnlocked = unlocked,
+-				IsActive = active,
+-				IsCompleted = completed,
+-				RewardsGiven = rewarded,
+-				TimeLeftActive = timeActive,
+-				TimeLeftUnlocked = timeUnlock
++				IsUnlocked = (flags & (1L << 13)) != 0,
++				IsActive = (flags & (1L << 14)) != 0,
++				IsCompleted = (flags & (1L << 15)) != 0,
++				RewardsGiven = (flags & (1L << 16)) != 0,
++				TimeLeftActive = unchecked((short)((ulong)flags >> 48)),
++				TimeLeftUnlocked = unchecked((short)(((ulong)flags >> 32) & ushort.MaxValue))
+ 			};
+ 		}
+ 
+ 		internal static void DeactivateQuest(string questName)
+ 		{
+-			var quest = QuestManager.Quests.FirstOrDefault(x => x.QuestName == questName);
+-
+-			if (quest != null)
+-			{
+-				QuestManager.Quiet = true;
+-				QuestManager.DeactivateQuest(quest);
+-				QuestManager.Quiet = false;
+-			}
++			Quest quest = FindQuest(questName);
++			if (quest == null)
++				return;
++			WithQuiet(() => quest.RunStateTransaction(() => QuestManager.DeactivateQuest(quest)));
+ 		}
+ 
+ 		internal static void ActivateQuest(string questName)
+ 		{
+-			var quest = QuestManager.Quests.FirstOrDefault(x => x.QuestName == questName);
++			Quest quest = FindQuest(questName);
++			if (quest == null)
++				return;
++			WithQuiet(() => quest.RunStateTransaction(() => QuestManager.ActivateQuest(quest)));
++		}
+ 
+-			if (quest != null)
+-			{
+-				QuestManager.Quiet = true;
+-				QuestManager.ActivateQuest(quest);
+-				QuestManager.Quiet = false;
+-			}
++		internal static void CompleteQuestOrTask(string questName, byte taskSlot)
++		{
++			Quest quest = FindQuest(questName);
++			if (quest == null)
++				return;
++			WithQuiet(() => quest.RunCompletion(taskSlot));
+ 		}
+ 
+-		internal static void CompleteQuestOrTask(string questName, byte taskId)
++		internal static void CompleteQuestOrTask(string questName, int expectedTaskId, byte taskSlot)
+ 		{
+-			var quest = QuestManager.Quests.FirstOrDefault(x => x.QuestName == questName);
++			Quest quest = FindQuest(questName);
++			if (quest == null)
++				return;
++			WithQuiet(() => quest.RunCompletion(expectedTaskId, taskSlot));
++		}
+ 
+-			if (quest != null)
+-			{
+-				QuestManager.Quiet = true;
+-				quest.RunCompletion(taskId);
+-				QuestManager.Quiet = false;
+-			}
++		internal static void CompleteQuestOrTask(string questName, int expectedTaskId, byte[] taskPath)
++		{
++			Quest quest = FindQuest(questName);
++			if (quest == null)
++				return;
++			WithQuiet(() => quest.RunCompletion(expectedTaskId, taskPath));
++		}
++
++		private static bool CanCompleteQuestOrTask(string questName, int expectedTaskId, byte taskSlot)
++			=> CanCompleteQuestOrTask(questName, expectedTaskId, taskSlot == byte.MaxValue ? Array.Empty<byte>() : new[] { taskSlot });
++
++		private static bool CanCompleteQuestOrTask(string questName, int expectedTaskId, byte[] taskPath)
++		{
++			Quest quest = FindQuest(questName);
++			if (quest == null || quest.IsCompleted || quest.CurrentTask == null || quest.CurrentTask.TaskID != expectedTaskId)
++				return false;
++
++			if (quest.CurrentTask is BranchingTask branch)
++				return branch.TryResolvePath(taskPath, out _, out _, out _);
++			return taskPath != null && taskPath.Length == 0;
++		}
++
++		private static bool CanApplyQuestTransition(string questName, QuestMessageType messageType)
++		{
++			Quest quest = FindQuest(questName);
++			if (quest == null)
++				return false;
++			if (messageType == QuestMessageType.Deactivate)
++				return quest.IsActive;
++			if (messageType == QuestMessageType.Activate)
++				return !quest.IsActive;
++			return messageType == QuestMessageType.Unlock && !quest.IsUnlocked;
+ 		}
+ 
+ 		internal static void UnlockQuest(string questName)
+ 		{
+-			var quest = QuestManager.Quests.FirstOrDefault(x => x.QuestName == questName);
++			Quest quest = FindQuest(questName);
++			if (quest == null || quest.IsUnlocked)
++				return;
++			WithQuiet(() => quest.RunStateTransaction(() => QuestManager.UnlockQuest(quest, Main.netMode != NetmodeID.Server)));
++		}
++
++		internal static void RemoveFromNPCQueue(ushort npcID) => TryRemoveFromNPCQueue(npcID);
++
++		private static bool TryRemoveFromNPCQueue(ushort npcID)
++		{
++			if (!ModContent.GetInstance<QuestWorld>().NPCQuestQueue.TryGetValue(npcID, out var queue) || queue.Count == 0)
++				return false;
++			queue.Dequeue();
++			return true;
++		}
++
++		private static Quest FindQuest(string questName)
++			=> QuestManager.Quests.FirstOrDefault(x => x.QuestName == questName);
+ 
+-			if (quest != null && !quest.IsUnlocked)
++		private static bool AtEnd(BinaryReader reader)
++			=> reader.BaseStream.Position == reader.BaseStream.Length;
++
++		private static byte[] ReadTaskPath(BinaryReader reader)
++		{
++			int length = reader.ReadByte();
++			byte[] path = reader.ReadBytes(length);
++			if (path.Length != length)
++				throw new EndOfStreamException("Quest progress branch path is truncated.");
++			return path;
++		}
++
++		private static void UnlockQuestBook()
++		{
++			bool previous = QuestManager.QuestBookUnlocked;
++			try
+ 			{
+-				QuestManager.Quiet = true;
+-				QuestManager.UnlockQuest(quest, Main.netMode != NetmodeID.Server);
+-				QuestManager.Quiet = false;
++				QuestManager.UnlockQuestBook(false);
++			}
++			catch
++			{
++				QuestManager.QuestBookUnlocked = previous;
++				throw;
+ 			}
+ 		}
+ 
+-		internal static void RemoveFromNPCQueue(ushort npcID) => ModContent.GetInstance<QuestWorld>().NPCQuestQueue[npcID].Dequeue();
++		private static void WithQuiet(Action action)
++		{
++			bool previousQuiet = QuestManager.Quiet;
++			QuestManager.Quiet = true;
++			try { action(); }
++			finally { QuestManager.Quiet = previousQuiet; }
++		}
+ 	}
+ }
+diff --git a/benchmarks/terraria-core/private/harbor/terraria-spirit-branching-quest-replication-hard/environment/spirit-mod/Mechanics/QuestSystem/Tasks/BranchingTask.cs b/benchmarks/terraria-core/private/harbor/terraria-spirit-branching-quest-replication-hard/solution/after/Mechanics/QuestSystem/Tasks/BranchingTask.cs
+index f66f6ed6..549d5df5 100644
+--- a/benchmarks/terraria-core/private/harbor/terraria-spirit-branching-quest-replication-hard/environment/spirit-mod/Mechanics/QuestSystem/Tasks/BranchingTask.cs
++++ b/benchmarks/terraria-core/private/harbor/terraria-spirit-branching-quest-replication-hard/solution/after/Mechanics/QuestSystem/Tasks/BranchingTask.cs
+@@ -1,13 +1,19 @@
+-﻿using System.Collections.Generic;
++using System;
++using System.Collections.Generic;
++using System.Collections.ObjectModel;
+ using System.IO;
+-using System.Linq;
+ 
+ namespace SpiritMod.Mechanics.QuestSystem.Tasks
+ {
+ 	public class BranchingTask : QuestTask
+ 	{
++		private const byte DataVersion = 1;
++		private readonly QuestTask[] _tasks;
++		private readonly ReadOnlyCollection<QuestTask> _taskView;
++
+ 		public override string ModCallName => "##";
+-        public IEnumerable<QuestTask> Tasks { get; }
++		public IEnumerable<QuestTask> Tasks => _taskView;
++		internal int TaskCount => _tasks.Length;
+ 
+ 		/// <summary>
+ 		/// Stores the index of the completed task in this branching task, so that other clients can properly complete that specific task.<br/>
+@@ -16,95 +22,273 @@ namespace SpiritMod.Mechanics.QuestSystem.Tasks
+ 		/// </summary>
+ 		internal byte taskSlotForMP = byte.MaxValue;
+ 
+-        public BranchingTask() { }
++		public BranchingTask() : this(Array.Empty<QuestTask>()) { }
+ 
+ 		public BranchingTask(params QuestTask[] tasks)
+ 		{
+-			Tasks = tasks;
++			if (tasks == null)
++				throw new ArgumentNullException(nameof(tasks));
++			if (tasks.Length > byte.MaxValue)
++				throw new ArgumentOutOfRangeException(nameof(tasks), "Branch slot 255 is reserved as the non-branch sentinel.");
++
++			_tasks = (QuestTask[])tasks.Clone();
++			for (int i = 0; i < _tasks.Length; i++)
++			{
++				if (_tasks[i] == null)
++					throw new ArgumentException("Branch tasks cannot contain null entries.", nameof(tasks));
++			}
++			_taskView = Array.AsReadOnly(_tasks);
+ 		}
+ 
+-		public override QuestTask Parse(object[] args)
++		internal bool TryGetTask(byte slot, out QuestTask task)
+ 		{
+-			return null;
++			if (slot == byte.MaxValue || slot >= _tasks.Length)
++			{
++				task = null;
++				return false;
++			}
++			task = _tasks[slot];
++			return true;
+ 		}
+ 
+-		public override void AutogeneratedBookText(List<string> lines)
++		internal bool TryGetSelectedPath(out byte[] path)
+ 		{
+-			foreach (QuestTask task in Tasks)
++			var slots = new List<byte>();
++			var visited = new HashSet<BranchingTask>();
++			BranchingTask current = this;
++			while (true)
+ 			{
+-				task.GetBookText(lines);
++				if (!visited.Add(current) || !current.TryGetTask(current.taskSlotForMP, out QuestTask selected))
++				{
++					path = Array.Empty<byte>();
++					return false;
++				}
++
++				slots.Add(current.taskSlotForMP);
++				if (slots.Count > byte.MaxValue)
++				{
++					path = Array.Empty<byte>();
++					return false;
++				}
++
++				if (selected is not BranchingTask nested)
++				{
++					path = slots.ToArray();
++					return true;
++				}
++				current = nested;
+ 			}
+ 		}
+ 
+-		public override void AutogeneratedHUDText(List<string> lines)
++		internal bool TryResolvePath(IReadOnlyList<byte> path, out QuestTask selectedChild, out QuestTask terminal, out BranchingTask[] wrappers)
++		{
++			selectedChild = null;
++			terminal = null;
++			wrappers = Array.Empty<BranchingTask>();
++			if (path == null || path.Count == 0 || path.Count > byte.MaxValue)
++				return false;
++
++			var resolvedWrappers = new List<BranchingTask>();
++			var visited = new HashSet<BranchingTask>();
++			BranchingTask current = this;
++			for (int depth = 0; depth < path.Count; depth++)
++			{
++				if (!visited.Add(current) || !current.TryGetTask(path[depth], out QuestTask selected))
++					return false;
++
++				resolvedWrappers.Add(current);
++				if (depth == 0)
++					selectedChild = selected;
++
++				if (selected is BranchingTask nested)
++				{
++					if (depth == path.Count - 1)
++						return false;
++					current = nested;
++					continue;
++				}
++
++				if (depth != path.Count - 1)
++					return false;
++				terminal = selected;
++				wrappers = resolvedWrappers.ToArray();
++				return true;
++			}
++			return false;
++		}
++
++		internal void CommitPath(IReadOnlyList<byte> path, QuestTask successor)
+ 		{
+-			foreach (QuestTask task in Tasks)
++			BranchingTask current = this;
++			for (int depth = 0; depth < path.Count; depth++)
+ 			{
+-				task.GetHUDText(lines);
++				current.taskSlotForMP = path[depth];
++				current.NextTask = successor;
++				if (depth + 1 < path.Count)
++					current = (BranchingTask)current._tasks[path[depth]];
+ 			}
+ 		}
+ 
++		public override QuestTask Parse(object[] args) => null;
++
++		public override void AutogeneratedBookText(List<string> lines)
++		{
++			foreach (QuestTask task in _tasks)
++				task.GetBookText(lines);
++		}
++
++		public override void AutogeneratedHUDText(List<string> lines)
++		{
++			foreach (QuestTask task in _tasks)
++				task.GetHUDText(lines);
++		}
++
+ 		public override void ResetProgress()
+ 		{
+ 			base.ResetProgress();
+ 			NextTask = null;
+-			foreach (QuestTask task in Tasks)
+-			{
++			taskSlotForMP = byte.MaxValue;
++			foreach (QuestTask task in _tasks)
+ 				task.ResetProgress();
+-			}
+ 		}
+ 
+ 		public override void Activate(Quest fromQuest)
+ 		{
+-			foreach (QuestTask task in Tasks)
++			foreach (QuestTask task in _tasks)
+ 				task.Activate(fromQuest);
+ 			base.Activate(fromQuest);
+ 		}
+ 
+ 		public override void Deactivate()
+ 		{
+-			foreach (QuestTask task in Tasks)
++			foreach (QuestTask task in _tasks)
+ 				task.Deactivate();
+ 			base.Deactivate();
+ 		}
+ 
+ 		public override bool CheckCompletion()
+ 		{
+-			foreach (QuestTask task in Tasks)
++			for (int slot = 0; slot < _tasks.Length; slot++)
+ 			{
+-				if (task.CheckCompletion())
+-				{
+-					taskSlotForMP = (byte)Tasks.ToList().IndexOf(task);
+-					NextTask = task.NextTask;
+-					return true;
+-				}
++				QuestTask task = _tasks[slot];
++				if (!task.CheckCompletion())
++					continue;
++
++				taskSlotForMP = (byte)slot;
++				NextTask = task.NextTask;
++				return true;
+ 			}
+ 
++			taskSlotForMP = byte.MaxValue;
++			NextTask = null;
+ 			return false;
+ 		}
+ 
+ 		public override void OnMPSyncTick()
+ 		{
+-			foreach (QuestTask section in Tasks)
+-			{
++			foreach (QuestTask section in _tasks)
+ 				section.OnMPSyncTick();
+-			}
+ 		}
+ 
+ 		public override void ReadData(BinaryReader reader)
+ 		{
+-			foreach (QuestTask section in Tasks)
++			if (reader == null)
++				throw new ArgumentNullException(nameof(reader));
++
++			byte version = reader.ReadByte();
++			if (version != DataVersion)
++				throw new InvalidDataException($"Unsupported branch task data version {version}.");
++			int count = reader.ReadByte();
++			byte selectedSlot = reader.ReadByte();
++			if (count != _tasks.Length || (selectedSlot != byte.MaxValue && selectedSlot >= count))
++				throw new InvalidDataException("Branch topology does not match the saved task data.");
++
++			var completed = new bool[count];
++			var payloads = new byte[count][];
++			for (int i = 0; i < count; i++)
+ 			{
+-				section.ReadData(reader);
++				int taskId = reader.ReadInt32();
++				if (taskId != _tasks[i].TaskID)
++					throw new InvalidDataException("Branch child identity does not match the saved task data.");
++				completed[i] = reader.ReadBoolean();
++				int length = reader.ReadUInt16();
++				payloads[i] = reader.ReadBytes(length);
++				if (payloads[i].Length != length)
++					throw new EndOfStreamException("Branch child payload is truncated.");
+ 			}
++			if (reader.BaseStream.Position != reader.BaseStream.Length)
++				throw new InvalidDataException("Branch task data has trailing bytes.");
++
++			byte[][] backups = new byte[count][];
++			bool[] priorCompleted = new bool[count];
++			for (int i = 0; i < count; i++)
++			{
++				backups[i] = SerializeTask(_tasks[i]);
++				priorCompleted[i] = _tasks[i].Completed;
++			}
++
++			try
++			{
++				for (int i = 0; i < count; i++)
++				{
++					ReadTaskExactly(_tasks[i], payloads[i]);
++					_tasks[i].Completed = completed[i];
++				}
++			}
++			catch
++			{
++				for (int i = 0; i < count; i++)
++				{
++					ReadTaskExactly(_tasks[i], backups[i]);
++					_tasks[i].Completed = priorCompleted[i];
++				}
++				throw;
++			}
++
++			taskSlotForMP = selectedSlot;
++			NextTask = TryGetTask(selectedSlot, out QuestTask selected) ? selected.NextTask : null;
+ 		}
+ 
+ 		public override void WriteData(BinaryWriter writer)
+ 		{
+-			foreach (QuestTask section in Tasks)
++			if (writer == null)
++				throw new ArgumentNullException(nameof(writer));
++
++			using var stream = new MemoryStream();
++			using (var frame = new BinaryWriter(stream, System.Text.Encoding.UTF8, true))
+ 			{
+-				section.WriteData(writer);
++				frame.Write(DataVersion);
++				frame.Write((byte)_tasks.Length);
++				frame.Write(taskSlotForMP);
++				foreach (QuestTask task in _tasks)
++				{
++					byte[] payload = SerializeTask(task);
++					if (payload.Length > ushort.MaxValue)
++						throw new InvalidDataException("Branch child task data exceeds 65535 bytes.");
++					frame.Write(task.TaskID);
++					frame.Write(task.Completed);
++					frame.Write((ushort)payload.Length);
++					frame.Write(payload);
++				}
+ 			}
++			writer.Write(stream.ToArray());
++		}
++
++		private static byte[] SerializeTask(QuestTask task)
++		{
++			using var stream = new MemoryStream();
++			using (var writer = new BinaryWriter(stream, System.Text.Encoding.UTF8, true))
++				task.WriteData(writer);
++			return stream.ToArray();
++		}
++
++		private static void ReadTaskExactly(QuestTask task, byte[] payload)
++		{
++			using var stream = new MemoryStream(payload, writable: false);
++			using var reader = new BinaryReader(stream);
++			task.ReadData(reader);
++			if (stream.Position != stream.Length)
++				throw new InvalidDataException("Branch child did not consume its complete payload.");
+ 		}
+ 	}
+ }

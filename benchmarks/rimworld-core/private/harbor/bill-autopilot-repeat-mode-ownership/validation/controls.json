@@ -1,0 +1,103 @@
+{
+  "schemaVersion": 3,
+  "catalogVersion": "0.3.2",
+  "privateProtocol": "rhenium-rimworld-private-v3",
+  "assertionManifestSha256": "637d432250cc15a1b27eb763d2451df9bf62a000b6c301d876de497711b67d99",
+  "runtime": "rimworld/rimworld-1.6.4871-linux-x64",
+  "engineAssertionsRan": true,
+  "evidenceGeneration": {
+    "status": "run",
+    "date": "2026-09-24",
+    "host": "Linux x86_64 Docker host (NixOS), networkless evaluation",
+    "path": "rhenium run and rhenium-study e0 run through the Hub",
+    "note": "verifier repairs of 2026-09-24 first; see docs/games/rimworld.md#engine-validation-2026-09-24"
+  },
+  "plannedMatrix": {
+    "oracle": {
+      "expectedPassed": 17,
+      "expectedFailed": 0
+    },
+    "base": {
+      "expectedPassed": 8,
+      "expectedFailed": 9
+    },
+    "nop": {
+      "expectedPassed": 8,
+      "expectedFailed": 9
+    }
+  },
+  "plannedOutcomesAreAuthoringExpectations": true,
+  "referenceCompile": {
+    "status": "passed",
+    "date": "2026-09-24"
+  },
+  "containerBuild": {
+    "status": "passed",
+    "date": "2026-09-24"
+  },
+  "realEngine": {
+    "status": "passed",
+    "date": "2026-09-24"
+  },
+  "reusablePriorEvidence": false,
+  "oracle": {
+    "status": "passed",
+    "evidenceProtocol": "rhenium-rimworld-private-v3",
+    "runs": [
+      "run-b0b9af2e411c4533",
+      "run-f7acecdd3b194b71",
+      "run-a1f126612b8a4e7c"
+    ],
+    "score": 100.0,
+    "passed": 17,
+    "failed": 0,
+    "identicalCaseOutcomes": true
+  },
+  "base": {
+    "status": "failed-targets-only",
+    "evidenceProtocol": "rhenium-rimworld-private-v3",
+    "run": "run-6e13dc05026a491b",
+    "score": 10.0,
+    "passed": 11,
+    "failed": 6,
+    "failedCases": [
+      "foreign-mode-recognized",
+      "foreign-mode-remembered",
+      "foreign-mode-restored",
+      "foreign-should-do-now-false",
+      "foreign-should-do-now-true",
+      "memory-roundtrip"
+    ]
+  },
+  "nop": {
+    "status": "failed-targets-only",
+    "evidenceProtocol": "rhenium-rimworld-private-v3",
+    "run": "run-31ab3141c6ff42ef",
+    "score": 10.0,
+    "passed": 11,
+    "failed": 6,
+    "failedCases": [
+      "foreign-mode-recognized",
+      "foreign-mode-remembered",
+      "foreign-mode-restored",
+      "foreign-should-do-now-false",
+      "foreign-should-do-now-true",
+      "memory-roundtrip"
+    ],
+    "materialization": "rhenium-study e0 starter control (Hub workspace copy)"
+  },
+  "authoringRevision": 3,
+  "negativeControls": {
+    "status": "not-run",
+    "kind": "authoring expectations",
+    "mutations": [
+      "omit one started resource restoration registration while another same-name registration remains",
+      "leave a task field or collection changed",
+      "throw during restoration",
+      "leave an extra Rand push",
+      "candidate operation throws: complete failed if fixture integrity remains healthy"
+    ],
+    "studyControls": "private/study-controls/bill-autopilot-repeat-mode-ownership/NOTES.md"
+  },
+  "plannedCountsNeedEngineReconciliation": false
+}

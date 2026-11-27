@@ -1,0 +1,24 @@
+--- a/main/modules/gather_moonglass.lua
++++ b/main/modules/gather_moonglass.lua
+@@ -26,18 +26,18 @@
+ 			glassed_moondials = after_delta
+ 		end
+ 	end
+-	repeat
++	while glassed_moondials > 0 do
+ 		local moonglass = SpawnPrefab("moonglass")
+ 		local stackable = moonglass.components.stackable
+ 		local after_delta = glassed_moondials - stackable.maxsize
+ 		if after_delta <= 0 then
+-			stackable:SetStackSize(stackable:StackSize() + glassed_moondials - 1)
++			stackable:SetStackSize(stackable:StackSize() + glassed_moondials)
+ 		else
+ 			moonglass.components.stackable:SetStackSize(stackable.maxsize)
+ 		end
+ 		glassed_moondials = after_delta
+ 		inst.components.lootdropper:FlingItem(moonglass)
+-	until glassed_moondials <= 0
++	end
+ 	glassed_moondials = 0
+ end
+ 

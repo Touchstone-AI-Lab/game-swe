@@ -1,0 +1,4 @@
+control	kind	base	overlay	root	note
+target-negative-ex318	target-negative	reference	patch:target-negative-ex318.patch	exodus	reference with the two EX-318 Anamnesis hunks of the composite gold.patch (2, 29) reverted; every other report stays repaired
+compat-negative-cursed-metronome	compat-negative	reference	patch:compat-negative-cursed-metronome.patch	exodus	reference plus a misdirected edit to the neighbouring Cursed Metronome conversion (same maxhp idiom as Tragic Mushroom): its drain is sized by the filled red hearts again; Cursed Metronome is not reported in this exam
+alternative	alternative	starter	patch:alternative.patch	exodus	starter plus the composite task's independent alternative repairs of EX-184, EX-191, EX-303, EX-311, EX-318 only (its hunks 12, 14, 15, 20, 21, 22, 23); written differently from gold.patch, see NOTES.md

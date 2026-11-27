@@ -1,0 +1,11 @@
+diff -ruN a/darkrp/gamemode/modules/base/sh_createitems.lua b/darkrp/gamemode/modules/base/sh_createitems.lua
+--- a/darkrp/gamemode/modules/base/sh_createitems.lua	2026-09-21 05:04:15.393662844 +0800
++++ b/darkrp/gamemode/modules/base/sh_createitems.lua	2026-09-21 05:45:18.440475076 +0800
+@@ -813,7 +813,6 @@
+         if cat.name ~= tbl.name then continue end
+ 
+         destination[k] = tbl
+-        tbl.members = cat.members
+         return
+     end
+ 

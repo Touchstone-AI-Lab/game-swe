@@ -1,0 +1,12 @@
+diff -ruN a/AutoWorkshop/ModEntry.cs b/AutoWorkshop/ModEntry.cs
+--- a/AutoWorkshop/ModEntry.cs
++++ b/AutoWorkshop/ModEntry.cs
+@@ -49,7 +49,7 @@
+ 
+         private static Chest? FindAdjacentChest(GameLocation loc, Vector2 tile)
+         {
+-            foreach (Vector2 offset in new[] { new Vector2(-1, 0), new Vector2(1, 0), new Vector2(0, -1), new Vector2(0, 1) })
++            foreach (Vector2 offset in new[] { new Vector2(-1, 0), new Vector2(1, 0), new Vector2(0, -1), new Vector2(0, 1), new Vector2(-2, 0), new Vector2(2, 0), new Vector2(0, -2), new Vector2(0, 2) })
+             {
+                 if (loc.objects.TryGetValue(tile + offset, out SObject obj) && obj is Chest chest)
+                     return chest;

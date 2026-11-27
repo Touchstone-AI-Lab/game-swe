@@ -1,0 +1,20 @@
+--- a/main.lua
++++ b/main.lua
+@@ -3775,7 +3775,7 @@
+     if player:HasCollectible(ItemId.DEJA_VU) then
+         for i, entity in pairs(Isaac.GetRoomEntities()) do
+             if entity.Type == EntityType.ENTITY_TEAR and entity:GetData().ReturnChance == nil and entity:IsDead() then
+-                if entity:ToTear().TearFlags & TearFlags.TEAR_BONE == 0 and entity:ToTear().TearFlags & TearFlags.TEAR_SPLIT == 0 and entity:ToTear().TearFlags & TearFlags.TEAR_QUADSPLIT == 0 and entity.Variant ~= Entities.FIREBALL_2.variant then
++                if entity:ToTear().TearFlags & TearFlags.TEAR_BONE == 0 and entity:ToTear().TearFlags & TearFlags.TEAR_QUADSPLIT == 0 and entity.Variant ~= Entities.FIREBALL_2.variant then
+                     entity:GetData().ReturnChance = 50 + player.Luck
+                     if rng:RandomInt(100) < entity:GetData().ReturnChance then
+                         local tear = player:FireTear(player.Position, entity.Velocity, true, true, true)
+@@ -3788,7 +3788,7 @@
+                     end
+                 end
+             elseif entity.Type == EntityType.ENTITY_TEAR and entity:GetData().ReturnChance ~= nil and entity:IsDead() then
+-                if entity:ToTear().TearFlags & TearFlags.TEAR_BONE == 0 and entity:ToTear().TearFlags & TearFlags.TEAR_SPLIT == 0 and entity:ToTear().TearFlags & TearFlags.TEAR_QUADSPLIT == 0 and entity.Variant ~= Entities.FIREBALL_2.variant then
++                if entity:ToTear().TearFlags & TearFlags.TEAR_BONE == 0 and entity:ToTear().TearFlags & TearFlags.TEAR_QUADSPLIT == 0 and entity.Variant ~= Entities.FIREBALL_2.variant then
+                     if rng:RandomInt(100) < entity:GetData().ReturnChance then
+                         local tear = player:FireTear(player.Position, entity.Velocity, true, true, true)
+                         tear:GetData().ReturnChance = entity:GetData().ReturnChance // 2

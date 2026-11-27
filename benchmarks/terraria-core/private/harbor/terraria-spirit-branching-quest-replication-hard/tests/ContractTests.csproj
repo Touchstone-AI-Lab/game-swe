@@ -1,0 +1,19 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <OutputType>Exe</OutputType>
+    <LangVersion>latest</LangVersion>
+    <ImplicitUsings>disable</ImplicitUsings>
+    <Nullable>disable</Nullable>
+    <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
+    <CandidateRoot Condition="'$(CandidateRoot)' == ''">../environment/spirit-mod</CandidateRoot>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="$(CandidateRoot)/Mechanics/QuestSystem/Quest.cs" Link="Production/Quest.cs" />
+    <Compile Include="$(CandidateRoot)/Mechanics/QuestSystem/QuestMultiplayer.cs" Link="Production/QuestMultiplayer.cs" />
+    <Compile Include="$(CandidateRoot)/Mechanics/QuestSystem/Tasks/QuestTask.cs" Link="Production/QuestTask.cs" />
+    <Compile Include="$(CandidateRoot)/Mechanics/QuestSystem/Tasks/BranchingTask.cs" Link="Production/BranchingTask.cs" />
+    <Compile Include="VerifierSupport.cs" />
+    <Compile Include="Program.cs" />
+  </ItemGroup>
+</Project>

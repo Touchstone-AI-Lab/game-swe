@@ -1,0 +1,6 @@
+control	kind	base	overlay	root	note
+tn-predicate-warp-only	target-negative	starter	patch:predicate-warp.patch	mutant-tanks	starter plus only the Report 3 repair (validation/candidates/predicate-warp.patch, byte-identical copy); eight reports remain broken
+tn-panic-fallback-unfixed	target-negative	reference	patch:tn-panic-fallback-unfixed.patch	mutant-tanks	reference with mt_panic.sp put back to the starter (Report 7 unrepaired)
+cn-reward-stack-keeps-first	compat-negative	reference	patch:cn-reward-stack-keeps-first.patch	mutant-tanks	reference whose reward stack helpers keep the active value instead of adding a later smaller one - the over-fix Report 5 warns about
+alternative-a	alternative	starter	patch:alternative-a.patch	mutant-tanks	validation/candidates/alternative-a.patch, byte-identical copy: event-branch state transfer, field-local Reward accumulation, separate melee cooldown early returns
+alternative-b	alternative	starter	patch:alternative-b.patch	mutant-tanks	validation/candidates/alternative-b.patch, byte-identical copy: event reconciliation helper, narrow positive Reward merge helpers, module-local cooldown eligibility helpers

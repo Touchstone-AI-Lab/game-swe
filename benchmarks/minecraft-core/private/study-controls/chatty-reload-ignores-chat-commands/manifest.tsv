@@ -1,0 +1,4 @@
+control	kind	base	overlay	root	note
+target-negative-register-only	target-negative	starter	patch:target-negative-register-only.patch	plugin	registers new commands on reload but never unregisters renamed ones
+compat-negative-no-startup-registration	compat-negative	starter	patch:compat-negative-no-startup-registration.patch	plugin	start-up registration call dropped; fails only the start-up preserved case
+alternative-a	alternative	starter	tree:alternative-a	plugin	independent fix written from the 0.2.0 exam: a registrar that reconciles chat commands on reload with a lazily resolved handler

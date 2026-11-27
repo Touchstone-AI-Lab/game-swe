@@ -1,0 +1,46 @@
+# Chatty v2 config.yml (legacy single-file layout) present in plugins/Chatty
+# before the plugin enables for the first time on the verifier server. Its
+# advertisement ip pattern is an invalid regular expression (unclosed character
+# class), so the v3 configuration written by the migrator cannot be loaded and
+# the migration fails after the plugin has torn its running configuration down.
+# Its caps limits (length 0, percent 150) were accepted by v2 but lie outside the
+# ranges v3 declares, so the migrator has to clamp them.
+general:
+  locale: en
+  priority: NORMAL
+chats:
+  local:
+    enable: true
+    format: "&7[L] {prefix}{player}{suffix}&7: &f{message}"
+    symbol: ""
+    range: 100
+    permission: false
+    cooldown: 0
+  global:
+    enable: true
+    format: "&a[G] {prefix}{player}{suffix}&7: &f{message}"
+    symbol: "!"
+    range: -1
+    permission: false
+    cooldown: 0
+moderation:
+  caps:
+    enable: true
+    length: 0
+    percent: 150
+    block: false
+  advertisement:
+    enable: true
+    block: false
+    replacement: "[ad]"
+    patterns:
+      ip: "(\\d{1,3}\\.){3}\\d{1,3}["
+      web: "(https?://)?[\\w.-]+\\.[a-z]{2,}"
+    whitelist:
+      - "example.com"
+pm:
+  enable: true
+  allow-console: true
+spy:
+  format:
+    chat: "&6[Spy] &r{format}"

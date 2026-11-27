@@ -1,0 +1,417 @@
+{
+  "task": "rimworld/core/r4-uncraftable-material-basis",
+  "task_version": "0.3.3",
+  "exam": "benchmarks/rimworld-core/exams/r4-uncraftable-material-basis.md",
+  "cases": [
+    {
+      "id": "check:submission-shape",
+      "role": "static",
+      "clauses": [
+        "delivery"
+      ],
+      "overlap": false,
+      "note": "required C# sources present as a safe snapshot; rejects binaries, links and private-harness markers"
+    },
+    {
+      "id": "case:runtime-definitions-ready",
+      "role": "runtime-sentinel",
+      "clauses": [],
+      "overlap": false,
+      "note": "Core, R4 and the verifier loaded in the real game"
+    },
+    {
+      "id": "case:fixture-preconditions",
+      "role": "setup",
+      "clauses": [],
+      "overlap": false,
+      "note": "fixture legality gate: float32 quotients and stuff-adjusted fixture"
+    },
+    {
+      "id": "case:public-resolver-contract",
+      "role": "target",
+      "clauses": [
+        "req-1",
+        "req-2",
+        "req-3"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:craftable-cost-preserved",
+      "role": "preserved",
+      "clauses": [
+        "req-2"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:craftable-beats-extension",
+      "role": "preserved",
+      "clauses": [
+        "req-2"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:stuff-adjusted-cost-preserved",
+      "role": "preserved",
+      "clauses": [
+        "req-2"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:authored-extension-used",
+      "role": "target",
+      "clauses": [
+        "req-3"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:null-cost-list-fallback",
+      "role": "target",
+      "clauses": [
+        "req-3",
+        "req-4"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:empty-cost-list-fallback",
+      "role": "target",
+      "clauses": [
+        "req-3",
+        "req-4"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:null-extension-materials-fallback",
+      "role": "target",
+      "clauses": [
+        "req-3",
+        "req-4"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:empty-extension-materials-fallback",
+      "role": "target",
+      "clauses": [
+        "req-3",
+        "req-4"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:zero-market-value",
+      "role": "target",
+      "clauses": [
+        "req-4"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:negative-market-value",
+      "role": "target",
+      "clauses": [
+        "req-4"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:positive-minimum-bulk",
+      "role": "target",
+      "clauses": [
+        "req-4"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:spacer-basis",
+      "role": "target",
+      "clauses": [
+        "req-5"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:ultra-basis",
+      "role": "target",
+      "clauses": [
+        "req-5"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:archotech-basis",
+      "role": "target",
+      "clauses": [
+        "req-5"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:undefined-basis",
+      "role": "target",
+      "clauses": [
+        "req-5"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:medieval-basis",
+      "role": "target",
+      "clauses": [
+        "req-5"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:neolithic-basis",
+      "role": "target",
+      "clauses": [
+        "req-5"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:animal-basis",
+      "role": "target",
+      "clauses": [
+        "req-5"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:industrial-components-stay-two",
+      "role": "target",
+      "clauses": [
+        "req-5"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:spacer-components-stay-two",
+      "role": "target",
+      "clauses": [
+        "req-5"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:definition-market-value",
+      "role": "target",
+      "clauses": [
+        "req-4"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:round-even-below",
+      "role": "target",
+      "clauses": [
+        "req-4"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:round-even-half",
+      "role": "target",
+      "clauses": [
+        "req-4"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:round-even-above",
+      "role": "target",
+      "clauses": [
+        "req-4"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:round-odd-below",
+      "role": "target",
+      "clauses": [
+        "req-4"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:round-odd-half",
+      "role": "target",
+      "clauses": [
+        "req-4"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:round-odd-above",
+      "role": "target",
+      "clauses": [
+        "req-4"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:repair-default",
+      "role": "target",
+      "clauses": [
+        "req-6"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:clean-default",
+      "role": "target",
+      "clauses": [
+        "req-6"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:repair-settings",
+      "role": "target",
+      "clauses": [
+        "req-6"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:clean-settings",
+      "role": "target",
+      "clauses": [
+        "req-6"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:repair-ignores-clean-settings",
+      "role": "target",
+      "clauses": [
+        "req-6"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:clean-ignores-repair-settings",
+      "role": "target",
+      "clauses": [
+        "req-6"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:repair-strict-threshold",
+      "role": "preserved",
+      "clauses": [
+        "req-6"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:repair-fallback-highest",
+      "role": "preserved",
+      "clauses": [
+        "req-6"
+      ],
+      "overlap": false,
+      "note": ""
+    }
+  ],
+  "clauses": [
+    {
+      "id": "req-1",
+      "anchor": "Required behavior, bullet 1: add public static ResolveMaterialBasis(Thing item) as the shared API",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "req-2",
+      "anchor": "Required behavior, bullet 2: a non-empty CostListAdjusted list is returned unchanged and beats every extension",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "req-3",
+      "anchor": "Required behavior, bullet 3: otherwise a non-empty R4MaterialCostExtension.materials list; missing, null or empty falls through",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "req-4",
+      "anchor": "Required behavior, bullet 4: synthesis from abstract MarketValue, max(0)*0.15f / max(0.01f, bulk), RoundToInt nearest-even, at least one unit",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "req-5",
+      "anchor": "Required behavior, bullet 5: tech mapping (Undefined as Industrial; Spacer+ Plasteel and two spacer components; Industrial Steel and two components; lower Steel only)",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "req-6",
+      "anchor": "Required behavior, bullet 6: GetRepairCycleCost and GetCleanCost consume the resolved basis with their separate formulas, threshold and fallback",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "req-7",
+      "anchor": "Required behavior, bullet 7: preserve all unrelated R4 behavior",
+      "status": "unasserted",
+      "note": "recycling, placement, eligibility, DoRecycleProducts and SpawnPartialReclaim are declared out of the scored scope"
+    },
+    {
+      "id": "delivery",
+      "anchor": "closing paragraph: do not add RimWorld, Unity or Harmony binaries, generated output, test results, credentials, Workshop content, assets, saves or logs",
+      "status": "weak",
+      "note": "the snapshot gate rejects binaries, links and harness markers; the other listed artefacts are not checked"
+    }
+  ],
+  "excluded_clauses": [
+    "req-7"
+  ],
+  "known_issues": [
+    "tests/Harness/Verifier.cs lifts Core's MarketValue floor (minValue 0) and round-to-five rule and prices Plasteel at 8 for the case loop, because the authored negative and float32-boundary fixtures cannot exist on unmodified Core data; expected results are unchanged.",
+    "Scalars (marketValue, quotient and so on) are recorded but not graded; only facts and outputs decide a case."
+  ]
+}

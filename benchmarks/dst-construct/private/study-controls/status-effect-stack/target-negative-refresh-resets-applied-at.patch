@@ -1,0 +1,11 @@
+diff -ruN a/scripts/statuseffects/stack.lua b/scripts/statuseffects/stack.lua
+--- a/scripts/statuseffects/stack.lua	2026-09-22 00:59:18.686420789 +0800
++++ b/scripts/statuseffects/stack.lua	2026-09-22 01:14:27.010577393 +0800
+@@ -208,6 +208,7 @@
+             instance.expires_at = now + math.min(remaining, self.extend_cap * definition.duration)
+         else
+             code = "refreshed"
++            instance.applied_at = now
+             instance.expires_at = now + definition.duration
+         end
+         stacks = instance.stacks

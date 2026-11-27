@@ -1,0 +1,129 @@
+{
+  "task": "mindustry/mindustry-core/defense-and-heat-regressions",
+  "task_version": "1.0.0",
+  "exam": "benchmarks/mindustry-core/exams/defense-and-heat-regressions.md",
+  "cases": [
+    {
+      "id": "check:submission-shape",
+      "role": "static",
+      "clauses": [
+        "scope-1"
+      ],
+      "overlap": false,
+      "note": "the mindustry/ tree with its source roots, no symlinks, VCS metadata or compiled artifacts"
+    },
+    {
+      "id": "check:offline-build",
+      "role": "static",
+      "clauses": [
+        "scope-1"
+      ],
+      "overlap": false,
+      "note": "every Java source under core/src and server/src compiles offline against the pinned server jar"
+    },
+    {
+      "id": "server:defense blocks load and update on the pinned server",
+      "role": "runtime-sentinel",
+      "clauses": [],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "server:an engaged turret fires at its reload interval",
+      "role": "preserved",
+      "clauses": [
+        "expected-1"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "server:an idle turret keeps its reload interval when it engages",
+      "role": "target",
+      "clauses": [
+        "expected-1"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "server:a turret with faster ammunition keeps its average fire rate",
+      "role": "preserved",
+      "clauses": [
+        "expected-1"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "server:a loaded idle turret does not use its coolant",
+      "role": "preserved",
+      "clauses": [
+        "expected-1"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "server:an enabled heat redirector passes heat on",
+      "role": "preserved",
+      "clauses": [
+        "expected-2"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "server:a disabled heat redirector passes no heat",
+      "role": "target",
+      "clauses": [
+        "expected-2"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "server:a shockwave tower destroys enemy bullets inside its range",
+      "role": "preserved",
+      "clauses": [
+        "expected-3"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "server:a shockwave tower spares bullets outside its circular range",
+      "role": "target",
+      "clauses": [
+        "expected-3"
+      ],
+      "overlap": false,
+      "note": ""
+    }
+  ],
+  "clauses": [
+    {
+      "id": "expected-1",
+      "anchor": "Expected behaviour, first bullet: shots after idling are at least the reload time apart; engaged turrets keep their interval and exact average fire rate; loaded idle turrets keep their coolant",
+      "status": "asserted"
+    },
+    {
+      "id": "expected-2",
+      "anchor": "Expected behaviour, second bullet: a disabled heat redirector holds and passes no heat; enabled redirectors keep passing heat",
+      "status": "asserted"
+    },
+    {
+      "id": "expected-3",
+      "anchor": "Expected behaviour, third bullet: a shockwave tower only affects hittable enemy bullets within its range circle",
+      "status": "asserted"
+    },
+    {
+      "id": "scope-1",
+      "anchor": "Context, last paragraph: changes stay inside mindustry/core/src and mindustry/server/src, which the server build compiles",
+      "status": "weak",
+      "note": "enforced only through the offline build of those source roots"
+    }
+  ],
+  "excluded_clauses": [],
+  "known_issues": []
+}

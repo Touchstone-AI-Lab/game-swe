@@ -1,0 +1,122 @@
+{
+  "schemaVersion": 1,
+  "source": "CustomizeWeapon/Source/ThingComps/CompAbilityProvider.cs",
+  "oracleSha256": "c1d6358828bc2e76f24bc93238775a95921813242f526cd68918bd2c689a78f7",
+  "authoringExpectationsOnly": true,
+  "mutations": [
+    {
+      "id": "omit-equipped-sync",
+      "replaceOnce": "base.Notify_Equipped(pawn);\n        SyncAbilities(pawn, false);",
+      "with": "base.Notify_Equipped(pawn);",
+      "mutatedSha256": "70da6f4b3e038dc387e1ed7805fe83c9365857b287b7c8b6d15c3be52447e390",
+      "mustFailCases": [
+        "missing-tracker-created",
+        "managed-ability-added"
+      ],
+      "expectedComplete": true,
+      "status": "not-run"
+    },
+    {
+      "id": "break-holder",
+      "replaceOnce": "private Pawn? CurrentHolder => parent.ParentHolder is Pawn_EquipmentTracker { pawn: not null } equipmentTracker\n        ? equipmentTracker.pawn\n        : null;",
+      "with": "private Pawn? CurrentHolder => null;",
+      "mutatedSha256": "85513d8d2591cf8465d02f47b920c5114cd7de9e9fd831ea003c3ffb5f5f53d4",
+      "mustFailCases": [
+        "holder-update-adds-ability",
+        "reload-path-preserved"
+      ],
+      "expectedComplete": true,
+      "status": "not-run"
+    },
+    {
+      "id": "omit-state-save",
+      "replaceOnce": "Scribe_Collections.Look(ref _abilityStates, \"abilityStates\", LookMode.Deep);",
+      "with": "",
+      "mutatedSha256": "61e1c6ee6ef6f9cc1a671adb8d970989e3442b45671c4037790290b663099aea",
+      "mustFailCases": [
+        "postload-restores-state"
+      ],
+      "expectedComplete": true,
+      "status": "not-run"
+    },
+    {
+      "id": "omit-postload-clear",
+      "replaceOnce": "if (Scribe.mode == LoadSaveMode.PostLoadInit) {\n            _abilityStates ??= [];\n            _managedAbilityDefs.Clear();\n        }",
+      "with": "if (Scribe.mode == LoadSaveMode.PostLoadInit) {\n            _abilityStates ??= [];\n        }",
+      "mutatedSha256": "d0b50252392a9800cd6e2830f00672dea2bf981611a5464004187ffb71c0d603",
+      "mustFailCases": [
+        "postload-managed-cleared"
+      ],
+      "expectedComplete": true,
+      "status": "not-run"
+    }
+  ],
+  "fixtureMutations": [
+    {
+      "id": "break-scribe-transport",
+      "source": "tests/Harness/Verifier.cs",
+      "inputSha256": "414f249aae29956f6b0e223254093a787ae05b0cd71c2cd1b8ca68307e70cbbb",
+      "replaceOnce": "Scribe_Values.Look(ref Value, \"value\");",
+      "with": "// transport value deliberately omitted",
+      "mutatedSha256": "76769cbf917c0ad2f78ef3d4794572ce0a60a5e9e51fb6a200876f2bb294d943",
+      "mustFailCases": [
+        "runtime-defs-ready"
+      ],
+      "expectedComplete": false,
+      "status": "not-run"
+    },
+    {
+      "id": "omit-loaded-holder-restoration",
+      "source": "tests/Harness/Verifier.cs",
+      "inputSha256": "414f249aae29956f6b0e223254093a787ae05b0cd71c2cd1b8ca68307e70cbbb",
+      "replaceOnce": "                FixtureState.OnRestore(\"cwf-holder-state\", () =>",
+      "with": "                if (registerDefs) FixtureState.OnRestore(\"cwf-holder-state\", () =>",
+      "mutatedSha256": "5f90415c196f35c504de06a2952f53ac8cad7cd6eeb0f9e7aa024f6e39cb5a28",
+      "mustFailCases": [
+        "postload-restores-state"
+      ],
+      "expectedComplete": false,
+      "status": "not-run"
+    },
+    {
+      "id": "throw-during-restoration",
+      "source": "tests/Harness/Verifier.cs",
+      "inputSha256": "414f249aae29956f6b0e223254093a787ae05b0cd71c2cd1b8ca68307e70cbbb",
+      "replaceOnce": "                    // Fixture cleanup is independent of candidate unequip correctness.",
+      "with": "                    throw new InvalidOperationException(\"injected restoration failure\");",
+      "mutatedSha256": "6e91625da81fbf4d5441df381cad04c810fea4fca55db535909711af7db737d9",
+      "mustFailCases": [
+        "missing-tracker-created"
+      ],
+      "expectedComplete": false,
+      "status": "not-run"
+    },
+    {
+      "id": "leave-stored-state",
+      "source": "tests/Harness/Verifier.cs",
+      "inputSha256": "414f249aae29956f6b0e223254093a787ae05b0cd71c2cd1b8ca68307e70cbbb",
+      "replaceOnce": "                    originalStates.Clear();",
+      "with": "                    // deliberately leave captured state",
+      "mutatedSha256": "fe84cf637be91478cc5fb8087499029af91783eb6c79fa5bf2ada435a8de9ee6",
+      "mustFailCases": [
+        "unequip-captures-state"
+      ],
+      "expectedComplete": false,
+      "status": "not-run"
+    },
+    {
+      "id": "extra-rand-push",
+      "source": "tests/Harness/Verifier.cs",
+      "inputSha256": "414f249aae29956f6b0e223254093a787ae05b0cd71c2cd1b8ca68307e70cbbb",
+      "replaceOnce": "            ScribeFixture.ProbeTransport();",
+      "with": "            ScribeFixture.ProbeTransport();\n            Rand.PushState(173);",
+      "mutatedSha256": "9c968aa54f1ad2685721529aa778f62de741239a7ecd2e7ed9981bc13e67c389",
+      "mustFailCases": [
+        "runtime-defs-ready"
+      ],
+      "expectedComplete": false,
+      "status": "not-run"
+    }
+  ],
+  "authoringRevision": 3
+}

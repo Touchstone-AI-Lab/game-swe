@@ -1,0 +1,151 @@
+{
+  "validated": true,
+  "matrix_audit_sha256": "533a6c2faf9143e26ae09f8c9f0986525c7ce66397bb7f4750c9ecc0a062c816",
+  "matrix_results": [
+    {
+      "variant": "base",
+      "passed": 15,
+      "expected": 46,
+      "failed_case_ids": [
+        "cn-nested",
+        "cn-suffix",
+        "coherent-initialization",
+        "decimal-leading-zero",
+        "escaped-braces",
+        "escaped-open",
+        "escaped-pipe",
+        "fraction-operand",
+        "generated-refresh",
+        "generated-rewrite",
+        "inactive-lazy",
+        "large-operand",
+        "literal-backslash",
+        "literal-dollar",
+        "nested-card",
+        "nested-fallback",
+        "nested-repeat",
+        "nested-selected",
+        "overridden-lazy",
+        "payload-equals",
+        "raw-refresh",
+        "repeated-key",
+        "subscriber-refresh",
+        "suffix-minimum",
+        "suffix-two",
+        "suffix-width",
+        "ticking-render",
+        "unmark",
+        "zero-divisor",
+        "zero-repeat-lazy",
+        "zero-zero-divisor"
+      ]
+    },
+    {
+      "variant": "gold",
+      "passed": 46,
+      "expected": 46,
+      "failed_case_ids": []
+    },
+    {
+      "variant": "alternative",
+      "passed": 46,
+      "expected": 46,
+      "failed_case_ids": []
+    },
+    {
+      "variant": "legacy-numeric",
+      "passed": 37,
+      "expected": 46,
+      "failed_case_ids": [
+        "cn-suffix",
+        "decimal-leading-zero",
+        "fraction-operand",
+        "large-operand",
+        "suffix-minimum",
+        "suffix-two",
+        "suffix-width",
+        "zero-divisor",
+        "zero-zero-divisor"
+      ]
+    },
+    {
+      "variant": "no-snapshot",
+      "passed": 38,
+      "expected": 46,
+      "failed_case_ids": [
+        "cn-nested",
+        "coherent-initialization",
+        "nested-card",
+        "nested-fallback",
+        "nested-repeat",
+        "nested-selected",
+        "repeated-key",
+        "ticking-render"
+      ]
+    },
+    {
+      "variant": "sticky-opt-in",
+      "passed": 45,
+      "expected": 46,
+      "failed_case_ids": [
+        "unmark"
+      ]
+    },
+    {
+      "variant": "eager-payloads",
+      "passed": 43,
+      "expected": 46,
+      "failed_case_ids": [
+        "inactive-lazy",
+        "overridden-lazy",
+        "zero-repeat-lazy"
+      ]
+    },
+    {
+      "variant": "split-every-equals",
+      "passed": 45,
+      "expected": 46,
+      "failed_case_ids": [
+        "payload-equals"
+      ]
+    },
+    {
+      "variant": "legacy-refresh",
+      "passed": 41,
+      "expected": 46,
+      "failed_case_ids": [
+        "generated-refresh",
+        "generated-rewrite",
+        "raw-refresh",
+        "subscriber-refresh",
+        "ticking-render"
+      ]
+    },
+    {
+      "variant": "no-reentry-scope",
+      "passed": 45,
+      "expected": 46,
+      "failed_case_ids": [
+        "nested-card"
+      ]
+    }
+  ],
+  "formal_audit_sha256": "ecf87547e35a7e592014fa608ae73fa463a533702b42aa7bccbf6499f7df0c59",
+  "formal_controls": [
+    {
+      "agent": "oracle",
+      "trial": "basemod-dynamic-descriptions-r2__KUhK7YU",
+      "passed": 46,
+      "expected": 46,
+      "reward": 1
+    },
+    {
+      "agent": "nop",
+      "trial": "basemod-dynamic-descriptions-r2__PeQiRqj",
+      "passed": 15,
+      "expected": 46,
+      "reward": 0
+    }
+  ],
+  "scope": "Historical complete native-runtime controls, including an independently different passing repair. Raw runtime logs remain local; source and receipt hashes identify the frozen evidence."
+}

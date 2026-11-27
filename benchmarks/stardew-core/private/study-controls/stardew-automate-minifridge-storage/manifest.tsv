@@ -1,0 +1,4 @@
+control	kind	base	overlay	root	note
+target-negative-qualified-id	target-negative	reference	patch:target-negative-qualified-id.patch	StardewMods	Fix applied with the qualified id "(BC)216" in a list of unqualified Data/BigCraftables keys, so the mini-fridge is still never tagged as storage.
+compat-negative-drops-chest	compat-negative	reference	patch:compat-negative-drops-chest.patch	StardewMods	Reference with the regular chest id "130" removed from the default storage list: mini-fridges work, regular chests stop being containers.
+alternative-factory-recognition	alternative	starter	patch:alternative-factory-recognition.patch	StardewMods	Recognizes the mini-fridge by item type in AutomationFactory (and lists it in the config UI) instead of adding it to the context-tag id list.

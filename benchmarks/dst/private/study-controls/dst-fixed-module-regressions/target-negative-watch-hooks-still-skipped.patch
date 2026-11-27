@@ -1,0 +1,10 @@
+--- a/main/modules/nameable_watches.lua
++++ b/main/modules/nameable_watches.lua
+@@ -309,6 +309,6 @@
+ 	end)
+ end
+ 
+-for k in pairs(SUPPORTED_WATCHES) do
++for k in ipairs(SUPPORTED_WATCHES) do
+ 	AddPrefabPostInit(k, WatchPostInit)
+ end

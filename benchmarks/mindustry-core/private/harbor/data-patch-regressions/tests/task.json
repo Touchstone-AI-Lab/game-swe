@@ -1,0 +1,25 @@
+{
+  "schemaVersion": 1,
+  "taskId": "data-patch-regressions",
+  "starter": "mindustry",
+  "build": {
+    "tool": "mindustry-source",
+    "sourceRoots": [
+      "core/src",
+      "server/src"
+    ],
+    "extraSources": [
+      "annotations/src/main/java/mindustry/annotations/Annotations.java"
+    ],
+    "javaRelease": 17
+  },
+  "serverCases": [
+    "the server loads patch files from its asset folder",
+    "a patch changes a block while its map is hosted",
+    "a server-defined item can be used by a patch",
+    "a server-defined item exists while its map is hosted",
+    "patching a build tower also changes the drones it builds with",
+    "a planet-restricted patch applies on its planet",
+    "a patch for another planet is neither applied nor listed"
+  ]
+}

@@ -1,0 +1,987 @@
+{
+  "scope": "2026-09-21 maintainer controls, not model calibration",
+  "records": [
+    {
+      "task": "l4d2-confogl-cvar-transactions-hard",
+      "candidate": "gold",
+      "profile": "full",
+      "group": null,
+      "exit_code": 0,
+      "component_hashes": {
+        "instruction.md": "dd7120fa2aaec205a7ca23f4216445c5ba7da878b441341d7f4d33ed163359f8",
+        "task.toml": "dfc2b78b59607c21b6c671cf2f74cb6b18bb0e4010d8151306975788f20ba5c2",
+        "environment": "8d649f64371e7ad8851a10ee41d3d2a50903d8b52ba32061fa0155dc995b2d9e",
+        "tests": "0faedb3dc084f786a548bc586db397b7ed90b33bfeee09894fb99e758ec77a86",
+        "solution": "f8546d4eb02a6144465716023519c58159332fd4a11e91d6584848e127cd92d8",
+        "validation/case-contracts.tsv": "a760efc80f2f41971b70eaeb3580d1a19e4b315888d9f7f40c617c8b2c22a323"
+      },
+      "hash_algorithm": "sha256-relpath-nul-content-nul-posix-lexical-v1",
+      "contract": "591e3020830185c8d76c3c3f02d85330b0ba769f619fec5e8925e70fb37dfd0a",
+      "runtime_image_id": "sha256:af58da986d0f3187d359d86a45e405adc658f368e671ae8f3ae1deded0125dc1",
+      "source_hash": "d8e892b5267ea859886f2288abc1e79349c685095196f8fd06c87992b185e1d7",
+      "tests_hash": "0faedb3dc084f786a548bc586db397b7ed90b33bfeee09894fb99e758ec77a86",
+      "cases": [
+        {
+          "case": "stage-known-passive",
+          "status": "PASS",
+          "detail": "staging does not write"
+        },
+        {
+          "case": "stage-resolved-passive",
+          "status": "PASS",
+          "detail": "inactive config resolution does not apply"
+        },
+        {
+          "case": "duplicate-known-last-wins",
+          "status": "PASS",
+          "detail": "case-insensitive layered assignment"
+        },
+        {
+          "case": "activation-cross-write-corrected",
+          "status": "PASS",
+          "detail": "finite cross callback settles target"
+        },
+        {
+          "case": "empty-value-valid",
+          "status": "PASS",
+          "detail": "empty quoted value"
+        },
+        {
+          "case": "spaces-value-valid",
+          "status": "PASS",
+          "detail": "quoted value"
+        },
+        {
+          "case": "bounded-activation",
+          "status": "PASS",
+          "detail": "engine upper bound"
+        },
+        {
+          "case": "oversize-duplicate-rejected",
+          "status": "PASS",
+          "detail": "no truncated override"
+        },
+        {
+          "case": "maximum-value-accepted",
+          "status": "PASS",
+          "detail": "63 byte desired value"
+        },
+        {
+          "case": "maximum-name-accepted",
+          "status": "PASS",
+          "detail": "63 byte name"
+        },
+        {
+          "case": "oversize-name-not-truncated",
+          "status": "PASS",
+          "detail": "64 byte name must not alias its valid prefix"
+        },
+        {
+          "case": "oversize-new-value-rejected",
+          "status": "PASS",
+          "detail": "255 byte value does not create a truncated assignment"
+        },
+        {
+          "case": "pending-resolved-before-start",
+          "status": "PASS",
+          "detail": "same activation rules"
+        },
+        {
+          "case": "active-add-ignored",
+          "status": "PASS",
+          "detail": "freeze active profile"
+        },
+        {
+          "case": "external-drift-corrected",
+          "status": "PASS",
+          "detail": "synchronous correction"
+        },
+        {
+          "case": "cross-entry-enforcement",
+          "status": "PASS",
+          "detail": "guard is not global"
+        },
+        {
+          "case": "finite-cross-callback-return",
+          "status": "PASS",
+          "detail": "A correction causes B correction which writes back A once"
+        },
+        {
+          "case": "bounded-drift-corrected",
+          "status": "PASS",
+          "detail": "bounded canonical enforcement terminates"
+        },
+        {
+          "case": "bounded-inrange-string-preserved",
+          "status": "PASS",
+          "detail": "in-range desired retains engine string representation"
+        },
+        {
+          "case": "bounded-string-finite-writeback",
+          "status": "PASS",
+          "detail": "in-range string identity survives bounded A to B to A correction"
+        },
+        {
+          "case": "string-drift-corrected",
+          "status": "PASS",
+          "detail": "string enforcement"
+        },
+        {
+          "case": "late-duplicate-last-wins",
+          "status": "PASS",
+          "detail": "pending overlay retains latest"
+        },
+        {
+          "case": "unresolved-survives-callbacks",
+          "status": "PASS",
+          "detail": "second delayed resolution"
+        },
+        {
+          "case": "late-enforcement",
+          "status": "PASS",
+          "detail": "late entry receives hook"
+        },
+        {
+          "case": "late-batch-enforced",
+          "status": "PASS",
+          "detail": "new delayed batch uses same transaction"
+        },
+        {
+          "case": "active-reset-rejected",
+          "status": "PASS",
+          "detail": "match gate preserves ownership"
+        },
+        {
+          "case": "diagnostics-preserve-profile",
+          "status": "PASS",
+          "detail": "runtime log must also contain no exception"
+        },
+        {
+          "case": "restore-activation-baseline",
+          "status": "PASS",
+          "detail": "registration-time 1 must not win"
+        },
+        {
+          "case": "restore-batch-baseline",
+          "status": "PASS",
+          "detail": "cross-callback 99 must not become baseline"
+        },
+        {
+          "case": "restore-late-baseline",
+          "status": "PASS",
+          "detail": "callbacks never recapture enforced value"
+        },
+        {
+          "case": "restore-second-late-baseline",
+          "status": "PASS",
+          "detail": "independent delayed binding"
+        },
+        {
+          "case": "restore-late-batch-baselines",
+          "status": "PASS",
+          "detail": "late snapshot precedes any callback write"
+        },
+        {
+          "case": "restore-long-baseline",
+          "status": "PASS",
+          "detail": "255 byte baseline preserved"
+        },
+        {
+          "case": "restore-bound-baseline",
+          "status": "PASS",
+          "detail": "actual preactivation value"
+        },
+        {
+          "case": "released-hooks-removed",
+          "status": "PASS",
+          "detail": "released cvar accepts external writes"
+        },
+        {
+          "case": "unactivated-release-no-write",
+          "status": "PASS",
+          "detail": "discard passive staging"
+        },
+        {
+          "case": "unactivated-unload-no-write",
+          "status": "PASS",
+          "detail": "unload passive profile"
+        },
+        {
+          "case": "next-cycle-enforces",
+          "status": "PASS",
+          "detail": "new plugin profile"
+        },
+        {
+          "case": "discarded-pending-not-revived",
+          "status": "PASS",
+          "detail": "previous inactive pending cleared"
+        },
+        {
+          "case": "active-unload-restores-fresh",
+          "status": "PASS",
+          "detail": "fresh cycle baseline"
+        },
+        {
+          "case": "active-unload-restores-late",
+          "status": "PASS",
+          "detail": "previous binding now early"
+        },
+        {
+          "case": "unload-hooks-gone",
+          "status": "PASS",
+          "detail": "no residual correction"
+        }
+      ],
+      "passed": 42,
+      "total": 42,
+      "verifier_log_sha256": "0e5da722acd7ef956a4abe1fe16159e8045e74460c2c7558cdfafbcc85f9a425",
+      "logs_copied": true,
+      "server_log_hashes": {
+        "server-transactions.log": "1473d623f74c821694ea5c44731c1e232b749c8e760a3b68032146faafad9a84"
+      },
+      "retained_server_log_hashes_verified": true,
+      "evidence_directory": "l4d2-confogl-cvar-transactions-hard-gold-1789960056086184700",
+      "expected_outcome_confirmed": true,
+      "expected_cases_in_selected_scope": 42,
+      "emitted_exact_verdict_count": true
+    },
+    {
+      "task": "l4d2-confogl-cvar-transactions-hard",
+      "candidate": "nop",
+      "profile": "full",
+      "group": null,
+      "exit_code": 1,
+      "component_hashes": {
+        "instruction.md": "dd7120fa2aaec205a7ca23f4216445c5ba7da878b441341d7f4d33ed163359f8",
+        "task.toml": "dfc2b78b59607c21b6c671cf2f74cb6b18bb0e4010d8151306975788f20ba5c2",
+        "environment": "8d649f64371e7ad8851a10ee41d3d2a50903d8b52ba32061fa0155dc995b2d9e",
+        "tests": "0faedb3dc084f786a548bc586db397b7ed90b33bfeee09894fb99e758ec77a86",
+        "solution": "f8546d4eb02a6144465716023519c58159332fd4a11e91d6584848e127cd92d8",
+        "validation/case-contracts.tsv": "a760efc80f2f41971b70eaeb3580d1a19e4b315888d9f7f40c617c8b2c22a323"
+      },
+      "hash_algorithm": "sha256-relpath-nul-content-nul-posix-lexical-v1",
+      "contract": "591e3020830185c8d76c3c3f02d85330b0ba769f619fec5e8925e70fb37dfd0a",
+      "runtime_image_id": "sha256:af58da986d0f3187d359d86a45e405adc658f368e671ae8f3ae1deded0125dc1",
+      "source_hash": "8d8000b3956391f51a505f584018f78a96639f4e74fe312d0bd3d0c6bab9c993",
+      "tests_hash": "0faedb3dc084f786a548bc586db397b7ed90b33bfeee09894fb99e758ec77a86",
+      "cases": [
+        {
+          "case": "stage-known-passive",
+          "status": "FAIL",
+          "detail": "Invalid counterterrorist spawnpoint at (2303.4,2816.0,2816.0)"
+        },
+        {
+          "case": "stage-resolved-passive",
+          "status": "FAIL",
+          "detail": "Invalid counterterrorist spawnpoint at (2303.4,2816.0,2816.0)"
+        },
+        {
+          "case": "duplicate-known-last-wins",
+          "status": "FAIL",
+          "detail": "Invalid counterterrorist spawnpoint at (2303.4,2816.0,2816.0)"
+        },
+        {
+          "case": "activation-cross-write-corrected",
+          "status": "FAIL",
+          "detail": "Invalid counterterrorist spawnpoint at (2303.4,2816.0,2816.0)"
+        },
+        {
+          "case": "empty-value-valid",
+          "status": "FAIL",
+          "detail": "Invalid counterterrorist spawnpoint at (2303.4,2816.0,2816.0)"
+        },
+        {
+          "case": "spaces-value-valid",
+          "status": "FAIL",
+          "detail": "Invalid counterterrorist spawnpoint at (2303.4,2816.0,2816.0)"
+        },
+        {
+          "case": "bounded-activation",
+          "status": "FAIL",
+          "detail": "Invalid counterterrorist spawnpoint at (2303.4,2816.0,2816.0)"
+        },
+        {
+          "case": "oversize-duplicate-rejected",
+          "status": "FAIL",
+          "detail": "Invalid counterterrorist spawnpoint at (2303.4,2816.0,2816.0)"
+        },
+        {
+          "case": "maximum-value-accepted",
+          "status": "FAIL",
+          "detail": "Invalid counterterrorist spawnpoint at (2303.4,2816.0,2816.0)"
+        },
+        {
+          "case": "maximum-name-accepted",
+          "status": "FAIL",
+          "detail": "Invalid counterterrorist spawnpoint at (2303.4,2816.0,2816.0)"
+        },
+        {
+          "case": "oversize-name-not-truncated",
+          "status": "FAIL",
+          "detail": "Invalid counterterrorist spawnpoint at (2303.4,2816.0,2816.0)"
+        },
+        {
+          "case": "oversize-new-value-rejected",
+          "status": "FAIL",
+          "detail": "Invalid counterterrorist spawnpoint at (2303.4,2816.0,2816.0)"
+        },
+        {
+          "case": "pending-resolved-before-start",
+          "status": "FAIL",
+          "detail": "Invalid counterterrorist spawnpoint at (2303.4,2816.0,2816.0)"
+        },
+        {
+          "case": "active-add-ignored",
+          "status": "FAIL",
+          "detail": "Invalid counterterrorist spawnpoint at (2303.4,2816.0,2816.0)"
+        },
+        {
+          "case": "external-drift-corrected",
+          "status": "FAIL",
+          "detail": "Invalid counterterrorist spawnpoint at (2303.4,2816.0,2816.0)"
+        },
+        {
+          "case": "cross-entry-enforcement",
+          "status": "FAIL",
+          "detail": "Invalid counterterrorist spawnpoint at (2303.4,2816.0,2816.0)"
+        },
+        {
+          "case": "finite-cross-callback-return",
+          "status": "FAIL",
+          "detail": "Invalid counterterrorist spawnpoint at (2303.4,2816.0,2816.0)"
+        },
+        {
+          "case": "bounded-drift-corrected",
+          "status": "FAIL",
+          "detail": "Invalid counterterrorist spawnpoint at (2303.4,2816.0,2816.0)"
+        },
+        {
+          "case": "bounded-inrange-string-preserved",
+          "status": "FAIL",
+          "detail": "Invalid counterterrorist spawnpoint at (2303.4,2816.0,2816.0)"
+        },
+        {
+          "case": "bounded-string-finite-writeback",
+          "status": "FAIL",
+          "detail": "Invalid counterterrorist spawnpoint at (2303.4,2816.0,2816.0)"
+        },
+        {
+          "case": "string-drift-corrected",
+          "status": "FAIL",
+          "detail": "Invalid counterterrorist spawnpoint at (2303.4,2816.0,2816.0)"
+        },
+        {
+          "case": "late-duplicate-last-wins",
+          "status": "FAIL",
+          "detail": "Invalid counterterrorist spawnpoint at (2303.4,2816.0,2816.0)"
+        },
+        {
+          "case": "unresolved-survives-callbacks",
+          "status": "FAIL",
+          "detail": "Invalid counterterrorist spawnpoint at (2303.4,2816.0,2816.0)"
+        },
+        {
+          "case": "late-enforcement",
+          "status": "FAIL",
+          "detail": "Invalid counterterrorist spawnpoint at (2303.4,2816.0,2816.0)"
+        },
+        {
+          "case": "late-batch-enforced",
+          "status": "FAIL",
+          "detail": "Invalid counterterrorist spawnpoint at (2303.4,2816.0,2816.0)"
+        },
+        {
+          "case": "active-reset-rejected",
+          "status": "FAIL",
+          "detail": "Invalid counterterrorist spawnpoint at (2303.4,2816.0,2816.0)"
+        },
+        {
+          "case": "diagnostics-preserve-profile",
+          "status": "FAIL",
+          "detail": "Invalid counterterrorist spawnpoint at (2303.4,2816.0,2816.0)"
+        },
+        {
+          "case": "restore-activation-baseline",
+          "status": "FAIL",
+          "detail": "Invalid counterterrorist spawnpoint at (2303.4,2816.0,2816.0)"
+        },
+        {
+          "case": "restore-batch-baseline",
+          "status": "FAIL",
+          "detail": "Invalid counterterrorist spawnpoint at (2303.4,2816.0,2816.0)"
+        },
+        {
+          "case": "restore-late-baseline",
+          "status": "FAIL",
+          "detail": "Invalid counterterrorist spawnpoint at (2303.4,2816.0,2816.0)"
+        },
+        {
+          "case": "restore-second-late-baseline",
+          "status": "FAIL",
+          "detail": "Invalid counterterrorist spawnpoint at (2303.4,2816.0,2816.0)"
+        },
+        {
+          "case": "restore-late-batch-baselines",
+          "status": "FAIL",
+          "detail": "Invalid counterterrorist spawnpoint at (2303.4,2816.0,2816.0)"
+        },
+        {
+          "case": "restore-long-baseline",
+          "status": "FAIL",
+          "detail": "Invalid counterterrorist spawnpoint at (2303.4,2816.0,2816.0)"
+        },
+        {
+          "case": "restore-bound-baseline",
+          "status": "FAIL",
+          "detail": "Invalid counterterrorist spawnpoint at (2303.4,2816.0,2816.0)"
+        },
+        {
+          "case": "released-hooks-removed",
+          "status": "FAIL",
+          "detail": "Invalid counterterrorist spawnpoint at (2303.4,2816.0,2816.0)"
+        },
+        {
+          "case": "unactivated-release-no-write",
+          "status": "FAIL",
+          "detail": "Invalid counterterrorist spawnpoint at (2303.4,2816.0,2816.0)"
+        },
+        {
+          "case": "unactivated-unload-no-write",
+          "status": "FAIL",
+          "detail": "Invalid counterterrorist spawnpoint at (2303.4,2816.0,2816.0)"
+        },
+        {
+          "case": "next-cycle-enforces",
+          "status": "FAIL",
+          "detail": "Invalid counterterrorist spawnpoint at (2303.4,2816.0,2816.0)"
+        },
+        {
+          "case": "discarded-pending-not-revived",
+          "status": "FAIL",
+          "detail": "Invalid counterterrorist spawnpoint at (2303.4,2816.0,2816.0)"
+        },
+        {
+          "case": "active-unload-restores-fresh",
+          "status": "FAIL",
+          "detail": "Invalid counterterrorist spawnpoint at (2303.4,2816.0,2816.0)"
+        },
+        {
+          "case": "active-unload-restores-late",
+          "status": "FAIL",
+          "detail": "Invalid counterterrorist spawnpoint at (2303.4,2816.0,2816.0)"
+        },
+        {
+          "case": "unload-hooks-gone",
+          "status": "FAIL",
+          "detail": "Invalid counterterrorist spawnpoint at (2303.4,2816.0,2816.0)"
+        }
+      ],
+      "passed": 0,
+      "total": 42,
+      "verifier_log_sha256": "0e3a555844d4e2e53b924505935cd9595548556528dae1cde41c77aecfc3200a",
+      "logs_copied": true,
+      "server_log_hashes": {
+        "server-transactions.log": "24b4bfea96b8d892b312d0e92c1d0287fde41e87aea54f758b9b13f996a37988"
+      },
+      "retained_server_log_hashes_verified": true,
+      "evidence_directory": "l4d2-confogl-cvar-transactions-hard-nop-1789960136885033700",
+      "expected_outcome_confirmed": true,
+      "expected_cases_in_selected_scope": 42,
+      "emitted_exact_verdict_count": true
+    },
+    {
+      "task": "l4d2-confogl-cvar-transactions-hard",
+      "candidate": "alternative",
+      "profile": "full",
+      "expected_full_cases": 42,
+      "complete_full_case_set": true,
+      "timed_out": false,
+      "group": null,
+      "exit_code": 0,
+      "component_hashes": {
+        "instruction.md": "dd7120fa2aaec205a7ca23f4216445c5ba7da878b441341d7f4d33ed163359f8",
+        "task.toml": "dfc2b78b59607c21b6c671cf2f74cb6b18bb0e4010d8151306975788f20ba5c2",
+        "environment": "8d649f64371e7ad8851a10ee41d3d2a50903d8b52ba32061fa0155dc995b2d9e",
+        "tests": "0faedb3dc084f786a548bc586db397b7ed90b33bfeee09894fb99e758ec77a86",
+        "solution": "f8546d4eb02a6144465716023519c58159332fd4a11e91d6584848e127cd92d8",
+        "validation/case-contracts.tsv": "a760efc80f2f41971b70eaeb3580d1a19e4b315888d9f7f40c617c8b2c22a323"
+      },
+      "hash_algorithm": "sha256-relpath-nul-content-nul-posix-lexical-v1",
+      "contract": "591e3020830185c8d76c3c3f02d85330b0ba769f619fec5e8925e70fb37dfd0a",
+      "runtime_image_id": "sha256:af58da986d0f3187d359d86a45e405adc658f368e671ae8f3ae1deded0125dc1",
+      "source_hash": "f15a0764b06f70b8ab56c644393bf4142043ef8f30b2563a119b6c52feac1f5d",
+      "tests_hash": "0faedb3dc084f786a548bc586db397b7ed90b33bfeee09894fb99e758ec77a86",
+      "cases": [
+        {
+          "case": "stage-known-passive",
+          "status": "PASS",
+          "detail": "staging does not write"
+        },
+        {
+          "case": "stage-resolved-passive",
+          "status": "PASS",
+          "detail": "inactive config resolution does not apply"
+        },
+        {
+          "case": "duplicate-known-last-wins",
+          "status": "PASS",
+          "detail": "case-insensitive layered assignment"
+        },
+        {
+          "case": "activation-cross-write-corrected",
+          "status": "PASS",
+          "detail": "finite cross callback settles target"
+        },
+        {
+          "case": "empty-value-valid",
+          "status": "PASS",
+          "detail": "empty quoted value"
+        },
+        {
+          "case": "spaces-value-valid",
+          "status": "PASS",
+          "detail": "quoted value"
+        },
+        {
+          "case": "bounded-activation",
+          "status": "PASS",
+          "detail": "engine upper bound"
+        },
+        {
+          "case": "oversize-duplicate-rejected",
+          "status": "PASS",
+          "detail": "no truncated override"
+        },
+        {
+          "case": "maximum-value-accepted",
+          "status": "PASS",
+          "detail": "63 byte desired value"
+        },
+        {
+          "case": "maximum-name-accepted",
+          "status": "PASS",
+          "detail": "63 byte name"
+        },
+        {
+          "case": "oversize-name-not-truncated",
+          "status": "PASS",
+          "detail": "64 byte name must not alias its valid prefix"
+        },
+        {
+          "case": "oversize-new-value-rejected",
+          "status": "PASS",
+          "detail": "255 byte value does not create a truncated assignment"
+        },
+        {
+          "case": "pending-resolved-before-start",
+          "status": "PASS",
+          "detail": "same activation rules"
+        },
+        {
+          "case": "active-add-ignored",
+          "status": "PASS",
+          "detail": "freeze active profile"
+        },
+        {
+          "case": "external-drift-corrected",
+          "status": "PASS",
+          "detail": "synchronous correction"
+        },
+        {
+          "case": "cross-entry-enforcement",
+          "status": "PASS",
+          "detail": "guard is not global"
+        },
+        {
+          "case": "finite-cross-callback-return",
+          "status": "PASS",
+          "detail": "A correction causes B correction which writes back A once"
+        },
+        {
+          "case": "bounded-drift-corrected",
+          "status": "PASS",
+          "detail": "bounded canonical enforcement terminates"
+        },
+        {
+          "case": "bounded-inrange-string-preserved",
+          "status": "PASS",
+          "detail": "in-range desired retains engine string representation"
+        },
+        {
+          "case": "bounded-string-finite-writeback",
+          "status": "PASS",
+          "detail": "in-range string identity survives bounded A to B to A correction"
+        },
+        {
+          "case": "string-drift-corrected",
+          "status": "PASS",
+          "detail": "string enforcement"
+        },
+        {
+          "case": "late-duplicate-last-wins",
+          "status": "PASS",
+          "detail": "pending overlay retains latest"
+        },
+        {
+          "case": "unresolved-survives-callbacks",
+          "status": "PASS",
+          "detail": "second delayed resolution"
+        },
+        {
+          "case": "late-enforcement",
+          "status": "PASS",
+          "detail": "late entry receives hook"
+        },
+        {
+          "case": "late-batch-enforced",
+          "status": "PASS",
+          "detail": "new delayed batch uses same transaction"
+        },
+        {
+          "case": "active-reset-rejected",
+          "status": "PASS",
+          "detail": "match gate preserves ownership"
+        },
+        {
+          "case": "diagnostics-preserve-profile",
+          "status": "PASS",
+          "detail": "runtime log must also contain no exception"
+        },
+        {
+          "case": "restore-activation-baseline",
+          "status": "PASS",
+          "detail": "registration-time 1 must not win"
+        },
+        {
+          "case": "restore-batch-baseline",
+          "status": "PASS",
+          "detail": "cross-callback 99 must not become baseline"
+        },
+        {
+          "case": "restore-late-baseline",
+          "status": "PASS",
+          "detail": "callbacks never recapture enforced value"
+        },
+        {
+          "case": "restore-second-late-baseline",
+          "status": "PASS",
+          "detail": "independent delayed binding"
+        },
+        {
+          "case": "restore-late-batch-baselines",
+          "status": "PASS",
+          "detail": "late snapshot precedes any callback write"
+        },
+        {
+          "case": "restore-long-baseline",
+          "status": "PASS",
+          "detail": "255 byte baseline preserved"
+        },
+        {
+          "case": "restore-bound-baseline",
+          "status": "PASS",
+          "detail": "actual preactivation value"
+        },
+        {
+          "case": "released-hooks-removed",
+          "status": "PASS",
+          "detail": "released cvar accepts external writes"
+        },
+        {
+          "case": "unactivated-release-no-write",
+          "status": "PASS",
+          "detail": "discard passive staging"
+        },
+        {
+          "case": "unactivated-unload-no-write",
+          "status": "PASS",
+          "detail": "unload passive profile"
+        },
+        {
+          "case": "next-cycle-enforces",
+          "status": "PASS",
+          "detail": "new plugin profile"
+        },
+        {
+          "case": "discarded-pending-not-revived",
+          "status": "PASS",
+          "detail": "previous inactive pending cleared"
+        },
+        {
+          "case": "active-unload-restores-fresh",
+          "status": "PASS",
+          "detail": "fresh cycle baseline"
+        },
+        {
+          "case": "active-unload-restores-late",
+          "status": "PASS",
+          "detail": "previous binding now early"
+        },
+        {
+          "case": "unload-hooks-gone",
+          "status": "PASS",
+          "detail": "no residual correction"
+        }
+      ],
+      "passed": 42,
+      "total": 42,
+      "verifier_log_sha256": "3ded917c144cbf0d5c247fab445394295156ccadda76e2c897b3634e50afcf16",
+      "logs_copied": true,
+      "server_log_hashes": {
+        "server-transactions.log": "5bac816aafe5b301f8f1cab2cfb913937ad5b28b93adbbec783e51b82d9eefae"
+      },
+      "retained_server_log_hashes_verified": true,
+      "evidence_directory": "l4d2-confogl-cvar-transactions-hard-alternative-1789960196195732900",
+      "expected_outcome_confirmed": true,
+      "expected_cases_in_selected_scope": 42,
+      "emitted_exact_verdict_count": true
+    },
+    {
+      "task": "l4d2-confogl-cvar-transactions-hard",
+      "candidate": "minus-bounded-string",
+      "profile": "full",
+      "expected_full_cases": 42,
+      "complete_full_case_set": true,
+      "timed_out": false,
+      "group": null,
+      "exit_code": 1,
+      "component_hashes": {
+        "instruction.md": "dd7120fa2aaec205a7ca23f4216445c5ba7da878b441341d7f4d33ed163359f8",
+        "task.toml": "dfc2b78b59607c21b6c671cf2f74cb6b18bb0e4010d8151306975788f20ba5c2",
+        "environment": "8d649f64371e7ad8851a10ee41d3d2a50903d8b52ba32061fa0155dc995b2d9e",
+        "tests": "0faedb3dc084f786a548bc586db397b7ed90b33bfeee09894fb99e758ec77a86",
+        "solution": "f8546d4eb02a6144465716023519c58159332fd4a11e91d6584848e127cd92d8",
+        "validation/case-contracts.tsv": "a760efc80f2f41971b70eaeb3580d1a19e4b315888d9f7f40c617c8b2c22a323"
+      },
+      "hash_algorithm": "sha256-relpath-nul-content-nul-posix-lexical-v1",
+      "contract": "591e3020830185c8d76c3c3f02d85330b0ba769f619fec5e8925e70fb37dfd0a",
+      "runtime_image_id": "sha256:af58da986d0f3187d359d86a45e405adc658f368e671ae8f3ae1deded0125dc1",
+      "source_hash": "7ddd888cf1a054b6e5c3409a71217a689a4b33f8a478f31c4b226dcd5e88516e",
+      "tests_hash": "0faedb3dc084f786a548bc586db397b7ed90b33bfeee09894fb99e758ec77a86",
+      "cases": [
+        {
+          "case": "stage-known-passive",
+          "status": "PASS",
+          "detail": "staging does not write"
+        },
+        {
+          "case": "stage-resolved-passive",
+          "status": "PASS",
+          "detail": "inactive config resolution does not apply"
+        },
+        {
+          "case": "duplicate-known-last-wins",
+          "status": "PASS",
+          "detail": "case-insensitive layered assignment"
+        },
+        {
+          "case": "activation-cross-write-corrected",
+          "status": "PASS",
+          "detail": "finite cross callback settles target"
+        },
+        {
+          "case": "empty-value-valid",
+          "status": "PASS",
+          "detail": "empty quoted value"
+        },
+        {
+          "case": "spaces-value-valid",
+          "status": "PASS",
+          "detail": "quoted value"
+        },
+        {
+          "case": "bounded-activation",
+          "status": "PASS",
+          "detail": "engine upper bound"
+        },
+        {
+          "case": "oversize-duplicate-rejected",
+          "status": "PASS",
+          "detail": "no truncated override"
+        },
+        {
+          "case": "maximum-value-accepted",
+          "status": "PASS",
+          "detail": "63 byte desired value"
+        },
+        {
+          "case": "maximum-name-accepted",
+          "status": "PASS",
+          "detail": "63 byte name"
+        },
+        {
+          "case": "oversize-name-not-truncated",
+          "status": "PASS",
+          "detail": "64 byte name must not alias its valid prefix"
+        },
+        {
+          "case": "oversize-new-value-rejected",
+          "status": "PASS",
+          "detail": "255 byte value does not create a truncated assignment"
+        },
+        {
+          "case": "pending-resolved-before-start",
+          "status": "PASS",
+          "detail": "same activation rules"
+        },
+        {
+          "case": "active-add-ignored",
+          "status": "PASS",
+          "detail": "freeze active profile"
+        },
+        {
+          "case": "external-drift-corrected",
+          "status": "PASS",
+          "detail": "synchronous correction"
+        },
+        {
+          "case": "cross-entry-enforcement",
+          "status": "PASS",
+          "detail": "guard is not global"
+        },
+        {
+          "case": "finite-cross-callback-return",
+          "status": "PASS",
+          "detail": "A correction causes B correction which writes back A once"
+        },
+        {
+          "case": "bounded-drift-corrected",
+          "status": "PASS",
+          "detail": "bounded canonical enforcement terminates"
+        },
+        {
+          "case": "bounded-inrange-string-preserved",
+          "status": "PASS",
+          "detail": "in-range desired retains engine string representation"
+        },
+        {
+          "case": "bounded-string-finite-writeback",
+          "status": "FAIL",
+          "detail": "in-range string identity survives bounded A to B to A correction"
+        },
+        {
+          "case": "string-drift-corrected",
+          "status": "PASS",
+          "detail": "string enforcement"
+        },
+        {
+          "case": "late-duplicate-last-wins",
+          "status": "PASS",
+          "detail": "pending overlay retains latest"
+        },
+        {
+          "case": "unresolved-survives-callbacks",
+          "status": "PASS",
+          "detail": "second delayed resolution"
+        },
+        {
+          "case": "late-enforcement",
+          "status": "PASS",
+          "detail": "late entry receives hook"
+        },
+        {
+          "case": "late-batch-enforced",
+          "status": "PASS",
+          "detail": "new delayed batch uses same transaction"
+        },
+        {
+          "case": "active-reset-rejected",
+          "status": "PASS",
+          "detail": "match gate preserves ownership"
+        },
+        {
+          "case": "diagnostics-preserve-profile",
+          "status": "PASS",
+          "detail": "runtime log must also contain no exception"
+        },
+        {
+          "case": "restore-activation-baseline",
+          "status": "PASS",
+          "detail": "registration-time 1 must not win"
+        },
+        {
+          "case": "restore-batch-baseline",
+          "status": "PASS",
+          "detail": "cross-callback 99 must not become baseline"
+        },
+        {
+          "case": "restore-late-baseline",
+          "status": "PASS",
+          "detail": "callbacks never recapture enforced value"
+        },
+        {
+          "case": "restore-second-late-baseline",
+          "status": "PASS",
+          "detail": "independent delayed binding"
+        },
+        {
+          "case": "restore-late-batch-baselines",
+          "status": "PASS",
+          "detail": "late snapshot precedes any callback write"
+        },
+        {
+          "case": "restore-long-baseline",
+          "status": "PASS",
+          "detail": "255 byte baseline preserved"
+        },
+        {
+          "case": "restore-bound-baseline",
+          "status": "PASS",
+          "detail": "actual preactivation value"
+        },
+        {
+          "case": "released-hooks-removed",
+          "status": "PASS",
+          "detail": "released cvar accepts external writes"
+        },
+        {
+          "case": "unactivated-release-no-write",
+          "status": "PASS",
+          "detail": "discard passive staging"
+        },
+        {
+          "case": "unactivated-unload-no-write",
+          "status": "PASS",
+          "detail": "unload passive profile"
+        },
+        {
+          "case": "next-cycle-enforces",
+          "status": "PASS",
+          "detail": "new plugin profile"
+        },
+        {
+          "case": "discarded-pending-not-revived",
+          "status": "PASS",
+          "detail": "previous inactive pending cleared"
+        },
+        {
+          "case": "active-unload-restores-fresh",
+          "status": "PASS",
+          "detail": "fresh cycle baseline"
+        },
+        {
+          "case": "active-unload-restores-late",
+          "status": "PASS",
+          "detail": "previous binding now early"
+        },
+        {
+          "case": "unload-hooks-gone",
+          "status": "PASS",
+          "detail": "no residual correction"
+        }
+      ],
+      "passed": 41,
+      "total": 42,
+      "verifier_log_sha256": "cfff7fcaeeb6da7959e37fd167ec10bf2a0b1631086e6d36d0e7a4d5d0ec5ea9",
+      "logs_copied": true,
+      "server_log_hashes": {
+        "server-transactions.log": "144910bfcc8d9cad460a2e755784f0167841f681110535a6067e3422c391af8b"
+      },
+      "retained_server_log_hashes_verified": true,
+      "evidence_directory": "l4d2-confogl-cvar-transactions-hard-minus-bounded-string-1789960256500375500",
+      "expected_outcome_confirmed": true,
+      "expected_cases_in_selected_scope": 42,
+      "emitted_exact_verdict_count": true
+    }
+  ]
+}

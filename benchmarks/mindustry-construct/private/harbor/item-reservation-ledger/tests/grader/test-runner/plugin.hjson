@@ -1,0 +1,6 @@
+name: "item-reservation-ledger-tests"
+displayName: "Transactional Item Reservation Ledger Tests"
+main: "ContractTestRunner"
+version: "1.0.0"
+minGameVersion: 159
+dependencies: [stockpile-hold-ledger]

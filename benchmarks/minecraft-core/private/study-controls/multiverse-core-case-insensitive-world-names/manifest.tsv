@@ -1,0 +1,4 @@
+control	kind	base	overlay	root	note
+target-negative-remove-still-leaks	target-negative	starter	patch:target-negative-remove-still-leaks.patch	plugin	unload path repaired by lower-casing, removeWorld still removes the raw name and leaks the registry entry
+compat-negative-case-sensitive-lookups	compat-negative	starter	patch:compat-negative-case-sensitive-lookups.patch	plugin	stores and looks up worlds by raw name, which fixes the targets but breaks case-insensitive lookups
+alternative-a	alternative	starter	tree:alternative-a	plugin	independent fix written from the 0.2.0 exam: every map key goes through one lower-casing helper, HashMaps kept

@@ -1,0 +1,10 @@
+--- a/scripts/components/tradeescrow.lua
++++ b/scripts/components/tradeescrow.lua
+@@ -336,7 +336,6 @@
+ 
+ function TradeEscrow:OnRemoveFromEntity()
+     if self.on_player_left ~= nil then
+-        self.inst:RemoveEventCallback("ms_playerleft", self.on_player_left)
+         self.on_player_left = nil
+     end
+     if self.expiry_task ~= nil then

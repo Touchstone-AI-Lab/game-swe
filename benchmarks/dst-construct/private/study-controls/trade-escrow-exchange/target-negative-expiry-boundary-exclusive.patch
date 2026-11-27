@@ -1,0 +1,11 @@
+--- a/scripts/tradeescrow/escrow.lua
++++ b/scripts/tradeescrow/escrow.lua
+@@ -134,7 +134,7 @@
+         if not seen[trade_id] then
+             seen[trade_id] = true
+             local trade = self.trades[trade_id]
+-            if trade ~= nil and trade.phase == "open" and now >= trade.expires_at then
++            if trade ~= nil and trade.phase == "open" and now > trade.expires_at then
+                 expired[#expired + 1] = trade_id
+             end
+         end

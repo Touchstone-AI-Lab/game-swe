@@ -1,0 +1,14 @@
+diff -ruN a/scripts/components/statuseffects.lua b/scripts/components/statuseffects.lua
+--- a/scripts/components/statuseffects.lua	2026-09-22 01:00:31.550230924 +0800
++++ b/scripts/components/statuseffects.lua	2026-09-22 01:14:27.026194095 +0800
+@@ -266,10 +266,6 @@
+ end
+ 
+ function StatusEffects:OnRemoveFromEntity()
+-    if self.tick_task ~= nil then
+-        self.tick_task:Cancel()
+-        self.tick_task = nil
+-    end
+     for _, stable_id in ipairs(self:_SortedIds()) do
+         self:_Release(self.by_id[stable_id])
+     end

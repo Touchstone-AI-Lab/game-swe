@@ -1,0 +1,104 @@
+{
+  "id": "dst-core",
+  "version": "4.0.0",
+  "game": "dst",
+  "name": {
+    "en": "Don't Starve Together mod repair tasks",
+    "zh": "饥荒联机版模组修复任务"
+  },
+  "description": {
+    "en": "Repair tasks over real open-source Don't Starve Together mods with upstream fixes reverted, evaluated on the pinned dedicated server. Every task reports only operator and player symptoms and never states how many defects there are.",
+    "zh": "基于真实开源饥荒联机版模组、回退上游修复后的修复任务，在固定版本的专用服务器中评测。每道题只描述运维者与玩家看到的现象，不告知缺陷数量。"
+  },
+  "tasks": [
+    {
+      "id": "composting-together-regressions",
+      "difficulty": "hard",
+      "title": {
+        "en": "Composting Together: the compost pile misbehaves on a dedicated server",
+        "zh": "Composting Together：堆肥堆在专用服务器上行为异常"
+      },
+      "summary": {
+        "en": "Repair the reported recipe, timing, inspection, crash, bonus and save/load problems of the compost pile.",
+        "zh": "修复堆肥堆在配方、时长、检查状态、崩溃、奖励与存读档方面报告的问题。"
+      },
+      "brief": {
+        "en": "Diagnose and repair every reported problem in the vendored Composting Together mod while preserving the behaviour that already works.",
+        "zh": "诊断并修复所附 Composting Together 模组中报告的全部问题，同时保持已正常的行为。"
+      },
+      "requirements": {
+        "en": [
+          "Fix the underlying causes rather than suppressing the symptoms.",
+          "Preserve every documented behaviour of the compost pile that already works."
+        ],
+        "zh": [
+          "修复根本原因，而不是掩盖现象。",
+          "保持堆肥堆已正常工作的既有行为。"
+        ]
+      },
+      "api_usage": {
+        "en": [
+          "Use the Don't Starve Together mod API and the base-game components the mod already relies on."
+        ],
+        "zh": [
+          "使用模组已依赖的饥荒联机版模组 API 与原版组件。"
+        ]
+      },
+      "acceptance": {
+        "en": [
+          "Every private assertion must pass on the pinned dedicated server without network access."
+        ],
+        "zh": [
+          "所有私有断言必须在固定版本、无网络的专用服务器中通过。"
+        ]
+      },
+      "domains": [
+        "lua",
+        "debugging",
+        "real-game-runtime",
+        "containers",
+        "persistence"
+      ],
+      "estimated_minutes": 150,
+      "required_files": [
+        "mod/modinfo.lua",
+        "mod/modmain.lua"
+      ],
+      "task_kind": "repository-debugging",
+      "source_mod": "Composting Together",
+      "upstream": {
+        "repository": "https://github.com/dont-starve-modding/composting-together",
+        "license_spdx": "MIT",
+        "license_file": "LICENSE",
+        "base_commit": "16c995051d60b67ec77d796392abde98a7754810",
+        "fix_commits": [
+          "c6256239b9c33f141c7656aa0487e5c15ec33e2d",
+          "d3bbe2b2db857da6bd9c27bb778c89d769b4862a",
+          "0bd23c83a9da3610d86c7b01510fb641971975c8",
+          "4a197508ed1e24566fa4dce152bb87b552bb01f4",
+          "2115763c53c83dd90566fb88b8a738c5fc2598ec",
+          "b846487ad677ceeed108c3de2eb8c18c3df45389"
+        ]
+      },
+      "server_test": "server/composting-together-regressions.lua",
+      "server_cases": [
+        "sentinel: the compost pile is available on the server",
+        "the compost pile recipe costs the configured rocks, logs and manure",
+        "a pile needs at least three items before it composts",
+        "a small batch takes three days to become compost",
+        "a finished pile reports that it is done when inspected",
+        "harvesting a finished small batch hands over two manure",
+        "harvesting with fireflies attracted completes and the pile can be refilled",
+        "a rich batch that makes the soil fertile starts composting",
+        "the rotten-food bonus of one batch is not paid again on the next",
+        "a composting pile that is saved and reloaded finishes on time",
+        "a finished pile still offers its harvest after a save and reload",
+        "setup: an empty pile is saved and reloaded",
+        "an empty pile stays empty and usable after a save and reload"
+      ],
+      "mod_options": {
+        "spawn_fireflies": "always"
+      }
+    }
+  ]
+}

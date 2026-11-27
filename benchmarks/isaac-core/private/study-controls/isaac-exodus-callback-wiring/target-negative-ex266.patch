@@ -1,0 +1,11 @@
+--- a/main.lua
++++ b/main.lua
+@@ -1712,8 +1712,6 @@
+     end
+ end
+ 
+-Exodus:AddCallback(ModCallbacks.MC_EVALUATE_CACHE, Exodus.theApocryphonCache)
+-
+ --<<BETTER LOOPS>>--
+ function loop()
+     local player = Isaac.GetPlayer(0)

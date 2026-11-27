@@ -1,0 +1,9 @@
+# Pinned to the versions locked in the repository uv.lock for rhenium-dst.
+annotated-types==0.7.0
+lupa==2.8
+pydantic==2.13.4
+pydantic-core==2.46.4
+tree-sitter==0.26.0
+tree-sitter-lua==0.5.0
+typing-extensions==4.16.0
+typing-inspection==0.4.2

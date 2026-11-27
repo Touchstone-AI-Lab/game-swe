@@ -1,0 +1,4 @@
+control	kind	base	overlay	root	note
+target-negative-capacity-pinned-to-one	target-negative	reference	patch:target-negative-capacity-pinned-to-one.patch	.	need maxima fixed, but protected capacities are still pinned to exactly one
+compat-negative-dead-pawns-raised	compat-negative	reference	patch:compat-negative-dead-pawns-raised.patch	.	reference that also raises the capacity of dead protected pawns
+alternative-a	alternative	starter	tree:alternative-a	.	own patches: MaxLevel / 2 in the prefix, a postfix that lifts only levels below one

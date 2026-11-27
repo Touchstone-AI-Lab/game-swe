@@ -1,0 +1,341 @@
+{
+  "task": "isaac-rebirth/synth/construct-option-rendering",
+  "task_version": "0.1.1",
+  "exam": "benchmarks/isaac-synth/exams/construct-option-rendering.md",
+  "cases": [
+    {
+      "id": "case:default_color_unchanged",
+      "role": "target",
+      "clauses": [
+        "request"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:valid_rgb_replaces_rgb",
+      "role": "target",
+      "clauses": [
+        "request"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:alpha_accessor_is_used",
+      "role": "target",
+      "clauses": [
+        "request"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:focused_selectable_alpha",
+      "role": "target",
+      "clauses": [
+        "request"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:unfocused_pane_alpha",
+      "role": "target",
+      "clauses": [
+        "request"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:disabled_option_alpha",
+      "role": "target",
+      "clauses": [
+        "request"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:selected_disabled_alpha",
+      "role": "target",
+      "clauses": [
+        "request"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:text_draw_no_error",
+      "role": "target",
+      "clauses": [
+        "request"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:slider_draw_no_error",
+      "role": "target",
+      "clauses": [
+        "request"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:text_and_slider_share_custom_rgb",
+      "role": "target",
+      "clauses": [
+        "request"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:non_slider_has_no_sprite_mutation",
+      "role": "target",
+      "clauses": [
+        "request"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:option_position_unchanged",
+      "role": "target",
+      "clauses": [
+        "request"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:cursor_position_unchanged",
+      "role": "target",
+      "clauses": [
+        "request"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:strikeout_unchanged",
+      "role": "target",
+      "clauses": [
+        "request"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:color_follows_option_identity",
+      "role": "target",
+      "clauses": [
+        "request"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:row_reorder_keeps_color",
+      "role": "target",
+      "clauses": [
+        "request"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:removed_option_drops_color",
+      "role": "target",
+      "clauses": [
+        "request"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:clear_restores_text_rgb",
+      "role": "target",
+      "clauses": [
+        "request"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:clear_restores_alpha",
+      "role": "target",
+      "clauses": [
+        "request"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:clear_restores_slider_color",
+      "role": "target",
+      "clauses": [
+        "request"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:invalid_rgb_rejected_atomically",
+      "role": "target",
+      "clauses": [
+        "request"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:partial_rgb_rejected",
+      "role": "target",
+      "clauses": [
+        "request"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:nan_rgb_rejected",
+      "role": "target",
+      "clauses": [
+        "request"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:infinity_rgb_rejected",
+      "role": "target",
+      "clauses": [
+        "request"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:last_valid_color_survives_rejection",
+      "role": "target",
+      "clauses": [
+        "request"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:custom_color_not_saved",
+      "role": "target",
+      "clauses": [
+        "request"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:option_value_not_changed_by_color",
+      "role": "target",
+      "clauses": [
+        "request"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:color_state_not_shared",
+      "role": "target",
+      "clauses": [
+        "request"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:between_categories",
+      "role": "target",
+      "clauses": [
+        "request"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:repeated_render_is_idempotent",
+      "role": "target",
+      "clauses": [
+        "request"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:normal_color_accessor_missing_fallback",
+      "role": "target",
+      "clauses": [
+        "request"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:alpha_never_nil",
+      "role": "target",
+      "clauses": [
+        "request"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:inactive_slider_alpha",
+      "role": "target",
+      "clauses": [
+        "request"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:palette_update_visible_next_frame",
+      "role": "target",
+      "clauses": [
+        "request"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:custom_color_does_not_abort_callback",
+      "role": "target",
+      "clauses": [
+        "request"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "check:submission-shape",
+      "role": "static",
+      "clauses": [],
+      "overlap": false,
+      "note": "required Lua mod tree present as a safe snapshot"
+    }
+  ],
+  "clauses": [
+    {
+      "id": "request",
+      "status": "asserted",
+      "note": "",
+      "anchor": "the exam's required behavior; its acceptance section names every scored case"
+    }
+  ],
+  "excluded_clauses": [],
+  "known_issues": [
+    "Roles come from the 2026-11-02 E0 baseline of catalog 0.1.1 on the real game: the empty starter fails every case, so every case is a target and none is preserved. Clauses are not yet split per exam paragraph: each case cites the whole requested behavior."
+  ]
+}

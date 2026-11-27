@@ -1,0 +1,600 @@
+{
+  "id": "isaac-core",
+  "version": "5.0.0",
+  "game": "isaac-rebirth",
+  "name": {
+    "en": "The Binding of Isaac real-game Lua tasks",
+    "zh": "以撒的结合真实游戏 Lua 任务"
+  },
+  "description": {
+    "en": "Composite and themed debugging tasks evaluated in the pinned native Afterbirth+ runtime.",
+    "zh": "在固定的原生胎衣+运行时中评测的复合与主题式调试任务。"
+  },
+  "tasks": [
+    {
+      "id": "isaac-exodus-release-regressions",
+      "difficulty": "hard",
+      "title": {
+        "en": "Repair the Exodus Afterbirth+ release regressions",
+        "zh": "修复 Exodus 胎衣+版本回归"
+      },
+      "summary": {
+        "en": "Diagnose twenty gameplay reports spanning twenty-four target behaviors in the Exodus mod.",
+        "zh": "诊断 Exodus 模组中覆盖二十四项目标行为的二十份游戏问题报告。"
+      },
+      "brief": {
+        "en": "Repair the independent release regressions while preserving unrelated gameplay behavior.",
+        "zh": "修复相互独立的版本回归，同时保持无关游戏行为不变。"
+      },
+      "requirements": {
+        "en": [
+          "Fix every authored player report without replacing the mod or adding third-party code or assets.",
+          "Preserve the reported Grid Worm cadence and ordinary Deja Vu return behavior."
+        ],
+        "zh": [
+          "修复全部玩家报告，不得整体替换模组或添加第三方代码与资源。",
+          "保持报告中指定的 Grid Worm 转向节奏和普通 Deja Vu 返回行为。"
+        ]
+      },
+      "api_usage": {
+        "en": [
+          "Use only Lua and mod APIs available in the pinned Afterbirth+ runtime."
+        ],
+        "zh": [
+          "仅使用固定胎衣+运行时提供的 Lua 与模组 API。"
+        ]
+      },
+      "acceptance": {
+        "en": [
+          "All 35 private real-game assertions must complete exactly once without network access."
+        ],
+        "zh": [
+          "全部 35 项私有真实游戏断言必须在无网络环境中各完成一次。"
+        ]
+      },
+      "domains": [
+        "lua",
+        "afterbirth-plus",
+        "composite-debugging",
+        "real-game-runtime"
+      ],
+      "estimated_minutes": 120,
+      "required_files": [
+        "exodus/main.lua",
+        "exodus/metadata.xml"
+      ],
+      "source_mod": "Exodus",
+      "game_version": "Afterbirth+ v1.06.T1",
+      "game_build": "Steam App 250900 build 22878971",
+      "expected_cases": 35
+    },
+    {
+      "id": "isaac-exodus-tear-trajectory",
+      "difficulty": "hard",
+      "title": {
+        "en": "Repair the Exodus tear and projectile timing regressions",
+        "zh": "修复 Exodus 泪弹与投射物时序回归"
+      },
+      "summary": {
+        "en": "Diagnose six reports about per-frame tear, projectile, and target behavior, including paired timing and eligibility boundaries, plus three reports about Ominous Lantern, Big Scissors and Baseball Mitt.",
+        "zh": "诊断五份关于逐帧泪弹行为的报告：Grid Worm 方向与反弹、Ritual Candle 节奏、Beehive 漂移、Deja Vu 分裂泪弹以及 Baseball Mitt 命中；另有三份关于 Ominous Lantern、Big Scissors、Baseball Mitt 的报告。"
+      },
+      "brief": {
+        "en": "Repair the reported tear-update regressions while preserving unrelated gameplay behavior.",
+        "zh": "修复报告中的泪弹更新回归，同时保持无关游戏行为不变。"
+      },
+      "requirements": {
+        "en": [
+          "Fix every authored player report without replacing the mod or adding third-party code or assets.",
+          "Preserve the reported Grid Worm cadence.",
+          "Preserve ordinary Deja Vu return behavior."
+        ],
+        "zh": [
+          "修复全部玩家报告，不得整体替换模组或添加第三方代码与资源。",
+          "保持报告中指定的 Grid Worm 转向节奏。",
+          "保持普通 Deja Vu 返回行为。"
+        ]
+      },
+      "api_usage": {
+        "en": [
+          "Use only Lua and mod APIs available in the pinned Afterbirth+ runtime."
+        ],
+        "zh": [
+          "仅使用固定胎衣+运行时提供的 Lua 与模组 API。"
+        ]
+      },
+      "acceptance": {
+        "en": [
+          "All 54 private real-game assertions must complete exactly once without network access."
+        ],
+        "zh": [
+          "全部 54 项私有真实游戏断言必须在无网络环境中各完成一次。"
+        ]
+      },
+      "domains": [
+        "lua",
+        "afterbirth-plus",
+        "composite-debugging",
+        "real-game-runtime"
+      ],
+      "estimated_minutes": 120,
+      "required_files": [
+        "exodus/main.lua",
+        "exodus/metadata.xml"
+      ],
+      "source_mod": "Exodus",
+      "game_version": "Afterbirth+ v1.06.T1",
+      "game_build": "Steam App 250900 build 22878971",
+      "expected_cases": 54,
+      "verifier": "exodus-v2"
+    },
+    {
+      "id": "isaac-exodus-active-item-state",
+      "difficulty": "hard",
+      "title": {
+        "en": "Repair the Exodus active-item state regressions",
+        "zh": "修复 Exodus 主动道具状态回归"
+      },
+      "summary": {
+        "en": "Diagnose six active-item and health reports with interacting item-, room-, floor-, and run-scoped state, plus three reports about Ominous Lantern, Birdbath and Hurdle Heels.",
+        "zh": "诊断五份关于主动道具状态记录的报告：Anamnesis 充能、Tragic Mushroom 重复使用与最后容器、Mutant Clover 叠加以及 Forbidden Fruit 伤害；另有三份关于 Ominous Lantern、Birdbath、Hurdle Heels 的报告。"
+      },
+      "brief": {
+        "en": "Repair the reported item-state regressions while preserving unrelated gameplay behavior.",
+        "zh": "修复报告中的道具状态回归，同时保持无关游戏行为不变。"
+      },
+      "requirements": {
+        "en": [
+          "Fix every authored player report without replacing the mod or adding third-party code or assets.",
+          "Anamnesis must keep its own earned charge across active-item swaps, and the Mutant Clover stack must still reset in another room."
+        ],
+        "zh": [
+          "修复全部玩家报告，不得整体替换模组或添加第三方代码与资源。",
+          "Anamnesis 的充能必须在主动道具切换间归其自身所有，Mutant Clover 的叠加仍须在进入其他房间时重置。"
+        ]
+      },
+      "api_usage": {
+        "en": [
+          "Use only Lua and mod APIs available in the pinned Afterbirth+ runtime."
+        ],
+        "zh": [
+          "仅使用固定胎衣+运行时提供的 Lua 与模组 API。"
+        ]
+      },
+      "acceptance": {
+        "en": [
+          "All 54 private real-game assertions must complete exactly once without network access."
+        ],
+        "zh": [
+          "全部 54 项私有真实游戏断言必须在无网络环境中各完成一次。"
+        ]
+      },
+      "domains": [
+        "lua",
+        "afterbirth-plus",
+        "composite-debugging",
+        "real-game-runtime"
+      ],
+      "estimated_minutes": 90,
+      "required_files": [
+        "exodus/main.lua",
+        "exodus/metadata.xml"
+      ],
+      "source_mod": "Exodus",
+      "game_version": "Afterbirth+ v1.06.T1",
+      "game_build": "Steam App 250900 build 22878971",
+      "expected_cases": 54,
+      "verifier": "exodus-v2"
+    },
+    {
+      "id": "isaac-exodus-orphaned-effects",
+      "difficulty": "hard",
+      "title": {
+        "en": "Repair the Exodus effects that outlive their owner",
+        "zh": "修复 Exodus 中脱离宿主的效果回归"
+      },
+      "summary": {
+        "en": "Diagnose six lifecycle reports with opposing rules for effects, item-owned companions, and earned stats after owner removal, plus three reports about Lil Rune, Big Scissors and Welcome Mat.",
+        "zh": "诊断五份关于效果与随从脱离或误判其宿主的报告：Iron Lung 毒气、Headcase 抛射、Baseball Mitt 命中、随从清理以及 Ritual Candle 节奏；另有三份关于 Lil Rune、Big Scissors、Welcome Mat 的报告。"
+      },
+      "brief": {
+        "en": "Repair the reported lifetime regressions while preserving unrelated gameplay behavior.",
+        "zh": "修复报告中的生命周期回归，同时保持无关游戏行为不变。"
+      },
+      "requirements": {
+        "en": [
+          "Fix every authored player report without replacing the mod or adding third-party code or assets.",
+          "Existing Iron Lung gas and in-flight Headcase shots must finish without their emitter remaining alive."
+        ],
+        "zh": [
+          "修复全部玩家报告，不得整体替换模组或添加第三方代码与资源。",
+          "已存在的 Iron Lung 毒气和飞行中的 Headcase 射击必须在其发射者不存活时也能完成。"
+        ]
+      },
+      "api_usage": {
+        "en": [
+          "Use only Lua and mod APIs available in the pinned Afterbirth+ runtime."
+        ],
+        "zh": [
+          "仅使用固定胎衣+运行时提供的 Lua 与模组 API。"
+        ]
+      },
+      "acceptance": {
+        "en": [
+          "All 54 private real-game assertions must complete exactly once without network access."
+        ],
+        "zh": [
+          "全部 54 项私有真实游戏断言必须在无网络环境中各完成一次。"
+        ]
+      },
+      "domains": [
+        "lua",
+        "afterbirth-plus",
+        "composite-debugging",
+        "real-game-runtime"
+      ],
+      "estimated_minutes": 90,
+      "required_files": [
+        "exodus/main.lua",
+        "exodus/metadata.xml"
+      ],
+      "source_mod": "Exodus",
+      "game_version": "Afterbirth+ v1.06.T1",
+      "game_build": "Steam App 250900 build 22878971",
+      "expected_cases": 54,
+      "verifier": "exodus-v2"
+    },
+    {
+      "id": "isaac-exodus-projectiles-and-targets",
+      "difficulty": "hard",
+      "title": {
+        "en": "Repair the Exodus projectile and targeting regressions",
+        "zh": "修复 Exodus 投射物与目标选择回归"
+      },
+      "summary": {
+        "en": "Diagnose five projectile and targeting reports spanning trajectory, split-tear eligibility, delayed collision, and impact effects, plus three reports about Lil Rune, Unholy Mantle and Baseball Mitt.",
+        "zh": "诊断四份报告：Grid Worm 泪弹方向与反弹、Headcase 抛射在射手死亡后落地、Lovely Fly 选中静止的商店老板以及 Baseball Mitt 命中；另有三份关于 Lil Rune、Unholy Mantle、Baseball Mitt 的报告。"
+      },
+      "brief": {
+        "en": "Repair the reported projectile regressions while preserving unrelated gameplay behavior.",
+        "zh": "修复报告中的投射物回归，同时保持无关游戏行为不变。"
+      },
+      "requirements": {
+        "en": [
+          "Fix every authored player report without replacing the mod or adding third-party code or assets.",
+          "Preserve the reported Grid Worm cadence."
+        ],
+        "zh": [
+          "修复全部玩家报告，不得整体替换模组或添加第三方代码与资源。",
+          "保持报告中指定的 Grid Worm 转向节奏。"
+        ]
+      },
+      "api_usage": {
+        "en": [
+          "Use only Lua and mod APIs available in the pinned Afterbirth+ runtime."
+        ],
+        "zh": [
+          "仅使用固定胎衣+运行时提供的 Lua 与模组 API。"
+        ]
+      },
+      "acceptance": {
+        "en": [
+          "All 54 private real-game assertions must complete exactly once without network access."
+        ],
+        "zh": [
+          "全部 54 项私有真实游戏断言必须在无网络环境中各完成一次。"
+        ]
+      },
+      "domains": [
+        "lua",
+        "afterbirth-plus",
+        "composite-debugging",
+        "real-game-runtime"
+      ],
+      "estimated_minutes": 120,
+      "required_files": [
+        "exodus/main.lua",
+        "exodus/metadata.xml"
+      ],
+      "source_mod": "Exodus",
+      "game_version": "Afterbirth+ v1.06.T1",
+      "game_build": "Steam App 250900 build 22878971",
+      "expected_cases": 54,
+      "verifier": "exodus-v2"
+    },
+    {
+      "id": "isaac-exodus-room-floor-state",
+      "difficulty": "hard",
+      "title": {
+        "en": "Repair the Exodus room and floor state regressions",
+        "zh": "修复 Exodus 房间与楼层状态回归"
+      },
+      "summary": {
+        "en": "Diagnose seven state and timing reports across item swaps, room and floor transitions, character-specific setup, and high-fire-rate behavior, plus three reports about Ominous Lantern, Unholy Mantle and Welcome Mat.",
+        "zh": "诊断六份关于房间与楼层切换间状态的报告：Anamnesis 充能、Mutant Clover 叠加、Broken Glasses 持续、Blue Moon 墙体、The Apocryphon 奖励以及 Book of Secrets 地图效果；另有三份关于 Ominous Lantern、Unholy Mantle、Welcome Mat 的报告。"
+      },
+      "brief": {
+        "en": "Repair the reported state regressions while preserving unrelated gameplay behavior.",
+        "zh": "修复报告中的状态回归，同时保持无关游戏行为不变。"
+      },
+      "requirements": {
+        "en": [
+          "Fix every authored player report without replacing the mod or adding third-party code or assets.",
+          "Preserve the Mutant Clover room reset, the Broken Glasses floor reset, and James's automatic floor-start mapping."
+        ],
+        "zh": [
+          "修复全部玩家报告，不得整体替换模组或添加第三方代码与资源。",
+          "保持 Mutant Clover 的房间重置、Broken Glasses 的楼层重置以及 James 的自动楼层开局地图效果。"
+        ]
+      },
+      "api_usage": {
+        "en": [
+          "Use only Lua and mod APIs available in the pinned Afterbirth+ runtime."
+        ],
+        "zh": [
+          "仅使用固定胎衣+运行时提供的 Lua 与模组 API。"
+        ]
+      },
+      "acceptance": {
+        "en": [
+          "All 54 private real-game assertions must complete exactly once without network access."
+        ],
+        "zh": [
+          "全部 54 项私有真实游戏断言必须在无网络环境中各完成一次。"
+        ]
+      },
+      "domains": [
+        "lua",
+        "afterbirth-plus",
+        "composite-debugging",
+        "real-game-runtime"
+      ],
+      "estimated_minutes": 90,
+      "required_files": [
+        "exodus/main.lua",
+        "exodus/metadata.xml"
+      ],
+      "source_mod": "Exodus",
+      "game_version": "Afterbirth+ v1.06.T1",
+      "game_build": "Steam App 250900 build 22878971",
+      "expected_cases": 54,
+      "verifier": "exodus-v2"
+    },
+    {
+      "id": "isaac-exodus-numeric-arithmetic",
+      "difficulty": "hard",
+      "title": {
+        "en": "Repair the Exodus numeric and health arithmetic regressions",
+        "zh": "修复 Exodus 数值与生命值运算回归"
+      },
+      "summary": {
+        "en": "Diagnose six arithmetic and cache reports with distinct rounding, capacity, clamping, reward, and diminishing-return rules, plus three reports about Lil Rune, Unholy Mantle and new-run stats.",
+        "zh": "诊断五份关于数值错误的报告：Ritual Candle 取整、Tragic Mushroom 补血与递减增益、Cursed Metronome 转换以及 Lil Rune 复制体生命值；另有三份关于 Lil Rune、Unholy Mantle、新一局属性 的报告。"
+      },
+      "brief": {
+        "en": "Repair the reported arithmetic regressions while preserving unrelated gameplay behavior.",
+        "zh": "修复报告中的运算回归，同时保持无关游戏行为不变。"
+      },
+      "requirements": {
+        "en": [
+          "Fix every authored player report without replacing the mod or adding third-party code or assets.",
+          "Later Tragic Mushroom uses must add smaller but still positive stat increases."
+        ],
+        "zh": [
+          "修复全部玩家报告，不得整体替换模组或添加第三方代码与资源。",
+          "Tragic Mushroom 后续使用必须给予更小但仍为正的属性增益。"
+        ]
+      },
+      "api_usage": {
+        "en": [
+          "Use only Lua and mod APIs available in the pinned Afterbirth+ runtime."
+        ],
+        "zh": [
+          "仅使用固定胎衣+运行时提供的 Lua 与模组 API。"
+        ]
+      },
+      "acceptance": {
+        "en": [
+          "All 54 private real-game assertions must complete exactly once without network access."
+        ],
+        "zh": [
+          "全部 54 项私有真实游戏断言必须在无网络环境中各完成一次。"
+        ]
+      },
+      "domains": [
+        "lua",
+        "afterbirth-plus",
+        "composite-debugging",
+        "real-game-runtime"
+      ],
+      "estimated_minutes": 90,
+      "required_files": [
+        "exodus/main.lua",
+        "exodus/metadata.xml"
+      ],
+      "source_mod": "Exodus",
+      "game_version": "Afterbirth+ v1.06.T1",
+      "game_build": "Steam App 250900 build 22878971",
+      "expected_cases": 54,
+      "verifier": "exodus-v2"
+    },
+    {
+      "id": "isaac-exodus-passive-reshapers",
+      "difficulty": "hard",
+      "title": {
+        "en": "Repair the Exodus passive trinket and pickup regressions",
+        "zh": "修复 Exodus 被动饰品与拾取物回归"
+      },
+      "summary": {
+        "en": "Diagnose five passive-effect reports with narrow timing, room-geometry, floor-persistence, and earned-stat boundaries, plus three reports about Ominous Lantern, Big Scissors and Child's Leash.",
+        "zh": "诊断四份关于轮询生效的被动拾取物的报告：Grid Worm 泪弹、Beehive 漂移、Blue Moon 隐藏房墙体以及 Broken Glasses 持续；另有三份关于 Ominous Lantern、Big Scissors、Child's Leash 的报告。"
+      },
+      "brief": {
+        "en": "Repair the reported passive-effect regressions while preserving unrelated gameplay behavior.",
+        "zh": "修复报告中的被动效果回归，同时保持无关游戏行为不变。"
+      },
+      "requirements": {
+        "en": [
+          "Fix every authored player report without replacing the mod or adding third-party code or assets.",
+          "Preserve the reported Grid Worm cadence.",
+          "Mature Beehive tears must keep their normal full-strength wobble."
+        ],
+        "zh": [
+          "修复全部玩家报告，不得整体替换模组或添加第三方代码与资源。",
+          "保持报告中指定的 Grid Worm 转向节奏。",
+          "成熟的 Beehive 泪弹必须保持正常的全强度摆动。"
+        ]
+      },
+      "api_usage": {
+        "en": [
+          "Use only Lua and mod APIs available in the pinned Afterbirth+ runtime."
+        ],
+        "zh": [
+          "仅使用固定胎衣+运行时提供的 Lua 与模组 API。"
+        ]
+      },
+      "acceptance": {
+        "en": [
+          "All 54 private real-game assertions must complete exactly once without network access."
+        ],
+        "zh": [
+          "全部 54 项私有真实游戏断言必须在无网络环境中各完成一次。"
+        ]
+      },
+      "domains": [
+        "lua",
+        "afterbirth-plus",
+        "composite-debugging",
+        "real-game-runtime"
+      ],
+      "estimated_minutes": 120,
+      "required_files": [
+        "exodus/main.lua",
+        "exodus/metadata.xml"
+      ],
+      "source_mod": "Exodus",
+      "game_version": "Afterbirth+ v1.06.T1",
+      "game_build": "Steam App 250900 build 22878971",
+      "expected_cases": 54,
+      "verifier": "exodus-v2"
+    },
+    {
+      "id": "isaac-exodus-callback-wiring",
+      "difficulty": "hard",
+      "title": {
+        "en": "Repair the Exodus callback wiring regressions",
+        "zh": "修复 Exodus 回调接线回归"
+      },
+      "summary": {
+        "en": "Diagnose six callback, ownership, and health reports spanning cache evaluation, active-item state, orphaned entities, and persistent stats, plus three reports about Lil Rune, Birdbath and Paper Cut.",
+        "zh": "诊断五份逻辑未挂回调、挂错回调或被自身守卫拦截的报告：The Apocryphon、Anamnesis、Iron Lung 毒气、Headcase 抛射以及 Forbidden Fruit；另有三份关于 Lil Rune、Birdbath、Paper Cut 的报告。"
+      },
+      "brief": {
+        "en": "Repair the reported callback regressions while preserving unrelated gameplay behavior.",
+        "zh": "修复报告中的回调回归，同时保持无关游戏行为不变。"
+      },
+      "requirements": {
+        "en": [
+          "Fix every authored player report without replacing the mod or adding third-party code or assets.",
+          "Anamnesis must keep its own earned charge across active-item swaps."
+        ],
+        "zh": [
+          "修复全部玩家报告，不得整体替换模组或添加第三方代码与资源。",
+          "Anamnesis 的充能必须在主动道具切换间归其自身所有。"
+        ]
+      },
+      "api_usage": {
+        "en": [
+          "Use only Lua and mod APIs available in the pinned Afterbirth+ runtime."
+        ],
+        "zh": [
+          "仅使用固定胎衣+运行时提供的 Lua 与模组 API。"
+        ]
+      },
+      "acceptance": {
+        "en": [
+          "All 54 private real-game assertions must complete exactly once without network access."
+        ],
+        "zh": [
+          "全部 54 项私有真实游戏断言必须在无网络环境中各完成一次。"
+        ]
+      },
+      "domains": [
+        "lua",
+        "afterbirth-plus",
+        "composite-debugging",
+        "real-game-runtime"
+      ],
+      "estimated_minutes": 90,
+      "required_files": [
+        "exodus/main.lua",
+        "exodus/metadata.xml"
+      ],
+      "source_mod": "Exodus",
+      "game_version": "Afterbirth+ v1.06.T1",
+      "game_build": "Steam App 250900 build 22878971",
+      "expected_cases": 54,
+      "verifier": "exodus-v2"
+    },
+    {
+      "id": "isaac-exodus-mixed-triage",
+      "difficulty": "hard",
+      "title": {
+        "en": "Triage twelve independent Exodus regressions",
+        "zh": "分诊十二项相互独立的 Exodus 回归"
+      },
+      "summary": {
+        "en": "Diagnose nine independent bug families spanning tear timing, target eligibility, item state, health arithmetic, cache rewards, and projectile ownership, plus three reports about Lil Rune, Ominous Lantern and Birdbath.",
+        "zh": "诊断八份刻意相互独立、各属不同缺陷类型的报告：Grid Worm、Anamnesis、Ritual Candle、The Apocryphon、Headcase、Broken Glasses、Cursed Metronome 以及 Deja Vu；另有三份关于 Lil Rune、Ominous Lantern、Birdbath 的报告。"
+      },
+      "brief": {
+        "en": "Repair the independent regressions while preserving unrelated gameplay behavior.",
+        "zh": "修复相互独立的回归，同时保持无关游戏行为不变。"
+      },
+      "requirements": {
+        "en": [
+          "Fix every authored player report without replacing the mod or adding third-party code or assets.",
+          "Preserve the reported Grid Worm cadence.",
+          "Preserve ordinary Deja Vu return behavior."
+        ],
+        "zh": [
+          "修复全部玩家报告，不得整体替换模组或添加第三方代码与资源。",
+          "保持报告中指定的 Grid Worm 转向节奏。",
+          "保持普通 Deja Vu 返回行为。"
+        ]
+      },
+      "api_usage": {
+        "en": [
+          "Use only Lua and mod APIs available in the pinned Afterbirth+ runtime."
+        ],
+        "zh": [
+          "仅使用固定胎衣+运行时提供的 Lua 与模组 API。"
+        ]
+      },
+      "acceptance": {
+        "en": [
+          "All 54 private real-game assertions must complete exactly once without network access."
+        ],
+        "zh": [
+          "全部 54 项私有真实游戏断言必须在无网络环境中各完成一次。"
+        ]
+      },
+      "domains": [
+        "lua",
+        "afterbirth-plus",
+        "composite-debugging",
+        "real-game-runtime"
+      ],
+      "estimated_minutes": 120,
+      "required_files": [
+        "exodus/main.lua",
+        "exodus/metadata.xml"
+      ],
+      "source_mod": "Exodus",
+      "game_version": "Afterbirth+ v1.06.T1",
+      "game_build": "Steam App 250900 build 22878971",
+      "expected_cases": 54,
+      "verifier": "exodus-v2"
+    }
+  ]
+}

@@ -1,0 +1,149 @@
+{
+  "task_id": "server-rule-ballot",
+  "required_files": [
+    "Info.json",
+    "scripts/main.lua",
+    "scripts/ruleballot/ballot.lua",
+    "scripts/services/rule_ballot_service.lua"
+  ],
+  "minimum_lua_lines": 220,
+  "integration_checks": [
+    {
+      "id": "ballot-authority",
+      "label": {
+        "en": "Dedicated-server authority",
+        "zh": "专服权威"
+      },
+      "weight": 4,
+      "groups": [
+        {
+          "name": "guard",
+          "any_of": [
+            "IsDedicatedServer\\s*\\("
+          ]
+        },
+        {
+          "name": "service module",
+          "any_of": [
+            "rule_ballot_service",
+            "RuleBallotService"
+          ]
+        }
+      ],
+      "none_of": [
+        "TODO",
+        "IMPLEMENT\\s+ME",
+        "load\\s*\\(\\s*CommandParts",
+        "loadstring\\s*\\("
+      ]
+    },
+    {
+      "id": "ballot-identity",
+      "label": {
+        "en": "Server-derived voter identity",
+        "zh": "服务端推导的选民身份"
+      },
+      "weight": 4,
+      "groups": [
+        {
+          "name": "console command",
+          "any_of": [
+            "RegisterConsoleCommand(?:Global)?Handler\\s*\\("
+          ]
+        },
+        {
+          "name": "controller hook",
+          "any_of": [
+            "ServerAcknowledgePossession"
+          ]
+        },
+        {
+          "name": "unwrap",
+          "any_of": [
+            ":get\\s*\\("
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ballot-timers",
+      "label": {
+        "en": "Deadline scheduling",
+        "zh": "截止时间排期"
+      },
+      "weight": 3,
+      "groups": [
+        {
+          "name": "delay",
+          "any_of": [
+            "ExecuteWithDelay\\s*\\("
+          ]
+        },
+        {
+          "name": "game thread",
+          "any_of": [
+            "ExecuteInGameThread\\s*\\("
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ballot-lifecycle",
+      "label": {
+        "en": "Paired hooks and announcements",
+        "zh": "成对钩子与公告"
+      },
+      "weight": 2,
+      "groups": [
+        {
+          "name": "register",
+          "any_of": [
+            "RegisterHook\\s*\\("
+          ]
+        },
+        {
+          "name": "unregister",
+          "any_of": [
+            "UnregisterHook\\s*\\("
+          ]
+        },
+        {
+          "name": "announce",
+          "any_of": [
+            ":Log\\s*\\(",
+            "\\bprint\\s*\\("
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ballot-manifest",
+      "label": {
+        "en": "Server-capable package manifest",
+        "zh": "支持专服的包清单"
+      },
+      "weight": 2,
+      "glob": "Info.json",
+      "groups": [
+        {
+          "name": "package name",
+          "any_of": [
+            "\"PackageName\"\\s*:\\s*\"[^\"]+\""
+          ]
+        },
+        {
+          "name": "lua rule",
+          "any_of": [
+            "\"Type\"\\s*:\\s*\"Lua\""
+          ]
+        },
+        {
+          "name": "server rule",
+          "any_of": [
+            "\"IsServer\"\\s*:\\s*true"
+          ]
+        }
+      ]
+    }
+  ]
+}

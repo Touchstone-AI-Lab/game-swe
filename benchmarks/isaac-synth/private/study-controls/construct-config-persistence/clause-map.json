@@ -1,0 +1,341 @@
+{
+  "task": "isaac-rebirth/synth/construct-config-persistence",
+  "task_version": "0.1.1",
+  "exam": "benchmarks/isaac-synth/exams/construct-config-persistence.md",
+  "cases": [
+    {
+      "id": "case:defaults_without_data",
+      "role": "target",
+      "clauses": [
+        "request"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:hasdata_false",
+      "role": "target",
+      "clauses": [
+        "request"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:empty_payload",
+      "role": "target",
+      "clauses": [
+        "request"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:malformed_json",
+      "role": "target",
+      "clauses": [
+        "request"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:decoded_boolean",
+      "role": "target",
+      "clauses": [
+        "request"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:decoded_number",
+      "role": "target",
+      "clauses": [
+        "request"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:decoded_string",
+      "role": "target",
+      "clauses": [
+        "request"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:v2_menu_override",
+      "role": "target",
+      "clauses": [
+        "request"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:v2_general_override",
+      "role": "target",
+      "clauses": [
+        "request"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:v2_controls_override",
+      "role": "target",
+      "clauses": [
+        "request"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:missing_menu_keys_default",
+      "role": "target",
+      "clauses": [
+        "request"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:missing_general_keys_default",
+      "role": "target",
+      "clauses": [
+        "request"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:missing_controls_keys_default",
+      "role": "target",
+      "clauses": [
+        "request"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:unknown_keys_ignored",
+      "role": "target",
+      "clauses": [
+        "request"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:invalid_menu_type_default",
+      "role": "target",
+      "clauses": [
+        "request"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:invalid_general_type_default",
+      "role": "target",
+      "clauses": [
+        "request"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:invalid_controls_type_default",
+      "role": "target",
+      "clauses": [
+        "request"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:partial_section_merge",
+      "role": "target",
+      "clauses": [
+        "request"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:valid_section_survives_bad_section",
+      "role": "target",
+      "clauses": [
+        "request"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:full_round_trip",
+      "role": "target",
+      "clauses": [
+        "request"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:unknown_schema_defaults",
+      "role": "target",
+      "clauses": [
+        "request"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:next_save_is_v2",
+      "role": "target",
+      "clauses": [
+        "request"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:flat_v1_dev_migrates",
+      "role": "target",
+      "clauses": [
+        "request"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:flat_v1_demo_migrates",
+      "role": "target",
+      "clauses": [
+        "request"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:flat_v1_open_migrates",
+      "role": "target",
+      "clauses": [
+        "request"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:nested_v2_not_misread_as_legacy",
+      "role": "target",
+      "clauses": [
+        "request"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:migration_is_idempotent",
+      "role": "target",
+      "clauses": [
+        "request"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:offset_synced_after_valid_load",
+      "role": "target",
+      "clauses": [
+        "request"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:offset_synced_after_bad_json",
+      "role": "target",
+      "clauses": [
+        "request"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:offset_synced_after_boolean",
+      "role": "target",
+      "clauses": [
+        "request"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:offset_synced_when_absent",
+      "role": "target",
+      "clauses": [
+        "request"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:exactly_one_offset_sync_per_call",
+      "role": "target",
+      "clauses": [
+        "request"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:debug_only_after_valid_dev_load",
+      "role": "target",
+      "clauses": [
+        "request"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:no_debug_after_rejected_load",
+      "role": "target",
+      "clauses": [
+        "request"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:repeated_load_has_same_normalized_state",
+      "role": "target",
+      "clauses": [
+        "request"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "check:submission-shape",
+      "role": "static",
+      "clauses": [],
+      "overlap": false,
+      "note": "required Lua mod tree present as a safe snapshot"
+    }
+  ],
+  "clauses": [
+    {
+      "id": "request",
+      "status": "asserted",
+      "note": "",
+      "anchor": "the exam's required behavior; its acceptance section names every scored case"
+    }
+  ],
+  "excluded_clauses": [],
+  "known_issues": [
+    "Roles come from the 2026-11-02 E0 baseline of catalog 0.1.1 on the real game: the empty starter fails every case, so every case is a target and none is preserved. Clauses are not yet split per exam paragraph: each case cites the whole requested behavior."
+  ]
+}

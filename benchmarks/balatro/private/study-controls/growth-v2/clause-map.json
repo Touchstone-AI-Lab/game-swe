@@ -1,0 +1,291 @@
+{
+  "task": "balatro/core/growth-v2",
+  "task_version": "0.2.0",
+  "exam": "benchmarks/balatro/public/v02/growth-v2/CONTRACT.md",
+  "cases": [
+    {
+      "id": "position:1",
+      "role": "setup",
+      "clauses": [
+        "growth-starts-at-zero"
+      ],
+      "overlap": false,
+      "note": "initial"
+    },
+    {
+      "id": "position:2",
+      "role": "preserved",
+      "clauses": [
+        "growth-no-accrual-discards"
+      ],
+      "overlap": false,
+      "note": "discard"
+    },
+    {
+      "id": "position:3",
+      "role": "preserved",
+      "clauses": [
+        "growth-no-accrual-hands"
+      ],
+      "overlap": true,
+      "note": "r1.high"
+    },
+    {
+      "id": "position:4",
+      "role": "preserved",
+      "clauses": [
+        "growth-no-accrual-hands"
+      ],
+      "overlap": true,
+      "note": "r1.pair"
+    },
+    {
+      "id": "position:5",
+      "role": "target",
+      "clauses": [
+        "growth-plus-two-per-blind",
+        "growth-no-callback-multiplication",
+        "growth-winning-hand-uses-prior-value"
+      ],
+      "overlap": false,
+      "note": "r1.end"
+    },
+    {
+      "id": "position:6",
+      "role": "runtime-sentinel",
+      "clauses": [],
+      "overlap": false,
+      "note": "r1.context"
+    },
+    {
+      "id": "position:7",
+      "role": "target",
+      "clauses": [
+        "growth-no-accrual-cash-out-shop"
+      ],
+      "overlap": false,
+      "note": "r1.shop"
+    },
+    {
+      "id": "position:8",
+      "role": "target",
+      "clauses": [
+        "growth-plus-two-per-blind",
+        "growth-no-accrual-cash-out-shop"
+      ],
+      "overlap": false,
+      "note": "r2.entry"
+    },
+    {
+      "id": "position:9",
+      "role": "target",
+      "clauses": [
+        "growth-no-accrual-hands",
+        "growth-additive-mult-main-phase",
+        "growth-increment-available-later",
+        "growth-scope-hand-types-and-counts"
+      ],
+      "overlap": false,
+      "note": "r2.pair"
+    },
+    {
+      "id": "position:10",
+      "role": "target",
+      "clauses": [
+        "growth-plus-two-per-blind",
+        "growth-no-callback-multiplication",
+        "growth-additive-mult-main-phase",
+        "growth-winning-hand-uses-prior-value",
+        "growth-consecutive-blinds",
+        "growth-scope-hand-types-and-counts"
+      ],
+      "overlap": false,
+      "note": "r2.end"
+    },
+    {
+      "id": "position:11",
+      "role": "runtime-sentinel",
+      "clauses": [],
+      "overlap": false,
+      "note": "r2.context"
+    },
+    {
+      "id": "position:12",
+      "role": "target",
+      "clauses": [
+        "growth-no-accrual-cash-out-shop",
+        "growth-consecutive-blinds"
+      ],
+      "overlap": false,
+      "note": "r2.shop"
+    },
+    {
+      "id": "position:13",
+      "role": "target",
+      "clauses": [
+        "growth-plus-two-per-blind",
+        "growth-no-accrual-cash-out-shop",
+        "growth-consecutive-blinds"
+      ],
+      "overlap": false,
+      "note": "r3.entry"
+    },
+    {
+      "id": "position:14",
+      "role": "target",
+      "clauses": [
+        "growth-no-accrual-hands",
+        "growth-additive-mult-main-phase",
+        "growth-increment-available-later",
+        "growth-scope-hand-types-and-counts"
+      ],
+      "overlap": false,
+      "note": "r3.high"
+    },
+    {
+      "id": "position:15",
+      "role": "target",
+      "clauses": [
+        "growth-plus-two-per-blind",
+        "growth-no-callback-multiplication",
+        "growth-additive-mult-main-phase",
+        "growth-winning-hand-uses-prior-value",
+        "growth-consecutive-blinds",
+        "growth-no-cap",
+        "growth-scope-hand-types-and-counts"
+      ],
+      "overlap": false,
+      "note": "r3.end"
+    },
+    {
+      "id": "position:16",
+      "role": "runtime-sentinel",
+      "clauses": [],
+      "overlap": false,
+      "note": "r3.context"
+    },
+    {
+      "id": "position:17",
+      "role": "target",
+      "clauses": [
+        "growth-no-accrual-cash-out-shop",
+        "growth-no-cap"
+      ],
+      "overlap": false,
+      "note": "r3.shop"
+    },
+    {
+      "id": "position:18",
+      "role": "runtime-sentinel",
+      "clauses": [
+        "growth-registration-identity",
+        "growth-complete-flow"
+      ],
+      "overlap": false,
+      "note": "configuration"
+    }
+  ],
+  "clauses": [
+    {
+      "id": "growth-registration-identity",
+      "anchor": "CONTRACT.md paragraph 1: \"Preserve the mod manifest and registration identity.\"",
+      "status": "asserted",
+      "note": "configuration reads the center key j_poc_growth. Manifest bytes are enforced at sealing (plugins/balatro/src/rhenium_balatro/submission.py:32-47), not by a case."
+    },
+    {
+      "id": "growth-starts-at-zero",
+      "anchor": "CONTRACT.md bullet 1: \"The Joker's `ability.extra.growth` starts at 0.\"",
+      "status": "asserted",
+      "note": "Read by the setup case initial, before the first blind."
+    },
+    {
+      "id": "growth-plus-two-per-blind",
+      "anchor": "CONTRACT.md bullet 2: \"Each successfully completed blind adds exactly 2, once per blind.\"",
+      "status": "asserted",
+      "note": "No failed-blind path is exercised."
+    },
+    {
+      "id": "growth-no-callback-multiplication",
+      "anchor": "CONTRACT.md bullet 2: \"The number of held cards and the engine's other end-of-round callbacks must not multiply that increment.\"",
+      "status": "asserted",
+      "note": "Exact +2 is read with 2 held cards at every blind end."
+    },
+    {
+      "id": "growth-no-accrual-hands",
+      "anchor": "CONTRACT.md bullet 3: \"Ordinary hands, discards, cash-out and shop observation do not add growth.\"",
+      "status": "asserted",
+      "note": "Hands that do not end a blind."
+    },
+    {
+      "id": "growth-no-accrual-discards",
+      "anchor": "CONTRACT.md bullet 3: \"Ordinary hands, discards, cash-out and shop observation do not add growth.\"",
+      "status": "asserted",
+      "note": "One single-card discard in round 1, at growth 0."
+    },
+    {
+      "id": "growth-no-accrual-cash-out-shop",
+      "anchor": "CONTRACT.md bullet 3: \"Ordinary hands, discards, cash-out and shop observation do not add growth.\"",
+      "status": "asserted",
+      "note": "Three shop readings at least 10 frames apart after each cash-out, then the entry reading of the next blind."
+    },
+    {
+      "id": "growth-additive-mult-main-phase",
+      "anchor": "CONTRACT.md bullet 4: \"Each main Joker scoring phase adds the current growth to Mult (additive Mult, not chips or X Mult).\"",
+      "status": "asserted",
+      "note": "Exact chip totals separate the forms once growth is positive. r2.pair alone cannot separate X Mult; r2.end and r3.high can."
+    },
+    {
+      "id": "growth-winning-hand-uses-prior-value",
+      "anchor": "CONTRACT.md bullet 5: \"The hand that wins a blind uses the growth from before that blind ends.\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "growth-increment-available-later",
+      "anchor": "CONTRACT.md bullet 5: \"Only after the win does the increment become available to later scoring.\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "growth-consecutive-blinds",
+      "anchor": "CONTRACT.md bullet 5: \"This continues across consecutive successful blinds\"",
+      "status": "asserted",
+      "note": "Three consecutive blinds: growth 0, 2, 4, 6."
+    },
+    {
+      "id": "growth-no-cap",
+      "anchor": "CONTRACT.md bullet 5: \"there is no growth cap\"",
+      "status": "weak",
+      "note": "Observed up to 6 only, so a cap at 6 or above passes. M06-cap-four, a cap at 4, fails exactly these two cases."
+    },
+    {
+      "id": "growth-display-localization",
+      "anchor": "CONTRACT.md bullet 6: \"Display the current growth consistently through the supplied localization interface.\"",
+      "status": "unasserted",
+      "note": "No case reads loc_vars or displayed text; the observer reads ability.extra.growth only (tasks/round_end_growth/v2/observer/observer.lua:45)."
+    },
+    {
+      "id": "growth-scope-hand-types-and-counts",
+      "anchor": "CONTRACT.md paragraph 2: \"Normal poker-hand types, different counts of played/held cards and multiple consecutive blinds follow the same rules.\"",
+      "status": "weak",
+      "note": "Only High Card, Pair and Four of a Kind with 1, 2 and 4 played cards. Held cards at every blind end are always 2 (tasks/round_end_growth/v2/scenario.py:34)."
+    },
+    {
+      "id": "growth-edit-scope",
+      "anchor": "CONTRACT.md paragraph 3: \"Edit only the supplied candidate Lua file.\"",
+      "status": "unasserted",
+      "note": "Enforced when the submission is sealed (plugins/balatro/src/rhenium_balatro/submission.py:32-47), not by a case."
+    },
+    {
+      "id": "growth-complete-flow",
+      "anchor": "CONTRACT.md paragraph 3: \"Missing responses, crashes and incomplete flows cannot pass.\"",
+      "status": "asserted",
+      "note": "Every required case must be reached (plugins/balatro/src/rhenium_balatro/linux_assets/legacy/poc/checks.py); configuration is the last one."
+    }
+  ],
+  "excluded_clauses": [
+    "growth-display-localization",
+    "growth-edit-scope"
+  ],
+  "known_issues": []
+}

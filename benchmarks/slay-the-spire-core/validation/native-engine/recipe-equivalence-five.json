@@ -1,0 +1,41 @@
+{
+  "validated": true,
+  "prepared_file_counts": {
+    "basemod-dynamic-descriptions-r2": 542,
+    "downfall-stasis-lifecycle-r1": 3547,
+    "mts-enum-identity-r2": 295,
+    "stslib-block-ledger-r1": 234,
+    "stslib-icon-layout-r1": 232
+  },
+  "task_images": [
+    {
+      "task": "basemod-dynamic-descriptions-r2",
+      "agent_image": "sha256:4c62f7980b46347af547f338e3ee6087537ce09a3d7e4a09eae6dff0164715f1",
+      "verifier_image": "sha256:a72a38f407ab604ffd4679cb8afdcb8b1724cfaf25abcb8f0f280fba81985ebe"
+    },
+    {
+      "task": "downfall-stasis-lifecycle-r1",
+      "agent_image": "sha256:3ee30a7ab93c39d47fb0714f5b7eb2e771ba709bd3c30c58387ece920c8fd79e",
+      "verifier_image": "sha256:9af55aa11bd3320e096e482a0a00b3bd9e881aeece79514ac0aba0aaa07dcef4"
+    },
+    {
+      "task": "mts-enum-identity-r2",
+      "agent_image": "sha256:c8e7b0bcecb50b50cacfb5566e93958e0766b9278be6b6d2027b17cbe604a4ef",
+      "verifier_image": "sha256:a72a38f407ab604ffd4679cb8afdcb8b1724cfaf25abcb8f0f280fba81985ebe"
+    },
+    {
+      "task": "stslib-block-ledger-r1",
+      "agent_image": "sha256:e8fc089e5584f768a995c6e19356b1ea0f97f14f9cc9c71abbfb93330be0a85e",
+      "verifier_image": "sha256:a72a38f407ab604ffd4679cb8afdcb8b1724cfaf25abcb8f0f280fba81985ebe"
+    },
+    {
+      "task": "stslib-icon-layout-r1",
+      "agent_image": "sha256:e8fc089e5584f768a995c6e19356b1ea0f97f14f9cc9c71abbfb93330be0a85e",
+      "verifier_image": "sha256:a72a38f407ab604ffd4679cb8afdcb8b1724cfaf25abcb8f0f280fba81985ebe"
+    }
+  ],
+  "recipe_manifest_sha256": "7620b12231aa46a768082d684df073950990061d61683bbcafec9f8c3fa11073",
+  "source_build_receipt_sha256": "be29f56ac6897c18ecbd28f3211725f81192f591458a6ae07f62af4c9928950e",
+  "prior_attempt": "The Windows-mount copy failed with DrvFS Errno 12 before image preparation. This rerun uses the byte-verified Git export on native Linux storage; no implementation or assertion changed.",
+  "scope": "The repository prepare_tasks.py rebuilt all five agent images and generated execution copies byte-identical to the complete source-reproduction control inputs. The explicit Downfall runtime map was exercised; all canonical repository hashes are unchanged."
+}

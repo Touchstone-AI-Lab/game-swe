@@ -1,0 +1,11 @@
+--- a/lua/rhenium_loadout_profiles/profiles.lua
++++ b/lua/rhenium_loadout_profiles/profiles.lua
+@@ -13,7 +13,7 @@
+ local function normalize(spec)
+  if type(spec)~="table"or type(spec.weapons)~="table"or#spec.weapons<1 or#spec.weapons>4 then return nil,"invalid_profile"end;local list,seen,ammo={},{},{}
+  for _,w in ipairs(spec.weapons)do if type(w)~="table"or not WEAPONS[w.class]or seen[w.class]then return nil,"invalid_weapon"end;seen[w.class]=true;local row={class=w.class}
+-  for _,slot in ipairs({"primary","secondary"})do local a=w[slot];if a~=nil then if type(a)~="table"or not CAPS[a.type]or not integer(a.amount)then return nil,"invalid_ammo"end;ammo[a.type]=(ammo[a.type]or 0)+a.amount;row[slot]={type=a.type,amount=a.amount}end end;list[#list+1]=row
++  for _,slot in ipairs({"primary","secondary"})do local a=w[slot];if a~=nil then if type(a)~="table"or not CAPS[a.type]or not integer(a.amount)then return nil,"invalid_ammo"end;ammo[a.type]=a.amount;row[slot]={type=a.type,amount=a.amount}end end;list[#list+1]=row
+  end;for t,n in pairs(ammo)do if n>CAPS[t]then return nil,"ammo_cap_exceeded"end end;table.sort(list,function(a,b)return a.class<b.class end);local rounds={};for t,n in pairs(ammo)do rounds[#rounds+1]={type=t,amount=n}end;table.sort(rounds,function(a,b)return a.type<b.type end);return{weapons=list,ammo=rounds}
+ end
+ local function fields(v,allowed)local n=0;for k in pairs(v)do if not allowed[k]then return false end;n=n+1 end;return n end

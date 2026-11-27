@@ -1,0 +1,1452 @@
+{
+  "schemaVersion": 1,
+  "repository": "https://github.com/bbradson/Adaptive-Storage-Framework",
+  "historicalBaseCommit": "2d0aef23f7b8592f9eedaaf8c8fc47b4dd1f0f5a",
+  "historicalTargetCommit": "6c403b09e22508fa929673caaec2877aa56ac9b5",
+  "sourceCommit": "31ee88b46651cfbe37da3f89620bc0b907165cc0",
+  "archiveSha256": "2cbb9532568d0114bab87b2e36317c7937694d919824f12fc600372ae0dea65c",
+  "licenseSha256": "c2f35bfff8d6afe40c93119455bcb6eb3b15f77e71cb31952984157076ec42b2",
+  "replaceOnce": "\t\t\tvar currentSlotLimit = _currentSlotLimit;\n\t\t\t_currentSlotLimit++;\n\t\t\tCurrentSlotLimit = currentSlotLimit;",
+  "with": "\t\t\tvar currentSlotLimit = _currentSlotLimit;\n\t\t\t_currentSlotLimit = int.MaxValue;\n\t\t\tCurrentSlotLimit = currentSlotLimit;",
+  "files": [
+    {
+      "path": "Source/AdaptiveStorage/AdaptiveStorageFrameworkMod.cs",
+      "upstreamSha256": "1fae967684ffe204f718ed679ef7c2b8b2130971d31bad808567a8599cb9c49e",
+      "baseSha256": "1fae967684ffe204f718ed679ef7c2b8b2130971d31bad808567a8599cb9c49e",
+      "targetSha256": "1fae967684ffe204f718ed679ef7c2b8b2130971d31bad808567a8599cb9c49e",
+      "origin": "exact-upstream",
+      "license": "MIT"
+    },
+    {
+      "path": "Source/AdaptiveStorage/AdaptiveStorageFrameworkSettings.cs",
+      "upstreamSha256": "41a52ba0bd65354b301112bf22669ed93ace14741525246de2665b49da68aa03",
+      "baseSha256": "41a52ba0bd65354b301112bf22669ed93ace14741525246de2665b49da68aa03",
+      "targetSha256": "41a52ba0bd65354b301112bf22669ed93ace14741525246de2665b49da68aa03",
+      "origin": "exact-upstream",
+      "license": "MIT"
+    },
+    {
+      "path": "Source/AdaptiveStorage/AllowedRequirement.cs",
+      "upstreamSha256": "d2ac6cc7558ed05b64de58d7bb4cac1687e0cc096daa75b8610744987839233e",
+      "baseSha256": "d2ac6cc7558ed05b64de58d7bb4cac1687e0cc096daa75b8610744987839233e",
+      "targetSha256": "d2ac6cc7558ed05b64de58d7bb4cac1687e0cc096daa75b8610744987839233e",
+      "origin": "exact-upstream",
+      "license": "MIT"
+    },
+    {
+      "path": "Source/AdaptiveStorage/BackCompatibility/CodeInstructionEx.cs",
+      "upstreamSha256": "3b479981fc534c9da613ff4ec1fd9ae406a99878bea7895c78ac881200206303",
+      "baseSha256": "3b479981fc534c9da613ff4ec1fd9ae406a99878bea7895c78ac881200206303",
+      "targetSha256": "3b479981fc534c9da613ff4ec1fd9ae406a99878bea7895c78ac881200206303",
+      "origin": "exact-upstream",
+      "license": "MIT"
+    },
+    {
+      "path": "Source/AdaptiveStorage/BackCompatibility/DrawPhase.cs",
+      "upstreamSha256": "149638caad369ee45f2e5acf63eef0a0382e6cbf1f00a1443c9a48f730cba99a",
+      "baseSha256": "149638caad369ee45f2e5acf63eef0a0382e6cbf1f00a1443c9a48f730cba99a",
+      "targetSha256": "149638caad369ee45f2e5acf63eef0a0382e6cbf1f00a1443c9a48f730cba99a",
+      "origin": "exact-upstream",
+      "license": "MIT"
+    },
+    {
+      "path": "Source/AdaptiveStorage/BackCompatibility/GenEx.cs",
+      "upstreamSha256": "c3494a5d5eab9bdde4857f563f5d757824ffec78b89e011276d84e99a0d4c134",
+      "baseSha256": "c3494a5d5eab9bdde4857f563f5d757824ffec78b89e011276d84e99a0d4c134",
+      "targetSha256": "c3494a5d5eab9bdde4857f563f5d757824ffec78b89e011276d84e99a0d4c134",
+      "origin": "exact-upstream",
+      "license": "MIT"
+    },
+    {
+      "path": "Source/AdaptiveStorage/BackCompatibility/StatModifierQuality.cs",
+      "upstreamSha256": "06d6013174b0fbfe8ef7c13b3818dfdde54bd02f86f625d8edfeec18762744c7",
+      "baseSha256": "06d6013174b0fbfe8ef7c13b3818dfdde54bd02f86f625d8edfeec18762744c7",
+      "targetSha256": "06d6013174b0fbfe8ef7c13b3818dfdde54bd02f86f625d8edfeec18762744c7",
+      "origin": "exact-upstream",
+      "license": "MIT"
+    },
+    {
+      "path": "Source/AdaptiveStorage/BackCompatibility/StatUtilityEx.cs",
+      "upstreamSha256": "2a32b4bfc69ca5644b9ecf815d186bcedf6013179ecaa79a0724c90ca4eddf93",
+      "baseSha256": "2a32b4bfc69ca5644b9ecf815d186bcedf6013179ecaa79a0724c90ca4eddf93",
+      "targetSha256": "2a32b4bfc69ca5644b9ecf815d186bcedf6013179ecaa79a0724c90ca4eddf93",
+      "origin": "exact-upstream",
+      "license": "MIT"
+    },
+    {
+      "path": "Source/AdaptiveStorage/Blueprint.cs",
+      "upstreamSha256": "7104168e2d36df809ce3aa235033f1ce906b23f27b6ca802a5da14e63edc34d1",
+      "baseSha256": "7104168e2d36df809ce3aa235033f1ce906b23f27b6ca802a5da14e63edc34d1",
+      "targetSha256": "7104168e2d36df809ce3aa235033f1ce906b23f27b6ca802a5da14e63edc34d1",
+      "origin": "exact-upstream",
+      "license": "MIT"
+    },
+    {
+      "path": "Source/AdaptiveStorage/ContentColorExtensions.cs",
+      "upstreamSha256": "43dbaef3e426be48e634687fb83aef6258e191eb554db9afea844f04d745bd73",
+      "baseSha256": "43dbaef3e426be48e634687fb83aef6258e191eb554db9afea844f04d745bd73",
+      "targetSha256": "43dbaef3e426be48e634687fb83aef6258e191eb554db9afea844f04d745bd73",
+      "origin": "exact-upstream",
+      "license": "MIT"
+    },
+    {
+      "path": "Source/AdaptiveStorage/ContentColorSource.cs",
+      "upstreamSha256": "c39a445d39715d96c18304fd4c69f84b2ba6043075810af8984f32a17104b6c4",
+      "baseSha256": "c39a445d39715d96c18304fd4c69f84b2ba6043075810af8984f32a17104b6c4",
+      "targetSha256": "c39a445d39715d96c18304fd4c69f84b2ba6043075810af8984f32a17104b6c4",
+      "origin": "exact-upstream",
+      "license": "MIT"
+    },
+    {
+      "path": "Source/AdaptiveStorage/ContentLabelStyleDef.cs",
+      "upstreamSha256": "a73d3a3d942b74c03859d4a725fdc33c9762c2f66fe7446e8b4f42a2fd783496",
+      "baseSha256": "a73d3a3d942b74c03859d4a725fdc33c9762c2f66fe7446e8b4f42a2fd783496",
+      "targetSha256": "a73d3a3d942b74c03859d4a725fdc33c9762c2f66fe7446e8b4f42a2fd783496",
+      "origin": "exact-upstream",
+      "license": "MIT"
+    },
+    {
+      "path": "Source/AdaptiveStorage/ContentLabelStyleDefOf.cs",
+      "upstreamSha256": "f17cbd27a9998e0eafbacda91d3337e0d6f0865b662bb2243a4462b7481fe93d",
+      "baseSha256": "f17cbd27a9998e0eafbacda91d3337e0d6f0865b662bb2243a4462b7481fe93d",
+      "targetSha256": "f17cbd27a9998e0eafbacda91d3337e0d6f0865b662bb2243a4462b7481fe93d",
+      "origin": "exact-upstream",
+      "license": "MIT"
+    },
+    {
+      "path": "Source/AdaptiveStorage/ContentLabelWorker.cs",
+      "upstreamSha256": "738fff2ea460f37601a8c7065ed08c6f25548b963c4d8c1962eac0e98abbfa6d",
+      "baseSha256": "738fff2ea460f37601a8c7065ed08c6f25548b963c4d8c1962eac0e98abbfa6d",
+      "targetSha256": "738fff2ea460f37601a8c7065ed08c6f25548b963c4d8c1962eac0e98abbfa6d",
+      "origin": "exact-upstream",
+      "license": "MIT"
+    },
+    {
+      "path": "Source/AdaptiveStorage/ContentsITab.cs",
+      "upstreamSha256": "7e8032d7c05b9cb80b886e362524c45b0ae04f04126497bdcb03def6442c7c4b",
+      "baseSha256": "d04faeef716581d8ef94390095902a347df71d26a6173e86a86e235a6ae8d859",
+      "targetSha256": "d04faeef716581d8ef94390095902a347df71d26a6173e86a86e235a6ae8d859",
+      "origin": "mechanical-adaptation",
+      "license": "MIT",
+      "adaptations": [
+        {
+          "replaceOnce": "\tpublic List<object> SelectedStorages\n\t{\n\t\tget\n\t\t{\n\t\t\tvar currentSelObjects = AllSelObjects;\n\t\t\tif (currentSelObjects._version != _selObjectsVersion)\n\t\t\t{\n\t\t\t\tUpdateSelectedStorages(field);\n\t\t\t\t_selObjectsVersion = currentSelObjects._version;\n\t\t\t}\n\n\t\t\treturn field;\n\t\t}\n\t} = [];",
+          "with": "\t[System.Runtime.CompilerServices.CompilerGenerated]\n\tprivate List<object> __SelectedStorages = [];\n\n\tpublic List<object> SelectedStorages\n\t{\n\t\tget\n\t\t{\n\t\t\tvar currentSelObjects = AllSelObjects;\n\t\t\tif (currentSelObjects._version != _selObjectsVersion)\n\t\t\t{\n\t\t\t\tUpdateSelectedStorages(__SelectedStorages);\n\t\t\t\t_selObjectsVersion = currentSelObjects._version;\n\t\t\t}\n\n\t\t\treturn __SelectedStorages;\n\t\t}\n\t}"
+        }
+      ]
+    },
+    {
+      "path": "Source/AdaptiveStorage/DefEditorWindow.cs",
+      "upstreamSha256": "9082520d7cf6640c09bb9287c090aecf96f09a6155f1fa041d236231fca605fc",
+      "baseSha256": "a207b91d9ced1e88dde5939e39f4babd4404cac524b75a656566eb8954a07110",
+      "targetSha256": "a207b91d9ced1e88dde5939e39f4babd4404cac524b75a656566eb8954a07110",
+      "origin": "mechanical-adaptation",
+      "license": "MIT",
+      "adaptations": [
+        {
+          "replaceOnce": "\t[field: MaybeNull]\n\tpublic Type ObjectType\n\t\t=> field\n\t\t\t??= OwningField is not null\n\t\t\t\t? OwningField.FieldType\n\t\t\t\t: IsListItem && ListRootObject.GetType() is var type\n\t\t\t\t\t? (type.IsGenericType ? type.GetGenericArguments()[0] :\n\t\t\t\t\t\ttype.HasElementType ? type.GetElementType()! :\n\t\t\t\t\t\tObj?.GetType() ?? throw new InvalidOperationException())\n\t\t\t\t\t: Obj?.GetType() ?? throw new InvalidOperationException();",
+          "with": "\t[System.Diagnostics.CodeAnalysis.MaybeNull]\n\t[System.Runtime.CompilerServices.CompilerGenerated]\n\tprivate Type __ObjectType;\n\n\tpublic Type ObjectType\n\t\t=> __ObjectType\n\t\t\t??= OwningField is not null\n\t\t\t\t? OwningField.FieldType\n\t\t\t\t: IsListItem && ListRootObject.GetType() is var type\n\t\t\t\t\t? (type.IsGenericType ? type.GetGenericArguments()[0] :\n\t\t\t\t\t\ttype.HasElementType ? type.GetElementType()! :\n\t\t\t\t\t\tObj?.GetType() ?? throw new InvalidOperationException())\n\t\t\t\t\t: Obj?.GetType() ?? throw new InvalidOperationException();"
+        }
+      ]
+    },
+    {
+      "path": "Source/AdaptiveStorage/Extension.cs",
+      "upstreamSha256": "94b09d12460dcbb3723f4c80d6efbfd2021ae320dddae75deed2a14afacb337c",
+      "baseSha256": "94b09d12460dcbb3723f4c80d6efbfd2021ae320dddae75deed2a14afacb337c",
+      "targetSha256": "94b09d12460dcbb3723f4c80d6efbfd2021ae320dddae75deed2a14afacb337c",
+      "origin": "exact-upstream",
+      "license": "MIT"
+    },
+    {
+      "path": "Source/AdaptiveStorage/Fishery/CollectionExtensions.cs",
+      "upstreamSha256": "9a6a50093055ecfd8f8f0a7240ab3cad4d5e2b9024ad42b1480a3a8a9fe2d57f",
+      "baseSha256": "9a6a50093055ecfd8f8f0a7240ab3cad4d5e2b9024ad42b1480a3a8a9fe2d57f",
+      "targetSha256": "9a6a50093055ecfd8f8f0a7240ab3cad4d5e2b9024ad42b1480a3a8a9fe2d57f",
+      "origin": "exact-upstream",
+      "license": "MPL-2.0"
+    },
+    {
+      "path": "Source/AdaptiveStorage/Fishery/Collections/FishSet.Debug.cs",
+      "upstreamSha256": "51606a960841602c61b640226c180f9acf0735263081dc6f3fbb659649ab51a7",
+      "baseSha256": "51606a960841602c61b640226c180f9acf0735263081dc6f3fbb659649ab51a7",
+      "targetSha256": "51606a960841602c61b640226c180f9acf0735263081dc6f3fbb659649ab51a7",
+      "origin": "exact-upstream",
+      "license": "MPL-2.0"
+    },
+    {
+      "path": "Source/AdaptiveStorage/Fishery/Collections/FishSet.Enumerator.cs",
+      "upstreamSha256": "621dee91a7a16ea92993f21da5fd7cdc668b74bbeff7a24cc7e4f40eaa0be4c4",
+      "baseSha256": "621dee91a7a16ea92993f21da5fd7cdc668b74bbeff7a24cc7e4f40eaa0be4c4",
+      "targetSha256": "621dee91a7a16ea92993f21da5fd7cdc668b74bbeff7a24cc7e4f40eaa0be4c4",
+      "origin": "exact-upstream",
+      "license": "MPL-2.0"
+    },
+    {
+      "path": "Source/AdaptiveStorage/Fishery/Collections/FishSet.ThrowHelper.cs",
+      "upstreamSha256": "e96db0c69061a55d907dc13b98560113fb882fc62867c7ed06812433407d0a49",
+      "baseSha256": "e96db0c69061a55d907dc13b98560113fb882fc62867c7ed06812433407d0a49",
+      "targetSha256": "e96db0c69061a55d907dc13b98560113fb882fc62867c7ed06812433407d0a49",
+      "origin": "exact-upstream",
+      "license": "MPL-2.0"
+    },
+    {
+      "path": "Source/AdaptiveStorage/Fishery/Collections/FishSet.cs",
+      "upstreamSha256": "664df5ed6cea8dd5a5ed31606b697dc11f32dadae36f0cba59584a61ffc39b9d",
+      "baseSha256": "664df5ed6cea8dd5a5ed31606b697dc11f32dadae36f0cba59584a61ffc39b9d",
+      "targetSha256": "664df5ed6cea8dd5a5ed31606b697dc11f32dadae36f0cba59584a61ffc39b9d",
+      "origin": "exact-upstream",
+      "license": "MPL-2.0"
+    },
+    {
+      "path": "Source/AdaptiveStorage/Fishery/Collections/IntFishTable.Debug.cs",
+      "upstreamSha256": "337a17d7e753c04ac6329b48f24f8fe4c4ecd2d8f5c38d80328a82e16466d37c",
+      "baseSha256": "337a17d7e753c04ac6329b48f24f8fe4c4ecd2d8f5c38d80328a82e16466d37c",
+      "targetSha256": "337a17d7e753c04ac6329b48f24f8fe4c4ecd2d8f5c38d80328a82e16466d37c",
+      "origin": "exact-upstream",
+      "license": "MPL-2.0"
+    },
+    {
+      "path": "Source/AdaptiveStorage/Fishery/Collections/IntFishTable.Entry.cs",
+      "upstreamSha256": "f0f5914a15691a8aec0f354bf51b94f359a27428b2b739efee1cac1a6458d088",
+      "baseSha256": "f0f5914a15691a8aec0f354bf51b94f359a27428b2b739efee1cac1a6458d088",
+      "targetSha256": "f0f5914a15691a8aec0f354bf51b94f359a27428b2b739efee1cac1a6458d088",
+      "origin": "exact-upstream",
+      "license": "MPL-2.0"
+    },
+    {
+      "path": "Source/AdaptiveStorage/Fishery/Collections/IntFishTable.Enumerator.cs",
+      "upstreamSha256": "3f837a445032ec3e9966c731b4689e6e0744fd6ff17bb254d4f835541ae764f1",
+      "baseSha256": "3f837a445032ec3e9966c731b4689e6e0744fd6ff17bb254d4f835541ae764f1",
+      "targetSha256": "3f837a445032ec3e9966c731b4689e6e0744fd6ff17bb254d4f835541ae764f1",
+      "origin": "exact-upstream",
+      "license": "MPL-2.0"
+    },
+    {
+      "path": "Source/AdaptiveStorage/Fishery/Collections/IntFishTable.KeyCollection.cs",
+      "upstreamSha256": "55be22d9b790c19486c097995f9cb1c8ab5cb0242ee07036311013dd174e59b3",
+      "baseSha256": "55be22d9b790c19486c097995f9cb1c8ab5cb0242ee07036311013dd174e59b3",
+      "targetSha256": "55be22d9b790c19486c097995f9cb1c8ab5cb0242ee07036311013dd174e59b3",
+      "origin": "exact-upstream",
+      "license": "MPL-2.0"
+    },
+    {
+      "path": "Source/AdaptiveStorage/Fishery/Collections/IntFishTable.ThrowHelper.cs",
+      "upstreamSha256": "b48d7bebcc4bb86671e31dcd65354e9a2053eae5f6fb34c51bc50cc87bbd4af9",
+      "baseSha256": "b48d7bebcc4bb86671e31dcd65354e9a2053eae5f6fb34c51bc50cc87bbd4af9",
+      "targetSha256": "b48d7bebcc4bb86671e31dcd65354e9a2053eae5f6fb34c51bc50cc87bbd4af9",
+      "origin": "exact-upstream",
+      "license": "MPL-2.0"
+    },
+    {
+      "path": "Source/AdaptiveStorage/Fishery/Collections/IntFishTable.ValueCollection.cs",
+      "upstreamSha256": "1765e3141b169d183b44995936b6611790c51a1469dbfbb2cbe38209bfa89922",
+      "baseSha256": "1765e3141b169d183b44995936b6611790c51a1469dbfbb2cbe38209bfa89922",
+      "targetSha256": "1765e3141b169d183b44995936b6611790c51a1469dbfbb2cbe38209bfa89922",
+      "origin": "exact-upstream",
+      "license": "MPL-2.0"
+    },
+    {
+      "path": "Source/AdaptiveStorage/Fishery/Collections/IntFishTable.cs",
+      "upstreamSha256": "a617cbe62702c06753ad0930d9881241c15b1d2dff377628c589c6b4b3937aa8",
+      "baseSha256": "a617cbe62702c06753ad0930d9881241c15b1d2dff377628c589c6b4b3937aa8",
+      "targetSha256": "a617cbe62702c06753ad0930d9881241c15b1d2dff377628c589c6b4b3937aa8",
+      "origin": "exact-upstream",
+      "license": "MPL-2.0"
+    },
+    {
+      "path": "Source/AdaptiveStorage/Fishery/Collections/Internal/CollectionThrowHelper.cs",
+      "upstreamSha256": "f1ac61e9018143f72339e9b499133862344b561023694ab989d2f8d60c6d9c94",
+      "baseSha256": "f1ac61e9018143f72339e9b499133862344b561023694ab989d2f8d60c6d9c94",
+      "targetSha256": "f1ac61e9018143f72339e9b499133862344b561023694ab989d2f8d60c6d9c94",
+      "origin": "exact-upstream",
+      "license": "MPL-2.0"
+    },
+    {
+      "path": "Source/AdaptiveStorage/Fishery/Collections/Internal/ReplaceBehaviour.cs",
+      "upstreamSha256": "626c9df6c4eec4fe436d92cefabd349489d3a78fffbb17a7eb88d3868039711f",
+      "baseSha256": "626c9df6c4eec4fe436d92cefabd349489d3a78fffbb17a7eb88d3868039711f",
+      "targetSha256": "626c9df6c4eec4fe436d92cefabd349489d3a78fffbb17a7eb88d3868039711f",
+      "origin": "exact-upstream",
+      "license": "MPL-2.0"
+    },
+    {
+      "path": "Source/AdaptiveStorage/Fishery/Collections/Internal/Tails.cs",
+      "upstreamSha256": "0e8732c2d5e45e2a0afdb082b64f26021578f299543cb83a214c7a6c7462a775",
+      "baseSha256": "0e8732c2d5e45e2a0afdb082b64f26021578f299543cb83a214c7a6c7462a775",
+      "targetSha256": "0e8732c2d5e45e2a0afdb082b64f26021578f299543cb83a214c7a6c7462a775",
+      "origin": "exact-upstream",
+      "license": "MPL-2.0"
+    },
+    {
+      "path": "Source/AdaptiveStorage/Fishery/Collections/NibbleArray.cs",
+      "upstreamSha256": "8ee1f4e114e090096602ca9bff2f27f9fe162ae93710facf96469d0700a5e687",
+      "baseSha256": "8ee1f4e114e090096602ca9bff2f27f9fe162ae93710facf96469d0700a5e687",
+      "targetSha256": "8ee1f4e114e090096602ca9bff2f27f9fe162ae93710facf96469d0700a5e687",
+      "origin": "exact-upstream",
+      "license": "MPL-2.0"
+    },
+    {
+      "path": "Source/AdaptiveStorage/Fishery/Diagnostics/Extensions/TypeExtensions.cs",
+      "upstreamSha256": "5d3bd54c22015f55d5ff01d2d4af0e30e7d6241fec328a67be75b72daff14a07",
+      "baseSha256": "5d3bd54c22015f55d5ff01d2d4af0e30e7d6241fec328a67be75b72daff14a07",
+      "targetSha256": "5d3bd54c22015f55d5ff01d2d4af0e30e7d6241fec328a67be75b72daff14a07",
+      "origin": "exact-upstream",
+      "license": "MIT"
+    },
+    {
+      "path": "Source/AdaptiveStorage/Fishery/Diagnostics/Extensions/ValueTypeExtensions.cs",
+      "upstreamSha256": "185feebcefa4b03f33833c2ed0a7892d3f031d3f26adc250ff7815d76add0506",
+      "baseSha256": "185feebcefa4b03f33833c2ed0a7892d3f031d3f26adc250ff7815d76add0506",
+      "targetSha256": "185feebcefa4b03f33833c2ed0a7892d3f031d3f26adc250ff7815d76add0506",
+      "origin": "exact-upstream",
+      "license": "MIT"
+    },
+    {
+      "path": "Source/AdaptiveStorage/Fishery/Diagnostics/Generated/Guard.Collection.g.cs",
+      "upstreamSha256": "35d50c91876ac3dd47d37b76b19a76f56e654d89bae801f0acda2367c95abcb4",
+      "baseSha256": "35d50c91876ac3dd47d37b76b19a76f56e654d89bae801f0acda2367c95abcb4",
+      "targetSha256": "35d50c91876ac3dd47d37b76b19a76f56e654d89bae801f0acda2367c95abcb4",
+      "origin": "exact-upstream",
+      "license": "MIT"
+    },
+    {
+      "path": "Source/AdaptiveStorage/Fishery/Diagnostics/Generated/Guard.Comparable.Numeric.g.cs",
+      "upstreamSha256": "36f6463f3f7091e963e3663142e1415a7d6a665eb36c12c3a9d0c2a66beff947",
+      "baseSha256": "36f6463f3f7091e963e3663142e1415a7d6a665eb36c12c3a9d0c2a66beff947",
+      "targetSha256": "36f6463f3f7091e963e3663142e1415a7d6a665eb36c12c3a9d0c2a66beff947",
+      "origin": "exact-upstream",
+      "license": "MIT"
+    },
+    {
+      "path": "Source/AdaptiveStorage/Fishery/Diagnostics/Generated/ThrowHelper.Collection.g.cs",
+      "upstreamSha256": "27ea3039ba26eaaa9333298cbe770b419918353809652efe193f599bf8718641",
+      "baseSha256": "27ea3039ba26eaaa9333298cbe770b419918353809652efe193f599bf8718641",
+      "targetSha256": "27ea3039ba26eaaa9333298cbe770b419918353809652efe193f599bf8718641",
+      "origin": "exact-upstream",
+      "license": "MIT"
+    },
+    {
+      "path": "Source/AdaptiveStorage/Fishery/Diagnostics/Guard.Boolean.cs",
+      "upstreamSha256": "05bbd64c95a48e10bf27407004fca2f9889069f5b3072e6780be48f3934009aa",
+      "baseSha256": "05bbd64c95a48e10bf27407004fca2f9889069f5b3072e6780be48f3934009aa",
+      "targetSha256": "05bbd64c95a48e10bf27407004fca2f9889069f5b3072e6780be48f3934009aa",
+      "origin": "exact-upstream",
+      "license": "MIT"
+    },
+    {
+      "path": "Source/AdaptiveStorage/Fishery/Diagnostics/Guard.Comparable.Generic.cs",
+      "upstreamSha256": "0a2d3cf826b2b95d11ef4af9f15a4cbd11e4bee4da3620231dae7e8986258664",
+      "baseSha256": "0a2d3cf826b2b95d11ef4af9f15a4cbd11e4bee4da3620231dae7e8986258664",
+      "targetSha256": "0a2d3cf826b2b95d11ef4af9f15a4cbd11e4bee4da3620231dae7e8986258664",
+      "origin": "exact-upstream",
+      "license": "MIT"
+    },
+    {
+      "path": "Source/AdaptiveStorage/Fishery/Diagnostics/Guard.Comparable.Numeric.cs",
+      "upstreamSha256": "1c1b25d53154584a45afbdaa4d33969625fa93667e65358a06200fa41f1c09c8",
+      "baseSha256": "1c1b25d53154584a45afbdaa4d33969625fa93667e65358a06200fa41f1c09c8",
+      "targetSha256": "1c1b25d53154584a45afbdaa4d33969625fa93667e65358a06200fa41f1c09c8",
+      "origin": "exact-upstream",
+      "license": "MIT"
+    },
+    {
+      "path": "Source/AdaptiveStorage/Fishery/Diagnostics/Guard.IO.cs",
+      "upstreamSha256": "273ae1bb81810a0523ffa91aac9509ea5239044bc8516a19c26c2de40ab99035",
+      "baseSha256": "273ae1bb81810a0523ffa91aac9509ea5239044bc8516a19c26c2de40ab99035",
+      "targetSha256": "273ae1bb81810a0523ffa91aac9509ea5239044bc8516a19c26c2de40ab99035",
+      "origin": "exact-upstream",
+      "license": "MIT"
+    },
+    {
+      "path": "Source/AdaptiveStorage/Fishery/Diagnostics/Guard.String.cs",
+      "upstreamSha256": "25bd60086a0e417b6984392facf5c6b5cf728616ab287bae4d375f3fb02dc87d",
+      "baseSha256": "25bd60086a0e417b6984392facf5c6b5cf728616ab287bae4d375f3fb02dc87d",
+      "targetSha256": "25bd60086a0e417b6984392facf5c6b5cf728616ab287bae4d375f3fb02dc87d",
+      "origin": "exact-upstream",
+      "license": "MIT"
+    },
+    {
+      "path": "Source/AdaptiveStorage/Fishery/Diagnostics/Guard.Tasks.cs",
+      "upstreamSha256": "44e5b186729902185a91362bc6d898fc6bfc02f39f8bf6463f8b9e83c0c1c3d8",
+      "baseSha256": "44e5b186729902185a91362bc6d898fc6bfc02f39f8bf6463f8b9e83c0c1c3d8",
+      "targetSha256": "44e5b186729902185a91362bc6d898fc6bfc02f39f8bf6463f8b9e83c0c1c3d8",
+      "origin": "exact-upstream",
+      "license": "MIT"
+    },
+    {
+      "path": "Source/AdaptiveStorage/Fishery/Diagnostics/Guard.cs",
+      "upstreamSha256": "3dcb9769624c9fb4eceac6714452de34adf8fc459d6ed9cf90e4e46aff3b92a8",
+      "baseSha256": "3dcb9769624c9fb4eceac6714452de34adf8fc459d6ed9cf90e4e46aff3b92a8",
+      "targetSha256": "3dcb9769624c9fb4eceac6714452de34adf8fc459d6ed9cf90e4e46aff3b92a8",
+      "origin": "exact-upstream",
+      "license": "MIT"
+    },
+    {
+      "path": "Source/AdaptiveStorage/Fishery/Diagnostics/Internals/Guard.Collection.Generic.ThrowHelper.cs",
+      "upstreamSha256": "390ec8b2d7bd2d963a51091be98efd85a7b8ba47b3996af405ede84fc371509e",
+      "baseSha256": "390ec8b2d7bd2d963a51091be98efd85a7b8ba47b3996af405ede84fc371509e",
+      "targetSha256": "390ec8b2d7bd2d963a51091be98efd85a7b8ba47b3996af405ede84fc371509e",
+      "origin": "exact-upstream",
+      "license": "MIT"
+    },
+    {
+      "path": "Source/AdaptiveStorage/Fishery/Diagnostics/Internals/Guard.Comparable.Generic.ThrowHelper.cs",
+      "upstreamSha256": "85c3f7ace4d76a3e94130ace79414b66b0de15e9755338710da32230a8b50ef1",
+      "baseSha256": "85c3f7ace4d76a3e94130ace79414b66b0de15e9755338710da32230a8b50ef1",
+      "targetSha256": "85c3f7ace4d76a3e94130ace79414b66b0de15e9755338710da32230a8b50ef1",
+      "origin": "exact-upstream",
+      "license": "MIT"
+    },
+    {
+      "path": "Source/AdaptiveStorage/Fishery/Diagnostics/Internals/Guard.Comparable.Numeric.ThrowHelper.cs",
+      "upstreamSha256": "6eea39e47e44a30a6180be84b14da6a86791d3fceb8085d0c674f317b3a5a2b6",
+      "baseSha256": "6eea39e47e44a30a6180be84b14da6a86791d3fceb8085d0c674f317b3a5a2b6",
+      "targetSha256": "6eea39e47e44a30a6180be84b14da6a86791d3fceb8085d0c674f317b3a5a2b6",
+      "origin": "exact-upstream",
+      "license": "MIT"
+    },
+    {
+      "path": "Source/AdaptiveStorage/Fishery/Diagnostics/Internals/Guard.IO.ThrowHelper.cs",
+      "upstreamSha256": "509ef05dc1805f785567f7cb4136d28318cde42f78df5a8d3f7ba8a666b7bb8c",
+      "baseSha256": "509ef05dc1805f785567f7cb4136d28318cde42f78df5a8d3f7ba8a666b7bb8c",
+      "targetSha256": "509ef05dc1805f785567f7cb4136d28318cde42f78df5a8d3f7ba8a666b7bb8c",
+      "origin": "exact-upstream",
+      "license": "MIT"
+    },
+    {
+      "path": "Source/AdaptiveStorage/Fishery/Diagnostics/Internals/Guard.String.ThrowHelper.cs",
+      "upstreamSha256": "3a30aa468b0d59745b17ccb168738960f8dafe273adb6e1f220750de7ba2234f",
+      "baseSha256": "3a30aa468b0d59745b17ccb168738960f8dafe273adb6e1f220750de7ba2234f",
+      "targetSha256": "3a30aa468b0d59745b17ccb168738960f8dafe273adb6e1f220750de7ba2234f",
+      "origin": "exact-upstream",
+      "license": "MIT"
+    },
+    {
+      "path": "Source/AdaptiveStorage/Fishery/Diagnostics/Internals/Guard.Tasks.ThrowHelper.cs",
+      "upstreamSha256": "1c92483a049dee54c7269cdb4e32e77c39c3c721536b36bc0ddae8ede82a472f",
+      "baseSha256": "1c92483a049dee54c7269cdb4e32e77c39c3c721536b36bc0ddae8ede82a472f",
+      "targetSha256": "1c92483a049dee54c7269cdb4e32e77c39c3c721536b36bc0ddae8ede82a472f",
+      "origin": "exact-upstream",
+      "license": "MIT"
+    },
+    {
+      "path": "Source/AdaptiveStorage/Fishery/Diagnostics/Internals/Guard.ThrowHelper.cs",
+      "upstreamSha256": "ba74e71abc0d3650deb9d1cf05cea9ee39e45ff28326632c2fd18cf3477534dc",
+      "baseSha256": "ba74e71abc0d3650deb9d1cf05cea9ee39e45ff28326632c2fd18cf3477534dc",
+      "targetSha256": "ba74e71abc0d3650deb9d1cf05cea9ee39e45ff28326632c2fd18cf3477534dc",
+      "origin": "exact-upstream",
+      "license": "MIT"
+    },
+    {
+      "path": "Source/AdaptiveStorage/Fishery/Diagnostics/ThrowHelper.Generic.cs",
+      "upstreamSha256": "33ddb9329084bb30a917429b0f774ae9dc9f7740be7436eda28692c2c9b5105a",
+      "baseSha256": "33ddb9329084bb30a917429b0f774ae9dc9f7740be7436eda28692c2c9b5105a",
+      "targetSha256": "33ddb9329084bb30a917429b0f774ae9dc9f7740be7436eda28692c2c9b5105a",
+      "origin": "exact-upstream",
+      "license": "MIT"
+    },
+    {
+      "path": "Source/AdaptiveStorage/Fishery/Diagnostics/ThrowHelper.cs",
+      "upstreamSha256": "1690a466f47e09198744a8817de555f82b83bf0c1bf628cb311cee43a18f4717",
+      "baseSha256": "1690a466f47e09198744a8817de555f82b83bf0c1bf628cb311cee43a18f4717",
+      "targetSha256": "1690a466f47e09198744a8817de555f82b83bf0c1bf628cb311cee43a18f4717",
+      "origin": "exact-upstream",
+      "license": "MIT"
+    },
+    {
+      "path": "Source/AdaptiveStorage/Fishery/Equality.cs",
+      "upstreamSha256": "cbe8d0581708b00a41d504d51e367539d8d1fe1747f12abba7ca2a75ed046610",
+      "baseSha256": "cbe8d0581708b00a41d504d51e367539d8d1fe1747f12abba7ca2a75ed046610",
+      "targetSha256": "cbe8d0581708b00a41d504d51e367539d8d1fe1747f12abba7ca2a75ed046610",
+      "origin": "exact-upstream",
+      "license": "MPL-2.0"
+    },
+    {
+      "path": "Source/AdaptiveStorage/Fishery/FishMath.cs",
+      "upstreamSha256": "03c001e56f52980b812d2db8a1054859cb5b58e986b48769784172e04bc49c45",
+      "baseSha256": "03c001e56f52980b812d2db8a1054859cb5b58e986b48769784172e04bc49c45",
+      "targetSha256": "03c001e56f52980b812d2db8a1054859cb5b58e986b48769784172e04bc49c45",
+      "origin": "exact-upstream",
+      "license": "MPL-2.0"
+    },
+    {
+      "path": "Source/AdaptiveStorage/Fishery/FishTranspiler.cs",
+      "upstreamSha256": "4b015343e083988e879f1b5412dc34ba107e46887192ea5d5ed479d34e17bfab",
+      "baseSha256": "4b015343e083988e879f1b5412dc34ba107e46887192ea5d5ed479d34e17bfab",
+      "targetSha256": "4b015343e083988e879f1b5412dc34ba107e46887192ea5d5ed479d34e17bfab",
+      "origin": "exact-upstream",
+      "license": "MPL-2.0"
+    },
+    {
+      "path": "Source/AdaptiveStorage/Fishery/FunctionPointers/Equals.cs",
+      "upstreamSha256": "6dcded965551cf7eca3fbcdbf57340030615a034b8545c9130e729afccbc7199",
+      "baseSha256": "6dcded965551cf7eca3fbcdbf57340030615a034b8545c9130e729afccbc7199",
+      "targetSha256": "6dcded965551cf7eca3fbcdbf57340030615a034b8545c9130e729afccbc7199",
+      "origin": "exact-upstream",
+      "license": "MPL-2.0"
+    },
+    {
+      "path": "Source/AdaptiveStorage/Fishery/FunctionPointers/MethodFactory.Equals.cs",
+      "upstreamSha256": "9fcbbb0a2d1624e8571a5d89ef94746806b35563d898b153d942fc496b4baaff",
+      "baseSha256": "9fcbbb0a2d1624e8571a5d89ef94746806b35563d898b153d942fc496b4baaff",
+      "targetSha256": "9fcbbb0a2d1624e8571a5d89ef94746806b35563d898b153d942fc496b4baaff",
+      "origin": "exact-upstream",
+      "license": "MPL-2.0"
+    },
+    {
+      "path": "Source/AdaptiveStorage/Fishery/FunctionPointers/MethodFactory.cs",
+      "upstreamSha256": "6c8a038a19112ade1d4cb7bdcae17cb4b3f1bfeeaaf0a47c0ab6fafce4d968ad",
+      "baseSha256": "6c8a038a19112ade1d4cb7bdcae17cb4b3f1bfeeaaf0a47c0ab6fafce4d968ad",
+      "targetSha256": "6c8a038a19112ade1d4cb7bdcae17cb4b3f1bfeeaaf0a47c0ab6fafce4d968ad",
+      "origin": "exact-upstream",
+      "license": "MPL-2.0"
+    },
+    {
+      "path": "Source/AdaptiveStorage/Fishery/Pools/FishPool.cs",
+      "upstreamSha256": "a78e9bfdc8546a3539a8325fef93d404b201d1a7ab4b68ba963f4a8ed8f4669d",
+      "baseSha256": "a78e9bfdc8546a3539a8325fef93d404b201d1a7ab4b68ba963f4a8ed8f4669d",
+      "targetSha256": "a78e9bfdc8546a3539a8325fef93d404b201d1a7ab4b68ba963f4a8ed8f4669d",
+      "origin": "exact-upstream",
+      "license": "MPL-2.0"
+    },
+    {
+      "path": "Source/AdaptiveStorage/Fishery/Pools/IFishPoolable.cs",
+      "upstreamSha256": "3b2dc320fe4cf6db62b3570906660593686a23b424051fdc935ca391ef53eb63",
+      "baseSha256": "3b2dc320fe4cf6db62b3570906660593686a23b424051fdc935ca391ef53eb63",
+      "targetSha256": "3b2dc320fe4cf6db62b3570906660593686a23b424051fdc935ca391ef53eb63",
+      "origin": "exact-upstream",
+      "license": "MPL-2.0"
+    },
+    {
+      "path": "Source/AdaptiveStorage/Fishery/Pools/PooledIList.cs",
+      "upstreamSha256": "c0a78e134a82a03b09b78e1fc608ea8bf586a506afc845fec5792067b8f206bc",
+      "baseSha256": "c0a78e134a82a03b09b78e1fc608ea8bf586a506afc845fec5792067b8f206bc",
+      "targetSha256": "c0a78e134a82a03b09b78e1fc608ea8bf586a506afc845fec5792067b8f206bc",
+      "origin": "exact-upstream",
+      "license": "MPL-2.0"
+    },
+    {
+      "path": "Source/AdaptiveStorage/Fishery/Pools/PooledList.cs",
+      "upstreamSha256": "9803a520db5eba9a90b42fe9ed183ce5a18bf0a00a4404dba9efcf46f45d6713",
+      "baseSha256": "9803a520db5eba9a90b42fe9ed183ce5a18bf0a00a4404dba9efcf46f45d6713",
+      "targetSha256": "9803a520db5eba9a90b42fe9ed183ce5a18bf0a00a4404dba9efcf46f45d6713",
+      "origin": "exact-upstream",
+      "license": "MPL-2.0"
+    },
+    {
+      "path": "Source/AdaptiveStorage/Fishery/Pools/PooledStringBuilder.cs",
+      "upstreamSha256": "1702bad7032ae0af826f898fa0d5d0081a6c7aa1a724d9d4cf9f260c67ee7ac0",
+      "baseSha256": "1702bad7032ae0af826f898fa0d5d0081a6c7aa1a724d9d4cf9f260c67ee7ac0",
+      "targetSha256": "1702bad7032ae0af826f898fa0d5d0081a6c7aa1a724d9d4cf9f260c67ee7ac0",
+      "origin": "exact-upstream",
+      "license": "MPL-2.0"
+    },
+    {
+      "path": "Source/AdaptiveStorage/Fishery/Pools/PooledStringBuilderHandler.cs",
+      "upstreamSha256": "ace5285e384b5613da0ef736168a00e8a5bb031caaa7ca3ccba8fbc139bb54f6",
+      "baseSha256": "ace5285e384b5613da0ef736168a00e8a5bb031caaa7ca3ccba8fbc139bb54f6",
+      "targetSha256": "ace5285e384b5613da0ef736168a00e8a5bb031caaa7ca3ccba8fbc139bb54f6",
+      "origin": "exact-upstream",
+      "license": "MPL-2.0"
+    },
+    {
+      "path": "Source/AdaptiveStorage/Fishery/Reflection.cs",
+      "upstreamSha256": "693d96817eb80e4c70a3d18ede442d750b67795989905675a19caa27accb1524",
+      "baseSha256": "de95b5954f54b68dfbb56643f2c4d66a7c150002d2f8e516b7c6988176887cef",
+      "targetSha256": "de95b5954f54b68dfbb56643f2c4d66a7c150002d2f8e516b7c6988176887cef",
+      "origin": "mechanical-adaptation",
+      "license": "MPL-2.0",
+      "adaptations": [
+        {
+          "replaceOnce": "\tpublic static Assembly[] AllAssemblies\n\t{\n\t\tget\n\t\t{\n\t\t\tlock (_allAssembliesLock)\n\t\t\t{\n\t\t\t\treturn field.Length == AppDomain.CurrentDomain.GetAssemblies().Length\n\t\t\t\t\t? field\n\t\t\t\t\t: field = AccessTools.AllAssemblies().ToArray();\n\t\t\t}\n\t\t}\n\t} = [];",
+          "with": "\t[System.Runtime.CompilerServices.CompilerGenerated]\n\tprivate static Assembly[] __AllAssemblies = [];\n\n\tpublic static Assembly[] AllAssemblies\n\t{\n\t\tget\n\t\t{\n\t\t\tlock (_allAssembliesLock)\n\t\t\t{\n\t\t\t\treturn __AllAssemblies.Length == AppDomain.CurrentDomain.GetAssemblies().Length\n\t\t\t\t\t? __AllAssemblies\n\t\t\t\t\t: __AllAssemblies = AccessTools.AllAssemblies().ToArray();\n\t\t\t}\n\t\t}\n\t}"
+        }
+      ]
+    },
+    {
+      "path": "Source/AdaptiveStorage/Fishery/UtilityF.cs",
+      "upstreamSha256": "b017d115f29ec73accaba968d4b669d7f1888ef0b28b8b3735a4b4cc07d67858",
+      "baseSha256": "b017d115f29ec73accaba968d4b669d7f1888ef0b28b8b3735a4b4cc07d67858",
+      "targetSha256": "b017d115f29ec73accaba968d4b669d7f1888ef0b28b8b3735a4b4cc07d67858",
+      "origin": "exact-upstream",
+      "license": "MPL-2.0"
+    },
+    {
+      "path": "Source/AdaptiveStorage/Frame.cs",
+      "upstreamSha256": "3f7df3cc492e8962884630e85370e6bea09f82f2259aa80963d44d45e7ab8c3d",
+      "baseSha256": "3f7df3cc492e8962884630e85370e6bea09f82f2259aa80963d44d45e7ab8c3d",
+      "targetSha256": "3f7df3cc492e8962884630e85370e6bea09f82f2259aa80963d44d45e7ab8c3d",
+      "origin": "exact-upstream",
+      "license": "MIT"
+    },
+    {
+      "path": "Source/AdaptiveStorage/GizmoUtility.cs",
+      "upstreamSha256": "f378f6e57db849e291a060871d1783fbb776f287103a06b9983fbe4e11152811",
+      "baseSha256": "f378f6e57db849e291a060871d1783fbb776f287103a06b9983fbe4e11152811",
+      "targetSha256": "f378f6e57db849e291a060871d1783fbb776f287103a06b9983fbe4e11152811",
+      "origin": "exact-upstream",
+      "license": "MIT"
+    },
+    {
+      "path": "Source/AdaptiveStorage/GodModeGizmos.cs",
+      "upstreamSha256": "1b656004180ee5991c5664a134314fd39d954817a68a5b98f7ef7b9ed677f62a",
+      "baseSha256": "d38c5ba59234350d741e02746c9dd8a65aa0a817e00743e95f935c7a908d2dd8",
+      "targetSha256": "d38c5ba59234350d741e02746c9dd8a65aa0a817e00743e95f935c7a908d2dd8",
+      "origin": "mechanical-adaptation",
+      "license": "MIT",
+      "adaptations": [
+        {
+          "replaceOnce": "\t\t[field: MaybeNull]\n\t\tprivate (ThingDef def, FloatMenuOption option)[] FloatMenuOptionsByDef\n\t\t\t=> field\n\t\t\t\t??= parent.GetParentStoreSettings().filter.AllowedThingDefs\n\t\t\t\t\t.Select(def => (def,\n\t\t\t\t\t\tnew FloatMenuOption(def.label, () => GenSpawn.Spawn(ThingMakerUtility.Make(def)\n\t\t\t\t\t\t\t.TryMakeMinified(), parent.FreeMapCells.First(), parent.Map))))\n\t\t\t\t\t.ToArray();",
+          "with": "\t\t[System.Diagnostics.CodeAnalysis.MaybeNull]\n\t\t[System.Runtime.CompilerServices.CompilerGenerated]\n\t\tprivate (ThingDef def, FloatMenuOption option)[] __FloatMenuOptionsByDef;\n\n\t\tprivate (ThingDef def, FloatMenuOption option)[] FloatMenuOptionsByDef\n\t\t\t=> __FloatMenuOptionsByDef\n\t\t\t\t??= parent.GetParentStoreSettings().filter.AllowedThingDefs\n\t\t\t\t\t.Select(def => (def,\n\t\t\t\t\t\tnew FloatMenuOption(def.label, () => GenSpawn.Spawn(ThingMakerUtility.Make(def)\n\t\t\t\t\t\t\t.TryMakeMinified(), parent.FreeMapCells.First(), parent.Map))))\n\t\t\t\t\t.ToArray();"
+        },
+        {
+          "replaceOnce": "\t\t[field: MaybeNull]\n\t\tprivate IEnumerable<FloatMenuOption> FilteredFloatMenuOptions\n\t\t\t=> field ??= InitializeFilteredFloatMenuOptions();",
+          "with": "\t\t[System.Diagnostics.CodeAnalysis.MaybeNull]\n\t\t[System.Runtime.CompilerServices.CompilerGenerated]\n\t\tprivate IEnumerable<FloatMenuOption> __FilteredFloatMenuOptions;\n\n\t\tprivate IEnumerable<FloatMenuOption> FilteredFloatMenuOptions\n\t\t\t=> __FilteredFloatMenuOptions ??= InitializeFilteredFloatMenuOptions();"
+        },
+        {
+          "replaceOnce": "\t\t[field: MaybeNull]\n\t\tprivate IEnumerable<FloatMenuOption> UnfilteredFloatMenuOptions\n\t\t\t=> field ??= FloatMenuOptionsByDef.Select(static tuple => tuple.option);",
+          "with": "\t\t[System.Diagnostics.CodeAnalysis.MaybeNull]\n\t\t[System.Runtime.CompilerServices.CompilerGenerated]\n\t\tprivate IEnumerable<FloatMenuOption> __UnfilteredFloatMenuOptions;\n\n\t\tprivate IEnumerable<FloatMenuOption> UnfilteredFloatMenuOptions\n\t\t\t=> __UnfilteredFloatMenuOptions ??= FloatMenuOptionsByDef.Select(static tuple => tuple.option);"
+        }
+      ]
+    },
+    {
+      "path": "Source/AdaptiveStorage/GraphicsDef.cs",
+      "upstreamSha256": "ca9ce77b94d93a9c0c603d666d6eab2e1cfa65018661a5cc0bee68661fb96b18",
+      "baseSha256": "ca9ce77b94d93a9c0c603d666d6eab2e1cfa65018661a5cc0bee68661fb96b18",
+      "targetSha256": "ca9ce77b94d93a9c0c603d666d6eab2e1cfa65018661a5cc0bee68661fb96b18",
+      "origin": "exact-upstream",
+      "license": "MIT"
+    },
+    {
+      "path": "Source/AdaptiveStorage/GraphicsDefSelector.cs",
+      "upstreamSha256": "b2b2d9b138e61d19e030bd19c1d5fc3bcdbd008b18e07c66a5988fa0be4c2dda",
+      "baseSha256": "b2b2d9b138e61d19e030bd19c1d5fc3bcdbd008b18e07c66a5988fa0be4c2dda",
+      "targetSha256": "b2b2d9b138e61d19e030bd19c1d5fc3bcdbd008b18e07c66a5988fa0be4c2dda",
+      "origin": "exact-upstream",
+      "license": "MIT"
+    },
+    {
+      "path": "Source/AdaptiveStorage/GroupContentsITab.cs",
+      "upstreamSha256": "e6a8dd4658249df9c27247b94206375ee42f87adbb0240ae85b907d197ac3a42",
+      "baseSha256": "e6a8dd4658249df9c27247b94206375ee42f87adbb0240ae85b907d197ac3a42",
+      "targetSha256": "e6a8dd4658249df9c27247b94206375ee42f87adbb0240ae85b907d197ac3a42",
+      "origin": "exact-upstream",
+      "license": "MIT"
+    },
+    {
+      "path": "Source/AdaptiveStorage/HarmonyPatches/AddITabToLegacyStorages.cs",
+      "upstreamSha256": "11d4c12de34a92de3d764f1044738d602979119bf3f2915c89b8975dc488ca1b",
+      "baseSha256": "11d4c12de34a92de3d764f1044738d602979119bf3f2915c89b8975dc488ca1b",
+      "targetSha256": "11d4c12de34a92de3d764f1044738d602979119bf3f2915c89b8975dc488ca1b",
+      "origin": "exact-upstream",
+      "license": "MIT"
+    },
+    {
+      "path": "Source/AdaptiveStorage/HarmonyPatches/AddITabToStockpileZones.cs",
+      "upstreamSha256": "222c3403d93dc486f4ff5738c37a52f7f7ef30af521f66efbf93f8fced6c3621",
+      "baseSha256": "222c3403d93dc486f4ff5738c37a52f7f7ef30af521f66efbf93f8fced6c3621",
+      "targetSha256": "222c3403d93dc486f4ff5738c37a52f7f7ef30af521f66efbf93f8fced6c3621",
+      "origin": "exact-upstream",
+      "license": "MIT"
+    },
+    {
+      "path": "Source/AdaptiveStorage/HarmonyPatches/AdjustSelectionBracketPosition.cs",
+      "upstreamSha256": "3cba2b7749e8ca01ef48e48683e79f5dda33f2b48dd4064fe2837e1cbaa149e0",
+      "baseSha256": "3cba2b7749e8ca01ef48e48683e79f5dda33f2b48dd4064fe2837e1cbaa149e0",
+      "targetSha256": "3cba2b7749e8ca01ef48e48683e79f5dda33f2b48dd4064fe2837e1cbaa149e0",
+      "origin": "exact-upstream",
+      "license": "MIT"
+    },
+    {
+      "path": "Source/AdaptiveStorage/HarmonyPatches/AdjustThingTemperature.cs",
+      "upstreamSha256": "394396cfabf9d7714199b05bc0f897f17413bc90cab404e889f6004e76a52311",
+      "baseSha256": "394396cfabf9d7714199b05bc0f897f17413bc90cab404e889f6004e76a52311",
+      "targetSha256": "394396cfabf9d7714199b05bc0f897f17413bc90cab404e889f6004e76a52311",
+      "origin": "exact-upstream",
+      "license": "MIT"
+    },
+    {
+      "path": "Source/AdaptiveStorage/HarmonyPatches/AutomaticallyOpenTab.cs",
+      "upstreamSha256": "46d0008199654b1e026c8639fb7a869cf4516f8cb7d466ca2eced601e803a6ca",
+      "baseSha256": "46d0008199654b1e026c8639fb7a869cf4516f8cb7d466ca2eced601e803a6ca",
+      "targetSha256": "46d0008199654b1e026c8639fb7a869cf4516f8cb7d466ca2eced601e803a6ca",
+      "origin": "exact-upstream",
+      "license": "MIT"
+    },
+    {
+      "path": "Source/AdaptiveStorage/HarmonyPatches/CacheZoomAndMousePosition.cs",
+      "upstreamSha256": "6e67bcc64f0198b4a0c733b5df4b8f9a3f353bdd34c57d64e236e3aca497b67f",
+      "baseSha256": "6e67bcc64f0198b4a0c733b5df4b8f9a3f353bdd34c57d64e236e3aca497b67f",
+      "targetSha256": "6e67bcc64f0198b4a0c733b5df4b8f9a3f353bdd34c57d64e236e3aca497b67f",
+      "origin": "exact-upstream",
+      "license": "MIT"
+    },
+    {
+      "path": "Source/AdaptiveStorage/HarmonyPatches/DeregisteredAtThingGridEvent.cs",
+      "upstreamSha256": "59cda66b9980bed1537c4615c493c90ed2fcfbb65d72b892a0934f35326f83f2",
+      "baseSha256": "59cda66b9980bed1537c4615c493c90ed2fcfbb65d72b892a0934f35326f83f2",
+      "targetSha256": "59cda66b9980bed1537c4615c493c90ed2fcfbb65d72b892a0934f35326f83f2",
+      "origin": "exact-upstream",
+      "license": "MIT"
+    },
+    {
+      "path": "Source/AdaptiveStorage/HarmonyPatches/EnablePackingOnMinify.cs",
+      "upstreamSha256": "a700300adf25d79fe7a811e134beeb082a7586bcf5cc90b9cae844a8d7f142b9",
+      "baseSha256": "a700300adf25d79fe7a811e134beeb082a7586bcf5cc90b9cae844a8d7f142b9",
+      "targetSha256": "a700300adf25d79fe7a811e134beeb082a7586bcf5cc90b9cae844a8d7f142b9",
+      "origin": "exact-upstream",
+      "license": "MIT"
+    },
+    {
+      "path": "Source/AdaptiveStorage/HarmonyPatches/FixVanillaVegetarianFilter.cs",
+      "upstreamSha256": "3687c828cbfa66b489bdf31f616fc6ff01f4deb357dd456db5e83cf7dadc0160",
+      "baseSha256": "3687c828cbfa66b489bdf31f616fc6ff01f4deb357dd456db5e83cf7dadc0160",
+      "targetSha256": "3687c828cbfa66b489bdf31f616fc6ff01f4deb357dd456db5e83cf7dadc0160",
+      "origin": "exact-upstream",
+      "license": "MIT"
+    },
+    {
+      "path": "Source/AdaptiveStorage/HarmonyPatches/HideStorageGizmos.cs",
+      "upstreamSha256": "dad40cb3de2f1a6962dca1f6cfa661ce1e00ce719f81ebf082f8a4198ea66df7",
+      "baseSha256": "dad40cb3de2f1a6962dca1f6cfa661ce1e00ce719f81ebf082f8a4198ea66df7",
+      "targetSha256": "dad40cb3de2f1a6962dca1f6cfa661ce1e00ce719f81ebf082f8a4198ea66df7",
+      "origin": "exact-upstream",
+      "license": "MIT"
+    },
+    {
+      "path": "Source/AdaptiveStorage/HarmonyPatches/HideStoredThingLabels.cs",
+      "upstreamSha256": "bf49713c45ef03e497d0bce578b1dd34fbb6d0d02b217178a7afc9314765b7c4",
+      "baseSha256": "bf49713c45ef03e497d0bce578b1dd34fbb6d0d02b217178a7afc9314765b7c4",
+      "targetSha256": "bf49713c45ef03e497d0bce578b1dd34fbb6d0d02b217178a7afc9314765b7c4",
+      "origin": "exact-upstream",
+      "license": "MIT"
+    },
+    {
+      "path": "Source/AdaptiveStorage/HarmonyPatches/HideStoredThingsFromSectionLayerAndOverlayDrawer.cs",
+      "upstreamSha256": "dfdffafede26e5cdfddd86ceb54e75b1faa1940f105ed7b44d75a92fb7a1f4ea",
+      "baseSha256": "dfdffafede26e5cdfddd86ceb54e75b1faa1940f105ed7b44d75a92fb7a1f4ea",
+      "targetSha256": "dfdffafede26e5cdfddd86ceb54e75b1faa1940f105ed7b44d75a92fb7a1f4ea",
+      "origin": "exact-upstream",
+      "license": "MIT"
+    },
+    {
+      "path": "Source/AdaptiveStorage/HarmonyPatches/ImprovedConfigErrors.cs",
+      "upstreamSha256": "f0125162795485cdbab7466500713501979794e0bdd438a9e9773f9986f7abf4",
+      "baseSha256": "f0125162795485cdbab7466500713501979794e0bdd438a9e9773f9986f7abf4",
+      "targetSha256": "f0125162795485cdbab7466500713501979794e0bdd438a9e9773f9986f7abf4",
+      "origin": "exact-upstream",
+      "license": "MIT"
+    },
+    {
+      "path": "Source/AdaptiveStorage/HarmonyPatches/InitializeGraphicsDefs.cs",
+      "upstreamSha256": "57ea920af9983470c4e62cb4d8ad7e596d895b9624b87c1cb545088c5926deef",
+      "baseSha256": "57ea920af9983470c4e62cb4d8ad7e596d895b9624b87c1cb545088c5926deef",
+      "targetSha256": "57ea920af9983470c4e62cb4d8ad7e596d895b9624b87c1cb545088c5926deef",
+      "origin": "exact-upstream",
+      "license": "MIT"
+    },
+    {
+      "path": "Source/AdaptiveStorage/HarmonyPatches/NotifyItemStackChanged.cs",
+      "upstreamSha256": "766e1e65533884a6d4765d7e4c03d0e6b0ed3d5378dbf2f2b9e2fba5f56a26ce",
+      "baseSha256": "766e1e65533884a6d4765d7e4c03d0e6b0ed3d5378dbf2f2b9e2fba5f56a26ce",
+      "targetSha256": "766e1e65533884a6d4765d7e4c03d0e6b0ed3d5378dbf2f2b9e2fba5f56a26ce",
+      "origin": "exact-upstream",
+      "license": "MIT"
+    },
+    {
+      "path": "Source/AdaptiveStorage/HarmonyPatches/PreventSelectionInRect.cs",
+      "upstreamSha256": "72c917f8a9ece736a5d7aa619df9b88a10d2ab9c22ba176000c106a85599ce1d",
+      "baseSha256": "72c917f8a9ece736a5d7aa619df9b88a10d2ab9c22ba176000c106a85599ce1d",
+      "targetSha256": "72c917f8a9ece736a5d7aa619df9b88a10d2ab9c22ba176000c106a85599ce1d",
+      "origin": "exact-upstream",
+      "license": "MIT"
+    },
+    {
+      "path": "Source/AdaptiveStorage/HarmonyPatches/PreventSelectionUnderMouse.cs",
+      "upstreamSha256": "294baf17f54a00d61ece86f2c52359ccc4a308bc70da13d78922ea8698276c4c",
+      "baseSha256": "294baf17f54a00d61ece86f2c52359ccc4a308bc70da13d78922ea8698276c4c",
+      "targetSha256": "294baf17f54a00d61ece86f2c52359ccc4a308bc70da13d78922ea8698276c4c",
+      "origin": "exact-upstream",
+      "license": "MIT"
+    },
+    {
+      "path": "Source/AdaptiveStorage/HarmonyPatches/RegisteredAtThingGridEvent.cs",
+      "upstreamSha256": "a0ec39cdc64b64bd1ed0503a9dfa359ac7ea1dc2dab400147080937b73d6a1a7",
+      "baseSha256": "a0ec39cdc64b64bd1ed0503a9dfa359ac7ea1dc2dab400147080937b73d6a1a7",
+      "targetSha256": "a0ec39cdc64b64bd1ed0503a9dfa359ac7ea1dc2dab400147080937b73d6a1a7",
+      "origin": "exact-upstream",
+      "license": "MIT"
+    },
+    {
+      "path": "Source/AdaptiveStorage/HarmonyPatches/RemoveInvalidDefsOnStorageSettingsLoading.cs",
+      "upstreamSha256": "462076dffc87fa23fc803813bbdab7ca0b10847585a700c934715e9251c92f3c",
+      "baseSha256": "462076dffc87fa23fc803813bbdab7ca0b10847585a700c934715e9251c92f3c",
+      "targetSha256": "462076dffc87fa23fc803813bbdab7ca0b10847585a700c934715e9251c92f3c",
+      "origin": "exact-upstream",
+      "license": "MIT"
+    },
+    {
+      "path": "Source/AdaptiveStorage/HarmonyPatches/ReplaceLegacyStorageInspectString.cs",
+      "upstreamSha256": "cb8fa24753ffd9cecc7872f40dac66b8492b0b067c82c4863484dd3359d2f795",
+      "baseSha256": "cb8fa24753ffd9cecc7872f40dac66b8492b0b067c82c4863484dd3359d2f795",
+      "targetSha256": "cb8fa24753ffd9cecc7872f40dac66b8492b0b067c82c4863484dd3359d2f795",
+      "origin": "exact-upstream",
+      "license": "MIT"
+    },
+    {
+      "path": "Source/AdaptiveStorage/HarmonyPatches/SaveGameCompatibility.cs",
+      "upstreamSha256": "5ecef916980d9119c6c69036d17a5f7a05db8986176f93137e782aef9efe79ca",
+      "baseSha256": "5ecef916980d9119c6c69036d17a5f7a05db8986176f93137e782aef9efe79ca",
+      "targetSha256": "5ecef916980d9119c6c69036d17a5f7a05db8986176f93137e782aef9efe79ca",
+      "origin": "exact-upstream",
+      "license": "MIT"
+    },
+    {
+      "path": "Source/AdaptiveStorage/HarmonyPatches/StorageLimit.cs",
+      "upstreamSha256": "2fca2ddae63ee635e1e89b5ecf088a1f3a19b7701ec1acfb226c5950bb10dae7",
+      "baseSha256": "2fca2ddae63ee635e1e89b5ecf088a1f3a19b7701ec1acfb226c5950bb10dae7",
+      "targetSha256": "2fca2ddae63ee635e1e89b5ecf088a1f3a19b7701ec1acfb226c5950bb10dae7",
+      "origin": "exact-upstream",
+      "license": "MIT"
+    },
+    {
+      "path": "Source/AdaptiveStorage/HarmonyPatches/StoreUtilityPatches.cs",
+      "upstreamSha256": "f519b1024bb4f79f3f3021f85d44510e768cf4801a66ed7f37ddd9499e7c19a1",
+      "baseSha256": "f519b1024bb4f79f3f3021f85d44510e768cf4801a66ed7f37ddd9499e7c19a1",
+      "targetSha256": "f519b1024bb4f79f3f3021f85d44510e768cf4801a66ed7f37ddd9499e7c19a1",
+      "origin": "exact-upstream",
+      "license": "MIT"
+    },
+    {
+      "path": "Source/AdaptiveStorage/HarmonyPatches/ThingDefStatDrawEntries.cs",
+      "upstreamSha256": "08d43689ff347ec137245a6042b6e629a7b4dc238f4d89dc7d5ed26084f149c0",
+      "baseSha256": "08d43689ff347ec137245a6042b6e629a7b4dc238f4d89dc7d5ed26084f149c0",
+      "targetSha256": "08d43689ff347ec137245a6042b6e629a7b4dc238f4d89dc7d5ed26084f149c0",
+      "origin": "exact-upstream",
+      "license": "MIT"
+    },
+    {
+      "path": "Source/AdaptiveStorage/HarmonyPatches/UpdateInvalidHaulablesAndMergeables.cs",
+      "upstreamSha256": "5f355aea4e0c063ffb7a173e1411e75453ab6d67cbbdf2e22c84ccab89967352",
+      "baseSha256": "5f355aea4e0c063ffb7a173e1411e75453ab6d67cbbdf2e22c84ccab89967352",
+      "targetSha256": "5f355aea4e0c063ffb7a173e1411e75453ab6d67cbbdf2e22c84ccab89967352",
+      "origin": "exact-upstream",
+      "license": "MIT"
+    },
+    {
+      "path": "Source/AdaptiveStorage/InspectStringUtility.cs",
+      "upstreamSha256": "5e0f9c6cee978e2f35acabd6caf74b116f67b2f6ecf471bc2978621a69e615b1",
+      "baseSha256": "5e0f9c6cee978e2f35acabd6caf74b116f67b2f6ecf471bc2978621a69e615b1",
+      "targetSha256": "5e0f9c6cee978e2f35acabd6caf74b116f67b2f6ecf471bc2978621a69e615b1",
+      "origin": "exact-upstream",
+      "license": "MIT"
+    },
+    {
+      "path": "Source/AdaptiveStorage/InspectTabUtility.cs",
+      "upstreamSha256": "ee3465e302a33814d50ff21f61a39347eb125ebe173d76ea005aafb532694096",
+      "baseSha256": "ee3465e302a33814d50ff21f61a39347eb125ebe173d76ea005aafb532694096",
+      "targetSha256": "ee3465e302a33814d50ff21f61a39347eb125ebe173d76ea005aafb532694096",
+      "origin": "exact-upstream",
+      "license": "MIT"
+    },
+    {
+      "path": "Source/AdaptiveStorage/InternalDefOf.cs",
+      "upstreamSha256": "031de91808bd47ddd9e89db9dcf79b4330e08ff82141ac208fdd9ff51a6f7681",
+      "baseSha256": "031de91808bd47ddd9e89db9dcf79b4330e08ff82141ac208fdd9ff51a6f7681",
+      "targetSha256": "031de91808bd47ddd9e89db9dcf79b4330e08ff82141ac208fdd9ff51a6f7681",
+      "origin": "exact-upstream",
+      "license": "MIT"
+    },
+    {
+      "path": "Source/AdaptiveStorage/ItemGraphic.cs",
+      "upstreamSha256": "4930c097db0c57f1b6e9be631ddb52b33aba2e339a3905c65e454be1f937f1c8",
+      "baseSha256": "4930c097db0c57f1b6e9be631ddb52b33aba2e339a3905c65e454be1f937f1c8",
+      "targetSha256": "4930c097db0c57f1b6e9be631ddb52b33aba2e339a3905c65e454be1f937f1c8",
+      "origin": "exact-upstream",
+      "license": "MIT"
+    },
+    {
+      "path": "Source/AdaptiveStorage/ItemGraphicWorker.cs",
+      "upstreamSha256": "5f00218e17f15e598ae323d84326294bfa05cde294b87df821c95110f5c8cbe2",
+      "baseSha256": "5f00218e17f15e598ae323d84326294bfa05cde294b87df821c95110f5c8cbe2",
+      "targetSha256": "5f00218e17f15e598ae323d84326294bfa05cde294b87df821c95110f5c8cbe2",
+      "origin": "exact-upstream",
+      "license": "MIT"
+    },
+    {
+      "path": "Source/AdaptiveStorage/LabelFormat.cs",
+      "upstreamSha256": "af607eeeac4cde7aabb25a8d72e21cdcea973c9d2272a007efafe1aad3a3f715",
+      "baseSha256": "af607eeeac4cde7aabb25a8d72e21cdcea973c9d2272a007efafe1aad3a3f715",
+      "targetSha256": "af607eeeac4cde7aabb25a8d72e21cdcea973c9d2272a007efafe1aad3a3f715",
+      "origin": "exact-upstream",
+      "license": "MIT"
+    },
+    {
+      "path": "Source/AdaptiveStorage/LabelFormatUtility.cs",
+      "upstreamSha256": "03fbbc36aa825c89c9943d69e44543a9399a1b9e851ba31e2bc34836f2d26722",
+      "baseSha256": "03fbbc36aa825c89c9943d69e44543a9399a1b9e851ba31e2bc34836f2d26722",
+      "targetSha256": "03fbbc36aa825c89c9943d69e44543a9399a1b9e851ba31e2bc34836f2d26722",
+      "origin": "exact-upstream",
+      "license": "MIT"
+    },
+    {
+      "path": "Source/AdaptiveStorage/LegacyStorageUtility.cs",
+      "upstreamSha256": "f56c5b8f9828dc8b07b3d014a2becba7a85031f3c909502a7480f53434d78a77",
+      "baseSha256": "f56c5b8f9828dc8b07b3d014a2becba7a85031f3c909502a7480f53434d78a77",
+      "targetSha256": "f56c5b8f9828dc8b07b3d014a2becba7a85031f3c909502a7480f53434d78a77",
+      "origin": "exact-upstream",
+      "license": "MIT"
+    },
+    {
+      "path": "Source/AdaptiveStorage/Minified.cs",
+      "upstreamSha256": "18a727ff48a9f11b72dc81f60b1baa54030ee58b162848d89f7625fcab68210f",
+      "baseSha256": "18a727ff48a9f11b72dc81f60b1baa54030ee58b162848d89f7625fcab68210f",
+      "targetSha256": "18a727ff48a9f11b72dc81f60b1baa54030ee58b162848d89f7625fcab68210f",
+      "origin": "exact-upstream",
+      "license": "MIT"
+    },
+    {
+      "path": "Source/AdaptiveStorage/MinifiedExtension.cs",
+      "upstreamSha256": "744de22f28b652cb75bcca46e373726e9ff84ba44859801a751de3920411a572",
+      "baseSha256": "744de22f28b652cb75bcca46e373726e9ff84ba44859801a751de3920411a572",
+      "targetSha256": "744de22f28b652cb75bcca46e373726e9ff84ba44859801a751de3920411a572",
+      "origin": "exact-upstream",
+      "license": "MIT"
+    },
+    {
+      "path": "Source/AdaptiveStorage/ModCompatibility/ActiveMods.cs",
+      "upstreamSha256": "f1fe97ee5e75c71bc8952d01a19c15ca4d400058c45b8e82b0972eddf50c7c49",
+      "baseSha256": "f1fe97ee5e75c71bc8952d01a19c15ca4d400058c45b8e82b0972eddf50c7c49",
+      "targetSha256": "f1fe97ee5e75c71bc8952d01a19c15ca4d400058c45b8e82b0972eddf50c7c49",
+      "origin": "exact-upstream",
+      "license": "MIT"
+    },
+    {
+      "path": "Source/AdaptiveStorage/ModCompatibility/LWM.cs",
+      "upstreamSha256": "59369ba245b1c08b306d372ee000201e6594e28a99e47588db0cb9c13d66e95c",
+      "baseSha256": "59369ba245b1c08b306d372ee000201e6594e28a99e47588db0cb9c13d66e95c",
+      "targetSha256": "59369ba245b1c08b306d372ee000201e6594e28a99e47588db0cb9c13d66e95c",
+      "origin": "exact-upstream",
+      "license": "MIT"
+    },
+    {
+      "path": "Source/AdaptiveStorage/ModCompatibility/Multiplayer.cs",
+      "upstreamSha256": "3fc5483703b4bb29f48c914316fed89e8e4a329e93886b867eec503a39563655",
+      "baseSha256": "3fc5483703b4bb29f48c914316fed89e8e4a329e93886b867eec503a39563655",
+      "targetSha256": "3fc5483703b4bb29f48c914316fed89e8e4a329e93886b867eec503a39563655",
+      "origin": "exact-upstream",
+      "license": "MIT"
+    },
+    {
+      "path": "Source/AdaptiveStorage/ModCompatibility/PackageIDs.cs",
+      "upstreamSha256": "05440bebec3502c94798fd130f91e543d5f342c56919542d2d3f3bf52f1eecc1",
+      "baseSha256": "05440bebec3502c94798fd130f91e543d5f342c56919542d2d3f3bf52f1eecc1",
+      "targetSha256": "05440bebec3502c94798fd130f91e543d5f342c56919542d2d3f3bf52f1eecc1",
+      "origin": "exact-upstream",
+      "license": "MIT"
+    },
+    {
+      "path": "Source/AdaptiveStorage/ModCompatibility/PerformanceFish.cs",
+      "upstreamSha256": "9a409a81d9a083e50422daac56a3d09e9d4d38ff22743942b4bd34c27fe4e1e0",
+      "baseSha256": "9a409a81d9a083e50422daac56a3d09e9d4d38ff22743942b4bd34c27fe4e1e0",
+      "targetSha256": "9a409a81d9a083e50422daac56a3d09e9d4d38ff22743942b4bd34c27fe4e1e0",
+      "origin": "exact-upstream",
+      "license": "MIT"
+    },
+    {
+      "path": "Source/AdaptiveStorage/ModCompatibility/ReflectionUtility.cs",
+      "upstreamSha256": "d6da5b8cb25740843af9076b9df9a760d95f2ede46027ed987e466b310d55a39",
+      "baseSha256": "d6da5b8cb25740843af9076b9df9a760d95f2ede46027ed987e466b310d55a39",
+      "targetSha256": "d6da5b8cb25740843af9076b9df9a760d95f2ede46027ed987e466b310d55a39",
+      "origin": "exact-upstream",
+      "license": "MIT"
+    },
+    {
+      "path": "Source/AdaptiveStorage/ModCompatibility/SaveOurShip2.cs",
+      "upstreamSha256": "9368b5ffa337a2f0291d59804e3fcab7c9c77e9f0ff70187304bc76295a20b30",
+      "baseSha256": "9368b5ffa337a2f0291d59804e3fcab7c9c77e9f0ff70187304bc76295a20b30",
+      "targetSha256": "9368b5ffa337a2f0291d59804e3fcab7c9c77e9f0ff70187304bc76295a20b30",
+      "origin": "exact-upstream",
+      "license": "MIT"
+    },
+    {
+      "path": "Source/AdaptiveStorage/ModCompatibility/ToggleableOverlays.cs",
+      "upstreamSha256": "5d09e0b08f1d942783d4a9f8cf275c057c1646290f735dcae8543f3328362614",
+      "baseSha256": "5d09e0b08f1d942783d4a9f8cf275c057c1646290f735dcae8543f3328362614",
+      "targetSha256": "5d09e0b08f1d942783d4a9f8cf275c057c1646290f735dcae8543f3328362614",
+      "origin": "exact-upstream",
+      "license": "MIT"
+    },
+    {
+      "path": "Source/AdaptiveStorage/OnStartup.cs",
+      "upstreamSha256": "ab6cabd85f1ba4d0a2270769766b624aee1f20d4b77e7ba013dd061e21dc6d3e",
+      "baseSha256": "ab6cabd85f1ba4d0a2270769766b624aee1f20d4b77e7ba013dd061e21dc6d3e",
+      "targetSha256": "ab6cabd85f1ba4d0a2270769766b624aee1f20d4b77e7ba013dd061e21dc6d3e",
+      "origin": "exact-upstream",
+      "license": "MIT"
+    },
+    {
+      "path": "Source/AdaptiveStorage/PrintDatas/CorpsePrintData.cs",
+      "upstreamSha256": "b12b430d1fac0d148a14c8028bd829378e54c502b2144ee95117521c230a9b1f",
+      "baseSha256": "b12b430d1fac0d148a14c8028bd829378e54c502b2144ee95117521c230a9b1f",
+      "targetSha256": "b12b430d1fac0d148a14c8028bd829378e54c502b2144ee95117521c230a9b1f",
+      "origin": "exact-upstream",
+      "license": "MIT"
+    },
+    {
+      "path": "Source/AdaptiveStorage/PrintDatas/ITransformableGraphicPrintData.cs",
+      "upstreamSha256": "8baab085bf2b630c5eaac741ec7d4247bbff08c1e620b818ba58425535cffed1",
+      "baseSha256": "8baab085bf2b630c5eaac741ec7d4247bbff08c1e620b818ba58425535cffed1",
+      "targetSha256": "8baab085bf2b630c5eaac741ec7d4247bbff08c1e620b818ba58425535cffed1",
+      "origin": "exact-upstream",
+      "license": "MIT"
+    },
+    {
+      "path": "Source/AdaptiveStorage/PrintDatas/ITransformableThingPrintData.cs",
+      "upstreamSha256": "2a27f689768865e9a6e959e2e3ca6e6f0f98b5578b784fbc7341acbc3848464f",
+      "baseSha256": "2a27f689768865e9a6e959e2e3ca6e6f0f98b5578b784fbc7341acbc3848464f",
+      "targetSha256": "2a27f689768865e9a6e959e2e3ca6e6f0f98b5578b784fbc7341acbc3848464f",
+      "origin": "exact-upstream",
+      "license": "MIT"
+    },
+    {
+      "path": "Source/AdaptiveStorage/PrintDatas/MinifiedThingPrintData.cs",
+      "upstreamSha256": "ac35df4ccf0d869fec8ce1a21cec314dab860d9e7d20d072003e16d819f94e84",
+      "baseSha256": "ac35df4ccf0d869fec8ce1a21cec314dab860d9e7d20d072003e16d819f94e84",
+      "targetSha256": "ac35df4ccf0d869fec8ce1a21cec314dab860d9e7d20d072003e16d819f94e84",
+      "origin": "exact-upstream",
+      "license": "MIT"
+    },
+    {
+      "path": "Source/AdaptiveStorage/PrintDatas/OptimizedPrintData.cs",
+      "upstreamSha256": "b825baea2573750b173ebfe33af79e0c9edf270d95ad0928e61d483a00e3df77",
+      "baseSha256": "b825baea2573750b173ebfe33af79e0c9edf270d95ad0928e61d483a00e3df77",
+      "targetSha256": "b825baea2573750b173ebfe33af79e0c9edf270d95ad0928e61d483a00e3df77",
+      "origin": "exact-upstream",
+      "license": "MIT"
+    },
+    {
+      "path": "Source/AdaptiveStorage/PrintDatas/PrintData.cs",
+      "upstreamSha256": "5cc15bb89ae099795530b7c796cb9d6c77f8b1669f42024b10acc8488dca74d9",
+      "baseSha256": "d7c9054ba591f67ea5e975e2f17e3600812ddca5b758f8fd3d417565ef163168",
+      "targetSha256": "d7c9054ba591f67ea5e975e2f17e3600812ddca5b758f8fd3d417565ef163168",
+      "origin": "mechanical-adaptation",
+      "license": "MIT",
+      "adaptations": [
+        {
+          "replaceOnce": "\tpublic Vector2 DrawScale\n\t{\n\t\tget;\n\t\tset\n\t\t{\n\t\t\tif (value == field)\n\t\t\t\treturn;\n\n\t\t\tfield = value;\n\t\t\tUpdateMatrix();\n\t\t}\n\t} = Vector2.one;",
+          "with": "\t[System.Runtime.CompilerServices.CompilerGenerated]\n\tprivate Vector2 __DrawScale = Vector2.one;\n\n\tpublic Vector2 DrawScale\n\t{\n\t\tget => __DrawScale;\n\t\tset\n\t\t{\n\t\t\tif (value == __DrawScale)\n\t\t\t\treturn;\n\n\t\t\t__DrawScale = value;\n\t\t\tUpdateMatrix();\n\t\t}\n\t}"
+        },
+        {
+          "replaceOnce": "\tpublic Vector3 DrawOffset\n\t{\n\t\tget;\n\t\tset\n\t\t{\n\t\t\tfield = value;\n\t\t\tUpdateMatrix();\n\t\t}\n\t}",
+          "with": "\t[System.Runtime.CompilerServices.CompilerGenerated]\n\tprivate Vector3 __DrawOffset;\n\n\tpublic Vector3 DrawOffset\n\t{\n\t\tget => __DrawOffset;\n\t\tset\n\t\t{\n\t\t\t__DrawOffset = value;\n\t\t\tUpdateMatrix();\n\t\t}\n\t}"
+        },
+        {
+          "replaceOnce": "\tpublic Rot4 ThingRotation\n\t{\n\t\tget;\n\t\tset\n\t\t{\n\t\t\tif (value == field)\n\t\t\t\treturn;\n\n\t\t\tfield = value;\n\t\t\tSetThingRotation(value);\n\t\t}\n\t} = Rot4.Invalid;",
+          "with": "\t[System.Runtime.CompilerServices.CompilerGenerated]\n\tprivate Rot4 __ThingRotation = Rot4.Invalid;\n\n\tpublic Rot4 ThingRotation\n\t{\n\t\tget => __ThingRotation;\n\t\tset\n\t\t{\n\t\t\tif (value == __ThingRotation)\n\t\t\t\treturn;\n\n\t\t\t__ThingRotation = value;\n\t\t\tSetThingRotation(value);\n\t\t}\n\t}"
+        },
+        {
+          "replaceOnce": "\tpublic float ExtraRotation\n\t{\n\t\tget;\n\t\tset\n\t\t{\n\t\t\tif (Mathf.Approximately(value, field))\n\t\t\t\treturn;\n\n\t\t\tfield = value;\n\t\t\tUpdateMatrix();\n\t\t}\n\t}",
+          "with": "\t[System.Runtime.CompilerServices.CompilerGenerated]\n\tprivate float __ExtraRotation;\n\n\tpublic float ExtraRotation\n\t{\n\t\tget => __ExtraRotation;\n\t\tset\n\t\t{\n\t\t\tif (Mathf.Approximately(value, __ExtraRotation))\n\t\t\t\treturn;\n\n\t\t\t__ExtraRotation = value;\n\t\t\tUpdateMatrix();\n\t\t}\n\t}"
+        }
+      ]
+    },
+    {
+      "path": "Source/AdaptiveStorage/PrintDatas/UnsupportedGraphicPrintData.cs",
+      "upstreamSha256": "1850da974df8efe9d6961bc1d25a19e65de5ef726cc2613b72e101f32d6b04e8",
+      "baseSha256": "1850da974df8efe9d6961bc1d25a19e65de5ef726cc2613b72e101f32d6b04e8",
+      "targetSha256": "1850da974df8efe9d6961bc1d25a19e65de5ef726cc2613b72e101f32d6b04e8",
+      "origin": "exact-upstream",
+      "license": "MIT"
+    },
+    {
+      "path": "Source/AdaptiveStorage/PrintDatas/UnsupportedThingPrintData.cs",
+      "upstreamSha256": "234abb84b356900be0c3c41646ca032120a45fd2aa28ff0fe899d3aed33b41bc",
+      "baseSha256": "234abb84b356900be0c3c41646ca032120a45fd2aa28ff0fe899d3aed33b41bc",
+      "targetSha256": "234abb84b356900be0c3c41646ca032120a45fd2aa28ff0fe899d3aed33b41bc",
+      "origin": "exact-upstream",
+      "license": "MIT"
+    },
+    {
+      "path": "Source/AdaptiveStorage/RotateInShelvesMode.cs",
+      "upstreamSha256": "f90161861739b4c94d5522df21e9d815a8b6973656eaa396acfa16e9bca65e3f",
+      "baseSha256": "f90161861739b4c94d5522df21e9d815a8b6973656eaa396acfa16e9bca65e3f",
+      "targetSha256": "f90161861739b4c94d5522df21e9d815a8b6973656eaa396acfa16e9bca65e3f",
+      "origin": "exact-upstream",
+      "license": "MIT"
+    },
+    {
+      "path": "Source/AdaptiveStorage/SpawnMode.cs",
+      "upstreamSha256": "0c2f2676cd1bf78bc89cacab8e5766c4f4069100ab4f98f5e58c2d7aa718122e",
+      "baseSha256": "0c2f2676cd1bf78bc89cacab8e5766c4f4069100ab4f98f5e58c2d7aa718122e",
+      "targetSha256": "0c2f2676cd1bf78bc89cacab8e5766c4f4069100ab4f98f5e58c2d7aa718122e",
+      "origin": "exact-upstream",
+      "license": "MIT"
+    },
+    {
+      "path": "Source/AdaptiveStorage/StackBehaviour.cs",
+      "upstreamSha256": "bc83d9782159b620afc27caa251243fd54677be4988711b4086dd20bf1c08ded",
+      "baseSha256": "bc83d9782159b620afc27caa251243fd54677be4988711b4086dd20bf1c08ded",
+      "targetSha256": "bc83d9782159b620afc27caa251243fd54677be4988711b4086dd20bf1c08ded",
+      "origin": "exact-upstream",
+      "license": "MIT"
+    },
+    {
+      "path": "Source/AdaptiveStorage/StatDrawEntries.cs",
+      "upstreamSha256": "66f6e65563a20912027790dffc3840a3c3018d69a701989cb72b151afd2470d6",
+      "baseSha256": "66f6e65563a20912027790dffc3840a3c3018d69a701989cb72b151afd2470d6",
+      "targetSha256": "66f6e65563a20912027790dffc3840a3c3018d69a701989cb72b151afd2470d6",
+      "origin": "exact-upstream",
+      "license": "MIT"
+    },
+    {
+      "path": "Source/AdaptiveStorage/StatPart.cs",
+      "upstreamSha256": "52cb8c1eed775a556699fac03ed4c14d6642954711d75cb6091cb16dd8f703f9",
+      "baseSha256": "52cb8c1eed775a556699fac03ed4c14d6642954711d75cb6091cb16dd8f703f9",
+      "targetSha256": "52cb8c1eed775a556699fac03ed4c14d6642954711d75cb6091cb16dd8f703f9",
+      "origin": "exact-upstream",
+      "license": "MIT"
+    },
+    {
+      "path": "Source/AdaptiveStorage/StorageCell.cs",
+      "upstreamSha256": "b88d93dd5c3450d95efb1692242e89f32a59cf43251c93ffc8bf460f015f3b63",
+      "baseSha256": "b88d93dd5c3450d95efb1692242e89f32a59cf43251c93ffc8bf460f015f3b63",
+      "targetSha256": "b88d93dd5c3450d95efb1692242e89f32a59cf43251c93ffc8bf460f015f3b63",
+      "origin": "exact-upstream",
+      "license": "MIT"
+    },
+    {
+      "path": "Source/AdaptiveStorage/StorageGraphic.cs",
+      "upstreamSha256": "baf305c20eada27848a4abb0c8c937d37cb1659c6b3bab7ceb2587a25d9c8712",
+      "baseSha256": "baf305c20eada27848a4abb0c8c937d37cb1659c6b3bab7ceb2587a25d9c8712",
+      "targetSha256": "baf305c20eada27848a4abb0c8c937d37cb1659c6b3bab7ceb2587a25d9c8712",
+      "origin": "exact-upstream",
+      "license": "MIT"
+    },
+    {
+      "path": "Source/AdaptiveStorage/StorageGraphicData.cs",
+      "upstreamSha256": "2e903e2d28e922f9017fdb2d9903510780f0a5daf39107a52d31fed4e20ec97f",
+      "baseSha256": "2e903e2d28e922f9017fdb2d9903510780f0a5daf39107a52d31fed4e20ec97f",
+      "targetSha256": "2e903e2d28e922f9017fdb2d9903510780f0a5daf39107a52d31fed4e20ec97f",
+      "origin": "exact-upstream",
+      "license": "MIT"
+    },
+    {
+      "path": "Source/AdaptiveStorage/StorageGraphicWorker.cs",
+      "upstreamSha256": "6488390c25fefd62a7394541aa407678a420d93acec71e904efeb1b21e7ab8da",
+      "baseSha256": "6488390c25fefd62a7394541aa407678a420d93acec71e904efeb1b21e7ab8da",
+      "targetSha256": "6488390c25fefd62a7394541aa407678a420d93acec71e904efeb1b21e7ab8da",
+      "origin": "exact-upstream",
+      "license": "MIT"
+    },
+    {
+      "path": "Source/AdaptiveStorage/StorageRenderer.cs",
+      "upstreamSha256": "7f41aea5c8c6d514d647d3d834efa1408523bd569338c42f2a52bb84b3a07c2f",
+      "baseSha256": "ec9b00c1b45fc73b72e144d2fafe778194556bdabd1adceab133a3045adbaa7b",
+      "targetSha256": "ec9b00c1b45fc73b72e144d2fafe778194556bdabd1adceab133a3045adbaa7b",
+      "origin": "mechanical-adaptation",
+      "license": "MIT",
+      "adaptations": [
+        {
+          "replaceOnce": "\tpublic int CurrentGraphicIndex\n\t{\n\t\tget;\n\t\tset\n\t\t{\n\t\t\tif (field == value)\n\t\t\t\treturn;\n\n\t\t\tfield = value;\n\t\t\tCurrentGraphicChanged?.Invoke();\n\t\t}\n\t} = -1;",
+          "with": "\t[System.Runtime.CompilerServices.CompilerGenerated]\n\tprivate int __CurrentGraphicIndex = -1;\n\n\tpublic int CurrentGraphicIndex\n\t{\n\t\tget => __CurrentGraphicIndex;\n\t\tset\n\t\t{\n\t\t\tif (__CurrentGraphicIndex == value)\n\t\t\t\treturn;\n\n\t\t\t__CurrentGraphicIndex = value;\n\t\t\tCurrentGraphicChanged?.Invoke();\n\t\t}\n\t}"
+        },
+        {
+          "replaceOnce": "\tpublic int CurrentVariationIndex\n\t{\n\t\tget;\n\t\tset\n\t\t{\n\t\t\tif (field == value)\n\t\t\t\treturn;\n\n\t\t\tfield = value;\n\t\t\tCurrentGraphicChanged?.Invoke();\n\t\t}\n\t} = -1;",
+          "with": "\t[System.Runtime.CompilerServices.CompilerGenerated]\n\tprivate int __CurrentVariationIndex = -1;\n\n\tpublic int CurrentVariationIndex\n\t{\n\t\tget => __CurrentVariationIndex;\n\t\tset\n\t\t{\n\t\t\tif (__CurrentVariationIndex == value)\n\t\t\t\treturn;\n\n\t\t\t__CurrentVariationIndex = value;\n\t\t\tCurrentGraphicChanged?.Invoke();\n\t\t}\n\t}"
+        },
+        {
+          "replaceOnce": "\tpublic bool BuildingGraphicsDirty\n\t{\n\t\tget => field || ParentStatsDirty;\n\t\tset\n\t\t{\n\t\t\tfield = value;\n\t\t\tvar parent = Parent;\n\t\t\t_previousColorOne = parent.DrawColor;\n\t\t\t_previousColorTwo = parent.DrawColorTwo;\n\t\t}\n\t} = true;",
+          "with": "\t[System.Runtime.CompilerServices.CompilerGenerated]\n\tprivate bool __BuildingGraphicsDirty = true;\n\n\tpublic bool BuildingGraphicsDirty\n\t{\n\t\tget => __BuildingGraphicsDirty || ParentStatsDirty;\n\t\tset\n\t\t{\n\t\t\t__BuildingGraphicsDirty = value;\n\t\t\tvar parent = Parent;\n\t\t\t_previousColorOne = parent.DrawColor;\n\t\t\t_previousColorTwo = parent.DrawColorTwo;\n\t\t}\n\t}"
+        },
+        {
+          "replaceOnce": "static (data, phase, in transform) =>",
+          "with": "static (PrintData data, DrawPhase phase, in TransformData transform) =>"
+        },
+        {
+          "replaceOnce": "static (data, _, in transform) =>",
+          "with": "static (PrintData data, int _, in TransformData transform) =>"
+        },
+        {
+          "replaceOnce": "static (data, layer, in transform) =>",
+          "with": "static (PrintData data, SectionLayer layer, in TransformData transform) =>"
+        }
+      ]
+    },
+    {
+      "path": "Source/AdaptiveStorage/Strings.cs",
+      "upstreamSha256": "b6871ea9e00ad6f3f8fe58fcba1c2c53d7b1fa2802fc02febdda063e217b472e",
+      "baseSha256": "b6871ea9e00ad6f3f8fe58fcba1c2c53d7b1fa2802fc02febdda063e217b472e",
+      "targetSha256": "b6871ea9e00ad6f3f8fe58fcba1c2c53d7b1fa2802fc02febdda063e217b472e",
+      "origin": "exact-upstream",
+      "license": "MIT"
+    },
+    {
+      "path": "Source/AdaptiveStorage/ThingClass.cs",
+      "upstreamSha256": "7106bc1cbbddc4d7c3c4f55df92ad131520aa2b2411022475bc0c1326744467d",
+      "baseSha256": "dbea56f31b75e62a1f0a3e394f4c93e55adaa0923627ca5f5c365f1c2aafe953",
+      "targetSha256": "7106bc1cbbddc4d7c3c4f55df92ad131520aa2b2411022475bc0c1326744467d",
+      "origin": "historical-behavior-reconstruction",
+      "license": "MIT"
+    },
+    {
+      "path": "Source/AdaptiveStorage/ThingCollection.cs",
+      "upstreamSha256": "502a7cb30856244eefc370a3f6ea3653118512704ee7e4b1efd70587c494cdf4",
+      "baseSha256": "502a7cb30856244eefc370a3f6ea3653118512704ee7e4b1efd70587c494cdf4",
+      "targetSha256": "502a7cb30856244eefc370a3f6ea3653118512704ee7e4b1efd70587c494cdf4",
+      "origin": "exact-upstream",
+      "license": "MIT"
+    },
+    {
+      "path": "Source/AdaptiveStorage/ThingGridEventHandler.cs",
+      "upstreamSha256": "ed4711d29c8303b0eef9ee71c487a13ae5689d04f631c259a2d87a407c3707c8",
+      "baseSha256": "ed4711d29c8303b0eef9ee71c487a13ae5689d04f631c259a2d87a407c3707c8",
+      "targetSha256": "ed4711d29c8303b0eef9ee71c487a13ae5689d04f631c259a2d87a407c3707c8",
+      "origin": "exact-upstream",
+      "license": "MIT"
+    },
+    {
+      "path": "Source/AdaptiveStorage/TransformableGraphicSingle.cs",
+      "upstreamSha256": "25530a70a1e121c17a00f117673e45d609a28544f4a7b72bddd203a2428533dd",
+      "baseSha256": "25530a70a1e121c17a00f117673e45d609a28544f4a7b72bddd203a2428533dd",
+      "targetSha256": "25530a70a1e121c17a00f117673e45d609a28544f4a7b72bddd203a2428533dd",
+      "origin": "exact-upstream",
+      "license": "MIT"
+    },
+    {
+      "path": "Source/AdaptiveStorage/Utility/BetterQuickSearchWidget.cs",
+      "upstreamSha256": "5668574672574bd1fa46aea8a6185045ab86b6d01746baaaadfdec8608dc5a55",
+      "baseSha256": "5668574672574bd1fa46aea8a6185045ab86b6d01746baaaadfdec8608dc5a55",
+      "targetSha256": "5668574672574bd1fa46aea8a6185045ab86b6d01746baaaadfdec8608dc5a55",
+      "origin": "exact-upstream",
+      "license": "MIT"
+    },
+    {
+      "path": "Source/AdaptiveStorage/Utility/CellData.cs",
+      "upstreamSha256": "dd701a65ffed810f4ab223f2592c0634e1fdcfd2e882151869b3556a68d9f2ad",
+      "baseSha256": "dd701a65ffed810f4ab223f2592c0634e1fdcfd2e882151869b3556a68d9f2ad",
+      "targetSha256": "dd701a65ffed810f4ab223f2592c0634e1fdcfd2e882151869b3556a68d9f2ad",
+      "origin": "exact-upstream",
+      "license": "MIT"
+    },
+    {
+      "path": "Source/AdaptiveStorage/Utility/CellTable.cs",
+      "upstreamSha256": "1775fda1ad54a174e9ee3a76b24ab52f4fc13789a3c3c66d85c8bf0790146024",
+      "baseSha256": "1775fda1ad54a174e9ee3a76b24ab52f4fc13789a3c3c66d85c8bf0790146024",
+      "targetSha256": "1775fda1ad54a174e9ee3a76b24ab52f4fc13789a3c3c66d85c8bf0790146024",
+      "origin": "exact-upstream",
+      "license": "MIT"
+    },
+    {
+      "path": "Source/AdaptiveStorage/Utility/CollectionExtensions.cs",
+      "upstreamSha256": "61c5fc2db29b4b597769972acdbf8202a41a69086a45e27afba3730d5f0ccf59",
+      "baseSha256": "61c5fc2db29b4b597769972acdbf8202a41a69086a45e27afba3730d5f0ccf59",
+      "targetSha256": "61c5fc2db29b4b597769972acdbf8202a41a69086a45e27afba3730d5f0ccf59",
+      "origin": "exact-upstream",
+      "license": "MIT"
+    },
+    {
+      "path": "Source/AdaptiveStorage/Utility/CommandWithFloatMenu.cs",
+      "upstreamSha256": "09b4bfa444c24081764f22f9ac29cc67da9b40b360cf4b37a1d198be5f6f7182",
+      "baseSha256": "09b4bfa444c24081764f22f9ac29cc67da9b40b360cf4b37a1d198be5f6f7182",
+      "targetSha256": "09b4bfa444c24081764f22f9ac29cc67da9b40b360cf4b37a1d198be5f6f7182",
+      "origin": "exact-upstream",
+      "license": "MIT"
+    },
+    {
+      "path": "Source/AdaptiveStorage/Utility/Exposable.cs",
+      "upstreamSha256": "d82503919dffcc9668f946ea3a7874bf1e7058a0ba3dfcf2363348b7eea06bd0",
+      "baseSha256": "d82503919dffcc9668f946ea3a7874bf1e7058a0ba3dfcf2363348b7eea06bd0",
+      "targetSha256": "d82503919dffcc9668f946ea3a7874bf1e7058a0ba3dfcf2363348b7eea06bd0",
+      "origin": "exact-upstream",
+      "license": "MIT"
+    },
+    {
+      "path": "Source/AdaptiveStorage/Utility/GUIScope.cs",
+      "upstreamSha256": "290512039c5154f67883fef50b31cc7a731f8417423c0bf6c697512589b492b9",
+      "baseSha256": "290512039c5154f67883fef50b31cc7a731f8417423c0bf6c697512589b492b9",
+      "targetSha256": "290512039c5154f67883fef50b31cc7a731f8417423c0bf6c697512589b492b9",
+      "origin": "exact-upstream",
+      "license": "MIT"
+    },
+    {
+      "path": "Source/AdaptiveStorage/Utility/GraphicDataExtensions.cs",
+      "upstreamSha256": "b614260f0e0871321adbba5ee19e32054e4078ae7c2918ed834d5f66abb91773",
+      "baseSha256": "b614260f0e0871321adbba5ee19e32054e4078ae7c2918ed834d5f66abb91773",
+      "targetSha256": "b614260f0e0871321adbba5ee19e32054e4078ae7c2918ed834d5f66abb91773",
+      "origin": "exact-upstream",
+      "license": "MIT"
+    },
+    {
+      "path": "Source/AdaptiveStorage/Utility/GraphicTransformScope.cs",
+      "upstreamSha256": "d8ca3ba5b0ce879d87a6a6e4b61c89e8fa9b929b321c675150594067b9763a34",
+      "baseSha256": "d8ca3ba5b0ce879d87a6a6e4b61c89e8fa9b929b321c675150594067b9763a34",
+      "targetSha256": "d8ca3ba5b0ce879d87a6a6e4b61c89e8fa9b929b321c675150594067b9763a34",
+      "origin": "exact-upstream",
+      "license": "MIT"
+    },
+    {
+      "path": "Source/AdaptiveStorage/Utility/IHasPosition.cs",
+      "upstreamSha256": "a24ab47f24f48e8ed45ec248d3414e3a5fba4808dc6dda33ac4067567145f7b9",
+      "baseSha256": "a24ab47f24f48e8ed45ec248d3414e3a5fba4808dc6dda33ac4067567145f7b9",
+      "targetSha256": "a24ab47f24f48e8ed45ec248d3414e3a5fba4808dc6dda33ac4067567145f7b9",
+      "origin": "exact-upstream",
+      "license": "MIT"
+    },
+    {
+      "path": "Source/AdaptiveStorage/Utility/ItemRenderControls.cs",
+      "upstreamSha256": "fd2aadfe9886e49eacd1356b2680f4075d645a125d9b541bd4927b82f8552fe8",
+      "baseSha256": "fd2aadfe9886e49eacd1356b2680f4075d645a125d9b541bd4927b82f8552fe8",
+      "targetSha256": "fd2aadfe9886e49eacd1356b2680f4075d645a125d9b541bd4927b82f8552fe8",
+      "origin": "exact-upstream",
+      "license": "MIT"
+    },
+    {
+      "path": "Source/AdaptiveStorage/Utility/ListingExtensions.cs",
+      "upstreamSha256": "cc07654240e930c145321197faa63b6515d7e75e3cd1cd4ef186721f35217558",
+      "baseSha256": "cc07654240e930c145321197faa63b6515d7e75e3cd1cd4ef186721f35217558",
+      "targetSha256": "cc07654240e930c145321197faa63b6515d7e75e3cd1cd4ef186721f35217558",
+      "origin": "exact-upstream",
+      "license": "MIT"
+    },
+    {
+      "path": "Source/AdaptiveStorage/Utility/MatrixExtensions.cs",
+      "upstreamSha256": "e8b8ecb71e9171dfbcf6f3703a6b0419385077e326e2a33646d9e37c634aa492",
+      "baseSha256": "e8b8ecb71e9171dfbcf6f3703a6b0419385077e326e2a33646d9e37c634aa492",
+      "targetSha256": "e8b8ecb71e9171dfbcf6f3703a6b0419385077e326e2a33646d9e37c634aa492",
+      "origin": "exact-upstream",
+      "license": "MIT"
+    },
+    {
+      "path": "Source/AdaptiveStorage/Utility/PrintUtility.cs",
+      "upstreamSha256": "e08090bcf386f40e4d97dbcedb3376d26a346f6c9c87d8c2370d2ecb4b24cd59",
+      "baseSha256": "e08090bcf386f40e4d97dbcedb3376d26a346f6c9c87d8c2370d2ecb4b24cd59",
+      "targetSha256": "e08090bcf386f40e4d97dbcedb3376d26a346f6c9c87d8c2370d2ecb4b24cd59",
+      "origin": "exact-upstream",
+      "license": "MIT"
+    },
+    {
+      "path": "Source/AdaptiveStorage/Utility/ReflectionExtensions.cs",
+      "upstreamSha256": "2b35617ff7428c289b72cd58825f7aa451924747a0dff759283e2312efe5dd51",
+      "baseSha256": "2b35617ff7428c289b72cd58825f7aa451924747a0dff759283e2312efe5dd51",
+      "targetSha256": "2b35617ff7428c289b72cd58825f7aa451924747a0dff759283e2312efe5dd51",
+      "origin": "exact-upstream",
+      "license": "MIT"
+    },
+    {
+      "path": "Source/AdaptiveStorage/Utility/ScopedStatList.cs",
+      "upstreamSha256": "d96eeee78c5472ba3871f5157fb51a601cdafa76d4e934753cc52226826fda73",
+      "baseSha256": "d96eeee78c5472ba3871f5157fb51a601cdafa76d4e934753cc52226826fda73",
+      "targetSha256": "d96eeee78c5472ba3871f5157fb51a601cdafa76d4e934753cc52226826fda73",
+      "origin": "exact-upstream",
+      "license": "MIT"
+    },
+    {
+      "path": "Source/AdaptiveStorage/Utility/ScopedValue.cs",
+      "upstreamSha256": "354f52351e5c3deebb2ea8bd8826bbe1325565d79381d2f5eda8f3ca113c0b56",
+      "baseSha256": "354f52351e5c3deebb2ea8bd8826bbe1325565d79381d2f5eda8f3ca113c0b56",
+      "targetSha256": "354f52351e5c3deebb2ea8bd8826bbe1325565d79381d2f5eda8f3ca113c0b56",
+      "origin": "exact-upstream",
+      "license": "MIT"
+    },
+    {
+      "path": "Source/AdaptiveStorage/Utility/StoreUtilityExtensions.cs",
+      "upstreamSha256": "68ec6082708f7e9a90ffb47cf82931ef70da70a47a1d41b1e8ec3eba87c4ba5d",
+      "baseSha256": "68ec6082708f7e9a90ffb47cf82931ef70da70a47a1d41b1e8ec3eba87c4ba5d",
+      "targetSha256": "68ec6082708f7e9a90ffb47cf82931ef70da70a47a1d41b1e8ec3eba87c4ba5d",
+      "origin": "exact-upstream",
+      "license": "MIT"
+    },
+    {
+      "path": "Source/AdaptiveStorage/Utility/ThingDefExtensions.cs",
+      "upstreamSha256": "8b49e92fc00cf1148c3ad1413bca3fde54b16c852b9bf1a10c165fb7ad1144e0",
+      "baseSha256": "8b49e92fc00cf1148c3ad1413bca3fde54b16c852b9bf1a10c165fb7ad1144e0",
+      "targetSha256": "8b49e92fc00cf1148c3ad1413bca3fde54b16c852b9bf1a10c165fb7ad1144e0",
+      "origin": "exact-upstream",
+      "license": "MIT"
+    },
+    {
+      "path": "Source/AdaptiveStorage/Utility/ThingExtensions.cs",
+      "upstreamSha256": "748fee5e15c8ee4f108339c6fc4060c48562c4358a4445873bd6c09c424147e3",
+      "baseSha256": "748fee5e15c8ee4f108339c6fc4060c48562c4358a4445873bd6c09c424147e3",
+      "targetSha256": "748fee5e15c8ee4f108339c6fc4060c48562c4358a4445873bd6c09c424147e3",
+      "origin": "exact-upstream",
+      "license": "MIT"
+    },
+    {
+      "path": "Source/AdaptiveStorage/Utility/ThingFilterExtensions.cs",
+      "upstreamSha256": "fa431080ff2625e9dc6a07d3a28998b5c221b9b036152624ac84c01b6c7ea6b0",
+      "baseSha256": "fa431080ff2625e9dc6a07d3a28998b5c221b9b036152624ac84c01b6c7ea6b0",
+      "targetSha256": "fa431080ff2625e9dc6a07d3a28998b5c221b9b036152624ac84c01b6c7ea6b0",
+      "origin": "exact-upstream",
+      "license": "MIT"
+    },
+    {
+      "path": "Source/AdaptiveStorage/Utility/ThingMakerUtility.cs",
+      "upstreamSha256": "227d36bf42974aa2839d8cfe9e7fe197b733a5d8739c7b0a32f5235fbc9cd905",
+      "baseSha256": "227d36bf42974aa2839d8cfe9e7fe197b733a5d8739c7b0a32f5235fbc9cd905",
+      "targetSha256": "227d36bf42974aa2839d8cfe9e7fe197b733a5d8739c7b0a32f5235fbc9cd905",
+      "origin": "exact-upstream",
+      "license": "MIT"
+    },
+    {
+      "path": "Source/AdaptiveStorage/Utility/UIHelpers.cs",
+      "upstreamSha256": "8555c22117b1cd30ad5de610a3a5b87b1b88caec73f31230c6b82a4fa1d9d2e8",
+      "baseSha256": "8555c22117b1cd30ad5de610a3a5b87b1b88caec73f31230c6b82a4fa1d9d2e8",
+      "targetSha256": "8555c22117b1cd30ad5de610a3a5b87b1b88caec73f31230c6b82a4fa1d9d2e8",
+      "origin": "exact-upstream",
+      "license": "MIT"
+    },
+    {
+      "path": "Source/AdaptiveStorage/Utility/ValuesByQuality.cs",
+      "upstreamSha256": "69c7127ebf9a2620da90c26a284e28d724285d05756a1e513f20952c50d82849",
+      "baseSha256": "69c7127ebf9a2620da90c26a284e28d724285d05756a1e513f20952c50d82849",
+      "targetSha256": "69c7127ebf9a2620da90c26a284e28d724285d05756a1e513f20952c50d82849",
+      "origin": "exact-upstream",
+      "license": "MIT"
+    },
+    {
+      "path": "Source/AdaptiveStorage/Utility/VectorExtensions.cs",
+      "upstreamSha256": "c22b40e729a754dabe5c7042bc1c1ee59d1c8ee7cb7a46927794118e4f98b6c4",
+      "baseSha256": "c22b40e729a754dabe5c7042bc1c1ee59d1c8ee7cb7a46927794118e4f98b6c4",
+      "targetSha256": "c22b40e729a754dabe5c7042bc1c1ee59d1c8ee7cb7a46927794118e4f98b6c4",
+      "origin": "exact-upstream",
+      "license": "MIT"
+    },
+    {
+      "path": "Source/AdaptiveStorage/Utility/WorkerClassMaker.cs",
+      "upstreamSha256": "e17a3a2187ffd2852174e52c1f93591620af6757958b86e3b03fbc59a63350b1",
+      "baseSha256": "e17a3a2187ffd2852174e52c1f93591620af6757958b86e3b03fbc59a63350b1",
+      "targetSha256": "e17a3a2187ffd2852174e52c1f93591620af6757958b86e3b03fbc59a63350b1",
+      "origin": "exact-upstream",
+      "license": "MIT"
+    },
+    {
+      "path": "Source/ITransformable/ITransformable.cs",
+      "upstreamSha256": "d94d0202a3957f9d19fbe4959bf0d35f325dacc4eebe345c6ade16d527b00f66",
+      "baseSha256": "d94d0202a3957f9d19fbe4959bf0d35f325dacc4eebe345c6ade16d527b00f66",
+      "targetSha256": "d94d0202a3957f9d19fbe4959bf0d35f325dacc4eebe345c6ade16d527b00f66",
+      "origin": "exact-upstream",
+      "license": "MIT"
+    },
+    {
+      "path": "Source/ITransformable/RotationAngle.cs",
+      "upstreamSha256": "2d853eea76e30bd67f30211600216d109733388d1cf0347e6268b0bf4213bb7e",
+      "baseSha256": "2d853eea76e30bd67f30211600216d109733388d1cf0347e6268b0bf4213bb7e",
+      "targetSha256": "2d853eea76e30bd67f30211600216d109733388d1cf0347e6268b0bf4213bb7e",
+      "origin": "exact-upstream",
+      "license": "MIT"
+    },
+    {
+      "path": "Source/ITransformable/TransformData.cs",
+      "upstreamSha256": "bc07202da2f2d0fa831f34f238ab61f7c88e22be227091781e60880a2fddef2d",
+      "baseSha256": "bc07202da2f2d0fa831f34f238ab61f7c88e22be227091781e60880a2fddef2d",
+      "targetSha256": "bc07202da2f2d0fa831f34f238ab61f7c88e22be227091781e60880a2fddef2d",
+      "origin": "exact-upstream",
+      "license": "MIT"
+    }
+  ],
+  "compileValidated": true,
+  "engineValidated": false,
+  "sourceSelection": "Every upstream C# compilation unit except StorageCellRect; no production branch or startup class removed. Thirteen field-backed properties in six files mechanically lowered to C#12. Three renderer lambdas have explicit C#12 parameter types."
+}

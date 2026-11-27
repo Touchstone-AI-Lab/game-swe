@@ -1,0 +1,158 @@
+{
+  "version": 1,
+  "base": "references/player-map",
+  "mutations": [
+    {
+      "id": "touch-sequence-not-monotonic",
+      "file": "lua/rhenium_hot_object_round/controller.lua",
+      "old": "or seq<=self.last_sequence then",
+      "new": "or false then",
+      "check": "hidden-behavior",
+      "case": "monotonic touch sequence transfers holder",
+      "expectedLayer": "plain-lua"
+    },
+    {
+      "id": "event-replay-disabled",
+      "file": "lua/rhenium_hot_object_round/controller.lua",
+      "old": "local old=self.seen[eid];if old then",
+      "new": "local old=nil;if old then",
+      "check": "hidden-behavior",
+      "case": "event replay is exact and conflicts fail",
+      "expectedLayer": "plain-lua"
+    },
+    {
+      "id": "object-revision-ignored",
+      "file": "lua/rhenium_hot_object_round/controller.lua",
+      "old": "if oid~=self.object_id or orev~=self.object_revision then",
+      "new": "if oid~=self.object_id then",
+      "check": "hidden-behavior",
+      "case": "wrong object generation and dead player never transfer",
+      "expectedLayer": "plain-lua"
+    },
+    {
+      "id": "dead-player-accepted",
+      "file": "lua/rhenium_hot_object_round/controller.lua",
+      "old": "or not p.alive or not p.connected then",
+      "new": "then",
+      "check": "hidden-behavior",
+      "case": "wrong object generation and dead player never transfer",
+      "expectedLayer": "plain-lua"
+    },
+    {
+      "id": "holder-successor-unsorted",
+      "file": "lua/rhenium_hot_object_round/controller.lua",
+      "old": "table.sort(out);return out",
+      "new": "table.sort(out,function(a,b)return a>b end);return out",
+      "check": "hidden-behavior",
+      "case": "holder death and disconnect choose stable successor",
+      "expectedLayer": "plain-lua"
+    },
+    {
+      "id": "respawn-keeps-old-revision",
+      "file": "lua/rhenium_hot_object_round/controller.lua",
+      "old": "p.revision=new_revision;p.alive=true",
+      "new": "p.alive=true",
+      "check": "hidden-behavior",
+      "case": "respawn creates a new player revision",
+      "expectedLayer": "plain-lua"
+    },
+    {
+      "id": "deadline-strictly-late",
+      "file": "lua/rhenium_hot_object_round/controller.lua",
+      "old": "if self.status==\"active\"and effective>=self.deadline then",
+      "new": "if self.status==\"active\"and effective>self.deadline then",
+      "check": "hidden-behavior",
+      "case": "deadline settles exploding round exactly once",
+      "expectedLayer": "plain-lua"
+    },
+    {
+      "id": "settlement-counts-twice",
+      "file": "lua/rhenium_hot_object_round/controller.lua",
+      "replacements": [
+        {
+          "old": "if self.status~=\"active\"then return end",
+          "new": "if false and self.status~=\"active\"then return end"
+        },
+        {
+          "old": "if self.status==\"active\"and effective>=self.deadline then",
+          "new": "if(self.status==\"active\"or self.status==\"finished\")and effective>=self.deadline then"
+        }
+      ],
+      "check": "hidden-behavior",
+      "case": "deadline settles exploding round exactly once",
+      "expectedLayer": "plain-lua"
+    },
+    {
+      "id": "time-reversal-accepted",
+      "file": "lua/rhenium_hot_object_round/controller.lua",
+      "old": "if n>self.last_now then self.last_now=n end;return self.last_now",
+      "new": "self.last_now=n;return n",
+      "check": "hidden-behavior",
+      "case": "time reversal cannot reopen or delay settlement",
+      "expectedLayer": "plain-lua"
+    },
+    {
+      "id": "save-drops-events",
+      "file": "lua/rhenium_hot_object_round/controller.lua",
+      "old": "s.seen=cp(self.seen)",
+      "new": "s.seen={}",
+      "check": "hidden-behavior",
+      "case": "save load preserves audit result and deduplication",
+      "expectedLayer": "plain-lua"
+    },
+    {
+      "id": "shutdown-leaks-timer",
+      "file": "lua/rhenium_hot_object_round/server.lua",
+      "old": "timer.Remove(Server.TimerName);installed=false",
+      "new": "installed=false",
+      "check": "lifecycle-cleanup",
+      "case": "shutdown removes hooks timer restores callbacks and freezes adapter",
+      "expectedLayer": "integration"
+    },
+    {
+      "id": "callback-restoration-removed",
+      "file": "lua/rhenium_hot_object_round/server.lua",
+      "old": "local function restore(e,b)if b then e.StartTouch=b.old_start;e.Touch=b.old_touch end end",
+      "new": "local function restore(e,b) return end",
+      "check": "gmod-integration",
+      "case": "object binding is single use and removal restores original callbacks",
+      "expectedLayer": "gmod-integration"
+    },
+    {
+      "id": "duplicate-object-binding-accepted",
+      "file": "lua/rhenium_hot_object_round/server.lua",
+      "old": "or objects[e]then return false end",
+      "new": "then return false end",
+      "check": "gmod-integration",
+      "case": "object binding is single use and removal restores original callbacks",
+      "expectedLayer": "gmod-integration"
+    },
+    {
+      "id": "fake-death-lifecycle",
+      "file": "lua/rhenium_hot_object_round/server.lua",
+      "old": "if b then core:death(\"death:\"..b.id..\":\"..b.revision,b.id,b.revision,CurTime())end",
+      "new": "if b then return end",
+      "check": "gmod-integration",
+      "case": "PlayerDeath hook changes holder once",
+      "expectedLayer": "gmod-integration"
+    },
+    {
+      "id": "infected-survivors-can-win",
+      "file": "lua/rhenium_hot_object_round/controller.lua",
+      "old": "and(not uninfected or not p.infected)then",
+      "new": "and true then",
+      "check": "hidden-behavior",
+      "case": "infectious variant excludes every infected survivor from winners",
+      "expectedLayer": "hidden-behavior"
+    },
+    {
+      "id": "malformed-round-state-accepted",
+      "file": "lua/rhenium_hot_object_round/controller.lua",
+      "old": "if s and not restore(self,s)then return nil,\"invalid_state\"end",
+      "new": "if false and s and not restore(self,s)then return nil,\"invalid_state\"end",
+      "check": "hidden-behavior",
+      "case": "malformed players events audit result and revisions are rejected",
+      "expectedLayer": "hidden-behavior"
+    }
+  ]
+}

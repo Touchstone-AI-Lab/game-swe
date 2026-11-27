@@ -1,0 +1,24 @@
+--- a/scripts/components/DsMMO.lua
++++ b/scripts/components/DsMMO.lua
+@@ -716,21 +716,6 @@
+ 				end
+ 				spawn_to_target("collapse_small", player)
+ 			end
+-		elseif actionId == "HAUNT" then
+-			if action.target then
+-				local targetN = action.target.prefab
+-				if targetN == "flower_evil" then
+-					spawn_to_target("ground_chunks_breaking", player)
+-					if self:test_skill(SKILLS.fireflies) then
+-						spawn_to_target("collapse_small", action.target)
+-						
+-						local fireflies = SpawnPrefab("fireflies")
+-						fireflies.Transform:SetPosition(action.target.Transform:GetWorldPosition())
+-						fireflies.components.inventoryitem.ondropfn(fireflies)
+-						action.target:Remove()
+-					end
+-				end
+-			end
+ 		elseif actionId == "ADDFUEL" then
+ 			if action.target.prefab == "firepit" then
+ 				--self._teleport_to = action.target.Transform:GetWorldPosition()

@@ -1,0 +1,12 @@
+--- a/main/modules/show_bundle.lua
++++ b/main/modules/show_bundle.lua
+@@ -80,9 +80,6 @@
+ 			end
+ 
+ 			-- Spoil check
+-			if item:HasTag("show_spoiled") then
+-				data.show_spoiled = true
+-			end
+ 			if item:HasTag("fresh") or item:HasTag("stale") or item:HasTag("spoiled") then
+ 				if item:HasTag("show_spoilage") then
+ 					data.spoil = true

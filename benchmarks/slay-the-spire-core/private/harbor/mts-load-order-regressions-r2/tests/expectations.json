@@ -1,0 +1,19 @@
+{
+  "suite": [
+    "Target.java",
+    "TargetPatch.java",
+    "ByRefBoxingTest.java",
+    "LoadOrderTest.java"
+  ],
+  "cases": [
+    "gcb.ByRefBoxingTest.byRefWritesBackThroughAWrapperArray",
+    "gcb.LoadOrderTest.aChainOfDependenciesResolves",
+    "gcb.LoadOrderTest.aCircularDeclarationDoesNotRunAway",
+    "gcb.LoadOrderTest.aDependencyIsInitialisedBeforeItsDependent",
+    "gcb.LoadOrderTest.anEdgeIntoTheNewestModTakesEffect",
+    "gcb.LoadOrderTest.control_everyModSurvivesWithNoDependencies",
+    "gcb.LoadOrderTest.control_nothingIsLostOrDuplicated",
+    "gcb.LoadOrderTest.mutuallyDependentModsKeepTheirOrder",
+    "gcb.LoadOrderTest.theRelationIsNotSymmetric"
+  ]
+}

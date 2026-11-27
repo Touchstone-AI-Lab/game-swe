@@ -1,0 +1,98 @@
+{
+  "schema_version": 4,
+  "version": "branch-checks-v4",
+  "source_freeze_sha256": "5effae6c2163fe7ec5b584364c408ca203d42a059e77f55c26afeb2c9e57c855",
+  "parent_checks_sha256": "bb5f08f2e0f078dda631c6855cebec1a30327d5d67f7aeb7c6a38b9397b171eb",
+  "scope_checks_sha256": "b62862f541a6b389b7102c889a8f2898e83fea29e07a7d9c2244c11d30020666",
+  "test_only_isolation": {
+    "file": "plugins/balatro/tests/test_balatro_review.py",
+    "before_sha256": "03ec433a2741f8e5b66175c967a0394d5132dab338b0647141248908d67d248c",
+    "after_sha256": "79766db8f03ed2607df9747580765baa7ec2e743f4a6c680308600917458d2bd",
+    "before_archive_sha256": "194ed9cdf1ec08d7694d02a2379383165413cb2e214d82775ae7a05242c7da63",
+    "assertions_preserved": true,
+    "real_windows_lock_and_job_tests_unchanged": true
+  },
+  "evidence": {
+    "related-source-v4.log": "08a711a33f9edc6a7a2400deb90b64bbd718aab2e12383eee6123a31944bf58c",
+    "related-source-v4.xml": "7c2744d2819ab62708a4fbeaa40f65aa23b3185122daed8ecc5f7f760485e970",
+    "ruff-source-v4.log": "a4443afdcfb6d7363adb285762515ccf7cf50473b1a05c20c1a50f6bed4d26b0",
+    "mypy-windows-source-v4.log": "702a83d8b60ec70d7750e31089e4f1ccdab0a002097fd2c820f7ba15c8c2802a",
+    "mypy-linux-source-v4.log": "81a98f969835ac23af3a068a598d068393978ff7d328b2d34f8d03233d52dadd",
+    "pytest-full-source-v4.log": "77cf8769e3eebb6be5179a80666b39ef5b66e69667a150fcc783ca94f640364e",
+    "pytest-full-source-v4.xml": "8d18863ba356dba1acf69c20db6471e092555f91826425b34b0e6556d20bf897"
+  },
+  "pytest": {
+    "related_final_source": {
+      "tests": 192,
+      "errors": 0,
+      "failures": 0,
+      "skipped": 0,
+      "passed": true
+    },
+    "full_windows": {
+      "tests": 7,
+      "errors": 7,
+      "failures": 0,
+      "skipped": 0,
+      "passed": false,
+      "reason": "Seven unchanged authoring collection errors: fcntl unavailable on Windows; full suite did not execute"
+    },
+    "installed_wheel_prior_check": {
+      "tests": 80,
+      "errors": 0,
+      "failures": 0,
+      "skipped": 0,
+      "passed": true,
+      "sha256": "3734c901dfdd07ad43f909c8e95906e794e5c03a3438752203397e6f112febd2"
+    },
+    "prior_check_note": "Same unchanged 0.2.2 wheel; 80 tests before test-only isolation; not an additional final-source count"
+  },
+  "mypy": {
+    "windows_full": {
+      "passed": false,
+      "error_count": 45,
+      "files": [
+        "plugins/dst/src/rhenium_dst/evaluator.py",
+        "plugins/dst/src/rhenium_dst/lua_runner.py",
+        "plugins/garrys-mod/src/rhenium_garrys_mod/addons/linux_process.py",
+        "plugins/palworld/src/rhenium_palworld/evaluator.py",
+        "plugins/palworld/src/rhenium_palworld/lua_runner.py",
+        "plugins/rimworld/src/rhenium_rimworld/safe_files.py",
+        "plugins/rimworld/tests/test_rimworld_plugin.py",
+        "plugins/stardew-valley/src/rhenium_stardew_valley/native.py",
+        "providers/steam/src/rhenium_steam/official_client.py",
+        "src/rhenium/agent/environment.py"
+      ],
+      "all_error_files_byte_identical_to_HEAD": true
+    },
+    "linux_platform_static_full": {
+      "passed": true,
+      "source_files": 189,
+      "not_linux_runtime_evidence": true
+    },
+    "owned_prior_checks": "scope-checks-v3.json; unchanged product and orchestration"
+  },
+  "ruff": {
+    "passed": true,
+    "scope": "src plugins providers tests"
+  },
+  "retained_unchanged_checks": {
+    "web": {
+      "lint": true,
+      "test": true,
+      "build": true,
+      "test_count": 1,
+      "entry": "existing node.exe and npm-cli.js; npm.ps1 returned Unknown command pm before build execution"
+    },
+    "bash_syntax": {
+      "passed": true,
+      "script_count": 7
+    },
+    "unavailable_checks": [
+      "devenv",
+      "ShellCheck"
+    ]
+  },
+  "retained_check_scope": "Web/shell/build inputs unchanged; prior log hashes reverified; not rerun after test-only fix",
+  "repository_checks_all_passed": false
+}

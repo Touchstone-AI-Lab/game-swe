@@ -1,0 +1,4 @@
+control	kind	base	overlay	root	note
+tn-clears-wrong-restriction	target-negative	reference	patch:tn-clears-wrong-restriction.patch	mod	reference whose postfix clears NoRoom instead of Indoors: the indoor refusal stays
+cn-toggles-indoors-flag	compat-negative	reference	patch:cn-toggles-indoors-flag.patch	mod	reference that toggles (^=) the Indoors flag instead of clearing it: works indoors, refuses outdoors
+alternative	alternative	starter	tree:alternative	mod	no patch on the restriction check: a prefix on the flute's use action performs the indoor summon itself only when Indoors is the sole restriction

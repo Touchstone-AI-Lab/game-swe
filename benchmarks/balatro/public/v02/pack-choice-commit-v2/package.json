@@ -1,0 +1,54 @@
+{
+  "protocol": "v2",
+  "task": "pack-choice-commit-v2",
+  "slot": "H3",
+  "target_difficulty": "hard",
+  "calibration_status": "unmeasured",
+  "calibration_model": null,
+  "calibration_evidence": [],
+  "formal_integration_status": "not_implemented",
+  "files": {
+    "CONTRACT.md": {
+      "size": 2437,
+      "sha256": "ad9fdffa507c677f9b99a006ce92ba076dc584c5caace5e2d2969c13b0469b6c"
+    },
+    "README.md": {
+      "size": 1373,
+      "sha256": "62521eff01c1fa4aecc8b7a68225b9bace38e592b9e0a70ad384bd2e2bb1259d"
+    },
+    "API.md": {
+      "size": 3762,
+      "sha256": "873fff80f1fdf6bf705ba413da3eeeb6c8427c9af81bace67c4ab44fb29f0fd4"
+    },
+    "starter/main.lua": {
+      "size": 1492,
+      "sha256": "91bc77d36ced325b0330de936d74984642500fa961c728ac79bbbb45f88c7179"
+    },
+    "starter/adapter.lua": {
+      "size": 2171,
+      "sha256": "b261ed556682a9f61080f0fb403883e82775d17d5be1611a23e1482a7cc77509"
+    },
+    "starter/lib/transitions.lua": {
+      "size": 3512,
+      "sha256": "d978ecab60d0d2838715ae9d284d387898db1d61b6ecc8ca2503b003fe750fcc"
+    },
+    "starter/lib/ledger.lua": {
+      "size": 348,
+      "sha256": "22dd7efdbc6fc48f3f868ec5dc7c33f51d3042aca1dd1ff916974caac42b5e05"
+    },
+    "starter/pack_choice_commit_v2.json": {
+      "size": 290,
+      "sha256": "8f92d5f5c15d0f32fda6409cda0ff70415b6bbe83f9f78be3136562b3f140464"
+    }
+  },
+  "content_sha256": "35fdc9935cf2912f1e276d88de24aa0ac228ef6753905801a05a9afa929aee55",
+  "editable_files": [
+    "starter/main.lua",
+    "starter/adapter.lua",
+    "starter/lib/transitions.lua",
+    "starter/lib/ledger.lua"
+  ],
+  "immutable_files": [
+    "starter/pack_choice_commit_v2.json"
+  ]
+}

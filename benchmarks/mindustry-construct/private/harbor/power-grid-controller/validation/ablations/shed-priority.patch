@@ -1,0 +1,11 @@
+--- a/solution/GridController.java
++++ b/solution/GridController.java
+@@ -215,7 +215,7 @@
+         if(ratio<=policy.shedRatio() && enabledDemand>s.production()+1e-9) {
+             ArrayList<MutableLoad> candidates=new ArrayList<>();
+             for(MutableLoad l:g.loads.values())if(l.enabled && (firstObservation || elapsed(s.tick(),l.changed)>=policy.minimumOnTicks()))candidates.add(l);
+-            candidates.sort(Comparator.comparingInt((MutableLoad l)->l.priority).thenComparingInt(l->l.pos));
++            candidates.sort(Comparator.comparingInt((MutableLoad l)->l.priority).reversed().thenComparingInt(l->l.pos));
+             for(MutableLoad l:candidates){ if(enabledDemand<=s.production()+1e-9)break; l.enabled=false;l.changed=s.tick();enabledDemand-=l.demand;actions.add(new LoadAction(l.pos,Action.SHED)); }
+         } else if(ratio>=policy.restoreRatio()) {
+             ArrayList<MutableLoad> candidates=new ArrayList<>();

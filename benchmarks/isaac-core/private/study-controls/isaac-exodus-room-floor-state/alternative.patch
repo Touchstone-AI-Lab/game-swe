@@ -1,0 +1,136 @@
+--- a/main.lua
++++ b/main.lua
+@@ -1436,17 +1436,22 @@
+ --<<JAMES>>--
+ function Exodus:jamesNewFloor()
+     local player = Isaac.GetPlayer(0)
+-    if player:GetPlayerType() == Characters.JAMES then
+-        if not EntityVariables.JAMES.HasGivenItems then
+-            player:AddCollectible(ItemId.THE_APOCRYPHON, 0, false)
+-            player:AddCollectible(ItemId.FULLERS_CLUB, 6, false)
+-            EntityVariables.JAMES.HasGivenItems = true
+-            player:AddCacheFlags(CacheFlag.CACHE_SPEED)
+-            player:AddCacheFlags(CacheFlag.CACHE_DAMAGE)
+-            player:AddCacheFlags(CacheFlag.CACHE_FIREDELAY)
+-            player:EvaluateItems()
+-        end
++    
++    -- Everything below is James's floor setup; nobody else gets any of it.
++    if player:GetPlayerType() ~= Characters.JAMES then
++        return
+     end
++    
++    if not EntityVariables.JAMES.HasGivenItems then
++        player:AddCollectible(ItemId.THE_APOCRYPHON, 0, false)
++        player:AddCollectible(ItemId.FULLERS_CLUB, 6, false)
++        EntityVariables.JAMES.HasGivenItems = true
++        player:AddCacheFlags(CacheFlag.CACHE_SPEED)
++        player:AddCacheFlags(CacheFlag.CACHE_DAMAGE)
++        player:AddCacheFlags(CacheFlag.CACHE_FIREDELAY)
++        player:EvaluateItems()
++    end
++    
+     player:UseActiveItem(CollectibleType.COLLECTIBLE_BOOK_OF_SECRETS, false, false, false, false)
+ end
+ 
+@@ -1710,6 +1715,8 @@
+     end
+ end
+ 
++Exodus:AddCallback(ModCallbacks.MC_EVALUATE_CACHE, Exodus.theApocryphonCache)
++
+ --<<BETTER LOOPS>>--
+ function loop()
+     local player = Isaac.GetPlayer(0)
+@@ -1920,6 +1927,10 @@
+     ---<<BROKEN GLASSES>>---
+     if player:HasTrinket(ItemId.BROKEN_GLASSES) then
+         ItemVariables.BROKEN_GLASSES.Broke = true
++    end
++    
++    -- Once the world has broken it stays broken for the rest of the floor (trinketNewFloor clears it).
++    if ItemVariables.BROKEN_GLASSES.Broke then
+         for i, entity in pairs(Isaac.GetRoomEntities()) do
+             if entity:IsActiveEnemy() or entity.Type == EntityType.ENTITY_PICKUP then
+                 entity:GetSprite().Color = Color(0, 0, 0, 1, 0, 0, 0)
+@@ -2186,12 +2197,17 @@
+     ---<<BLUE MOON>>---
+     if player:HasTrinket(ItemId.BLUE_MOON) then
+         if room:GetType() == RoomType.ROOM_SECRET then
+-            for i = 1, room:GetGridSize() do
+-                local gridEnt = room:GetGridEntity(i)
+-                
+-                if gridEnt then
+-                    if not gridEnt:ToDoor() then
+-                        room:RemoveGridEntity(i, 0, true)
++            local gridWidth = room:GetGridWidth()
++            local gridHeight = room:GetGridHeight()
++            
++            -- The outermost ring of the grid is the room boundary (walls and doors); only the floor inside it is cleared.
++            for row = 1, gridHeight - 2 do
++                for column = 1, gridWidth - 2 do
++                    local index = row * gridWidth + column
++                    local gridEnt = room:GetGridEntity(index)
++                    
++                    if gridEnt and not gridEnt:ToDoor() and gridEnt:GetType() ~= GridEntityType.GRID_WALL then
++                        room:RemoveGridEntity(index, 0, true)
+                     end
+                 end
+             end
+@@ -5329,6 +5345,7 @@
+     local player = Isaac.GetPlayer(0)
+     
+     ItemVariables.MUTANT_CLOVER.Used = false
++    ItemVariables.MUTANT_CLOVER.RoomLuck = 0
+     player:AddCacheFlags(CacheFlag.CACHE_LUCK)
+     player:EvaluateItems()
+ end
+@@ -5338,7 +5355,7 @@
+ function Exodus:mutantCloverCache(player, flag)
+     if player:HasCollectible(ItemId.MUTANT_CLOVER) and ItemVariables.MUTANT_CLOVER.Used then
+         if flag == CacheFlag.CACHE_LUCK then
+-            player.Luck = player.Luck + 10
++            player.Luck = player.Luck + (ItemVariables.MUTANT_CLOVER.RoomLuck or 0)
+         end
+     end
+ end
+@@ -5348,6 +5365,7 @@
+ function Exodus:mutantCloverUse()
+     local player = Isaac.GetPlayer(0)
+     ItemVariables.MUTANT_CLOVER.Used = true
++    ItemVariables.MUTANT_CLOVER.RoomLuck = (ItemVariables.MUTANT_CLOVER.RoomLuck or 0) + 10
+     player:AddCacheFlags(CacheFlag.CACHE_LUCK)
+     player:EvaluateItems()
+     
+@@ -5686,6 +5704,31 @@
+ 
+ Exodus:AddCallback(ModCallbacks.MC_USE_ITEM, Exodus.anamnesisUse, ItemId.ANAMNESIS)
+ 
++function Exodus:anamnesisChargeUpdate()
++    local player = Isaac.GetPlayer(0)
++    local memory = ItemVariables.ANAMNESIS
++    
++    if memory == nil then
++        memory = { InSlot = false, Charge = 0 }
++        ItemVariables.ANAMNESIS = memory
++    end
++    
++    if player:GetActiveItem() == ItemId.ANAMNESIS then
++        if memory.InSlot then
++            -- While it sits in the slot, whatever it gains or spends is its own.
++            memory.Charge = player:GetActiveCharge()
++        else
++            -- It has just entered the slot: it arrives with its own remembered charge, not the slot's.
++            memory.InSlot = true
++            player:SetActiveCharge(memory.Charge)
++        end
++    else
++        memory.InSlot = false
++    end
++end
++
++Exodus:AddCallback(ModCallbacks.MC_POST_UPDATE, Exodus.anamnesisChargeUpdate)
++
+ --<<<BIRDBATH>>>--
+ function Exodus:birdbathUse()
+     local player = Isaac.GetPlayer(0)

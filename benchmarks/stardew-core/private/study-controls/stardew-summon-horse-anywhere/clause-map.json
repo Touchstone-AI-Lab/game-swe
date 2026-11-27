@@ -1,0 +1,97 @@
+{
+  "task": "stardew-valley/core/stardew-summon-horse-anywhere",
+  "task_version": "1.1.0",
+  "exam": "benchmarks/stardew-core/exams/stardew-summon-horse-anywhere.md",
+  "cases": [
+    {
+      "id": "check:submission-shape",
+      "role": "static",
+      "clauses": [],
+      "overlap": false,
+      "note": "file-existence gate: mod/SummonAnywhere/ModEntry.cs exists and the tree has no symlink; the starter already satisfies it"
+    },
+    {
+      "id": "case:setup: the player owns a horse and carries a horse flute",
+      "role": "setup",
+      "clauses": [],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:sentinel: the flute still summons the horse outdoors",
+      "role": "preserved",
+      "clauses": [
+        "Keep-1"
+      ],
+      "overlap": false,
+      "note": "base-game behaviour that holds with the empty skeleton mod (P in starter.execution.json) and is stated as a must-keep in the exam; a mod can break it (control cn-toggles-indoors-flag), so it is a real preserved contract, not only a runtime sentinel"
+    },
+    {
+      "id": "case:the flute summons the horse indoors",
+      "role": "target",
+      "clauses": [
+        "Req-1",
+        "Req-1-beside-player",
+        "Keep-3"
+      ],
+      "overlap": false,
+      "note": "SuiteSummon.cs:159-160 asserts, before the flute is used, that the horse is not already in the farmhouse; that precondition is the only evidence for Keep-3"
+    }
+  ],
+  "clauses": [
+    {
+      "id": "Req-1",
+      "anchor": "Requirement, paragraph 2: 'make using the horse flute summon the player's horse to the player's current location even when that location is indoors'",
+      "status": "asserted",
+      "note": "exercised in the FarmHouse only; sheds, caves and the mines named in paragraph 1 are not"
+    },
+    {
+      "id": "Req-1-beside-player",
+      "anchor": "Requirement, paragraph 2, last clause: 'bringing the horse next to the player the same way it does outdoors'",
+      "status": "weak",
+      "note": "indoors the suite only asserts that the horse is in the farmhouse's character list (SuiteSummon.cs:165-169); the 3-tile proximity check exists only in the outdoor case (:144-146)"
+    },
+    {
+      "id": "Keep-1",
+      "anchor": "Requirement, bullet 1: 'Using the flute outdoors must behave as it always has.'",
+      "status": "asserted",
+      "note": "one summon on the Farm, horse within 3 tiles; error messages and the refusal paths outdoors are not checked"
+    },
+    {
+      "id": "Keep-2",
+      "anchor": "Requirement, bullet 2: 'The other conditions the game places on summoning a horse still apply — you are removing the indoor restriction specifically'",
+      "status": "unasserted",
+      "note": "no case uses the flute without standing room, without an owned horse or while the horse is in use; the fixture deliberately moves the player to a tile where NoRoom is clear (SuiteSummon.cs:64-77, called at :122 and :158). A mod that clears every restriction passes."
+    },
+    {
+      "id": "Keep-3",
+      "anchor": "Requirement, bullet 3: 'The mod must not summon a horse on its own; it happens when the flute is used.'",
+      "status": "weak",
+      "note": "only the single precondition assertion at SuiteSummon.cs:159-160, evaluated once right after the warp into the farmhouse"
+    },
+    {
+      "id": "Notes-manifest",
+      "anchor": "Notes, bullet 3: 'Keep the manifest's UniqueID and EntryDll as they are'",
+      "status": "unasserted",
+      "note": "delivery constraint with no case of its own: tests/test.sh copies SummonAnywhere.dll and manifest.json, so a changed EntryDll only shows up as the mod not loading; UniqueID is never read"
+    },
+    {
+      "id": "Notes-tests",
+      "anchor": "Notes, bullet 4: 'Do not modify anything under /tests.'",
+      "status": "unasserted",
+      "note": "no case; the evaluator mounts /tests read-only"
+    }
+  ],
+  "excluded_clauses": [
+    "Keep-2",
+    "Notes-manifest",
+    "Notes-tests"
+  ],
+  "known_issues": [
+    "Entry-point over-constraint: the suite fires the flute by calling Object.performUseAction on a fresh flute object (benchmarks/stardew-core/private/harbor/stardew-summon-horse-anywhere/tests/SuiteSummon.cs:129, :162), never through player input. A mod that implements the requirement at the input layer (for example a SMAPI ButtonPressed handler that performs the indoor summon when the held item is the flute) works for a player but is invisible to the harness and fails the target case. The exam only says the harness 'uses the flute'.",
+    "Keep-2 is unasserted: probe-clears-every-restriction (the reference changed to report HorseWarpRestrictions.None unconditionally; row kept in probes.tsv) was run in the real game and passes 3/3 with score 100. Keep-2 is excluded from the scored contract sets.",
+    "The indoor case does not check where in the room the horse ends up, and only the FarmHouse is exercised.",
+    "The preserved case is base-game behaviour. It passes on the empty starter, so the task has exactly one preserved contract and its violation needs an active change by the mod.",
+    "The prepared evaluator image used for the E0 runs (sha256:e205728d1222) bakes /opt/gcb/harness with the SuiteRunner that predates commit 276a070: there a throwing wait predicate is treated as SATISFIED instead of failing the case (repo version: benchmarks/stardew-core/private/harbor/harness/GcbHarness/Framework/SuiteRunner.cs:80-95). Predicates that can throw in this suite: the horse lookups `FindPlayerHorse(Game1.currentLocation)` (SuiteSummon.cs:136, :166) throw when Game1.currentLocation is null. In each of them the statement after the wait dereferences the same null object, so the case still fails under the old runner; no spurious pass was found."
+  ]
+}

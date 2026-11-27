@@ -1,0 +1,100 @@
+diff --git a/mod/modmain.lua b/mod/modmain.lua
+--- a/mod/modmain.lua
++++ b/mod/modmain.lua
+@@ -347,7 +347,7 @@
+ 		local recipes = filter.recipes
+ 		if get_index(recipes, a) then
+ 			if force_sort or table.contains(recipes, b) then
+-				recipes[get_index(recipes, a)] = nil
++				table.remove(recipes, get_index(recipes, a))
+ 				target_position = #recipes + 1
+ 			end
+ 		end
+diff --git a/mod/utils/skinhandler.lua b/mod/utils/skinhandler.lua
+--- a/mod/utils/skinhandler.lua
++++ b/mod/utils/skinhandler.lua
+@@ -78,11 +78,13 @@
+ InventoryProxy.GetFullInventory = function(...)
+ 	local items = get_full_inventory(...)
+ 	for skin_name in pairs(ALL_MOD_SKINS) do
+-		table.insert(items, {
+-			item_type = skin_name,
+-			modified_time = 0,
+-			item_id = "1",
+-		})
++		if validate_mod_skin(skin_name, TheNet:GetUserID()) then
++			table.insert(items, {
++				item_type = skin_name,
++				modified_time = 0,
++				item_id = "1",
++			})
++		end
+ 	end
+ 	return items
+ end
+@@ -135,7 +137,7 @@
+ function AnimState:GetSkinBuild(...)
+ 	local inst = anim_state_to_entity[self]
+ 	local skin_build = get_skin_build(self, ...)
+-	return skin_build ~= "" and skin_build or inst:GetSkinBuild()
++	return (skin_build ~= "" and skin_build) or (inst and inst:GetSkinBuild()) or ""
+ end
+ 
+ local function generate_skin_id(name)
+@@ -182,19 +184,19 @@
+ end
+ 
+ local function apply_temp_character(base_fn, ...)
+-	if #HEADSKIN_CHARACTERS == 0 then
++	if IsTableEmpty(HEADSKIN_CHARACTERS) then
+ 		return base_fn(...)
+ 	end
+ 	local added_characters = {}
+-	for _, v in ipairs(HEADSKIN_CHARACTERS) do
+-		if not table.contains(DST_CHARACTERLIST, v) then
+-			table.insert(added_characters, v)
+-			table.insert(DST_CHARACTERLIST, v)
++	for character in pairs(HEADSKIN_CHARACTERS) do
++		if not table.contains(DST_CHARACTERLIST, character) then
++			table.insert(DST_CHARACTERLIST, character)
++			added_characters[character] = true
+ 		end
+ 	end
+ 	local ret = { base_fn(...) }
+ 	for i = #DST_CHARACTERLIST, 1, -1 do
+-		if table.contains(HEADSKIN_CHARACTERS, DST_CHARACTERLIST[i]) then
++		if added_characters[DST_CHARACTERLIST[i]] then
+ 			table.remove(DST_CHARACTERLIST, i)
+ 		end
+ 	end
+@@ -276,15 +278,15 @@
+ local DefaultSkinSelectionPopup_GetSkinsList = DefaultSkinSelectionPopup.GetSkinsList
+ ---@diagnostic disable-next-line: duplicate-set-field
+ DefaultSkinSelectionPopup.GetSkinsList = function(self, ...)
+-	local check_ownership = InventoryProxy.CheckOwnership
+-	InventoryProxy.CheckOwnership = function(self, name, ...)
++	local previous_check_ownership = InventoryProxy.CheckOwnership
++	InventoryProxy.CheckOwnership = function(inventory, name, ...)
+ 		if not does_character_have_skin(name, self.character) then
+ 			return false
+ 		end
+-		return check_ownership(self, name, ...)
++		return previous_check_ownership(inventory, name, ...)
+ 	end
+ 	local ret = { DefaultSkinSelectionPopup_GetSkinsList(self, ...) }
+-	InventoryProxy.CheckOwnership = check_ownership
++	InventoryProxy.CheckOwnership = previous_check_ownership
+ 	return unpack(ret)
+ end
+ 
+@@ -294,8 +296,8 @@
+ 
+ local function add_mod_skins(data)
+ 	for base_prefab, prefab_skins in pairs(data) do
+-		if is_character(base_prefab) and not table.contains(HEADSKIN_CHARACTERS, base_prefab) then
+-			table.insert(HEADSKIN_CHARACTERS, base_prefab)
++		if is_character(base_prefab) then
++			HEADSKIN_CHARACTERS[base_prefab] = true
+ 		end
+ 		if not PREFAB_SKINS[base_prefab] then
+ 			PREFAB_SKINS[base_prefab] = {}

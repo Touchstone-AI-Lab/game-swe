@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "mode": "dedicated-server",
+  "cases": [
+    "real_worldgen_out_of_world_start_is_empty",
+    "real_worldgen_square_is_clipped",
+    "real_worldgen_corner_stops_after_clipping"
+  ],
+  "client_only_exclusions": [
+    "Mouse input, preview text, sound playback, and client packet emission remain source-projection assertions."
+  ]
+}

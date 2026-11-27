@@ -1,0 +1,146 @@
+{
+  "task": "garrys-mod/darkrp/darkrp-persistence-regressions",
+  "task_version": "1.0.0",
+  "exam": "benchmarks/darkrp-core/exams/darkrp-persistence-regressions.md",
+  "cases": [
+    {
+      "id": "case:sentinel: the gamemode and its player-record API are loaded",
+      "role": "runtime-sentinel"
+    },
+    {
+      "id": "case:control: an ordinary balance is written down",
+      "role": "preserved",
+      "clauses": [
+        "preserve"
+      ]
+    },
+    {
+      "id": "case:control: an ordinary name is written down",
+      "role": "preserved",
+      "clauses": [
+        "preserve"
+      ]
+    },
+    {
+      "id": "case:A: a new player's cash and pay are not written into each other",
+      "role": "target",
+      "clauses": [
+        "[#8201]"
+      ]
+    },
+    {
+      "id": "case:B: a balance of nothing is written down like any other",
+      "role": "target",
+      "clauses": [
+        "[#8204]"
+      ]
+    },
+    {
+      "id": "case:C: money given to an absent player reaches the record read back",
+      "role": "target",
+      "clauses": [
+        "[#8207]"
+      ]
+    },
+    {
+      "id": "case:D: a name change announces the name that was in use before it",
+      "role": "target",
+      "clauses": [
+        "[#8210]"
+      ]
+    },
+    {
+      "id": "case:E: a name too short to identify anyone is refused",
+      "role": "target",
+      "clauses": [
+        "[#8213]"
+      ]
+    },
+    {
+      "id": "case:F: a name nobody is using is reported as free",
+      "role": "target",
+      "clauses": [
+        "[#8216]"
+      ]
+    },
+    {
+      "id": "case:G: an amount that is not a real number is refused, not rounded",
+      "role": "target",
+      "clauses": [
+        "[#8219]"
+      ]
+    },
+    {
+      "id": "case:H: a name is looked up as written, not as a pattern",
+      "role": "target",
+      "clauses": [
+        "[#8222]"
+      ]
+    },
+    {
+      "id": "case:I: looking someone up by nothing at all finds nobody",
+      "role": "target",
+      "clauses": [
+        "[#8225]"
+      ]
+    },
+    {
+      "id": "check:submission-shape",
+      "role": "static"
+    }
+  ],
+  "clauses": [
+    {
+      "id": "preserve",
+      "anchor": "behavior the unchanged starter already provides",
+      "status": "asserted"
+    },
+    {
+      "id": "[#8201]",
+      "anchor": "exam report [#8201]",
+      "status": "asserted"
+    },
+    {
+      "id": "[#8204]",
+      "anchor": "exam report [#8204]",
+      "status": "asserted"
+    },
+    {
+      "id": "[#8207]",
+      "anchor": "exam report [#8207]",
+      "status": "asserted"
+    },
+    {
+      "id": "[#8210]",
+      "anchor": "exam report [#8210]",
+      "status": "asserted"
+    },
+    {
+      "id": "[#8213]",
+      "anchor": "exam report [#8213]",
+      "status": "asserted"
+    },
+    {
+      "id": "[#8216]",
+      "anchor": "exam report [#8216]",
+      "status": "asserted"
+    },
+    {
+      "id": "[#8219]",
+      "anchor": "exam report [#8219]",
+      "status": "asserted"
+    },
+    {
+      "id": "[#8222]",
+      "anchor": "exam report [#8222]",
+      "status": "asserted"
+    },
+    {
+      "id": "[#8225]",
+      "anchor": "exam report [#8225]",
+      "status": "asserted"
+    }
+  ],
+  "excluded_clauses": [],
+  "known_issues": []
+}

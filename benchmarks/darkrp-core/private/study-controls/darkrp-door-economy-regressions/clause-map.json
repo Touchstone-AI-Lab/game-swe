@@ -1,0 +1,201 @@
+{
+  "task": "garrys-mod/darkrp/darkrp-door-economy-regressions",
+  "task_version": "1.0.0",
+  "exam": "benchmarks/darkrp-core/exams/darkrp-door-economy-regressions.md",
+  "cases": [
+    {
+      "id": "case:sentinel: the gamemode is loaded",
+      "role": "runtime-sentinel",
+      "clauses": [],
+      "overlap": false,
+      "note": "Passes in the starter. Only checks that DarkRP, FAdmin and CAMI exist."
+    },
+    {
+      "id": "case:P: a negative price is never affordable",
+      "role": "target",
+      "clauses": [
+        "[#6218]"
+      ],
+      "overlap": false,
+      "note": "Group P. Player:canAfford(-100) on a stand-in with 500 must be exactly false."
+    },
+    {
+      "id": "case:P: ordinary prices are unaffected",
+      "role": "preserved",
+      "clauses": [
+        "Task-preserve",
+        "[#6218]"
+      ],
+      "overlap": true,
+      "note": "Passes in the unchanged starter (starter.execution.json): with 500 in the wallet 100 is affordable and 600 is not. It is also the positive boundary of the #6218 fix (a 'refuse every purchase' fix must not pass), hence overlap."
+    },
+    {
+      "id": "case:Q: whoever owns a door can lock it",
+      "role": "target",
+      "clauses": [
+        "[#6221]"
+      ],
+      "overlap": false,
+      "note": "Group Q. The owner can lock and unlock, a stranger cannot lock; observed through Player:canKeysLock/canKeysUnlock on stand-ins.",
+      "over_constrained": true
+    },
+    {
+      "id": "case:R: a door's allow list decides who may take it",
+      "role": "target",
+      "clauses": [
+        "[#6224]"
+      ],
+      "overlap": false,
+      "note": "Group R. Grant access, let the grantee and a stranger both take an already owned door, then ask isKeysOwnedBy for both. Fails for an always-allow predicate as well as for the starter's EntIndex lookup."
+    },
+    {
+      "id": "case:S: every team listed for a group chat can see it",
+      "role": "target",
+      "clauses": [
+        "[#6227]"
+      ],
+      "overlap": false,
+      "note": "Group S. The predicate must return exactly true for both listed teams and exactly false for a third."
+    },
+    {
+      "id": "case:T: a chat command declared with capitals can still be found",
+      "role": "target",
+      "clauses": [
+        "[#6230]"
+      ],
+      "overlap": false,
+      "note": "Group T."
+    },
+    {
+      "id": "case:U: the job that manages an agenda can update it",
+      "role": "target",
+      "clauses": [
+        "[#6233]"
+      ],
+      "overlap": false,
+      "note": "Group U. Async, bot. Creates an agenda managed by the bot's team and drives the /agenda callback."
+    },
+    {
+      "id": "case:V: money a player dropped is recognised as money",
+      "role": "target",
+      "clauses": [
+        "[#6236]"
+      ],
+      "overlap": false,
+      "note": "Group V. Entity:isMoneyBag on a stand-in carrying IsSpawnedMoney = true with a class other than Config.MoneyClass must be exactly true, and exactly false for a plain prop."
+    },
+    {
+      "id": "case:W: a job assigned to a door can lock it",
+      "role": "target",
+      "clauses": [
+        "[#6239]"
+      ],
+      "overlap": false,
+      "note": "Group W. A member of the assigned team can lock, an outsider cannot."
+    },
+    {
+      "id": "case:X: removing a buy-menu item takes its command with it",
+      "role": "target",
+      "clauses": [
+        "[#6242]"
+      ],
+      "overlap": false,
+      "note": "Group X. Async (the item's command is registered a frame later upstream)."
+    },
+    {
+      "id": "check:submission-shape",
+      "role": "static",
+      "clauses": [
+        "Notes-tests"
+      ],
+      "overlap": false,
+      "note": "Static preflight: darkrp/gamemode exists, no symlinks, no native modules, no harness-tampering tokens."
+    }
+  ],
+  "clauses": [
+    {
+      "id": "[#6218]",
+      "anchor": "Problem, report [#6218]: accounts get richer when they spend; 'It is the balance itself that moves the wrong way.'",
+      "status": "asserted",
+      "note": "Asserted through one predicate, Player:canAfford with a negative amount. The balance movement itself (a purchase with a negative price crediting the player) is never driven; see known_issues."
+    },
+    {
+      "id": "[#6221]",
+      "anchor": "Problem, report [#6221]: door owners cannot lock their own doors unless they add themselves as co-owner",
+      "status": "asserted",
+      "note": "Lock and unlock for the owner, plus a stranger who must stay refused."
+    },
+    {
+      "id": "[#6224]",
+      "anchor": "Problem, report [#6224]: the person granted door access gets nothing while somebody never on the list sometimes gets in",
+      "status": "asserted",
+      "note": "Both directions are asserted (validation/per-defect-matrix.md 'Over-permissive control')."
+    },
+    {
+      "id": "[#6227]",
+      "anchor": "Problem, report [#6227]: the first job listed for a group chat cannot see it",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "[#6230]",
+      "anchor": "Problem, report [#6230]: some chat commands an addon adds do nothing at all",
+      "status": "asserted",
+      "note": "Observed as: a command declared with capitals is found by its lower-case name."
+    },
+    {
+      "id": "[#6233]",
+      "anchor": "Problem, report [#6233]: the managing job cannot update its crew's notice (agenda)",
+      "status": "asserted",
+      "note": "Only /agenda is driven; /addagenda shares the same ManagersByKey check and has no case."
+    },
+    {
+      "id": "[#6236]",
+      "anchor": "Problem, report [#6236]: cash loose on the ground is not treated as cash",
+      "status": "asserted",
+      "note": "The case checks the IsSpawnedMoney flag path of Entity:isMoneyBag. The reported symptom does not reproduce with the shipped config (see known_issues), so the assertion is on the injected mechanism rather than on the reported observation."
+    },
+    {
+      "id": "[#6239]",
+      "anchor": "Problem, report [#6239]: people in the job a door was set aside for cannot lock or unlock it",
+      "status": "asserted",
+      "note": "Only canKeysLock is called; canKeysUnlock shares canLockUnlock in the reference but is not asserted here."
+    },
+    {
+      "id": "[#6242]",
+      "anchor": "Problem, report [#6242]: a removed buy-menu addition can still be obtained by typing its word",
+      "status": "asserted",
+      "note": "Observed for DarkRP.createEntity / removeEntity."
+    },
+    {
+      "id": "Task-preserve",
+      "anchor": "What to do, Notes bullet 4: 'Behaviour that already works must keep working - several of these live next to code paths that are fine.'",
+      "status": "weak",
+      "note": "One starter-passing case (ordinary prices are unaffected) checks one working path next to one defect. The negative halves inside Q, S, V and W (stranger refused, third team excluded, plain prop is not money, outsider refused) also hold in the starter but live inside target cases that fail there, so they give no separate preserved evidence."
+    },
+    {
+      "id": "Notes-causes",
+      "anchor": "What to do, Notes bullet 2: 'Fix the causes. Do not paper over a symptom by catching an error and discarding it, and do not special-case the exact scenario in a report.'",
+      "status": "unasserted",
+      "note": "No case distinguishes a root-cause fix from a special case. Excluded: not observable by the suite."
+    },
+    {
+      "id": "Notes-tests",
+      "anchor": "What to do, Notes bullet 3: 'Do not change anything under /tests, and do not add test files of your own to the gamemode.'",
+      "status": "weak",
+      "note": "Process constraint. The nearest gate is the static harness-tampering preflight in check:submission-shape (plugins/garrys-mod/src/rhenium_garrys_mod/darkrp/evaluator.py:287-336). Excluded from contract analysis."
+    }
+  ],
+  "excluded_clauses": [
+    "Notes-causes",
+    "Notes-tests"
+  ],
+  "known_issues": [
+    "Report/defect mismatch in group V: the starter's isMoneyBag compares the class with GAMEMODE.Config.MoneyClass, the shipped config sets that to 'spawned_money' (environment/darkrp/gamemode/config/config.lua:328) and DarkRP.createMoneyBag creates exactly that class (gamemode/modules/money/sv_money.lua:42). On an unmodified server dropped money is therefore still recognised and report #6236 does not reproduce; it only differs for an entity that carries ENT.IsSpawnedMoney under another class. The case (benchmarks/darkrp-core/private/harbor/darkrp-door-economy-regressions/tests/suite.lua:179-190) uses a stand-in whose class is 't2b_not_the_config_class', so a fix by class name (e.g. also accepting 'spawned_money') fails; only honouring the IsSpawnedMoney flag (set in entities/entities/spawned_money/shared.lua:6 and read nowhere in the starter) passes.",
+    "Group P is asserted through Player:canAfford only (benchmarks/darkrp-core/private/harbor/darkrp-door-economy-regressions/tests/suite.lua:78-91). The report describes the balance moving the wrong way when spending and never names the predicate; a fix that rejects or clamps negative prices where items are declared or bought would stop the exploit but fail. The stand-in player exposes only getDarkRPVar and the call is not wrapped in pcall, so a canAfford that touches any other player method errors.",
+    "Group Q stand-in (benchmarks/darkrp-core/private/harbor/darkrp-door-economy-regressions/tests/suite.lua:94-103, fakeDoor at 54-67): ownership is visible only through door:getDoorOwner(); the door data table has no 'owner' field. An implementation that compares doorData.owner with ply:UserID() (equivalent in the engine, where getDoorOwner is Player(doorData.owner)) fails Q. Group R's door does carry owner = 9. Control alternative-strict-reading demonstrates this: it fails exactly Q.",
+    "Exact-boolean expectations: S requires the group-chat predicate to return exactly true/false and V requires isMoneyBag to return exactly true/false (benchmarks/darkrp-core/private/harbor/darkrp-door-economy-regressions/tests/suite.lua:138-143, 181-188), while Q, R and W coerce with 'or false'. An implementation returning a truthy non-boolean (e.g. the flag value or a table entry) would fail S or V although every caller only tests truthiness.",
+    "benchmarks/darkrp-core/private/harbor/darkrp-door-economy-regressions/tests/suite.lua declares 'local n' and 'uniq' twice (lines 14-15 and 33-34); case T builds its name from the counter without incrementing it (line 149). Harmless in one run, noted for readers.",
+    "validation/per-defect-matrix.md (fix P..X each alone -> 3 PASS) predates the runner-collector replacement; validation/rhenium-controls.md re-ran base, reference and the always-allow mutant (run-85f0b7a1437d4378, only R failed) under the Rhenium plugin. Control target-negative-allow-list-open repeats that mutant."
+  ]
+}

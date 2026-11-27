@@ -1,0 +1,11 @@
+--- a/lua/rhenium_contraption_blueprints/blueprints.lua
++++ b/lua/rhenium_contraption_blueprints/blueprints.lua
+@@ -339,7 +339,7 @@
+     if not vector(target) then return self:_done(request_id, key, false, "invalid_transform", {}) end
+     local plan = copy(blueprint.schema)
+     for _, entity in ipairs(plan.entities) do
+-        entity.pos.x = quantize(entity.pos.x + target.x)
++        entity.pos.x = quantize(entity.pos.x)
+         entity.pos.y = quantize(entity.pos.y + target.y)
+         entity.pos.z = quantize(entity.pos.z + target.z)
+     end

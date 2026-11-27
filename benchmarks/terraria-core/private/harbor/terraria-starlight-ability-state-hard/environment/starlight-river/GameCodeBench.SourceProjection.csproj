@@ -1,0 +1,19 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <LangVersion>preview</LangVersion>
+    <ImplicitUsings>disable</ImplicitUsings>
+    <Nullable>disable</Nullable>
+    <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="Content/Abilities/Ability.cs" />
+    <Compile Include="Content/Abilities/AbilityHandler.cs" />
+    <Compile Include="Content/Abilities/ShardSet.cs" />
+    <Compile Include="Content/Abilities/InfusionItem.cs" />
+    <Compile Include="Content/Abilities/InfusionTier.cs" />
+    <Compile Include="Content/Packets/AbilityProgress.cs" />
+    <Compile Include="Content/Packets/StartAbility.cs" />
+    <Compile Include="GameCodeBench/ProjectionStubs.cs" />
+  </ItemGroup>
+</Project>

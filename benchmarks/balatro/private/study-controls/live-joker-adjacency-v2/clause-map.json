@@ -1,0 +1,346 @@
+{
+  "task": "balatro/core/live-joker-adjacency-v2",
+  "task_version": "0.2.0",
+  "exam": "benchmarks/balatro/public/v02/live-joker-adjacency-v2/CONTRACT.md",
+  "cases": [
+    {
+      "id": "position:1",
+      "role": "setup",
+      "clauses": [
+        "lja-registration-identity"
+      ],
+      "overlap": false,
+      "note": "single.initial"
+    },
+    {
+      "id": "position:2",
+      "role": "preserved",
+      "clauses": [
+        "lja-plus-three-per-adjacent-common",
+        "lja-common-means-rarity-one"
+      ],
+      "overlap": false,
+      "note": "single.first_score"
+    },
+    {
+      "id": "position:3",
+      "role": "preserved",
+      "clauses": [
+        "lja-plus-three-per-adjacent-common",
+        "lja-no-accumulation"
+      ],
+      "overlap": false,
+      "note": "single.repeat_score"
+    },
+    {
+      "id": "position:4",
+      "role": "preserved",
+      "clauses": [
+        "lja-no-accumulation",
+        "lja-preserve-identities-and-order"
+      ],
+      "overlap": false,
+      "note": "single.stable"
+    },
+    {
+      "id": "position:5",
+      "role": "runtime-sentinel",
+      "clauses": [],
+      "overlap": false,
+      "note": "single.sealed"
+    },
+    {
+      "id": "position:6",
+      "role": "setup",
+      "clauses": [
+        "lja-registration-identity"
+      ],
+      "overlap": false,
+      "note": "multi.initial"
+    },
+    {
+      "id": "position:7",
+      "role": "target",
+      "clauses": [
+        "lja-plus-three-per-adjacent-common",
+        "lja-zero-one-two-neighbors",
+        "lja-target-instance-qualifies",
+        "lja-no-copy-or-recursion",
+        "lja-contributions-add"
+      ],
+      "overlap": false,
+      "note": "multi.first_score"
+    },
+    {
+      "id": "position:8",
+      "role": "preserved",
+      "clauses": [
+        "lja-preserve-identities-and-order"
+      ],
+      "overlap": false,
+      "note": "multi.reorder"
+    },
+    {
+      "id": "position:9",
+      "role": "preserved",
+      "clauses": [
+        "lja-plus-three-per-adjacent-common",
+        "lja-common-means-rarity-one",
+        "lja-zero-one-two-neighbors",
+        "lja-no-self-or-distant",
+        "lja-no-row-wraparound",
+        "lja-contributions-add",
+        "lja-row-at-scoring-authoritative",
+        "lja-row-changes-next-hand"
+      ],
+      "overlap": true,
+      "note": "multi.reordered_score"
+    },
+    {
+      "id": "position:10",
+      "role": "preserved",
+      "clauses": [
+        "lja-preserve-identities-and-order",
+        "lja-preserve-other-jokers"
+      ],
+      "overlap": false,
+      "note": "multi.neighbor_sale"
+    },
+    {
+      "id": "position:11",
+      "role": "target",
+      "clauses": [
+        "lja-plus-three-per-adjacent-common",
+        "lja-common-means-rarity-one",
+        "lja-no-self-or-distant",
+        "lja-no-row-wraparound",
+        "lja-row-changes-next-hand",
+        "lja-no-inherited-cache",
+        "lja-no-accumulation"
+      ],
+      "overlap": false,
+      "note": "multi.after_sale_score"
+    },
+    {
+      "id": "position:12",
+      "role": "preserved",
+      "clauses": [
+        "lja-preserve-identities-and-order"
+      ],
+      "overlap": false,
+      "note": "multi.shop"
+    },
+    {
+      "id": "position:13",
+      "role": "preserved",
+      "clauses": [
+        "lja-preserve-identities-and-order",
+        "lja-scope-purchase-and-blinds"
+      ],
+      "overlap": false,
+      "note": "multi.purchase"
+    },
+    {
+      "id": "position:14",
+      "role": "preserved",
+      "clauses": [
+        "lja-preserve-identities-and-order",
+        "lja-scope-purchase-and-blinds"
+      ],
+      "overlap": false,
+      "note": "multi.next_blind"
+    },
+    {
+      "id": "position:15",
+      "role": "preserved",
+      "clauses": [
+        "lja-preserve-identities-and-order"
+      ],
+      "overlap": false,
+      "note": "multi.three_order"
+    },
+    {
+      "id": "position:16",
+      "role": "target",
+      "clauses": [
+        "lja-plus-three-per-adjacent-common",
+        "lja-zero-one-two-neighbors",
+        "lja-target-instance-qualifies",
+        "lja-no-copy-or-recursion",
+        "lja-no-row-wraparound",
+        "lja-contributions-add",
+        "lja-row-at-scoring-authoritative",
+        "lja-row-changes-next-hand",
+        "lja-no-inherited-cache",
+        "lja-scope-purchase-and-blinds"
+      ],
+      "overlap": false,
+      "note": "multi.three_score"
+    },
+    {
+      "id": "position:17",
+      "role": "preserved",
+      "clauses": [
+        "lja-preserve-identities-and-order"
+      ],
+      "overlap": false,
+      "note": "multi.target_sale"
+    },
+    {
+      "id": "position:18",
+      "role": "target",
+      "clauses": [
+        "lja-plus-three-per-adjacent-common",
+        "lja-target-instance-qualifies",
+        "lja-no-row-wraparound",
+        "lja-contributions-add",
+        "lja-row-changes-next-hand",
+        "lja-no-inherited-cache",
+        "lja-no-accumulation"
+      ],
+      "overlap": false,
+      "note": "multi.last_score"
+    },
+    {
+      "id": "position:19",
+      "role": "preserved",
+      "clauses": [
+        "lja-no-accumulation",
+        "lja-preserve-identities-and-order"
+      ],
+      "overlap": false,
+      "note": "multi.stable"
+    },
+    {
+      "id": "position:20",
+      "role": "runtime-sentinel",
+      "clauses": [],
+      "overlap": false,
+      "note": "multi.sealed"
+    }
+  ],
+  "clauses": [
+    {
+      "id": "lja-registration-identity",
+      "anchor": "CONTRACT.md paragraph 1: \"Repair ordinary Common Joker `j_lja2_neighbors`, mod `live_joker_adjacency_v2`, prefix `lja2`, cost $4.\"",
+      "status": "asserted",
+      "note": "The initial cases read the key j_lja2_neighbors. Common rarity is covered by lja-target-instance-qualifies."
+    },
+    {
+      "id": "lja-cost-four",
+      "anchor": "CONTRACT.md paragraph 1: \"Repair ordinary Common Joker `j_lja2_neighbors`, mod `live_joker_adjacency_v2`, prefix `lja2`, cost $4.\"",
+      "status": "unasserted",
+      "note": "Purchase and sale compare against the observed cost and sell value, never against $4 (tasks/live_joker_adjacency/v2/private/scenario.py:65,108)."
+    },
+    {
+      "id": "lja-plus-three-per-adjacent-common",
+      "anchor": "CONTRACT.md paragraph 2: \"**each owned physical instance** independently adds **+3 Mult for each immediately adjacent owned Common Joker**\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "lja-common-means-rarity-one",
+      "anchor": "CONTRACT.md paragraph 2: \"Common means normal numeric rarity 1.\"",
+      "status": "asserted",
+      "note": "Four Fingers (Uncommon) is rejected while Credit Card, Splash and the target are counted."
+    },
+    {
+      "id": "lja-zero-one-two-neighbors",
+      "anchor": "CONTRACT.md paragraph 2: \"There can be zero, one or two qualifying neighbors.\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "lja-target-instance-qualifies",
+      "anchor": "CONTRACT.md paragraph 2: \"Another Common Neighbors instance is itself Common and can qualify as a neighbor\"",
+      "status": "asserted",
+      "note": "M03-exclude-target fails exactly these three cases."
+    },
+    {
+      "id": "lja-no-copy-or-recursion",
+      "anchor": "CONTRACT.md paragraph 2: \"it does not copy or recursively calculate anyone's effect\"",
+      "status": "asserted",
+      "note": "Exact totals with adjacent target instances reject an inflated sum."
+    },
+    {
+      "id": "lja-no-self-or-distant",
+      "anchor": "CONTRACT.md paragraph 2: \"The instance never counts itself, distant objects, a missing neighbor or the opposite end of the row.\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "lja-no-row-wraparound",
+      "anchor": "CONTRACT.md paragraph 2: \"The instance never counts itself, distant objects, a missing neighbor or the opposite end of the row.\"",
+      "status": "weak",
+      "note": "A target is at the left end in these rows but never at the right end (tasks/live_joker_adjacency/v2/private/scenario.py:85-121), so wrap and a missing neighbor past the right end are not exercised."
+    },
+    {
+      "id": "lja-contributions-add",
+      "anchor": "CONTRACT.md paragraph 2: \"Contributions from all owned instances add normally.\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "lja-row-at-scoring-authoritative",
+      "anchor": "CONTRACT.md paragraph 3: \"The row at that hand's scoring is authoritative.\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "lja-row-changes-next-hand",
+      "anchor": "CONTRACT.md paragraph 3: \"Real rearrangement, selling a neighbor or a target, and acquiring another instance change the next hand's contributions.\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "lja-no-inherited-cache",
+      "anchor": "CONTRACT.md paragraph 3: \"A surviving instance must not inherit another's cached contribution or position.\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "lja-no-accumulation",
+      "anchor": "CONTRACT.md paragraph 3: \"There is no persistent accumulation across hands, and sold objects no longer contribute.\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "lja-preserve-identities-and-order",
+      "anchor": "CONTRACT.md paragraph 3: \"Preserve physical identities, the player's chosen order and other Jokers' normal behavior.\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "lja-preserve-other-jokers",
+      "anchor": "CONTRACT.md paragraph 3: \"Preserve physical identities, the player's chosen order and other Jokers' normal behavior.\"",
+      "status": "weak",
+      "note": "Only Credit Card's native sale income and removal are read. No case observes a gameplay effect of Credit Card, Four Fingers or Splash."
+    },
+    {
+      "id": "lja-scope-purchase-and-blinds",
+      "anchor": "CONTRACT.md paragraph 4: \"ordinary purchase/sale and progression across blinds\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "lja-neighbor-effects-compose",
+      "anchor": "CONTRACT.md paragraph 4: \"Neighbor effects remain active and compose normally with this rule.\"",
+      "status": "unasserted",
+      "note": "Credit Card, Four Fingers and Splash add nothing to a single-card hand, so no scored total depends on a neighbor effect."
+    },
+    {
+      "id": "lja-edit-scope",
+      "anchor": "CONTRACT.md paragraph 5: \"Editable files are `main.lua` and `lib/adjacency.lua`; keep the supplied manifest unchanged.\"",
+      "status": "unasserted",
+      "note": "Enforced when the submission is sealed (plugins/balatro/src/rhenium_balatro/submission.py:32-47), not by a case."
+    }
+  ],
+  "excluded_clauses": [
+    "lja-cost-four",
+    "lja-neighbor-effects-compose",
+    "lja-edit-scope"
+  ],
+  "known_issues": [
+    "multi.reordered_score passes on the starter by coincidence (tasks/live_joker_adjacency/v2/private/scenario.py:92). The expected 49 chips need +0 and +6; the starter's stale index gives each instance a shared count of 1, which is +3 and +3, and the total matches. The case is preserved only by that evidence, stays overlap, and measures the requested repair: M01-shared-result, M02-stale-index and M04-wrap fail it."
+  ]
+}

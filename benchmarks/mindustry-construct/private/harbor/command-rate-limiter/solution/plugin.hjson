@@ -1,0 +1,5 @@
+name: "command-traffic-guard"
+displayName: "Server Command Rate Limiter"
+main: "CommandRateLimiterPlugin"
+version: "1.0.0"
+minGameVersion: 159

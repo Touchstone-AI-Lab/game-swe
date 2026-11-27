@@ -1,0 +1,7 @@
+control	kind	base	overlay	root	note
+tn-predicate-ammo-only	target-negative	starter	patch:predicate-ammo.patch	left4dhooks	starter plus only the LH-204 repair (validation/candidates/predicate-ammo.patch, byte-identical copy); eleven reports remain broken
+tn-stagger-unfixed	target-negative	reference	patch:tn-stagger-unfixed.patch	left4dhooks	reference with the LH-278 cancel/re-stagger repair reverted to the starter code
+cn-gascan-model-filter-removed	compat-negative	reference	patch:cn-gascan-model-filter-removed.patch	left4dhooks	reference whose new CPhysicsProp::OnTakeDamage detour pair no longer filters on the gas-can model, so ordinary physics props dispatch the gas-can family
+cn-float-attributes-all-integral	compat-negative	reference	patch:cn-float-attributes-all-integral.patch	left4dhooks	reference whose L4D2_SetFloatWeaponAttribute floors every attribute, not only PenetrationNumLayers
+alternative-a	alternative	starter	patch:alternative-a.patch	left4dhooks	validation/candidates/alternative-a.patch, byte-identical copy (calibrated independent solution A)
+alternative-b	alternative	starter	patch:alternative-b.patch	left4dhooks	validation/candidates/alternative-b.patch, byte-identical copy (calibrated independent solution B)

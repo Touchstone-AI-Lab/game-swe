@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "runtimes": [
+    {
+      "id": "rimworld-1.6.4871-linux-x64",
+      "name": "RimWorld 1.6.4871 Linux x86_64",
+      "version": "Steam build 23969874",
+      "provider": "steam",
+      "restricted": true,
+      "host_platforms": ["linux-x64"],
+      "source": {
+        "kind": "steam-depots",
+        "appId": 294100,
+        "os": "linux",
+        "depots": [
+          {"id": 294103, "manifest": "3402513235443928324"}
+        ],
+        "expectedFiles": [
+          "RimWorldLinux",
+          "UnityPlayer.so",
+          "Version.txt",
+          "Data/Core/About/About.xml",
+          "RimWorldLinux_Data/Managed/Assembly-CSharp.dll",
+          "RimWorldLinux_Data/Managed/UnityEngine.CoreModule.dll"
+        ]
+      }
+    }
+  ],
+  "task_bindings": {
+    "r4-uncraftable-material-basis": ["rimworld-1.6.4871-linux-x64"],
+    "r4-small-bench-ingredient-consumption": ["rimworld-1.6.4871-linux-x64"],
+    "project-rimfactory-cultivator-environment": ["rimworld-1.6.4871-linux-x64"],
+    "adaptive-storage-slot-limit-restore": ["rimworld-1.6.4871-linux-x64"],
+    "combat-readiness-colony-wealth": ["rimworld-1.6.4871-linux-x64"],
+    "customize-weapon-ability-tracker": ["rimworld-1.6.4871-linux-x64"],
+    "total-control-vanilla-gear-generation": ["rimworld-1.6.4871-linux-x64"],
+    "bill-autopilot-repeat-mode-ownership": ["rimworld-1.6.4871-linux-x64"],
+    "playwright-nonbulk-trade-accounting": ["rimworld-1.6.4871-linux-x64"],
+    "research-organized-tab-state": ["rimworld-1.6.4871-linux-x64"]
+  }
+}

@@ -1,0 +1,63 @@
+schema_version = "1.4"
+
+artifacts = ["/workspace/spirit-mod"]
+
+[task]
+name = "gamecodebench/terraria-spirit-branching-quest-replication-hard"
+version = "0.1.0"
+description = "Repair branching quest state, serialization, and authoritative multiplayer replication in Spirit Mod."
+authors = [{ name = "PrinsYin" }]
+keywords = ["terraria", "tmodloader", "spirit-mod", "csharp", "state-machine", "serialization", "networking"]
+
+[metadata]
+category = "programming"
+difficulty = "hard"
+tags = ["game-modding", "terraria", "tmodloader", "repository-debugging", "state-machine", "serialization", "networking"]
+task_kind = "repository-debugging"
+game = "Terraria"
+game_build = "1.4.4.9"
+tmodloader_api = "1.4.4 stable API"
+source_repo = "https://github.com/GabeHasWon/SpiritMod"
+source_license = "MIT"
+base_commit = "7ef2993d6f465f44420b2028e8666748ab31fe43"
+source_mod_version = "1.5.0.48"
+evaluation_boundary = "layered offline .NET 8 source projection plus pinned real tModLoader 2026.7.3.0 dedicated-server assertions against Terraria 1.4.4.9; disclosed client-only behavior remains source-projection-only"
+expected_private_cases = 97
+independent_defect_groups = 16
+public_smoke_command = "python3 tools/smoke.py"
+validation_status = "revision-4 oracle 97/97 and starter 16/97 controls completed"
+
+[verifier]
+environment_mode = "separate"
+network_mode = "no-network"
+timeout_sec = 900.0
+user = "root"
+
+[verifier.environment]
+network_mode = "no-network"
+cpus = 4
+memory_mb = 4096
+storage_mb = 8192
+gpus = 0
+mcp_servers = []
+
+[agent]
+user = "root"
+network_mode = "allowlist"
+allowed_hosts = ["api.openai.com"]
+timeout_sec = 7200.0
+
+[environment]
+network_mode = "no-network"
+build_timeout_sec = 1200.0
+cpus = 4
+memory_mb = 4096
+storage_mb = 8192
+gpus = 0
+mcp_servers = []
+
+[verifier.env]
+
+[environment.env]
+
+[solution.env]

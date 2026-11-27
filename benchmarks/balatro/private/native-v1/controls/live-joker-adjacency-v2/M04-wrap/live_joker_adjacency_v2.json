@@ -1,0 +1,14 @@
+{
+  "id": "live_joker_adjacency_v2",
+  "name": "Common Neighbors v2",
+  "author": [
+    "Balatro PoC"
+  ],
+  "description": "Ordinary physical-instance adjacency scoring repair",
+  "prefix": "lja2",
+  "main_file": "main.lua",
+  "version": "2.0.0",
+  "dependencies": [
+    "Steamodded (>=1.~)"
+  ]
+}

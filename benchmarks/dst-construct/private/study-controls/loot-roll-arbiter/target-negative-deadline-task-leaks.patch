@@ -1,0 +1,10 @@
+--- a/scripts/components/lootrollarbiter.lua
++++ b/scripts/components/lootrollarbiter.lua
+@@ -175,7 +175,6 @@
+     end
+     local first_settlement = self.pending[roll_id] == true
+     self.pending[roll_id] = nil
+-    self:_cancel_task(roll_id)
+     -- Each failed attempt is reported once, which moves the award to the next
+     -- candidate; a candidate never comes back, so the loop terminates.
+     local delivering = false

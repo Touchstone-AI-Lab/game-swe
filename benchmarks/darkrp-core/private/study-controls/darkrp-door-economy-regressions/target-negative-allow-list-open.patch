@@ -1,0 +1,12 @@
+diff -ruN a/darkrp/gamemode/modules/doorsystem/sh_doors.lua b/darkrp/gamemode/modules/doorsystem/sh_doors.lua
+--- a/darkrp/gamemode/modules/doorsystem/sh_doors.lua	2026-09-21 05:04:15.332463038 +0800
++++ b/darkrp/gamemode/modules/doorsystem/sh_doors.lua	2026-09-21 05:48:18.195782757 +0800
+@@ -64,7 +64,7 @@
+     local doorData = self:getDoorData()
+     if not doorData then return false end
+ 
+-    return doorData.allowedToOwn and doorData.allowedToOwn[ply:UserID()] or false
++    return true
+ end
+ 
+ function meta:getKeysNonOwnable()

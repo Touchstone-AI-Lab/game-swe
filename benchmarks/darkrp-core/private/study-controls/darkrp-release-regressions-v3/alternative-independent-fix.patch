@@ -1,0 +1,256 @@
+diff -ruN a/darkrp/entities/entities/spawned_ammo/init.lua b/darkrp/entities/entities/spawned_ammo/init.lua
+--- a/darkrp/entities/entities/spawned_ammo/init.lua	2026-09-21 05:04:15.520422617 +0800
++++ b/darkrp/entities/entities/spawned_ammo/init.lua	2026-09-21 05:40:34.051595217 +0800
+@@ -7,7 +7,12 @@
+     self:SetMoveType(MOVETYPE_VPHYSICS)
+     self:SetSolid(SOLID_VPHYSICS)
+     self:SetUseType(SIMPLE_USE)
++
++    -- The physics object can be invalid (missing model, physics limit). The entity
++    -- then simply stays motionless instead of erroring half way through its setup.
+     local phys = self:GetPhysicsObject()
++    if not IsValid(phys) then return end
++
+     phys:Wake()
+ end
+ 
+diff -ruN a/darkrp/entities/entities/spawned_shipment/commands.lua b/darkrp/entities/entities/spawned_shipment/commands.lua
+--- a/darkrp/entities/entities/spawned_shipment/commands.lua	2026-09-21 05:04:15.521044645 +0800
++++ b/darkrp/entities/entities/spawned_shipment/commands.lua	2026-09-21 05:40:34.051749787 +0800
+@@ -48,7 +48,7 @@
+     SafeRemoveEntity(ent)
+ 
+     local phys = crate:GetPhysicsObject()
+-    phys:Wake()
++    if IsValid(phys) then phys:Wake() end
+ end
+ DarkRP.defineChatCommand("makeshipment", createShipment, 0.3)
+ 
+@@ -98,6 +98,6 @@
+     crate:Spawn()
+ 
+     local phys = crate:GetPhysicsObject()
+-    phys:Wake()
++    if IsValid(phys) then phys:Wake() end
+ end
+ DarkRP.defineChatCommand("splitshipment", splitShipment, 0.3)
+diff -ruN a/darkrp/entities/entities/spawned_weapon/init.lua b/darkrp/entities/entities/spawned_weapon/init.lua
+--- a/darkrp/entities/entities/spawned_weapon/init.lua	2026-09-21 05:04:15.521238069 +0800
++++ b/darkrp/entities/entities/spawned_weapon/init.lua	2026-09-21 05:40:34.051707407 +0800
+@@ -9,12 +9,15 @@
+     self:SetMoveType(MOVETYPE_VPHYSICS)
+     self:SetSolid(SOLID_VPHYSICS)
+     self:SetUseType(SIMPLE_USE)
+-    local phys = self:GetPhysicsObject()
+-    phys:Wake()
+ 
+     if self:Getamount() == 0 then
+         self:Setamount(1)
+     end
++
++    -- Wake the weapon last: an invalid physics object (missing model, physics limit)
++    -- must not abort the rest of the setup.
++    local phys = self:GetPhysicsObject()
++    if IsValid(phys) then phys:Wake() end
+ end
+ 
+ function ENT:DecreaseAmount()
+diff -ruN a/darkrp/gamemode/modules/base/sh_createitems.lua b/darkrp/gamemode/modules/base/sh_createitems.lua
+--- a/darkrp/gamemode/modules/base/sh_createitems.lua	2026-09-21 05:04:15.524924054 +0800
++++ b/darkrp/gamemode/modules/base/sh_createitems.lua	2026-09-21 05:40:34.052111273 +0800
+@@ -465,7 +465,7 @@
+     else
+         util.PrecacheModel(CustomTeam.model)
+     end
+-    return Team
++    return CustomTeam.team
+ end
+ AddExtraTeam = DarkRP.createJob
+ 
+@@ -507,8 +507,20 @@
+ DarkRP.getShipmentByName = function(name)
+     name = name or ""
+ 
+-    if not shipByName[name] then return nil, nil end
+-    return CustomShipments[shipByName[name]], shipByName[name]
++    -- Exact display name first, then the same name in any letter case.
++    local key = shipByName[name]
++    if not key and isstring(name) then
++        local wanted = string.lower(name)
++        for k, shipment in pairs(CustomShipments) do
++            if isstring(shipment.name) and string.lower(shipment.name) == wanted then
++                key = k
++                break
++            end
++        end
++    end
++
++    if not key then return nil, nil end
++    return CustomShipments[key], key
+ end
+ 
+ function DarkRP.createShipment(name, model, entity, price, Amount_of_guns_in_one_shipment, Sold_separately, price_separately, noshipment, classes, shipmodel, CustomCheck)
+diff -ruN a/darkrp/gamemode/modules/base/sv_purchasing.lua b/darkrp/gamemode/modules/base/sv_purchasing.lua
+--- a/darkrp/gamemode/modules/base/sv_purchasing.lua	2026-09-21 05:04:15.525261100 +0800
++++ b/darkrp/gamemode/modules/base/sv_purchasing.lua	2026-09-21 05:40:34.051850101 +0800
+@@ -192,9 +192,11 @@
+     DarkRP.placeEntity(crate, tr, ply)
+ 
+     local phys = crate:GetPhysicsObject()
+-    phys:Wake()
+-    if found.weight then
+-        phys:SetMass(found.weight)
++    if IsValid(phys) then
++        phys:Wake()
++        if found.weight then
++            phys:SetMass(found.weight)
++        end
+     end
+ 
+     if CustomShipments[foundKey].onBought then
+diff -ruN a/darkrp/gamemode/modules/fadmin/fadmin/restrict/sv_restrict.lua b/darkrp/gamemode/modules/fadmin/fadmin/restrict/sv_restrict.lua
+--- a/darkrp/gamemode/modules/fadmin/fadmin/restrict/sv_restrict.lua	2026-09-21 05:04:15.532558914 +0800
++++ b/darkrp/gamemode/modules/fadmin/fadmin/restrict/sv_restrict.lua	2026-09-21 05:40:34.052174066 +0800
+@@ -28,9 +28,18 @@
+     return true, Weapon, Group
+ end
+ 
++local function weaponArgument(ply, args, usage)
++    local weapon = istable(args) and args[1] or nil
++    if isstring(weapon) and string.Trim(weapon) ~= "" then return weapon end
++
++    FAdmin.Messages.SendMessage(ply, 1, "No weapon given. Usage: " .. usage)
++    return nil
++end
++
+ local function UnRestrictWeapons(ply, cmd, args)
+     if not FAdmin.Access.PlayerHasPrivilege(ply, "Restrict") then FAdmin.Messages.SendMessage(ply, 5, "No access!") return false end
+-    local Weapon = args[1]
++    local Weapon = weaponArgument(ply, args, "UnRestrictWeapon <weapon class>")
++    if not Weapon then return false end
+ 
+     sql.Query("DELETE FROM FADMIN_RESTRICTEDENTS WHERE ENTITY = " .. sql.SQLStr(Weapon) .. " AND TYPE = " .. sql.SQLStr("Weapons") .. ";")
+ 
+diff -ruN a/darkrp/gamemode/modules/police/sv_init.lua b/darkrp/gamemode/modules/police/sv_init.lua
+--- a/darkrp/gamemode/modules/police/sv_init.lua	2026-09-21 05:04:15.536374057 +0800
++++ b/darkrp/gamemode/modules/police/sv_init.lua	2026-09-21 05:41:31.807529975 +0800
+@@ -116,6 +116,39 @@
+ end
+ 
+ --[[---------------------------------------------------------------------------
++Querying who is arrested
++The list is the primitive; the iterator and the count are derived from it so the
++three can never disagree.
++---------------------------------------------------------------------------]]
++function DarkRP.arrestedPlayers()
++    local arrested = {}
++
++    for _, ply in ipairs(player.GetAll()) do
++        if IsValid(ply) and ply:isArrested() then
++            arrested[#arrested + 1] = ply
++        end
++    end
++
++    return arrested
++end
++
++function DarkRP.iterateArrestedPlayers()
++    -- Iterate over a snapshot, so arresting or releasing someone inside the loop
++    -- cannot upset the traversal.
++    local snapshot = DarkRP.arrestedPlayers()
++    local position = 0
++
++    return function()
++        position = position + 1
++        return snapshot[position]
++    end
++end
++
++function DarkRP.arrestedPlayerCount()
++    return #DarkRP.arrestedPlayers()
++end
++
++--[[---------------------------------------------------------------------------
+ Chat commands
+ ---------------------------------------------------------------------------]]
+ local function CombineRequest(ply, args)
+diff -ruN a/darkrp/gamemode/modules/police/sv_interface.lua b/darkrp/gamemode/modules/police/sv_interface.lua
+--- a/darkrp/gamemode/modules/police/sv_interface.lua	2026-09-21 05:04:15.536374057 +0800
++++ b/darkrp/gamemode/modules/police/sv_interface.lua	2026-09-21 05:41:31.807603718 +0800
+@@ -188,6 +188,51 @@
+     metatable = DarkRP.PLAYER
+ }
+ 
++DarkRP.arrestedPlayers = DarkRP.stub{
++    name = "arrestedPlayers",
++    description = "Get the players that are currently arrested.",
++    parameters = {
++    },
++    returns = {
++        {
++            name = "players",
++            description = "A list of the arrested players. Empty when nobody is arrested.",
++            type = "table"
++        }
++    },
++    metatable = DarkRP
++}
++
++DarkRP.iterateArrestedPlayers = DarkRP.stub{
++    name = "iterateArrestedPlayers",
++    description = "Loop over the arrested players: for ply in DarkRP.iterateArrestedPlayers() do ... end",
++    parameters = {
++    },
++    returns = {
++        {
++            name = "iterator",
++            description = "A function that returns the next arrested player, or nil when there are no more.",
++            type = "function"
++        }
++    },
++    metatable = DarkRP
++}
++
++DarkRP.arrestedPlayerCount = DarkRP.stub{
++    name = "arrestedPlayerCount",
++    description = "Get the number of players that are currently arrested.",
++    parameters = {
++    },
++    returns = {
++        {
++            name = "count",
++            description = "The number of arrested players.",
++            type = "number"
++        }
++    },
++    metatable = DarkRP
++}
++
+ DarkRP.hookStub{
+     name = "playerArrested",
+     description = "When a player is arrested.",
+diff -ruN a/darkrp/gamemode/modules/voting/sv_questions.lua b/darkrp/gamemode/modules/voting/sv_questions.lua
+--- a/darkrp/gamemode/modules/voting/sv_questions.lua	2026-09-21 05:04:15.538123905 +0800
++++ b/darkrp/gamemode/modules/voting/sv_questions.lua	2026-09-21 05:40:34.051904665 +0800
+@@ -51,11 +51,18 @@
+ end
+ 
+ function DarkRP.destroyQuestion(id)
+-    umsg.Start("KillQuestionVGUI", Questions[id].Ent)
+-        umsg.String(Questions[id].ID)
+-    umsg.End()
++    if id == nil then return end
+ 
++    -- The question may already be gone: it was answered, it timed out, or another
++    -- cleanup path got here first. Only tell the client about questions that exist.
++    local question = Questions[id]
+     Questions[id] = nil
++
++    if not istable(question) then return end
++
++    umsg.Start("KillQuestionVGUI", question.Ent)
++        umsg.String(question.ID)
++    umsg.End()
+ end
+ 
+ function DarkRP.destroyQuestionsWithEnt(ent)

@@ -1,0 +1,14 @@
+--- a/solution/TransferEngine.java
++++ b/solution/TransferEngine.java
+@@ -303,10 +303,7 @@
+             sourceRemoved.request().destinationPos(),
+             sourceRemoved.destinationBefore()
+         );
+-        boolean sourceRestored = restoreOne(
+-            sourceRemoved.request().sourcePos(),
+-            sourceRemoved.sourceBefore()
+-        );
++        boolean sourceRestored = true;
+         boolean restored = destinationRestored && sourceRestored;
+
+         PersistedTransfer finalTransfer = replace(

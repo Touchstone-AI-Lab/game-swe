@@ -1,0 +1,13 @@
+diff --git a/src/main/java/com/evacipated/cardcrawl/modthespire/GraphTS.java b/src/main/java/com/evacipated/cardcrawl/modthespire/GraphTS.java
+index 7aa82e3..dde19f0 100644
+--- a/src/main/java/com/evacipated/cardcrawl/modthespire/GraphTS.java
++++ b/src/main/java/com/evacipated/cardcrawl/modthespire/GraphTS.java
+@@ -73,7 +73,7 @@ public class GraphTS<T>
+     {
+         sortedArray.clear();
+         for (Vertex v : vertexList) {
+-            sortedArray.add(v.value);
++            sortedArray.add(0, v.value);
+         }
+ 
+         int n = sortedArray.size();

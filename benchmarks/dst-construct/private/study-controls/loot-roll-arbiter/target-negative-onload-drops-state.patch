@@ -1,0 +1,11 @@
+--- a/scripts/components/lootrollarbiter.lua
++++ b/scripts/components/lootrollarbiter.lua
+@@ -219,7 +219,7 @@
+     end
+     -- The engine clock restarts with the process, so stored deadlines and
+     -- ledger times are rebased onto the current clock.
+-    self.core = Arbiter.load(data.core, arbiter_options(GetTime()))
++    self.core = Arbiter.new(arbiter_options(nil))
+     if type(data.next_roll) == "number" and data.next_roll > self.next_roll then
+         self.next_roll = data.next_roll
+     end

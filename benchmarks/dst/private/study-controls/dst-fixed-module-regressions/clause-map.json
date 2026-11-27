@@ -1,0 +1,305 @@
+{
+  "task": "dst/core/dst-fixed-module-regressions",
+  "task_version": "2.0.0",
+  "exam": "benchmarks/dst/exams/dst-fixed-module-regressions.md",
+  "cases": [
+    {
+      "id": "check:submission-shape",
+      "role": "static",
+      "clauses": [
+        "context-tree"
+      ],
+      "overlap": false,
+      "note": "mod/ tree with modinfo.lua and modmain.lua, no symbolic links or native modules, parseable Lua"
+    },
+    {
+      "id": "case:sentinel: DST Fixed is loaded with the operator's modules",
+      "role": "runtime-sentinel",
+      "clauses": [
+        "context-config"
+      ],
+      "overlap": false,
+      "note": "Combinable Equipment component and the temporary portal prefab exist."
+    },
+    {
+      "id": "case:a Backtrek Watch can be given a name that shows in its display name",
+      "role": "target",
+      "clauses": [
+        "report-watches",
+        "expect-watches"
+      ],
+      "overlap": false,
+      "note": "RENAME_WATCH action with a feather pencil, then Writeable:Write as the client would."
+    },
+    {
+      "id": "case:a named Rift Watch keeps its name across a save and reload",
+      "role": "target",
+      "clauses": [
+        "report-watches",
+        "expect-watches"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:naming a watch uses up one Feather Pencil of a stack",
+      "role": "target",
+      "clauses": [
+        "expect-pencil"
+      ],
+      "overlap": false,
+      "note": "Fails in the starter already because naming never starts; the target-negative control isolates the stack defect."
+    },
+    {
+      "id": "case:combining two spears adds up their durability",
+      "role": "preserved",
+      "clauses": [
+        "report-gear",
+        "expect-gear"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:combining never raises durability above full",
+      "role": "preserved",
+      "clauses": [
+        "expect-gear"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:combining Turf-Raiser Helms keeps the turf loaded in the consumed helm",
+      "role": "target",
+      "clauses": [
+        "report-gear",
+        "expect-gear"
+      ],
+      "overlap": false,
+      "note": "Seven grass turfs must end up in the world near the helms."
+    },
+    {
+      "id": "case:using a Desert Stone opens a temporary Lazy Deserter that other portals lead to",
+      "role": "preserved",
+      "clauses": [
+        "report-portal",
+        "expect-portal"
+      ],
+      "overlap": false,
+      "note": "Guards against silencing the error by never registering the temporary portal."
+    },
+    {
+      "id": "case:the temporary Lazy Deserter stops channeling cleanly and unlinks other portals",
+      "role": "target",
+      "clauses": [
+        "report-portal",
+        "expect-portal"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:a beefalo takes one bung and refuses a second",
+      "role": "preserved",
+      "clauses": [
+        "expect-bungs"
+      ],
+      "overlap": false,
+      "note": "Trader AcceptGift then WantsToAccept."
+    },
+    {
+      "id": "case:a blocked beefalo stays blocked after a save and reload",
+      "role": "preserved",
+      "clauses": [
+        "report-bungs",
+        "expect-bungs"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:a blocked koalefant drops its bung when it dies",
+      "role": "preserved",
+      "clauses": [
+        "expect-bungs"
+      ],
+      "overlap": false,
+      "note": "Exactly one bung in the first loot generation."
+    },
+    {
+      "id": "case:blocking one koalefant does not give other koalefants a bung",
+      "role": "target",
+      "clauses": [
+        "report-bungs",
+        "expect-bungs"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:setup: a fresh Glommer statue and one loaded from a base-game save stand in the world",
+      "role": "setup",
+      "clauses": [],
+      "overlap": false,
+      "note": "The statues are checked one second later."
+    },
+    {
+      "id": "case:a partly mined Glommer statue is repaired with Marble up to full and no further",
+      "role": "preserved",
+      "clauses": [
+        "report-statue-fine",
+        "expect-statue-repair"
+      ],
+      "overlap": false,
+      "note": "Guards against making the statue repairable without a limit."
+    },
+    {
+      "id": "case:a Glommer statue saved before the option was switched on can be repaired with Marble",
+      "role": "target",
+      "clauses": [
+        "report-statue",
+        "expect-statue-old-save"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:without a celestial portal a dial drops its glass beside itself",
+      "role": "preserved",
+      "clauses": [
+        "expect-glass"
+      ],
+      "overlap": false,
+      "note": "Runs before any celestial portal exists (the module keeps its portal reference)."
+    },
+    {
+      "id": "case:setup: two moon dials are glassed and the storm ends next to a celestial portal",
+      "role": "setup",
+      "clauses": [],
+      "overlap": false,
+      "note": "Pushes ms_stormchanged on and off."
+    },
+    {
+      "id": "case:the celestial portal receives exactly one moon glass per dial",
+      "role": "target",
+      "clauses": [
+        "report-glass",
+        "expect-glass"
+      ],
+      "overlap": false,
+      "note": "Counted two seconds later near the portal."
+    }
+  ],
+  "clauses": [
+    {
+      "id": "context-tree",
+      "anchor": "Context: \"`/app/mod` is **DST Fixed**\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "context-config",
+      "anchor": "Context: \"Our dedicated server has these six modules switched on.\"",
+      "status": "asserted",
+      "note": "The verifier enables the five options."
+    },
+    {
+      "id": "report-watches",
+      "anchor": "Reports: \"a Feather Pencil does nothing to a\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "report-gear",
+      "anchor": "Reports: \"the turf that was loaded in the helm used up as material is simply gone\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "report-portal",
+      "anchor": "Reports: \"When the\n> player stops channeling, though, the server logs a Lua error\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "report-bungs",
+      "anchor": "Reports: \"every\n> koalefant killed afterwards drops a bung too\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "report-glass",
+      "anchor": "Reports: \"one\n> more piece of Moon Glass than there were glassed moon dials\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "expect-watches",
+      "anchor": "Expected behaviour, Nameable Backtrek Watch: \"the watch's display\n  name becomes `<watch name> (<text>)`\"",
+      "status": "asserted",
+      "note": "Both watch prefabs; the Rift Watch case also saves and reloads."
+    },
+    {
+      "id": "expect-gear",
+      "anchor": "Expected behaviour, Combinable Equipment: \"It is never\n  deleted.\"",
+      "status": "asserted",
+      "note": "Durability sum, full cap and dropped contents are each asserted."
+    },
+    {
+      "id": "expect-portal",
+      "anchor": "Expected behaviour, Enhanced Sand Stone: \"every Lazy\n  Deserter that was linked to the temporary one is released\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "expect-bungs",
+      "anchor": "Expected behaviour, Block Pooping With a Bung: \"A creature that was never given a bung never\n  drops one\"",
+      "status": "asserted",
+      "note": "Baby beefalo and winter koalefants are not exercised."
+    },
+    {
+      "id": "expect-glass",
+      "anchor": "Expected behaviour, Gather Moon Dial's Glass: \"exactly one piece of Moon Glass per glassed dial\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "expect-pencil",
+      "anchor": "Expected behaviour, Nameable Backtrek Watch: \"Starting to name a watch uses up one Feather Pencil\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "report-statue",
+      "anchor": "Reports: \"that statue refuses Marble\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "report-statue-fine",
+      "anchor": "Reports: \"take Marble as they should\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "expect-statue-repair",
+      "anchor": "Expected behaviour, Glommer Statue Repairing: \"up to the work of a full statue (`TUNING.ROCKS_MINE`)\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "expect-statue-old-save",
+      "anchor": "Expected behaviour, Glommer Statue Repairing: \"including one loaded from a save the base game wrote before the option was\"",
+      "status": "asserted",
+      "note": ""
+    }
+  ],
+  "excluded_clauses": [],
+  "known_issues": [
+    "The module keeps a module-level reference to the celestial portal and listens for a 'remove' event that the game never fires, so a removed portal is never forgotten; the suite therefore runs the no-portal case first. This is upstream behaviour, not part of the task.",
+    "Every run generates a new world. The checks that look for dropped items (the combined helm's turf, the dial without a portal and the celestial portal's glass) are placed at the nearest offset from the spawn portal where all ground within the search radius is land, because items flung onto an ocean tile sink.",
+    "The base-game save of a partly mined Glommer statue is written by hand as `{ workable = { maxwork = -1, workleft = 2 } }`, which is what the base game's Workable:OnSave returns for a statue the module never touched.",
+    "The Glommer statue checks run one second after the statues are spawned, so a fix that defers setting the full work by a frame (as upstream does) is seen after it has run."
+  ]
+}

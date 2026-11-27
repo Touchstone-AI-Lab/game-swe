@@ -1,0 +1,6 @@
+control	kind	base	overlay	root	note
+tn-hint-lifecycle-unfixed	target-negative	starter	patch:tn-hint-lifecycle-unfixed.patch	linge-hud	oracle HUD.nut and RewardHP.nut, starter Hint.nut (LG-445 unrepaired); full patch from the starter because the implicit reference cannot be built for this task
+tn-rewardhp-unfixed	target-negative	starter	patch:tn-rewardhp-unfixed.patch	linge-hud	oracle HUD.nut and Hint.nut, starter RewardHP.nut (LG-452 unrepaired)
+cn-flame-scale-ignores-type	compat-negative	starter	patch:cn-flame-scale-ignores-type.patch	linge-hud	oracle tree whose entityflame x3 normalization no longer checks the damage type, so ordinary entityflame damage is multiplied
+cn-hybrid-mode-clamped	compat-negative	starter	patch:cn-hybrid-mode-clamped.patch	linge-hud	oracle tree whose temporary-only clamp branch also captures RewardHP mode 3, removing its permanent fallback
+alternative-snapshot-transition	alternative	starter	patch:alternative-snapshot-transition.patch	linge-hud	OnTakeDamage Tank snapshot, shared RecordTeamHurt helper, death-event exact-zero fallback, table-driven damage scale, baseline advanced at map_transition, explicitly numbered HINTMODE, room-based RewardHP

@@ -1,0 +1,398 @@
+{
+  "scope": "2026-09-21 maintainer controls, not model calibration",
+  "records": [
+    {
+      "task": "l4d2-infected-bots-release-regressions-medium",
+      "candidate": "gold",
+      "profile": "full",
+      "expected_full_cases": 18,
+      "complete_full_case_set": true,
+      "timed_out": false,
+      "group": null,
+      "exit_code": 0,
+      "component_hashes": {
+        "instruction.md": "c766e0ac9ce2ed65cb44d282d9fcfbf03f0da8ebc35b755e786b1f39c2430eec",
+        "task.toml": "7f2f6e1ef0e4dd8240d2c59490c8bbabdd641790ba7cb0142da16cb65a6952ff",
+        "environment": "0608a435483f64d733f800c097afcc53199aab72e7362495d2355023b84e1e10",
+        "tests": "e6a27a218fe6e3e19df5e4ea35a2b064c09abcc5b3e73722c56919fa089ba8d7",
+        "solution": "a3b0574595e8676d3202e4e4cf616e70d5a70051ece5f04e7eb006269095eaa7",
+        "validation/case-contracts.tsv": "9138932b41b808deace23ac33dd0e8d3ff379c14dae41ee005266cec94d22d5c"
+      },
+      "hash_algorithm": "sha256-relpath-nul-content-nul-posix-lexical-v1",
+      "contract": "98fb77b75077fa0eed1ab3acba45f1b27cdb43fc944c4ab143da5709f8a36c1f",
+      "runtime_image_id": "sha256:af58da986d0f3187d359d86a45e405adc658f368e671ae8f3ae1deded0125dc1",
+      "source_hash": "586bbd345f72ff52b2f42208970ffe78fe1e6a721224a166b98991cd25b2df2c",
+      "tests_hash": "e6a27a218fe6e3e19df5e4ea35a2b064c09abcc5b3e73722c56919fa089ba8d7",
+      "input_transport": "readonly-linux-volume",
+      "cases": [
+        {
+          "case": "package_complete_public_source",
+          "status": "PASS",
+          "detail": "files=63 bytes=1387702 source_lines=26853 target_lines=6570 spawn_lines=952"
+        },
+        {
+          "case": "submitted_plugins_compile",
+          "status": "PASS",
+          "detail": "target, public spawn dependency, and external public-API consumer compile with pinned SourceMod"
+        },
+        {
+          "case": "capacity_library_loaded",
+          "status": "PASS",
+          "detail": "public library is available"
+        },
+        {
+          "case": "capacity_exact_runtime_slots",
+          "status": "PASS",
+          "detail": "expected=17 observed=17"
+        },
+        {
+          "case": "capacity_unclamped_request_is_preserved",
+          "status": "PASS",
+          "detail": "expected=2 observed=2 flags=16384 fake=1 ingame=1 allow=1 zlimit_seen=1"
+        },
+        {
+          "case": "config_library_and_single_survivor_guard",
+          "status": "PASS",
+          "detail": "library=1 alive_survivors=1"
+        },
+        {
+          "case": "config_settings_count_profile_overlays_all_types",
+          "status": "PASS",
+          "detail": "max=17 min=3.25 string_b=1"
+        },
+        {
+          "case": "config_settings_count_omitted_keys_inherit_default",
+          "status": "PASS",
+          "detail": "spawn_max=12.00"
+        },
+        {
+          "case": "config_admin_overrides_are_temporary",
+          "status": "PASS",
+          "detail": "max=5 min=77.00 max_time=88.00"
+        },
+        {
+          "case": "config_reload_replaces_overrides_and_applies_map_profiles",
+          "status": "PASS",
+          "detail": "survivors=1 max=15 min=4.50 max_time=15.00 string_c=1"
+        },
+        {
+          "case": "initial_timer_libraries_loaded",
+          "status": "PASS",
+          "detail": "libraries=1/1 controlled=1"
+        },
+        {
+          "case": "initial_timer_victim_created",
+          "status": "PASS",
+          "detail": "survivor=1 prepared=1 infected=2 preexisting=0 anchor=900"
+        },
+        {
+          "case": "initial_timer_not_overwritten_by_normal_delay",
+          "status": "PASS",
+          "detail": "first_spawn_after_round=9.1000 required=8.0 tolerance=0.0676 round_time=1.0000 death_time=4.0333 victim_deaths=1"
+        },
+        {
+          "case": "initial_timer_eventually_replenishes",
+          "status": "PASS",
+          "detail": "alive_infected=1 after initial delay"
+        },
+        {
+          "case": "initial_timer_normal_delay_resumes_after_window",
+          "status": "PASS",
+          "detail": "alive_infected=1 after normal one-second delay"
+        },
+        {
+          "case": "finale_library_loaded",
+          "status": "PASS",
+          "detail": "libraries=1/1"
+        },
+        {
+          "case": "finale_win_event_available",
+          "status": "PASS",
+          "detail": "event=1 lifecycle=1 survivor=1 victim=2 death=1 preexisting=0 anchor=900"
+        },
+        {
+          "case": "finale_win_cancels_pending_replenishment",
+          "status": "PASS",
+          "detail": "alive_infected=0 after finale_win"
+        }
+      ],
+      "passed": 18,
+      "total": 18,
+      "verifier_log_sha256": "ed4d3d6b2bcb4e5793dfa4b108202617252fa59534eecc8699d3b9712d681f19",
+      "logs_copied": true,
+      "server_log_hashes": {
+        "server-capacity.log": "94cd12f19b01dc4e1a2a837e4e40cad5a70c6399d3914e49bc30384c0f17d147",
+        "server-config.log": "a772904ff6c4c20d6d198b2f74d0dfd78531ff4edb60c5ff4a88fbcea9d92078",
+        "server-finale.log": "76473d7fe3a2eff065599bf8a92aa6ac23c4f3d0b811f27f5488b0a42c6a6021",
+        "server-initial_timer.log": "52b07ba0e206b72060242c9224e99b7f455efe0da74cc3d998da9c83ea467535"
+      },
+      "retained_server_log_hashes_verified": true,
+      "evidence_directory": "l4d2-infected-bots-release-regressions-medium-gold-1789961831147304900",
+      "expected_outcome_confirmed": true,
+      "expected_cases_in_selected_scope": 18,
+      "emitted_exact_verdict_count": true
+    },
+    {
+      "task": "l4d2-infected-bots-release-regressions-medium",
+      "candidate": "nop",
+      "profile": "full",
+      "expected_full_cases": 18,
+      "complete_full_case_set": true,
+      "timed_out": false,
+      "group": null,
+      "exit_code": 1,
+      "component_hashes": {
+        "instruction.md": "c766e0ac9ce2ed65cb44d282d9fcfbf03f0da8ebc35b755e786b1f39c2430eec",
+        "task.toml": "7f2f6e1ef0e4dd8240d2c59490c8bbabdd641790ba7cb0142da16cb65a6952ff",
+        "environment": "0608a435483f64d733f800c097afcc53199aab72e7362495d2355023b84e1e10",
+        "tests": "e6a27a218fe6e3e19df5e4ea35a2b064c09abcc5b3e73722c56919fa089ba8d7",
+        "solution": "a3b0574595e8676d3202e4e4cf616e70d5a70051ece5f04e7eb006269095eaa7",
+        "validation/case-contracts.tsv": "9138932b41b808deace23ac33dd0e8d3ff379c14dae41ee005266cec94d22d5c"
+      },
+      "hash_algorithm": "sha256-relpath-nul-content-nul-posix-lexical-v1",
+      "contract": "98fb77b75077fa0eed1ab3acba45f1b27cdb43fc944c4ab143da5709f8a36c1f",
+      "runtime_image_id": "sha256:af58da986d0f3187d359d86a45e405adc658f368e671ae8f3ae1deded0125dc1",
+      "source_hash": "5926372edc833c2defc1d6ba6ab8b68ec12754017635e151e4afb9fb266510f9",
+      "tests_hash": "e6a27a218fe6e3e19df5e4ea35a2b064c09abcc5b3e73722c56919fa089ba8d7",
+      "input_transport": "readonly-linux-volume",
+      "cases": [
+        {
+          "case": "package_complete_public_source",
+          "status": "PASS",
+          "detail": "files=63 bytes=1387733 source_lines=26852 target_lines=6569 spawn_lines=952"
+        },
+        {
+          "case": "submitted_plugins_compile",
+          "status": "PASS",
+          "detail": "target, public spawn dependency, and external public-API consumer compile with pinned SourceMod"
+        },
+        {
+          "case": "capacity_library_loaded",
+          "status": "PASS",
+          "detail": "public library is available"
+        },
+        {
+          "case": "capacity_exact_runtime_slots",
+          "status": "FAIL",
+          "detail": "expected=17 observed=29"
+        },
+        {
+          "case": "capacity_unclamped_request_is_preserved",
+          "status": "PASS",
+          "detail": "expected=2 observed=2 flags=16384 fake=1 ingame=1 allow=1 zlimit_seen=1"
+        },
+        {
+          "case": "config_library_and_single_survivor_guard",
+          "status": "PASS",
+          "detail": "library=1 alive_survivors=1"
+        },
+        {
+          "case": "config_settings_count_profile_overlays_all_types",
+          "status": "PASS",
+          "detail": "max=17 min=3.25 string_b=1"
+        },
+        {
+          "case": "config_settings_count_omitted_keys_inherit_default",
+          "status": "PASS",
+          "detail": "spawn_max=12.00"
+        },
+        {
+          "case": "config_admin_overrides_are_temporary",
+          "status": "PASS",
+          "detail": "max=5 min=77.00 max_time=88.00"
+        },
+        {
+          "case": "config_reload_replaces_overrides_and_applies_map_profiles",
+          "status": "FAIL",
+          "detail": "survivors=1 max=8 min=14.00 max_time=15.00 string_c=0"
+        },
+        {
+          "case": "initial_timer_libraries_loaded",
+          "status": "PASS",
+          "detail": "libraries=1/1 controlled=1"
+        },
+        {
+          "case": "initial_timer_victim_created",
+          "status": "PASS",
+          "detail": "survivor=1 prepared=1 infected=2 preexisting=0 anchor=900"
+        },
+        {
+          "case": "initial_timer_not_overwritten_by_normal_delay",
+          "status": "FAIL",
+          "detail": "first_spawn_after_round=4.2000 required=8.0 tolerance=0.0676 round_time=1.0000 death_time=4.0333 victim_deaths=1"
+        },
+        {
+          "case": "initial_timer_eventually_replenishes",
+          "status": "PASS",
+          "detail": "alive_infected=1 after initial delay"
+        },
+        {
+          "case": "initial_timer_normal_delay_resumes_after_window",
+          "status": "PASS",
+          "detail": "alive_infected=1 after normal one-second delay"
+        },
+        {
+          "case": "finale_library_loaded",
+          "status": "PASS",
+          "detail": "libraries=1/1"
+        },
+        {
+          "case": "finale_win_event_available",
+          "status": "PASS",
+          "detail": "event=1 lifecycle=1 survivor=1 victim=2 death=1 preexisting=0 anchor=900"
+        },
+        {
+          "case": "finale_win_cancels_pending_replenishment",
+          "status": "FAIL",
+          "detail": "alive_infected=1 after finale_win"
+        }
+      ],
+      "passed": 14,
+      "total": 18,
+      "verifier_log_sha256": "ce4e59fde1675a3dcaa1365bf353d3cbb64aea488b11a87b8effa42c5bc9e7de",
+      "logs_copied": true,
+      "server_log_hashes": {
+        "server-capacity.log": "4ac3e30150d46eab8cab9a467854dc8da9b1a0221b8804662cb532948d2c6bb1",
+        "server-config.log": "f11c7a44672963ebc4c42d629a13ae90070585007a59f39e9005b698131915ad",
+        "server-finale.log": "23a787b886247a729699a25f8c53205a1e7b534647091749f97bd00c7397abab",
+        "server-initial_timer.log": "565558d546c8e13f8a09dae3ebf35efbb6217aae9780cdd65ecf514c13bbdd9b"
+      },
+      "retained_server_log_hashes_verified": true,
+      "evidence_directory": "l4d2-infected-bots-release-regressions-medium-nop-1789961999128179100",
+      "expected_outcome_confirmed": true,
+      "expected_cases_in_selected_scope": 18,
+      "emitted_exact_verdict_count": true
+    },
+    {
+      "task": "l4d2-infected-bots-release-regressions-medium",
+      "candidate": "four-second-replacement",
+      "profile": "full",
+      "expected_full_cases": 18,
+      "complete_full_case_set": true,
+      "timed_out": false,
+      "group": null,
+      "exit_code": 1,
+      "component_hashes": {
+        "instruction.md": "c766e0ac9ce2ed65cb44d282d9fcfbf03f0da8ebc35b755e786b1f39c2430eec",
+        "task.toml": "7f2f6e1ef0e4dd8240d2c59490c8bbabdd641790ba7cb0142da16cb65a6952ff",
+        "environment": "0608a435483f64d733f800c097afcc53199aab72e7362495d2355023b84e1e10",
+        "tests": "e6a27a218fe6e3e19df5e4ea35a2b064c09abcc5b3e73722c56919fa089ba8d7",
+        "solution": "a3b0574595e8676d3202e4e4cf616e70d5a70051ece5f04e7eb006269095eaa7",
+        "validation/case-contracts.tsv": "9138932b41b808deace23ac33dd0e8d3ff379c14dae41ee005266cec94d22d5c"
+      },
+      "hash_algorithm": "sha256-relpath-nul-content-nul-posix-lexical-v1",
+      "contract": "98fb77b75077fa0eed1ab3acba45f1b27cdb43fc944c4ab143da5709f8a36c1f",
+      "runtime_image_id": "sha256:af58da986d0f3187d359d86a45e405adc658f368e671ae8f3ae1deded0125dc1",
+      "source_hash": "c75a91fa5916b1e87dfeb495a4075b6371ba25dbbf52bbfd97e72570ede2440c",
+      "tests_hash": "e6a27a218fe6e3e19df5e4ea35a2b064c09abcc5b3e73722c56919fa089ba8d7",
+      "input_transport": "readonly-linux-volume",
+      "cases": [
+        {
+          "case": "package_complete_public_source",
+          "status": "PASS",
+          "detail": "files=63 bytes=1388072 source_lines=26865 target_lines=6582 spawn_lines=952"
+        },
+        {
+          "case": "submitted_plugins_compile",
+          "status": "PASS",
+          "detail": "target, public spawn dependency, and external public-API consumer compile with pinned SourceMod"
+        },
+        {
+          "case": "capacity_library_loaded",
+          "status": "PASS",
+          "detail": "public library is available"
+        },
+        {
+          "case": "capacity_exact_runtime_slots",
+          "status": "PASS",
+          "detail": "expected=17 observed=17"
+        },
+        {
+          "case": "capacity_unclamped_request_is_preserved",
+          "status": "PASS",
+          "detail": "expected=2 observed=2 flags=16384 fake=1 ingame=1 allow=1 zlimit_seen=1"
+        },
+        {
+          "case": "config_library_and_single_survivor_guard",
+          "status": "PASS",
+          "detail": "library=1 alive_survivors=1"
+        },
+        {
+          "case": "config_settings_count_profile_overlays_all_types",
+          "status": "PASS",
+          "detail": "max=17 min=3.25 string_b=1"
+        },
+        {
+          "case": "config_settings_count_omitted_keys_inherit_default",
+          "status": "PASS",
+          "detail": "spawn_max=12.00"
+        },
+        {
+          "case": "config_admin_overrides_are_temporary",
+          "status": "PASS",
+          "detail": "max=5 min=77.00 max_time=88.00"
+        },
+        {
+          "case": "config_reload_replaces_overrides_and_applies_map_profiles",
+          "status": "PASS",
+          "detail": "survivors=1 max=15 min=4.50 max_time=15.00 string_c=1"
+        },
+        {
+          "case": "initial_timer_libraries_loaded",
+          "status": "PASS",
+          "detail": "libraries=1/1 controlled=1"
+        },
+        {
+          "case": "initial_timer_victim_created",
+          "status": "PASS",
+          "detail": "survivor=1 prepared=1 infected=2 preexisting=0 anchor=900"
+        },
+        {
+          "case": "initial_timer_not_overwritten_by_normal_delay",
+          "status": "FAIL",
+          "detail": "first_spawn_after_round=7.1000 required=8.0 tolerance=0.0676 round_time=1.0000 death_time=4.0333 victim_deaths=1"
+        },
+        {
+          "case": "initial_timer_eventually_replenishes",
+          "status": "PASS",
+          "detail": "alive_infected=1 after initial delay"
+        },
+        {
+          "case": "initial_timer_normal_delay_resumes_after_window",
+          "status": "PASS",
+          "detail": "alive_infected=1 after normal one-second delay"
+        },
+        {
+          "case": "finale_library_loaded",
+          "status": "PASS",
+          "detail": "libraries=1/1"
+        },
+        {
+          "case": "finale_win_event_available",
+          "status": "PASS",
+          "detail": "event=1 lifecycle=1 survivor=1 victim=2 death=1 preexisting=0 anchor=900"
+        },
+        {
+          "case": "finale_win_cancels_pending_replenishment",
+          "status": "PASS",
+          "detail": "alive_infected=0 after finale_win"
+        }
+      ],
+      "passed": 17,
+      "total": 18,
+      "verifier_log_sha256": "d27472f8311dd1fd5dae8962b74d75bc8913a28765130533faeebcb86c551d33",
+      "logs_copied": true,
+      "server_log_hashes": {
+        "server-capacity.log": "e3e2514341df95b74ea27a9f9e4bf49a5d4e389ea58d6de9b5b1b9de4d4ce444",
+        "server-config.log": "536c807ca157c8588edd1c699963ff6c2162f4e97d5f981c73678e5a35ed3515",
+        "server-finale.log": "a9392aed876a03c55476fc2a58b179fd4213defcc15b3bcf9808e029b1bac0ec",
+        "server-initial_timer.log": "848dd6d16e49a383f0e862d92121f402bc9a8fd7e73f4201ac7a9f0d5dbe748b"
+      },
+      "retained_server_log_hashes_verified": true,
+      "evidence_directory": "l4d2-infected-bots-release-regressions-medium-four-second-replacement-1789962010819385200",
+      "expected_outcome_confirmed": true,
+      "expected_cases_in_selected_scope": 18,
+      "emitted_exact_verdict_count": true
+    }
+  ]
+}

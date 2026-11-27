@@ -1,0 +1,16 @@
+diff -ruN a/scripts/statuseffects/stack.lua b/scripts/statuseffects/stack.lua
+--- a/scripts/statuseffects/stack.lua	2026-09-22 00:59:18.686420789 +0800
++++ b/scripts/statuseffects/stack.lua	2026-09-22 01:14:27.004154540 +0800
+@@ -58,11 +58,7 @@
+ 
+ -- Each stack multiplies once, so `stacks` stacks contribute mult ^ stacks.
+ local function stacked_multiplier(mult, stacks)
+-    local value = 1
+-    for _ = 1, stacks do
+-        value = value * mult
+-    end
+-    return value
++    return 1 + (mult - 1) * stacks
+ end
+ 
+ local function build(options, clock)

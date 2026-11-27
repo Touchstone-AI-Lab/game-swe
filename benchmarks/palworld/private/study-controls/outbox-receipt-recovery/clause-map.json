@@ -1,0 +1,177 @@
+{
+  "task": "palworld/core/outbox-receipt-recovery",
+  "task_version": "1.2.0",
+  "exam": "benchmarks/palworld/exams/outbox-receipt-recovery.md",
+  "cases": [
+    {
+      "id": "check:required-files",
+      "role": "static"
+    },
+    {
+      "id": "check:lua-syntax",
+      "role": "static"
+    },
+    {
+      "id": "hidden:intent must persist before any delivery and failed intent consumes no sequence",
+      "role": "target",
+      "clauses": [
+        "request"
+      ]
+    },
+    {
+      "id": "hidden:uncertain delivery survives crash using receipt instead of replay",
+      "role": "target",
+      "clauses": [
+        "request"
+      ]
+    },
+    {
+      "id": "hidden:terminal journal failure retains pending and reload must query receipt",
+      "role": "target",
+      "clauses": [
+        "request"
+      ]
+    },
+    {
+      "id": "hidden:unknown lookup blocks later requests and eventually resumes in sequence",
+      "role": "target",
+      "clauses": [
+        "request"
+      ]
+    },
+    {
+      "id": "hidden:duplicate conflict and invalid input precede external calls",
+      "role": "target",
+      "clauses": [
+        "request"
+      ]
+    },
+    {
+      "id": "hidden:adapter and storage exceptions fail closed without bypass",
+      "role": "target",
+      "clauses": [
+        "request"
+      ]
+    },
+    {
+      "id": "hidden:all terminal receipts survive multiple reloads and hostile aliases",
+      "role": "target",
+      "clauses": [
+        "request"
+      ]
+    },
+    {
+      "id": "hidden:save version is explicit and unsupported versions fail closed",
+      "role": "target",
+      "clauses": [
+        "request"
+      ]
+    },
+    {
+      "id": "check:implementation-depth",
+      "role": "static"
+    },
+    {
+      "id": "check:outbox-authority",
+      "role": "target",
+      "clauses": [
+        "integration:outbox-authority"
+      ],
+      "note": "regular-expression gate over the submitted source, not an execution"
+    },
+    {
+      "id": "check:outbox-thread",
+      "role": "target",
+      "clauses": [
+        "integration:outbox-thread"
+      ],
+      "note": "regular-expression gate over the submitted source, not an execution"
+    },
+    {
+      "id": "check:outbox-persistence",
+      "role": "target",
+      "clauses": [
+        "integration:outbox-persistence"
+      ],
+      "note": "regular-expression gate over the submitted source, not an execution"
+    },
+    {
+      "id": "check:outbox-lifecycle",
+      "role": "target",
+      "clauses": [
+        "integration:outbox-lifecycle"
+      ],
+      "note": "regular-expression gate over the submitted source, not an execution"
+    },
+    {
+      "id": "check:outbox-manifest",
+      "role": "target",
+      "clauses": [
+        "integration:outbox-manifest"
+      ],
+      "note": "regular-expression gate over the submitted source, not an execution"
+    },
+    {
+      "id": "server:dedicated server world and documented API are available",
+      "role": "target",
+      "clauses": [
+        "request"
+      ]
+    },
+    {
+      "id": "server:service exposes complete trusted protocol",
+      "role": "target",
+      "clauses": [
+        "request"
+      ]
+    },
+    {
+      "id": "server:server executes distinguishing protocol sequence",
+      "role": "target",
+      "clauses": [
+        "request"
+      ]
+    },
+    {
+      "id": "server:server saves and restores the protocol without silent reset",
+      "role": "target",
+      "clauses": [
+        "request"
+      ]
+    }
+  ],
+  "clauses": [
+    {
+      "id": "request",
+      "anchor": "exam body; split into individual clauses during review",
+      "status": "asserted"
+    },
+    {
+      "id": "integration:outbox-authority",
+      "anchor": "host-integration section; source-pattern gate outbox-authority",
+      "status": "weak"
+    },
+    {
+      "id": "integration:outbox-thread",
+      "anchor": "host-integration section; source-pattern gate outbox-thread",
+      "status": "weak"
+    },
+    {
+      "id": "integration:outbox-persistence",
+      "anchor": "host-integration section; source-pattern gate outbox-persistence",
+      "status": "weak"
+    },
+    {
+      "id": "integration:outbox-lifecycle",
+      "anchor": "host-integration section; source-pattern gate outbox-lifecycle",
+      "status": "weak"
+    },
+    {
+      "id": "integration:outbox-manifest",
+      "anchor": "host-integration section; source-pattern gate outbox-manifest",
+      "status": "weak"
+    }
+  ],
+  "excluded_clauses": [],
+  "known_issues": []
+}

@@ -1,0 +1,110 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+usage() {
+  cat >&2 <<'EOF'
+Usage: score-exam <submission-dir> [options]
+
+Options:
+  --profile <profile-id>
+  --security-mode <honest|untrusted>
+  --host-provider <provider-id>
+  --host-image <immutable-image-or-snapshot-id>
+EOF
+}
+
+fail() {
+  printf 'score-exam: %s\n' "$1" >&2
+  exit 2
+}
+
+if [[ ${1:-} == "-h" || ${1:-} == "--help" ]]; then
+  usage
+  exit 0
+fi
+
+if (( $# < 1 )); then
+  usage
+  exit 2
+fi
+
+submission_input=$1
+shift
+profile_id=
+security_mode=${RHENIUM_EVALUATION_SECURITY_MODE:-honest}
+host_provider=${RHENIUM_EVALUATION_HOST_PROVIDER:-}
+host_image=${RHENIUM_EVALUATION_HOST_IMAGE:-}
+while (( $# > 0 )); do
+  (( $# >= 2 )) || fail "option requires a value: $1"
+  [[ -n $2 ]] || fail "option value must not be empty: $1"
+  case "$1" in
+    --profile) profile_id=$2 ;;
+    --security-mode) security_mode=$2 ;;
+    --host-provider) host_provider=$2 ;;
+    --host-image) host_image=$2 ;;
+    *) fail "unknown option: $1" ;;
+  esac
+  shift 2
+done
+[[ $security_mode == honest || $security_mode == untrusted ]] || \
+  fail "security mode must be honest or untrusted"
+if [[ $security_mode == untrusted ]]; then
+  [[ -n $host_provider ]] || fail "untrusted mode requires --host-provider"
+  [[ -n $host_image ]] || fail "untrusted mode requires --host-image"
+elif [[ -n $host_provider || -n $host_image ]]; then
+  fail "host options require --security-mode untrusted"
+fi
+
+[[ -d "$submission_input" ]] || fail "submission directory does not exist: $submission_input"
+submission_dir=$(cd "$submission_input" && pwd -P)
+root=$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd -P)
+benchmark_path=${RHENIUM_BENCHMARK_PATH:-$root/benchmarks}
+state_dir=${RHENIUM_STATE_DIR:-$root/.rhenium/hub}
+cache_dir=${RHENIUM_CACHE_DIR:-$state_dir/cache}
+database_url=${RHENIUM_DATABASE_URL:-sqlite:///$state_dir/state.sqlite}
+
+case "$submission_dir" in
+  "$root"|"$root/"*|/)
+    fail "submission must be outside the benchmark repository"
+    ;;
+esac
+case "$root" in
+  "$submission_dir/"*)
+    fail "submission must not contain the benchmark repository"
+    ;;
+esac
+
+cd "$root"
+
+common_environment=(
+  RHENIUM_ROOT="$root"
+  RHENIUM_BENCHMARK_PATH="$benchmark_path"
+  RHENIUM_STATE_DIR="$state_dir"
+  RHENIUM_CACHE_DIR="$cache_dir"
+  RHENIUM_DATABASE_URL="$database_url"
+)
+set -- rhenium run-attempt "$submission_dir"
+if [[ -n $profile_id ]]; then
+  set -- "$@" --profile "$profile_id"
+fi
+if [[ $security_mode == untrusted ]]; then
+  set -- "$@" --security-mode untrusted \
+    --host-provider "$host_provider" --host-image "$host_image"
+fi
+
+if command -v devenv >/dev/null 2>&1; then
+  exec env \
+    "${common_environment[@]}" \
+    RHENIUM_QUIET_SHELL=1 \
+    devenv --quiet shell -- \
+    "$@"
+fi
+
+if command -v nix >/dev/null 2>&1; then
+  exec env \
+    "${common_environment[@]}" \
+    nix develop --command \
+    "$@"
+fi
+
+fail "neither devenv nor Nix is available"

@@ -1,0 +1,11 @@
+--- a/lua/rhenium_prop_alignment/server.lua
++++ b/lua/rhenium_prop_alignment/server.lua
+@@ -18,7 +18,7 @@
+  local n=progress[p]or 0;local selected=p.RheniumAlignmentEntity
+  if n==0 then selected=trace.Entity;if not binding(selected)then return false,"unbound_entity",{}end;p.RheniumAlignmentEntity=selected end
+  local b=binding(selected);if not b then return false,"unbound_entity",{}end
+- local allowed=hook.Run("CanTool",p,trace,"rhenium_align");if allowed==false then return false,"permission_denied",{}end
++ local allowed=hook.Run("CanTool",p,trace,"rhenium_align");if false and allowed==false then return false,"permission_denied",{}end
+  local frames={"source","source","source","target","target","target"};local slots={"origin","x","y","origin","x","y"};local v=trace.HitPos
+  request_serial=request_serial+1
+  local ok,code,data=core:stage("adapter-stage:"..request_serial,players[p],b.id,b.revision,frames[n+1],slots[n+1],{x=v.x,y=v.y,z=v.z})

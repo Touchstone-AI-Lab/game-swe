@@ -1,0 +1,78 @@
+--- a/main.lua
++++ b/main.lua
+@@ -1079,39 +1079,6 @@
+ Exodus:AddCallback(ModCallbacks.MC_NPC_UPDATE, Exodus.occultistEntityUpdate, Entities.OCCULTIST.id)
+ 
+ --<<<IRON LUNG>>>--
+-function Exodus:ironLungGasLogic()
+-    local entities = Isaac.GetRoomEntities()
+-
+-    for i, entity in pairs(entities) do
+-        if entity.Type == Entities.IRON_LUNG_GAS.id and entity.Variant == Entities.IRON_LUNG_GAS.variant then
+-            local sprite = entity:GetSprite()
+-
+-            if sprite:IsFinished("Appear") then
+-                sprite:Play("Pyroclastic Flow", false)
+-            end
+-
+-            if sprite:IsFinished("Pyroclastic Flow") then
+-                sprite:Play("Fade", false)
+-            end
+-
+-            for v, tear in pairs(entities) do
+-                if tear:ToTear() then
+-                    if tear.Position:Distance(entity.Position) < entity.Size + tear.Size then
+-                        tear.Velocity = tear.Velocity * 0.8
+-                    end
+-                end
+-            end
+-
+-            if sprite:IsFinished("Fade") then
+-                entity:Remove()
+-                entity.Visible = false
+-            end
+-        end
+-    end
+-end
+-
+-Exodus:AddCallback(ModCallbacks.MC_POST_UPDATE, Exodus.ironLungGasLogic)
+-
+ function Exodus:ironLungEntityUpdate(entity)
+     local player = Isaac.GetPlayer(0)
+     local data = entity:GetData()
+@@ -1256,6 +1223,35 @@
+             entity.State = 0
+         end
+     end
++
++    local entities = Isaac.GetRoomEntities()
++
++    for i, gas in pairs(entities) do
++        if gas.Type == Entities.IRON_LUNG_GAS.id and gas.Variant == Entities.IRON_LUNG_GAS.variant then
++            local gasSprite = gas:GetSprite()
++
++            if gasSprite:IsFinished("Appear") then
++                gasSprite:Play("Pyroclastic Flow", false)
++            end
++
++            if gasSprite:IsFinished("Pyroclastic Flow") then
++                gasSprite:Play("Fade", false)
++            end
++
++            for v, tear in pairs(entities) do
++                if tear:ToTear() then
++                    if tear.Position:Distance(gas.Position) < gas.Size + tear.Size then
++                        tear.Velocity = tear.Velocity * 0.8
++                    end
++                end
++            end
++
++            if gasSprite:IsFinished("Fade") then
++                gas:Remove()
++                gas.Visible = false
++            end
++        end
++    end
+ end
+ 
+ Exodus:AddCallback(ModCallbacks.MC_NPC_UPDATE, Exodus.ironLungEntityUpdate, Entities.IRON_LUNG.id)

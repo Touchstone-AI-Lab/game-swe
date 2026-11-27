@@ -1,0 +1,12 @@
+diff -ruN a/Automate/Framework/MachineManager.cs b/Automate/Framework/MachineManager.cs
+--- a/Automate/Framework/MachineManager.cs
++++ b/Automate/Framework/MachineManager.cs
+@@ -274,7 +274,7 @@
+                 junimoGroupChanged = true;
+                 anyChanged = true;
+             }
+-            else if (active.Any() || disabled.Any())
++            else if (active.Any() && disabled.Any())
+                 anyChanged = true;
+         }
+ 

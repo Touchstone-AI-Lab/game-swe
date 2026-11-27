@@ -1,0 +1,105 @@
+{
+  "id": "dst-core",
+  "version": "4.0.0",
+  "game": "dst",
+  "name": {
+    "en": "Don't Starve Together mod repair tasks",
+    "zh": "饥荒联机版模组修复任务"
+  },
+  "description": {
+    "en": "Repair tasks over real open-source Don't Starve Together mods with upstream fixes reverted, evaluated on the pinned dedicated server. Every task reports only operator and player symptoms and never states how many defects there are.",
+    "zh": "基于真实开源饥荒联机版模组、回退上游修复后的修复任务，在固定版本的专用服务器中评测。每道题只描述运维者与玩家看到的现象，不告知缺陷数量。"
+  },
+  "tasks": [
+    {
+      "id": "dsmmo-release-regressions",
+      "difficulty": "hard",
+      "title": {
+        "en": "DsMMO: skill handlers, saves and commands misbehave on a live server",
+        "zh": "DsMMO：技能事件处理、存档与命令在在线服务器上行为异常"
+      },
+      "summary": {
+        "en": "Repair the reported Beetaliation, Explosive touch, haunt and dig handler errors, the stale levels after an Exp-gain change and the eat command error in the DsMMO server mod.",
+        "zh": "修复 DsMMO 服务器模组中报告的蜂群反击、爆炸触碰、作祟与挖掘处理错误，经验倍率变更后的过时等级，以及 eat 命令错误。"
+      },
+      "brief": {
+        "en": "Diagnose and repair every reported problem in the vendored DsMMO mod while preserving the skills that already work.",
+        "zh": "诊断并修复所附 DsMMO 模组中报告的全部问题，同时保持已正常的技能行为。"
+      },
+      "requirements": {
+        "en": [
+          "Fix the underlying causes rather than suppressing the symptoms.",
+          "Preserve every documented skill behaviour that already works."
+        ],
+        "zh": [
+          "修复根本原因，而不是掩盖现象。",
+          "保持已正常工作的技能行为。"
+        ]
+      },
+      "api_usage": {
+        "en": [
+          "Use the Don't Starve Together mod API and the base-game components the mod already relies on."
+        ],
+        "zh": [
+          "使用模组已依赖的饥荒联机版模组 API 与原版组件。"
+        ]
+      },
+      "acceptance": {
+        "en": [
+          "Every private assertion must pass on the pinned dedicated server without network access."
+        ],
+        "zh": [
+          "所有私有断言必须在固定版本、无网络的专用服务器中通过。"
+        ]
+      },
+      "domains": [
+        "lua",
+        "debugging",
+        "real-game-runtime",
+        "events",
+        "combat",
+        "persistence"
+      ],
+      "estimated_minutes": 120,
+      "required_files": [
+        "mod/modinfo.lua",
+        "mod/modmain.lua",
+        "mod/scripts/components/DsMMO.lua"
+      ],
+      "task_kind": "repository-debugging",
+      "source_mod": "DsMMO",
+      "upstream": {
+        "repository": "https://github.com/JodliDev/DsMMO",
+        "license_spdx": "Apache-2.0",
+        "license_file": "LICENSE",
+        "base_commit": "783ab7baff73cced26292232aa73d050d5a0dfb9",
+        "fix_commits": [
+          "9b93e05ec975befa86bbeda0756fc46211251a5f",
+          "0d7c62d8c0cfb29eb4cd948f4111d4f2e0067105",
+          "6d1351fa6eb83e94562cb1d791ccb692b674f841",
+          "c957bd508db0eeb9c66f5137983088d8a2f91d3c",
+          "783ab7baff73cced26292232aa73d050d5a0dfb9"
+        ]
+      },
+      "server_test": "server/dsmmo-release-regressions.lua",
+      "server_cases": [
+        "sentinel: DsMMO gives a spawned player its skill component",
+        "an attack on the player earns attack experience",
+        "Beetaliation sends a bee after a creature that attacks the player",
+        "damage without an attacker, like the darkness, is handled",
+        "a player who hurts themselves is not chased by their own bee",
+        "Explosive touch hits a creature that can fight",
+        "Explosive touch on something that cannot fight back is handled",
+        "Ghosty fireflies turn a haunted evil flower into fireflies",
+        "a haunt that has no target is handled",
+        "digging earns dig experience",
+        "digging without a tool, as a werebeaver does, is handled",
+        "a save made under the current Exp-gain setting loads as it was saved",
+        "a save made under another Exp-gain setting gets its levels recalculated",
+        "an incomplete #dsmmo eat command is handled",
+        "the full #dsmmo eat command still exchanges experience for sanity"
+      ],
+      "mod_options": {}
+    }
+  ]
+}

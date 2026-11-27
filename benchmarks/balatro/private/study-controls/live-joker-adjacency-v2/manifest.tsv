@@ -1,0 +1,3 @@
+control	kind	base	overlay	root	note
+M03-exclude-target	target-negative	starter	pack:private/native-v1/controls/live-joker-adjacency-v2/M03-exclude-target	starter	frozen mutant: fails only requested-change cases
+alternative-public	alternative	starter	tree:alternative-public	starter	authored from the public contract: whole-row tally once per hand, looked up by identity; reviewed seal 518d3571

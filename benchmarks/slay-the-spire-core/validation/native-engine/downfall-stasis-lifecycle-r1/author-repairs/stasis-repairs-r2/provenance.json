@@ -1,0 +1,17 @@
+{
+  "status": "Unmeasured repair prototypes. Native R3 observability is queued; no asserted candidate or model task is frozen.",
+  "basis": "Preserve the six R1 admission/ownership prototypes; add physical retirement distinct from per-evoke extension effects and independent copied-card ownership.",
+  "gold": "Per-orb transfer-scheduled state after the existing evoke callback; native stat-equivalent card copy with existing remaining orb amounts preserved.",
+  "alternative": "Retain the previously independent index/transaction/recursive-generation repair. Keep a departure action reference for each original orb to avoid scheduling its physical transfer twice; preserve callback repetition.",
+  "variants": [
+    "gold",
+    "alternative",
+    "stale-only",
+    "ownership-only",
+    "zero-only",
+    "batch-only",
+    "retirement-only",
+    "copy-only"
+  ],
+  "limitation": "These are hypotheses until R3 raw observations and the entire exact author matrix are reviewed. No model exposure or difficulty claim."
+}

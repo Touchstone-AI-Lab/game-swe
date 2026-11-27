@@ -1,0 +1,4 @@
+control	kind	base	overlay	root	note
+target-negative-undefined-tech-level	target-negative	reference	patch:target-negative-undefined-tech-level.patch	.	reference that treats TechLevel.Undefined as below Industrial (Steel, no components)
+compat-negative-extension-first	compat-negative	reference	patch:compat-negative-extension-first.patch	.	reference that prefers an authored R4MaterialCostExtension over a real crafting cost
+alternative-a	alternative	starter	tree:alternative-a	.	own resolver: NullOrEmpty precedence checks, switch over the normalised tech level, explicit float32 locals

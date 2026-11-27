@@ -1,0 +1,14 @@
+diff -ruN a/scripts/components/statuseffects.lua b/scripts/components/statuseffects.lua
+--- a/scripts/components/statuseffects.lua	2026-09-22 01:00:31.550230924 +0800
++++ b/scripts/components/statuseffects.lua	2026-09-22 01:14:27.023056433 +0800
+@@ -259,10 +259,6 @@
+     local saved = type(data) == "table" and data.version == 1 and data.stack or nil
+     self.stack = Stack.load(saved, OPTIONS, now)
+     self.clock = now
+-    for _, stable_id in ipairs(self:_SortedIds()) do
+-        self.stack:add_target(stable_id, now)
+-        self:Reconcile(self.by_id[stable_id].entity, now)
+-    end
+ end
+ 
+ function StatusEffects:OnRemoveFromEntity()

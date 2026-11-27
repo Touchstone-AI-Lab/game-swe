@@ -1,0 +1,10 @@
+{"cases":[
+  {"name":"reserve commit and quota","category":"core","maximum":10},
+  {"name":"duplicate is idempotent","category":"core","maximum":5},
+  {"name":"cancel and offline release reservations","category":"core","maximum":5},
+  {"name":"single exact removal refund","category":"core","maximum":5},
+  {"name":"rolling window boundary","category":"core","maximum":5},
+  {"name":"save reload preserves accounting","category":"persistence","maximum":15},
+  {"name":"real building identity and accounting","category":"integration","maximum":15},
+  {"name":"active plugin and headless world","category":"integration","maximum":10}
+]}

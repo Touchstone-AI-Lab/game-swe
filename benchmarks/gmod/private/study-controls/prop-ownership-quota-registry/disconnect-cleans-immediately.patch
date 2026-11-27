@@ -1,0 +1,11 @@
+--- a/lua/rhenium_prop_registry/server.lua
++++ b/lua/rhenium_prop_registry/server.lua
+@@ -184,7 +184,7 @@
+     end)
+     hook.Add("PlayerDisconnected", hook_prefix .. ".PlayerDisconnected", function(ply)
+         local owner = players[ply]
+-        if owner ~= nil then registry:disconnect(owner, CurTime()) end
++        if owner ~= nil then registry:disconnect(owner, CurTime()); registry:tick(CurTime() + 5) end
+     end)
+     hook.Add("PlayerInitialSpawn", hook_prefix .. ".PlayerInitialSpawn", function(ply)
+         local owner = players[ply]

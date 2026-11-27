@@ -1,0 +1,12 @@
+diff -u a/wire/lua/wire/gates/time.lua b/wire/lua/wire/gates/time.lua
+--- a/wire/lua/wire/gates/time.lua
++++ b/wire/lua/wire/gates/time.lua
+@@ -209,7 +209,7 @@
+ 	name = "Derivative",
+ 	description = "Outputs the rate of change (derivative) of the number.",
+ 	inputs = {"A"},
+-	timed = true,
++	timed = false,
+ 	output = function(gate, A)
+ 		local t = CurTime()
+ 		local dT = t - gate.LastT

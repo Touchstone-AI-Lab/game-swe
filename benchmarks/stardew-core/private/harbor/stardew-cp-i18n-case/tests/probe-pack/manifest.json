@@ -1,0 +1,11 @@
+{
+  "Name": "GCB Probe Pack",
+  "Author": "GameCodeBench",
+  "Version": "1.0.0",
+  "Description": "Verifier fixture: a minimal Content Patcher pack exercising the i18n token.",
+  "UniqueID": "GameCodeBench.ProbePack",
+  "ContentPackFor": {
+    "UniqueID": "Pathoschild.ContentPatcher"
+  },
+  "MinimumApiVersion": "4.1.0"
+}

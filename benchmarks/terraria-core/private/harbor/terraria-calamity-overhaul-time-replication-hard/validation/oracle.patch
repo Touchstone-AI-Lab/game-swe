@@ -1,0 +1,559 @@
+diff --git a/benchmarks/terraria-core/private/harbor/terraria-calamity-overhaul-time-replication-hard/environment/calamity-overhaul/Content/TimeFreezes/NetworkEntityIdentity.cs b/benchmarks/terraria-core/private/harbor/terraria-calamity-overhaul-time-replication-hard/solution/after/Content/TimeFreezes/NetworkEntityIdentity.cs
+index 5fdd0dd5..8fef54f9 100644
+--- a/benchmarks/terraria-core/private/harbor/terraria-calamity-overhaul-time-replication-hard/environment/calamity-overhaul/Content/TimeFreezes/NetworkEntityIdentity.cs
++++ b/benchmarks/terraria-core/private/harbor/terraria-calamity-overhaul-time-replication-hard/solution/after/Content/TimeFreezes/NetworkEntityIdentity.cs
+@@ -9,6 +9,7 @@ namespace CalamityOverhaul.Content.TimeFreezes
+         int Index, int Type, ulong Generation)
+     {
+         internal bool IsValid => Index >= 0 && Index < Main.maxNPCs
++            && Index < ushort.MaxValue
+             && Type > NPCID.None && Type < NPCLoader.NPCCount
+             && Generation != 0;
+ 
+@@ -20,6 +21,7 @@ namespace CalamityOverhaul.Content.TimeFreezes
+         internal static bool TryCapture(NPC npc, out NetworkNPCIdentity identity) {
+             identity = default;
+             if (npc?.active != true || npc.whoAmI < 0 || npc.whoAmI >= Main.maxNPCs
++                || npc.whoAmI >= ushort.MaxValue
+                 || npc.type <= NPCID.None || npc.type >= NPCLoader.NPCCount) {
+                 return false;
+             }
+@@ -35,7 +37,7 @@ namespace CalamityOverhaul.Content.TimeFreezes
+ 
+         internal bool TryResolve(out NPC npc) {
+             npc = null;
+-            if (!IsValid || Main.npc == null) {
++            if (!IsValid || Main.npc == null || Index >= Main.npc.Length) {
+                 return false;
+             }
+ 
+@@ -68,10 +70,17 @@ namespace CalamityOverhaul.Content.TimeFreezes
+             }
+ 
+             try {
+-                identity = new NetworkNPCIdentity(reader.ReadUInt16(),
++                NetworkNPCIdentity candidate = new(reader.ReadUInt16(),
+                     reader.ReadInt32(), reader.ReadUInt64());
+-                return identity.IsValid;
+-            } catch (EndOfStreamException) {
++                if (!candidate.IsValid) {
++                    return false;
++                }
++                identity = candidate;
++                return true;
++            } catch (IOException) {
++                identity = default;
++                return false;
++            } catch (System.ObjectDisposedException) {
+                 identity = default;
+                 return false;
+             }
+@@ -81,7 +90,8 @@ namespace CalamityOverhaul.Content.TimeFreezes
+     internal readonly record struct NetworkProjectileIdentity(
+         int Owner, int Identity, int Type)
+     {
+-        internal bool IsValid => Owner >= 0 && Owner <= Main.maxPlayers
++        internal bool IsValid => Owner >= 0 && Owner < Main.maxPlayers
++            && Owner < byte.MaxValue
+             && Identity >= 0
+             && Type > ProjectileID.None && Type < ProjectileLoader.ProjectileCount;
+ 
+@@ -94,7 +104,8 @@ namespace CalamityOverhaul.Content.TimeFreezes
+             out NetworkProjectileIdentity identity) {
+             identity = default;
+             if (projectile?.active != true
+-                || projectile.owner < 0 || projectile.owner > Main.maxPlayers
++                || projectile.owner < 0 || projectile.owner >= Main.maxPlayers
++                || projectile.owner >= byte.MaxValue
+                 || projectile.identity < 0
+                 || projectile.type <= ProjectileID.None
+                 || projectile.type >= ProjectileLoader.ProjectileCount) {
+@@ -112,7 +123,8 @@ namespace CalamityOverhaul.Content.TimeFreezes
+             }
+ 
+             Projectile match = null;
+-            for (int i = 0; i < Main.maxProjectiles; i++) {
++            int count = System.Math.Min(Main.maxProjectiles, Main.projectile.Length);
++            for (int i = 0; i < count; i++) {
+                 Projectile candidate = Main.projectile[i];
+                 if (candidate?.active != true || candidate.owner != Owner
+                     || candidate.identity != Identity || candidate.type != Type) {
+@@ -146,10 +158,17 @@ namespace CalamityOverhaul.Content.TimeFreezes
+             }
+ 
+             try {
+-                identity = new NetworkProjectileIdentity(reader.ReadByte(),
++                NetworkProjectileIdentity candidate = new(reader.ReadByte(),
+                     reader.ReadInt32(), reader.ReadInt32());
+-                return identity.IsValid;
+-            } catch (EndOfStreamException) {
++                if (!candidate.IsValid) {
++                    return false;
++                }
++                identity = candidate;
++                return true;
++            } catch (IOException) {
++                identity = default;
++                return false;
++            } catch (System.ObjectDisposedException) {
+                 identity = default;
+                 return false;
+             }
+diff --git a/benchmarks/terraria-core/private/harbor/terraria-calamity-overhaul-time-replication-hard/environment/calamity-overhaul/Content/TimeFreezes/TimeControlReplicationSystem.cs b/benchmarks/terraria-core/private/harbor/terraria-calamity-overhaul-time-replication-hard/solution/after/Content/TimeFreezes/TimeControlReplicationSystem.cs
+index 45c13fa0..6cd5a1da 100644
+--- a/benchmarks/terraria-core/private/harbor/terraria-calamity-overhaul-time-replication-hard/environment/calamity-overhaul/Content/TimeFreezes/TimeControlReplicationSystem.cs
++++ b/benchmarks/terraria-core/private/harbor/terraria-calamity-overhaul-time-replication-hard/solution/after/Content/TimeFreezes/TimeControlReplicationSystem.cs
+@@ -27,7 +27,7 @@ namespace CalamityOverhaul.Content.TimeFreezes
+         private const uint SnapshotMagic = 0x31524354;
+         private const byte SnapshotVersion = 1;
+         private const int MaxSnapshotSections = 16;
+-        private const int MaxSectionBytes = 64 * 1024;
++        private const int MaxSectionBytes = ushort.MaxValue;
+ 
+         private readonly record struct PendingNPCKey(
+             Type SourceType, long ActivationId, NetworkNPCIdentity Identity);
+@@ -35,29 +35,43 @@ namespace CalamityOverhaul.Content.TimeFreezes
+         private readonly record struct PendingProjectileKey(
+             Type SourceType, long ActivationId, NetworkProjectileIdentity Identity);
+ 
+-        private sealed record PendingNPC(ulong ExpiresAt, Action<NPC> Apply);
+-        private sealed record PendingProjectile(ulong ExpiresAt, Action<Projectile> Apply);
++        private sealed record PendingNPC(ulong ExpiresAt, ulong Order, Action<NPC> Apply);
++        private sealed record PendingProjectile(ulong ExpiresAt, ulong Order, Action<Projectile> Apply);
++        private sealed record PendingBatchItem(ulong Order, Action<ulong, ulong> Process);
+ 
+         private static readonly Dictionary<PendingNPCKey, PendingNPC> pendingNPCs = [];
+         private static readonly Dictionary<PendingProjectileKey, PendingProjectile> pendingProjectiles = [];
+         private static ulong nextDropLogFrame;
++        private static ulong nextPendingOrder;
++        private static ulong worldEpoch;
++        private static bool processingPending;
++        private static bool sendingSnapshot;
++        private static bool receivingSnapshot;
+ 
+         private static int Capacity => Main.maxNPCs + Main.maxProjectiles;
+ 
+         internal static EntityResolutionResult ResolveOrQueueNPC<TSource>(
+             long activationId, NetworkNPCIdentity identity, int remainingFrames,
+             Action<NPC> apply) {
+-            if (activationId == 0 || !identity.IsValid || remainingFrames <= 0
++            if (activationId <= 0 || !identity.IsValid || remainingFrames <= 0
+                 || apply == null) {
+                 return EntityResolutionResult.Rejected;
+             }
++            PendingNPCKey key = new(typeof(TSource), activationId, identity);
+             if (identity.TryResolve(out NPC npc)) {
+-                apply(npc);
+-                return EntityResolutionResult.Applied;
++                pendingNPCs.Remove(key);
++                try {
++                    apply(npc);
++                    return EntityResolutionResult.Applied;
++                } catch (Exception exception) {
++                    LogApplyFailure(typeof(TSource), activationId, identity.ToString(), exception);
++                    return EntityResolutionResult.Rejected;
++                }
+             }
+ 
+-            PendingNPCKey key = new(typeof(TSource), activationId, identity);
+             if (pendingNPCs.ContainsKey(key)) {
++                pendingNPCs[key] = new PendingNPC(ComputeExpiry(remainingFrames),
++                    NextPendingOrder(), apply);
+                 return EntityResolutionResult.Queued;
+             }
+             if (!HasCapacity()) {
+@@ -66,24 +80,32 @@ namespace CalamityOverhaul.Content.TimeFreezes
+             }
+ 
+             pendingNPCs.Add(key, new PendingNPC(
+-                ComputeExpiry(remainingFrames), apply));
++                ComputeExpiry(remainingFrames), NextPendingOrder(), apply));
+             return EntityResolutionResult.Queued;
+         }
+ 
+         internal static EntityResolutionResult ResolveOrQueueProjectile<TSource>(
+             long activationId, NetworkProjectileIdentity identity, int remainingFrames,
+             Action<Projectile> apply) {
+-            if (activationId == 0 || !identity.IsValid || remainingFrames <= 0
++            if (activationId <= 0 || !identity.IsValid || remainingFrames <= 0
+                 || apply == null) {
+                 return EntityResolutionResult.Rejected;
+             }
++            PendingProjectileKey key = new(typeof(TSource), activationId, identity);
+             if (identity.TryResolve(out Projectile projectile)) {
+-                apply(projectile);
+-                return EntityResolutionResult.Applied;
++                pendingProjectiles.Remove(key);
++                try {
++                    apply(projectile);
++                    return EntityResolutionResult.Applied;
++                } catch (Exception exception) {
++                    LogApplyFailure(typeof(TSource), activationId, identity.ToString(), exception);
++                    return EntityResolutionResult.Rejected;
++                }
+             }
+ 
+-            PendingProjectileKey key = new(typeof(TSource), activationId, identity);
+             if (pendingProjectiles.ContainsKey(key)) {
++                pendingProjectiles[key] = new PendingProjectile(
++                    ComputeExpiry(remainingFrames), NextPendingOrder(), apply);
+                 return EntityResolutionResult.Queued;
+             }
+             if (!HasCapacity()) {
+@@ -92,7 +114,7 @@ namespace CalamityOverhaul.Content.TimeFreezes
+             }
+ 
+             pendingProjectiles.Add(key, new PendingProjectile(
+-                ComputeExpiry(remainingFrames), apply));
++                ComputeExpiry(remainingFrames), NextPendingOrder(), apply));
+             return EntityResolutionResult.Queued;
+         }
+ 
+@@ -123,29 +145,81 @@ namespace CalamityOverhaul.Content.TimeFreezes
+         }
+ 
+         public override void PreUpdateEntities() {
+-            ResolveNPCs();
+-            ResolveProjectiles();
++            if (processingPending) {
++                return;
++            }
++
++            processingPending = true;
++            try {
++                ulong startEpoch = worldEpoch;
++                ulong now = Main.GameUpdateCount;
++                List<PendingBatchItem> batch = [];
++                foreach (KeyValuePair<PendingNPCKey, PendingNPC> pair in pendingNPCs) {
++                    PendingNPCKey key = pair.Key;
++                    PendingNPC pending = pair.Value;
++                    batch.Add(new PendingBatchItem(pending.Order,
++                        (frame, epoch) => ProcessNPC(key, pending, frame, epoch)));
++                }
++                foreach (KeyValuePair<PendingProjectileKey, PendingProjectile> pair in pendingProjectiles) {
++                    PendingProjectileKey key = pair.Key;
++                    PendingProjectile pending = pair.Value;
++                    batch.Add(new PendingBatchItem(pending.Order,
++                        (frame, epoch) => ProcessProjectile(key, pending, frame, epoch)));
++                }
++                batch.Sort((left, right) => left.Order.CompareTo(right.Order));
++                for (int i = 0; i < batch.Count; i++) {
++                    if (worldEpoch != startEpoch) {
++                        break;
++                    }
++                    batch[i].Process(now, startEpoch);
++                }
++            } finally {
++                processingPending = false;
++            }
+         }
+ 
+         public override void NetSend(BinaryWriter writer) {
+-            if (writer == null || Main.netMode != NetmodeID.Server) {
++            if (writer == null || Main.netMode != NetmodeID.Server
++                || sendingSnapshot) {
+                 return;
+             }
+ 
+-            SnapshotSection[] sections = GetSnapshotSections();
+-            writer.Write(SnapshotMagic);
+-            writer.Write(SnapshotVersion);
+-            writer.Write((byte)Math.Min(sections.Length, MaxSnapshotSections));
+-            for (int i = 0; i < sections.Length && i < MaxSnapshotSections; i++) {
+-                WriteSnapshotSection(writer, sections[i]);
++            sendingSnapshot = true;
++            try {
++                ulong startEpoch = worldEpoch;
++                SnapshotSection[] sections = GetSnapshotSections();
++                List<(byte Id, byte[] Payload)> serialized = [];
++                for (int i = 0; i < sections.Length && i < MaxSnapshotSections; i++) {
++                    if (TrySerializeSnapshotSection(sections[i], out byte[] payload)) {
++                        serialized.Add((sections[i].Id, payload));
++                    }
++                    if (worldEpoch != startEpoch
++                        || Main.netMode != NetmodeID.Server) {
++                        return;
++                    }
++                }
++
++                writer.Write(SnapshotMagic);
++                writer.Write(SnapshotVersion);
++                writer.Write((byte)serialized.Count);
++                for (int i = 0; i < serialized.Count; i++) {
++                    writer.Write(serialized[i].Id);
++                    writer.Write((ushort)serialized[i].Payload.Length);
++                    writer.Write(serialized[i].Payload);
++                }
++            } finally {
++                sendingSnapshot = false;
+             }
+         }
+ 
+         public override void NetReceive(BinaryReader reader) {
+-            if (reader == null || Main.netMode != NetmodeID.MultiplayerClient) {
++            if (reader == null || Main.netMode != NetmodeID.MultiplayerClient
++                || receivingSnapshot) {
+                 return;
+             }
+ 
++            receivingSnapshot = true;
++            ulong startEpoch = worldEpoch;
+             try {
+                 if (reader.ReadUInt32() != SnapshotMagic
+                     || reader.ReadByte() != SnapshotVersion) {
+@@ -164,6 +238,7 @@ namespace CalamityOverhaul.Content.TimeFreezes
+                 }
+ 
+                 HashSet<byte> seen = [];
++                List<(SnapshotSection Section, byte[] Payload)> parsed = [];
+                 for (int i = 0; i < count; i++) {
+                     byte id = reader.ReadByte();
+                     int length = reader.ReadUInt16();
+@@ -179,17 +254,31 @@ namespace CalamityOverhaul.Content.TimeFreezes
+                         continue;
+                     }
+ 
++                    parsed.Add((section, payload));
++                }
++
++                parsed.Sort((left, right) => left.Section.Id.CompareTo(right.Section.Id));
++                for (int i = 0; i < parsed.Count; i++) {
++                    if (worldEpoch != startEpoch
++                        || Main.netMode != NetmodeID.MultiplayerClient) {
++                        break;
++                    }
++                    SnapshotSection section = parsed[i].Section;
+                     try {
+-                        using MemoryStream stream = new(payload, writable: false);
++                        using MemoryStream stream = new(parsed[i].Payload, writable: false);
+                         using BinaryReader sectionReader = new(stream,
+                             Encoding.UTF8, leaveOpen: false);
+-                        section.Read(sectionReader);
++                        if (!section.Read(sectionReader) || stream.Position != stream.Length) {
++                            throw new InvalidDataException("snapshot section was not fully accepted");
++                        }
+                     } catch (Exception exception) {
+                         LogSnapshotFailure(section.Name, exception);
+                     }
+                 }
+             } catch (EndOfStreamException) {
+             } catch (IOException) {
++            } finally {
++                receivingSnapshot = false;
+             }
+         }
+ 
+@@ -197,80 +286,96 @@ namespace CalamityOverhaul.Content.TimeFreezes
+ 
+         public override void OnWorldUnload() => ClearPending();
+ 
+-        private static void ResolveNPCs() {
+-            if (pendingNPCs.Count == 0) {
++        private static void ProcessNPC(PendingNPCKey key, PendingNPC snapshot,
++            ulong now, ulong startEpoch) {
++            if (worldEpoch != startEpoch
++                || !pendingNPCs.TryGetValue(key, out PendingNPC pending)
++                || !ReferenceEquals(pending, snapshot)) {
+                 return;
+             }
+-            ulong now = Main.GameUpdateCount;
+-            List<PendingNPCKey> keys = [.. pendingNPCs.Keys];
+-            for (int i = 0; i < keys.Count; i++) {
+-                PendingNPCKey key = keys[i];
+-                if (!pendingNPCs.TryGetValue(key, out PendingNPC pending)) {
+-                    continue;
+-                }
+-                if (now >= pending.ExpiresAt) {
+-                    pendingNPCs.Remove(key);
+-                    LogDrop(key.SourceType, key.ActivationId, key.Identity.ToString());
+-                    continue;
+-                }
+-                if (!key.Identity.TryResolve(out NPC npc)) {
+-                    continue;
+-                }
+-                try {
+-                    pending.Apply(npc);
+-                } catch (Exception exception) {
+-                    CWRMod.Instance?.Logger.Warn(
+-                        $"Time control NPC apply failed [{key.SourceType.Name}:{key.ActivationId}] {key.Identity}: {exception}");
+-                }
++            if (now >= pending.ExpiresAt) {
+                 pendingNPCs.Remove(key);
++                LogDrop(key.SourceType, key.ActivationId, key.Identity.ToString());
++                return;
++            }
++            if (!key.Identity.TryResolve(out NPC npc)) {
++                return;
++            }
++            // Consume the exact start-of-tick record before user code runs. A
++            // callback may submit fresher work for any key or entity kind; all
++            // such work belongs to a later update.
++            pendingNPCs.Remove(key);
++            try {
++                pending.Apply(npc);
++            } catch (Exception exception) {
++                CWRMod.Instance?.Logger.Warn(
++                    $"Time control NPC apply failed [{key.SourceType.Name}:{key.ActivationId}] {key.Identity}: {exception}");
+             }
+         }
+ 
+-        private static void ResolveProjectiles() {
+-            if (pendingProjectiles.Count == 0) {
++        private static void ProcessProjectile(PendingProjectileKey key,
++            PendingProjectile snapshot, ulong now, ulong startEpoch) {
++            if (worldEpoch != startEpoch
++                || !pendingProjectiles.TryGetValue(key,
++                    out PendingProjectile pending)
++                || !ReferenceEquals(pending, snapshot)) {
+                 return;
+             }
+-            ulong now = Main.GameUpdateCount;
+-            List<PendingProjectileKey> keys = [.. pendingProjectiles.Keys];
+-            for (int i = 0; i < keys.Count; i++) {
+-                PendingProjectileKey key = keys[i];
+-                if (!pendingProjectiles.TryGetValue(key,
+-                    out PendingProjectile pending)) {
+-                    continue;
+-                }
+-                if (now >= pending.ExpiresAt) {
+-                    pendingProjectiles.Remove(key);
+-                    LogDrop(key.SourceType, key.ActivationId, key.Identity.ToString());
+-                    continue;
+-                }
+-                if (!key.Identity.TryResolve(out Projectile projectile)) {
+-                    continue;
+-                }
+-                try {
+-                    pending.Apply(projectile);
+-                } catch (Exception exception) {
+-                    CWRMod.Instance?.Logger.Warn(
+-                        $"Time control projectile apply failed [{key.SourceType.Name}:{key.ActivationId}] {key.Identity}: {exception}");
+-                }
++            if (now >= pending.ExpiresAt) {
+                 pendingProjectiles.Remove(key);
++                LogDrop(key.SourceType, key.ActivationId, key.Identity.ToString());
++                return;
++            }
++            if (!key.Identity.TryResolve(out Projectile projectile)) {
++                return;
++            }
++            pendingProjectiles.Remove(key);
++            try {
++                pending.Apply(projectile);
++            } catch (Exception exception) {
++                CWRMod.Instance?.Logger.Warn(
++                    $"Time control projectile apply failed [{key.SourceType.Name}:{key.ActivationId}] {key.Identity}: {exception}");
+             }
+         }
+ 
+         private static bool HasCapacity()
+             => pendingNPCs.Count + pendingProjectiles.Count < Capacity;
+ 
++        private static ulong NextPendingOrder() {
++            nextPendingOrder++;
++            if (nextPendingOrder == 0) {
++                nextPendingOrder = 1;
++            }
++            return nextPendingOrder;
++        }
++
+         private static ulong ComputeExpiry(int remainingFrames) {
+             int waitFrames = Math.Clamp(remainingFrames, 1, 120);
+-            return Main.GameUpdateCount + (ulong)waitFrames;
++            ulong now = Main.GameUpdateCount;
++            ulong wait = (ulong)waitFrames;
++            return SaturatingAdd(now, wait);
++        }
++
++        private static ulong SaturatingAdd(ulong value, ulong amount)
++            => ulong.MaxValue - value < amount ? ulong.MaxValue : value + amount;
++
++        private static bool IsLogThrottled(ulong now, ulong nextLogFrame)
++            => nextLogFrame != 0
++                && (nextLogFrame == ulong.MaxValue || now < nextLogFrame);
++
++        private static void LogApplyFailure(Type sourceType, long activationId,
++            string identity, Exception exception) {
++            CWRMod.Instance?.Logger.Warn(
++                $"Time control entity apply failed [{sourceType?.Name}:{activationId}] {identity}: {exception.Message}");
+         }
+ 
+         private static void LogDrop(Type sourceType, long activationId,
+             string identity) {
+             ulong now = Main.GameUpdateCount;
+-            if (now < nextDropLogFrame) {
++            if (IsLogThrottled(now, nextDropLogFrame)) {
+                 return;
+             }
+-            nextDropLogFrame = now + 300;
++            nextDropLogFrame = SaturatingAdd(now, 300);
+             CWRMod.Instance?.Logger.Warn(
+                 $"Time control entity resolution dropped [{sourceType?.Name}:{activationId}] {identity}");
+         }
+@@ -278,7 +383,13 @@ namespace CalamityOverhaul.Content.TimeFreezes
+         private static void ClearPending() {
+             pendingNPCs.Clear();
+             pendingProjectiles.Clear();
++            nextPendingOrder = 0;
++            worldEpoch++;
++            if (worldEpoch == 0) {
++                worldEpoch = 1;
++            }
+             nextDropLogFrame = 0;
++            nextSnapshotLogFrame = 0;
+         }
+ 
+         private static SnapshotSection[] GetSnapshotSections() => [
+@@ -293,10 +404,12 @@ namespace CalamityOverhaul.Content.TimeFreezes
+                 HackTimeNetSync.ReadSnapshot),
+         ];
+ 
+-        private static void WriteSnapshotSection(BinaryWriter writer,
+-            in SnapshotSection section) {
++        private static bool TrySerializeSnapshotSection(in SnapshotSection section,
++            out byte[] payload) {
++            payload = null;
+             using MemoryStream stream = new();
+             bool success = false;
++            Exception failure = null;
+             try {
+                 using (BinaryWriter sectionWriter = new(stream, Encoding.UTF8,
+                     leaveOpen: true)) {
+@@ -304,30 +417,27 @@ namespace CalamityOverhaul.Content.TimeFreezes
+                     sectionWriter.Flush();
+                 }
+             } catch (Exception exception) {
+-                LogSnapshotFailure(section.Name, exception);
++                failure = exception;
+             }
+ 
+             if (!success || stream.Length > MaxSectionBytes) {
+                 LogSnapshotFailure(section.Name,
+-                    new InvalidDataException("snapshot section rejected"));
+-                writer.Write(section.Id);
+-                writer.Write((ushort)0);
+-                return;
++                    failure ?? new InvalidDataException("snapshot section rejected"));
++                return false;
+             }
+ 
+-            writer.Write(section.Id);
+-            writer.Write((ushort)stream.Length);
+-            writer.Write(stream.GetBuffer(), 0, checked((int)stream.Length));
++            payload = stream.ToArray();
++            return true;
+         }
+ 
+         private static ulong nextSnapshotLogFrame;
+ 
+         private static void LogSnapshotFailure(string section, Exception exception) {
+             ulong now = Main.GameUpdateCount;
+-            if (now < nextSnapshotLogFrame) {
++            if (IsLogThrottled(now, nextSnapshotLogFrame)) {
+                 return;
+             }
+-            nextSnapshotLogFrame = now + 300;
++            nextSnapshotLogFrame = SaturatingAdd(now, 300);
+             CWRMod.Instance?.Logger.Warn(
+                 $"Time control snapshot rejected [{section}] {exception.Message}");
+         }

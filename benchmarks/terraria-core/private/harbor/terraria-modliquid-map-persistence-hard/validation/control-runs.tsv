@@ -1,0 +1,7 @@
+control	expected	observed	status
+broken-starter	at-least-one-intended-failure	38/103 pass; failures cover registry publication/lifecycle, option transactions, persistence generations, discovery, resolution, sparse/RLE validation, transactions, file lifecycle, and ambiguous/reversed hook anchors	pass
+oracle	all-cases-pass	103/103 pass on no-network image sha256:35a05341d87f2ecb37f2d3cd5fc53ff2b053b7600a507d8a396b7bd7a81ff97f	pass
+empty-submission	rejected-before-build	missing required codec and hook production sources	pass
+unrelated-readme-only	still-fails	behavior remains 38/103	pass
+public-smoke-broken	compiles	zero errors and warnings	pass
+public-smoke-oracle	compiles	zero errors and warnings	pass

@@ -1,0 +1,52 @@
+schema_version = "1.1"
+
+[task]
+name = "gamecodebench/stardew-automate-minifridge-storage"
+description = "Fix an Automate regression: mini-fridges are no longer treated as storage containers, so adjacent machines neither pull input from them nor deposit output into them."
+authors = ["Jiaxuan Luo"]
+keywords = ["stardew-valley", "smapi", "csharp", "game-modding", "regression"]
+
+[metadata]
+category = "programming"
+difficulty = "easy"
+tags = ["game-modding", "smapi", "stardew-valley", "csharp", "bug-fix"]
+source_repo = "https://github.com/Pathoschild/StardewMods"
+source_license = "MIT"
+source_mod = "Automate"
+base_ref = "automate/2.4.0"
+fix_commit = "0554cd80"
+fixed_release = "automate/2.4.1"
+game_version = "1.6.15"
+smapi_version = "4.1.10"
+
+[verifier]
+network_mode = "no-network"
+# Two dotnet builds plus a headless game boot to a loaded save (llvmpipe software
+# GL); considerably slower than the DarkRP server boot. Budget generously.
+timeout_sec = 1800.0
+
+[agent]
+# mini-swe-agent runs INSIDE the container and calls the model API from there, so a
+# blanket no-network kills it before it does any work. Everything else it needs
+# (uv, mini-swe-agent, .NET SDK, warmed NuGet cache) is baked into the image.
+# github.com / nuget.org are deliberately NOT listed: the reference fix is an
+# upstream commit, and fetching it is exactly the leak this policy exists to block.
+network_mode = "allowlist"
+allowed_hosts = ["api.anthropic.com"]
+timeout_sec = 3600.0
+
+[environment]
+network_mode = "no-network"
+build_timeout_sec = 3600.0
+cpus = 6
+memory_mb = 16384
+storage_mb = 30720
+gpus = 0
+mcp_servers = []
+
+# Network isolation, inherited from the DarkRP suite: all three roles pinned; the
+# environment image is self-contained after build. Proprietary game files are staged
+# locally by scripts/fetch-game.sh + scripts/prepare-task.sh from the operator's own
+# Steam copy and are never committed or redistributed; images built from this task
+# must remain private. This does not address pretraining contamination; the mod
+# repository is public.

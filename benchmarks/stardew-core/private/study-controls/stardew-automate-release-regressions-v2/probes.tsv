@@ -1,0 +1,2 @@
+control	kind	base	overlay	root	note
+probe-224-unfixed	target-negative	reference	patch:probe-224-unfixed.patch	StardewMods	PROBE: reference with only the #224 (incubator) fix reverted; #224 is unasserted, expected to pass every case

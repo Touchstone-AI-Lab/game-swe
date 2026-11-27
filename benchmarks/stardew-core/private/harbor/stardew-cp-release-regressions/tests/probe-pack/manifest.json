@@ -1,0 +1,11 @@
+{
+  "Name": "GCB Probe Pack",
+  "Author": "GameCodeBench",
+  "Version": "1.0.0",
+  "Description": "Verifier fixture: a Content Patcher pack exercising path tokens, data-model edits, and text operations.",
+  "UniqueID": "GameCodeBench.ProbePack",
+  "ContentPackFor": {
+    "UniqueID": "Pathoschild.ContentPatcher"
+  },
+  "MinimumApiVersion": "4.1.10"
+}

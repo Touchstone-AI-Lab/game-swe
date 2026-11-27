@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "mode": "dedicated-server",
+  "cases": [
+    "real_server_start_rejects_invalid_player",
+    "real_server_start_rejects_spoofed_sender",
+    "real_server_progress_rejects_spoofed_sender"
+  ],
+  "client_only_exclusions": [
+    "Ability VFX, draw hooks, hotkeys, and local-client activation remain source-projection assertions."
+  ]
+}

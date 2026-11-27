@@ -1,0 +1,8 @@
+control	kind	base	overlay	root	note
+alternative-second-reference	alternative	starter	tree:alternative-second-reference	.	second authored reference (table-registry): keyed-table core instead of the oracle's array rows
+alternative-strict-reading	alternative	starter	tree:alternative-strict-reading	.	table-registry with undisclosed conventions replaced: success codes, hook/timer names, no HookPrefix/TimerName export, no entity marker fields; expected to show problems
+quota-not-enforced-oracle	target-negative	reference	patch:quota-not-enforced-oracle.patch	.	port of mutation quota-not-enforced to the oracle reference: third prop accepted
+non-public-options-accepted	target-negative	reference	patch:non-public-options-accepted.patch	.	mutation: any numeric max_props/cleanup_delay accepted
+client-owner-trusted	target-negative	reference	patch:client-owner-trusted.patch	.	mutation: a client owner payload bypasses the delete ownership check
+disconnect-cleans-immediately	target-negative	reference	patch:disconnect-cleans-immediately.patch	.	mutation: PlayerDisconnected cleans up without the five second delay
+shutdown-leaks-timer	target-negative	reference	patch:shutdown-leaks-timer.patch	.	lifecycle mutation: Shutdown keeps the repeating timer

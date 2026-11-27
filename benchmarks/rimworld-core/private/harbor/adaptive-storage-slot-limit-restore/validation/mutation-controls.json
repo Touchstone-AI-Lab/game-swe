@@ -1,0 +1,225 @@
+{
+  "schemaVersion": 1,
+  "status": "not-run",
+  "authoringExpectationsOnly": true,
+  "mutations": [
+    {
+      "id": "historical-early-return",
+      "surface": "candidate",
+      "source": "AdaptiveStorage/Source/AdaptiveStorage/ThingClass.cs",
+      "inputSha256": "7106bc1cbbddc4d7c3c4f55df92ad131520aa2b2411022475bc0c1326744467d",
+      "replaceOnce": "\t\t\t_currentSlotLimit++;",
+      "with": "\t\t\t_currentSlotLimit = int.MaxValue;",
+      "mutatedSha256": "dbea56f31b75e62a1f0a3e394f4c93e55adaa0923627ca5f5c365f1c2aafe953",
+      "mustFailCases": [
+        "saved-unlimited-restored",
+        "setter-not-skipped"
+      ],
+      "expectedComplete": true,
+      "expectedPassed": false,
+      "status": "not-run"
+    },
+    {
+      "id": "bypass-setter",
+      "surface": "candidate",
+      "source": "AdaptiveStorage/Source/AdaptiveStorage/ThingClass.cs",
+      "inputSha256": "7106bc1cbbddc4d7c3c4f55df92ad131520aa2b2411022475bc0c1326744467d",
+      "replaceOnce": "\t\t\tCurrentSlotLimit = currentSlotLimit;",
+      "with": "\t\t\t_currentSlotLimit = currentSlotLimit;",
+      "mutatedSha256": "1fd2b26c69216a23458a3203404fa970185e4f4bb5a3778c24688bdade78a5a3",
+      "mustFailCases": [
+        "setter-not-skipped",
+        "multi-cell-ceiling"
+      ],
+      "expectedComplete": true,
+      "expectedPassed": false,
+      "status": "not-run"
+    },
+    {
+      "id": "wrong-unlimited",
+      "surface": "candidate",
+      "source": "AdaptiveStorage/Source/AdaptiveStorage/ThingClass.cs",
+      "inputSha256": "7106bc1cbbddc4d7c3c4f55df92ad131520aa2b2411022475bc0c1326744467d",
+      "replaceOnce": "\t\t\tCurrentSlotLimit = currentSlotLimit;",
+      "with": "\t\t\tCurrentSlotLimit = currentSlotLimit == int.MaxValue ? 1 : currentSlotLimit;",
+      "mutatedSha256": "b3406d73599d95b40406b33ee1b268df8866820071fa37c27ff02182299eddd6",
+      "mustFailCases": [
+        "saved-unlimited-restored",
+        "unlimited-sentinel-preserved"
+      ],
+      "expectedComplete": true,
+      "expectedPassed": false,
+      "status": "not-run"
+    },
+    {
+      "id": "omit-cell-update",
+      "surface": "candidate",
+      "source": "AdaptiveStorage/Source/AdaptiveStorage/ThingClass.cs",
+      "inputSha256": "7106bc1cbbddc4d7c3c4f55df92ad131520aa2b2411022475bc0c1326744467d",
+      "replaceOnce": "\t\t\t_currentSlotLimit = value;\n\t\t\tUpdateMaxItemsInCell();",
+      "with": "\t\t\t_currentSlotLimit = value;",
+      "mutatedSha256": "f718d011bc4fe4f38765f402f4a6568c5818996361c7bd5a130a0cb6c350738f",
+      "mustFailCases": [
+        "multi-cell-ceiling",
+        "zero-limit-restored"
+      ],
+      "expectedComplete": true,
+      "expectedPassed": false,
+      "status": "not-run"
+    },
+    {
+      "id": "omit-settings-notification",
+      "surface": "candidate",
+      "source": "AdaptiveStorage/Source/AdaptiveStorage/ThingClass.cs",
+      "inputSha256": "7106bc1cbbddc4d7c3c4f55df92ad131520aa2b2411022475bc0c1326744467d",
+      "replaceOnce": "\t\t\tUpdateMaxItemsInCell();\n\t\t\tNotify_SettingsChanged();",
+      "with": "\t\t\tUpdateMaxItemsInCell();",
+      "mutatedSha256": "524bb98290f6f4949bee906b928cf20dcc81afae30d95c4c91aa76c1e02213a8",
+      "mustFailCases": [
+        "setter-not-skipped"
+      ],
+      "expectedComplete": true,
+      "expectedPassed": false,
+      "status": "not-run"
+    },
+    {
+      "id": "abort-after-cells",
+      "surface": "candidate",
+      "source": "AdaptiveStorage/Source/AdaptiveStorage/ThingClass.cs",
+      "inputSha256": "7106bc1cbbddc4d7c3c4f55df92ad131520aa2b2411022475bc0c1326744467d",
+      "replaceOnce": "\t\t\tTotalSlots = _maxItemsByCell.Sum();",
+      "with": "\t\t\tTotalSlots = _maxItemsByCell.Sum();\n\t\t\tthrow new InvalidOperationException(\"authoring fault after cells\");",
+      "mutatedSha256": "1dc22aa251e34ed1ae52d02ac3b3faa077909b32470fa90b2d13407cd275cd91",
+      "mustFailCases": [
+        "saved-one-restored",
+        "initialization-bookkeeping-preserved"
+      ],
+      "expectedComplete": true,
+      "expectedPassed": false,
+      "status": "not-run"
+    },
+    {
+      "id": "abort-after-setter",
+      "surface": "candidate",
+      "source": "AdaptiveStorage/Source/AdaptiveStorage/ThingClass.cs",
+      "inputSha256": "7106bc1cbbddc4d7c3c4f55df92ad131520aa2b2411022475bc0c1326744467d",
+      "replaceOnce": "\t\t\tvar storedThings = _storedThings = new(this);",
+      "with": "\t\t\tthrow new InvalidOperationException(\"authoring fault after setter\");\n\t\t\tvar storedThings = _storedThings = new(this);",
+      "mutatedSha256": "fb50788dd439e6ec17e6b1cc08ea347a2a1a46fbf9c5538dea089202445f6e69",
+      "mustFailCases": [
+        "saved-one-restored",
+        "initialization-bookkeeping-preserved"
+      ],
+      "expectedComplete": true,
+      "expectedPassed": false,
+      "status": "not-run"
+    },
+    {
+      "id": "omit-collection-subscription",
+      "surface": "candidate",
+      "source": "AdaptiveStorage/Source/AdaptiveStorage/ThingCollection.cs",
+      "inputSha256": "502a7cb30856244eefc370a3f6ea3653118512704ee7e4b1efd70587c494cdf4",
+      "replaceOnce": "\t\t\tparent.StorageSettingsChanged += UpdateAllValidStoredItems;",
+      "with": "\t\t\t// authoring mutation: missing live collection notification",
+      "mutatedSha256": "c2f7fd8c8e327c5dc7122104d458554f694b5e7e1f02e4671115843eadd78910",
+      "mustFailCases": [
+        "initialization-notifications-preserved"
+      ],
+      "expectedComplete": true,
+      "expectedPassed": false,
+      "status": "not-run"
+    },
+    {
+      "id": "candidate-constructor-throws",
+      "surface": "candidate",
+      "source": "AdaptiveStorage/Source/AdaptiveStorage/ThingClass.cs",
+      "inputSha256": "7106bc1cbbddc4d7c3c4f55df92ad131520aa2b2411022475bc0c1326744467d",
+      "replaceOnce": "public class ThingClass : Building_Storage, ISlotGroupParent, ITransformable.ITransformable, IThingHolder\n{",
+      "with": "public class ThingClass : Building_Storage, ISlotGroupParent, ITransformable.ITransformable, IThingHolder\n{\n\tpublic ThingClass() => throw new InvalidOperationException(\"authoring constructor fault\");",
+      "mutatedSha256": "7af1994a63c16109a896083234e7cd09ba6fd7972071e2a6c87ee45eca42f602",
+      "mustFailCases": [
+        "saved-one-restored"
+      ],
+      "expectedComplete": true,
+      "expectedPassed": false,
+      "status": "not-run"
+    }
+  ],
+  "fixtureMutations": [
+    {
+      "id": "omit-restoration",
+      "surface": "adapter",
+      "source": "Harness/Verifier.cs",
+      "inputSha256": "f630c5444878877a23669cdad0df73c819c4864c9c4923aceee243c408add19f",
+      "replaceOnce": "            FixtureState.OnRestore(\"adaptive-storage-object-state\", () =>",
+      "with": "            if (false) FixtureState.OnRestore(\"adaptive-storage-object-state\", () =>",
+      "mutatedSha256": "5694b17de99d8d5f532018e99e4001c58fc8d5b9fcb8fc9967a81094d0a351bb",
+      "mustFailCases": [
+        "fixture-state-restored"
+      ],
+      "expectedComplete": false,
+      "expectedPassed": false,
+      "status": "not-run"
+    },
+    {
+      "id": "throw-restoration",
+      "surface": "adapter",
+      "source": "Harness/Verifier.cs",
+      "inputSha256": "f630c5444878877a23669cdad0df73c819c4864c9c4923aceee243c408add19f",
+      "replaceOnce": "                for (int i = 0; i < fields.Count; ++i)\n                {",
+      "with": "                throw new InvalidOperationException(\"authoring restore fault\");\n                for (int i = 0; i < fields.Count; ++i)\n                {",
+      "mutatedSha256": "770065c6c99123941ebf207197b4a9cb75d404d094fe64ba4295d5556214e021",
+      "mustFailCases": [
+        "fixture-state-restored"
+      ],
+      "expectedComplete": false,
+      "expectedPassed": false,
+      "status": "not-run"
+    },
+    {
+      "id": "leave-restored-state",
+      "surface": "adapter",
+      "source": "Harness/Verifier.cs",
+      "inputSha256": "f630c5444878877a23669cdad0df73c819c4864c9c4923aceee243c408add19f",
+      "replaceOnce": "                    fields[i].SetValue(storage, original[i]);",
+      "with": "                    if (fields[i] != SlotField) fields[i].SetValue(storage, original[i]);",
+      "mutatedSha256": "fb63d19e5905307b49492d67fddfa1b00fae7a70621730fc42fa177e79da779b",
+      "mustFailCases": [
+        "fixture-state-restored"
+      ],
+      "expectedComplete": false,
+      "expectedPassed": false,
+      "status": "not-run"
+    },
+    {
+      "id": "extra-rand-push",
+      "surface": "adapter",
+      "source": "Harness/Verifier.cs",
+      "inputSha256": "f630c5444878877a23669cdad0df73c819c4864c9c4923aceee243c408add19f",
+      "replaceOnce": "                    Rand.PushState(0x5EED + envelope.cases.Count);",
+      "with": "                    Rand.PushState(0x5EED + envelope.cases.Count);\n                    Rand.PushState(123);",
+      "mutatedSha256": "165a41d5a1cfd94539514dc52fbe527f19d02f7e812527016b387f2d7c88670e",
+      "mustFailCases": [
+        "fixture-state-restored"
+      ],
+      "expectedComplete": false,
+      "expectedPassed": false,
+      "status": "not-run"
+    },
+    {
+      "id": "broken-rectangle-fixture",
+      "surface": "adapter",
+      "source": "Harness/Verifier.cs",
+      "inputSha256": "f630c5444878877a23669cdad0df73c819c4864c9c4923aceee243c408add19f",
+      "replaceOnce": "            AdaptiveStorageFixtureSeam.CheckCellAdapter();",
+      "with": "            throw new FixtureFailure(\"authoring fixture fault\");\n            AdaptiveStorageFixtureSeam.CheckCellAdapter();",
+      "mutatedSha256": "deb66e67b0618108a106799db8508295bd3acc97811ab87b5ab8567ad24cbeb7",
+      "mustFailCases": [
+        "runtime-defs-ready"
+      ],
+      "expectedComplete": false,
+      "expectedPassed": false,
+      "status": "not-run"
+    }
+  ]
+}

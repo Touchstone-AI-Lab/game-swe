@@ -1,0 +1,6 @@
+{
+  "schema_version": 2,
+  "pack_id": "conformance",
+  "plugin": "contract",
+  "catalog": "catalog.json"
+}

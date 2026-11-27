@@ -1,0 +1,25 @@
+diff -ruN a/Automate/Framework/MachineGroup.cs b/Automate/Framework/MachineGroup.cs
+--- a/Automate/Framework/MachineGroup.cs
++++ b/Automate/Framework/MachineGroup.cs
+@@ -243,19 +243,15 @@
+     {
+         int stackSize = output.Count;
+ 
+-        // valid input
+-        if (storage.TryPush(output))
+-            return true;
+-
+         // special case: machine produced a zero-size stack
+-        if (stackSize < 1)
++        if (stackSize <= 1)
+         {
+             this.Monitor.Log($"Machine '{machine.MachineTypeID}' at {machine.Location.Name} (tile: {machine.TileArea.X}, {machine.TileArea.Y}) produced an item with ID '{output.Sample.QualifiedItemId}' and {(stackSize == 0 ? "no stack size" : $"stack size {stackSize}")}, so the output will be discarded. This is generally due to another mod breaking machine logic, and isn't related to Automate.", LogLevel.Warn);
+             output.Take(1); // trigger on-empty callback
+             return true;
+         }
+ 
+-        return false;
++        return storage.TryPush(output);
+     }
+ 
+     /// <summary>Handle a machine which threw an exception during processing.</summary>

@@ -1,0 +1,10 @@
+--- a/scripts/components/tradeescrow.lua
++++ b/scripts/components/tradeescrow.lua
+@@ -276,7 +276,6 @@
+         end
+     end
+     if not complete then
+-        self:_restore(baseline, loose, players)
+         return abort("delivery_failed")
+     end
+ 

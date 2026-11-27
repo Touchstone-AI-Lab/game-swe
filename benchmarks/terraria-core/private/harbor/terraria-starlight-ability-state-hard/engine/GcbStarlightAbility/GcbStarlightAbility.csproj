@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="../tModLoader.targets" />
+  <PropertyGroup>
+    <AssemblyName>GcbStarlightAbility</AssemblyName>
+    <LangVersion>latest</LangVersion>
+    <Nullable>enable</Nullable>
+    <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
+    <CandidateRoot Condition="'$(CandidateRoot)' == ''">/workspace/solution</CandidateRoot>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="GcbStarlightAbility.cs" />
+    <Compile Include="EngineSupport.cs" />
+    <Compile Include="VerifierSystem.cs" />
+    <Compile Include="$(CandidateRoot)/starlight-river/Content/Abilities/ShardSet.cs" Link="Production/ShardSet.cs" />
+    <Compile Include="$(CandidateRoot)/starlight-river/Content/Packets/StartAbility.cs" Link="Production/StartAbility.cs" />
+    <Compile Include="$(CandidateRoot)/starlight-river/Content/Packets/AbilityProgress.cs" Link="Production/AbilityProgress.cs" />
+  </ItemGroup>
+</Project>

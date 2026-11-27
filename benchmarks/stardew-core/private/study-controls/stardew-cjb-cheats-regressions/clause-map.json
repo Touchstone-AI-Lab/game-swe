@@ -1,0 +1,216 @@
+{
+  "task": "stardew-valley/core/stardew-cjb-cheats-regressions",
+  "task_version": "1.2.0",
+  "exam": "benchmarks/stardew-core/exams/stardew-cjb-cheats-regressions.md",
+  "cases": [
+    {
+      "id": "check:submission-shape",
+      "role": "static",
+      "clauses": [],
+      "overlap": false,
+      "note": "Evaluator file gate: StardewMods/ exists, required files present, no symlinks."
+    },
+    {
+      "id": "case:sentinel: the cheats mod is loaded and the world is ready",
+      "role": "runtime-sentinel",
+      "clauses": [],
+      "overlap": false,
+      "note": "CJB Cheats Menu is loaded and the fixture save is up."
+    },
+    {
+      "id": "case:one-hit kill: a monster drops to 1 health and keeps its maximum health",
+      "role": "preserved",
+      "clauses": [
+        "Report-grubs-max-health",
+        "Task-preserve-one-hit"
+      ],
+      "overlap": false,
+      "note": "A green slime in the player's location: Health == 1 and MaxHealth unchanged (the vampiric enchantment heals from MaxHealth)."
+    },
+    {
+      "id": "case:one-hit kill: a grub stays a grub instead of turning into a fly",
+      "role": "target",
+      "clauses": [
+        "Report-grubs"
+      ],
+      "overlap": false,
+      "note": "After 900 ticks the grub is still in the location with Health 1, not pupating, and no fly appeared."
+    },
+    {
+      "id": "case:auto-feed: troughs are filled with hay taken from the silo",
+      "role": "preserved",
+      "clauses": [
+        "Report-feed-silo-hay",
+        "Task-preserve-feed-silo"
+      ],
+      "overlap": false,
+      "note": "Two chickens, five hay stored in a silo: two troughs filled, three hay left."
+    },
+    {
+      "id": "case:auto-feed: troughs are filled even when no silo has hay left",
+      "role": "target",
+      "clauses": [
+        "Report-feed-empty-silo"
+      ],
+      "overlap": false,
+      "note": "Silo emptied through the game's hay helper; both troughs must still be filled."
+    },
+    {
+      "id": "case:auto-pet animals: animals living in a farm building are petted",
+      "role": "preserved",
+      "clauses": [
+        "Report-pet-animals-scope",
+        "Task-preserve-pets-at-home"
+      ],
+      "overlap": false,
+      "note": "The coop's chickens are petted."
+    },
+    {
+      "id": "case:auto-pet animals: an animal in town is left alone",
+      "role": "target",
+      "clauses": [
+        "Report-pet-animals-town"
+      ],
+      "overlap": false,
+      "note": "A goat added to Town.animals is not petted within four seconds."
+    },
+    {
+      "id": "case:auto-pet pets: the player's pet on the farm is petted",
+      "role": "preserved",
+      "clauses": [
+        "Report-pet-pets-scope",
+        "Task-preserve-pets-at-home"
+      ],
+      "overlap": false,
+      "note": "A cat on the farm has lastPetDay == today."
+    },
+    {
+      "id": "case:auto-pet pets: a pet NPC in town is left alone",
+      "role": "target",
+      "clauses": [
+        "Report-pet-pets-town"
+      ],
+      "overlap": false,
+      "note": "A dog added to Town is not petted within four seconds."
+    },
+    {
+      "id": "case:always treasure: every catch has a chest, never golden without fishing mastery",
+      "role": "preserved",
+      "clauses": [
+        "Report-treasure-no-mastery",
+        "Task-preserve-treasure"
+      ],
+      "overlap": false,
+      "note": "60 fishing minigames without the mastery stat: all have treasure, none golden."
+    },
+    {
+      "id": "case:always treasure: with fishing mastery some chests are golden",
+      "role": "target",
+      "clauses": [
+        "Report-treasure-golden"
+      ],
+      "overlap": false,
+      "note": "120 minigames with the mastery stat: all have treasure, at least one and fewer than all golden (at a 15-35% rate, P(no golden) < 1e-8)."
+    }
+  ],
+  "clauses": [
+    {
+      "id": "Report-grubs",
+      "anchor": "Problem, report 'One Hit Kill and grubs', sentences 1-2: grubs turn into cave flies a few seconds later without being touched",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "Report-grubs-max-health",
+      "anchor": "Problem, report 'One Hit Kill and grubs', sentences 3-5: other monsters just die in one hit; don't change every monster's maximum health (vampiric healing)",
+      "status": "asserted",
+      "note": "One monster type (green slime) is probed."
+    },
+    {
+      "id": "Report-feed-empty-silo",
+      "anchor": "Problem, report 'Auto-Feed Animals with an empty silo', sentences 1-3: troughs stay empty once silos run dry; the cheat should still fill them",
+      "status": "asserted",
+      "note": "Coop only; barns and slime hutch water are not probed."
+    },
+    {
+      "id": "Report-feed-silo-hay",
+      "anchor": "Problem, report 'Auto-Feed Animals with an empty silo', last sentence: with hay in the silos it keeps taking hay from them",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "Report-pet-animals-town",
+      "anchor": "Problem, report 'Auto-Pet Animals outside the farm', sentences 1-2: a goat placed in Pelican Town keeps getting petted",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "Report-pet-animals-scope",
+      "anchor": "Problem, report 'Auto-Pet Animals outside the farm', sentence 3: pet animals where farm buildings can go, including animals inside those buildings",
+      "status": "asserted",
+      "note": "Farm building animals probed; animals in other buildable locations are not."
+    },
+    {
+      "id": "Report-pet-pets-town",
+      "anchor": "Problem, report 'Auto-Pet Pets outside the farm', sentences 1-2: a dog NPC in town is petted constantly",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "Report-pet-pets-scope",
+      "anchor": "Problem, report 'Auto-Pet Pets outside the farm', sentence 3: only pets at home, on the farm or inside the farmhouse or a cabin",
+      "status": "weak",
+      "note": "Only a pet on the farm is probed; pets inside the farmhouse or a cabin are not."
+    },
+    {
+      "id": "Report-treasure-golden",
+      "anchor": "Problem, report 'Always Treasure and golden chests', sentences 1-3: with the fishing mastery, golden chests should still appear at the usual rate",
+      "status": "asserted",
+      "note": "Asserted as 'some but not all' over 120 minigames, not as a rate."
+    },
+    {
+      "id": "Report-treasure-no-mastery",
+      "anchor": "Problem, report 'Always Treasure and golden chests', last clause: never golden for someone without the mastery",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "Task-preserve-one-hit",
+      "anchor": "Task, sentence 2: One Hit Kill still takes monsters to a single hit without lowering their maximum health",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "Task-preserve-feed-silo",
+      "anchor": "Task, sentence 2: Auto-Feed Animals still uses silo hay when there is some",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "Task-preserve-pets-at-home",
+      "anchor": "Task, sentence 2: farm animals and pets at home are still petted",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "Task-preserve-treasure",
+      "anchor": "Task, sentence 2: Always Treasure still gives every catch a chest",
+      "status": "asserted",
+      "note": "Also checked inside the golden-chest target case."
+    },
+    {
+      "id": "Notes-3",
+      "anchor": "Notes, bullet 3: Do not modify anything under /tests",
+      "status": "unasserted",
+      "note": "Enforced by construction (tests are mounted read-only), not by a case."
+    }
+  ],
+  "excluded_clauses": [
+    "Notes-3"
+  ],
+  "known_issues": [
+    "The golden-chest target is statistical: it requires at least one golden chest in 120 minigames. At the game's rate for a player with the mastery (25% plus average daily luck, so at least about 15%), a correct implementation fails it with probability below 1e-8.",
+    "The fishing cases open the minigame menu directly (as the game does when a fish bites) and close it after three ticks, before its fade-in completes; the catch itself is never played out.",
+    "The town animal and town pet stand in for another mod's NPC animals; they are added to Town's collections directly."
+  ]
+}

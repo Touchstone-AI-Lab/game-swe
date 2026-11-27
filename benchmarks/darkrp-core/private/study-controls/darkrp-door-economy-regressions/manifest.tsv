@@ -1,0 +1,6 @@
+control	kind	base	overlay	root	note
+target-negative-team-door	target-negative	reference	patch:target-negative-team-door.patch	.	Reference with group W reverted: canLockUnlock has no per-team clause again.
+target-negative-allow-list-open	target-negative	reference	patch:target-negative-allow-list-open.patch	.	Reference with an over-permissive isKeysAllowedToOwn that returns true for everyone (the documented always-allow mutant).
+compat-negative-price-ignored	compat-negative	reference	patch:compat-negative-price-ignored.patch	.	Reference whose canAfford keeps the negative-price guard but no longer subtracts the price: any non-negative price is affordable.
+alternative-independent-fix	alternative	starter	patch:alternative-independent-fix.patch	.	Starter plus an independently written fix for all nine reports (early-return guards, explicit removeEntity, set-based group chat, managers set built up front).
+alternative-strict-reading	alternative	starter	patch:alternative-strict-reading.patch	.	Same as alternative-independent-fix but isKeysOwnedBy compares doorData.owner with the UserID; equivalent in the engine, expected to be rejected by the Q stand-in (see NOTES.md).

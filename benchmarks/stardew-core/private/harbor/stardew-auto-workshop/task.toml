@@ -1,0 +1,64 @@
+schema_version = "1.1"
+
+[task]
+name = "gamecodebench/stardew-auto-workshop"
+description = "Composite generation task: write a chest-feeds-machine automation mod from scratch. Six interacting behaviours, each verified live: feeding, collecting, no item loss on full chest, zero-quantity glitch tolerance, duplicate building interiors, and no overreach."
+authors = ["Jiaxuan Luo"]
+keywords = ["stardew-valley", "smapi", "csharp", "game-modding", "generation", "composite"]
+
+[metadata]
+category = "programming"
+difficulty = "hard"
+tags = ["game-modding", "smapi", "stardew-valley", "csharp", "generation", "composite"]
+source_repo = "https://github.com/Pathoschild/StardewMods"
+source_license = "MIT"
+source_mod = "New benchmark mod"
+base_ref = "empty mod skeleton"
+fix_commit = "n/a — benchmark-authored reference implementation"
+task_kind = "generation-composite"
+game_version = "1.6.15"
+smapi_version = "4.1.10"
+
+# Composite construction, mirroring darkrp-release-regressions: the base tree is
+# the latest release with a batch of real upstream fixes reverted; the reference
+# solution restores them. Each defect group is independently observable in-game
+# and its symptom report describes user-visible behavior only.
+
+[verifier]
+network_mode = "no-network"
+timeout_sec = 2400.0
+
+[agent]
+# mini-swe-agent runs INSIDE the container and calls the model API from there, so a
+# blanket no-network kills it before it does any work. Everything else it needs is
+# baked into the image; github.com / nuget.org are deliberately NOT listed because
+# the reference fixes are upstream commits.
+network_mode = "allowlist"
+allowed_hosts = ["api.anthropic.com"]
+timeout_sec = 7200.0
+
+[environment]
+network_mode = "no-network"
+build_timeout_sec = 3600.0
+cpus = 6
+memory_mb = 16384
+storage_mb = 30720
+gpus = 0
+mcp_servers = []
+
+# Same isolation and responsible-release posture as the rest of the Stardew suite:
+# game files staged locally from the operator's own copy, never committed; images
+# stay private; pretraining contamination is not addressed by isolation.
+
+# COMPOSITE GENERATION DESIGN — several interacting invariants in one generation task.
+# Two of the debugging suite's edge-case repair targets, the zero-stack edge case and
+# the duplicate-building location identity (the SSHOM site), become implementation
+# requirements here, plus two new invariants with plausible-wrong shortcuts:
+#   - full-chest: the naive collect (addItem then clear unconditionally) silently
+#     destroys the product; the suite fills the chest and checks nothing is lost.
+#   - interiors: Game1.locations does NOT contain building interiors in 1.6; a naive
+#     location walk misses both coops entirely. Twin coops also break any Name-keyed
+#     bookkeeping (NameOrUniqueName lesson).
+# FAIRNESS: every asserted invariant is stated verbatim in the instruction (rules 1-6);
+# the suite drives game entry points only and never names a technique. The reference
+# solution (solution/reference) passes oracle-side in the real game.

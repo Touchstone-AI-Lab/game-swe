@@ -1,0 +1,6 @@
+name: "command-rate-limiter-tests"
+displayName: "Server Command Rate Limiter Tests"
+main: "ContractTestRunner"
+version: "1.0.0"
+minGameVersion: 159
+dependencies: [command-traffic-guard]

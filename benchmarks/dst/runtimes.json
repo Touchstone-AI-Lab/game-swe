@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "runtimes": [
+    {
+      "id": "dst-dedicated-24700372",
+      "name": "Don't Starve Together dedicated server",
+      "version": "Steam App 343050 build 24700372",
+      "provider": "container",
+      "restricted": false,
+      "host_platforms": [
+        "linux-x64",
+        "darwin-x64",
+        "darwin-arm64"
+      ],
+      "source": {
+        "kind": "container-image",
+        "image": "ubuntu:24.04@sha256:008173c23f95b170204355c12626cb5a965d779a7e1283b09e9cffbb1bf33ca3",
+        "expectedFiles": [
+          "usr/bin/bash"
+        ]
+      }
+    }
+  ],
+  "task_bindings": {
+    "dst-fixed-bundle-regressions": [
+      "dst-dedicated-24700372"
+    ],
+    "dst-fixed-module-regressions": [
+      "dst-dedicated-24700372"
+    ],
+    "composting-together-regressions": [
+      "dst-dedicated-24700372"
+    ],
+    "dsmmo-release-regressions": [
+      "dst-dedicated-24700372"
+    ],
+    "glassic-api-regressions": [
+      "dst-dedicated-24700372"
+    ]
+  }
+}

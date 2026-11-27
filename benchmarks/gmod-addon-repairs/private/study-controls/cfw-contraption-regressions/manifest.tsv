@@ -1,0 +1,4 @@
+control	kind	base	overlay	root	note
+target-negative-players-only	target-negative	reference	patch:target-negative-players-only.patch	.	Reference with only the player exclusion kept: NPCs and nextbots are still pulled into contraptions (a partial repair of report C).
+compat-negative-family-only	compat-negative	reference	patch:compat-negative-family-only.patch	.	Reference that moves the mass update to the family instead of adding it: every target passes, but a contraption's total no longer follows a member's new mass.
+alternative-independent-fix	alternative	starter	patch:alternative-independent-fix.patch	.	Starter plus an independent fix for all four reports: recompute the family total from its members, ask any parent that defines the veto hook, one character check before linking, and ignore self-constraints where constraints are tracked.

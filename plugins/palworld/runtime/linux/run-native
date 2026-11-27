@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+set -euo pipefail
+cd /server
+sha256sum --status -c rhenium-runtime.sha256
+unset UE4SS_MODS_PATHS
+export HOME=/server/runtime-home
+export LD_PRELOAD=/server/ue4ss/libUE4SS.so
+exec /server/Pal/Binaries/Linux/PalServer-Linux-Shipping Pal "$@"

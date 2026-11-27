@@ -1,0 +1,65 @@
+schema_version = "1.4"
+
+artifacts = ["/app/mod"]
+
+[task]
+name = "gamecodebench/dst-dsmmo-release-regressions"
+version = "2.0.0"
+description = "Repair the DsMMO server mod so its skill handlers stop raising Lua errors for damage without an attacker, self-inflicted damage, non-combat targets, empty haunts and tool-less digging, saves from another Exp-gain setting are recalculated, and an incomplete eat command is handled."
+authors = [{ name = "GameCodeBench" }]
+keywords = ["dst", "dont-starve-together", "lua", "game-modding", "repository-debugging", "skills", "events", "combat", "crashes", "persistence", "commands"]
+
+[metadata]
+category = "programming"
+difficulty = "hard"
+tags = ["game-modding", "dst", "lua", "repository-debugging", "bug-fix", "composite"]
+task_kind = "repository-debugging"
+game = "Don't Starve Together Dedicated Server"
+game_version = "Steam app 343050 build 24700372"
+mod_loader = "DST Mod API 10"
+language = "Lua 5.1"
+source_mod = "DsMMO"
+source_repo = "https://github.com/JodliDev/DsMMO"
+source_license = "Apache-2.0"
+base_commit = "783ab7baff73cced26292232aa73d050d5a0dfb9"
+reverted_fix_commits = ["9b93e05ec975befa86bbeda0756fc46211251a5f", "0d7c62d8c0cfb29eb4cd948f4111d4f2e0067105", "6d1351fa6eb83e94562cb1d791ccb692b674f841", "c957bd508db0eeb9c66f5137983088d8a2f91d3c", "783ab7baff73cced26292232aa73d050d5a0dfb9"]
+gold_patch_origin = "upstream"
+expected_server_cases = 15
+content_reference = "benchmarks/dst/exams/dsmmo-release-regressions.md"
+content_reference_pack = "dst-core"
+harbor_reference_repository = "https://github.com/harbor-framework/harbor"
+harbor_reference_revision = "9a2e3b135cc8fb1e41131020f83370cb2f12ae93"
+verification_profile = "rhenium-dst-full"
+real_server_validation = "in-verifier; Steam app 343050 build 24700372"
+
+[verifier]
+network_mode = "no-network"
+timeout_sec = 900.0
+user = "root"
+environment_mode = "separate"
+
+[verifier.environment]
+network_mode = "no-network"
+
+[agent]
+# The image already contains Codex CLI and mini-swe-agent. A Harbor job supplies
+# only the model endpoint hostname through agents[].extra_allowed_hosts.
+network_mode = "allowlist"
+allowed_hosts = []
+timeout_sec = 7200.0
+user = "agent"
+
+[environment]
+network_mode = "no-network"
+build_timeout_sec = 1800.0
+cpus = 4
+memory_mb = 8192
+storage_mb = 10240
+gpus = 0
+mcp_servers = []
+
+[verifier.env]
+
+[environment.env]
+
+[solution.env]

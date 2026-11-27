@@ -1,0 +1,63 @@
+package theHexaghost.relics;
+
+import basemod.abstracts.CustomRelic;
+import champ.ChampMod;
+import champ.cards.Strike;
+import com.badlogic.gdx.graphics.Texture;
+import com.megacrit.cardcrawl.actions.AbstractGameAction;
+import com.megacrit.cardcrawl.actions.common.DamageRandomEnemyAction;
+import com.megacrit.cardcrawl.actions.common.RelicAboveCreatureAction;
+import com.megacrit.cardcrawl.actions.utility.UseCardAction;
+import com.megacrit.cardcrawl.cards.AbstractCard;
+import com.megacrit.cardcrawl.cards.DamageInfo;
+import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
+import com.megacrit.cardcrawl.helpers.CardLibrary;
+import expansioncontent.actions.EchoACardAction;
+import expansioncontent.expansionContentMod;
+import hermit.cards.Strike_Hermit;
+import theHexaghost.HexaMod;
+import downfall.util.TextureLoader;
+
+import java.util.ArrayList;
+
+import static theHexaghost.HexaMod.makeRelicOutlinePath;
+import static theHexaghost.HexaMod.makeRelicPath;
+
+public class Sixitude extends CustomRelic {
+
+    public static final String ID = HexaMod.makeID("Sixitude");
+    private static final Texture IMG = TextureLoader.getTexture(makeRelicPath("Sixitude.png"));
+    private static final Texture OUTLINE = TextureLoader.getTexture(makeRelicOutlinePath("Sixitude.png"));
+
+    //variables
+    public static final int SIX_SHOOTER = 6;
+
+    public Sixitude() {
+        super(ID, IMG, OUTLINE, RelicTier.RARE, LandingSound.MAGICAL);
+        this.counter = 0;
+    }
+
+    @Override
+    public void onUseCard(AbstractCard targetCard, UseCardAction useCardAction) {
+        if ((targetCard.costForTurn != 0) && !(targetCard.freeToPlay())) {
+            ++this.counter;
+            if (this.counter % SIX_SHOOTER == 0) {
+                this.flash();
+                this.counter = 0;
+                this.addToBot(new RelicAboveCreatureAction(AbstractDungeon.player, this));
+                // this.addToBot(new DamageRandomEnemyAction(new DamageInfo(null, 6, DamageInfo.DamageType.THORNS), AbstractGameAction.AttackEffect.FIRE));
+                AbstractCard tmp = new Strike_Hermit();
+                ArrayList<AbstractCard> possList = new ArrayList<>(CardLibrary.getAllCards());
+                possList.removeIf(c -> (c.color != AbstractDungeon.player.getCardColor() || !c.hasTag(AbstractCard.CardTags.STARTER_STRIKE)));
+                if (!(possList.isEmpty())) {
+                    tmp = possList.get(0);
+                }
+                addToBot(new EchoACardAction(tmp, true));
+            }
+        }
+    }
+
+    public String getUpdatedDescription() {
+        return DESCRIPTIONS[0] + SIX_SHOOTER + DESCRIPTIONS[1];
+    }
+}

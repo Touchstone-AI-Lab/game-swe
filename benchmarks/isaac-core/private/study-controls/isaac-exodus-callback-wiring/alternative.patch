@@ -1,0 +1,159 @@
+--- a/main.lua
++++ b/main.lua
+@@ -1222,37 +1222,35 @@
+         end
+     end
+ 
+-    local entities = Isaac.GetRoomEntities()
+-
+-    for i, gas in pairs(entities) do
+-        if gas.Type == Entities.IRON_LUNG_GAS.id and gas.Variant == Entities.IRON_LUNG_GAS.variant then
+-            local gasSprite = gas:GetSprite()
+-
+-            if gasSprite:IsFinished("Appear") then
+-                gasSprite:Play("Pyroclastic Flow", false)
+-            end
++end
+ 
+-            if gasSprite:IsFinished("Pyroclastic Flow") then
+-                gasSprite:Play("Fade", false)
+-            end
++Exodus:AddCallback(ModCallbacks.MC_NPC_UPDATE, Exodus.ironLungEntityUpdate, Entities.IRON_LUNG.id)
+ 
+-            for v, tear in pairs(entities) do
+-                if tear:ToTear() then
+-                    if tear.Position:Distance(gas.Position) < gas.Size + tear.Size then
+-                        tear.Velocity = tear.Velocity * 0.8
+-                    end
+-                end
+-            end
++function Exodus:ironLungGasUpdate(gas)
++    if gas.Type ~= Entities.IRON_LUNG_GAS.id then
++        return
++    end
+ 
+-            if gasSprite:IsFinished("Fade") then
+-                gas:Remove()
+-                gas.Visible = false
+-            end
++    local gasSprite = gas:GetSprite()
++    
++    if gasSprite:IsFinished("Appear") then
++        gasSprite:Play("Pyroclastic Flow", false)
++    elseif gasSprite:IsFinished("Pyroclastic Flow") then
++        gasSprite:Play("Fade", false)
++    elseif gasSprite:IsFinished("Fade") then
++        gas.Visible = false
++        gas:Remove()
++        return
++    end
++    
++    for i, tear in pairs(Isaac.GetRoomEntities()) do
++        if tear:ToTear() and tear.Position:Distance(gas.Position) < gas.Size + tear.Size then
++            tear.Velocity = tear.Velocity * 0.8
+         end
+     end
+ end
+ 
+-Exodus:AddCallback(ModCallbacks.MC_NPC_UPDATE, Exodus.ironLungEntityUpdate, Entities.IRON_LUNG.id)
++Exodus:AddCallback(ModCallbacks.MC_POST_EFFECT_UPDATE, Exodus.ironLungGasUpdate, Entities.IRON_LUNG_GAS.variant)
+ 
+ ---<<FLYERBALL>>---
+ function Exodus:flyerballFires()
+@@ -1706,6 +1704,8 @@
+     end
+ end
+ 
++Exodus:AddCallback(ModCallbacks.MC_EVALUATE_CACHE, Exodus.theApocryphonCache)
++
+ --<<BETTER LOOPS>>--
+ function loop()
+     local player = Isaac.GetPlayer(0)
+@@ -2896,8 +2896,11 @@
+ 
+ --<<<THE FORBIDDEN FRUIT>>>--
+ function Exodus:forbiddenFruitCache(player, flag)
+-    if player:HasCollectible(ItemId.FORBIDDEN_FRUIT) and flag == CacheFlag.CACHE_DAMAGE then
+-        player.Damage = player.Damage + (math.floor((ItemVariables.FORBIDDEN_FRUIT.UseCount^0.7) * 100)) / 101
++    -- The damage is earned by eating the fruit, so it belongs to the run and not to the inventory slot.
++    local bites = ItemVariables.FORBIDDEN_FRUIT.UseCount
++
++    if flag == CacheFlag.CACHE_DAMAGE and bites > 0 then
++        player.Damage = player.Damage + (math.floor((bites^0.7) * 100)) / 101
+     end
+ end
+ 
+@@ -5682,6 +5685,31 @@
+ 
+ Exodus:AddCallback(ModCallbacks.MC_USE_ITEM, Exodus.anamnesisUse, ItemId.ANAMNESIS)
+ 
++function Exodus:anamnesisChargeUpdate()
++    local player = Isaac.GetPlayer(0)
++    local memory = ItemVariables.ANAMNESIS
++    
++    if memory == nil then
++        memory = { InSlot = false, Charge = 0 }
++        ItemVariables.ANAMNESIS = memory
++    end
++    
++    if player:GetActiveItem() == ItemId.ANAMNESIS then
++        if memory.InSlot then
++            -- While it sits in the slot, whatever it gains or spends is its own.
++            memory.Charge = player:GetActiveCharge()
++        else
++            -- It has just entered the slot: it arrives with its own remembered charge, not the slot's.
++            memory.InSlot = true
++            player:SetActiveCharge(memory.Charge)
++        end
++    else
++        memory.InSlot = false
++    end
++end
++
++Exodus:AddCallback(ModCallbacks.MC_POST_UPDATE, Exodus.anamnesisChargeUpdate)
++
+ --<<<BIRDBATH>>>--
+ function Exodus:birdbathUse()
+     local player = Isaac.GetPlayer(0)
+@@ -6575,23 +6603,30 @@
+             entity.State = 0
+         end
+     end
++end
+ 
+-    if EntityVariables.HEADCASE.DoLobbed then
+-        for i, lobbed in pairs(Isaac.GetRoomEntities()) do
+-            if lobbed.Type == EntityType.ENTITY_TEAR and lobbed:GetData().IsExodusLobbed == true then
+-                if lobbed.Position:DistanceSquared(player.Position) < 18^2 and lobbed:ToTear().Height < 5 then
+-                    lobbed:Die()
+-                    player:TakeDamage(1, 0, EntityRef(lobbed), 0)
+-                end
+-                if lobbed:ToTear().Height < 1 then
+-                    EntityVariables.HEADCASE.DoLobbed = false
+-                end
++Exodus:AddCallback(ModCallbacks.MC_NPC_UPDATE, Exodus.headcaseEntityUpdate, Entities.HEADCASE.id)
++
++function Exodus:headcaseLobUpdate()
++    -- A lob in flight is resolved on its own; whether the Headcase that threw it still exists does not matter.
++    local player = Isaac.GetPlayer(0)
++    local airborne = false
++    
++    for i, lobbed in pairs(Isaac.GetRoomEntities()) do
++        if lobbed.Type == EntityType.ENTITY_TEAR and lobbed:GetData().IsExodusLobbed == true and not lobbed:IsDead() then
++            airborne = true
++            
++            if lobbed.Position:DistanceSquared(player.Position) < 18^2 and lobbed:ToTear().Height < 5 then
++                lobbed:Die()
++                player:TakeDamage(1, 0, EntityRef(lobbed), 0)
+             end
+         end
+     end
++    
++    EntityVariables.HEADCASE.DoLobbed = airborne
+ end
+ 
+-Exodus:AddCallback(ModCallbacks.MC_NPC_UPDATE, Exodus.headcaseEntityUpdate, Entities.HEADCASE.id)
++Exodus:AddCallback(ModCallbacks.MC_POST_UPDATE, Exodus.headcaseLobUpdate)
+ 
+ --<<<HOLLOWHEAD>>>--
+ function Exodus:hollowheadEntityUpdate(entity)

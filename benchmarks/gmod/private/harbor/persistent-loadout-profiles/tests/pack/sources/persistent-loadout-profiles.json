@@ -1,0 +1,17 @@
+{
+  "schemaVersion": 1,
+  "taskId": "persistent-loadout-profiles",
+  "taskVersion": "2.2.0",
+  "originType": "workshop-functional-evidence",
+  "workshopId": "2675972006",
+  "url": "https://steamcommunity.com/sharedfiles/filedetails/?id=2675972006",
+  "title": "Custom Loadout",
+  "author": "StyledStrike",
+  "accessedAt": "2026-08-02",
+  "license": "MIT",
+  "licenseHandling": "functional provenance recorded; benchmark implementation authored independently",
+  "codeCopied": false,
+  "assetsCopied": false,
+  "capabilitiesObserved": ["custom player loadouts", "spawn restoration", "weapon and ammo selection"],
+  "benchmarkCapabilities": ["named persistent profiles", "allowlists and shared ammo caps", "death/respawn lifecycle", "two-process persistence"]
+}

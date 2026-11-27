@@ -1,0 +1,690 @@
+{
+  "task": "dst/construct/loot-roll-arbiter",
+  "task_version": "2.1.0",
+  "exam": "benchmarks/dst-construct/exams/loot-roll-arbiter.md",
+  "cases": [
+    {
+      "id": "check:required-files",
+      "role": "static",
+      "clauses": [
+        "deliver-1"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "check:lua-syntax",
+      "role": "static",
+      "clauses": [],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "hidden:open freezes a deduplicated eligible set",
+      "role": "target",
+      "clauses": [
+        "deliver-2",
+        "deliver-3",
+        "deliver-5",
+        "return-1",
+        "return-2",
+        "return-3",
+        "return-4",
+        "return-5",
+        "core-1a",
+        "core-1b",
+        "core-1c",
+        "core-2a",
+        "core-2c"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "hidden:choices obey revisions and the deadline boundary",
+      "role": "target",
+      "clauses": [
+        "return-2",
+        "return-3",
+        "return-4",
+        "return-6",
+        "return-7",
+        "core-1c",
+        "core-2a",
+        "core-2b",
+        "core-2c",
+        "core-2d",
+        "core-3a",
+        "core-3c",
+        "core-7c"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "hidden:published generator decides tiers and tie re-rolls",
+      "role": "target",
+      "clauses": [
+        "deliver-4",
+        "deliver-5",
+        "return-5",
+        "return-6",
+        "core-3c",
+        "core-4a",
+        "core-4b",
+        "core-4c",
+        "core-4e"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "hidden:resolution is idempotent and failed delivery re-awards once",
+      "role": "target",
+      "clauses": [
+        "return-1",
+        "return-2",
+        "return-3",
+        "return-6",
+        "core-2e",
+        "core-3b",
+        "core-4b",
+        "core-4c",
+        "core-4d",
+        "core-4e",
+        "core-5a",
+        "core-5b",
+        "core-5c",
+        "core-5d",
+        "core-5e",
+        "core-5f",
+        "core-7a",
+        "core-7b"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "hidden:fairness ledger demotes need at the published boundary",
+      "role": "target",
+      "clauses": [
+        "deliver-5",
+        "return-7",
+        "core-2e",
+        "core-5b",
+        "core-6a",
+        "core-6b",
+        "core-6c",
+        "core-6d",
+        "core-6e",
+        "core-7c",
+        "core-8c"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "hidden:snapshot hides choices and save load preserves state",
+      "role": "target",
+      "clauses": [
+        "deliver-2",
+        "return-1",
+        "return-3",
+        "return-8",
+        "return-5",
+        "core-2d",
+        "core-3a",
+        "core-4d",
+        "core-5a",
+        "core-5c",
+        "core-5d",
+        "core-6b",
+        "core-7b",
+        "core-8a",
+        "core-8b",
+        "core-8c",
+        "core-8d",
+        "core-8e",
+        "core-8f",
+        "accept-1"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "check:implementation-depth",
+      "role": "static",
+      "clauses": [],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "check:lootroll-authority",
+      "role": "target",
+      "clauses": [
+        "dst-1"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "check:lootroll-delivery",
+      "role": "target",
+      "clauses": [
+        "dst-6"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "check:lootroll-rpc-identity",
+      "role": "target",
+      "clauses": [
+        "api-1"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "check:lootroll-lifecycle",
+      "role": "target",
+      "clauses": [
+        "dst-8",
+        "dst-9",
+        "api-3"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "check:lootroll-publication",
+      "role": "target",
+      "clauses": [
+        "dst-1",
+        "dst-10"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "server:loot roll component is attached on the master simulation",
+      "role": "target",
+      "clauses": [
+        "deliver-1",
+        "dst-1",
+        "dst-2",
+        "dst-3",
+        "dst-8",
+        "dst-8b",
+        "api-1",
+        "api-2"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "server:predicted winner receives one real item exactly once",
+      "role": "target",
+      "clauses": [
+        "deliver-4",
+        "core-2a",
+        "core-2c",
+        "core-3a",
+        "core-3b",
+        "core-3c",
+        "core-4a",
+        "dst-3",
+        "dst-4",
+        "dst-5",
+        "dst-6",
+        "dst-8",
+        "dst-8b",
+        "dst-11",
+        "api-1",
+        "accept-1"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "server:failed delivery moves the item to the next-best roll",
+      "role": "target",
+      "clauses": [
+        "core-4a",
+        "core-5c",
+        "core-5e",
+        "dst-5",
+        "dst-6",
+        "dst-7",
+        "dst-9",
+        "dst-9b"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "server:open rolls survive save and load and removal cleans up",
+      "role": "target",
+      "clauses": [
+        "core-4a",
+        "core-8d",
+        "dst-3",
+        "dst-6",
+        "dst-8",
+        "dst-8b",
+        "dst-9b",
+        "dst-11",
+        "dst-12",
+        "api-3"
+      ],
+      "overlap": false,
+      "note": ""
+    }
+  ],
+  "clauses": [
+    {
+      "id": "deliver-1",
+      "anchor": "Required deliverables file list: \"scripts/components/lootrollarbiter.lua\"",
+      "status": "asserted",
+      "note": "four required files; the evaluator's required-files check plus the attach case"
+    },
+    {
+      "id": "deliver-2",
+      "anchor": "Required deliverables: \"The pure module `scripts/lootroll/arbiter.lua` returns a table and exports\"",
+      "status": "asserted",
+      "note": "every hidden case loads the module and calls the exported names; Arbiter.load is called in case 6"
+    },
+    {
+      "id": "deliver-3",
+      "anchor": "Required deliverables: \"The pure module must not use any DST global object, `require`, `os` or `io`\"",
+      "status": "asserted",
+      "note": "the sandbox has none of these globals, so any use fails every hidden case"
+    },
+    {
+      "id": "deliver-4",
+      "anchor": "Required deliverables: \"The code must be valid Lua 5.1 and valid Lua 5.4 at the same time\"",
+      "status": "asserted",
+      "note": "hidden suite runs on the sandbox Lua (5.4+), the server cases run the same core on the game's Lua 5.1 and compare drawn numbers"
+    },
+    {
+      "id": "deliver-5",
+      "anchor": "Required deliverables options table: \"`max_rounds` | Maximum number of roll rounds in one contest (including the first round) | `3`\"",
+      "status": "asserted",
+      "note": "defaults asserted: max_rounds=3 (g5), max_wins_per_window=2 (w5/w6); window/allowed_items/fairness_window are passed explicitly; default window=30, fairness_window=600 and allowed_items={} are not asserted in the core (weak part)"
+    },
+    {
+      "id": "return-1",
+      "anchor": "Return values and data shapes item 1: \"Every method returns a **new table**\"",
+      "status": "asserted",
+      "note": "mutating open().eligible, a resolve result and a snapshot must not leak"
+    },
+    {
+      "id": "return-2",
+      "anchor": "Return values and data shapes item 2: \"and **produces no side effect at all**\"",
+      "status": "asserted",
+      "note": "rejected open does not burn the id, rejected choose does not record revision 9, rejected mark_delivered leaves delivered state"
+    },
+    {
+      "id": "return-3",
+      "anchor": "Return values and data shapes item 3: \"Every method that takes `now` checks `now` first\"",
+      "status": "asserted",
+      "note": "every method is sampled once or more: open (inf, NaN), choose, resolve, tick, mark_delivered (NaN), cancel (inf), snapshot (NaN), save (-inf)"
+    },
+    {
+      "id": "return-4",
+      "anchor": "Return values and data shapes item 4: \"return the first matching `code` in the order listed for that method\"",
+      "status": "asserted",
+      "note": "sampled with multi-fault calls: open (duplicate_roll before item/eligible/seed faults) and choose (unknown_roll, not_eligible, invalid_choice before later faults); the remaining pairs use single-fault inputs"
+    },
+    {
+      "id": "return-8",
+      "anchor": "Return values and data shapes item 6: \"The internal layout of the table returned by `save` is free\"",
+      "status": "asserted",
+      "note": "the suite never inspects the layout, it only validates plain data and loads a deep copy"
+    },
+    {
+      "id": "return-5",
+      "anchor": "Return values and data shapes item 5: \"always means Lua string `<` comparison\"",
+      "status": "asserted",
+      "note": "eligible order, draw order, snapshot order with ASCII ids"
+    },
+    {
+      "id": "return-6",
+      "anchor": "Return values and data shapes result table: \"(a winner has been selected and delivery confirmation is pending)\"",
+      "status": "asserted",
+      "note": "every result field is read: ok, roll_id, item, status, winner, tier, rolls{tier,round,player_id,roll}, demoted, failed, choices{player_id,choice}"
+    },
+    {
+      "id": "return-7",
+      "anchor": "Return values and data shapes result table choices: \"a demoted player still shows\"",
+      "status": "asserted",
+      "note": "choices list in case 2; demoted player's original choice in w2"
+    },
+    {
+      "id": "core-1a",
+      "anchor": "Core semantics item 1 open validation: \"`invalid_time` (`now` or `now + window` is not a finite number)\"",
+      "status": "asserted",
+      "note": "invalid_time, invalid_roll_id, duplicate_roll, item_not_allowed, invalid_eligible (3 shapes), invalid_seed (3 shapes)"
+    },
+    {
+      "id": "core-1b",
+      "anchor": "Core semantics item 1 open success: \"freeze the deduplicated eligible set (copied; the caller's array is not retained)\"",
+      "status": "asserted",
+      "note": "deadline = now + window, total, ascending eligible, caller array mutation ignored"
+    },
+    {
+      "id": "core-1c",
+      "anchor": "Core semantics item 1 open freeze: \"Players who join afterwards cannot take part, and players who leave remain in the set\"",
+      "status": "asserted",
+      "note": "outsider gets not_eligible; absent players still count toward completeness and as pass"
+    },
+    {
+      "id": "core-2a",
+      "anchor": "Core semantics item 2 choose validation: \"`stale_revision` (`revision` is not greater than the **last accepted** revision of that player in that roll)\"",
+      "status": "asserted",
+      "note": "unknown_roll, roll_closed, not_eligible, invalid_choice, invalid_revision, stale_revision"
+    },
+    {
+      "id": "core-2b",
+      "anchor": "Core semantics item 2 revision: \"a rejected call does not record a revision\"",
+      "status": "asserted",
+      "note": "revision 9 with an invalid choice, then revision 0 is accepted"
+    },
+    {
+      "id": "core-2c",
+      "anchor": "Core semantics item 2 choose success: \"complete = (chosen == total)\"",
+      "status": "asserted",
+      "note": "chosen/total/complete; a changed choice is not counted twice"
+    },
+    {
+      "id": "core-2d",
+      "anchor": "Core semantics item 2 deadline: \"or `now >= deadline`); `not_eligible`\"",
+      "status": "asserted",
+      "note": "accepted at deadline-0.5, refused at the deadline, also after rebasing"
+    },
+    {
+      "id": "core-2e",
+      "anchor": "Core semantics item 2 status: \"The passing of the deadline does not change the status by itself\"",
+      "status": "asserted",
+      "note": "d4 is canceled 290 s after its deadline; w2/w3 stay open past their deadline until tick"
+    },
+    {
+      "id": "core-3a",
+      "anchor": "Core semantics item 3 resolve readiness: \"if some player has still not chosen and `now < deadline`, return `not_ready`\"",
+      "status": "asserted",
+      "note": "not_ready before the deadline, legal exactly at the deadline, legal early when complete"
+    },
+    {
+      "id": "core-3b",
+      "anchor": "Core semantics item 3 resolve idempotence: \"directly return the **current** result table of that roll (no more values are drawn; idempotent)\"",
+      "status": "asserted",
+      "note": "second resolve compares winner and the whole draw log"
+    },
+    {
+      "id": "core-3c",
+      "anchor": "Core semantics item 3 tiers: \"if the need tier is non-empty the contest takes place within the need tier\"",
+      "status": "asserted",
+      "note": "need beats greed (g1), greed-only (g2), never chose = pass (r1), all pass = unclaimed without draws (g7, t1)"
+    },
+    {
+      "id": "core-4a",
+      "anchor": "Core semantics item 4 generator: \"`state0 = seed % 2147483646 + 1`\"",
+      "status": "asserted",
+      "note": "exact numbers for seeds 0, 2147483646, 4294967295, 7, 9, 17, 61, 2024, 139629"
+    },
+    {
+      "id": "core-4b",
+      "anchor": "Core semantics item 4 draw order: \"in round 1 every player of the tier draws once in ascending id order (a single player also draws once)\"",
+      "status": "asserted",
+      "note": "draw order in rolls; single candidate draws once (d2, r1)"
+    },
+    {
+      "id": "core-4c",
+      "anchor": "Core semantics item 4 re-roll: \"**only the tied leaders** enter the next round in ascending id order, using the continuing generator state\"",
+      "status": "asserted",
+      "note": "g4 (adjacent tie), d1 (p1/p3 tie with p2 between), g5 three rounds then fallback, g6 max_rounds = 1"
+    },
+    {
+      "id": "core-4d",
+      "anchor": "Core semantics item 4 ranking: \"compare the roll value sequences round by round (lexicographic order, the higher roll value first; a player who did not take part in a round ranks below any roll value)\"",
+      "status": "asserted",
+      "note": "d1 ranking p3, p1, p2 differs from id order and from last-roll order"
+    },
+    {
+      "id": "core-4e",
+      "anchor": "Core semantics item 4 record: \"Every draw is appended to `rolls`\"",
+      "status": "asserted",
+      "note": "complete draw logs compared entry by entry"
+    },
+    {
+      "id": "core-5a",
+      "anchor": "Core semantics item 5 validation: \"`not_awarded` (the status is not\"",
+      "status": "asserted",
+      "note": "unknown_roll, not_awarded after unclaimed, delivered and canceled"
+    },
+    {
+      "id": "core-5b",
+      "anchor": "Core semantics item 5 success: \"and one win is recorded for `winner` in the fairness ledger\"",
+      "status": "asserted",
+      "note": "delivered is final; the win appears in snapshot.wins only after mark_delivered(true)"
+    },
+    {
+      "id": "core-5c",
+      "anchor": "Core semantics item 5 re-award: \"the award passes to the next player in the ranking of the current tier (without drawing again)\"",
+      "status": "asserted",
+      "note": "no new draws inside a ranked tier; failed order recorded; server case walks b -> c -> a"
+    },
+    {
+      "id": "core-5d",
+      "anchor": "Core semantics item 5 greed tier: \"run one new contest for the greed tier with the **continuing generator state**\"",
+      "status": "asserted",
+      "note": "d2 and s3 (the latter across save/load)"
+    },
+    {
+      "id": "core-5e",
+      "anchor": "Core semantics item 5 termination: \"when no candidate is left\"",
+      "status": "asserted",
+      "note": "d1 after three failures; server lonely roll"
+    },
+    {
+      "id": "core-5f",
+      "anchor": "Core semantics item 5 exactly once: \"Each failure call passes the award on by exactly one player, and the same player never becomes the winner twice\"",
+      "status": "asserted",
+      "note": "three failures visit three distinct players in ranking order"
+    },
+    {
+      "id": "core-6a",
+      "anchor": "Core semantics item 6 formula: \"At resolution take `t = math.min(now, deadline)`\"",
+      "status": "asserted",
+      "note": "w2/w3 resolved at 200 with deadlines 104/105; w4 resolved early at now"
+    },
+    {
+      "id": "core-6b",
+      "anchor": "Core semantics item 6 boundary: \"A win exactly `fairness_window` seconds ago no longer counts\"",
+      "status": "asserted",
+      "note": "99 s counts, 100 s does not, for demotion and for snapshot.wins"
+    },
+    {
+      "id": "core-6c",
+      "anchor": "Core semantics item 6 threshold: \"if the count is `>= max_wins_per_window`, that player is treated as greed in this resolution and is recorded in `demoted`\"",
+      "status": "asserted",
+      "note": "limit 1 and default limit 2"
+    },
+    {
+      "id": "core-6d",
+      "anchor": "Core semantics item 6 ledger source: \"Only `mark_delivered(..., true, ...)` produces a ledger record\"",
+      "status": "asserted",
+      "note": "award alone and failed delivery add nothing"
+    },
+    {
+      "id": "core-6e",
+      "anchor": "Core semantics item 6 pruning: \"An implementation may prune expired ledger records, but must not change any observable result\"",
+      "status": "asserted",
+      "note": "snapshot(200) and tick(200) precede the evaluation of w2 at t = 104"
+    },
+    {
+      "id": "core-7a",
+      "anchor": "Core semantics item 7 cancel: \"after success the status is the final\"",
+      "status": "asserted",
+      "note": "cancel result shape, second cancel, cancel after resolution"
+    },
+    {
+      "id": "core-7b",
+      "anchor": "Core semantics item 7 final states: \"their roll id can never be opened again\"",
+      "status": "asserted",
+      "note": "duplicate_roll after resolve, cancel, delivery and load; roll_closed / not_awarded on final rolls"
+    },
+    {
+      "id": "core-7c",
+      "anchor": "Core semantics item 7 tick: \"and returns `{ ok = true, resolved = <array of result tables in ascending roll id order> }`\"",
+      "status": "asserted",
+      "note": "nothing due, three due in id order, not twice; tick result equals resolve result"
+    },
+    {
+      "id": "core-8a",
+      "anchor": "Core semantics item 8 snapshot shape: \"`rolls` covers every roll that was ever opened successfully, in ascending roll id order\"",
+      "status": "asserted",
+      "note": "roll_id, item, status, deadline, remaining, total, chosen, winner, tier for open, awarded and delivered entries"
+    },
+    {
+      "id": "core-8b",
+      "anchor": "Core semantics item 8 snapshot privacy: \"or any player id in any form (key or value)\"",
+      "status": "asserted",
+      "note": "recursive key/value scan of the open entry"
+    },
+    {
+      "id": "core-8c",
+      "anchor": "Core semantics item 8 wins: \"`count` is the number of wins satisfying `now - win_time < fairness_window`\"",
+      "status": "asserted",
+      "note": "w7 makes a smaller id win later, so insertion order and id order differ"
+    },
+    {
+      "id": "core-8d",
+      "anchor": "Core semantics item 8 save: \"`save(now)` returns a new table containing only strings, numbers, booleans and nested tables without metatables\"",
+      "status": "asserted",
+      "note": "suite deep-copies the save with a plain-data validator and loads the copy"
+    },
+    {
+      "id": "core-8e",
+      "anchor": "Core semantics item 8 load: \"and restores the entire state: eligible sets, choices, revisions, deadlines, generator states\"",
+      "status": "asserted",
+      "note": "revisions, deadline, ranking + delivery progress (s2), generator state (s3), final result (s0), ledger, burned ids"
+    },
+    {
+      "id": "core-8f",
+      "anchor": "Core semantics item 8 rebase: \"then `options.now - <save time>` is added to every stored absolute time\"",
+      "status": "asserted",
+      "note": "shift 895 on deadline and ledger; verbatim without options.now; non-table data = new"
+    },
+    {
+      "id": "dst-1",
+      "anchor": "DST integration item 1: \"first create `inst._lootroll_state = net_string(inst.GUID,\"",
+      "status": "asserted",
+      "note": "server reads TheWorld._lootroll_state:value(); the variable name/dirty event strings and the client branch are regex/unobservable on a dedicated server"
+    },
+    {
+      "id": "dst-2",
+      "anchor": "DST integration item 2: \"the whitelist is fixed to these 10 prefabs\"",
+      "status": "asserted",
+      "note": "goldnugget accepted, log refused; the other nine prefabs and the fixed window/fairness numbers are not exercised"
+    },
+    {
+      "id": "dst-3",
+      "anchor": "DST integration item 3 Open: \"the component generates the roll id (a non-empty string, unique over the whole lifetime of the save, and not to be reused after `OnLoad` either)\"",
+      "status": "asserted",
+      "note": "unique ids before and after OnLoad, duplicate entity in the list, refused Open creates no item, Open without a seed succeeds"
+    },
+    {
+      "id": "dst-4",
+      "anchor": "DST integration item 4 Choose: \"the component must resolve and deliver **immediately**\"",
+      "status": "asserted",
+      "note": "inventory checked before any explicit Resolve; outsider entity gets not_eligible"
+    },
+    {
+      "id": "dst-5",
+      "anchor": "DST integration item 5 Resolve: \"calling it again for a roll that has already been resolved returns the same result and must not spawn the item again\"",
+      "status": "asserted",
+      "note": "not_ready early, delivered result, second Resolve keeps count and world total"
+    },
+    {
+      "id": "dst-6",
+      "anchor": "DST integration item 6 delivery: \"only when a truthy value is returned and, in addition, the item has been merged into a stack the player already had\"",
+      "status": "asserted",
+      "note": "stack merge (winner pre-owns a nugget), missing inventory component, maxslots = 0 drop path, AllPlayers lookup allowed in the save/load case"
+    },
+    {
+      "id": "dst-7",
+      "anchor": "DST integration item 6 no leftovers: \"One award leaves at most one item, and failed attempts must not leave items behind in the world\"",
+      "status": "asserted",
+      "note": "world-wide stack total of goldnugget entities"
+    },
+    {
+      "id": "dst-8",
+      "anchor": "DST integration item 7 timer: \"keeps **exactly one** `inst:DoTaskInTime(deadline - GetTime(), ...)` deadline task\"",
+      "status": "asserted",
+      "note": "counted through TheWorld.pendingtasks: +1 per open roll, back to the baseline after settlement; that the task really resolves the roll when it fires cannot be observed synchronously"
+    },
+    {
+      "id": "dst-8b",
+      "anchor": "DST integration item 7 task hygiene: \"the component must not keep any other unfinished `DoTaskInTime`/`DoPeriodicTask` task on the world entity\"",
+      "status": "asserted",
+      "note": "exact pendingtasks deltas"
+    },
+    {
+      "id": "dst-9",
+      "anchor": "DST integration item 8 ms_playerleft: \"only discard the entity cache of that player, and you **must not** shrink any frozen set\"",
+      "status": "asserted",
+      "note": "the event is pushed on a private host entity (never on the live world): the departed player still chooses and rolls, the item goes to the runner-up"
+    },
+    {
+      "id": "dst-9b",
+      "anchor": "DST integration item 9 standalone entity: \"The component must not assume that `inst` is always `TheWorld`\"",
+      "status": "asserted",
+      "note": "both private-host scenarios"
+    },
+    {
+      "id": "dst-10",
+      "anchor": "DST integration item 10 announcement: \"announce the result with `TheNet:Announce`\"",
+      "status": "weak",
+      "note": "TheNet is userdata and cannot be observed; regex only"
+    },
+    {
+      "id": "dst-11",
+      "anchor": "DST integration item 10 network state: \"in ascending roll id order as `roll_id|item|chosen|total`\"",
+      "status": "asserted",
+      "note": "two open rolls joined by ';' in ascending id order, no choice words or userids, settled roll disappears, republished after OnLoad"
+    },
+    {
+      "id": "dst-12",
+      "anchor": "DST integration item 11 OnSave/OnLoad: \"`OnLoad(data)` first cancels the old tasks, calls `Arbiter.load` with `options.now = GetTime()`\"",
+      "status": "asserted",
+      "note": "plain data, revisions survive, exactly one task per open roll after OnLoad, open roll settles for the predicted winner afterwards, no items created by loading; the clock rebase itself is only covered by the hidden suite"
+    },
+    {
+      "id": "api-1",
+      "anchor": "Base-game API contract RPC: \"The RPC handler receives only the roll id, the choice and the revision\"",
+      "status": "asserted",
+      "note": "handler is fetched from MOD_RPC_HANDLERS and invoked with a player entity; that it cannot call Open is a code-review property"
+    },
+    {
+      "id": "api-2",
+      "anchor": "Base-game API contract methods: \"The world component must expose `Open(item_prefab, player_entities, seed)`\"",
+      "status": "asserted",
+      "note": "all six methods are checked for existence and four are driven"
+    },
+    {
+      "id": "api-3",
+      "anchor": "DST integration items 7/8 cleanup: \"in `OnRemoveFromEntity` call `RemoveEventCallback` with the same callback\"",
+      "status": "asserted",
+      "note": "RemoveComponent on a private host: pendingtasks and the ms_playerleft listener count drop to zero"
+    },
+    {
+      "id": "accept-1",
+      "anchor": "Acceptance closing sentence: \"copying individual choices to clients is forbidden\"",
+      "status": "asserted",
+      "note": "net state and snapshot scans"
+    }
+  ],
+  "excluded_clauses": [],
+  "known_issues": []
+}

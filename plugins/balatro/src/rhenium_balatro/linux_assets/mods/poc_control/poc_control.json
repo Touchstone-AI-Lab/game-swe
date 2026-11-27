@@ -1,0 +1,6 @@
+{
+  "id": "poc_control", "name": "PoC runtime control", "author": ["Balatro PoC"],
+  "description": "Inspected local lifecycle and read-only runtime evidence", "prefix": "pocctl",
+  "main_file": "control.lua", "priority": 100000, "version": "0.1.0",
+  "dependencies": ["Steamodded (>=1.~)", "balatrobot"]
+}

@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <LangVersion>latest</LangVersion>
+    <ImplicitUsings>disable</ImplicitUsings>
+    <Nullable>disable</Nullable>
+    <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
+    <AssemblyName>Fargowiltas.EnchantedTree.SourceProjection</AssemblyName>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="Common/Systems/Recipes/MiscRecipeSystem.cs" />
+    <Compile Include="Content/Items/Tiles/EnchantedTreeSheet.cs" />
+    <Compile Include="Content/Items/Tiles/EnchantedTreeTileEntity.cs" />
+    <Compile Include="GameCodeBench/ProjectionStubs.cs" />
+  </ItemGroup>
+</Project>

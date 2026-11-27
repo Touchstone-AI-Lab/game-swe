@@ -1,0 +1,4 @@
+control	kind	base	overlay	root	note
+target-negative-no-vacuum-check	target-negative	reference	patch:target-negative-no-vacuum-check.patch	.	reference without the local vacuum condition
+compat-negative-ignores-sow-blocker	compat-negative	reference	patch:compat-negative-ignores-sow-blocker.patch	.	reference that drops the adjacent sow-blocker check
+alternative-a	alternative	starter	tree:alternative-a	.	own guard sequence with early returns per condition

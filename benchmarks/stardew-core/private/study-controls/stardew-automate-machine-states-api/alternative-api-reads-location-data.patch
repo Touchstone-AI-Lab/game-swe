@@ -1,0 +1,31 @@
+diff -ruN a/Automate/Framework/MachineManager.cs b/Automate/Framework/MachineManager.cs
+--- a/Automate/Framework/MachineManager.cs
++++ b/Automate/Framework/MachineManager.cs
+@@ -95,11 +95,22 @@
+     {
+         string locationKey = this.Factory.GetLocationKey(location);
+ 
+-        return this
+-            .ActiveMachineGroups
+-            .Concat(this.DisabledMachineGroups)
+-            .Concat(this.JunimoMachineGroup.GetAll())
+-            .Where(p => p.LocationKey == locationKey);
++        // Read the per-location scan result directly instead of the flattened caches. The caches are only rebuilt when
++        // a reload changes what gets processed, so they can lag behind for a location which only has disabled groups.
++        if (this.MachineData.TryGetValue(locationKey, out MachineDataForLocation? data))
++        {
++            foreach (IMachineGroup group in data.ActiveMachineGroups)
++                yield return group;
++
++            foreach (IMachineGroup group in data.DisabledMachineGroups)
++                yield return group;
++        }
++
++        foreach (IMachineGroup group in this.JunimoMachineGroup.GetAll())
++        {
++            if (group.LocationKey == locationKey)
++                yield return group;
++        }
+     }
+ 
+     /// <summary>Get the registered override settings.</summary>

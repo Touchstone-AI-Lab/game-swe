@@ -1,0 +1,282 @@
+{
+  "schemaVersion": 3,
+  "protocol": "rhenium-rimworld-private-v3",
+  "adapter": "rhenium-rimworld-observer-v3",
+  "taskKey": "rimworld/core/customize-weapon-ability-tracker",
+  "weights": {
+    "submissionShape": 10,
+    "engineAssertions": 90
+  },
+  "cases": [
+    {
+      "id": "runtime-defs-ready",
+      "fixture": "RuntimeDefsReady",
+      "gate": true,
+      "scalars": [],
+      "expected": {
+        "facts": [
+          {
+            "name": "result",
+            "value": "ready"
+          }
+        ],
+        "outputs": []
+      }
+    },
+    {
+      "id": "missing-tracker-created",
+      "fixture": "MissingTrackerCreated",
+      "gate": false,
+      "scalars": [],
+      "expected": {
+        "facts": [
+          {
+            "name": "result",
+            "value": "True"
+          }
+        ],
+        "outputs": []
+      }
+    },
+    {
+      "id": "empty-management-no-tracker",
+      "fixture": "EmptyManagementNoTracker",
+      "gate": false,
+      "scalars": [],
+      "expected": {
+        "facts": [
+          {
+            "name": "result",
+            "value": "True"
+          }
+        ],
+        "outputs": []
+      }
+    },
+    {
+      "id": "no-holder-no-tracker",
+      "fixture": "NoHolderNoTracker",
+      "gate": false,
+      "scalars": [],
+      "expected": {
+        "facts": [
+          {
+            "name": "result",
+            "value": "True"
+          }
+        ],
+        "outputs": []
+      }
+    },
+    {
+      "id": "managed-ability-added",
+      "fixture": "ManagedAbilityAdded",
+      "gate": false,
+      "scalars": [],
+      "expected": {
+        "facts": [
+          {
+            "name": "result",
+            "value": "True:1"
+          }
+        ],
+        "outputs": []
+      }
+    },
+    {
+      "id": "duplicate-props-deduplicated",
+      "fixture": "DuplicatePropsDeduplicated",
+      "gate": false,
+      "scalars": [],
+      "expected": {
+        "facts": [
+          {
+            "name": "result",
+            "value": "True:1"
+          }
+        ],
+        "outputs": []
+      }
+    },
+    {
+      "id": "unrelated-ability-preserved",
+      "fixture": "UnrelatedAbilityPreserved",
+      "gate": false,
+      "scalars": [],
+      "expected": {
+        "facts": [
+          {
+            "name": "result",
+            "value": "True"
+          }
+        ],
+        "outputs": []
+      }
+    },
+    {
+      "id": "removed-managed-ability-pruned",
+      "fixture": "RemovedManagedAbilityPruned",
+      "gate": false,
+      "scalars": [],
+      "expected": {
+        "facts": [
+          {
+            "name": "result",
+            "value": "True:0"
+          }
+        ],
+        "outputs": []
+      }
+    },
+    {
+      "id": "unequip-captures-state",
+      "fixture": "UnequipCapturesState",
+      "gate": false,
+      "scalars": [],
+      "expected": {
+        "facts": [
+          {
+            "name": "result",
+            "value": "1"
+          }
+        ],
+        "outputs": []
+      }
+    },
+    {
+      "id": "reequip-restores-charges",
+      "fixture": "ReequipRestoresCharges",
+      "gate": false,
+      "scalars": [],
+      "expected": {
+        "facts": [
+          {
+            "name": "result",
+            "value": "True:2"
+          }
+        ],
+        "outputs": []
+      }
+    },
+    {
+      "id": "reequip-restores-cooldown",
+      "fixture": "ReequipRestoresCooldown",
+      "gate": false,
+      "scalars": [],
+      "expected": {
+        "facts": [
+          {
+            "name": "result",
+            "value": "True"
+          }
+        ],
+        "outputs": []
+      }
+    },
+    {
+      "id": "postload-restores-state",
+      "fixture": "PostloadRestoresState",
+      "gate": false,
+      "scalars": [],
+      "expected": {
+        "facts": [
+          {
+            "name": "result",
+            "value": "True:2"
+          }
+        ],
+        "outputs": []
+      }
+    },
+    {
+      "id": "stale-state-pruned",
+      "fixture": "StaleStatePruned",
+      "gate": false,
+      "scalars": [],
+      "expected": {
+        "facts": [
+          {
+            "name": "result",
+            "value": "0"
+          }
+        ],
+        "outputs": []
+      }
+    },
+    {
+      "id": "null-properties-tolerated",
+      "fixture": "NullPropertiesTolerated",
+      "gate": false,
+      "scalars": [],
+      "expected": {
+        "facts": [
+          {
+            "name": "result",
+            "value": "True"
+          }
+        ],
+        "outputs": []
+      }
+    },
+    {
+      "id": "reload-path-preserved",
+      "fixture": "ReloadPathPreserved",
+      "gate": false,
+      "scalars": [],
+      "expected": {
+        "facts": [
+          {
+            "name": "result",
+            "value": "True:True"
+          }
+        ],
+        "outputs": []
+      }
+    },
+    {
+      "id": "postload-managed-cleared",
+      "fixture": "PostloadManagedCleared",
+      "gate": false,
+      "scalars": [],
+      "expected": {
+        "facts": [
+          {
+            "name": "result",
+            "value": "0"
+          }
+        ],
+        "outputs": []
+      }
+    },
+    {
+      "id": "holder-update-adds-ability",
+      "fixture": "HolderUpdateAddsAbility",
+      "gate": false,
+      "scalars": [],
+      "expected": {
+        "facts": [
+          {
+            "name": "result",
+            "value": "True"
+          }
+        ],
+        "outputs": []
+      }
+    },
+    {
+      "id": "fixture-state-restored",
+      "fixture": "FixtureStateRestored",
+      "gate": true,
+      "scalars": [],
+      "expected": {
+        "facts": [
+          {
+            "name": "result",
+            "value": "restored"
+          }
+        ],
+        "outputs": []
+      }
+    }
+  ]
+}

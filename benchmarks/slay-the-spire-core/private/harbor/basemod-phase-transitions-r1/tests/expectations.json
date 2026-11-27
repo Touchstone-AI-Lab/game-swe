@@ -1,0 +1,466 @@
+{
+  "cases": {
+    "hide-direct": {
+      "group": "navigation",
+      "expected": {
+        "error": "none",
+        "current": "winner",
+        "oldHidden": "1",
+        "middleEntered": "0",
+        "winnerEntered": "1",
+        "middleReset": "0",
+        "winnerReset": "1",
+        "maps": "0",
+        "view": "winner"
+      }
+    },
+    "hide-key": {
+      "group": "navigation",
+      "expected": {
+        "error": "none",
+        "current": "winner",
+        "oldHidden": "1",
+        "middleEntered": "0",
+        "winnerEntered": "1",
+        "middleReset": "0",
+        "winnerReset": "1",
+        "maps": "0",
+        "view": "winner"
+      }
+    },
+    "reset-direct": {
+      "group": "navigation",
+      "expected": {
+        "error": "none",
+        "current": "winner",
+        "oldHidden": "1",
+        "middleEntered": "0",
+        "winnerEntered": "1",
+        "middleReset": "1",
+        "winnerReset": "1",
+        "maps": "0",
+        "view": "winner"
+      }
+    },
+    "reset-key": {
+      "group": "navigation",
+      "expected": {
+        "error": "none",
+        "current": "winner",
+        "oldHidden": "1",
+        "middleEntered": "0",
+        "winnerEntered": "1",
+        "middleReset": "1",
+        "winnerReset": "1",
+        "maps": "0",
+        "view": "winner"
+      }
+    },
+    "enter-direct": {
+      "group": "navigation",
+      "expected": {
+        "error": "none",
+        "current": "winner",
+        "oldHidden": "1",
+        "middleEntered": "1",
+        "winnerEntered": "1",
+        "middleReset": "1",
+        "winnerReset": "1",
+        "maps": "0",
+        "view": "winner"
+      }
+    },
+    "enter-key": {
+      "group": "navigation",
+      "expected": {
+        "error": "none",
+        "current": "winner",
+        "oldHidden": "1",
+        "middleEntered": "1",
+        "winnerEntered": "1",
+        "middleReset": "1",
+        "winnerReset": "1",
+        "maps": "0",
+        "view": "winner"
+      }
+    },
+    "sequential": {
+      "group": "control",
+      "expected": {
+        "error": "none",
+        "current": "winner",
+        "oldHidden": "1",
+        "middleEntered": "1",
+        "winnerEntered": "1",
+        "middleReset": "1",
+        "winnerReset": "1",
+        "maps": "0",
+        "view": "winner"
+      }
+    },
+    "reuse": {
+      "group": "control",
+      "expected": {
+        "error": "none",
+        "current": "winner",
+        "oldHidden": "1",
+        "middleEntered": "2",
+        "winnerEntered": "2",
+        "middleReset": "2",
+        "winnerReset": "2",
+        "maps": "0",
+        "view": "winner"
+      }
+    },
+    "latest-request": {
+      "group": "navigation",
+      "expected": {
+        "error": "none",
+        "current": "winner",
+        "oldHidden": "1",
+        "middleEntered": "0",
+        "winnerEntered": "1",
+        "middleReset": "0",
+        "winnerReset": "1",
+        "maps": "0",
+        "view": "winner",
+        "discardedEntered": "0"
+      }
+    },
+    "chain": {
+      "group": "navigation",
+      "expected": {
+        "error": "none",
+        "current": "winner",
+        "oldHidden": "1",
+        "middleEntered": "0",
+        "winnerEntered": "1",
+        "middleReset": "0",
+        "winnerReset": "1",
+        "maps": "0",
+        "view": "winner",
+        "hopEntered": "1",
+        "hopHidden": "1"
+      }
+    },
+    "cross-event": {
+      "group": "control",
+      "expected": {
+        "error": "none",
+        "current": "middle",
+        "oldHidden": "1",
+        "middleEntered": "1",
+        "winnerEntered": "0",
+        "middleReset": "1",
+        "winnerReset": "0",
+        "maps": "0",
+        "view": "middle",
+        "otherCurrent": "otherEnd",
+        "otherEntered": "1"
+      }
+    },
+    "hide-throw-false": {
+      "group": "control",
+      "expected": {
+        "error": "none",
+        "current": "winner",
+        "view": "winner",
+        "sameThrowable": "true",
+        "winnerBefore": "0",
+        "winnerEntered": "1"
+      }
+    },
+    "hide-throw-true": {
+      "group": "navigation",
+      "expected": {
+        "error": "none",
+        "current": "winner",
+        "view": "winner",
+        "sameThrowable": "true",
+        "winnerBefore": "0",
+        "winnerEntered": "1"
+      }
+    },
+    "reset-throw-false": {
+      "group": "control",
+      "expected": {
+        "error": "none",
+        "current": "winner",
+        "view": "winner",
+        "sameThrowable": "true",
+        "winnerBefore": "0",
+        "winnerEntered": "1"
+      }
+    },
+    "reset-throw-true": {
+      "group": "navigation",
+      "expected": {
+        "error": "none",
+        "current": "winner",
+        "view": "winner",
+        "sameThrowable": "true",
+        "winnerBefore": "0",
+        "winnerEntered": "1"
+      }
+    },
+    "enter-throw-false": {
+      "group": "control",
+      "expected": {
+        "error": "none",
+        "current": "winner",
+        "view": "winner",
+        "sameThrowable": "true",
+        "winnerBefore": "0",
+        "winnerEntered": "1"
+      }
+    },
+    "enter-throw-true": {
+      "group": "navigation",
+      "expected": {
+        "error": "none",
+        "current": "winner",
+        "view": "winner",
+        "sameThrowable": "true",
+        "winnerBefore": "0",
+        "winnerEntered": "1"
+      }
+    },
+    "reopen-false-false": {
+      "group": "control",
+      "expected": {
+        "error": "none",
+        "current": "old",
+        "maps": "1",
+        "winnerEntered": "0"
+      }
+    },
+    "reopen-false-true": {
+      "group": "control",
+      "expected": {
+        "error": "none",
+        "current": "old",
+        "maps": "0",
+        "winnerEntered": "0"
+      }
+    },
+    "reopen-true-false": {
+      "group": "reopen",
+      "expected": {
+        "error": "none",
+        "current": "winner",
+        "maps": "0",
+        "winnerEntered": "1"
+      }
+    },
+    "reopen-true-true": {
+      "group": "control",
+      "expected": {
+        "error": "none",
+        "current": "winner",
+        "maps": "0",
+        "winnerEntered": "1"
+      }
+    },
+    "followup-none": {
+      "group": "control",
+      "expected": {
+        "error": "none",
+        "hasFollowup": "false",
+        "current": "old",
+        "transitionError": "none",
+        "saveBlocked": "false",
+        "combatError": "none"
+      }
+    },
+    "followup-phase": {
+      "group": "control",
+      "expected": {
+        "error": "none",
+        "hasFollowup": "true",
+        "current": "winner",
+        "transitionError": "none",
+        "saveBlocked": "true",
+        "combatError": "none"
+      }
+    },
+    "followup-key": {
+      "group": "control",
+      "expected": {
+        "error": "none",
+        "hasFollowup": "true",
+        "current": "winner",
+        "transitionError": "none",
+        "saveBlocked": "true",
+        "combatError": "none"
+      }
+    },
+    "followup-phase-clear": {
+      "group": "followup",
+      "expected": {
+        "error": "none",
+        "hasFollowup": "false",
+        "current": "old",
+        "transitionError": "none",
+        "saveBlocked": "false",
+        "combatError": "none"
+      }
+    },
+    "followup-key-clear": {
+      "group": "followup",
+      "expected": {
+        "error": "none",
+        "hasFollowup": "false",
+        "current": "old",
+        "transitionError": "none",
+        "saveBlocked": "false",
+        "combatError": "none"
+      }
+    },
+    "followup-phase-key-clear": {
+      "group": "followup",
+      "expected": {
+        "error": "none",
+        "hasFollowup": "false",
+        "current": "old",
+        "transitionError": "none",
+        "saveBlocked": "false",
+        "combatError": "none"
+      }
+    },
+    "followup-key-phase-clear": {
+      "group": "followup",
+      "expected": {
+        "error": "none",
+        "hasFollowup": "false",
+        "current": "old",
+        "transitionError": "none",
+        "saveBlocked": "false",
+        "combatError": "none"
+      }
+    },
+    "reopen-cycle": {
+      "group": "reopen",
+      "expected": {
+        "error": "none",
+        "current": "old",
+        "maps": "0",
+        "winnerEntered": "1",
+        "view": "old"
+      }
+    },
+    "invalid-direct": {
+      "group": "invalid",
+      "expected": {
+        "error": "none",
+        "current": "old",
+        "oldHidden": "0",
+        "rejected": "true",
+        "view": "old"
+      }
+    },
+    "invalid-key": {
+      "group": "invalid",
+      "expected": {
+        "error": "none",
+        "current": "old",
+        "oldHidden": "0",
+        "rejected": "true",
+        "view": "old"
+      }
+    }
+  },
+  "case_count_including_engine": 32,
+  "failures": {
+    "base": [
+      "chain",
+      "enter-direct",
+      "enter-key",
+      "enter-throw-true",
+      "followup-key-clear",
+      "followup-key-phase-clear",
+      "followup-phase-clear",
+      "followup-phase-key-clear",
+      "hide-direct",
+      "hide-key",
+      "hide-throw-true",
+      "invalid-direct",
+      "invalid-key",
+      "latest-request",
+      "reopen-cycle",
+      "reopen-true-false",
+      "reset-direct",
+      "reset-key",
+      "reset-throw-true"
+    ],
+    "navigation-only": [
+      "followup-key-clear",
+      "followup-key-phase-clear",
+      "followup-phase-clear",
+      "followup-phase-key-clear",
+      "invalid-direct",
+      "invalid-key",
+      "reopen-cycle",
+      "reopen-true-false"
+    ],
+    "reopen-only": [
+      "chain",
+      "enter-direct",
+      "enter-key",
+      "enter-throw-true",
+      "followup-key-clear",
+      "followup-key-phase-clear",
+      "followup-phase-clear",
+      "followup-phase-key-clear",
+      "hide-direct",
+      "hide-key",
+      "hide-throw-true",
+      "invalid-direct",
+      "invalid-key",
+      "latest-request",
+      "reset-direct",
+      "reset-key",
+      "reset-throw-true"
+    ],
+    "followup-only": [
+      "chain",
+      "enter-direct",
+      "enter-key",
+      "enter-throw-true",
+      "hide-direct",
+      "hide-key",
+      "hide-throw-true",
+      "invalid-direct",
+      "invalid-key",
+      "latest-request",
+      "reopen-cycle",
+      "reopen-true-false",
+      "reset-direct",
+      "reset-key",
+      "reset-throw-true"
+    ],
+    "invalid-only": [
+      "chain",
+      "enter-direct",
+      "enter-key",
+      "enter-throw-true",
+      "followup-key-clear",
+      "followup-key-phase-clear",
+      "followup-phase-clear",
+      "followup-phase-key-clear",
+      "hide-direct",
+      "hide-key",
+      "hide-throw-true",
+      "latest-request",
+      "reopen-cycle",
+      "reopen-true-false",
+      "reset-direct",
+      "reset-key",
+      "reset-throw-true"
+    ],
+    "gold": [],
+    "alternative": []
+  },
+  "qualified": false,
+  "frozen_before_repair_runs": true,
+  "source_observation_sha256": "8fc66f2b5840f50590333c48fd116acd2dbe65d3c9591087177cc3db936dea24"
+}

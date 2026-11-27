@@ -1,0 +1,16 @@
+control	kind	base	overlay	root	note
+alternative-a	alternative	starter	tree:alternative-a	.	structurally different implementation written from the public exam only
+target-negative-expiry-boundary-exclusive	target-negative	reference	patch:target-negative-expiry-boundary-exclusive.patch	.	fails: hidden:expiry boundary is exact and tick is deterministic
+target-negative-failed-delivery-not-restored	target-negative	reference	patch:target-negative-failed-delivery-not-restored.patch	.	fails: server:failed settlement restores both inventories and reopens
+target-negative-load-drops-settling-phase	target-negative	reference	patch:target-negative-load-drops-settling-phase.patch	.	fails: hidden:snapshot is fresh and save load round-trips settling; server:departure, rpc input and crash recovery keep state consistent
+target-negative-load-skips-recovery	target-negative	reference	patch:target-negative-load-skips-recovery.patch	.	fails: server:departure, rpc input and crash recovery keep state consistent
+target-negative-offer-voids-only-own-confirmation	target-negative	reference	patch:target-negative-offer-voids-only-own-confirmation.patch	.	fails: hidden:any accepted offer change voids both confirmations
+target-negative-plan-in-open-order	target-negative	reference	patch:target-negative-plan-in-open-order.patch	.	fails: hidden:settlement plan is ordered and settling is exclusive
+target-negative-rejected-offer-consumes-revision	target-negative	reference	patch:target-negative-rejected-offer-consumes-revision.patch	.	fails: hidden:rejected offers leave revision and confirmations untouched; server:confirmed trade swaps real inventory stacks exactly
+target-negative-remove-keeps-expiry-task	target-negative	reference	patch:target-negative-remove-keeps-expiry-task.patch	.	fails: check:escrow-lifecycle; server:trade escrow component is attached on the master simulation
+target-negative-remove-keeps-listener	target-negative	reference	patch:target-negative-remove-keeps-listener.patch	.	fails: check:escrow-lifecycle; server:trade escrow component is attached on the master simulation
+target-negative-replay-voids-confirmations	target-negative	reference	patch:target-negative-replay-voids-confirmations.patch	.	fails: hidden:replays are idempotent and revisions strictly increase
+target-negative-rpc-offer-pairs-unvalidated	target-negative	reference	patch:target-negative-rpc-offer-pairs-unvalidated.patch	.	fails: server:departure, rpc input and crash recovery keep state consistent
+target-negative-settle-ignores-invalid-entity	target-negative	reference	patch:target-negative-settle-ignores-invalid-entity.patch	.	fails: server:departure, rpc input and crash recovery keep state consistent
+target-negative-settle-moves-whole-stacks	target-negative	reference	patch:target-negative-settle-moves-whole-stacks.patch	.	fails: server:confirmed trade swaps real inventory stacks exactly
+target-negative-settle-trusts-offers	target-negative	reference	patch:target-negative-settle-trusts-offers.patch	.	fails: server:failed settlement restores both inventories and reopens

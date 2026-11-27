@@ -1,0 +1,173 @@
+diff --git a/lua/advdupe2/cl_file.lua b/lua/advdupe2/cl_file.lua
+index 71c41b0..7cc5963 100644
+--- a/lua/advdupe2/cl_file.lua
++++ b/lua/advdupe2/cl_file.lua
+@@ -1,7 +1,7 @@
+ function AdvDupe2.ReceiveFile(data, autoSave)
+ 	AdvDupe2.RemoveProgressBar()
+ 	if not data then
+-		AdvDupe2.Notify("File was not saved!",NOTIFY_ERROR,5)
++		AdvDupe2.Notify("File was not saved! (No data)",NOTIFY_ERROR,5)
+ 		return
+ 	end
+ 	local path
+@@ -18,7 +18,7 @@ function AdvDupe2.ReceiveFile(data, autoSave)
+ 	path = AdvDupe2.SanitizeFilename(path)
+ 	local dupefile = file.Open(path, "wb", "DATA")
+ 	if not dupefile then
+-		AdvDupe2.Notify("File was not saved!",NOTIFY_ERROR,5)
++		AdvDupe2.Notify("File was not saved! (Could not open file for writing)",NOTIFY_ERROR,5)
+ 		return
+ 	end
+ 	dupefile:Write(data)
+@@ -32,7 +32,7 @@ function AdvDupe2.ReceiveFile(data, autoSave)
+ 		if not readFile then AdvDupe2.Notify("File could not be read", NOTIFY_ERROR) return end
+ 		local readData = readFile:Read(readFile:Size())
+ 		readFile:Close()
+-		local success,dupe,info,moreinfo = AdvDupe2.Decode(readData)
++		local success, dupe, _info, _moreinfo = AdvDupe2.Decode(readData)
+ 		if(success)then
+ 			AdvDupe2.Notify("DEBUG CHECK: File successfully opens. No EOF errors.")
+ 		else
+@@ -60,7 +60,7 @@ function AdvDupe2.ReceiveFile(data, autoSave)
+ 		AdvDupe2.FileBrowser.Browser.pnlCanvas.ActionNode:AddFile(filename)
+ 		AdvDupe2.FileBrowser.Browser.pnlCanvas:Sort(AdvDupe2.FileBrowser.Browser.pnlCanvas.ActionNode)
+ 	end
+-	if(!errored)then
++	if not errored then
+ 		AdvDupe2.Notify("File successfully saved!",NOTIFY_GENERIC, 5)
+ 	end
+ end
+diff --git a/lua/advdupe2/file_browser.lua b/lua/advdupe2/file_browser.lua
+index 1260e21..60d4168 100644
+--- a/lua/advdupe2/file_browser.lua
++++ b/lua/advdupe2/file_browser.lua
+@@ -257,6 +257,7 @@ local function CollapseParentsComplete(node)
+ end
+ 
+ function AdvDupe2.GetFilename(path, overwrite)
++	path = AdvDupe2.SanitizeFilename(path)
+ 	if not overwrite and file.Exists(path .. ".txt", "DATA") then
+ 		for i = 1, AdvDupe2.FileRenameTryLimit do
+ 			local p = string.format("%s_%03d.txt", path, i)
+@@ -339,8 +340,6 @@ local function MoveFileClient(node)
+ 		return
+ 	end
+ 	local base = AdvDupe2.DataFolder
+-	local ParentNode
+-
+ 	local node2 = node.Control.ActionNode
+ 	local path, area = GetNodePath(node2)
+ 	local path2, area2 = GetNodePath(node)
+diff --git a/lua/advdupe2/sh_codec.lua b/lua/advdupe2/sh_codec.lua
+index 2a0f88f..0c2203e 100644
+--- a/lua/advdupe2/sh_codec.lua
++++ b/lua/advdupe2/sh_codec.lua
+@@ -16,18 +16,11 @@ include( "sh_codec_legacy.lua" )
+ AddCSLuaFile( "sh_codec_legacy.lua" )
+ 
+ local pairs = pairs
+-local type = type
+ local error = error
+ local Vector = Vector
+ local Angle = Angle
+ local format = string.format
+ local char = string.char
+-local byte = string.byte
+-local sub = string.sub
+-local gsub = string.gsub
+-local find = string.find
+-local gmatch = string.gmatch
+-local match = string.match
+ local concat = table.concat
+ local compress = util.Compress
+ local decompress = util.Decompress
+@@ -49,7 +42,10 @@ function AdvDupe2.GenerateDupeStamp(ply)
+ end
+ 
+ function AdvDupe2.SanitizeFilename(filename)
+-	return string.gsub(string.gsub(filename, "[\":]", "_"), "%s+", " ")
++	filename = string.gsub( filename, "[\":]", "_" )
++	filename = string.gsub( filename, "%s+", " " )
++	filename = string.gsub( filename, "%s*([\\/%.])%s*", "%1" )
++	return filename
+ end
+ 
+ local function makeInfo(tbl)
+diff --git a/lua/advdupe2/sv_clipboard.lua b/lua/advdupe2/sv_clipboard.lua
+index 442d6fb..2229f33 100644
+--- a/lua/advdupe2/sv_clipboard.lua
++++ b/lua/advdupe2/sv_clipboard.lua
+@@ -527,7 +527,10 @@ local function CreateConstraintFromTable(Constraint, EntityList, EntityTable, Pl
+ 	local Factory = duplicator.ConstraintType[Constraint.Type]
+ 	if not Factory then return end
+ 
++	-- Unfortunately we cannot distinguish here if this is a ropeconstraint or not
+ 	if Player and not Player:CheckLimit( "constraints" ) then return end
++	if Player and not Player:CheckLimit( "ropeconstraints" ) then return end
++
+ 	local first, firstindex -- Ent1 or Ent in the constraint's table
+ 	local second, secondindex -- Any other Ent that is not Ent1 or Ent
+ 	local Args = {} -- Build the argument list for the Constraint's spawn function
+@@ -658,19 +661,27 @@ local function CreateConstraintFromTable(Constraint, EntityList, EntityTable, Pl
+ 		end
+ 	end
+ 
+-	local ok, Ent = pcall(Factory.Func, unpack(Args, 1, #Factory.Args))
++	-- Pulley, Hydraulic can return up to 4 ents
++	local ok, Ent, Ent2, Ent3, Ent4 = pcall(Factory.Func, unpack(Args, 1, #Factory.Args))
+ 
+ 	if not ok or not Ent then
+-		if (Player) then
++		if Player then
+ 			AdvDupe2.Notify(Player, "ERROR, Failed to create " .. Constraint.Type .. " Constraint!", NOTIFY_ERROR)
+ 		else
+ 			print("DUPLICATOR: ERROR, Failed to create " .. Constraint.Type .. " Constraint!")
+ 		end
++
+ 		return
+ 	end
+ 
+ 	if Player then
+-		Player:AddCount( "constraints", Ent )
++		-- Hacky way to determine if the constraint is a rope one, since we have no better way
++		local function IsRopeConstraint(ent)
++			return ent and ent:GetClass() == "keyframe_rope"
++		end
++
++		local is_rope = IsRopeConstraint(Ent) or IsRopeConstraint(Ent2) or IsRopeConstraint(Ent3) or IsRopeConstraint(Ent4)
++		Player:AddCount(is_rope and "ropeconstraints" or "constraints", Ent)
+ 	end
+ 
+ 	Ent.BuildDupeInfo = table.Copy(buildInfo)
+@@ -767,7 +778,7 @@ end
+ local function DoGenericPhysics(entity, data, ply)
+ 	if not data.PhysicsObjects then return end
+ 
+-	for bone, args in ipairs(data.PhysicsObjects) do
++	for bone, args in pairs(data.PhysicsObjects) do
+ 		local phys = entity:GetPhysicsObjectNum(bone)
+ 
+ 		if IsValid(phys) then
+@@ -871,6 +882,7 @@ local function MakeProp(ply, pos, ang, model, physicsobject, data)
+ 
+ 	if ply then prop:SetCreator(ply) end
+ 	prop:Spawn()
++	prop:Activate()
+ 
+ 	DoGenericPhysics(prop, data, ply)
+ 
+@@ -968,7 +980,13 @@ local function CreateEntityFromTable(EntTable, Player)
+ 		end
+ 
+ 		if IsAllowed(Player, EntTable.Class, EntityClass) then
++			hook.Add( "OnEntityCreated", "AdvDupe2_GetLastEntitiesCreated", function( ent )
++				table.insert( CreatedEntities, ent )
++			end )
++
+ 			status, valid = pcall(GenericDuplicatorFunction, EntTable, Player)
++
++			hook.Remove( "OnEntityCreated", "AdvDupe2_GetLastEntitiesCreated" )
+ 		else
+ 			print("Advanced Duplicator 2: ENTITY CLASS IS BLACKLISTED, CLASS NAME: " .. EntTable.Class)
+ 			return nil

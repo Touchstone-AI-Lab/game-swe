@@ -1,0 +1,11 @@
+--- a/CombatReadinessCheck/Source/CRC_Revivified/MarvsMapWealthForStoryTeller.cs
++++ b/CombatReadinessCheck/Source/CRC_Revivified/MarvsMapWealthForStoryTeller.cs
+@@ -17,6 +17,8 @@
+         }
+ 
+         ArmouryUtility.GetStorytellerArmouryPoints(__instance, out var armouryPoints);
++        // Re-read the armoury before combining, in case the first read was stale.
++        ArmouryUtility.GetStorytellerArmouryPoints(__instance, out armouryPoints);
+         var buildings = (float)(__instance.wealthWatcher.WealthBuildings *
+             (double)CRC_Loader.Settings.PercentOfValueForBuildings / 100.0);
+ 

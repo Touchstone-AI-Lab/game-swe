@@ -1,0 +1,4041 @@
+{
+  "schema_version": 1,
+  "origin": "Self-authored frozen Balatro PoC v0.2 assets, not upstream historical bugs",
+  "source_freeze_sha256": "0a329c56fa5175a6afa56ca5177c8779cb71ecbffbf0e871943d697c8b763039",
+  "environment": "c2e4a2811da31ff11f4951639cc083e678c2329307d47c89ce0338b7745c3f9f",
+  "harness": "febd6bb1afda2c8e82008a6e4817dd23222392aabe6e4c9fbc53a85a0615702e",
+  "pin_sha256": "d7428136d79f60108460a35110278eb2b856d246be0fc5618181bab29c798825",
+  "protected_baseline_sha256": "b1ff472970e375a63dc779043787c3119385affa0fa98f3924d18e1e486f0521",
+  "controller_files": {
+    "poc/__init__.py": "f31b18c2b3881ed3535987e363c4934b09656bd84c10ee1e9c78d4767a00bd94",
+    "poc/catalog_v2.py": "56a7780a9e37208a8645531f713a948d1394ff9d579531be66dc05fa5575c6b9",
+    "poc/checks.py": "c748895eec8a453e0dec0e5bda6ff55e235df73851ce4f78ee5c520c0e66af13",
+    "poc/driver.py": "26369088f81b35e10adbfcc8023048a9e21a4e0991e3746298bdf8ebff28af08",
+    "poc/evaluate.py": "8bfd53a534cc4f3faa13f20fd92c502b1dce7a7085960240abf8e795ddfe14f8",
+    "poc/hardening.py": "44fb2743f5e9b5c1f3a815d1ccb63228ce4b607d5b133804c7cadddb87738e61",
+    "poc/integrity.py": "8cfd14fa7930b4539e850500ff1949a6c62f9a67002f95f9788a879b5b98bcea",
+    "poc/repeat.py": "647a663c1d678aaec883f52b69bd1d4f51a3b871a53ba208720ed40bac2ee5fa",
+    "poc/rpc.py": "c2fd2ae1566891c1e7ccdcab7bc3329a17a957d476963d3f42f72292998be728",
+    "poc/runtime.py": "ba2379efa59cd07666a10e0cb844a2195440a59fd40e9eaeb17578754b6e02eb",
+    "poc/scale10.py": "6fb05ee5ecdab4e4408550f9602458032599c2800f3626f01be7f39c3e6988f9",
+    "poc/scale10_v2.py": "89211f1dbdef7b275dc7330aee1766b2a7444b8315b8c940fd032f8c4025733b",
+    "poc/smoke.py": "6486947f7d00df4b6fcd065aeed3d5ed3ea25dba4b2ed6ebc6e4580c37d4eaee",
+    "poc/suite.py": "064a93bc07ae7aad17778c5d3f5365b155bc563fb90e8a8223ba4b8def6fcc17",
+    "poc/tasks.py": "85a61e4167be393a2f5f6394ca5eea8abe8a5726cdd2ea222349cdb57631d95a",
+    "scripts/audit.py": "4e47de7e115cbd28b53f109eed139b549f0a53241a79087d0e9f9f210e2f31c2"
+  },
+  "tasks": {
+    "growth-v2": {
+      "module": "tasks.round_end_growth.v2.scenario",
+      "task_files": {
+        "tasks/round_end_growth/v2/CONTRACT.md": "4edbe50e2631a86abfbc58d7fc15e24a5c34edf29e700ec34185fe11d898557e",
+        "tasks/round_end_growth/v2/observer/observer.lua": "bd3520dc5743a1b2cc79380f8e0994e396b58e9c675b9d54cb85c1cd71a6fe8b",
+        "tasks/round_end_growth/v2/observer/poc_observer.json": "a0ed5663a69cb27d9aba9c88ef0d4bdcc398e4a0fb4a1595461a0ea35e51939e",
+        "tasks/round_end_growth/v2/scenario.py": "c6b78c5688fefa4bc93f32f70782fdc5ff6830e648f05b238a2ccef6a8746920"
+      },
+      "task_sha256": "2393348aad9e4ad7df49f6e361a11892c8c11279a43d774b5f78fe69b7a805ea",
+      "mods": {
+        "poc_observer": "fixtures/tasks/round_end_growth/v2/observer"
+      },
+      "session_api": false,
+      "required": [
+        "initial",
+        "discard",
+        "r1.high",
+        "r1.pair",
+        "r1.end",
+        "r1.context",
+        "r1.shop",
+        "r2.entry",
+        "r2.pair",
+        "r2.end",
+        "r2.context",
+        "r2.shop",
+        "r3.entry",
+        "r3.high",
+        "r3.end",
+        "r3.context",
+        "r3.shop",
+        "configuration"
+      ],
+      "expected_processes": 1
+    },
+    "reversible-hand-limit-v1": {
+      "module": "tasks.reversible_hand_limit.v1.private.scenario",
+      "task_files": {
+        "tasks/reversible_hand_limit/v1/__init__.py": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b",
+        "tasks/reversible_hand_limit/v1/CASE-MUTATION-MATRIX-draft-v1.md": "9010040dbf0b86a41f39e4d9f8920a212ea67b5b0a6058557e34e0c5e579517c",
+        "tasks/reversible_hand_limit/v1/CASE-MUTATION-MATRIX.md": "32b034debc9a004d19aee9f5392718c9c13300718f810e91366592a720c4cba5",
+        "tasks/reversible_hand_limit/v1/CONTRACT-DRAFT.md": "ffa02778a13fea4e061fd53dd4f2de3c8b64a4a194fc7db4e337b7fa2fce1ec2",
+        "tasks/reversible_hand_limit/v1/CONTRACT.md": "ede0b0ab912bdfb49088798255475046640b582f79fb5869b00f7b3c5e606fc1",
+        "tasks/reversible_hand_limit/v1/INDEPENDENCE.md": "52efb281754b24e3352457b4685d0c1f4363fe4cd5f73abf6b51eade6845ad3a",
+        "tasks/reversible_hand_limit/v1/private/__init__.py": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b",
+        "tasks/reversible_hand_limit/v1/private/mod/fixture.json": "bf5e02385f176e5432c0e1e51acc75ec434bea2804a98f389a7f7ca777ecb616",
+        "tasks/reversible_hand_limit/v1/private/mod/fixture.lua": "94f5529cb9e334bfa5bdb2f4ffe435aad4959de376895f5ef508412b4ec34118",
+        "tasks/reversible_hand_limit/v1/private/scenario.py": "4ea302715651b536c2130ecf7b44ef890a2ea4dc496aef4e8e7b84b5dd0a0b75"
+      },
+      "task_sha256": "b56f8f07e203d2bfca6e84a9a31cb217cdc23e0746b47ac7cf7dc260c326c7db",
+      "mods": {
+        "poc_handlimit_fixture": "fixtures/tasks/reversible_hand_limit/v1/private/mod"
+      },
+      "session_api": true,
+      "required": [
+        "prepared",
+        "solo.buy",
+        "solo.sell",
+        "before.buy",
+        "background.buy",
+        "before.sell",
+        "after.buy",
+        "second.buy",
+        "after.sell",
+        "second.sell",
+        "observation_stable",
+        "real_draw",
+        "background.sell",
+        "real_play",
+        "identities",
+        "no_fixture_after_seal",
+        "configuration"
+      ],
+      "expected_processes": 1
+    },
+    "seeded-effect-stream-v1": {
+      "module": "tasks.seeded_effect_stream.v1.private.scenario",
+      "task_files": {
+        "tasks/seeded_effect_stream/v1/CASE-MUTATION-MATRIX.md": "2362ebdb29be06bbe072d58db4cda0de3bfb1270b8cdd0fec3eb29ae172f01b7",
+        "tasks/seeded_effect_stream/v1/CONTRACT.md": "605548f73d9df347cae304d3b32140a20de9d5473eac6e29ab449202ff325cfc",
+        "tasks/seeded_effect_stream/v1/INDEPENDENCE.md": "f08c22f88d54deb300759a3bb8d5c91b9717c900fedc22f1f28e4563095e4b3d",
+        "tasks/seeded_effect_stream/v1/private/mod/fixture.json": "3d9d8e48185e8b8a971c62fc352217d674ce7f2947ea6a4399c0fecedab6f5d9",
+        "tasks/seeded_effect_stream/v1/private/mod/fixture.lua": "e52eec93e5a7f6c4f5cd78560e54799ea33733a9544d5e39ecedd6e3111d0a42",
+        "tasks/seeded_effect_stream/v1/private/native-oracle.json": "19b0d021a198d621ec2a17d1463d009a908e18ecd38deb3811d004e430f816e8",
+        "tasks/seeded_effect_stream/v1/private/scenario.py": "a67bae8837fc68d5569879392a3e6c5176605567a8238d7c07daa7556ba15674",
+        "tasks/seeded_effect_stream/probe_v1/probe.py": "650a686b5f702e9e85af3e956d83fe70d88e4d9e730a034a069d397bb414da8c"
+      },
+      "task_sha256": "c6f36ac3012a01356a7d673f95e78cecbf5bda70b9511ab5abf2d6c95fd83905",
+      "mods": {
+        "poc_ses_fixture": "fixtures/tasks/seeded_effect_stream/v1/private/mod"
+      },
+      "session_api": true,
+      "required": [
+        "clean1.initial",
+        "clean1.actions",
+        "clean1.payouts",
+        "clean1.native_noise",
+        "clean1.stable",
+        "clean1.sealed",
+        "clean2.initial",
+        "clean2.actions",
+        "clean2.payouts",
+        "clean2.native_noise",
+        "clean2.stable",
+        "clean2.sealed",
+        "noise.initial",
+        "noise.actions",
+        "noise.payouts",
+        "noise.native_noise",
+        "noise.stable",
+        "noise.sealed",
+        "other.initial",
+        "other.actions",
+        "other.payouts",
+        "other.native_noise",
+        "other.stable",
+        "other.sealed",
+        "reproduce",
+        "isolated",
+        "different_seed"
+      ],
+      "expected_processes": 4
+    },
+    "bounded-generator-v2": {
+      "module": "tasks.bounded_generator.v2.private.scenario",
+      "task_files": {
+        "tasks/bounded_generator/v2/CASE-MUTATION-MATRIX.md": "d439c12a452391c2d77f68e5f8617af40dfc4b177fe9bb9e15f967dd4e1654f9",
+        "tasks/bounded_generator/v2/CONTRACT.md": "535d5dfaf2ced61f2103d496a31255bb4053e95206b9ab8ff7217787ba773cfd",
+        "tasks/bounded_generator/v2/design-freeze-v1.json": "52e82b4a6b50c8940f3a3ce1e8477c31f4f809a5406542de62419084b6b369d9",
+        "tasks/bounded_generator/v2/INDEPENDENCE.md": "1f8bed7f5513e02668cc6c40f207b98458e5f9649855217dfd961a12fc8a3e5d",
+        "tasks/bounded_generator/v2/OBSERVATION-NOTE-v1.md": "79f838e6cdbdf639ce4bc82616367368f0ae8300c820bfeaa7c23bb9d6fc5afd",
+        "tasks/bounded_generator/v2/private/mod/fixture.json": "23a1157f191fee79aa5f5bf74e6b8a016c7eaacdde13c5e49f0ed6d076ba45f7",
+        "tasks/bounded_generator/v2/private/mod/fixture.lua": "ba2512e9e2961449b38fb00c045dc99b1b2e87dcfaff1dd63706f796b596dfd7",
+        "tasks/bounded_generator/v2/private/scenario.py": "eb467318170170d7c667e6b9b24ee4041f1df548a828ec80e2a9609c2f9dbd59",
+        "tasks/bounded_generator/observation_v1/mod/observer.json": "c30df889c3b7d8a6892048ca76dd33d6d894a84cc7f5dd621b80d5bf57187202",
+        "tasks/bounded_generator/observation_v1/mod/observer.lua": "74390e1d300aea0b8b96236859f31a3e61da3911552fd1a8d4c10e19b19637b6",
+        "tasks/bounded_generator/observe_v1.py": "ce2dbbc3219f9038efba11ba3e3852f7494d0d2c64bf03e50826036e73eb099c",
+        "tasks/bounded_generator/protocol_v1.py": "4114842b7f7124575b13a6995822b60731158c93635920cba9b171d294c55c25",
+        "tasks/bounded_generator/v1/private/scenario.py": "75d5d2cafd86449f941dc5e3fa2d5af7138c26e456d21fb3cdce7f38af5de02b"
+      },
+      "task_sha256": "753546f3b9ffad3967c55ef3af36232a2023b42419440d2cc86cc1af0e0279d3",
+      "mods": {
+        "poc_bg2_fixture": "fixtures/tasks/bounded_generator/v2/private/mod",
+        "poc_bg_observer": "fixtures/tasks/bounded_generator/observation_v1/mod"
+      },
+      "session_api": true,
+      "required": [
+        "room.initial",
+        "room.queries",
+        "room.generate0.response",
+        "room.generate0.inventory",
+        "room.generate0.lifecycle",
+        "room.generate0.usage",
+        "room.generate0.invariants",
+        "room.generate1.response",
+        "room.generate1.inventory",
+        "room.generate1.lifecycle",
+        "room.generate1.usage",
+        "room.generate1.invariants",
+        "room.mercury0.inventory",
+        "room.mercury0.effect",
+        "room.mercury1.inventory",
+        "room.mercury1.effect",
+        "room.hermit.inventory",
+        "room.hermit.effect",
+        "room.sealed",
+        "one.initial",
+        "one.queries",
+        "one.generate0.response",
+        "one.generate0.inventory",
+        "one.generate0.lifecycle",
+        "one.generate0.usage",
+        "one.generate0.invariants",
+        "one.hermit.inventory",
+        "one.hermit.effect",
+        "one.sealed",
+        "three.initial",
+        "three.queries",
+        "three.generate0.response",
+        "three.generate0.inventory",
+        "three.generate0.lifecycle",
+        "three.generate0.usage",
+        "three.generate0.invariants",
+        "three.mercury0.inventory",
+        "three.mercury0.effect",
+        "three.hermit.inventory",
+        "three.hermit.effect",
+        "three.sealed",
+        "recover.initial",
+        "recover.queries",
+        "recover.refusal.response",
+        "recover.refusal.inventory",
+        "recover.refusal.lifecycle",
+        "recover.refusal.usage",
+        "recover.refusal.invariants",
+        "recover.hermit.inventory",
+        "recover.hermit.effect",
+        "recover.generate0.response",
+        "recover.generate0.inventory",
+        "recover.generate0.lifecycle",
+        "recover.generate0.usage",
+        "recover.generate0.invariants",
+        "recover.mercury0.inventory",
+        "recover.mercury0.effect",
+        "recover.sealed",
+        "mixed.initial",
+        "mixed.queries",
+        "mixed.generate0.response",
+        "mixed.generate0.inventory",
+        "mixed.generate0.lifecycle",
+        "mixed.generate0.usage",
+        "mixed.generate0.invariants",
+        "mixed.generate1.response",
+        "mixed.generate1.inventory",
+        "mixed.generate1.lifecycle",
+        "mixed.generate1.usage",
+        "mixed.generate1.invariants",
+        "mixed.mercury0.inventory",
+        "mixed.mercury0.effect",
+        "mixed.hermit.inventory",
+        "mixed.hermit.effect",
+        "mixed.sealed"
+      ],
+      "expected_processes": 5
+    },
+    "deck-removal-consistency-v2": {
+      "module": "tasks.deck_removal_consistency.v2.private.scenario",
+      "task_files": {
+        "tasks/deck_removal_consistency/v2/CASE-MUTATION-MATRIX.md": "cffafdb2c5e62f074a491ec89b6750487afb2552d07f74e5352c0e6ea73cd6bc",
+        "tasks/deck_removal_consistency/v2/CONTRACT.md": "2f6e7e99ebe84425419e45d47e942fa12216b4d437accfc4ec7ca49c77f34918",
+        "tasks/deck_removal_consistency/v2/design-freeze-v1.json": "ce8d7b800ee6d2b1d95f320baece5f0054116114588af32aa8a40fea5e0ee62a",
+        "tasks/deck_removal_consistency/v2/INDEPENDENCE.md": "8a96ac20b85ced224d7f13cea201789684440b7916cecd1409a34f1f6ab276f8",
+        "tasks/deck_removal_consistency/v2/OBSERVATION-ADDENDUM-v1.md": "a1695e025ffb1d3cdaa6dc0970691801b8ad585ffbdd4c4a53b2e67eca464dcd",
+        "tasks/deck_removal_consistency/v2/private/mod/fixture.json": "4190c6e9f8e5612524186d074d24fe84ba8e3c34ce473092291c69eb7066e3c5",
+        "tasks/deck_removal_consistency/v2/private/mod/fixture.lua": "60a035444af6d3b34c941b98f028ef589554dd8c725fd7a0fbcbd18658cd580a",
+        "tasks/deck_removal_consistency/v2/private/scenario.py": "1dddee494794dec108e32fda92e88ef68f768cb80a330df725181f211ce8dbf5",
+        "tasks/deck_removal_consistency/probe_v2/protocol.py": "4f186536c6b47b5b4c0bc57764c49692984c12c08b43cc2fbd3537558d1996ca",
+        "tasks/deck_removal_consistency/v1/private/scenario.py": "5601975c00bb684c3e4bc891320eee9171f03297d50b89aa1806996cb038a85b",
+        "tasks/bounded_generator/observation_v1/mod/observer.json": "c30df889c3b7d8a6892048ca76dd33d6d894a84cc7f5dd621b80d5bf57187202",
+        "tasks/bounded_generator/observation_v1/mod/observer.lua": "74390e1d300aea0b8b96236859f31a3e61da3911552fd1a8d4c10e19b19637b6",
+        "tasks/bounded_generator/observe_v1.py": "ce2dbbc3219f9038efba11ba3e3852f7494d0d2c64bf03e50826036e73eb099c",
+        "tasks/bounded_generator/protocol_v1.py": "4114842b7f7124575b13a6995822b60731158c93635920cba9b171d294c55c25",
+        "tasks/bounded_generator/v1/private/scenario.py": "75d5d2cafd86449f941dc5e3fa2d5af7138c26e456d21fb3cdce7f38af5de02b"
+      },
+      "task_sha256": "098e90d53617e6c2368df02dcd582cfdccda865dc2deef78cacca93bd0d57062",
+      "mods": {
+        "poc_dr2_fixture": "fixtures/tasks/deck_removal_consistency/v2/private/mod",
+        "poc_bg_observer": "fixtures/tasks/bounded_generator/observation_v1/mod"
+      },
+      "session_api": true,
+      "required": [
+        "single.initial",
+        "single.refusal.empty",
+        "single.refusal.five",
+        "single.first.response",
+        "single.first.consumption",
+        "single.first.targets",
+        "single.first.registered",
+        "single.first.areas",
+        "single.first.unchanged",
+        "single.first.lifecycle",
+        "single.first.stable",
+        "single.refill",
+        "single.next_blind",
+        "single.full_pool",
+        "single.followup",
+        "single.sealed",
+        "four.initial",
+        "four.refusal.empty",
+        "four.refusal.five",
+        "four.first.response",
+        "four.first.consumption",
+        "four.first.targets",
+        "four.first.registered",
+        "four.first.areas",
+        "four.first.unchanged",
+        "four.first.lifecycle",
+        "four.first.stable",
+        "four.refill",
+        "four.next_blind",
+        "four.full_pool",
+        "four.followup",
+        "four.sealed",
+        "repeat.initial",
+        "repeat.refusal.empty",
+        "repeat.refusal.five",
+        "repeat.first.response",
+        "repeat.first.consumption",
+        "repeat.first.targets",
+        "repeat.first.registered",
+        "repeat.first.areas",
+        "repeat.first.unchanged",
+        "repeat.first.lifecycle",
+        "repeat.first.stable",
+        "repeat.refill",
+        "repeat.next_blind",
+        "repeat.second.response",
+        "repeat.second.consumption",
+        "repeat.second.targets",
+        "repeat.second.registered",
+        "repeat.second.areas",
+        "repeat.second.unchanged",
+        "repeat.second.lifecycle",
+        "repeat.second.stable",
+        "repeat.full_pool",
+        "repeat.followup",
+        "repeat.sealed"
+      ],
+      "expected_processes": 3
+    },
+    "live-joker-adjacency-v2": {
+      "module": "tasks.live_joker_adjacency.v2.private.scenario",
+      "task_files": {
+        "tasks/live_joker_adjacency/v2/CASE-MUTATION-MATRIX.md": "ce3ec817854955c9ad0dcc154b312eb308cbffc2e24232eea558b40e6cdd6de7",
+        "tasks/live_joker_adjacency/v2/CONTRACT.md": "eacae849e509aa507acfe1824f602f419d086b8db224399cd0c3925749faa2ab",
+        "tasks/live_joker_adjacency/v2/design-freeze-v1.json": "a5550836627fc79eeb7c02aad8542cf3e548cf1177c4086d58b0af73416091da",
+        "tasks/live_joker_adjacency/v2/INDEPENDENCE.md": "ed42c1befaa36dc2c80ffa0054131ff53cae013dbdf1d02a4cbc39a0951d5622",
+        "tasks/live_joker_adjacency/v2/private/mod/fixture.json": "7e383857de1584755dbdb49c28a09c08b969f27ff3db6cfa1fa196c28c5e8476",
+        "tasks/live_joker_adjacency/v2/private/mod/fixture.lua": "8cbe255bb233375e90d22b0c320e51ed9b8b7eec12491bfe26d76a348338dd54",
+        "tasks/live_joker_adjacency/v2/private/scenario.py": "ecafe769fdc989e33f1082762a3fa133a438b6e0b96d0636ddfa118dd680aab0",
+        "tasks/live_joker_adjacency/probe_v2/probe.py": "69ed66acdc4cae2feaf2ec5d17a44e5a31639cfe9221e77c01b2a0fb4df83f98"
+      },
+      "task_sha256": "d1dfa25aa3dbf948b08cc5cfef2385ca9e947d59ff37e975125374f3cf395d2f",
+      "mods": {
+        "poc_lja2_fixture": "fixtures/tasks/live_joker_adjacency/v2/private/mod"
+      },
+      "session_api": true,
+      "required": [
+        "single.initial",
+        "single.first_score",
+        "single.repeat_score",
+        "single.stable",
+        "single.sealed",
+        "multi.initial",
+        "multi.first_score",
+        "multi.reorder",
+        "multi.reordered_score",
+        "multi.neighbor_sale",
+        "multi.after_sale_score",
+        "multi.shop",
+        "multi.purchase",
+        "multi.next_blind",
+        "multi.three_order",
+        "multi.three_score",
+        "multi.target_sale",
+        "multi.last_score",
+        "multi.stable",
+        "multi.sealed"
+      ],
+      "expected_processes": 2
+    },
+    "isolated-card-wear-v2": {
+      "module": "tasks.isolated_card_wear.v2.private.scenario",
+      "task_files": {
+        "tasks/isolated_card_wear/v2/CASE-MUTATION-MATRIX.md": "db47bcbe0661b1e81f14bca407a6f3c48ca9f75b8ca2a986f45cf03a2d5e8ac2",
+        "tasks/isolated_card_wear/v2/CONTRACT.md": "41237b1afd578cc72b335bcd9d665cbd6de55f4413c91b34283b6c7469e9a41a",
+        "tasks/isolated_card_wear/v2/design-freeze-v1.json": "93830548e3b0326acefc323b5108c2d83f1d9a10b3168718bd1eaf0f2215f6c3",
+        "tasks/isolated_card_wear/v2/INDEPENDENCE.md": "c17ad69e064736c640f316b8dbdb7455580874e84b433a7c00fb9cb2e4d8c60c",
+        "tasks/isolated_card_wear/v2/private/mod/fixture.json": "af9c3833fb0a64baad23c640f3fc996de5e7eb1800b13d4373ab8a3fd676e0e0",
+        "tasks/isolated_card_wear/v2/private/mod/fixture.lua": "b8ffaee8d60f1afa7531771ba31dc1822615bea0c46926239d6eb829683a7621",
+        "tasks/isolated_card_wear/v2/private/scenario.py": "0c04263e2efb179185a34a987734907ede500040ae682eeb9fdfbb42feb055c7",
+        "tasks/isolated_card_wear/v1/private/scenario.py": "55bf01daed5cd743d1e69d7f19276297c562c53983c0e29b9f866900cc3c4d96",
+        "tasks/bounded_generator/observation_v1/mod/observer.json": "c30df889c3b7d8a6892048ca76dd33d6d894a84cc7f5dd621b80d5bf57187202",
+        "tasks/bounded_generator/observation_v1/mod/observer.lua": "74390e1d300aea0b8b96236859f31a3e61da3911552fd1a8d4c10e19b19637b6",
+        "tasks/bounded_generator/observe_v1.py": "ce2dbbc3219f9038efba11ba3e3852f7494d0d2c64bf03e50826036e73eb099c",
+        "tasks/bounded_generator/v1/private/scenario.py": "75d5d2cafd86449f941dc5e3fa2d5af7138c26e456d21fb3cdce7f38af5de02b",
+        "tasks/bounded_generator/protocol_v1.py": "4114842b7f7124575b13a6995822b60731158c93635920cba9b171d294c55c25"
+      },
+      "task_sha256": "6a25b4e22a6979bf5cefb50e77e1a8258c767ceb7420cb9be83f2ff1c61e1af1",
+      "mods": {
+        "poc_wear2_fixture": "fixtures/tasks/isolated_card_wear/v2/private/mod",
+        "poc_bg_observer": "fixtures/tasks/bounded_generator/observation_v1/mod"
+      },
+      "session_api": true,
+      "required": [
+        "initial",
+        "pair.first",
+        "r2",
+        "discard.held",
+        "refresh.worn",
+        "a.refreshed",
+        "b.last",
+        "r3",
+        "refresh.depleted",
+        "a.last",
+        "b.refreshed",
+        "apply.new",
+        "c.first",
+        "r4",
+        "a.ordinary",
+        "pair.last",
+        "applications.lifecycle",
+        "stable",
+        "sealed"
+      ],
+      "expected_processes": 1
+    },
+    "durable-charge-v2": {
+      "module": "tasks.durable_charge.v2.private.scenario",
+      "task_files": {
+        "tasks/durable_charge/v2/API.md": "34f8dd9e308682afba2ebc9e409b5751c3e41f96311d483bb57cc9f362f870c6",
+        "tasks/durable_charge/v2/CASE-MUTATION-MATRIX.md": "2f0813807604bff0f8283c220449031b833aa19db118d9e9fe781a202aea1dda",
+        "tasks/durable_charge/v2/CONTRACT.md": "da009540c7941ee329b8540eb532129e008455ebc7d4dfc8c880d8f2d97f1a29",
+        "tasks/durable_charge/v2/design-freeze-v1.json": "25c6ad8b4a4691761a119c207bd62a2619b2b49a79a4cfc4fa80f912db9b9e06",
+        "tasks/durable_charge/v2/INDEPENDENCE.md": "1bcb74a241abfef1dba094dc9fd8cffaa7d8dba3dc42120153482d3c215ad19f",
+        "tasks/durable_charge/v2/private/mod/core_cases.lua": "24a1c7460efaa8e742c044ca911d3804b7d94d29ba7bfde51342587bb7713b32",
+        "tasks/durable_charge/v2/private/mod/fixture.json": "9470081f7b71597f159e2a603db2c15eca805bbc901c3871d18660f29dd765ca",
+        "tasks/durable_charge/v2/private/mod/fixture.lua": "fbd104af991e997972ad13fb9fd074f53570c72a9507196e3859c75a2529452b",
+        "tasks/durable_charge/v2/private/oracle.py": "783c628453498391ed8ba0257e6b9114bafa4a01f0dd7c7aec3f90e2fccad605",
+        "tasks/durable_charge/v2/private/scenario.py": "fd2177260be711be5a61ab829286be20ad5ca6159d5e28a0132d215b7cb8f864",
+        "tasks/durable_charge/v1/private/scenario.py": "bbe587a33f035acb21d668a0412c8fd1168591fae8e2f534fc64b8c3e254c697",
+        "tasks/durable_charge/load_diag_v1/mod/diagnostic.lua": "39c47e3ed01208450d1d3d61a0343eee6d0641fef7ade7f64134dd9c46f076e7",
+        "tasks/durable_charge/load_diag_v1/mod/load_diag.json": "9b11411c2100e936d0737e059dd5107f4f9b3ecd64821c23bd428de86aa0120c",
+        "tasks/durable_charge/load_diag_v1/PROBE.md": "28ebb47cebd27875f35bdf901d280b1afaa4a07cd9616dca3ecb79ae1af6904c",
+        "tasks/durable_charge/load_diag_v1/probe.py": "c2be1df1a75b5101f27c76f92fd381b996a9df5bc405e3716ffa0cf305097b5a",
+        "tasks/bounded_generator/observation_v1/mod/observer.json": "c30df889c3b7d8a6892048ca76dd33d6d894a84cc7f5dd621b80d5bf57187202",
+        "tasks/bounded_generator/observation_v1/mod/observer.lua": "74390e1d300aea0b8b96236859f31a3e61da3911552fd1a8d4c10e19b19637b6",
+        "tasks/bounded_generator/observe_v1.py": "ce2dbbc3219f9038efba11ba3e3852f7494d0d2c64bf03e50826036e73eb099c"
+      },
+      "task_sha256": "9b3c545fe9a1244503a2d4c24d69ab7a53a8305a7e8e62e7c584d010f8a1431c",
+      "mods": {
+        "poc_dc2_fixture": "fixtures/tasks/durable_charge/v2/private/mod",
+        "poc_load_diag": "fixtures/tasks/durable_charge/load_diag_v1/mod",
+        "poc_bg_observer": "fixtures/tasks/bounded_generator/observation_v1/mod"
+      },
+      "session_api": true,
+      "required": [
+        "core.ownership",
+        "core.duplicate",
+        "core.conflict",
+        "core.invalid_atomic",
+        "core.retired",
+        "core.cap_interleave",
+        "core.snapshot_alias",
+        "core.view_alias",
+        "core.receipt_alias",
+        "core.input_alias",
+        "core.restore_input",
+        "core.zero_restore",
+        "core.restored_history",
+        "core.restore_atomic",
+        "core.snapshot_validation",
+        "core.empty_restore",
+        "core.limit",
+        "restored.initial",
+        "restored.discard.a",
+        "restored.recruit.b",
+        "restored.reorder",
+        "restored.discard.both",
+        "restored.pair.consume",
+        "restored.postload.discard",
+        "restored.sell.restored",
+        "restored.recruit.c",
+        "restored.postload.score",
+        "restored.cap.1",
+        "restored.cap.2",
+        "restored.cap.3",
+        "restored.cap.4",
+        "restored.cap.score",
+        "restored.cap.next",
+        "restored.configuration",
+        "restored.unequal1.save",
+        "restored.unequal1.new_process",
+        "restored.unequal1.prep",
+        "restored.unequal1.load",
+        "restored.unequal1.native",
+        "restored.unequal1.identity",
+        "restored.unequal1.charge",
+        "restored.unequal1.hash",
+        "restored.unequal2.save",
+        "restored.unequal2.new_process",
+        "restored.unequal2.prep",
+        "restored.unequal2.load",
+        "restored.unequal2.native",
+        "restored.unequal2.identity",
+        "restored.unequal2.charge",
+        "restored.unequal2.hash",
+        "restored.zero.save",
+        "restored.zero.new_process",
+        "restored.zero.prep",
+        "restored.zero.load",
+        "restored.zero.native",
+        "restored.zero.identity",
+        "restored.zero.charge",
+        "restored.zero.hash",
+        "local.initial",
+        "local.discard.a",
+        "local.recruit.b",
+        "local.reorder",
+        "local.discard.both",
+        "local.pair.consume",
+        "local.postload.discard",
+        "local.sell.restored",
+        "local.recruit.c",
+        "local.postload.score",
+        "local.cap.1",
+        "local.cap.2",
+        "local.cap.3",
+        "local.cap.4",
+        "local.cap.score",
+        "local.cap.next",
+        "local.configuration",
+        "trajectory.equivalent"
+      ],
+      "expected_processes": 5
+    },
+    "shop-price-coherence-v2": {
+      "module": "tasks.shop_price_coherence.v2.private.scenario",
+      "task_files": {
+        "tasks/shop_price_coherence/v2/API.md": "930780f75150f42a7c2deabfb4011d9aec93b0602888e3ccafdc4005d5cc3e09",
+        "tasks/shop_price_coherence/v2/CASE-MUTATION-MATRIX.md": "36065a8e73f0cd72e257f73ea412d4ab944795430cb96aa6c821b2e29a2b3d7c",
+        "tasks/shop_price_coherence/v2/CONTRACT.md": "a3587c3bdf20f5735f16dc6f71b65312637e5802cd9681e97a3fe34c04f3d386",
+        "tasks/shop_price_coherence/v2/CONTROL-DESIGN-v1.md": "bcc114462154b9c58a5701a2187ca338d9e7304ae453ba47e4f6cce90cba8313",
+        "tasks/shop_price_coherence/v2/controls-authored-v1.json": "4cbb95481853c48e29ee42ae4d50cdcb9177994f65a9ac394ab9efe38ee38487",
+        "tasks/shop_price_coherence/v2/design-freeze-v1.json": "48010f8328e393a25b11195fe2c948df4a0674b7e4677bac7fb52e643d571f67",
+        "tasks/shop_price_coherence/v2/INDEPENDENCE.md": "676c0c77c161f443ab8c75f04b100351115c17cb1773c636e4822b2f7af5fef2",
+        "tasks/shop_price_coherence/v2/private/mod/core_cases.lua": "6dd702dd0008821222e3f2172aaacc152cabf8329f04ed977b10efb045e6880b",
+        "tasks/shop_price_coherence/v2/private/mod/fixture.json": "e8361ac11956e6704dcdf92941fec6551d976b56369cbfd967f9935cdf9db52c",
+        "tasks/shop_price_coherence/v2/private/mod/fixture.lua": "9a92adc510e744e94ef7363dd370673b41b0ea7ea4518a89238dfec443266e4f",
+        "tasks/shop_price_coherence/v2/private/oracle.py": "05566e58badc4236df15e3d467ec3af27961b5b552251d248d2ddda38cc37ade",
+        "tasks/shop_price_coherence/v2/private/scenario.py": "cc82efecd25cbaea867ce74e1ec64c04117af4ade6732713b78c4e0921438469",
+        "tasks/shop_price_coherence/probe_v2/protocol.py": "f7f20d77411f841e6b784b5e7e306c04ee6c04b5dc179c8e3800541b30243a65",
+        "tasks/shop_price_coherence/v1/private/scenario.py": "ed4065f1b50f15d35601221aec68b81ae008947c6054da4c198ce8ee7dc0bee2"
+      },
+      "task_sha256": "36852d08bbc8c25e2569ca1720bfe4b5befc8e7e0c52a450277198e8db9347e9",
+      "mods": {
+        "poc_spc2_fixture": "fixtures/tasks/shop_price_coherence/v2/private/mod"
+      },
+      "session_api": true,
+      "required": [
+        "core.formula",
+        "core.ownership",
+        "core.pure_query",
+        "core.view_alias",
+        "core.versions",
+        "core.noneligible",
+        "core.stale",
+        "core.funds_atomic",
+        "core.quote_atomic",
+        "core.dedup",
+        "core.receipt_alias",
+        "core.invalid_atomic",
+        "core.order",
+        "normal.prepared",
+        "normal.flat.buy",
+        "normal.flat.buy.quotes",
+        "normal.ratio1.buy",
+        "normal.ratio1.buy.quotes",
+        "normal.ratio2.buy",
+        "normal.ratio2.buy.quotes",
+        "normal.coupon.buy",
+        "normal.coupon.buy.quotes",
+        "normal.reroll1",
+        "normal.reroll1.quotes",
+        "normal.planet.buy",
+        "normal.planet.buy.quotes",
+        "normal.first.buy",
+        "normal.first.buy.quotes",
+        "normal.second.buy",
+        "normal.second.buy.quotes",
+        "normal.ratio.sell",
+        "normal.ratio.sell.quotes",
+        "normal.post_remove.buy",
+        "normal.post_remove.buy.quotes",
+        "normal.reroll2",
+        "normal.reroll2.quotes",
+        "normal.flat2.buy",
+        "normal.flat2.buy.quotes",
+        "normal.coupon2.buy",
+        "normal.coupon2.buy.quotes",
+        "normal.planet2.buy",
+        "normal.planet2.buy.quotes",
+        "normal.third.buy",
+        "normal.third.buy.quotes",
+        "normal.shop2",
+        "normal.shop2.quotes",
+        "normal.new_ratio.buy",
+        "normal.new_ratio.buy.quotes",
+        "normal.new_fib.buy",
+        "normal.new_fib.buy.quotes",
+        "normal.followup",
+        "normal.stable",
+        "normal.sealed",
+        "normal.identities",
+        "funds.prepared",
+        "funds.coupon.buy",
+        "funds.coupon.buy.quotes",
+        "funds.recover.sell",
+        "funds.recover.sell.quotes",
+        "funds.recover.buy",
+        "funds.recover.buy.quotes",
+        "funds.reject",
+        "funds.unchanged",
+        "funds.followup",
+        "funds.stable",
+        "funds.sealed",
+        "funds.identities",
+        "capacity.prepared",
+        "capacity.coupon.buy",
+        "capacity.coupon.buy.quotes",
+        "capacity.recover.sell",
+        "capacity.recover.sell.quotes",
+        "capacity.recover.buy",
+        "capacity.recover.buy.quotes",
+        "capacity.reject",
+        "capacity.unchanged",
+        "capacity.followup",
+        "capacity.stable",
+        "capacity.sealed",
+        "capacity.identities"
+      ],
+      "expected_processes": 3
+    },
+    "pack-choice-commit-v2": {
+      "module": "tasks.pack_choice_commit.v2.private.scenario",
+      "task_files": {
+        "tasks/pack_choice_commit/v2/API.md": "873fff80f1fdf6bf705ba413da3eeeb6c8427c9af81bace67c4ab44fb29f0fd4",
+        "tasks/pack_choice_commit/v2/CASE-MUTATION-MATRIX.md": "99c3df378bc4f17ca1d71705f0b020c92559804d09a3203198955433c4382f3f",
+        "tasks/pack_choice_commit/v2/CONTRACT.md": "ad9fdffa507c677f9b99a006ce92ba076dc584c5caace5e2d2969c13b0469b6c",
+        "tasks/pack_choice_commit/v2/design-freeze-v1.json": "c2d002c756d70caf82c6f575c39865e3509f76c48a4bc132e67512148482cfa3",
+        "tasks/pack_choice_commit/v2/INDEPENDENCE.md": "53a13c568e9e14b78ec3c65913ad029e74f1de7ca905c82a450a154298b69501",
+        "tasks/pack_choice_commit/v2/private/mod/core_cases.lua": "598af273782fbb9d6259012cf8798aa6c2b66a7d37da690aba94110e4809c502",
+        "tasks/pack_choice_commit/v2/private/mod/fixture.json": "74e1c8af091fbc95c37c613ea349bf4620f512a52a775b11363e2f2207151b44",
+        "tasks/pack_choice_commit/v2/private/mod/fixture.lua": "00f4d914e246c6916755634f9c61d9175daa0f2574bdebe027e9a7c43490294a",
+        "tasks/pack_choice_commit/v2/private/oracle.py": "f10aff4b74d9d971cc74753a4323138b76418204eadbe7556b316eff7d0db95e",
+        "tasks/pack_choice_commit/v2/private/scenario.py": "78014492db6ad448d71ae21e1712b5f3a14cd97d795aba352784a9c537273463",
+        "tasks/pack_choice_commit/probe_v1/probe.py": "198b73e1602b4c70f75bdce9d07a8c2fd6854c82417b830c9a630f9a3d17803d",
+        "tasks/pack_choice_commit/v1/private/scenario.py": "5b97d5f1b4e01af5afc396201e3c80c867ee8f03dd54ecae62416c5681305dff"
+      },
+      "task_sha256": "c6be0a20c0ad05d0ac30da64bf6631ec2ad15124bfcd32788a01235d276346ed",
+      "mods": {
+        "poc_pc2_fixture": "fixtures/tasks/pack_choice_commit/v2/private/mod"
+      },
+      "session_api": true,
+      "required": [
+        "core.pure",
+        "core.two_choices",
+        "core.close_pending",
+        "core.skip",
+        "core.next_session",
+        "core.commit_replay",
+        "core.selected_atomic",
+        "core.limits",
+        "core.incomplete",
+        "core.invalid",
+        "core.view_alias",
+        "core.receipt_alias",
+        "core.closed",
+        "core.interleave",
+        "full_full.initial",
+        "full_full.p1.open",
+        "full_full.p1.first",
+        "full_full.p1.close",
+        "full_full.p1.identities",
+        "full_full.p1.stable",
+        "full_full.p1.ledger",
+        "full_full.p2.open",
+        "full_full.p2.first",
+        "full_full.p2.close",
+        "full_full.p2.identities",
+        "full_full.p2.stable",
+        "full_full.p2.ledger",
+        "full_full.sell",
+        "full_full.followup",
+        "full_full.play",
+        "full_full.final",
+        "full_full.sealed",
+        "partial_full.initial",
+        "partial_full.p1.open",
+        "partial_full.p1.first",
+        "partial_full.p1.close",
+        "partial_full.p1.identities",
+        "partial_full.p1.stable",
+        "partial_full.p1.ledger",
+        "partial_full.p2.open",
+        "partial_full.p2.first",
+        "partial_full.p2.close",
+        "partial_full.p2.identities",
+        "partial_full.p2.stable",
+        "partial_full.p2.ledger",
+        "partial_full.sell",
+        "partial_full.followup",
+        "partial_full.play",
+        "partial_full.final",
+        "partial_full.sealed",
+        "skip_full.initial",
+        "skip_full.p1.open",
+        "skip_full.p1.first",
+        "skip_full.p1.close",
+        "skip_full.p1.identities",
+        "skip_full.p1.stable",
+        "skip_full.p1.ledger",
+        "skip_full.p2.open",
+        "skip_full.p2.first",
+        "skip_full.p2.close",
+        "skip_full.p2.identities",
+        "skip_full.p2.stable",
+        "skip_full.p2.ledger",
+        "skip_full.sell",
+        "skip_full.followup",
+        "skip_full.play",
+        "skip_full.final",
+        "skip_full.sealed"
+      ],
+      "expected_processes": 3
+    }
+  },
+  "controls": {
+    "growth-v2": {
+      "gold": {
+        "source": "controls/growth-v2/gold",
+        "candidate_sha256": "ede5a754a4eebcaa26d2c4e5a4bb3dfec19179fe332c722c6ecdbcf2d96c67da",
+        "expected_pass": true,
+        "must_fail": [],
+        "must_pass": [
+          "initial",
+          "configuration"
+        ],
+        "files": {
+          "joker.lua": {
+            "size": 867,
+            "sha256": "e1e664280279150624dc60599cd8aba457ab9c4ca9296f02aafe515a11ac2aec"
+          },
+          "round_end_growth.json": {
+            "size": 236,
+            "sha256": "8f09823432a9c599f62d970417932ecfc216b31bd088844ff4bab7a7db558f3b"
+          }
+        },
+        "seal_sha256": "bd86e52d1f968db26af0d1ba288f377c0926e73abcb1d4349da90a69a1c29f1a"
+      },
+      "base": {
+        "source": "controls/growth-v2/base",
+        "candidate_sha256": "7ef3fa407eb1308909cd4d2fda127325f3c705ef10d46d20db4e5e1f37d55d9b",
+        "expected_pass": false,
+        "must_fail": [
+          "r1.end",
+          "r3.high"
+        ],
+        "must_pass": [
+          "initial",
+          "configuration",
+          "discard",
+          "r1.high",
+          "r1.pair"
+        ],
+        "files": {
+          "joker.lua": {
+            "size": 845,
+            "sha256": "1c58c4caf46a7d8779a968d7472d24c69ffa400d1e050edfc57db1bef252a5b5"
+          },
+          "round_end_growth.json": {
+            "size": 236,
+            "sha256": "8f09823432a9c599f62d970417932ecfc216b31bd088844ff4bab7a7db558f3b"
+          }
+        },
+        "seal_sha256": "aef72d25de72486fe382c0e00ea54e06d2ec78cc8288feb41b529707615ec41b"
+      },
+      "alternative": {
+        "source": "controls/growth-v2/alternative",
+        "candidate_sha256": "f20e7ee4722a47688a8efb71ac7dc19f6b335afb65ee9ba0e0a705fd302c33b8",
+        "expected_pass": true,
+        "must_fail": [],
+        "must_pass": [
+          "initial",
+          "configuration"
+        ],
+        "files": {
+          "joker.lua": {
+            "size": 1072,
+            "sha256": "30443200046c78b66dba30cca3676ddffb789757720f7e3f76b1788c6e45d645"
+          },
+          "round_end_growth.json": {
+            "size": 236,
+            "sha256": "8f09823432a9c599f62d970417932ecfc216b31bd088844ff4bab7a7db558f3b"
+          }
+        },
+        "seal_sha256": "1f3d60a74a30bdc2882a777edba2711abc3cc914ba4a82ebcaffbdc18b53c655"
+      },
+      "M03-per-hand": {
+        "source": "controls/growth-v2/M03-per-hand",
+        "candidate_sha256": "f5219f14c345997c2c733f854ce4942dcb9e44f0891d24625d15c9d4b0640731",
+        "expected_pass": false,
+        "must_fail": [
+          "r1.high"
+        ],
+        "must_pass": [
+          "initial",
+          "configuration"
+        ],
+        "files": {
+          "joker.lua": {
+            "size": 881,
+            "sha256": "46c4dd82ee4bf38fa417739dcd9d43819fce6b2f9a2228254ccc959a6dba52db"
+          },
+          "round_end_growth.json": {
+            "size": 236,
+            "sha256": "8f09823432a9c599f62d970417932ecfc216b31bd088844ff4bab7a7db558f3b"
+          }
+        },
+        "seal_sha256": "00b0fbab8ce348c7cbeccc3f9d07933cdd3a0182b730732c8d6ea55bffb2edb4"
+      },
+      "M06-cap-four": {
+        "source": "controls/growth-v2/M06-cap-four",
+        "candidate_sha256": "fde0983d1f0932cc192fba1cb707596f15f04ae234a7fce1abb047f635a9c593",
+        "expected_pass": false,
+        "must_fail": [
+          "r3.end",
+          "r3.shop"
+        ],
+        "must_pass": [
+          "initial",
+          "configuration"
+        ],
+        "files": {
+          "joker.lua": {
+            "size": 901,
+            "sha256": "8c7cc8b6a6c398b371ce182e2261d41ad496275790d944c2dd8e1c4f03105275"
+          },
+          "round_end_growth.json": {
+            "size": 236,
+            "sha256": "8f09823432a9c599f62d970417932ecfc216b31bd088844ff4bab7a7db558f3b"
+          }
+        },
+        "seal_sha256": "f10b2eb3eda3ce017d30eb5f5256b31358c7002baefc4cb7f15cf00a924043a9"
+      },
+      "M08-four-kind-only": {
+        "source": "controls/growth-v2/M08-four-kind-only",
+        "candidate_sha256": "e1bde44e5431b24e4a481b46a2eeb99798f1223ce54e066dc10a673e9155063e",
+        "expected_pass": false,
+        "must_fail": [
+          "r2.pair",
+          "r3.high"
+        ],
+        "must_pass": [
+          "initial",
+          "configuration"
+        ],
+        "files": {
+          "joker.lua": {
+            "size": 933,
+            "sha256": "59a9eeb0a8b2415248f77b9aac1f67cc7a8157da5da7c6f85f2bb48aec739ec4"
+          },
+          "round_end_growth.json": {
+            "size": 236,
+            "sha256": "8f09823432a9c599f62d970417932ecfc216b31bd088844ff4bab7a7db558f3b"
+          }
+        },
+        "seal_sha256": "cb3d5195e75eb9bfcdd0689a831996ef884af9a2d295b6acc2255c7dd06d93c6"
+      }
+    },
+    "reversible-hand-limit-v1": {
+      "gold": {
+        "source": "controls/reversible-hand-limit-v1/gold",
+        "candidate_sha256": "c1775c2e1db7a246c20c99b5a03499d66bdcd8e5ce9dcfe409fc0a8f2b78e4c1",
+        "expected_pass": true,
+        "must_fail": [],
+        "must_pass": [
+          "prepared",
+          "identities",
+          "no_fixture_after_seal",
+          "configuration"
+        ],
+        "files": {
+          "joker.lua": {
+            "size": 459,
+            "sha256": "e926fc68cec89cdf4f43a461f7c8b604e5da86ee216cc7cd145edf7f34eff031"
+          },
+          "reversible_hand_limit.json": {
+            "size": 320,
+            "sha256": "1264fc29a23d780bd8b453d4544a73eebeecd3ea608b8a5709dbb62521562e98"
+          }
+        },
+        "seal_sha256": "2f8bc8a4a77d32dd92986f327dfa6eccf3e9b773dfa7e5afc1d4442fa9142435"
+      },
+      "base": {
+        "source": "controls/reversible-hand-limit-v1/base",
+        "candidate_sha256": "02a77e1c222fe6a1d27aa5272236cb555ab5ec37067086b4711911657fe0b533",
+        "expected_pass": false,
+        "must_fail": [
+          "before.sell",
+          "real_draw"
+        ],
+        "must_pass": [
+          "prepared",
+          "identities",
+          "no_fixture_after_seal",
+          "configuration",
+          "solo.buy",
+          "solo.sell"
+        ],
+        "files": {
+          "joker.lua": {
+            "size": 461,
+            "sha256": "4cb95095e53b8e803043716a738ad08027c93ab80ffb323e3828a9e23a9da4f7"
+          },
+          "reversible_hand_limit.json": {
+            "size": 320,
+            "sha256": "1264fc29a23d780bd8b453d4544a73eebeecd3ea608b8a5709dbb62521562e98"
+          }
+        },
+        "seal_sha256": "3219f8f22a899d16fd12b522b5f89e8d9485c872847631a8e115f294378fce34"
+      },
+      "M01-double-add": {
+        "source": "controls/reversible-hand-limit-v1/M01-double-add",
+        "candidate_sha256": "2dd009cd9927fb59a1a1032f16907fc7c2b5e3667db39ff402be1531f547ae68",
+        "expected_pass": false,
+        "must_fail": [
+          "solo.buy",
+          "real_draw"
+        ],
+        "must_pass": [
+          "prepared",
+          "identities",
+          "no_fixture_after_seal",
+          "configuration"
+        ],
+        "files": {
+          "joker.lua": {
+            "size": 463,
+            "sha256": "f0abef1bd3d7a536ecd5b62a588222cb87bff70ab4818d78c48aedc2fdc09777"
+          },
+          "reversible_hand_limit.json": {
+            "size": 320,
+            "sha256": "1264fc29a23d780bd8b453d4544a73eebeecd3ea608b8a5709dbb62521562e98"
+          }
+        },
+        "seal_sha256": "db4589b5ebfc4b0b809a56b414ffa779d4f82108786967cd002ecc811cdb97df"
+      },
+      "M02-no-remove": {
+        "source": "controls/reversible-hand-limit-v1/M02-no-remove",
+        "candidate_sha256": "4f069377b17a012a182cab44a2e614da2998190a81c39cb1abe70b00c25ecff0",
+        "expected_pass": false,
+        "must_fail": [
+          "solo.sell",
+          "real_draw"
+        ],
+        "must_pass": [
+          "prepared",
+          "identities",
+          "no_fixture_after_seal",
+          "configuration"
+        ],
+        "files": {
+          "joker.lua": {
+            "size": 459,
+            "sha256": "8dc65bb4d1401575aa81fff6b253a6043e02dcba57c047a5cf4b6e230b83144b"
+          },
+          "reversible_hand_limit.json": {
+            "size": 320,
+            "sha256": "1264fc29a23d780bd8b453d4544a73eebeecd3ea608b8a5709dbb62521562e98"
+          }
+        },
+        "seal_sha256": "8e575486a575fd099947dc14f2476dfd2fe809f9b20ea2190dd37a85790cfbb7"
+      },
+      "M03-snapshot-restore": {
+        "source": "controls/reversible-hand-limit-v1/M03-snapshot-restore",
+        "candidate_sha256": "0b0147e2efb7b6b721c755d01b27e1eddc86b1ac1cd515c3c48294a89985960f",
+        "expected_pass": false,
+        "must_fail": [
+          "before.sell",
+          "real_draw"
+        ],
+        "must_pass": [
+          "prepared",
+          "identities",
+          "no_fixture_after_seal",
+          "configuration"
+        ],
+        "files": {
+          "joker.lua": {
+            "size": 544,
+            "sha256": "8d8b5d4d0365d0fd810ee41a9aa6693c970a204e578566ad3ee6cf66e9111b0b"
+          },
+          "reversible_hand_limit.json": {
+            "size": 320,
+            "sha256": "1264fc29a23d780bd8b453d4544a73eebeecd3ea608b8a5709dbb62521562e98"
+          }
+        },
+        "seal_sha256": "a1cadb6dd257e0363a3326218856129fdfb5b7f6cd8c301a7dbef58036681a54"
+      }
+    },
+    "seeded-effect-stream-v1": {
+      "gold": {
+        "source": "controls/seeded-effect-stream-v1/gold",
+        "candidate_sha256": "ea031f33fd2ff6904c61b40155f3e387348fcbd3a7d6406580a97c1e73ae34bc",
+        "expected_pass": true,
+        "must_fail": [],
+        "must_pass": [
+          "clean1.initial",
+          "clean1.actions",
+          "clean1.payouts",
+          "clean1.native_noise",
+          "clean1.stable",
+          "clean1.sealed",
+          "clean2.initial",
+          "clean2.actions",
+          "clean2.payouts",
+          "clean2.native_noise",
+          "clean2.stable",
+          "clean2.sealed",
+          "noise.initial",
+          "noise.actions",
+          "noise.payouts",
+          "noise.native_noise",
+          "noise.stable",
+          "noise.sealed",
+          "other.initial",
+          "other.actions",
+          "other.payouts",
+          "other.native_noise",
+          "other.stable",
+          "other.sealed",
+          "reproduce",
+          "isolated",
+          "different_seed"
+        ],
+        "files": {
+          "joker.lua": {
+            "size": 466,
+            "sha256": "9f505383702b3cfa158c009fe045be4467b558d5e8ca27ac27e8f0071ec03221"
+          },
+          "seeded_effect_stream.json": {
+            "size": 321,
+            "sha256": "c4627b6f56d7e94d7f95a427c1ecda3bd6420fa6ed620fcedc35ca20271362b0"
+          }
+        },
+        "seal_sha256": "d65c2036cf2b74d64fdc1a14c2873b96d209f30387fb129f450364d64f052818"
+      },
+      "base": {
+        "source": "controls/seeded-effect-stream-v1/base",
+        "candidate_sha256": "e7aeb3e93dfd12615ddaa991de56baaba22a295ad9ac2b29bf420c24c9171e71",
+        "expected_pass": false,
+        "must_fail": [
+          "clean1.payouts",
+          "clean2.payouts",
+          "noise.payouts",
+          "other.payouts",
+          "isolated"
+        ],
+        "must_pass": [
+          "clean1.initial",
+          "clean1.actions",
+          "clean1.native_noise",
+          "clean1.stable",
+          "clean1.sealed",
+          "clean2.initial",
+          "clean2.actions",
+          "clean2.native_noise",
+          "clean2.stable",
+          "clean2.sealed",
+          "noise.initial",
+          "noise.actions",
+          "noise.native_noise",
+          "noise.stable",
+          "noise.sealed",
+          "other.initial",
+          "other.actions",
+          "other.native_noise",
+          "other.stable",
+          "other.sealed",
+          "reproduce",
+          "different_seed"
+        ],
+        "files": {
+          "joker.lua": {
+            "size": 463,
+            "sha256": "fda35dde91757461512cc160eb64918c07ff4a871353d77f01c2da6cbf441426"
+          },
+          "seeded_effect_stream.json": {
+            "size": 321,
+            "sha256": "c4627b6f56d7e94d7f95a427c1ecda3bd6420fa6ed620fcedc35ca20271362b0"
+          }
+        },
+        "seal_sha256": "7711a135274658ed9f594f77e913bc52ac2f34152b3f67682b932e3ee5f69c9d"
+      },
+      "M01-per-card": {
+        "source": "controls/seeded-effect-stream-v1/M01-per-card",
+        "candidate_sha256": "b84b15198f91c3c9e18b3143f99ba18106e4270b689389a247a32e538f5aa317",
+        "expected_pass": false,
+        "must_fail": [
+          "clean1.payouts",
+          "clean2.payouts",
+          "noise.payouts",
+          "other.payouts"
+        ],
+        "must_pass": [
+          "clean1.initial",
+          "clean1.actions",
+          "clean1.native_noise",
+          "clean1.stable",
+          "clean1.sealed",
+          "clean2.initial",
+          "clean2.actions",
+          "clean2.native_noise",
+          "clean2.stable",
+          "clean2.sealed",
+          "noise.initial",
+          "noise.actions",
+          "noise.native_noise",
+          "noise.stable",
+          "noise.sealed",
+          "other.initial",
+          "other.actions",
+          "other.native_noise",
+          "other.stable",
+          "other.sealed",
+          "reproduce",
+          "isolated",
+          "different_seed"
+        ],
+        "files": {
+          "joker.lua": {
+            "size": 462,
+            "sha256": "110a12fbf4cce59f3cb80f0fc987f57ac0b63c5d9fddf0d0c9813bf0ee6573a5"
+          },
+          "seeded_effect_stream.json": {
+            "size": 321,
+            "sha256": "c4627b6f56d7e94d7f95a427c1ecda3bd6420fa6ed620fcedc35ca20271362b0"
+          }
+        },
+        "seal_sha256": "34d50a14af8336d0a8c7334e527cd1b4adb56d5fe552f244005b356f28a1d575"
+      },
+      "M02-repeat-first": {
+        "source": "controls/seeded-effect-stream-v1/M02-repeat-first",
+        "candidate_sha256": "8163bcdc197bf6b962c1b6fc9ad77b87a24993f914b0323b20d07b6b390d685d",
+        "expected_pass": false,
+        "must_fail": [
+          "clean1.payouts",
+          "clean2.payouts",
+          "noise.payouts",
+          "other.payouts"
+        ],
+        "must_pass": [
+          "clean1.initial",
+          "clean1.actions",
+          "clean1.native_noise",
+          "clean1.stable",
+          "clean1.sealed",
+          "clean2.initial",
+          "clean2.actions",
+          "clean2.native_noise",
+          "clean2.stable",
+          "clean2.sealed",
+          "noise.initial",
+          "noise.actions",
+          "noise.native_noise",
+          "noise.stable",
+          "noise.sealed",
+          "other.initial",
+          "other.actions",
+          "other.native_noise",
+          "other.stable",
+          "other.sealed",
+          "reproduce",
+          "isolated",
+          "different_seed"
+        ],
+        "files": {
+          "joker.lua": {
+            "size": 561,
+            "sha256": "5f5cd297c53425c4104de29b42e6b86754208ba61ef4707314e3ddbc8065f935"
+          },
+          "seeded_effect_stream.json": {
+            "size": 321,
+            "sha256": "c4627b6f56d7e94d7f95a427c1ecda3bd6420fa6ed620fcedc35ca20271362b0"
+          }
+        },
+        "seal_sha256": "e5f87ca5c06b934df2b3df2857a83fe74689c32e215a197a5917e503b578b351"
+      },
+      "M03-score-advances": {
+        "source": "controls/seeded-effect-stream-v1/M03-score-advances",
+        "candidate_sha256": "0a61563b20e6ff7a788b0db601a14c8b0da44006a791cd71fc6f4eb3fc98322b",
+        "expected_pass": false,
+        "must_fail": [
+          "noise.payouts",
+          "isolated"
+        ],
+        "must_pass": [
+          "clean1.initial",
+          "clean1.actions",
+          "clean1.payouts",
+          "clean1.native_noise",
+          "clean1.stable",
+          "clean1.sealed",
+          "clean2.initial",
+          "clean2.actions",
+          "clean2.payouts",
+          "clean2.native_noise",
+          "clean2.stable",
+          "clean2.sealed",
+          "noise.initial",
+          "noise.actions",
+          "noise.native_noise",
+          "noise.stable",
+          "noise.sealed",
+          "other.initial",
+          "other.actions",
+          "other.payouts",
+          "other.native_noise",
+          "other.stable",
+          "other.sealed",
+          "reproduce",
+          "different_seed"
+        ],
+        "files": {
+          "joker.lua": {
+            "size": 585,
+            "sha256": "deaea717add09c69be4357058a67b3029685c8207cec58138373eaeab8aef608"
+          },
+          "seeded_effect_stream.json": {
+            "size": 321,
+            "sha256": "c4627b6f56d7e94d7f95a427c1ecda3bd6420fa6ed620fcedc35ca20271362b0"
+          }
+        },
+        "seal_sha256": "2cdd019a353feee443272be6a8fe313a26481543253fbb5c3dd75b707e3eb8b9"
+      }
+    },
+    "bounded-generator-v2": {
+      "gold": {
+        "source": "controls/bounded-generator-v2/gold",
+        "expected_pass": true,
+        "must_fail": [],
+        "must_pass": [
+          "room.initial",
+          "room.queries",
+          "room.generate0.response",
+          "room.generate0.inventory",
+          "room.generate0.lifecycle",
+          "room.generate0.usage",
+          "room.generate0.invariants",
+          "room.generate1.response",
+          "room.generate1.inventory",
+          "room.generate1.lifecycle",
+          "room.generate1.usage",
+          "room.generate1.invariants",
+          "room.mercury0.inventory",
+          "room.mercury0.effect",
+          "room.mercury1.inventory",
+          "room.mercury1.effect",
+          "room.hermit.inventory",
+          "room.hermit.effect",
+          "room.sealed",
+          "one.initial",
+          "one.sealed",
+          "three.initial",
+          "three.sealed",
+          "recover.initial",
+          "recover.sealed",
+          "mixed.initial",
+          "mixed.sealed"
+        ],
+        "candidate_sha256": "8a6e8fb4fc41558ec49beca61cbafc49e760e0ee91bfb33077997b21ee94f755",
+        "files": {
+          "bounded_generator_v2.json": {
+            "size": 326,
+            "sha256": "4adc86d82892810a6286ebda91221abb887a1be49b719ae3351a76beb53d86f6"
+          },
+          "lib/generation.lua": {
+            "size": 760,
+            "sha256": "fee0f5a4aa5e3e93b461ac57fbc3d07161fbd454a0bdb4bd0ee37bdc5eeea9e0"
+          },
+          "main.lua": {
+            "size": 543,
+            "sha256": "d07a001732e80766405a27940ca4da46b1da74e95a904c15e85a1c093f4d2a3c"
+          }
+        },
+        "seal_sha256": "95f73f3529ef2558500ff6dd2459f06a16c7776d55fe5f353fc0b69691b71239"
+      },
+      "base": {
+        "source": "controls/bounded-generator-v2/base",
+        "expected_pass": false,
+        "must_fail": [
+          "one.generate0.response",
+          "three.generate0.lifecycle",
+          "mixed.generate0.lifecycle"
+        ],
+        "must_pass": [
+          "room.initial",
+          "room.queries",
+          "room.generate0.response",
+          "room.generate0.inventory",
+          "room.generate0.lifecycle",
+          "room.generate0.usage",
+          "room.generate0.invariants",
+          "room.generate1.response",
+          "room.generate1.inventory",
+          "room.generate1.lifecycle",
+          "room.generate1.usage",
+          "room.generate1.invariants",
+          "room.mercury0.inventory",
+          "room.mercury0.effect",
+          "room.mercury1.inventory",
+          "room.mercury1.effect",
+          "room.hermit.inventory",
+          "room.hermit.effect",
+          "room.sealed",
+          "one.initial",
+          "one.sealed",
+          "three.initial",
+          "three.sealed",
+          "recover.initial",
+          "recover.sealed",
+          "mixed.initial",
+          "mixed.sealed"
+        ],
+        "candidate_sha256": "c72496d2c611efbcdbc3ea2821caa44b8071fb8c751e970dbe535772f1997717",
+        "files": {
+          "bounded_generator_v2.json": {
+            "size": 326,
+            "sha256": "4adc86d82892810a6286ebda91221abb887a1be49b719ae3351a76beb53d86f6"
+          },
+          "lib/generation.lua": {
+            "size": 768,
+            "sha256": "18b0a98686a158f0880fd8fc11bfa9435c0e980a2131e11b5ccf418818c34fe5"
+          },
+          "main.lua": {
+            "size": 543,
+            "sha256": "d07a001732e80766405a27940ca4da46b1da74e95a904c15e85a1c093f4d2a3c"
+          }
+        },
+        "seal_sha256": "ae2976c2b3e361dcca5cad5006dd0e4cce7ee885a4b8670317824cd288696bfe"
+      },
+      "M01-min-two-admission": {
+        "source": "controls/bounded-generator-v2/M01-min-two-admission",
+        "expected_pass": false,
+        "must_fail": [
+          "one.generate0.response"
+        ],
+        "must_pass": [
+          "room.initial",
+          "room.queries",
+          "room.generate0.response",
+          "room.generate0.inventory",
+          "room.generate0.lifecycle",
+          "room.generate0.usage",
+          "room.generate0.invariants",
+          "room.generate1.response",
+          "room.generate1.inventory",
+          "room.generate1.lifecycle",
+          "room.generate1.usage",
+          "room.generate1.invariants",
+          "room.mercury0.inventory",
+          "room.mercury0.effect",
+          "room.mercury1.inventory",
+          "room.mercury1.effect",
+          "room.hermit.inventory",
+          "room.hermit.effect",
+          "room.sealed",
+          "one.initial",
+          "one.sealed",
+          "three.initial",
+          "three.sealed",
+          "recover.initial",
+          "recover.sealed",
+          "mixed.initial",
+          "mixed.sealed"
+        ],
+        "candidate_sha256": "bde681ff4964d896ae3fb2597b24ab5fade562511b3a478f99f26b0157bcc67f",
+        "files": {
+          "bounded_generator_v2.json": {
+            "size": 326,
+            "sha256": "4adc86d82892810a6286ebda91221abb887a1be49b719ae3351a76beb53d86f6"
+          },
+          "lib/generation.lua": {
+            "size": 772,
+            "sha256": "e164cbec880d4e33f746f157754cf5296b3bfb22be0f958e2bd56a2ea189a7dd"
+          },
+          "main.lua": {
+            "size": 543,
+            "sha256": "d07a001732e80766405a27940ca4da46b1da74e95a904c15e85a1c093f4d2a3c"
+          }
+        },
+        "seal_sha256": "aecb0508ec9649511d253d8153da29ee552f76c63f6adcd4406f02e2d8a0be03"
+      },
+      "M02-fixed-release": {
+        "source": "controls/bounded-generator-v2/M02-fixed-release",
+        "expected_pass": false,
+        "must_fail": [
+          "three.generate0.lifecycle",
+          "mixed.generate0.lifecycle"
+        ],
+        "must_pass": [
+          "room.initial",
+          "room.queries",
+          "room.generate0.response",
+          "room.generate0.inventory",
+          "room.generate0.lifecycle",
+          "room.generate0.usage",
+          "room.generate0.invariants",
+          "room.generate1.response",
+          "room.generate1.inventory",
+          "room.generate1.lifecycle",
+          "room.generate1.usage",
+          "room.generate1.invariants",
+          "room.mercury0.inventory",
+          "room.mercury0.effect",
+          "room.mercury1.inventory",
+          "room.mercury1.effect",
+          "room.hermit.inventory",
+          "room.hermit.effect",
+          "room.sealed",
+          "one.initial",
+          "one.sealed",
+          "three.initial",
+          "three.sealed",
+          "recover.initial",
+          "recover.sealed",
+          "mixed.initial",
+          "mixed.sealed"
+        ],
+        "candidate_sha256": "1a6236ea8a12ed4c80dc0fe706d7cb24e86a60fb07d6f14a3c2d99560e8464d1",
+        "files": {
+          "bounded_generator_v2.json": {
+            "size": 326,
+            "sha256": "4adc86d82892810a6286ebda91221abb887a1be49b719ae3351a76beb53d86f6"
+          },
+          "lib/generation.lua": {
+            "size": 756,
+            "sha256": "3349a54e0f7fc3a0877605b6ea0c56aafb0009476ac45f3648910806bacc1629"
+          },
+          "main.lua": {
+            "size": 543,
+            "sha256": "d07a001732e80766405a27940ca4da46b1da74e95a904c15e85a1c093f4d2a3c"
+          }
+        },
+        "seal_sha256": "49fae0a69aa79e7d0e088352462e7f23f360aea89417b22afda9b7b5b6bfc77f"
+      },
+      "M03-truncate-products": {
+        "source": "controls/bounded-generator-v2/M03-truncate-products",
+        "expected_pass": false,
+        "must_fail": [
+          "three.generate0.inventory",
+          "recover.generate0.inventory",
+          "mixed.generate1.inventory"
+        ],
+        "must_pass": [
+          "room.initial",
+          "room.queries",
+          "room.generate0.response",
+          "room.generate0.inventory",
+          "room.generate0.lifecycle",
+          "room.generate0.usage",
+          "room.generate0.invariants",
+          "room.generate1.response",
+          "room.generate1.inventory",
+          "room.generate1.lifecycle",
+          "room.generate1.usage",
+          "room.generate1.invariants",
+          "room.mercury0.inventory",
+          "room.mercury0.effect",
+          "room.mercury1.inventory",
+          "room.mercury1.effect",
+          "room.hermit.inventory",
+          "room.hermit.effect",
+          "room.sealed",
+          "one.initial",
+          "one.sealed",
+          "three.initial",
+          "three.sealed",
+          "recover.initial",
+          "recover.sealed",
+          "mixed.initial",
+          "mixed.sealed"
+        ],
+        "candidate_sha256": "d19e031d80ecff01d6a5753be9240893c01f4c6ab658e8bf355d688b2e0a179c",
+        "files": {
+          "bounded_generator_v2.json": {
+            "size": 326,
+            "sha256": "4adc86d82892810a6286ebda91221abb887a1be49b719ae3351a76beb53d86f6"
+          },
+          "lib/generation.lua": {
+            "size": 776,
+            "sha256": "e06edc8348fdbeae43f84850752fabfe74248a18e18a08c6ea3dcd2bd16fcbb9"
+          },
+          "main.lua": {
+            "size": 543,
+            "sha256": "d07a001732e80766405a27940ca4da46b1da74e95a904c15e85a1c093f4d2a3c"
+          }
+        },
+        "seal_sha256": "7930ed8162f5d1fbdd12b785e1878d5c8b4f224149f653fcbdb307fc834669c3"
+      }
+    },
+    "deck-removal-consistency-v2": {
+      "gold": {
+        "source": "controls/deck-removal-consistency-v2/gold",
+        "expected_pass": true,
+        "must_pass": [
+          "single.initial",
+          "single.refusal.empty",
+          "single.refusal.five",
+          "single.first.response",
+          "single.first.consumption",
+          "single.first.targets",
+          "single.first.registered",
+          "single.first.areas",
+          "single.first.unchanged",
+          "single.first.lifecycle",
+          "single.first.stable",
+          "single.refill",
+          "single.next_blind",
+          "single.full_pool",
+          "single.followup",
+          "single.sealed",
+          "four.initial",
+          "four.refusal.empty",
+          "four.refusal.five",
+          "four.sealed",
+          "repeat.initial",
+          "repeat.refusal.empty",
+          "repeat.refusal.five",
+          "repeat.sealed"
+        ],
+        "must_fail": [],
+        "candidate_sha256": "cd6dc326c06d859f182fde044dbc44d73f2318f00b7c69401f736c4561d4daf6",
+        "files": {
+          "deck_removal_consistency_v2.json": {
+            "size": 329,
+            "sha256": "b1c7118eb28048738a9f95ce9a4aff1bbff6f237840b5f037716417dc542c73f"
+          },
+          "lib/lifecycle.lua": {
+            "size": 242,
+            "sha256": "76c779f906c8e72ae723769630f2a8fd38ecf61f246ae42c33402614cf70f928"
+          },
+          "main.lua": {
+            "size": 453,
+            "sha256": "b1d269e26f3720bdff7d75f95ed74342c4661ed6af7508defa053a8e670289dc"
+          }
+        },
+        "seal_sha256": "5214536c014ab22d1bb88caf2e3f4f3e4a58f2539a490592ebc5d31d0bbcc945"
+      },
+      "base": {
+        "source": "controls/deck-removal-consistency-v2/base",
+        "expected_pass": false,
+        "must_pass": [
+          "single.initial",
+          "single.refusal.empty",
+          "single.refusal.five",
+          "single.first.response",
+          "single.first.consumption",
+          "single.first.targets",
+          "single.first.registered",
+          "single.first.areas",
+          "single.first.unchanged",
+          "single.first.lifecycle",
+          "single.first.stable",
+          "single.refill",
+          "single.next_blind",
+          "single.full_pool",
+          "single.followup",
+          "single.sealed",
+          "four.initial",
+          "four.refusal.empty",
+          "four.refusal.five",
+          "four.sealed",
+          "repeat.initial",
+          "repeat.refusal.empty",
+          "repeat.refusal.five",
+          "repeat.sealed"
+        ],
+        "must_fail": [
+          "four.first.targets",
+          "four.first.registered",
+          "four.first.areas"
+        ],
+        "candidate_sha256": "ea9009e041f211fc1abfdcb22bd38ecba43b5167114e47b281c52c58fd2cbdb3",
+        "files": {
+          "deck_removal_consistency_v2.json": {
+            "size": 329,
+            "sha256": "b1c7118eb28048738a9f95ce9a4aff1bbff6f237840b5f037716417dc542c73f"
+          },
+          "lib/lifecycle.lua": {
+            "size": 499,
+            "sha256": "4157cf9eb82ec43e097f62ca0132e7427946e618de264571094745943e120741"
+          },
+          "main.lua": {
+            "size": 453,
+            "sha256": "b1d269e26f3720bdff7d75f95ed74342c4661ed6af7508defa053a8e670289dc"
+          }
+        },
+        "seal_sha256": "c73e5469852e930036c394b19b6671a5a867e259c8637bb1dd62f8607a7a09a0"
+      },
+      "M01-prefix-targets": {
+        "source": "controls/deck-removal-consistency-v2/M01-prefix-targets",
+        "expected_pass": false,
+        "must_pass": [
+          "single.initial",
+          "single.refusal.empty",
+          "single.refusal.five",
+          "single.first.response",
+          "single.first.consumption",
+          "single.first.targets",
+          "single.first.registered",
+          "single.first.areas",
+          "single.first.unchanged",
+          "single.first.lifecycle",
+          "single.first.stable",
+          "single.refill",
+          "single.next_blind",
+          "single.full_pool",
+          "single.followup",
+          "single.sealed",
+          "four.initial",
+          "four.refusal.empty",
+          "four.refusal.five",
+          "four.sealed",
+          "repeat.initial",
+          "repeat.refusal.empty",
+          "repeat.refusal.five",
+          "repeat.sealed"
+        ],
+        "must_fail": [
+          "four.first.targets",
+          "four.first.unchanged"
+        ],
+        "candidate_sha256": "a508af5509b50046838677136e4b0a013641165488b6bbc8d4b6fb8282afeb74",
+        "files": {
+          "deck_removal_consistency_v2.json": {
+            "size": 329,
+            "sha256": "b1c7118eb28048738a9f95ce9a4aff1bbff6f237840b5f037716417dc542c73f"
+          },
+          "lib/lifecycle.lua": {
+            "size": 381,
+            "sha256": "b16a139c5e38d144bbe0144770377d06ee4214f2321404261a74d86219893c44"
+          },
+          "main.lua": {
+            "size": 453,
+            "sha256": "b1d269e26f3720bdff7d75f95ed74342c4661ed6af7508defa053a8e670289dc"
+          }
+        },
+        "seal_sha256": "d7921b777e6af2f8a6529f4720978b5d44c6487700d360eb6edbd3b5ac124be6"
+      },
+      "M02-area-only": {
+        "source": "controls/deck-removal-consistency-v2/M02-area-only",
+        "expected_pass": false,
+        "must_pass": [
+          "single.initial",
+          "single.refusal.empty",
+          "single.refusal.five",
+          "single.first.response",
+          "single.first.consumption",
+          "single.first.targets",
+          "single.first.registered",
+          "single.first.areas",
+          "single.first.unchanged",
+          "single.first.lifecycle",
+          "single.first.stable",
+          "single.refill",
+          "single.next_blind",
+          "single.full_pool",
+          "single.followup",
+          "single.sealed",
+          "four.initial",
+          "four.refusal.empty",
+          "four.refusal.five",
+          "four.sealed",
+          "repeat.initial",
+          "repeat.refusal.empty",
+          "repeat.refusal.five",
+          "repeat.sealed"
+        ],
+        "must_fail": [
+          "four.first.targets",
+          "four.first.registered"
+        ],
+        "candidate_sha256": "acb418a34f7d8331656944c620bc803615c3d89e5f1393c3b341b3cd102b0222",
+        "files": {
+          "deck_removal_consistency_v2.json": {
+            "size": 329,
+            "sha256": "b1c7118eb28048738a9f95ce9a4aff1bbff6f237840b5f037716417dc542c73f"
+          },
+          "lib/lifecycle.lua": {
+            "size": 360,
+            "sha256": "770e47dc9a75f69dffcd4e801535262f733df261ca30d113a202359d56ef81ba"
+          },
+          "main.lua": {
+            "size": 453,
+            "sha256": "b1d269e26f3720bdff7d75f95ed74342c4661ed6af7508defa053a8e670289dc"
+          }
+        },
+        "seal_sha256": "e450c44dd3b84aea5c302d796ffb453915ccf72ed83242cdb7f37520a2f7786a"
+      },
+      "M03-first-two": {
+        "source": "controls/deck-removal-consistency-v2/M03-first-two",
+        "expected_pass": false,
+        "must_pass": [
+          "single.initial",
+          "single.refusal.empty",
+          "single.refusal.five",
+          "single.first.response",
+          "single.first.consumption",
+          "single.first.targets",
+          "single.first.registered",
+          "single.first.areas",
+          "single.first.unchanged",
+          "single.first.lifecycle",
+          "single.first.stable",
+          "single.refill",
+          "single.next_blind",
+          "single.full_pool",
+          "single.followup",
+          "single.sealed",
+          "four.initial",
+          "four.refusal.empty",
+          "four.refusal.five",
+          "four.sealed",
+          "repeat.initial",
+          "repeat.refusal.empty",
+          "repeat.refusal.five",
+          "repeat.sealed"
+        ],
+        "must_fail": [
+          "four.first.targets",
+          "four.first.registered"
+        ],
+        "candidate_sha256": "e67f577e3131b07335a917cffb94e6ebdcc42c5949221fcb5f1356e2bc6515b1",
+        "files": {
+          "deck_removal_consistency_v2.json": {
+            "size": 329,
+            "sha256": "b1c7118eb28048738a9f95ce9a4aff1bbff6f237840b5f037716417dc542c73f"
+          },
+          "lib/lifecycle.lua": {
+            "size": 259,
+            "sha256": "2ef5a19b2674be231276202e8e4b1b81dd5dd664954f265ab7b5c23703a11a03"
+          },
+          "main.lua": {
+            "size": 453,
+            "sha256": "b1d269e26f3720bdff7d75f95ed74342c4661ed6af7508defa053a8e670289dc"
+          }
+        },
+        "seal_sha256": "e141fb26d078724648ec7a1186b01beb689b1b51df0318203516b416e2d449ea"
+      }
+    },
+    "live-joker-adjacency-v2": {
+      "gold": {
+        "source": "controls/live-joker-adjacency-v2/gold",
+        "expected_pass": true,
+        "must_pass": [
+          "single.initial",
+          "single.first_score",
+          "single.repeat_score",
+          "single.stable",
+          "single.sealed",
+          "multi.initial",
+          "multi.reorder",
+          "multi.neighbor_sale",
+          "multi.shop",
+          "multi.purchase",
+          "multi.next_blind",
+          "multi.three_order",
+          "multi.target_sale",
+          "multi.stable",
+          "multi.sealed"
+        ],
+        "must_fail": [],
+        "candidate_sha256": "ec6c23972fa93ed245c30c9cbaa0b14f21da2a6a47b2191325771a2b6296154f",
+        "files": {
+          "lib/adjacency.lua": {
+            "size": 449,
+            "sha256": "7fa3dc91d0291fe3127d303471e5e27fdeb85e3681b64e5338ba6f26680dceab"
+          },
+          "live_joker_adjacency_v2.json": {
+            "size": 313,
+            "sha256": "ab3f5fb8699f434cb7b8d79328e197dc564bb7fbe55e9c9f5699eea30bb671e6"
+          },
+          "main.lua": {
+            "size": 451,
+            "sha256": "dc6c11c5d4691dd44e08b2e09b2c661d9029b3d4fe47ff348ce4bfe46f47c8d1"
+          }
+        },
+        "seal_sha256": "4c93288314e5ef551b679e8ee5b8622b36619426698cafc3d5bdadac69fa6e8d"
+      },
+      "base": {
+        "source": "controls/live-joker-adjacency-v2/base",
+        "expected_pass": false,
+        "must_pass": [
+          "single.initial",
+          "single.first_score",
+          "single.repeat_score",
+          "single.stable",
+          "single.sealed",
+          "multi.initial",
+          "multi.reorder",
+          "multi.neighbor_sale",
+          "multi.shop",
+          "multi.purchase",
+          "multi.next_blind",
+          "multi.three_order",
+          "multi.target_sale",
+          "multi.stable",
+          "multi.sealed"
+        ],
+        "must_fail": [
+          "multi.first_score",
+          "multi.after_sale_score"
+        ],
+        "candidate_sha256": "ce9615013d1cb8608bd8643e452d9efad6bd0aa85a62138f2b0ead4ba91f662a",
+        "files": {
+          "lib/adjacency.lua": {
+            "size": 632,
+            "sha256": "d5af27b6dd3e716c1f3b0c857e8777bcfe20b243d26db3f1a9f501eafcc553b3"
+          },
+          "live_joker_adjacency_v2.json": {
+            "size": 313,
+            "sha256": "ab3f5fb8699f434cb7b8d79328e197dc564bb7fbe55e9c9f5699eea30bb671e6"
+          },
+          "main.lua": {
+            "size": 451,
+            "sha256": "dc6c11c5d4691dd44e08b2e09b2c661d9029b3d4fe47ff348ce4bfe46f47c8d1"
+          }
+        },
+        "seal_sha256": "36ae192e9605a036d7c8d447fb6697167af6100a6fe44c3f1a771a9617ce2398"
+      },
+      "M01-shared-result": {
+        "source": "controls/live-joker-adjacency-v2/M01-shared-result",
+        "expected_pass": false,
+        "must_pass": [
+          "single.initial",
+          "single.first_score",
+          "single.repeat_score",
+          "single.stable",
+          "single.sealed",
+          "multi.initial",
+          "multi.reorder",
+          "multi.neighbor_sale",
+          "multi.shop",
+          "multi.purchase",
+          "multi.next_blind",
+          "multi.three_order",
+          "multi.target_sale",
+          "multi.stable",
+          "multi.sealed"
+        ],
+        "must_fail": [
+          "multi.first_score",
+          "multi.reordered_score"
+        ],
+        "candidate_sha256": "bb01e61d7ae4963e95e9160fbb32e06220f0e65c8f9137f8c390969ae93d9001",
+        "files": {
+          "lib/adjacency.lua": {
+            "size": 523,
+            "sha256": "a163091d48f84e808b8da9136d83a8856fbd9f0bf7049cfa8062396e817b6cf8"
+          },
+          "live_joker_adjacency_v2.json": {
+            "size": 313,
+            "sha256": "ab3f5fb8699f434cb7b8d79328e197dc564bb7fbe55e9c9f5699eea30bb671e6"
+          },
+          "main.lua": {
+            "size": 451,
+            "sha256": "dc6c11c5d4691dd44e08b2e09b2c661d9029b3d4fe47ff348ce4bfe46f47c8d1"
+          }
+        },
+        "seal_sha256": "743d84413428394894d0c6c4471073118342d8e3085d8c24c51e9569163e68bf"
+      },
+      "M02-stale-index": {
+        "source": "controls/live-joker-adjacency-v2/M02-stale-index",
+        "expected_pass": false,
+        "must_pass": [
+          "single.initial",
+          "single.first_score",
+          "single.repeat_score",
+          "single.stable",
+          "single.sealed",
+          "multi.initial",
+          "multi.reorder",
+          "multi.neighbor_sale",
+          "multi.shop",
+          "multi.purchase",
+          "multi.next_blind",
+          "multi.three_order",
+          "multi.target_sale",
+          "multi.stable",
+          "multi.sealed"
+        ],
+        "must_fail": [
+          "multi.reordered_score"
+        ],
+        "candidate_sha256": "a9257df2c4481924530fb1f3a898f69a1b7095fbdf6e923df661009fc3090eaf",
+        "files": {
+          "lib/adjacency.lua": {
+            "size": 558,
+            "sha256": "27b99cda87ede1bf88a006eead06b829368be60119e6240161e15b8f8c9068e3"
+          },
+          "live_joker_adjacency_v2.json": {
+            "size": 313,
+            "sha256": "ab3f5fb8699f434cb7b8d79328e197dc564bb7fbe55e9c9f5699eea30bb671e6"
+          },
+          "main.lua": {
+            "size": 451,
+            "sha256": "dc6c11c5d4691dd44e08b2e09b2c661d9029b3d4fe47ff348ce4bfe46f47c8d1"
+          }
+        },
+        "seal_sha256": "bcd353d120b8da3693c6158ac5ecd0a7ac6e639edd85fca4c5b336cc59c2e749"
+      },
+      "M03-exclude-target": {
+        "source": "controls/live-joker-adjacency-v2/M03-exclude-target",
+        "expected_pass": false,
+        "must_pass": [
+          "single.initial",
+          "single.first_score",
+          "single.repeat_score",
+          "single.stable",
+          "single.sealed",
+          "multi.initial",
+          "multi.reorder",
+          "multi.neighbor_sale",
+          "multi.shop",
+          "multi.purchase",
+          "multi.next_blind",
+          "multi.three_order",
+          "multi.target_sale",
+          "multi.stable",
+          "multi.sealed"
+        ],
+        "must_fail": [
+          "multi.first_score",
+          "multi.three_score"
+        ],
+        "candidate_sha256": "c5f5887311a0893b4748402c4001ce48c1f6218b86e4a4eeef16209d557f053b",
+        "files": {
+          "lib/adjacency.lua": {
+            "size": 496,
+            "sha256": "f50e891ec4823750d2b17d89569d36030d8c155f43f5e911df1f2290fb50062e"
+          },
+          "live_joker_adjacency_v2.json": {
+            "size": 313,
+            "sha256": "ab3f5fb8699f434cb7b8d79328e197dc564bb7fbe55e9c9f5699eea30bb671e6"
+          },
+          "main.lua": {
+            "size": 451,
+            "sha256": "dc6c11c5d4691dd44e08b2e09b2c661d9029b3d4fe47ff348ce4bfe46f47c8d1"
+          }
+        },
+        "seal_sha256": "9244432a544dec73c38342cf10fe1c43b8003768110d30ebb0a6631ea6a57d30"
+      },
+      "M04-wrap": {
+        "source": "controls/live-joker-adjacency-v2/M04-wrap",
+        "expected_pass": false,
+        "must_pass": [
+          "single.initial",
+          "single.first_score",
+          "single.repeat_score",
+          "single.stable",
+          "single.sealed",
+          "multi.initial",
+          "multi.reorder",
+          "multi.neighbor_sale",
+          "multi.shop",
+          "multi.purchase",
+          "multi.next_blind",
+          "multi.three_order",
+          "multi.target_sale",
+          "multi.stable",
+          "multi.sealed"
+        ],
+        "must_fail": [
+          "multi.reordered_score",
+          "multi.three_score"
+        ],
+        "candidate_sha256": "09f4b11bd4bec97a9382f6bd7286a282f7cd9ba06ba705f12cbb29deb0d06655",
+        "files": {
+          "lib/adjacency.lua": {
+            "size": 465,
+            "sha256": "bf7e15aea3b12c0f4c99f0eed19cdd31d898d165ed51956fe0279133c7831fae"
+          },
+          "live_joker_adjacency_v2.json": {
+            "size": 313,
+            "sha256": "ab3f5fb8699f434cb7b8d79328e197dc564bb7fbe55e9c9f5699eea30bb671e6"
+          },
+          "main.lua": {
+            "size": 451,
+            "sha256": "dc6c11c5d4691dd44e08b2e09b2c661d9029b3d4fe47ff348ce4bfe46f47c8d1"
+          }
+        },
+        "seal_sha256": "eac3d8f0dca621b6c7e3962255ac02494685d7d78016e8aa28747a5a03dd57ce"
+      }
+    },
+    "isolated-card-wear-v2": {
+      "gold": {
+        "source": "controls/isolated-card-wear-v2/gold",
+        "expected_pass": true,
+        "must_pass": [
+          "initial",
+          "pair.first",
+          "r2",
+          "discard.held",
+          "applications.lifecycle",
+          "stable",
+          "sealed"
+        ],
+        "must_fail": [],
+        "candidate_sha256": "be96afdd0f80e5d1f6a78f29ba07bacc7a8569ddb1debfdc4974d639039d9c98",
+        "files": {
+          "isolated_card_wear_v2.json": {
+            "size": 302,
+            "sha256": "ffcb3e1e431cb15b528ade520efa12d102febb1537bdf3b02874dc59e154e2e8"
+          },
+          "lib/wear.lua": {
+            "size": 484,
+            "sha256": "783f23bb1cd9652b08bce943d7d9d5ad423857c4feff5151534699f14104a2bf"
+          },
+          "main.lua": {
+            "size": 981,
+            "sha256": "41c143cbe6c1e6d0e12522a1480c136248e6c51b73f2fa8f3c17abe5a3512ba8"
+          }
+        },
+        "seal_sha256": "8b5556f1407421240ad1fcc97f83b3195a606aa7b11bee7c8c1414eb07bb75ac"
+      },
+      "base": {
+        "source": "controls/isolated-card-wear-v2/base",
+        "expected_pass": false,
+        "must_pass": [
+          "initial",
+          "pair.first",
+          "r2",
+          "discard.held",
+          "applications.lifecycle",
+          "stable",
+          "sealed"
+        ],
+        "must_fail": [
+          "refresh.worn",
+          "a.refreshed",
+          "b.last"
+        ],
+        "candidate_sha256": "56733c92265540c481637e4c057aff49cd9aa117177eae82c654869734c5142d",
+        "files": {
+          "isolated_card_wear_v2.json": {
+            "size": 302,
+            "sha256": "ffcb3e1e431cb15b528ade520efa12d102febb1537bdf3b02874dc59e154e2e8"
+          },
+          "lib/wear.lua": {
+            "size": 645,
+            "sha256": "afb725856e7eb8609ca29f0f9fc154dc4c9e7249eaab797d184369b8a5aa15d7"
+          },
+          "main.lua": {
+            "size": 981,
+            "sha256": "41c143cbe6c1e6d0e12522a1480c136248e6c51b73f2fa8f3c17abe5a3512ba8"
+          }
+        },
+        "seal_sha256": "01854b2f98a9f78559e17e7dee69a1cbc135490972c53dc52490b0033f148bad"
+      },
+      "M01-stale-cache": {
+        "source": "controls/isolated-card-wear-v2/M01-stale-cache",
+        "expected_pass": false,
+        "must_pass": [
+          "initial",
+          "pair.first",
+          "r2",
+          "discard.held",
+          "applications.lifecycle",
+          "stable",
+          "sealed"
+        ],
+        "must_fail": [
+          "refresh.worn",
+          "refresh.depleted"
+        ],
+        "candidate_sha256": "13d69acf2092c98e0fcefc88aa8b3931de35ee9071c579612a16aff0672326f8",
+        "files": {
+          "isolated_card_wear_v2.json": {
+            "size": 302,
+            "sha256": "ffcb3e1e431cb15b528ade520efa12d102febb1537bdf3b02874dc59e154e2e8"
+          },
+          "lib/wear.lua": {
+            "size": 621,
+            "sha256": "b2df5dc4b888569dea337a5287d0264d9252c14d5a6c51a083dfdc362a97a5a8"
+          },
+          "main.lua": {
+            "size": 981,
+            "sha256": "41c143cbe6c1e6d0e12522a1480c136248e6c51b73f2fa8f3c17abe5a3512ba8"
+          }
+        },
+        "seal_sha256": "fcad7ad356e8163c977d90f6f04954c793c5be6b7c6f99ddc2d546712b5cec71"
+      },
+      "M02-last-reward": {
+        "source": "controls/isolated-card-wear-v2/M02-last-reward",
+        "expected_pass": false,
+        "must_pass": [
+          "initial",
+          "pair.first",
+          "r2",
+          "discard.held",
+          "applications.lifecycle",
+          "stable",
+          "sealed"
+        ],
+        "must_fail": [
+          "b.last",
+          "pair.last"
+        ],
+        "candidate_sha256": "b3142d94c41ddd533826d1833c8a5f173f2bbb92b808bc202df77090e2a23e6f",
+        "files": {
+          "isolated_card_wear_v2.json": {
+            "size": 302,
+            "sha256": "ffcb3e1e431cb15b528ade520efa12d102febb1537bdf3b02874dc59e154e2e8"
+          },
+          "lib/wear.lua": {
+            "size": 508,
+            "sha256": "d9e83637c45d2a0301b64b3d0d4057ae97da9d66630c6fa5deb5a7dd0c8a594b"
+          },
+          "main.lua": {
+            "size": 981,
+            "sha256": "41c143cbe6c1e6d0e12522a1480c136248e6c51b73f2fa8f3c17abe5a3512ba8"
+          }
+        },
+        "seal_sha256": "c09a4c94066b3c4a6e1da3ed71d774903888651572a4385475e29f3b60a88afa"
+      },
+      "M03-shared-prototype": {
+        "source": "controls/isolated-card-wear-v2/M03-shared-prototype",
+        "expected_pass": false,
+        "must_pass": [
+          "initial",
+          "applications.lifecycle",
+          "stable",
+          "sealed"
+        ],
+        "must_fail": [
+          "pair.first"
+        ],
+        "candidate_sha256": "21496546c06fb70e59bb5e4f4a00d93f3bcd6d627b7857f6440e192edb330f46",
+        "files": {
+          "isolated_card_wear_v2.json": {
+            "size": 302,
+            "sha256": "ffcb3e1e431cb15b528ade520efa12d102febb1537bdf3b02874dc59e154e2e8"
+          },
+          "lib/wear.lua": {
+            "size": 497,
+            "sha256": "f97f55f07a200d7c404f00393d54c86d516f904a537970697742d1487ef2f14b"
+          },
+          "main.lua": {
+            "size": 981,
+            "sha256": "41c143cbe6c1e6d0e12522a1480c136248e6c51b73f2fa8f3c17abe5a3512ba8"
+          }
+        },
+        "seal_sha256": "6c1739501fd0f2f9a3a8b93206c1543dce4e9eac6037873ec05eb41531c8380e"
+      },
+      "M04-additive-refresh": {
+        "source": "controls/isolated-card-wear-v2/M04-additive-refresh",
+        "expected_pass": false,
+        "must_pass": [
+          "initial",
+          "pair.first",
+          "r2",
+          "discard.held",
+          "applications.lifecycle",
+          "stable",
+          "sealed"
+        ],
+        "must_fail": [
+          "refresh.worn",
+          "a.ordinary"
+        ],
+        "candidate_sha256": "349ece9b65941640870f99076a41236dd92ff07f0dc7b2e8c14213f4032f59bf",
+        "files": {
+          "isolated_card_wear_v2.json": {
+            "size": 302,
+            "sha256": "ffcb3e1e431cb15b528ade520efa12d102febb1537bdf3b02874dc59e154e2e8"
+          },
+          "lib/wear.lua": {
+            "size": 593,
+            "sha256": "2415441e35531866f6b8e5ee33c845fc72f21361d3053cf028abb9c15e35def4"
+          },
+          "main.lua": {
+            "size": 981,
+            "sha256": "41c143cbe6c1e6d0e12522a1480c136248e6c51b73f2fa8f3c17abe5a3512ba8"
+          }
+        },
+        "seal_sha256": "88ac6d6abbfe8892a13c64343cf0dd2e94d2f9bd7578a60c580b72cbc5cd88d5"
+      }
+    },
+    "durable-charge-v2": {
+      "gold": {
+        "source": "controls/durable-charge-v2/gold",
+        "expected_pass": true,
+        "must_pass": [
+          "core.ownership",
+          "core.duplicate",
+          "core.conflict",
+          "core.invalid_atomic",
+          "core.retired",
+          "core.cap_interleave",
+          "core.snapshot_alias",
+          "core.view_alias",
+          "core.receipt_alias",
+          "core.input_alias",
+          "core.restore_input",
+          "core.zero_restore",
+          "core.restored_history",
+          "core.restore_atomic",
+          "core.snapshot_validation",
+          "core.empty_restore",
+          "core.limit",
+          "restored.initial",
+          "restored.discard.a",
+          "restored.recruit.b",
+          "restored.reorder",
+          "restored.discard.both",
+          "restored.pair.consume",
+          "restored.postload.discard",
+          "restored.sell.restored",
+          "restored.recruit.c",
+          "restored.postload.score",
+          "restored.cap.1",
+          "restored.cap.2",
+          "restored.cap.3",
+          "restored.cap.4",
+          "restored.cap.score",
+          "restored.cap.next",
+          "restored.configuration",
+          "restored.unequal1.save",
+          "restored.unequal1.new_process",
+          "restored.unequal1.prep",
+          "restored.unequal1.load",
+          "restored.unequal1.native",
+          "restored.unequal1.identity",
+          "restored.unequal1.charge",
+          "restored.unequal1.hash",
+          "restored.unequal2.save",
+          "restored.unequal2.new_process",
+          "restored.unequal2.prep",
+          "restored.unequal2.load",
+          "restored.unequal2.native",
+          "restored.unequal2.identity",
+          "restored.unequal2.charge",
+          "restored.unequal2.hash",
+          "restored.zero.save",
+          "restored.zero.new_process",
+          "restored.zero.prep",
+          "restored.zero.load",
+          "restored.zero.native",
+          "restored.zero.identity",
+          "restored.zero.charge",
+          "restored.zero.hash",
+          "local.initial",
+          "local.discard.a",
+          "local.recruit.b",
+          "local.reorder",
+          "local.discard.both",
+          "local.pair.consume",
+          "local.postload.discard",
+          "local.sell.restored",
+          "local.recruit.c",
+          "local.postload.score",
+          "local.cap.1",
+          "local.cap.2",
+          "local.cap.3",
+          "local.cap.4",
+          "local.cap.score",
+          "local.cap.next",
+          "local.configuration",
+          "trajectory.equivalent"
+        ],
+        "must_fail": [],
+        "candidate_sha256": "61ca72b6be35274bf77223803b174121f6166c5b4b9f1f95d5f4a431ce7767d9",
+        "files": {
+          "adapter.lua": {
+            "size": 1908,
+            "sha256": "297bcd126f2a0bf3fbd54ba9a337e44fd18f910c9a2a06dd0c5d65b21b11144b"
+          },
+          "durable_charge_v2.json": {
+            "size": 291,
+            "sha256": "7cbaf462f2e1a1002cc0481166f55907633d260b83b1581e752c1cc09c88a1ed"
+          },
+          "lib/ledger.lua": {
+            "size": 443,
+            "sha256": "296d563368cc5e747ce2c68be951dbe39a768f11e9b6e8552ae362c9e4fc8943"
+          },
+          "lib/rules.lua": {
+            "size": 2930,
+            "sha256": "f7aa59b80ae896853d49d406013ca2e25705f6d09336d6ba40a28ad3798b661e"
+          },
+          "main.lua": {
+            "size": 1246,
+            "sha256": "fa38a583da559579e0fbca7d89f108b475da93e64cb6c5897d86dc7c1d8eede9"
+          }
+        },
+        "seal_sha256": "de30d415b3222755061080841d2b84b348deb48ceb0238b40659cf126259ae98"
+      },
+      "base": {
+        "source": "controls/durable-charge-v2/base",
+        "expected_pass": false,
+        "must_pass": [
+          "local.initial",
+          "local.discard.a",
+          "local.pair.consume",
+          "local.cap.next",
+          "restored.initial",
+          "restored.unequal1.load",
+          "restored.unequal2.load",
+          "restored.zero.load"
+        ],
+        "must_fail": [
+          "core.snapshot_alias",
+          "core.zero_restore",
+          "restored.zero.charge",
+          "trajectory.equivalent"
+        ],
+        "candidate_sha256": "370cfe42a4cc9db07a08e55571952b0b663b73d828c288e6a7de404991bcca36",
+        "files": {
+          "adapter.lua": {
+            "size": 2134,
+            "sha256": "bfaf02cd7aec801a3055f51553b76e2a497b5284cb1813e95e4a75a9ae1d949b"
+          },
+          "durable_charge_v2.json": {
+            "size": 291,
+            "sha256": "7cbaf462f2e1a1002cc0481166f55907633d260b83b1581e752c1cc09c88a1ed"
+          },
+          "lib/ledger.lua": {
+            "size": 788,
+            "sha256": "1ce31fd53f240cc15a002361cb3fa319a83bee9d4f0c31fb8842ef0519324de1"
+          },
+          "lib/rules.lua": {
+            "size": 2995,
+            "sha256": "224cbd3258b8cc60f2fe5ed4cd2bf0623de26529163dbf15c15c0c66e0c669e2"
+          },
+          "main.lua": {
+            "size": 1265,
+            "sha256": "a6c94963540062539694b86a5863388383b66af1a0ab121740b5f5c9ba85b3a7"
+          }
+        },
+        "seal_sha256": "4a30f786a0c8e343cb7a621a4138a1f739fecb5427210494273ccfd542c983f6"
+      },
+      "gold-journal": {
+        "source": "controls/durable-charge-v2/gold-journal",
+        "expected_pass": true,
+        "must_pass": [
+          "core.ownership",
+          "core.duplicate",
+          "core.conflict",
+          "core.invalid_atomic",
+          "core.retired",
+          "core.cap_interleave",
+          "core.snapshot_alias",
+          "core.view_alias",
+          "core.receipt_alias",
+          "core.input_alias",
+          "core.restore_input",
+          "core.zero_restore",
+          "core.restored_history",
+          "core.restore_atomic",
+          "core.snapshot_validation",
+          "core.empty_restore",
+          "core.limit",
+          "restored.initial",
+          "restored.discard.a",
+          "restored.recruit.b",
+          "restored.reorder",
+          "restored.discard.both",
+          "restored.pair.consume",
+          "restored.postload.discard",
+          "restored.sell.restored",
+          "restored.recruit.c",
+          "restored.postload.score",
+          "restored.cap.1",
+          "restored.cap.2",
+          "restored.cap.3",
+          "restored.cap.4",
+          "restored.cap.score",
+          "restored.cap.next",
+          "restored.configuration",
+          "restored.unequal1.save",
+          "restored.unequal1.new_process",
+          "restored.unequal1.prep",
+          "restored.unequal1.load",
+          "restored.unequal1.native",
+          "restored.unequal1.identity",
+          "restored.unequal1.charge",
+          "restored.unequal1.hash",
+          "restored.unequal2.save",
+          "restored.unequal2.new_process",
+          "restored.unequal2.prep",
+          "restored.unequal2.load",
+          "restored.unequal2.native",
+          "restored.unequal2.identity",
+          "restored.unequal2.charge",
+          "restored.unequal2.hash",
+          "restored.zero.save",
+          "restored.zero.new_process",
+          "restored.zero.prep",
+          "restored.zero.load",
+          "restored.zero.native",
+          "restored.zero.identity",
+          "restored.zero.charge",
+          "restored.zero.hash",
+          "local.initial",
+          "local.discard.a",
+          "local.recruit.b",
+          "local.reorder",
+          "local.discard.both",
+          "local.pair.consume",
+          "local.postload.discard",
+          "local.sell.restored",
+          "local.recruit.c",
+          "local.postload.score",
+          "local.cap.1",
+          "local.cap.2",
+          "local.cap.3",
+          "local.cap.4",
+          "local.cap.score",
+          "local.cap.next",
+          "local.configuration",
+          "trajectory.equivalent"
+        ],
+        "must_fail": [],
+        "candidate_sha256": "80876f9339fd211de789b5be0cbb20d9b01521c07a44723ca0339177d91ba44c",
+        "files": {
+          "adapter.lua": {
+            "size": 1951,
+            "sha256": "7d6d457ad9d9fd6c80b43c2eee28cf4ce813ef78522eb225fb6d79c74f4c9cba"
+          },
+          "durable_charge_v2.json": {
+            "size": 291,
+            "sha256": "7cbaf462f2e1a1002cc0481166f55907633d260b83b1581e752c1cc09c88a1ed"
+          },
+          "lib/ledger.lua": {
+            "size": 711,
+            "sha256": "66f1d18d80383debc16cb7ce3d5115316124052ebb02ff5645a758f13f79d974"
+          },
+          "lib/rules.lua": {
+            "size": 2995,
+            "sha256": "224cbd3258b8cc60f2fe5ed4cd2bf0623de26529163dbf15c15c0c66e0c669e2"
+          },
+          "main.lua": {
+            "size": 1265,
+            "sha256": "a6c94963540062539694b86a5863388383b66af1a0ab121740b5f5c9ba85b3a7"
+          }
+        },
+        "seal_sha256": "5902b08e7d0d530092f8823e2dfb0c4bfe265562553a05bab3b152cb91a8f545"
+      },
+      "M01-duplicate": {
+        "source": "controls/durable-charge-v2/M01-duplicate",
+        "expected_pass": false,
+        "must_pass": [
+          "local.initial",
+          "local.discard.a",
+          "local.pair.consume",
+          "local.cap.next",
+          "restored.initial",
+          "restored.unequal1.load",
+          "restored.unequal2.load",
+          "restored.zero.load"
+        ],
+        "must_fail": [
+          "core.duplicate"
+        ],
+        "candidate_sha256": "c4a4e575a0e81e3d21cb2410fbfefb23a6e2753b9057487302133283b93696e9",
+        "files": {
+          "adapter.lua": {
+            "size": 1951,
+            "sha256": "7d6d457ad9d9fd6c80b43c2eee28cf4ce813ef78522eb225fb6d79c74f4c9cba"
+          },
+          "durable_charge_v2.json": {
+            "size": 291,
+            "sha256": "7cbaf462f2e1a1002cc0481166f55907633d260b83b1581e752c1cc09c88a1ed"
+          },
+          "lib/ledger.lua": {
+            "size": 456,
+            "sha256": "7f251bd0a076e8010547629ae4f12709589b2eea7255c9c993036bb0065f997d"
+          },
+          "lib/rules.lua": {
+            "size": 3133,
+            "sha256": "0f000973895ec7343e2a8333d82caedb4882e3fe887e3c6a609ffd23fc74ebdf"
+          },
+          "main.lua": {
+            "size": 1265,
+            "sha256": "a6c94963540062539694b86a5863388383b66af1a0ab121740b5f5c9ba85b3a7"
+          }
+        },
+        "seal_sha256": "b1efbbe40c9c8eee50293f6f41925fd117167f73562ee69e7a92e216279c157c"
+      },
+      "M02-snapshot-alias": {
+        "source": "controls/durable-charge-v2/M02-snapshot-alias",
+        "expected_pass": false,
+        "must_pass": [
+          "local.initial",
+          "local.discard.a",
+          "local.pair.consume",
+          "local.cap.next",
+          "restored.initial",
+          "restored.unequal1.load",
+          "restored.unequal2.load",
+          "restored.zero.load"
+        ],
+        "must_fail": [
+          "core.snapshot_alias"
+        ],
+        "candidate_sha256": "574060136cc1def4d1457fe32d7d1b931cb39c7d16b3de0ed9944120d01152dc",
+        "files": {
+          "adapter.lua": {
+            "size": 1951,
+            "sha256": "7d6d457ad9d9fd6c80b43c2eee28cf4ce813ef78522eb225fb6d79c74f4c9cba"
+          },
+          "durable_charge_v2.json": {
+            "size": 291,
+            "sha256": "7cbaf462f2e1a1002cc0481166f55907633d260b83b1581e752c1cc09c88a1ed"
+          },
+          "lib/ledger.lua": {
+            "size": 448,
+            "sha256": "40a8914a471eb042c3aacb05dc965c350d9a9a4ec9e9ea83ea7c861c06a86b14"
+          },
+          "lib/rules.lua": {
+            "size": 2995,
+            "sha256": "224cbd3258b8cc60f2fe5ed4cd2bf0623de26529163dbf15c15c0c66e0c669e2"
+          },
+          "main.lua": {
+            "size": 1265,
+            "sha256": "a6c94963540062539694b86a5863388383b66af1a0ab121740b5f5c9ba85b3a7"
+          }
+        },
+        "seal_sha256": "9c7c60462c362b4541809bdb35e28b30963ff26642d552108f35f2054c29f503"
+      },
+      "M03-zero-restore": {
+        "source": "controls/durable-charge-v2/M03-zero-restore",
+        "expected_pass": false,
+        "must_pass": [
+          "local.initial",
+          "local.discard.a",
+          "local.pair.consume",
+          "local.cap.next",
+          "restored.initial",
+          "restored.unequal1.load",
+          "restored.unequal2.load",
+          "restored.zero.load"
+        ],
+        "must_fail": [
+          "core.zero_restore",
+          "restored.zero.charge"
+        ],
+        "candidate_sha256": "af3fbb5b534d6bc400ebe167c8a78fcaec9e15000ac3d4894ed1d02d3beb1bb3",
+        "files": {
+          "adapter.lua": {
+            "size": 1951,
+            "sha256": "7d6d457ad9d9fd6c80b43c2eee28cf4ce813ef78522eb225fb6d79c74f4c9cba"
+          },
+          "durable_charge_v2.json": {
+            "size": 291,
+            "sha256": "7cbaf462f2e1a1002cc0481166f55907633d260b83b1581e752c1cc09c88a1ed"
+          },
+          "lib/ledger.lua": {
+            "size": 796,
+            "sha256": "47fe566b676fef878906d9e8df09597dda3586338f06a50b27887d080e48eaef"
+          },
+          "lib/rules.lua": {
+            "size": 2995,
+            "sha256": "224cbd3258b8cc60f2fe5ed4cd2bf0623de26529163dbf15c15c0c66e0c669e2"
+          },
+          "main.lua": {
+            "size": 1265,
+            "sha256": "a6c94963540062539694b86a5863388383b66af1a0ab121740b5f5c9ba85b3a7"
+          }
+        },
+        "seal_sha256": "c2802fbffa4c38e4a17d530ca0dda7857c4528e7af32eb2ca0f9509032f35832"
+      },
+      "M04-restore-pollution": {
+        "source": "controls/durable-charge-v2/M04-restore-pollution",
+        "expected_pass": false,
+        "must_pass": [
+          "local.initial",
+          "local.discard.a",
+          "local.pair.consume",
+          "local.cap.next",
+          "restored.initial",
+          "restored.unequal1.load",
+          "restored.unequal2.load",
+          "restored.zero.load"
+        ],
+        "must_fail": [
+          "core.restore_atomic"
+        ],
+        "candidate_sha256": "445c8ffcb0915c8d7a01bcffc30cbab5daae461361d9e402c9f12abab96cc069",
+        "files": {
+          "adapter.lua": {
+            "size": 1951,
+            "sha256": "7d6d457ad9d9fd6c80b43c2eee28cf4ce813ef78522eb225fb6d79c74f4c9cba"
+          },
+          "durable_charge_v2.json": {
+            "size": 291,
+            "sha256": "7cbaf462f2e1a1002cc0481166f55907633d260b83b1581e752c1cc09c88a1ed"
+          },
+          "lib/ledger.lua": {
+            "size": 482,
+            "sha256": "b79fa04c1adad75481ef183973069ef69298c9672fb6f081388c14b29420cc28"
+          },
+          "lib/rules.lua": {
+            "size": 2995,
+            "sha256": "224cbd3258b8cc60f2fe5ed4cd2bf0623de26529163dbf15c15c0c66e0c669e2"
+          },
+          "main.lua": {
+            "size": 1265,
+            "sha256": "a6c94963540062539694b86a5863388383b66af1a0ab121740b5f5c9ba85b3a7"
+          }
+        },
+        "seal_sha256": "967a1ba174a09bf95efa8835d9c9b2017243d701003943d00c1e5eeb4798807e"
+      },
+      "M05-row-restore": {
+        "source": "controls/durable-charge-v2/M05-row-restore",
+        "expected_pass": false,
+        "must_pass": [
+          "local.initial",
+          "local.discard.a",
+          "local.pair.consume",
+          "local.cap.next",
+          "restored.initial",
+          "restored.unequal1.load",
+          "restored.unequal2.load",
+          "restored.zero.load"
+        ],
+        "must_fail": [
+          "restored.reorder",
+          "restored.unequal2.charge"
+        ],
+        "candidate_sha256": "567a6d0871919f7080c383716497533fcc985818778b047c6fe143f49e5159ce",
+        "files": {
+          "adapter.lua": {
+            "size": 2134,
+            "sha256": "bfaf02cd7aec801a3055f51553b76e2a497b5284cb1813e95e4a75a9ae1d949b"
+          },
+          "durable_charge_v2.json": {
+            "size": 291,
+            "sha256": "7cbaf462f2e1a1002cc0481166f55907633d260b83b1581e752c1cc09c88a1ed"
+          },
+          "lib/ledger.lua": {
+            "size": 456,
+            "sha256": "7f251bd0a076e8010547629ae4f12709589b2eea7255c9c993036bb0065f997d"
+          },
+          "lib/rules.lua": {
+            "size": 2995,
+            "sha256": "224cbd3258b8cc60f2fe5ed4cd2bf0623de26529163dbf15c15c0c66e0c669e2"
+          },
+          "main.lua": {
+            "size": 1265,
+            "sha256": "a6c94963540062539694b86a5863388383b66af1a0ab121740b5f5c9ba85b3a7"
+          }
+        },
+        "seal_sha256": "580fe524660f5e2ab6f81bd816d12b1eb931457a60e8f0fdf9dbbc709f68ceff"
+      },
+      "M06-display-only": {
+        "source": "controls/durable-charge-v2/M06-display-only",
+        "expected_pass": false,
+        "must_pass": [
+          "local.initial",
+          "local.discard.a",
+          "local.pair.consume",
+          "local.cap.next",
+          "restored.initial",
+          "restored.unequal1.load",
+          "restored.unequal2.load",
+          "restored.zero.load"
+        ],
+        "must_fail": [
+          "restored.pair.consume",
+          "trajectory.equivalent"
+        ],
+        "candidate_sha256": "005791c06503476ef44fcf4fed619e724fae1b9e7b7f4e3ecd477dfe672c2dea",
+        "files": {
+          "adapter.lua": {
+            "size": 1981,
+            "sha256": "3f11b9b2323676c13cb62194b5c25718289359c0df0da8477dc666069d5ec1f1"
+          },
+          "durable_charge_v2.json": {
+            "size": 291,
+            "sha256": "7cbaf462f2e1a1002cc0481166f55907633d260b83b1581e752c1cc09c88a1ed"
+          },
+          "lib/ledger.lua": {
+            "size": 456,
+            "sha256": "7f251bd0a076e8010547629ae4f12709589b2eea7255c9c993036bb0065f997d"
+          },
+          "lib/rules.lua": {
+            "size": 2995,
+            "sha256": "224cbd3258b8cc60f2fe5ed4cd2bf0623de26529163dbf15c15c0c66e0c669e2"
+          },
+          "main.lua": {
+            "size": 1265,
+            "sha256": "a6c94963540062539694b86a5863388383b66af1a0ab121740b5f5c9ba85b3a7"
+          }
+        },
+        "seal_sha256": "8a5d9ca5ae9ff9611e72bd54ccabf583a8132a5ca706cfafa7636be63f822f6e"
+      }
+    },
+    "shop-price-coherence-v2": {
+      "gold": {
+        "source": "controls/shop-price-coherence-v2/gold",
+        "candidate_sha256": "414c8f56f80ed828237be0b7911c471db8187778c3f2120d2a17583971a3bc14",
+        "expected_pass": true,
+        "must_fail": [],
+        "must_pass": [
+          "normal.prepared",
+          "funds.prepared",
+          "capacity.prepared",
+          "normal.sealed",
+          "funds.sealed",
+          "capacity.sealed"
+        ],
+        "files": {
+          "adapter.lua": {
+            "size": 2567,
+            "sha256": "d1533a05357eedeba5085fab7d9aefc3716217c1b935ffc94c2234b300cd7bc3"
+          },
+          "lib/ledger.lua": {
+            "size": 3539,
+            "sha256": "f750e599d9c1288ecf42addf94317bfe6b4ca13c0b2f14d2ca703a08e9ed44b6"
+          },
+          "lib/pricing.lua": {
+            "size": 477,
+            "sha256": "bbfd80870a9858167efd9c676c63a92eff7aba3e1707ffd14cbb67d09c346895"
+          },
+          "main.lua": {
+            "size": 176,
+            "sha256": "7de53f38224035c053e7cb6dbfa8c3402cf9e006934820e4fe2f71d7fc57b9f7"
+          },
+          "shop_price_coherence_v2.json": {
+            "size": 309,
+            "sha256": "5f54926880aa80a79f8450e35821dbe02bb064a185161323e42b783db5034dc0"
+          }
+        },
+        "seal_sha256": "7d9051eac3b1297c7af8e42dc7c214b77bff33881379ee8a345356c96f714d61"
+      },
+      "base": {
+        "source": "controls/shop-price-coherence-v2/base",
+        "candidate_sha256": "70f056585757dfcc23a1b0ff6608bff559c134e355ccc7df56b504418f04c523",
+        "expected_pass": false,
+        "must_fail": [
+          "core.formula",
+          "core.ownership",
+          "core.view_alias",
+          "normal.second.buy",
+          "normal.ratio.sell.quotes"
+        ],
+        "must_pass": [
+          "normal.prepared",
+          "funds.prepared",
+          "capacity.prepared",
+          "normal.sealed",
+          "funds.sealed",
+          "capacity.sealed"
+        ],
+        "files": {
+          "adapter.lua": {
+            "size": 2567,
+            "sha256": "d1533a05357eedeba5085fab7d9aefc3716217c1b935ffc94c2234b300cd7bc3"
+          },
+          "lib/ledger.lua": {
+            "size": 3595,
+            "sha256": "baa323c3ae620f7a8a69fc5c45cff7c2b3438a2de57699eb02057696b4fa08b4"
+          },
+          "lib/pricing.lua": {
+            "size": 565,
+            "sha256": "a48a63b117e347bba49fdf536b97632bc765ec207ed4072c5d68ac26fc53043a"
+          },
+          "main.lua": {
+            "size": 176,
+            "sha256": "7de53f38224035c053e7cb6dbfa8c3402cf9e006934820e4fe2f71d7fc57b9f7"
+          },
+          "shop_price_coherence_v2.json": {
+            "size": 309,
+            "sha256": "5f54926880aa80a79f8450e35821dbe02bb064a185161323e42b783db5034dc0"
+          }
+        },
+        "seal_sha256": "ec00a6f8507d697a9dab0e877a3772af4641284ae9c0de752996add20f782c84"
+      },
+      "gold-ledger": {
+        "source": "controls/shop-price-coherence-v2/gold-ledger",
+        "candidate_sha256": "9ff528c810d720e93ac63c849c9b02bd1e2c26ce3ee7356270babb81b9605718",
+        "expected_pass": true,
+        "must_fail": [],
+        "must_pass": [
+          "normal.prepared",
+          "funds.prepared",
+          "capacity.prepared",
+          "normal.sealed",
+          "funds.sealed",
+          "capacity.sealed"
+        ],
+        "files": {
+          "adapter.lua": {
+            "size": 2567,
+            "sha256": "d1533a05357eedeba5085fab7d9aefc3716217c1b935ffc94c2234b300cd7bc3"
+          },
+          "lib/ledger.lua": {
+            "size": 4185,
+            "sha256": "99d3a6a32b01ff56ac98369f0a7efee0d54c92e32bccd65af21817d3e6ae3aa5"
+          },
+          "lib/pricing.lua": {
+            "size": 411,
+            "sha256": "d9c630f3656236bdafffb6fb1cf7e90e6927d1f5e2a96b38eb42c8220cbb8f7b"
+          },
+          "main.lua": {
+            "size": 176,
+            "sha256": "7de53f38224035c053e7cb6dbfa8c3402cf9e006934820e4fe2f71d7fc57b9f7"
+          },
+          "shop_price_coherence_v2.json": {
+            "size": 309,
+            "sha256": "5f54926880aa80a79f8450e35821dbe02bb064a185161323e42b783db5034dc0"
+          }
+        },
+        "seal_sha256": "7a4a12a8c2b785af82215d7f97146f57f483bba8f6e4b071627acf725b3c709a"
+      },
+      "M01-round-each": {
+        "source": "controls/shop-price-coherence-v2/M01-round-each",
+        "candidate_sha256": "62b0a3be8e574b80ea5d2fe2009b5e7265c4c9890a289f1fe7e610aba919f1b9",
+        "expected_pass": false,
+        "must_fail": [
+          "core.formula",
+          "normal.second.buy"
+        ],
+        "must_pass": [
+          "normal.prepared",
+          "funds.prepared",
+          "capacity.prepared",
+          "normal.sealed",
+          "funds.sealed",
+          "capacity.sealed"
+        ],
+        "files": {
+          "adapter.lua": {
+            "size": 2567,
+            "sha256": "d1533a05357eedeba5085fab7d9aefc3716217c1b935ffc94c2234b300cd7bc3"
+          },
+          "lib/ledger.lua": {
+            "size": 3539,
+            "sha256": "f750e599d9c1288ecf42addf94317bfe6b4ca13c0b2f14d2ca703a08e9ed44b6"
+          },
+          "lib/pricing.lua": {
+            "size": 565,
+            "sha256": "a48a63b117e347bba49fdf536b97632bc765ec207ed4072c5d68ac26fc53043a"
+          },
+          "main.lua": {
+            "size": 176,
+            "sha256": "7de53f38224035c053e7cb6dbfa8c3402cf9e006934820e4fe2f71d7fc57b9f7"
+          },
+          "shop_price_coherence_v2.json": {
+            "size": 309,
+            "sha256": "5f54926880aa80a79f8450e35821dbe02bb064a185161323e42b783db5034dc0"
+          }
+        },
+        "seal_sha256": "7fb304f8a68267da2f854f8b83b644b19e1f1b91856168b3eb1d658155fc8fda"
+      },
+      "M02-remove-all": {
+        "source": "controls/shop-price-coherence-v2/M02-remove-all",
+        "candidate_sha256": "1dc455180bd3a1dbd624123f23312037adb1053789e475afac582e090ad898c1",
+        "expected_pass": false,
+        "must_fail": [
+          "core.ownership",
+          "normal.ratio.sell.quotes"
+        ],
+        "must_pass": [
+          "normal.prepared",
+          "funds.prepared",
+          "capacity.prepared",
+          "normal.sealed",
+          "funds.sealed",
+          "capacity.sealed"
+        ],
+        "files": {
+          "adapter.lua": {
+            "size": 2567,
+            "sha256": "d1533a05357eedeba5085fab7d9aefc3716217c1b935ffc94c2234b300cd7bc3"
+          },
+          "lib/ledger.lua": {
+            "size": 3601,
+            "sha256": "90ed9db97d785901ea8fa7014bcd7bf0db04f7c84d0e1a1371656bf3eb21d813"
+          },
+          "lib/pricing.lua": {
+            "size": 477,
+            "sha256": "bbfd80870a9858167efd9c676c63a92eff7aba3e1707ffd14cbb67d09c346895"
+          },
+          "main.lua": {
+            "size": 176,
+            "sha256": "7de53f38224035c053e7cb6dbfa8c3402cf9e006934820e4fe2f71d7fc57b9f7"
+          },
+          "shop_price_coherence_v2.json": {
+            "size": 309,
+            "sha256": "5f54926880aa80a79f8450e35821dbe02bb064a185161323e42b783db5034dc0"
+          }
+        },
+        "seal_sha256": "9bd827f56c8aae3b098cb165bd6f57e9621abdfdabc389b6994f97f8b5989bbf"
+      },
+      "M03-query-consumes": {
+        "source": "controls/shop-price-coherence-v2/M03-query-consumes",
+        "candidate_sha256": "01273d659351649f4ff75a1ad96c91e7c455943d671bab3e9f575b0f2f1d749b",
+        "expected_pass": false,
+        "must_fail": [
+          "core.pure_query",
+          "normal.first.buy"
+        ],
+        "must_pass": [
+          "normal.prepared",
+          "funds.prepared",
+          "capacity.prepared",
+          "normal.sealed",
+          "funds.sealed",
+          "capacity.sealed"
+        ],
+        "files": {
+          "adapter.lua": {
+            "size": 2567,
+            "sha256": "d1533a05357eedeba5085fab7d9aefc3716217c1b935ffc94c2234b300cd7bc3"
+          },
+          "lib/ledger.lua": {
+            "size": 3697,
+            "sha256": "606794e87080cb49730c7ac27b146c978d59ccd120dd26a4208bc1ba50c98efd"
+          },
+          "lib/pricing.lua": {
+            "size": 477,
+            "sha256": "bbfd80870a9858167efd9c676c63a92eff7aba3e1707ffd14cbb67d09c346895"
+          },
+          "main.lua": {
+            "size": 176,
+            "sha256": "7de53f38224035c053e7cb6dbfa8c3402cf9e006934820e4fe2f71d7fc57b9f7"
+          },
+          "shop_price_coherence_v2.json": {
+            "size": 309,
+            "sha256": "5f54926880aa80a79f8450e35821dbe02bb064a185161323e42b783db5034dc0"
+          }
+        },
+        "seal_sha256": "f8c29a9f2f55d87acfa83ae722d718f549819c786a37c207f256cf660fa91293"
+      },
+      "M04-stale-accepted": {
+        "source": "controls/shop-price-coherence-v2/M04-stale-accepted",
+        "candidate_sha256": "d6f640e5b52d51bad4647d0e4e9d0fbca6948672bd9111259f580cb105c35831",
+        "expected_pass": false,
+        "must_fail": [
+          "core.stale"
+        ],
+        "must_pass": [
+          "normal.prepared",
+          "funds.prepared",
+          "capacity.prepared",
+          "normal.sealed",
+          "funds.sealed",
+          "capacity.sealed"
+        ],
+        "files": {
+          "adapter.lua": {
+            "size": 2567,
+            "sha256": "d1533a05357eedeba5085fab7d9aefc3716217c1b935ffc94c2234b300cd7bc3"
+          },
+          "lib/ledger.lua": {
+            "size": 3585,
+            "sha256": "6f6a24459d21b87e50f4e5b5bac64f8bd2b7a1372207f0aa71f6947664d2494e"
+          },
+          "lib/pricing.lua": {
+            "size": 477,
+            "sha256": "bbfd80870a9858167efd9c676c63a92eff7aba3e1707ffd14cbb67d09c346895"
+          },
+          "main.lua": {
+            "size": 176,
+            "sha256": "7de53f38224035c053e7cb6dbfa8c3402cf9e006934820e4fe2f71d7fc57b9f7"
+          },
+          "shop_price_coherence_v2.json": {
+            "size": 309,
+            "sha256": "5f54926880aa80a79f8450e35821dbe02bb064a185161323e42b783db5034dc0"
+          }
+        },
+        "seal_sha256": "b474a347cd688525fe0c24744d7825d5bff81c7ab02cd92daba24dbdec566e78"
+      },
+      "M05-never-consume": {
+        "source": "controls/shop-price-coherence-v2/M05-never-consume",
+        "candidate_sha256": "191a744331a16d53ed39624e3603c4a8dfa96445b3832d062e71bf60f842ab29",
+        "expected_pass": false,
+        "must_fail": [
+          "core.versions",
+          "normal.second.buy"
+        ],
+        "must_pass": [
+          "normal.prepared",
+          "funds.prepared",
+          "capacity.prepared",
+          "normal.sealed",
+          "funds.sealed",
+          "capacity.sealed"
+        ],
+        "files": {
+          "adapter.lua": {
+            "size": 2567,
+            "sha256": "d1533a05357eedeba5085fab7d9aefc3716217c1b935ffc94c2234b300cd7bc3"
+          },
+          "lib/ledger.lua": {
+            "size": 3572,
+            "sha256": "f023b7704010c962d0da62aa45f4515eaa54518f12a4f370fd1bccfed3a7b850"
+          },
+          "lib/pricing.lua": {
+            "size": 477,
+            "sha256": "bbfd80870a9858167efd9c676c63a92eff7aba3e1707ffd14cbb67d09c346895"
+          },
+          "main.lua": {
+            "size": 176,
+            "sha256": "7de53f38224035c053e7cb6dbfa8c3402cf9e006934820e4fe2f71d7fc57b9f7"
+          },
+          "shop_price_coherence_v2.json": {
+            "size": 309,
+            "sha256": "5f54926880aa80a79f8450e35821dbe02bb064a185161323e42b783db5034dc0"
+          }
+        },
+        "seal_sha256": "c01ce64fcbc2ce3c3abce93fc5dc2b3b6d762600ad84cc2eb388c50dd1fc9e05"
+      },
+      "M06-view-alias": {
+        "source": "controls/shop-price-coherence-v2/M06-view-alias",
+        "candidate_sha256": "4b582cd587e7d1ba70fa19b4b71497ec2f8ff3e57ab148ca289ae656a0ad6511",
+        "expected_pass": false,
+        "must_fail": [
+          "core.view_alias"
+        ],
+        "must_pass": [
+          "normal.prepared",
+          "funds.prepared",
+          "capacity.prepared",
+          "normal.sealed",
+          "funds.sealed",
+          "capacity.sealed"
+        ],
+        "files": {
+          "adapter.lua": {
+            "size": 2567,
+            "sha256": "d1533a05357eedeba5085fab7d9aefc3716217c1b935ffc94c2234b300cd7bc3"
+          },
+          "lib/ledger.lua": {
+            "size": 3603,
+            "sha256": "ca6db8f7eecc255b3342517b107dae2baaac850d14b9bf1bff28c4c909e116e2"
+          },
+          "lib/pricing.lua": {
+            "size": 477,
+            "sha256": "bbfd80870a9858167efd9c676c63a92eff7aba3e1707ffd14cbb67d09c346895"
+          },
+          "main.lua": {
+            "size": 176,
+            "sha256": "7de53f38224035c053e7cb6dbfa8c3402cf9e006934820e4fe2f71d7fc57b9f7"
+          },
+          "shop_price_coherence_v2.json": {
+            "size": 309,
+            "sha256": "5f54926880aa80a79f8450e35821dbe02bb064a185161323e42b783db5034dc0"
+          }
+        },
+        "seal_sha256": "0a4e7503d2f7a83da642f2dbd5eece60d6b952afb889a4ed07b72d55ed54ede6"
+      },
+      "M07-no-dedup": {
+        "source": "controls/shop-price-coherence-v2/M07-no-dedup",
+        "candidate_sha256": "bebbafb3dcaa3e5f730d91ff99b37d50e764bb1ee7737614be586af370959bb3",
+        "expected_pass": false,
+        "must_fail": [
+          "core.dedup"
+        ],
+        "must_pass": [
+          "normal.prepared",
+          "funds.prepared",
+          "capacity.prepared",
+          "normal.sealed",
+          "funds.sealed",
+          "capacity.sealed"
+        ],
+        "files": {
+          "adapter.lua": {
+            "size": 2567,
+            "sha256": "d1533a05357eedeba5085fab7d9aefc3716217c1b935ffc94c2234b300cd7bc3"
+          },
+          "lib/ledger.lua": {
+            "size": 3327,
+            "sha256": "b56c49bd0ef2a091ab5122d52834db47bda114f63cdff4f886c676cd5b19b1e0"
+          },
+          "lib/pricing.lua": {
+            "size": 477,
+            "sha256": "bbfd80870a9858167efd9c676c63a92eff7aba3e1707ffd14cbb67d09c346895"
+          },
+          "main.lua": {
+            "size": 176,
+            "sha256": "7de53f38224035c053e7cb6dbfa8c3402cf9e006934820e4fe2f71d7fc57b9f7"
+          },
+          "shop_price_coherence_v2.json": {
+            "size": 309,
+            "sha256": "5f54926880aa80a79f8450e35821dbe02bb064a185161323e42b783db5034dc0"
+          }
+        },
+        "seal_sha256": "a16195d5aecdeaab826aa0b1448f54339874467043b5ceed15e7ee517187e3fe"
+      },
+      "M08-wrong-category": {
+        "source": "controls/shop-price-coherence-v2/M08-wrong-category",
+        "candidate_sha256": "2fa5df518314a28dc330da4b89c33a9ca77e5443a406c73101ed0e342e21f561",
+        "expected_pass": false,
+        "must_fail": [
+          "core.noneligible",
+          "normal.planet.buy"
+        ],
+        "must_pass": [
+          "normal.prepared",
+          "funds.prepared",
+          "capacity.prepared",
+          "normal.sealed",
+          "funds.sealed",
+          "capacity.sealed"
+        ],
+        "files": {
+          "adapter.lua": {
+            "size": 2567,
+            "sha256": "d1533a05357eedeba5085fab7d9aefc3716217c1b935ffc94c2234b300cd7bc3"
+          },
+          "lib/ledger.lua": {
+            "size": 3539,
+            "sha256": "f750e599d9c1288ecf42addf94317bfe6b4ca13c0b2f14d2ca703a08e9ed44b6"
+          },
+          "lib/pricing.lua": {
+            "size": 463,
+            "sha256": "22a08c0ee9dad3e228a6440511762138e4c799598900a68007c1d52c9d14397e"
+          },
+          "main.lua": {
+            "size": 176,
+            "sha256": "7de53f38224035c053e7cb6dbfa8c3402cf9e006934820e4fe2f71d7fc57b9f7"
+          },
+          "shop_price_coherence_v2.json": {
+            "size": 309,
+            "sha256": "5f54926880aa80a79f8450e35821dbe02bb064a185161323e42b783db5034dc0"
+          }
+        },
+        "seal_sha256": "3128295c658e1e297413e89526b45dfe725666c800b15fea56220e08ac6b957c"
+      }
+    },
+    "pack-choice-commit-v2": {
+      "gold": {
+        "source": "controls/pack-choice-commit-v2/gold",
+        "expected_pass": true,
+        "must_pass": [
+          "core.pure",
+          "core.two_choices",
+          "core.close_pending",
+          "core.skip",
+          "core.next_session",
+          "core.commit_replay",
+          "core.selected_atomic",
+          "core.limits",
+          "core.incomplete",
+          "core.invalid",
+          "core.view_alias",
+          "core.receipt_alias",
+          "core.closed",
+          "core.interleave",
+          "full_full.initial",
+          "full_full.p1.open",
+          "full_full.p1.first",
+          "full_full.p1.close",
+          "full_full.p1.identities",
+          "full_full.p1.stable",
+          "full_full.p1.ledger",
+          "full_full.p2.open",
+          "full_full.p2.first",
+          "full_full.p2.close",
+          "full_full.p2.identities",
+          "full_full.p2.stable",
+          "full_full.p2.ledger",
+          "full_full.sell",
+          "full_full.followup",
+          "full_full.play",
+          "full_full.final",
+          "full_full.sealed",
+          "partial_full.initial",
+          "partial_full.p1.open",
+          "partial_full.p1.first",
+          "partial_full.p1.close",
+          "partial_full.p1.identities",
+          "partial_full.p1.stable",
+          "partial_full.p1.ledger",
+          "partial_full.p2.open",
+          "partial_full.p2.first",
+          "partial_full.p2.close",
+          "partial_full.p2.identities",
+          "partial_full.p2.stable",
+          "partial_full.p2.ledger",
+          "partial_full.sell",
+          "partial_full.followup",
+          "partial_full.play",
+          "partial_full.final",
+          "partial_full.sealed",
+          "skip_full.initial",
+          "skip_full.p1.open",
+          "skip_full.p1.first",
+          "skip_full.p1.close",
+          "skip_full.p1.identities",
+          "skip_full.p1.stable",
+          "skip_full.p1.ledger",
+          "skip_full.p2.open",
+          "skip_full.p2.first",
+          "skip_full.p2.close",
+          "skip_full.p2.identities",
+          "skip_full.p2.stable",
+          "skip_full.p2.ledger",
+          "skip_full.sell",
+          "skip_full.followup",
+          "skip_full.play",
+          "skip_full.final",
+          "skip_full.sealed"
+        ],
+        "must_fail": [],
+        "candidate_sha256": "06c03f5e85776a95aed7832187e814df42e5c23dd51ca8ee513f558af6a4c280",
+        "files": {
+          "adapter.lua": {
+            "size": 1389,
+            "sha256": "e06112cd4019cfcb5d29a99539e410b9e23d00586ef18354c2d320b6d32ac22c"
+          },
+          "lib/ledger.lua": {
+            "size": 338,
+            "sha256": "9a1890deb979ef19a0fd451bae7141d66922f2227aa68ddee92460bfbb3130e8"
+          },
+          "lib/transitions.lua": {
+            "size": 3448,
+            "sha256": "92730b47b9bac5e9283dbb9f57fa01517f018e4543ee23f9d6b1e91057cb5dcf"
+          },
+          "main.lua": {
+            "size": 1465,
+            "sha256": "e0c552e6997e23263fabd7d8b7012c5280814eda126ca70ae4373b3bad30e14c"
+          },
+          "pack_choice_commit_v2.json": {
+            "size": 290,
+            "sha256": "8f92d5f5c15d0f32fda6409cda0ff70415b6bbe83f9f78be3136562b3f140464"
+          }
+        },
+        "seal_sha256": "3ba1c6360a42d027520e1d29e471b734a128c27209350a8e9eeab01e64626160"
+      },
+      "base": {
+        "source": "controls/pack-choice-commit-v2/base",
+        "expected_pass": false,
+        "must_pass": [
+          "partial_full.p1.first",
+          "full_full.initial",
+          "skip_full.p1.close",
+          "core.pure",
+          "core.two_choices",
+          "full_full.sealed",
+          "partial_full.sealed",
+          "skip_full.sealed"
+        ],
+        "must_fail": [
+          "full_full.p1.close",
+          "partial_full.p1.close",
+          "full_full.p2.close"
+        ],
+        "candidate_sha256": "b7bb72eee37f9e5adc8c445305c3eec60582d1de0b5c31899083fd34f6f53f39",
+        "files": {
+          "adapter.lua": {
+            "size": 2171,
+            "sha256": "b261ed556682a9f61080f0fb403883e82775d17d5be1611a23e1482a7cc77509"
+          },
+          "lib/ledger.lua": {
+            "size": 348,
+            "sha256": "22dd7efdbc6fc48f3f868ec5dc7c33f51d3042aca1dd1ff916974caac42b5e05"
+          },
+          "lib/transitions.lua": {
+            "size": 3512,
+            "sha256": "d978ecab60d0d2838715ae9d284d387898db1d61b6ecc8ca2503b003fe750fcc"
+          },
+          "main.lua": {
+            "size": 1492,
+            "sha256": "91bc77d36ced325b0330de936d74984642500fa961c728ac79bbbb45f88c7179"
+          },
+          "pack_choice_commit_v2.json": {
+            "size": 290,
+            "sha256": "8f92d5f5c15d0f32fda6409cda0ff70415b6bbe83f9f78be3136562b3f140464"
+          }
+        },
+        "seal_sha256": "f1f39cedd6145fa3c99f6dce24426859128fe724c2fcb21ef5c10342341f2399"
+      },
+      "gold-journal": {
+        "source": "controls/pack-choice-commit-v2/gold-journal",
+        "expected_pass": true,
+        "must_pass": [
+          "core.pure",
+          "core.two_choices",
+          "core.close_pending",
+          "core.skip",
+          "core.next_session",
+          "core.commit_replay",
+          "core.selected_atomic",
+          "core.limits",
+          "core.incomplete",
+          "core.invalid",
+          "core.view_alias",
+          "core.receipt_alias",
+          "core.closed",
+          "core.interleave",
+          "full_full.initial",
+          "full_full.p1.open",
+          "full_full.p1.first",
+          "full_full.p1.close",
+          "full_full.p1.identities",
+          "full_full.p1.stable",
+          "full_full.p1.ledger",
+          "full_full.p2.open",
+          "full_full.p2.first",
+          "full_full.p2.close",
+          "full_full.p2.identities",
+          "full_full.p2.stable",
+          "full_full.p2.ledger",
+          "full_full.sell",
+          "full_full.followup",
+          "full_full.play",
+          "full_full.final",
+          "full_full.sealed",
+          "partial_full.initial",
+          "partial_full.p1.open",
+          "partial_full.p1.first",
+          "partial_full.p1.close",
+          "partial_full.p1.identities",
+          "partial_full.p1.stable",
+          "partial_full.p1.ledger",
+          "partial_full.p2.open",
+          "partial_full.p2.first",
+          "partial_full.p2.close",
+          "partial_full.p2.identities",
+          "partial_full.p2.stable",
+          "partial_full.p2.ledger",
+          "partial_full.sell",
+          "partial_full.followup",
+          "partial_full.play",
+          "partial_full.final",
+          "partial_full.sealed",
+          "skip_full.initial",
+          "skip_full.p1.open",
+          "skip_full.p1.first",
+          "skip_full.p1.close",
+          "skip_full.p1.identities",
+          "skip_full.p1.stable",
+          "skip_full.p1.ledger",
+          "skip_full.p2.open",
+          "skip_full.p2.first",
+          "skip_full.p2.close",
+          "skip_full.p2.identities",
+          "skip_full.p2.stable",
+          "skip_full.p2.ledger",
+          "skip_full.sell",
+          "skip_full.followup",
+          "skip_full.play",
+          "skip_full.final",
+          "skip_full.sealed"
+        ],
+        "must_fail": [],
+        "candidate_sha256": "f8c471d952d763770e5bc17f761d50571cb501693b7aa3661bc40987870a54ce",
+        "files": {
+          "adapter.lua": {
+            "size": 1420,
+            "sha256": "0fbac7a7555a76f99abba185a069008fa233999daa4b01d3e3f9ac6ce63419e3"
+          },
+          "lib/ledger.lua": {
+            "size": 759,
+            "sha256": "5509777d04226e6d2c793075e007f7ff75c11d5a0c631c0e77e48aef1fd8394d"
+          },
+          "lib/transitions.lua": {
+            "size": 3512,
+            "sha256": "d978ecab60d0d2838715ae9d284d387898db1d61b6ecc8ca2503b003fe750fcc"
+          },
+          "main.lua": {
+            "size": 1492,
+            "sha256": "91bc77d36ced325b0330de936d74984642500fa961c728ac79bbbb45f88c7179"
+          },
+          "pack_choice_commit_v2.json": {
+            "size": 290,
+            "sha256": "8f92d5f5c15d0f32fda6409cda0ff70415b6bbe83f9f78be3136562b3f140464"
+          }
+        },
+        "seal_sha256": "a4bfefe720c082d56865a58784c5d3caa0a919e1cf54ad32b71eeffb1e18a9ca"
+      },
+      "M01-preview-reward": {
+        "source": "controls/pack-choice-commit-v2/M01-preview-reward",
+        "expected_pass": false,
+        "must_pass": [
+          "partial_full.p1.first",
+          "full_full.initial",
+          "core.pure",
+          "core.two_choices",
+          "full_full.sealed",
+          "partial_full.sealed",
+          "skip_full.sealed"
+        ],
+        "must_fail": [
+          "full_full.p1.open",
+          "skip_full.p1.open"
+        ],
+        "candidate_sha256": "b2363e2d69e317a25ef5c7c3572a3b92d52ad08938b57405fc04f54d01fe5848",
+        "files": {
+          "adapter.lua": {
+            "size": 1441,
+            "sha256": "bfd42d39dda144301eafe438a9cc5070908d54a7f8cff76beb832299464970e2"
+          },
+          "lib/ledger.lua": {
+            "size": 348,
+            "sha256": "22dd7efdbc6fc48f3f868ec5dc7c33f51d3042aca1dd1ff916974caac42b5e05"
+          },
+          "lib/transitions.lua": {
+            "size": 3512,
+            "sha256": "d978ecab60d0d2838715ae9d284d387898db1d61b6ecc8ca2503b003fe750fcc"
+          },
+          "main.lua": {
+            "size": 1492,
+            "sha256": "91bc77d36ced325b0330de936d74984642500fa961c728ac79bbbb45f88c7179"
+          },
+          "pack_choice_commit_v2.json": {
+            "size": 290,
+            "sha256": "8f92d5f5c15d0f32fda6409cda0ff70415b6bbe83f9f78be3136562b3f140464"
+          }
+        },
+        "seal_sha256": "bcaf801f1ac7f7a1adbdd46945985644a4f5d8912230094332b5bc3028aef3a5"
+      },
+      "M02-shifted-index": {
+        "source": "controls/pack-choice-commit-v2/M02-shifted-index",
+        "expected_pass": false,
+        "must_pass": [
+          "partial_full.p1.first",
+          "full_full.initial",
+          "skip_full.p1.close",
+          "core.pure",
+          "core.two_choices",
+          "full_full.sealed",
+          "partial_full.sealed",
+          "skip_full.sealed"
+        ],
+        "must_fail": [
+          "full_full.p1.close"
+        ],
+        "candidate_sha256": "efb30ad2d35889fde49d77d97f7e5d1c1b7f903060ebdb8330702d19c23b46f9",
+        "files": {
+          "adapter.lua": {
+            "size": 1717,
+            "sha256": "6a7914d3bea901e92b959fda924037d355a250c843a8c07efbe3bdbfd864f2e7"
+          },
+          "lib/ledger.lua": {
+            "size": 348,
+            "sha256": "22dd7efdbc6fc48f3f868ec5dc7c33f51d3042aca1dd1ff916974caac42b5e05"
+          },
+          "lib/transitions.lua": {
+            "size": 3512,
+            "sha256": "d978ecab60d0d2838715ae9d284d387898db1d61b6ecc8ca2503b003fe750fcc"
+          },
+          "main.lua": {
+            "size": 1492,
+            "sha256": "91bc77d36ced325b0330de936d74984642500fa961c728ac79bbbb45f88c7179"
+          },
+          "pack_choice_commit_v2.json": {
+            "size": 290,
+            "sha256": "8f92d5f5c15d0f32fda6409cda0ff70415b6bbe83f9f78be3136562b3f140464"
+          }
+        },
+        "seal_sha256": "2addc2b57a176a8248d142d7a07efdd90d218e8817a18266800fd464c1bccec1"
+      },
+      "M03-close-revocation": {
+        "source": "controls/pack-choice-commit-v2/M03-close-revocation",
+        "expected_pass": false,
+        "must_pass": [
+          "partial_full.p1.first",
+          "full_full.initial",
+          "skip_full.p1.close",
+          "core.pure",
+          "core.two_choices",
+          "full_full.sealed",
+          "partial_full.sealed",
+          "skip_full.sealed"
+        ],
+        "must_fail": [
+          "partial_full.p1.close"
+        ],
+        "candidate_sha256": "45e207845bd0da7b87ca3a0b66ca31af9cc6cdb92f6f992b7dec3a5c7fa75a8f",
+        "files": {
+          "adapter.lua": {
+            "size": 1728,
+            "sha256": "c43dc3bb4b24ed017275aad67e47c81794de53a866378ec77ef2fcbd1d39ec3f"
+          },
+          "lib/ledger.lua": {
+            "size": 348,
+            "sha256": "22dd7efdbc6fc48f3f868ec5dc7c33f51d3042aca1dd1ff916974caac42b5e05"
+          },
+          "lib/transitions.lua": {
+            "size": 3512,
+            "sha256": "d978ecab60d0d2838715ae9d284d387898db1d61b6ecc8ca2503b003fe750fcc"
+          },
+          "main.lua": {
+            "size": 1492,
+            "sha256": "91bc77d36ced325b0330de936d74984642500fa961c728ac79bbbb45f88c7179"
+          },
+          "pack_choice_commit_v2.json": {
+            "size": 290,
+            "sha256": "8f92d5f5c15d0f32fda6409cda0ff70415b6bbe83f9f78be3136562b3f140464"
+          }
+        },
+        "seal_sha256": "e4ae1e0e44ef70a781109ac608ae334aa294f35615e3bf1b51fc9d3070e12044"
+      },
+      "M04-global-flags": {
+        "source": "controls/pack-choice-commit-v2/M04-global-flags",
+        "expected_pass": false,
+        "must_pass": [
+          "partial_full.p1.first",
+          "full_full.initial",
+          "skip_full.p1.close",
+          "core.pure",
+          "core.two_choices",
+          "full_full.sealed",
+          "partial_full.sealed",
+          "skip_full.sealed"
+        ],
+        "must_fail": [
+          "full_full.p2.close"
+        ],
+        "candidate_sha256": "f594a73d8bdc3751dd64ecfc5ffeebd7d79aef12eca156bb56f4217204fe049d",
+        "files": {
+          "adapter.lua": {
+            "size": 1566,
+            "sha256": "aed78b7a74a439a7b15268209b9cf03c075df41212ab7b35743bec0330992faa"
+          },
+          "lib/ledger.lua": {
+            "size": 348,
+            "sha256": "22dd7efdbc6fc48f3f868ec5dc7c33f51d3042aca1dd1ff916974caac42b5e05"
+          },
+          "lib/transitions.lua": {
+            "size": 3512,
+            "sha256": "d978ecab60d0d2838715ae9d284d387898db1d61b6ecc8ca2503b003fe750fcc"
+          },
+          "main.lua": {
+            "size": 1492,
+            "sha256": "91bc77d36ced325b0330de936d74984642500fa961c728ac79bbbb45f88c7179"
+          },
+          "pack_choice_commit_v2.json": {
+            "size": 290,
+            "sha256": "8f92d5f5c15d0f32fda6409cda0ff70415b6bbe83f9f78be3136562b3f140464"
+          }
+        },
+        "seal_sha256": "ebe4ffea8f97e708b263b63f11d924f1d75f316dac511da82ef22880e9032102"
+      },
+      "M05-repeat-settle": {
+        "source": "controls/pack-choice-commit-v2/M05-repeat-settle",
+        "expected_pass": false,
+        "must_pass": [
+          "partial_full.p1.first",
+          "full_full.initial",
+          "skip_full.p1.close",
+          "core.pure",
+          "core.two_choices",
+          "full_full.sealed",
+          "partial_full.sealed",
+          "skip_full.sealed"
+        ],
+        "must_fail": [
+          "core.close_pending"
+        ],
+        "candidate_sha256": "c3be729159c83fbccac9a9456d7d8ab25c8e5a573b5e3b0304520add06048daf",
+        "files": {
+          "adapter.lua": {
+            "size": 1420,
+            "sha256": "0fbac7a7555a76f99abba185a069008fa233999daa4b01d3e3f9ac6ce63419e3"
+          },
+          "lib/ledger.lua": {
+            "size": 348,
+            "sha256": "22dd7efdbc6fc48f3f868ec5dc7c33f51d3042aca1dd1ff916974caac42b5e05"
+          },
+          "lib/transitions.lua": {
+            "size": 3552,
+            "sha256": "d626e78d82ebf66d238ab7b34f5c0b54d147796ce459dab02e6ad94a6fb44814"
+          },
+          "main.lua": {
+            "size": 1492,
+            "sha256": "91bc77d36ced325b0330de936d74984642500fa961c728ac79bbbb45f88c7179"
+          },
+          "pack_choice_commit_v2.json": {
+            "size": 290,
+            "sha256": "8f92d5f5c15d0f32fda6409cda0ff70415b6bbe83f9f78be3136562b3f140464"
+          }
+        },
+        "seal_sha256": "10461fabc76997be550007b95540c4acd790772aba2e18e52a6b7bc0176aef7d"
+      },
+      "M06-view-alias": {
+        "source": "controls/pack-choice-commit-v2/M06-view-alias",
+        "expected_pass": false,
+        "must_pass": [
+          "partial_full.p1.first",
+          "full_full.initial",
+          "skip_full.p1.close",
+          "core.pure",
+          "core.two_choices",
+          "full_full.sealed",
+          "partial_full.sealed",
+          "skip_full.sealed"
+        ],
+        "must_fail": [
+          "core.view_alias"
+        ],
+        "candidate_sha256": "ee7ed74579b5e4e9cf9a6ae188eff6178dabb871a696fde494517633ef6bc5e4",
+        "files": {
+          "adapter.lua": {
+            "size": 1420,
+            "sha256": "0fbac7a7555a76f99abba185a069008fa233999daa4b01d3e3f9ac6ce63419e3"
+          },
+          "lib/ledger.lua": {
+            "size": 408,
+            "sha256": "0ec66233ad0225de81a196560b483d82c1d59e5270ce379f0097fb47ea0422e7"
+          },
+          "lib/transitions.lua": {
+            "size": 3512,
+            "sha256": "d978ecab60d0d2838715ae9d284d387898db1d61b6ecc8ca2503b003fe750fcc"
+          },
+          "main.lua": {
+            "size": 1492,
+            "sha256": "91bc77d36ced325b0330de936d74984642500fa961c728ac79bbbb45f88c7179"
+          },
+          "pack_choice_commit_v2.json": {
+            "size": 290,
+            "sha256": "8f92d5f5c15d0f32fda6409cda0ff70415b6bbe83f9f78be3136562b3f140464"
+          }
+        },
+        "seal_sha256": "444d997a9697ffa969d3e627f7b84a594fa17d835b6bec0bd379eb96b70b3722"
+      },
+      "M07-repeat-commit": {
+        "source": "controls/pack-choice-commit-v2/M07-repeat-commit",
+        "expected_pass": false,
+        "must_pass": [
+          "partial_full.p1.first",
+          "full_full.initial",
+          "skip_full.p1.close",
+          "core.pure",
+          "core.two_choices",
+          "full_full.sealed",
+          "partial_full.sealed",
+          "skip_full.sealed"
+        ],
+        "must_fail": [
+          "core.commit_replay"
+        ],
+        "candidate_sha256": "26c873df5649b4409cd49362148c3f59e78c0837fdfc7ae49d9cc995179983d6",
+        "files": {
+          "adapter.lua": {
+            "size": 1420,
+            "sha256": "0fbac7a7555a76f99abba185a069008fa233999daa4b01d3e3f9ac6ce63419e3"
+          },
+          "lib/ledger.lua": {
+            "size": 348,
+            "sha256": "22dd7efdbc6fc48f3f868ec5dc7c33f51d3042aca1dd1ff916974caac42b5e05"
+          },
+          "lib/transitions.lua": {
+            "size": 3526,
+            "sha256": "9d7bc1f472978bac723a3228fc41aa533a121a4040a8d1fdfb5ef200476a432a"
+          },
+          "main.lua": {
+            "size": 1492,
+            "sha256": "91bc77d36ced325b0330de936d74984642500fa961c728ac79bbbb45f88c7179"
+          },
+          "pack_choice_commit_v2.json": {
+            "size": 290,
+            "sha256": "8f92d5f5c15d0f32fda6409cda0ff70415b6bbe83f9f78be3136562b3f140464"
+          }
+        },
+        "seal_sha256": "a645842f58ba2a3de00fef0be0ee36938156e7eea02be17447716640972fedd8"
+      }
+    }
+  },
+  "files": {
+    "fixtures/tasks/round_end_growth/v2/CONTRACT.md": "4edbe50e2631a86abfbc58d7fc15e24a5c34edf29e700ec34185fe11d898557e",
+    "fixtures/tasks/round_end_growth/v2/observer/observer.lua": "bd3520dc5743a1b2cc79380f8e0994e396b58e9c675b9d54cb85c1cd71a6fe8b",
+    "fixtures/tasks/round_end_growth/v2/observer/poc_observer.json": "a0ed5663a69cb27d9aba9c88ef0d4bdcc398e4a0fb4a1595461a0ea35e51939e",
+    "fixtures/tasks/round_end_growth/v2/scenario.py": "c6b78c5688fefa4bc93f32f70782fdc5ff6830e648f05b238a2ccef6a8746920",
+    "controls/growth-v2/gold/joker.lua": "e1e664280279150624dc60599cd8aba457ab9c4ca9296f02aafe515a11ac2aec",
+    "controls/growth-v2/gold/round_end_growth.json": "8f09823432a9c599f62d970417932ecfc216b31bd088844ff4bab7a7db558f3b",
+    "controls/growth-v2/base/joker.lua": "1c58c4caf46a7d8779a968d7472d24c69ffa400d1e050edfc57db1bef252a5b5",
+    "controls/growth-v2/base/round_end_growth.json": "8f09823432a9c599f62d970417932ecfc216b31bd088844ff4bab7a7db558f3b",
+    "controls/growth-v2/alternative/joker.lua": "30443200046c78b66dba30cca3676ddffb789757720f7e3f76b1788c6e45d645",
+    "controls/growth-v2/alternative/round_end_growth.json": "8f09823432a9c599f62d970417932ecfc216b31bd088844ff4bab7a7db558f3b",
+    "controls/growth-v2/M03-per-hand/joker.lua": "46c4dd82ee4bf38fa417739dcd9d43819fce6b2f9a2228254ccc959a6dba52db",
+    "controls/growth-v2/M03-per-hand/round_end_growth.json": "8f09823432a9c599f62d970417932ecfc216b31bd088844ff4bab7a7db558f3b",
+    "controls/growth-v2/M06-cap-four/joker.lua": "8c7cc8b6a6c398b371ce182e2261d41ad496275790d944c2dd8e1c4f03105275",
+    "controls/growth-v2/M06-cap-four/round_end_growth.json": "8f09823432a9c599f62d970417932ecfc216b31bd088844ff4bab7a7db558f3b",
+    "controls/growth-v2/M08-four-kind-only/joker.lua": "59a9eeb0a8b2415248f77b9aac1f67cc7a8157da5da7c6f85f2bb48aec739ec4",
+    "controls/growth-v2/M08-four-kind-only/round_end_growth.json": "8f09823432a9c599f62d970417932ecfc216b31bd088844ff4bab7a7db558f3b",
+    "fixtures/tasks/reversible_hand_limit/v1/__init__.py": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b",
+    "fixtures/tasks/reversible_hand_limit/v1/CASE-MUTATION-MATRIX-draft-v1.md": "9010040dbf0b86a41f39e4d9f8920a212ea67b5b0a6058557e34e0c5e579517c",
+    "fixtures/tasks/reversible_hand_limit/v1/CASE-MUTATION-MATRIX.md": "32b034debc9a004d19aee9f5392718c9c13300718f810e91366592a720c4cba5",
+    "fixtures/tasks/reversible_hand_limit/v1/CONTRACT-DRAFT.md": "ffa02778a13fea4e061fd53dd4f2de3c8b64a4a194fc7db4e337b7fa2fce1ec2",
+    "fixtures/tasks/reversible_hand_limit/v1/CONTRACT.md": "ede0b0ab912bdfb49088798255475046640b582f79fb5869b00f7b3c5e606fc1",
+    "fixtures/tasks/reversible_hand_limit/v1/INDEPENDENCE.md": "52efb281754b24e3352457b4685d0c1f4363fe4cd5f73abf6b51eade6845ad3a",
+    "fixtures/tasks/reversible_hand_limit/v1/private/__init__.py": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b",
+    "fixtures/tasks/reversible_hand_limit/v1/private/mod/fixture.json": "bf5e02385f176e5432c0e1e51acc75ec434bea2804a98f389a7f7ca777ecb616",
+    "fixtures/tasks/reversible_hand_limit/v1/private/mod/fixture.lua": "94f5529cb9e334bfa5bdb2f4ffe435aad4959de376895f5ef508412b4ec34118",
+    "fixtures/tasks/reversible_hand_limit/v1/private/scenario.py": "4ea302715651b536c2130ecf7b44ef890a2ea4dc496aef4e8e7b84b5dd0a0b75",
+    "controls/reversible-hand-limit-v1/gold/joker.lua": "e926fc68cec89cdf4f43a461f7c8b604e5da86ee216cc7cd145edf7f34eff031",
+    "controls/reversible-hand-limit-v1/gold/reversible_hand_limit.json": "1264fc29a23d780bd8b453d4544a73eebeecd3ea608b8a5709dbb62521562e98",
+    "controls/reversible-hand-limit-v1/base/joker.lua": "4cb95095e53b8e803043716a738ad08027c93ab80ffb323e3828a9e23a9da4f7",
+    "controls/reversible-hand-limit-v1/base/reversible_hand_limit.json": "1264fc29a23d780bd8b453d4544a73eebeecd3ea608b8a5709dbb62521562e98",
+    "controls/reversible-hand-limit-v1/M01-double-add/joker.lua": "f0abef1bd3d7a536ecd5b62a588222cb87bff70ab4818d78c48aedc2fdc09777",
+    "controls/reversible-hand-limit-v1/M01-double-add/reversible_hand_limit.json": "1264fc29a23d780bd8b453d4544a73eebeecd3ea608b8a5709dbb62521562e98",
+    "controls/reversible-hand-limit-v1/M02-no-remove/joker.lua": "8dc65bb4d1401575aa81fff6b253a6043e02dcba57c047a5cf4b6e230b83144b",
+    "controls/reversible-hand-limit-v1/M02-no-remove/reversible_hand_limit.json": "1264fc29a23d780bd8b453d4544a73eebeecd3ea608b8a5709dbb62521562e98",
+    "controls/reversible-hand-limit-v1/M03-snapshot-restore/joker.lua": "8d8b5d4d0365d0fd810ee41a9aa6693c970a204e578566ad3ee6cf66e9111b0b",
+    "controls/reversible-hand-limit-v1/M03-snapshot-restore/reversible_hand_limit.json": "1264fc29a23d780bd8b453d4544a73eebeecd3ea608b8a5709dbb62521562e98",
+    "fixtures/tasks/seeded_effect_stream/v1/CASE-MUTATION-MATRIX.md": "2362ebdb29be06bbe072d58db4cda0de3bfb1270b8cdd0fec3eb29ae172f01b7",
+    "fixtures/tasks/seeded_effect_stream/v1/CONTRACT.md": "605548f73d9df347cae304d3b32140a20de9d5473eac6e29ab449202ff325cfc",
+    "fixtures/tasks/seeded_effect_stream/v1/INDEPENDENCE.md": "f08c22f88d54deb300759a3bb8d5c91b9717c900fedc22f1f28e4563095e4b3d",
+    "fixtures/tasks/seeded_effect_stream/v1/private/mod/fixture.json": "3d9d8e48185e8b8a971c62fc352217d674ce7f2947ea6a4399c0fecedab6f5d9",
+    "fixtures/tasks/seeded_effect_stream/v1/private/mod/fixture.lua": "e52eec93e5a7f6c4f5cd78560e54799ea33733a9544d5e39ecedd6e3111d0a42",
+    "fixtures/tasks/seeded_effect_stream/v1/private/native-oracle.json": "19b0d021a198d621ec2a17d1463d009a908e18ecd38deb3811d004e430f816e8",
+    "fixtures/tasks/seeded_effect_stream/v1/private/scenario.py": "a67bae8837fc68d5569879392a3e6c5176605567a8238d7c07daa7556ba15674",
+    "fixtures/tasks/seeded_effect_stream/probe_v1/probe.py": "650a686b5f702e9e85af3e956d83fe70d88e4d9e730a034a069d397bb414da8c",
+    "controls/seeded-effect-stream-v1/gold/joker.lua": "9f505383702b3cfa158c009fe045be4467b558d5e8ca27ac27e8f0071ec03221",
+    "controls/seeded-effect-stream-v1/gold/seeded_effect_stream.json": "c4627b6f56d7e94d7f95a427c1ecda3bd6420fa6ed620fcedc35ca20271362b0",
+    "controls/seeded-effect-stream-v1/base/joker.lua": "fda35dde91757461512cc160eb64918c07ff4a871353d77f01c2da6cbf441426",
+    "controls/seeded-effect-stream-v1/base/seeded_effect_stream.json": "c4627b6f56d7e94d7f95a427c1ecda3bd6420fa6ed620fcedc35ca20271362b0",
+    "controls/seeded-effect-stream-v1/M01-per-card/joker.lua": "110a12fbf4cce59f3cb80f0fc987f57ac0b63c5d9fddf0d0c9813bf0ee6573a5",
+    "controls/seeded-effect-stream-v1/M01-per-card/seeded_effect_stream.json": "c4627b6f56d7e94d7f95a427c1ecda3bd6420fa6ed620fcedc35ca20271362b0",
+    "controls/seeded-effect-stream-v1/M02-repeat-first/joker.lua": "5f5cd297c53425c4104de29b42e6b86754208ba61ef4707314e3ddbc8065f935",
+    "controls/seeded-effect-stream-v1/M02-repeat-first/seeded_effect_stream.json": "c4627b6f56d7e94d7f95a427c1ecda3bd6420fa6ed620fcedc35ca20271362b0",
+    "controls/seeded-effect-stream-v1/M03-score-advances/joker.lua": "deaea717add09c69be4357058a67b3029685c8207cec58138373eaeab8aef608",
+    "controls/seeded-effect-stream-v1/M03-score-advances/seeded_effect_stream.json": "c4627b6f56d7e94d7f95a427c1ecda3bd6420fa6ed620fcedc35ca20271362b0",
+    "fixtures/tasks/bounded_generator/v2/CASE-MUTATION-MATRIX.md": "d439c12a452391c2d77f68e5f8617af40dfc4b177fe9bb9e15f967dd4e1654f9",
+    "fixtures/tasks/bounded_generator/v2/CONTRACT.md": "535d5dfaf2ced61f2103d496a31255bb4053e95206b9ab8ff7217787ba773cfd",
+    "fixtures/tasks/bounded_generator/v2/design-freeze-v1.json": "52e82b4a6b50c8940f3a3ce1e8477c31f4f809a5406542de62419084b6b369d9",
+    "fixtures/tasks/bounded_generator/v2/INDEPENDENCE.md": "1f8bed7f5513e02668cc6c40f207b98458e5f9649855217dfd961a12fc8a3e5d",
+    "fixtures/tasks/bounded_generator/v2/OBSERVATION-NOTE-v1.md": "79f838e6cdbdf639ce4bc82616367368f0ae8300c820bfeaa7c23bb9d6fc5afd",
+    "fixtures/tasks/bounded_generator/v2/private/mod/fixture.json": "23a1157f191fee79aa5f5bf74e6b8a016c7eaacdde13c5e49f0ed6d076ba45f7",
+    "fixtures/tasks/bounded_generator/v2/private/mod/fixture.lua": "ba2512e9e2961449b38fb00c045dc99b1b2e87dcfaff1dd63706f796b596dfd7",
+    "fixtures/tasks/bounded_generator/v2/private/scenario.py": "eb467318170170d7c667e6b9b24ee4041f1df548a828ec80e2a9609c2f9dbd59",
+    "fixtures/tasks/bounded_generator/observation_v1/mod/observer.json": "c30df889c3b7d8a6892048ca76dd33d6d894a84cc7f5dd621b80d5bf57187202",
+    "fixtures/tasks/bounded_generator/observation_v1/mod/observer.lua": "74390e1d300aea0b8b96236859f31a3e61da3911552fd1a8d4c10e19b19637b6",
+    "fixtures/tasks/bounded_generator/observe_v1.py": "ce2dbbc3219f9038efba11ba3e3852f7494d0d2c64bf03e50826036e73eb099c",
+    "fixtures/tasks/bounded_generator/protocol_v1.py": "4114842b7f7124575b13a6995822b60731158c93635920cba9b171d294c55c25",
+    "fixtures/tasks/bounded_generator/v1/private/scenario.py": "75d5d2cafd86449f941dc5e3fa2d5af7138c26e456d21fb3cdce7f38af5de02b",
+    "controls/bounded-generator-v2/gold/bounded_generator_v2.json": "4adc86d82892810a6286ebda91221abb887a1be49b719ae3351a76beb53d86f6",
+    "controls/bounded-generator-v2/gold/lib/generation.lua": "fee0f5a4aa5e3e93b461ac57fbc3d07161fbd454a0bdb4bd0ee37bdc5eeea9e0",
+    "controls/bounded-generator-v2/gold/main.lua": "d07a001732e80766405a27940ca4da46b1da74e95a904c15e85a1c093f4d2a3c",
+    "controls/bounded-generator-v2/base/bounded_generator_v2.json": "4adc86d82892810a6286ebda91221abb887a1be49b719ae3351a76beb53d86f6",
+    "controls/bounded-generator-v2/base/lib/generation.lua": "18b0a98686a158f0880fd8fc11bfa9435c0e980a2131e11b5ccf418818c34fe5",
+    "controls/bounded-generator-v2/base/main.lua": "d07a001732e80766405a27940ca4da46b1da74e95a904c15e85a1c093f4d2a3c",
+    "controls/bounded-generator-v2/M01-min-two-admission/bounded_generator_v2.json": "4adc86d82892810a6286ebda91221abb887a1be49b719ae3351a76beb53d86f6",
+    "controls/bounded-generator-v2/M01-min-two-admission/lib/generation.lua": "e164cbec880d4e33f746f157754cf5296b3bfb22be0f958e2bd56a2ea189a7dd",
+    "controls/bounded-generator-v2/M01-min-two-admission/main.lua": "d07a001732e80766405a27940ca4da46b1da74e95a904c15e85a1c093f4d2a3c",
+    "controls/bounded-generator-v2/M02-fixed-release/bounded_generator_v2.json": "4adc86d82892810a6286ebda91221abb887a1be49b719ae3351a76beb53d86f6",
+    "controls/bounded-generator-v2/M02-fixed-release/lib/generation.lua": "3349a54e0f7fc3a0877605b6ea0c56aafb0009476ac45f3648910806bacc1629",
+    "controls/bounded-generator-v2/M02-fixed-release/main.lua": "d07a001732e80766405a27940ca4da46b1da74e95a904c15e85a1c093f4d2a3c",
+    "controls/bounded-generator-v2/M03-truncate-products/bounded_generator_v2.json": "4adc86d82892810a6286ebda91221abb887a1be49b719ae3351a76beb53d86f6",
+    "controls/bounded-generator-v2/M03-truncate-products/lib/generation.lua": "e06edc8348fdbeae43f84850752fabfe74248a18e18a08c6ea3dcd2bd16fcbb9",
+    "controls/bounded-generator-v2/M03-truncate-products/main.lua": "d07a001732e80766405a27940ca4da46b1da74e95a904c15e85a1c093f4d2a3c",
+    "fixtures/tasks/deck_removal_consistency/v2/CASE-MUTATION-MATRIX.md": "cffafdb2c5e62f074a491ec89b6750487afb2552d07f74e5352c0e6ea73cd6bc",
+    "fixtures/tasks/deck_removal_consistency/v2/CONTRACT.md": "2f6e7e99ebe84425419e45d47e942fa12216b4d437accfc4ec7ca49c77f34918",
+    "fixtures/tasks/deck_removal_consistency/v2/design-freeze-v1.json": "ce8d7b800ee6d2b1d95f320baece5f0054116114588af32aa8a40fea5e0ee62a",
+    "fixtures/tasks/deck_removal_consistency/v2/INDEPENDENCE.md": "8a96ac20b85ced224d7f13cea201789684440b7916cecd1409a34f1f6ab276f8",
+    "fixtures/tasks/deck_removal_consistency/v2/OBSERVATION-ADDENDUM-v1.md": "a1695e025ffb1d3cdaa6dc0970691801b8ad585ffbdd4c4a53b2e67eca464dcd",
+    "fixtures/tasks/deck_removal_consistency/v2/private/mod/fixture.json": "4190c6e9f8e5612524186d074d24fe84ba8e3c34ce473092291c69eb7066e3c5",
+    "fixtures/tasks/deck_removal_consistency/v2/private/mod/fixture.lua": "60a035444af6d3b34c941b98f028ef589554dd8c725fd7a0fbcbd18658cd580a",
+    "fixtures/tasks/deck_removal_consistency/v2/private/scenario.py": "1dddee494794dec108e32fda92e88ef68f768cb80a330df725181f211ce8dbf5",
+    "fixtures/tasks/deck_removal_consistency/probe_v2/protocol.py": "4f186536c6b47b5b4c0bc57764c49692984c12c08b43cc2fbd3537558d1996ca",
+    "fixtures/tasks/deck_removal_consistency/v1/private/scenario.py": "5601975c00bb684c3e4bc891320eee9171f03297d50b89aa1806996cb038a85b",
+    "controls/deck-removal-consistency-v2/gold/deck_removal_consistency_v2.json": "b1c7118eb28048738a9f95ce9a4aff1bbff6f237840b5f037716417dc542c73f",
+    "controls/deck-removal-consistency-v2/gold/lib/lifecycle.lua": "76c779f906c8e72ae723769630f2a8fd38ecf61f246ae42c33402614cf70f928",
+    "controls/deck-removal-consistency-v2/gold/main.lua": "b1d269e26f3720bdff7d75f95ed74342c4661ed6af7508defa053a8e670289dc",
+    "controls/deck-removal-consistency-v2/base/deck_removal_consistency_v2.json": "b1c7118eb28048738a9f95ce9a4aff1bbff6f237840b5f037716417dc542c73f",
+    "controls/deck-removal-consistency-v2/base/lib/lifecycle.lua": "4157cf9eb82ec43e097f62ca0132e7427946e618de264571094745943e120741",
+    "controls/deck-removal-consistency-v2/base/main.lua": "b1d269e26f3720bdff7d75f95ed74342c4661ed6af7508defa053a8e670289dc",
+    "controls/deck-removal-consistency-v2/M01-prefix-targets/deck_removal_consistency_v2.json": "b1c7118eb28048738a9f95ce9a4aff1bbff6f237840b5f037716417dc542c73f",
+    "controls/deck-removal-consistency-v2/M01-prefix-targets/lib/lifecycle.lua": "b16a139c5e38d144bbe0144770377d06ee4214f2321404261a74d86219893c44",
+    "controls/deck-removal-consistency-v2/M01-prefix-targets/main.lua": "b1d269e26f3720bdff7d75f95ed74342c4661ed6af7508defa053a8e670289dc",
+    "controls/deck-removal-consistency-v2/M02-area-only/deck_removal_consistency_v2.json": "b1c7118eb28048738a9f95ce9a4aff1bbff6f237840b5f037716417dc542c73f",
+    "controls/deck-removal-consistency-v2/M02-area-only/lib/lifecycle.lua": "770e47dc9a75f69dffcd4e801535262f733df261ca30d113a202359d56ef81ba",
+    "controls/deck-removal-consistency-v2/M02-area-only/main.lua": "b1d269e26f3720bdff7d75f95ed74342c4661ed6af7508defa053a8e670289dc",
+    "controls/deck-removal-consistency-v2/M03-first-two/deck_removal_consistency_v2.json": "b1c7118eb28048738a9f95ce9a4aff1bbff6f237840b5f037716417dc542c73f",
+    "controls/deck-removal-consistency-v2/M03-first-two/lib/lifecycle.lua": "2ef5a19b2674be231276202e8e4b1b81dd5dd664954f265ab7b5c23703a11a03",
+    "controls/deck-removal-consistency-v2/M03-first-two/main.lua": "b1d269e26f3720bdff7d75f95ed74342c4661ed6af7508defa053a8e670289dc",
+    "fixtures/tasks/live_joker_adjacency/v2/CASE-MUTATION-MATRIX.md": "ce3ec817854955c9ad0dcc154b312eb308cbffc2e24232eea558b40e6cdd6de7",
+    "fixtures/tasks/live_joker_adjacency/v2/CONTRACT.md": "eacae849e509aa507acfe1824f602f419d086b8db224399cd0c3925749faa2ab",
+    "fixtures/tasks/live_joker_adjacency/v2/design-freeze-v1.json": "a5550836627fc79eeb7c02aad8542cf3e548cf1177c4086d58b0af73416091da",
+    "fixtures/tasks/live_joker_adjacency/v2/INDEPENDENCE.md": "ed42c1befaa36dc2c80ffa0054131ff53cae013dbdf1d02a4cbc39a0951d5622",
+    "fixtures/tasks/live_joker_adjacency/v2/private/mod/fixture.json": "7e383857de1584755dbdb49c28a09c08b969f27ff3db6cfa1fa196c28c5e8476",
+    "fixtures/tasks/live_joker_adjacency/v2/private/mod/fixture.lua": "8cbe255bb233375e90d22b0c320e51ed9b8b7eec12491bfe26d76a348338dd54",
+    "fixtures/tasks/live_joker_adjacency/v2/private/scenario.py": "ecafe769fdc989e33f1082762a3fa133a438b6e0b96d0636ddfa118dd680aab0",
+    "fixtures/tasks/live_joker_adjacency/probe_v2/probe.py": "69ed66acdc4cae2feaf2ec5d17a44e5a31639cfe9221e77c01b2a0fb4df83f98",
+    "controls/live-joker-adjacency-v2/gold/lib/adjacency.lua": "7fa3dc91d0291fe3127d303471e5e27fdeb85e3681b64e5338ba6f26680dceab",
+    "controls/live-joker-adjacency-v2/gold/live_joker_adjacency_v2.json": "ab3f5fb8699f434cb7b8d79328e197dc564bb7fbe55e9c9f5699eea30bb671e6",
+    "controls/live-joker-adjacency-v2/gold/main.lua": "dc6c11c5d4691dd44e08b2e09b2c661d9029b3d4fe47ff348ce4bfe46f47c8d1",
+    "controls/live-joker-adjacency-v2/base/lib/adjacency.lua": "d5af27b6dd3e716c1f3b0c857e8777bcfe20b243d26db3f1a9f501eafcc553b3",
+    "controls/live-joker-adjacency-v2/base/live_joker_adjacency_v2.json": "ab3f5fb8699f434cb7b8d79328e197dc564bb7fbe55e9c9f5699eea30bb671e6",
+    "controls/live-joker-adjacency-v2/base/main.lua": "dc6c11c5d4691dd44e08b2e09b2c661d9029b3d4fe47ff348ce4bfe46f47c8d1",
+    "controls/live-joker-adjacency-v2/M01-shared-result/lib/adjacency.lua": "a163091d48f84e808b8da9136d83a8856fbd9f0bf7049cfa8062396e817b6cf8",
+    "controls/live-joker-adjacency-v2/M01-shared-result/live_joker_adjacency_v2.json": "ab3f5fb8699f434cb7b8d79328e197dc564bb7fbe55e9c9f5699eea30bb671e6",
+    "controls/live-joker-adjacency-v2/M01-shared-result/main.lua": "dc6c11c5d4691dd44e08b2e09b2c661d9029b3d4fe47ff348ce4bfe46f47c8d1",
+    "controls/live-joker-adjacency-v2/M02-stale-index/lib/adjacency.lua": "27b99cda87ede1bf88a006eead06b829368be60119e6240161e15b8f8c9068e3",
+    "controls/live-joker-adjacency-v2/M02-stale-index/live_joker_adjacency_v2.json": "ab3f5fb8699f434cb7b8d79328e197dc564bb7fbe55e9c9f5699eea30bb671e6",
+    "controls/live-joker-adjacency-v2/M02-stale-index/main.lua": "dc6c11c5d4691dd44e08b2e09b2c661d9029b3d4fe47ff348ce4bfe46f47c8d1",
+    "controls/live-joker-adjacency-v2/M03-exclude-target/lib/adjacency.lua": "f50e891ec4823750d2b17d89569d36030d8c155f43f5e911df1f2290fb50062e",
+    "controls/live-joker-adjacency-v2/M03-exclude-target/live_joker_adjacency_v2.json": "ab3f5fb8699f434cb7b8d79328e197dc564bb7fbe55e9c9f5699eea30bb671e6",
+    "controls/live-joker-adjacency-v2/M03-exclude-target/main.lua": "dc6c11c5d4691dd44e08b2e09b2c661d9029b3d4fe47ff348ce4bfe46f47c8d1",
+    "controls/live-joker-adjacency-v2/M04-wrap/lib/adjacency.lua": "bf7e15aea3b12c0f4c99f0eed19cdd31d898d165ed51956fe0279133c7831fae",
+    "controls/live-joker-adjacency-v2/M04-wrap/live_joker_adjacency_v2.json": "ab3f5fb8699f434cb7b8d79328e197dc564bb7fbe55e9c9f5699eea30bb671e6",
+    "controls/live-joker-adjacency-v2/M04-wrap/main.lua": "dc6c11c5d4691dd44e08b2e09b2c661d9029b3d4fe47ff348ce4bfe46f47c8d1",
+    "fixtures/tasks/isolated_card_wear/v2/CASE-MUTATION-MATRIX.md": "db47bcbe0661b1e81f14bca407a6f3c48ca9f75b8ca2a986f45cf03a2d5e8ac2",
+    "fixtures/tasks/isolated_card_wear/v2/CONTRACT.md": "41237b1afd578cc72b335bcd9d665cbd6de55f4413c91b34283b6c7469e9a41a",
+    "fixtures/tasks/isolated_card_wear/v2/design-freeze-v1.json": "93830548e3b0326acefc323b5108c2d83f1d9a10b3168718bd1eaf0f2215f6c3",
+    "fixtures/tasks/isolated_card_wear/v2/INDEPENDENCE.md": "c17ad69e064736c640f316b8dbdb7455580874e84b433a7c00fb9cb2e4d8c60c",
+    "fixtures/tasks/isolated_card_wear/v2/private/mod/fixture.json": "af9c3833fb0a64baad23c640f3fc996de5e7eb1800b13d4373ab8a3fd676e0e0",
+    "fixtures/tasks/isolated_card_wear/v2/private/mod/fixture.lua": "b8ffaee8d60f1afa7531771ba31dc1822615bea0c46926239d6eb829683a7621",
+    "fixtures/tasks/isolated_card_wear/v2/private/scenario.py": "0c04263e2efb179185a34a987734907ede500040ae682eeb9fdfbb42feb055c7",
+    "fixtures/tasks/isolated_card_wear/v1/private/scenario.py": "55bf01daed5cd743d1e69d7f19276297c562c53983c0e29b9f866900cc3c4d96",
+    "controls/isolated-card-wear-v2/gold/isolated_card_wear_v2.json": "ffcb3e1e431cb15b528ade520efa12d102febb1537bdf3b02874dc59e154e2e8",
+    "controls/isolated-card-wear-v2/gold/lib/wear.lua": "783f23bb1cd9652b08bce943d7d9d5ad423857c4feff5151534699f14104a2bf",
+    "controls/isolated-card-wear-v2/gold/main.lua": "41c143cbe6c1e6d0e12522a1480c136248e6c51b73f2fa8f3c17abe5a3512ba8",
+    "controls/isolated-card-wear-v2/base/isolated_card_wear_v2.json": "ffcb3e1e431cb15b528ade520efa12d102febb1537bdf3b02874dc59e154e2e8",
+    "controls/isolated-card-wear-v2/base/lib/wear.lua": "afb725856e7eb8609ca29f0f9fc154dc4c9e7249eaab797d184369b8a5aa15d7",
+    "controls/isolated-card-wear-v2/base/main.lua": "41c143cbe6c1e6d0e12522a1480c136248e6c51b73f2fa8f3c17abe5a3512ba8",
+    "controls/isolated-card-wear-v2/M01-stale-cache/isolated_card_wear_v2.json": "ffcb3e1e431cb15b528ade520efa12d102febb1537bdf3b02874dc59e154e2e8",
+    "controls/isolated-card-wear-v2/M01-stale-cache/lib/wear.lua": "b2df5dc4b888569dea337a5287d0264d9252c14d5a6c51a083dfdc362a97a5a8",
+    "controls/isolated-card-wear-v2/M01-stale-cache/main.lua": "41c143cbe6c1e6d0e12522a1480c136248e6c51b73f2fa8f3c17abe5a3512ba8",
+    "controls/isolated-card-wear-v2/M02-last-reward/isolated_card_wear_v2.json": "ffcb3e1e431cb15b528ade520efa12d102febb1537bdf3b02874dc59e154e2e8",
+    "controls/isolated-card-wear-v2/M02-last-reward/lib/wear.lua": "d9e83637c45d2a0301b64b3d0d4057ae97da9d66630c6fa5deb5a7dd0c8a594b",
+    "controls/isolated-card-wear-v2/M02-last-reward/main.lua": "41c143cbe6c1e6d0e12522a1480c136248e6c51b73f2fa8f3c17abe5a3512ba8",
+    "controls/isolated-card-wear-v2/M03-shared-prototype/isolated_card_wear_v2.json": "ffcb3e1e431cb15b528ade520efa12d102febb1537bdf3b02874dc59e154e2e8",
+    "controls/isolated-card-wear-v2/M03-shared-prototype/lib/wear.lua": "f97f55f07a200d7c404f00393d54c86d516f904a537970697742d1487ef2f14b",
+    "controls/isolated-card-wear-v2/M03-shared-prototype/main.lua": "41c143cbe6c1e6d0e12522a1480c136248e6c51b73f2fa8f3c17abe5a3512ba8",
+    "controls/isolated-card-wear-v2/M04-additive-refresh/isolated_card_wear_v2.json": "ffcb3e1e431cb15b528ade520efa12d102febb1537bdf3b02874dc59e154e2e8",
+    "controls/isolated-card-wear-v2/M04-additive-refresh/lib/wear.lua": "2415441e35531866f6b8e5ee33c845fc72f21361d3053cf028abb9c15e35def4",
+    "controls/isolated-card-wear-v2/M04-additive-refresh/main.lua": "41c143cbe6c1e6d0e12522a1480c136248e6c51b73f2fa8f3c17abe5a3512ba8",
+    "fixtures/tasks/durable_charge/v2/API.md": "34f8dd9e308682afba2ebc9e409b5751c3e41f96311d483bb57cc9f362f870c6",
+    "fixtures/tasks/durable_charge/v2/CASE-MUTATION-MATRIX.md": "2f0813807604bff0f8283c220449031b833aa19db118d9e9fe781a202aea1dda",
+    "fixtures/tasks/durable_charge/v2/CONTRACT.md": "da009540c7941ee329b8540eb532129e008455ebc7d4dfc8c880d8f2d97f1a29",
+    "fixtures/tasks/durable_charge/v2/design-freeze-v1.json": "25c6ad8b4a4691761a119c207bd62a2619b2b49a79a4cfc4fa80f912db9b9e06",
+    "fixtures/tasks/durable_charge/v2/INDEPENDENCE.md": "1bcb74a241abfef1dba094dc9fd8cffaa7d8dba3dc42120153482d3c215ad19f",
+    "fixtures/tasks/durable_charge/v2/private/mod/core_cases.lua": "24a1c7460efaa8e742c044ca911d3804b7d94d29ba7bfde51342587bb7713b32",
+    "fixtures/tasks/durable_charge/v2/private/mod/fixture.json": "9470081f7b71597f159e2a603db2c15eca805bbc901c3871d18660f29dd765ca",
+    "fixtures/tasks/durable_charge/v2/private/mod/fixture.lua": "fbd104af991e997972ad13fb9fd074f53570c72a9507196e3859c75a2529452b",
+    "fixtures/tasks/durable_charge/v2/private/oracle.py": "783c628453498391ed8ba0257e6b9114bafa4a01f0dd7c7aec3f90e2fccad605",
+    "fixtures/tasks/durable_charge/v2/private/scenario.py": "fd2177260be711be5a61ab829286be20ad5ca6159d5e28a0132d215b7cb8f864",
+    "fixtures/tasks/durable_charge/v1/private/scenario.py": "bbe587a33f035acb21d668a0412c8fd1168591fae8e2f534fc64b8c3e254c697",
+    "fixtures/tasks/durable_charge/load_diag_v1/mod/diagnostic.lua": "39c47e3ed01208450d1d3d61a0343eee6d0641fef7ade7f64134dd9c46f076e7",
+    "fixtures/tasks/durable_charge/load_diag_v1/mod/load_diag.json": "9b11411c2100e936d0737e059dd5107f4f9b3ecd64821c23bd428de86aa0120c",
+    "fixtures/tasks/durable_charge/load_diag_v1/PROBE.md": "28ebb47cebd27875f35bdf901d280b1afaa4a07cd9616dca3ecb79ae1af6904c",
+    "fixtures/tasks/durable_charge/load_diag_v1/probe.py": "c2be1df1a75b5101f27c76f92fd381b996a9df5bc405e3716ffa0cf305097b5a",
+    "controls/durable-charge-v2/gold/adapter.lua": "297bcd126f2a0bf3fbd54ba9a337e44fd18f910c9a2a06dd0c5d65b21b11144b",
+    "controls/durable-charge-v2/gold/durable_charge_v2.json": "7cbaf462f2e1a1002cc0481166f55907633d260b83b1581e752c1cc09c88a1ed",
+    "controls/durable-charge-v2/gold/lib/ledger.lua": "296d563368cc5e747ce2c68be951dbe39a768f11e9b6e8552ae362c9e4fc8943",
+    "controls/durable-charge-v2/gold/lib/rules.lua": "f7aa59b80ae896853d49d406013ca2e25705f6d09336d6ba40a28ad3798b661e",
+    "controls/durable-charge-v2/gold/main.lua": "fa38a583da559579e0fbca7d89f108b475da93e64cb6c5897d86dc7c1d8eede9",
+    "controls/durable-charge-v2/base/adapter.lua": "bfaf02cd7aec801a3055f51553b76e2a497b5284cb1813e95e4a75a9ae1d949b",
+    "controls/durable-charge-v2/base/durable_charge_v2.json": "7cbaf462f2e1a1002cc0481166f55907633d260b83b1581e752c1cc09c88a1ed",
+    "controls/durable-charge-v2/base/lib/ledger.lua": "1ce31fd53f240cc15a002361cb3fa319a83bee9d4f0c31fb8842ef0519324de1",
+    "controls/durable-charge-v2/base/lib/rules.lua": "224cbd3258b8cc60f2fe5ed4cd2bf0623de26529163dbf15c15c0c66e0c669e2",
+    "controls/durable-charge-v2/base/main.lua": "a6c94963540062539694b86a5863388383b66af1a0ab121740b5f5c9ba85b3a7",
+    "controls/durable-charge-v2/gold-journal/adapter.lua": "7d6d457ad9d9fd6c80b43c2eee28cf4ce813ef78522eb225fb6d79c74f4c9cba",
+    "controls/durable-charge-v2/gold-journal/durable_charge_v2.json": "7cbaf462f2e1a1002cc0481166f55907633d260b83b1581e752c1cc09c88a1ed",
+    "controls/durable-charge-v2/gold-journal/lib/ledger.lua": "66f1d18d80383debc16cb7ce3d5115316124052ebb02ff5645a758f13f79d974",
+    "controls/durable-charge-v2/gold-journal/lib/rules.lua": "224cbd3258b8cc60f2fe5ed4cd2bf0623de26529163dbf15c15c0c66e0c669e2",
+    "controls/durable-charge-v2/gold-journal/main.lua": "a6c94963540062539694b86a5863388383b66af1a0ab121740b5f5c9ba85b3a7",
+    "controls/durable-charge-v2/M01-duplicate/adapter.lua": "7d6d457ad9d9fd6c80b43c2eee28cf4ce813ef78522eb225fb6d79c74f4c9cba",
+    "controls/durable-charge-v2/M01-duplicate/durable_charge_v2.json": "7cbaf462f2e1a1002cc0481166f55907633d260b83b1581e752c1cc09c88a1ed",
+    "controls/durable-charge-v2/M01-duplicate/lib/ledger.lua": "7f251bd0a076e8010547629ae4f12709589b2eea7255c9c993036bb0065f997d",
+    "controls/durable-charge-v2/M01-duplicate/lib/rules.lua": "0f000973895ec7343e2a8333d82caedb4882e3fe887e3c6a609ffd23fc74ebdf",
+    "controls/durable-charge-v2/M01-duplicate/main.lua": "a6c94963540062539694b86a5863388383b66af1a0ab121740b5f5c9ba85b3a7",
+    "controls/durable-charge-v2/M02-snapshot-alias/adapter.lua": "7d6d457ad9d9fd6c80b43c2eee28cf4ce813ef78522eb225fb6d79c74f4c9cba",
+    "controls/durable-charge-v2/M02-snapshot-alias/durable_charge_v2.json": "7cbaf462f2e1a1002cc0481166f55907633d260b83b1581e752c1cc09c88a1ed",
+    "controls/durable-charge-v2/M02-snapshot-alias/lib/ledger.lua": "40a8914a471eb042c3aacb05dc965c350d9a9a4ec9e9ea83ea7c861c06a86b14",
+    "controls/durable-charge-v2/M02-snapshot-alias/lib/rules.lua": "224cbd3258b8cc60f2fe5ed4cd2bf0623de26529163dbf15c15c0c66e0c669e2",
+    "controls/durable-charge-v2/M02-snapshot-alias/main.lua": "a6c94963540062539694b86a5863388383b66af1a0ab121740b5f5c9ba85b3a7",
+    "controls/durable-charge-v2/M03-zero-restore/adapter.lua": "7d6d457ad9d9fd6c80b43c2eee28cf4ce813ef78522eb225fb6d79c74f4c9cba",
+    "controls/durable-charge-v2/M03-zero-restore/durable_charge_v2.json": "7cbaf462f2e1a1002cc0481166f55907633d260b83b1581e752c1cc09c88a1ed",
+    "controls/durable-charge-v2/M03-zero-restore/lib/ledger.lua": "47fe566b676fef878906d9e8df09597dda3586338f06a50b27887d080e48eaef",
+    "controls/durable-charge-v2/M03-zero-restore/lib/rules.lua": "224cbd3258b8cc60f2fe5ed4cd2bf0623de26529163dbf15c15c0c66e0c669e2",
+    "controls/durable-charge-v2/M03-zero-restore/main.lua": "a6c94963540062539694b86a5863388383b66af1a0ab121740b5f5c9ba85b3a7",
+    "controls/durable-charge-v2/M04-restore-pollution/adapter.lua": "7d6d457ad9d9fd6c80b43c2eee28cf4ce813ef78522eb225fb6d79c74f4c9cba",
+    "controls/durable-charge-v2/M04-restore-pollution/durable_charge_v2.json": "7cbaf462f2e1a1002cc0481166f55907633d260b83b1581e752c1cc09c88a1ed",
+    "controls/durable-charge-v2/M04-restore-pollution/lib/ledger.lua": "b79fa04c1adad75481ef183973069ef69298c9672fb6f081388c14b29420cc28",
+    "controls/durable-charge-v2/M04-restore-pollution/lib/rules.lua": "224cbd3258b8cc60f2fe5ed4cd2bf0623de26529163dbf15c15c0c66e0c669e2",
+    "controls/durable-charge-v2/M04-restore-pollution/main.lua": "a6c94963540062539694b86a5863388383b66af1a0ab121740b5f5c9ba85b3a7",
+    "controls/durable-charge-v2/M05-row-restore/adapter.lua": "bfaf02cd7aec801a3055f51553b76e2a497b5284cb1813e95e4a75a9ae1d949b",
+    "controls/durable-charge-v2/M05-row-restore/durable_charge_v2.json": "7cbaf462f2e1a1002cc0481166f55907633d260b83b1581e752c1cc09c88a1ed",
+    "controls/durable-charge-v2/M05-row-restore/lib/ledger.lua": "7f251bd0a076e8010547629ae4f12709589b2eea7255c9c993036bb0065f997d",
+    "controls/durable-charge-v2/M05-row-restore/lib/rules.lua": "224cbd3258b8cc60f2fe5ed4cd2bf0623de26529163dbf15c15c0c66e0c669e2",
+    "controls/durable-charge-v2/M05-row-restore/main.lua": "a6c94963540062539694b86a5863388383b66af1a0ab121740b5f5c9ba85b3a7",
+    "controls/durable-charge-v2/M06-display-only/adapter.lua": "3f11b9b2323676c13cb62194b5c25718289359c0df0da8477dc666069d5ec1f1",
+    "controls/durable-charge-v2/M06-display-only/durable_charge_v2.json": "7cbaf462f2e1a1002cc0481166f55907633d260b83b1581e752c1cc09c88a1ed",
+    "controls/durable-charge-v2/M06-display-only/lib/ledger.lua": "7f251bd0a076e8010547629ae4f12709589b2eea7255c9c993036bb0065f997d",
+    "controls/durable-charge-v2/M06-display-only/lib/rules.lua": "224cbd3258b8cc60f2fe5ed4cd2bf0623de26529163dbf15c15c0c66e0c669e2",
+    "controls/durable-charge-v2/M06-display-only/main.lua": "a6c94963540062539694b86a5863388383b66af1a0ab121740b5f5c9ba85b3a7",
+    "fixtures/tasks/shop_price_coherence/v2/API.md": "930780f75150f42a7c2deabfb4011d9aec93b0602888e3ccafdc4005d5cc3e09",
+    "fixtures/tasks/shop_price_coherence/v2/CASE-MUTATION-MATRIX.md": "36065a8e73f0cd72e257f73ea412d4ab944795430cb96aa6c821b2e29a2b3d7c",
+    "fixtures/tasks/shop_price_coherence/v2/CONTRACT.md": "a3587c3bdf20f5735f16dc6f71b65312637e5802cd9681e97a3fe34c04f3d386",
+    "fixtures/tasks/shop_price_coherence/v2/CONTROL-DESIGN-v1.md": "bcc114462154b9c58a5701a2187ca338d9e7304ae453ba47e4f6cce90cba8313",
+    "fixtures/tasks/shop_price_coherence/v2/controls-authored-v1.json": "4cbb95481853c48e29ee42ae4d50cdcb9177994f65a9ac394ab9efe38ee38487",
+    "fixtures/tasks/shop_price_coherence/v2/design-freeze-v1.json": "48010f8328e393a25b11195fe2c948df4a0674b7e4677bac7fb52e643d571f67",
+    "fixtures/tasks/shop_price_coherence/v2/INDEPENDENCE.md": "676c0c77c161f443ab8c75f04b100351115c17cb1773c636e4822b2f7af5fef2",
+    "fixtures/tasks/shop_price_coherence/v2/private/mod/core_cases.lua": "6dd702dd0008821222e3f2172aaacc152cabf8329f04ed977b10efb045e6880b",
+    "fixtures/tasks/shop_price_coherence/v2/private/mod/fixture.json": "e8361ac11956e6704dcdf92941fec6551d976b56369cbfd967f9935cdf9db52c",
+    "fixtures/tasks/shop_price_coherence/v2/private/mod/fixture.lua": "9a92adc510e744e94ef7363dd370673b41b0ea7ea4518a89238dfec443266e4f",
+    "fixtures/tasks/shop_price_coherence/v2/private/oracle.py": "05566e58badc4236df15e3d467ec3af27961b5b552251d248d2ddda38cc37ade",
+    "fixtures/tasks/shop_price_coherence/v2/private/scenario.py": "cc82efecd25cbaea867ce74e1ec64c04117af4ade6732713b78c4e0921438469",
+    "fixtures/tasks/shop_price_coherence/probe_v2/protocol.py": "f7f20d77411f841e6b784b5e7e306c04ee6c04b5dc179c8e3800541b30243a65",
+    "fixtures/tasks/shop_price_coherence/v1/private/scenario.py": "ed4065f1b50f15d35601221aec68b81ae008947c6054da4c198ce8ee7dc0bee2",
+    "controls/shop-price-coherence-v2/gold/adapter.lua": "d1533a05357eedeba5085fab7d9aefc3716217c1b935ffc94c2234b300cd7bc3",
+    "controls/shop-price-coherence-v2/gold/lib/ledger.lua": "f750e599d9c1288ecf42addf94317bfe6b4ca13c0b2f14d2ca703a08e9ed44b6",
+    "controls/shop-price-coherence-v2/gold/lib/pricing.lua": "bbfd80870a9858167efd9c676c63a92eff7aba3e1707ffd14cbb67d09c346895",
+    "controls/shop-price-coherence-v2/gold/main.lua": "7de53f38224035c053e7cb6dbfa8c3402cf9e006934820e4fe2f71d7fc57b9f7",
+    "controls/shop-price-coherence-v2/gold/shop_price_coherence_v2.json": "5f54926880aa80a79f8450e35821dbe02bb064a185161323e42b783db5034dc0",
+    "controls/shop-price-coherence-v2/base/adapter.lua": "d1533a05357eedeba5085fab7d9aefc3716217c1b935ffc94c2234b300cd7bc3",
+    "controls/shop-price-coherence-v2/base/lib/ledger.lua": "baa323c3ae620f7a8a69fc5c45cff7c2b3438a2de57699eb02057696b4fa08b4",
+    "controls/shop-price-coherence-v2/base/lib/pricing.lua": "a48a63b117e347bba49fdf536b97632bc765ec207ed4072c5d68ac26fc53043a",
+    "controls/shop-price-coherence-v2/base/main.lua": "7de53f38224035c053e7cb6dbfa8c3402cf9e006934820e4fe2f71d7fc57b9f7",
+    "controls/shop-price-coherence-v2/base/shop_price_coherence_v2.json": "5f54926880aa80a79f8450e35821dbe02bb064a185161323e42b783db5034dc0",
+    "controls/shop-price-coherence-v2/gold-ledger/adapter.lua": "d1533a05357eedeba5085fab7d9aefc3716217c1b935ffc94c2234b300cd7bc3",
+    "controls/shop-price-coherence-v2/gold-ledger/lib/ledger.lua": "99d3a6a32b01ff56ac98369f0a7efee0d54c92e32bccd65af21817d3e6ae3aa5",
+    "controls/shop-price-coherence-v2/gold-ledger/lib/pricing.lua": "d9c630f3656236bdafffb6fb1cf7e90e6927d1f5e2a96b38eb42c8220cbb8f7b",
+    "controls/shop-price-coherence-v2/gold-ledger/main.lua": "7de53f38224035c053e7cb6dbfa8c3402cf9e006934820e4fe2f71d7fc57b9f7",
+    "controls/shop-price-coherence-v2/gold-ledger/shop_price_coherence_v2.json": "5f54926880aa80a79f8450e35821dbe02bb064a185161323e42b783db5034dc0",
+    "controls/shop-price-coherence-v2/M01-round-each/adapter.lua": "d1533a05357eedeba5085fab7d9aefc3716217c1b935ffc94c2234b300cd7bc3",
+    "controls/shop-price-coherence-v2/M01-round-each/lib/ledger.lua": "f750e599d9c1288ecf42addf94317bfe6b4ca13c0b2f14d2ca703a08e9ed44b6",
+    "controls/shop-price-coherence-v2/M01-round-each/lib/pricing.lua": "a48a63b117e347bba49fdf536b97632bc765ec207ed4072c5d68ac26fc53043a",
+    "controls/shop-price-coherence-v2/M01-round-each/main.lua": "7de53f38224035c053e7cb6dbfa8c3402cf9e006934820e4fe2f71d7fc57b9f7",
+    "controls/shop-price-coherence-v2/M01-round-each/shop_price_coherence_v2.json": "5f54926880aa80a79f8450e35821dbe02bb064a185161323e42b783db5034dc0",
+    "controls/shop-price-coherence-v2/M02-remove-all/adapter.lua": "d1533a05357eedeba5085fab7d9aefc3716217c1b935ffc94c2234b300cd7bc3",
+    "controls/shop-price-coherence-v2/M02-remove-all/lib/ledger.lua": "90ed9db97d785901ea8fa7014bcd7bf0db04f7c84d0e1a1371656bf3eb21d813",
+    "controls/shop-price-coherence-v2/M02-remove-all/lib/pricing.lua": "bbfd80870a9858167efd9c676c63a92eff7aba3e1707ffd14cbb67d09c346895",
+    "controls/shop-price-coherence-v2/M02-remove-all/main.lua": "7de53f38224035c053e7cb6dbfa8c3402cf9e006934820e4fe2f71d7fc57b9f7",
+    "controls/shop-price-coherence-v2/M02-remove-all/shop_price_coherence_v2.json": "5f54926880aa80a79f8450e35821dbe02bb064a185161323e42b783db5034dc0",
+    "controls/shop-price-coherence-v2/M03-query-consumes/adapter.lua": "d1533a05357eedeba5085fab7d9aefc3716217c1b935ffc94c2234b300cd7bc3",
+    "controls/shop-price-coherence-v2/M03-query-consumes/lib/ledger.lua": "606794e87080cb49730c7ac27b146c978d59ccd120dd26a4208bc1ba50c98efd",
+    "controls/shop-price-coherence-v2/M03-query-consumes/lib/pricing.lua": "bbfd80870a9858167efd9c676c63a92eff7aba3e1707ffd14cbb67d09c346895",
+    "controls/shop-price-coherence-v2/M03-query-consumes/main.lua": "7de53f38224035c053e7cb6dbfa8c3402cf9e006934820e4fe2f71d7fc57b9f7",
+    "controls/shop-price-coherence-v2/M03-query-consumes/shop_price_coherence_v2.json": "5f54926880aa80a79f8450e35821dbe02bb064a185161323e42b783db5034dc0",
+    "controls/shop-price-coherence-v2/M04-stale-accepted/adapter.lua": "d1533a05357eedeba5085fab7d9aefc3716217c1b935ffc94c2234b300cd7bc3",
+    "controls/shop-price-coherence-v2/M04-stale-accepted/lib/ledger.lua": "6f6a24459d21b87e50f4e5b5bac64f8bd2b7a1372207f0aa71f6947664d2494e",
+    "controls/shop-price-coherence-v2/M04-stale-accepted/lib/pricing.lua": "bbfd80870a9858167efd9c676c63a92eff7aba3e1707ffd14cbb67d09c346895",
+    "controls/shop-price-coherence-v2/M04-stale-accepted/main.lua": "7de53f38224035c053e7cb6dbfa8c3402cf9e006934820e4fe2f71d7fc57b9f7",
+    "controls/shop-price-coherence-v2/M04-stale-accepted/shop_price_coherence_v2.json": "5f54926880aa80a79f8450e35821dbe02bb064a185161323e42b783db5034dc0",
+    "controls/shop-price-coherence-v2/M05-never-consume/adapter.lua": "d1533a05357eedeba5085fab7d9aefc3716217c1b935ffc94c2234b300cd7bc3",
+    "controls/shop-price-coherence-v2/M05-never-consume/lib/ledger.lua": "f023b7704010c962d0da62aa45f4515eaa54518f12a4f370fd1bccfed3a7b850",
+    "controls/shop-price-coherence-v2/M05-never-consume/lib/pricing.lua": "bbfd80870a9858167efd9c676c63a92eff7aba3e1707ffd14cbb67d09c346895",
+    "controls/shop-price-coherence-v2/M05-never-consume/main.lua": "7de53f38224035c053e7cb6dbfa8c3402cf9e006934820e4fe2f71d7fc57b9f7",
+    "controls/shop-price-coherence-v2/M05-never-consume/shop_price_coherence_v2.json": "5f54926880aa80a79f8450e35821dbe02bb064a185161323e42b783db5034dc0",
+    "controls/shop-price-coherence-v2/M06-view-alias/adapter.lua": "d1533a05357eedeba5085fab7d9aefc3716217c1b935ffc94c2234b300cd7bc3",
+    "controls/shop-price-coherence-v2/M06-view-alias/lib/ledger.lua": "ca6db8f7eecc255b3342517b107dae2baaac850d14b9bf1bff28c4c909e116e2",
+    "controls/shop-price-coherence-v2/M06-view-alias/lib/pricing.lua": "bbfd80870a9858167efd9c676c63a92eff7aba3e1707ffd14cbb67d09c346895",
+    "controls/shop-price-coherence-v2/M06-view-alias/main.lua": "7de53f38224035c053e7cb6dbfa8c3402cf9e006934820e4fe2f71d7fc57b9f7",
+    "controls/shop-price-coherence-v2/M06-view-alias/shop_price_coherence_v2.json": "5f54926880aa80a79f8450e35821dbe02bb064a185161323e42b783db5034dc0",
+    "controls/shop-price-coherence-v2/M07-no-dedup/adapter.lua": "d1533a05357eedeba5085fab7d9aefc3716217c1b935ffc94c2234b300cd7bc3",
+    "controls/shop-price-coherence-v2/M07-no-dedup/lib/ledger.lua": "b56c49bd0ef2a091ab5122d52834db47bda114f63cdff4f886c676cd5b19b1e0",
+    "controls/shop-price-coherence-v2/M07-no-dedup/lib/pricing.lua": "bbfd80870a9858167efd9c676c63a92eff7aba3e1707ffd14cbb67d09c346895",
+    "controls/shop-price-coherence-v2/M07-no-dedup/main.lua": "7de53f38224035c053e7cb6dbfa8c3402cf9e006934820e4fe2f71d7fc57b9f7",
+    "controls/shop-price-coherence-v2/M07-no-dedup/shop_price_coherence_v2.json": "5f54926880aa80a79f8450e35821dbe02bb064a185161323e42b783db5034dc0",
+    "controls/shop-price-coherence-v2/M08-wrong-category/adapter.lua": "d1533a05357eedeba5085fab7d9aefc3716217c1b935ffc94c2234b300cd7bc3",
+    "controls/shop-price-coherence-v2/M08-wrong-category/lib/ledger.lua": "f750e599d9c1288ecf42addf94317bfe6b4ca13c0b2f14d2ca703a08e9ed44b6",
+    "controls/shop-price-coherence-v2/M08-wrong-category/lib/pricing.lua": "22a08c0ee9dad3e228a6440511762138e4c799598900a68007c1d52c9d14397e",
+    "controls/shop-price-coherence-v2/M08-wrong-category/main.lua": "7de53f38224035c053e7cb6dbfa8c3402cf9e006934820e4fe2f71d7fc57b9f7",
+    "controls/shop-price-coherence-v2/M08-wrong-category/shop_price_coherence_v2.json": "5f54926880aa80a79f8450e35821dbe02bb064a185161323e42b783db5034dc0",
+    "fixtures/tasks/pack_choice_commit/v2/API.md": "873fff80f1fdf6bf705ba413da3eeeb6c8427c9af81bace67c4ab44fb29f0fd4",
+    "fixtures/tasks/pack_choice_commit/v2/CASE-MUTATION-MATRIX.md": "99c3df378bc4f17ca1d71705f0b020c92559804d09a3203198955433c4382f3f",
+    "fixtures/tasks/pack_choice_commit/v2/CONTRACT.md": "ad9fdffa507c677f9b99a006ce92ba076dc584c5caace5e2d2969c13b0469b6c",
+    "fixtures/tasks/pack_choice_commit/v2/design-freeze-v1.json": "c2d002c756d70caf82c6f575c39865e3509f76c48a4bc132e67512148482cfa3",
+    "fixtures/tasks/pack_choice_commit/v2/INDEPENDENCE.md": "53a13c568e9e14b78ec3c65913ad029e74f1de7ca905c82a450a154298b69501",
+    "fixtures/tasks/pack_choice_commit/v2/private/mod/core_cases.lua": "598af273782fbb9d6259012cf8798aa6c2b66a7d37da690aba94110e4809c502",
+    "fixtures/tasks/pack_choice_commit/v2/private/mod/fixture.json": "74e1c8af091fbc95c37c613ea349bf4620f512a52a775b11363e2f2207151b44",
+    "fixtures/tasks/pack_choice_commit/v2/private/mod/fixture.lua": "00f4d914e246c6916755634f9c61d9175daa0f2574bdebe027e9a7c43490294a",
+    "fixtures/tasks/pack_choice_commit/v2/private/oracle.py": "f10aff4b74d9d971cc74753a4323138b76418204eadbe7556b316eff7d0db95e",
+    "fixtures/tasks/pack_choice_commit/v2/private/scenario.py": "78014492db6ad448d71ae21e1712b5f3a14cd97d795aba352784a9c537273463",
+    "fixtures/tasks/pack_choice_commit/probe_v1/probe.py": "198b73e1602b4c70f75bdce9d07a8c2fd6854c82417b830c9a630f9a3d17803d",
+    "fixtures/tasks/pack_choice_commit/v1/private/scenario.py": "5b97d5f1b4e01af5afc396201e3c80c867ee8f03dd54ecae62416c5681305dff",
+    "controls/pack-choice-commit-v2/gold/adapter.lua": "e06112cd4019cfcb5d29a99539e410b9e23d00586ef18354c2d320b6d32ac22c",
+    "controls/pack-choice-commit-v2/gold/lib/ledger.lua": "9a1890deb979ef19a0fd451bae7141d66922f2227aa68ddee92460bfbb3130e8",
+    "controls/pack-choice-commit-v2/gold/lib/transitions.lua": "92730b47b9bac5e9283dbb9f57fa01517f018e4543ee23f9d6b1e91057cb5dcf",
+    "controls/pack-choice-commit-v2/gold/main.lua": "e0c552e6997e23263fabd7d8b7012c5280814eda126ca70ae4373b3bad30e14c",
+    "controls/pack-choice-commit-v2/gold/pack_choice_commit_v2.json": "8f92d5f5c15d0f32fda6409cda0ff70415b6bbe83f9f78be3136562b3f140464",
+    "controls/pack-choice-commit-v2/base/adapter.lua": "b261ed556682a9f61080f0fb403883e82775d17d5be1611a23e1482a7cc77509",
+    "controls/pack-choice-commit-v2/base/lib/ledger.lua": "22dd7efdbc6fc48f3f868ec5dc7c33f51d3042aca1dd1ff916974caac42b5e05",
+    "controls/pack-choice-commit-v2/base/lib/transitions.lua": "d978ecab60d0d2838715ae9d284d387898db1d61b6ecc8ca2503b003fe750fcc",
+    "controls/pack-choice-commit-v2/base/main.lua": "91bc77d36ced325b0330de936d74984642500fa961c728ac79bbbb45f88c7179",
+    "controls/pack-choice-commit-v2/base/pack_choice_commit_v2.json": "8f92d5f5c15d0f32fda6409cda0ff70415b6bbe83f9f78be3136562b3f140464",
+    "controls/pack-choice-commit-v2/gold-journal/adapter.lua": "0fbac7a7555a76f99abba185a069008fa233999daa4b01d3e3f9ac6ce63419e3",
+    "controls/pack-choice-commit-v2/gold-journal/lib/ledger.lua": "5509777d04226e6d2c793075e007f7ff75c11d5a0c631c0e77e48aef1fd8394d",
+    "controls/pack-choice-commit-v2/gold-journal/lib/transitions.lua": "d978ecab60d0d2838715ae9d284d387898db1d61b6ecc8ca2503b003fe750fcc",
+    "controls/pack-choice-commit-v2/gold-journal/main.lua": "91bc77d36ced325b0330de936d74984642500fa961c728ac79bbbb45f88c7179",
+    "controls/pack-choice-commit-v2/gold-journal/pack_choice_commit_v2.json": "8f92d5f5c15d0f32fda6409cda0ff70415b6bbe83f9f78be3136562b3f140464",
+    "controls/pack-choice-commit-v2/M01-preview-reward/adapter.lua": "bfd42d39dda144301eafe438a9cc5070908d54a7f8cff76beb832299464970e2",
+    "controls/pack-choice-commit-v2/M01-preview-reward/lib/ledger.lua": "22dd7efdbc6fc48f3f868ec5dc7c33f51d3042aca1dd1ff916974caac42b5e05",
+    "controls/pack-choice-commit-v2/M01-preview-reward/lib/transitions.lua": "d978ecab60d0d2838715ae9d284d387898db1d61b6ecc8ca2503b003fe750fcc",
+    "controls/pack-choice-commit-v2/M01-preview-reward/main.lua": "91bc77d36ced325b0330de936d74984642500fa961c728ac79bbbb45f88c7179",
+    "controls/pack-choice-commit-v2/M01-preview-reward/pack_choice_commit_v2.json": "8f92d5f5c15d0f32fda6409cda0ff70415b6bbe83f9f78be3136562b3f140464",
+    "controls/pack-choice-commit-v2/M02-shifted-index/adapter.lua": "6a7914d3bea901e92b959fda924037d355a250c843a8c07efbe3bdbfd864f2e7",
+    "controls/pack-choice-commit-v2/M02-shifted-index/lib/ledger.lua": "22dd7efdbc6fc48f3f868ec5dc7c33f51d3042aca1dd1ff916974caac42b5e05",
+    "controls/pack-choice-commit-v2/M02-shifted-index/lib/transitions.lua": "d978ecab60d0d2838715ae9d284d387898db1d61b6ecc8ca2503b003fe750fcc",
+    "controls/pack-choice-commit-v2/M02-shifted-index/main.lua": "91bc77d36ced325b0330de936d74984642500fa961c728ac79bbbb45f88c7179",
+    "controls/pack-choice-commit-v2/M02-shifted-index/pack_choice_commit_v2.json": "8f92d5f5c15d0f32fda6409cda0ff70415b6bbe83f9f78be3136562b3f140464",
+    "controls/pack-choice-commit-v2/M03-close-revocation/adapter.lua": "c43dc3bb4b24ed017275aad67e47c81794de53a866378ec77ef2fcbd1d39ec3f",
+    "controls/pack-choice-commit-v2/M03-close-revocation/lib/ledger.lua": "22dd7efdbc6fc48f3f868ec5dc7c33f51d3042aca1dd1ff916974caac42b5e05",
+    "controls/pack-choice-commit-v2/M03-close-revocation/lib/transitions.lua": "d978ecab60d0d2838715ae9d284d387898db1d61b6ecc8ca2503b003fe750fcc",
+    "controls/pack-choice-commit-v2/M03-close-revocation/main.lua": "91bc77d36ced325b0330de936d74984642500fa961c728ac79bbbb45f88c7179",
+    "controls/pack-choice-commit-v2/M03-close-revocation/pack_choice_commit_v2.json": "8f92d5f5c15d0f32fda6409cda0ff70415b6bbe83f9f78be3136562b3f140464",
+    "controls/pack-choice-commit-v2/M04-global-flags/adapter.lua": "aed78b7a74a439a7b15268209b9cf03c075df41212ab7b35743bec0330992faa",
+    "controls/pack-choice-commit-v2/M04-global-flags/lib/ledger.lua": "22dd7efdbc6fc48f3f868ec5dc7c33f51d3042aca1dd1ff916974caac42b5e05",
+    "controls/pack-choice-commit-v2/M04-global-flags/lib/transitions.lua": "d978ecab60d0d2838715ae9d284d387898db1d61b6ecc8ca2503b003fe750fcc",
+    "controls/pack-choice-commit-v2/M04-global-flags/main.lua": "91bc77d36ced325b0330de936d74984642500fa961c728ac79bbbb45f88c7179",
+    "controls/pack-choice-commit-v2/M04-global-flags/pack_choice_commit_v2.json": "8f92d5f5c15d0f32fda6409cda0ff70415b6bbe83f9f78be3136562b3f140464",
+    "controls/pack-choice-commit-v2/M05-repeat-settle/adapter.lua": "0fbac7a7555a76f99abba185a069008fa233999daa4b01d3e3f9ac6ce63419e3",
+    "controls/pack-choice-commit-v2/M05-repeat-settle/lib/ledger.lua": "22dd7efdbc6fc48f3f868ec5dc7c33f51d3042aca1dd1ff916974caac42b5e05",
+    "controls/pack-choice-commit-v2/M05-repeat-settle/lib/transitions.lua": "d626e78d82ebf66d238ab7b34f5c0b54d147796ce459dab02e6ad94a6fb44814",
+    "controls/pack-choice-commit-v2/M05-repeat-settle/main.lua": "91bc77d36ced325b0330de936d74984642500fa961c728ac79bbbb45f88c7179",
+    "controls/pack-choice-commit-v2/M05-repeat-settle/pack_choice_commit_v2.json": "8f92d5f5c15d0f32fda6409cda0ff70415b6bbe83f9f78be3136562b3f140464",
+    "controls/pack-choice-commit-v2/M06-view-alias/adapter.lua": "0fbac7a7555a76f99abba185a069008fa233999daa4b01d3e3f9ac6ce63419e3",
+    "controls/pack-choice-commit-v2/M06-view-alias/lib/ledger.lua": "0ec66233ad0225de81a196560b483d82c1d59e5270ce379f0097fb47ea0422e7",
+    "controls/pack-choice-commit-v2/M06-view-alias/lib/transitions.lua": "d978ecab60d0d2838715ae9d284d387898db1d61b6ecc8ca2503b003fe750fcc",
+    "controls/pack-choice-commit-v2/M06-view-alias/main.lua": "91bc77d36ced325b0330de936d74984642500fa961c728ac79bbbb45f88c7179",
+    "controls/pack-choice-commit-v2/M06-view-alias/pack_choice_commit_v2.json": "8f92d5f5c15d0f32fda6409cda0ff70415b6bbe83f9f78be3136562b3f140464",
+    "controls/pack-choice-commit-v2/M07-repeat-commit/adapter.lua": "0fbac7a7555a76f99abba185a069008fa233999daa4b01d3e3f9ac6ce63419e3",
+    "controls/pack-choice-commit-v2/M07-repeat-commit/lib/ledger.lua": "22dd7efdbc6fc48f3f868ec5dc7c33f51d3042aca1dd1ff916974caac42b5e05",
+    "controls/pack-choice-commit-v2/M07-repeat-commit/lib/transitions.lua": "9d7bc1f472978bac723a3228fc41aa533a121a4040a8d1fdfb5ef200476a432a",
+    "controls/pack-choice-commit-v2/M07-repeat-commit/main.lua": "91bc77d36ced325b0330de936d74984642500fa961c728ac79bbbb45f88c7179",
+    "controls/pack-choice-commit-v2/M07-repeat-commit/pack_choice_commit_v2.json": "8f92d5f5c15d0f32fda6409cda0ff70415b6bbe83f9f78be3136562b3f140464"
+  },
+  "process_count_provenance": {
+    "basis": "Read against unchanged scenario restart/loop structure, cross-checked with hash-bound historical complete gold records; no historical run is platform evidence",
+    "counts": {
+      "growth-v2": 1,
+      "reversible-hand-limit-v1": 1,
+      "seeded-effect-stream-v1": 4,
+      "bounded-generator-v2": 5,
+      "deck-removal-consistency-v2": 3,
+      "live-joker-adjacency-v2": 2,
+      "isolated-card-wear-v2": 1,
+      "durable-charge-v2": 5,
+      "shop-price-coherence-v2": 3,
+      "pack-choice-commit-v2": 3
+    }
+  }
+}

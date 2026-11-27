@@ -1,0 +1,12 @@
+diff -ruN a/scripts/statuseffects/stack.lua b/scripts/statuseffects/stack.lua
+--- a/scripts/statuseffects/stack.lua	2026-09-22 00:59:18.686420789 +0800
++++ b/scripts/statuseffects/stack.lua	2026-09-22 01:14:26.991006603 +0800
+@@ -101,7 +101,7 @@
+                 end
+                 instance.cursor = upto
+             end
+-            if now < instance.expires_at then
++            if now <= instance.expires_at then
+                 kept[#kept + 1] = instance
+             end
+         end

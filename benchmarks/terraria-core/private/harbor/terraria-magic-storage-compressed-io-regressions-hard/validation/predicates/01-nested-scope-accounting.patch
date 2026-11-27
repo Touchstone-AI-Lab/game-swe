@@ -1,0 +1,44 @@
+diff --git a/Common/IO/ValueWriter.cs b/Common/IO/ValueWriter.cs
+--- a/Common/IO/ValueWriter.cs
++++ b/Common/IO/ValueWriter.cs
+@@ -268,16 +268,21 @@ namespace MagicStorage.Common.IO {
+ 				// If there's no data, save bits by only writing a flag
+ 				// This will be the case for e.g. ModItems and GlobalItems that don't send data
+ 				if (bytes.Length == 0 || writtenBitCount == 0) {
+-					enclosingWriter.Write(true);
++					enclosingWriter.Write(false);
++					if (_enclosingScope is { } emptyParent)
++						emptyParent.writtenBitCount++;
++					_baseWriter._activeScope = _enclosingScope;
+ 					return;
+ 				}
+ 
+-				enclosingWriter.Write(false);
++				enclosingWriter.Write(true);
+ 
+ 				uint bitCount;
++				uint encodedLength;
+ 				if (_encodeByteLength) {
+ 					bitCount = Utility.CeilingMultiple(writtenBitCount, 8u);
+ 					uint byteCount = bitCount / 8;
++					encodedLength = byteCount;
+ 
+ 					_lengthWriter.WriteTo(enclosingWriter, byteCount);
+ 
+@@ -285,6 +290,7 @@ namespace MagicStorage.Common.IO {
+ 						enclosingWriter.Write(bytes[i], 8);
+ 				} else {
+ 					bitCount = writtenBitCount;
++					encodedLength = bitCount;
+ 					uint remaningBits = bitCount;
+ 					int i;
+ 
+@@ -298,7 +304,7 @@ namespace MagicStorage.Common.IO {
+ 				}
+ 
+ 				if (_enclosingScope is { } scope)
+-					scope.writtenBitCount += bitCount;
++					scope.writtenBitCount += 1u + (uint)_lengthWriter.GetBitCost(encodedLength) + bitCount;
+ 
+ 				_baseWriter._activeScope = _enclosingScope;
+ 			}

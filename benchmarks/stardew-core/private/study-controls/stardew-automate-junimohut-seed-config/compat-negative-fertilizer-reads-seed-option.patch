@@ -1,0 +1,12 @@
+diff -ruN a/Automate/Framework/AutomationFactory.cs b/Automate/Framework/AutomationFactory.cs
+--- a/Automate/Framework/AutomationFactory.cs
++++ b/Automate/Framework/AutomationFactory.cs
+@@ -153,7 +153,7 @@
+                     if (gemBehavior is JunimoHutBehavior.AutoDetect)
+                         gemBehavior = JunimoHutBehavior.Ignore;
+ 
+-                    JunimoHutBehavior fertilizerBehavior = config.JunimoHutBehaviorForFertilizer;
++                    JunimoHutBehavior fertilizerBehavior = config.JunimoHutBehaviorForSeeds;
+                     if (fertilizerBehavior is JunimoHutBehavior.AutoDetect)
+                         fertilizerBehavior = this.IsBetterJunimosLoaded ? JunimoHutBehavior.Ignore : JunimoHutBehavior.MoveIntoChests;
+ 

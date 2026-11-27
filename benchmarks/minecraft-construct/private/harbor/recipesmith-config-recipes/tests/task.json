@@ -1,0 +1,52 @@
+{
+  "schemaVersion": 1,
+  "taskId": "recipesmith-config-recipes",
+  "pluginName": "Recipesmith",
+  "build": {
+    "tool": "maven",
+    "wrapper": false,
+    "toolVersion": "3.9.11",
+    "module": null,
+    "assemble": "package",
+    "test": null,
+    "artifact": "target/Recipesmith.jar",
+    "javaRelease": 21,
+    "frozenPaths": [
+      "build.gradle",
+      "build.gradle.kts",
+      "settings.gradle",
+      "settings.gradle.kts",
+      "gradle.properties",
+      "gradle",
+      "gradlew",
+      "gradlew.bat",
+      "pom.xml",
+      ".mvn",
+      "mvnw",
+      "mvnw.cmd",
+      "src/test"
+    ]
+  },
+  "unitCases": [],
+  "serverCases": [
+    "Recipesmith is enabled",
+    "the default recipe file is written and loaded",
+    "plugin.yml declares the recipes command and permission",
+    "shaped recipes craft their result anywhere in the grid",
+    "ingredient lists and tags accept any listed material",
+    "shapeless recipes ignore positions but count items",
+    "cooking and stonecutting recipes carry their settings",
+    "a smelting recipe cooks in a real furnace",
+    "recipes are registered under the plugin namespace",
+    "invalid recipes are skipped with the first reason",
+    "reload removes recipes deleted from the file",
+    "disabled vanilla recipes cannot be crafted",
+    "reload restores vanilla recipes that are no longer disabled",
+    "disable and enable edit the file",
+    "list shows the loaded recipes",
+    "permissions are enforced",
+    "malformed commands show usage",
+    "tagged ingredients craft a MiniMessage-named item with lore"
+  ],
+  "hiddenUnitOverlay": false
+}

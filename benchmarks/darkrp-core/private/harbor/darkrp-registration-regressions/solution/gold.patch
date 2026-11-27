@@ -1,0 +1,79 @@
+--- a/gamemode/modules/base/sh_createitems.lua	2026-09-17 16:14:21.054111882 +0000
++++ b/gamemode/modules/base/sh_createitems.lua
+@@ -492,6 +492,7 @@
+ function DarkRP.createEntityGroup(name, ...)
+     if DarkRP.DARKRP_LOADING and DarkRP.disabledDefaults["doorgroups"][name] then return end
+     RPExtraTeamDoors[name] = {...}
++    RPExtraTeamDoors[name].name = name
+ 
+     maxTeamDoorID = maxTeamDoorID + 1
+     RPExtraTeamDoorIDs[name] = maxTeamDoorID
+@@ -572,7 +573,7 @@
+ 
+     local found = false
+     for k in pairs(DarkRP.getAvailableVehicles()) do
+-        if k == string.lower(vehicle.name) then found = true break end
++        if string.lower(k) == string.lower(vehicle.name) then found = true break end
+     end
+ 
+     local valid, err, hints = DarkRP.validateVehicle(vehicle)
+@@ -665,7 +666,6 @@
+ 
+     for _, v in pairs(agenda.Listeners) do
+         agendas[v] = agenda
+-        break
+     end
+ 
+     for _, v in pairs(istable(agenda.Manager) and agenda.Manager or {agenda.Manager}) do
+@@ -776,6 +776,7 @@
+         local set = disjoint.FindSet(v)
+         if set.name == name then
+             foundSet = set
++            demoteGroups[k] = nil
+         end
+     end
+     hook.Run("onDemoteGroupRemoved", name, foundSet)
+--- a/gamemode/modules/chat/sh_chatcommands.lua	2026-09-17 16:12:10.054530663 +0000
++++ b/gamemode/modules/chat/sh_chatcommands.lua
+@@ -41,6 +41,9 @@
+         name = string.lower(v)
+ 
+         DarkRP.chatCommands[name] = {command = name}
++        setmetatable(DarkRP.chatCommands[name], {
++            __index = DarkRP.chatCommands[command]
++        })
+     end
+ end
+ 
+@@ -54,7 +57,7 @@
+ 
+ function DarkRP.getSortedChatCommands()
+     local tbl = fn.Compose{table.ClearKeys, table.Copy, DarkRP.getChatCommands}()
+-    table.SortByMember(tbl, "command", false)
++    table.SortByMember(tbl, "command", true)
+ 
+     return tbl
+ end
+--- a/gamemode/modules/base/sh_entityvars.lua	2026-09-17 16:12:17.824388754 +0000
++++ b/gamemode/modules/base/sh_entityvars.lua
+@@ -11,6 +11,8 @@
+     -- After a reload, only update the write and read function
+     if DarkRP.RegisteredDarkRPVars[name] then
+         DarkRP.RegisteredDarkRPVars[name].writeFn = writeFn
++        DarkRP.RegisteredDarkRPVars[name].readFn = readFn
++        return
+     end
+ 
+     DarkRP.RegisteredDarkRPVarsMaxId = DarkRP.RegisteredDarkRPVarsMaxId + 1
+--- a/gamemode/modules/doorsystem/sh_doors.lua	2026-09-17 16:12:34.194089089 +0000
++++ b/gamemode/modules/doorsystem/sh_doors.lua
+@@ -142,8 +142,7 @@
+ function DarkRP.registerDoorVar(name, writeFn, readFn)
+     netDoorVarsByName[name] = {name = name, write = writeFn, read = readFn}
+ 
+-    table.insert(netDoorVars, netDoorVarsByName[name])
+-    netDoorVarsByName[name].id = #netDoorVars + 1
++    netDoorVarsByName[name].id = table.insert(netDoorVars, netDoorVarsByName[name])
+ end
+ 
+ if SERVER then

@@ -1,0 +1,4 @@
+control	kind	base	overlay	root	note
+target-negative-skip-disabled-update-only	target-negative	reference	patch:target-negative-skip-disabled-update-only.patch	mindustry	reference, but a disabled conductor still computes heat when its neighbours pull it
+compat-negative-reset-reload-after-shot	compat-negative	reference	patch:compat-negative-reset-reload-after-shot.patch	mindustry	reference plus a reload counter emptied after every shot instead of keeping the remainder
+alternative-a	alternative	starter	tree:alternative-a	mindustry	own repair: reload stops once a shot is loaded, disabled conductors zero their heat in updateHeat, squared-distance range test

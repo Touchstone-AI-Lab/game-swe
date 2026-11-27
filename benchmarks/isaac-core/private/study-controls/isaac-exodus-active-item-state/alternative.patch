@@ -1,0 +1,149 @@
+--- a/main.lua
++++ b/main.lua
+@@ -2902,8 +2902,11 @@
+ 
+ --<<<THE FORBIDDEN FRUIT>>>--
+ function Exodus:forbiddenFruitCache(player, flag)
+-    if player:HasCollectible(ItemId.FORBIDDEN_FRUIT) and flag == CacheFlag.CACHE_DAMAGE then
+-        player.Damage = player.Damage + (math.floor((ItemVariables.FORBIDDEN_FRUIT.UseCount^0.7) * 100)) / 101
++    -- The damage is earned by eating the fruit, so it belongs to the run and not to the inventory slot.
++    local bites = ItemVariables.FORBIDDEN_FRUIT.UseCount
++
++    if flag == CacheFlag.CACHE_DAMAGE and bites > 0 then
++        player.Damage = player.Damage + (math.floor((bites^0.7) * 100)) / 101
+     end
+ end
+ 
+@@ -3562,14 +3565,30 @@
+ Exodus:AddCallback(ModCallbacks.MC_EVALUATE_CACHE, Exodus.cursedMetronomeCache)
+   
+ --<<<TRAGIC MUSHROOM>>>--
++local function tragicMushroomState()
++    local state = ItemVariables.TRAGIC_MUSHROOM
++
++    if state.Doses == nil then
++        state.Doses = 0
++        state.DamageScale = 1
++        state.DamageOffset = 0
++        state.Speed = 0
++        state.Range = 0
++    end
++
++    return state
++end
++
+ function Exodus:tragicMushroomCache(player, flag)
+-    if ItemVariables.TRAGIC_MUSHROOM.Used then
++    local state = tragicMushroomState()
++
++    if state.Doses > 0 then
+         if flag == CacheFlag.CACHE_DAMAGE then
+-            player.Damage = (player.Damage + 0.8) * 2
++            player.Damage = player.Damage * state.DamageScale + state.DamageOffset
+         elseif flag == CacheFlag.CACHE_RANGE then
+-            player.TearHeight = player.TearHeight - 7.25
++            player.TearHeight = player.TearHeight - state.Range
+         elseif flag == CacheFlag.CACHE_SPEED then
+-            player.MoveSpeed = player.MoveSpeed + 0.6
++            player.MoveSpeed = player.MoveSpeed + state.Speed
+         end
+     end
+ end
+@@ -3579,20 +3598,27 @@
+ function Exodus:tragicMushroomUse()
+     local player = Isaac.GetPlayer(0)
+ 
+-    if player:GetMaxHearts() == 2 and player:GetSoulHearts() == 0 then
+-        player:AddHearts(-player:GetHearts())
++    if player:GetPlayerType() == PlayerType.PLAYER_XXX then
++        local maxhp = player:GetSoulHearts() - 2
++        player:AddSoulHearts(-maxhp)
+     else
+-        if player:GetPlayerType() == PlayerType.PLAYER_XXX then
+-            local maxhp = player:GetSoulHearts() - 2
+-            player:AddSoulHearts(-maxhp)
+-        else
+-            local maxhp = player:GetMaxHearts() - 2
+-            player:AddSoulHearts(-player:GetSoulHearts())
+-            player:AddMaxHearts(-maxhp)
+-        end
+-    end
+-    
+-    ItemVariables.TRAGIC_MUSHROOM.Used = true
++        -- Everything is traded for a single red-heart container, and that container is always left full.
++        player:AddSoulHearts(-player:GetSoulHearts())
++        player:AddMaxHearts(2 - player:GetMaxHearts())
++        player:AddHearts(player:GetMaxHearts() - player:GetHearts())
++    end
++    
++    -- Every dose is half as potent as the one before it. The first dose is the original (damage + 0.8) * 2.
++    local state = tragicMushroomState()
++    local potency = 0.5 ^ state.Doses
++    local multiplier = 1 + potency
++    
++    state.Doses = state.Doses + 1
++    state.DamageScale = state.DamageScale * multiplier
++    state.DamageOffset = (state.DamageOffset + 0.8 * potency) * multiplier
++    state.Speed = state.Speed + 0.6 * potency
++    state.Range = state.Range + 7.25 * potency
++    state.Used = true
+     sfx:Play(SoundEffect.SOUND_VAMP_GULP, 1, 0, false, 1)
+     player:AddCacheFlags(CacheFlag.CACHE_DAMAGE + CacheFlag.CACHE_RANGE + CacheFlag.CACHE_SPEED)
+     player:EvaluateItems()
+@@ -5332,6 +5358,7 @@
+     local player = Isaac.GetPlayer(0)
+     
+     ItemVariables.MUTANT_CLOVER.Used = false
++    ItemVariables.MUTANT_CLOVER.RoomLuck = 0
+     player:AddCacheFlags(CacheFlag.CACHE_LUCK)
+     player:EvaluateItems()
+ end
+@@ -5341,7 +5368,7 @@
+ function Exodus:mutantCloverCache(player, flag)
+     if player:HasCollectible(ItemId.MUTANT_CLOVER) and ItemVariables.MUTANT_CLOVER.Used then
+         if flag == CacheFlag.CACHE_LUCK then
+-            player.Luck = player.Luck + 10
++            player.Luck = player.Luck + (ItemVariables.MUTANT_CLOVER.RoomLuck or 0)
+         end
+     end
+ end
+@@ -5351,6 +5378,7 @@
+ function Exodus:mutantCloverUse()
+     local player = Isaac.GetPlayer(0)
+     ItemVariables.MUTANT_CLOVER.Used = true
++    ItemVariables.MUTANT_CLOVER.RoomLuck = (ItemVariables.MUTANT_CLOVER.RoomLuck or 0) + 10
+     player:AddCacheFlags(CacheFlag.CACHE_LUCK)
+     player:EvaluateItems()
+     
+@@ -5689,6 +5717,31 @@
+ 
+ Exodus:AddCallback(ModCallbacks.MC_USE_ITEM, Exodus.anamnesisUse, ItemId.ANAMNESIS)
+ 
++function Exodus:anamnesisChargeUpdate()
++    local player = Isaac.GetPlayer(0)
++    local memory = ItemVariables.ANAMNESIS
++    
++    if memory == nil then
++        memory = { InSlot = false, Charge = 0 }
++        ItemVariables.ANAMNESIS = memory
++    end
++    
++    if player:GetActiveItem() == ItemId.ANAMNESIS then
++        if memory.InSlot then
++            -- While it sits in the slot, whatever it gains or spends is its own.
++            memory.Charge = player:GetActiveCharge()
++        else
++            -- It has just entered the slot: it arrives with its own remembered charge, not the slot's.
++            memory.InSlot = true
++            player:SetActiveCharge(memory.Charge)
++        end
++    else
++        memory.InSlot = false
++    end
++end
++
++Exodus:AddCallback(ModCallbacks.MC_POST_UPDATE, Exodus.anamnesisChargeUpdate)
++
+ --<<<BIRDBATH>>>--
+ function Exodus:birdbathUse()
+     local player = Isaac.GetPlayer(0)

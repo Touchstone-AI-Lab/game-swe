@@ -1,0 +1,7 @@
+name: "transactional-core-router-tests"
+displayName: "Transactional Core Router Private Tests"
+main: "TransactionalCoreRouterTestRunner"
+description: "Private dedicated-server assertions."
+version: "1.0.0"
+minGameVersion: 159
+dependencies: [core-stockpile-router]

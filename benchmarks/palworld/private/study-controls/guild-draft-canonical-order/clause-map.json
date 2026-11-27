@@ -1,0 +1,193 @@
+{
+  "task": "palworld/core/guild-draft-canonical-order",
+  "task_version": "2.0.0",
+  "exam": "benchmarks/palworld/exams/guild-draft-canonical-order.md",
+  "cases": [
+    {
+      "id": "check:required-files",
+      "role": "static"
+    },
+    {
+      "id": "check:lua-syntax",
+      "role": "static"
+    },
+    {
+      "id": "check:implementation-depth",
+      "role": "static"
+    },
+    {
+      "id": "hidden:worst displacement precedes total displacement and lexical order",
+      "role": "target",
+      "clauses": [
+        "optimization"
+      ]
+    },
+    {
+      "id": "hidden:weighted cyclic preferences require a global optimum",
+      "role": "target",
+      "clauses": [
+        "optimization"
+      ]
+    },
+    {
+      "id": "hidden:hard predecessors dominate soft preferences and cycles preserve state",
+      "role": "target",
+      "clauses": [
+        "optimization"
+      ]
+    },
+    {
+      "id": "hidden:baseline retains surviving order then appends new IDs by raw bytes",
+      "role": "target",
+      "clauses": [
+        "optimization"
+      ]
+    },
+    {
+      "id": "hidden:independent permutation oracle checks all objective levels over histories",
+      "role": "target",
+      "clauses": [
+        "optimization"
+      ]
+    },
+    {
+      "id": "hidden:sixteen-item dense tournament cannot use factorial enumeration",
+      "role": "target",
+      "clauses": [
+        "optimization"
+      ]
+    },
+    {
+      "id": "hidden:malformed requests precede stale checks and never update history",
+      "role": "target",
+      "clauses": [
+        "validation"
+      ]
+    },
+    {
+      "id": "hidden:detached recovery revalidates cached optimum and baseline permutations",
+      "role": "target",
+      "clauses": [
+        "recovery"
+      ]
+    },
+    {
+      "id": "check:draft-authority",
+      "role": "target",
+      "clauses": [
+        "integration:draft-authority"
+      ],
+      "note": "source-pattern gate; not execution evidence"
+    },
+    {
+      "id": "check:draft-thread",
+      "role": "target",
+      "clauses": [
+        "integration:draft-thread"
+      ],
+      "note": "source-pattern gate; not execution evidence"
+    },
+    {
+      "id": "check:draft-persistence",
+      "role": "target",
+      "clauses": [
+        "integration:draft-persistence"
+      ],
+      "note": "source-pattern gate; not execution evidence"
+    },
+    {
+      "id": "check:draft-lifecycle",
+      "role": "target",
+      "clauses": [
+        "integration:draft-lifecycle"
+      ],
+      "note": "source-pattern gate; not execution evidence"
+    },
+    {
+      "id": "check:draft-manifest",
+      "role": "target",
+      "clauses": [
+        "integration:draft-manifest"
+      ],
+      "note": "source-pattern gate; not execution evidence"
+    },
+    {
+      "id": "server:real dedicated authority and the native hook API exist",
+      "role": "runtime-sentinel"
+    },
+    {
+      "id": "server:server publishes the complete optimization service",
+      "role": "target",
+      "clauses": [
+        "lifecycle"
+      ]
+    },
+    {
+      "id": "server:server computes canonical plans and rejects infeasible updates atomically",
+      "role": "target",
+      "clauses": [
+        "optimization",
+        "validation"
+      ]
+    },
+    {
+      "id": "server:recovery validates certificates and unmount stops mutation",
+      "role": "target",
+      "clauses": [
+        "recovery",
+        "lifecycle"
+      ]
+    }
+  ],
+  "clauses": [
+    {
+      "id": "optimization",
+      "anchor": "Exact objective and history",
+      "status": "asserted"
+    },
+    {
+      "id": "validation",
+      "anchor": "Required files and API; revision and infeasibility precedence",
+      "status": "asserted"
+    },
+    {
+      "id": "recovery",
+      "anchor": "Snapshot and recovery format",
+      "status": "asserted"
+    },
+    {
+      "id": "lifecycle",
+      "anchor": "UE4SS server service and lifecycle",
+      "status": "asserted"
+    },
+    {
+      "id": "integration:draft-authority",
+      "anchor": "UE4SS server service and lifecycle; draft-authority",
+      "status": "weak"
+    },
+    {
+      "id": "integration:draft-thread",
+      "anchor": "UE4SS server service and lifecycle; draft-thread",
+      "status": "weak"
+    },
+    {
+      "id": "integration:draft-persistence",
+      "anchor": "UE4SS server service and lifecycle; draft-persistence",
+      "status": "weak"
+    },
+    {
+      "id": "integration:draft-lifecycle",
+      "anchor": "UE4SS server service and lifecycle; draft-lifecycle",
+      "status": "weak"
+    },
+    {
+      "id": "integration:draft-manifest",
+      "anchor": "UE4SS server service and lifecycle; draft-manifest",
+      "status": "weak"
+    }
+  ],
+  "excluded_clauses": [],
+  "known_issues": [
+    "The native PlayerController hook registers and unregisters in the engine; a player-triggered callback is not exercised by the headless controls."
+  ]
+}

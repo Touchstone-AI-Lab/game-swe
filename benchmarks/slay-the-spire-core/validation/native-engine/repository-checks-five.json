@@ -1,0 +1,90 @@
+{
+  "tree": "d9c193b783a2f9030e1e9a786e3d15e28ac04fa7",
+  "archive_sha256": "38b4ff9f855f783389689b44c87b3a3bfa49152a34e5e29f718ce259af83e836",
+  "canonical_files": 4850,
+  "checks": [
+    {
+      "name": "targeted",
+      "command": [
+        "/var/tmp/codex-sts-01a0c533/pr16-five-check-venv/bin/pytest",
+        "-q",
+        "tests/test_slay_the_spire_native_assets.py",
+        "tests/test_slay_the_spire_runtime_preparation.py"
+      ],
+      "exit": 0,
+      "log_sha256": "fe9dca0451129aaabdd76ea13e310b61a52091a146a1f9fe5b72b851eb33547f"
+    },
+    {
+      "name": "ruff",
+      "command": [
+        "/var/tmp/codex-sts-01a0c533/pr16-five-check-venv/bin/ruff",
+        "check",
+        "src",
+        "plugins",
+        "providers",
+        "tests",
+        "tools/authoring",
+        "tools/study",
+        "benchmarks/slay-the-spire-core/private/native-runtime"
+      ],
+      "exit": 0,
+      "log_sha256": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18"
+    },
+    {
+      "name": "mypy",
+      "command": [
+        "/var/tmp/codex-sts-01a0c533/pr16-five-check-venv/bin/mypy",
+        "src",
+        "plugins",
+        "providers",
+        "tests",
+        "benchmarks/slay-the-spire-core/private/native-runtime"
+      ],
+      "exit": 0,
+      "log_sha256": "7eb4120d06ce3e4d6b76e8fe90d6ce47493cbd73fb2053133e2f25fdac418fdb"
+    },
+    {
+      "name": "pytest",
+      "command": [
+        "/var/tmp/codex-sts-01a0c533/pr16-five-check-venv/bin/pytest",
+        "-q",
+        "-rs"
+      ],
+      "exit": 0,
+      "log_sha256": "5411c4cd942b86fa49395b418c9a06256d20c69a69408047e3d1d2a381d6d17f"
+    }
+  ],
+  "passed": 1207,
+  "skipped": 15,
+  "collected": 1222,
+  "shells": 17,
+  "fresh_checkout_files": 4850,
+  "web": {
+    "validated": true,
+    "node_version": "v25.2.1",
+    "package_lock_sha256": "81deb996da643310371920aa9613a28cf8ed62d9bfa295c74c02f946fafa392c",
+    "checks": [
+      {
+        "check": "install",
+        "exit": 0,
+        "log_sha256": "660e21300cf01ce361ce0c34669948764dee40f057f52597e08c331c6b6b9868"
+      },
+      {
+        "check": "lint",
+        "exit": 0,
+        "log_sha256": "98202b87e4d50b8182adafc8fe8dca4e890052bb18f98ee457e96dd46dccf469"
+      },
+      {
+        "check": "test",
+        "exit": 0,
+        "log_sha256": "e58a7819e9512af0372ad1bca7984cadb6cdf290cc9eb53fc993862cbb2a7c00"
+      },
+      {
+        "check": "build",
+        "exit": 0,
+        "log_sha256": "8c94ea88402288a0d87cfe7eb873a81a7166e9ab96acfc991ff7cb963a581fa3"
+      }
+    ],
+    "scope": "Unchanged Web source copied to disposable Windows workspace; npm ci uses the existing lock. No source, dependency lock or repository build output changed."
+  }
+}

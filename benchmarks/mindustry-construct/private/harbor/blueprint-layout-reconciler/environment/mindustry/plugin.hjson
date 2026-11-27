@@ -1,0 +1,5 @@
+name: "layout-reconciler"
+displayName: "Blueprint Layout Reconciler"
+main: "BlueprintReconcilerPlugin"
+version: "1.0.0"
+minGameVersion: 159

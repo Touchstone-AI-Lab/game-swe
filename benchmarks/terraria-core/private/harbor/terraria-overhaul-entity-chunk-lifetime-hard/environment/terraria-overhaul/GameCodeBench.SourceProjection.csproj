@@ -1,0 +1,19 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <LangVersion>latest</LangVersion>
+    <ImplicitUsings>disable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
+    <AssemblyName>TerrariaOverhaul.EntityChunks.SourceProjection</AssemblyName>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="Core/Data/DataStorage.cs" />
+    <Compile Include="Core/Data/SparseSet.cs" />
+    <Compile Include="Core/Data/Entities.cs" />
+    <Compile Include="Core/Chunks/Chunks.cs" />
+    <Compile Include="Utilities/BitMasks.cs" />
+    <Compile Include="GameCodeBench/ProjectionStubs.cs" />
+  </ItemGroup>
+</Project>

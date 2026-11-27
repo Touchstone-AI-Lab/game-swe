@@ -1,0 +1,157 @@
+diff -u a/wire/lua/entities/gmod_wire_expression2/base/compiler.lua b/wire/lua/entities/gmod_wire_expression2/base/compiler.lua
+--- a/wire/lua/entities/gmod_wire_expression2/base/compiler.lua
++++ b/wire/lua/entities/gmod_wire_expression2/base/compiler.lua
+@@ -1422,7 +1422,7 @@
+ 
+ 				local ret = newE2Table()
+ 				ret.n = array
+-				ret.ntypes = argtypes
++				ret.ntypes = { unpack(argtypes, 1, len) }
+ 				ret.size = len
+ 				return ret
+ 			end, "t"
+diff -u a/wire/lua/entities/gmod_wire_expression2/core/array.lua b/wire/lua/entities/gmod_wire_expression2/core/array.lua
+--- a/wire/lua/entities/gmod_wire_expression2/core/array.lua
++++ b/wire/lua/entities/gmod_wire_expression2/core/array.lua
+@@ -218,11 +218,20 @@
+ 
+ 			-- indexOf
+ 
++			local function sameValue(a, b)
++				if a == b then return true end
++				if not istable(a) or not istable(b) or #a == 0 or #a ~= #b then return false end
++				for i = 1, #a do
++					if a[i] ~= b[i] then return false end
++				end
++				return true
++			end
++
+ 			registerFunction("indexOf", "r:" .. id, "n", function(self, args)
+ 				local arr, val = args[1], args[2]
+ 				local l = #arr
+ 				for i = 1, l do
+-					if arr[i] == val then
++					if sameValue(arr[i], val) then
+ 						self.prf = self.prf + i
+ 						return i
+ 					end
+diff -u a/wire/lua/entities/gmod_wire_expression2/core/complex.lua b/wire/lua/entities/gmod_wire_expression2/core/complex.lua
+--- a/wire/lua/entities/gmod_wire_expression2/core/complex.lua
++++ b/wire/lua/entities/gmod_wire_expression2/core/complex.lua
+@@ -16,24 +16,12 @@
+ local atan2 = math.atan2
+ 
+ local function format(value)
+-	local dbginfo
++	local re, im = Round(value[1]*1000)/1000, Round(value[2]*1000)/1000
+ 
+-	if abs(value[1]) < 0 then
+-		if abs(value[2]) < 0 then
+-			dbginfo = "0"
+-		else
+-			dbginfo = Round(value[2]*1000)/1000 .. "i"
+-		end
+-	else
+-		if value[2] > 0 then
+-			dbginfo = Round(value[1]*1000)/1000 .. "+" .. Round(value[2]*1000)/1000 .. "i"
+-		elseif abs(value[2]) <= 0 then
+-			dbginfo = Round(value[1]*1000)/1000
+-		elseif value[2] < 0 then
+-			dbginfo = Round(value[1]*1000)/1000 .. Round(value[2]*1000)/1000 .. "i"
+-		end
+-	end
+-	return dbginfo
++	if value[2] == 0 then return tostring(re) end
++	if value[1] == 0 then return im .. "i" end
++	if value[2] > 0 then return re .. "+" .. im .. "i" end
++	return re .. im .. "i"
+ end
+ WireLib.registerDebuggerFormat("COMPLEX", format)
+ 
+diff -u a/wire/lua/entities/gmod_wire_expression2/core/number.lua b/wire/lua/entities/gmod_wire_expression2/core/number.lua
+--- a/wire/lua/entities/gmod_wire_expression2/core/number.lua
++++ b/wire/lua/entities/gmod_wire_expression2/core/number.lua
+@@ -600,7 +600,8 @@
+ 
+ [nodiscard]
+ e2function string toString(number number, number base)
+-	return tobase(number, base, self)
++	local whole = number < 0 and -math.floor(-number) or math.floor(number)
++	return tobase(whole, math.floor(base), self)
+ end
+ 
+ [nodiscard]
+diff -u a/wire/lua/entities/gmod_wire_expression2/core/string.lua b/wire/lua/entities/gmod_wire_expression2/core/string.lua
+--- a/wire/lua/entities/gmod_wire_expression2/core/string.lua
++++ b/wire/lua/entities/gmod_wire_expression2/core/string.lua
+@@ -120,7 +120,7 @@
+ __e2setcost(1)
+ 
+ e2function string toChar(number n)
+-	if n < 0 or n > 255 then return self:throw("Invalid argument (" .. n .. ") (must be between 0 and 255)", "") end
++	if not (n >= 0 and n <= 255) then return self:throw("Invalid argument (" .. n .. ") (must be between 0 and 255)", "") end
+ 	return string_char(n)
+ end
+ 
+@@ -139,7 +139,7 @@
+ e2function string toUnicodeChar(number byte)
+ 	-- upper limit used to be 2097152, new limit acquired using pcall and a for loop
+ 	-- above this limit, the function causes a lua error
+-	if byte < 1 or byte > 1114112 then return self:throw("Invalid argument (" .. byte .. ") (must be between 1 and 1,114,112)", "") end
++	if not (byte >= 1 and byte <= 1114112) then return self:throw("Invalid argument (" .. byte .. ") (must be between 1 and 1,114,112)", "") end
+ 	return utf8_char(byte)
+ end
+ 
+diff -u a/wire/lua/entities/gmod_wire_expression2/core/vector.lua b/wire/lua/entities/gmod_wire_expression2/core/vector.lua
+--- a/wire/lua/entities/gmod_wire_expression2/core/vector.lua
++++ b/wire/lua/entities/gmod_wire_expression2/core/vector.lua
+@@ -469,38 +469,19 @@
+ 	return Vector(rx1 % (rx1 >= 0 and rx2 or -rx2), ry1 % (ry1 >= 0 and ry2 or -ry2), rz1 % (rz1 >= 0 and rz2 or -rz2))
+ end
+ 
++local function clampComponent(v, lo, hi)
++	if v < lo then return lo end
++	if v > hi then return hi end
++	return v
++end
++
+ --- Clamp according to limits defined by two min/max vectors
+ e2function vector clamp(vector value, vector min, vector max)
+-	local x, y, z
+-	local rx1, ry1, rz1 = value:Unpack()
+-	local rx2, ry2, rz2 = min:Unpack()
+-	local rx3, ry3, rz3 = max:Unpack()
+-
+-	if rx1 < rx2 then
+-		p = rx2
+-	elseif rx1 > rx3 then
+-		p = rx3
+-	else
+-		p = rx1
+-	end
+-
+-	if ry1 < ry2 then
+-		y = ry2
+-	elseif ry1 > ry3 then
+-		y = ry3
+-	else
+-		y = ry1
+-	end
+-
+-	if rz1 < rz2 then
+-		r = rz2
+-	elseif rz1 > rz3 then
+-		r = rz3
+-	else
+-		r = rz1
+-	end
+-
+-	return Vector(x, y, z)
++	return Vector(
++		clampComponent(value[1], min[1], max[1]),
++		clampComponent(value[2], min[2], max[2]),
++		clampComponent(value[3], min[3], max[3])
++	)
+ end
+ 
+ e2function vector lerp(vector from, vector to, fraction)

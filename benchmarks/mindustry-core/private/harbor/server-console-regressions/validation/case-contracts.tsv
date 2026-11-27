@@ -1,0 +1,11 @@
+case	layer	role	public_report
+the server console answers status	server	sentinel	status answers on the pinned server, which starts without a game
+host with a map name starts that map	server	preserved	host Ancient_Caldera hosts the map and stop stops it
+pause refuses to run without a game	server	preserved	pause without a game refuses with the usual message
+pause on and pause off set the requested state	server	target	repeated pause on stays paused and repeated pause off stays running
+shuffle reports the selected mode	server	preserved	shuffle <mode> sets and shuffle reports the mode
+host without a map while shuffling is off keeps the console working	server	target	host without a map under shuffle none does not throw and leaves the server stopped
+pardon of an unknown ID reports an error	server	preserved	pardon of an unknown ID answers That ID can't be found.
+pardon lets a kicked player connect again	server	target	pardon clears the kick recorded on the player's last address
+bans can be listed and lifted in one session	server	preserved	ban ip, bans and unban work within one session
+player records survive a server restart	server	target	player records and ID bans are read back after a restart

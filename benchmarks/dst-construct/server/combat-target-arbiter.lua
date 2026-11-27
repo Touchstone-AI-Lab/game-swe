@@ -1,0 +1,41 @@
+local function fighter(id)
+    local entity = CreateEntity()
+    entity.entity:AddTransform()
+    entity:AddTag("_combat")
+    entity._rhenium_id = id
+    entity:AddComponent("health")
+    entity.components.health:SetMaxHealth(100)
+    entity:AddComponent("combat")
+    return entity
+end
+
+return function(ctx)
+    ctx:case("server combat arbiter is attached", function()
+        assert(TheWorld.ismastersim)
+        assert(TheWorld.components.combattargetarbiter ~= nil, "world is missing combattargetarbiter")
+    end)
+
+    ctx:case("real combat component receives chosen target", function()
+        local service = assert(TheWorld.components.combattargetarbiter)
+        assert(type(service.Track) == "function")
+        assert(type(service.ObserveDamage) == "function" and type(service.Reconcile) == "function")
+        local source, target = fighter("server-source"), fighter("server-target")
+        source.Transform:SetPosition(0, 0, 0); target.Transform:SetPosition(1, 0, 0)
+        assert(service:Track(source, "server-source") ~= false)
+        assert(service:Track(target, "server-target") ~= false)
+        assert(service:ObserveDamage(source, target, 20, 1) ~= false)
+        service:Reconcile(source)
+        assert(source.components.combat.target == target, "combat:SetTarget was not applied")
+        target:PushEvent("death")
+        service:Reconcile(source)
+        assert(source.components.combat.target ~= target, "dead target remained selected")
+        source:Remove(); target:Remove()
+    end)
+
+    ctx:case("arbiter state persists", function()
+        local service = assert(TheWorld.components.combattargetarbiter)
+        local data = service:OnSave(); assert(type(data) == "table")
+        service:OnLoad(data)
+        assert(type(service:OnSave()) == "table")
+    end)
+end

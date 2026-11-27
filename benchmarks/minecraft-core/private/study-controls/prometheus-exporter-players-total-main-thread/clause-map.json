@@ -1,0 +1,388 @@
+{
+  "task": "minecraft/core/prometheus-exporter-players-total-main-thread",
+  "task_version": "0.2.0",
+  "exam": "benchmarks/minecraft-core/exams/prometheus-exporter-players-total-main-thread.md",
+  "cases": [
+    {
+      "id": "check:submission-shape",
+      "role": "static",
+      "clauses": [
+        "scope-1"
+      ],
+      "overlap": false,
+      "note": "required files present, no symlinks or compiled artifacts"
+    },
+    {
+      "id": "check:offline-build",
+      "role": "static",
+      "clauses": [
+        "scope-1",
+        "scope-2"
+      ],
+      "overlap": false,
+      "note": "repository builds offline after frozen paths are restored"
+    },
+    {
+      "id": "server:plugin is enabled",
+      "role": "runtime-sentinel",
+      "clauses": [],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "server:scrape returns the expected metric families",
+      "role": "preserved",
+      "clauses": [
+        "task-5",
+        "task-7"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "server:players_total reports every known player",
+      "role": "preserved",
+      "clauses": [
+        "task-3"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "server:players_total is collected without the main thread",
+      "role": "target",
+      "clauses": [
+        "task-1"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "server:scrape completes while the main thread is busy",
+      "role": "target",
+      "clauses": [
+        "task-2"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "server:world-state metrics are still collected on the main thread",
+      "role": "preserved",
+      "clauses": [
+        "task-4"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "server:a disabled metric is left out of the scrape",
+      "role": "preserved",
+      "clauses": [
+        "task-6",
+        "task-7"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "unit:de.sldk.mc.exporter.PrometheusExporterTest.metrics_server_should_return_404_on_unknown_paths",
+      "role": "preserved",
+      "clauses": [
+        "scope-3"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "unit:de.sldk.mc.exporter.PrometheusExporterTest.metrics_server_should_return_valid_prometheus_response",
+      "role": "preserved",
+      "clauses": [
+        "scope-3"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "unit:de.sldk.mc.metrics.EntitiesTest.expectArmorStandAliveToBeFalse",
+      "role": "preserved",
+      "clauses": [
+        "scope-3"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "unit:de.sldk.mc.metrics.EntitiesTest.givenTypedEntitiesExpectCorrectCount",
+      "role": "preserved",
+      "clauses": [
+        "scope-3"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "unit:de.sldk.mc.metrics.EntitiesTest.givenUnknownTypeExpectNoError",
+      "role": "preserved",
+      "clauses": [
+        "scope-3"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "unit:de.sldk.mc.metrics.PlayerStatisticLoaderFromFileTest.get_custom_world",
+      "role": "preserved",
+      "clauses": [
+        "scope-3"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "unit:de.sldk.mc.metrics.PlayerStatisticLoaderFromFileTest.get_default_world",
+      "role": "preserved",
+      "clauses": [
+        "scope-3"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "unit:de.sldk.mc.metrics.PlayerStatisticLoaderFromFileTest.use_world_as_fallback_world",
+      "role": "preserved",
+      "clauses": [
+        "scope-3"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "unit:de.sldk.mc.metrics.PlayerStatisticsTest.bukkit_api_statistics_should_be_loaded_if_available",
+      "role": "preserved",
+      "clauses": [
+        "scope-3"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "unit:de.sldk.mc.metrics.PlayerStatisticsTest.file_statistics_should_be_used_as_fallback",
+      "role": "preserved",
+      "clauses": [
+        "scope-3"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "unit:de.sldk.mc.metrics.PlayerStatisticsTest.constructor_does_not_load_statistics_from_file",
+      "role": "preserved",
+      "clauses": [
+        "scope-3"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "unit:de.sldk.mc.metrics.VillagersTest.givenVillagersExpectCorrectCount",
+      "role": "preserved",
+      "clauses": [
+        "scope-3"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "unit:de.sldk.mc.metrics.WorldSizeTest.setsMetricWithCorrectNameAndLabel",
+      "role": "preserved",
+      "clauses": [
+        "scope-3"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "unit:de.sldk.mc.metrics.WorldSizeTest.doesNotThrowIfFileDoesNotExist",
+      "role": "preserved",
+      "clauses": [
+        "scope-3"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "unit:de.sldk.mc.metrics.WorldSizeTest.setsCorrectWorldSizeValue",
+      "role": "preserved",
+      "clauses": [
+        "scope-3"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "unit:de.sldk.mc.metrics.WorldSizeTest.doesNotPopulateMetricIfFileDoesNotExist",
+      "role": "preserved",
+      "clauses": [
+        "scope-3"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "unit:de.sldk.mc.tps.TpsCollectorTest.test_optimal_ticks",
+      "role": "preserved",
+      "clauses": [
+        "scope-3"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "unit:de.sldk.mc.tps.TpsCollectorTest.test_invalid_ticks_should_be_ignored",
+      "role": "preserved",
+      "clauses": [
+        "scope-3"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "unit:de.sldk.mc.tps.TpsCollectorTest.test_slow_ticks",
+      "role": "preserved",
+      "clauses": [
+        "scope-3"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "unit:de.sldk.mc.tps.TpsCollectorTest.test_default_value_before_first_poll",
+      "role": "preserved",
+      "clauses": [
+        "scope-3"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "unit:de.sldk.mc.utils.PathFileSizeTest$WhenPathDoesNotExist.returnsSizeZero",
+      "role": "preserved",
+      "clauses": [
+        "scope-3"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "unit:de.sldk.mc.utils.PathFileSizeTest$WhenPathIsDirectory.returnsSizeOfMultipleFiles",
+      "role": "preserved",
+      "clauses": [
+        "scope-3"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "unit:de.sldk.mc.utils.PathFileSizeTest$WhenPathIsDirectory.returnsSizeOfSingleFile",
+      "role": "preserved",
+      "clauses": [
+        "scope-3"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "unit:de.sldk.mc.utils.PathFileSizeTest$WhenPathIsDirectory.returnSizeOfNestedDirectories",
+      "role": "preserved",
+      "clauses": [
+        "scope-3"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "unit:de.sldk.mc.utils.PathFileSizeTest$WhenPathIsDirectory.returnsZeroIfDirectoryIsEmpty",
+      "role": "preserved",
+      "clauses": [
+        "scope-3"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "unit:de.sldk.mc.utils.PathFileSizeTest$WhenPathIsFile.returnsZeroIfFileIsEmpty",
+      "role": "preserved",
+      "clauses": [
+        "scope-3"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "unit:de.sldk.mc.utils.PathFileSizeTest$WhenPathIsNull.shouldThrowException",
+      "role": "preserved",
+      "clauses": [
+        "scope-3"
+      ],
+      "overlap": false,
+      "note": ""
+    }
+  ],
+  "clauses": [
+    {
+      "id": "task-1",
+      "anchor": "Task, first bullet: collecting the registered PlayersTotal metric needs no main-thread work",
+      "status": "asserted"
+    },
+    {
+      "id": "task-2",
+      "anchor": "Task, second bullet: with every other metric disabled a scrape completes while the main thread is busy",
+      "status": "asserted"
+    },
+    {
+      "id": "task-3",
+      "anchor": "Task, third bullet: mc_players_total keeps reporting the number of players known to the server",
+      "status": "asserted"
+    },
+    {
+      "id": "task-4",
+      "anchor": "Task, fourth bullet: world, chunk and entity metrics keep being collected on the main thread",
+      "status": "asserted"
+    },
+    {
+      "id": "task-5",
+      "anchor": "Task, fifth bullet: a normal scrape keeps returning the default metric families",
+      "status": "asserted"
+    },
+    {
+      "id": "task-6",
+      "anchor": "Task, sixth bullet: a disabled metric is left out of the scrape and returns after enable()",
+      "status": "asserted"
+    },
+    {
+      "id": "task-7",
+      "anchor": "Task, closing paragraph: MetricRegistry and the Metric enable/disable/isEnabled/collect contract are kept",
+      "status": "weak",
+      "note": "exercised through the sentinel, the scrape and the disable cases"
+    },
+    {
+      "id": "scope-1",
+      "anchor": "Task, closing paragraph: keep the change inside plugin/src/main",
+      "status": "weak",
+      "note": "only enforced through the build and the restored frozen paths"
+    },
+    {
+      "id": "scope-2",
+      "anchor": "Task, closing paragraph: pom.xml and the existing tests are frozen",
+      "status": "asserted"
+    },
+    {
+      "id": "scope-3",
+      "anchor": "Task, closing paragraph: every existing upstream test must keep passing",
+      "status": "asserted"
+    }
+  ],
+  "excluded_clauses": [],
+  "known_issues": []
+}

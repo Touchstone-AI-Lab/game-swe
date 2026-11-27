@@ -1,0 +1,115 @@
+{
+  "task": "garrys-mod/darkrp/darkrp-money-regressions",
+  "task_version": "1.0.0",
+  "exam": "benchmarks/darkrp-core/exams/darkrp-money-regressions.md",
+  "cases": [
+    {
+      "id": "case:sentinel: the gamemode and its money API are loaded",
+      "role": "runtime-sentinel"
+    },
+    {
+      "id": "case:control: a whole amount larger than the wallet is not affordable",
+      "role": "preserved",
+      "clauses": [
+        "preserve"
+      ]
+    },
+    {
+      "id": "case:A: an amount just above the wallet is not affordable",
+      "role": "target",
+      "clauses": [
+        "[#6101]"
+      ]
+    },
+    {
+      "id": "case:B: the wallet notification reports the balance before the change",
+      "role": "target",
+      "clauses": [
+        "[#6104]"
+      ]
+    },
+    {
+      "id": "case:C: a very large money bag still holds a positive amount",
+      "role": "target",
+      "clauses": [
+        "[#6107]"
+      ]
+    },
+    {
+      "id": "case:D: money a player dropped is recognised as money",
+      "role": "target",
+      "clauses": [
+        "[#6110]"
+      ]
+    },
+    {
+      "id": "case:E: a wallet is unharmed by an amount that is not a number",
+      "role": "target",
+      "clauses": [
+        "[#6113]"
+      ]
+    },
+    {
+      "id": "case:F: a limit of zero lets a player keep placing the thing",
+      "role": "target",
+      "clauses": [
+        "[#6116]"
+      ]
+    },
+    {
+      "id": "case:G: paying another player moves the money to that player",
+      "role": "target",
+      "clauses": [
+        "[#6119]"
+      ]
+    },
+    {
+      "id": "check:submission-shape",
+      "role": "static"
+    }
+  ],
+  "clauses": [
+    {
+      "id": "preserve",
+      "anchor": "behavior the unchanged starter already provides",
+      "status": "asserted"
+    },
+    {
+      "id": "[#6101]",
+      "anchor": "exam report [#6101]",
+      "status": "asserted"
+    },
+    {
+      "id": "[#6104]",
+      "anchor": "exam report [#6104]",
+      "status": "asserted"
+    },
+    {
+      "id": "[#6107]",
+      "anchor": "exam report [#6107]",
+      "status": "asserted"
+    },
+    {
+      "id": "[#6110]",
+      "anchor": "exam report [#6110]",
+      "status": "asserted"
+    },
+    {
+      "id": "[#6113]",
+      "anchor": "exam report [#6113]",
+      "status": "asserted"
+    },
+    {
+      "id": "[#6116]",
+      "anchor": "exam report [#6116]",
+      "status": "asserted"
+    },
+    {
+      "id": "[#6119]",
+      "anchor": "exam report [#6119]",
+      "status": "asserted"
+    }
+  ],
+  "excluded_clauses": [],
+  "known_issues": []
+}

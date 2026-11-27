@@ -1,0 +1,12 @@
+diff -ru a/src/main/java/com/example/coinledger/LedgerSettings.java b/src/main/java/com/example/coinledger/LedgerSettings.java
+--- a/src/main/java/com/example/coinledger/LedgerSettings.java
++++ b/src/main/java/com/example/coinledger/LedgerSettings.java
+@@ -28,7 +28,7 @@
+ 
+     /** The fee for a transfer of {@code amount} cents, rounded down to the cent. */
+     public long feeFor(long amount) {
+-        return hasFeeAccount() ? amount * feePercent / 100 : 0;
++        return hasFeeAccount() ? Math.round(amount * feePercent / 100.0) : 0;
+     }
+ 
+     public String format(long cents) {

@@ -1,0 +1,92 @@
+{
+  "task": "stardew-valley/core/stardew-cp-i18n-case",
+  "task_version": "1.1.0",
+  "exam": "benchmarks/stardew-core/exams/stardew-cp-i18n-case.md",
+  "cases": [
+    {
+      "id": "check:submission-shape",
+      "role": "static",
+      "clauses": [],
+      "overlap": false,
+      "note": "Evaluator file gate: StardewMods/ exists, required files present, no symlinks."
+    },
+    {
+      "id": "case:sentinel: the pack's patches apply and ordinary text is unchanged",
+      "role": "preserved",
+      "clauses": [
+        "Problem-ordinary-text"
+      ],
+      "overlap": false,
+      "note": "P in the unchanged starter. The probe asset must contain the literal entry static=constant (proves the fixture pack loaded and its EditData patch applied) and greeting=Howdy (an ordinary {{i18n}} translation, unchanged)."
+    },
+    {
+      "id": "case:a translation reading \"True\" keeps its capital T",
+      "role": "target",
+      "clauses": [
+        "Problem-True",
+        "Task-1"
+      ],
+      "overlap": false,
+      "note": "probe[flag] must equal \"True\" exactly."
+    },
+    {
+      "id": "case:a translation reading \"FALSE\" keeps its upper case",
+      "role": "target",
+      "clauses": [
+        "Problem-FALSE",
+        "Task-1"
+      ],
+      "overlap": false,
+      "note": "probe[negative] must equal \"FALSE\" exactly."
+    }
+  ],
+  "clauses": [
+    {
+      "id": "Problem-True",
+      "anchor": "Problem, paragraph 1, sentence 2: \"My i18n file has \\\"affirmative\\\": \\\"True\\\" and the token inserts `true`\"",
+      "status": "asserted",
+      "note": "Exact string comparison on the patched asset."
+    },
+    {
+      "id": "Problem-FALSE",
+      "anchor": "Problem, paragraph 1, sentence 3: \"Same with \\\"FALSE\\\" becoming `false`\"",
+      "status": "asserted",
+      "note": "Exact string comparison on the patched asset."
+    },
+    {
+      "id": "Task-1",
+      "anchor": "Task, sentence 1: \"return translation text exactly as written, including for translations whose entire text happens to match words Content Patcher treats specially elsewhere\"",
+      "status": "weak",
+      "note": "Only the two boolean spellings from the report are probed. The starter also rewrites the title-case seasons (\"Spring\", \"Summer\", \"Fall\", \"Winter\" -> lowercase, ContentPatcher/Framework/InvariantSets.cs:147-150) and whitespace-padded booleans (bool.TryParse trims); a fix that special-cases booleans passes 3/3 while those stay broken."
+    },
+    {
+      "id": "Problem-ordinary-text",
+      "anchor": "Problem, paragraph 1, sentence 4: \"`\\\"True enough\\\"` comes through untouched, and so does every normal sentence\"",
+      "status": "asserted",
+      "note": "One ordinary word (\"Howdy\"); the exam's own example \"True enough\" is not in the probe pack. Also discoverable in the starter: ContentPatcher/docs/author-guide/translations.md:17-18 documents that the `i18n` token returns the stored translation text."
+    },
+    {
+      "id": "Task-preserve-token-features",
+      "anchor": "Task, sentence 2: \"Token behavior otherwise — defaults, placeholders, tokens inside translations — must not change.\"",
+      "status": "unasserted",
+      "note": "tests/probe-pack uses no default argument, no missing key (placeholder) and no named token arguments, so none of the three enumerated behaviors is exercised. Excluded from contract measurement. The reference itself changes this area (see known_issues)."
+    },
+    {
+      "id": "Notes-3",
+      "anchor": "Notes, bullet 3: \"Do not modify anything under `/tests`\"",
+      "status": "unasserted",
+      "note": "Enforced by construction (pack tests and probe pack are bind-mounted read-only), not by a case."
+    }
+  ],
+  "excluded_clauses": [
+    "Task-preserve-token-features",
+    "Notes-3"
+  ],
+  "known_issues": [
+    "The reference is not minimal with respect to the public contract: private/harbor/stardew-cp-i18n-case/solution/gold.patch (upstream 994f8504) also removes the LastGender context tracking, switches to TranslationHelper.Get(key, tokens) and adds .ApplyGenderSwitchBlocks(false) in TranslationValueProvider.cs. That changes 'tokens inside translations' / gender-switch behavior, which the exam says must not change. No case observes it, so it neither helps nor hurts the score, but the reference cannot be used as the oracle for Task-preserve-token-features.",
+    "Preserved coverage is one string: private/harbor/stardew-cp-i18n-case/tests/SuiteI18nCase.cs:39-46. Defaults, placeholders and tokens inside translations (the contracts the exam names) have no probe entry in tests/probe-pack/content.json, so a compat regression there is invisible.",
+    "Task-1 generalization is unprobed: tests/probe-pack/i18n/default.json holds only \"True\", \"FALSE\" and \"Howdy\". A boolean-only special case is indistinguishable from the general fix (see control target-negative-dotnet-bool-strings-only for the converse: handling only \"True\"/\"False\" is caught by the FALSE case).",
+    "All three cases are GcbCase.Sync bodies without waits (SuiteI18nCase.cs:27-29), so the wait-predicate fix in private/harbor/harness/GcbHarness/Framework/SuiteRunner.cs:80-96 cannot affect this suite. The prepared evaluator image recorded in runtimeIdentity (sha256:879319eb1073...) still bakes the pre-fix SuiteRunner at /opt/gcb/harness.",
+    "The three cases read the same asset in the same tick of the same boot; they are three assertions over one patch application, not independent runs."
+  ]
+}

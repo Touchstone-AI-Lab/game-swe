@@ -1,0 +1,2 @@
+import mindustry.mod.Plugin;
+public final class WaveBudgetPlannerPlugin extends Plugin { private static WaveBudgetPlannerPlugin INSTANCE; private final WaveBudgetPlanner core=new WaveBudgetPlanner(new WaveBudgetPlanner.Policy(12, 10, 10)); public WaveBudgetPlannerPlugin(){INSTANCE=this;} public static WaveBudgetPlannerPlugin instance(){return INSTANCE;} public WaveBudgetPlanner core(){return core;} public Object exportState(){return core.save();} }

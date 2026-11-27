@@ -1,0 +1,143 @@
+diff --git b/entities/entities/spawned_money/init.lua a/entities/entities/spawned_money/init.lua
+index 863f0575..8dc747fb 100644
+--- b/entities/entities/spawned_money/init.lua
++++ a/entities/entities/spawned_money/init.lua
+@@ -15,7 +15,9 @@ function ENT:Initialize()
+ 
+     local phys = self:GetPhysicsObject()
+ 
+-    phys:Wake()
++    if phys:IsValid() then
++        phys:Wake()
++    end
+ end
+ 
+ function ENT:Use(activator, caller)
+diff --git b/gamemode/modules/base/sh_createitems.lua a/gamemode/modules/base/sh_createitems.lua
+index 6c0c3b64..0094d7e3 100644
+--- b/gamemode/modules/base/sh_createitems.lua
++++ a/gamemode/modules/base/sh_createitems.lua
+@@ -482,6 +482,7 @@ function DarkRP.removeJob(i)
+     local job = RPExtraTeams[i]
+     jobByCmd[job.command] = nil
+ 
++    DarkRP.removeChatCommand("vote" .. job.command)
+     removeCustomItem(RPExtraTeams, "jobs", "onJobRemoved", true, i)
+ end
+ 
+@@ -739,8 +740,7 @@ function DarkRP.createAmmoType(ammoType, name, model, price, amountGiven, custom
+ 
+     ammo.customCheck = ammo.customCheck and fp{DarkRP.simplerrRun, ammo.customCheck}
+     ammo.CustomCheckFailMsg = isfunction(ammo.CustomCheckFailMsg) and fp{DarkRP.simplerrRun, ammo.CustomCheckFailMsg} or ammo.CustomCheckFailMsg
+-    table.insert(gm.AmmoTypes, ammo)
+-    ammo.id = #gm.AmmoTypes - 1
++    ammo.id = table.insert(gm.AmmoTypes, ammo)
+ 
+     DarkRP.addToCategory(ammo, "ammo", ammo.category)
+ end
+@@ -813,6 +813,7 @@ local function insertCategory(destination, tbl)
+         if cat.name ~= tbl.name then continue end
+ 
+         destination[k] = tbl
++        tbl.members = cat.members
+         return
+     end
+ 
+@@ -837,7 +838,7 @@ function DarkRP.createCategory(tbl)
+     -- Too many people made the mistake of not creating a category for weapons as well as shipments
+     -- when having shipments that can also be sold separately.
+     if tbl.categorises == "shipments" then
+-        insertCategory(categories.weapons, tbl)
++        insertCategory(categories.weapons, table.Copy(tbl))
+     end
+ end
+ 
+diff --git b/gamemode/modules/fadmin/fadmin/access/sv_init.lua a/gamemode/modules/fadmin/fadmin/access/sv_init.lua
+index 2bdea332..df5b1379 100644
+--- b/gamemode/modules/fadmin/fadmin/access/sv_init.lua
++++ a/gamemode/modules/fadmin/fadmin/access/sv_init.lua
+@@ -200,10 +200,11 @@ function FAdmin.Access.SetRoot(ply, cmd, args) -- FAdmin setroot player. Sets th
+     for _, target in ipairs(targets) do
+         if not IsValid(target) then continue end
+ 
++        local target_previous_group = target:GetUserGroup()
+         FAdmin.Access.PlayerSetGroup(target, "superadmin")
+ 
+         -- An end user changed the usergroup. Register with CAMI
+-        CAMI.SignalUserGroupChanged(target, target:GetUserGroup(), "superadmin", "FAdmin")
++        CAMI.SignalUserGroupChanged(target, target_previous_group, "superadmin", "FAdmin")
+ 
+         FAdmin.Messages.SendMessage(ply, 2, "User set to superadmin!")
+     end
+@@ -366,10 +367,11 @@ function FAdmin.Access.SetAccess(ply, cmd, args)
+     for _, target in ipairs(targets) do
+         if not IsValid(target) then continue end
+ 
++        local target_previous_group = target:GetUserGroup()
+         FAdmin.Access.PlayerSetGroup(target, args[2])
+ 
+         -- An end user changed the usergroup. Register with CAMI
+-        CAMI.SignalUserGroupChanged(target, target:GetUserGroup(), args[2], "FAdmin")
++        CAMI.SignalUserGroupChanged(target, target_previous_group, args[2], "FAdmin")
+     end
+ 
+     FAdmin.Messages.SendMessage(ply, 4, "User access set!")
+diff --git b/gamemode/modules/hitmenu/sh_init.lua a/gamemode/modules/hitmenu/sh_init.lua
+index b0f4b0bc..99a509af 100644
+--- b/gamemode/modules/hitmenu/sh_init.lua
++++ a/gamemode/modules/hitmenu/sh_init.lua
+@@ -19,7 +19,7 @@ function plyMeta:getHitPrice()
+ end
+ 
+ function DarkRP.addHitmanTeam(job)
+-    if not job then return end
++    if not job or not RPExtraTeams[job] then return end
+     if DarkRP.DARKRP_LOADING and DarkRP.disabledDefaults["hitmen"][RPExtraTeams[job].command] then return end
+ 
+     hitmanTeams[job] = true
+diff --git b/gamemode/modules/jobs/sv_jobs.lua a/gamemode/modules/jobs/sv_jobs.lua
+index aa6468f1..55f8b8e8 100644
+--- b/gamemode/modules/jobs/sv_jobs.lua
++++ a/gamemode/modules/jobs/sv_jobs.lua
+@@ -195,7 +195,7 @@ function meta:updateJob(job)
+     self.LastJob = CurTime()
+ 
+     local timerid = self:SteamID64() .. "jobtimer"
+-    
++
+     timer.Create(timerid, GAMEMODE.Config.paydelay, 0, function()
+         if not IsValid(self) then
+             timer.Remove(timerid)
+@@ -307,6 +307,10 @@ local function FinishDemote(vote, choice)
+ end
+ 
+ local function Demote(ply, args)
++    if #args == 0 then
++        DarkRP.notify(ply, 1, 4, DarkRP.getPhrase("unable", "/demote", ""))
++        return ""
++    end
+     if #args == 1 then
+         DarkRP.notify(ply, 1, 4, DarkRP.getPhrase("vote_specify_reason"))
+         return ""
+@@ -330,7 +334,7 @@ local function Demote(ply, args)
+     end
+ 
+     if not p then
+-        DarkRP.notify(ply, 1, 4, DarkRP.getPhrase("could_not_find", tostring(args)))
++        DarkRP.notify(ply, 1, 4, DarkRP.getPhrase("could_not_find", args and args[1]))
+         return ""
+     end
+ 
+diff --git b/gamemode/modules/voting/sv_questions.lua a/gamemode/modules/voting/sv_questions.lua
+index a9978b7d..65b38014 100644
+--- b/gamemode/modules/voting/sv_questions.lua
++++ a/gamemode/modules/voting/sv_questions.lua
+@@ -51,6 +51,8 @@ function DarkRP.createQuestion(question, quesid, ent, delay, callback, fromPly,
+ end
+ 
+ function DarkRP.destroyQuestion(id)
++    local question = Questions[id]
++    if not question then return end
+ 
+     umsg.Start("KillQuestionVGUI", question.Ent)
+         umsg.String(question.ID)

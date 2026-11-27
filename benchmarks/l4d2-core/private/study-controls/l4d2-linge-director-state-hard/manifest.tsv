@@ -1,0 +1,5 @@
+control	kind	base	overlay	root	note
+tn-dispatch-snapshot-unfixed	target-negative	reference	patch:tn-dispatch-snapshot-unfixed.patch	linge-hud	reference whose LinEventTrigger walks the live callback list instead of the list captured when the dispatch began (report 4 unrepaired; validation/candidates.py minus-report-4)
+tn-quantity-ceiling-unfixed	target-negative	reference	patch:tn-quantity-ceiling-unfixed.patch	linge-hud	reference whose 31-special ceiling is an else-branch of the minimum again, so a simin above 31 wins (report 8 unrepaired; minus-report-8)
+cn-duplicate-registrations-collapsed	compat-negative	reference	patch:cn-duplicate-registrations-collapsed.patch	linge-hud	reference whose LinEventHook ignores a callback/callOf pair that is already registered, breaking the explicitly preserved duplicate registrations
+alternative-sorted-index-snapshot	alternative	starter	patch:alternative-sorted-index-snapshot.patch	linge-hud	validation/candidates.py alternative: sorted-index array reconstruction, explicitly built subscriber snapshot, per-section bulk save and set-based whitelist dedup; the other repairs are the oracle's

@@ -1,0 +1,193 @@
+{
+  "validated": true,
+  "matrix_audit_sha256": "9e220628a82b135e7192cb9f5628fec8136934b299523fe51359ea787b878bbe",
+  "fairness_review_sha256": "58d06877e954bee4b0b5be73080554e33e12fd97708f0c1d880962a0341d61bd",
+  "matrix_results": [
+    {
+      "variant": "base",
+      "passed": 13,
+      "expected": 32,
+      "complete": true,
+      "entrypoint_exit": 0,
+      "failed_case_ids": [
+        "chain",
+        "enter-direct",
+        "enter-key",
+        "enter-throw-true",
+        "followup-key-clear",
+        "followup-key-phase-clear",
+        "followup-phase-clear",
+        "followup-phase-key-clear",
+        "hide-direct",
+        "hide-key",
+        "hide-throw-true",
+        "invalid-direct",
+        "invalid-key",
+        "latest-request",
+        "reopen-cycle",
+        "reopen-true-false",
+        "reset-direct",
+        "reset-key",
+        "reset-throw-true"
+      ],
+      "matches_prediction": true
+    },
+    {
+      "variant": "gold",
+      "passed": 32,
+      "expected": 32,
+      "complete": true,
+      "entrypoint_exit": 0,
+      "failed_case_ids": [],
+      "matches_prediction": true
+    },
+    {
+      "variant": "alternative",
+      "passed": 32,
+      "expected": 32,
+      "complete": true,
+      "entrypoint_exit": 0,
+      "failed_case_ids": [],
+      "matches_prediction": true
+    },
+    {
+      "variant": "navigation-only",
+      "passed": 24,
+      "expected": 32,
+      "complete": true,
+      "entrypoint_exit": 0,
+      "failed_case_ids": [
+        "followup-key-clear",
+        "followup-key-phase-clear",
+        "followup-phase-clear",
+        "followup-phase-key-clear",
+        "invalid-direct",
+        "invalid-key",
+        "reopen-cycle",
+        "reopen-true-false"
+      ],
+      "matches_prediction": true
+    },
+    {
+      "variant": "reopen-only",
+      "passed": 15,
+      "expected": 32,
+      "complete": true,
+      "entrypoint_exit": 0,
+      "failed_case_ids": [
+        "chain",
+        "enter-direct",
+        "enter-key",
+        "enter-throw-true",
+        "followup-key-clear",
+        "followup-key-phase-clear",
+        "followup-phase-clear",
+        "followup-phase-key-clear",
+        "hide-direct",
+        "hide-key",
+        "hide-throw-true",
+        "invalid-direct",
+        "invalid-key",
+        "latest-request",
+        "reset-direct",
+        "reset-key",
+        "reset-throw-true"
+      ],
+      "matches_prediction": true
+    },
+    {
+      "variant": "followup-only",
+      "passed": 17,
+      "expected": 32,
+      "complete": true,
+      "entrypoint_exit": 0,
+      "failed_case_ids": [
+        "chain",
+        "enter-direct",
+        "enter-key",
+        "enter-throw-true",
+        "hide-direct",
+        "hide-key",
+        "hide-throw-true",
+        "invalid-direct",
+        "invalid-key",
+        "latest-request",
+        "reopen-cycle",
+        "reopen-true-false",
+        "reset-direct",
+        "reset-key",
+        "reset-throw-true"
+      ],
+      "matches_prediction": true
+    },
+    {
+      "variant": "invalid-only",
+      "passed": 15,
+      "expected": 32,
+      "complete": true,
+      "entrypoint_exit": 0,
+      "failed_case_ids": [
+        "chain",
+        "enter-direct",
+        "enter-key",
+        "enter-throw-true",
+        "followup-key-clear",
+        "followup-key-phase-clear",
+        "followup-phase-clear",
+        "followup-phase-key-clear",
+        "hide-direct",
+        "hide-key",
+        "hide-throw-true",
+        "latest-request",
+        "reopen-cycle",
+        "reopen-true-false",
+        "reset-direct",
+        "reset-key",
+        "reset-throw-true"
+      ],
+      "matches_prediction": true
+    }
+  ],
+  "formal_audit_sha256": "f406646d24a7abb6e97ffd4555288540f688b74888c9270acd305a17bc155f00",
+  "formal_controls": [
+    {
+      "agent": "nop",
+      "trial": "basemod-phase-transitions-r1__CnJxc8x",
+      "passed": 13,
+      "expected": 32,
+      "reward": 0,
+      "verifier_fingerprints": {
+        "test-stdout.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "nonce.txt": "7c925c487679d444fb347f26a7eb56f21f7bd10e4e0a0b67a254b35a05597eb6",
+        "engine.log": "7ed6a1cd5e637a15ea3006ce19728d242cbf869714fd91af5ca6a0e2c8071d80",
+        "reward.txt": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+        "result.json": "9b7de61fc9dd89164e12fd3dffcc42b99d47dc0a88a0ad6e042cc586ee33dede",
+        "probe.txt": "17a2ffb6364847fd832b4a76f461c64e93028c31dbe831d07e71500f532f8a24",
+        "probe-build.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "entrypoint-exit.txt": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+        "build.log": "dfdfb37b2b5528533ea187a14449f06f28ed08cf9766bbd0b490e6c1aab3f79c",
+        "build-exit.txt": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+      }
+    },
+    {
+      "agent": "oracle",
+      "trial": "basemod-phase-transitions-r1__tr62rNy",
+      "passed": 32,
+      "expected": 32,
+      "reward": 1,
+      "verifier_fingerprints": {
+        "test-stdout.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "nonce.txt": "2cfa79f606d4f3fbec0727043919338d1b3154b81c37ad8984141698a4efc8a3",
+        "engine.log": "6f5c7e762148a13e66c35bc00dac5cb40632d6d8e88e540489767c1dfe1ffb4c",
+        "reward.txt": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865",
+        "result.json": "69aac98ed285ed7fa5faf33ae8c722b9af9077ade83acfcd693c1c75b306ac7e",
+        "probe.txt": "a89e3424cec182b0b5c2c960b3b17b739bd263170a9bfd34babbed61bfe0f107",
+        "probe-build.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "entrypoint-exit.txt": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+        "build.log": "cfb3c3f904c1b284440e815c293de4667a77aedcfe92c8f8631cb1f339fc426c",
+        "build-exit.txt": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+      }
+    }
+  ],
+  "scope": "Historical complete native-runtime controls, including an independently different passing repair. Raw runtime logs remain local; source and receipt hashes identify the frozen evidence."
+}

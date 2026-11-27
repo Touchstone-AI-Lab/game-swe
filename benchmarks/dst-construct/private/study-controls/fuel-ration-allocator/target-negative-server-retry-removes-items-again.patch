@@ -1,0 +1,13 @@
+--- a/scripts/components/fuelration.lua
++++ b/scripts/components/fuelration.lua
+@@ -131,10 +131,6 @@
+         return reject("invalid_id")
+     end
+     -- A retry must replay the first outcome without touching the inventory again.
+-    local recorded = self.allocator:lookup(request_id, userid)
+-    if recorded ~= nil then
+-        return recorded
+-    end
+     local units = count * per_item
+     if self.allocator:snapshot(0).free < units then
+         return reject("depot_full")

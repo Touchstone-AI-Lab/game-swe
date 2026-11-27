@@ -1,0 +1,11 @@
+--- a/Zombieland/Source/Patches.cs
++++ b/Zombieland/Source/Patches.cs
+@@ -75,7 +75,7 @@
+ 			static void Postfix(Pawn ___pawn, ref float __result)
+ 			{
+ 				if (ShouldHaveFullCapacity(___pawn))
+-					__result = Mathf.Max(1f, __result);
++					__result = 1f;
+ 			}
+ 		}
+ 

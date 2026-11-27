@@ -1,0 +1,97 @@
+{
+  "schema_version": 1,
+  "validated": true,
+  "catalog_version": "1.6.0",
+  "task": "mts-load-order-regressions-r2",
+  "harness": "Rhenium Hub full profile; the unchanged r1 JUnit suite runs inside the real Steam game launched by the submitted ModTheSpire in networkless Linux containers",
+  "fairness_review_sha256": "b7f90419999ca08360c3776664896ca3d6729e666674dbcab56c7c35325bb6b3",
+  "task_files_sha256": "30ef0eff48d962a7416e8e7e3623297fd7cb7b5a01cc4badb72aaa316f26750e",
+  "runtime_fingerprint": "36b2ca9bb29b68548e74989fb1b0ef4485e664fdec5ec963cad33909c67a5f1d",
+  "runtime_identity": "sha256:35734326104936802a5b7473936c3ef58976284ab97f21bd754a4dc5795798f8",
+  "matrix_results": [
+    {
+      "variant": "base",
+      "passed": 5,
+      "expected": 9,
+      "complete": true,
+      "failed_case_ids": [
+        "gcb.ByRefBoxingTest.byRefWritesBackThroughAWrapperArray",
+        "gcb.LoadOrderTest.aChainOfDependenciesResolves",
+        "gcb.LoadOrderTest.aDependencyIsInitialisedBeforeItsDependent",
+        "gcb.LoadOrderTest.anEdgeIntoTheNewestModTakesEffect"
+      ],
+      "matches_prediction": true,
+      "run_id": "run-a93ac6b66cd84dcb",
+      "status": "failed",
+      "score": 10.0,
+      "receipt_sha256": "8f0f6677bd7f12bcacfe0f2e768278e93069bbda77fac39dfc72d62badcd238a"
+    },
+    {
+      "variant": "gold",
+      "passed": 9,
+      "expected": 9,
+      "complete": true,
+      "failed_case_ids": [],
+      "matches_prediction": true,
+      "run_id": "run-9178b51b67af4991",
+      "status": "passed",
+      "score": 100.0,
+      "receipt_sha256": "5e1abbb94c1f28d4331bd1f31f41390ee087d536069dc1314e59224350d0564b"
+    },
+    {
+      "variant": "gold-repeat",
+      "passed": 9,
+      "expected": 9,
+      "complete": true,
+      "failed_case_ids": [],
+      "matches_prediction": true,
+      "run_id": "run-f79fc001eb584f30",
+      "status": "passed",
+      "score": 100.0,
+      "receipt_sha256": "e0b2cbb0fa3a1217572f12167d5b147c94afe384de21b971352563162a2a59d1"
+    },
+    {
+      "variant": "alternative",
+      "passed": 9,
+      "expected": 9,
+      "complete": true,
+      "failed_case_ids": [],
+      "matches_prediction": true,
+      "run_id": "run-452b1692c021440b",
+      "status": "passed",
+      "score": 100.0,
+      "receipt_sha256": "7428601a14bc45cda523338f7e48c413b5b313d25d55aa89be9d6ab217b5dfec"
+    },
+    {
+      "variant": "target-negative-byref-unboxed",
+      "passed": 8,
+      "expected": 9,
+      "complete": true,
+      "failed_case_ids": [
+        "gcb.ByRefBoxingTest.byRefWritesBackThroughAWrapperArray"
+      ],
+      "matches_prediction": true,
+      "run_id": "run-776f97668aaf40a5",
+      "status": "failed",
+      "score": 10.0,
+      "receipt_sha256": "094e963ad6896da46dd828c5f117220879cd65eb81eeed06a92df21caf13d3f1"
+    },
+    {
+      "variant": "compat-negative-reversed-initial-order",
+      "passed": 6,
+      "expected": 9,
+      "complete": true,
+      "failed_case_ids": [
+        "gcb.LoadOrderTest.aCircularDeclarationDoesNotRunAway",
+        "gcb.LoadOrderTest.control_everyModSurvivesWithNoDependencies",
+        "gcb.LoadOrderTest.mutuallyDependentModsKeepTheirOrder"
+      ],
+      "matches_prediction": true,
+      "run_id": "run-e86edb6ca00546c9",
+      "status": "failed",
+      "score": 10.0,
+      "receipt_sha256": "aa73bd3aecc1b8bc990bc8234f2fec80272b01f5f7f7e977a2ce5f1c94317005"
+    }
+  ],
+  "historical_records": "r1 source, loader-only diagnostics and study controls are preserved; r2 inherits no historical result"
+}

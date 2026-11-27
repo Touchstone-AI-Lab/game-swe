@@ -1,0 +1,4 @@
+control	kind	base	overlay	root	note
+target-negative-null-property-only	target-negative	reference	patch:target-negative-null-property-only.patch	mindustry	reference, but a failed sensor read is only cleared when the property itself is null
+compat-negative-numbers-only-save	compat-negative	reference	patch:compat-negative-numbers-only-save.patch	mindustry	reference plus processors that no longer save object-valued variables
+alternative-a	alternative	starter	tree:alternative-a	mindustry	own repair: null in the unsupported sensor branch, rename and re-assemble replaced links, format without the full-buffer guard, query results saved as null by the processor

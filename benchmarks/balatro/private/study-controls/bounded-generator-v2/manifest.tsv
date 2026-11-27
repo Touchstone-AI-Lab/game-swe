@@ -1,0 +1,5 @@
+control	kind	base	overlay	root	note
+M01-min-two-admission	target-negative	starter	pack:private/native-v1/controls/bounded-generator-v2/M01-min-two-admission	starter	frozen mutant: fails only requested-change cases
+M02-fixed-release	target-negative	starter	pack:private/native-v1/controls/bounded-generator-v2/M02-fixed-release	starter	frozen mutant: fails only requested-change cases
+M03-truncate-products	compat-negative	starter	pack:private/native-v1/controls/bounded-generator-v2/M03-truncate-products	starter	frozen mutant: every requested-change case passes and a preserved case fails
+alternative-public	alternative	starter	tree:alternative-public	starter	authored from the public contract: one deferred event per promised product; reviewed seal 62003f5b

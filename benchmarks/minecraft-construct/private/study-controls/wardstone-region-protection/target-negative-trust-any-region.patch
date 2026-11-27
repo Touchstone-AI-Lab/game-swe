@@ -1,0 +1,20 @@
+diff -ru a/src/main/java/com/example/wardstone/ProtectionListener.java b/src/main/java/com/example/wardstone/ProtectionListener.java
+--- a/src/main/java/com/example/wardstone/ProtectionListener.java
++++ b/src/main/java/com/example/wardstone/ProtectionListener.java
+@@ -25,10 +25,14 @@
+ 
+     private void build(Player player, Block block, Flag flag, Cancellable event, String verb) {
+         RegionStore.Decision decision = plugin.regions().decide(block, flag);
+-        if (!decision.denied() || player.hasPermission("wardstone.bypass")
+-            || decision.deciding().trusts(player.getName())) {
++        if (!decision.denied() || player.hasPermission("wardstone.bypass")) {
+             return;
+         }
++        for (Region region : plugin.regions().at(block.getWorld().getName(), block.getX(), block.getY(), block.getZ())) {
++            if (region.trusts(player.getName())) {
++                return;
++            }
++        }
+         event.setCancelled(true);
+         player.sendMessage("You cannot " + verb + " blocks in " + decision.deciding().name() + ".");
+     }

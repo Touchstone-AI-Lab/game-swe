@@ -1,0 +1,138 @@
+{
+  "task": "mindustry/mindustry-core/payload-and-save-regressions",
+  "task_version": "1.0.0",
+  "exam": "benchmarks/mindustry-core/exams/payload-and-save-regressions.md",
+  "cases": [
+    {
+      "id": "check:submission-shape",
+      "role": "static",
+      "clauses": [
+        "scope-1"
+      ],
+      "overlap": false,
+      "note": "the mindustry/ tree with its source roots, no symlinks, VCS metadata or compiled artifacts"
+    },
+    {
+      "id": "check:offline-build",
+      "role": "static",
+      "clauses": [
+        "scope-1"
+      ],
+      "overlap": false,
+      "note": "every Java source under core/src and server/src compiles offline against the pinned server jar"
+    },
+    {
+      "id": "server:payload blocks and units load on the pinned server",
+      "role": "runtime-sentinel",
+      "clauses": [],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "server:payload conveyors pass payloads along",
+      "role": "preserved",
+      "clauses": [
+        "expected-1"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "server:a team payload conveyor keeps its payload through a save",
+      "role": "preserved",
+      "clauses": [
+        "expected-1"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "server:a derelict payload conveyor keeps its payload through a save",
+      "role": "target",
+      "clauses": [
+        "expected-1"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "server:a builder's queued plans survive a save",
+      "role": "preserved",
+      "clauses": [
+        "expected-2"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "server:a builder with more than a thousand queued plans survives a save",
+      "role": "target",
+      "clauses": [
+        "expected-2"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "server:a unit sets down its own team's block near a core",
+      "role": "preserved",
+      "clauses": [
+        "expected-3"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "server:a unit cannot set down an enemy block inside a core's protected area",
+      "role": "preserved",
+      "clauses": [
+        "expected-3"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "server:a unit sets down a derelict block far from any core",
+      "role": "preserved",
+      "clauses": [
+        "expected-3"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "server:a unit can set down a carried derelict block near a core",
+      "role": "target",
+      "clauses": [
+        "expected-3"
+      ],
+      "overlap": false,
+      "note": ""
+    }
+  ],
+  "clauses": [
+    {
+      "id": "expected-1",
+      "anchor": "Expected behaviour, first bullet: a payload on a derelict payload conveyor stays on it through a save; team conveyors keep passing and keeping payloads",
+      "status": "asserted"
+    },
+    {
+      "id": "expected-2",
+      "anchor": "Expected behaviour, second bullet: saves load with any number of queued build plans and keep every plan",
+      "status": "asserted"
+    },
+    {
+      "id": "expected-3",
+      "anchor": "Expected behaviour, third bullet: carried derelict blocks can be set down inside a core's protected area; own-team and far derelict drops keep working; other teams' blocks stay excluded",
+      "status": "asserted"
+    },
+    {
+      "id": "scope-1",
+      "anchor": "Context, last paragraph: changes stay inside mindustry/core/src and mindustry/server/src, which the server build compiles",
+      "status": "weak",
+      "note": "enforced only through the offline build of those source roots"
+    }
+  ],
+  "excluded_clauses": [],
+  "known_issues": []
+}

@@ -1,0 +1,170 @@
+{
+  "task": "palworld/core/palbox-transfer-transaction",
+  "task_version": "1.2.0",
+  "exam": "benchmarks/palworld/exams/palbox-transfer-transaction.md",
+  "cases": [
+    {
+      "id": "check:required-files",
+      "role": "static"
+    },
+    {
+      "id": "check:lua-syntax",
+      "role": "static"
+    },
+    {
+      "id": "hidden:malformed requests are rejected before any adapter call",
+      "role": "target",
+      "clauses": [
+        "request"
+      ]
+    },
+    {
+      "id": "hidden:capacity preflight leaves both containers untouched",
+      "role": "target",
+      "clauses": [
+        "request"
+      ]
+    },
+    {
+      "id": "hidden:a committed transfer preserves ordering and metadata",
+      "role": "target",
+      "clauses": [
+        "request"
+      ]
+    },
+    {
+      "id": "hidden:a failed add compensates in reverse order",
+      "role": "target",
+      "clauses": [
+        "request"
+      ]
+    },
+    {
+      "id": "hidden:failed compensation is reported as unrecoverable",
+      "role": "target",
+      "clauses": [
+        "request"
+      ]
+    },
+    {
+      "id": "hidden:request identifiers are deduplicated across every outcome",
+      "role": "target",
+      "clauses": [
+        "request"
+      ]
+    },
+    {
+      "id": "hidden:recover finishes persisted phases and is idempotent",
+      "role": "target",
+      "clauses": [
+        "request"
+      ]
+    },
+    {
+      "id": "check:implementation-depth",
+      "role": "static"
+    },
+    {
+      "id": "check:transfer-authority",
+      "role": "target",
+      "clauses": [
+        "integration:transfer-authority"
+      ],
+      "note": "regular-expression gate over the submitted source, not an execution"
+    },
+    {
+      "id": "check:transfer-containers",
+      "role": "target",
+      "clauses": [
+        "integration:transfer-containers"
+      ],
+      "note": "regular-expression gate over the submitted source, not an execution"
+    },
+    {
+      "id": "check:transfer-command",
+      "role": "target",
+      "clauses": [
+        "integration:transfer-command"
+      ],
+      "note": "regular-expression gate over the submitted source, not an execution"
+    },
+    {
+      "id": "check:transfer-lifecycle",
+      "role": "target",
+      "clauses": [
+        "integration:transfer-lifecycle"
+      ],
+      "note": "regular-expression gate over the submitted source, not an execution"
+    },
+    {
+      "id": "check:transfer-manifest",
+      "role": "target",
+      "clauses": [
+        "integration:transfer-manifest"
+      ],
+      "note": "regular-expression gate over the submitted source, not an execution"
+    },
+    {
+      "id": "server:dedicated server context is available",
+      "role": "target",
+      "clauses": [
+        "request"
+      ]
+    },
+    {
+      "id": "server:palbox transfer service is published",
+      "role": "target",
+      "clauses": [
+        "request"
+      ]
+    },
+    {
+      "id": "server:the server rejects untrusted transfer requests",
+      "role": "target",
+      "clauses": [
+        "request"
+      ]
+    },
+    {
+      "id": "server:recovery and persistence survive a reload",
+      "role": "target",
+      "clauses": [
+        "request"
+      ]
+    }
+  ],
+  "clauses": [
+    {
+      "id": "request",
+      "anchor": "exam body; split into individual clauses during review",
+      "status": "asserted"
+    },
+    {
+      "id": "integration:transfer-authority",
+      "anchor": "host-integration section; source-pattern gate transfer-authority",
+      "status": "weak"
+    },
+    {
+      "id": "integration:transfer-containers",
+      "anchor": "host-integration section; source-pattern gate transfer-containers",
+      "status": "weak"
+    },
+    {
+      "id": "integration:transfer-command",
+      "anchor": "host-integration section; source-pattern gate transfer-command",
+      "status": "weak"
+    },
+    {
+      "id": "integration:transfer-lifecycle",
+      "anchor": "host-integration section; source-pattern gate transfer-lifecycle",
+      "status": "weak"
+    },
+    {
+      "id": "integration:transfer-manifest",
+      "anchor": "host-integration section; source-pattern gate transfer-manifest",
+      "status": "weak"
+    }
+  ],
+  "excluded_clauses": [],
+  "known_issues": []
+}

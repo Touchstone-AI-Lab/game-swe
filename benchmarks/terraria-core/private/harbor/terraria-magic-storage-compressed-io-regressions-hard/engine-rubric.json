@@ -1,0 +1,10 @@
+{
+  "schema_version": 1,
+  "mode": "dedicated-server",
+  "cases": [
+    "real_engine_nested_binary_frame",
+    "real_engine_long_string_full_width_scalar",
+    "real_engine_vanilla_item_metadata"
+  ],
+  "client_only_exclusions": []
+}

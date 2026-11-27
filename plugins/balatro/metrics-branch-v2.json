@@ -1,0 +1,79 @@
+{
+  "schema_version": 2,
+  "scope": "final branch wrapper matrices; excludes dev pilots and smoke",
+  "validation_sha256": "e81763346ac5d95f2a13f698bb17c1ad6795f46eeca10d6ca1db12be2bb2b354",
+  "workflow_count": 22,
+  "native_process_count": 58,
+  "case_outcomes": 948,
+  "workflow_elapsed_seconds": {
+    "count": 22,
+    "sum": 6650.860999999975,
+    "min": 165.40599999995902,
+    "median": 276.0625,
+    "max": 431.1720000000205
+  },
+  "per_process_timings_seconds": {
+    "prepare_seconds": {
+      "count": 58,
+      "sum": 918.944076400192,
+      "min": 13.888416700006928,
+      "median": 15.509431549988221,
+      "max": 25.3554641000228
+    },
+    "startup_seconds": {
+      "count": 58,
+      "sum": 954.6958119001938,
+      "min": 15.091369100031443,
+      "median": 16.044179300020915,
+      "max": 29.373008500027936
+    },
+    "test_seconds": {
+      "count": 58,
+      "sum": 2585.248825399729,
+      "min": 9.512319000030402,
+      "median": 43.77981944999192,
+      "max": 143.99501209997106
+    },
+    "exit_seconds": {
+      "count": 58,
+      "sum": 99.16039069992257,
+      "min": 1.3884961999719962,
+      "median": 1.6913623999862466,
+      "max": 2.9271939999889582
+    }
+  },
+  "per_process_directory_bytes": {
+    "count": 58,
+    "sum": 499781388,
+    "min": 6656467,
+    "median": 7675754.0,
+    "max": 15467330
+  },
+  "directory_measurement": "after exit, before final result and cleanup JSON; not total retained state",
+  "all_normal_exit": true,
+  "all_protected_unchanged": true,
+  "record_bindings": {
+    ".test-state/brv2-final/controls/flow-001/record.json": "e2d36d13d8f5302ba321501daed712fd1b290a61006546a426ef69b0ff992cf6",
+    ".test-state/brv2-final/controls/flow-002/record.json": "ad361c1665f82af797ac091e28d3cd59b5801792231ef8f91a91994dafea4df2",
+    ".test-state/brv2-scope3/controls/flow-001/record.json": "0a2729640e1840025d06de49191ccffe2399087e9dc5be244df7680a4280ce87",
+    ".test-state/brv2-scope3/controls/flow-002/record.json": "bf45df5046c754218f84b2af408e8ae58570ed1765d0a3d4533fc6d7a3e663aa",
+    ".test-state/brv2-scope3/controls/flow-003/record.json": "dc0079153a1eba8b3005aa6800cc4da487e320bc4d6a5533565a7e6e8421a1cf",
+    ".test-state/brv2-scope3/controls/flow-004/record.json": "631d2ee159113539e8949c891f506bc56507bb541d574bdb9cfc2246fca793c4",
+    ".test-state/brv2-scope3/controls/flow-005/record.json": "ba41b4aba8a8542c7a0c9f0b1dee9fedd7d8429dc1aa1c3f2acebea0adfedf5e",
+    ".test-state/brv2-scope3/controls/flow-006/record.json": "3e1749bd70628c22f4729b797b9f323344d6a51e25f109657d90cfc01e6d676f",
+    ".test-state/brv2-scope3/controls/flow-007/record.json": "47d3fdf9e034af54e03c0511db9824b939e25812db11fd881f694a102367b9a6",
+    ".test-state/brv2-scope3/controls/flow-008/record.json": "35016efe9f2c539984fdd699828ce401d996c4c4ae3cfce2c418c0062bc50fa3",
+    ".test-state/brv2-scope3/controls/flow-009/record.json": "e69b57d726955eec1f06e340b2cea907c3cf6edd49c69a648305ec74f7fd66a8",
+    ".test-state/brv2-scope3/controls/flow-010/record.json": "a554d6d8912cb166e460194ceb43e716f334e8ebb105e830346fa379861df6d3",
+    ".test-state/brv2-scope3/controls/flow-011/record.json": "f7e1c1a3fa7dd6e53b80d364b5b7b9793bf8cbb77ca1d183f93c857184045894",
+    ".test-state/brv2-scope3/controls/flow-012/record.json": "7f98573c9df6af824d560144e393366e3bdae69ac253a00007d32ddeb57d1261",
+    ".test-state/brv2-scope3/controls/flow-013/record.json": "68bbd8467cdb8802fd4640a81601ec9de26af712bb3929323ec2ce6ef7a01b36",
+    ".test-state/brv2-scope3/controls/flow-014/record.json": "e59af40cab6510fcdfb5b68c72d4738dc8aa260d1833258e8ca85471e582c227",
+    ".test-state/brv2-scope3/controls/flow-015/record.json": "85da0a1a4e9c7e917311db9ffdbd506f5e78aad1c5d17ea7e3340ca4633eb46f",
+    ".test-state/brv2-scope3/controls/flow-016/record.json": "31db7ee2436f0660e69f02ce0ff8c6ab74ce6be27b7f743d5d30447ee8b4709a",
+    ".test-state/brv2-scope3/controls/flow-017/record.json": "cf0f493a94e696e9b21a38c69cfc5f51771f17d2d59ecf432a76ac131a013e3f",
+    ".test-state/brv2-scope3/controls/flow-018/record.json": "e1d56a4204e555681357b1af71dc27cad75eb71834fa4a4c8e4c2f7cf3870356",
+    ".test-state/brv2-scope3/reviewed/gold/record.json": "f79eae0fef1c1a20a180b6d1469bd5918c3c1b375520efd100f31203c3d77d0d",
+    ".test-state/brv2-scope3/reviewed/base/record.json": "45adb577eb5e326d0a2dba5e1449b9a019b38906ba6c5f86a02742ba43f7ba01"
+  }
+}

@@ -1,0 +1,2 @@
+package com.evacipated.cardcrawl.mod.widepotions;
+public class WidePotionsMod {public static void whitelistSimplePotion(String id){throw new UnsupportedOperationException("Compile-only optional API");}}

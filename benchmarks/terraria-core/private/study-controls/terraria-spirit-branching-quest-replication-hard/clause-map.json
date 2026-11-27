@@ -1,0 +1,837 @@
+{
+  "task": "terraria/core/terraria-spirit-branching-quest-replication-hard",
+  "task_version": "0.1.0",
+  "exam": "benchmarks/terraria-core/exams/terraria-spirit-branching-quest-replication-hard.md",
+  "cases": [
+    {
+      "id": "check:submission-shape",
+      "role": "static"
+    },
+    {
+      "id": "projection:completion_requires_three_consecutive_checks",
+      "role": "preserved",
+      "clauses": [
+        "preserve:completion-debounce"
+      ]
+    },
+    {
+      "id": "projection:false_check_resets_completion_debounce",
+      "role": "target",
+      "clauses": [
+        "completion-debounce"
+      ]
+    },
+    {
+      "id": "projection:task_transition_resets_completion_debounce",
+      "role": "target",
+      "clauses": [
+        "completion-debounce"
+      ]
+    },
+    {
+      "id": "projection:branch_identity_change_restarts_debounce",
+      "role": "target",
+      "clauses": [
+        "completion-debounce"
+      ]
+    },
+    {
+      "id": "projection:branch_chooses_first_completed_candidate",
+      "role": "preserved",
+      "clauses": [
+        "preserve:branch-selection-reset"
+      ]
+    },
+    {
+      "id": "projection:branch_remembers_stable_slot_and_successor",
+      "role": "preserved",
+      "clauses": [
+        "preserve:branch-selection-reset"
+      ]
+    },
+    {
+      "id": "projection:branch_reset_clears_choice_and_children",
+      "role": "target",
+      "clauses": [
+        "branch-selection-reset"
+      ]
+    },
+    {
+      "id": "projection:branch_rejects_unrepresentable_slot",
+      "role": "target",
+      "clauses": [
+        "branch-selection-reset"
+      ]
+    },
+    {
+      "id": "projection:branch_constructor_snapshots_input",
+      "role": "target",
+      "clauses": [
+        "branch-selection-reset"
+      ]
+    },
+    {
+      "id": "projection:branch_rejects_null_child",
+      "role": "target",
+      "clauses": [
+        "branch-selection-reset"
+      ]
+    },
+    {
+      "id": "projection:branch_deactivate_without_choice_covers_all",
+      "role": "preserved",
+      "clauses": [
+        "preserve:branch-selection-reset"
+      ]
+    },
+    {
+      "id": "projection:branch_deactivate_during_pending_choice_covers_all",
+      "role": "preserved",
+      "clauses": [
+        "preserve:branch-selection-reset"
+      ]
+    },
+    {
+      "id": "projection:local_completion_sends_before_mutation",
+      "role": "preserved",
+      "clauses": [
+        "preserve:local-completion-frame"
+      ]
+    },
+    {
+      "id": "projection:local_nonbranch_frame_uses_empty_path",
+      "role": "target",
+      "clauses": [
+        "local-completion-frame"
+      ]
+    },
+    {
+      "id": "projection:local_branch_completes_selected_child_only",
+      "role": "target",
+      "clauses": [
+        "local-completion-frame"
+      ]
+    },
+    {
+      "id": "projection:local_branch_frame_uses_wrapper_identity",
+      "role": "target",
+      "clauses": [
+        "local-completion-frame"
+      ]
+    },
+    {
+      "id": "projection:quiet_completion_never_echoes",
+      "role": "preserved",
+      "clauses": [
+        "preserve:local-completion-frame"
+      ]
+    },
+    {
+      "id": "projection:remote_branch_completes_selected_child",
+      "role": "preserved",
+      "clauses": [
+        "preserve:remote-branch-transition"
+      ]
+    },
+    {
+      "id": "projection:remote_branch_activates_selected_successor",
+      "role": "preserved",
+      "clauses": [
+        "preserve:remote-branch-transition"
+      ]
+    },
+    {
+      "id": "projection:remote_invalid_branch_slot_is_noop",
+      "role": "target",
+      "clauses": [
+        "remote-branch-transition"
+      ]
+    },
+    {
+      "id": "projection:remote_stale_branch_frame_is_noop",
+      "role": "target",
+      "clauses": [
+        "remote-branch-transition"
+      ]
+    },
+    {
+      "id": "projection:task_buffer_preserves_variable_payload",
+      "role": "target",
+      "clauses": [
+        "task-buffer-framing"
+      ]
+    },
+    {
+      "id": "projection:task_buffer_preserves_zero_payload",
+      "role": "target",
+      "clauses": [
+        "task-buffer-framing"
+      ]
+    },
+    {
+      "id": "projection:task_buffer_switches_only_after_successful_read",
+      "role": "target",
+      "clauses": [
+        "task-buffer-framing"
+      ]
+    },
+    {
+      "id": "projection:task_buffer_rejects_short_header_without_replacement",
+      "role": "preserved",
+      "clauses": [
+        "preserve:task-buffer-framing"
+      ]
+    },
+    {
+      "id": "projection:task_buffer_rejects_unknown_id_without_replacement",
+      "role": "target",
+      "clauses": [
+        "task-buffer-framing"
+      ]
+    },
+    {
+      "id": "projection:task_buffer_rejects_truncated_payload_without_replacement",
+      "role": "target",
+      "clauses": [
+        "task-buffer-framing"
+      ]
+    },
+    {
+      "id": "projection:task_buffer_rejects_trailing_payload",
+      "role": "target",
+      "clauses": [
+        "task-buffer-framing"
+      ]
+    },
+    {
+      "id": "projection:task_buffer_restores_target_on_read_failure",
+      "role": "target",
+      "clauses": [
+        "task-buffer-framing"
+      ]
+    },
+    {
+      "id": "projection:task_buffer_same_task_does_not_reactivate",
+      "role": "target",
+      "clauses": [
+        "task-buffer-framing"
+      ]
+    },
+    {
+      "id": "projection:task_buffer_rejects_oversize_before_write",
+      "role": "target",
+      "clauses": [
+        "task-buffer-framing"
+      ]
+    },
+    {
+      "id": "projection:branch_data_roundtrips_children_and_choice",
+      "role": "target",
+      "clauses": [
+        "branch-task-framing"
+      ]
+    },
+    {
+      "id": "projection:branch_data_rejects_wrong_version_without_mutation",
+      "role": "target",
+      "clauses": [
+        "branch-task-framing"
+      ]
+    },
+    {
+      "id": "projection:branch_data_rejects_topology_without_mutation",
+      "role": "target",
+      "clauses": [
+        "branch-task-framing"
+      ]
+    },
+    {
+      "id": "projection:branch_data_rejects_truncation_without_mutation",
+      "role": "target",
+      "clauses": [
+        "branch-task-framing"
+      ]
+    },
+    {
+      "id": "projection:branch_data_rolls_back_partial_child_read",
+      "role": "target",
+      "clauses": [
+        "branch-task-framing"
+      ]
+    },
+    {
+      "id": "projection:snapshot_flags_roundtrip_all_booleans",
+      "role": "preserved",
+      "clauses": [
+        "preserve:snapshot-bit-packing"
+      ]
+    },
+    {
+      "id": "projection:snapshot_flags_roundtrip_signed_countdowns",
+      "role": "target",
+      "clauses": [
+        "snapshot-bit-packing"
+      ]
+    },
+    {
+      "id": "projection:snapshot_zero_buffer_has_zero_length",
+      "role": "preserved",
+      "clauses": [
+        "preserve:snapshot-bit-packing"
+      ]
+    },
+    {
+      "id": "projection:snapshot_255_byte_buffer_is_exact",
+      "role": "preserved",
+      "clauses": [
+        "preserve:snapshot-bit-packing"
+      ]
+    },
+    {
+      "id": "projection:snapshot_oversize_buffer_is_rejected_before_write",
+      "role": "target",
+      "clauses": [
+        "snapshot-bit-packing"
+      ]
+    },
+    {
+      "id": "projection:server_rejects_unknown_quest_without_relay",
+      "role": "target",
+      "clauses": [
+        "server-authority-quiet"
+      ]
+    },
+    {
+      "id": "projection:server_rejects_invalid_claimed_player",
+      "role": "target",
+      "clauses": [
+        "server-authority-quiet"
+      ]
+    },
+    {
+      "id": "projection:server_rejects_invalid_branch_slot_without_relay",
+      "role": "target",
+      "clauses": [
+        "server-authority-quiet"
+      ]
+    },
+    {
+      "id": "projection:server_rejects_nonbranch_slot_without_relay",
+      "role": "target",
+      "clauses": [
+        "server-authority-quiet"
+      ]
+    },
+    {
+      "id": "projection:server_applies_once_before_relay",
+      "role": "target",
+      "clauses": [
+        "server-authority-quiet"
+      ]
+    },
+    {
+      "id": "projection:server_relay_is_canonical_and_excludes_sender",
+      "role": "target",
+      "clauses": [
+        "server-authority-quiet"
+      ]
+    },
+    {
+      "id": "projection:client_applies_canonical_progress_without_echo",
+      "role": "preserved",
+      "clauses": [
+        "preserve:server-authority-quiet"
+      ]
+    },
+    {
+      "id": "projection:server_rejects_stale_task_identity",
+      "role": "target",
+      "clauses": [
+        "progress-identity-framing"
+      ]
+    },
+    {
+      "id": "projection:client_rejects_stale_task_identity",
+      "role": "target",
+      "clauses": [
+        "progress-identity-framing"
+      ]
+    },
+    {
+      "id": "projection:server_progress_rejects_trailing_frame",
+      "role": "target",
+      "clauses": [
+        "progress-identity-framing"
+      ]
+    },
+    {
+      "id": "projection:client_progress_rejects_trailing_frame",
+      "role": "target",
+      "clauses": [
+        "progress-identity-framing"
+      ]
+    },
+    {
+      "id": "projection:completion_restores_prior_quiet_state",
+      "role": "target",
+      "clauses": [
+        "server-authority-quiet"
+      ]
+    },
+    {
+      "id": "projection:completion_restores_quiet_when_task_throws",
+      "role": "target",
+      "clauses": [
+        "server-authority-quiet"
+      ]
+    },
+    {
+      "id": "projection:activate_helper_restores_quiet_on_throw",
+      "role": "target",
+      "clauses": [
+        "server-authority-quiet"
+      ]
+    },
+    {
+      "id": "projection:deactivate_and_unlock_helpers_restore_quiet",
+      "role": "target",
+      "clauses": [
+        "server-authority-quiet"
+      ]
+    },
+    {
+      "id": "projection:server_activate_applies_before_canonical_relay",
+      "role": "target",
+      "clauses": [
+        "authoritative-transition-packets"
+      ]
+    },
+    {
+      "id": "projection:server_deactivate_applies_before_canonical_relay",
+      "role": "target",
+      "clauses": [
+        "authoritative-transition-packets"
+      ]
+    },
+    {
+      "id": "projection:server_unlock_applies_before_canonical_relay",
+      "role": "target",
+      "clauses": [
+        "authoritative-transition-packets"
+      ]
+    },
+    {
+      "id": "projection:server_queue_consumes_once_before_relay",
+      "role": "preserved",
+      "clauses": [
+        "preserve:authoritative-transition-packets"
+      ]
+    },
+    {
+      "id": "projection:server_transition_rejects_unknown_quest",
+      "role": "target",
+      "clauses": [
+        "authoritative-transition-packets"
+      ]
+    },
+    {
+      "id": "projection:server_transition_rejects_duplicate_state",
+      "role": "target",
+      "clauses": [
+        "authoritative-transition-packets"
+      ]
+    },
+    {
+      "id": "projection:server_transition_rejects_invalid_player",
+      "role": "target",
+      "clauses": [
+        "authoritative-transition-packets"
+      ]
+    },
+    {
+      "id": "projection:server_transition_rejects_truncated_frame",
+      "role": "target",
+      "clauses": [
+        "authoritative-transition-packets"
+      ]
+    },
+    {
+      "id": "projection:server_transition_rejects_trailing_frame",
+      "role": "target",
+      "clauses": [
+        "authoritative-transition-packets"
+      ]
+    },
+    {
+      "id": "projection:server_transition_hook_failure_has_no_relay",
+      "role": "target",
+      "clauses": [
+        "authoritative-transition-packets"
+      ]
+    },
+    {
+      "id": "projection:server_queue_missing_or_empty_is_noop",
+      "role": "target",
+      "clauses": [
+        "authoritative-transition-packets"
+      ]
+    },
+    {
+      "id": "projection:server_queue_rejects_invalid_player",
+      "role": "target",
+      "clauses": [
+        "authoritative-transition-packets"
+      ]
+    },
+    {
+      "id": "projection:server_queue_rejects_truncated_frame",
+      "role": "target",
+      "clauses": [
+        "authoritative-transition-packets"
+      ]
+    },
+    {
+      "id": "projection:server_queue_rejects_trailing_frame",
+      "role": "target",
+      "clauses": [
+        "authoritative-transition-packets"
+      ]
+    },
+    {
+      "id": "projection:client_transitions_apply_without_echo",
+      "role": "preserved",
+      "clauses": [
+        "preserve:authoritative-transition-packets"
+      ]
+    },
+    {
+      "id": "projection:client_queue_removal_is_safe_and_silent",
+      "role": "target",
+      "clauses": [
+        "authoritative-transition-packets"
+      ]
+    },
+    {
+      "id": "projection:server_book_unlock_applies_before_canonical_relay",
+      "role": "target",
+      "clauses": [
+        "book-and-loot-authority"
+      ]
+    },
+    {
+      "id": "projection:server_book_rejects_invalid_duplicate_and_trailing",
+      "role": "target",
+      "clauses": [
+        "book-and-loot-authority"
+      ]
+    },
+    {
+      "id": "projection:server_book_hook_failure_has_no_relay",
+      "role": "target",
+      "clauses": [
+        "book-and-loot-authority"
+      ]
+    },
+    {
+      "id": "projection:client_book_unlock_is_silent_and_idempotent",
+      "role": "target",
+      "clauses": [
+        "book-and-loot-authority"
+      ]
+    },
+    {
+      "id": "projection:client_npc_loot_validates_index_and_frame",
+      "role": "target",
+      "clauses": [
+        "book-and-loot-authority"
+      ]
+    },
+    {
+      "id": "projection:nested_branch_debounce_tracks_entire_path",
+      "role": "target",
+      "clauses": [
+        "nested-path-debounce"
+      ]
+    },
+    {
+      "id": "projection:nested_local_frame_carries_complete_path",
+      "role": "target",
+      "clauses": [
+        "nested-progress-framing"
+      ]
+    },
+    {
+      "id": "projection:nested_local_completion_commits_resolved_leaf",
+      "role": "target",
+      "clauses": [
+        "nested-progress-framing"
+      ]
+    },
+    {
+      "id": "projection:nested_server_applies_exact_path",
+      "role": "target",
+      "clauses": [
+        "nested-progress-framing"
+      ]
+    },
+    {
+      "id": "projection:nested_server_rejects_incomplete_path",
+      "role": "target",
+      "clauses": [
+        "nested-progress-framing"
+      ]
+    },
+    {
+      "id": "projection:nested_server_rejects_overlong_path",
+      "role": "target",
+      "clauses": [
+        "nested-progress-framing"
+      ]
+    },
+    {
+      "id": "projection:nested_server_rejects_sentinel_segment",
+      "role": "runtime-sentinel"
+    },
+    {
+      "id": "projection:nested_client_applies_exact_path_silently",
+      "role": "target",
+      "clauses": [
+        "nested-progress-framing"
+      ]
+    },
+    {
+      "id": "projection:nested_server_relay_preserves_complete_path",
+      "role": "target",
+      "clauses": [
+        "nested-progress-framing"
+      ]
+    },
+    {
+      "id": "projection:progress_rejects_truncated_branch_path",
+      "role": "target",
+      "clauses": [
+        "nested-progress-framing"
+      ]
+    },
+    {
+      "id": "projection:completion_deactivate_failure_restores_task_graph",
+      "role": "target",
+      "clauses": [
+        "completion-transaction-rollback"
+      ]
+    },
+    {
+      "id": "projection:completion_successor_failure_restores_task_graph",
+      "role": "target",
+      "clauses": [
+        "completion-transaction-rollback"
+      ]
+    },
+    {
+      "id": "projection:completion_quest_hook_failure_restores_flags",
+      "role": "target",
+      "clauses": [
+        "completion-transaction-rollback"
+      ]
+    },
+    {
+      "id": "projection:server_progress_failure_rolls_back_without_relay",
+      "role": "target",
+      "clauses": [
+        "completion-transaction-rollback"
+      ]
+    },
+    {
+      "id": "projection:task_buffer_deactivate_failure_restores_graph",
+      "role": "target",
+      "clauses": [
+        "task-buffer-transaction-rollback"
+      ]
+    },
+    {
+      "id": "projection:task_buffer_activate_failure_restores_graph",
+      "role": "target",
+      "clauses": [
+        "task-buffer-transaction-rollback"
+      ]
+    },
+    {
+      "id": "projection:server_activate_post_hook_rolls_back",
+      "role": "target",
+      "clauses": [
+        "authoritative-state-rollback"
+      ]
+    },
+    {
+      "id": "projection:server_deactivate_post_hook_rolls_back",
+      "role": "target",
+      "clauses": [
+        "authoritative-state-rollback"
+      ]
+    },
+    {
+      "id": "projection:server_unlock_post_hook_rolls_back",
+      "role": "target",
+      "clauses": [
+        "authoritative-state-rollback"
+      ]
+    },
+    {
+      "id": "projection:book_post_hook_rolls_back",
+      "role": "target",
+      "clauses": [
+        "authoritative-state-rollback"
+      ]
+    },
+    {
+      "id": "server:real_engine_branch_constructor_snapshots_input",
+      "role": "target",
+      "clauses": [
+        "request"
+      ]
+    },
+    {
+      "id": "server:real_engine_branch_rejects_null_child",
+      "role": "target",
+      "clauses": [
+        "request"
+      ]
+    },
+    {
+      "id": "server:real_engine_branch_frame_roundtrip",
+      "role": "target",
+      "clauses": [
+        "request"
+      ]
+    }
+  ],
+  "clauses": [
+    {
+      "id": "preserve:completion-debounce",
+      "anchor": "behavior the unchanged starter already provides",
+      "status": "asserted"
+    },
+    {
+      "id": "completion-debounce",
+      "anchor": "exam report completion-debounce",
+      "status": "asserted"
+    },
+    {
+      "id": "preserve:branch-selection-reset",
+      "anchor": "behavior the unchanged starter already provides",
+      "status": "asserted"
+    },
+    {
+      "id": "branch-selection-reset",
+      "anchor": "exam report branch-selection-reset",
+      "status": "asserted"
+    },
+    {
+      "id": "preserve:local-completion-frame",
+      "anchor": "behavior the unchanged starter already provides",
+      "status": "asserted"
+    },
+    {
+      "id": "local-completion-frame",
+      "anchor": "exam report local-completion-frame",
+      "status": "asserted"
+    },
+    {
+      "id": "preserve:remote-branch-transition",
+      "anchor": "behavior the unchanged starter already provides",
+      "status": "asserted"
+    },
+    {
+      "id": "remote-branch-transition",
+      "anchor": "exam report remote-branch-transition",
+      "status": "asserted"
+    },
+    {
+      "id": "task-buffer-framing",
+      "anchor": "exam report task-buffer-framing",
+      "status": "asserted"
+    },
+    {
+      "id": "preserve:task-buffer-framing",
+      "anchor": "behavior the unchanged starter already provides",
+      "status": "asserted"
+    },
+    {
+      "id": "branch-task-framing",
+      "anchor": "exam report branch-task-framing",
+      "status": "asserted"
+    },
+    {
+      "id": "preserve:snapshot-bit-packing",
+      "anchor": "behavior the unchanged starter already provides",
+      "status": "asserted"
+    },
+    {
+      "id": "snapshot-bit-packing",
+      "anchor": "exam report snapshot-bit-packing",
+      "status": "asserted"
+    },
+    {
+      "id": "server-authority-quiet",
+      "anchor": "exam report server-authority-quiet",
+      "status": "asserted"
+    },
+    {
+      "id": "preserve:server-authority-quiet",
+      "anchor": "behavior the unchanged starter already provides",
+      "status": "asserted"
+    },
+    {
+      "id": "progress-identity-framing",
+      "anchor": "exam report progress-identity-framing",
+      "status": "asserted"
+    },
+    {
+      "id": "authoritative-transition-packets",
+      "anchor": "exam report authoritative-transition-packets",
+      "status": "asserted"
+    },
+    {
+      "id": "preserve:authoritative-transition-packets",
+      "anchor": "behavior the unchanged starter already provides",
+      "status": "asserted"
+    },
+    {
+      "id": "book-and-loot-authority",
+      "anchor": "exam report book-and-loot-authority",
+      "status": "asserted"
+    },
+    {
+      "id": "nested-path-debounce",
+      "anchor": "exam report nested-path-debounce",
+      "status": "asserted"
+    },
+    {
+      "id": "nested-progress-framing",
+      "anchor": "exam report nested-progress-framing",
+      "status": "asserted"
+    },
+    {
+      "id": "completion-transaction-rollback",
+      "anchor": "exam report completion-transaction-rollback",
+      "status": "asserted"
+    },
+    {
+      "id": "task-buffer-transaction-rollback",
+      "anchor": "exam report task-buffer-transaction-rollback",
+      "status": "asserted"
+    },
+    {
+      "id": "authoritative-state-rollback",
+      "anchor": "exam report authoritative-state-rollback",
+      "status": "asserted"
+    },
+    {
+      "id": "request",
+      "anchor": "exam body; split into individual clauses during review",
+      "status": "asserted"
+    }
+  ],
+  "excluded_clauses": [],
+  "known_issues": []
+}

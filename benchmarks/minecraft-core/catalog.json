@@ -1,0 +1,2010 @@
+{
+  "id": "rhenium-minecraft-v1",
+  "version": "0.2.0",
+  "game": "minecraft",
+  "name": {
+    "en": "Minecraft Paper plugin repair tasks",
+    "zh": "Minecraft Paper 插件修复题"
+  },
+  "description": {
+    "en": "Repository-debugging tasks vendored from permissively licensed open-source Paper plugins, verified on a real Paper 1.21.11 dedicated server.",
+    "zh": "来自宽松许可开源 Paper 插件仓库的修复题，在真实 Paper 1.21.11 专用服务器上验证。"
+  },
+  "tasks": [
+    {
+      "id": "multiverse-core-case-insensitive-world-names",
+      "difficulty": "medium",
+      "title": {
+        "en": "Multiverse-Core: worlds with upper-case letters break on unload, remove, delete and regen",
+        "zh": "Multiverse-Core：名称含大写字母的世界在卸载、移除、删除与重新生成时出错"
+      },
+      "summary": {
+        "en": "Repair Multiverse-Core so worlds whose names contain upper-case letters can be unloaded, loaded again, removed, deleted and regenerated exactly like lower-case ones.",
+        "zh": "修复 Multiverse-Core，使名称含大写字母的世界能像小写世界一样被卸载、重新加载、移除、删除与重新生成。"
+      },
+      "brief": {
+        "en": "A world such as World2 can be created and found under any casing, but unloading it fails with an internal error that leaves Multiverse reporting it as loaded, and removing, deleting or regenerating it fails or leaves it registered.",
+        "zh": "World2 这类世界可以创建并以任意大小写查到，但卸载时报内部错误且 Multiverse 仍认为它已加载，移除、删除或重新生成时失败或使其仍被注册。"
+      },
+      "requirements": {
+        "en": [
+          "unloadWorld succeeds for a mixed-case world, which is then tracked as unloaded under its original name and every casing",
+          "an unloaded mixed-case world can be loaded again from a lookup under any casing",
+          "removeWorld (loaded or unloaded), deleteWorld and regenWorld succeed and leave exactly the expected registration, Bukkit world, folder and worlds.yml entry",
+          "lookups stay case-insensitive, worlds keep their original name everywhere, lower-case worlds and every upstream unit test keep working"
+        ],
+        "zh": [
+          "含大写字母的世界可被 unloadWorld 卸载，并以原名在任意大小写下记录为已卸载",
+          "已卸载的含大写字母世界可通过任意大小写查找后重新加载",
+          "removeWorld（已加载或未加载）、deleteWorld 与 regenWorld 成功，并留下预期的注册、Bukkit 世界、目录与 worlds.yml 条目",
+          "查找保持大小写不敏感、世界在各处保留原名、小写世界与全部上游单测保持正常"
+        ]
+      },
+      "api_usage": {
+        "en": [
+          "org.mvplugins.multiverse.core.MultiverseCoreApi",
+          "org.mvplugins.multiverse.core.world.WorldManager",
+          "org.mvplugins.multiverse.core.world.options"
+        ],
+        "zh": [
+          "MultiverseCoreApi",
+          "WorldManager",
+          "world.options"
+        ]
+      },
+      "acceptance": {
+        "en": [
+          "offline shadowJar build succeeds",
+          "all 162 upstream MockBukkit tests pass",
+          "ten live-server cases pass"
+        ],
+        "zh": [
+          "离线 shadowJar 构建成功",
+          "162 个上游 MockBukkit 测试通过",
+          "十个真实服务器用例通过"
+        ]
+      },
+      "domains": [
+        "world-management",
+        "registry",
+        "case-insensitivity",
+        "lifecycle"
+      ],
+      "estimated_minutes": 90,
+      "required_files": [
+        "plugin/src/main/resources/plugin.yml"
+      ],
+      "plugin_name": "Multiverse-Core",
+      "build": {
+        "tool": "gradle",
+        "wrapper": true,
+        "assemble": "shadowJar",
+        "test": "test",
+        "artifact": "build/libs/multiverse-core-local.jar",
+        "java_release": 21
+      },
+      "upstream": {
+        "repository": "https://github.com/Multiverse/Multiverse-Core",
+        "base_commit": "1434ca176aac92e2724695fe1d14b3f84a9a3939",
+        "fix_commit": "aac0111ddeea3c16aacef20eea92632dca72745f",
+        "license_spdx": "BSD-3-Clause",
+        "license_file": "LICENSE.md",
+        "paper_api": "1.21.8-R0.1-SNAPSHOT"
+      },
+      "unit_cases": [
+        "org.mvplugins.multiverse.core.MockBukkitTest.MockBukkit loads the plugin()",
+        "org.mvplugins.multiverse.core.anchor.AnchorManagerTest.Set new location for existing anchor()",
+        "org.mvplugins.multiverse.core.anchor.AnchorManagerTest.Delete anchor()",
+        "org.mvplugins.multiverse.core.anchor.AnchorManagerTest.Loaded correct Anchors from file()",
+        "org.mvplugins.multiverse.core.anchor.AnchorManagerTest.Create new anchor()",
+        "org.mvplugins.multiverse.core.api.MultiverseCoreApiTest.Get MultiverseCoreApi from bukkit service()",
+        "org.mvplugins.multiverse.core.api.MultiverseCoreApiTest.MultiverseCoreApi is available()",
+        "org.mvplugins.multiverse.core.command.LocalizationTest$BasicMessage$WithCommandSender.Sending the issuer the message should send the formatted message to the sender()",
+        "org.mvplugins.multiverse.core.command.LocalizationTest$BasicMessage.The raw message should be the same as the original()",
+        "org.mvplugins.multiverse.core.command.LocalizationTest$BasicMessage.The formatted message should be the same as the original()",
+        "org.mvplugins.multiverse.core.command.LocalizationTest$BasicMessage.The formatted message with PluginLocales for a CommandIssuer should be the same as the original()",
+        "org.mvplugins.multiverse.core.command.LocalizationTest$BasicMessage.The formatted message with PluginLocales should be the same as the original()",
+        "org.mvplugins.multiverse.core.command.LocalizationTest$LocaleConfiguration.Change default locale to chinese without per player locale should get chinese message()",
+        "org.mvplugins.multiverse.core.command.LocalizationTest$LocaleConfiguration.PerPlayerLocale disabled - Player with chinese locale should get default english message()",
+        "org.mvplugins.multiverse.core.command.LocalizationTest$LocaleConfiguration.Change default locale to chinese with per player locale should get default english message()",
+        "org.mvplugins.multiverse.core.command.LocalizationTest$LocaleConfiguration.PerPlayerLocale enabled - Player with chinese locale should get chinese message()",
+        "org.mvplugins.multiverse.core.command.LocalizationTest$LocalizedMessage$WithCommandSender.Sending the issuer the message should send the formatted message to the sender()",
+        "org.mvplugins.multiverse.core.command.LocalizationTest$LocalizedMessage.The formatted message with PluginLocales should be different from the replaced original string()",
+        "org.mvplugins.multiverse.core.command.LocalizationTest$LocalizedMessage.The raw message should be the same as the original()",
+        "org.mvplugins.multiverse.core.command.LocalizationTest$LocalizedMessage.The formatted message with PluginLocales should have performed replacement()",
+        "org.mvplugins.multiverse.core.command.LocalizationTest$LocalizedMessage.The formatted message should be the replaced original string()",
+        "org.mvplugins.multiverse.core.command.LocalizationTest$MessageWithOneReplacement$WithCommandSender.Sending the issuer the message should send the formatted message to the sender()",
+        "org.mvplugins.multiverse.core.command.LocalizationTest$MessageWithOneReplacement.The formatted message with PluginLocales should be the replaced message string()",
+        "org.mvplugins.multiverse.core.command.LocalizationTest$MessageWithOneReplacement.The raw message should be the same as the original()",
+        "org.mvplugins.multiverse.core.command.LocalizationTest$MessageWithOneReplacement.The formatted message should be the replaced message string()",
+        "org.mvplugins.multiverse.core.command.LocalizationTest$MessageWithOneReplacement.The formatted message with PluginLocales for a CommandIssuer should be the replaced message string()",
+        "org.mvplugins.multiverse.core.command.LocalizationTest$MessageWithTwoReplacements$WithCommandSender.Sending the issuer the message should send the formatted message to the sender()",
+        "org.mvplugins.multiverse.core.command.LocalizationTest$MessageWithTwoReplacements.The formatted message with PluginLocales should be the replaced message string()",
+        "org.mvplugins.multiverse.core.command.LocalizationTest$MessageWithTwoReplacements.The raw message should be the same as the original()",
+        "org.mvplugins.multiverse.core.command.LocalizationTest$MessageWithTwoReplacements.The formatted message should be the replaced message string()",
+        "org.mvplugins.multiverse.core.command.LocalizationTest$MessageWithTwoReplacements.The formatted message with PluginLocales for a CommandIssuer should be the replaced message string()",
+        "org.mvplugins.multiverse.core.command.LocalizationTest$WithMessagesAsReplacement$WithCommandSender.Sending the issuer the message should send the formatted message to the sender()",
+        "org.mvplugins.multiverse.core.command.LocalizationTest$WithMessagesAsReplacement.The formatted message with PluginLocales should be different from the replaced original string()",
+        "org.mvplugins.multiverse.core.command.LocalizationTest$WithMessagesAsReplacement.The raw message should be the same as the original()",
+        "org.mvplugins.multiverse.core.command.LocalizationTest$WithMessagesAsReplacement.The formatted message with PluginLocales should have performed replacement()",
+        "org.mvplugins.multiverse.core.command.LocalizationTest$WithMessagesAsReplacement.The formatted message should be the replaced original string()",
+        "org.mvplugins.multiverse.core.commands.ConfigCommandTest.Modify config global-debug player no permission()",
+        "org.mvplugins.multiverse.core.commands.ConfigCommandTest.Modify config global-debug()",
+        "org.mvplugins.multiverse.core.commands.ConfigCommandTest.Modify config global-debug invalid type()",
+        "org.mvplugins.multiverse.core.commands.ConfigCommandTest.Modify non-existing config property()",
+        "org.mvplugins.multiverse.core.commands.CreateCommandTest.Create normal world with specific seed and flat world type without structures()",
+        "org.mvplugins.multiverse.core.commands.CreateCommandTest.Create nether world with default options()",
+        "org.mvplugins.multiverse.core.commands.DeleteCommandTest.Delete unloaded world()",
+        "org.mvplugins.multiverse.core.commands.DeleteCommandTest.Delete loaded world()",
+        "org.mvplugins.multiverse.core.commands.ModifyCommandTest.Modify alias name with space()",
+        "org.mvplugins.multiverse.core.commands.RegenCommandTest.Regen world()",
+        "org.mvplugins.multiverse.core.commands.RegenCommandTest.Regen world with random seed()",
+        "org.mvplugins.multiverse.core.commands.RegenCommandTest.Regen world with specific seed()",
+        "org.mvplugins.multiverse.core.commands.RegenCommandTest.Regen world and reset world border()",
+        "org.mvplugins.multiverse.core.commands.RegenCommandTest.Regen world and reset world config()",
+        "org.mvplugins.multiverse.core.commands.RegenCommandTest.Regen world and reset gamerules()",
+        "org.mvplugins.multiverse.core.commands.SpawnCommandTest.Teleport multiple players to spawn location()",
+        "org.mvplugins.multiverse.core.commands.SpawnCommandTest.No permission to teleport to spawn()",
+        "org.mvplugins.multiverse.core.commands.SpawnCommandTest.Self permission to teleport to spawn()",
+        "org.mvplugins.multiverse.core.commands.SpawnCommandTest.Teleport player to spawn location()",
+        "org.mvplugins.multiverse.core.commands.SpawnCommandTest.Other permission to teleport to spawn()",
+        "org.mvplugins.multiverse.core.commands.SpawnCommandTest.Teleport others to spawn but not self()",
+        "org.mvplugins.multiverse.core.commands.TeleportCommandTest.Player permission to teleport self()",
+        "org.mvplugins.multiverse.core.commands.TeleportCommandTest.Player permission to teleport others cannot teleport self()",
+        "org.mvplugins.multiverse.core.commands.TeleportCommandTest.Player permission to teleport others()",
+        "org.mvplugins.multiverse.core.commands.TeleportCommandTest.Player no permission to teleport()",
+        "org.mvplugins.multiverse.core.commands.TeleportCommandTest.Player permission to teleport others without finer permission()",
+        "org.mvplugins.multiverse.core.commands.TeleportCommandTest.Player permission to teleport self without finer permission()",
+        "org.mvplugins.multiverse.core.commands.TeleportCommandTest.Teleport multiple players to other world()",
+        "org.mvplugins.multiverse.core.commands.TeleportCommandTest.Teleport multiple players to invalid world()",
+        "org.mvplugins.multiverse.core.commands.TeleportCommandTest.Teleport a player to other world()",
+        "org.mvplugins.multiverse.core.commands.VersionCommandTest.Run version command as console()",
+        "org.mvplugins.multiverse.core.commands.VersionCommandTest.Run version command as player()",
+        "org.mvplugins.multiverse.core.commands.VersionCommandTest.Run version command as player - no permission()",
+        "org.mvplugins.multiverse.core.config.ConfigTeleportInterceptTest.Generic teleport with teleport intercept enabled()",
+        "org.mvplugins.multiverse.core.config.ConfigTeleportInterceptTest.Multiverse API teleport with teleport intercept disabled()",
+        "org.mvplugins.multiverse.core.config.ConfigTeleportInterceptTest.Generic teleport with teleport intercept disabled - no access checking()",
+        "org.mvplugins.multiverse.core.config.ConfigTest.Config is loaded()",
+        "org.mvplugins.multiverse.core.config.ConfigTest.Broken config should regen fresh config()",
+        "org.mvplugins.multiverse.core.config.ConfigTest.Getting existing config property with getProperty returns expected value()",
+        "org.mvplugins.multiverse.core.config.ConfigTest.Updating a non-existing property with setProperty returns false()",
+        "org.mvplugins.multiverse.core.config.ConfigTest.Updating an existing config property with setPropertyString reflects the changes in getProperty()",
+        "org.mvplugins.multiverse.core.config.ConfigTest.Updating an existing config property with setProperty reflects the changes in getProperty()",
+        "org.mvplugins.multiverse.core.config.ConfigTest.Getting existing config property by getter returns expected value()",
+        "org.mvplugins.multiverse.core.config.ConfigTest.Old config is migrated()",
+        "org.mvplugins.multiverse.core.config.ConfigTest.Getting non-existing config property with getProperty returns null()",
+        "org.mvplugins.multiverse.core.config.ConfigTest.Config is fresh()",
+        "org.mvplugins.multiverse.core.destination.DestinationTest.World destination instance from alias name()",
+        "org.mvplugins.multiverse.core.destination.DestinationTest.Exact destination instance from location()",
+        "org.mvplugins.multiverse.core.destination.DestinationTest.World destination instance without identifier()",
+        "org.mvplugins.multiverse.core.destination.DestinationTest.Invalid destination instance()",
+        "org.mvplugins.multiverse.core.destination.DestinationTest.Bed destination instance own player()",
+        "org.mvplugins.multiverse.core.destination.DestinationTest.Exact destination instance()",
+        "org.mvplugins.multiverse.core.destination.DestinationTest.Exact destination instance with relative position()",
+        "org.mvplugins.multiverse.core.destination.DestinationTest.Cannon destination instance()",
+        "org.mvplugins.multiverse.core.destination.DestinationTest.Bed destination instance()",
+        "org.mvplugins.multiverse.core.destination.DestinationTest.World destination instance()",
+        "org.mvplugins.multiverse.core.destination.DestinationTest.Player destination instance()",
+        "org.mvplugins.multiverse.core.inject.InjectionTest.AsyncSafetyTeleporter is available as a service()",
+        "org.mvplugins.multiverse.core.inject.InjectionTest.CoreConfig is available as a service()",
+        "org.mvplugins.multiverse.core.inject.InjectionTest.MVCommandManager is available as a service()",
+        "org.mvplugins.multiverse.core.inject.InjectionTest.MVWorldManager is available as a service()",
+        "org.mvplugins.multiverse.core.inject.InjectionTest.LocationManipulation is available as a service()",
+        "org.mvplugins.multiverse.core.inject.InjectionTest.AnchorManager is available as a service()",
+        "org.mvplugins.multiverse.core.inject.InjectionTest.CoreListener(s) is available as a service()",
+        "org.mvplugins.multiverse.core.inject.InjectionTest.Destinations are available as services()",
+        "org.mvplugins.multiverse.core.inject.InjectionTest.TeleportQueue is available as a service()",
+        "org.mvplugins.multiverse.core.inject.InjectionTest.Commands are available as services()",
+        "org.mvplugins.multiverse.core.inject.InjectionTest.BlockSafety is available as a service()",
+        "org.mvplugins.multiverse.core.inject.InjectionTest.MVEconomist is available as a service()",
+        "org.mvplugins.multiverse.core.utils.MaterialConverterTest.Convert Oak Sapling item id to material()",
+        "org.mvplugins.multiverse.core.utils.MaterialConverterTest.Convert invalid string to material()",
+        "org.mvplugins.multiverse.core.utils.MaterialConverterTest.Convert Spruce Planks numerical id to material()",
+        "org.mvplugins.multiverse.core.utils.MaterialConverterTest.Convert dirt name to material()",
+        "org.mvplugins.multiverse.core.utils.StringFormatterTest.StringFormatter quoteMultiWordString()",
+        "org.mvplugins.multiverse.core.utils.StringFormatterTest.StringFormatter parseQuotesInArgs()",
+        "org.mvplugins.multiverse.core.utils.StringMatcherTest.exact string matcher - multiple strings()",
+        "org.mvplugins.multiverse.core.utils.StringMatcherTest.regex string matcher()",
+        "org.mvplugins.multiverse.core.utils.StringMatcherTest.exact string matcher - single string()",
+        "org.mvplugins.multiverse.core.utils.StringMatcherTest.wildcard string matcher - single()",
+        "org.mvplugins.multiverse.core.utils.StringMatcherTest.wildcard string matcher - multiple()",
+        "org.mvplugins.multiverse.core.world.WorldConfigMangerTest.Add a new world to config()",
+        "org.mvplugins.multiverse.core.world.WorldConfigMangerTest.Edge case parsing tests for world config()",
+        "org.mvplugins.multiverse.core.world.WorldConfigMangerTest.Old world config is migrated()",
+        "org.mvplugins.multiverse.core.world.WorldConfigMangerTest.Delete world section from config()",
+        "org.mvplugins.multiverse.core.world.WorldConfigMangerTest.Updating existing world properties()",
+        "org.mvplugins.multiverse.core.world.WorldConfigTest.Getting existing world property with getProperty returns expected value()",
+        "org.mvplugins.multiverse.core.world.WorldConfigTest.Getting existing world property by getter returns expected value()",
+        "org.mvplugins.multiverse.core.world.WorldConfigTest.Updating a non-existing property with setProperty returns false()",
+        "org.mvplugins.multiverse.core.world.WorldConfigTest.Getting non-existing world property with getProperty returns null()",
+        "org.mvplugins.multiverse.core.world.WorldConfigTest.Updating an existing world property with setPropertyString reflects the changes in getProperty()",
+        "org.mvplugins.multiverse.core.world.WorldConfigTest.Updating an existing world property with setProperty reflects the changes in getProperty()",
+        "org.mvplugins.multiverse.core.world.WorldManagerTest.Remove world()",
+        "org.mvplugins.multiverse.core.world.WorldManagerTest.Delete world()",
+        "org.mvplugins.multiverse.core.world.WorldManagerTest.Regen world()",
+        "org.mvplugins.multiverse.core.world.WorldManagerTest.Clone world failed - target world exists and loaded()",
+        "org.mvplugins.multiverse.core.world.WorldManagerTest.Load world failed - non-existent world()",
+        "org.mvplugins.multiverse.core.world.WorldManagerTest.Create world failed - world exists and loaded (case insensitive)()",
+        "org.mvplugins.multiverse.core.world.WorldManagerTest.Get world is case insensitive()",
+        "org.mvplugins.multiverse.core.world.WorldManagerTest.Clone world failed - invalid world name()",
+        "org.mvplugins.multiverse.core.world.WorldManagerTest.Create world failed - world folder exists()",
+        "org.mvplugins.multiverse.core.world.WorldManagerTest.Create world failed - world exists and loaded()",
+        "org.mvplugins.multiverse.core.world.WorldManagerTest.Set equal value - MVWorldPropertyChangedEvent event is not fired()",
+        "org.mvplugins.multiverse.core.world.WorldManagerTest.Create world with custom options()",
+        "org.mvplugins.multiverse.core.world.WorldManagerTest.Create world failed - world exists but unloaded()",
+        "org.mvplugins.multiverse.core.world.WorldManagerTest.Unload and load world()",
+        "org.mvplugins.multiverse.core.world.WorldManagerTest.Load world failed - world folder exists but not imported()",
+        "org.mvplugins.multiverse.core.world.WorldManagerTest.Get potential worlds()",
+        "org.mvplugins.multiverse.core.world.WorldManagerTest.Clone world()",
+        "org.mvplugins.multiverse.core.world.WorldManagerTest.Clone world failed - target world exists but unloaded()",
+        "org.mvplugins.multiverse.core.world.WorldManagerTest.Clone world failed - target world folder exists()",
+        "org.mvplugins.multiverse.core.world.WorldManagerTest.Load world failed - invalid world folder()",
+        "org.mvplugins.multiverse.core.world.WorldManagerTest.Set different value - MVWorldPropertyChangedEvent event is fired()",
+        "org.mvplugins.multiverse.core.world.WorldManagerTest.Get world()",
+        "org.mvplugins.multiverse.core.world.WorldManagerTest.Get world with alias()",
+        "org.mvplugins.multiverse.core.world.WorldManagerTest.Create world failed - invalid worldname()",
+        "org.mvplugins.multiverse.core.world.WorldNameCheckerTest.Blacklisted world name()",
+        "org.mvplugins.multiverse.core.world.WorldNameCheckerTest.Not a valid world folder()",
+        "org.mvplugins.multiverse.core.world.WorldNameCheckerTest.Valid world name()",
+        "org.mvplugins.multiverse.core.world.WorldNameCheckerTest.World folder does not exist()",
+        "org.mvplugins.multiverse.core.world.WorldNameCheckerTest.Valid world folder()",
+        "org.mvplugins.multiverse.core.world.WorldNameCheckerTest.Empty world name()",
+        "org.mvplugins.multiverse.core.world.WorldNameCheckerTest.Invalid characters in world name()",
+        "org.mvplugins.multiverse.core.world.helper.DimensionFormatTest.Test invalid DimensionFormat()",
+        "org.mvplugins.multiverse.core.world.helper.DimensionFormatTest.Test DimensionFormat replace()",
+        "org.mvplugins.multiverse.core.world.helper.DimensionFormatTest.Test DimensionFormat does not match()",
+        "org.mvplugins.multiverse.core.world.helper.DimensionFormatTest.Test DimensionFormat get overworld()"
+      ],
+      "server_cases": [
+        "plugin is enabled",
+        "world lookups ignore case",
+        "worlds keep the name they were created with",
+        "lower-case world goes through its whole lifecycle",
+        "mixed-case world can be unloaded",
+        "mixed-case world can be loaded again",
+        "loaded mixed-case world can be removed",
+        "unloaded mixed-case world can be removed",
+        "mixed-case world can be deleted",
+        "mixed-case world can be regenerated"
+      ],
+      "clean_room_synthetic": false
+    },
+    {
+      "id": "chatty-bad-channel-disables-plugin",
+      "difficulty": "medium",
+      "title": {
+        "en": "Chatty: one bad notification channel stops the whole plugin from enabling",
+        "zh": "Chatty：一个错误的通知频道导致整个插件无法启用"
+      },
+      "summary": {
+        "en": "Repair Chatty so a notifications.yml with an unusable channel no longer stops the plugin from enabling or reloading: every offending channel is skipped and named, everything else keeps working.",
+        "zh": "修复 Chatty，使含不可用频道的 notifications.yml 不再阻止插件启用或重载：每个出错的频道被跳过并点名，其余功能照常工作。"
+      },
+      "brief": {
+        "en": "An action bar channel whose stay exceeds its period makes Chatty fail to enable, and /chatty reload fails with a ProvisionException that names neither file nor channel, after which chat, join handling and notifications stop until a restart.",
+        "zh": "stay 大于 period 的动作栏频道会让 Chatty 无法启用，/chatty reload 以不点名文件和频道的 ProvisionException 失败，此后聊天、加入处理与通知都停止直到重启。"
+      },
+      "requirements": {
+        "en": [
+          "/chatty reload and start-up succeed when notifications.yml contains action bar channels whose stay exceeds their period",
+          "every offending channel is skipped and reported by id in a WARNING-or-higher console record",
+          "every other channel, including those after an offending one and those of other sections, is registered as before",
+          "after such a reload chat and join listeners stay registered, the chat registry is intact and notifications keep advancing; valid files, defaults, /chatty and every upstream unit test keep working"
+        ],
+        "zh": [
+          "notifications.yml 含 stay 大于 period 的动作栏频道时，/chatty reload 与启动均成功",
+          "每个出错的频道被跳过，并在 WARNING 及以上级别的控制台记录中以 id 报告",
+          "其余频道（包括出错频道之后的频道和其他分区的频道）照常注册",
+          "此类重载后聊天与加入监听器仍注册、聊天注册表完整、通知继续计时；有效文件、默认配置、/chatty 与全部上游单测保持正常"
+        ]
+      },
+      "api_usage": {
+        "en": [
+          "ru.brikster.chatty.api.ChattyApi",
+          "ru.brikster.chatty.notification.NotificationTicker",
+          "ru.brikster.chatty.notification.Notification",
+          "org.bukkit.event.HandlerList"
+        ],
+        "zh": [
+          "ChattyApi",
+          "NotificationTicker",
+          "Notification",
+          "HandlerList"
+        ]
+      },
+      "acceptance": {
+        "en": [
+          "offline shadowJar build succeeds",
+          "all 138 upstream JUnit tests pass",
+          "eleven live-server cases pass"
+        ],
+        "zh": [
+          "离线 shadowJar 构建成功",
+          "138 个上游 JUnit 测试通过",
+          "十一个真实服务器用例通过"
+        ]
+      },
+      "domains": [
+        "configuration",
+        "dependency-injection",
+        "plugin-lifecycle",
+        "error-handling"
+      ],
+      "estimated_minutes": 90,
+      "required_files": [
+        "plugin/spigot/src/main/resources/plugin.yml"
+      ],
+      "plugin_name": "Chatty",
+      "build": {
+        "tool": "gradle",
+        "wrapper": true,
+        "assemble": "shadowJar",
+        "test": "test",
+        "artifact": "build/libs/Chatty-3.0.0-SNAPSHOT.jar",
+        "java_release": 21,
+        "frozen_paths": [
+          "build.gradle",
+          "settings.gradle",
+          "gradle.properties",
+          "gradle",
+          "gradlew",
+          "gradlew.bat",
+          "api/build.gradle",
+          "spigot/build.gradle",
+          "api/src/test",
+          "spigot/src/test"
+        ]
+      },
+      "upstream": {
+        "repository": "https://github.com/Brikster/Chatty",
+        "base_commit": "7ca46993b66212ba582a10f350674922ed84486c",
+        "fix_commit": "ae832809657a1d287ec8839029c01399e47888c5",
+        "license_spdx": "MIT",
+        "license_file": "LICENSE",
+        "paper_api": "spigot-api 1.19-R0.1-SNAPSHOT"
+      },
+      "unit_cases": [
+        "ru.brikster.chatty.ConstantsTest.matchesLowercaseReplacementKey()",
+        "ru.brikster.chatty.ConstantsTest.doesNotMatchUnrelatedPlaceholders()",
+        "ru.brikster.chatty.ConstantsTest.findsReplacementKeyInsideText()",
+        "ru.brikster.chatty.ConstantsTest.matchesUppercaseReplacementKey()",
+        "ru.brikster.chatty.adventure.NativeAudienceAdapterTest.serializesClickAndHoverInLegacyCompatibleSchema()",
+        "ru.brikster.chatty.chat.PlaceholderMatchedChatTest.deliversToEveryoneWhenNoPlaceholderIsConfigured()",
+        "ru.brikster.chatty.chat.PlaceholderMatchedChatTest.deliversOnlyToPlayersSharingTheSendersValue()",
+        "ru.brikster.chatty.chat.PlaceholderMatchedChatTest.alwaysDeliversToTheSenderThemselves()",
+        "ru.brikster.chatty.chat.SenderFormatTest.aRankWithoutItsOwnStylesDoesNotFallBackToTheChatStyles()",
+        "ru.brikster.chatty.chat.SenderFormatTest.picksTheHighestPriorityRankTheSenderHolds()",
+        "ru.brikster.chatty.chat.SenderFormatTest.ignoresARankGrantedForAnotherChat()",
+        "ru.brikster.chatty.chat.SenderFormatTest.viewerStylesComeFromTheSelectedRank()",
+        "ru.brikster.chatty.chat.SenderFormatTest.usesTheRankFormatWhenTheSenderHoldsIt()",
+        "ru.brikster.chatty.chat.SenderFormatTest.usesTheChatFormatForASenderWithNoRank()",
+        "ru.brikster.chatty.chat.SenderFormatTest.acceptsAPerChatGrant()",
+        "ru.brikster.chatty.chat.construct.ComponentFromContextConstructorImplTest.resolvesPlaceholdersInsideMessageFormat()",
+        "ru.brikster.chatty.chat.construct.ComponentFromContextConstructorImplTest.doesNotResolvePlaceholdersTypedByThePlayer()",
+        "ru.brikster.chatty.chat.message.context.MessageContextKeysTest.whatIsPutInComesBackOut()",
+        "ru.brikster.chatty.chat.message.context.MessageContextKeysTest.anySetOrListIsAccepted()",
+        "ru.brikster.chatty.chat.message.context.MessageContextKeysTest.anAddonPuttingSomethingElseUnderTheKeyCannotBreakDelivery()",
+        "ru.brikster.chatty.chat.message.context.MessageContextKeysTest.aMissingKeyReadsAsEmptyRatherThanThrowing()",
+        "ru.brikster.chatty.chat.message.context.MessageContextKeysTest.nonPlayersAreFilteredOutOfAMixedCollection()",
+        "ru.brikster.chatty.chat.message.context.MessageContextKeysTest.bothKeysAreSpelledTheSameWay()",
+        "ru.brikster.chatty.chat.message.transform.decorations.ChatScopedDecorationsTest.appliesAColourOnlyInTheChatItWasGrantedFor()",
+        "ru.brikster.chatty.chat.message.transform.decorations.ChatScopedDecorationsTest.aServerWideGrantStillAppliesEverywhere()",
+        "ru.brikster.chatty.chat.message.transform.decorations.ChatScopedDecorationsTest.keepsWorkingForPrivateMessagesWhereThereIsNoChat()",
+        "ru.brikster.chatty.chat.message.transform.decorations.ChatScopedDecorationsTest.appliesASingleDecorationScopedToOneChat()",
+        "ru.brikster.chatty.chat.message.transform.decorations.PlayerDecorationsFormatterTest.stripsSectionCodesForPlayerWithoutPermission()",
+        "ru.brikster.chatty.chat.message.transform.decorations.PlayerDecorationsFormatterTest.keepsAmpersandCodesLiteralWithoutPermission()",
+        "ru.brikster.chatty.chat.message.transform.decorations.PlayerDecorationsFormatterTest.stripsSectionCodesEvenForPlayerWithDecorationPermission()",
+        "ru.brikster.chatty.chat.message.transform.decorations.PlayerDecorationsFormatterTest.appliesAmpersandColorsWithPermission()",
+        "ru.brikster.chatty.chat.message.transform.stage.early.moderation.ModerationReplacementTest.treatsABackslashInTheReplacementAsText()",
+        "ru.brikster.chatty.chat.message.transform.stage.early.moderation.ModerationReplacementTest.treatsADollarSignInTheReplacementAsText()",
+        "ru.brikster.chatty.chat.message.transform.stage.early.moderation.ModerationReplacementTest.survivesAReplacementEndingInADollarSign()",
+        "ru.brikster.chatty.chat.selection.ChatSelectorImplTest.picksTheLongestMatchingSymbol()",
+        "ru.brikster.chatty.chat.selection.ChatSelectorImplTest.letsAnExplicitSymbolOverrideTheSwitchedChat()",
+        "ru.brikster.chatty.chat.selection.ChatSelectorImplTest.picksTheLongestMatchingSymbolWhateverTheRegistrationOrder()",
+        "ru.brikster.chatty.chat.selection.ChatSelectorImplTest.sendsTheNextMessageIntoTheChatTheCommandRequested()",
+        "ru.brikster.chatty.chat.selection.ChatSelectorImplTest.skipsChatsTheSenderMayNotUse()",
+        "ru.brikster.chatty.chat.selection.ChatSelectorImplTest.returnsNothingWhenNoChatMatches()",
+        "ru.brikster.chatty.chat.selection.ChatSelectorImplTest.ignoresASwitchedChatTheSenderMayNoLongerUse()",
+        "ru.brikster.chatty.chat.selection.ChatSelectorImplTest.usesTheSwitchedChatWhenNoSymbolIsGiven()",
+        "ru.brikster.chatty.config.file.ConfigCommentTranslationsTest.everyTranslatedCommentHasBothLanguages()",
+        "ru.brikster.chatty.config.file.ConfigCommentTranslationsTest.noCommentIsLeftUntranslated()",
+        "ru.brikster.chatty.config.file.ConfigGenerationTest.[1] class ru.brikster.chatty.config.file.SettingsConfig",
+        "ru.brikster.chatty.config.file.ConfigGenerationTest.[2] class ru.brikster.chatty.config.file.ChatsConfig",
+        "ru.brikster.chatty.config.file.ConfigGenerationTest.[3] class ru.brikster.chatty.config.file.PmConfig",
+        "ru.brikster.chatty.config.file.ConfigGenerationTest.[4] class ru.brikster.chatty.config.file.MessagesConfig",
+        "ru.brikster.chatty.config.file.ConfigGenerationTest.[5] class ru.brikster.chatty.config.file.VanillaConfig",
+        "ru.brikster.chatty.config.file.ConfigGenerationTest.[6] class ru.brikster.chatty.config.file.ModerationConfig",
+        "ru.brikster.chatty.config.file.ConfigGenerationTest.[7] class ru.brikster.chatty.config.file.NotificationsConfig",
+        "ru.brikster.chatty.config.file.ConfigGenerationTest.[8] class ru.brikster.chatty.config.file.ReplacementsConfig",
+        "ru.brikster.chatty.config.file.ConfigGenerationTest.[9] class ru.brikster.chatty.config.file.ProxyConfig",
+        "ru.brikster.chatty.config.file.CrossServerRangeTest.loadsAChatConfiguredForCrossServerChat()",
+        "ru.brikster.chatty.config.file.DeathCausesTest.everyShippedCauseNamesARealDamageCause()",
+        "ru.brikster.chatty.config.file.DeathCausesTest.theCommonWaysToDieAreCovered()",
+        "ru.brikster.chatty.config.file.DeathCausesTest.thereIsAlwaysSomethingToFallBackOn()",
+        "ru.brikster.chatty.config.file.DeathCausesTest.[1] ru-RU",
+        "ru.brikster.chatty.config.file.DeathCausesTest.[2] de-DE",
+        "ru.brikster.chatty.config.file.DeathCausesTest.[3] es-ES",
+        "ru.brikster.chatty.config.file.DeathCausesTest.[4] zh-CN",
+        "ru.brikster.chatty.config.file.LanguageFilesTest.[1] ru-RU",
+        "ru.brikster.chatty.config.file.LanguageFilesTest.[2] de-DE",
+        "ru.brikster.chatty.config.file.LanguageFilesTest.[3] es-ES",
+        "ru.brikster.chatty.config.file.LanguageFilesTest.[4] zh-CN",
+        "ru.brikster.chatty.config.file.ShippedSenderFormatPermissionsTest.theShippedDefaultsActuallyCarryExamples()",
+        "ru.brikster.chatty.config.file.ShippedSenderFormatPermissionsTest.everyShippedSenderFormatIsDeniedByDefault()",
+        "ru.brikster.chatty.config.file.UserEditedConfigTest.reloadsAfterMessagesAreAddedToANotificationList()",
+        "ru.brikster.chatty.config.file.UserEditedConfigTest.reloadsAfterAWholeNotificationListIsAdded()",
+        "ru.brikster.chatty.config.migration.V2ConfigMigratorTest.migratesVanillaMessages()",
+        "ru.brikster.chatty.config.migration.V2ConfigMigratorTest.migratesSettingsAndMentions()",
+        "ru.brikster.chatty.config.migration.V2ConfigMigratorTest.clampsCapsValuesV3WouldReject()",
+        "ru.brikster.chatty.config.migration.V2ConfigMigratorTest.leavesTheLanguageAloneForAnUnknownLocale()",
+        "ru.brikster.chatty.config.migration.V2ConfigMigratorTest.skipsChatsDisabledInV2()",
+        "ru.brikster.chatty.config.migration.V2ConfigMigratorTest.migratesPmWithTranslatedPlaceholders()",
+        "ru.brikster.chatty.config.migration.V2ConfigMigratorTest.migratesModeration()",
+        "ru.brikster.chatty.config.migration.V2ConfigMigratorTest.migratesChatsPreservingRangeAndClampingCooldown()",
+        "ru.brikster.chatty.config.migration.V2ConfigMigratorTest.migratesTheChatCommandAndItsAliases()",
+        "ru.brikster.chatty.config.migration.V2ConfigMigratorTest.expandsSpyFormatPlaceholder()",
+        "ru.brikster.chatty.config.migration.V2ConfigMigratorTest.migratesUnderscoredAndBareLocales()",
+        "ru.brikster.chatty.config.migration.V2ConfigMigratorTest.migratesLocaleToTheV3LanguageCode()",
+        "ru.brikster.chatty.config.migration.V2ConfigMigratorTest.writesASpyFormatEvenWhenV2HadNoSpySection()",
+        "ru.brikster.chatty.convert.ColourSpellingMatrixTest.gradientIsSupported()",
+        "ru.brikster.chatty.convert.ColourSpellingMatrixTest.miniMessageNamedColourIsSupported()",
+        "ru.brikster.chatty.convert.ColourSpellingMatrixTest.ampersandHexIsSupported()",
+        "ru.brikster.chatty.convert.ColourSpellingMatrixTest.bareHashHexIsNotAColourCode()",
+        "ru.brikster.chatty.convert.ColourSpellingMatrixTest.spigotSpreadHexIsSupported()",
+        "ru.brikster.chatty.convert.ColourSpellingMatrixTest.sectionSignColourIsSupported()",
+        "ru.brikster.chatty.convert.ColourSpellingMatrixTest.miniMessageHexIsSupported()",
+        "ru.brikster.chatty.convert.ColourSpellingMatrixTest.rainbowIsSupported()",
+        "ru.brikster.chatty.convert.ColourSpellingMatrixTest.legacyAmpersandColourIsSupported()",
+        "ru.brikster.chatty.convert.ColourSpellingMatrixTest.legacyDecorationIsSupported()",
+        "ru.brikster.chatty.convert.message.LegacyToMiniMessageConverterTest.convertSectionCodesIsCaseInsensitive()",
+        "ru.brikster.chatty.convert.message.LegacyToMiniMessageConverterTest.convertSectionCodesLeavesPlainTextUntouched()",
+        "ru.brikster.chatty.convert.message.LegacyToMiniMessageConverterTest.convertSectionCodesIgnoresAmpersandCodes()",
+        "ru.brikster.chatty.convert.message.LegacyToMiniMessageConverterTest.convertSectionCodesConvertsResetCode()",
+        "ru.brikster.chatty.convert.message.LegacyToMiniMessageConverterTest.convertsAmpersandColorCode()",
+        "ru.brikster.chatty.convert.message.LegacyToMiniMessageConverterTest.convertSectionCodesStripsStraySectionSigns()",
+        "ru.brikster.chatty.convert.message.LegacyToMiniMessageConverterTest.convertsDecorationCode()",
+        "ru.brikster.chatty.convert.message.LegacyToMiniMessageConverterTest.messageWithLegacyCodesSurvivesTheConstructPipeline()",
+        "ru.brikster.chatty.convert.message.LegacyToMiniMessageConverterTest.convertsSectionColorCode()",
+        "ru.brikster.chatty.convert.message.LegacyToMiniMessageConverterTest.convertSectionCodesMakesBotMessageSafeForStrictMiniMessage()",
+        "ru.brikster.chatty.convert.message.LegacyToMiniMessageConverterTest.convertsHexColorCode()",
+        "ru.brikster.chatty.convert.message.LegacyToMiniMessageConverterTest.leavesPlainTextUntouched()",
+        "ru.brikster.chatty.convert.message.LegacyToMiniMessageConverterTest.convertSectionCodesConvertsSectionColorCode()",
+        "ru.brikster.chatty.notification.ActionbarNotificationSoundTest.playsTheSoundOncePerMessageRatherThanEveryTick()",
+        "ru.brikster.chatty.notification.ActionbarNotificationSoundTest.playsNoSoundWhenNoneIsConfigured()",
+        "ru.brikster.chatty.notification.advancement.AdvancementJsonTest.theToastHangsOffTheGivenParent()",
+        "ru.brikster.chatty.notification.advancement.AdvancementJsonTest.theFingerprintIsStableForTheSameLook()",
+        "ru.brikster.chatty.notification.advancement.AdvancementJsonTest.theToastAsksForAPopUpAndNothingElse()",
+        "ru.brikster.chatty.notification.advancement.AdvancementJsonTest.aSubtitleIsFoldedIntoTheTitleBehindANewline()",
+        "ru.brikster.chatty.notification.advancement.AdvancementJsonTest.aChannelIdBecomesAUsableKey()",
+        "ru.brikster.chatty.notification.advancement.AdvancementJsonTest.everyCriterionIsRequired()",
+        "ru.brikster.chatty.notification.advancement.AdvancementJsonTest.theRootCarriesNoDisplay()",
+        "ru.brikster.chatty.notification.advancement.AdvancementJsonTest.theFingerprintSeesColour()",
+        "ru.brikster.chatty.notification.advancement.AdvancementJsonTest.theIconFieldFollowsTheServerGeneration()",
+        "ru.brikster.chatty.notification.advancement.AdvancementJsonTest.aBlankSubtitleCountsAsAbsent()",
+        "ru.brikster.chatty.notification.advancement.AdvancementJsonTest.theFrameIsWrittenAsTheGameSpellsIt()",
+        "ru.brikster.chatty.notification.advancement.AdvancementJsonTest.aToastWithoutASubtitleKeepsASingleLineTitle()",
+        "ru.brikster.chatty.notification.advancement.AdvancementJsonTest.theFingerprintFollowsEveryVisibleDetail()",
+        "ru.brikster.chatty.pm.targets.RemotePmMessageTargetTest.resolvesByNameWhenTheProxyDoesNotKnowTheUuid()",
+        "ru.brikster.chatty.pm.targets.RemotePmMessageTargetTest.resolvesByUuidWhenTheProxyKnowsIt()",
+        "ru.brikster.chatty.util.AdventureUtilTest.leavesTextWithoutMatchesUnchanged()",
+        "ru.brikster.chatty.util.AdventureUtilTest.preservesClickEventOfReplacementComponent()",
+        "ru.brikster.chatty.util.AdventureUtilTest.replacesPlaceholderWithComponent()",
+        "ru.brikster.chatty.util.AdventureUtilTest.keepsTextWhenReplacementFunctionReturnsNull()",
+        "ru.brikster.chatty.util.MuteFormatterTest.aPermanentMuteReadsFromTheLangFile()",
+        "ru.brikster.chatty.util.MuteFormatterTest.everyPlaceholderIsFilledIn()",
+        "ru.brikster.chatty.util.MuteFormatterTest.anExpiredMuteCountsDownToZeroInsteadOfGoingNegative()",
+        "ru.brikster.chatty.util.MuteFormatterTest.readsEveryUnitItOffers()",
+        "ru.brikster.chatty.util.MuteFormatterTest.everyUnitPairComesFromTheLangFile()",
+        "ru.brikster.chatty.util.MuteFormatterTest.refusesAnythingItCannotReadRatherThanGuessing()",
+        "ru.brikster.chatty.util.MuteFormatterTest.aTranslatedLangFileChangesTheWording()",
+        "ru.brikster.chatty.util.MuteFormatterTest.acceptsTheUnitInEitherCaseAndIgnoresPadding()",
+        "ru.brikster.chatty.util.RichComponentSurvivalTest.keepsPlainTextAndColoursIntact()",
+        "ru.brikster.chatty.util.RichComponentSurvivalTest.keepsASpriteInTheFormat()",
+        "ru.brikster.chatty.util.RichComponentSurvivalTest.keepsATranslatableComponentInTheFormat()",
+        "ru.brikster.chatty.util.RichComponentSurvivalTest.keepsAShadowColourInTheFormat()"
+      ],
+      "server_cases": [
+        "plugin is enabled",
+        "default configuration reloads cleanly",
+        "valid notifications.yml loads every channel",
+        "chats stay registered after a reload",
+        "info command answers from the console",
+        "notifications tick after a clean reload",
+        "reload survives an action bar channel whose stay exceeds its period",
+        "skipped channel is reported by name",
+        "every offending channel is skipped and reported",
+        "chat keeps being handled after a reload with an offending channel",
+        "notifications keep ticking after a reload with an offending channel"
+      ],
+      "clean_room_synthetic": false
+    },
+    {
+      "id": "betterteams-help-page-bounds",
+      "difficulty": "easy",
+      "title": {
+        "en": "BetterTeams: /team help crashes on page 0, prints phantom pages, and plugin lines start with null",
+        "zh": "BetterTeams：/team help 第 0 页崩溃、显示不存在的页码，插件消息以 null 开头"
+      },
+      "summary": {
+        "en": "Repair BetterTeams so out-of-range help pages clamp to a real page and every prefixed plugin line, from help entries to chest-claim broadcasts, carries the configured prefix instead of null.",
+        "zh": "修复 BetterTeams，使越界的帮助页码回落到真实页面，并让每条带前缀的插件消息（从帮助条目到箱子领地广播）使用配置的前缀而非 null。"
+      },
+      "brief": {
+        "en": "/team help 0 ends in an internal error, /team help 99 prints a footer such as Page 7/6 with no commands, and help entries and the /teama chest disableclaims|enableclaims broadcasts start with the text null.",
+        "zh": "/team help 0 以内部错误结束，/team help 99 显示 Page 7/6 之类的页脚且没有命令，帮助条目与 /teama chest disableclaims|enableclaims 广播以 null 开头。"
+      },
+      "requirements": {
+        "en": [
+          "/team help 0 and negative pages show the first page without an internal error",
+          "page numbers past the last page show the last page with its commands",
+          "help entries and the chest-claim broadcasts start with the configured message prefix instead of null",
+          "valid pages, non-numeric pages, per-command help and every upstream unit test keep working"
+        ],
+        "zh": [
+          "/team help 0 与负数页码显示第一页且不报内部错误",
+          "超出末页的页码显示末页及其命令",
+          "帮助条目与箱子领地广播以配置的消息前缀开头而非 null",
+          "有效页码、非数字页码、单命令帮助与全部上游单测保持正常"
+        ]
+      },
+      "api_usage": {
+        "en": [
+          "/team help",
+          "/teama chest disableclaims",
+          "/teama chest enableclaims",
+          "org.bukkit.event.server.BroadcastMessageEvent"
+        ],
+        "zh": [
+          "/team help",
+          "/teama chest disableclaims",
+          "/teama chest enableclaims",
+          "BroadcastMessageEvent"
+        ]
+      },
+      "acceptance": {
+        "en": [
+          "offline Maven package build of the BetterTeams module succeeds",
+          "all 44 upstream JUnit tests pass",
+          "ten live-server cases pass"
+        ],
+        "zh": [
+          "BetterTeams 模块离线 Maven package 构建成功",
+          "44 个上游 JUnit 测试通过",
+          "十个真实服务器用例通过"
+        ]
+      },
+      "domains": [
+        "commands",
+        "pagination",
+        "messaging"
+      ],
+      "estimated_minutes": 60,
+      "required_files": [
+        "plugin/BetterTeams/src/main/resources/plugin.yml"
+      ],
+      "plugin_name": "BetterTeams",
+      "build": {
+        "tool": "maven",
+        "wrapper": false,
+        "tool_version": "3.9.11",
+        "module": "BetterTeams",
+        "assemble": "package",
+        "test": "test",
+        "artifact": "server/plugins/BetterTeams-5.1.0.jar",
+        "java_release": 21,
+        "frozen_paths": [
+          "pom.xml",
+          "BetterTeams/pom.xml",
+          "BetterTeams/src/test",
+          "extensions/pom.xml",
+          "extensions/discord-extension/pom.xml",
+          "extensions/luckperms-extension/pom.xml",
+          "extensions/zkoth-extension/pom.xml",
+          ".mvn",
+          "mvnw",
+          "mvnw.cmd"
+        ]
+      },
+      "upstream": {
+        "repository": "https://github.com/booksaw/BetterTeams",
+        "base_commit": "96e725761ea668082e9d8cd6eb3b2bf9fbe3d437",
+        "fix_commit": "a23d42f3bad67d40fe44a766e458f1b311b3e866",
+        "license_spdx": "MIT",
+        "license_file": "LICENSE",
+        "paper_api": "spigot-api 1.20-R0.1-SNAPSHOT"
+      },
+      "unit_cases": [
+        "sort() Tests.testComplexGraph",
+        "sort() Tests.testHardCircularDependency",
+        "sort() Tests.testNoDependencies",
+        "sort() Tests.testTransitiveDependency",
+        "scanExtensions() Tests.testMixedValidAndInvalid",
+        "scanExtensions() Tests.testDuplicateNames",
+        "scanExtensions() Tests.testMultipleValidJars",
+        "ExtensionClassLoader Global Access Tests.testLoadClassFromOtherExtension",
+        "ExtensionClassLoader Global Access Tests.testClassNotFound",
+        "ExtensionClassLoader Global Access Tests.testSelfPriority",
+        "fromYaml() Loading Tests.testDefaultValues",
+        "fromYaml() Loading Tests.testNullFile",
+        "fromYaml() Loading Tests.testMissingYml",
+        "fromYaml() Loading Tests.testMissingMainInYml",
+        "fromYaml() Loading Tests.testMissingMainClassInJar",
+        "fromYaml() Loading Tests.testSuccessfulLoad",
+        "fromYaml() Loading Tests.testNonExistentFile",
+        "unload() Tests.testUnloadSuccess",
+        "enable() Tests.testEnableFailsMissingPluginDep",
+        "enable() Tests.testEnableAlreadyEnabled",
+        "enable() Tests.testEnableSuccess",
+        "disable() Tests.testDisableSuccess",
+        "disable() Tests.testDisableAlreadyDisabled",
+        "load() Tests.testLoadWrongMainClass",
+        "load() Tests.testLoadSuccess",
+        "load() Tests.testLoadNoJar",
+        "Full Lifecycle Integration Test.testFullLifecycle",
+        "Static and Ranked Placeholder Tests.testRankedPlaceholder_RankOutOfBounds",
+        "Static and Ranked Placeholder Tests.testStaticTeamPlaceholder_TeamNotFound",
+        "Static and Ranked Placeholder Tests.testRankedPlaceholder_InvalidRank",
+        "Static and Ranked Placeholder Tests.testRankedPlaceholder_Score",
+        "Static and Ranked Placeholder Tests.testStaticTeamPlaceholder_Success",
+        "Static and Ranked Placeholder Tests.testRankedPlaceholder_Balance",
+        "Static and Ranked Placeholder Tests.testStaticPlayerPlaceholder_PlayerNotFound",
+        "Static and Ranked Placeholder Tests.testStaticPlayerPlaceholder_Success",
+        "onRequest() Player-Specific Tests.testPlayerInTeamForInTeamPlaceholder",
+        "onRequest() Player-Specific Tests.testPlayerNotInTeamForInTeamPlaceholder",
+        "onRequest() Player-Specific Tests.testDataPlaceholderRequest",
+        "onRequest() Player-Specific Tests.testRequestWithNullPlayer",
+        "onRequest() Player-Specific Tests.testStandardPlaceholderRequest",
+        "onRequest() Player-Specific Tests.testPlayerNotInTeamForTeamSpecificPlaceholder",
+        "Cache Logic Tests.testInvalidateCache",
+        "Cache Logic Tests.testPlayerSpecificPlaceholderIsNotCached",
+        "Cache Logic Tests.testStaticPlaceholderIsCached"
+      ],
+      "server_cases": [
+        "plugin is enabled",
+        "help without a page shows the first page",
+        "an explicit page number selects that page",
+        "the last page shows the remaining commands",
+        "help for one command is unchanged",
+        "help entries carry the plugin prefix",
+        "page zero and negative pages fall back to the first page",
+        "pages past the end show the last page",
+        "a page argument that is not a number shows the first page",
+        "chest claim broadcasts carry the plugin prefix"
+      ],
+      "clean_room_synthetic": false
+    },
+    {
+      "id": "prometheus-exporter-players-total-main-thread",
+      "difficulty": "easy",
+      "title": {
+        "en": "PrometheusExporter: every /metrics scrape waits for the main thread because of players_total",
+        "zh": "PrometheusExporter：players_total 让每次 /metrics 抓取都等待主线程"
+      },
+      "summary": {
+        "en": "Repair minecraft-prometheus-exporter so the players_total metric is collected on the scrape's own thread instead of being dispatched to the server's main thread.",
+        "zh": "修复 minecraft-prometheus-exporter，使 players_total 指标在抓取线程上采集，而不是被派发到服务器主线程。"
+      },
+      "brief": {
+        "en": "The players_total gauge, a playerdata directory listing that reads no world state, is computed on the main thread for every scrape, so the tick pays for it and a scrape stalls whenever the main thread is busy.",
+        "zh": "players_total 指标只是列出 playerdata 目录、不读取世界状态，却在每次抓取时都在主线程上计算，导致 tick 为其买单、主线程繁忙时抓取卡住。"
+      },
+      "requirements": {
+        "en": [
+          "collecting the registered PlayersTotal metric needs no main-thread work, even while the main thread is blocked",
+          "with every other metric disabled, a /metrics scrape completes while the main thread is busy",
+          "mc_players_total keeps reporting the number of players known to the server",
+          "metrics that read world, chunk or entity state stay on the main thread; default families, disable/enable and every upstream unit test keep working"
+        ],
+        "zh": [
+          "采集已注册的 PlayersTotal 指标无需主线程工作，即使主线程被阻塞",
+          "禁用其他指标后，/metrics 抓取在主线程繁忙时仍能完成",
+          "mc_players_total 继续报告服务器已知的玩家数",
+          "读取世界、区块或实体状态的指标仍在主线程采集；默认指标族、禁用/启用与全部上游单测保持正常"
+        ]
+      },
+      "api_usage": {
+        "en": [
+          "de.sldk.mc.metrics.Metric",
+          "de.sldk.mc.metrics.PlayersTotal",
+          "de.sldk.mc.MetricRegistry",
+          "org.bukkit.Bukkit#getOfflinePlayers"
+        ],
+        "zh": [
+          "Metric",
+          "PlayersTotal",
+          "MetricRegistry",
+          "Bukkit#getOfflinePlayers"
+        ]
+      },
+      "acceptance": {
+        "en": [
+          "offline Maven package build succeeds",
+          "all 27 frozen upstream JUnit tests pass",
+          "seven live-server cases pass"
+        ],
+        "zh": [
+          "离线 Maven package 构建成功",
+          "27 个冻结的上游 JUnit 测试通过",
+          "七个真实服务器用例通过"
+        ]
+      },
+      "domains": [
+        "metrics",
+        "threading",
+        "scheduler"
+      ],
+      "estimated_minutes": 45,
+      "required_files": [
+        "plugin/src/main/resources/plugin.yml"
+      ],
+      "plugin_name": "PrometheusExporter",
+      "build": {
+        "tool": "maven",
+        "wrapper": false,
+        "tool_version": "3.9.11",
+        "assemble": "package",
+        "test": "test",
+        "artifact": "target/minecraft-prometheus-exporter-2.6.1-SNAPSHOT.jar",
+        "java_release": 17
+      },
+      "upstream": {
+        "repository": "https://github.com/sladkoff/minecraft-prometheus-exporter",
+        "base_commit": "e8647672998b36279970ea07c68e97a1af7daee3",
+        "fix_commit": "e7de226014516d64fd8d04f4bac9d3a1e4145a0b",
+        "license_spdx": "MIT",
+        "license_file": "LICENSE.md",
+        "paper_api": "1.20.4-R0.1-SNAPSHOT"
+      },
+      "unit_cases": [
+        "de.sldk.mc.exporter.PrometheusExporterTest.metrics_server_should_return_404_on_unknown_paths",
+        "de.sldk.mc.exporter.PrometheusExporterTest.metrics_server_should_return_valid_prometheus_response",
+        "de.sldk.mc.metrics.EntitiesTest.expectArmorStandAliveToBeFalse",
+        "de.sldk.mc.metrics.EntitiesTest.givenTypedEntitiesExpectCorrectCount",
+        "de.sldk.mc.metrics.EntitiesTest.givenUnknownTypeExpectNoError",
+        "de.sldk.mc.metrics.PlayerStatisticLoaderFromFileTest.get_custom_world",
+        "de.sldk.mc.metrics.PlayerStatisticLoaderFromFileTest.get_default_world",
+        "de.sldk.mc.metrics.PlayerStatisticLoaderFromFileTest.use_world_as_fallback_world",
+        "de.sldk.mc.metrics.PlayerStatisticsTest.bukkit_api_statistics_should_be_loaded_if_available",
+        "de.sldk.mc.metrics.PlayerStatisticsTest.file_statistics_should_be_used_as_fallback",
+        "de.sldk.mc.metrics.PlayerStatisticsTest.constructor_does_not_load_statistics_from_file",
+        "de.sldk.mc.metrics.VillagersTest.givenVillagersExpectCorrectCount",
+        "de.sldk.mc.metrics.WorldSizeTest.setsMetricWithCorrectNameAndLabel",
+        "de.sldk.mc.metrics.WorldSizeTest.doesNotThrowIfFileDoesNotExist",
+        "de.sldk.mc.metrics.WorldSizeTest.setsCorrectWorldSizeValue",
+        "de.sldk.mc.metrics.WorldSizeTest.doesNotPopulateMetricIfFileDoesNotExist",
+        "de.sldk.mc.tps.TpsCollectorTest.test_optimal_ticks",
+        "de.sldk.mc.tps.TpsCollectorTest.test_invalid_ticks_should_be_ignored",
+        "de.sldk.mc.tps.TpsCollectorTest.test_slow_ticks",
+        "de.sldk.mc.tps.TpsCollectorTest.test_default_value_before_first_poll",
+        "de.sldk.mc.utils.PathFileSizeTest$WhenPathDoesNotExist.returnsSizeZero",
+        "de.sldk.mc.utils.PathFileSizeTest$WhenPathIsDirectory.returnsSizeOfMultipleFiles",
+        "de.sldk.mc.utils.PathFileSizeTest$WhenPathIsDirectory.returnsSizeOfSingleFile",
+        "de.sldk.mc.utils.PathFileSizeTest$WhenPathIsDirectory.returnSizeOfNestedDirectories",
+        "de.sldk.mc.utils.PathFileSizeTest$WhenPathIsDirectory.returnsZeroIfDirectoryIsEmpty",
+        "de.sldk.mc.utils.PathFileSizeTest$WhenPathIsFile.returnsZeroIfFileIsEmpty",
+        "de.sldk.mc.utils.PathFileSizeTest$WhenPathIsNull.shouldThrowException"
+      ],
+      "server_cases": [
+        "plugin is enabled",
+        "scrape returns the expected metric families",
+        "players_total reports every known player",
+        "players_total is collected without the main thread",
+        "scrape completes while the main thread is busy",
+        "world-state metrics are still collected on the main thread",
+        "a disabled metric is left out of the scrape"
+      ],
+      "clean_room_synthetic": false
+    },
+    {
+      "id": "chatty-reload-ignores-chat-commands",
+      "difficulty": "medium",
+      "title": {
+        "en": "Chatty: chatty reload ignores chat commands added, renamed or removed in chats.yml",
+        "zh": "Chatty：chatty reload 忽略 chats.yml 中新增、改名或删除的聊天命令"
+      },
+      "summary": {
+        "en": "Repair Chatty so /chatty reload registers chat commands added to chats.yml and unregisters the old name of a renamed command and the command of a removed chat, instead of requiring a server restart.",
+        "zh": "修复 Chatty，使 /chatty reload 能注册 chats.yml 中新增的聊天命令，并注销改名命令的旧名称和已删除聊天的命令，而无需重启服务器。"
+      },
+      "brief": {
+        "en": "After editing chats.yml and running /chatty reload, the chat registry follows the file but the server's commands do not: an added chat command stays unknown, a renamed one keeps answering only to its old name and a removed chat keeps its command.",
+        "zh": "编辑 chats.yml 并执行 /chatty reload 后，聊天注册表随文件更新而服务器命令不变：新增的聊天命令仍未知，改名的命令只响应旧名称，删除的聊天仍保留其命令。"
+      },
+      "requirements": {
+        "en": [
+          "after /chatty reload a chat command added to chats.yml, aliases included, is registered in the server command map, owned by Chatty, and executes as a chat command",
+          "after /chatty reload the previous name of a renamed chat command is no longer registered",
+          "after /chatty reload the command of a chat removed from chats.yml is no longer registered",
+          "chat commands declared at start-up keep working across reloads, and the chat registry, /chatty and every upstream unit test keep working"
+        ],
+        "zh": [
+          "/chatty reload 后，chats.yml 中新增的聊天命令（含别名）已注册到服务器命令表、归属 Chatty 并作为聊天命令执行",
+          "/chatty reload 后，改名聊天命令的旧名称不再注册",
+          "/chatty reload 后，从 chats.yml 删除的聊天的命令不再注册",
+          "启动时声明的聊天命令在重载后保持可用，聊天注册表、/chatty 与全部上游单测保持正常"
+        ]
+      },
+      "api_usage": {
+        "en": [
+          "ru.brikster.chatty.api.ChattyApi",
+          "ru.brikster.chatty.api.chat.Chat",
+          "org.bukkit.Bukkit#getCommandMap",
+          "org.bukkit.command.PluginIdentifiableCommand"
+        ],
+        "zh": [
+          "ChattyApi",
+          "Chat",
+          "Bukkit#getCommandMap",
+          "PluginIdentifiableCommand"
+        ]
+      },
+      "acceptance": {
+        "en": [
+          "offline shadowJar build succeeds",
+          "all 161 upstream JUnit tests pass",
+          "seven live-server cases pass"
+        ],
+        "zh": [
+          "离线 shadowJar 构建成功",
+          "161 个上游 JUnit 测试通过",
+          "七个真实服务器用例通过"
+        ]
+      },
+      "domains": [
+        "configuration",
+        "command-registration",
+        "plugin-lifecycle",
+        "reload"
+      ],
+      "estimated_minutes": 90,
+      "required_files": [
+        "plugin/spigot/src/main/resources/plugin.yml"
+      ],
+      "plugin_name": "Chatty",
+      "build": {
+        "tool": "gradle",
+        "wrapper": true,
+        "assemble": "shadowJar",
+        "test": "test",
+        "artifact": "build/libs/Chatty-3.0.0-SNAPSHOT.jar",
+        "java_release": 21,
+        "frozen_paths": [
+          "build.gradle",
+          "settings.gradle",
+          "gradle.properties",
+          "gradle",
+          "gradlew",
+          "gradlew.bat",
+          "api/build.gradle",
+          "spigot/build.gradle",
+          "api/src/test",
+          "spigot/src/test"
+        ]
+      },
+      "upstream": {
+        "repository": "https://github.com/Brikster/Chatty",
+        "base_commit": "c632a311cd8db35a1a3d39546a154d7c9091b331",
+        "fix_commit": "3c62096c75e19cf9f385d4a30d956d4a9f2bcc10",
+        "license_spdx": "MIT",
+        "license_file": "LICENSE",
+        "paper_api": "spigot-api 1.19-R0.1-SNAPSHOT"
+      },
+      "unit_cases": [
+        "ru.brikster.chatty.ConstantsTest.matchesLowercaseReplacementKey()",
+        "ru.brikster.chatty.ConstantsTest.doesNotMatchUnrelatedPlaceholders()",
+        "ru.brikster.chatty.ConstantsTest.findsReplacementKeyInsideText()",
+        "ru.brikster.chatty.ConstantsTest.matchesUppercaseReplacementKey()",
+        "ru.brikster.chatty.adventure.NativeAudienceAdapterTest.serializesClickAndHoverInLegacyCompatibleSchema()",
+        "ru.brikster.chatty.chat.PlaceholderMatchedChatTest.deliversToEveryoneWhenNoPlaceholderIsConfigured()",
+        "ru.brikster.chatty.chat.PlaceholderMatchedChatTest.deliversOnlyToPlayersSharingTheSendersValue()",
+        "ru.brikster.chatty.chat.PlaceholderMatchedChatTest.alwaysDeliversToTheSenderThemselves()",
+        "ru.brikster.chatty.chat.SenderFormatTest.aRankWithoutItsOwnStylesDoesNotFallBackToTheChatStyles()",
+        "ru.brikster.chatty.chat.SenderFormatTest.picksTheHighestPriorityRankTheSenderHolds()",
+        "ru.brikster.chatty.chat.SenderFormatTest.ignoresARankGrantedForAnotherChat()",
+        "ru.brikster.chatty.chat.SenderFormatTest.viewerStylesComeFromTheSelectedRank()",
+        "ru.brikster.chatty.chat.SenderFormatTest.usesTheRankFormatWhenTheSenderHoldsIt()",
+        "ru.brikster.chatty.chat.SenderFormatTest.usesTheChatFormatForASenderWithNoRank()",
+        "ru.brikster.chatty.chat.SenderFormatTest.acceptsAPerChatGrant()",
+        "ru.brikster.chatty.chat.construct.ComponentFromContextConstructorImplTest.resolvesPlaceholdersInsideMessageFormat()",
+        "ru.brikster.chatty.chat.construct.ComponentFromContextConstructorImplTest.doesNotResolvePlaceholdersTypedByThePlayer()",
+        "ru.brikster.chatty.chat.message.context.MessageContextKeysTest.whatIsPutInComesBackOut()",
+        "ru.brikster.chatty.chat.message.context.MessageContextKeysTest.anySetOrListIsAccepted()",
+        "ru.brikster.chatty.chat.message.context.MessageContextKeysTest.anAddonPuttingSomethingElseUnderTheKeyCannotBreakDelivery()",
+        "ru.brikster.chatty.chat.message.context.MessageContextKeysTest.aMissingKeyReadsAsEmptyRatherThanThrowing()",
+        "ru.brikster.chatty.chat.message.context.MessageContextKeysTest.nonPlayersAreFilteredOutOfAMixedCollection()",
+        "ru.brikster.chatty.chat.message.context.MessageContextKeysTest.bothKeysAreSpelledTheSameWay()",
+        "ru.brikster.chatty.chat.message.transform.decorations.ChatScopedDecorationsTest.appliesAColourOnlyInTheChatItWasGrantedFor()",
+        "ru.brikster.chatty.chat.message.transform.decorations.ChatScopedDecorationsTest.aServerWideGrantStillAppliesEverywhere()",
+        "ru.brikster.chatty.chat.message.transform.decorations.ChatScopedDecorationsTest.keepsWorkingForPrivateMessagesWhereThereIsNoChat()",
+        "ru.brikster.chatty.chat.message.transform.decorations.ChatScopedDecorationsTest.appliesASingleDecorationScopedToOneChat()",
+        "ru.brikster.chatty.chat.message.transform.decorations.PlayerDecorationsFormatterTest.stripsSectionCodesForPlayerWithoutPermission()",
+        "ru.brikster.chatty.chat.message.transform.decorations.PlayerDecorationsFormatterTest.keepsAmpersandCodesLiteralWithoutPermission()",
+        "ru.brikster.chatty.chat.message.transform.decorations.PlayerDecorationsFormatterTest.stripsSectionCodesEvenForPlayerWithDecorationPermission()",
+        "ru.brikster.chatty.chat.message.transform.decorations.PlayerDecorationsFormatterTest.appliesAmpersandColorsWithPermission()",
+        "ru.brikster.chatty.chat.message.transform.stage.early.moderation.ModerationReplacementTest.treatsABackslashInTheReplacementAsText()",
+        "ru.brikster.chatty.chat.message.transform.stage.early.moderation.ModerationReplacementTest.treatsADollarSignInTheReplacementAsText()",
+        "ru.brikster.chatty.chat.message.transform.stage.early.moderation.ModerationReplacementTest.survivesAReplacementEndingInADollarSign()",
+        "ru.brikster.chatty.chat.selection.ChatSelectorImplTest.picksTheLongestMatchingSymbol()",
+        "ru.brikster.chatty.chat.selection.ChatSelectorImplTest.letsAnExplicitSymbolOverrideTheSwitchedChat()",
+        "ru.brikster.chatty.chat.selection.ChatSelectorImplTest.picksTheLongestMatchingSymbolWhateverTheRegistrationOrder()",
+        "ru.brikster.chatty.chat.selection.ChatSelectorImplTest.sendsTheNextMessageIntoTheChatTheCommandRequested()",
+        "ru.brikster.chatty.chat.selection.ChatSelectorImplTest.skipsChatsTheSenderMayNotUse()",
+        "ru.brikster.chatty.chat.selection.ChatSelectorImplTest.returnsNothingWhenNoChatMatches()",
+        "ru.brikster.chatty.chat.selection.ChatSelectorImplTest.ignoresASwitchedChatTheSenderMayNoLongerUse()",
+        "ru.brikster.chatty.chat.selection.ChatSelectorImplTest.usesTheSwitchedChatWhenNoSymbolIsGiven()",
+        "ru.brikster.chatty.config.file.ConfigCommentTranslationsTest.everyTranslatedCommentHasBothLanguages()",
+        "ru.brikster.chatty.config.file.ConfigCommentTranslationsTest.noCommentIsLeftUntranslated()",
+        "ru.brikster.chatty.config.file.ConfigGenerationTest.[1] class ru.brikster.chatty.config.file.SettingsConfig",
+        "ru.brikster.chatty.config.file.ConfigGenerationTest.[2] class ru.brikster.chatty.config.file.ChatsConfig",
+        "ru.brikster.chatty.config.file.ConfigGenerationTest.[3] class ru.brikster.chatty.config.file.PmConfig",
+        "ru.brikster.chatty.config.file.ConfigGenerationTest.[4] class ru.brikster.chatty.config.file.MessagesConfig",
+        "ru.brikster.chatty.config.file.ConfigGenerationTest.[5] class ru.brikster.chatty.config.file.VanillaConfig",
+        "ru.brikster.chatty.config.file.ConfigGenerationTest.[6] class ru.brikster.chatty.config.file.ModerationConfig",
+        "ru.brikster.chatty.config.file.ConfigGenerationTest.[7] class ru.brikster.chatty.config.file.NotificationsConfig",
+        "ru.brikster.chatty.config.file.ConfigGenerationTest.[8] class ru.brikster.chatty.config.file.ReplacementsConfig",
+        "ru.brikster.chatty.config.file.ConfigGenerationTest.[9] class ru.brikster.chatty.config.file.ProxyConfig",
+        "ru.brikster.chatty.config.file.CrossServerRangeTest.loadsAChatConfiguredForCrossServerChat()",
+        "ru.brikster.chatty.config.file.DeathCausesTest.everyShippedCauseNamesARealDamageCause()",
+        "ru.brikster.chatty.config.file.DeathCausesTest.theCommonWaysToDieAreCovered()",
+        "ru.brikster.chatty.config.file.DeathCausesTest.thereIsAlwaysSomethingToFallBackOn()",
+        "ru.brikster.chatty.config.file.DeathCausesTest.[1] ru-RU",
+        "ru.brikster.chatty.config.file.DeathCausesTest.[2] de-DE",
+        "ru.brikster.chatty.config.file.DeathCausesTest.[3] es-ES",
+        "ru.brikster.chatty.config.file.DeathCausesTest.[4] zh-CN",
+        "ru.brikster.chatty.config.file.LanguageFilesTest.[1] ru-RU",
+        "ru.brikster.chatty.config.file.LanguageFilesTest.[2] de-DE",
+        "ru.brikster.chatty.config.file.LanguageFilesTest.[3] es-ES",
+        "ru.brikster.chatty.config.file.LanguageFilesTest.[4] zh-CN",
+        "ru.brikster.chatty.config.file.ShippedSenderFormatPermissionsTest.theShippedDefaultsActuallyCarryExamples()",
+        "ru.brikster.chatty.config.file.ShippedSenderFormatPermissionsTest.everyShippedSenderFormatIsDeniedByDefault()",
+        "ru.brikster.chatty.config.file.UserEditedConfigTest.reloadsAfterMessagesAreAddedToANotificationList()",
+        "ru.brikster.chatty.config.file.UserEditedConfigTest.reloadsAfterAWholeNotificationListIsAdded()",
+        "ru.brikster.chatty.config.migration.V2ConfigMigratorTest.migratesVanillaMessages()",
+        "ru.brikster.chatty.config.migration.V2ConfigMigratorTest.migratesSettingsAndMentions()",
+        "ru.brikster.chatty.config.migration.V2ConfigMigratorTest.clampsCapsValuesV3WouldReject()",
+        "ru.brikster.chatty.config.migration.V2ConfigMigratorTest.leavesTheLanguageAloneForAnUnknownLocale()",
+        "ru.brikster.chatty.config.migration.V2ConfigMigratorTest.skipsChatsDisabledInV2()",
+        "ru.brikster.chatty.config.migration.V2ConfigMigratorTest.migratesPmWithTranslatedPlaceholders()",
+        "ru.brikster.chatty.config.migration.V2ConfigMigratorTest.migratesModeration()",
+        "ru.brikster.chatty.config.migration.V2ConfigMigratorTest.migratesChatsPreservingRangeAndClampingCooldown()",
+        "ru.brikster.chatty.config.migration.V2ConfigMigratorTest.migratesTheChatCommandAndItsAliases()",
+        "ru.brikster.chatty.config.migration.V2ConfigMigratorTest.expandsSpyFormatPlaceholder()",
+        "ru.brikster.chatty.config.migration.V2ConfigMigratorTest.migratesUnderscoredAndBareLocales()",
+        "ru.brikster.chatty.config.migration.V2ConfigMigratorTest.migratesLocaleToTheV3LanguageCode()",
+        "ru.brikster.chatty.config.migration.V2ConfigMigratorTest.writesASpyFormatEvenWhenV2HadNoSpySection()",
+        "ru.brikster.chatty.convert.ColourSpellingMatrixTest.gradientIsSupported()",
+        "ru.brikster.chatty.convert.ColourSpellingMatrixTest.miniMessageNamedColourIsSupported()",
+        "ru.brikster.chatty.convert.ColourSpellingMatrixTest.ampersandHexIsSupported()",
+        "ru.brikster.chatty.convert.ColourSpellingMatrixTest.bareHashHexIsNotAColourCode()",
+        "ru.brikster.chatty.convert.ColourSpellingMatrixTest.spigotSpreadHexIsSupported()",
+        "ru.brikster.chatty.convert.ColourSpellingMatrixTest.sectionSignColourIsSupported()",
+        "ru.brikster.chatty.convert.ColourSpellingMatrixTest.miniMessageHexIsSupported()",
+        "ru.brikster.chatty.convert.ColourSpellingMatrixTest.rainbowIsSupported()",
+        "ru.brikster.chatty.convert.ColourSpellingMatrixTest.legacyAmpersandColourIsSupported()",
+        "ru.brikster.chatty.convert.ColourSpellingMatrixTest.legacyDecorationIsSupported()",
+        "ru.brikster.chatty.convert.SupportedFormatsTest.textInsideAGradientIsNotTreatedAsARegexReplacement()",
+        "ru.brikster.chatty.convert.SupportedFormatsTest.theShadowTagIsSupported()",
+        "ru.brikster.chatty.convert.SupportedFormatsTest.legacyCodesStillWork()",
+        "ru.brikster.chatty.convert.SupportedFormatsTest.theSpriteTagIsSupported()",
+        "ru.brikster.chatty.convert.SupportedFormatsTest.theCmiGradientRunsBetweenTheColoursItNames()",
+        "ru.brikster.chatty.convert.SupportedFormatsTest.theCmiGradientKeepsOnlyTheTextItWrapped()",
+        "ru.brikster.chatty.convert.SupportedFormatsTest.[1] &#FF0000red",
+        "ru.brikster.chatty.convert.SupportedFormatsTest.[2] &x&f&f&0&0&0&0red",
+        "ru.brikster.chatty.convert.SupportedFormatsTest.[3] {#FF0000}red",
+        "ru.brikster.chatty.convert.SupportedFormatsTest.[4] {&#FF0000}red",
+        "ru.brikster.chatty.convert.SupportedFormatsTest.[5] <#FF0000>red",
+        "ru.brikster.chatty.convert.SupportedFormatsTest.[6] <color:#FF0000>red</color>",
+        "ru.brikster.chatty.convert.SupportedFormatsTest.aBraceCodeDoesNotLeaveItsBraceInTheMessage()",
+        "ru.brikster.chatty.convert.SupportedFormatsTest.theKeybindTagIsSupported()",
+        "ru.brikster.chatty.convert.SupportedFormatsTest.translatableAndInteractiveTagsAreSupported()",
+        "ru.brikster.chatty.convert.SupportedFormatsTest.theInsertionTagIsSupported()",
+        "ru.brikster.chatty.convert.SupportedFormatsTest.[1] <gradient:#FF0000:#0000FF>two stops</gradient>",
+        "ru.brikster.chatty.convert.SupportedFormatsTest.[2] <gradient:#FF0000:#00FF00:#0000FF>three stops</gradient>",
+        "ru.brikster.chatty.convert.SupportedFormatsTest.[3] {#FF0000:#0000FF chatty gradient}",
+        "ru.brikster.chatty.convert.SupportedFormatsTest.[4] {#FF0000>}cmi gradient{#0000FF<}",
+        "ru.brikster.chatty.convert.SupportedFormatsTest.[5] {&#FF0000>}cmi gradient with ampersand{&#0000FF<}",
+        "ru.brikster.chatty.convert.SupportedFormatsTest.[6] {#FF0000>}three{#00FF00>}stop{#0000FF<}",
+        "ru.brikster.chatty.convert.SupportedFormatsTest.[7] <rainbow>rainbow</rainbow>",
+        "ru.brikster.chatty.convert.message.LegacyToMiniMessageConverterTest.convertSectionCodesIsCaseInsensitive()",
+        "ru.brikster.chatty.convert.message.LegacyToMiniMessageConverterTest.convertSectionCodesLeavesPlainTextUntouched()",
+        "ru.brikster.chatty.convert.message.LegacyToMiniMessageConverterTest.convertSectionCodesIgnoresAmpersandCodes()",
+        "ru.brikster.chatty.convert.message.LegacyToMiniMessageConverterTest.convertSectionCodesConvertsResetCode()",
+        "ru.brikster.chatty.convert.message.LegacyToMiniMessageConverterTest.convertsAmpersandColorCode()",
+        "ru.brikster.chatty.convert.message.LegacyToMiniMessageConverterTest.convertSectionCodesStripsStraySectionSigns()",
+        "ru.brikster.chatty.convert.message.LegacyToMiniMessageConverterTest.convertsDecorationCode()",
+        "ru.brikster.chatty.convert.message.LegacyToMiniMessageConverterTest.messageWithLegacyCodesSurvivesTheConstructPipeline()",
+        "ru.brikster.chatty.convert.message.LegacyToMiniMessageConverterTest.convertsSectionColorCode()",
+        "ru.brikster.chatty.convert.message.LegacyToMiniMessageConverterTest.convertSectionCodesMakesBotMessageSafeForStrictMiniMessage()",
+        "ru.brikster.chatty.convert.message.LegacyToMiniMessageConverterTest.convertsHexColorCode()",
+        "ru.brikster.chatty.convert.message.LegacyToMiniMessageConverterTest.leavesPlainTextUntouched()",
+        "ru.brikster.chatty.convert.message.LegacyToMiniMessageConverterTest.convertSectionCodesConvertsSectionColorCode()",
+        "ru.brikster.chatty.notification.ActionbarNotificationSoundTest.playsTheSoundOncePerMessageRatherThanEveryTick()",
+        "ru.brikster.chatty.notification.ActionbarNotificationSoundTest.playsNoSoundWhenNoneIsConfigured()",
+        "ru.brikster.chatty.notification.advancement.AdvancementJsonTest.theToastHangsOffTheGivenParent()",
+        "ru.brikster.chatty.notification.advancement.AdvancementJsonTest.theFingerprintIsStableForTheSameLook()",
+        "ru.brikster.chatty.notification.advancement.AdvancementJsonTest.theToastAsksForAPopUpAndNothingElse()",
+        "ru.brikster.chatty.notification.advancement.AdvancementJsonTest.aSubtitleIsFoldedIntoTheTitleBehindANewline()",
+        "ru.brikster.chatty.notification.advancement.AdvancementJsonTest.aChannelIdBecomesAUsableKey()",
+        "ru.brikster.chatty.notification.advancement.AdvancementJsonTest.everyCriterionIsRequired()",
+        "ru.brikster.chatty.notification.advancement.AdvancementJsonTest.theRootCarriesNoDisplay()",
+        "ru.brikster.chatty.notification.advancement.AdvancementJsonTest.theFingerprintSeesColour()",
+        "ru.brikster.chatty.notification.advancement.AdvancementJsonTest.theIconFieldFollowsTheServerGeneration()",
+        "ru.brikster.chatty.notification.advancement.AdvancementJsonTest.aBlankSubtitleCountsAsAbsent()",
+        "ru.brikster.chatty.notification.advancement.AdvancementJsonTest.theFrameIsWrittenAsTheGameSpellsIt()",
+        "ru.brikster.chatty.notification.advancement.AdvancementJsonTest.aToastWithoutASubtitleKeepsASingleLineTitle()",
+        "ru.brikster.chatty.notification.advancement.AdvancementJsonTest.theFingerprintFollowsEveryVisibleDetail()",
+        "ru.brikster.chatty.pm.targets.RemotePmMessageTargetTest.resolvesByNameWhenTheProxyDoesNotKnowTheUuid()",
+        "ru.brikster.chatty.pm.targets.RemotePmMessageTargetTest.resolvesByUuidWhenTheProxyKnowsIt()",
+        "ru.brikster.chatty.util.AdventureUtilTest.leavesTextWithoutMatchesUnchanged()",
+        "ru.brikster.chatty.util.AdventureUtilTest.preservesClickEventOfReplacementComponent()",
+        "ru.brikster.chatty.util.AdventureUtilTest.replacesPlaceholderWithComponent()",
+        "ru.brikster.chatty.util.AdventureUtilTest.keepsTextWhenReplacementFunctionReturnsNull()",
+        "ru.brikster.chatty.util.MuteFormatterTest.aPermanentMuteReadsFromTheLangFile()",
+        "ru.brikster.chatty.util.MuteFormatterTest.everyPlaceholderIsFilledIn()",
+        "ru.brikster.chatty.util.MuteFormatterTest.anExpiredMuteCountsDownToZeroInsteadOfGoingNegative()",
+        "ru.brikster.chatty.util.MuteFormatterTest.readsEveryUnitItOffers()",
+        "ru.brikster.chatty.util.MuteFormatterTest.everyUnitPairComesFromTheLangFile()",
+        "ru.brikster.chatty.util.MuteFormatterTest.refusesAnythingItCannotReadRatherThanGuessing()",
+        "ru.brikster.chatty.util.MuteFormatterTest.aTranslatedLangFileChangesTheWording()",
+        "ru.brikster.chatty.util.MuteFormatterTest.acceptsTheUnitInEitherCaseAndIgnoresPadding()",
+        "ru.brikster.chatty.util.RichComponentSurvivalTest.keepsPlainTextAndColoursIntact()",
+        "ru.brikster.chatty.util.RichComponentSurvivalTest.keepsASpriteInTheFormat()",
+        "ru.brikster.chatty.util.RichComponentSurvivalTest.keepsATranslatableComponentInTheFormat()",
+        "ru.brikster.chatty.util.RichComponentSurvivalTest.keepsAShadowColourInTheFormat()"
+      ],
+      "server_cases": [
+        "plugin is enabled",
+        "chat commands declared at startup are registered",
+        "chat commands survive a reload with an unchanged configuration",
+        "chat command added in chats.yml is registered by chatty reload",
+        "chat registry lists the chat added in chats.yml",
+        "renamed chat command drops its old name after chatty reload",
+        "removed chat command is unregistered by chatty reload"
+      ],
+      "clean_room_synthetic": false
+    },
+    {
+      "id": "multiverse-core-world-exists-by-key",
+      "difficulty": "medium",
+      "title": {
+        "en": "Multiverse-Core: creating, importing or cloning a world does not notice that the world already exists",
+        "zh": "Multiverse-Core：创建、导入或克隆世界时未能识别世界已存在"
+      },
+      "summary": {
+        "en": "Repair Multiverse-Core so createWorld, importWorld and cloneWorld refuse a request whose name or namespaced key belongs to an existing world, and importWorld adopts a loaded Bukkit world addressed by key.",
+        "zh": "修复 Multiverse-Core，使 createWorld、importWorld 与 cloneWorld 在请求的名称或命名空间键属于已有世界时拒绝请求，并使 importWorld 能按键接纳已加载的 Bukkit 世界。"
+      },
+      "brief": {
+        "en": "Requests that address an existing world through the other of its two identities (the_end for world_the_end, gcb:keyed for the world keyed) are not refused: creates and clones end in exceptions after copying or loading worlds, imports complain about invalid folders, and importing a loaded Bukkit world by key fails.",
+        "zh": "通过已有世界的另一个身份（world_the_end 的 the_end、世界 keyed 的 gcb:keyed）发出的请求不会被拒绝：创建与克隆在复制或加载世界后以异常结束，导入抱怨目录无效，按键导入已加载的 Bukkit 世界失败。"
+      },
+      "requirements": {
+        "en": [
+          "createWorld, importWorld and cloneWorld fail with WORLD_EXIST_LOADED or WORLD_EXIST_UNLOADED when the requested name or key belongs to an existing world, without creating, copying or loading anything",
+          "name-based existence failures keep their meaning and order (loaded before unloaded, before folder checks)",
+          "importWorld adopts an already-loaded Bukkit world addressed by key, keeping its key and name",
+          "lookups by name and by key string, name-based create/clone/unload/remove and every upstream unit test keep working"
+        ],
+        "zh": [
+          "当请求的名称或键属于已有世界时，createWorld/importWorld/cloneWorld 以 WORLD_EXIST_LOADED 或 WORLD_EXIST_UNLOADED 失败，且不创建、复制或加载任何内容",
+          "基于名称的存在性失败保持原有含义与顺序（先已加载、后未加载、再目录检查）",
+          "importWorld 按键接纳已加载的 Bukkit 世界并保留其键与名称",
+          "按名称与按键字符串的查找、基于名称的创建/克隆/卸载/移除以及全部上游单测保持通过"
+        ]
+      },
+      "api_usage": {
+        "en": [
+          "org.mvplugins.multiverse.core.MultiverseCoreApi",
+          "org.mvplugins.multiverse.core.world.WorldManager",
+          "org.mvplugins.multiverse.core.world.options",
+          "org.mvplugins.multiverse.core.world.reasons"
+        ],
+        "zh": [
+          "MultiverseCoreApi",
+          "WorldManager",
+          "world.options",
+          "world.reasons"
+        ]
+      },
+      "acceptance": {
+        "en": [
+          "offline shadowJar build succeeds",
+          "all 177 upstream MockBukkit tests pass",
+          "ten live-server cases pass"
+        ],
+        "zh": [
+          "离线 shadowJar 构建成功",
+          "177 个上游 MockBukkit 测试通过",
+          "十个真实服务器用例通过"
+        ]
+      },
+      "domains": [
+        "world-management",
+        "registry",
+        "namespaced-keys"
+      ],
+      "estimated_minutes": 90,
+      "required_files": [
+        "plugin/src/main/resources/plugin.yml"
+      ],
+      "plugin_name": "Multiverse-Core",
+      "build": {
+        "tool": "gradle",
+        "wrapper": true,
+        "assemble": "shadowJar",
+        "test": "test",
+        "artifact": "build/libs/multiverse-core-local.jar",
+        "java_release": 21
+      },
+      "upstream": {
+        "repository": "https://github.com/Multiverse/Multiverse-Core",
+        "base_commit": "54900f55a94cf8e6dad22c2d9f2db8ed01d3713e",
+        "fix_commit": "5f43d756e596c73e8fd57b4f89109418851f95c9",
+        "license_spdx": "BSD-3-Clause",
+        "license_file": "LICENSE.md",
+        "paper_api": "1.21.11-R0.1-SNAPSHOT"
+      },
+      "unit_cases": [
+        "org.mvplugins.multiverse.core.MockBukkitTest.MockBukkit loads the plugin()",
+        "org.mvplugins.multiverse.core.anchor.AnchorManagerTest.Set new location for existing anchor()",
+        "org.mvplugins.multiverse.core.anchor.AnchorManagerTest.Delete anchor()",
+        "org.mvplugins.multiverse.core.anchor.AnchorManagerTest.Loaded correct Anchors from file()",
+        "org.mvplugins.multiverse.core.anchor.AnchorManagerTest.Create new anchor()",
+        "org.mvplugins.multiverse.core.api.MultiverseCoreApiTest.Get MultiverseCoreApi from bukkit service()",
+        "org.mvplugins.multiverse.core.api.MultiverseCoreApiTest.MultiverseCoreApi is available()",
+        "org.mvplugins.multiverse.core.command.LocalizationTest$BasicMessage$WithCommandSender.Sending the issuer the message should send the formatted message to the sender()",
+        "org.mvplugins.multiverse.core.command.LocalizationTest$BasicMessage.The raw message should be the same as the original()",
+        "org.mvplugins.multiverse.core.command.LocalizationTest$BasicMessage.The formatted message should be the same as the original()",
+        "org.mvplugins.multiverse.core.command.LocalizationTest$BasicMessage.The formatted message with PluginLocales for a CommandIssuer should be the same as the original()",
+        "org.mvplugins.multiverse.core.command.LocalizationTest$BasicMessage.The formatted message with PluginLocales should be the same as the original()",
+        "org.mvplugins.multiverse.core.command.LocalizationTest$LocaleConfiguration.Change default locale to chinese without per player locale should get chinese message()",
+        "org.mvplugins.multiverse.core.command.LocalizationTest$LocaleConfiguration.PerPlayerLocale disabled - Player with chinese locale should get default english message()",
+        "org.mvplugins.multiverse.core.command.LocalizationTest$LocaleConfiguration.Change default locale to chinese with per player locale should get default english message()",
+        "org.mvplugins.multiverse.core.command.LocalizationTest$LocaleConfiguration.PerPlayerLocale enabled - Player with chinese locale should get chinese message()",
+        "org.mvplugins.multiverse.core.command.LocalizationTest$LocalizedMessage$WithCommandSender.Sending the issuer the message should send the formatted message to the sender()",
+        "org.mvplugins.multiverse.core.command.LocalizationTest$LocalizedMessage.The formatted message with PluginLocales should be different from the replaced original string()",
+        "org.mvplugins.multiverse.core.command.LocalizationTest$LocalizedMessage.The raw message should be the same as the original()",
+        "org.mvplugins.multiverse.core.command.LocalizationTest$LocalizedMessage.The formatted message with PluginLocales should have performed replacement()",
+        "org.mvplugins.multiverse.core.command.LocalizationTest$LocalizedMessage.The formatted message should be the replaced original string()",
+        "org.mvplugins.multiverse.core.command.LocalizationTest$MessageWithOneReplacement$WithCommandSender.Sending the issuer the message should send the formatted message to the sender()",
+        "org.mvplugins.multiverse.core.command.LocalizationTest$MessageWithOneReplacement.The formatted message with PluginLocales should be the replaced message string()",
+        "org.mvplugins.multiverse.core.command.LocalizationTest$MessageWithOneReplacement.The raw message should be the same as the original()",
+        "org.mvplugins.multiverse.core.command.LocalizationTest$MessageWithOneReplacement.The formatted message should be the replaced message string()",
+        "org.mvplugins.multiverse.core.command.LocalizationTest$MessageWithOneReplacement.The formatted message with PluginLocales for a CommandIssuer should be the replaced message string()",
+        "org.mvplugins.multiverse.core.command.LocalizationTest$MessageWithTwoReplacements$WithCommandSender.Sending the issuer the message should send the formatted message to the sender()",
+        "org.mvplugins.multiverse.core.command.LocalizationTest$MessageWithTwoReplacements.The formatted message with PluginLocales should be the replaced message string()",
+        "org.mvplugins.multiverse.core.command.LocalizationTest$MessageWithTwoReplacements.The raw message should be the same as the original()",
+        "org.mvplugins.multiverse.core.command.LocalizationTest$MessageWithTwoReplacements.The formatted message should be the replaced message string()",
+        "org.mvplugins.multiverse.core.command.LocalizationTest$MessageWithTwoReplacements.The formatted message with PluginLocales for a CommandIssuer should be the replaced message string()",
+        "org.mvplugins.multiverse.core.command.LocalizationTest$WithMessagesAsReplacement$WithCommandSender.Sending the issuer the message should send the formatted message to the sender()",
+        "org.mvplugins.multiverse.core.command.LocalizationTest$WithMessagesAsReplacement.The formatted message with PluginLocales should be different from the replaced original string()",
+        "org.mvplugins.multiverse.core.command.LocalizationTest$WithMessagesAsReplacement.The raw message should be the same as the original()",
+        "org.mvplugins.multiverse.core.command.LocalizationTest$WithMessagesAsReplacement.The formatted message with PluginLocales should have performed replacement()",
+        "org.mvplugins.multiverse.core.command.LocalizationTest$WithMessagesAsReplacement.The formatted message should be the replaced original string()",
+        "org.mvplugins.multiverse.core.commands.ConfigCommandTest.Modify config global-debug player no permission()",
+        "org.mvplugins.multiverse.core.commands.ConfigCommandTest.Modify config global-debug()",
+        "org.mvplugins.multiverse.core.commands.ConfigCommandTest.Modify config global-debug invalid type()",
+        "org.mvplugins.multiverse.core.commands.ConfigCommandTest.Modify non-existing config property()",
+        "org.mvplugins.multiverse.core.commands.CreateCommandTest.Create normal world with specific seed and flat world type without structures()",
+        "org.mvplugins.multiverse.core.commands.CreateCommandTest.Create nether world with default options()",
+        "org.mvplugins.multiverse.core.commands.DeleteCommandTest.Delete unloaded world()",
+        "org.mvplugins.multiverse.core.commands.DeleteCommandTest.Delete loaded world()",
+        "org.mvplugins.multiverse.core.commands.ModifyCommandTest.Modify alias name with space()",
+        "org.mvplugins.multiverse.core.commands.RegenCommandTest.Regen world()",
+        "org.mvplugins.multiverse.core.commands.RegenCommandTest.Regen world with random seed()",
+        "org.mvplugins.multiverse.core.commands.RegenCommandTest.Regen world with specific seed()",
+        "org.mvplugins.multiverse.core.commands.RegenCommandTest.Regen world and reset world border()",
+        "org.mvplugins.multiverse.core.commands.RegenCommandTest.Regen world and reset world config()",
+        "org.mvplugins.multiverse.core.commands.RegenCommandTest.Regen world and reset gamerules()",
+        "org.mvplugins.multiverse.core.commands.SpawnCommandTest.Teleport multiple players to spawn location()",
+        "org.mvplugins.multiverse.core.commands.SpawnCommandTest.No permission to teleport to spawn()",
+        "org.mvplugins.multiverse.core.commands.SpawnCommandTest.Self permission to teleport to spawn()",
+        "org.mvplugins.multiverse.core.commands.SpawnCommandTest.Teleport player to spawn location()",
+        "org.mvplugins.multiverse.core.commands.SpawnCommandTest.Other permission to teleport to spawn()",
+        "org.mvplugins.multiverse.core.commands.SpawnCommandTest.Teleport others to spawn but not self()",
+        "org.mvplugins.multiverse.core.commands.TeleportCommandTest.Player permission to teleport self()",
+        "org.mvplugins.multiverse.core.commands.TeleportCommandTest.Player permission to teleport others cannot teleport self()",
+        "org.mvplugins.multiverse.core.commands.TeleportCommandTest.Player permission to teleport others()",
+        "org.mvplugins.multiverse.core.commands.TeleportCommandTest.Player no permission to teleport()",
+        "org.mvplugins.multiverse.core.commands.TeleportCommandTest.Player permission to teleport others without finer permission()",
+        "org.mvplugins.multiverse.core.commands.TeleportCommandTest.Player permission to teleport self without finer permission()",
+        "org.mvplugins.multiverse.core.commands.TeleportCommandTest.Teleport multiple players to other world()",
+        "org.mvplugins.multiverse.core.commands.TeleportCommandTest.Teleport multiple players to invalid world()",
+        "org.mvplugins.multiverse.core.commands.TeleportCommandTest.Teleport a player to other world()",
+        "org.mvplugins.multiverse.core.commands.VersionCommandTest.Run version command as console()",
+        "org.mvplugins.multiverse.core.commands.VersionCommandTest.Run version command as player()",
+        "org.mvplugins.multiverse.core.commands.VersionCommandTest.Run version command as player - no permission()",
+        "org.mvplugins.multiverse.core.config.ConfigTeleportInterceptTest.Generic teleport with teleport intercept enabled()",
+        "org.mvplugins.multiverse.core.config.ConfigTeleportInterceptTest.Multiverse API teleport with teleport intercept disabled()",
+        "org.mvplugins.multiverse.core.config.ConfigTeleportInterceptTest.Generic teleport with teleport intercept disabled - no access checking()",
+        "org.mvplugins.multiverse.core.config.ConfigTest.Config is loaded()",
+        "org.mvplugins.multiverse.core.config.ConfigTest.Broken config should regen fresh config()",
+        "org.mvplugins.multiverse.core.config.ConfigTest.Getting existing config property with getProperty returns expected value()",
+        "org.mvplugins.multiverse.core.config.ConfigTest.Updating a non-existing property with setProperty returns false()",
+        "org.mvplugins.multiverse.core.config.ConfigTest.Updating an existing config property with setPropertyString reflects the changes in getProperty()",
+        "org.mvplugins.multiverse.core.config.ConfigTest.Updating an existing config property with setProperty reflects the changes in getProperty()",
+        "org.mvplugins.multiverse.core.config.ConfigTest.Getting existing config property by getter returns expected value()",
+        "org.mvplugins.multiverse.core.config.ConfigTest.Old config is migrated()",
+        "org.mvplugins.multiverse.core.config.ConfigTest.Getting non-existing config property with getProperty returns null()",
+        "org.mvplugins.multiverse.core.config.ConfigTest.Config is fresh()",
+        "org.mvplugins.multiverse.core.config.node.MapConfigNodeTest.MapConfigNode default serializer converts values by key and value type()",
+        "org.mvplugins.multiverse.core.config.node.MapConfigNodeTest.MapConfigNode key and value validators are used for node validation()",
+        "org.mvplugins.multiverse.core.config.node.MapConfigNodeTest.MapConfigNode parses from string with defaults()",
+        "org.mvplugins.multiverse.core.destination.DestinationTest.World destination instance from alias name()",
+        "org.mvplugins.multiverse.core.destination.DestinationTest.Exact destination instance from location()",
+        "org.mvplugins.multiverse.core.destination.DestinationTest.World destination instance without identifier()",
+        "org.mvplugins.multiverse.core.destination.DestinationTest.Invalid destination instance()",
+        "org.mvplugins.multiverse.core.destination.DestinationTest.Bed destination instance own player()",
+        "org.mvplugins.multiverse.core.destination.DestinationTest.Exact destination instance()",
+        "org.mvplugins.multiverse.core.destination.DestinationTest.Exact destination instance with relative position()",
+        "org.mvplugins.multiverse.core.destination.DestinationTest.Cannon destination instance()",
+        "org.mvplugins.multiverse.core.destination.DestinationTest.Bed destination instance()",
+        "org.mvplugins.multiverse.core.destination.DestinationTest.World destination instance()",
+        "org.mvplugins.multiverse.core.destination.DestinationTest.Player destination instance()",
+        "org.mvplugins.multiverse.core.inject.InjectionTest.AsyncSafetyTeleporter is available as a service()",
+        "org.mvplugins.multiverse.core.inject.InjectionTest.CoreConfig is available as a service()",
+        "org.mvplugins.multiverse.core.inject.InjectionTest.MVCommandManager is available as a service()",
+        "org.mvplugins.multiverse.core.inject.InjectionTest.MVWorldManager is available as a service()",
+        "org.mvplugins.multiverse.core.inject.InjectionTest.LocationManipulation is available as a service()",
+        "org.mvplugins.multiverse.core.inject.InjectionTest.AnchorManager is available as a service()",
+        "org.mvplugins.multiverse.core.inject.InjectionTest.CoreListener(s) is available as a service()",
+        "org.mvplugins.multiverse.core.inject.InjectionTest.Destinations are available as services()",
+        "org.mvplugins.multiverse.core.inject.InjectionTest.TeleportQueue is available as a service()",
+        "org.mvplugins.multiverse.core.inject.InjectionTest.Commands are available as services()",
+        "org.mvplugins.multiverse.core.inject.InjectionTest.BlockSafety is available as a service()",
+        "org.mvplugins.multiverse.core.inject.InjectionTest.MVEconomist is available as a service()",
+        "org.mvplugins.multiverse.core.utils.MaterialConverterTest.Convert Oak Sapling item id to material()",
+        "org.mvplugins.multiverse.core.utils.MaterialConverterTest.Convert invalid string to material()",
+        "org.mvplugins.multiverse.core.utils.MaterialConverterTest.Convert Spruce Planks numerical id to material()",
+        "org.mvplugins.multiverse.core.utils.MaterialConverterTest.Convert dirt name to material()",
+        "org.mvplugins.multiverse.core.utils.StringFormatterTest.StringFormatter quoteMultiWordString()",
+        "org.mvplugins.multiverse.core.utils.StringFormatterTest.StringFormatter parseQuotesInArgs()",
+        "org.mvplugins.multiverse.core.utils.StringFormatterTest.StringFormatter parseCSVMap()",
+        "org.mvplugins.multiverse.core.utils.StringMatcherTest.exact string matcher - multiple strings()",
+        "org.mvplugins.multiverse.core.utils.StringMatcherTest.regex string matcher()",
+        "org.mvplugins.multiverse.core.utils.StringMatcherTest.exact string matcher - single string()",
+        "org.mvplugins.multiverse.core.utils.StringMatcherTest.wildcard string matcher - single()",
+        "org.mvplugins.multiverse.core.utils.StringMatcherTest.wildcard string matcher - multiple()",
+        "org.mvplugins.multiverse.core.utils.tick.TickDurationTest.Convert durations across units()",
+        "org.mvplugins.multiverse.core.utils.tick.TickDurationTest.Parse raw tick, second, and game day strings()",
+        "org.mvplugins.multiverse.core.utils.tick.TickDurationTest.Convert duration to Minecraft local time()",
+        "org.mvplugins.multiverse.core.world.WorldConfigMangerTest.Add a new world to config()",
+        "org.mvplugins.multiverse.core.world.WorldConfigMangerTest.Edge case parsing tests for world config()",
+        "org.mvplugins.multiverse.core.world.WorldConfigMangerTest.Old world config is migrated()",
+        "org.mvplugins.multiverse.core.world.WorldConfigMangerTest.Delete world section from config()",
+        "org.mvplugins.multiverse.core.world.WorldConfigMangerTest.Updating existing world properties()",
+        "org.mvplugins.multiverse.core.world.WorldConfigTest.Updating existing meta key overwrites the value()",
+        "org.mvplugins.multiverse.core.world.WorldConfigTest.Getting existing world property with getProperty returns expected value()",
+        "org.mvplugins.multiverse.core.world.WorldConfigTest.Removing meta key with removeMeta deletes the key from map()",
+        "org.mvplugins.multiverse.core.world.WorldConfigTest.Setting meta with setMeta adds individual key-value pairs()",
+        "org.mvplugins.multiverse.core.world.WorldConfigTest.Getting meta returns empty map initially()",
+        "org.mvplugins.multiverse.core.world.WorldConfigTest.Getting existing world property by getter returns expected value()",
+        "org.mvplugins.multiverse.core.world.WorldConfigTest.Updating a non-existing property with setProperty returns false()",
+        "org.mvplugins.multiverse.core.world.WorldConfigTest.Setting multiple meta values accumulates in the map()",
+        "org.mvplugins.multiverse.core.world.WorldConfigTest.Getting non-existing world property with getProperty returns null()",
+        "org.mvplugins.multiverse.core.world.WorldConfigTest.Updating an existing world property with setPropertyString reflects the changes in getProperty()",
+        "org.mvplugins.multiverse.core.world.WorldConfigTest.Updating an existing world property with setProperty reflects the changes in getProperty()",
+        "org.mvplugins.multiverse.core.world.WorldConfigTest.Removing non-existing meta key returns failure()",
+        "org.mvplugins.multiverse.core.world.WorldConfigTest.Meta is independent across different world configs()",
+        "org.mvplugins.multiverse.core.world.WorldManagerTest.Remove world()",
+        "org.mvplugins.multiverse.core.world.WorldManagerTest.Delete world()",
+        "org.mvplugins.multiverse.core.world.WorldManagerTest.Regen world()",
+        "org.mvplugins.multiverse.core.world.WorldManagerTest.Clone world failed - target world exists and loaded()",
+        "org.mvplugins.multiverse.core.world.WorldManagerTest.Load world failed - non-existent world()",
+        "org.mvplugins.multiverse.core.world.WorldManagerTest.Create world failed - world exists and loaded (case insensitive)()",
+        "org.mvplugins.multiverse.core.world.WorldManagerTest.Get world is case insensitive()",
+        "org.mvplugins.multiverse.core.world.WorldManagerTest.Clone world failed - invalid world name()",
+        "org.mvplugins.multiverse.core.world.WorldManagerTest.Create world failed - world folder exists()",
+        "org.mvplugins.multiverse.core.world.WorldManagerTest.Create world failed - world exists and loaded()",
+        "org.mvplugins.multiverse.core.world.WorldManagerTest.Set equal value - MVWorldPropertyChangedEvent event is not fired()",
+        "org.mvplugins.multiverse.core.world.WorldManagerTest.Create world with custom options()",
+        "org.mvplugins.multiverse.core.world.WorldManagerTest.Create world failed - world exists but unloaded()",
+        "org.mvplugins.multiverse.core.world.WorldManagerTest.Unload and load world()",
+        "org.mvplugins.multiverse.core.world.WorldManagerTest.Load world failed - world folder exists but not imported()",
+        "org.mvplugins.multiverse.core.world.WorldManagerTest.Clone world()",
+        "org.mvplugins.multiverse.core.world.WorldManagerTest.Clone world failed - target world exists but unloaded()",
+        "org.mvplugins.multiverse.core.world.WorldManagerTest.Clone world failed - target world folder exists()",
+        "org.mvplugins.multiverse.core.world.WorldManagerTest.Load world failed - invalid world folder()",
+        "org.mvplugins.multiverse.core.world.WorldManagerTest.Set different value - MVWorldPropertyChangedEvent event is fired()",
+        "org.mvplugins.multiverse.core.world.WorldManagerTest.Get world()",
+        "org.mvplugins.multiverse.core.world.WorldManagerTest.Get world with alias()",
+        "org.mvplugins.multiverse.core.world.WorldManagerTest.Create world failed - invalid worldname()",
+        "org.mvplugins.multiverse.core.world.WorldNameCheckerTest.Blacklisted world name()",
+        "org.mvplugins.multiverse.core.world.WorldNameCheckerTest.Not a valid world folder()",
+        "org.mvplugins.multiverse.core.world.WorldNameCheckerTest.Valid world name()",
+        "org.mvplugins.multiverse.core.world.WorldNameCheckerTest.World folder does not exist()",
+        "org.mvplugins.multiverse.core.world.WorldNameCheckerTest.Valid world folder()",
+        "org.mvplugins.multiverse.core.world.WorldNameCheckerTest.Valid world folder v26-1 format()",
+        "org.mvplugins.multiverse.core.world.WorldNameCheckerTest.Empty world name()",
+        "org.mvplugins.multiverse.core.world.WorldNameCheckerTest.Invalid characters in world name()",
+        "org.mvplugins.multiverse.core.world.helper.DimensionFormatTest.Test invalid DimensionFormat()",
+        "org.mvplugins.multiverse.core.world.helper.DimensionFormatTest.Test DimensionFormat replace()",
+        "org.mvplugins.multiverse.core.world.helper.DimensionFormatTest.Test DimensionFormat does not match()",
+        "org.mvplugins.multiverse.core.world.helper.DimensionFormatTest.Test DimensionFormat get overworld()",
+        "org.mvplugins.multiverse.core.world.helper.PotentialWorldFinderTest.Get potential worlds()"
+      ],
+      "server_cases": [
+        "plugin is enabled",
+        "worlds resolve by name and by key string",
+        "creating or cloning under an existing name is rejected",
+        "create is rejected when the name is an existing world key",
+        "create is rejected when the key belongs to an existing world",
+        "clone is rejected when the target key belongs to an existing world",
+        "import adopts a loaded Bukkit world addressed by key",
+        "import is rejected when the key belongs to an existing world",
+        "import is rejected when the name is an existing world key",
+        "clone is rejected when the target name is an existing world key"
+      ],
+      "clean_room_synthetic": false
+    },
+    {
+      "id": "betterteams-description-tag-injection",
+      "difficulty": "medium",
+      "title": {
+        "en": "BetterTeams: /team info turns MiniMessage tags in a team description into click and hover events",
+        "zh": "BetterTeams：/team info 会把队伍描述中的 MiniMessage 标签解析成点击与悬停事件"
+      },
+      "summary": {
+        "en": "Repair the /team info screen so a team description can no longer inject click, hover, insertion, translatable or other MiniMessage content while colour, decoration and reset formatting keep working.",
+        "zh": "修复 /team info 信息页，使队伍描述无法注入点击、悬停、插入、翻译等 MiniMessage 内容，同时保留颜色、装饰与重置格式。"
+      },
+      "brief": {
+        "en": "The info screen interprets every MiniMessage tag in the player-controlled description, so <click:run_command:...> becomes a real click event for every viewer, <hover>, <insertion> and <lang> take effect too, and the typed tag text disappears.",
+        "zh": "信息页会解析玩家可控描述中的所有 MiniMessage 标签，<click:run_command:...> 会变成对所有查看者生效的点击事件，<hover>、<insertion> 与 <lang> 也会生效，输入的标签文本消失。"
+      },
+      "requirements": {
+        "en": [
+          "click, hover, insertion, translatable and other non-formatting tags in a description are shown as literal text and produce no event or non-text component",
+          "colour, decoration and reset tags and legacy & codes in a description keep their effect",
+          "a description without tags is shown exactly as typed",
+          "the info screen keeps its prefix, template colours and other fields, and every upstream unit test keeps passing"
+        ],
+        "zh": [
+          "描述中的点击、悬停、插入、翻译及其他非格式标签按字面文本显示，不产生事件或非文本组件",
+          "描述中的颜色、装饰、重置标签与 & 传统颜色码保持效果",
+          "不含标签的描述按原样显示",
+          "信息页保留前缀、模板颜色与其他字段，全部上游单测保持通过"
+        ]
+      },
+      "api_usage": {
+        "en": [
+          "/team info",
+          "/teama create",
+          "/teama description",
+          "net.kyori.adventure.text.minimessage"
+        ],
+        "zh": [
+          "/team info",
+          "/teama create",
+          "/teama description",
+          "MiniMessage"
+        ]
+      },
+      "acceptance": {
+        "en": [
+          "offline Maven package build of the BetterTeams module succeeds",
+          "all 44 upstream JUnit tests pass",
+          "nine live-server cases pass"
+        ],
+        "zh": [
+          "BetterTeams 模块离线 Maven package 构建成功",
+          "44 个上游 JUnit 测试通过",
+          "九个真实服务器用例通过"
+        ]
+      },
+      "domains": [
+        "commands",
+        "messaging",
+        "input-sanitisation"
+      ],
+      "estimated_minutes": 75,
+      "required_files": [
+        "plugin/BetterTeams/src/main/resources/plugin.yml"
+      ],
+      "plugin_name": "BetterTeams",
+      "build": {
+        "tool": "maven",
+        "wrapper": false,
+        "tool_version": "3.9.11",
+        "module": "BetterTeams",
+        "assemble": "package",
+        "test": "test",
+        "artifact": "server/plugins/BetterTeams-5.0.0.jar",
+        "java_release": 21,
+        "frozen_paths": [
+          "pom.xml",
+          "BetterTeams/pom.xml",
+          "BetterTeams/src/test",
+          "extensions/pom.xml",
+          "extensions/discord-extension/pom.xml",
+          "extensions/luckperms-extension/pom.xml",
+          "extensions/zkoth-extension/pom.xml",
+          ".mvn",
+          "mvnw",
+          "mvnw.cmd"
+        ]
+      },
+      "upstream": {
+        "repository": "https://github.com/booksaw/BetterTeams",
+        "base_commit": "b35644ce54688d87dd3a1435cefedfe7720d3707",
+        "fix_commit": "382d34a6162d860504fa2bed1040b0f0ac1d24b4",
+        "license_spdx": "MIT",
+        "license_file": "LICENSE",
+        "paper_api": "spigot-api 1.20-R0.1-SNAPSHOT"
+      },
+      "unit_cases": [
+        "sort() Tests.testComplexGraph",
+        "sort() Tests.testHardCircularDependency",
+        "sort() Tests.testNoDependencies",
+        "sort() Tests.testTransitiveDependency",
+        "scanExtensions() Tests.testMixedValidAndInvalid",
+        "scanExtensions() Tests.testDuplicateNames",
+        "scanExtensions() Tests.testMultipleValidJars",
+        "ExtensionClassLoader Global Access Tests.testLoadClassFromOtherExtension",
+        "ExtensionClassLoader Global Access Tests.testClassNotFound",
+        "ExtensionClassLoader Global Access Tests.testSelfPriority",
+        "fromYaml() Loading Tests.testDefaultValues",
+        "fromYaml() Loading Tests.testNullFile",
+        "fromYaml() Loading Tests.testMissingYml",
+        "fromYaml() Loading Tests.testMissingMainInYml",
+        "fromYaml() Loading Tests.testMissingMainClassInJar",
+        "fromYaml() Loading Tests.testSuccessfulLoad",
+        "fromYaml() Loading Tests.testNonExistentFile",
+        "unload() Tests.testUnloadSuccess",
+        "enable() Tests.testEnableFailsMissingPluginDep",
+        "enable() Tests.testEnableAlreadyEnabled",
+        "enable() Tests.testEnableSuccess",
+        "disable() Tests.testDisableSuccess",
+        "disable() Tests.testDisableAlreadyDisabled",
+        "load() Tests.testLoadWrongMainClass",
+        "load() Tests.testLoadSuccess",
+        "load() Tests.testLoadNoJar",
+        "Full Lifecycle Integration Test.testFullLifecycle",
+        "Static and Ranked Placeholder Tests.testRankedPlaceholder_RankOutOfBounds",
+        "Static and Ranked Placeholder Tests.testStaticTeamPlaceholder_TeamNotFound",
+        "Static and Ranked Placeholder Tests.testRankedPlaceholder_InvalidRank",
+        "Static and Ranked Placeholder Tests.testRankedPlaceholder_Score",
+        "Static and Ranked Placeholder Tests.testStaticTeamPlaceholder_Success",
+        "Static and Ranked Placeholder Tests.testRankedPlaceholder_Balance",
+        "Static and Ranked Placeholder Tests.testStaticPlayerPlaceholder_PlayerNotFound",
+        "Static and Ranked Placeholder Tests.testStaticPlayerPlaceholder_Success",
+        "onRequest() Player-Specific Tests.testPlayerInTeamForInTeamPlaceholder",
+        "onRequest() Player-Specific Tests.testPlayerNotInTeamForInTeamPlaceholder",
+        "onRequest() Player-Specific Tests.testDataPlaceholderRequest",
+        "onRequest() Player-Specific Tests.testRequestWithNullPlayer",
+        "onRequest() Player-Specific Tests.testStandardPlaceholderRequest",
+        "onRequest() Player-Specific Tests.testPlayerNotInTeamForTeamSpecificPlaceholder",
+        "Cache Logic Tests.testInvalidateCache",
+        "Cache Logic Tests.testPlayerSpecificPlaceholderIsNotCached",
+        "Cache Logic Tests.testStaticPlaceholderIsCached"
+      ],
+      "server_cases": [
+        "plugin is enabled",
+        "a plain description is shown verbatim",
+        "the info screen keeps its prefix and template formatting",
+        "a colour tag in a description still colours the text",
+        "a click tag in a description is shown as text without a click event",
+        "a hover tag in a description is shown as text without a hover event",
+        "decoration tags and reset still format a description",
+        "an insertion tag in a description is shown as text",
+        "a translatable tag in a description is shown as text"
+      ],
+      "clean_room_synthetic": false
+    },
+    {
+      "id": "chatty-reload-leaks-threads",
+      "difficulty": "medium",
+      "title": {
+        "en": "Chatty: every /chatty reload leaks the notification ticker and bStats threads",
+        "zh": "Chatty：每次 /chatty reload 都泄漏通知计时器与 bStats 线程"
+      },
+      "summary": {
+        "en": "Repair Chatty so /chatty reload releases the resources the previous configuration owned: the replaced notification ticker's executor thread, the previous bStats submitter (also when metrics are switched off) and the Redisson client no longer pile up with every reload, and cancelling a ticker that never started no longer throws.",
+        "zh": "修复 Chatty，使 /chatty reload 释放上一份配置持有的资源：被替换的通知计时器执行器线程、上一个 bStats 提交器（包括关闭统计时）和 Redisson 客户端不再随每次重载累积，且取消从未启动的计时器不再抛出异常。"
+      },
+      "brief": {
+        "en": "Every reload leaves one more idle pool-<n>-thread-1 and, with bStats enabled, one more bStats-Metrics thread alive, the previous bStats thread survives even when send-metrics is switched off, and cancelTicking() on a ticker that never started throws a NullPointerException.",
+        "zh": "每次重载都会多留下一个空闲的 pool-<n>-thread-1 线程，启用 bStats 时还会多一个 bStats-Metrics 线程；即使关闭 send-metrics，上一个 bStats 线程仍存活；对从未启动的计时器调用 cancelTicking() 会抛出 NullPointerException。"
+      },
+      "requirements": {
+        "en": [
+          "after any number of /chatty reload calls the set of live plugin-owned threads (JDK default pool-<n>-thread-<m> names, bStats-Metrics, and names containing notification, ticker or metrics) does not grow",
+          "every ExecutorService held by the NotificationTicker a reload replaces is shut down and that ticker's notifications stop advancing",
+          "cancelTicking() returns normally on a ticker that never started ticking",
+          "bStats follows send-metrics across reloads (a live thread when on, none after it is switched off), the Redisson client of a replaced proxy service is shut down, reloads still pick up changed files, notifications keep ticking and every upstream unit test keeps passing"
+        ],
+        "zh": [
+          "任意次数的 /chatty reload 之后，插件拥有的存活线程集合（JDK 默认的 pool-<n>-thread-<m>、bStats-Metrics，以及名称包含 notification、ticker 或 metrics 的线程）不再增长",
+          "被重载替换的 NotificationTicker 持有的每个 ExecutorService 都已关闭，且其通知不再推进",
+          "对从未开始计时的计时器调用 cancelTicking() 正常返回",
+          "bStats 随 send-metrics 变化（开启时有存活线程，关闭并重载后不再有），被替换的代理服务关闭其 Redisson 客户端，重载仍能读取修改后的文件，通知继续计时，全部上游单测保持通过"
+        ]
+      },
+      "api_usage": {
+        "en": [
+          "ru.brikster.chatty.notification.NotificationTicker",
+          "ru.brikster.chatty.notification.ScheduledExecutorNotificationTicker",
+          "ru.brikster.chatty.metrics.MetricsSender",
+          "ru.brikster.chatty.proxy.ProxyServiceImpl",
+          "org.bstats.bukkit.Metrics",
+          "java.util.concurrent.ScheduledExecutorService"
+        ],
+        "zh": [
+          "NotificationTicker",
+          "ScheduledExecutorNotificationTicker",
+          "MetricsSender",
+          "ProxyServiceImpl",
+          "bStats Metrics",
+          "ScheduledExecutorService"
+        ]
+      },
+      "acceptance": {
+        "en": [
+          "offline shadowJar build succeeds",
+          "all 82 upstream JUnit tests pass",
+          "eight live-server cases pass"
+        ],
+        "zh": [
+          "离线 shadowJar 构建成功",
+          "82 个上游 JUnit 测试通过",
+          "八个真实服务器用例通过"
+        ]
+      },
+      "domains": [
+        "plugin-lifecycle",
+        "concurrency",
+        "resource-management",
+        "dependency-injection"
+      ],
+      "estimated_minutes": 75,
+      "required_files": [
+        "plugin/spigot/src/main/resources/plugin.yml"
+      ],
+      "plugin_name": "Chatty",
+      "build": {
+        "tool": "gradle",
+        "wrapper": true,
+        "assemble": "shadowJar",
+        "test": "test",
+        "artifact": "build/libs/Chatty-3.0.0-SNAPSHOT.jar",
+        "java_release": 21,
+        "frozen_paths": [
+          "build.gradle",
+          "settings.gradle",
+          "gradle.properties",
+          "gradle",
+          "gradlew",
+          "gradlew.bat",
+          "api/build.gradle",
+          "spigot/build.gradle",
+          "api/src/test",
+          "spigot/src/test"
+        ]
+      },
+      "upstream": {
+        "repository": "https://github.com/Brikster/Chatty",
+        "base_commit": "f98b81914293a3d48bb1b759e6c9e7d937164d4e",
+        "fix_commit": "c7ba4171e034bd2c200e1b9cf4aa1d61ea9883d3",
+        "license_spdx": "MIT",
+        "license_file": "LICENSE",
+        "paper_api": "spigot-api 1.19-R0.1-SNAPSHOT"
+      },
+      "unit_cases": [
+        "ru.brikster.chatty.ConstantsTest.matchesLowercaseReplacementKey()",
+        "ru.brikster.chatty.ConstantsTest.doesNotMatchUnrelatedPlaceholders()",
+        "ru.brikster.chatty.ConstantsTest.findsReplacementKeyInsideText()",
+        "ru.brikster.chatty.ConstantsTest.matchesUppercaseReplacementKey()",
+        "ru.brikster.chatty.adventure.NativeAudienceAdapterTest.serializesClickAndHoverInLegacyCompatibleSchema()",
+        "ru.brikster.chatty.chat.construct.ComponentFromContextConstructorImplTest.resolvesPlaceholdersInsideMessageFormat()",
+        "ru.brikster.chatty.chat.construct.ComponentFromContextConstructorImplTest.doesNotResolvePlaceholdersTypedByThePlayer()",
+        "ru.brikster.chatty.chat.message.transform.decorations.PlayerDecorationsFormatterTest.stripsSectionCodesForPlayerWithoutPermission()",
+        "ru.brikster.chatty.chat.message.transform.decorations.PlayerDecorationsFormatterTest.keepsAmpersandCodesLiteralWithoutPermission()",
+        "ru.brikster.chatty.chat.message.transform.decorations.PlayerDecorationsFormatterTest.stripsSectionCodesEvenForPlayerWithDecorationPermission()",
+        "ru.brikster.chatty.chat.message.transform.decorations.PlayerDecorationsFormatterTest.appliesAmpersandColorsWithPermission()",
+        "ru.brikster.chatty.chat.message.transform.stage.early.moderation.ModerationReplacementTest.treatsABackslashInTheReplacementAsText()",
+        "ru.brikster.chatty.chat.message.transform.stage.early.moderation.ModerationReplacementTest.treatsADollarSignInTheReplacementAsText()",
+        "ru.brikster.chatty.chat.message.transform.stage.early.moderation.ModerationReplacementTest.survivesAReplacementEndingInADollarSign()",
+        "ru.brikster.chatty.chat.selection.ChatSelectorImplTest.picksTheLongestMatchingSymbol()",
+        "ru.brikster.chatty.chat.selection.ChatSelectorImplTest.letsAnExplicitSymbolOverrideTheSwitchedChat()",
+        "ru.brikster.chatty.chat.selection.ChatSelectorImplTest.picksTheLongestMatchingSymbolWhateverTheRegistrationOrder()",
+        "ru.brikster.chatty.chat.selection.ChatSelectorImplTest.sendsTheNextMessageIntoTheChatTheCommandRequested()",
+        "ru.brikster.chatty.chat.selection.ChatSelectorImplTest.skipsChatsTheSenderMayNotUse()",
+        "ru.brikster.chatty.chat.selection.ChatSelectorImplTest.returnsNothingWhenNoChatMatches()",
+        "ru.brikster.chatty.chat.selection.ChatSelectorImplTest.ignoresASwitchedChatTheSenderMayNoLongerUse()",
+        "ru.brikster.chatty.chat.selection.ChatSelectorImplTest.usesTheSwitchedChatWhenNoSymbolIsGiven()",
+        "ru.brikster.chatty.config.file.ConfigGenerationTest.[1] class ru.brikster.chatty.config.file.SettingsConfig",
+        "ru.brikster.chatty.config.file.ConfigGenerationTest.[2] class ru.brikster.chatty.config.file.ChatsConfig",
+        "ru.brikster.chatty.config.file.ConfigGenerationTest.[3] class ru.brikster.chatty.config.file.PmConfig",
+        "ru.brikster.chatty.config.file.ConfigGenerationTest.[4] class ru.brikster.chatty.config.file.MessagesConfig",
+        "ru.brikster.chatty.config.file.ConfigGenerationTest.[5] class ru.brikster.chatty.config.file.VanillaConfig",
+        "ru.brikster.chatty.config.file.ConfigGenerationTest.[6] class ru.brikster.chatty.config.file.ModerationConfig",
+        "ru.brikster.chatty.config.file.ConfigGenerationTest.[7] class ru.brikster.chatty.config.file.NotificationsConfig",
+        "ru.brikster.chatty.config.file.ConfigGenerationTest.[8] class ru.brikster.chatty.config.file.ReplacementsConfig",
+        "ru.brikster.chatty.config.file.ConfigGenerationTest.[9] class ru.brikster.chatty.config.file.ProxyConfig",
+        "ru.brikster.chatty.config.file.CrossServerRangeTest.loadsAChatConfiguredForCrossServerChat()",
+        "ru.brikster.chatty.config.file.LanguageFilesTest.[1] ru-RU",
+        "ru.brikster.chatty.config.file.LanguageFilesTest.[2] de-DE",
+        "ru.brikster.chatty.config.file.LanguageFilesTest.[3] es-ES",
+        "ru.brikster.chatty.config.file.LanguageFilesTest.[4] zh-CN",
+        "ru.brikster.chatty.config.file.UserEditedConfigTest.reloadsAfterMessagesAreAddedToANotificationList()",
+        "ru.brikster.chatty.config.file.UserEditedConfigTest.reloadsAfterAWholeNotificationListIsAdded()",
+        "ru.brikster.chatty.config.migration.V2ConfigMigratorTest.migratesVanillaMessages()",
+        "ru.brikster.chatty.config.migration.V2ConfigMigratorTest.migratesSettingsAndMentions()",
+        "ru.brikster.chatty.config.migration.V2ConfigMigratorTest.clampsCapsValuesV3WouldReject()",
+        "ru.brikster.chatty.config.migration.V2ConfigMigratorTest.leavesTheLanguageAloneForAnUnknownLocale()",
+        "ru.brikster.chatty.config.migration.V2ConfigMigratorTest.skipsChatsDisabledInV2()",
+        "ru.brikster.chatty.config.migration.V2ConfigMigratorTest.migratesPmWithTranslatedPlaceholders()",
+        "ru.brikster.chatty.config.migration.V2ConfigMigratorTest.migratesModeration()",
+        "ru.brikster.chatty.config.migration.V2ConfigMigratorTest.migratesChatsPreservingRangeAndClampingCooldown()",
+        "ru.brikster.chatty.config.migration.V2ConfigMigratorTest.migratesTheChatCommandAndItsAliases()",
+        "ru.brikster.chatty.config.migration.V2ConfigMigratorTest.expandsSpyFormatPlaceholder()",
+        "ru.brikster.chatty.config.migration.V2ConfigMigratorTest.migratesUnderscoredAndBareLocales()",
+        "ru.brikster.chatty.config.migration.V2ConfigMigratorTest.migratesLocaleToTheV3LanguageCode()",
+        "ru.brikster.chatty.config.migration.V2ConfigMigratorTest.writesASpyFormatEvenWhenV2HadNoSpySection()",
+        "ru.brikster.chatty.convert.ColourSpellingMatrixTest.gradientIsSupported()",
+        "ru.brikster.chatty.convert.ColourSpellingMatrixTest.miniMessageNamedColourIsSupported()",
+        "ru.brikster.chatty.convert.ColourSpellingMatrixTest.ampersandHexIsSupported()",
+        "ru.brikster.chatty.convert.ColourSpellingMatrixTest.bareHashHexIsNotAColourCode()",
+        "ru.brikster.chatty.convert.ColourSpellingMatrixTest.spigotSpreadHexIsSupported()",
+        "ru.brikster.chatty.convert.ColourSpellingMatrixTest.sectionSignColourIsSupported()",
+        "ru.brikster.chatty.convert.ColourSpellingMatrixTest.miniMessageHexIsSupported()",
+        "ru.brikster.chatty.convert.ColourSpellingMatrixTest.rainbowIsSupported()",
+        "ru.brikster.chatty.convert.ColourSpellingMatrixTest.legacyAmpersandColourIsSupported()",
+        "ru.brikster.chatty.convert.ColourSpellingMatrixTest.legacyDecorationIsSupported()",
+        "ru.brikster.chatty.convert.message.LegacyToMiniMessageConverterTest.convertSectionCodesIsCaseInsensitive()",
+        "ru.brikster.chatty.convert.message.LegacyToMiniMessageConverterTest.convertSectionCodesLeavesPlainTextUntouched()",
+        "ru.brikster.chatty.convert.message.LegacyToMiniMessageConverterTest.convertSectionCodesIgnoresAmpersandCodes()",
+        "ru.brikster.chatty.convert.message.LegacyToMiniMessageConverterTest.convertSectionCodesConvertsResetCode()",
+        "ru.brikster.chatty.convert.message.LegacyToMiniMessageConverterTest.convertsAmpersandColorCode()",
+        "ru.brikster.chatty.convert.message.LegacyToMiniMessageConverterTest.convertSectionCodesStripsStraySectionSigns()",
+        "ru.brikster.chatty.convert.message.LegacyToMiniMessageConverterTest.convertsDecorationCode()",
+        "ru.brikster.chatty.convert.message.LegacyToMiniMessageConverterTest.messageWithLegacyCodesSurvivesTheConstructPipeline()",
+        "ru.brikster.chatty.convert.message.LegacyToMiniMessageConverterTest.convertsSectionColorCode()",
+        "ru.brikster.chatty.convert.message.LegacyToMiniMessageConverterTest.convertSectionCodesMakesBotMessageSafeForStrictMiniMessage()",
+        "ru.brikster.chatty.convert.message.LegacyToMiniMessageConverterTest.convertsHexColorCode()",
+        "ru.brikster.chatty.convert.message.LegacyToMiniMessageConverterTest.leavesPlainTextUntouched()",
+        "ru.brikster.chatty.convert.message.LegacyToMiniMessageConverterTest.convertSectionCodesConvertsSectionColorCode()",
+        "ru.brikster.chatty.notification.ActionbarNotificationSoundTest.playsTheSoundOncePerMessageRatherThanEveryTick()",
+        "ru.brikster.chatty.notification.ActionbarNotificationSoundTest.playsNoSoundWhenNoneIsConfigured()",
+        "ru.brikster.chatty.pm.targets.RemotePmMessageTargetTest.resolvesByNameWhenTheProxyDoesNotKnowTheUuid()",
+        "ru.brikster.chatty.pm.targets.RemotePmMessageTargetTest.resolvesByUuidWhenTheProxyKnowsIt()",
+        "ru.brikster.chatty.util.AdventureUtilTest.leavesTextWithoutMatchesUnchanged()",
+        "ru.brikster.chatty.util.AdventureUtilTest.preservesClickEventOfReplacementComponent()",
+        "ru.brikster.chatty.util.AdventureUtilTest.replacesPlaceholderWithComponent()",
+        "ru.brikster.chatty.util.AdventureUtilTest.keepsTextWhenReplacementFunctionReturnsNull()"
+      ],
+      "server_cases": [
+        "plugin is enabled",
+        "reload picks up a changed notifications.yml",
+        "notifications keep ticking after a reload",
+        "bStats metrics stay scheduled after a reload",
+        "previous ticker is stopped by a reload",
+        "cancelling a ticker that never started does not throw",
+        "reloads do not leak ticker or bStats threads",
+        "turning metrics off stops the bStats thread on reload"
+      ],
+      "clean_room_synthetic": false
+    },
+    {
+      "id": "chatty-failed-migration-dead-plugin",
+      "difficulty": "medium",
+      "title": {
+        "en": "Chatty: a failed v2 configuration migration leaves an enabled but dead plugin",
+        "zh": "Chatty：v2 配置迁移失败后插件显示已启用却不再工作"
+      },
+      "summary": {
+        "en": "Repair Chatty so that a legacy v2 configuration whose migration fails no longer leaves an enabled plugin that handles nothing: quarantine the half-migrated files, tell the operator, start with a default configuration that /chatty reload can use, and migrate caps limits into the range v3 accepts.",
+        "zh": "修复 Chatty，使 v2 旧配置迁移失败时不再留下一个已启用却什么都不处理的插件：隔离半迁移文件、告知管理员、以可被 /chatty reload 使用的默认配置启动，并把 caps 限制迁移到 v3 接受的范围内。"
+      },
+      "brief": {
+        "en": "When the migrated configuration of a v2 config.yml cannot be loaded, Chatty only logs 'using defaults': the plugin stays enabled with no listeners and no notifications, the broken files stay in plugins/Chatty so every /chatty reload fails, and out-of-range v2 caps limits are copied unchanged.",
+        "zh": "v2 config.yml 迁移后的配置无法加载时，Chatty 只记录 'using defaults'：插件仍显示已启用却没有监听器和通知，坏文件留在 plugins/Chatty 中导致每次 /chatty reload 都失败，越界的 v2 caps 限制原样复制。"
+      },
+      "requirements": {
+        "en": [
+          "when the migrated configuration cannot be loaded, the half-migrated v3 files are moved to a sibling Chatty_failed_migration_<timestamp> folder and the plugin starts again with a freshly generated default configuration",
+          "after such a failure the plugin is fully working: chat and join listeners are registered, the shipped chats are in the registry and /chatty reload succeeds",
+          "the failure is reported at WARNING or SEVERE level naming the Chatty_old_<timestamp> backup, the quarantine folder and that the plugin started with a default configuration",
+          "caps.length and caps.percent are migrated into the range v3 accepts and listed in the migration notes; the legacy folder keeps its config.yml as written, /chatty, a successful migration and every upstream unit test keep working"
+        ],
+        "zh": [
+          "迁移后的配置无法加载时，把半迁移的 v3 文件移到同级的 Chatty_failed_migration_<时间戳> 目录，并以全新生成的默认配置重新启动插件",
+          "失败之后插件完全可用：聊天与加入监听器已注册、自带聊天在注册表中、/chatty reload 成功",
+          "以 WARNING 或 SEVERE 级别报告失败，点名 Chatty_old_<时间戳> 备份目录、隔离目录，并说明插件以默认配置启动",
+          "caps.length 与 caps.percent 迁移到 v3 接受的范围内并列入迁移说明；旧目录保留原样的 config.yml，/chatty、成功的迁移与全部上游单测保持正常"
+        ]
+      },
+      "api_usage": {
+        "en": [
+          "ru.brikster.chatty.api.ChattyApi",
+          "org.bukkit.event.HandlerList",
+          "plugins/Chatty_old_<timestamp>",
+          "plugins/Chatty_failed_migration_<timestamp>"
+        ],
+        "zh": [
+          "ChattyApi",
+          "HandlerList",
+          "Chatty_old_<时间戳>",
+          "Chatty_failed_migration_<时间戳>"
+        ]
+      },
+      "acceptance": {
+        "en": [
+          "offline shadowJar build succeeds",
+          "all 54 upstream JUnit tests pass",
+          "seven live-server cases pass"
+        ],
+        "zh": [
+          "离线 shadowJar 构建成功",
+          "54 个上游 JUnit 测试通过",
+          "七个真实服务器用例通过"
+        ]
+      },
+      "domains": [
+        "configuration",
+        "migration",
+        "plugin-lifecycle",
+        "error-handling"
+      ],
+      "estimated_minutes": 90,
+      "required_files": [
+        "plugin/spigot/src/main/resources/plugin.yml"
+      ],
+      "plugin_name": "Chatty",
+      "build": {
+        "tool": "gradle",
+        "wrapper": true,
+        "assemble": "shadowJar",
+        "test": "test",
+        "artifact": "build/libs/Chatty-3.0.0-SNAPSHOT.jar",
+        "java_release": 21,
+        "frozen_paths": [
+          "build.gradle",
+          "settings.gradle",
+          "gradle.properties",
+          "gradle",
+          "gradlew",
+          "gradlew.bat",
+          "api/build.gradle",
+          "spigot/build.gradle",
+          "api/src/test",
+          "spigot/src/test"
+        ]
+      },
+      "upstream": {
+        "repository": "https://github.com/Brikster/Chatty",
+        "base_commit": "b620b36c62fabfaebfbe22a7e305108e77355629",
+        "fix_commit": "4072f98bebeb66c2232a7fcb2c0de2af05f35b9f",
+        "license_spdx": "MIT",
+        "license_file": "LICENSE",
+        "paper_api": "spigot-api 1.19-R0.1-SNAPSHOT"
+      },
+      "unit_cases": [
+        "ru.brikster.chatty.ConstantsTest.matchesLowercaseReplacementKey()",
+        "ru.brikster.chatty.ConstantsTest.doesNotMatchUnrelatedPlaceholders()",
+        "ru.brikster.chatty.ConstantsTest.findsReplacementKeyInsideText()",
+        "ru.brikster.chatty.ConstantsTest.matchesUppercaseReplacementKey()",
+        "ru.brikster.chatty.adventure.NativeAudienceAdapterTest.serializesClickAndHoverInLegacyCompatibleSchema()",
+        "ru.brikster.chatty.chat.message.transform.decorations.PlayerDecorationsFormatterTest.stripsSectionCodesForPlayerWithoutPermission()",
+        "ru.brikster.chatty.chat.message.transform.decorations.PlayerDecorationsFormatterTest.keepsAmpersandCodesLiteralWithoutPermission()",
+        "ru.brikster.chatty.chat.message.transform.decorations.PlayerDecorationsFormatterTest.stripsSectionCodesEvenForPlayerWithDecorationPermission()",
+        "ru.brikster.chatty.chat.message.transform.decorations.PlayerDecorationsFormatterTest.appliesAmpersandColorsWithPermission()",
+        "ru.brikster.chatty.config.file.ConfigGenerationTest.[1] class ru.brikster.chatty.config.file.SettingsConfig",
+        "ru.brikster.chatty.config.file.ConfigGenerationTest.[2] class ru.brikster.chatty.config.file.ChatsConfig",
+        "ru.brikster.chatty.config.file.ConfigGenerationTest.[3] class ru.brikster.chatty.config.file.PmConfig",
+        "ru.brikster.chatty.config.file.ConfigGenerationTest.[4] class ru.brikster.chatty.config.file.MessagesConfig",
+        "ru.brikster.chatty.config.file.ConfigGenerationTest.[5] class ru.brikster.chatty.config.file.VanillaConfig",
+        "ru.brikster.chatty.config.file.ConfigGenerationTest.[6] class ru.brikster.chatty.config.file.ModerationConfig",
+        "ru.brikster.chatty.config.file.ConfigGenerationTest.[7] class ru.brikster.chatty.config.file.NotificationsConfig",
+        "ru.brikster.chatty.config.file.ConfigGenerationTest.[8] class ru.brikster.chatty.config.file.ReplacementsConfig",
+        "ru.brikster.chatty.config.file.ConfigGenerationTest.[9] class ru.brikster.chatty.config.file.ProxyConfig",
+        "ru.brikster.chatty.config.file.LanguageFilesTest.[1] ru-RU",
+        "ru.brikster.chatty.config.file.LanguageFilesTest.[2] de-DE",
+        "ru.brikster.chatty.config.file.LanguageFilesTest.[3] es-ES",
+        "ru.brikster.chatty.config.file.LanguageFilesTest.[4] zh-CN",
+        "ru.brikster.chatty.config.file.UserEditedConfigTest.reloadsAfterMessagesAreAddedToANotificationList()",
+        "ru.brikster.chatty.config.file.UserEditedConfigTest.reloadsAfterAWholeNotificationListIsAdded()",
+        "ru.brikster.chatty.config.migration.V2ConfigMigratorTest.migratesVanillaMessages()",
+        "ru.brikster.chatty.config.migration.V2ConfigMigratorTest.migratesSettingsAndMentions()",
+        "ru.brikster.chatty.config.migration.V2ConfigMigratorTest.leavesTheLanguageAloneForAnUnknownLocale()",
+        "ru.brikster.chatty.config.migration.V2ConfigMigratorTest.skipsChatsDisabledInV2()",
+        "ru.brikster.chatty.config.migration.V2ConfigMigratorTest.migratesChatsWithClampedRangeAndCooldown()",
+        "ru.brikster.chatty.config.migration.V2ConfigMigratorTest.migratesPmWithTranslatedPlaceholders()",
+        "ru.brikster.chatty.config.migration.V2ConfigMigratorTest.migratesModeration()",
+        "ru.brikster.chatty.config.migration.V2ConfigMigratorTest.expandsSpyFormatPlaceholder()",
+        "ru.brikster.chatty.config.migration.V2ConfigMigratorTest.migratesUnderscoredAndBareLocales()",
+        "ru.brikster.chatty.config.migration.V2ConfigMigratorTest.migratesLocaleToTheV3LanguageCode()",
+        "ru.brikster.chatty.config.migration.V2ConfigMigratorTest.writesASpyFormatEvenWhenV2HadNoSpySection()",
+        "ru.brikster.chatty.convert.message.LegacyToMiniMessageConverterTest.convertSectionCodesIsCaseInsensitive()",
+        "ru.brikster.chatty.convert.message.LegacyToMiniMessageConverterTest.convertSectionCodesLeavesPlainTextUntouched()",
+        "ru.brikster.chatty.convert.message.LegacyToMiniMessageConverterTest.convertSectionCodesIgnoresAmpersandCodes()",
+        "ru.brikster.chatty.convert.message.LegacyToMiniMessageConverterTest.convertSectionCodesConvertsResetCode()",
+        "ru.brikster.chatty.convert.message.LegacyToMiniMessageConverterTest.convertsAmpersandColorCode()",
+        "ru.brikster.chatty.convert.message.LegacyToMiniMessageConverterTest.convertSectionCodesStripsStraySectionSigns()",
+        "ru.brikster.chatty.convert.message.LegacyToMiniMessageConverterTest.convertsDecorationCode()",
+        "ru.brikster.chatty.convert.message.LegacyToMiniMessageConverterTest.messageWithLegacyCodesSurvivesTheConstructPipeline()",
+        "ru.brikster.chatty.convert.message.LegacyToMiniMessageConverterTest.convertsSectionColorCode()",
+        "ru.brikster.chatty.convert.message.LegacyToMiniMessageConverterTest.convertSectionCodesMakesBotMessageSafeForStrictMiniMessage()",
+        "ru.brikster.chatty.convert.message.LegacyToMiniMessageConverterTest.convertsHexColorCode()",
+        "ru.brikster.chatty.convert.message.LegacyToMiniMessageConverterTest.leavesPlainTextUntouched()",
+        "ru.brikster.chatty.convert.message.LegacyToMiniMessageConverterTest.convertSectionCodesConvertsSectionColorCode()",
+        "ru.brikster.chatty.notification.ActionbarNotificationSoundTest.playsTheSoundOncePerMessageRatherThanEveryTick()",
+        "ru.brikster.chatty.notification.ActionbarNotificationSoundTest.playsNoSoundWhenNoneIsConfigured()",
+        "ru.brikster.chatty.util.AdventureUtilTest.leavesTextWithoutMatchesUnchanged()",
+        "ru.brikster.chatty.util.AdventureUtilTest.preservesClickEventOfReplacementComponent()",
+        "ru.brikster.chatty.util.AdventureUtilTest.replacesPlaceholderWithComponent()",
+        "ru.brikster.chatty.util.AdventureUtilTest.keepsTextWhenReplacementFunctionReturnsNull()"
+      ],
+      "server_cases": [
+        "plugin is enabled",
+        "legacy configuration is moved aside before migrating",
+        "info command answers from the console",
+        "chat pipeline is live after a failed migration",
+        "failed migration is quarantined and reported",
+        "migrated caps limits are clamped to the v3 range",
+        "chatty reload works after a failed migration"
+      ],
+      "clean_room_synthetic": false
+    },
+    {
+      "id": "chatty-v2-migration-null-spy-format",
+      "difficulty": "medium",
+      "title": {
+        "en": "Chatty: a migrated v2 configuration breaks the plugin and loses its language",
+        "zh": "Chatty：迁移后的 v2 配置让插件无法工作并丢失语言设置"
+      },
+      "summary": {
+        "en": "Repair Chatty so a legacy v2 configuration without a spy section migrates to usable per-chat spy formats, a chats.yml spy block that declares only enable still loads, and the v2 locale and the v2 spellings of a language select the right v3 language.",
+        "zh": "修复 Chatty，使缺少 spy 段的 v2 旧配置能迁移出可用的每个聊天的 spy 格式，只写了 enable 的 spy 段也能加载，并让 v2 的 locale 与 v2 拼写的语言选中正确的 v3 语言。"
+      },
+      "brief": {
+        "en": "A v2 config.yml without a spy section migrates to spy.format: null, so the migrated plugin and every /chatty reload fail with NullPointerException: input; a v2 general.locale is not carried over, and language: ru or zh_CN in settings.yml silently falls back to English.",
+        "zh": "缺少 spy 段的 v2 config.yml 会迁移出 spy.format: null，导致迁移后的插件与每次 /chatty reload 都以 NullPointerException: input 失败；v2 的 general.locale 未被迁移，settings.yml 中的 language: ru 或 zh_CN 会无提示地回退为英语。"
+      },
+      "requirements": {
+        "en": [
+          "migrating a v2 config.yml without a spy section gives every migrated chat a spy.format built from &6[Spy] &r{format}, and the migrated chats load and reload",
+          "a chats.yml spy block that declares only enable loads on /chatty reload with a non-null spy format",
+          "the v2 general.locale is migrated to the matching v3 language, settings.yml accepts the v2 spellings of a language, and an unsupported language is reported and falls back to English",
+          "explicit spy formats, a v2 spy.format.chat template, supported language tags, /chatty and every upstream unit test keep working"
+        ],
+        "zh": [
+          "迁移缺少 spy 段的 v2 config.yml 时，每个聊天都得到由 &6[Spy] &r{format} 生成的 spy.format，迁移后的聊天能加载并重载",
+          "chats.yml 中只声明 enable 的 spy 段能通过 /chatty reload 加载，且 spy 格式非 null",
+          "v2 的 general.locale 迁移为对应的 v3 语言，settings.yml 接受 v2 拼写的语言，不支持的语言会被报告并回退为英语",
+          "显式的 spy 格式、v2 的 spy.format.chat 模板、受支持的语言标签、/chatty 与全部上游单测保持正常"
+        ]
+      },
+      "api_usage": {
+        "en": [
+          "ru.brikster.chatty.api.ChattyApi",
+          "ru.brikster.chatty.api.chat.Chat",
+          "plugins/Chatty/chats.yml",
+          "plugins/Chatty/settings.yml"
+        ],
+        "zh": [
+          "ChattyApi",
+          "Chat",
+          "chats.yml",
+          "settings.yml"
+        ]
+      },
+      "acceptance": {
+        "en": [
+          "offline shadowJar build succeeds",
+          "all 48 upstream JUnit tests pass",
+          "eleven live-server cases pass"
+        ],
+        "zh": [
+          "离线 shadowJar 构建成功",
+          "48 个上游 JUnit 测试通过",
+          "十一个真实服务器用例通过"
+        ]
+      },
+      "domains": [
+        "configuration",
+        "migration",
+        "plugin-lifecycle",
+        "reload",
+        "localization"
+      ],
+      "estimated_minutes": 60,
+      "required_files": [
+        "plugin/spigot/src/main/resources/plugin.yml"
+      ],
+      "plugin_name": "Chatty",
+      "build": {
+        "tool": "gradle",
+        "wrapper": true,
+        "assemble": "shadowJar",
+        "test": "test",
+        "artifact": "build/libs/Chatty-3.0.0-SNAPSHOT.jar",
+        "java_release": 21,
+        "frozen_paths": [
+          "build.gradle",
+          "settings.gradle",
+          "gradle.properties",
+          "gradle",
+          "gradlew",
+          "gradlew.bat",
+          "api/build.gradle",
+          "spigot/build.gradle",
+          "api/src/test",
+          "spigot/src/test"
+        ]
+      },
+      "upstream": {
+        "repository": "https://github.com/Brikster/Chatty",
+        "base_commit": "b9a064587cd22b2151a6386979fad85e141f2b3f",
+        "fix_commit": "b620b36c62fabfaebfbe22a7e305108e77355629",
+        "license_spdx": "MIT",
+        "license_file": "LICENSE",
+        "paper_api": "spigot-api 1.19-R0.1-SNAPSHOT"
+      },
+      "unit_cases": [
+        "ru.brikster.chatty.ConstantsTest.matchesLowercaseReplacementKey()",
+        "ru.brikster.chatty.ConstantsTest.doesNotMatchUnrelatedPlaceholders()",
+        "ru.brikster.chatty.ConstantsTest.findsReplacementKeyInsideText()",
+        "ru.brikster.chatty.ConstantsTest.matchesUppercaseReplacementKey()",
+        "ru.brikster.chatty.adventure.NativeAudienceAdapterTest.serializesClickAndHoverInLegacyCompatibleSchema()",
+        "ru.brikster.chatty.chat.message.transform.decorations.PlayerDecorationsFormatterTest.stripsSectionCodesForPlayerWithoutPermission()",
+        "ru.brikster.chatty.chat.message.transform.decorations.PlayerDecorationsFormatterTest.keepsAmpersandCodesLiteralWithoutPermission()",
+        "ru.brikster.chatty.chat.message.transform.decorations.PlayerDecorationsFormatterTest.stripsSectionCodesEvenForPlayerWithDecorationPermission()",
+        "ru.brikster.chatty.chat.message.transform.decorations.PlayerDecorationsFormatterTest.appliesAmpersandColorsWithPermission()",
+        "ru.brikster.chatty.config.file.ConfigGenerationTest.[1] class ru.brikster.chatty.config.file.SettingsConfig",
+        "ru.brikster.chatty.config.file.ConfigGenerationTest.[2] class ru.brikster.chatty.config.file.ChatsConfig",
+        "ru.brikster.chatty.config.file.ConfigGenerationTest.[3] class ru.brikster.chatty.config.file.PmConfig",
+        "ru.brikster.chatty.config.file.ConfigGenerationTest.[4] class ru.brikster.chatty.config.file.MessagesConfig",
+        "ru.brikster.chatty.config.file.ConfigGenerationTest.[5] class ru.brikster.chatty.config.file.VanillaConfig",
+        "ru.brikster.chatty.config.file.ConfigGenerationTest.[6] class ru.brikster.chatty.config.file.ModerationConfig",
+        "ru.brikster.chatty.config.file.ConfigGenerationTest.[7] class ru.brikster.chatty.config.file.NotificationsConfig",
+        "ru.brikster.chatty.config.file.ConfigGenerationTest.[8] class ru.brikster.chatty.config.file.ReplacementsConfig",
+        "ru.brikster.chatty.config.file.ConfigGenerationTest.[9] class ru.brikster.chatty.config.file.ProxyConfig",
+        "ru.brikster.chatty.config.file.LanguageFilesTest.[1] ru-RU",
+        "ru.brikster.chatty.config.file.LanguageFilesTest.[2] de-DE",
+        "ru.brikster.chatty.config.file.LanguageFilesTest.[3] es-ES",
+        "ru.brikster.chatty.config.file.LanguageFilesTest.[4] zh-CN",
+        "ru.brikster.chatty.config.migration.V2ConfigMigratorTest.migratesVanillaMessages()",
+        "ru.brikster.chatty.config.migration.V2ConfigMigratorTest.migratesSettingsAndMentions()",
+        "ru.brikster.chatty.config.migration.V2ConfigMigratorTest.skipsChatsDisabledInV2()",
+        "ru.brikster.chatty.config.migration.V2ConfigMigratorTest.migratesChatsWithClampedRangeAndCooldown()",
+        "ru.brikster.chatty.config.migration.V2ConfigMigratorTest.migratesPmWithTranslatedPlaceholders()",
+        "ru.brikster.chatty.config.migration.V2ConfigMigratorTest.migratesModeration()",
+        "ru.brikster.chatty.config.migration.V2ConfigMigratorTest.expandsSpyFormatPlaceholder()",
+        "ru.brikster.chatty.convert.message.LegacyToMiniMessageConverterTest.convertSectionCodesIsCaseInsensitive()",
+        "ru.brikster.chatty.convert.message.LegacyToMiniMessageConverterTest.convertSectionCodesLeavesPlainTextUntouched()",
+        "ru.brikster.chatty.convert.message.LegacyToMiniMessageConverterTest.convertSectionCodesIgnoresAmpersandCodes()",
+        "ru.brikster.chatty.convert.message.LegacyToMiniMessageConverterTest.convertSectionCodesConvertsResetCode()",
+        "ru.brikster.chatty.convert.message.LegacyToMiniMessageConverterTest.convertsAmpersandColorCode()",
+        "ru.brikster.chatty.convert.message.LegacyToMiniMessageConverterTest.convertSectionCodesStripsStraySectionSigns()",
+        "ru.brikster.chatty.convert.message.LegacyToMiniMessageConverterTest.convertsDecorationCode()",
+        "ru.brikster.chatty.convert.message.LegacyToMiniMessageConverterTest.messageWithLegacyCodesSurvivesTheConstructPipeline()",
+        "ru.brikster.chatty.convert.message.LegacyToMiniMessageConverterTest.convertsSectionColorCode()",
+        "ru.brikster.chatty.convert.message.LegacyToMiniMessageConverterTest.convertSectionCodesMakesBotMessageSafeForStrictMiniMessage()",
+        "ru.brikster.chatty.convert.message.LegacyToMiniMessageConverterTest.convertsHexColorCode()",
+        "ru.brikster.chatty.convert.message.LegacyToMiniMessageConverterTest.leavesPlainTextUntouched()",
+        "ru.brikster.chatty.convert.message.LegacyToMiniMessageConverterTest.convertSectionCodesConvertsSectionColorCode()",
+        "ru.brikster.chatty.notification.ActionbarNotificationSoundTest.playsTheSoundOncePerMessageRatherThanEveryTick()",
+        "ru.brikster.chatty.notification.ActionbarNotificationSoundTest.playsNoSoundWhenNoneIsConfigured()",
+        "ru.brikster.chatty.util.AdventureUtilTest.leavesTextWithoutMatchesUnchanged()",
+        "ru.brikster.chatty.util.AdventureUtilTest.preservesClickEventOfReplacementComponent()",
+        "ru.brikster.chatty.util.AdventureUtilTest.replacesPlaceholderWithComponent()",
+        "ru.brikster.chatty.util.AdventureUtilTest.keepsTextWhenReplacementFunctionReturnsNull()"
+      ],
+      "server_cases": [
+        "plugin is enabled",
+        "chatty command answers the console",
+        "chats from the legacy config are registered at start-up",
+        "migrated chats carry a spy format",
+        "chatty reload succeeds on the migrated configuration",
+        "the v2 locale is migrated to the v3 language",
+        "explicit spy formats survive a reload",
+        "a supported language tag in settings.yml is applied",
+        "a v2 spelling of a language is accepted",
+        "an unsupported language is reported and falls back to English",
+        "spy section with only enable reloads"
+      ],
+      "clean_room_synthetic": false
+    }
+  ]
+}

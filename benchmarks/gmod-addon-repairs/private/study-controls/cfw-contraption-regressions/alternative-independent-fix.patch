@@ -1,0 +1,66 @@
+diff -u a/cfw/lua/cfw/core/constraints_sv.lua b/cfw/lua/cfw/core/constraints_sv.lua
+--- a/cfw/lua/cfw/core/constraints_sv.lua
++++ b/cfw/lua/cfw/core/constraints_sv.lua
+@@ -31,6 +31,7 @@
+ 
+                 if not IsValid(a) or a:IsWorld() then return end
+                 if not IsValid(b) or b:IsWorld() then return end
++                if a == b then return end
+ 
+                 con:CallOnRemove("CFW", onRemove)
+ 
+diff -u a/cfw/lua/cfw/core/parenting_sv.lua b/cfw/lua/cfw/core/parenting_sv.lua
+--- a/cfw/lua/cfw/core/parenting_sv.lua
++++ b/cfw/lua/cfw/core/parenting_sv.lua
+@@ -76,7 +76,11 @@
+             if self == newParent then return end
+ 
+             -- Check if the parent is willing to accept this child or not
+-            if IsValid(savedParent) and savedParent.CFW_PreParented and savedParent:CFW_PreParented(self) == false then
++            local vetoParent = savedParent
++            if not IsValid(vetoParent) and validNewParent and newParent.CFW_PreParented then
++                vetoParent = newParent
++            end
++            if IsValid(vetoParent) and vetoParent.CFW_PreParented and vetoParent:CFW_PreParented(self) == false then
+                 return
+             end
+ 
+@@ -103,6 +107,12 @@
+             if self._cfwRemoved then return end -- Removed by an undo
+             if oldParent == newParent then return end
+ 
++            local function isCharacter(ent)
++                return IsValid(ent) and (ent:IsPlayer() or ent:IsNPC() or ent:IsNextBot())
++            end
++
++            if isCharacter(oldParent) or isCharacter(newParent) then return end
++
+             local entClass = self:GetClass()
+             if filter[entClass] then return end
+ 
+diff -u a/cfw/lua/cfw/extensions/mass_sv.lua b/cfw/lua/cfw/extensions/mass_sv.lua
+--- a/cfw/lua/cfw/extensions/mass_sv.lua
++++ b/cfw/lua/cfw/extensions/mass_sv.lua
+@@ -16,6 +16,22 @@
+     if con then
+         con.totalMass = con.totalMass + (newMass - oldMass)
+     end
++
++    local family = ent:GetFamily()
++
++    if family then
++        local total = 0
++
++        for member in pairs(family.ents) do
++            local phys = IsValid(member) and member:GetPhysicsObject()
++
++            if IsValid(phys) then
++                total = total + phys:GetMass()
++            end
++        end
++
++        family.totalMass = total
++    end
+ end
+ 
+ local function InitMass(Class)

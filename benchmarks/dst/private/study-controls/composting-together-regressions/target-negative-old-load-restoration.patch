@@ -1,0 +1,52 @@
+--- a/scripts/components/composter.lua
++++ b/scripts/components/composter.lua
+@@ -255,33 +255,27 @@
+ 	end
+ 	self.targettime = nil
+ 
+-	updatetags(self.inst)
+-
+-	if self.done then
+-		if self.oncontinuedone ~= nil then
+-			self.oncontinuedone(self.inst)
+-		end
+-
+-		if self.inst.components.container ~= nil then
+-			self.inst.components.container.canbeopened = false
+-		end	
+-	elseif self.composting then
++	if data.remainingtime ~= nil then
+ 		self.targettime = GetTime() + math.max(0, data.remainingtime)
+ 
+-		self.task = self.inst:DoTaskInTime(data.remainingtime, docompost, self)
+-		if self.oncontinuecomposting ~= nil then
+-			self.oncontinuecomposting(self.inst)
++		if self.done then
++			if self.oncontinuedone ~= nil then
++				self.oncontinuedone(self.inst)
++			end
++		else
++			self.task = self.inst:DoTaskInTime(data.remainingtime, docompost, self)
++			if self.oncontinuecomposting ~= nil then
++				self.oncontinuecomposting(self.inst)
++			end
+ 		end
++	elseif self.oncontinuedone ~= nil then
++		self.oncontinuedone(self.inst)
++	end
+ 
+-		if self.inst.components.container ~= nil then
+-			self.inst.components.container.canbeopened = false
+-		end	
+-	else
+-		if self.inst.components.container ~= nil then
+-			self.inst.components.container.canbeopened = true
+-		end	
++	if self.inst.components.container ~= nil then
++		self.inst.components.container.canbeopened = false
+ 	end
+-	
++
+ end
+ 
+ function Composter:GetDebugString()

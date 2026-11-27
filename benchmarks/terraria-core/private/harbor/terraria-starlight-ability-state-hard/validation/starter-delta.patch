@@ -1,0 +1,96 @@
+diff --git a/upstream/Content/Abilities/Ability.cs b/starter/Content/Abilities/Ability.cs
+index 9aff0b59..5bee244d 100644
+--- a/upstream/Content/Abilities/Ability.cs
++++ b/starter/Content/Abilities/Ability.cs
+@@ -84,4 +84,4 @@ namespace StarlightRiver.Content.Abilities
+ 			};
+ 		}
+ 	}
+-}
+\ No newline at end of file
++}
+diff --git a/upstream/Content/Abilities/AbilityHandler.cs b/starter/Content/Abilities/AbilityHandler.cs
+index aa7577b7..3eb894ce 100644
+--- a/upstream/Content/Abilities/AbilityHandler.cs
++++ b/starter/Content/Abilities/AbilityHandler.cs
+@@ -17,6 +17,7 @@ namespace StarlightRiver.Content.Abilities
+ 		private InfusionItem[] infusions = new InfusionItem[Infusion.InfusionSlots];
+ 		public Dictionary<Type, Ability> unlockedAbilities = new();
+ 		private float staminaMaxBonus;
++		private float stamina;
+ 		private int staminaRegenCD;
+ 
+ 		private Ability activeAbility;
+@@ -97,9 +98,9 @@ namespace StarlightRiver.Content.Abilities
+ 		/// </summary>
+ 		public float Stamina
+ 		{
+-			get;
++			get => stamina;
+ 			// Can't have less than 0 or more than max stamina.
+-			set => field = MathHelper.Clamp(value, 0, StaminaMax);
++			set => stamina = MathHelper.Clamp(value, 0, StaminaMax);
+ 		}
+ 
+ 		//for some reason without specifically setting these values to zero with cloneNewInstances => false and contructor,
+@@ -398,7 +399,8 @@ namespace StarlightRiver.Content.Abilities
+ 			// To ensure fusions always have their owner set to a valid Player.
+ 			for (int i = 0; i < infusions.Length; i++)
+ 			{
+-				infusions[i]?.Item.playerIndexTheItemIsReservedFor = Player.whoAmI;
++				if (infusions[i] != null)
++					infusions[i].Item.playerIndexTheItemIsReservedFor = Player.whoAmI;
+ 			}
+ 		}
+ 
+@@ -534,4 +536,4 @@ namespace StarlightRiver.Content.Abilities
+ 				ability.DrawActiveEffects(spriteBatch);
+ 		}
+ 	}
+-}
+\ No newline at end of file
++}
+diff --git a/upstream/Content/Abilities/InfusionItem.cs b/starter/Content/Abilities/InfusionItem.cs
+index a2dca1ad..e988e281 100644
+--- a/upstream/Content/Abilities/InfusionItem.cs
++++ b/starter/Content/Abilities/InfusionItem.cs
+@@ -39,4 +39,4 @@ namespace StarlightRiver.Content.Abilities
+ 			ability = Activator.CreateInstance<T2>();
+ 		}
+ 	}
+-}
+\ No newline at end of file
++}
+diff --git a/upstream/Content/Abilities/ShardSet.cs b/starter/Content/Abilities/ShardSet.cs
+index e3a0c583..2c9a55c1 100644
+--- a/upstream/Content/Abilities/ShardSet.cs
++++ b/starter/Content/Abilities/ShardSet.cs
+@@ -29,4 +29,4 @@ namespace StarlightRiver.Content.Abilities
+ 			return collected.ToList();
+ 		}
+ 	}
+-}
+\ No newline at end of file
++}
+diff --git a/upstream/Content/Packets/AbilityProgress.cs b/starter/Content/Packets/AbilityProgress.cs
+index 8b6017e8..325616d5 100644
+--- a/upstream/Content/Packets/AbilityProgress.cs
++++ b/starter/Content/Packets/AbilityProgress.cs
+@@ -49,4 +49,4 @@ namespace StarlightRiver.Content.Packets
+ 				Send(-1, fromWho, false);
+ 		}
+ 	}
+-}
+\ No newline at end of file
++}
+diff --git a/upstream/Content/Packets/StartAbility.cs b/starter/Content/Packets/StartAbility.cs
+index e8d4b6fc..16b530e0 100644
+--- a/upstream/Content/Packets/StartAbility.cs
++++ b/starter/Content/Packets/StartAbility.cs
+@@ -30,4 +30,4 @@ namespace StarlightRiver.Content.Packets
+ 				Send(-1, fromWho, false);
+ 		}
+ 	}
+-}
+\ No newline at end of file
++}

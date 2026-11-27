@@ -1,0 +1,13 @@
+diff --git a/Automate/Framework/Storage/ChestContainer.cs b/Automate/Framework/Storage/ChestContainer.cs
+index c31f1ae..562ed92 100644
+--- a/Automate/Framework/Storage/ChestContainer.cs
++++ b/Automate/Framework/Storage/ChestContainer.cs
+@@ -98,7 +98,7 @@ internal class ChestContainer : IContainer
+             {
+                 Item sample = stack.Sample.getOne();
+                 sample.Stack = stack.Count;
+-                int added = slot.addToStack(sample);
++                int added = stack.Count - slot.addToStack(sample);
+                 stack.Reduce(added);
+                 if (stack.Count <= 0)
+                     return;

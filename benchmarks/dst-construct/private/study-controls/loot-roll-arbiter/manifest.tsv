@@ -1,0 +1,24 @@
+control	kind	base	overlay	root	note
+alternative-a	alternative	starter	tree:alternative-a	.	structurally different implementation written from the public exam only
+target-negative-choice-accepted-at-deadline	target-negative	reference	patch:target-negative-choice-accepted-at-deadline.patch	.	fails: 
+target-negative-deadline-task-leaks	target-negative	reference	patch:target-negative-deadline-task-leaks.patch	.	fails: 
+target-negative-delivery-trusts-giveitem	target-negative	reference	patch:target-negative-delivery-trusts-giveitem.patch	.	fails: 
+target-negative-duplicate-revision-accepted	target-negative	reference	patch:target-negative-duplicate-revision-accepted.patch	.	fails: 
+target-negative-eligible-not-deduplicated	target-negative	reference	patch:target-negative-eligible-not-deduplicated.patch	.	fails: 
+target-negative-failure-skips-reaward	target-negative	reference	patch:target-negative-failure-skips-reaward.patch	.	fails: 
+target-negative-fairness-boundary-inclusive	target-negative	reference	patch:target-negative-fairness-boundary-inclusive.patch	.	fails: 
+target-negative-fairness-evaluated-at-call-time	target-negative	reference	patch:target-negative-fairness-evaluated-at-call-time.patch	.	fails: 
+target-negative-item-whitelist-ignored	target-negative	reference	patch:target-negative-item-whitelist-ignored.patch	.	fails: 
+target-negative-load-ignores-clock-rebase	target-negative	reference	patch:target-negative-load-ignores-clock-rebase.patch	.	fails: 
+target-negative-net-state-leaks-player	target-negative	reference	patch:target-negative-net-state-leaks-player.patch	.	fails: 
+target-negative-no-immediate-settlement	target-negative	reference	patch:target-negative-no-immediate-settlement.patch	.	fails: 
+target-negative-onload-drops-state	target-negative	reference	patch:target-negative-onload-drops-state.patch	.	fails: 
+target-negative-playerleft-keeps-cached-entity	target-negative	reference	patch:target-negative-playerleft-keeps-cached-entity.patch	.	fails: 
+target-negative-playerleft-shrinks-eligible	target-negative	reference	patch:target-negative-playerleft-shrinks-eligible.patch	.	fails: 
+target-negative-ranking-by-last-roll	target-negative	reference	patch:target-negative-ranking-by-last-roll.patch	.	fails: 
+target-negative-removal-leaks-tasks	target-negative	reference	patch:target-negative-removal-leaks-tasks.patch	.	fails: 
+target-negative-reroll-includes-everyone	target-negative	reference	patch:target-negative-reroll-includes-everyone.patch	.	fails: 
+target-negative-resolve-draws-again	target-negative	reference	patch:target-negative-resolve-draws-again.patch	.	fails: 
+target-negative-second-resolve-redelivers	target-negative	reference	patch:target-negative-second-resolve-redelivers.patch	.	fails: 
+target-negative-seed-not-normalised	target-negative	reference	patch:target-negative-seed-not-normalised.patch	.	fails: 
+target-negative-snapshot-leaks-choices	target-negative	reference	patch:target-negative-snapshot-leaks-choices.patch	.	fails: 

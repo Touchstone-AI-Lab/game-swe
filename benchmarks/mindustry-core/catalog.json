@@ -1,0 +1,471 @@
+{
+  "id": "rhenium-mindustry-v2",
+  "version": "2.0.0",
+  "game": "mindustry",
+  "name": {
+    "en": "Mindustry dedicated-server repair tasks",
+    "zh": "Mindustry 专用服务器修复题"
+  },
+  "description": {
+    "en": "Repository-debugging tasks on the open-source Mindustry v159.7 game sources (GPL-3.0) with real upstream fixes, verified on the pinned real headless dedicated server.",
+    "zh": "基于开源 Mindustry v159.7 游戏源码（GPL-3.0）的仓库修复题，缺陷来自真实上游修复，在固定版本的真实无头专用服务器上验证。"
+  },
+  "tasks": [
+    {
+      "id": "logic-processor-regressions",
+      "difficulty": "hard",
+      "title": {
+        "en": "Mindustry: logic processor regressions on a dedicated server",
+        "zh": "Mindustry：专用服务器上的逻辑处理器回归问题"
+      },
+      "summary": {
+        "en": "Repair the Mindustry v159.7 server sources so processor sensing, link renaming, text formatting and world saving behave as players expect.",
+        "zh": "修复 Mindustry v159.7 服务端源码，使处理器的 sensor、链接重命名、文本格式化与世界保存符合玩家预期。"
+      },
+      "brief": {
+        "en": "Players report four logic processor problems: failed sensor reads keep stale values, replaced linked blocks keep their old link name, format stops working once the print buffer is full, and worlds whose world processors hold query results cannot be saved.",
+        "zh": "玩家报告四个逻辑处理器问题：失败的 sensor 读取保留旧值、被替换的链接方块保留旧链接名、打印缓冲区满时 format 失效、世界处理器持有查询结果时世界无法保存。"
+      },
+      "requirements": {
+        "en": [
+          "sensor sets its output to null for unsupported properties",
+          "a linked block replaced by a different block is reachable under its new link name",
+          "format replaces the placeholder even when the print buffer is full and keeps the buffer at 400 characters",
+          "worlds with world processors holding query results save and load",
+          "existing processor linking, sensing, printing and saving keep working"
+        ],
+        "zh": [
+          "sensor 读取不支持的属性时输出 null",
+          "被不同方块替换的链接可以通过新链接名访问",
+          "打印缓冲区满时 format 仍替换占位符并保持 400 字符上限",
+          "持有查询结果的世界处理器所在世界可以保存与加载",
+          "已有的链接、sensor、打印与保存行为保持不变"
+        ]
+      },
+      "api_usage": {
+        "en": [
+          "Mindustry logic instructions (sensor, print, format, printflush, query)",
+          "processor links",
+          "world saves"
+        ],
+        "zh": [
+          "Mindustry 逻辑指令（sensor、print、format、printflush、query）",
+          "处理器链接",
+          "世界存档"
+        ]
+      },
+      "acceptance": {
+        "en": [
+          "the game sources compile offline against the pinned v159.7 server",
+          "every hidden real-server case passes"
+        ],
+        "zh": [
+          "游戏源码可针对固定的 v159.7 服务器离线编译",
+          "全部隐藏的真实服务器用例通过"
+        ]
+      },
+      "domains": [
+        "logic",
+        "processors",
+        "saves"
+      ],
+      "estimated_minutes": 240,
+      "required_files": [
+        "mindustry/LICENSE",
+        "mindustry/core/src/mindustry/Vars.java",
+        "mindustry/server/src/mindustry/server/ServerLauncher.java"
+      ],
+      "build": {
+        "tool": "mindustry-source"
+      },
+      "upstream": {
+        "repository": "https://github.com/Anuken/Mindustry",
+        "release_tag": "v159.7",
+        "base_commit": "c9686eb5d0ae5dd47ee02c40f99f7d5018ccbc8c",
+        "fix_commits": [
+          "7e416f4251e7cb997482e580851d260ecb220d1f",
+          "58e21f32b4d1445fa1b8ecd7360bfac4e0a8930b",
+          "622c449a553ecdb0ef67485705444bf90a646536",
+          "68145c1bac5eba4f2b1c6ebe340550930dfbb6d1"
+        ],
+        "license_spdx": "GPL-3.0",
+        "license_file": "LICENSE"
+      },
+      "server_cases": [
+        "processor output reaches a linked message block",
+        "linked blocks are named after their block type",
+        "sensor reads supported properties",
+        "sensor of an unsupported property yields null",
+        "format fills placeholders in order",
+        "print output is capped at 400 characters",
+        "format fills a placeholder when the print buffer is full",
+        "a replaced linked block is reachable under its new name",
+        "other links keep their names when one linked block is replaced",
+        "processor variables survive a save and reload",
+        "a world processor holding query results can be saved"
+      ]
+    },
+    {
+      "id": "server-console-regressions",
+      "difficulty": "medium",
+      "title": {
+        "en": "Mindustry: dedicated server console regressions",
+        "zh": "Mindustry：专用服务器控制台回归问题"
+      },
+      "summary": {
+        "en": "Repair the Mindustry v159.7 server sources so pause, host, pardon and stored player records behave as operators expect.",
+        "zh": "修复 Mindustry v159.7 服务端源码，使 pause、host、pardon 与玩家记录的持久化符合服主预期。"
+      },
+      "brief": {
+        "en": "Server operators report that pause toggles instead of setting a state, host crashes when map shuffling is off, pardon leaves players unable to reconnect, and player records vanish after a restart.",
+        "zh": "服主报告 pause 会切换而非设置状态、关闭地图轮换时 host 崩溃、pardon 后玩家仍无法重连、重启后玩家记录丢失。"
+      },
+      "requirements": {
+        "en": [
+          "pause on and pause off set the requested state",
+          "host without a map while shuffle is none leaves the server stopped without an exception",
+          "pardon clears every pending kick of the player, including the one on their address",
+          "player records and ID bans survive a server restart",
+          "status, host, stop, shuffle, ban, bans and unban keep working"
+        ],
+        "zh": [
+          "pause on 与 pause off 设置所请求的状态",
+          "shuffle 为 none 时不带地图的 host 不抛异常且服务器保持停止",
+          "pardon 清除该玩家的全部踢出限制，包括其地址上的限制",
+          "玩家记录与 ID 封禁在服务器重启后保留",
+          "status、host、stop、shuffle、ban、bans 与 unban 行为保持不变"
+        ]
+      },
+      "api_usage": {
+        "en": [
+          "dedicated server console commands",
+          "player administration records"
+        ],
+        "zh": [
+          "专用服务器控制台命令",
+          "玩家管理记录"
+        ]
+      },
+      "acceptance": {
+        "en": [
+          "the game sources compile offline against the pinned v159.7 server",
+          "every hidden real-server case passes"
+        ],
+        "zh": [
+          "游戏源码可针对固定的 v159.7 服务器离线编译",
+          "全部隐藏的真实服务器用例通过"
+        ]
+      },
+      "domains": [
+        "server-console",
+        "administration",
+        "persistence"
+      ],
+      "estimated_minutes": 150,
+      "required_files": [
+        "mindustry/LICENSE",
+        "mindustry/core/src/mindustry/Vars.java",
+        "mindustry/server/src/mindustry/server/ServerLauncher.java"
+      ],
+      "build": {
+        "tool": "mindustry-source"
+      },
+      "upstream": {
+        "repository": "https://github.com/Anuken/Mindustry",
+        "release_tag": "v159.7",
+        "base_commit": "c9686eb5d0ae5dd47ee02c40f99f7d5018ccbc8c",
+        "fix_commits": [
+          "40cd2fd27605029151a446d0d0bffb6a27fa355c",
+          "adb7264bc4745894eaab3897232681f17f9a4450",
+          "966a93ddfa576e56a28639966d864176580b4122",
+          "1beb1c073fc1170827f58da2352cd8ea9820ff50"
+        ],
+        "license_spdx": "GPL-3.0",
+        "license_file": "LICENSE"
+      },
+      "server_cases": [
+        "the server console answers status",
+        "host with a map name starts that map",
+        "pause refuses to run without a game",
+        "pause on and pause off set the requested state",
+        "shuffle reports the selected mode",
+        "host without a map while shuffling is off keeps the console working",
+        "pardon of an unknown ID reports an error",
+        "pardon lets a kicked player connect again",
+        "bans can be listed and lifted in one session",
+        "player records survive a server restart"
+      ]
+    },
+    {
+      "id": "defense-and-heat-regressions",
+      "difficulty": "medium",
+      "title": {
+        "en": "Mindustry: turret, heat redirector and shockwave tower regressions",
+        "zh": "Mindustry：炮塔、热量重定向器与冲击波塔回归问题"
+      },
+      "summary": {
+        "en": "Repair the Mindustry v159.7 server sources so turrets keep their fire rate after idling, disabled heat redirectors stop passing heat and shockwave towers respect their circular range.",
+        "zh": "修复 Mindustry v159.7 服务端源码，使炮塔闲置后保持射速、被禁用的热量重定向器不再传热、冲击波塔遵守圆形射程。"
+      },
+      "brief": {
+        "en": "Players report that idle turrets fire two quick shots when they engage, that heat redirectors disabled by a processor keep passing heat, and that shockwave towers destroy enemy bullets outside their displayed range.",
+        "zh": "玩家报告闲置炮塔交战时会连发两枪、被处理器禁用的热量重定向器仍在传热、冲击波塔会摧毁显示射程之外的敌方子弹。"
+      },
+      "requirements": {
+        "en": [
+          "turret shots after an idle period are never closer together than the reload time",
+          "a disabled heat redirector holds and passes no heat",
+          "a shockwave tower only affects enemy bullets within its range circle",
+          "engaged turrets, exact average fire rates, coolant use, enabled heat chains and in-range shockwaves keep working"
+        ],
+        "zh": [
+          "闲置后炮塔两次射击间隔不短于装填时间",
+          "被禁用的热量重定向器不持有也不传递热量",
+          "冲击波塔只影响射程圆内的敌方子弹",
+          "交战炮塔、精确平均射速、冷却液消耗、启用的热量链与射程内冲击波行为保持不变"
+        ]
+      },
+      "api_usage": {
+        "en": [
+          "turrets",
+          "Erekir heat blocks",
+          "logic control instruction",
+          "shockwave tower"
+        ],
+        "zh": [
+          "炮塔",
+          "埃里克尔热量方块",
+          "逻辑 control 指令",
+          "冲击波塔"
+        ]
+      },
+      "acceptance": {
+        "en": [
+          "the game sources compile offline against the pinned v159.7 server",
+          "every hidden real-server case passes"
+        ],
+        "zh": [
+          "游戏源码可针对固定的 v159.7 服务器离线编译",
+          "全部隐藏的真实服务器用例通过"
+        ]
+      },
+      "domains": [
+        "turrets",
+        "heat",
+        "defense"
+      ],
+      "estimated_minutes": 180,
+      "required_files": [
+        "mindustry/LICENSE",
+        "mindustry/core/src/mindustry/Vars.java",
+        "mindustry/server/src/mindustry/server/ServerLauncher.java"
+      ],
+      "build": {
+        "tool": "mindustry-source"
+      },
+      "upstream": {
+        "repository": "https://github.com/Anuken/Mindustry",
+        "release_tag": "v159.7",
+        "base_commit": "c9686eb5d0ae5dd47ee02c40f99f7d5018ccbc8c",
+        "fix_commits": [
+          "907b4edbf06228b52371225300b413e62df700fc",
+          "36ca01a1a338eecda29916f6c8d2a7c0f6465400",
+          "56defd8e02336913b6cc62566d4e8ec12db2edb4",
+          "abebad2f5fe9b4d2606c980ec76687666752eea8"
+        ],
+        "license_spdx": "GPL-3.0",
+        "license_file": "LICENSE"
+      },
+      "server_cases": [
+        "defense blocks load and update on the pinned server",
+        "an engaged turret fires at its reload interval",
+        "an idle turret keeps its reload interval when it engages",
+        "a turret with faster ammunition keeps its average fire rate",
+        "a loaded idle turret does not use its coolant",
+        "an enabled heat redirector passes heat on",
+        "a disabled heat redirector passes no heat",
+        "a shockwave tower destroys enemy bullets inside its range",
+        "a shockwave tower spares bullets outside its circular range"
+      ]
+    },
+    {
+      "id": "payload-and-save-regressions",
+      "difficulty": "hard",
+      "title": {
+        "en": "Mindustry: payload and world save regressions",
+        "zh": "Mindustry：载荷与世界存档回归问题"
+      },
+      "summary": {
+        "en": "Repair the Mindustry v159.7 server sources so derelict payload conveyors, long build queues and carried derelict blocks behave correctly.",
+        "zh": "修复 Mindustry v159.7 服务端源码，使废弃载荷传送带、长建造队列与携带的废弃方块行为正确。"
+      },
+      "brief": {
+        "en": "Players report that payloads on derelict payload conveyors come loose after loading a save, that saves with a builder holding over a thousand plans cannot be loaded, and that units cannot set down carried derelict blocks near a core.",
+        "zh": "玩家报告加载存档后废弃载荷传送带上的载荷脱离、建造单位持有上千个计划的存档无法加载、单位无法在核心附近放下携带的废弃方块。"
+      },
+      "requirements": {
+        "en": [
+          "payloads on derelict payload conveyors stay on their conveyor through a save",
+          "saves with units holding any number of queued plans load with every plan",
+          "units can set down carried derelict blocks inside a core's protected area",
+          "payload movement, short queues and team payload drops keep working"
+        ],
+        "zh": [
+          "废弃载荷传送带上的载荷在存档后仍位于传送带上",
+          "单位持有任意数量建造计划的存档可完整加载",
+          "单位可以在核心保护范围内放下携带的废弃方块",
+          "载荷移动、短建造队列与本队载荷放置行为保持不变"
+        ]
+      },
+      "api_usage": {
+        "en": [
+          "payload conveyors",
+          "payload-carrying units",
+          "builder units",
+          "world saves"
+        ],
+        "zh": [
+          "载荷传送带",
+          "可携带载荷的单位",
+          "建造单位",
+          "世界存档"
+        ]
+      },
+      "acceptance": {
+        "en": [
+          "the game sources compile offline against the pinned v159.7 server",
+          "every hidden real-server case passes"
+        ],
+        "zh": [
+          "游戏源码可针对固定的 v159.7 服务器离线编译",
+          "全部隐藏的真实服务器用例通过"
+        ]
+      },
+      "domains": [
+        "payloads",
+        "units",
+        "saves"
+      ],
+      "estimated_minutes": 210,
+      "required_files": [
+        "mindustry/LICENSE",
+        "mindustry/core/src/mindustry/Vars.java",
+        "mindustry/server/src/mindustry/server/ServerLauncher.java"
+      ],
+      "build": {
+        "tool": "mindustry-source"
+      },
+      "upstream": {
+        "repository": "https://github.com/Anuken/Mindustry",
+        "release_tag": "v159.7",
+        "base_commit": "c9686eb5d0ae5dd47ee02c40f99f7d5018ccbc8c",
+        "fix_commits": [
+          "3b29a4877f6732e47941a71c3dd5d63bdfbf5054",
+          "54443b9517eef7ea9acb7a283cd932e5e7660b47",
+          "1e8317fbac4c8ce2509eac7a758f4f846c4c00d3"
+        ],
+        "license_spdx": "GPL-3.0",
+        "license_file": "LICENSE"
+      },
+      "server_cases": [
+        "payload blocks and units load on the pinned server",
+        "payload conveyors pass payloads along",
+        "a team payload conveyor keeps its payload through a save",
+        "a derelict payload conveyor keeps its payload through a save",
+        "a builder's queued plans survive a save",
+        "a builder with more than a thousand queued plans survives a save",
+        "a unit sets down its own team's block near a core",
+        "a unit cannot set down an enemy block inside a core's protected area",
+        "a unit sets down a derelict block far from any core",
+        "a unit can set down a carried derelict block near a core"
+      ]
+    },
+    {
+      "id": "data-patch-regressions",
+      "difficulty": "hard",
+      "title": {
+        "en": "Mindustry: dedicated server data patch regressions",
+        "zh": "Mindustry：专用服务器数据补丁回归问题"
+      },
+      "summary": {
+        "en": "Repair the Mindustry v159.7 server sources so server data patches can use server-defined content, fully reconfigure build towers and respect planet restrictions.",
+        "zh": "修复 Mindustry v159.7 服务端源码，使服务器数据补丁能够使用服务器自定义内容、完整修改建造塔并遵守星球限制。"
+      },
+      "brief": {
+        "en": "Server operators report that patches cannot refer to items defined in the server's content folder, that patched build towers keep building at vanilla speed and range, and that patches restricted to another planet still appear among the active patches.",
+        "zh": "服主报告补丁无法引用服务器内容目录中定义的物品、打过补丁的建造塔仍以原版速度与范围建造、限定其他星球的补丁仍出现在生效补丁列表中。"
+      },
+      "requirements": {
+        "en": [
+          "patches can refer to content defined in the server's content folder",
+          "a patched build tower's builder unit uses the patched build speed and range",
+          "patches skipped because of requiredPlanets are not listed as active",
+          "plain patches, custom content and planet-matched patches keep working and are undone when a map is hosted without them"
+        ],
+        "zh": [
+          "补丁可以引用服务器内容目录中定义的内容",
+          "打过补丁的建造塔所用建造单位采用补丁后的建造速度与范围",
+          "因 requiredPlanets 被跳过的补丁不列为生效补丁",
+          "普通补丁、自定义内容与匹配星球的补丁保持可用，并在无补丁地图上被撤销"
+        ]
+      },
+      "api_usage": {
+        "en": [
+          "server asset folder (config/assets)",
+          "reloadassets and host console commands",
+          "data patch JSON"
+        ],
+        "zh": [
+          "服务器资源目录（config/assets）",
+          "reloadassets 与 host 控制台命令",
+          "数据补丁 JSON"
+        ]
+      },
+      "acceptance": {
+        "en": [
+          "the game sources compile offline against the pinned v159.7 server",
+          "every hidden real-server case passes"
+        ],
+        "zh": [
+          "游戏源码可针对固定的 v159.7 服务器离线编译",
+          "全部隐藏的真实服务器用例通过"
+        ]
+      },
+      "domains": [
+        "data-patches",
+        "content",
+        "server-console"
+      ],
+      "estimated_minutes": 240,
+      "required_files": [
+        "mindustry/LICENSE",
+        "mindustry/core/src/mindustry/Vars.java",
+        "mindustry/server/src/mindustry/server/ServerLauncher.java"
+      ],
+      "build": {
+        "tool": "mindustry-source"
+      },
+      "upstream": {
+        "repository": "https://github.com/Anuken/Mindustry",
+        "release_tag": "v159.7",
+        "base_commit": "c9686eb5d0ae5dd47ee02c40f99f7d5018ccbc8c",
+        "fix_commits": [
+          "e25b7280890aa50edcd0b53f7f4fea9ca4808fb0",
+          "15c9ea4cc9e2964ac8e0cc6e3a1c8e6bc3b8aa17",
+          "feab7aa908fa6135e32d8d31f0a74d42041f55e3"
+        ],
+        "license_spdx": "GPL-3.0",
+        "license_file": "LICENSE"
+      },
+      "server_cases": [
+        "the server loads patch files from its asset folder",
+        "a patch changes a block while its map is hosted",
+        "a server-defined item can be used by a patch",
+        "a server-defined item exists while its map is hosted",
+        "patching a build tower also changes the drones it builds with",
+        "a planet-restricted patch applies on its planet",
+        "a patch for another planet is neither applied nor listed"
+      ]
+    }
+  ]
+}

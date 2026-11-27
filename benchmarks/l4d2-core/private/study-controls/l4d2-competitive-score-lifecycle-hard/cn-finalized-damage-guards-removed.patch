@@ -1,0 +1,30 @@
+diff -ruN a/addons/sourcemod/scripting/l4d2_hybrid_scoremod_zone.sp b/addons/sourcemod/scripting/l4d2_hybrid_scoremod_zone.sp
+--- a/addons/sourcemod/scripting/l4d2_hybrid_scoremod_zone.sp
++++ b/addons/sourcemod/scripting/l4d2_hybrid_scoremod_zone.sp
+@@ -305,7 +305,7 @@
+ 
+ Action:OnTakeDamage(victim, &attacker, &inflictor, &Float:damage, &damagetype)
+ {
+-	if (bRoundOver || !IsSurvivor(victim) || IsPlayerIncap(victim)) return Plugin_Continue;
++	if (!IsSurvivor(victim) || IsPlayerIncap(victim)) return Plugin_Continue;
+ 
+ #if SM2_DEBUG
+ 	if (GetSurvivorTemporaryHealth(victim) > 0) PrintToChatAll("\x04%N\x01 has \x05%d\x01 temp HP now(damage: \x03%.1f\x01)", victim, GetSurvivorTemporaryHealth(victim), damage);
+@@ -428,7 +428,7 @@
+ 	// Player can't be Incapped.
+ 	// Damage has to be from manipulated Shotgun FF. (Plasma)
+ 	// Damage has to be higher than the Survivor's permanent health.
+-	if (bRoundOver || !IsSurvivor(victim) || !IsSurvivor(attacker) || IsPlayerIncap(victim) || damagetype != DMG_PLASMA || fFakeDamage < GetSurvivorPermanentHealth(victim)) return Plugin_Continue;
++	if (!IsSurvivor(victim) || !IsSurvivor(attacker) || IsPlayerIncap(victim) || damagetype != DMG_PLASMA || fFakeDamage < GetSurvivorPermanentHealth(victim)) return Plugin_Continue;
+ 
+ 	iTempHealth[victim] = GetSurvivorTemporaryHealth(victim);
+ 	if (fFakeDamage > iTempHealth[victim]) fFakeDamage = iTempHealth[victim];
+@@ -441,7 +441,7 @@
+ 
+ void OnTakeDamagePost(victim, attacker, inflictor, Float:damage, damagetype)
+ {
+-	if (bRoundOver || !IsSurvivor(victim)) return;
++	if (!IsSurvivor(victim)) return;
+ 		
+ #if SM2_DEBUG
+ 	PrintToChatAll("\x03%N\x01\x05 lost %i\x01 temp HP after being attacked(arg damage: \x03%.1f\x01)", victim, iTempHealth[victim] - (IsPlayerAlive(victim) ? GetSurvivorTemporaryHealth(victim) : 0), damage);

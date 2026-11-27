@@ -1,0 +1,11 @@
+--- a/scripts/rescuedispatch/dispatch.lua	2026-09-21 05:46:46.559168248 +0800
++++ b/scripts/rescuedispatch/dispatch.lua	2026-09-21 05:46:46.567746017 +0800
+@@ -127,7 +127,7 @@
+     local lease_ids = sorted_keys(self.leases)
+     for index = 1, #lease_ids do
+         local lease = self.leases[lease_ids[index]]
+-        if now >= lease.expires_at then
++        if now > lease.expires_at then
+             self:_release(lease, true)
+             expired[#expired + 1] = lease.lease_id
+         end

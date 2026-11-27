@@ -1,0 +1,5 @@
+name: "support-unit-leases"
+displayName: "Lease-based Unit Task Scheduler"
+main: "UnitLeaseSchedulerPlugin"
+version: "1.0.0"
+minGameVersion: 159

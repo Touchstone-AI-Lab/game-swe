@@ -1,0 +1,132 @@
+{
+  "version": 1,
+  "base": "references/profile-map",
+  "mutations": [
+    {
+      "id": "unknown-weapon-accepted",
+      "file": "lua/rhenium_loadout_profiles/profiles.lua",
+      "old": "or not WEAPONS[w.class]or seen[w.class]",
+      "new": "or seen[w.class]",
+      "check": "hidden-behavior",
+      "case": "weapon and ammo allowlists reject unknown values",
+      "expectedLayer": "plain-lua"
+    },
+    {
+      "id": "shared-ammo-overwritten",
+      "file": "lua/rhenium_loadout_profiles/profiles.lua",
+      "old": "ammo[a.type]=(ammo[a.type]or 0)+a.amount",
+      "new": "ammo[a.type]=a.amount",
+      "check": "hidden-behavior",
+      "case": "shared ammo is merged once and sorted",
+      "expectedLayer": "plain-lua"
+    },
+    {
+      "id": "aggregate-cap-skipped",
+      "file": "lua/rhenium_loadout_profiles/profiles.lua",
+      "old": "if n>CAPS[t]then return nil,\"ammo_cap_exceeded\"end",
+      "new": "if false and n>CAPS[t]then return nil,\"ammo_cap_exceeded\"end",
+      "check": "hidden-behavior",
+      "case": "ammo caps are checked after aggregation",
+      "expectedLayer": "plain-lua"
+    },
+    {
+      "id": "request-replay-lost",
+      "file": "lua/rhenium_loadout_profiles/profiles.lua",
+      "old": "local old=self.requests[rid];if old then",
+      "new": "local old=nil;if old then",
+      "check": "hidden-behavior",
+      "case": "request retries are exact and conflicts fail",
+      "expectedLayer": "plain-lua"
+    },
+    {
+      "id": "stale-profile-overwrites",
+      "file": "lua/rhenium_loadout_profiles/profiles.lua",
+      "old": "if current and rev<=current.revision then",
+      "new": "if false and current and rev<=current.revision then",
+      "check": "hidden-behavior",
+      "case": "profile and preferred revisions reject stale writes",
+      "expectedLayer": "plain-lua"
+    },
+    {
+      "id": "profile-limit-disabled",
+      "file": "lua/rhenium_loadout_profiles/profiles.lua",
+      "old": "if not current and count>=5 then",
+      "new": "if false and not current and count>=5 then",
+      "check": "hidden-behavior",
+      "case": "profile and weapon count limits are enforced",
+      "expectedLayer": "plain-lua"
+    },
+    {
+      "id": "disconnect-deletes-profiles",
+      "file": "lua/rhenium_loadout_profiles/profiles.lua",
+      "old": "return true,\"retained\",{player_id=p}",
+      "new": "self.players[p]=nil;return true,\"retained\",{player_id=p}",
+      "check": "hidden-behavior",
+      "case": "disconnect retains persistent profiles",
+      "expectedLayer": "plain-lua"
+    },
+    {
+      "id": "save-drops-preference",
+      "file": "lua/rhenium_loadout_profiles/profiles.lua",
+      "old": "players=cp(self.players)",
+      "new": "players={}",
+      "check": "hidden-behavior",
+      "case": "save load preserves preference revisions and replay",
+      "expectedLayer": "plain-lua"
+    },
+    {
+      "id": "shutdown-allows-write",
+      "file": "lua/rhenium_loadout_profiles/profiles.lua",
+      "old": "self.stopped=true;return true,\"shutdown\"",
+      "new": "self.stopped=false;return true,\"shutdown\"",
+      "check": "hidden-behavior",
+      "case": "shutdown is idempotent and freezes writes",
+      "expectedLayer": "plain-lua"
+    },
+    {
+      "id": "ammo-reset-skipped",
+      "file": "lua/rhenium_loadout_profiles/server.lua",
+      "old": "p:RemoveAllAmmo()",
+      "new": "if false then p:RemoveAllAmmo() end ",
+      "check": "gmod-integration",
+      "case": "spawn hook reapplies without accumulating pickups",
+      "expectedLayer": "integration"
+    },
+    {
+      "id": "give-failure-continues",
+      "file": "lua/rhenium_loadout_profiles/server.lua",
+      "old": "if not success or not IsValid(value)then return false,\"give_failed\",{given=given}end",
+      "new": "if false and(not success or not IsValid(value))then return false,\"give_failed\",{given=given}end",
+      "check": "gmod-integration",
+      "case": "partial Give failure stops before ammo",
+      "expectedLayer": "integration"
+    },
+    {
+      "id": "failed-request-not-remembered",
+      "file": "lua/rhenium_loadout_profiles/profiles.lua",
+      "old": "local plan,err=normalize(spec);if not plan then return self:_done(rid,k,false,err,{})end",
+      "new": "local plan,err=normalize(spec);if not plan then return false,err,{} end",
+      "check": "hidden-behavior",
+      "case": "legal request identifiers freeze parameter and business failures",
+      "expectedLayer": "hidden-behavior"
+    },
+    {
+      "id": "fake-spawn-wiring",
+      "file": "lua/rhenium_loadout_profiles/server.lua",
+      "old": "hook.Add(\"PlayerSpawn\",Server.HookPrefix..\".Spawn\",function(p)timer.Simple(0,function()if valid(p)and players[p]then Server.Apply(p)end end)end)",
+      "new": "hook.Add(\"PlayerSpawn\",Server.HookPrefix..\".Spawn\",function(p) return end)",
+      "check": "gmod-integration",
+      "case": "spawn hook reapplies without accumulating pickups",
+      "expectedLayer": "gmod-integration"
+    },
+    {
+      "id": "malformed-profile-state-accepted",
+      "file": "lua/rhenium_loadout_profiles/profiles.lua",
+      "old": "if s~=nil and not restore(self,s)then return nil,\"invalid_state\"end",
+      "new": "if false and s~=nil and not restore(self,s)then return nil,\"invalid_state\"end",
+      "check": "hidden-behavior",
+      "case": "malformed persisted profiles choices requests and plans are rejected",
+      "expectedLayer": "hidden-behavior"
+    }
+  ]
+}

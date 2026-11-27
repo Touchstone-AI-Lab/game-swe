@@ -1,0 +1,54 @@
+--- a/gamemode/modules/base/sh_checkitems.lua
++++ b/gamemode/modules/base/sh_checkitems.lua
+@@ -131,7 +131,7 @@
+ 
+     model =
+         tc.addHint(
+-            fn.FOr{isstring, tc.tableOf(isstring)},
++            fn.FOr{isstring, tc.nonEmpty(tc.tableOf(isstring))},
+             "The model must either be a table of correct model strings or a single correct model string.",
+             {
+                 "This error could happens when the model does not exist on the server.",
+@@ -142,7 +142,7 @@
+ 
+     description =
+         tc.addHint(
+-            tc.optional(isstring),
++            isstring,
+             "The description must be a string."
+         ),
+ 
+@@ -604,7 +604,7 @@
+ 
+     startExpanded =
+         tc.addHint(
+-            tc.optional(isbool),
++            isbool,
+             "The startExpanded must be either true or false."
+         ),
+ 
+--- a/gamemode/modules/base/sv_util.lua
++++ b/gamemode/modules/base/sv_util.lua
+@@ -185,8 +185,8 @@
+ function meta:applyPlayerClassVars(applyHealth)
+     local playerClass = baseclass.Get(player_manager.GetPlayerClass(self))
+ 
+-    self:SetWalkSpeed(playerClass.WalkSpeed > 0 and playerClass.WalkSpeed or GAMEMODE.Config.walkspeed)
+-    self:SetRunSpeed(playerClass.RunSpeed >= 0 and playerClass.RunSpeed or (self:isCP() and GAMEMODE.Config.runspeed or GAMEMODE.Config.runspeedcp))
++    self:SetWalkSpeed(playerClass.WalkSpeed >= 0 and playerClass.WalkSpeed or GAMEMODE.Config.walkspeed)
++    self:SetRunSpeed(playerClass.RunSpeed >= 0 and playerClass.RunSpeed or (self:isCP() and GAMEMODE.Config.runspeedcp or GAMEMODE.Config.runspeed))
+ 
+     hook.Call("UpdatePlayerSpeed", GAMEMODE, self) -- Backwards compatitibly, do not use
+ 
+@@ -196,9 +196,9 @@
+     self:SetJumpPower(playerClass.JumpPower)
+     self:AllowFlashlight(playerClass.CanUseFlashlight)
+ 
+-    self:SetMaxHealth(playerClass.MaxHealth > 0 and playerClass.MaxHealth or (tonumber(GAMEMODE.Config.startinghealth) or 100))
++    self:SetMaxHealth(playerClass.MaxHealth >= 0 and playerClass.MaxHealth or (tonumber(GAMEMODE.Config.startinghealth) or 100))
+     if applyHealth then
+-        self:SetHealth(playerClass.MaxHealth >= 0 and playerClass.MaxHealth or (tonumber(GAMEMODE.Config.startinghealth) or 100))
++        self:SetHealth(playerClass.StartHealth >= 0 and playerClass.StartHealth or (tonumber(GAMEMODE.Config.startinghealth) or 100))
+     end
+     self:SetArmor(playerClass.StartArmor)
+ 

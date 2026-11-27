@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<metadata>
+  <name>Construct Room RNG</name>
+  <directory>gcb_construct_room_rng</directory>
+  <id>gcb_construct_room_rng</id>
+  <description>Clean-room Construct benchmark starter.</description>
+  <version>1.0.0</version>
+</metadata>

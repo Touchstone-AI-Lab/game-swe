@@ -1,0 +1,38 @@
+# Legacy Chatty v2 config.yml present before the plugin enables for the first
+# time on the verifier server. It declares its chats but has no top-level
+# "spy" section, which is how many v2 installations look (the section was
+# optional). Chatty renames the folder to Chatty_old_<timestamp> and migrates
+# this file into the split v3 configuration on its first start. The server ran
+# Chatty 2 in Russian (general.locale: ru, the v2 spelling of ru-RU).
+config-version: '2.0'
+
+general:
+  locale: ru
+  priority: high
+  log: true
+
+chats:
+  local:
+    enable: true
+    display-name: 'Local'
+    format: '&e[GCB Local] &r{player}: {message}'
+    range: 100
+    cooldown: 5
+  global:
+    enable: true
+    display-name: 'Global'
+    format: '&a[GCB Global] &r{player}: {message}'
+    range: -1
+    symbol: '!'
+  gcbstaff:
+    enable: true
+    display-name: 'Staff'
+    range: -2
+    permission: true
+  gcbretired:
+    enable: false
+    format: '&cShould not be migrated'
+
+pm:
+  enable: true
+  allow-console: true

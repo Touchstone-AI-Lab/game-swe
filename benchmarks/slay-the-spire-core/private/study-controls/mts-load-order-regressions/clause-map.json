@@ -1,0 +1,147 @@
+{
+  "task": "slay-the-spire/core/mts-load-order-regressions",
+  "task_version": "1.0.0",
+  "exam": "benchmarks/slay-the-spire-core/exams/mts-load-order-regressions.md",
+  "cases": [
+    {
+      "id": "check:submission-shape",
+      "role": "static",
+      "clauses": [],
+      "overlap": false,
+      "note": "source tree present, no symlinks, VCS metadata or compiled artifacts outside build output"
+    },
+    {
+      "id": "suite:gcb.LoadOrderTest.aDependencyIsInitialisedBeforeItsDependent",
+      "role": "target",
+      "clauses": [
+        "report-731",
+        "report-737"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "suite:gcb.LoadOrderTest.aChainOfDependenciesResolves",
+      "role": "target",
+      "clauses": [
+        "report-731",
+        "report-737"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "suite:gcb.LoadOrderTest.anEdgeIntoTheNewestModTakesEffect",
+      "role": "target",
+      "clauses": [
+        "report-731",
+        "report-737"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "suite:gcb.ByRefBoxingTest.byRefWritesBackThroughAWrapperArray",
+      "role": "target",
+      "clauses": [
+        "report-740"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "suite:gcb.LoadOrderTest.control_everyModSurvivesWithNoDependencies",
+      "role": "preserved",
+      "clauses": [
+        "preserve"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "suite:gcb.LoadOrderTest.control_nothingIsLostOrDuplicated",
+      "role": "preserved",
+      "clauses": [
+        "preserve"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "suite:gcb.LoadOrderTest.theRelationIsNotSymmetric",
+      "role": "preserved",
+      "clauses": [
+        "preserve",
+        "report-737"
+      ],
+      "overlap": true,
+      "note": "the asymmetry assertion already passes on the starter"
+    },
+    {
+      "id": "suite:gcb.LoadOrderTest.mutuallyDependentModsKeepTheirOrder",
+      "role": "preserved",
+      "clauses": [
+        "preserve",
+        "report-734"
+      ],
+      "overlap": true,
+      "note": "passes on the starter; see known issues"
+    },
+    {
+      "id": "suite:gcb.LoadOrderTest.aCircularDeclarationDoesNotRunAway",
+      "role": "preserved",
+      "clauses": [
+        "preserve",
+        "report-734"
+      ],
+      "overlap": true,
+      "note": "passes on the starter; see known issues"
+    }
+  ],
+  "clauses": [
+    {
+      "id": "report-731",
+      "anchor": "Problem, report #731: a mod is started before the mod it requires",
+      "status": "asserted"
+    },
+    {
+      "id": "report-734",
+      "anchor": "Problem, report #734: two mods that name each other freeze the loading screen",
+      "status": "weak",
+      "note": "both circular assertions already pass on the starter, so ignoring the report still resolves the task"
+    },
+    {
+      "id": "report-737",
+      "anchor": "Problem, report #737: the loader acts on the opposite direction of a declared requirement",
+      "status": "weak",
+      "note": "the direct asymmetry assertion passes on the starter; the transposed relation is observed only through the ordering assertions it shares with #731"
+    },
+    {
+      "id": "report-740",
+      "anchor": "Problem, report #740: by-reference patches of primitive values fail class verification",
+      "status": "asserted"
+    },
+    {
+      "id": "preserve",
+      "anchor": "What to do, notes: behaviour that already works must keep working",
+      "status": "asserted"
+    },
+    {
+      "id": "scope-tests",
+      "anchor": "What to do, notes: do not change anything under /tests and add no test files",
+      "status": "unasserted",
+      "note": "enforced only indirectly: the verifier replaces the private suite, and an extra test changes the observed count, which makes the run incomplete"
+    },
+    {
+      "id": "fix-causes",
+      "anchor": "What to do, notes: fix the causes, do not special-case a report or work around it in a caller",
+      "status": "unasserted",
+      "note": "generalisation is probed only through the several inputs each assertion uses"
+    }
+  ],
+  "excluded_clauses": [],
+  "known_issues": [
+    "Report #734 is not enforced: both circular assertions pass on the starter (validation/per-defect-matrix.md records this as the top follow-up).",
+    "The six starter edits interact: the transposed relation alone fails five assertions, all six together fail four; two edits (the removed cycle guard and the narrowed accessor type check) are inert distractors."
+  ]
+}

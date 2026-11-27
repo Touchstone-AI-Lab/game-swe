@@ -1,0 +1,13 @@
+diff -ruN a/scripts/statuseffects/stack.lua b/scripts/statuseffects/stack.lua
+--- a/scripts/statuseffects/stack.lua	2026-09-22 00:59:18.686420789 +0800
++++ b/scripts/statuseffects/stack.lua	2026-09-22 01:14:27.007522341 +0800
+@@ -265,9 +265,6 @@
+     table.sort(matching, function(left, right)
+         local left_priority = effects[left.effect_id].priority
+         local right_priority = effects[right.effect_id].priority
+-        if left_priority ~= right_priority then
+-            return left_priority > right_priority
+-        end
+         if left.applied_at ~= right.applied_at then
+             return left.applied_at < right.applied_at
+         end

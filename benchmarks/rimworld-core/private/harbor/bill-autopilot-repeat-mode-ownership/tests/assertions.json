@@ -1,0 +1,267 @@
+{
+  "schemaVersion": 3,
+  "protocol": "rhenium-rimworld-private-v3",
+  "adapter": "rhenium-rimworld-observer-v3",
+  "taskKey": "rimworld/core/bill-autopilot-repeat-mode-ownership",
+  "weights": {
+    "submissionShape": 10,
+    "engineAssertions": 90
+  },
+  "cases": [
+    {
+      "id": "runtime-defs-ready",
+      "fixture": "RuntimeDefsReady",
+      "gate": true,
+      "scalars": [],
+      "expected": {
+        "facts": [
+          {
+            "name": "result",
+            "value": "ready"
+          }
+        ],
+        "outputs": []
+      }
+    },
+    {
+      "id": "foreign-mode-recognized",
+      "fixture": "ForeignModeRecognized",
+      "gate": false,
+      "scalars": [],
+      "expected": {
+        "facts": [
+          {
+            "name": "result",
+            "value": "True"
+          }
+        ],
+        "outputs": []
+      }
+    },
+    {
+      "id": "target-count-owned",
+      "fixture": "TargetCountOwned",
+      "gate": false,
+      "scalars": [],
+      "expected": {
+        "facts": [
+          {
+            "name": "result",
+            "value": "False"
+          }
+        ],
+        "outputs": []
+      }
+    },
+    {
+      "id": "forever-owned",
+      "fixture": "ForeverOwned",
+      "gate": false,
+      "scalars": [],
+      "expected": {
+        "facts": [
+          {
+            "name": "result",
+            "value": "False"
+          }
+        ],
+        "outputs": []
+      }
+    },
+    {
+      "id": "repeat-count-preserved",
+      "fixture": "RepeatCountPreserved",
+      "gate": false,
+      "scalars": [],
+      "expected": {
+        "facts": [
+          {
+            "name": "result",
+            "value": "RepeatCount"
+          }
+        ],
+        "outputs": []
+      }
+    },
+    {
+      "id": "foreign-drift-not-flattened",
+      "fixture": "ForeignDriftNotFlattened",
+      "gate": false,
+      "scalars": [],
+      "expected": {
+        "facts": [
+          {
+            "name": "result",
+            "value": "RheniumForeignRepeatMode:Maintain"
+          }
+        ],
+        "outputs": []
+      }
+    },
+    {
+      "id": "foreign-mode-remembered",
+      "fixture": "ForeignModeRemembered",
+      "gate": false,
+      "scalars": [],
+      "expected": {
+        "facts": [
+          {
+            "name": "result",
+            "value": "RheniumForeignRepeatMode"
+          }
+        ],
+        "outputs": []
+      }
+    },
+    {
+      "id": "foreign-mode-restored",
+      "fixture": "ForeignModeRestored",
+      "gate": false,
+      "scalars": [],
+      "expected": {
+        "facts": [
+          {
+            "name": "result",
+            "value": "RepeatCount"
+          }
+        ],
+        "outputs": []
+      }
+    },
+    {
+      "id": "foreign-should-do-now-true",
+      "fixture": "ForeignShouldDoNowTrue",
+      "gate": false,
+      "scalars": [],
+      "expected": {
+        "facts": [
+          {
+            "name": "result",
+            "value": "True:True"
+          }
+        ],
+        "outputs": []
+      }
+    },
+    {
+      "id": "foreign-should-do-now-false",
+      "fixture": "ForeignShouldDoNowFalse",
+      "gate": false,
+      "scalars": [],
+      "expected": {
+        "facts": [
+          {
+            "name": "result",
+            "value": "True:False"
+          }
+        ],
+        "outputs": []
+      }
+    },
+    {
+      "id": "unresolved-mode-falls-back",
+      "fixture": "UnresolvedModeFallsBack",
+      "gate": false,
+      "scalars": [],
+      "expected": {
+        "facts": [
+          {
+            "name": "result",
+            "value": "True"
+          }
+        ],
+        "outputs": []
+      }
+    },
+    {
+      "id": "busy-bill-not-retired",
+      "fixture": "BusyBillNotRetired",
+      "gate": false,
+      "scalars": [],
+      "expected": {
+        "facts": [
+          {
+            "name": "result",
+            "value": "False"
+          }
+        ],
+        "outputs": []
+      }
+    },
+    {
+      "id": "bill-name-persisted",
+      "fixture": "BillNamePersisted",
+      "gate": false,
+      "scalars": [],
+      "expected": {
+        "facts": [
+          {
+            "name": "result",
+            "value": "fixture name"
+          }
+        ],
+        "outputs": []
+      }
+    },
+    {
+      "id": "linked-group-persisted",
+      "fixture": "LinkedGroupPersisted",
+      "gate": false,
+      "scalars": [],
+      "expected": {
+        "facts": [
+          {
+            "name": "result",
+            "value": "17"
+          }
+        ],
+        "outputs": []
+      }
+    },
+    {
+      "id": "memory-roundtrip",
+      "fixture": "MemoryRoundtrip",
+      "gate": false,
+      "scalars": [],
+      "expected": {
+        "facts": [
+          {
+            "name": "result",
+            "value": "RheniumForeignRepeatMode"
+          }
+        ],
+        "outputs": []
+      }
+    },
+    {
+      "id": "missing-fields-default",
+      "fixture": "MissingFieldsDefault",
+      "gate": false,
+      "scalars": [],
+      "expected": {
+        "facts": [
+          {
+            "name": "result",
+            "value": "True:True:True:True"
+          }
+        ],
+        "outputs": []
+      }
+    },
+    {
+      "id": "fixture-state-restored",
+      "fixture": "FixtureStateRestored",
+      "gate": true,
+      "scalars": [],
+      "expected": {
+        "facts": [
+          {
+            "name": "result",
+            "value": "restored"
+          }
+        ],
+        "outputs": []
+      }
+    }
+  ]
+}

@@ -1,0 +1,12 @@
+*.log
+__pycache__/
+
+# Proprietary game files are never committed. Each task's environment/ expects a
+# game-files/ directory produced locally by scripts/fetch-game.sh (operator-owned
+# Steam/GOG copy). See README.md "Game acquisition".
+game-files/
+*.tar.zst
+
+# Agent measurement scratch (trajectories, patches, scores) — never committed.
+.agent/
+.validation/

@@ -1,0 +1,717 @@
+{
+  "task": "terraria/core/terraria-overhaul-entity-chunk-lifetime-hard",
+  "task_version": "0.1.0",
+  "exam": "benchmarks/terraria-core/exams/terraria-overhaul-entity-chunk-lifetime-hard.md",
+  "cases": [
+    {
+      "id": "check:submission-shape",
+      "role": "static"
+    },
+    {
+      "id": "projection:component_handles_reserve_invalid_zero",
+      "role": "target",
+      "clauses": [
+        "component-mask-growth"
+      ]
+    },
+    {
+      "id": "projection:component_handles_are_stable_and_unique",
+      "role": "target",
+      "clauses": [
+        "component-mask-growth"
+      ]
+    },
+    {
+      "id": "projection:entity_masks_survive_first_growth",
+      "role": "preserved",
+      "clauses": [
+        "preserve:component-mask-growth"
+      ]
+    },
+    {
+      "id": "projection:entity_masks_survive_second_growth",
+      "role": "preserved",
+      "clauses": [
+        "preserve:component-mask-growth"
+      ]
+    },
+    {
+      "id": "projection:include_query_survives_mask_growth",
+      "role": "preserved",
+      "clauses": [
+        "preserve:component-mask-growth"
+      ]
+    },
+    {
+      "id": "projection:exclude_query_survives_mask_growth",
+      "role": "preserved",
+      "clauses": [
+        "preserve:component-mask-growth"
+      ]
+    },
+    {
+      "id": "projection:preallocation_registration_advances_mask_width",
+      "role": "target",
+      "clauses": [
+        "component-preallocation"
+      ]
+    },
+    {
+      "id": "projection:preallocation_high_component_roundtrips",
+      "role": "target",
+      "clauses": [
+        "component-preallocation"
+      ]
+    },
+    {
+      "id": "projection:preallocation_include_query_survives_growth",
+      "role": "target",
+      "clauses": [
+        "component-preallocation"
+      ]
+    },
+    {
+      "id": "projection:preallocation_exclude_query_survives_growth",
+      "role": "target",
+      "clauses": [
+        "component-preallocation"
+      ]
+    },
+    {
+      "id": "projection:unique_component_name_resolves_stably",
+      "role": "preserved",
+      "clauses": [
+        "preserve:component-name-registry"
+      ]
+    },
+    {
+      "id": "projection:ambiguous_component_name_is_rejected",
+      "role": "target",
+      "clauses": [
+        "component-name-registry"
+      ]
+    },
+    {
+      "id": "projection:sparse_remove_first_preserves_second",
+      "role": "target",
+      "clauses": [
+        "sparse-removal"
+      ]
+    },
+    {
+      "id": "projection:sparse_remove_middle_preserves_neighbors",
+      "role": "target",
+      "clauses": [
+        "sparse-removal"
+      ]
+    },
+    {
+      "id": "projection:sparse_remove_clears_membership",
+      "role": "target",
+      "clauses": [
+        "sparse-removal"
+      ]
+    },
+    {
+      "id": "projection:sparse_reinsert_reuses_dense_capacity",
+      "role": "target",
+      "clauses": [
+        "sparse-removal"
+      ]
+    },
+    {
+      "id": "projection:sparse_overwrite_keeps_count",
+      "role": "preserved",
+      "clauses": [
+        "preserve:sparse-removal"
+      ]
+    },
+    {
+      "id": "projection:default_entity_is_safely_invalid",
+      "role": "preserved",
+      "clauses": [
+        "preserve:entity-lifetime"
+      ]
+    },
+    {
+      "id": "projection:out_of_range_entity_is_safely_invalid",
+      "role": "target",
+      "clauses": [
+        "entity-lifetime"
+      ]
+    },
+    {
+      "id": "projection:destroy_clears_owned_components",
+      "role": "target",
+      "clauses": [
+        "entity-lifetime"
+      ]
+    },
+    {
+      "id": "projection:destroy_is_idempotent",
+      "role": "preserved",
+      "clauses": [
+        "preserve:entity-lifetime"
+      ]
+    },
+    {
+      "id": "projection:stale_entity_has_no_components",
+      "role": "target",
+      "clauses": [
+        "entity-lifetime"
+      ]
+    },
+    {
+      "id": "projection:stale_entity_cannot_add",
+      "role": "target",
+      "clauses": [
+        "entity-lifetime"
+      ]
+    },
+    {
+      "id": "projection:stale_entity_cannot_get",
+      "role": "target",
+      "clauses": [
+        "entity-lifetime"
+      ]
+    },
+    {
+      "id": "projection:remove_missing_component_is_noop",
+      "role": "target",
+      "clauses": [
+        "component-operations"
+      ]
+    },
+    {
+      "id": "projection:get_missing_component_is_rejected",
+      "role": "target",
+      "clauses": [
+        "component-operations"
+      ]
+    },
+    {
+      "id": "projection:clear_removes_components_but_preserves_entity",
+      "role": "preserved",
+      "clauses": [
+        "preserve:component-operations"
+      ]
+    },
+    {
+      "id": "projection:stale_entity_cannot_clear",
+      "role": "target",
+      "clauses": [
+        "component-operations"
+      ]
+    },
+    {
+      "id": "projection:invalid_component_handle_is_rejected",
+      "role": "target",
+      "clauses": [
+        "component-operations"
+      ]
+    },
+    {
+      "id": "projection:destroyed_slot_is_reused_before_growth",
+      "role": "target",
+      "clauses": [
+        "generational-slot-reuse"
+      ]
+    },
+    {
+      "id": "projection:reused_slot_advances_generation",
+      "role": "target",
+      "clauses": [
+        "generational-slot-reuse"
+      ]
+    },
+    {
+      "id": "projection:generation_wrap_retires_exhausted_slot",
+      "role": "preserved",
+      "clauses": [
+        "preserve:generational-slot-reuse"
+      ]
+    },
+    {
+      "id": "projection:reused_slot_has_no_component_or_query_leak",
+      "role": "target",
+      "clauses": [
+        "generational-slot-reuse"
+      ]
+    },
+    {
+      "id": "projection:multiple_released_slots_precede_high_water_growth",
+      "role": "target",
+      "clauses": [
+        "generational-slot-reuse"
+      ]
+    },
+    {
+      "id": "projection:repeated_destroy_publishes_slot_once",
+      "role": "target",
+      "clauses": [
+        "generational-slot-reuse"
+      ]
+    },
+    {
+      "id": "projection:clear_does_not_release_live_slot",
+      "role": "preserved",
+      "clauses": [
+        "preserve:generational-slot-reuse"
+      ]
+    },
+    {
+      "id": "projection:reused_entity_joins_existing_query",
+      "role": "target",
+      "clauses": [
+        "generational-slot-reuse"
+      ]
+    },
+    {
+      "id": "projection:entity_churn_keeps_high_water_stable",
+      "role": "target",
+      "clauses": [
+        "generational-slot-reuse"
+      ]
+    },
+    {
+      "id": "projection:chunk_recreation_reuses_slot_with_fresh_state",
+      "role": "target",
+      "clauses": [
+        "generational-slot-reuse"
+      ]
+    },
+    {
+      "id": "projection:idle_observer_defers_old_slot_reuse",
+      "role": "target",
+      "clauses": [
+        "generational-slot-reuse"
+      ]
+    },
+    {
+      "id": "projection:query_includes_only_matching_entities",
+      "role": "preserved",
+      "clauses": [
+        "preserve:query-iteration"
+      ]
+    },
+    {
+      "id": "projection:query_without_excludes_matching_entities",
+      "role": "preserved",
+      "clauses": [
+        "preserve:query-iteration"
+      ]
+    },
+    {
+      "id": "projection:query_skips_destroyed_entities",
+      "role": "preserved",
+      "clauses": [
+        "preserve:query-iteration"
+      ]
+    },
+    {
+      "id": "projection:query_crosses_empty_presence_word",
+      "role": "preserved",
+      "clauses": [
+        "preserve:query-iteration"
+      ]
+    },
+    {
+      "id": "projection:query_yields_each_entity_once",
+      "role": "preserved",
+      "clauses": [
+        "preserve:query-iteration"
+      ]
+    },
+    {
+      "id": "projection:destroyed_generation_without_presence_is_invalid",
+      "role": "target",
+      "clauses": [
+        "query-snapshot"
+      ]
+    },
+    {
+      "id": "projection:active_query_survives_component_growth",
+      "role": "target",
+      "clauses": [
+        "query-snapshot"
+      ]
+    },
+    {
+      "id": "projection:active_query_freezes_filters",
+      "role": "target",
+      "clauses": [
+        "query-snapshot"
+      ]
+    },
+    {
+      "id": "projection:active_query_omits_later_entity",
+      "role": "target",
+      "clauses": [
+        "query-snapshot"
+      ]
+    },
+    {
+      "id": "projection:active_query_omits_reused_generation",
+      "role": "target",
+      "clauses": [
+        "query-snapshot"
+      ]
+    },
+    {
+      "id": "projection:empty_query_skips_destroyed_cached_candidate",
+      "role": "preserved",
+      "clauses": [
+        "preserve:query-snapshot"
+      ]
+    },
+    {
+      "id": "projection:negative_world_coordinates_floor",
+      "role": "target",
+      "clauses": [
+        "chunk-coordinates"
+      ]
+    },
+    {
+      "id": "projection:negative_tile_coordinates_floor",
+      "role": "target",
+      "clauses": [
+        "chunk-coordinates"
+      ]
+    },
+    {
+      "id": "projection:chunk_creation_rejects_world_bounds",
+      "role": "preserved",
+      "clauses": [
+        "preserve:chunk-coordinates"
+      ]
+    },
+    {
+      "id": "projection:chunk_creation_is_canonical",
+      "role": "preserved",
+      "clauses": [
+        "preserve:chunk-coordinates"
+      ]
+    },
+    {
+      "id": "projection:chunk_keepalive_refreshes_tick",
+      "role": "preserved",
+      "clauses": [
+        "preserve:chunk-coordinates"
+      ]
+    },
+    {
+      "id": "projection:world_creation_maps_positive_x_once",
+      "role": "target",
+      "clauses": [
+        "chunk-entrypoints"
+      ]
+    },
+    {
+      "id": "projection:world_creation_maps_positive_y_once",
+      "role": "target",
+      "clauses": [
+        "chunk-entrypoints"
+      ]
+    },
+    {
+      "id": "projection:world_tile_chunk_entrypoints_are_canonical",
+      "role": "target",
+      "clauses": [
+        "chunk-entrypoints"
+      ]
+    },
+    {
+      "id": "projection:creation_observer_failure_is_isolated",
+      "role": "target",
+      "clauses": [
+        "chunk-creation-transaction"
+      ]
+    },
+    {
+      "id": "projection:creation_observer_unload_invalidates_result",
+      "role": "target",
+      "clauses": [
+        "chunk-creation-transaction"
+      ]
+    },
+    {
+      "id": "projection:creation_observer_destroy_invalidates_result",
+      "role": "target",
+      "clauses": [
+        "chunk-creation-transaction"
+      ]
+    },
+    {
+      "id": "projection:stale_canonical_mapping_is_rebuilt",
+      "role": "target",
+      "clauses": [
+        "chunk-creation-transaction"
+      ]
+    },
+    {
+      "id": "projection:idle_cleanup_destroys_expired_chunk",
+      "role": "preserved",
+      "clauses": [
+        "preserve:idle-cleanup"
+      ]
+    },
+    {
+      "id": "projection:idle_cleanup_preserves_valuable_chunk",
+      "role": "preserved",
+      "clauses": [
+        "preserve:idle-cleanup"
+      ]
+    },
+    {
+      "id": "projection:idle_cleanup_preserves_recent_chunk",
+      "role": "preserved",
+      "clauses": [
+        "preserve:idle-cleanup"
+      ]
+    },
+    {
+      "id": "projection:idle_cleanup_handles_tick_wrap",
+      "role": "target",
+      "clauses": [
+        "idle-cleanup"
+      ]
+    },
+    {
+      "id": "projection:unload_destroys_every_chunk_once",
+      "role": "target",
+      "clauses": [
+        "chunk-teardown"
+      ]
+    },
+    {
+      "id": "projection:destroy_event_observes_removed_mapping",
+      "role": "target",
+      "clauses": [
+        "chunk-teardown"
+      ]
+    },
+    {
+      "id": "projection:idle_observer_failure_does_not_strand_entities",
+      "role": "target",
+      "clauses": [
+        "chunk-teardown"
+      ]
+    },
+    {
+      "id": "projection:unload_observer_failure_finishes_all_chunks",
+      "role": "target",
+      "clauses": [
+        "chunk-teardown"
+      ]
+    },
+    {
+      "id": "projection:unload_reentrant_creation_is_rejected",
+      "role": "target",
+      "clauses": [
+        "chunk-teardown"
+      ]
+    },
+    {
+      "id": "projection:idle_reentrant_replacement_survives_old_teardown",
+      "role": "target",
+      "clauses": [
+        "chunk-teardown"
+      ]
+    },
+    {
+      "id": "projection:visible_iteration_uses_screen_y_for_bottom",
+      "role": "target",
+      "clauses": [
+        "chunk-iteration"
+      ]
+    },
+    {
+      "id": "projection:creation_event_observes_initialized_canonical_chunk",
+      "role": "preserved",
+      "clauses": [
+        "preserve:chunk-iteration"
+      ]
+    },
+    {
+      "id": "projection:edge_chunk_rectangles_are_clamped_to_world",
+      "role": "preserved",
+      "clauses": [
+        "preserve:chunk-iteration"
+      ]
+    },
+    {
+      "id": "projection:all_chunk_iteration_ignores_later_creation",
+      "role": "target",
+      "clauses": [
+        "chunk-enumeration"
+      ]
+    },
+    {
+      "id": "projection:all_chunk_iteration_survives_unload",
+      "role": "target",
+      "clauses": [
+        "chunk-enumeration"
+      ]
+    },
+    {
+      "id": "server:real_engine_active_query_snapshot",
+      "role": "target",
+      "clauses": [
+        "request"
+      ]
+    },
+    {
+      "id": "server:real_engine_world_coordinate_entrypoint",
+      "role": "target",
+      "clauses": [
+        "request"
+      ]
+    },
+    {
+      "id": "server:real_engine_creation_observer_transaction",
+      "role": "target",
+      "clauses": [
+        "request"
+      ]
+    }
+  ],
+  "clauses": [
+    {
+      "id": "component-mask-growth",
+      "anchor": "exam report component-mask-growth",
+      "status": "asserted"
+    },
+    {
+      "id": "preserve:component-mask-growth",
+      "anchor": "behavior the unchanged starter already provides",
+      "status": "asserted"
+    },
+    {
+      "id": "component-preallocation",
+      "anchor": "exam report component-preallocation",
+      "status": "asserted"
+    },
+    {
+      "id": "preserve:component-name-registry",
+      "anchor": "behavior the unchanged starter already provides",
+      "status": "asserted"
+    },
+    {
+      "id": "component-name-registry",
+      "anchor": "exam report component-name-registry",
+      "status": "asserted"
+    },
+    {
+      "id": "sparse-removal",
+      "anchor": "exam report sparse-removal",
+      "status": "asserted"
+    },
+    {
+      "id": "preserve:sparse-removal",
+      "anchor": "behavior the unchanged starter already provides",
+      "status": "asserted"
+    },
+    {
+      "id": "preserve:entity-lifetime",
+      "anchor": "behavior the unchanged starter already provides",
+      "status": "asserted"
+    },
+    {
+      "id": "entity-lifetime",
+      "anchor": "exam report entity-lifetime",
+      "status": "asserted"
+    },
+    {
+      "id": "component-operations",
+      "anchor": "exam report component-operations",
+      "status": "asserted"
+    },
+    {
+      "id": "preserve:component-operations",
+      "anchor": "behavior the unchanged starter already provides",
+      "status": "asserted"
+    },
+    {
+      "id": "generational-slot-reuse",
+      "anchor": "exam report generational-slot-reuse",
+      "status": "asserted"
+    },
+    {
+      "id": "preserve:generational-slot-reuse",
+      "anchor": "behavior the unchanged starter already provides",
+      "status": "asserted"
+    },
+    {
+      "id": "preserve:query-iteration",
+      "anchor": "behavior the unchanged starter already provides",
+      "status": "asserted"
+    },
+    {
+      "id": "query-snapshot",
+      "anchor": "exam report query-snapshot",
+      "status": "asserted"
+    },
+    {
+      "id": "preserve:query-snapshot",
+      "anchor": "behavior the unchanged starter already provides",
+      "status": "asserted"
+    },
+    {
+      "id": "chunk-coordinates",
+      "anchor": "exam report chunk-coordinates",
+      "status": "asserted"
+    },
+    {
+      "id": "preserve:chunk-coordinates",
+      "anchor": "behavior the unchanged starter already provides",
+      "status": "asserted"
+    },
+    {
+      "id": "chunk-entrypoints",
+      "anchor": "exam report chunk-entrypoints",
+      "status": "asserted"
+    },
+    {
+      "id": "chunk-creation-transaction",
+      "anchor": "exam report chunk-creation-transaction",
+      "status": "asserted"
+    },
+    {
+      "id": "preserve:idle-cleanup",
+      "anchor": "behavior the unchanged starter already provides",
+      "status": "asserted"
+    },
+    {
+      "id": "idle-cleanup",
+      "anchor": "exam report idle-cleanup",
+      "status": "asserted"
+    },
+    {
+      "id": "chunk-teardown",
+      "anchor": "exam report chunk-teardown",
+      "status": "asserted"
+    },
+    {
+      "id": "chunk-iteration",
+      "anchor": "exam report chunk-iteration",
+      "status": "asserted"
+    },
+    {
+      "id": "preserve:chunk-iteration",
+      "anchor": "behavior the unchanged starter already provides",
+      "status": "asserted"
+    },
+    {
+      "id": "chunk-enumeration",
+      "anchor": "exam report chunk-enumeration",
+      "status": "asserted"
+    },
+    {
+      "id": "request",
+      "anchor": "exam body; split into individual clauses during review",
+      "status": "asserted"
+    }
+  ],
+  "excluded_clauses": [],
+  "known_issues": []
+}

@@ -1,0 +1,201 @@
+{
+  "task": "garrys-mod/darkrp/darkrp-live-server-regressions",
+  "task_version": "1.0.0",
+  "exam": "benchmarks/darkrp-core/exams/darkrp-live-server-regressions.md",
+  "cases": [
+    {
+      "id": "case:sentinel: the gamemode is loaded",
+      "role": "runtime-sentinel",
+      "clauses": [],
+      "overlap": false,
+      "note": "Passes in the starter. Only checks that DarkRP, FAdmin and CAMI exist."
+    },
+    {
+      "id": "case:S: a job that does not exist cannot be made a hitman team",
+      "role": "target",
+      "clauses": [
+        "[#5103]"
+      ],
+      "overlap": false,
+      "note": "Group S. DarkRP.addHitmanTeam(99999) must leave getHitmanTeams()[99999] nil. The call is not wrapped in pcall, so a fix that raises an error also fails."
+    },
+    {
+      "id": "case:S: a real job can still be made a hitman team",
+      "role": "preserved",
+      "clauses": [
+        "Task-preserve",
+        "[#5103]"
+      ],
+      "overlap": true,
+      "note": "Passes in the unchanged starter (starter.execution.json): registering an existing job as a hitman team already works. It is also the positive boundary of the #5103 fix (a 'refuse everything' fix must not pass), hence overlap."
+    },
+    {
+      "id": "case:T: a usergroup change reports the group the player came from",
+      "role": "target",
+      "clauses": [
+        "[#5102]"
+      ],
+      "overlap": false,
+      "note": "Group T. Async, bot. Drives the FAdmin setaccess command callback and observes the (from, to) pair through a replaced CAMI.SignalUserGroupChanged."
+    },
+    {
+      "id": "case:U: cleaning up a prompt that is already gone does not error",
+      "role": "target",
+      "clauses": [
+        "[#5105]"
+      ],
+      "overlap": false,
+      "note": "Group U. pcall(DarkRP.destroyQuestion) with two unknown ids."
+    },
+    {
+      "id": "case:V: demoting someone who is not here names who was looked for",
+      "role": "target",
+      "clauses": [
+        "[#5106]"
+      ],
+      "overlap": false,
+      "note": "Group V. Async, bot. Calls the /demote callback for a name nobody has and requires a DarkRP.notify message that contains that name."
+    },
+    {
+      "id": "case:X: removing a job takes its vote command with it",
+      "role": "target",
+      "clauses": [
+        "[#5107]"
+      ],
+      "overlap": false,
+      "note": "Group X. Async (registration of team commands is deferred a frame upstream)."
+    },
+    {
+      "id": "case:Z: removing an ammo type removes that one and no other",
+      "role": "target",
+      "clauses": [
+        "[#5104]"
+      ],
+      "overlap": false,
+      "note": "Group Z. Creates two ammo types, removes the second by its id, requires it gone and its neighbour kept."
+    },
+    {
+      "id": "case:AA: a shipment category and its weapon copy do not share members",
+      "role": "target",
+      "clauses": [
+        "[#5108]"
+      ],
+      "overlap": false,
+      "note": "Group AA."
+    },
+    {
+      "id": "case:BB: re-declaring a category keeps what was already in it",
+      "role": "target",
+      "clauses": [
+        "[#5109]"
+      ],
+      "overlap": false,
+      "note": "Group BB. Uses the entities kind."
+    },
+    {
+      "id": "case:CC: dropped money survives an invalid physics object",
+      "role": "target",
+      "clauses": [
+        "[#5110]"
+      ],
+      "overlap": false,
+      "note": "Group CC. pcall of spawned_money ENT.Initialize on a stand-in whose GetPhysicsObject returns NULL."
+    },
+    {
+      "id": "check:submission-shape",
+      "role": "static",
+      "clauses": [
+        "Notes-tests"
+      ],
+      "overlap": false,
+      "note": "Static preflight: darkrp/gamemode exists, no symlinks, no native modules, no harness-tampering tokens."
+    }
+  ],
+  "clauses": [
+    {
+      "id": "[#5102]",
+      "anchor": "Problem, report [#5102]: staff-audit addon sees 'beforehand' identical to 'moved them to' when a player's permissions are changed",
+      "status": "asserted",
+      "note": "Asserted for the setaccess command only. The identical read-after-write defect in FAdmin.Access.SetRoot (setroot) is fixed by the reference but has no case."
+    },
+    {
+      "id": "[#5103]",
+      "anchor": "Problem, report [#5103]: a hitman team can be registered against a job number nothing uses; 'It used to refuse this.'",
+      "status": "asserted",
+      "note": "Negative half is the target case; the positive half already holds in the starter and is the preserved case."
+    },
+    {
+      "id": "[#5104]",
+      "anchor": "Problem, report [#5104]: removing built-in buy-menu entries removes different ones instead",
+      "status": "asserted",
+      "note": "Observed through DarkRP.createAmmoType / removeAmmoType(entry.id)."
+    },
+    {
+      "id": "[#5105]",
+      "anchor": "Problem, report [#5105]: 'attempt to index a nil value' when a yes/no popup is answered twice or its initiator has left",
+      "status": "asserted",
+      "note": "Checked as 'destroying an unknown prompt does not error'. The positive path (a live prompt is removed and its client panel is closed) is not asserted; a DarkRP.destroyQuestion that does nothing at all passes."
+    },
+    {
+      "id": "[#5106]",
+      "anchor": "Problem, report [#5106]: /demote answers with gibberish when the demote does not land on anybody",
+      "status": "asserted",
+      "note": "Requires the not-found notification to contain the searched name."
+    },
+    {
+      "id": "[#5107]",
+      "anchor": "Problem, report [#5107]: a removed job leaves its /vote... command behind",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "[#5108]",
+      "anchor": "Problem, report [#5108]: two buy-menu lists are tied together; adding to or removing from one affects the other",
+      "status": "asserted",
+      "note": "Only the add direction shipments -> weapons is observed; removal and the weapons -> shipments direction are not. With a shared members table they are the same fault, so the single observation is discriminating for the injected defect."
+    },
+    {
+      "id": "[#5109]",
+      "anchor": "Problem, report [#5109]: declaring the same buy-menu heading twice drops everything already filed under it",
+      "status": "asserted",
+      "note": "Observed for the entities kind only."
+    },
+    {
+      "id": "[#5110]",
+      "anchor": "Problem, report [#5110]: something that comes off a player ends up half set up with a Lua error",
+      "status": "asserted",
+      "note": "Observed for spawned_money ENT.Initialize with an invalid physics object; see known_issues for the stand-in trap."
+    },
+    {
+      "id": "Task-preserve",
+      "anchor": "What to do, Notes bullet 4: 'Behaviour that already works must keep working - several of these live next to code paths that are fine.'",
+      "status": "weak",
+      "note": "One starter-passing case (a real job can still be made a hitman team) checks one working path next to one defect. The working paths next to the other eight defects (e.g. removing a job still removes its own command, the first-declared category still sorts, demote of a present player) are not asserted."
+    },
+    {
+      "id": "Notes-causes",
+      "anchor": "What to do, Notes bullet 2: 'Fix the causes. Do not paper over a symptom by catching an error and discarding it, and do not special-case the exact scenario in a report.'",
+      "status": "unasserted",
+      "note": "No case distinguishes a root-cause fix from a pcall wrapper: U and CC only require 'does not error'. Excluded: not observable by the suite."
+    },
+    {
+      "id": "Notes-tests",
+      "anchor": "What to do, Notes bullet 3: 'Do not change anything under /tests, and do not add test files of your own to the gamemode.'",
+      "status": "weak",
+      "note": "Process constraint. /tests is not in the submission; the nearest gate is the static harness-tampering preflight in check:submission-shape (plugins/garrys-mod/src/rhenium_garrys_mod/darkrp/evaluator.py:287-336), which rejects Lua naming the test harness but not test files in general. Excluded from contract analysis."
+    }
+  ],
+  "excluded_clauses": [
+    "Notes-causes",
+    "Notes-tests"
+  ],
+  "known_issues": [
+    "Fixture trap in group CC (benchmarks/darkrp-core/private/harbor/darkrp-live-server-regressions/tests/suite.lua:174-180): the stand-in's PhysicsInit returns true while GetPhysicsObject returns NULL, which the engine does not produce. A fix that keys the wake on the result of DarkRP.ValidatedPhysicsInit instead of phys:IsValid() is correct in the engine but fails. (Demonstrated on the same construction in darkrp-release-regressions-v3, control alternative-strict-reading.)",
+    "Group T observes the signal by replacing the table field CAMI.SignalUserGroupChanged (benchmarks/darkrp-core/private/harbor/darkrp-live-server-regressions/tests/suite.lua:61-68), not by listening to the public hook CAMI.PlayerUsergroupChanged that the reporting addon uses. A fix that caches the CAMI function in a local at load time, or that calls hook.Call('CAMI.PlayerUsergroupChanged', ...) itself, reports the right group to addons but is not seen. The command error is also swallowed by pcall (suite.lua:66), so a crash shows up as 'sawTo is nil' rather than as an error.",
+    "Group T covers only setaccess; the same defect in FAdmin.Access.SetRoot (environment/darkrp/gamemode/modules/fadmin/fadmin/access/sv_init.lua:203-206) is unasserted, so a half fix passes.",
+    "Group U (benchmarks/darkrp-core/private/harbor/darkrp-live-server-regressions/tests/suite.lua:76-80): in the starter DarkRP.destroyQuestion errors for EVERY id because 'question' is an undefined global (environment/darkrp/gamemode/modules/voting/sv_questions.lua:53-60), yet only the unknown-id path is asserted. An empty function body passes.",
+    "Group V captures feedback only through DarkRP.notify (benchmarks/darkrp-core/private/harbor/darkrp-live-server-regressions/tests/suite.lua:89-94); a readable message sent another way (ChatPrint, DarkRP.talkToPerson) fails. The reference's extra '#args == 0' guard in Demote is unasserted.",
+    "The preserved case 'S: a real job can still be made a hitman team' requires getHitmanTeams()[t] to be exactly true (benchmarks/darkrp-core/private/harbor/darkrp-live-server-regressions/tests/suite.lua:43-49) and relies on DarkRP.createJob returning the team number, which already holds on this base commit.",
+    "validation/per-defect-matrix.md (fix S/T/U/V/X/Z/AA/BB/CC each alone -> 3 PASS) was produced before the runner-collector replacement; validation/rhenium-controls.md re-ran only base, reference and the result-mutation probe for this task under the Rhenium plugin. The single-group target-negatives of this study are therefore the first per-group evidence on the current evaluator."
+  ]
+}

@@ -1,0 +1,4 @@
+# Wardstone configuration.
+# Largest region, in blocks (dx * dy * dz, every side counted inclusively),
+# that /ward define accepts.
+max-region-volume: 1000000

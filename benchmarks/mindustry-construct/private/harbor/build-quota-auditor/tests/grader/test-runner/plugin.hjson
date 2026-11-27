@@ -1,0 +1,6 @@
+name: "build-quota-auditor-tests"
+displayName: "Build Quota Auditor Tests"
+main: "ContractTestRunner"
+version: "1.0.0"
+minGameVersion: 159
+dependencies: [build-policy-auditor]

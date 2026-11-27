@@ -1,0 +1,4 @@
+control	kind	base	overlay	root	note
+target-negative-dotnet-bool-strings-only	target-negative	reference	patch:target-negative-dotnet-bool-strings-only.patch	StardewMods	Fix narrowed to the .NET spellings "True"/"False": every other translation goes through the old case-insensitive interning again, so "FALSE" is still lowercased.
+compat-negative-lowercases-ordinary-text	compat-negative	reference	patch:compat-negative-lowercases-ordinary-text.patch	StardewMods	Boolean-like translations keep their case, but every other translation is lowercased before interning, so "Howdy" becomes "howdy".
+alternative-bypass-interning	alternative	starter	patch:alternative-bypass-interning.patch	StardewMods	One call-site change in TranslationValueProvider: wrap the exact text in a fresh InvariantSet instead of adding a case-sensitive interning API to InvariantSets; no gender-switch or token-application changes.

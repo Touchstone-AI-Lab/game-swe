@@ -1,0 +1,822 @@
+diff --git a/benchmarks/terraria-core/private/harbor/terraria-fargos-toggle-presets-hard/environment/fargos-souls/Core/Toggler/SoulCheck.cs b/benchmarks/terraria-core/private/harbor/terraria-fargos-toggle-presets-hard/solution/after/Core/Toggler/SoulCheck.cs
+index 29366a0b..073c6b03 100644
+--- a/benchmarks/terraria-core/private/harbor/terraria-fargos-toggle-presets-hard/environment/fargos-souls/Core/Toggler/SoulCheck.cs
++++ b/benchmarks/terraria-core/private/harbor/terraria-fargos-toggle-presets-hard/solution/after/Core/Toggler/SoulCheck.cs
+@@ -9,11 +9,38 @@ namespace FargowiltasSouls.Core.Toggler
+         public static Toggle GetToggle<T>(this Player player) where T : AccessoryEffect => player.GetToggle(ModContent.GetInstance<T>());
+         public static Toggle GetToggle(this Player player, AccessoryEffect effect)
+         {
+-            return player.FargoSouls().Toggler.Toggles.TryGetValue(effect, out Toggle value) ? value : null;
++            if (player == null || effect == null)
++                return null;
++
++            ToggleBackend backend = player.FargoSouls()?.Toggler;
++            if (backend?.Toggles == null)
++                return null;
++            backend.RefreshRegistry();
++
++            if (backend.Toggles.TryGetValue(effect, out Toggle value))
++                return value;
++
++            string identity;
++            try
++            {
++                identity = effect.FullName;
++            }
++            catch
++            {
++                return null;
++            }
++            foreach (Toggle candidate in backend.Toggles.Values)
++                if (string.Equals(candidate.Identity, identity, System.StringComparison.Ordinal))
++                    return candidate;
++
++            return null;
+         }
+         public static bool GetToggleValue<T>(this Player player) where T : AccessoryEffect => player.GetToggleValue(ModContent.GetInstance<T>());
+         public static bool GetToggleValue(this Player player, AccessoryEffect effect, bool skipChecks = false)
+         {
++            if (player == null || effect == null)
++                return false;
++
+             Toggle toggle = player.GetToggle(effect);
+             if (toggle == null)
+                 return false;
+@@ -33,7 +60,7 @@ namespace FargowiltasSouls.Core.Toggler
+                 }
+                 */
+                 if (player.FargoSouls().MutantPresence)
+-                    if (effect.MutantsPresenceAffects || effect.MinionEffect)
++                    if (toggle.PresenceAffected || toggle.IsMinionEffect)
+                         return false;
+             }
+             return toggle.ToggleBool;
+@@ -42,17 +69,27 @@ namespace FargowiltasSouls.Core.Toggler
+         public static bool GetPlayerBoolValue(this Player player, AccessoryEffect effect)
+         {
+             Toggle toggle = player.GetToggle(effect);
+-            return toggle.ToggleBool;
++            return toggle?.ToggleBool ?? false;
+         }
+ 
+         public static void SetToggleValue<T>(this Player player, bool value) where T : AccessoryEffect => player.SetToggleValue(ModContent.GetInstance<T>(), value);
+ 
+         public static void SetToggleValue(this Player player, AccessoryEffect effect, bool value)
+         {
+-            if (player.FargoSouls().Toggler.Toggles.ContainsKey(effect))
+-                player.FargoSouls().Toggler.Toggles[effect].ToggleBool = value;
+-            else
+-                FargowiltasSouls.Instance.Logger.Warn($"Expected toggle not found: {effect.Name}");
++            Toggle toggle = player.GetToggle(effect);
++            if (toggle != null)
++                toggle.ToggleBool = value;
++            else if (effect != null)
++            {
++                try
++                {
++                    FargowiltasSouls.Instance.Logger.Warn($"Expected toggle not found: {effect.FullName}");
++                }
++                catch
++                {
++                    // A malformed foreign effect cannot break runtime lookup.
++                }
++            }
+         }
+ 
+     }
+diff --git a/benchmarks/terraria-core/private/harbor/terraria-fargos-toggle-presets-hard/environment/fargos-souls/Core/Toggler/Toggle.cs b/benchmarks/terraria-core/private/harbor/terraria-fargos-toggle-presets-hard/solution/after/Core/Toggler/Toggle.cs
+index 7f92b85a..894ceb5d 100644
+--- a/benchmarks/terraria-core/private/harbor/terraria-fargos-toggle-presets-hard/environment/fargos-souls/Core/Toggler/Toggle.cs
++++ b/benchmarks/terraria-core/private/harbor/terraria-fargos-toggle-presets-hard/solution/after/Core/Toggler/Toggle.cs
+@@ -13,19 +13,58 @@ namespace FargowiltasSouls.Core.Toggler
+     {
+         public string Mod;
+         public AccessoryEffect Effect;
+-        public Header Header => Effect.ToggleHeader;
++        public string Identity { get; }
++        public Header Header { get; }
++        public bool DefaultValue { get; }
++        public bool PresenceAffected { get; }
++        public bool IsMinionEffect { get; }
++        private readonly string registeredMod;
+ 
+-        public string Category => Effect.ToggleHeader.SortCategory;
++        public string Category => Header.SortCategory;
+         public bool ToggleBool;
+ 
+         public Toggle(AccessoryEffect effect, string mod)
++            : this(
++                effect,
++                mod,
++                effect?.FullName,
++                effect?.ToggleHeader,
++                effect?.DefaultToggle ?? false,
++                effect?.MutantsPresenceAffects ?? false,
++                effect?.MinionEffect ?? false)
++        {
++        }
++
++        private Toggle(
++            AccessoryEffect effect,
++            string mod,
++            string identity,
++            Header header,
++            bool defaultValue,
++            bool presenceAffected,
++            bool isMinionEffect)
+         {
+             Effect = effect;
+             Mod = mod;
+-
+-            ToggleBool = effect.DefaultToggle;
++            registeredMod = mod;
++            Identity = identity;
++            Header = header;
++            DefaultValue = defaultValue;
++            PresenceAffected = presenceAffected;
++            IsMinionEffect = isMinionEffect;
++            ToggleBool = defaultValue;
+         }
+ 
++        internal Toggle Materialize(AccessoryEffect registeredEffect) =>
++            new Toggle(
++                registeredEffect,
++                registeredMod,
++                Identity,
++                Header,
++                DefaultValue,
++                PresenceAffected,
++                IsMinionEffect);
++
+         public override string ToString() => $"Mod: {Mod}, Category: {Category}, Effect: {Effect.Name}, Toggled: {ToggleBool}";
+ 
+         public string GetRawToggleName()
+diff --git a/benchmarks/terraria-core/private/harbor/terraria-fargos-toggle-presets-hard/environment/fargos-souls/Core/Toggler/ToggleBackend.cs b/benchmarks/terraria-core/private/harbor/terraria-fargos-toggle-presets-hard/solution/after/Core/Toggler/ToggleBackend.cs
+index b0ac47bf..c675f9be 100644
+--- a/benchmarks/terraria-core/private/harbor/terraria-fargos-toggle-presets-hard/environment/fargos-souls/Core/Toggler/ToggleBackend.cs
++++ b/benchmarks/terraria-core/private/harbor/terraria-fargos-toggle-presets-hard/solution/after/Core/Toggler/ToggleBackend.cs
+@@ -1,16 +1,18 @@
+-﻿using FargowiltasSouls.Content.Items.Accessories.Enchantments;
++using FargowiltasSouls.Content.Items.Accessories.Enchantments;
+ using FargowiltasSouls.Content.Items.Accessories.Masomode;
+ using FargowiltasSouls.Content.Items.Accessories.Souls;
+ using FargowiltasSouls.Content.Items.Armor;
+ using FargowiltasSouls.Content.Items.Consumables;
+ using FargowiltasSouls.Core.AccessoryEffectSystem;
+ using Microsoft.Xna.Framework;
++using System;
+ using System.Collections.Generic;
+ using System.IO;
+ using System.Linq;
+ using Terraria;
+ using Terraria.IO;
+ using Terraria.Localization;
++using Terraria.ModLoader;
+ 
+ namespace FargowiltasSouls.Core.Toggler
+ {
+@@ -27,25 +29,34 @@ namespace FargowiltasSouls.Core.Toggler
+         public List<AccessoryEffect>[] CustomPresets = new List<AccessoryEffect>[CustomPresetCount];
+ 
+         public bool Initialized;
++        private ulong loadedGeneration;
+ 
+         //not doing it in player.initialize because multiplayer clones players which makes new togglers which tries config load which has high overhead (lag)
+         public void TryLoad()
+         {
+             if (Initialized)
++            {
++                ReconcileRegistry();
+                 return;
++            }
+ 
+-            Initialized = true;
+-
+-            //Main.NewText("OOBA");
+-            Config = new Preferences(ConfigPath);
+-
+-            Toggles = ToggleLoader.LoadedToggles;
++            Preferences loadedConfig = new Preferences(ConfigPath);
++            Dictionary<AccessoryEffect, Toggle> loadedToggles = [];
++            ulong generation = ToggleLoader.Generation;
++            List<KeyValuePair<AccessoryEffect, Toggle>> definitions =
++                ToggleLoader.LoadedToggles?.ToList() ?? [];
++            foreach (KeyValuePair<AccessoryEffect, Toggle> entry in definitions
++                .OrderBy(entry => entry.Value.Identity, StringComparer.Ordinal))
++                loadedToggles.Add(entry.Key, entry.Value.Materialize(entry.Key));
++            if (generation != ToggleLoader.Generation)
++                return;
++            List<AccessoryEffect>[] loadedPresets = new List<AccessoryEffect>[CustomPresetCount];
+             //TogglerPosition = new Point(0, 0);
+ 
++            bool configExists = true;
+             if (!Main.dedServ)
+             {
+-                if (!Config.Load())
+-                    Save();
++                configExists = loadedConfig.Load();
+             }
+ 
+             //Dictionary<string, int> togglerPositionUnpack = Config.Get("TogglerPosition", new Dictionary<string, int>() { { "X", Main.screenWidth / 2 - 300 }, { "Y", Main.screenHeight / 2 - 200 } });
+@@ -57,24 +68,128 @@ namespace FargowiltasSouls.Core.Toggler
+             CanPlayMaso = true; // Config.Get("CanPlayMaso", true);
+ 
+             //TODO: figure out how to extract a plain list from json, only using Dict rn because i know it can be loaded from json
+-            for (int i = 0; i < CustomPresets.Length; i++)
++            if (!Main.dedServ)
++            {
++                for (int i = 0; i < loadedPresets.Length; i++)
++                {
++                    try
++                    {
++                        var toggleUnpack = loadedConfig.Get<Dictionary<string, bool>>($"CustomPresetsOff{i + 1}", null);
++                        if (toggleUnpack != null)
++                        {
++                            loadedPresets[i] = loadedToggles
++                                .Where(entry => toggleUnpack.ContainsKey(entry.Value.Identity))
++                                .OrderBy(entry => entry.Value.Identity, StringComparer.Ordinal)
++                                .Select(entry => entry.Key)
++                                .ToList();
++                        }
++                    }
++                    catch
++                    {
++                        loadedPresets[i] = null;
++                    }
++                }
++            }
++
++            Config = loadedConfig;
++            Toggles = loadedToggles;
++            CustomPresets = loadedPresets;
++            CanPlayMaso = true;
++            Initialized = true;
++            loadedGeneration = generation;
++
++            if (!Main.dedServ && !configExists)
++                Save();
++        }
++
++        private void ReconcileRegistry()
++        {
++            if (!Initialized || loadedGeneration == ToggleLoader.Generation)
++                return;
++
++            ulong generation = ToggleLoader.Generation;
++            List<KeyValuePair<AccessoryEffect, Toggle>> definitions =
++                ToggleLoader.LoadedToggles?.ToList() ?? [];
++
++            try
+             {
+-                var toggleUnpack = Config.Get<Dictionary<string, bool>>($"CustomPresetsOff{i + 1}", null);
+-                if (toggleUnpack != null)
++                Dictionary<string, bool> oldValues = Toggles.Values
++                    .Where(toggle => toggle != null && !string.IsNullOrEmpty(toggle.Identity))
++                    .GroupBy(toggle => toggle.Identity, StringComparer.Ordinal)
++                    .ToDictionary(group => group.Key, group => group.First().ToggleBool, StringComparer.Ordinal);
++
++                Dictionary<AccessoryEffect, Toggle> replacement = [];
++                Dictionary<string, AccessoryEffect> effectsByIdentity = new(StringComparer.Ordinal);
++                foreach (KeyValuePair<AccessoryEffect, Toggle> entry in definitions
++                    .OrderBy(entry => entry.Value.Identity, StringComparer.Ordinal))
++                {
++                    if (entry.Key == null || entry.Value == null || entry.Value.Header == null ||
++                        string.IsNullOrEmpty(entry.Value.Identity) || effectsByIdentity.ContainsKey(entry.Value.Identity))
++                        return;
++
++                    Toggle materialized = entry.Value.Materialize(entry.Key);
++                    if (oldValues.TryGetValue(materialized.Identity, out bool oldValue))
++                        materialized.ToggleBool = oldValue;
++                    replacement.Add(entry.Key, materialized);
++                    effectsByIdentity.Add(materialized.Identity, entry.Key);
++                }
++
++                List<AccessoryEffect>[] reboundPresets = new List<AccessoryEffect>[CustomPresetCount];
++                for (int i = 0; i < reboundPresets.Length; i++)
+                 {
+-                    List<AccessoryEffect> disabledEffects = [];
+-                    foreach (AccessoryEffect effect in ToggleLoader.LoadedToggles.Keys.ToList())
++                    if (CustomPresets[i] == null)
++                        continue;
++
++                    var identities = new SortedSet<string>(StringComparer.Ordinal);
++                    foreach (AccessoryEffect effect in CustomPresets[i])
+                     {
+-                        if (toggleUnpack.ContainsKey(effect.Name))
+-                            disabledEffects.Add(effect);
++                        string identity = ResolveKnownIdentity(effect);
++                        if (identity != null && effectsByIdentity.ContainsKey(identity))
++                            identities.Add(identity);
+                     }
+-                    CustomPresets[i] = disabledEffects;
++                    reboundPresets[i] = identities.Select(identity => effectsByIdentity[identity]).ToList();
+                 }
++
++                if (generation != ToggleLoader.Generation)
++                    return;
++
++                Toggles = replacement;
++                CustomPresets = reboundPresets;
++                loadedGeneration = generation;
++            }
++            catch
++            {
++                // A malformed replacement generation cannot partially replace
++                // the last coherent player-local snapshot.
++            }
++        }
++
++        internal void RefreshRegistry()
++        {
++            if (Initialized)
++                ReconcileRegistry();
++        }
++
++        private string ResolveKnownIdentity(AccessoryEffect effect)
++        {
++            if (effect == null)
++                return null;
++            foreach (KeyValuePair<AccessoryEffect, Toggle> entry in Toggles)
++                if (ReferenceEquals(entry.Key, effect) || ReferenceEquals(entry.Value.Effect, effect))
++                    return entry.Value.Identity;
++            try
++            {
++                return effect.FullName;
++            }
++            catch
++            {
++                return null;
+             }
+         }
+ 
+         public void Save()
+         {
++            RefreshRegistry();
+             if (!Initialized)
+                 return;
+ 
+@@ -87,14 +202,21 @@ namespace FargowiltasSouls.Core.Toggler
+                 //TogglerPosition = FargoUIManager.SoulToggler.GetPositionAsPoint();
+                 //Config.Put("TogglerPosition", UnpackPosition());
+ 
+-                for (int i = 0; i < CustomPresets.Length; i++)
++                for (int i = 0; i < CustomPresetCount; i++)
+                 {
+-                    if (CustomPresets[i] == null)
+-                        continue;
+-
+-                    Dictionary<string, bool> togglesOff = new(CustomPresets.Length);
+-                    foreach (AccessoryEffect toggle in CustomPresets[i])
+-                        togglesOff[toggle.Name] = false;
++                    Dictionary<string, bool> togglesOff = new();
++                    if (CustomPresets[i] != null)
++                    {
++                        var identities = new SortedSet<string>(StringComparer.Ordinal);
++                        foreach (AccessoryEffect effect in CustomPresets[i])
++                        {
++                            string identity = ResolveKnownIdentity(effect);
++                            if (identity != null)
++                                identities.Add(identity);
++                        }
++                        foreach (string identity in identities)
++                            togglesOff[identity] = false;
++                    }
+                     Config.Put($"CustomPresetsOff{i + 1}", togglesOff);
+                 }
+ 
+@@ -104,15 +226,23 @@ namespace FargowiltasSouls.Core.Toggler
+ 
+         public void LoadPlayerToggles(FargoSoulsPlayer modPlayer)
+         {
+-            if (!Initialized)
++            RefreshRegistry();
++            if (!Initialized || modPlayer == null)
+                 return;
+ 
+-            Toggles = ToggleLoader.LoadedToggles;
+-            SetAll(true);
++            foreach (Toggle toggle in Toggles.Values)
++                toggle.ToggleBool = toggle.DefaultValue;
+ 
+             foreach (AccessoryEffect entry in modPlayer.disabledToggles)
+-                Main.LocalPlayer.SetToggleValue(entry, false);
++            {
++                string identity = ResolveKnownIdentity(entry);
++                Toggle toggle = identity == null ? null : Toggles.Values.FirstOrDefault(candidate =>
++                    string.Equals(candidate.Identity, identity, StringComparison.Ordinal));
++                if (toggle != null)
++                    toggle.ToggleBool = false;
++            }
+ 
++            modPlayer.TogglesToSync.Clear();
+             foreach (KeyValuePair<AccessoryEffect, Toggle> entry in Toggles)
+                 modPlayer.TogglesToSync[entry.Key] = entry.Value.ToggleBool;
+         }
+@@ -124,165 +254,192 @@ namespace FargowiltasSouls.Core.Toggler
+ 
+         public void SetAll(bool value)
+         {
++            RefreshRegistry();
++            if (!Initialized)
++                return;
+             foreach (Toggle toggle in Toggles.Values)
+-            {
+-                Main.LocalPlayer.SetToggleValue(toggle.Effect, value);
+-            }
++                toggle.ToggleBool = value;
+         }
+ 
+-        public void SomeEffects()
++        private void SetRegistered<T>(bool value) where T : AccessoryEffect
++        {
++            SetRegistered(ModContent.GetInstance<T>(), value);
++        }
++
++        private void SetRegistered(AccessoryEffect effect, bool value)
+         {
+-            Player player = Main.LocalPlayer;
++            if (effect == null || Toggles == null)
++                return;
++            string identity = ResolveKnownIdentity(effect);
++            if (identity == null)
++                return;
++            foreach (KeyValuePair<AccessoryEffect, Toggle> entry in Toggles)
++                if (string.Equals(entry.Value.Identity, identity, StringComparison.Ordinal))
++                {
++                    entry.Value.ToggleBool = value;
++                    return;
++                }
++        }
+ 
++        public void SomeEffects()
++        {
++            RefreshRegistry();
++            if (!Initialized)
++                return;
+             SetAll(true);
+ 
+-            player.SetToggleValue<BorealEffect>(false);
+-            player.SetToggleValue<ShadewoodEffect>(false);
+-
+-            player.SetToggleValue<CobaltEffect>(false);
+-            player.SetToggleValue<AncientCobaltEffect>(false);
+-            player.SetToggleValue<ObsidianProcEffect>(false);
+-            player.SetToggleValue<CopperEffect>(false);
+-            player.SetToggleValue<AshWoodFireballs>(false);
+-
+-            player.SetToggleValue<GladiatorSpears>(false);
+-            player.SetToggleValue<RedRidingEffect>(false);
+-
+-            player.SetToggleValue<BeeEffect>(false);
+-            player.SetToggleValue<CactusEffect>(false);
+-            player.SetToggleValue<PumpkinEffect>(false);
+-            player.SetToggleValue<ChloroMinion>(false);
+-            player.SetToggleValue<RainUmbrellaEffect>(false);
+-            player.SetToggleValue<RainInnerTubeEffect>(false);
+-            player.SetToggleValue<JungleJump>(false);
+-            player.SetToggleValue<MoltenEffect>(false);
+-            player.SetToggleValue<ShroomiteShroomEffect>(false);
+-            player.SetToggleValue<DarkArtistMinion>(false);
+-            player.SetToggleValue<NecroEffect>(false);
+-            player.SetToggleValue<ShadowBalls>(false);
+-            player.SetToggleValue<SpookyEffect>(false);
+-            player.SetToggleValue<FossilBones>(false);
+-            player.SetToggleValue<FossilBones>(false);
+-            player.SetToggleValue<AncientHallowMinion>(false);
+-            player.SetToggleValue<SpectreEffect>(false);
+-            player.SetToggleValue<MeteorEffect>(false);
+-            player.SetToggleValue<ZephyrJump>(false);
+-            player.SetToggleValue<DevianttHearts>(false);
+-            player.SetToggleValue<MasoAeolusFlower>(false);
+-            player.SetToggleValue<SlimyShieldEffect>(false);
+-            player.SetToggleValue<AgitatingLensEffect>(false);
+-            player.SetToggleValue<SkeleMinionEffect>(false);
+-            player.SetToggleValue<MasoCarrotEffect>(false);
+-            player.SetToggleValue<RainbowSlimeMinion>(false);
+-            player.SetToggleValue<NymphPerfumeEffect>(false);
+-            player.SetToggleValue<WretchedPouchEffect>(false);
+-            player.SetToggleValue<ProbeMinionEffect>(false);
+-            player.SetToggleValue<GelicWingSpikes>(false);
+-            //player.SetToggleValue<PungentEyeballCursor>(false);
+-            player.SetToggleValue<PungentMinion>(false);
+-            player.SetToggleValue<DeerclawpsEffect>(false);
+-            //player.SetToggleValue<CultistMinionEffect>(false);
+-            player.SetToggleValue<LihzahrdBoulders>(false);
+-            player.SetToggleValue<PlantMinionEffect>(false);
+-            player.SetToggleValue<CelestialRuneAttacks>(false);
+-
+-            player.SetToggleValue<UfoMinionEffect>(false);
+-
+-            player.SetToggleValue<MasoAbom>(false);
+-
+-            player.SetToggleValue<MasoRing>(false);
+-
+-            player.SetToggleValue<BuilderEffect>(false);
+-
+-            player.SetToggleValue<DefenseStarEffect>(false);
+-            player.SetToggleValue<DefenseBeeEffect>(false);
+-
+-            player.SetToggleValue<SupersonicClimbing>(false);
+-
+-            player.SetToggleValue<TrawlerSporeSac>(false);
++            SetRegistered<BorealEffect>(false);
++            SetRegistered<ShadewoodEffect>(false);
++
++            SetRegistered<CobaltEffect>(false);
++            SetRegistered<AncientCobaltEffect>(false);
++            SetRegistered<ObsidianProcEffect>(false);
++            SetRegistered<CopperEffect>(false);
++            SetRegistered<AshWoodFireballs>(false);
++
++            SetRegistered<GladiatorSpears>(false);
++            SetRegistered<RedRidingEffect>(false);
++
++            SetRegistered<BeeEffect>(false);
++            SetRegistered<CactusEffect>(false);
++            SetRegistered<PumpkinEffect>(false);
++            SetRegistered<ChloroMinion>(false);
++            SetRegistered<RainUmbrellaEffect>(false);
++            SetRegistered<RainInnerTubeEffect>(false);
++            SetRegistered<JungleJump>(false);
++            SetRegistered<MoltenEffect>(false);
++            SetRegistered<ShroomiteShroomEffect>(false);
++            SetRegistered<DarkArtistMinion>(false);
++            SetRegistered<NecroEffect>(false);
++            SetRegistered<ShadowBalls>(false);
++            SetRegistered<SpookyEffect>(false);
++            SetRegistered<FossilBones>(false);
++            SetRegistered<FossilBones>(false);
++            SetRegistered<AncientHallowMinion>(false);
++            SetRegistered<SpectreEffect>(false);
++            SetRegistered<MeteorEffect>(false);
++            SetRegistered<ZephyrJump>(false);
++            SetRegistered<DevianttHearts>(false);
++            SetRegistered<MasoAeolusFlower>(false);
++            SetRegistered<SlimyShieldEffect>(false);
++            SetRegistered<AgitatingLensEffect>(false);
++            SetRegistered<SkeleMinionEffect>(false);
++            SetRegistered<MasoCarrotEffect>(false);
++            SetRegistered<RainbowSlimeMinion>(false);
++            SetRegistered<NymphPerfumeEffect>(false);
++            SetRegistered<WretchedPouchEffect>(false);
++            SetRegistered<ProbeMinionEffect>(false);
++            SetRegistered<GelicWingSpikes>(false);
++            //SetRegistered<PungentEyeballCursor>(false);
++            SetRegistered<PungentMinion>(false);
++            SetRegistered<DeerclawpsEffect>(false);
++            //SetRegistered<CultistMinionEffect>(false);
++            SetRegistered<LihzahrdBoulders>(false);
++            SetRegistered<PlantMinionEffect>(false);
++            SetRegistered<CelestialRuneAttacks>(false);
++
++            SetRegistered<UfoMinionEffect>(false);
++
++            SetRegistered<MasoAbom>(false);
++
++            SetRegistered<MasoRing>(false);
++
++            SetRegistered<BuilderEffect>(false);
++
++            SetRegistered<DefenseStarEffect>(false);
++            SetRegistered<DefenseBeeEffect>(false);
++
++            SetRegistered<SupersonicClimbing>(false);
++
++            SetRegistered<TrawlerSporeSac>(false);
+ 
+ 
+             foreach (Toggle toggle in Toggles.Values.Where(toggle => toggle.Effect.Name.Contains("Pet")))
+             {
+-                player.SetToggleValue(toggle.Effect, false);
++                toggle.ToggleBool = false;
+             }
+         }
+ 
+         public void MinimalEffects()
+         {
+-            Player player = Main.LocalPlayer;
+-
++            RefreshRegistry();
++            if (!Initialized)
++                return;
+             SetAll(false);
+ 
+-            player.SetToggleValue<MythrilEffect>(true);
+-            player.SetToggleValue<PalladiumEffect>(true);
+-            player.SetToggleValue<IronEffect>(true);
+-            player.SetToggleValue<CthulhuShield>(true);
+-            //player.SetToggleValue<Tin>(true);
+-            player.SetToggleValue<BeetleEffect>(true);
+-            player.SetToggleValue<SpiderEffect>(true);
+-            player.SetToggleValue<GoldToPiggy>(true);
+-            player.SetToggleValue<JungleDashEffect>(true);
+-            player.SetToggleValue<SupersonicTabi>(true);
+-            player.SetToggleValue<ValhallaDash>(true);
+-            player.SetToggleValue<SquireMountJump>(true);
+-            player.SetToggleValue<SquireMountSpeed>(true);
+-            player.SetToggleValue<NebulaEffect>(true);
+-            //player.SetToggleValue<SolarEffect>(true);
+-            player.SetToggleValue<HuntressEffect>(true);
+-            player.SetToggleValue<CrystalAssassinDash>(true);
+-            player.SetToggleValue<GladiatorBanner>(true);
+-            player.SetToggleValue<ChalicePotionEffect>(true);
+-
+-            player.SetToggleValue<EternityTin>(true);
+-
+-            player.SetToggleValue<DeerSinewEffect>(true);
+-            player.SetToggleValue<MasoGraze>(true);
+-            player.SetToggleValue<SinisterIconDropsEffect>(true);
+-            player.SetToggleValue<RainbowHealEffect>(true);
+-            player.SetToggleValue<TribalCharmClickBonus>(true);
+-            player.SetToggleValue<StabilizedGravity>(true);
+-            player.SetToggleValue<PrecisionSealHurtbox>(true);
+-
+-            player.SetToggleValue<AgitatingLensInstall>(true);
+-            player.SetToggleValue<FusedLensInstall>(true);
+-
+-            player.SetToggleValue<MiningHunt>(true);
+-            player.SetToggleValue<MiningDanger>(true);
+-            player.SetToggleValue<MiningSpelunk>(true);
+-            player.SetToggleValue<MiningShine>(true);
+-            player.SetToggleValue<RunSpeed>(true);
+-            player.SetToggleValue<SupersonicRocketBoots>(true);
+-            player.SetToggleValue<NoMomentum>(true);
+-            player.SetToggleValue<MeteorMomentumEffect>(true);
+-            player.SetToggleValue<FlightMasteryInsignia>(true);
+-            player.SetToggleValue<FlightMasteryGravity>(true);
+-            player.SetToggleValue<PaladinShieldEffect>(true);
+-            player.SetToggleValue<ShimmerImmunityEffect>(true);
+-            player.SetToggleValue<MasoAeolusFrog>(true);
+-            player.SetToggleValue<TimsConcoctionEffect>(true);
++            SetRegistered<MythrilEffect>(true);
++            SetRegistered<PalladiumEffect>(true);
++            SetRegistered<IronEffect>(true);
++            SetRegistered<CthulhuShield>(true);
++            //SetRegistered<Tin>(true);
++            SetRegistered<BeetleEffect>(true);
++            SetRegistered<SpiderEffect>(true);
++            SetRegistered<GoldToPiggy>(true);
++            SetRegistered<JungleDashEffect>(true);
++            SetRegistered<SupersonicTabi>(true);
++            SetRegistered<ValhallaDash>(true);
++            SetRegistered<SquireMountJump>(true);
++            SetRegistered<SquireMountSpeed>(true);
++            SetRegistered<NebulaEffect>(true);
++            //SetRegistered<SolarEffect>(true);
++            SetRegistered<HuntressEffect>(true);
++            SetRegistered<CrystalAssassinDash>(true);
++            SetRegistered<GladiatorBanner>(true);
++            SetRegistered<ChalicePotionEffect>(true);
++
++            SetRegistered<EternityTin>(true);
++
++            SetRegistered<DeerSinewEffect>(true);
++            SetRegistered<MasoGraze>(true);
++            SetRegistered<SinisterIconDropsEffect>(true);
++            SetRegistered<RainbowHealEffect>(true);
++            SetRegistered<TribalCharmClickBonus>(true);
++            SetRegistered<StabilizedGravity>(true);
++            SetRegistered<PrecisionSealHurtbox>(true);
++
++            SetRegistered<AgitatingLensInstall>(true);
++            SetRegistered<FusedLensInstall>(true);
++
++            SetRegistered<MiningHunt>(true);
++            SetRegistered<MiningDanger>(true);
++            SetRegistered<MiningSpelunk>(true);
++            SetRegistered<MiningShine>(true);
++            SetRegistered<RunSpeed>(true);
++            SetRegistered<SupersonicRocketBoots>(true);
++            SetRegistered<NoMomentum>(true);
++            SetRegistered<MeteorMomentumEffect>(true);
++            SetRegistered<FlightMasteryInsignia>(true);
++            SetRegistered<FlightMasteryGravity>(true);
++            SetRegistered<PaladinShieldEffect>(true);
++            SetRegistered<ShimmerImmunityEffect>(true);
++            SetRegistered<MasoAeolusFrog>(true);
++            SetRegistered<TimsConcoctionEffect>(true);
+ 
+         }
+ 
+         public void SaveCustomPreset(int slot)
+         {
++            RefreshRegistry();
++            if (!Initialized || Main.dedServ || slot < 1 || slot > CustomPresetCount)
++                return;
++
+             var togglesOff = new List<AccessoryEffect>();
+-            foreach (KeyValuePair<AccessoryEffect, Toggle> entry in Toggles)
+-            {
+-                if (!Toggles[entry.Key].ToggleBool)
++            foreach (KeyValuePair<AccessoryEffect, Toggle> entry in Toggles
++                .OrderBy(entry => entry.Value.Identity, StringComparer.Ordinal))
++                if (!entry.Value.ToggleBool)
+                     togglesOff.Add(entry.Key);
+-            }
+ 
+-            if (!Main.dedServ)
+-            {
+-                CustomPresets[slot - 1] = togglesOff;
+-                //Save(); 
+-                Main.NewText(Language.GetTextValue("Mods.FargowiltasSouls.UI.SavedToSlot", slot), Color.Yellow);
+-            }
++            CustomPresets[slot - 1] = togglesOff;
++            //Save(); 
++            Main.NewText(Language.GetTextValue("Mods.FargowiltasSouls.UI.SavedToSlot", slot), Color.Yellow);
+         }
+ 
+         public void LoadCustomPreset(int slot)
+         {
++            RefreshRegistry();
++            if (!Initialized || Main.dedServ || slot < 1 || slot > CustomPresetCount)
++                return;
++
+             List<AccessoryEffect> togglesOff = CustomPresets[slot - 1];
+             if (togglesOff == null)
+             {
+@@ -291,10 +448,16 @@ namespace FargowiltasSouls.Core.Toggler
+             }
+ 
+             FargoSoulsPlayer modPlayer = Main.LocalPlayer.FargoSouls();
+-            modPlayer.disabledToggles = new List<AccessoryEffect>(togglesOff);
+-
+-            LoadPlayerToggles(modPlayer);
+-            modPlayer.disabledToggles.Clear();
++            List<AccessoryEffect> previous = modPlayer.disabledToggles;
++            try
++            {
++                modPlayer.disabledToggles = new List<AccessoryEffect>(togglesOff);
++                LoadPlayerToggles(modPlayer);
++            }
++            finally
++            {
++                modPlayer.disabledToggles = previous;
++            }
+         }
+     }
+ }
+diff --git a/benchmarks/terraria-core/private/harbor/terraria-fargos-toggle-presets-hard/environment/fargos-souls/Core/Toggler/ToggleLoader.cs b/benchmarks/terraria-core/private/harbor/terraria-fargos-toggle-presets-hard/solution/after/Core/Toggler/ToggleLoader.cs
+index 5d5ac039..ca289741 100644
+--- a/benchmarks/terraria-core/private/harbor/terraria-fargos-toggle-presets-hard/environment/fargos-souls/Core/Toggler/ToggleLoader.cs
++++ b/benchmarks/terraria-core/private/harbor/terraria-fargos-toggle-presets-hard/solution/after/Core/Toggler/ToggleLoader.cs
+@@ -1,6 +1,7 @@
+ ﻿using FargowiltasSouls.Core.AccessoryEffectSystem;
+ using System;
+ using System.Collections.Generic;
++using System.Linq;
+ using System.Reflection;
+ 
+ namespace FargowiltasSouls.Core.Toggler
+@@ -17,17 +18,22 @@ namespace FargowiltasSouls.Core.Toggler
+             get;
+             set;
+         }
++        public static ulong Generation { get; private set; }
+ 
+ 
+         public static void Load()
+         {
++            LoadedToggles = [];
++            LoadedHeaders = [];
++            Generation++;
+             //LoadTogglesFromAssembly(FargowiltasSouls.Instance.Code);
+         }
+ 
+         public static void Unload()
+         {
+-            LoadedToggles?.Clear();
+-            LoadedHeaders?.Clear();
++            LoadedToggles = null;
++            LoadedHeaders = null;
++            Generation++;
+         }
+ 
+ 
+@@ -73,15 +79,26 @@ namespace FargowiltasSouls.Core.Toggler
+ 
+         public static void RegisterToggle(Toggle toggle)
+         {
++            if (toggle?.Effect == null)
++                throw new ArgumentNullException(nameof(toggle));
++            if (toggle.Header == null)
++                throw new ArgumentException("A registered toggle must have a header", nameof(toggle));
++            if (string.IsNullOrEmpty(toggle.Identity))
++                throw new ArgumentException("A registered toggle must have a stable full identity", nameof(toggle));
+ 
+             LoadedToggles ??= [];
+-            if (LoadedToggles.ContainsKey(toggle.Effect)) throw new Exception("Toggle of effect " + toggle.Effect.Name + " is already registered");
++            if (LoadedToggles.ContainsKey(toggle.Effect) ||
++                LoadedToggles.Values.Any(existing => string.Equals(existing.Identity, toggle.Identity, StringComparison.Ordinal)))
++                throw new InvalidOperationException("Toggle of effect " + toggle.Identity + " is already registered");
+ 
+             LoadedToggles.Add(toggle.Effect, toggle);
++            Generation++;
+ 
+         }
+         public static void RegisterHeader(Header header)
+         {
++            if (header == null)
++                throw new ArgumentNullException(nameof(header));
+ 
+             LoadedHeaders ??= [];
+             //if (LoadedHeaders.Contains(header)) throw new Exception("Header with internal name " + header.Name + " is already registered");

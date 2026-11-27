@@ -1,0 +1,609 @@
+{
+  "task": "left-4-dead-2/core/l4d2-library-map-tank-state-hard",
+  "task_version": "1.1.0",
+  "exam": "benchmarks/l4d2-core/exams/l4d2-library-map-tank-state-hard.md",
+  "cases": [
+    {
+      "id": "case:reload-selects-current-map",
+      "role": "target",
+      "clauses": [
+        "R1.1"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:reload-refreshes-geometry",
+      "role": "target",
+      "clauses": [
+        "R1.1"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:nested-subsection-copied",
+      "role": "target",
+      "clauses": [
+        "R2.2",
+        "R2.1"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:lookup-after-nested-copy",
+      "role": "target",
+      "clauses": [
+        "R2.1"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:missing-copy-does-not-mutate",
+      "role": "target",
+      "clauses": [
+        "R2.2"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:string-capacity-includes-nul",
+      "role": "target",
+      "clauses": [
+        "R3.1"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:string-zero-capacity",
+      "role": "target",
+      "clauses": [
+        "R3.1"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:string-one-capacity",
+      "role": "target",
+      "clauses": [
+        "R3.1"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:vector-default-preserved",
+      "role": "target",
+      "clauses": [
+        "R3.2"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:scalar-key-defaults",
+      "role": "target",
+      "clauses": [
+        "R3.2"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:saferoom-inclusive-overlap",
+      "role": "target",
+      "clauses": [
+        "R4.3"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:saferoom-outside",
+      "role": "target",
+      "clauses": [
+        "R4.3"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:saferoom-invalid-safe",
+      "role": "target",
+      "clauses": [
+        "R4.1",
+        "R4.2"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:reload-replaces-values",
+      "role": "target",
+      "clauses": [
+        "R1.1",
+        "Task-preserve-api"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:failed-reload-keeps-image",
+      "role": "target",
+      "clauses": [
+        "R1.2"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:missing-reload-valid-baseline",
+      "role": "setup",
+      "clauses": [
+        "R1.1"
+      ],
+      "overlap": false,
+      "note": "Fixture: re-imports a valid file so the missing-file case cannot inherit a malformed-import failure."
+    },
+    {
+      "id": "case:missing-reload-keeps-image",
+      "role": "target",
+      "clauses": [
+        "R1.2"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:valid-missing-map-unavailable",
+      "role": "target",
+      "clauses": [
+        "R1.4"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:missing-map-no-root-leak",
+      "role": "target",
+      "clauses": [
+        "R2.3"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:missing-map-float-default",
+      "role": "target",
+      "clauses": [
+        "R1.4",
+        "R3.2"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:missing-map-string-default",
+      "role": "target",
+      "clauses": [
+        "R1.4",
+        "R3.2"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:missing-map-vector-default",
+      "role": "target",
+      "clauses": [
+        "R1.4",
+        "R3.2"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:missing-map-clears-end",
+      "role": "target",
+      "clauses": [
+        "R4.4"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:spawn-rejects-nontanks",
+      "role": "target",
+      "clauses": [
+        "R5.1"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:spawn-exactly-once",
+      "role": "target",
+      "clauses": [
+        "R5.1"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:same-owner-pickup-ignored",
+      "role": "target",
+      "clauses": [
+        "R5.2"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:pickup-rejects-unrelated",
+      "role": "target",
+      "clauses": [
+        "R5.2"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:handoff-first-count",
+      "role": "target",
+      "clauses": [
+        "R5.3",
+        "R5.2"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:duplicate-handoff-no-count",
+      "role": "target",
+      "clauses": [
+        "R5.2",
+        "R5.3"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:nonowner-death-ignored",
+      "role": "target",
+      "clauses": [
+        "R6.4"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:duplicate-death-once",
+      "role": "target",
+      "clauses": [
+        "R6.1"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:new-encounter-after-death",
+      "role": "target",
+      "clauses": [
+        "R6.1",
+        "R6.3"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:new-encounter-count-reset",
+      "role": "target",
+      "clauses": [
+        "R6.3"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:handoff-cancels-death",
+      "role": "target",
+      "clauses": [
+        "R6.2"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:round-cancels-old-death",
+      "role": "target",
+      "clauses": [
+        "R6.3"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:nested-handoff-count-committed",
+      "role": "target",
+      "clauses": [
+        "R8.1"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:nested-handoff-owner-committed",
+      "role": "target",
+      "clauses": [
+        "R8.1"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:nested-state-survives-return",
+      "role": "target",
+      "clauses": [
+        "R8.1"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:death-forward-can-start-next",
+      "role": "target",
+      "clauses": [
+        "R8.2"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:death-reentrant-state-survives",
+      "role": "target",
+      "clauses": [
+        "R8.2"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:connection-slot-reused-fixture",
+      "role": "setup",
+      "clauses": [
+        "R7.1"
+      ],
+      "overlap": false,
+      "note": "Fixture: proves the engine actually reused the client index."
+    },
+    {
+      "id": "case:reused-slot-starts-new-encounter",
+      "role": "target",
+      "clauses": [
+        "R7.1"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:disconnect-cancels-pending-death",
+      "role": "target",
+      "clauses": [
+        "R7.1"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:unrelated-disconnect-preserves-owner",
+      "role": "target",
+      "clauses": [
+        "R7.1"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "check:submission-shape",
+      "role": "static",
+      "clauses": [
+        "Task-source-only"
+      ],
+      "overlap": false,
+      "note": "Evaluator gate (plugin evaluator.py _static_check); verify.py adds its own package checks before any case."
+    }
+  ],
+  "clauses": [
+    {
+      "id": "R1.1",
+      "anchor": "Report 1 s1: when the Confogl library is added/removed, reload the mapinfo file and immediately select the current map and update cached geometry",
+      "status": "asserted",
+      "note": "The suite replays the public OnLibraryAdded forward; a real provider unload/reload is not exercised."
+    },
+    {
+      "id": "R1.2",
+      "anchor": "Report 1 s2-4: a failed import (missing file, malformed or truncated KeyValues even if the engine importer succeeds) retains the last successful file and current map view",
+      "status": "asserted",
+      "note": "Initial import failure (no previous success) is not exercised."
+    },
+    {
+      "id": "R1.3",
+      "anchor": "Report 1 s5: \"With no successful import, remain safely unavailable rather than keeping an invalid KeyValues handle.\"",
+      "status": "unasserted",
+      "note": "NOTES.md: initial import failure is not separately exercised."
+    },
+    {
+      "id": "R1.4",
+      "anchor": "Report 1 s6: a successful import without the current map replaces the old data; availability is false and getters use their defaults",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "R2.1",
+      "anchor": "Report 2 s1: every lookup and subsection copy addresses the current map, independent of previous queries, reloads, failed subsection lookups or slash-separated nested paths",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "R2.2",
+      "anchor": "Report 2 s2: copy a present subsection's children into the caller's node with KeyValues replacement semantics; a missing subsection leaves the destination unchanged",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "R2.3",
+      "anchor": "Report 2 s3: never fall back to similarly named keys at the file root or a different map",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "R3.1",
+      "anchor": "Report 3 s1: string getters honour the declared capacity including the terminator; capacity zero writes nothing, capacity one only the terminator",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "R3.2",
+      "anchor": "Report 3 s2-3: vector/float/int/string defaults work with absent map data and absent keys; supplied default vectors are not mutated",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "R4.1",
+      "anchor": "Report 4 s1: invalid/free entity indices return Neither without throwing",
+      "status": "asserted",
+      "note": "Free-entity and non-networked categories are not individually instantiated (NOTES.md)."
+    },
+    {
+      "id": "R4.2",
+      "anchor": "Report 4 s2-3: worldspawn, non-networked entities and entities without m_vecOrigin return Neither",
+      "status": "weak",
+      "note": "Only worldspawn/invalid indices are observed inside saferoom-invalid-safe."
+    },
+    {
+      "id": "R4.3",
+      "anchor": "Report 4 s4: start uses max(start_dist,start_extra_dist), end uses end_dist, boundaries inclusive, overlapping rooms return both bits",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "R4.4",
+      "anchor": "Report 4 s5-6: a negative effective radius disables that room; no stale end geometry survives a successful reload to missing-map data",
+      "status": "asserted",
+      "note": "Only the stale-end half is exercised; explicit negative radii are not (NOTES.md)."
+    },
+    {
+      "id": "R4.5",
+      "anchor": "Report 4 s6: \"Preserve the existing medkit heuristic when there is no map entry\"",
+      "status": "unasserted",
+      "note": "Not exercised."
+    },
+    {
+      "id": "R5.1",
+      "anchor": "Report 5 s1-2: a first tank_spawn requires a connected living team-3 class-8 client; invalid, survivor, other-class and duplicate spawns start nothing and emit no forward",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "R5.2",
+      "anchor": "Report 5 s3: a tank_claw pickup by a different valid living Tank is a handoff; repeated pickup by the owner and unrelated pickups do nothing",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "R5.3",
+      "anchor": "Report 5 s4: the published zero-based pass count (first real handoff reports zero)",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "R6.1",
+      "anchor": "Report 6 s1: an owner's death schedules one notification 0.5 s later; repeated death events do not multiply or postpone it",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "R6.2",
+      "anchor": "Report 6 s2: a real handoff within the grace period cancels it; duplicate same-owner pickups do not",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "R6.3",
+      "anchor": "Report 6 s3-4: round/map reset cancels pending work and resets pass numbering; no older callback reports or resets a later encounter",
+      "status": "asserted",
+      "note": "Round start is exercised; a full map transition is not."
+    },
+    {
+      "id": "R6.4",
+      "anchor": "Report 6 s5: \"A non-owner death must have no effect.\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "R7.1",
+      "anchor": "Report 7: ownership and pending work belong to the connection; owner disconnect retires silently and cancels pending death; a later occupant can start fresh; unrelated disconnects keep the owner",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "R8.1",
+      "anchor": "Report 8 s1: commit a handoff and advance its count before invoking observers; a nested valid handoff reports the next count and remains current",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "R8.2",
+      "anchor": "Report 8 s2: retire a completed death and clear its timer before L4D2_OnTankDeath; an observer may start a new encounter that survives the callback",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "R8.3",
+      "anchor": "Report 8 s3: \"Round resets made by an observer also remain effective.\"",
+      "status": "unasserted",
+      "note": "NOTES.md: observer-triggered round reset is not separately exercised."
+    },
+    {
+      "id": "Task-preserve-api",
+      "anchor": "Preamble: keep the upstream public natives/forwards and unrelated gameplay behaviour",
+      "status": "weak",
+      "note": "Only the natives/forwards used by the suites are exercised."
+    },
+    {
+      "id": "Task-source-only",
+      "anchor": "Closing paragraph: source-only packaging; no game files or compiled archives",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "Task-preserve-gpl",
+      "anchor": "Closing paragraph: preserve GPL notices",
+      "status": "unasserted",
+      "note": "Pre-case verify.py package gate; no named case."
+    },
+    {
+      "id": "Task-no-tests-edit",
+      "anchor": "Closing paragraph: do not modify `/tests`",
+      "status": "unasserted",
+      "note": "Process rule."
+    }
+  ],
+  "excluded_clauses": [
+    "R1.3",
+    "R4.5",
+    "R8.3",
+    "Task-preserve-gpl",
+    "Task-no-tests-edit"
+  ],
+  "known_issues": [
+    "benchmarks/l4d2-core/private/harbor/l4d2-library-map-tank-state-hard/tests/verify.py:parse_suite: a suite boot is all-or-nothing. Any \"[SM] Exception reported\", \"Native is not bound\" or \"Plugin ... failed to load\" line, a missing FINAL marker or a duplicate case turns EVERY case of that boot into a failure, including cases that would otherwise pass; read per-case outcomes of a failing boot with that in mind.",
+    "The unchanged starter never reaches FINAL in the map boot (its server process exits a few seconds after map load) and throws \"Client index 0 is invalid\" in the Tank boot, so all 44 cases fail closed on every starter run. No case has a passing starter baseline: there is no preserved set and no compat-negative control for this task.",
+    "The alternative control is reference-derived (squared-distance geometry with negative-radius guards and a separately committed pass-count increment); it is not an independent implementation."
+  ]
+}

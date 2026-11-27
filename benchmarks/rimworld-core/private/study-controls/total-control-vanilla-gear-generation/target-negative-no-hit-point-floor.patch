@@ -1,0 +1,22 @@
+--- a/TotalControl/Source/Patches/ApparelGenPatch.cs
++++ b/TotalControl/Source/Patches/ApparelGenPatch.cs
+@@ -237,7 +237,7 @@
+             float healthFactor = pawn.kindDef.gearHealthRange.RandomInRange;
+             if (healthFactor < 1f)
+             {
+-                int hitPoints = Mathf.Max(1, Mathf.RoundToInt(healthFactor * (float)thing.MaxHitPoints));
++                int hitPoints = Mathf.RoundToInt(healthFactor * (float)thing.MaxHitPoints);
+                 thing.HitPoints = hitPoints;
+             }
+         }
+--- a/TotalControl/Source/Patches/WeaponGenPatch.cs
++++ b/TotalControl/Source/Patches/WeaponGenPatch.cs
+@@ -192,7 +192,7 @@
+             float healthFactor = pawn.kindDef.gearHealthRange.RandomInRange;
+             if (healthFactor < 1f)
+             {
+-                int hitPoints = Mathf.Max(1, Mathf.RoundToInt(healthFactor * (float)thing.MaxHitPoints));
++                int hitPoints = Mathf.RoundToInt(healthFactor * (float)thing.MaxHitPoints);
+                 thing.HitPoints = hitPoints;
+             }
+         }

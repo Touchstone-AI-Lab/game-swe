@@ -1,0 +1,22 @@
+diff --git a/Automate/Framework/MachineGroupBuilder.cs b/Automate/Framework/MachineGroupBuilder.cs
+index 44f46eb..d06cc42 100644
+--- a/Automate/Framework/MachineGroupBuilder.cs
++++ b/Automate/Framework/MachineGroupBuilder.cs
+@@ -71,7 +71,7 @@ internal class MachineGroupBuilder
+     public void Add(IContainer container)
+     {
+         this.Containers.Add(container);
+-        this.NewTileAreas.Add(container.TileArea);
++        this.Add(container.TileArea);
+     }
+ 
+     /// <summary>Add connector tiles to the group.</summary>
+@@ -86,7 +86,7 @@ internal class MachineGroupBuilder
+     /// <summary>Get whether any tiles were added to the builder.</summary>
+     public bool HasTiles()
+     {
+-        return this.Tiles.Count > 0 || this.Containers.Count > 0;
++        return this.Tiles.Count > 0;
+     }
+ 
+     /// <summary>Create a group from the saved data.</summary>

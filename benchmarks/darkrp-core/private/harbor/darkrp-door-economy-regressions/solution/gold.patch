@@ -1,0 +1,90 @@
+diff --git b/gamemode/modules/base/sh_createitems.lua a/gamemode/modules/base/sh_createitems.lua
+index cc94b820..0094d7e3 100644
+--- b/gamemode/modules/base/sh_createitems.lua
++++ a/gamemode/modules/base/sh_createitems.lua
+@@ -473,7 +473,7 @@ local function removeCustomItem(tbl, category, hookName, reloadF4, i)
+     local item = tbl[i]
+     tbl[i] = nil
+     if category then DarkRP.removeFromCategory(item, category) end
+-    if istable(item) and item.command then DarkRP.removeChatCommand(item.command) end
++    if istable(item) and (item.command or item.cmd) then DarkRP.removeChatCommand(item.command or item.cmd) end
+     hook.Run(hookName, i, item)
+     if CLIENT and reloadF4 and IsValid(DarkRP.getF4MenuPanel()) then DarkRP.getF4MenuPanel():Remove() end -- Rebuild entire F4 menu frame
+ end
+@@ -671,6 +671,7 @@ function DarkRP.createAgenda(Title, Manager, Listeners)
+     for _, v in pairs(istable(agenda.Manager) and agenda.Manager or {agenda.Manager}) do
+         agendas[v] = agenda
+         DarkRPAgendas[v] = agenda -- backwards compat
++        agenda.ManagersByKey[v] = true
+     end
+ 
+     if SERVER then
+@@ -710,7 +711,7 @@ function DarkRP.createGroupChat(funcOrTeam, ...)
+     if isfunction(funcOrTeam) then
+         table.insert(gm.DarkRPGroupChats, fp{DarkRP.simplerrRun, funcOrTeam})
+     else
+-        local teams = {...}
++        local teams = {funcOrTeam, ...}
+         table.insert(gm.DarkRPGroupChats, function(ply) return table.HasValue(teams, ply:Team()) end)
+     end
+ end
+diff --git b/gamemode/modules/chat/sh_chatcommands.lua a/gamemode/modules/chat/sh_chatcommands.lua
+index ae13283c..3008f1d9 100644
+--- b/gamemode/modules/chat/sh_chatcommands.lua
++++ a/gamemode/modules/chat/sh_chatcommands.lua
+@@ -24,6 +24,7 @@ function DarkRP.declareChatCommand(tbl)
+         DarkRP.error("Incorrect chat command! " .. element .. " is invalid!", 2)
+     end
+ 
++    tbl.command = string.lower(tbl.command)
+     DarkRP.chatCommands[tbl.command] = DarkRP.chatCommands[tbl.command] or tbl
+     for k, v in pairs(tbl) do
+         DarkRP.chatCommands[tbl.command][k] = v
+diff --git b/gamemode/modules/doorsystem/sh_doors.lua a/gamemode/modules/doorsystem/sh_doors.lua
+index 26d3443e..3965157f 100644
+--- b/gamemode/modules/doorsystem/sh_doors.lua
++++ a/gamemode/modules/doorsystem/sh_doors.lua
+@@ -54,6 +54,8 @@ function meta:isMasterOwner(ply)
+ end
+ 
+ function meta:isKeysOwnedBy(ply)
++    if self:isMasterOwner(ply) then return true end
++
+     local coOwners = self:getKeysCoOwners()
+     return coOwners and coOwners[ply:UserID()] or false
+ end
+@@ -62,7 +64,7 @@ function meta:isKeysAllowedToOwn(ply)
+     local doorData = self:getDoorData()
+     if not doorData then return false end
+ 
+-    return doorData.allowedToOwn and doorData.allowedToOwn[ply:EntIndex()] or false
++    return doorData.allowedToOwn and doorData.allowedToOwn[ply:UserID()] or false
+ end
+ 
+ function meta:getKeysNonOwnable()
+@@ -113,7 +115,8 @@ local function canLockUnlock(ply, ent)
+     local teamOwn = ent:getKeysDoorTeams()
+ 
+     return ent:isKeysOwnedBy(ply)                                         or
+-        (group   and table.HasValue(RPExtraTeamDoors[group] or {}, Team))
++        (group   and table.HasValue(RPExtraTeamDoors[group] or {}, Team)) or
++        (teamOwn and teamOwn[Team])
+ end
+ 
+ function plyMeta:canKeysLock(ent)
+diff --git b/gamemode/modules/money/sh_money.lua a/gamemode/modules/money/sh_money.lua
+index d8a799a2..b4243716 100644
+--- b/gamemode/modules/money/sh_money.lua
++++ a/gamemode/modules/money/sh_money.lua
+@@ -3,9 +3,9 @@ local entMeta = FindMetaTable("Entity")
+ 
+ function pMeta:canAfford(amount)
+     if not amount or self.DarkRPUnInitialized then return false end
+-    return (self:getDarkRPVar("money") or 0) - math.ceil(amount) >= 0
++    return math.floor(amount) >= 0 and (self:getDarkRPVar("money") or 0) - math.ceil(amount) >= 0
+ end
+ 
+ function entMeta:isMoneyBag()
+-    return self:GetClass() == GAMEMODE.Config.MoneyClass
++    return self.IsSpawnedMoney or self:GetClass() == GAMEMODE.Config.MoneyClass
+ end

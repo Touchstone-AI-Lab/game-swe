@@ -1,0 +1,124 @@
+{
+  "validated": true,
+  "matrix_audit_sha256": "22a05d76211117c458c5ae9bcd7b3487e120f406671169222f828f8f8fdaeb7e",
+  "matrix_results": [
+    {
+      "variant": "base",
+      "passed": 7,
+      "expected": 27,
+      "failed_case_ids": [
+        "monster-cap-full",
+        "monster-cap-loss",
+        "monster-cap-multiple",
+        "monster-cap-plain",
+        "monster-cross-owner",
+        "monster-nested-loss",
+        "monster-nested-specific",
+        "monster-refund",
+        "monster-zero-gain",
+        "monster-zero-specific",
+        "player-cap-full",
+        "player-cap-loss",
+        "player-cap-multiple",
+        "player-cap-plain",
+        "player-cross-owner",
+        "player-nested-loss",
+        "player-nested-specific",
+        "player-refund",
+        "player-zero-gain",
+        "player-zero-specific"
+      ]
+    },
+    {
+      "variant": "gold",
+      "passed": 27,
+      "expected": 27,
+      "failed_case_ids": []
+    },
+    {
+      "variant": "alternative",
+      "passed": 27,
+      "expected": 27,
+      "failed_case_ids": []
+    },
+    {
+      "variant": "capacity-only",
+      "passed": 17,
+      "expected": 27,
+      "failed_case_ids": [
+        "monster-cross-owner",
+        "monster-nested-loss",
+        "monster-nested-specific",
+        "monster-refund",
+        "monster-zero-specific",
+        "player-cross-owner",
+        "player-nested-loss",
+        "player-nested-specific",
+        "player-refund",
+        "player-zero-specific"
+      ]
+    },
+    {
+      "variant": "target-only",
+      "passed": 9,
+      "expected": 27,
+      "failed_case_ids": [
+        "monster-cap-full",
+        "monster-cap-loss",
+        "monster-cap-multiple",
+        "monster-cap-plain",
+        "monster-cross-owner",
+        "monster-nested-loss",
+        "monster-nested-specific",
+        "monster-refund",
+        "monster-zero-gain",
+        "player-cap-full",
+        "player-cap-loss",
+        "player-cap-multiple",
+        "player-cap-plain",
+        "player-cross-owner",
+        "player-nested-loss",
+        "player-nested-specific",
+        "player-refund",
+        "player-zero-gain"
+      ]
+    },
+    {
+      "variant": "settlement-only",
+      "passed": 15,
+      "expected": 27,
+      "failed_case_ids": [
+        "monster-cap-full",
+        "monster-cap-loss",
+        "monster-cap-multiple",
+        "monster-cap-plain",
+        "monster-zero-gain",
+        "monster-zero-specific",
+        "player-cap-full",
+        "player-cap-loss",
+        "player-cap-multiple",
+        "player-cap-plain",
+        "player-zero-gain",
+        "player-zero-specific"
+      ]
+    }
+  ],
+  "formal_audit_sha256": "b850ff5263833dede38b65348038c27c86b6f05b748b95f6c6b373fcf3c241d2",
+  "formal_controls": [
+    {
+      "agent": "nop",
+      "trial": "stslib-block-ledger-r1__PH6BPf5",
+      "passed": 7,
+      "expected": 27,
+      "reward": 0
+    },
+    {
+      "agent": "oracle",
+      "trial": "stslib-block-ledger-r1__yFUinNo",
+      "passed": 27,
+      "expected": 27,
+      "reward": 1
+    }
+  ],
+  "scope": "Historical complete native-runtime controls, including an independently different passing repair. Raw runtime logs remain local; source and receipt hashes identify the frozen evidence."
+}

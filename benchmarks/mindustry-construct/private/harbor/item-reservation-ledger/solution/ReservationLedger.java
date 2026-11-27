@@ -1,0 +1,15 @@
+import java.util.*;
+public final class ReservationLedger {
+ public enum Status{RESERVED,COMMITTED,CANCELLED,EXPIRED,REJECTED}
+ public record Request(String id,int sourcePos,String item,int amount,long tick,long ttl){}
+ public record Entry(String id,int sourcePos,String item,int amount,long created,long expires,Status status){}
+ public record Decision(String id,Status status,int reserved,String reason){}
+ public record PersistedState(long lastTick,List<Entry> entries){}
+ private long lastTick=-1; private final TreeMap<String,Entry> entries=new TreeMap<>();
+ public ReservationLedger(){} public ReservationLedger(PersistedState s){if(s==null||s.lastTick()< -1)throw new IllegalArgumentException();lastTick=s.lastTick();for(Entry e:s.entries()){if(e==null||entries.put(e.id(),e)!=null)throw new IllegalArgumentException();}}
+ public Decision reserve(Request r,int available){requireTick(r==null?-1:r.tick());if(r==null||bad(r.id())||r.sourcePos()<0||bad(r.item())||r.amount()<=0||r.ttl()<=0||available<0)return new Decision(r==null?"":r.id(),Status.REJECTED,0,"invalid");expire(r.tick());Entry old=entries.get(r.id());if(old!=null)return new Decision(r.id(),old.status(),old.status()==Status.RESERVED?old.amount():0,"duplicate");int used=entries.values().stream().filter(e->e.status()==Status.RESERVED&&e.sourcePos()==r.sourcePos()&&e.item().equals(r.item())).mapToInt(Entry::amount).sum();if(available-used<r.amount())return new Decision(r.id(),Status.REJECTED,0,"insufficient");Entry e=new Entry(r.id(),r.sourcePos(),r.item(),r.amount(),r.tick(),Math.addExact(r.tick(),r.ttl()),Status.RESERVED);entries.put(r.id(),e);lastTick=r.tick();return new Decision(r.id(),Status.RESERVED,r.amount(),"ok");}
+ public Decision commit(String id,long tick){return transition(id,tick,Status.COMMITTED);} public Decision cancel(String id,long tick){return transition(id,tick,Status.CANCELLED);} public List<Entry> expire(long tick){requireTick(tick);ArrayList<Entry>x=new ArrayList<>();for(var en:new ArrayList<>(entries.entrySet())){Entry e=en.getValue();if(e.status()==Status.RESERVED&&e.expires()<=tick){Entry n=new Entry(e.id(),e.sourcePos(),e.item(),e.amount(),e.created(),e.expires(),Status.EXPIRED);entries.put(e.id(),n);x.add(n);}}lastTick=tick;return List.copyOf(x);}
+ private Decision transition(String id,long tick,Status to){requireTick(tick);expire(tick);Entry e=entries.get(id);if(e==null||e.status()!=Status.RESERVED)return new Decision(id,to==Status.COMMITTED?Status.REJECTED:Status.REJECTED,0,"not reserved");Entry n=new Entry(e.id(),e.sourcePos(),e.item(),e.amount(),e.created(),e.expires(),to);entries.put(id,n);lastTick=tick;return new Decision(id,to,e.amount(),"ok");}
+ public List<Entry> snapshot(){return List.copyOf(entries.values());} public PersistedState save(){return new PersistedState(lastTick,snapshot());}
+ private void requireTick(long t){if(t<0||t<lastTick)throw new IllegalArgumentException("stale tick");} private static boolean bad(String s){return s==null||s.isBlank();}
+}

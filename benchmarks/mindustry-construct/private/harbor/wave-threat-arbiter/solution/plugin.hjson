@@ -1,0 +1,5 @@
+name: "threat-response-arbiter"
+displayName: "Wave Threat Response and Repair Arbiter"
+main: "WaveThreatArbiterPlugin"
+version: "1.0.0"
+minGameVersion: 159

@@ -1,0 +1,19 @@
+case	group	role	public_contract
+package_complete_public_source	artifact	guard	Submission retains the complete public-source target and dependency snapshot, provenance, and required license texts without compiled artifacts.
+submitted_plugins_compile	artifact	guard	The target, public spawn dependency, and an external consumer of all three published config natives compile with the pinned SourceMod toolchain.
+capacity_library_loaded	capacity	guard	The submitted L4D Infected Bots plugin loads and publishes its library in a real server boot.
+capacity_exact_runtime_slots	capacity	target	For the observed server capacity and live-survivor population, sm_zlimit accepts the exact remaining client slots without a legacy extra-slot reservation.
+capacity_unclamped_request_is_preserved	capacity	guard	A request already below the remaining capacity is preserved through the public sm_zlimit command path.
+config_library_and_single_survivor_guard	config	guard	The submitted library loads with exactly one live survivor so count-profile selection is unambiguous.
+config_settings_count_profile_overlays_all_types	config	guard	Without a current-map profile, Settings count values overlay Settings default values across integer, float, and string config natives.
+config_settings_count_omitted_keys_inherit_default	config	guard	Keys omitted by the Settings count profile retain their Settings default values.
+config_admin_overrides_are_temporary	config	guard	Public sm_zlimit and sm_timer commands temporarily override the active values before a reload.
+config_reload_replaces_overrides_and_applies_map_profiles	config	target	Reload clears command overrides and activates the current Maps default/count profile, including inheritance for omitted count keys.
+initial_timer_libraries_loaded	initial_timer	guard	The target and public spawn-provider dependency load in controlled-zombie mode.
+initial_timer_victim_created	initial_timer	guard	A live survivor and infected victim are created after round initialization in the real versus server fixture.
+initial_timer_not_overwritten_by_normal_delay	initial_timer	target	Observe the first living replacement continuously; an initial-window death must not advance the wave before round_start plus eight seconds (public scheduling lower bound, two ticks tolerance).
+initial_timer_eventually_replenishes	initial_timer	guard	The deferred initial-window replacement eventually produces a live infected bot.
+initial_timer_normal_delay_resumes_after_window	initial_timer	guard	After the initial window resets, a later victim death again replenishes on the normal one-second delay.
+finale_library_loaded	finale	guard	The target and public spawn-provider dependency load for the finale lifecycle fixture.
+finale_win_event_available	finale	guard	The finale_win event and public allow-cvar disable/re-enable lifecycle remain usable before the observed death sequence.
+finale_win_cancels_pending_replenishment	finale	target	finale_win cancels a pending infected replacement so no bot appears after the configured delay.

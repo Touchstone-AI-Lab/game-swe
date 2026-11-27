@@ -1,0 +1,3 @@
+control	kind	base	overlay	root	note
+tn-overreach-two-tiles	target-negative	reference	patch:tn-overreach-two-tiles.patch	mod	PROBE: reference whose chest search also accepts a chest two tiles away
+tn-full-chest-destroys-product	target-negative	reference	patch:tn-full-chest-destroys-product.patch	mod	PROBE: reference that resets the machine even when the chest returned a leftover, destroying what did not fit (probe for requirement 3)

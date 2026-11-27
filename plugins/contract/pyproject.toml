@@ -1,0 +1,19 @@
+[project]
+name = "rhenium-contract-plugin"
+version = "0.6.0"
+description = "Dependency-free conformance plugin for the Rhenium Hub"
+requires-python = ">=3.12"
+dependencies = ["rhenium==0.6.0"]
+
+[project.entry-points."rhenium.benchmarks"]
+contract = "rhenium_contract.plugin:ContractBenchmarkPlugin"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/rhenium_contract"]
+
+[tool.uv.sources]
+rhenium = { workspace = true }

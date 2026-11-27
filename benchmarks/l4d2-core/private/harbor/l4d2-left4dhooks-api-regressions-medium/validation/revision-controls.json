@@ -1,0 +1,1220 @@
+{
+  "scope": "2026-09-21 maintainer controls, not model calibration",
+  "records": [
+    {
+      "task": "l4d2-left4dhooks-api-regressions-medium",
+      "candidate": "gold",
+      "profile": "full",
+      "expected_full_cases": 71,
+      "complete_full_case_set": true,
+      "timed_out": false,
+      "group": null,
+      "exit_code": 0,
+      "component_hashes": {
+        "instruction.md": "8a8ab2a8a8053a0308d35713c9bb1a174b7339344b07f49d4f3acabcadfb429b",
+        "task.toml": "c5a3f15392f462b8d7404afab9e6a1c2eaa3a1b9575a49f01127c29d39aa1b4a",
+        "environment": "6cba951d863bed946315de191a1cedef7b6ce087e617881c1e6cdb88d5e20c1f",
+        "tests": "6e5baf3f74d0fc8be2cff5c71afd4e5f5389890301e9813da21a63208dca78ad",
+        "solution": "1fcf84270c9de3e316379987ac84fe2ce645bfa648b7a97938f9e2655a0b15fa",
+        "validation/case-contracts.tsv": "6b108397af861db7c864317093e143051c48b3d67b2dd8eb3635862c22b6bfc9"
+      },
+      "hash_algorithm": "sha256-relpath-nul-content-nul-posix-lexical-v1",
+      "contract": "927a53bd0f1402ef877c7d99b115479d449ce596a1d1b1888e7ae4b1ed7788c2",
+      "runtime_image_id": "sha256:af58da986d0f3187d359d86a45e405adc658f368e671ae8f3ae1deded0125dc1",
+      "source_hash": "f7cd4c88af9816daec250a7795da842f8092959bd6fa67582c42e68671b89815",
+      "tests_hash": "6e5baf3f74d0fc8be2cff5c71afd4e5f5389890301e9813da21a63208dca78ad",
+      "input_transport": "readonly-linux-volume",
+      "cases": [
+        {
+          "case": "spawn_timer_public_include_abi_matches_runtime",
+          "status": "PASS",
+          "detail": "submitted public include declares float and compiles a float ABI consumer"
+        },
+        {
+          "case": "runtime_ammo_library_loaded",
+          "status": "PASS",
+          "detail": "left4dhooks library is available"
+        },
+        {
+          "case": "ammo_index_range_is_engine_valid",
+          "status": "PASS",
+          "detail": "AmmoDef exposes a bounded index range"
+        },
+        {
+          "case": "ammo_names_are_nonempty",
+          "status": "PASS",
+          "detail": "every valid Ammo_t has a name"
+        },
+        {
+          "case": "ammo_name_roundtrips_to_index",
+          "status": "PASS",
+          "detail": "AmmoDef.Index(GetName()) recovers the source index"
+        },
+        {
+          "case": "ammo_names_are_stable_and_unique",
+          "status": "PASS",
+          "detail": "repeated reads agree and valid entries are distinct"
+        },
+        {
+          "case": "ammo_getname_preserves_other_fields",
+          "status": "PASS",
+          "detail": "GetName does not mutate nDamageType"
+        },
+        {
+          "case": "runtime_vomit_library_loaded",
+          "status": "PASS",
+          "detail": "left4dhooks library is available"
+        },
+        {
+          "case": "vomit_pre_forward_once",
+          "status": "PASS",
+          "detail": "one bile-jar creation dispatches one pre forward"
+        },
+        {
+          "case": "vomit_post_forward_once",
+          "status": "PASS",
+          "detail": "one unblocked creation dispatches one post forward"
+        },
+        {
+          "case": "vomit_projectile_result_and_arguments",
+          "status": "PASS",
+          "detail": "non-zero owner and all vector parameters match the created entity and post forward"
+        },
+        {
+          "case": "vomit_changed_vectors_reach_creation_and_post",
+          "status": "PASS",
+          "detail": "Plugin_Changed copyback reaches the engine entity and the post forward"
+        },
+        {
+          "case": "vomit_handled_path_is_preserved",
+          "status": "PASS",
+          "detail": "Plugin_Handled blocks creation and PostHandled keeps owner/vector semantics"
+        },
+        {
+          "case": "molotov_forward_family_remains_functional",
+          "status": "PASS",
+          "detail": "normal Molotov creation retains its pre/post forward contract"
+        },
+        {
+          "case": "vomit_creation_never_dispatches_molotov_family",
+          "status": "PASS",
+          "detail": "bile creation dispatches only the VomitJar family"
+        },
+        {
+          "case": "runtime_spawn_library_loaded",
+          "status": "PASS",
+          "detail": "left4dhooks library is available"
+        },
+        {
+          "case": "spawn_timer_invalid_zero",
+          "status": "PASS",
+          "detail": "client zero returns -1.0"
+        },
+        {
+          "case": "spawn_timer_invalid_above_max",
+          "status": "PASS",
+          "detail": "client above MaxClients returns -1.0"
+        },
+        {
+          "case": "spawn_timer_returns_absolute_field",
+          "status": "PASS",
+          "detail": "direct API exposes m_flBecomeGhostAt"
+        },
+        {
+          "case": "spawn_timer_updates_and_relative_api_remains_distinct",
+          "status": "PASS",
+          "detail": "direct and relative APIs retain separate contracts"
+        },
+        {
+          "case": "spawn_timer_read_preserves_adjacent_state",
+          "status": "PASS",
+          "detail": "direct reads do not alter client state"
+        },
+        {
+          "case": "runtime_weaponattr_library_loaded",
+          "status": "PASS",
+          "detail": "left4dhooks and the engine rifle definition are available"
+        },
+        {
+          "case": "ordinary_float_weapon_attribute_roundtrips",
+          "status": "PASS",
+          "detail": "ordinary decimal float attributes round-trip unchanged"
+        },
+        {
+          "case": "penetration_layers_store_integral_count",
+          "status": "PASS",
+          "detail": "3.75 stores and reads as the integral layer count 3.0"
+        },
+        {
+          "case": "penetration_layers_preserve_adjacent_power",
+          "status": "PASS",
+          "detail": "setting layer count leaves adjacent penetration power unchanged"
+        },
+        {
+          "case": "missing_float_weapon_attribute_returns_negative_one",
+          "status": "PASS",
+          "detail": "missing weapon returns numeric -1.0"
+        },
+        {
+          "case": "runtime_animhook_library_loaded",
+          "status": "PASS",
+          "detail": "left4dhooks accepts hooks for two real client slots"
+        },
+        {
+          "case": "two_client_animation_hooks_fire",
+          "status": "PASS",
+          "detail": "both client hooks receive real animation selection callbacks"
+        },
+        {
+          "case": "reenabled_animation_hook_not_duplicated",
+          "status": "PASS",
+          "detail": "disable/re-enable leaves one callback registration"
+        },
+        {
+          "case": "peer_animation_hook_survives_other_client_cycle",
+          "status": "PASS",
+          "detail": "the peer client remains independently hooked"
+        },
+        {
+          "case": "final_disable_removes_selected_client_callback",
+          "status": "PASS",
+          "detail": "final disable stops only the selected client callback"
+        },
+        {
+          "case": "runtime_pipebomb_library_loaded",
+          "status": "PASS",
+          "detail": "left4dhooks library is available"
+        },
+        {
+          "case": "real_pipebomb_creation_forwards_once",
+          "status": "PASS",
+          "detail": "one real pipe-bomb creation dispatches exactly one matching pre/post pair"
+        },
+        {
+          "case": "real_pipebomb_detonation_forwards_once",
+          "status": "PASS",
+          "detail": "one real pipe-bomb detonation dispatches exactly one matching pre/post pair"
+        },
+        {
+          "case": "breakable_prop_real_break_path_completes",
+          "status": "PASS",
+          "detail": "a real breakable physics prop reaches its engine break lifecycle"
+        },
+        {
+          "case": "breakable_prop_never_dispatches_pipebomb_creation",
+          "status": "PASS",
+          "detail": "breaking a non-pipe-bomb prop does not dispatch pipe-bomb creation forwards"
+        },
+        {
+          "case": "breakable_prop_never_dispatches_pipebomb_detonation",
+          "status": "PASS",
+          "detail": "breaking a non-pipe-bomb prop does not dispatch pipe-bomb detonation forwards"
+        },
+        {
+          "case": "runtime_campaign_scores_library_loaded",
+          "status": "PASS",
+          "detail": "left4dhooks library is available"
+        },
+        {
+          "case": "campaign_scores_pre_forward_once",
+          "status": "PASS",
+          "detail": "one engine score update dispatches one pre forward"
+        },
+        {
+          "case": "campaign_scores_pre_receives_original_values",
+          "status": "PASS",
+          "detail": "the pre forward receives both original score values"
+        },
+        {
+          "case": "campaign_scores_post_forward_once",
+          "status": "PASS",
+          "detail": "one engine score update dispatches one post forward"
+        },
+        {
+          "case": "campaign_scores_changed_values_reach_post",
+          "status": "PASS",
+          "detail": "Plugin_Changed score values reach the post forward as ordinary values"
+        },
+        {
+          "case": "runtime_melee_info_library_loaded",
+          "status": "PASS",
+          "detail": "left4dhooks and the map's fireaxe melee definition are available"
+        },
+        {
+          "case": "melee_float_attribute_is_readable",
+          "status": "PASS",
+          "detail": "the real fireaxe damage attribute is a bounded positive float"
+        },
+        {
+          "case": "melee_int_attribute_is_readable",
+          "status": "PASS",
+          "detail": "the real fireaxe damage flags are readable"
+        },
+        {
+          "case": "melee_bool_attribute_is_stable",
+          "status": "PASS",
+          "detail": "repeated reads of the real decapitation flag agree"
+        },
+        {
+          "case": "melee_float_attribute_roundtrips_and_restores",
+          "status": "PASS",
+          "detail": "a temporary fireaxe damage update round-trips and restores the original value"
+        },
+        {
+          "case": "runtime_stagger_library_and_clients_ready",
+          "status": "PASS",
+          "detail": "a live survivor and live special infected exercise the public natives"
+        },
+        {
+          "case": "initial_stagger_becomes_active",
+          "status": "PASS",
+          "detail": "the first real stagger is observable"
+        },
+        {
+          "case": "same_frame_restagger_survives_cancel_window",
+          "status": "PASS",
+          "detail": "an immediate new stagger keeps its animation active through the cancellation window"
+        },
+        {
+          "case": "next_frame_restagger_survives_cancel_window",
+          "status": "PASS",
+          "detail": "a next-frame stagger keeps its animation active through the cancellation window"
+        },
+        {
+          "case": "completed_cancel_still_allows_later_stagger",
+          "status": "PASS",
+          "detail": "a completed cancellation does not disable future stagger behavior"
+        },
+        {
+          "case": "runtime_unpicked_gascan_fixture_ready",
+          "status": "PASS",
+          "detail": "the library, survivor attacker, and an unpicked physical gas can are available"
+        },
+        {
+          "case": "unpicked_gascan_pre_forward_once",
+          "status": "PASS",
+          "detail": "damaging one never-picked-up gas can dispatches exactly one pre forward"
+        },
+        {
+          "case": "unpicked_gascan_pre_forward_arguments",
+          "status": "PASS",
+          "detail": "the pre forward identifies the damaged gas can and its real inflictor and attacker"
+        },
+        {
+          "case": "unpicked_gascan_post_forward_once",
+          "status": "PASS",
+          "detail": "the same damage dispatches exactly one post forward"
+        },
+        {
+          "case": "unpicked_gascan_post_forward_arguments",
+          "status": "PASS",
+          "detail": "the post forward preserves the matching gas can, inflictor, and attacker"
+        },
+        {
+          "case": "weapon_gascan_path_dispatches_once",
+          "status": "PASS",
+          "detail": "the existing weapon-gas-can class path still dispatches one pre/post pair without duplication"
+        },
+        {
+          "case": "weapon_gascan_path_preserves_arguments",
+          "status": "PASS",
+          "detail": "the existing class path preserves its real inflictor and attacker"
+        },
+        {
+          "case": "ordinary_physics_prop_never_dispatches_gascan_family",
+          "status": "PASS",
+          "detail": "damaging an ordinary physics prop does not dispatch gas-can forwards"
+        },
+        {
+          "case": "runtime_entity_address_library_loaded",
+          "status": "PASS",
+          "detail": "the published entity-address native is available after a normal load"
+        },
+        {
+          "case": "entity_address_fixture_covers_engine_entities",
+          "status": "PASS",
+          "detail": "checked=1215 non-edict=205"
+        },
+        {
+          "case": "entity_addresses_roundtrip_for_all_live_entities",
+          "status": "PASS",
+          "detail": "round-tripped=1215/1215"
+        },
+        {
+          "case": "non_edict_entity_addresses_roundtrip",
+          "status": "PASS",
+          "detail": "non-edict round-tripped=205/205"
+        },
+        {
+          "case": "entity_address_lookup_is_stable",
+          "status": "PASS",
+          "detail": "two reads of every live entity address return the same engine index"
+        },
+        {
+          "case": "null_entity_address_returns_negative_one",
+          "status": "PASS",
+          "detail": "the null address remains the documented invalid lookup"
+        },
+        {
+          "case": "runtime_lobby_reservation_library_loaded",
+          "status": "PASS",
+          "detail": "the published lobby reservation natives are available"
+        },
+        {
+          "case": "short_lobby_cookie_call_survives",
+          "status": "PASS",
+          "detail": "a one-digit hexadecimal cookie returns normally without a native error"
+        },
+        {
+          "case": "short_lobby_cookie_preserves_word_placement",
+          "status": "PASS",
+          "detail": "the one-digit cookie retains the established high-word representation"
+        },
+        {
+          "case": "full_lobby_cookie_roundtrips",
+          "status": "PASS",
+          "detail": "a full 64-bit hexadecimal cookie round-trips exactly"
+        },
+        {
+          "case": "lobby_cookie_can_be_restored",
+          "status": "PASS",
+          "detail": "the original reservation cookie is restored after the checks"
+        }
+      ],
+      "passed": 71,
+      "total": 71,
+      "verifier_log_sha256": "80b113887250e14e833045fb99c06e7027aedd8fddb9f8ca685c8b353096290b",
+      "logs_copied": true,
+      "server_log_hashes": {
+        "server-ammo.log": "58475fcb72a79c7d2dd86080c99c0ec09379bccb68337e8f363251eabe5a60bc",
+        "server-animhook.log": "7c852f888bf56ffabc842ffc6021ffea46f7b6b952b3e82846ba33cb6a90aa14",
+        "server-campaignscores.log": "cf106584765163b5046d1f4d3190d7f4efbcb37c55e564d33e5d5d5a7691fd52",
+        "server-entityaddress.log": "0c936d4ad8dd6ab1f81bbd68ac9ae8b88de071c92d29d686865c608610bf3b8c",
+        "server-gascan.log": "d7cab0cef0ed4134572682c12342131861a572c508693a11900baaa1cdb631fc",
+        "server-lobbyreservation.log": "07bbd95c47cfb6a4ad82f4342af694168ae11cdaf76ae9d678fa65ae22261ccd",
+        "server-meleeinfo.log": "af31343013a0c72e8bfd8177bbcd5068af34e0cb7039c1cd04816b065eab9721",
+        "server-molotov.log": "79ae325dd06ebfe089e8fa1bc71c5e85174a40bdd02bbf475b437532f1658572",
+        "server-pipebomb.log": "1d38c5bc6ad51426c1a3efed472ba8d2d12c963607ed33137284173b3ed18ffa",
+        "server-spawn.log": "9d8e150476ecb1ff073c3c53674a567b5acc729c08136fafc6d9f21fabe10629",
+        "server-stagger.log": "4d6ba4f5bd72b9a4077a865d19b0cdadc6d351d1b4dbd1db2da457752980e6a3",
+        "server-vomit.log": "741891b165f76c1a1dd477a875ddf3bec09692606d7415141ea179e53d334c4b",
+        "server-weaponattr.log": "7330e099154a8cc5ed856b756ef95a4a4df7e15f4b32b0e72f0b83ffa869d621"
+      },
+      "retained_server_log_hashes_verified": true,
+      "evidence_directory": "l4d2-left4dhooks-api-regressions-medium-gold-1789961590680220300",
+      "expected_outcome_confirmed": true,
+      "expected_cases_in_selected_scope": 71,
+      "emitted_exact_verdict_count": true
+    },
+    {
+      "task": "l4d2-left4dhooks-api-regressions-medium",
+      "candidate": "nop",
+      "profile": "full",
+      "expected_full_cases": 71,
+      "complete_full_case_set": true,
+      "timed_out": false,
+      "group": null,
+      "exit_code": 1,
+      "component_hashes": {
+        "instruction.md": "8a8ab2a8a8053a0308d35713c9bb1a174b7339344b07f49d4f3acabcadfb429b",
+        "task.toml": "c5a3f15392f462b8d7404afab9e6a1c2eaa3a1b9575a49f01127c29d39aa1b4a",
+        "environment": "6cba951d863bed946315de191a1cedef7b6ce087e617881c1e6cdb88d5e20c1f",
+        "tests": "6e5baf3f74d0fc8be2cff5c71afd4e5f5389890301e9813da21a63208dca78ad",
+        "solution": "1fcf84270c9de3e316379987ac84fe2ce645bfa648b7a97938f9e2655a0b15fa",
+        "validation/case-contracts.tsv": "6b108397af861db7c864317093e143051c48b3d67b2dd8eb3635862c22b6bfc9"
+      },
+      "hash_algorithm": "sha256-relpath-nul-content-nul-posix-lexical-v1",
+      "contract": "927a53bd0f1402ef877c7d99b115479d449ce596a1d1b1888e7ae4b1ed7788c2",
+      "runtime_image_id": "sha256:af58da986d0f3187d359d86a45e405adc658f368e671ae8f3ae1deded0125dc1",
+      "source_hash": "c69cf39093ddff62d70284209bf87c1b44dabd20af1dd72500179734917ff41f",
+      "tests_hash": "6e5baf3f74d0fc8be2cff5c71afd4e5f5389890301e9813da21a63208dca78ad",
+      "input_transport": "readonly-linux-volume",
+      "cases": [
+        {
+          "case": "spawn_timer_public_include_abi_matches_runtime",
+          "status": "FAIL",
+          "detail": "submitted public include does not expose the required float declaration"
+        },
+        {
+          "case": "runtime_ammo_library_loaded",
+          "status": "PASS",
+          "detail": "left4dhooks library is available"
+        },
+        {
+          "case": "ammo_index_range_is_engine_valid",
+          "status": "PASS",
+          "detail": "AmmoDef exposes a bounded index range"
+        },
+        {
+          "case": "ammo_names_are_nonempty",
+          "status": "FAIL",
+          "detail": "every valid Ammo_t has a name"
+        },
+        {
+          "case": "ammo_name_roundtrips_to_index",
+          "status": "FAIL",
+          "detail": "AmmoDef.Index(GetName()) recovers the source index"
+        },
+        {
+          "case": "ammo_names_are_stable_and_unique",
+          "status": "FAIL",
+          "detail": "repeated reads agree and valid entries are distinct"
+        },
+        {
+          "case": "ammo_getname_preserves_other_fields",
+          "status": "PASS",
+          "detail": "GetName does not mutate nDamageType"
+        },
+        {
+          "case": "runtime_vomit_library_loaded",
+          "status": "PASS",
+          "detail": "left4dhooks library is available"
+        },
+        {
+          "case": "vomit_pre_forward_once",
+          "status": "FAIL",
+          "detail": "one bile-jar creation dispatches one pre forward"
+        },
+        {
+          "case": "vomit_post_forward_once",
+          "status": "FAIL",
+          "detail": "one unblocked creation dispatches one post forward"
+        },
+        {
+          "case": "vomit_projectile_result_and_arguments",
+          "status": "FAIL",
+          "detail": "non-zero owner and all vector parameters match the created entity and post forward"
+        },
+        {
+          "case": "vomit_changed_vectors_reach_creation_and_post",
+          "status": "FAIL",
+          "detail": "Plugin_Changed copyback reaches the engine entity and the post forward"
+        },
+        {
+          "case": "vomit_handled_path_is_preserved",
+          "status": "FAIL",
+          "detail": "Plugin_Handled blocks creation and PostHandled keeps owner/vector semantics"
+        },
+        {
+          "case": "molotov_forward_family_remains_functional",
+          "status": "PASS",
+          "detail": "normal Molotov creation retains its pre/post forward contract"
+        },
+        {
+          "case": "vomit_creation_never_dispatches_molotov_family",
+          "status": "PASS",
+          "detail": "bile creation dispatches only the VomitJar family"
+        },
+        {
+          "case": "runtime_spawn_library_loaded",
+          "status": "PASS",
+          "detail": "left4dhooks library is available"
+        },
+        {
+          "case": "spawn_timer_invalid_zero",
+          "status": "FAIL",
+          "detail": "client zero returns -1.0"
+        },
+        {
+          "case": "spawn_timer_invalid_above_max",
+          "status": "FAIL",
+          "detail": "client above MaxClients returns -1.0"
+        },
+        {
+          "case": "spawn_timer_returns_absolute_field",
+          "status": "FAIL",
+          "detail": "direct API exposes m_flBecomeGhostAt"
+        },
+        {
+          "case": "spawn_timer_updates_and_relative_api_remains_distinct",
+          "status": "FAIL",
+          "detail": "direct and relative APIs retain separate contracts"
+        },
+        {
+          "case": "spawn_timer_read_preserves_adjacent_state",
+          "status": "PASS",
+          "detail": "direct reads do not alter client state"
+        },
+        {
+          "case": "runtime_weaponattr_library_loaded",
+          "status": "PASS",
+          "detail": "left4dhooks and the engine rifle definition are available"
+        },
+        {
+          "case": "ordinary_float_weapon_attribute_roundtrips",
+          "status": "PASS",
+          "detail": "ordinary decimal float attributes round-trip unchanged"
+        },
+        {
+          "case": "penetration_layers_store_integral_count",
+          "status": "FAIL",
+          "detail": "3.75 stores and reads as the integral layer count 3.0"
+        },
+        {
+          "case": "penetration_layers_preserve_adjacent_power",
+          "status": "PASS",
+          "detail": "setting layer count leaves adjacent penetration power unchanged"
+        },
+        {
+          "case": "missing_float_weapon_attribute_returns_negative_one",
+          "status": "FAIL",
+          "detail": "missing weapon returns numeric -1.0"
+        },
+        {
+          "case": "runtime_animhook_library_loaded",
+          "status": "PASS",
+          "detail": "left4dhooks accepts hooks for two real client slots"
+        },
+        {
+          "case": "two_client_animation_hooks_fire",
+          "status": "PASS",
+          "detail": "both client hooks receive real animation selection callbacks"
+        },
+        {
+          "case": "reenabled_animation_hook_not_duplicated",
+          "status": "FAIL",
+          "detail": "disable/re-enable leaves one callback registration"
+        },
+        {
+          "case": "peer_animation_hook_survives_other_client_cycle",
+          "status": "PASS",
+          "detail": "the peer client remains independently hooked"
+        },
+        {
+          "case": "final_disable_removes_selected_client_callback",
+          "status": "PASS",
+          "detail": "final disable stops only the selected client callback"
+        },
+        {
+          "case": "runtime_pipebomb_library_loaded",
+          "status": "PASS",
+          "detail": "left4dhooks library is available"
+        },
+        {
+          "case": "real_pipebomb_creation_forwards_once",
+          "status": "PASS",
+          "detail": "one real pipe-bomb creation dispatches exactly one matching pre/post pair"
+        },
+        {
+          "case": "real_pipebomb_detonation_forwards_once",
+          "status": "PASS",
+          "detail": "one real pipe-bomb detonation dispatches exactly one matching pre/post pair"
+        },
+        {
+          "case": "breakable_prop_real_break_path_completes",
+          "status": "PASS",
+          "detail": "a real breakable physics prop reaches its engine break lifecycle"
+        },
+        {
+          "case": "breakable_prop_never_dispatches_pipebomb_creation",
+          "status": "FAIL",
+          "detail": "breaking a non-pipe-bomb prop does not dispatch pipe-bomb creation forwards"
+        },
+        {
+          "case": "breakable_prop_never_dispatches_pipebomb_detonation",
+          "status": "FAIL",
+          "detail": "breaking a non-pipe-bomb prop does not dispatch pipe-bomb detonation forwards"
+        },
+        {
+          "case": "runtime_campaign_scores_library_loaded",
+          "status": "FAIL",
+          "detail": "L 09/21/2026 - 03:36:24: [SM] Call stack trace:"
+        },
+        {
+          "case": "campaign_scores_pre_forward_once",
+          "status": "FAIL",
+          "detail": "L 09/21/2026 - 03:36:24: [SM] Call stack trace:"
+        },
+        {
+          "case": "campaign_scores_pre_receives_original_values",
+          "status": "FAIL",
+          "detail": "L 09/21/2026 - 03:36:24: [SM] Call stack trace:"
+        },
+        {
+          "case": "campaign_scores_post_forward_once",
+          "status": "FAIL",
+          "detail": "L 09/21/2026 - 03:36:24: [SM] Call stack trace:"
+        },
+        {
+          "case": "campaign_scores_changed_values_reach_post",
+          "status": "FAIL",
+          "detail": "L 09/21/2026 - 03:36:24: [SM] Call stack trace:"
+        },
+        {
+          "case": "runtime_melee_info_library_loaded",
+          "status": "FAIL",
+          "detail": "suite did not complete its exact case contract"
+        },
+        {
+          "case": "melee_float_attribute_is_readable",
+          "status": "FAIL",
+          "detail": "suite did not complete its exact case contract"
+        },
+        {
+          "case": "melee_int_attribute_is_readable",
+          "status": "FAIL",
+          "detail": "suite did not complete its exact case contract"
+        },
+        {
+          "case": "melee_bool_attribute_is_stable",
+          "status": "FAIL",
+          "detail": "suite did not complete its exact case contract"
+        },
+        {
+          "case": "melee_float_attribute_roundtrips_and_restores",
+          "status": "FAIL",
+          "detail": "suite did not complete its exact case contract"
+        },
+        {
+          "case": "runtime_stagger_library_and_clients_ready",
+          "status": "PASS",
+          "detail": "a live survivor and live special infected exercise the public natives"
+        },
+        {
+          "case": "initial_stagger_becomes_active",
+          "status": "PASS",
+          "detail": "the first real stagger is observable"
+        },
+        {
+          "case": "same_frame_restagger_survives_cancel_window",
+          "status": "FAIL",
+          "detail": "an immediate new stagger keeps its animation active through the cancellation window"
+        },
+        {
+          "case": "next_frame_restagger_survives_cancel_window",
+          "status": "FAIL",
+          "detail": "a next-frame stagger keeps its animation active through the cancellation window"
+        },
+        {
+          "case": "completed_cancel_still_allows_later_stagger",
+          "status": "PASS",
+          "detail": "a completed cancellation does not disable future stagger behavior"
+        },
+        {
+          "case": "runtime_unpicked_gascan_fixture_ready",
+          "status": "PASS",
+          "detail": "the library, survivor attacker, and an unpicked physical gas can are available"
+        },
+        {
+          "case": "unpicked_gascan_pre_forward_once",
+          "status": "FAIL",
+          "detail": "damaging one never-picked-up gas can dispatches exactly one pre forward"
+        },
+        {
+          "case": "unpicked_gascan_pre_forward_arguments",
+          "status": "FAIL",
+          "detail": "the pre forward identifies the damaged gas can and its real inflictor and attacker"
+        },
+        {
+          "case": "unpicked_gascan_post_forward_once",
+          "status": "FAIL",
+          "detail": "the same damage dispatches exactly one post forward"
+        },
+        {
+          "case": "unpicked_gascan_post_forward_arguments",
+          "status": "FAIL",
+          "detail": "the post forward preserves the matching gas can, inflictor, and attacker"
+        },
+        {
+          "case": "weapon_gascan_path_dispatches_once",
+          "status": "PASS",
+          "detail": "the existing weapon-gas-can class path still dispatches one pre/post pair without duplication"
+        },
+        {
+          "case": "weapon_gascan_path_preserves_arguments",
+          "status": "PASS",
+          "detail": "the existing class path preserves its real inflictor and attacker"
+        },
+        {
+          "case": "ordinary_physics_prop_never_dispatches_gascan_family",
+          "status": "PASS",
+          "detail": "damaging an ordinary physics prop does not dispatch gas-can forwards"
+        },
+        {
+          "case": "runtime_entity_address_library_loaded",
+          "status": "PASS",
+          "detail": "the published entity-address native is available after a normal load"
+        },
+        {
+          "case": "entity_address_fixture_covers_engine_entities",
+          "status": "PASS",
+          "detail": "checked=1215 non-edict=205"
+        },
+        {
+          "case": "entity_addresses_roundtrip_for_all_live_entities",
+          "status": "FAIL",
+          "detail": "round-tripped=1010/1215"
+        },
+        {
+          "case": "non_edict_entity_addresses_roundtrip",
+          "status": "FAIL",
+          "detail": "non-edict round-tripped=0/205"
+        },
+        {
+          "case": "entity_address_lookup_is_stable",
+          "status": "PASS",
+          "detail": "two reads of every live entity address return the same engine index"
+        },
+        {
+          "case": "null_entity_address_returns_negative_one",
+          "status": "PASS",
+          "detail": "the null address remains the documented invalid lookup"
+        },
+        {
+          "case": "runtime_lobby_reservation_library_loaded",
+          "status": "FAIL",
+          "detail": "suite did not complete its exact case contract"
+        },
+        {
+          "case": "short_lobby_cookie_call_survives",
+          "status": "FAIL",
+          "detail": "suite did not complete its exact case contract"
+        },
+        {
+          "case": "short_lobby_cookie_preserves_word_placement",
+          "status": "FAIL",
+          "detail": "suite did not complete its exact case contract"
+        },
+        {
+          "case": "full_lobby_cookie_roundtrips",
+          "status": "FAIL",
+          "detail": "suite did not complete its exact case contract"
+        },
+        {
+          "case": "lobby_cookie_can_be_restored",
+          "status": "FAIL",
+          "detail": "suite did not complete its exact case contract"
+        }
+      ],
+      "passed": 30,
+      "total": 71,
+      "verifier_log_sha256": "e4dfabcec21e68b27ccfb79c5fa1b39124a4a2021819c0058c222d61f3a9a2cc",
+      "logs_copied": true,
+      "server_log_hashes": {
+        "server-ammo.log": "b042e8ca2f67d0df716bc9a88ebbc7fb228b9218f503c5f47e39c7ab9b3ccdb5",
+        "server-animhook.log": "41be002d663ed0724ed50396c7390496233c5432915b25fa8f99a6533477fb7e",
+        "server-campaignscores.log": "1e259253334152772f3ed9e9ceabbb999de90fb2655215d8edc9f65d8a953caa",
+        "server-entityaddress.log": "b0fa57c28562b8cc60438f44ad5629b5cd9184db2cf5d4552aa2436cbbdc4ab1",
+        "server-gascan.log": "73c3be6f6ab2af36e4e263d2fc7976cd26332bf985613ff2f15a6e9df4fab977",
+        "server-lobbyreservation.log": "8cc8ba521327eebc3b6a0df91776d59736dc34452631ba582a5d43758878bdc9",
+        "server-meleeinfo.log": "bab68b198eec8f83e6130417bcbbaa7dffa93790a0aa770fd365e035f4b56daa",
+        "server-molotov.log": "95ac5426af552a0e610b50ddb255a2cbaac2a7ea68c4781adf1f8bbcaf10f442",
+        "server-pipebomb.log": "225876e3dcc2e1c61763403c9aa814db2c380a1bdbafdd439dadf012b63ffb78",
+        "server-spawn.log": "f0f0e9cdff128da99f347740e55eab326e3d4539efe4d7c970abd659dfc82dbe",
+        "server-stagger.log": "c65e75e5bc32edd902f56a748c7bb2636a13d9ba4486899e968debdd7e62d6a8",
+        "server-vomit.log": "890d9dc4c7e1c0e6153a4080a49f17e39819e49ca7a65937df48e70936a87495",
+        "server-weaponattr.log": "043ca24560a8f41b16d91aa90b5ec83361f950796cc2dec68ce066bb984c47ad"
+      },
+      "retained_server_log_hashes_verified": true,
+      "evidence_directory": "l4d2-left4dhooks-api-regressions-medium-nop-1789961720377631100",
+      "expected_outcome_confirmed": true,
+      "expected_cases_in_selected_scope": 71,
+      "emitted_exact_verdict_count": true
+    },
+    {
+      "task": "l4d2-left4dhooks-api-regressions-medium",
+      "candidate": "equivalent-long-docs",
+      "profile": "full",
+      "expected_full_cases": 71,
+      "complete_full_case_set": true,
+      "timed_out": false,
+      "group": null,
+      "exit_code": 0,
+      "component_hashes": {
+        "instruction.md": "8a8ab2a8a8053a0308d35713c9bb1a174b7339344b07f49d4f3acabcadfb429b",
+        "task.toml": "c5a3f15392f462b8d7404afab9e6a1c2eaa3a1b9575a49f01127c29d39aa1b4a",
+        "environment": "6cba951d863bed946315de191a1cedef7b6ce087e617881c1e6cdb88d5e20c1f",
+        "tests": "6e5baf3f74d0fc8be2cff5c71afd4e5f5389890301e9813da21a63208dca78ad",
+        "solution": "1fcf84270c9de3e316379987ac84fe2ce645bfa648b7a97938f9e2655a0b15fa",
+        "validation/case-contracts.tsv": "6b108397af861db7c864317093e143051c48b3d67b2dd8eb3635862c22b6bfc9"
+      },
+      "hash_algorithm": "sha256-relpath-nul-content-nul-posix-lexical-v1",
+      "contract": "927a53bd0f1402ef877c7d99b115479d449ce596a1d1b1888e7ae4b1ed7788c2",
+      "runtime_image_id": "sha256:af58da986d0f3187d359d86a45e405adc658f368e671ae8f3ae1deded0125dc1",
+      "source_hash": "0fa3ff3cabacb240f7e9ff5c75801a580ee0bb39c8a286a6dcd1a39dc08e463e",
+      "tests_hash": "6e5baf3f74d0fc8be2cff5c71afd4e5f5389890301e9813da21a63208dca78ad",
+      "input_transport": "readonly-linux-volume",
+      "cases": [
+        {
+          "case": "spawn_timer_public_include_abi_matches_runtime",
+          "status": "PASS",
+          "detail": "submitted public include declares float and compiles a float ABI consumer"
+        },
+        {
+          "case": "runtime_ammo_library_loaded",
+          "status": "PASS",
+          "detail": "left4dhooks library is available"
+        },
+        {
+          "case": "ammo_index_range_is_engine_valid",
+          "status": "PASS",
+          "detail": "AmmoDef exposes a bounded index range"
+        },
+        {
+          "case": "ammo_names_are_nonempty",
+          "status": "PASS",
+          "detail": "every valid Ammo_t has a name"
+        },
+        {
+          "case": "ammo_name_roundtrips_to_index",
+          "status": "PASS",
+          "detail": "AmmoDef.Index(GetName()) recovers the source index"
+        },
+        {
+          "case": "ammo_names_are_stable_and_unique",
+          "status": "PASS",
+          "detail": "repeated reads agree and valid entries are distinct"
+        },
+        {
+          "case": "ammo_getname_preserves_other_fields",
+          "status": "PASS",
+          "detail": "GetName does not mutate nDamageType"
+        },
+        {
+          "case": "runtime_vomit_library_loaded",
+          "status": "PASS",
+          "detail": "left4dhooks library is available"
+        },
+        {
+          "case": "vomit_pre_forward_once",
+          "status": "PASS",
+          "detail": "one bile-jar creation dispatches one pre forward"
+        },
+        {
+          "case": "vomit_post_forward_once",
+          "status": "PASS",
+          "detail": "one unblocked creation dispatches one post forward"
+        },
+        {
+          "case": "vomit_projectile_result_and_arguments",
+          "status": "PASS",
+          "detail": "non-zero owner and all vector parameters match the created entity and post forward"
+        },
+        {
+          "case": "vomit_changed_vectors_reach_creation_and_post",
+          "status": "PASS",
+          "detail": "Plugin_Changed copyback reaches the engine entity and the post forward"
+        },
+        {
+          "case": "vomit_handled_path_is_preserved",
+          "status": "PASS",
+          "detail": "Plugin_Handled blocks creation and PostHandled keeps owner/vector semantics"
+        },
+        {
+          "case": "molotov_forward_family_remains_functional",
+          "status": "PASS",
+          "detail": "normal Molotov creation retains its pre/post forward contract"
+        },
+        {
+          "case": "vomit_creation_never_dispatches_molotov_family",
+          "status": "PASS",
+          "detail": "bile creation dispatches only the VomitJar family"
+        },
+        {
+          "case": "runtime_spawn_library_loaded",
+          "status": "PASS",
+          "detail": "left4dhooks library is available"
+        },
+        {
+          "case": "spawn_timer_invalid_zero",
+          "status": "PASS",
+          "detail": "client zero returns -1.0"
+        },
+        {
+          "case": "spawn_timer_invalid_above_max",
+          "status": "PASS",
+          "detail": "client above MaxClients returns -1.0"
+        },
+        {
+          "case": "spawn_timer_returns_absolute_field",
+          "status": "PASS",
+          "detail": "direct API exposes m_flBecomeGhostAt"
+        },
+        {
+          "case": "spawn_timer_updates_and_relative_api_remains_distinct",
+          "status": "PASS",
+          "detail": "direct and relative APIs retain separate contracts"
+        },
+        {
+          "case": "spawn_timer_read_preserves_adjacent_state",
+          "status": "PASS",
+          "detail": "direct reads do not alter client state"
+        },
+        {
+          "case": "runtime_weaponattr_library_loaded",
+          "status": "PASS",
+          "detail": "left4dhooks and the engine rifle definition are available"
+        },
+        {
+          "case": "ordinary_float_weapon_attribute_roundtrips",
+          "status": "PASS",
+          "detail": "ordinary decimal float attributes round-trip unchanged"
+        },
+        {
+          "case": "penetration_layers_store_integral_count",
+          "status": "PASS",
+          "detail": "3.75 stores and reads as the integral layer count 3.0"
+        },
+        {
+          "case": "penetration_layers_preserve_adjacent_power",
+          "status": "PASS",
+          "detail": "setting layer count leaves adjacent penetration power unchanged"
+        },
+        {
+          "case": "missing_float_weapon_attribute_returns_negative_one",
+          "status": "PASS",
+          "detail": "missing weapon returns numeric -1.0"
+        },
+        {
+          "case": "runtime_animhook_library_loaded",
+          "status": "PASS",
+          "detail": "left4dhooks accepts hooks for two real client slots"
+        },
+        {
+          "case": "two_client_animation_hooks_fire",
+          "status": "PASS",
+          "detail": "both client hooks receive real animation selection callbacks"
+        },
+        {
+          "case": "reenabled_animation_hook_not_duplicated",
+          "status": "PASS",
+          "detail": "disable/re-enable leaves one callback registration"
+        },
+        {
+          "case": "peer_animation_hook_survives_other_client_cycle",
+          "status": "PASS",
+          "detail": "the peer client remains independently hooked"
+        },
+        {
+          "case": "final_disable_removes_selected_client_callback",
+          "status": "PASS",
+          "detail": "final disable stops only the selected client callback"
+        },
+        {
+          "case": "runtime_pipebomb_library_loaded",
+          "status": "PASS",
+          "detail": "left4dhooks library is available"
+        },
+        {
+          "case": "real_pipebomb_creation_forwards_once",
+          "status": "PASS",
+          "detail": "one real pipe-bomb creation dispatches exactly one matching pre/post pair"
+        },
+        {
+          "case": "real_pipebomb_detonation_forwards_once",
+          "status": "PASS",
+          "detail": "one real pipe-bomb detonation dispatches exactly one matching pre/post pair"
+        },
+        {
+          "case": "breakable_prop_real_break_path_completes",
+          "status": "PASS",
+          "detail": "a real breakable physics prop reaches its engine break lifecycle"
+        },
+        {
+          "case": "breakable_prop_never_dispatches_pipebomb_creation",
+          "status": "PASS",
+          "detail": "breaking a non-pipe-bomb prop does not dispatch pipe-bomb creation forwards"
+        },
+        {
+          "case": "breakable_prop_never_dispatches_pipebomb_detonation",
+          "status": "PASS",
+          "detail": "breaking a non-pipe-bomb prop does not dispatch pipe-bomb detonation forwards"
+        },
+        {
+          "case": "runtime_campaign_scores_library_loaded",
+          "status": "PASS",
+          "detail": "left4dhooks library is available"
+        },
+        {
+          "case": "campaign_scores_pre_forward_once",
+          "status": "PASS",
+          "detail": "one engine score update dispatches one pre forward"
+        },
+        {
+          "case": "campaign_scores_pre_receives_original_values",
+          "status": "PASS",
+          "detail": "the pre forward receives both original score values"
+        },
+        {
+          "case": "campaign_scores_post_forward_once",
+          "status": "PASS",
+          "detail": "one engine score update dispatches one post forward"
+        },
+        {
+          "case": "campaign_scores_changed_values_reach_post",
+          "status": "PASS",
+          "detail": "Plugin_Changed score values reach the post forward as ordinary values"
+        },
+        {
+          "case": "runtime_melee_info_library_loaded",
+          "status": "PASS",
+          "detail": "left4dhooks and the map's fireaxe melee definition are available"
+        },
+        {
+          "case": "melee_float_attribute_is_readable",
+          "status": "PASS",
+          "detail": "the real fireaxe damage attribute is a bounded positive float"
+        },
+        {
+          "case": "melee_int_attribute_is_readable",
+          "status": "PASS",
+          "detail": "the real fireaxe damage flags are readable"
+        },
+        {
+          "case": "melee_bool_attribute_is_stable",
+          "status": "PASS",
+          "detail": "repeated reads of the real decapitation flag agree"
+        },
+        {
+          "case": "melee_float_attribute_roundtrips_and_restores",
+          "status": "PASS",
+          "detail": "a temporary fireaxe damage update round-trips and restores the original value"
+        },
+        {
+          "case": "runtime_stagger_library_and_clients_ready",
+          "status": "PASS",
+          "detail": "a live survivor and live special infected exercise the public natives"
+        },
+        {
+          "case": "initial_stagger_becomes_active",
+          "status": "PASS",
+          "detail": "the first real stagger is observable"
+        },
+        {
+          "case": "same_frame_restagger_survives_cancel_window",
+          "status": "PASS",
+          "detail": "an immediate new stagger keeps its animation active through the cancellation window"
+        },
+        {
+          "case": "next_frame_restagger_survives_cancel_window",
+          "status": "PASS",
+          "detail": "a next-frame stagger keeps its animation active through the cancellation window"
+        },
+        {
+          "case": "completed_cancel_still_allows_later_stagger",
+          "status": "PASS",
+          "detail": "a completed cancellation does not disable future stagger behavior"
+        },
+        {
+          "case": "runtime_unpicked_gascan_fixture_ready",
+          "status": "PASS",
+          "detail": "the library, survivor attacker, and an unpicked physical gas can are available"
+        },
+        {
+          "case": "unpicked_gascan_pre_forward_once",
+          "status": "PASS",
+          "detail": "damaging one never-picked-up gas can dispatches exactly one pre forward"
+        },
+        {
+          "case": "unpicked_gascan_pre_forward_arguments",
+          "status": "PASS",
+          "detail": "the pre forward identifies the damaged gas can and its real inflictor and attacker"
+        },
+        {
+          "case": "unpicked_gascan_post_forward_once",
+          "status": "PASS",
+          "detail": "the same damage dispatches exactly one post forward"
+        },
+        {
+          "case": "unpicked_gascan_post_forward_arguments",
+          "status": "PASS",
+          "detail": "the post forward preserves the matching gas can, inflictor, and attacker"
+        },
+        {
+          "case": "weapon_gascan_path_dispatches_once",
+          "status": "PASS",
+          "detail": "the existing weapon-gas-can class path still dispatches one pre/post pair without duplication"
+        },
+        {
+          "case": "weapon_gascan_path_preserves_arguments",
+          "status": "PASS",
+          "detail": "the existing class path preserves its real inflictor and attacker"
+        },
+        {
+          "case": "ordinary_physics_prop_never_dispatches_gascan_family",
+          "status": "PASS",
+          "detail": "damaging an ordinary physics prop does not dispatch gas-can forwards"
+        },
+        {
+          "case": "runtime_entity_address_library_loaded",
+          "status": "PASS",
+          "detail": "the published entity-address native is available after a normal load"
+        },
+        {
+          "case": "entity_address_fixture_covers_engine_entities",
+          "status": "PASS",
+          "detail": "checked=1214 non-edict=205"
+        },
+        {
+          "case": "entity_addresses_roundtrip_for_all_live_entities",
+          "status": "PASS",
+          "detail": "round-tripped=1214/1214"
+        },
+        {
+          "case": "non_edict_entity_addresses_roundtrip",
+          "status": "PASS",
+          "detail": "non-edict round-tripped=205/205"
+        },
+        {
+          "case": "entity_address_lookup_is_stable",
+          "status": "PASS",
+          "detail": "two reads of every live entity address return the same engine index"
+        },
+        {
+          "case": "null_entity_address_returns_negative_one",
+          "status": "PASS",
+          "detail": "the null address remains the documented invalid lookup"
+        },
+        {
+          "case": "runtime_lobby_reservation_library_loaded",
+          "status": "PASS",
+          "detail": "the published lobby reservation natives are available"
+        },
+        {
+          "case": "short_lobby_cookie_call_survives",
+          "status": "PASS",
+          "detail": "a one-digit hexadecimal cookie returns normally without a native error"
+        },
+        {
+          "case": "short_lobby_cookie_preserves_word_placement",
+          "status": "PASS",
+          "detail": "the one-digit cookie retains the established high-word representation"
+        },
+        {
+          "case": "full_lobby_cookie_roundtrips",
+          "status": "PASS",
+          "detail": "a full 64-bit hexadecimal cookie round-trips exactly"
+        },
+        {
+          "case": "lobby_cookie_can_be_restored",
+          "status": "PASS",
+          "detail": "the original reservation cookie is restored after the checks"
+        }
+      ],
+      "passed": 71,
+      "total": 71,
+      "verifier_log_sha256": "1a15b8482047b6caeb19b48496d91a0bf2fddd05d2122bb1e469620672fc33cf",
+      "logs_copied": true,
+      "server_log_hashes": {
+        "server-ammo.log": "c55656343738ec04eabce266b1d7c9bf3e9ce01c4ad9513d399bfe59171f3498",
+        "server-animhook.log": "c6ade60c9adb238a497e6fa7d39d2c34698c32958d77a6ae6eea94dd024c6a59",
+        "server-campaignscores.log": "cbe91492e0ee9cd59db8597705a94eb88423a04e85cd179e3bbd810ef7bcd518",
+        "server-entityaddress.log": "7f4f82da68e58697c11ee4546f557d7e6c48d44b91ebdb95f43df4a17c30a5c2",
+        "server-gascan.log": "0b30b8894b4fb1605c084a8a722dc62ee0daa6d3d633c56a1fb0b7273ad7f30d",
+        "server-lobbyreservation.log": "55e0b284bcadc3431c0a982ba584adb975f88a5c054776b2feb80c3e259b2f9b",
+        "server-meleeinfo.log": "f8b5ab5d68748136396a74441712b55e92c21d16314966a23e046948459ef2ea",
+        "server-molotov.log": "171ffd23d17c8e62027bce1cd680cee09cb0d1cc2ebb7ed022538cd5bf25ae23",
+        "server-pipebomb.log": "0119b6b10fb77ba04fd65696ccf671a81be9ebcf5484b7d4b9ab86773ce5b21e",
+        "server-spawn.log": "58dd2aac12f5be3d8e06a6bdab6655068f87e9ef9e31452dbf01c09b9b598d4d",
+        "server-stagger.log": "e46f2c75156a708aa098cccbae96476047a34fa6df9ca71f0ee57fc868613bb0",
+        "server-vomit.log": "779e08b01223ec350497a314d31dbaabf2a12069411b198aae9a1b0adf4aad67",
+        "server-weaponattr.log": "be9f49678620964a4a203256395449502907494cd74b12053f6e11fa96464358"
+      },
+      "retained_server_log_hashes_verified": true,
+      "evidence_directory": "l4d2-left4dhooks-api-regressions-medium-equivalent-long-docs-1789961877317641800",
+      "expected_outcome_confirmed": true,
+      "expected_cases_in_selected_scope": 71,
+      "emitted_exact_verdict_count": true
+    }
+  ]
+}

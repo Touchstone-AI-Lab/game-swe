@@ -1,0 +1,6 @@
+control	kind	base	overlay	root	note
+target-negative-radius-five	target-negative	reference	patch:target-negative-radius-five.patch	.	reference whose radial search stops at radius 5
+compat-negative-impassable-not-skipped	compat-negative	reference	patch:compat-negative-impassable-not-skipped.patch	.	reference that also takes ingredients from impassable no-surface cells
+compat-negative-consumes-non-items	compat-negative	reference	patch:compat-negative-consumes-non-items.patch	.	reference that also consumes non-item things of a requested def
+alternative-a	alternative	starter	tree:alternative-a	.	own search: DistanceToSquared-sorted stack cells, radial loop with a HashSet of checked cells, snapshot-based consumption
+alternative-strict-reading-vanilla-200	alternative	reference	patch:alternative-strict-reading-vanilla-200.patch	.	reads vanilla-equivalent literally: the first 200 radial cells, as Toils_JobTransforms.IngredientPlaceCellsInOrder walks

@@ -1,0 +1,33 @@
+diff --git a/main.lua b/main.lua
+--- a/main.lua
++++ b/main.lua
+@@ -304,7 +304,7 @@
+             FORBIDDEN_FRUIT = { UseCount = 0 },
+             BASEBALL_MITT = { Used = false, Lifted = true, BallsCaught = 0, UseDelay = 0 },
+             PSEUDOBULBAR_AFFECT = { Icon = Sprite() },
+-            OMINOUS_LANTERN = { Fired = true, Lifted = false, Hid = false, LastEnemyHit = nil, FrameModifier = 300 },
++            OMINOUS_LANTERN = { Fired = true, Lifted = false, LastEnemyHit = nil, FrameModifier = 300 },
+             HURDLE_HEELS = { JumpState = 0, FrameUsed = 0, Icon = Sprite() },
+             FULLERS_CLUB = { CollectibleList = {}, ClubDamage = 0, ClubTearDelay = 0, ClubSpeed = 0, ClubLuck = 0, ClubShotSpeed = 0, ClubRange = 0 },
+             WRATH_OF_THE_LAMB = { 
+@@ -2309,11 +2309,6 @@
+             end
+         end
+         
+-        if ItemVariables.OMINOUS_LANTERN.Hid then
+-            ItemVariables.OMINOUS_LANTERN.Hid = false
+-            player:FullCharge()
+-        end
+-        
+         for i, entity in pairs(Isaac.GetRoomEntities()) do
+             if entity.Type == EntityType.ENTITY_TEAR and entity.Variant == Entities.LANTERN_TEAR.variant then
+                 if entity:IsDead() then
+@@ -2492,7 +2487,7 @@
+         if ItemVariables.OMINOUS_LANTERN.Fired == false then
+             ItemVariables.OMINOUS_LANTERN.Fired = true
+             ItemVariables.OMINOUS_LANTERN.Lifted = true
+-            ItemVariables.OMINOUS_LANTERN.Hid = true
++            player:FullCharge()
+             player:AnimateCollectible(ItemId.OMINOUS_LANTERN, "HideItem", "PlayerPickupSparkle")
+         else
+             ItemVariables.OMINOUS_LANTERN.Fired = false

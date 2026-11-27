@@ -1,0 +1,4 @@
+control	kind	base	overlay	root	note
+target-negative-derive-untimed	target-negative	reference	patch:target-negative-derive-untimed.patch	.	Reference with the vector/angle Delta gates fixed but the number Derivative gate left untimed (half of report A).
+compat-negative-timers-kept	compat-negative	reference	patch:compat-negative-timers-kept.patch	.	Reference that never forgets a lambda timer after its last run: every target passes, but a finished timer still reports that it exists.
+alternative-independent-fix	alternative	starter	patch:alternative-independent-fix.patch	.	Starter plus an independent fix for all six reports: timed derivative and dT > 0 guards, a renumbering pass over declared outputs, a cached quota that also follows the unlimited switch, deferred timer removal keyed to its callback, early exits of typed hologram functions return the neutral value of the type declared in each e2function signature, and a statement-only return-type check.

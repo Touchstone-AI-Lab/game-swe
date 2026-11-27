@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="../tModLoader.targets" />
+  <PropertyGroup>
+    <AssemblyName>GcbModLiquid</AssemblyName>
+    <LangVersion>latest</LangVersion>
+    <Nullable>enable</Nullable>
+    <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
+    <CandidateRoot Condition="'$(CandidateRoot)' == ''">/workspace/solution</CandidateRoot>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Krafs.Publicizer" Version="2.2.1" PrivateAssets="all" />
+    <Publicize Include="tModLoader" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="GcbModLiquid.cs" />
+    <Compile Include="EngineSupport.cs" />
+    <Compile Include="VerifierSystem.cs" />
+    <Compile Include="$(CandidateRoot)/mod-liquid-lib/ModLoader/MapEntry.cs" Link="Production/MapEntry.cs" />
+    <Compile Include="$(CandidateRoot)/mod-liquid-lib/ModLoader/MapLiquidLoader.cs" Link="Production/MapLiquidLoader.cs" />
+    <Compile Include="$(CandidateRoot)/mod-liquid-lib/IO/MapLiquidIO.cs" Link="Production/MapLiquidIO.cs" />
+  </ItemGroup>
+</Project>

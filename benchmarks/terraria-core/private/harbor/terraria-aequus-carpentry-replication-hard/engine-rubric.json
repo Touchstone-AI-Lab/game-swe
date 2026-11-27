@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "mode": "dedicated-server",
+  "cases": [
+    "real_engine_receive_failure_is_transactional",
+    "real_engine_registry_ids_are_serialized",
+    "real_tml_tagcompound_save_is_detached"
+  ],
+  "client_only_exclusions": [
+    "Local-player buff application is client-owned and remains covered by the source-projection layer."
+  ]
+}

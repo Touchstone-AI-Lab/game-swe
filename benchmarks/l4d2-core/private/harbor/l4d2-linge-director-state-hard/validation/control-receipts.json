@@ -1,0 +1,2979 @@
+[
+  {
+    "task": "l4d2-linge-director-state-hard",
+    "candidate": "alternative",
+    "exit_code": 0,
+    "contract": "6b27303496e551ec48444d854021c090f2d946c41c20c99552f5a27bba74b49c",
+    "component_hashes": {
+      "instruction.md": "f7a7d20412af8a02ee3f50edd2c2947de7490cb919524ecee9f77e4c58265963",
+      "task.toml": "66578ea93983fe9aedb9cc198931b926b71ca607f8924b8b533cbae189e806c4",
+      "environment": "8be0a301cd5977aa0ffea4486404bcd98d8fcbff10a2f83394bc11e353076f89",
+      "tests": "ca2b71cfc79def3a77f4eab09829d6ab887067f18ab9d5ec66cc02b24f6093ee",
+      "solution": "c7f61c6c22127551bb003f85bc1e1524c7d1a079d0c6d326f816b75760636b54",
+      "validation/case-contracts.tsv": "b28fc40ed4d45a61c7787363e1dd43e0440e522b6bdcc61023f4ec86c860c18b"
+    },
+    "runtime_image_id": "sha256:3604481021c1b605741e994fb623834fb0725b2309e53b7ed9a4c86fe3fb65cd",
+    "source_hash": "50e8d8ad2b489aaf1945674c123bb2f8e5901c13b2f37bc59a7cc4a678c4897c",
+    "tests_hash": "ca2b71cfc79def3a77f4eab09829d6ab887067f18ab9d5ec66cc02b24f6093ee",
+    "cases": [
+      {
+        "case": "merge-case-input-purity",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "merge-array-no-alias",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "merge-reserved-copy",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "merge-replacement-and-guards",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "restore-array-numeric-order",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "restore-array-invalid-is-atomic",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "restore-array-copy-and-empty",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "config-loadall-missing",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "config-saveall-missing",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "config-bulk-malformed-roots",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "config-sections-identity-and-reserve",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "config-single-recovery-and-preservation",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "event-remove-current-snapshot",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "event-prepend-next-dispatch",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "event-nested-sees-current-registration",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "event-duplicates-binding-index",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "event-nested-reset-isolation",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "event-shared-edits-within-dispatch",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "event-nested-dispatch-payload",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "event-null-and-stop",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "director-whitelist-invalid-and-dedup",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "director-whitelist-without-quantity",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "director-nonarray-clears-restriction",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "director-minimum-obeys-ceiling",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "director-independent-controls",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "director-population-expression",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "director-command-survives-round",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "director-disable-survives-round",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "director-invalid-cache-preserves-choice",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "director-valid-cache-defers-activation",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "director-disable-idempotent",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "director-command-preserves-sentinels",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "director-valid-restore-releases-active-overrides",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "director-invalid-restore-releases-active-overrides",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "event-delayed-queue-snapshot",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "event-delayed-payloads-independent",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "event-delayed-subscribers-at-delivery",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "director-pending-refresh-after-disable",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "director-common-cleanup-fixture",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "director-common-cleanup-enabled",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "director-common-cleanup-disabled",
+        "status": "PASS",
+        "detail": "ok"
+      }
+    ],
+    "passed": 41,
+    "total": 41,
+    "verifier_log_sha256": "237e5d41f4bbf9b99970d3565efdabdc64afcd40ea1fa0c80571bd532b6fa34f",
+    "server_log_sha256": "de22e6bccefdb75272e9a910d93d21cdb5ebffcc8c417eed5baacf1bb77000e9",
+    "local_run": "l4d2-linge-director-state-hard-alternative-1789760651250718900"
+  },
+  {
+    "task": "l4d2-linge-director-state-hard",
+    "candidate": "gold",
+    "exit_code": 0,
+    "contract": "6b27303496e551ec48444d854021c090f2d946c41c20c99552f5a27bba74b49c",
+    "component_hashes": {
+      "instruction.md": "f7a7d20412af8a02ee3f50edd2c2947de7490cb919524ecee9f77e4c58265963",
+      "task.toml": "66578ea93983fe9aedb9cc198931b926b71ca607f8924b8b533cbae189e806c4",
+      "environment": "8be0a301cd5977aa0ffea4486404bcd98d8fcbff10a2f83394bc11e353076f89",
+      "tests": "ca2b71cfc79def3a77f4eab09829d6ab887067f18ab9d5ec66cc02b24f6093ee",
+      "solution": "c7f61c6c22127551bb003f85bc1e1524c7d1a079d0c6d326f816b75760636b54",
+      "validation/case-contracts.tsv": "b28fc40ed4d45a61c7787363e1dd43e0440e522b6bdcc61023f4ec86c860c18b"
+    },
+    "runtime_image_id": "sha256:3604481021c1b605741e994fb623834fb0725b2309e53b7ed9a4c86fe3fb65cd",
+    "source_hash": "e7c2df1fb4b0792336c6c963dab2ce91741606d327c073102cbaaecb56417eff",
+    "tests_hash": "ca2b71cfc79def3a77f4eab09829d6ab887067f18ab9d5ec66cc02b24f6093ee",
+    "cases": [
+      {
+        "case": "merge-case-input-purity",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "merge-array-no-alias",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "merge-reserved-copy",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "merge-replacement-and-guards",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "restore-array-numeric-order",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "restore-array-invalid-is-atomic",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "restore-array-copy-and-empty",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "config-loadall-missing",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "config-saveall-missing",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "config-bulk-malformed-roots",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "config-sections-identity-and-reserve",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "config-single-recovery-and-preservation",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "event-remove-current-snapshot",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "event-prepend-next-dispatch",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "event-nested-sees-current-registration",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "event-duplicates-binding-index",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "event-nested-reset-isolation",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "event-shared-edits-within-dispatch",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "event-nested-dispatch-payload",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "event-null-and-stop",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "director-whitelist-invalid-and-dedup",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "director-whitelist-without-quantity",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "director-nonarray-clears-restriction",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "director-minimum-obeys-ceiling",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "director-independent-controls",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "director-population-expression",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "director-command-survives-round",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "director-disable-survives-round",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "director-invalid-cache-preserves-choice",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "director-valid-cache-defers-activation",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "director-disable-idempotent",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "director-command-preserves-sentinels",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "director-valid-restore-releases-active-overrides",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "director-invalid-restore-releases-active-overrides",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "event-delayed-queue-snapshot",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "event-delayed-payloads-independent",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "event-delayed-subscribers-at-delivery",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "director-pending-refresh-after-disable",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "director-common-cleanup-fixture",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "director-common-cleanup-enabled",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "director-common-cleanup-disabled",
+        "status": "PASS",
+        "detail": "ok"
+      }
+    ],
+    "passed": 41,
+    "total": 41,
+    "verifier_log_sha256": "c6d32a36749385c4ab260996b3198ed6442bf8bc0dbef5de7d1d9a5fe8bdd1c9",
+    "server_log_sha256": "42680f5950702a7bac835886e3e8a3083df4aed338634dfbecb7e610f8eec0b0",
+    "local_run": "l4d2-linge-director-state-hard-gold-1789760649477317300"
+  },
+  {
+    "task": "l4d2-linge-director-state-hard",
+    "candidate": "gold",
+    "exit_code": 0,
+    "contract": "6b27303496e551ec48444d854021c090f2d946c41c20c99552f5a27bba74b49c",
+    "component_hashes": {
+      "instruction.md": "f7a7d20412af8a02ee3f50edd2c2947de7490cb919524ecee9f77e4c58265963",
+      "task.toml": "66578ea93983fe9aedb9cc198931b926b71ca607f8924b8b533cbae189e806c4",
+      "environment": "8be0a301cd5977aa0ffea4486404bcd98d8fcbff10a2f83394bc11e353076f89",
+      "tests": "ca2b71cfc79def3a77f4eab09829d6ab887067f18ab9d5ec66cc02b24f6093ee",
+      "solution": "c7f61c6c22127551bb003f85bc1e1524c7d1a079d0c6d326f816b75760636b54",
+      "validation/case-contracts.tsv": "b28fc40ed4d45a61c7787363e1dd43e0440e522b6bdcc61023f4ec86c860c18b"
+    },
+    "runtime_image_id": "sha256:3604481021c1b605741e994fb623834fb0725b2309e53b7ed9a4c86fe3fb65cd",
+    "source_hash": "e7c2df1fb4b0792336c6c963dab2ce91741606d327c073102cbaaecb56417eff",
+    "tests_hash": "ca2b71cfc79def3a77f4eab09829d6ab887067f18ab9d5ec66cc02b24f6093ee",
+    "cases": [
+      {
+        "case": "merge-case-input-purity",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "merge-array-no-alias",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "merge-reserved-copy",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "merge-replacement-and-guards",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "restore-array-numeric-order",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "restore-array-invalid-is-atomic",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "restore-array-copy-and-empty",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "config-loadall-missing",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "config-saveall-missing",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "config-bulk-malformed-roots",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "config-sections-identity-and-reserve",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "config-single-recovery-and-preservation",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "event-remove-current-snapshot",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "event-prepend-next-dispatch",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "event-nested-sees-current-registration",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "event-duplicates-binding-index",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "event-nested-reset-isolation",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "event-shared-edits-within-dispatch",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "event-nested-dispatch-payload",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "event-null-and-stop",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "director-whitelist-invalid-and-dedup",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "director-whitelist-without-quantity",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "director-nonarray-clears-restriction",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "director-minimum-obeys-ceiling",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "director-independent-controls",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "director-population-expression",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "director-command-survives-round",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "director-disable-survives-round",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "director-invalid-cache-preserves-choice",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "director-valid-cache-defers-activation",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "director-disable-idempotent",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "director-command-preserves-sentinels",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "director-valid-restore-releases-active-overrides",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "director-invalid-restore-releases-active-overrides",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "event-delayed-queue-snapshot",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "event-delayed-payloads-independent",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "event-delayed-subscribers-at-delivery",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "director-pending-refresh-after-disable",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "director-common-cleanup-fixture",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "director-common-cleanup-enabled",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "director-common-cleanup-disabled",
+        "status": "PASS",
+        "detail": "ok"
+      }
+    ],
+    "passed": 41,
+    "total": 41,
+    "verifier_log_sha256": "c6d32a36749385c4ab260996b3198ed6442bf8bc0dbef5de7d1d9a5fe8bdd1c9",
+    "server_log_sha256": "700d665a70495df71817f0a1ed3e69847f36d1435051a7aef2150cd68c33db12",
+    "local_run": "l4d2-linge-director-state-hard-gold-1789760807857191200"
+  },
+  {
+    "task": "l4d2-linge-director-state-hard",
+    "candidate": "minus-report-1",
+    "exit_code": 1,
+    "contract": "6b27303496e551ec48444d854021c090f2d946c41c20c99552f5a27bba74b49c",
+    "component_hashes": {
+      "instruction.md": "f7a7d20412af8a02ee3f50edd2c2947de7490cb919524ecee9f77e4c58265963",
+      "task.toml": "66578ea93983fe9aedb9cc198931b926b71ca607f8924b8b533cbae189e806c4",
+      "environment": "8be0a301cd5977aa0ffea4486404bcd98d8fcbff10a2f83394bc11e353076f89",
+      "tests": "ca2b71cfc79def3a77f4eab09829d6ab887067f18ab9d5ec66cc02b24f6093ee",
+      "solution": "c7f61c6c22127551bb003f85bc1e1524c7d1a079d0c6d326f816b75760636b54",
+      "validation/case-contracts.tsv": "b28fc40ed4d45a61c7787363e1dd43e0440e522b6bdcc61023f4ec86c860c18b"
+    },
+    "runtime_image_id": "sha256:3604481021c1b605741e994fb623834fb0725b2309e53b7ed9a4c86fe3fb65cd",
+    "source_hash": "43ef41351e992da4c18af43c4a847c25c1ff57fa95ef0852b35b1c1770de1ac8",
+    "tests_hash": "ca2b71cfc79def3a77f4eab09829d6ab887067f18ab9d5ec66cc02b24f6093ee",
+    "cases": [
+      {
+        "case": "merge-case-input-purity",
+        "status": "FAIL",
+        "detail": "expected 1, got 2"
+      },
+      {
+        "case": "merge-array-no-alias",
+        "status": "FAIL",
+        "detail": "expected 4, got 9"
+      },
+      {
+        "case": "merge-reserved-copy",
+        "status": "FAIL",
+        "detail": "expected 3, got 10"
+      },
+      {
+        "case": "merge-replacement-and-guards",
+        "status": "FAIL",
+        "detail": "expected 5, got 8"
+      },
+      {
+        "case": "restore-array-numeric-order",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "restore-array-invalid-is-atomic",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "restore-array-copy-and-empty",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "config-loadall-missing",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "config-saveall-missing",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "config-bulk-malformed-roots",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "config-sections-identity-and-reserve",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "config-single-recovery-and-preservation",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "event-remove-current-snapshot",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "event-prepend-next-dispatch",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "event-nested-sees-current-registration",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "event-duplicates-binding-index",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "event-nested-reset-isolation",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "event-shared-edits-within-dispatch",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "event-nested-dispatch-payload",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "event-null-and-stop",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "director-whitelist-invalid-and-dedup",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "director-whitelist-without-quantity",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "director-nonarray-clears-restriction",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "director-minimum-obeys-ceiling",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "director-independent-controls",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "director-population-expression",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "director-command-survives-round",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "director-disable-survives-round",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "director-invalid-cache-preserves-choice",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "director-valid-cache-defers-activation",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "director-disable-idempotent",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "director-command-preserves-sentinels",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "director-valid-restore-releases-active-overrides",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "director-invalid-restore-releases-active-overrides",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "event-delayed-queue-snapshot",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "event-delayed-payloads-independent",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "event-delayed-subscribers-at-delivery",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "director-pending-refresh-after-disable",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "director-common-cleanup-fixture",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "director-common-cleanup-enabled",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "director-common-cleanup-disabled",
+        "status": "PASS",
+        "detail": "ok"
+      }
+    ],
+    "passed": 37,
+    "total": 41,
+    "verifier_log_sha256": "1bfca510f4872b992e39ca77d65a5b70ff0e59a4a109a2f2d9379029ad3bfd61",
+    "server_log_sha256": "334fd27ddf2c9fed9556242471349e487940d34323d1d27da97dc238ecb64a32",
+    "local_run": "l4d2-linge-director-state-hard-minus-report-1-1789760706962036700"
+  },
+  {
+    "task": "l4d2-linge-director-state-hard",
+    "candidate": "minus-report-2",
+    "exit_code": 1,
+    "contract": "6b27303496e551ec48444d854021c090f2d946c41c20c99552f5a27bba74b49c",
+    "component_hashes": {
+      "instruction.md": "f7a7d20412af8a02ee3f50edd2c2947de7490cb919524ecee9f77e4c58265963",
+      "task.toml": "66578ea93983fe9aedb9cc198931b926b71ca607f8924b8b533cbae189e806c4",
+      "environment": "8be0a301cd5977aa0ffea4486404bcd98d8fcbff10a2f83394bc11e353076f89",
+      "tests": "ca2b71cfc79def3a77f4eab09829d6ab887067f18ab9d5ec66cc02b24f6093ee",
+      "solution": "c7f61c6c22127551bb003f85bc1e1524c7d1a079d0c6d326f816b75760636b54",
+      "validation/case-contracts.tsv": "b28fc40ed4d45a61c7787363e1dd43e0440e522b6bdcc61023f4ec86c860c18b"
+    },
+    "runtime_image_id": "sha256:3604481021c1b605741e994fb623834fb0725b2309e53b7ed9a4c86fe3fb65cd",
+    "source_hash": "65e9fc6da92cb22a0bb53a231cc913162d171b996ebe43320deb14b145eaaff1",
+    "tests_hash": "ca2b71cfc79def3a77f4eab09829d6ab887067f18ab9d5ec66cc02b24f6093ee",
+    "cases": [
+      {
+        "case": "merge-case-input-purity",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "merge-array-no-alias",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "merge-reserved-copy",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "merge-replacement-and-guards",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "restore-array-numeric-order",
+        "status": "FAIL",
+        "detail": "expected 0, got 3"
+      },
+      {
+        "case": "restore-array-invalid-is-atomic",
+        "status": "FAIL",
+        "detail": "expected 1, got 2"
+      },
+      {
+        "case": "restore-array-copy-and-empty",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "config-loadall-missing",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "config-saveall-missing",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "config-bulk-malformed-roots",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "config-sections-identity-and-reserve",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "config-single-recovery-and-preservation",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "event-remove-current-snapshot",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "event-prepend-next-dispatch",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "event-nested-sees-current-registration",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "event-duplicates-binding-index",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "event-nested-reset-isolation",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "event-shared-edits-within-dispatch",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "event-nested-dispatch-payload",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "event-null-and-stop",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "director-whitelist-invalid-and-dedup",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "director-whitelist-without-quantity",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "director-nonarray-clears-restriction",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "director-minimum-obeys-ceiling",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "director-independent-controls",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "director-population-expression",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "director-command-survives-round",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "director-disable-survives-round",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "director-invalid-cache-preserves-choice",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "director-valid-cache-defers-activation",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "director-disable-idempotent",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "director-command-preserves-sentinels",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "director-valid-restore-releases-active-overrides",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "director-invalid-restore-releases-active-overrides",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "event-delayed-queue-snapshot",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "event-delayed-payloads-independent",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "event-delayed-subscribers-at-delivery",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "director-pending-refresh-after-disable",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "director-common-cleanup-fixture",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "director-common-cleanup-enabled",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "director-common-cleanup-disabled",
+        "status": "PASS",
+        "detail": "ok"
+      }
+    ],
+    "passed": 39,
+    "total": 41,
+    "verifier_log_sha256": "6188db2d8b47e60c99cbdf1477acec1a297a6be7e9782fd93ba5bc9008c075ce",
+    "server_log_sha256": "2c79e56a7975718cfde428783e0d55a3a2e1af21d8245a7a972688ebcf1ae929",
+    "local_run": "l4d2-linge-director-state-hard-minus-report-2-1789760721639790500"
+  },
+  {
+    "task": "l4d2-linge-director-state-hard",
+    "candidate": "minus-report-3",
+    "exit_code": 1,
+    "contract": "6b27303496e551ec48444d854021c090f2d946c41c20c99552f5a27bba74b49c",
+    "component_hashes": {
+      "instruction.md": "f7a7d20412af8a02ee3f50edd2c2947de7490cb919524ecee9f77e4c58265963",
+      "task.toml": "66578ea93983fe9aedb9cc198931b926b71ca607f8924b8b533cbae189e806c4",
+      "environment": "8be0a301cd5977aa0ffea4486404bcd98d8fcbff10a2f83394bc11e353076f89",
+      "tests": "ca2b71cfc79def3a77f4eab09829d6ab887067f18ab9d5ec66cc02b24f6093ee",
+      "solution": "c7f61c6c22127551bb003f85bc1e1524c7d1a079d0c6d326f816b75760636b54",
+      "validation/case-contracts.tsv": "b28fc40ed4d45a61c7787363e1dd43e0440e522b6bdcc61023f4ec86c860c18b"
+    },
+    "runtime_image_id": "sha256:3604481021c1b605741e994fb623834fb0725b2309e53b7ed9a4c86fe3fb65cd",
+    "source_hash": "9f2a8fc5035ccf6fa6bd22d618630151da1b026f8c4d2314bcda9d8b2c6864fb",
+    "tests_hash": "ca2b71cfc79def3a77f4eab09829d6ab887067f18ab9d5ec66cc02b24f6093ee",
+    "cases": [
+      {
+        "case": "merge-case-input-purity",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "merge-array-no-alias",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "merge-reserved-copy",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "merge-replacement-and-guards",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "restore-array-numeric-order",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "restore-array-invalid-is-atomic",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "restore-array-copy-and-empty",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "config-loadall-missing",
+        "status": "FAIL",
+        "detail": "the index 'rawset' does not exist"
+      },
+      {
+        "case": "config-saveall-missing",
+        "status": "FAIL",
+        "detail": "the index 'rawset' does not exist"
+      },
+      {
+        "case": "config-bulk-malformed-roots",
+        "status": "FAIL",
+        "detail": "expression expected"
+      },
+      {
+        "case": "config-sections-identity-and-reserve",
+        "status": "FAIL",
+        "detail": "unknown section registered"
+      },
+      {
+        "case": "config-single-recovery-and-preservation",
+        "status": "FAIL",
+        "detail": "the index 'rawin' does not exist"
+      },
+      {
+        "case": "event-remove-current-snapshot",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "event-prepend-next-dispatch",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "event-nested-sees-current-registration",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "event-duplicates-binding-index",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "event-nested-reset-isolation",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "event-shared-edits-within-dispatch",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "event-nested-dispatch-payload",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "event-null-and-stop",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "director-whitelist-invalid-and-dedup",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "director-whitelist-without-quantity",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "director-nonarray-clears-restriction",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "director-minimum-obeys-ceiling",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "director-independent-controls",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "director-population-expression",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "director-command-survives-round",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "director-disable-survives-round",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "director-invalid-cache-preserves-choice",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "director-valid-cache-defers-activation",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "director-disable-idempotent",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "director-command-preserves-sentinels",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "director-valid-restore-releases-active-overrides",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "director-invalid-restore-releases-active-overrides",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "event-delayed-queue-snapshot",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "event-delayed-payloads-independent",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "event-delayed-subscribers-at-delivery",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "director-pending-refresh-after-disable",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "director-common-cleanup-fixture",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "director-common-cleanup-enabled",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "director-common-cleanup-disabled",
+        "status": "PASS",
+        "detail": "ok"
+      }
+    ],
+    "passed": 36,
+    "total": 41,
+    "verifier_log_sha256": "3beeb383e2f72fd59be666987f9137a76f89f6703fa293cc83ff804f75c5db15",
+    "server_log_sha256": "6b91f216321877c27401f9c44b35a6de8cd3af9ad4321db53317c92f6de213fb",
+    "local_run": "l4d2-linge-director-state-hard-minus-report-3-1789760736267511700"
+  },
+  {
+    "task": "l4d2-linge-director-state-hard",
+    "candidate": "minus-report-4",
+    "exit_code": 1,
+    "contract": "6b27303496e551ec48444d854021c090f2d946c41c20c99552f5a27bba74b49c",
+    "component_hashes": {
+      "instruction.md": "f7a7d20412af8a02ee3f50edd2c2947de7490cb919524ecee9f77e4c58265963",
+      "task.toml": "66578ea93983fe9aedb9cc198931b926b71ca607f8924b8b533cbae189e806c4",
+      "environment": "8be0a301cd5977aa0ffea4486404bcd98d8fcbff10a2f83394bc11e353076f89",
+      "tests": "ca2b71cfc79def3a77f4eab09829d6ab887067f18ab9d5ec66cc02b24f6093ee",
+      "solution": "c7f61c6c22127551bb003f85bc1e1524c7d1a079d0c6d326f816b75760636b54",
+      "validation/case-contracts.tsv": "b28fc40ed4d45a61c7787363e1dd43e0440e522b6bdcc61023f4ec86c860c18b"
+    },
+    "runtime_image_id": "sha256:3604481021c1b605741e994fb623834fb0725b2309e53b7ed9a4c86fe3fb65cd",
+    "source_hash": "7973f4f7cc063b58b1f2c19c52e30cd2254e29da987b705aa996a0689afb91b7",
+    "tests_hash": "ca2b71cfc79def3a77f4eab09829d6ab887067f18ab9d5ec66cc02b24f6093ee",
+    "cases": [
+      {
+        "case": "merge-case-input-purity",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "merge-array-no-alias",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "merge-reserved-copy",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "merge-replacement-and-guards",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "restore-array-numeric-order",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "restore-array-invalid-is-atomic",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "restore-array-copy-and-empty",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "config-loadall-missing",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "config-saveall-missing",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "config-bulk-malformed-roots",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "config-sections-identity-and-reserve",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "config-single-recovery-and-preservation",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "event-remove-current-snapshot",
+        "status": "FAIL",
+        "detail": "the index '1' does not exist"
+      },
+      {
+        "case": "event-prepend-next-dispatch",
+        "status": "FAIL",
+        "detail": "expected tail, got a"
+      },
+      {
+        "case": "event-nested-sees-current-registration",
+        "status": "FAIL",
+        "detail": "expected b0, got c0"
+      },
+      {
+        "case": "event-duplicates-binding-index",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "event-nested-reset-isolation",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "event-shared-edits-within-dispatch",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "event-nested-dispatch-payload",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "event-null-and-stop",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "director-whitelist-invalid-and-dedup",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "director-whitelist-without-quantity",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "director-nonarray-clears-restriction",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "director-minimum-obeys-ceiling",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "director-independent-controls",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "director-population-expression",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "director-command-survives-round",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "director-disable-survives-round",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "director-invalid-cache-preserves-choice",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "director-valid-cache-defers-activation",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "director-disable-idempotent",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "director-command-preserves-sentinels",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "director-valid-restore-releases-active-overrides",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "director-invalid-restore-releases-active-overrides",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "event-delayed-queue-snapshot",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "event-delayed-payloads-independent",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "event-delayed-subscribers-at-delivery",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "director-pending-refresh-after-disable",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "director-common-cleanup-fixture",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "director-common-cleanup-enabled",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "director-common-cleanup-disabled",
+        "status": "PASS",
+        "detail": "ok"
+      }
+    ],
+    "passed": 38,
+    "total": 41,
+    "verifier_log_sha256": "34c3634ca8cd25734bb33e093cb94901d8509dd17ab474342458a3f874211fc2",
+    "server_log_sha256": "ce7a42d50af4231a327e7a6a627948df7ec18be967102579fe60fe0d832fafb5",
+    "local_run": "l4d2-linge-director-state-hard-minus-report-4-1789760751968059400"
+  },
+  {
+    "task": "l4d2-linge-director-state-hard",
+    "candidate": "minus-report-5",
+    "exit_code": 1,
+    "contract": "6b27303496e551ec48444d854021c090f2d946c41c20c99552f5a27bba74b49c",
+    "component_hashes": {
+      "instruction.md": "f7a7d20412af8a02ee3f50edd2c2947de7490cb919524ecee9f77e4c58265963",
+      "task.toml": "66578ea93983fe9aedb9cc198931b926b71ca607f8924b8b533cbae189e806c4",
+      "environment": "8be0a301cd5977aa0ffea4486404bcd98d8fcbff10a2f83394bc11e353076f89",
+      "tests": "ca2b71cfc79def3a77f4eab09829d6ab887067f18ab9d5ec66cc02b24f6093ee",
+      "solution": "c7f61c6c22127551bb003f85bc1e1524c7d1a079d0c6d326f816b75760636b54",
+      "validation/case-contracts.tsv": "b28fc40ed4d45a61c7787363e1dd43e0440e522b6bdcc61023f4ec86c860c18b"
+    },
+    "runtime_image_id": "sha256:3604481021c1b605741e994fb623834fb0725b2309e53b7ed9a4c86fe3fb65cd",
+    "source_hash": "287443e1a0c2c54affac9cd1efd702455f7254f3bb927cfdc1147fdd01e2037e",
+    "tests_hash": "ca2b71cfc79def3a77f4eab09829d6ab887067f18ab9d5ec66cc02b24f6093ee",
+    "cases": [
+      {
+        "case": "merge-case-input-purity",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "merge-array-no-alias",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "merge-reserved-copy",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "merge-replacement-and-guards",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "restore-array-numeric-order",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "restore-array-invalid-is-atomic",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "restore-array-copy-and-empty",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "config-loadall-missing",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "config-saveall-missing",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "config-bulk-malformed-roots",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "config-sections-identity-and-reserve",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "config-single-recovery-and-preservation",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "event-remove-current-snapshot",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "event-prepend-next-dispatch",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "event-nested-sees-current-registration",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "event-duplicates-binding-index",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "event-nested-reset-isolation",
+        "status": "FAIL",
+        "detail": "expected 1, got 8"
+      },
+      {
+        "case": "event-shared-edits-within-dispatch",
+        "status": "FAIL",
+        "detail": "expected 1, got 4"
+      },
+      {
+        "case": "event-nested-dispatch-payload",
+        "status": "FAIL",
+        "detail": "expected 4, got 9"
+      },
+      {
+        "case": "event-null-and-stop",
+        "status": "FAIL",
+        "detail": "expected 3, got 8"
+      },
+      {
+        "case": "director-whitelist-invalid-and-dedup",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "director-whitelist-without-quantity",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "director-nonarray-clears-restriction",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "director-minimum-obeys-ceiling",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "director-independent-controls",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "director-population-expression",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "director-command-survives-round",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "director-disable-survives-round",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "director-invalid-cache-preserves-choice",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "director-valid-cache-defers-activation",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "director-disable-idempotent",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "director-command-preserves-sentinels",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "director-valid-restore-releases-active-overrides",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "director-invalid-restore-releases-active-overrides",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "event-delayed-queue-snapshot",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "event-delayed-payloads-independent",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "event-delayed-subscribers-at-delivery",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "director-pending-refresh-after-disable",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "director-common-cleanup-fixture",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "director-common-cleanup-enabled",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "director-common-cleanup-disabled",
+        "status": "PASS",
+        "detail": "ok"
+      }
+    ],
+    "passed": 37,
+    "total": 41,
+    "verifier_log_sha256": "85f385583a376ce66cef7f5bacb3e38956304c4a29ff06de2ba50fd23105b2be",
+    "server_log_sha256": "4613780a69679dd4827c67d2a2864e365b2bcb4aace6285503c868cba21e969b",
+    "local_run": "l4d2-linge-director-state-hard-minus-report-5-1789760693788827600"
+  },
+  {
+    "task": "l4d2-linge-director-state-hard",
+    "candidate": "minus-report-6",
+    "exit_code": 1,
+    "contract": "6b27303496e551ec48444d854021c090f2d946c41c20c99552f5a27bba74b49c",
+    "component_hashes": {
+      "instruction.md": "f7a7d20412af8a02ee3f50edd2c2947de7490cb919524ecee9f77e4c58265963",
+      "task.toml": "66578ea93983fe9aedb9cc198931b926b71ca607f8924b8b533cbae189e806c4",
+      "environment": "8be0a301cd5977aa0ffea4486404bcd98d8fcbff10a2f83394bc11e353076f89",
+      "tests": "ca2b71cfc79def3a77f4eab09829d6ab887067f18ab9d5ec66cc02b24f6093ee",
+      "solution": "c7f61c6c22127551bb003f85bc1e1524c7d1a079d0c6d326f816b75760636b54",
+      "validation/case-contracts.tsv": "b28fc40ed4d45a61c7787363e1dd43e0440e522b6bdcc61023f4ec86c860c18b"
+    },
+    "runtime_image_id": "sha256:3604481021c1b605741e994fb623834fb0725b2309e53b7ed9a4c86fe3fb65cd",
+    "source_hash": "30094107f2fd4fc54a85790b3ad7798d9b82ff5fa520b4420a7a5d3cc69cbf60",
+    "tests_hash": "ca2b71cfc79def3a77f4eab09829d6ab887067f18ab9d5ec66cc02b24f6093ee",
+    "cases": [
+      {
+        "case": "merge-case-input-purity",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "merge-array-no-alias",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "merge-reserved-copy",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "merge-replacement-and-guards",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "restore-array-numeric-order",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "restore-array-invalid-is-atomic",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "restore-array-copy-and-empty",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "config-loadall-missing",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "config-saveall-missing",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "config-bulk-malformed-roots",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "config-sections-identity-and-reserve",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "config-single-recovery-and-preservation",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "event-remove-current-snapshot",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "event-prepend-next-dispatch",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "event-nested-sees-current-registration",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "event-duplicates-binding-index",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "event-nested-reset-isolation",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "event-shared-edits-within-dispatch",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "event-nested-dispatch-payload",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "event-null-and-stop",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "director-whitelist-invalid-and-dedup",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "director-whitelist-without-quantity",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "director-nonarray-clears-restriction",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "director-minimum-obeys-ceiling",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "director-independent-controls",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "director-population-expression",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "director-command-survives-round",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "director-disable-survives-round",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "director-invalid-cache-preserves-choice",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "director-valid-cache-defers-activation",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "director-disable-idempotent",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "director-command-preserves-sentinels",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "director-valid-restore-releases-active-overrides",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "director-invalid-restore-releases-active-overrides",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "event-delayed-queue-snapshot",
+        "status": "FAIL",
+        "detail": "expected 2, got 99"
+      },
+      {
+        "case": "event-delayed-payloads-independent",
+        "status": "FAIL",
+        "detail": "expected 5, got 99"
+      },
+      {
+        "case": "event-delayed-subscribers-at-delivery",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "director-pending-refresh-after-disable",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "director-common-cleanup-fixture",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "director-common-cleanup-enabled",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "director-common-cleanup-disabled",
+        "status": "PASS",
+        "detail": "ok"
+      }
+    ],
+    "passed": 39,
+    "total": 41,
+    "verifier_log_sha256": "837515fd7bc1a9cea757dc642f42960f2562175dbde0c115417ec40b7923276a",
+    "server_log_sha256": "8f58a620fff97c5faf8fcc58a7aa9d84799a00bdf041617f31365221b3cad8d2",
+    "local_run": "l4d2-linge-director-state-hard-minus-report-6-1789760707879430900"
+  },
+  {
+    "task": "l4d2-linge-director-state-hard",
+    "candidate": "minus-report-7",
+    "exit_code": 1,
+    "contract": "6b27303496e551ec48444d854021c090f2d946c41c20c99552f5a27bba74b49c",
+    "component_hashes": {
+      "instruction.md": "f7a7d20412af8a02ee3f50edd2c2947de7490cb919524ecee9f77e4c58265963",
+      "task.toml": "66578ea93983fe9aedb9cc198931b926b71ca607f8924b8b533cbae189e806c4",
+      "environment": "8be0a301cd5977aa0ffea4486404bcd98d8fcbff10a2f83394bc11e353076f89",
+      "tests": "ca2b71cfc79def3a77f4eab09829d6ab887067f18ab9d5ec66cc02b24f6093ee",
+      "solution": "c7f61c6c22127551bb003f85bc1e1524c7d1a079d0c6d326f816b75760636b54",
+      "validation/case-contracts.tsv": "b28fc40ed4d45a61c7787363e1dd43e0440e522b6bdcc61023f4ec86c860c18b"
+    },
+    "runtime_image_id": "sha256:3604481021c1b605741e994fb623834fb0725b2309e53b7ed9a4c86fe3fb65cd",
+    "source_hash": "1bdf0353d9878622bc856bb35b2a479da9f166f16b5807b36e3a928dfa6024e4",
+    "tests_hash": "ca2b71cfc79def3a77f4eab09829d6ab887067f18ab9d5ec66cc02b24f6093ee",
+    "cases": [
+      {
+        "case": "merge-case-input-purity",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "merge-array-no-alias",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "merge-reserved-copy",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "merge-replacement-and-guards",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "restore-array-numeric-order",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "restore-array-invalid-is-atomic",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "restore-array-copy-and-empty",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "config-loadall-missing",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "config-saveall-missing",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "config-bulk-malformed-roots",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "config-sections-identity-and-reserve",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "config-single-recovery-and-preservation",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "event-remove-current-snapshot",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "event-prepend-next-dispatch",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "event-nested-sees-current-registration",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "event-duplicates-binding-index",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "event-nested-reset-isolation",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "event-shared-edits-within-dispatch",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "event-nested-dispatch-payload",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "event-null-and-stop",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "director-whitelist-invalid-and-dedup",
+        "status": "FAIL",
+        "detail": "the index 'slice' does not exist"
+      },
+      {
+        "case": "director-whitelist-without-quantity",
+        "status": "FAIL",
+        "detail": "expected 2, got 1"
+      },
+      {
+        "case": "director-nonarray-clears-restriction",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "director-minimum-obeys-ceiling",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "director-independent-controls",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "director-population-expression",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "director-command-survives-round",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "director-disable-survives-round",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "director-invalid-cache-preserves-choice",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "director-valid-cache-defers-activation",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "director-disable-idempotent",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "director-command-preserves-sentinels",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "director-valid-restore-releases-active-overrides",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "director-invalid-restore-releases-active-overrides",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "event-delayed-queue-snapshot",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "event-delayed-payloads-independent",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "event-delayed-subscribers-at-delivery",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "director-pending-refresh-after-disable",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "director-common-cleanup-fixture",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "director-common-cleanup-enabled",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "director-common-cleanup-disabled",
+        "status": "PASS",
+        "detail": "ok"
+      }
+    ],
+    "passed": 39,
+    "total": 41,
+    "verifier_log_sha256": "d1e0f87d8d996f695e28ee8deeb730a7f50454feeacc3e8e990653d59da00398",
+    "server_log_sha256": "13d8d6a287f2537e6d15f4c7bac8ceb18fe52adfba58582437a88cd9d73099de",
+    "local_run": "l4d2-linge-director-state-hard-minus-report-7-1789760722506427800"
+  },
+  {
+    "task": "l4d2-linge-director-state-hard",
+    "candidate": "minus-report-8",
+    "exit_code": 1,
+    "contract": "6b27303496e551ec48444d854021c090f2d946c41c20c99552f5a27bba74b49c",
+    "component_hashes": {
+      "instruction.md": "f7a7d20412af8a02ee3f50edd2c2947de7490cb919524ecee9f77e4c58265963",
+      "task.toml": "66578ea93983fe9aedb9cc198931b926b71ca607f8924b8b533cbae189e806c4",
+      "environment": "8be0a301cd5977aa0ffea4486404bcd98d8fcbff10a2f83394bc11e353076f89",
+      "tests": "ca2b71cfc79def3a77f4eab09829d6ab887067f18ab9d5ec66cc02b24f6093ee",
+      "solution": "c7f61c6c22127551bb003f85bc1e1524c7d1a079d0c6d326f816b75760636b54",
+      "validation/case-contracts.tsv": "b28fc40ed4d45a61c7787363e1dd43e0440e522b6bdcc61023f4ec86c860c18b"
+    },
+    "runtime_image_id": "sha256:3604481021c1b605741e994fb623834fb0725b2309e53b7ed9a4c86fe3fb65cd",
+    "source_hash": "60aae5c7f57f89ba0f29784318f9326a220ac75c8a4fea9bbc719234ada602e6",
+    "tests_hash": "ca2b71cfc79def3a77f4eab09829d6ab887067f18ab9d5ec66cc02b24f6093ee",
+    "cases": [
+      {
+        "case": "merge-case-input-purity",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "merge-array-no-alias",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "merge-reserved-copy",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "merge-replacement-and-guards",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "restore-array-numeric-order",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "restore-array-invalid-is-atomic",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "restore-array-copy-and-empty",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "config-loadall-missing",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "config-saveall-missing",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "config-bulk-malformed-roots",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "config-sections-identity-and-reserve",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "config-single-recovery-and-preservation",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "event-remove-current-snapshot",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "event-prepend-next-dispatch",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "event-nested-sees-current-registration",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "event-duplicates-binding-index",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "event-nested-reset-isolation",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "event-shared-edits-within-dispatch",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "event-nested-dispatch-payload",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "event-null-and-stop",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "director-whitelist-invalid-and-dedup",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "director-whitelist-without-quantity",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "director-nonarray-clears-restriction",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "director-minimum-obeys-ceiling",
+        "status": "FAIL",
+        "detail": "expected 31, got 50"
+      },
+      {
+        "case": "director-independent-controls",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "director-population-expression",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "director-command-survives-round",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "director-disable-survives-round",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "director-invalid-cache-preserves-choice",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "director-valid-cache-defers-activation",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "director-disable-idempotent",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "director-command-preserves-sentinels",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "director-valid-restore-releases-active-overrides",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "director-invalid-restore-releases-active-overrides",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "event-delayed-queue-snapshot",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "event-delayed-payloads-independent",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "event-delayed-subscribers-at-delivery",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "director-pending-refresh-after-disable",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "director-common-cleanup-fixture",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "director-common-cleanup-enabled",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "director-common-cleanup-disabled",
+        "status": "PASS",
+        "detail": "ok"
+      }
+    ],
+    "passed": 40,
+    "total": 41,
+    "verifier_log_sha256": "b7126f41588f2e62178669a0361e89c709a37fdcef73791489a07eadec6b7756",
+    "server_log_sha256": "2378f3326bdf16928e19cfc57d060a5afb707ed113ac7166eae061c2cbcc4d51",
+    "local_run": "l4d2-linge-director-state-hard-minus-report-8-1789760737093383800"
+  },
+  {
+    "task": "l4d2-linge-director-state-hard",
+    "candidate": "minus-report-9",
+    "exit_code": 1,
+    "contract": "6b27303496e551ec48444d854021c090f2d946c41c20c99552f5a27bba74b49c",
+    "component_hashes": {
+      "instruction.md": "f7a7d20412af8a02ee3f50edd2c2947de7490cb919524ecee9f77e4c58265963",
+      "task.toml": "66578ea93983fe9aedb9cc198931b926b71ca607f8924b8b533cbae189e806c4",
+      "environment": "8be0a301cd5977aa0ffea4486404bcd98d8fcbff10a2f83394bc11e353076f89",
+      "tests": "ca2b71cfc79def3a77f4eab09829d6ab887067f18ab9d5ec66cc02b24f6093ee",
+      "solution": "c7f61c6c22127551bb003f85bc1e1524c7d1a079d0c6d326f816b75760636b54",
+      "validation/case-contracts.tsv": "b28fc40ed4d45a61c7787363e1dd43e0440e522b6bdcc61023f4ec86c860c18b"
+    },
+    "runtime_image_id": "sha256:3604481021c1b605741e994fb623834fb0725b2309e53b7ed9a4c86fe3fb65cd",
+    "source_hash": "0fffc193f3f1498d28a931f136b2714ee442d28738b49c89382eadb41e5f41e0",
+    "tests_hash": "ca2b71cfc79def3a77f4eab09829d6ab887067f18ab9d5ec66cc02b24f6093ee",
+    "cases": [
+      {
+        "case": "merge-case-input-purity",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "merge-array-no-alias",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "merge-reserved-copy",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "merge-replacement-and-guards",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "restore-array-numeric-order",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "restore-array-invalid-is-atomic",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "restore-array-copy-and-empty",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "config-loadall-missing",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "config-saveall-missing",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "config-bulk-malformed-roots",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "config-sections-identity-and-reserve",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "config-single-recovery-and-preservation",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "event-remove-current-snapshot",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "event-prepend-next-dispatch",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "event-nested-sees-current-registration",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "event-duplicates-binding-index",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "event-nested-reset-isolation",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "event-shared-edits-within-dispatch",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "event-nested-dispatch-payload",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "event-null-and-stop",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "director-whitelist-invalid-and-dedup",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "director-whitelist-without-quantity",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "director-nonarray-clears-restriction",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "director-minimum-obeys-ceiling",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "director-independent-controls",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "director-population-expression",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "director-command-survives-round",
+        "status": "FAIL",
+        "detail": "expected true, got false"
+      },
+      {
+        "case": "director-disable-survives-round",
+        "status": "FAIL",
+        "detail": "expected false, got true"
+      },
+      {
+        "case": "director-invalid-cache-preserves-choice",
+        "status": "FAIL",
+        "detail": "expected true, got false"
+      },
+      {
+        "case": "director-valid-cache-defers-activation",
+        "status": "FAIL",
+        "detail": "disabled round retained override"
+      },
+      {
+        "case": "director-disable-idempotent",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "director-command-preserves-sentinels",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "director-valid-restore-releases-active-overrides",
+        "status": "FAIL",
+        "detail": "left override cm_MaxSpecials"
+      },
+      {
+        "case": "director-invalid-restore-releases-active-overrides",
+        "status": "FAIL",
+        "detail": "left override cm_MaxSpecials"
+      },
+      {
+        "case": "event-delayed-queue-snapshot",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "event-delayed-payloads-independent",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "event-delayed-subscribers-at-delivery",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "director-pending-refresh-after-disable",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "director-common-cleanup-fixture",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "director-common-cleanup-enabled",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "director-common-cleanup-disabled",
+        "status": "PASS",
+        "detail": "ok"
+      }
+    ],
+    "passed": 35,
+    "total": 41,
+    "verifier_log_sha256": "9b510f94d147236e4bff667092a4ff7e7ef2628d0269dbbf2f72aa6e9e0ba227",
+    "server_log_sha256": "72028928c775350d34afdc96fa2096a0e78598e69a1316927c2463a4ea0f153c",
+    "local_run": "l4d2-linge-director-state-hard-minus-report-9-1789760751009208300"
+  },
+  {
+    "task": "l4d2-linge-director-state-hard",
+    "candidate": "nop",
+    "exit_code": 1,
+    "contract": "6b27303496e551ec48444d854021c090f2d946c41c20c99552f5a27bba74b49c",
+    "component_hashes": {
+      "instruction.md": "f7a7d20412af8a02ee3f50edd2c2947de7490cb919524ecee9f77e4c58265963",
+      "task.toml": "66578ea93983fe9aedb9cc198931b926b71ca607f8924b8b533cbae189e806c4",
+      "environment": "8be0a301cd5977aa0ffea4486404bcd98d8fcbff10a2f83394bc11e353076f89",
+      "tests": "ca2b71cfc79def3a77f4eab09829d6ab887067f18ab9d5ec66cc02b24f6093ee",
+      "solution": "c7f61c6c22127551bb003f85bc1e1524c7d1a079d0c6d326f816b75760636b54",
+      "validation/case-contracts.tsv": "b28fc40ed4d45a61c7787363e1dd43e0440e522b6bdcc61023f4ec86c860c18b"
+    },
+    "runtime_image_id": "sha256:3604481021c1b605741e994fb623834fb0725b2309e53b7ed9a4c86fe3fb65cd",
+    "source_hash": "906a045ec5404b844d72f4a5048c0f6055fdc51a7ab8eca99e35f2148fdbfc2c",
+    "tests_hash": "ca2b71cfc79def3a77f4eab09829d6ab887067f18ab9d5ec66cc02b24f6093ee",
+    "cases": [
+      {
+        "case": "merge-case-input-purity",
+        "status": "FAIL",
+        "detail": "expected 1, got 2"
+      },
+      {
+        "case": "merge-array-no-alias",
+        "status": "FAIL",
+        "detail": "expected 4, got 9"
+      },
+      {
+        "case": "merge-reserved-copy",
+        "status": "FAIL",
+        "detail": "expected 3, got 10"
+      },
+      {
+        "case": "merge-replacement-and-guards",
+        "status": "FAIL",
+        "detail": "expected 5, got 8"
+      },
+      {
+        "case": "restore-array-numeric-order",
+        "status": "FAIL",
+        "detail": "expected 0, got 3"
+      },
+      {
+        "case": "restore-array-invalid-is-atomic",
+        "status": "FAIL",
+        "detail": "expected 1, got 2"
+      },
+      {
+        "case": "restore-array-copy-and-empty",
+        "status": "FAIL",
+        "detail": "expected 2, got 99"
+      },
+      {
+        "case": "config-loadall-missing",
+        "status": "FAIL",
+        "detail": "the index 'rawset' does not exist"
+      },
+      {
+        "case": "config-saveall-missing",
+        "status": "FAIL",
+        "detail": "the index 'rawset' does not exist"
+      },
+      {
+        "case": "config-bulk-malformed-roots",
+        "status": "FAIL",
+        "detail": "expression expected"
+      },
+      {
+        "case": "config-sections-identity-and-reserve",
+        "status": "FAIL",
+        "detail": "unknown section registered"
+      },
+      {
+        "case": "config-single-recovery-and-preservation",
+        "status": "FAIL",
+        "detail": "the index 'rawin' does not exist"
+      },
+      {
+        "case": "event-remove-current-snapshot",
+        "status": "FAIL",
+        "detail": "the index '1' does not exist"
+      },
+      {
+        "case": "event-prepend-next-dispatch",
+        "status": "FAIL",
+        "detail": "expected tail, got a"
+      },
+      {
+        "case": "event-nested-sees-current-registration",
+        "status": "FAIL",
+        "detail": "expected b0, got c0"
+      },
+      {
+        "case": "event-duplicates-binding-index",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "event-nested-reset-isolation",
+        "status": "FAIL",
+        "detail": "expected 1, got 8"
+      },
+      {
+        "case": "event-shared-edits-within-dispatch",
+        "status": "FAIL",
+        "detail": "expected 1, got 4"
+      },
+      {
+        "case": "event-nested-dispatch-payload",
+        "status": "FAIL",
+        "detail": "expected 4, got 9"
+      },
+      {
+        "case": "event-null-and-stop",
+        "status": "FAIL",
+        "detail": "expected 3, got 8"
+      },
+      {
+        "case": "director-whitelist-invalid-and-dedup",
+        "status": "FAIL",
+        "detail": "the index 'slice' does not exist"
+      },
+      {
+        "case": "director-whitelist-without-quantity",
+        "status": "FAIL",
+        "detail": "expected 2, got 1"
+      },
+      {
+        "case": "director-nonarray-clears-restriction",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "director-minimum-obeys-ceiling",
+        "status": "FAIL",
+        "detail": "expected 31, got 50"
+      },
+      {
+        "case": "director-independent-controls",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "director-population-expression",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "director-command-survives-round",
+        "status": "FAIL",
+        "detail": "expected true, got false"
+      },
+      {
+        "case": "director-disable-survives-round",
+        "status": "FAIL",
+        "detail": "expected false, got true"
+      },
+      {
+        "case": "director-invalid-cache-preserves-choice",
+        "status": "FAIL",
+        "detail": "expected true, got false"
+      },
+      {
+        "case": "director-valid-cache-defers-activation",
+        "status": "FAIL",
+        "detail": "disabled round retained override"
+      },
+      {
+        "case": "director-disable-idempotent",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "director-command-preserves-sentinels",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "director-valid-restore-releases-active-overrides",
+        "status": "FAIL",
+        "detail": "left override cm_MaxSpecials"
+      },
+      {
+        "case": "director-invalid-restore-releases-active-overrides",
+        "status": "FAIL",
+        "detail": "left override cm_MaxSpecials"
+      },
+      {
+        "case": "event-delayed-queue-snapshot",
+        "status": "FAIL",
+        "detail": "expected 2, got 99"
+      },
+      {
+        "case": "event-delayed-payloads-independent",
+        "status": "FAIL",
+        "detail": "expected 5, got 99"
+      },
+      {
+        "case": "event-delayed-subscribers-at-delivery",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "director-pending-refresh-after-disable",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "director-common-cleanup-fixture",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "director-common-cleanup-enabled",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "director-common-cleanup-disabled",
+        "status": "PASS",
+        "detail": "ok"
+      }
+    ],
+    "passed": 11,
+    "total": 41,
+    "verifier_log_sha256": "4d52872e04795a50288bcb749d471194c1fad318814bba690928d775996e2246",
+    "server_log_sha256": "efbce47d9799bff1ce872d7d8bfea47de26f6e0398f7ed150cdc8d13e3c65f35",
+    "local_run": "l4d2-linge-director-state-hard-nop-1789760691960695400"
+  }
+]

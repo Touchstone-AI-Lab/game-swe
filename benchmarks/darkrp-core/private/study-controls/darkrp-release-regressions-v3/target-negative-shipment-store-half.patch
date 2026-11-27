@@ -1,0 +1,12 @@
+diff -ruN a/darkrp/gamemode/modules/base/sh_createitems.lua b/darkrp/gamemode/modules/base/sh_createitems.lua
+--- a/darkrp/gamemode/modules/base/sh_createitems.lua	2026-09-21 05:04:15.540165272 +0800
++++ b/darkrp/gamemode/modules/base/sh_createitems.lua	2026-09-21 05:42:05.651665244 +0800
+@@ -552,7 +552,7 @@
+     if not customShipment.noship then DarkRP.addToCategory(customShipment, "shipments", customShipment.category) end
+     if customShipment.separate then DarkRP.addToCategory(customShipment, "weapons", customShipment.category) end
+ 
+-    shipByName[string.lower(name or "")] = table.insert(CustomShipments, customShipment)
++    shipByName[name or ""] = table.insert(CustomShipments, customShipment)
+     util.PrecacheModel(customShipment.model)
+ end
+ AddCustomShipment = DarkRP.createShipment

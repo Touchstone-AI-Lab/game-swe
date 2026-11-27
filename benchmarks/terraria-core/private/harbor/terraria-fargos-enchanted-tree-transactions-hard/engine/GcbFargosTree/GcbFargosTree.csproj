@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="../tModLoader.targets" />
+  <PropertyGroup>
+    <AssemblyName>GcbFargosTree</AssemblyName>
+    <LangVersion>latest</LangVersion>
+    <Nullable>enable</Nullable>
+    <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
+    <CandidateRoot Condition="'$(CandidateRoot)' == ''">/workspace/solution</CandidateRoot>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="$(CandidateRoot)/fargos-mutant/Common/Systems/Recipes/MiscRecipeSystem.cs" Link="Production/MiscRecipeSystem.cs" />
+    <Compile Include="GcbFargosTree.cs" />
+    <Compile Include="EngineSupport.cs" />
+    <Compile Include="VerifierSystem.cs" />
+  </ItemGroup>
+</Project>

@@ -1,0 +1,691 @@
+{
+  "task": "garrys-mod/addons/contraption-blueprint-duplicator",
+  "task_version": "2.2.0",
+  "exam": "benchmarks/gmod/exams/contraption-blueprint-duplicator.md",
+  "cases": [
+    {
+      "id": "check:required-files",
+      "role": "static",
+      "clauses": [
+        "T5-FILE-01"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "check:lua-syntax",
+      "role": "static",
+      "clauses": [
+        "T5-FILE-01"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "hidden:capture canonicalizes three nodes and two edges",
+      "role": "target",
+      "clauses": [
+        "T5-API-01",
+        "T5-API-02",
+        "T5-SEM-01",
+        "T5-SEM-02",
+        "T5-SEM-03",
+        "T5-SEM-04",
+        "T5-API-03",
+        "T5-GOAL-02",
+        "T5-ACC-01"
+      ],
+      "overlap": false,
+      "note": "Carries the implicit sandbox evidence for GOAL-02. Reads the undisclosed row field `id` (hidden:4)."
+    },
+    {
+      "id": "hidden:canonical hash ignores input table order",
+      "role": "target",
+      "clauses": [
+        "T5-HASH-01",
+        "T5-HASH-02",
+        "T5-ACC-01"
+      ],
+      "overlap": false,
+      "note": "Traceability also lists T5-DATA-01; nominal."
+    },
+    {
+      "id": "hidden:unsupported classes models and constraints fail",
+      "role": "target",
+      "clauses": [
+        "T5-DATA-02",
+        "T5-DATA-03",
+        "T5-ERR-01",
+        "T5-ACC-02"
+      ],
+      "overlap": false,
+      "note": "Traceability also lists T5-FILE-01; nominal."
+    },
+    {
+      "id": "hidden:bad endpoints and self edges are rejected",
+      "role": "target",
+      "clauses": [
+        "T5-DATA-03",
+        "T5-SEM-02",
+        "T5-ERR-01",
+        "T5-ACC-02"
+      ],
+      "overlap": false,
+      "note": "Traceability also lists T5-GOAL-01; nominal."
+    },
+    {
+      "id": "hidden:nonfinite transforms are rejected before mutation",
+      "role": "target",
+      "clauses": [
+        "T5-DATA-05",
+        "T5-SEM-01",
+        "T5-ACC-02"
+      ],
+      "overlap": false,
+      "note": "Traceability also lists T5-GOAL-02; nominal."
+    },
+    {
+      "id": "hidden:entity constraint and blueprint budgets are enforced",
+      "role": "target",
+      "clauses": [
+        "T5-DATA-04",
+        "T5-ERR-01",
+        "T5-ACC-02"
+      ],
+      "overlap": false,
+      "note": "Traceability also lists T5-SCOPE-01; nominal."
+    },
+    {
+      "id": "hidden:capture request replay and conflict are exact",
+      "role": "target",
+      "clauses": [
+        "T5-SEM-07",
+        "T5-ERR-01",
+        "T5-ACC-03"
+      ],
+      "overlap": false,
+      "note": "Traceability also lists T5-SCOPE-02; nominal."
+    },
+    {
+      "id": "hidden:blueprint revision rejects stale replacement",
+      "role": "target",
+      "clauses": [
+        "T5-SEM-05",
+        "T5-ERR-01",
+        "T5-ACC-03"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "hidden:list and get are sorted detached owner views",
+      "role": "target",
+      "clauses": [
+        "T5-SEM-06",
+        "T5-API-03",
+        "T5-ACC-02"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "hidden:paste plan applies target transform to every node",
+      "role": "target",
+      "clauses": [
+        "T5-SEM-08",
+        "T5-SEM-09"
+      ],
+      "overlap": false,
+      "note": "Compares the first node only."
+    },
+    {
+      "id": "hidden:paste request replay revision and result are idempotent",
+      "role": "target",
+      "clauses": [
+        "T5-SEM-07",
+        "T5-SEM-08",
+        "T5-SEM-10",
+        "T5-ERR-01",
+        "T5-ACC-03"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "hidden:save load preserves schema hash requests and paste results",
+      "role": "target",
+      "clauses": [
+        "T5-PERSIST-01",
+        "T5-API-02",
+        "T5-SEM-07",
+        "T5-ACC-03"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "hidden:shutdown is idempotent and freezes capture",
+      "role": "target",
+      "clauses": [
+        "T5-LIFE-01",
+        "T5-API-03",
+        "T5-ERR-01"
+      ],
+      "overlap": false,
+      "note": "Traceability lists T5-API-04 (adapter interface); this is a core case."
+    },
+    {
+      "id": "hidden:source identifiers require raw unique nonempty strings",
+      "role": "target",
+      "clauses": [
+        "T5-DATA-05",
+        "T5-SEM-01",
+        "T5-ERR-01"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "hidden:malformed entity and constraint rows return stable errors",
+      "role": "target",
+      "clauses": [
+        "T5-ERR-01",
+        "T5-DATA-05",
+        "T5-SEM-02"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "hidden:constraint params are validated detached and included in hash",
+      "role": "target",
+      "clauses": [
+        "T5-SEM-03",
+        "T5-HASH-01",
+        "T5-HASH-02"
+      ],
+      "overlap": false,
+      "note": "Also requires an unknown params key to be rejected with invalid_endpoint (hidden:19), which the exam does not state (known_issues).",
+      "over_constrained": true
+    },
+    {
+      "id": "hidden:invalid plan identity name revision and target return stable public errors",
+      "role": "target",
+      "clauses": [
+        "T5-SEM-08",
+        "T5-ERR-01",
+        "T5-DATA-01"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "hidden:malformed persisted graphs hashes requests and paste rows are rejected",
+      "role": "target",
+      "clauses": [
+        "T5-PERSIST-01",
+        "T5-API-02",
+        "T5-ERR-01"
+      ],
+      "overlap": false,
+      "note": "Traceability also lists T5-PERSIST-02 (no process-local values); this case validates malformed rows, re-pointed. Variants index two private layouts (known_issues).",
+      "over_constrained": true
+    },
+    {
+      "id": "integration:adapter installs lifecycle hooks and timer",
+      "role": "target",
+      "clauses": [
+        "T5-LIFE-01",
+        "T5-API-04"
+      ],
+      "overlap": false,
+      "note": "Uses undisclosed S.HookPrefix/S.TimerName and suffixes .Disconnect/.Removed.",
+      "over_constrained": true
+    },
+    {
+      "id": "integration:trusted owner and root bindings authorize capture",
+      "role": "target",
+      "clauses": [
+        "T5-TRUST-01",
+        "T5-API-04",
+        "T5-NATIVE-01",
+        "T5-NATIVE-02"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "integration:public duplicator Copy and constraint table become canonical graph",
+      "role": "target",
+      "clauses": [
+        "T5-NATIVE-01",
+        "T5-NATIVE-02"
+      ],
+      "overlap": false,
+      "note": "Asserts one listed blueprint with a string hash."
+    },
+    {
+      "id": "integration:constraint GetTable mismatch rejects capture atomically",
+      "role": "target",
+      "clauses": [
+        "T5-NATIVE-01",
+        "T5-ADAPTER-01"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "integration:unbound player and entity cannot capture or paste",
+      "role": "target",
+      "clauses": [
+        "T5-TRUST-01",
+        "T5-ADAPTER-01"
+      ],
+      "overlap": false,
+      "note": "Only an unbound player is tried; codes are not compared."
+    },
+    {
+      "id": "integration:public Paste restores three entities and two constraints",
+      "role": "target",
+      "clauses": [
+        "T5-NATIVE-03",
+        "T5-NATIVE-04",
+        "T5-SCOPE-02"
+      ],
+      "overlap": false,
+      "note": "Success data must carry `entities`/`constraints` LISTS (undisclosed shape). The stub Paste ignores the tables it is given. Carries the implicit forbidden-API evidence for T5-SCOPE-02."
+    },
+    {
+      "id": "integration:partial Paste failure rolls back every live object",
+      "role": "target",
+      "clauses": [
+        "T5-ROLLBACK-01",
+        "T5-ADAPTER-01",
+        "T5-ACC-05"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "integration:saved state restores a pasteable canonical schema",
+      "role": "target",
+      "clauses": [
+        "T5-PERSIST-01"
+      ],
+      "overlap": false,
+      "note": "Asserts schema_version == 1 and that the state has an `owners` or a `blueprints` key (private layouts).",
+      "over_constrained": true
+    },
+    {
+      "id": "integration:Install is idempotent",
+      "role": "target",
+      "clauses": [
+        "T5-LIFE-01"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "lifecycle:shutdown removes hooks and timer",
+      "role": "target",
+      "clauses": [
+        "T5-LIFE-01",
+        "T5-ACC-05"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "server:copy",
+      "role": "target",
+      "clauses": [
+        "T5-NATIVE-01",
+        "T5-ACC-04",
+        "T5-NATIVE-02"
+      ],
+      "overlap": false,
+      "note": "Phase B (recorded verdict) is `check(true)`; real duplicator.Copy/GetTable evidence is Phase A only. Traceability also lists T5-ACC-02 (validation failures), which no server assertion touches.",
+      "over_constrained": true
+    },
+    {
+      "id": "server:canonical",
+      "role": "target",
+      "clauses": [
+        "T5-SEM-01",
+        "T5-HASH-01",
+        "T5-ACC-01",
+        "T5-PERSIST-01"
+      ],
+      "overlap": false,
+      "note": "Phase B: exactly one restored blueprint with a string hash.",
+      "over_constrained": true
+    },
+    {
+      "id": "server:persistence",
+      "role": "target",
+      "clauses": [
+        "T5-PERSIST-01",
+        "T5-ACC-03",
+        "T5-PERSIST-02"
+      ],
+      "overlap": false,
+      "note": "Carries the implicit JSON round-trip evidence for T5-PERSIST-02.",
+      "over_constrained": true
+    },
+    {
+      "id": "server:paste",
+      "role": "target",
+      "clauses": [
+        "T5-NATIVE-03",
+        "T5-ACC-04",
+        "T5-GOAL-01",
+        "T5-ADAPTER-01"
+      ],
+      "overlap": false,
+      "note": "Phase B: real duplicator.Paste, code `pasted`, 3 valid entities + 2 valid constraints.",
+      "over_constrained": true
+    },
+    {
+      "id": "server:graph",
+      "role": "target",
+      "clauses": [
+        "T5-NATIVE-03",
+        "T5-ACC-01"
+      ],
+      "overlap": false,
+      "note": "",
+      "over_constrained": true
+    },
+    {
+      "id": "server:undo",
+      "role": "target",
+      "clauses": [
+        "T5-NATIVE-04",
+        "T5-ACC-04",
+        "T5-GOAL-01"
+      ],
+      "overlap": false,
+      "note": "",
+      "over_constrained": true
+    },
+    {
+      "id": "server:cleanup",
+      "role": "target",
+      "clauses": [
+        "T5-LIFE-01",
+        "T5-ACC-05"
+      ],
+      "overlap": false,
+      "note": "",
+      "over_constrained": true
+    }
+  ],
+  "clauses": [
+    {
+      "id": "T5-GOAL-01",
+      "anchor": "§1. Background and goals / item 1: “Implement a server-authoritative contraption blu…”",
+      "status": "asserted",
+      "note": "Summary clause; real capture in Phase A, and restore at an offset as one Undo unit in a separate process in Phase B (observed at case level). Traceability's citation (bad-endpoint case) is nominal; re-cited."
+    },
+    {
+      "id": "T5-GOAL-02",
+      "anchor": "§1. Background and goals / item 2: “Graph validation, normalization, revisions, repl…”",
+      "status": "weak",
+      "note": "Only implicit: the core runs in a sandbox without GMod globals. Traceability's citation (nonfinite case) is nominal."
+    },
+    {
+      "id": "T5-FILE-01",
+      "anchor": "§2. Required files / item 1: “You must submit:”",
+      "status": "asserted",
+      "note": "check:required-files and check:lua-syntax. The dependency prohibition is enforced only by the verifier environment. Traceability's citation (unsupported-class case) is nominal."
+    },
+    {
+      "id": "T5-API-01",
+      "anchor": "§3. Core public interface / item 1: “`lua/rhenium_contraption_blueprints/blueprints.l…”",
+      "status": "asserted",
+      "note": "All eight methods are called by the hidden suite."
+    },
+    {
+      "id": "T5-API-02",
+      "anchor": "§3. Core public interface / item 2: “`Blueprints.new({state=optional_state})` returns…”",
+      "status": "asserted",
+      "note": "new({state=save()}) round trip and nil,\"invalid_state\" for five malformed states."
+    },
+    {
+      "id": "T5-API-03",
+      "anchor": "§3. Core public interface / item 3: “capture/plan/record_paste return `ok:boolean,cod…”",
+      "status": "asserted",
+      "note": "Triples, a detached get() and an empty list for another owner. nil,\"not_found\" from get, freshness of list/data tables and the literal shutdown code are not checked."
+    },
+    {
+      "id": "T5-DATA-01",
+      "anchor": "§4. Identifiers, closed allowlist and budgets / item 1: “request/owner/source IDs have length `1..128` an…”",
+      "status": "asserted",
+      "note": "plan() with owner \"bad id\", name \"bad name!\" and revision 0 must fail (hidden:20); source IDs are probed in hidden:17. The same rules on capture(), request IDs (invalid_request_id) and the length bounds are not exercised. Traceability's citation (hash-order case) is nominal; re-cited."
+    },
+    {
+      "id": "T5-DATA-02",
+      "anchor": "§4. Identifiers, closed allowlist and budgets / item 2: “The Entity class allowlist is a closed set: only…”",
+      "status": "asserted",
+      "note": "npc_citizen -> unsupported_entity and mixed-case allowlisted models are accepted. A model outside the allowlist is not exercised."
+    },
+    {
+      "id": "T5-DATA-03",
+      "anchor": "§4. Identifiers, closed allowlist and budgets / item 3: “The Constraint type allowlist is a closed set: o…”",
+      "status": "asserted",
+      "note": "Rope and a self-edge are rejected (codes not compared); a missing endpoint returns invalid_endpoint."
+    },
+    {
+      "id": "T5-DATA-04",
+      "anchor": "§4. Identifiers, closed allowlist and budgets / item 4: “Each owner has at most `8` blueprints; each grap…”",
+      "status": "asserted",
+      "note": "17 entities -> invalid_graph; ninth blueprint -> blueprint_limit. 25 constraints and 0 entities are not exercised."
+    },
+    {
+      "id": "T5-DATA-05",
+      "anchor": "§5. Input graph and normalized schema / item 1: “The capture graph is `{entities={...},constraint…”",
+      "status": "asserted",
+      "note": "false/7/\"\"/nil/duplicate source_id -> unsupported_entity; NaN position rejected without creating a blueprint; non-table rows return stable codes."
+    },
+    {
+      "id": "T5-SEM-01",
+      "anchor": "§5. Input graph and normalized schema / item 2: “entities are first sorted by lexicographic strin…”",
+      "status": "asserted",
+      "note": "e1 is the entity with the smallest source_id string (plan row 1 is source \"10\"), input order does not matter, failures are atomic (empty list)."
+    },
+    {
+      "id": "T5-SEM-02",
+      "anchor": "§5. Input graph and normalized schema / item 3: “Each edge replaces its endpoints with local IDs,…”",
+      "status": "asserted",
+      "note": "constraints[1].id == \"c1\"; invalid_endpoint for a missing endpoint and a non-table row. Endpoint normalization (a<b) and the type+a+b ordering are not read; the reorder fixture permutes entities only."
+    },
+    {
+      "id": "T5-SEM-03",
+      "anchor": "§5. Input graph and normalized schema / item 4: “The schema is fixed as `{schema_version=1,entiti…”",
+      "status": "asserted",
+      "note": "schema.entities/constraints/hash are read; params are detached from the input and Bone2 round-trips. 1e-6 quantization is never observed (all fixture coordinates are integers)."
+    },
+    {
+      "id": "T5-HASH-01",
+      "anchor": "§6. Behavioral contract of the hash / item 1: “The hash must be a stable string obtained, in a …”",
+      "status": "asserted",
+      "note": "Changing forcelimit 5 -> 6 changes the hash. Other canonical fields are not varied."
+    },
+    {
+      "id": "T5-HASH-02",
+      "anchor": "§6. Behavioral contract of the hash / item 2: “Input table/array order, `pairs` order, original…”",
+      "status": "asserted",
+      "note": "Permuting the entity input array leaves the hash unchanged. Constraint order and key order are not varied."
+    },
+    {
+      "id": "T5-SEM-04",
+      "anchor": "§7. capture, revision, list/get / item 1: “capture first fully validates and normalizes, th…”",
+      "status": "asserted",
+      "note": "data.entities/constraints/hash and get().schema are read after capture; the `captured` code and validate-before-request ordering are not compared."
+    },
+    {
+      "id": "T5-SEM-05",
+      "anchor": "§7. capture, revision, list/get / item 2: “When replacing the same owner/name, revision mus…”",
+      "status": "asserted",
+      "note": "Lower revision -> stale_revision. Replacement not consuming a slot is not exercised."
+    },
+    {
+      "id": "T5-SEM-06",
+      "anchor": "§7. capture, revision, list/get / item 3: “list exposes only that owner's `{name,revision,h…”",
+      "status": "asserted",
+      "note": "list sorted by name, get detached, other owner sees an empty list."
+    },
+    {
+      "id": "T5-SEM-07",
+      "anchor": "§8. Request idempotency and paste plan / item 1: “capture and plan share a request-ID namespace. A…”",
+      "status": "asserted",
+      "note": "Capture retry/conflict, plan retry, and a plan conflict that survives save/load. The capture/plan shared namespace is not exercised."
+    },
+    {
+      "id": "T5-SEM-08",
+      "anchor": "§8. Request idempotency and paste plan / item 2: “`plan(request_id,owner,name,revision,target)` re…”",
+      "status": "asserted",
+      "note": "stale_revision for a wrong revision and invalid_transform for a NaN target. not_found is not exercised."
+    },
+    {
+      "id": "T5-SEM-09",
+      "anchor": "§8. Request idempotency and paste plan / item 3: “target is a pure translation: each entity's past…”",
+      "status": "asserted",
+      "note": "x/y/z of plan row 1 equal captured + target. Despite the case name only the first node is compared; unchanged angles and the attached request_id are not read."
+    },
+    {
+      "id": "T5-SEM-10",
+      "anchor": "§8. Request idempotency and paste plan / item 4: “`record_paste` accepts `{entities=number,constra…”",
+      "status": "asserted",
+      "note": "A second record_paste returns `duplicate`. The `recorded` code and non-overwrite of the first result are not compared."
+    },
+    {
+      "id": "T5-ERR-01",
+      "anchor": "§9. Stable error codes and persistence / item 1: “Must stably distinguish: `invalid_state`, `inval…”",
+      "status": "asserted",
+      "note": "10 of 13 codes compared (invalid_state, invalid_request, request_conflict, invalid_graph, unsupported_entity, invalid_endpoint, blueprint_limit, stale_revision, invalid_transform, shutdown). Never produced: invalid_request_id, not_found, invalid_result."
+    },
+    {
+      "id": "T5-PERSIST-01",
+      "anchor": "§9. Stable error codes and persistence / item 2: “save returns `schema_version=1`, all owner bluep…”",
+      "status": "asserted",
+      "note": "Hash, plan replay and conflict after reload; Phase B lists and pastes from the hash-pinned Phase A state in a new process."
+    },
+    {
+      "id": "T5-PERSIST-02",
+      "anchor": "§9. Stable error codes and persistence / item 3: “Persistent state must not contain Player, Entity…”",
+      "status": "weak",
+      "note": "No assertion inspects the saved table for Vector/Entity/function values. Evidence is implicit only: Phase A serializes Save() with util.TableToJSON and Phase B must rebuild from it. Traceability cites the malformed-state case, which is about T5-PERSIST-01-style validation."
+    },
+    {
+      "id": "T5-API-04",
+      "anchor": "§10. Server-side adapter public interface / item 1: “`lua/rhenium_contraption_blueprints/server.lua` …”",
+      "status": "asserted",
+      "note": "All eight adapter functions are called by the stub suite. Traceability cites the core shutdown case, which is nominal; re-cited."
+    },
+    {
+      "id": "T5-ADAPTER-01",
+      "anchor": "§10. Server-side adapter public interface / item 2: “The adapter stably returns `unbound`, `permissio…”",
+      "status": "weak",
+      "note": "3 of 6 adapter codes are compared (capture_failed, paste_failed, pasted in Phase B). unbound is only `not ok` (integration:11); permission_denied and undo_failed are never produced (the stub hook.Run always returns true and undo.Finish always succeeds); List for an unbound player is not called."
+    },
+    {
+      "id": "T5-TRUST-01",
+      "anchor": "§10. Server-side adapter public interface / item 3: “owner, root logical identity and revision come f…”",
+      "status": "weak",
+      "note": "No client-supplied owner or raw graph is ever offered. Evidence is indirect: capture is attributed to the bound logical owner and an unbound player is refused."
+    },
+    {
+      "id": "T5-NATIVE-01",
+      "anchor": "§11. Public GMod APIs and graph adaptation / item 1: “Capture first calls `hook.Run(\"CanTool\",player,{…”",
+      "status": "asserted",
+      "note": "A GetTable view that disagrees with Copy returns capture_failed and stores nothing (stub); Phase A captures a real 3-prop/2-constraint contraption through the real duplicator.Copy/constraint.GetTable. The CanTool-false -> permission_denied branch is never exercised (stub hook.Run is constant true)."
+    },
+    {
+      "id": "T5-NATIVE-02",
+      "anchor": "§11. Public GMod APIs and graph adaptation / item 2: “Copy entity fields use the public `Class,Model,P…”",
+      "status": "asserted",
+      "note": "Stub Copy rows use Class/Model/Pos/Angle with numeric Ent1/Ent2; the real Copy output in Phase A supplies the engine's own endpoint forms. Parameter retention through the adapter is not inspected."
+    },
+    {
+      "id": "T5-NATIVE-03",
+      "anchor": "§11. Public GMod APIs and graph adaptation / item 3: “Paste first calls CanTool, then converts the pla…”",
+      "status": "asserted",
+      "note": "The stub Paste ignores its arguments, so table shape is proven only on the real server: Phase B's duplicator.Paste yields three valid entities and two valid constraints with >= 2 constraint edges. CanTool-before-Paste and frozen PhysicsObjects are not inspected; pasted positions are not compared with the target."
+    },
+    {
+      "id": "T5-NATIVE-04",
+      "anchor": "§11. Public GMod APIs and graph adaptation / item 4: “After success, use `undo.Create/AddEntity/SetPla…”",
+      "status": "asserted",
+      "note": "Phase B: one real gmod_undo removes all five pasted objects and entity counts return to the pre-paste baseline. cleanup.Add ownership is not inspected."
+    },
+    {
+      "id": "T5-ROLLBACK-01",
+      "anchor": "§12. Transactional rollback, lifecycle and prohibitions / item 1: “When `duplicator.Paste` throws, returns missing/…”",
+      "status": "weak",
+      "note": "One failure path is exercised: Paste returns an invalid constraint -> paste_failed {0,0} and every returned object removed (stub, integration:13). A throwing Paste, a count mismatch, undo_failed and the constraints-before-entities order are never exercised; no failure is injected on the real server."
+    },
+    {
+      "id": "T5-LIFE-01",
+      "anchor": "§12. Transactional rollback, lifecycle and prohibitions / item 2: “Install registers named PlayerDisconnected and E…”",
+      "status": "asserted",
+      "note": "Named PlayerDisconnected/EntityRemoved hooks and the timer under private names (known_issues), second Install keeps the timer, double Shutdown, residue checks in the stub and on the real server, core capture frozen. Cleared bindings are not checked."
+    },
+    {
+      "id": "T5-SCOPE-01",
+      "anchor": "§12. Transactional rollback, lifecycle and prohibitions / item 3: “Two-process acceptance reuses only the DATA stat…”",
+      "status": "unasserted",
+      "note": "Describes the two-process acceptance setup and lists unsupported features; states no obligation that a case measures. Traceability's citation (budget case) is nominal."
+    },
+    {
+      "id": "T5-SCOPE-02",
+      "anchor": "§12. Transactional rollback, lifecycle and prohibitions / item 4: “You must not require or call `duplicator.CreateC…”",
+      "status": "weak",
+      "note": "Only implicit: the stub duplicator/undo/cleanup tables expose just Copy/Paste, Create/AddEntity/SetPlayer/Finish and Add, so calling a forbidden helper errors in the integration layer. No source scan; nothing detects TODO/stub bodies. Traceability's citation (capture-retry case) is nominal; re-cited."
+    },
+    {
+      "id": "T5-ACC-01",
+      "anchor": "§13. Acceptance criteria / item 1: “A real 3 Prop/2 Constraint graph is normalized w…”",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "T5-ACC-02",
+      "anchor": "§13. Acceptance criteria / item 2: “Bad class/model/type/endpoint/self-edge/nonfinit…”",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "T5-ACC-03",
+      "anchor": "§13. Acceptance criteria / item 3: “capture/plan replay, conflicts, revisions, recor…”",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "T5-ACC-04",
+      "anchor": "§13. Acceptance criteria / item 4: “The public Copy/GetTable/Paste restore the graph…”",
+      "status": "asserted",
+      "note": "Observed at case level in Phase B (paste, graph, undo). Per-node target translation is checked in the core only, for the first node."
+    },
+    {
+      "id": "T5-ACC-05",
+      "anchor": "§13. Acceptance criteria / item 5: “Partial failure of Paste or Undo deletes all obj…”",
+      "status": "asserted",
+      "note": "Partial Paste failure in the stub and Shutdown residue; Undo failure is not exercised."
+    }
+  ],
+  "excluded_clauses": [
+    "T5-SCOPE-01"
+  ],
+  "known_issues": [
+    "Undisclosed adapter fields and hook names: suites use `S.HookPrefix`, `S.TimerName` and the suffixes `.Disconnect`/`.Removed` (benchmarks/gmod/private/tasks/contraption-blueprint-duplicator/integration/contraption-blueprint-duplicator-integration.lua:7,15,16; benchmarks/gmod/private/tasks/contraption-blueprint-duplicator/server/contraption-blueprint-duplicator-suite.lua:9-10). The exam (T5-LIFE-01) requires named hooks and a timer but publishes no name or field. Measured by control alternative-strict-reading.",
+    "Over-constraint on params: an unknown params key must be rejected with `invalid_endpoint` (benchmarks/gmod/private/tasks/contraption-blueprint-duplicator/hidden/contraption-blueprint-duplicator.lua:19) and a persisted `params.Bone1 = -1` must be `invalid_state` (benchmarks/gmod/private/tasks/contraption-blueprint-duplicator/hidden/contraption-blueprint-duplicator.lua:21). T5-SEM-03 only says params must be detached and round-trip AT LEAST Bone1/Bone2/forcelimit/nocollide; an implementation that keeps or drops extra keys, or has no sign rule for Bone1, is valid under the exam and fails these cases. The unknown-key half is measured by control alternative-strict-reading-params (unknown keys dropped, known keys still validated): it fails exactly the hidden params case (98.33). The Bone1 half rests on reading only.",
+    "Unstated code mapping: malformed owner/name/revision in plan() must return `invalid_request` (benchmarks/gmod/private/tasks/contraption-blueprint-duplicator/hidden/contraption-blueprint-duplicator.lua:20). T5-ERR-01 lists the code but T5-SEM-08 names only not_found/stale_revision/invalid_transform as plan failures.",
+    "Undisclosed field names and shapes: canonical rows are read as `.id` (benchmarks/gmod/private/tasks/contraption-blueprint-duplicator/hidden/contraption-blueprint-duplicator.lua:4); successful Paste data must hold `entities`/`constraints` as LISTS of objects (benchmarks/gmod/private/tasks/contraption-blueprint-duplicator/integration/contraption-blueprint-duplicator-integration.lua:12; benchmarks/gmod/private/tasks/contraption-blueprint-duplicator/server/contraption-blueprint-duplicator-suite.lua:10) while the published failure shape uses numbers (T5-ROLLBACK-01).",
+    "Private save layout: malformed-state variants index `s.owners.A.x`/`s.requests.a`/`s.pastes.p` or else `s.blueprints[1]`/`s.requests[1]`/`s.pastes[1].result` (benchmarks/gmod/private/tasks/contraption-blueprint-duplicator/hidden/contraption-blueprint-duplicator.lua:21), and the stub asserts `state.owners or state.blueprints` (benchmarks/gmod/private/tasks/contraption-blueprint-duplicator/integration/contraption-blueprint-duplicator-integration.lua:14): exactly the two authored references. T5-PERSIST-01 fixes no layout. Measured by control alternative-strict-reading-layout (list key renamed to `blueprint_rows`): it fails exactly these two cases (96.66).",
+    "Stub limits: `hook.Run` always returns true (benchmarks/gmod/private/tasks/contraption-blueprint-duplicator/integration/contraption-blueprint-duplicator-integration.lua:2), so permission_denied is unreachable; `duplicator.Paste` ignores its arguments (benchmarks/gmod/private/tasks/contraption-blueprint-duplicator/integration/contraption-blueprint-duplicator-integration.lua:5), so the tables built for Paste are only validated by the real server in Phase B.",
+    "Fixture trap: the stub environment has only include, hook, timer, IsValid, Vector/Angle (plain {x,y,z} constructors without methods or arithmetic), NULL, duplicator, constraint, undo and cleanup (benchmarks/gmod/private/tasks/contraption-blueprint-duplicator/integration/contraption-blueprint-duplicator-integration.lua:2-6). Vector arithmetic (`pos + target`), CurTime, util or table.Count on an exercised adapter path error only in this layer.",
+    "Server-layer case granularity: the five-to-eight `server:` cases are the group verdicts of the FINAL phase (B) only (plugins/garrys-mod/src/rhenium_garrys_mod/addons/evaluator.py:255-276 reads `final_payload['cases']`). A failed Phase A assertion stops the run before Phase B (server_runner.py:631-640), so it is never recorded as `F` on its group: every `server:` case becomes unobserved (`U`), `complete` is false and the dedicated-server check scores 0/40. The Phase A group verdicts do exist in the raw execution record (`result.runtime.phase_a.payload.cases`) but are not part of the case table. Phase-A-only evidence therefore acts as a gate, not as a named failing case. Phase A (benchmarks/gmod/private/tasks/contraption-blueprint-duplicator/server/contraption-blueprint-duplicator-suite.lua:9) holds the real Copy/GetTable capture; Phase B (benchmarks/gmod/private/tasks/contraption-blueprint-duplicator/server/contraption-blueprint-duplicator-suite.lua:10) holds restore, real Paste, graph edges, single Undo and Shutdown residue. Placeholder `check(..., true)` entries fill the groups a phase does not exercise (`paste`/`undo` in A, `copy` in B).",
+    "contract-traceability.json contains nominal links (T5-FILE-01, T5-GOAL-01, T5-GOAL-02, T5-SCOPE-01, T5-SCOPE-02, T5-DATA-01 on the hash case, T5-API-04 on the core shutdown case, T5-PERSIST-02 on the malformed-state case, T5-ACC-02 on server:copy); dropped or re-cited, see case notes."
+  ]
+}

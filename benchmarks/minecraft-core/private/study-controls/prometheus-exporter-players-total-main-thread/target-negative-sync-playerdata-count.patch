@@ -1,0 +1,44 @@
+--- a/src/main/java/de/sldk/mc/metrics/PlayersTotal.java
++++ b/src/main/java/de/sldk/mc/metrics/PlayersTotal.java
+@@ -2,8 +2,14 @@
+ 
+ import io.prometheus.client.Gauge;
+ import org.bukkit.Bukkit;
++import org.bukkit.World;
+ import org.bukkit.plugin.Plugin;
+ 
++import java.io.IOException;
++import java.nio.file.Files;
++import java.nio.file.Path;
++import java.util.stream.Stream;
++
+ public class PlayersTotal extends Metric {
+ 
+     private static final Gauge PLAYERS = Gauge.build()
+@@ -15,8 +21,25 @@
+         super(plugin, PLAYERS);
+     }
+ 
++    /**
++     * Count the playerdata files directly instead of materialising an
++     * OfflinePlayer per file, which is what made this metric expensive.
++     */
+     @Override
+     public void doCollect() {
+-        PLAYERS.set(Bukkit.getOfflinePlayers().length);
++        PLAYERS.set(countKnownPlayers());
++    }
++
++    private long countKnownPlayers() {
++        World main = Bukkit.getWorlds().get(0);
++        Path playerdata = main.getWorldFolder().toPath().resolve("playerdata");
++        if (!Files.isDirectory(playerdata)) {
++            return Bukkit.getOnlinePlayers().size();
++        }
++        try (Stream<Path> files = Files.list(playerdata)) {
++            return files.filter(file -> file.getFileName().toString().endsWith(".dat")).count();
++        } catch (IOException e) {
++            return Bukkit.getOfflinePlayers().length;
++        }
+     }
+ }

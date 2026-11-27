@@ -1,0 +1,14 @@
+--- a/CombatReadinessCheck/Source/CRC_Revivified/MarvsMapWealthForStoryTeller.cs
++++ b/CombatReadinessCheck/Source/CRC_Revivified/MarvsMapWealthForStoryTeller.cs
+@@ -11,11 +11,6 @@
+             return true;
+         }
+ 
+-        if (Find.Storyteller.difficulty.fixedWealthMode)
+-        {
+-            return true;
+-        }
+-
+         ArmouryUtility.GetStorytellerArmouryPoints(__instance, out var armouryPoints);
+         var buildings = (float)(__instance.wealthWatcher.WealthBuildings *
+             (double)CRC_Loader.Settings.PercentOfValueForBuildings / 100.0);

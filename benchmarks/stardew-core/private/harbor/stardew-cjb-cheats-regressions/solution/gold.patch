@@ -1,0 +1,180 @@
+diff --git a/CJBCheatsMenu/Framework/Cheats/FarmAndFishing/AlwaysFishTreasureCheat.cs b/CJBCheatsMenu/Framework/Cheats/FarmAndFishing/AlwaysFishTreasureCheat.cs
+index 33dbb77..db08997 100644
+--- a/CJBCheatsMenu/Framework/Cheats/FarmAndFishing/AlwaysFishTreasureCheat.cs
++++ b/CJBCheatsMenu/Framework/Cheats/FarmAndFishing/AlwaysFishTreasureCheat.cs
+@@ -2,6 +2,7 @@ using System.Collections.Generic;
+ using CJBCheatsMenu.Framework.Components;
+ using StardewModdingAPI.Events;
+ using StardewValley;
++using StardewValley.Constants;
+ using StardewValley.Menus;
+ using StardewValley.Tools;
+ 
+@@ -34,7 +35,10 @@ internal class AlwaysFishTreasureCheat : BaseCheat
+     /// <inheritdoc />
+     public override void OnUpdated(CheatContext context, UpdateTickedEventArgs e)
+     {
+-        if (Game1.player?.CurrentTool is FishingRod && Game1.activeClickableMenu is BobberBar bobberMenu)
+-            context.Reflection.GetField<bool>(bobberMenu, "treasure").SetValue(true);
++        if (Game1.player?.CurrentTool is FishingRod && Game1.activeClickableMenu is BobberBar { treasure: false } bobberMenu)
++        {
++            bobberMenu.treasure = true;
++            bobberMenu.goldenTreasure = Game1.player.stats.Get(StatKeys.Mastery(Farmer.fishingSkill)) > 0 && Game1.random.NextDouble() < .25 + Game1.player.team.AverageDailyLuck();
++        }
+     }
+ }
+diff --git a/CJBCheatsMenu/Framework/Cheats/FarmAndFishing/AutoFeedAnimalsCheat.cs b/CJBCheatsMenu/Framework/Cheats/FarmAndFishing/AutoFeedAnimalsCheat.cs
+index f71849c..7100dd2 100644
+--- a/CJBCheatsMenu/Framework/Cheats/FarmAndFishing/AutoFeedAnimalsCheat.cs
++++ b/CJBCheatsMenu/Framework/Cheats/FarmAndFishing/AutoFeedAnimalsCheat.cs
+@@ -85,10 +85,7 @@ internal class AutoFeedAnimalsCheat : BaseCheat
+                             {
+                                 if (!animalHouse.objects.ContainsKey(tile))
+                                 {
+-                                    Object hay = GameLocation.GetHayFromAnySilo(animalHouse);
+-                                    if (hay is null)
+-                                        return false; // no more hay available
+-
++                                    Object hay = GameLocation.GetHayFromAnySilo(animalHouse) ?? ItemRegistry.Create<Object>("(O)178"); // if no hay is available, this is a cheat mod so spawn some anyway
+                                     animalHouse.objects.Add(tile, hay);
+ 
+                                     missingHay--;
+diff --git a/CJBCheatsMenu/Framework/Cheats/FarmAndFishing/AutoPetAnimalsCheat.cs b/CJBCheatsMenu/Framework/Cheats/FarmAndFishing/AutoPetAnimalsCheat.cs
+index d6468aa..5b0218a 100644
+--- a/CJBCheatsMenu/Framework/Cheats/FarmAndFishing/AutoPetAnimalsCheat.cs
++++ b/CJBCheatsMenu/Framework/Cheats/FarmAndFishing/AutoPetAnimalsCheat.cs
+@@ -39,7 +39,7 @@ internal class AutoPetAnimalsCheat : BaseCheat
+         Utility.ForEachLocation(
+             location =>
+             {
+-                if (location.animals.Length > 0 || location.buildings.Count > 0)
++                if (this.ShouldPetAnimalsHere(location))
+                 {
+                     List<FarmAnimal> animalsToPet = location.getAllFarmAnimals();
+                     animalsToPet.RemoveAll(animal => animal.wasPet.Value);
+@@ -77,4 +77,21 @@ internal class AutoPetAnimalsCheat : BaseCheat
+             includeInteriors: false
+         );
+     }
++
++
++    /*********
++    ** Private methods
++    *********/
++    /// <summary>Get whether to try petting any animals in a location or its buildings.</summary>
++    /// <param name="location">The location to check.</param>
++    private bool ShouldPetAnimalsHere(GameLocation location)
++    {
++        // skip if there are no animals here
++        if (location.animals.Length is 0 && location.buildings.Count is 0)
++            return false;
++
++        // skip if players can't build here
++        // Animals in a non-buildable location may be mod NPCs, which can react to being pet with dialogue.
++        return location.IsBuildableLocation();
++    }
+ }
+diff --git a/CJBCheatsMenu/Framework/Cheats/FarmAndFishing/AutoPetPetsCheat.cs b/CJBCheatsMenu/Framework/Cheats/FarmAndFishing/AutoPetPetsCheat.cs
+index dd45fe7..34c0693 100644
+--- a/CJBCheatsMenu/Framework/Cheats/FarmAndFishing/AutoPetPetsCheat.cs
++++ b/CJBCheatsMenu/Framework/Cheats/FarmAndFishing/AutoPetPetsCheat.cs
+@@ -3,7 +3,9 @@ using CJBCheatsMenu.Framework.Components;
+ using StardewModdingAPI;
+ using StardewModdingAPI.Events;
+ using StardewValley;
++using StardewValley.Buildings;
+ using StardewValley.Characters;
++using StardewValley.Locations;
+ 
+ namespace CJBCheatsMenu.Framework.Cheats.FarmAndFishing;
+ 
+@@ -37,12 +39,32 @@ internal class AutoPetPetsCheat : BaseCheat
+         if (!e.IsOneSecond || !Context.IsWorldReady)
+             return;
+ 
+-        Utility.ForEachCharacter(npc =>
++        // Some mods (like A New Dream) add custom pets outside the farm which react to being pet. Only pet pets in
++        // the standard locations (i.e. farm and farmhouses) to avoid issues like repeating dialogues.
++        Farm farm = Game1.getFarm();
++        this.ApplyInLocation(farm);
++        foreach (Building building in farm.buildings)
+         {
+-            if (npc is Pet pet && (!pet.lastPetDay.TryGetValue(Game1.player.UniqueMultiplayerID, out int lastPetDay) || lastPetDay != Game1.Date.TotalDays))
+-                pet.checkAction(Game1.player, pet.currentLocation);
++            if (building.GetIndoors() is FarmHouse home)
++                this.ApplyInLocation(home);
++        }
++    }
++
+ 
+-            return true;
+-        });
++    /*********
++    ** Private methods
++    *********/
++    /// <summary>Pet all pets in a location.</summary>
++    /// <param name="location">The location to search for pets.</param>
++    private void ApplyInLocation(GameLocation location)
++    {
++        if (location.characters.Count > 0)
++        {
++            foreach (NPC character in location.characters)
++            {
++                if (character is Pet pet && (!pet.lastPetDay.TryGetValue(Game1.player.UniqueMultiplayerID, out int lastPetDay) || lastPetDay != Game1.Date.TotalDays))
++                    pet.checkAction(Game1.player, pet.currentLocation);
++            }
++        }
+     }
+ }
+diff --git a/CJBCheatsMenu/Framework/Cheats/PlayerAndTools/OneHitKillCheat.cs b/CJBCheatsMenu/Framework/Cheats/PlayerAndTools/OneHitKillCheat.cs
+index 2e87703..bce6dab 100644
+--- a/CJBCheatsMenu/Framework/Cheats/PlayerAndTools/OneHitKillCheat.cs
++++ b/CJBCheatsMenu/Framework/Cheats/PlayerAndTools/OneHitKillCheat.cs
+@@ -45,7 +45,17 @@ internal class OneHitKillCheat : BaseCheat
+         foreach (NPC character in characters)
+         {
+             if (character is Monster { Health: > 1 } monster)
++            {
+                 monster.Health = 1;
++                if (monster is Grub)
++                {
++                    // We deliberately avoid setting MaxHealth in most cases, since that determines
++                    // the amount of healing from the vampiric enchantment. Grubs are the exception
++                    // since they turn into flies at low health, unless their max health is set to
++                    // the same value.
++                    monster.MaxHealth = 1;
++                }
++            }
+         }
+     }
+ }
+diff --git a/CJBCheatsMenu/docs/release-notes.md b/CJBCheatsMenu/docs/release-notes.md
+index bfe4d83..ce1994f 100644
+--- a/CJBCheatsMenu/docs/release-notes.md
++++ b/CJBCheatsMenu/docs/release-notes.md
+@@ -51,6 +51,7 @@ Released 25 May 2025 for SMAPI 4.1.10 or later.
+ Released 11 January 2025 for SMAPI 4.1.10 or later.
+ 
+ * The "time frozen" message now stays on-screen (like it did before 1.37). A new option on the 'time' tab lets you re-enable the new behavior.
++* Fixed 'one-hit kill' cheat causing grubs to instantly start turning into flies again.
+ * Fixed 'menu background' game option not correctly applied to cheats menu.
+ * Re-added `OpenCheatsMenu` method for mods which access it via reflection.
+ * Improved translations. Thanks to mitekano23 (updated Japanese) and xionkq (updated Chinese)!
+@@ -73,6 +74,7 @@ Released 04 November 2024 for SMAPI 4.1.0 or later.
+ * The time slider can now be set at 10-minute intervals instead of 1-hour intervals.
+ * The "time frozen" message now fades out after a few seconds in a location, to reduce conflicts with other mods' UIs in the top-left corner.
+ * Fixed 'one hit kill' reducing vampiric enchantment's heal amount.
++* Fixed 'always treasure' fishing cheat never producing golden treasure chests once unlocked.
+ * Fixed 'freeze time' and 'grow' keybinds still triggered when typing into a text field.
+ * Fixed missing translations for default tab names in Generic Mod Config Menu UI.
+ * Fixed unknown weathers shown as blank in the weather tab; it'll now show the weather ID instead.
+@@ -83,6 +85,9 @@ Released 04 November 2024 for SMAPI 4.1.0 or later.
+ ## 1.36.2
+ Released 15 April 2024 for SMAPI 4.0.0 or later.
+ 
++* Fixed 'auto-feed animals' no longer applied if you have no silos with hay available.
++* Fixed 'auto-pet animals' petting animals not owned by players, which caused issues like repeating dialogues.
++* Fixed 'auto-pet pets' petting pets outside the farm in 1.36.0, which conflicted with mods that add pet NPCs.
+ * Fixed community center warp sometimes hidden in 1.36.0.
+ * Fixed menu not closed when warping into the mines.
+ 

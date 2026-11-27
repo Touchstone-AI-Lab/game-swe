@@ -1,0 +1,540 @@
+{
+  "id": "l4d2-core",
+  "version": "1.2.0",
+  "game": "left-4-dead-2",
+  "name": {
+    "en": "Left 4 Dead 2 dedicated-server regression tasks",
+    "zh": "Left 4 Dead 2 专用服务器回归任务"
+  },
+  "description": {
+    "en": "Ten source-only repository-debugging tasks evaluated by private assertions in a pinned real Left 4 Dead 2 dedicated server.",
+    "zh": "十个源码级仓库调试任务，由私有断言在固定版本的真实 Left 4 Dead 2 专用服务器中评测。"
+  },
+  "tasks": [
+    {
+      "id": "l4d2-competitive-release-regressions-easy",
+      "difficulty": "easy",
+      "title": {
+        "en": "Repair L4D2 Competitive Rework release regressions",
+        "zh": "修复 L4D2 Competitive Rework 发布回归"
+      },
+      "summary": {
+        "en": "Repair three gameplay and lifecycle regressions in a large SourceMod collection.",
+        "zh": "修复大型 SourceMod 插件集合中的三个玩法与生命周期回归。"
+      },
+      "brief": {
+        "en": "Diagnose every reported regression while preserving unaffected plugin behavior.",
+        "zh": "诊断所有报告的回归，同时保持未受影响的插件行为。"
+      },
+      "requirements": {
+        "en": ["Fix all three reported regressions.", "Keep the submission source-only."],
+        "zh": ["修复全部三个报告的回归。", "保持提交仅包含源码。"]
+      },
+      "api_usage": {
+        "en": ["Preserve the existing SourceMod, Left4DHooks, Confogl, and Director contracts."],
+        "zh": ["保持现有 SourceMod、Left4DHooks、Confogl 与 Director 合同。"]
+      },
+      "acceptance": {
+        "en": ["All 20 private real-server cases must pass without network access."],
+        "zh": ["全部 20 个私有真实服务器用例必须在无网络环境中通过。"]
+      },
+      "domains": ["sourcepawn", "debugging", "real-game-runtime"],
+      "estimated_minutes": 120,
+      "required_files": [
+        "l4d2-competitive/addons/sourcemod/scripting/l4d2_weapon_attributes.sp",
+        "l4d2-competitive/addons/sourcemod/scripting/l4d2_incap_fire_fix.sp",
+        "l4d2-competitive/addons/sourcemod/scripting/l4d2_fix_changelevel.sp"
+      ],
+      "task_kind": "repository-debugging",
+      "source_mod": "L4D2 Competitive Rework",
+      "source_repo": "https://github.com/SirPlease/L4D2-Competitive-Rework",
+      "source_commit": "6cb2fcbe092776c8287944ab541244e2b8262662",
+      "starter_name": "l4d2-competitive",
+      "container_destination": "/app/l4d2-competitive",
+      "submission_language": "SourcePawn",
+      "expected_cases": 20,
+      "defect_groups": 3
+    },
+    {
+      "id": "l4d2-left4dhooks-api-regressions-medium",
+      "difficulty": "medium",
+      "title": {
+        "en": "Repair Left4DHooks public API regressions",
+        "zh": "修复 Left4DHooks 公共 API 回归"
+      },
+      "summary": {
+        "en": "Repair twelve pointer, ABI, detour, entity, and lifecycle regressions.",
+        "zh": "修复十二个指针、ABI、detour、实体与生命周期回归。"
+      },
+      "brief": {
+        "en": "Restore every reported public API and forward contract without broad rewrites.",
+        "zh": "恢复所有报告的公共 API 与 forward 合同，避免大范围重写。"
+      },
+      "requirements": {
+        "en": ["Fix all twelve reported regressions.", "Preserve unaffected native and forward behavior."],
+        "zh": ["修复全部十二个报告的回归。", "保持未受影响的 native 与 forward 行为。"]
+      },
+      "api_usage": {
+        "en": ["Keep the public Left4DHooks include declarations aligned with runtime natives."],
+        "zh": ["保持 Left4DHooks 公共 include 声明与运行时 native 一致。"]
+      },
+      "acceptance": {
+        "en": ["All 71 private ABI and real-server cases must pass without network access."],
+        "zh": ["全部 71 个私有 ABI 与真实服务器用例必须在无网络环境中通过。"]
+      },
+      "domains": ["sourcepawn", "native-api", "debugging", "real-game-runtime"],
+      "estimated_minutes": 300,
+      "required_files": [
+        "left4dhooks/sourcemod/scripting/include/left4dhooks.inc",
+        "left4dhooks/sourcemod/scripting/l4dd/l4dd_natives.sp",
+        "left4dhooks/sourcemod/scripting/l4dd/l4dd_forwards.sp"
+      ],
+      "task_kind": "repository-debugging",
+      "source_mod": "Left4DHooks",
+      "source_repo": "https://github.com/SilvDev/Left4DHooks",
+      "source_commit": "3d44e2207d8ec1218f46667e2c05e4f127a5fb74",
+      "starter_name": "left4dhooks",
+      "container_destination": "/app/left4dhooks",
+      "submission_language": "SourcePawn",
+      "expected_cases": 71,
+      "defect_groups": 12
+    },
+    {
+      "id": "l4d2-infected-bots-release-regressions-medium",
+      "difficulty": "medium",
+      "title": {
+        "en": "Repair L4D Infected Bots release regressions",
+        "zh": "修复 L4D Infected Bots 发布回归"
+      },
+      "summary": {
+        "en": "Repair capacity, configuration, spawn-timing, and finale lifecycle regressions.",
+        "zh": "修复容量、配置、出生计时与终局生命周期回归。"
+      },
+      "brief": {
+        "en": "Restore all four observable contracts in the supplied SourceMod project.",
+        "zh": "恢复所提供 SourceMod 项目中的全部四个可观察合同。"
+      },
+      "requirements": {
+        "en": ["Fix all four reported regression groups.", "Keep public native declarations compatible."],
+        "zh": ["修复全部四组报告的回归。", "保持公共 native 声明兼容。"]
+      },
+      "api_usage": {
+        "en": ["Preserve existing SourceMod and Left4DHooks integration."],
+        "zh": ["保持现有 SourceMod 与 Left4DHooks 集成。"]
+      },
+      "acceptance": {
+        "en": ["All 18 private source and real-server cases must pass without network access."],
+        "zh": ["全部 18 个私有源码与真实服务器用例必须在无网络环境中通过。"]
+      },
+      "domains": ["sourcepawn", "configuration", "scheduling", "real-game-runtime"],
+      "estimated_minutes": 240,
+      "required_files": [
+        "l4d1_2_plugins/l4dinfectedbots/scripting/l4dinfectedbots.sp"
+      ],
+      "task_kind": "repository-debugging",
+      "source_mod": "L4D Infected Bots",
+      "source_repo": "https://github.com/fbef0102/L4D1_2-Plugins",
+      "source_commit": "b570e9efd9534ea8822f6fc7909704b4ee8fcdf2",
+      "starter_name": "l4d1_2_plugins",
+      "container_destination": "/app/l4d1_2_plugins",
+      "submission_language": "SourcePawn",
+      "expected_cases": 18,
+      "defect_groups": 4
+    },
+    {
+      "id": "l4d2-linge-release-regressions-hard-v3",
+      "difficulty": "hard",
+      "title": {
+        "en": "Repair LinGe VScript release regressions",
+        "zh": "修复 LinGe VScript 发布回归"
+      },
+      "summary": {
+        "en": "Repair nine cross-subsystem regressions in a server-side Squirrel project.",
+        "zh": "修复服务器端 Squirrel 项目中的九个跨子系统回归。"
+      },
+      "brief": {
+        "en": "Diagnose every operator report while preserving event-driven behavior.",
+        "zh": "诊断所有服务器运营者报告，同时保持事件驱动行为。"
+      },
+      "requirements": {
+        "en": ["Fix all nine regression groups.", "Do not replace event handling with per-tick health polling."],
+        "zh": ["修复全部九组回归。", "不得用逐 tick 血量轮询替代事件处理。"]
+      },
+      "api_usage": {
+        "en": ["Preserve the existing L4D2 VScript addon entrypoint and event contracts."],
+        "zh": ["保持现有 L4D2 VScript addon 入口与事件合同。"]
+      },
+      "acceptance": {
+        "en": ["All 42 private Squirrel VM cases must pass in the real server without network access."],
+        "zh": ["全部 42 个私有 Squirrel VM 用例必须在无网络真实服务器中通过。"]
+      },
+      "domains": ["squirrel", "vscript", "debugging", "real-game-runtime"],
+      "estimated_minutes": 360,
+      "required_files": ["linge-hud/vscripts/LinGe/HUD.nut"],
+      "task_kind": "repository-debugging",
+      "source_mod": "LinGe VScripts",
+      "source_repo": "https://github.com/Lin515/L4D2_LinGe_VScripts",
+      "source_commit": "c27c22d792902193b468bd059a6749a3e71198a0",
+      "starter_name": "linge-hud",
+      "container_destination": "/app/linge-hud",
+      "submission_language": "Squirrel",
+      "expected_cases": 42,
+      "defect_groups": 9
+    },
+    {
+      "id": "l4d2-mutant-tanks-release-regressions-hard",
+      "difficulty": "hard",
+      "title": {
+        "en": "Repair Mutant Tanks release regressions",
+        "zh": "修复 Mutant Tanks 发布回归"
+      },
+      "summary": {
+        "en": "Repair nine core, reward, ability, and lifecycle regressions.",
+        "zh": "修复九个核心、奖励、能力与生命周期回归。"
+      },
+      "brief": {
+        "en": "Restore every reported contract in the frozen Mutant Tanks source tree.",
+        "zh": "恢复固定 Mutant Tanks 源码树中的所有报告合同。"
+      },
+      "requirements": {
+        "en": ["Fix all nine reported regression groups.", "Preserve unaffected configuration and ability behavior."],
+        "zh": ["修复全部九组报告的回归。", "保持未受影响的配置与能力行为。"]
+      },
+      "api_usage": {
+        "en": ["Keep the documented Mutant Tanks forwards and SourceMod integration compatible."],
+        "zh": ["保持已记录的 Mutant Tanks forward 与 SourceMod 集成兼容。"]
+      },
+      "acceptance": {
+        "en": ["All 57 private source and real-server cases must pass without network access."],
+        "zh": ["全部 57 个私有源码与真实服务器用例必须在无网络环境中通过。"]
+      },
+      "domains": ["sourcepawn", "configuration", "abilities", "real-game-runtime"],
+      "estimated_minutes": 420,
+      "required_files": [
+        "mutant-tanks/addons/sourcemod/scripting/mutant_tanks/mutant_tanks.sp",
+        "mutant-tanks/addons/sourcemod/scripting/mutant_tanks/mt_abilities.sp",
+        "mutant-tanks/addons/sourcemod/scripting/mutant_tanks/abilities/mt_hypno.sp",
+        "mutant-tanks/addons/sourcemod/scripting/mutant_tanks/abilities2/mt_panic.sp",
+        "mutant-tanks/addons/sourcemod/scripting/mutant_tanks/abilities2/mt_warp.sp"
+      ],
+      "task_kind": "repository-debugging",
+      "source_mod": "Mutant Tanks",
+      "source_repo": "https://github.com/Psykotikism/Mutant_Tanks",
+      "source_commit": "c7ef30eea49abce235ef9ff50587aed7cd3c4d5a",
+      "starter_name": "mutant-tanks",
+      "container_destination": "/app/mutant-tanks",
+      "submission_language": "SourcePawn",
+      "expected_cases": 57,
+      "defect_groups": 9
+    },
+    {
+      "id": "l4d2-linge-director-state-hard",
+      "difficulty": "hard",
+      "title": {
+        "en": "LinGe Director and event ownership",
+        "zh": "LinGe Director 与事件所有权"
+      },
+      "summary": {
+        "en": "Repair reentrant event dispatch, configuration ownership and Director lifecycle.",
+        "zh": "修复事件重入、配置所有权及 Director 生命周期。"
+      },
+      "brief": {
+        "en": "Restore every reported contract while preserving unrelated behavior.",
+        "zh": "修复报告中的全部行为约定，并保持无关功能。"
+      },
+      "requirements": {
+        "en": [
+          "Fix all 9 reported groups.",
+          "Keep source-only packaging and public interfaces."
+        ],
+        "zh": [
+          "修复全部 9 组问题。",
+          "保持源码包和公共接口。"
+        ]
+      },
+      "api_usage": {
+        "en": [
+          "Preserve LinGe events, configuration and Director integration."
+        ],
+        "zh": [
+          "保持 LinGe 事件、配置和 Director 集成接口。"
+        ]
+      },
+      "acceptance": {
+        "en": [
+          "All 41 private real-server cases must pass offline."
+        ],
+        "zh": [
+          "全部 41 个私有真实服务器用例须离线通过。"
+        ]
+      },
+      "domains": [
+        "squirrel",
+        "vscript",
+        "debugging",
+        "real-game-runtime"
+      ],
+      "estimated_minutes": 360,
+      "required_files": [
+        "linge-hud/vscripts/LinGe/Base.nut",
+        "linge-hud/vscripts/LinGe/MoreSI.nut"
+      ],
+      "task_kind": "repository-debugging",
+      "source_mod": "LinGe VScripts",
+      "source_repo": "https://github.com/Lin515/L4D2_LinGe_VScripts",
+      "source_commit": "c27c22d792902193b468bd059a6749a3e71198a0",
+      "starter_name": "linge-hud",
+      "container_destination": "/app/linge-hud",
+      "submission_language": "Squirrel",
+      "expected_cases": 41,
+      "defect_groups": 9
+    },
+    {
+      "id": "l4d2-competitive-score-lifecycle-hard",
+      "difficulty": "hard",
+      "title": {
+        "en": "Competitive score and round ledgers",
+        "zh": "竞技计分与回合账本"
+      },
+      "summary": {
+        "en": "Repair health scoring, loss ledgers, ledge episodes and deferred round ownership.",
+        "zh": "修复生命计分、损失账本、挂边过程及延迟回合状态。"
+      },
+      "brief": {
+        "en": "Restore every reported contract while preserving unrelated behavior.",
+        "zh": "修复报告中的全部行为约定，并保持无关功能。"
+      },
+      "requirements": {
+        "en": [
+          "Fix all 7 reported groups.",
+          "Keep source-only packaging and public interfaces."
+        ],
+        "zh": [
+          "修复全部 7 组问题。",
+          "保持源码包和公共接口。"
+        ]
+      },
+      "api_usage": {
+        "en": [
+          "Preserve the plugin’s existing SourceMod public natives, forwards and commands."
+        ],
+        "zh": [
+          "保持插件现有的 SourceMod 公共 native、forward 和命令接口。"
+        ]
+      },
+      "acceptance": {
+        "en": [
+          "All 57 private real-server cases must pass offline."
+        ],
+        "zh": [
+          "全部 57 个私有真实服务器用例须离线通过。"
+        ]
+      },
+      "domains": [
+        "sourcepawn",
+        "debugging",
+        "real-game-runtime"
+      ],
+      "estimated_minutes": 360,
+      "required_files": [
+        "l4d2-competitive/addons/sourcemod/scripting/l4d2_hybrid_scoremod_zone.sp"
+      ],
+      "task_kind": "repository-debugging",
+      "source_mod": "L4D2 Competitive Rework",
+      "source_repo": "https://github.com/SirPlease/L4D2-Competitive-Rework",
+      "source_commit": "6cb2fcbe092776c8287944ab541244e2b8262662",
+      "starter_name": "l4d2-competitive",
+      "container_destination": "/app/l4d2-competitive",
+      "submission_language": "SourcePawn",
+      "expected_cases": 57,
+      "defect_groups": 7
+    },
+    {
+      "id": "l4d2-vslib-scheduler-persistence-hard",
+      "difficulty": "hard",
+      "title": {
+        "en": "VSLib scheduler and persistence",
+        "zh": "VSLib 调度与持久化"
+      },
+      "summary": {
+        "en": "Repair mutation-safe timers, clock transitions and a compatible data-only codec.",
+        "zh": "修复回调可变调度、时钟切换与兼容的纯数据编解码。"
+      },
+      "brief": {
+        "en": "Restore every reported contract while preserving unrelated behavior.",
+        "zh": "修复报告中的全部行为约定，并保持无关功能。"
+      },
+      "requirements": {
+        "en": [
+          "Fix all 8 reported groups.",
+          "Keep source-only packaging and public interfaces."
+        ],
+        "zh": [
+          "修复全部 8 组问题。",
+          "保持源码包和公共接口。"
+        ]
+      },
+      "api_usage": {
+        "en": [
+          "Preserve VSLib timer, file I/O and serialization APIs."
+        ],
+        "zh": [
+          "保持 VSLib 定时器、文件读写和序列化接口。"
+        ]
+      },
+      "acceptance": {
+        "en": [
+          "All 52 private real-server cases must pass offline."
+        ],
+        "zh": [
+          "全部 52 个私有真实服务器用例须离线通过。"
+        ]
+      },
+      "domains": [
+        "squirrel",
+        "vscript",
+        "debugging",
+        "real-game-runtime"
+      ],
+      "estimated_minutes": 360,
+      "required_files": [
+        "linge-hud/vscripts/LinGe/VSLib/timer.nut",
+        "linge-hud/vscripts/LinGe/VSLib/easylogic.nut",
+        "linge-hud/vscripts/LinGe/VSLib/fileio.nut",
+        "linge-hud/vscripts/LinGe/Base.nut"
+      ],
+      "task_kind": "repository-debugging",
+      "source_mod": "LinGe VScripts",
+      "source_repo": "https://github.com/Lin515/L4D2_LinGe_VScripts",
+      "source_commit": "c27c22d792902193b468bd059a6749a3e71198a0",
+      "starter_name": "linge-hud",
+      "container_destination": "/app/linge-hud",
+      "submission_language": "Squirrel",
+      "expected_cases": 52,
+      "defect_groups": 8
+    },
+    {
+      "id": "l4d2-confogl-cvar-transactions-hard",
+      "difficulty": "hard",
+      "title": {
+        "en": "Confogl ConVar transactions",
+        "zh": "Confogl ConVar 事务"
+      },
+      "summary": {
+        "en": "Repair activation snapshots, reentrant enforcement, late binding and release.",
+        "zh": "修复激活快照、重入纠正、延迟绑定和释放。"
+      },
+      "brief": {
+        "en": "Restore every reported contract while preserving unrelated behavior.",
+        "zh": "修复报告中的全部行为约定，并保持无关功能。"
+      },
+      "requirements": {
+        "en": [
+          "Fix all 7 reported groups.",
+          "Keep source-only packaging and public interfaces."
+        ],
+        "zh": [
+          "修复全部 7 组问题。",
+          "保持源码包和公共接口。"
+        ]
+      },
+      "api_usage": {
+        "en": [
+          "Preserve the plugin’s existing SourceMod public natives, forwards and commands."
+        ],
+        "zh": [
+          "保持插件现有的 SourceMod 公共 native、forward 和命令接口。"
+        ]
+      },
+      "acceptance": {
+        "en": [
+          "All 42 private real-server cases must pass offline."
+        ],
+        "zh": [
+          "全部 42 个私有真实服务器用例须离线通过。"
+        ]
+      },
+      "domains": [
+        "sourcepawn",
+        "debugging",
+        "real-game-runtime"
+      ],
+      "estimated_minutes": 360,
+      "required_files": [
+        "l4d2-competitive/addons/sourcemod/scripting/confoglcompmod.sp",
+        "l4d2-competitive/addons/sourcemod/scripting/confoglcompmod/CvarSettings.sp"
+      ],
+      "task_kind": "repository-debugging",
+      "source_mod": "L4D2 Competitive Rework",
+      "source_repo": "https://github.com/SirPlease/L4D2-Competitive-Rework",
+      "source_commit": "6cb2fcbe092776c8287944ab541244e2b8262662",
+      "starter_name": "l4d2-competitive",
+      "container_destination": "/app/l4d2-competitive",
+      "submission_language": "SourcePawn",
+      "expected_cases": 42,
+      "defect_groups": 7
+    },
+    {
+      "id": "l4d2-library-map-tank-state-hard",
+      "difficulty": "hard",
+      "title": {
+        "en": "L4D2Lib map and Tank state",
+        "zh": "L4D2Lib 地图与 Tank 状态"
+      },
+      "summary": {
+        "en": "Repair atomic map reloads and reentrant, connection-safe Tank transitions.",
+        "zh": "修复地图原子重载及支持重入、连接隔离的 Tank 状态转换。"
+      },
+      "brief": {
+        "en": "Restore every reported contract while preserving unrelated behavior.",
+        "zh": "修复报告中的全部行为约定，并保持无关功能。"
+      },
+      "requirements": {
+        "en": [
+          "Fix all 8 reported groups.",
+          "Keep source-only packaging and public interfaces."
+        ],
+        "zh": [
+          "修复全部 8 组问题。",
+          "保持源码包和公共接口。"
+        ]
+      },
+      "api_usage": {
+        "en": [
+          "Preserve the plugin’s existing SourceMod public natives, forwards and commands."
+        ],
+        "zh": [
+          "保持插件现有的 SourceMod 公共 native、forward 和命令接口。"
+        ]
+      },
+      "acceptance": {
+        "en": [
+          "All 44 private real-server cases must pass offline."
+        ],
+        "zh": [
+          "全部 44 个私有真实服务器用例须离线通过。"
+        ]
+      },
+      "domains": [
+        "sourcepawn",
+        "debugging",
+        "real-game-runtime"
+      ],
+      "estimated_minutes": 360,
+      "required_files": [
+        "l4d2-competitive/addons/sourcemod/scripting/l4d2lib.sp",
+        "l4d2-competitive/addons/sourcemod/scripting/l4d2lib/mapinfo.sp",
+        "l4d2-competitive/addons/sourcemod/scripting/l4d2lib/tanks.sp"
+      ],
+      "task_kind": "repository-debugging",
+      "source_mod": "L4D2 Competitive Rework",
+      "source_repo": "https://github.com/SirPlease/L4D2-Competitive-Rework",
+      "source_commit": "6cb2fcbe092776c8287944ab541244e2b8262662",
+      "starter_name": "l4d2-competitive",
+      "container_destination": "/app/l4d2-competitive",
+      "submission_language": "SourcePawn",
+      "expected_cases": 44,
+      "defect_groups": 8
+    }
+  ]
+}

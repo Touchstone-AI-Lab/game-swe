@@ -1,0 +1,134 @@
+schema_version = "1.1"
+
+[task]
+name = "gamecodebench/darkrp-persistence-regressions"
+description = "A DarkRP branch carrying six independent regressions in what the server writes down about a player and reads back -- the record created for someone new, balances kept online and offline, and the roleplay name someone is known by -- reported only as user-visible symptoms."
+authors = []
+keywords = ["garrysmod", "glua", "lua", "darkrp", "multi-defect", "regression"]
+
+[metadata]
+category = "programming"
+difficulty = "hard"
+tags = ["game-modding", "glua", "gmod", "darkrp", "bug-fix", "composite"]
+source_repo = "https://github.com/FPtje/DarkRP"
+source_license = "MIT"
+base_commit = "5abcf7abab9e489b2d882a55d95f84c206d9d05c"
+reverted_fixes = ""
+gold_patch_origin = "hand-injected"
+
+# SUBSYSTEM COVERAGE. Disjoint from the other DarkRP tasks in this pack. Two subsystems:
+# base/sv_data.lua, the layer between the gamemode and its database, and base/sh_util.lua,
+# the shared helpers the rest of the gamemode hands values and names to.
+#   A  createPlayerData    - the values are written in the order the signature names
+#                            them rather than the order the columns are declared in
+#   B  storeMoney          - zero stops being a balance worth writing down
+#   C  storeOfflineMoney   - the update stops naming the row the game reads back,
+#                            leaving only the deprecated one
+#   D  storeRPName         - the variable is assigned before the hook is called, so the
+#                            hook's "previous name" is the new one
+#   E  storeRPName         - the minimum name length drops to the empty string
+#   F  retrieveRPNames     - a count of zero starts reading as "taken"
+#   G  toInt (sh_util)     - the self-comparison that rejects a non-number is dropped
+#   H  findPlayer (sh_util)- the "plain" flag is dropped, so a name is used as a pattern
+#   I  findPlayer (sh_util)- the empty needle stops being refused, and it matches at
+#                            position 1 of every name
+#
+# VERIFIER COVERAGE. 9 reports / 9 defect groups / 9 assertions + 1 load sentinel +
+# 2 positive controls = 12 expected passes.
+#   #8201 A   #8204 B   #8207 C   #8210 D   #8213 E   #8216 F   #8219 G   #8222 H
+#   #8225 I
+# Group G additionally carries two assertions that hold on BOTH trees (an ordinary
+# fractional value and an ordinary numeric string), so the group cannot be satisfied by
+# a helper that refuses everything.
+# The controls drive the same two routines B and E change, at an ordinary balance and an
+# ordinary name where neither defect can differ, so they hold on BOTH trees. A
+# submission that refuses every write, or that writes everything through unchecked,
+# cannot score.
+#
+# DESIGNED AGAINST EARLIER DRAFTS, not guessed. Two earlier tasks (police, a single
+# repair shape; map-state, five repair shapes and three knowledge traps) were built and
+# thrown away rather than shipped. The money task differs from both in that its defects
+# are not recognisable as defects from their SHAPE. `(JailIndex + 1) % #jailPos` and a
+# missing `JailIndex = 1` read as suspicious on sight; `- math.floor(amount) >= 0` reads
+# as correct code and can only be rejected by reasoning about what the routine is for.
+#
+# WHY THERE ARE TWO SUBSYSTEMS. A first revision of this task put all six defects in
+# sv_data.lua alone, and the "reads as correct code" rule was not enough on its own.
+# The money task differs from that revision in one further respect: its defects are
+# spread over three files and two subsystems, one of which has nothing to do with the
+# domain its reports describe. This revision adds that second property: three further
+# defects in a shared helper module, reachable from staff commands rather than from
+# anything the database reports mention. Defect COUNT is deliberately not the variable
+# being changed.
+#
+# EVERY DEFECT HERE IS OF THE SECOND KIND. None of the nine is visibly wrong in isolation:
+#   A  is only wrong against the column order in the CREATE TABLE statement elsewhere in
+#      this same file -- the argument order matches the function's own signature.
+#   B  reads as an ordinary non-negative check; it is wrong only because zero is a
+#      balance a player can legitimately be left holding.
+#   C  updates a row and looks complete; it is wrong only because the row it still names
+#      is the deprecated one and the row it dropped is the one that is read back.
+#   D  is two adjacent statements in the other order, each correct on its own.
+#   E  is a smaller number in a length check.
+#   F  is a comparison against zero that reads as a presence test.
+#   G  removes `value == value`, which reads as a tautology and is in fact the only
+#      thing rejecting a value that is not a number.
+#   H  removes a trailing `1, true` that reads as noise and is in fact string.find's
+#      "plain" flag, without which the needle is a Lua pattern.
+#   I  removes an emptiness test from a guard that still checks for nil.
+# No deletion leaves a dangling unused local, no comment or hint string next to a defect
+# states the behaviour it contradicts, and no identifier names an intent the code fails
+# to carry out.
+#
+# VALIDATED PER DEFECT, not just base vs reference.
+#   base (all nine broken)    3 PASS /  9 FAIL  -- sentinel + both controls
+#   reference (all fixed)    12 PASS /  0 FAIL
+#   fix A..I, each alone:     4 PASS /  8 FAIL  -- sentinel + controls + that group only
+# Each single-fix tree flips exactly its own group: no defect masks another.
+#
+# HARNESS FACTS ESTABLISHED BY PROBE BEFORE ANY DEFECT WAS CHOSEN, so that no assertion
+# here is measuring the container instead of the submission:
+#   - A bot's SteamID() is the literal string "BOT", so util.SteamIDTo64 returns 0 and
+#     every read routed through the SteamID path queries a row that does not exist. The
+#     suite reads by SteamID64, which is a real value.
+#   - createPlayerData writes BOTH the SteamID64 row and the deprecated UniqueID row,
+#     and all three columns come back readable.
+#   - retrieveSalary RAISES for a bot (its job-table lookup fails) and storeSalary never
+#     touches the database at all, so neither is usable as an observation. Nothing here
+#     depends on them.
+#   - An infinity written into the money column would be rejected by the database
+#     regardless of the guard, so that guard is NOT observable. Defect C was re-sited
+#     onto the write target for this reason rather than being asserted on faith.
+#
+# THE SUITE MUST SCORE A WRONG ANSWER, NOT DIE ON IT. GLuaTest catches a failed
+# expectation inside an async callback, but an ordinary Lua error raised in the same
+# place escapes as "Timer Failed!", done() is never reached, and the case burns its
+# whole async timeout -- which a sibling task turned into entrypoint_exit=124 and
+# passed=0 failed=0, a run that never scored. So every read here is type-safe, every
+# call into the submission goes through pcall, and async cases are capped at 12 seconds.
+# READ entrypoint_exit BEFORE READING reward.
+
+[verifier]
+network_mode = "no-network"
+timeout_sec = 1200.0
+
+[agent]
+# The agent harness runs INSIDE the container and calls the model API from there, so a
+# blanket no-network kills it before it does any work. Everything else it needs (uv,
+# mini-swe-agent, build tools) is baked into the image, so only model endpoints need to
+# be reachable. github.com and raw.githubusercontent.com are deliberately absent: DarkRP
+# is public and fetching the upstream tree is the leak this isolates against.
+# A Harbor job must pass the exact model endpoint hostname through
+# `agents[].extra_allowed_hosts`; do not edit the canonical task for each provider.
+network_mode = "allowlist"
+allowed_hosts = []
+timeout_sec = 5400.0
+
+[environment]
+network_mode = "no-network"
+build_timeout_sec = 2400.0
+cpus = 6
+memory_mb = 16384
+storage_mb = 20480
+gpus = 0
+mcp_servers = []

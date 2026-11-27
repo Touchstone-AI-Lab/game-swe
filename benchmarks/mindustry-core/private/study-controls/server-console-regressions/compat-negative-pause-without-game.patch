@@ -1,0 +1,13 @@
+--- a/server/src/mindustry/server/ServerControl.java
++++ b/server/src/mindustry/server/ServerControl.java
+@@ -679,10 +679,6 @@
+         });
+ 
+         handler.register("pause", "<on/off>", "Pause or unpause the game.", arg -> {
+-            if(state.isMenu()){
+-                err("Cannot pause without a game running.");
+-                return;
+-            }
+             boolean pause = arg[0].equals("on");
+             autoPaused = false;
+             state.set(pause ? State.paused : State.playing);

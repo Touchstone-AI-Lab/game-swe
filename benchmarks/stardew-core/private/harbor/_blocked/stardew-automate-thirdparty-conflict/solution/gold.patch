@@ -1,0 +1,50 @@
+diff --git a/Automate/Framework/MachineGroupFactory.cs b/Automate/Framework/MachineGroupFactory.cs
+index c56a2ea..b1765c3 100644
+--- a/Automate/Framework/MachineGroupFactory.cs
++++ b/Automate/Framework/MachineGroupFactory.cs
+@@ -107,6 +107,36 @@ internal class MachineGroupFactory
+         }
+     }
+ 
++    /// <summary>Get the automateable entities on a tile, skipping any entity whose
++    /// own code (or a third-party patch of it) throws. One broken entity must not stop
++    /// the rest of the location being scanned.</summary>
++    /// <param name="location">The location to search.</param>
++    /// <param name="locationIndex">An indexed view of the location.</param>
++    /// <param name="tile">The tile to search.</param>
++    private IEnumerable<IAutomatable?> GetEntitiesSafely(GameLocation location, LocationFloodFillIndex locationIndex, Vector2 tile)
++    {
++        List<IAutomatable?> entities = [];
++
++        using IEnumerator<IAutomatable?> cursor = this.GetEntities(location, locationIndex, tile).GetEnumerator();
++        while (true)
++        {
++            try
++            {
++                if (!cursor.MoveNext())
++                    break;
++            }
++            catch (Exception ex)
++            {
++                this.Monitor.Log($"Failed to check for automateable entities at {location.NameOrUniqueName} ({tile.X}, {tile.Y}). This is usually caused by another mod; the tile will be skipped.\n{ex}", LogLevel.Warn);
++                break;
++            }
++
++            entities.Add(cursor.Current);
++        }
++
++        return entities;
++    }
++
+     /// <summary>Get a machine, container, or connector from the given entity, if any.</summary>
+     /// <param name="location">The location to check.</param>
+     /// <param name="tile">The tile to check.</param>
+@@ -184,7 +214,7 @@ internal class MachineGroupFactory
+     {
+         bool anyAdded = false;
+ 
+-        foreach (IAutomatable? entity in this.GetEntities(location, locationIndex, tile))
++        foreach (IAutomatable? entity in this.GetEntitiesSafely(location, locationIndex, tile))
+         {
+             switch (entity)
+             {

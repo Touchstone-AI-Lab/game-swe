@@ -1,0 +1,11 @@
+--- a/CustomizeWeapon/Source/ThingComps/CompAbilityProvider.cs
++++ b/CustomizeWeapon/Source/ThingComps/CompAbilityProvider.cs
+@@ -23,7 +23,7 @@
+         : null;
+ 
+     private static Pawn_AbilityTracker AbilityTrackerFor(Pawn pawn) {
+-        return pawn.abilities;
++        return pawn.abilities ??= new Pawn_AbilityTracker(pawn);
+     }
+ 
+     public IEnumerable<ReloadableAbility> Reloadables {

@@ -1,0 +1,17 @@
+--- a/scripts/components/lootrollarbiter.lua
++++ b/scripts/components/lootrollarbiter.lua
+@@ -104,11 +104,10 @@
+     local accepted = inventory:GiveItem(item)
+     -- A stackable item merged into an existing stack is consumed by GiveItem.
+     local merged = not item:IsValid()
+-    if accepted and (merged or item.components.inventoryitem:GetGrandOwner() == player) then
++    -- GetGrandOwner() is consulted for logging only.
++    local _ = (not merged) and item.components.inventoryitem:GetGrandOwner()
++    if accepted then
+         return true
+-    end
+-    if not merged then
+-        item:Remove()
+     end
+     return false
+ end

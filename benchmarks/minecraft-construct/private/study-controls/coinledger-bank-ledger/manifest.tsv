@@ -1,0 +1,3 @@
+control	kind	base	overlay	root	note
+target-negative-fee-rounded-to-nearest	target-negative	reference	patch:target-negative-fee-rounded-to-nearest.patch	plugin	reference whose transfer fee rounds to the nearest cent (Math.round) instead of down
+alternative	alternative	starter	tree:alternative	plugin	independently written from the exam alone: table-driven subcommands, Entry/LedgerStorage split, atomic accounts.yml rewrite

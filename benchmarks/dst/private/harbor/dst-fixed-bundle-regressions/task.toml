@@ -1,0 +1,65 @@
+schema_version = "1.4"
+
+artifacts = ["/app/mod"]
+
+[task]
+name = "gamecodebench/dst-dst-fixed-bundle-regressions"
+version = "2.0.0"
+description = "Repair the DST Fixed server mod so gifts and bundles opened into an inventory keep the base game's unwrap behaviour and the bundle preview lists and draws every item."
+authors = [{ name = "GameCodeBench" }]
+keywords = ["dst", "dont-starve-together", "lua", "game-modding", "repository-debugging", "bundles", "gifts", "events", "rpc", "persistence"]
+
+[metadata]
+category = "programming"
+difficulty = "hard"
+tags = ["game-modding", "dst", "lua", "repository-debugging", "bug-fix", "composite"]
+task_kind = "repository-debugging"
+game = "Don't Starve Together Dedicated Server"
+game_version = "Steam app 343050 build 24700372"
+mod_loader = "DST Mod API 10"
+language = "Lua 5.1"
+source_mod = "DST Fixed"
+source_repo = "https://github.com/angribot/DST-Fixed"
+source_license = "Apache-2.0"
+base_commit = "841cd02d5d21d530e773548965e76aa7a2117805"
+reverted_fix_commits = ["f46026cf14d70a5dadea785af5eea3897b400b48", "e71c729fbf0a3e8b0ca4f3dc4f08319417276da9", "77f81073e68700a17ac2c52d8cb1e1ce378d98f2", "c28d65c40b81742ce7a87c2bf53ade8fb9b8ee8b", "b982089040653b02e557b7d3a18bfff724383b89"]
+gold_patch_origin = "upstream"
+expected_server_cases = 14
+content_reference = "benchmarks/dst/exams/dst-fixed-bundle-regressions.md"
+content_reference_pack = "dst-core"
+harbor_reference_repository = "https://github.com/harbor-framework/harbor"
+harbor_reference_revision = "9a2e3b135cc8fb1e41131020f83370cb2f12ae93"
+verification_profile = "rhenium-dst-full"
+real_server_validation = "in-verifier; Steam app 343050 build 24700372"
+
+[verifier]
+network_mode = "no-network"
+timeout_sec = 900.0
+user = "root"
+environment_mode = "separate"
+
+[verifier.environment]
+network_mode = "no-network"
+
+[agent]
+# The image already contains Codex CLI and mini-swe-agent. A Harbor job supplies
+# only the model endpoint hostname through agents[].extra_allowed_hosts.
+network_mode = "allowlist"
+allowed_hosts = []
+timeout_sec = 9000.0
+user = "agent"
+
+[environment]
+network_mode = "no-network"
+build_timeout_sec = 1800.0
+cpus = 4
+memory_mb = 8192
+storage_mb = 10240
+gpus = 0
+mcp_servers = []
+
+[verifier.env]
+
+[environment.env]
+
+[solution.env]

@@ -1,0 +1,3 @@
+control	kind	base	overlay	root	note
+target-negative-interval-keeps-old-timer	target-negative	reference	patch:target-negative-interval-keeps-old-timer.patch	plugin	reference whose /crier interval saves the new interval but leaves the running timer on the old period
+alternative	alternative	starter	tree:alternative	plugin	independently written from the exam alone: in-memory YAML document edits, lazily built cycles, one regex pass for placeholders

@@ -1,0 +1,15 @@
+--- a/spigot/src/main/java/ru/brikster/chatty/notification/ScheduledExecutorNotificationTicker.java
++++ b/spigot/src/main/java/ru/brikster/chatty/notification/ScheduledExecutorNotificationTicker.java
+@@ -42,7 +42,11 @@
+ 
+     @Override
+     public void cancelTicking() {
+-        future.cancel(false);
++        if (future != null) {
++            future.cancel(false);
++            future = null;
++        }
++        executor.shutdownNow();
+     }
+ 
+ }

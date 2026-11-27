@@ -1,0 +1,710 @@
+{
+  "task": "terraria/core/terraria-aequus-carpentry-replication-hard",
+  "task_version": "0.1.0",
+  "exam": "benchmarks/terraria-core/exams/terraria-aequus-carpentry-replication-hard.md",
+  "cases": [
+    {
+      "id": "check:submission-shape",
+      "role": "static"
+    },
+    {
+      "id": "projection:completion_trim_is_stable_and_unique",
+      "role": "target",
+      "clauses": [
+        "completion-persistence"
+      ]
+    },
+    {
+      "id": "projection:completion_add_is_idempotent",
+      "role": "target",
+      "clauses": [
+        "completion-persistence"
+      ]
+    },
+    {
+      "id": "projection:save_uses_independent_list",
+      "role": "target",
+      "clauses": [
+        "completion-persistence"
+      ]
+    },
+    {
+      "id": "projection:load_clears_stale_and_deduplicates",
+      "role": "target",
+      "clauses": [
+        "completion-persistence"
+      ]
+    },
+    {
+      "id": "projection:unknown_names_survive_local_persistence",
+      "role": "target",
+      "clauses": [
+        "completion-persistence"
+      ]
+    },
+    {
+      "id": "projection:completion_frame_uses_global_ids",
+      "role": "target",
+      "clauses": [
+        "completion-network"
+      ]
+    },
+    {
+      "id": "projection:completion_frame_is_unique_and_sorted",
+      "role": "target",
+      "clauses": [
+        "completion-network"
+      ]
+    },
+    {
+      "id": "projection:unknown_names_are_omitted_only_from_wire",
+      "role": "target",
+      "clauses": [
+        "completion-network"
+      ]
+    },
+    {
+      "id": "projection:completion_receive_replaces_on_success",
+      "role": "target",
+      "clauses": [
+        "completion-network"
+      ]
+    },
+    {
+      "id": "projection:completion_receive_rejects_negative_count",
+      "role": "target",
+      "clauses": [
+        "completion-network"
+      ]
+    },
+    {
+      "id": "projection:completion_receive_rejects_large_count",
+      "role": "target",
+      "clauses": [
+        "completion-network"
+      ]
+    },
+    {
+      "id": "projection:completion_receive_rejects_duplicate_ids",
+      "role": "target",
+      "clauses": [
+        "completion-network"
+      ]
+    },
+    {
+      "id": "projection:completion_receive_rejects_out_of_range_id",
+      "role": "target",
+      "clauses": [
+        "completion-network"
+      ]
+    },
+    {
+      "id": "projection:completion_receive_truncation_rolls_back",
+      "role": "target",
+      "clauses": [
+        "completion-network"
+      ]
+    },
+    {
+      "id": "projection:completion_receive_rejects_unsorted_ids",
+      "role": "target",
+      "clauses": [
+        "completion-network"
+      ]
+    },
+    {
+      "id": "projection:building_load_continues_after_missing_key",
+      "role": "target",
+      "clauses": [
+        "building-persistence"
+      ]
+    },
+    {
+      "id": "projection:building_load_clears_stale_state",
+      "role": "target",
+      "clauses": [
+        "building-persistence"
+      ]
+    },
+    {
+      "id": "projection:building_load_copies_tag_lists",
+      "role": "target",
+      "clauses": [
+        "building-persistence"
+      ]
+    },
+    {
+      "id": "projection:world_save_does_not_clear_live_buildings",
+      "role": "target",
+      "clauses": [
+        "building-persistence"
+      ]
+    },
+    {
+      "id": "projection:world_save_load_restores_completions_and_buildings",
+      "role": "target",
+      "clauses": [
+        "building-persistence"
+      ]
+    },
+    {
+      "id": "projection:clear_world_clears_both_stores",
+      "role": "target",
+      "clauses": [
+        "building-persistence"
+      ]
+    },
+    {
+      "id": "projection:building_save_skips_unknown_and_invalid_state",
+      "role": "target",
+      "clauses": [
+        "building-persistence"
+      ]
+    },
+    {
+      "id": "projection:building_load_filters_overflowing_rectangles",
+      "role": "target",
+      "clauses": [
+        "building-persistence"
+      ]
+    },
+    {
+      "id": "projection:trim_checks_every_step_without_stalling",
+      "role": "target",
+      "clauses": [
+        "building-validation"
+      ]
+    },
+    {
+      "id": "projection:trim_removes_failed_location_and_keeps_later",
+      "role": "target",
+      "clauses": [
+        "building-validation"
+      ]
+    },
+    {
+      "id": "projection:trim_removes_throwing_location_and_keeps_later",
+      "role": "target",
+      "clauses": [
+        "building-validation"
+      ]
+    },
+    {
+      "id": "projection:add_rejects_unknown_challenge_id",
+      "role": "target",
+      "clauses": [
+        "building-validation"
+      ]
+    },
+    {
+      "id": "projection:add_rejects_nonpositive_rectangle",
+      "role": "target",
+      "clauses": [
+        "building-validation"
+      ]
+    },
+    {
+      "id": "projection:add_rejects_overlapping_rectangle",
+      "role": "target",
+      "clauses": [
+        "building-validation"
+      ]
+    },
+    {
+      "id": "projection:add_rejects_overflowing_rectangle",
+      "role": "target",
+      "clauses": [
+        "building-validation"
+      ]
+    },
+    {
+      "id": "projection:building_frame_orders_groups",
+      "role": "target",
+      "clauses": [
+        "building-network-send"
+      ]
+    },
+    {
+      "id": "projection:building_frame_count_matches_nonempty_groups",
+      "role": "target",
+      "clauses": [
+        "building-network-send"
+      ]
+    },
+    {
+      "id": "projection:building_frame_skips_empty_groups",
+      "role": "target",
+      "clauses": [
+        "building-network-send"
+      ]
+    },
+    {
+      "id": "projection:building_receive_replaces_on_success",
+      "role": "target",
+      "clauses": [
+        "building-network-receive"
+      ]
+    },
+    {
+      "id": "projection:building_receive_rejects_negative_group_count",
+      "role": "target",
+      "clauses": [
+        "building-network-receive"
+      ]
+    },
+    {
+      "id": "projection:building_receive_rejects_duplicate_group",
+      "role": "target",
+      "clauses": [
+        "building-network-receive"
+      ]
+    },
+    {
+      "id": "projection:building_receive_rejects_unknown_group",
+      "role": "target",
+      "clauses": [
+        "building-network-receive"
+      ]
+    },
+    {
+      "id": "projection:building_receive_rejects_excessive_locations",
+      "role": "target",
+      "clauses": [
+        "building-network-receive"
+      ]
+    },
+    {
+      "id": "projection:building_receive_rejects_empty_group",
+      "role": "target",
+      "clauses": [
+        "building-network-receive"
+      ]
+    },
+    {
+      "id": "projection:building_receive_rejects_invalid_rectangle",
+      "role": "target",
+      "clauses": [
+        "building-network-receive"
+      ]
+    },
+    {
+      "id": "projection:building_receive_rejects_overlap",
+      "role": "target",
+      "clauses": [
+        "building-network-receive"
+      ]
+    },
+    {
+      "id": "projection:building_receive_truncation_rolls_back",
+      "role": "target",
+      "clauses": [
+        "building-network-receive"
+      ]
+    },
+    {
+      "id": "projection:building_receive_rejects_unsorted_groups",
+      "role": "target",
+      "clauses": [
+        "building-network-receive"
+      ]
+    },
+    {
+      "id": "projection:building_receive_rejects_overflowing_rectangle",
+      "role": "target",
+      "clauses": [
+        "building-network-receive"
+      ]
+    },
+    {
+      "id": "projection:world_sync_writes_completions_then_buildings",
+      "role": "target",
+      "clauses": [
+        "world-authority-clone"
+      ]
+    },
+    {
+      "id": "projection:world_sync_rolls_back_both_sections",
+      "role": "target",
+      "clauses": [
+        "world-authority-clone"
+      ]
+    },
+    {
+      "id": "projection:client_completion_requests_without_local_mutation",
+      "role": "target",
+      "clauses": [
+        "world-authority-clone"
+      ]
+    },
+    {
+      "id": "projection:server_completion_adds_and_broadcasts_once",
+      "role": "target",
+      "clauses": [
+        "world-authority-clone"
+      ]
+    },
+    {
+      "id": "projection:server_reset_clears_then_broadcasts",
+      "role": "target",
+      "clauses": [
+        "world-authority-clone"
+      ]
+    },
+    {
+      "id": "projection:building_add_packet_requires_real_change",
+      "role": "target",
+      "clauses": [
+        "world-authority-clone"
+      ]
+    },
+    {
+      "id": "projection:quiet_building_change_never_echoes",
+      "role": "target",
+      "clauses": [
+        "world-authority-clone"
+      ]
+    },
+    {
+      "id": "projection:building_remove_packet_requires_real_change",
+      "role": "target",
+      "clauses": [
+        "world-authority-clone"
+      ]
+    },
+    {
+      "id": "projection:player_clone_copies_independent_completion_list",
+      "role": "target",
+      "clauses": [
+        "world-authority-clone"
+      ]
+    },
+    {
+      "id": "projection:client_state_copy_is_independent",
+      "role": "target",
+      "clauses": [
+        "world-authority-clone"
+      ]
+    },
+    {
+      "id": "projection:invalid_selected_bounty_is_not_saved",
+      "role": "target",
+      "clauses": [
+        "world-authority-clone"
+      ]
+    },
+    {
+      "id": "projection:building_buff_includes_challenge_zero",
+      "role": "target",
+      "clauses": [
+        "player-buff-application"
+      ]
+    },
+    {
+      "id": "projection:building_buff_applies_once_per_group",
+      "role": "target",
+      "clauses": [
+        "player-buff-application"
+      ]
+    },
+    {
+      "id": "projection:building_buff_ignores_nonintersecting_and_nonpositive",
+      "role": "target",
+      "clauses": [
+        "player-buff-application"
+      ]
+    },
+    {
+      "id": "projection:building_buff_ignores_stale_or_null_groups",
+      "role": "target",
+      "clauses": [
+        "player-buff-application"
+      ]
+    },
+    {
+      "id": "projection:post_update_requires_owner_tenth_safe_tick",
+      "role": "target",
+      "clauses": [
+        "player-buff-application"
+      ]
+    },
+    {
+      "id": "projection:completion_load_rejects_wrong_tag_type",
+      "role": "target",
+      "clauses": [
+        "completion-persistence"
+      ]
+    },
+    {
+      "id": "projection:completion_send_rejects_invalid_registry_without_writing",
+      "role": "target",
+      "clauses": [
+        "registry-generation"
+      ]
+    },
+    {
+      "id": "projection:completion_receive_registry_change_rolls_back",
+      "role": "target",
+      "clauses": [
+        "registry-generation"
+      ]
+    },
+    {
+      "id": "projection:completion_writer_reentrancy_uses_snapshot",
+      "role": "target",
+      "clauses": [
+        "reentrant-snapshots"
+      ]
+    },
+    {
+      "id": "projection:building_unloaded_name_survives_resave",
+      "role": "target",
+      "clauses": [
+        "stable-content-identity"
+      ]
+    },
+    {
+      "id": "projection:building_unloaded_name_is_omitted_from_wire",
+      "role": "target",
+      "clauses": [
+        "stable-content-identity"
+      ]
+    },
+    {
+      "id": "projection:building_returning_content_reactivates",
+      "role": "target",
+      "clauses": [
+        "stable-content-identity"
+      ]
+    },
+    {
+      "id": "projection:building_registry_reorder_preserves_identity",
+      "role": "target",
+      "clauses": [
+        "stable-content-identity"
+      ]
+    },
+    {
+      "id": "projection:building_load_wrong_type_rolls_back",
+      "role": "target",
+      "clauses": [
+        "building-persistence"
+      ]
+    },
+    {
+      "id": "projection:building_send_rejects_invalid_registry_without_writing",
+      "role": "target",
+      "clauses": [
+        "registry-generation"
+      ]
+    },
+    {
+      "id": "projection:building_receive_registry_change_rolls_back",
+      "role": "target",
+      "clauses": [
+        "registry-generation"
+      ]
+    },
+    {
+      "id": "projection:building_receive_rejects_global_location_budget",
+      "role": "target",
+      "clauses": [
+        "global-frame-budget"
+      ]
+    },
+    {
+      "id": "projection:building_send_rejects_global_location_budget_without_writing",
+      "role": "target",
+      "clauses": [
+        "global-frame-budget"
+      ]
+    },
+    {
+      "id": "projection:building_save_validation_is_nonmutating",
+      "role": "target",
+      "clauses": [
+        "reentrant-snapshots"
+      ]
+    },
+    {
+      "id": "projection:building_trim_reentrant_mutation_is_not_clobbered",
+      "role": "target",
+      "clauses": [
+        "reentrant-snapshots"
+      ]
+    },
+    {
+      "id": "projection:world_load_is_transactional_across_tag_sections",
+      "role": "target",
+      "clauses": [
+        "world-authority-clone"
+      ]
+    },
+    {
+      "id": "projection:world_send_rejects_invalid_registry_without_writing",
+      "role": "target",
+      "clauses": [
+        "registry-generation"
+      ]
+    },
+    {
+      "id": "projection:world_save_invalid_registry_leaves_tag_untouched",
+      "role": "target",
+      "clauses": [
+        "registry-generation"
+      ]
+    },
+    {
+      "id": "projection:duplicate_registry_names_fail_closed",
+      "role": "target",
+      "clauses": [
+        "registry-generation"
+      ]
+    },
+    {
+      "id": "projection:world_receive_registry_change_rolls_back_both",
+      "role": "target",
+      "clauses": [
+        "registry-generation"
+      ]
+    },
+    {
+      "id": "projection:world_writer_reentrancy_uses_one_snapshot",
+      "role": "target",
+      "clauses": [
+        "reentrant-snapshots"
+      ]
+    },
+    {
+      "id": "projection:building_buff_reentrant_mutation_uses_snapshot",
+      "role": "target",
+      "clauses": [
+        "reentrant-snapshots"
+      ]
+    },
+    {
+      "id": "projection:selected_bounty_follows_stable_name_after_reorder",
+      "role": "target",
+      "clauses": [
+        "stable-content-identity"
+      ]
+    },
+    {
+      "id": "projection:selected_bounty_survives_unload_and_return",
+      "role": "target",
+      "clauses": [
+        "stable-content-identity"
+      ]
+    },
+    {
+      "id": "projection:selected_bounty_invalid_registry_fails_closed",
+      "role": "target",
+      "clauses": [
+        "registry-generation"
+      ]
+    },
+    {
+      "id": "projection:player_load_invalid_registry_rolls_back",
+      "role": "target",
+      "clauses": [
+        "registry-generation"
+      ]
+    },
+    {
+      "id": "projection:building_buff_registry_reorder_uses_stable_identity",
+      "role": "target",
+      "clauses": [
+        "stable-content-identity"
+      ]
+    },
+    {
+      "id": "server:real_engine_receive_failure_is_transactional",
+      "role": "target",
+      "clauses": [
+        "request"
+      ]
+    },
+    {
+      "id": "server:real_engine_registry_ids_are_serialized",
+      "role": "target",
+      "clauses": [
+        "request"
+      ]
+    },
+    {
+      "id": "server:real_tml_tagcompound_save_is_detached",
+      "role": "target",
+      "clauses": [
+        "request"
+      ]
+    }
+  ],
+  "clauses": [
+    {
+      "id": "completion-persistence",
+      "anchor": "exam report completion-persistence",
+      "status": "asserted"
+    },
+    {
+      "id": "completion-network",
+      "anchor": "exam report completion-network",
+      "status": "asserted"
+    },
+    {
+      "id": "building-persistence",
+      "anchor": "exam report building-persistence",
+      "status": "asserted"
+    },
+    {
+      "id": "building-validation",
+      "anchor": "exam report building-validation",
+      "status": "asserted"
+    },
+    {
+      "id": "building-network-send",
+      "anchor": "exam report building-network-send",
+      "status": "asserted"
+    },
+    {
+      "id": "building-network-receive",
+      "anchor": "exam report building-network-receive",
+      "status": "asserted"
+    },
+    {
+      "id": "world-authority-clone",
+      "anchor": "exam report world-authority-clone",
+      "status": "asserted"
+    },
+    {
+      "id": "player-buff-application",
+      "anchor": "exam report player-buff-application",
+      "status": "asserted"
+    },
+    {
+      "id": "registry-generation",
+      "anchor": "exam report registry-generation",
+      "status": "asserted"
+    },
+    {
+      "id": "reentrant-snapshots",
+      "anchor": "exam report reentrant-snapshots",
+      "status": "asserted"
+    },
+    {
+      "id": "stable-content-identity",
+      "anchor": "exam report stable-content-identity",
+      "status": "asserted"
+    },
+    {
+      "id": "global-frame-budget",
+      "anchor": "exam report global-frame-budget",
+      "status": "asserted"
+    },
+    {
+      "id": "request",
+      "anchor": "exam body; split into individual clauses during review",
+      "status": "asserted"
+    }
+  ],
+  "excluded_clauses": [],
+  "known_issues": []
+}

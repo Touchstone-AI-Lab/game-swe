@@ -1,0 +1,301 @@
+{
+  "schemaVersion": 1,
+  "taskId": "persistent-loadout-profiles",
+  "taskVersion": "2.2.0",
+  "caseMappings": {
+    "hidden-behavior": [
+      {
+        "name": "multiple named profiles and preferred selection",
+        "classification": "B",
+        "clauses": [
+          "T3-API-01",
+          "T3-SEM-01",
+          "T3-SEM-05",
+          "T3-API-03"
+        ]
+      },
+      {
+        "name": "weapon and ammo allowlists reject unknown values",
+        "classification": "A",
+        "clauses": [
+          "T3-DATA-03",
+          "T3-DATA-04",
+          "T3-DATA-01"
+        ]
+      },
+      {
+        "name": "shared ammo is merged once and sorted",
+        "classification": "A",
+        "clauses": [
+          "T3-SEM-02",
+          "T3-ERR-01"
+        ]
+      },
+      {
+        "name": "ammo caps are checked after aggregation",
+        "classification": "A",
+        "clauses": [
+          "T3-DATA-04",
+          "T3-FILE-01"
+        ]
+      },
+      {
+        "name": "primary and secondary ammo remain explicit",
+        "classification": "A",
+        "clauses": [
+          "T3-DATA-02",
+          "T3-SEM-02",
+          "T3-GOAL-01"
+        ]
+      },
+      {
+        "name": "request retries are exact and conflicts fail",
+        "classification": "A",
+        "clauses": [
+          "T3-SEM-04",
+          "T3-GOAL-02"
+        ]
+      },
+      {
+        "name": "profile and preferred revisions reject stale writes",
+        "classification": "A",
+        "clauses": [
+          "T3-SEM-05",
+          "T3-SCOPE-01"
+        ]
+      },
+      {
+        "name": "profile and weapon count limits are enforced",
+        "classification": "A",
+        "clauses": [
+          "T3-DATA-02",
+          "T3-SEM-01",
+          "T3-SCOPE-02"
+        ]
+      },
+      {
+        "name": "plans and stored profiles are detached",
+        "classification": "A",
+        "clauses": [
+          "T3-SEM-03"
+        ]
+      },
+      {
+        "name": "disconnect retains persistent profiles",
+        "classification": "A",
+        "clauses": [
+          "T3-PERSIST-01"
+        ]
+      },
+      {
+        "name": "save load preserves preference revisions and replay",
+        "classification": "A",
+        "clauses": [
+          "T3-PERSIST-02"
+        ]
+      },
+      {
+        "name": "shutdown is idempotent and freezes writes",
+        "classification": "A",
+        "clauses": [
+          "T3-LIFE-01"
+        ]
+      },
+      {
+        "name": "legal request identifiers freeze parameter and business failures",
+        "classification": "A",
+        "clauses": [
+          "T3-SEM-06"
+        ]
+      },
+      {
+        "name": "malformed persisted profiles choices requests and plans are rejected",
+        "classification": "A",
+        "clauses": [
+          "T3-API-02",
+          "T3-PERSIST-03"
+        ]
+      }
+    ],
+    "gmod-integration": [
+      {
+        "name": "adapter installs only meaningful spawn and disconnect hooks",
+        "classification": "B",
+        "clauses": [
+          "T3-API-04",
+          "T3-NATIVE-02",
+          "T3-ADAPTER-02"
+        ]
+      },
+      {
+        "name": "trusted binding overrides all payload identity",
+        "classification": "A",
+        "clauses": [
+          "T3-ADAPTER-01",
+          "T3-TRUST-01",
+          "T3-NATIVE-04"
+        ]
+      },
+      {
+        "name": "Apply orders Strip Give Ammo and selection",
+        "classification": "A",
+        "clauses": [
+          "T3-NATIVE-01",
+          "T3-NATIVE-05"
+        ]
+      },
+      {
+        "name": "shared ammo is granted once at the merged amount",
+        "classification": "B",
+        "clauses": [
+          "T3-SEM-02",
+          "T3-NATIVE-01"
+        ]
+      },
+      {
+        "name": "spawn hook reapplies without accumulating pickups",
+        "classification": "A",
+        "clauses": [
+          "T3-SEM-07",
+          "T3-NATIVE-03"
+        ]
+      },
+      {
+        "name": "partial Give failure stops before ammo",
+        "classification": "A",
+        "clauses": [
+          "T3-ROLLBACK-01"
+        ]
+      },
+      {
+        "name": "disconnect removes object binding but retains profile",
+        "classification": "A",
+        "clauses": [
+          "T3-PERSIST-01",
+          "T3-NATIVE-03"
+        ]
+      },
+      {
+        "name": "Install is idempotent",
+        "classification": "A",
+        "clauses": [
+          "T3-LIFE-01"
+        ]
+      }
+    ],
+    "lifecycle-cleanup": [
+      {
+        "name": "shutdown removes all meaningful hooks",
+        "classification": "B",
+        "clauses": [
+          "T3-LIFE-01"
+        ]
+      }
+    ],
+    "dedicated-server": [
+      {
+        "name": "profiles",
+        "classification": "B",
+        "clauses": [
+          "T3-SEM-01",
+          "T3-ACC-01"
+        ]
+      },
+      {
+        "name": "spawn",
+        "classification": "B",
+        "clauses": [
+          "T3-NATIVE-03",
+          "T3-ACC-04"
+        ]
+      },
+      {
+        "name": "ammo",
+        "classification": "B",
+        "clauses": [
+          "T3-DATA-04",
+          "T3-ACC-02"
+        ]
+      },
+      {
+        "name": "failure",
+        "classification": "B",
+        "clauses": [
+          "T3-ROLLBACK-01",
+          "T3-ACC-05"
+        ]
+      },
+      {
+        "name": "identity",
+        "classification": "B",
+        "clauses": [
+          "T3-TRUST-01",
+          "T3-ACC-03"
+        ]
+      },
+      {
+        "name": "persistence",
+        "classification": "B",
+        "clauses": [
+          "T3-PERSIST-02",
+          "T3-ACC-03"
+        ]
+      },
+      {
+        "name": "cleanup",
+        "classification": "B",
+        "clauses": [
+          "T3-LIFE-01",
+          "T3-ACC-05"
+        ]
+      }
+    ]
+  },
+  "apiCoverage": {
+    "Profiles.new(options)": [
+      "T3-API-01",
+      "T3-API-02"
+    ],
+    "profiles:put(request_id, player_id, profile_name, spec, revision)": [
+      "T3-API-01",
+      "T3-SEM-04"
+    ],
+    "profiles:select(request_id, player_id, profile_name, revision)": [
+      "T3-API-01",
+      "T3-SEM-05"
+    ],
+    "adapter.Apply(player)": [
+      "T3-API-04",
+      "T3-NATIVE-01"
+    ],
+    "adapter.Shutdown()": [
+      "T3-API-04",
+      "T3-LIFE-01"
+    ]
+  },
+  "acceptanceCoverage": {
+    "T3-ACC-01": [
+      "hidden-behavior:weapon and ammo allowlists reject unknown values"
+    ],
+    "T3-ACC-02": [
+      "hidden-behavior:shared ammo is merged once and sorted"
+    ],
+    "T3-ACC-03": [
+      "hidden-behavior:save load preserves preference revisions and replay"
+    ],
+    "T3-ACC-04": [
+      "dedicated-server:spawn"
+    ],
+    "T3-ACC-05": [
+      "gmod-integration:partial Give failure stops before ammo"
+    ]
+  },
+  "requiredPublicTokens": [
+    "PlayerSpawn",
+    "PlayerDisconnected",
+    "Player:Kill()",
+    "Player:Spawn()",
+    "Player:Give(class,true)",
+    "invalid_state"
+  ]
+}

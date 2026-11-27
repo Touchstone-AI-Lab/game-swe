@@ -1,0 +1,44 @@
+{
+  "schemaVersion": 1,
+  "kind": "source-slice",
+  "repository": "https://github.com/pardeike/Zombieland",
+  "license": "MIT",
+  "retained": "Complete Need_CurLevel_Patch, HediffSet_CalculatePain_Patch and PawnCapacitiesHandler_GetLevel_Patch with attributes and unmodified bodies",
+  "header": "// MIT: derived from pardeike/Zombieland; see LICENSE and validation/source-derivation.json.\n// Reproducible source slice: three production patch classes, unchanged bodies.\n// Full Mod startup, assets and optional integrations are intentionally not loaded.\nusing System.Collections.Generic;\nusing HarmonyLib;\nusing RimWorld;\nusing UnityEngine;\nusing Verse;\nnamespace ZombieLand\n{\n    static partial class Patches\n    {\n",
+  "ranges": [
+    [
+      "\t\t// patch to make infected colonists have no needs",
+      "\t\t// patch to make infected colonists have no mental breaks"
+    ],
+    [
+      "\t\t// patch to make infected colonists and Symbiants feel no pain",
+      "\t\t// patch to make infected colonists and Symbiants have full capacity"
+    ],
+    [
+      "\t\t// patch to make infected colonists and Symbiants have full capacity",
+      "\t\t// patch to reduce instant zombie infections"
+    ]
+  ],
+  "variants": {
+    "base": {
+      "commit": "6cbe9b443fdf72969f61b3f03adaaca13b15fa46",
+      "upstreamSha256": "8db0a6746d56d40829d88630676dbf6653c57dac46b37b5cb5aa9135a25c52ff",
+      "derivedSha256": "cc09e90121bb8f8d224c55bdf6a3e38afeb9890981d3da4b947184fa64e40c4d",
+      "blockSha256": [
+        "80b04b12a61859b3252662dfd3f615af1e114ffa8a4279cc65c25e46c3c66c01",
+        "f7b64d182a23c7ea0d427feb2853d95931880803b9adb20f566d082c7f4affad",
+        "4351c378a0c890047de1e5833ed9a1ddc968ca723607bfd594228fc1075f8300"
+      ]
+    },
+    "target": {
+      "commit": "f50cac11d97df1f8fc7f4aeada7e4c0842503c1b",
+      "upstreamSha256": "a085f293276f67a4395abfa8e2ee8035b5424a98de2d47a7f0184babbd6c1cf8",
+      "derivedSha256": "f70510b3c49ef0ba714d5250a55c396b0939774751c14aa96e8076040aed83ec",
+      "blockSha256": [
+        "d9c477dd16b16d05fed9ef22cb55ff181ebe0fe48435b83781c34b72ee7b9b51",
+        "f7b64d182a23c7ea0d427feb2853d95931880803b9adb20f566d082c7f4affad",
+        "093d934389f5b9ecfc8831d8a74fe476b76e14d7446a7a1084feb63c626b710b"
+      ]
+    }
+  }
+}

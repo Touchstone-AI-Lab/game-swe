@@ -1,0 +1,7 @@
+control	expected	observed	status
+broken-starter	at-least-one-intended-failure	35/78 pass; failures cover wire validity, unreadable codecs, array safety, queue freshness and frame transactions, callback containment and reentrancy, timer overflow, lifecycle reset, send framing, and receive atomicity/order	pass
+oracle	all-cases-pass	78/78 pass	pass
+empty-submission	rejected-before-build	missing required production source	pass
+unrelated-readme-only	still-fails	behavior remains 34/61	pass
+public-smoke-broken	compiles	zero errors and warnings	pass
+public-smoke-oracle	compiles	zero errors and warnings	pass

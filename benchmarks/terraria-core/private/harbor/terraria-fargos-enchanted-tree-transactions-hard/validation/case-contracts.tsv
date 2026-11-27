@@ -1,0 +1,79 @@
+case	group	prompt_clause	production_path
+insert-stores-held-type	insertion-transaction	Insertion stores exact held type	Content/Items/Tiles/EnchantedTreeSheet.cs
+insert-consumes-exactly-one	insertion-transaction	Insertion consumes exactly one	Content/Items/Tiles/EnchantedTreeSheet.cs
+insert-preserves-prefix	insertion-transaction	Insertion stores exact prefix	Content/Items/Tiles/EnchantedTreeSheet.cs
+insert-acknowledges-right-click	insertion-transaction	Accepted insertion returns true	Content/Items/Tiles/EnchantedTreeSheet.cs
+insert-arms-removal-cooldown	insertion-transaction	Accepted insertion sets cooldown to 10	Content/Items/Tiles/EnchantedTreeSheet.cs
+insert-creates-root-fruit-for-eligible-item	insertion-transaction	Eligible insertion creates root fruit	Content/Items/Tiles/EnchantedTreeSheet.cs;Content/Items/Tiles/EnchantedTreeTileEntity.cs
+insert-does-not-create-fruit-for-ineligible-item	insertion-transaction	Ineligible insertion creates no fruit	Content/Items/Tiles/EnchantedTreeSheet.cs;Content/Items/Tiles/EnchantedTreeTileEntity.cs
+insert-rejects-favorited-item-atomically	insertion-transaction	Favorited insertion is atomic rejection	Content/Items/Tiles/EnchantedTreeSheet.cs
+insert-rejects-occupied-tree-atomically	insertion-transaction	Occupied insertion is atomic rejection	Content/Items/Tiles/EnchantedTreeSheet.cs
+insert-rejects-server-authority	insertion-transaction	Server does not run client interaction	Content/Items/Tiles/EnchantedTreeSheet.cs
+insert-sync-uses-canonical-tree-index	multiplayer-sync	Fruit packet uses canonical top-left index	Content/Items/Tiles/EnchantedTreeSheet.cs
+single-player-insert-does-not-send-tree-packet	multiplayer-sync	Single player sends no fruit packet	Content/Items/Tiles/EnchantedTreeSheet.cs
+removal-is-blocked-during-cooldown	removal-transaction	Positive cooldown blocks removal	Content/Items/Tiles/EnchantedTreeSheet.cs
+removal-ejects-stored-item-once	removal-transaction	Removal spawns one stored item	Content/Items/Tiles/EnchantedTreeSheet.cs
+removal-preserves-stored-prefix	removal-transaction	Removal restores prefix	Content/Items/Tiles/EnchantedTreeSheet.cs
+removal-clears-stored-type	removal-transaction	Removal clears ItemType	Content/Items/Tiles/EnchantedTreeSheet.cs
+removal-marks-all-live-fruit-for-despawn	removal-transaction	Removal starts each live fruit despawn	Content/Items/Tiles/EnchantedTreeSheet.cs
+late-recipe-is-discovered-after-setup	recipe-lifecycle	Build branches in PostSetupRecipes	Common/Systems/Recipes/MiscRecipeSystem.cs
+directly-duplicatable-ingredient-is-retained	duplication-policy	Direct ingredients stay eligible	Common/Systems/Recipes/MiscRecipeSystem.cs;Content/Items/Tiles/EnchantedTreeTileEntity.cs
+material-policy-retains-ordinary-ingredient	duplication-policy	MaterialsDupable expands ordinary ingredient	Common/Systems/Recipes/MiscRecipeSystem.cs
+material-policy-rejects-not-dupable-from-dupable	duplication-policy	NotDupableFromDupable remains excluded	Common/Systems/Recipes/MiscRecipeSystem.cs
+recipe-branches-deduplicate-ingredients	recipe-lifecycle	One occurrence per eligible ingredient	Common/Systems/Recipes/MiscRecipeSystem.cs
+recipe-branches-preserve-discovery-order	recipe-lifecycle	Preserve discovery order	Common/Systems/Recipes/MiscRecipeSystem.cs
+recipe-rebuild-removes-stale-result	recipe-snapshot-rebuild	A later setup removes results absent from the current recipe table	Common/Systems/Recipes/MiscRecipeSystem.cs
+recipe-rebuild-replaces-stale-ingredients	recipe-snapshot-rebuild	A later setup replaces obsolete ingredients for a retained result	Common/Systems/Recipes/MiscRecipeSystem.cs
+recipe-rebuild-preserves-dictionary-reference	recipe-snapshot-rebuild	Rebuilding preserves the static dictionary object identity	Common/Systems/Recipes/MiscRecipeSystem.cs
+recipe-rebuild-is-idempotent	recipe-snapshot-rebuild	Repeating an unchanged setup is idempotent	Common/Systems/Recipes/MiscRecipeSystem.cs
+recipe-rebuild-drops-newly-ineligible-result	recipe-snapshot-rebuild	A later setup drops a result that became ineligible	Common/Systems/Recipes/MiscRecipeSystem.cs;Content/Items/Tiles/EnchantedTreeTileEntity.cs
+network-roundtrip-preserves-header	state-roundtrip	Network retains item type and prefix	Content/Items/Tiles/EnchantedTreeTileEntity.cs
+network-roundtrip-preserves-fruit-state	state-roundtrip	Network retains every documented fruit field	Content/Items/Tiles/EnchantedTreeTileEntity.cs
+network-receive-replaces-stale-fruit	state-roundtrip	Receive replaces stale collection	Content/Items/Tiles/EnchantedTreeTileEntity.cs
+network-receive-negative-count-rolls-back	network-transaction	Negative count rejects without changing live tree state	Content/Items/Tiles/EnchantedTreeTileEntity.cs
+network-receive-excessive-count-rolls-back	network-transaction	Count above 4096 rejects without changing live tree state	Content/Items/Tiles/EnchantedTreeTileEntity.cs
+network-receive-truncated-header-rolls-back	network-transaction	Truncated header raises InvalidDataException and preserves live state	Content/Items/Tiles/EnchantedTreeTileEntity.cs
+network-receive-truncated-fruit-rolls-back	network-transaction	Truncated declared fruit raises InvalidDataException and preserves live state	Content/Items/Tiles/EnchantedTreeTileEntity.cs
+network-receive-nan-center-rolls-back	network-transaction	Non-finite center rejects and preserves live state	Content/Items/Tiles/EnchantedTreeTileEntity.cs
+network-receive-infinite-target-rolls-back	network-transaction	Non-finite target rejects and preserves live state	Content/Items/Tiles/EnchantedTreeTileEntity.cs
+network-receive-infinite-velocity-rolls-back	network-transaction	Non-finite velocity rejects and preserves live state	Content/Items/Tiles/EnchantedTreeTileEntity.cs
+network-receive-nonfinite-despawn-rolls-back	network-graph-integrity	A non-finite despawn timer rejects and preserves live state	Content/Items/Tiles/EnchantedTreeTileEntity.cs
+network-receive-negative-despawn-rolls-back	network-graph-integrity	A negative despawn timer rejects and preserves live state	Content/Items/Tiles/EnchantedTreeTileEntity.cs
+network-receive-negative-grab-cooldown-rolls-back	network-graph-integrity	A negative grab cooldown rejects and preserves live state	Content/Items/Tiles/EnchantedTreeTileEntity.cs
+network-receive-root-layer-rolls-back	network-graph-integrity	A root must point to itself at layer zero	Content/Items/Tiles/EnchantedTreeTileEntity.cs
+network-receive-forward-parent-rolls-back	network-graph-integrity	A non-root parent must precede its child	Content/Items/Tiles/EnchantedTreeTileEntity.cs
+network-receive-negative-parent-rolls-back	network-graph-integrity	A non-root parent index cannot be negative	Content/Items/Tiles/EnchantedTreeTileEntity.cs
+network-receive-layer-mismatch-rolls-back	network-graph-integrity	A child layer must equal its parent layer plus one	Content/Items/Tiles/EnchantedTreeTileEntity.cs
+network-receive-valid-multilevel-forest	network-graph-integrity	A valid multi-level ordered tree remains accepted	Content/Items/Tiles/EnchantedTreeTileEntity.cs
+network-receive-valid-multiroot-forest	network-graph-integrity	A valid ordered forest with multiple roots remains accepted	Content/Items/Tiles/EnchantedTreeTileEntity.cs
+network-send-invalid-topology-is-atomic	network-graph-integrity	Invalid sender topology throws before changing the output stream	Content/Items/Tiles/EnchantedTreeTileEntity.cs
+network-send-invalid-scalar-is-atomic	network-graph-integrity	Invalid sender scalar state throws before changing the output stream	Content/Items/Tiles/EnchantedTreeTileEntity.cs
+network-send-excessive-count-is-atomic	network-graph-integrity	An excessive sender count throws before changing the output stream	Content/Items/Tiles/EnchantedTreeTileEntity.cs
+network-receive-accepts-limit	network-transaction	4096 fruit records remain accepted	Content/Items/Tiles/EnchantedTreeTileEntity.cs
+network-receive-leaves-following-field-aligned	network-transaction	Valid declared frame leaves trailing data readable	Content/Items/Tiles/EnchantedTreeTileEntity.cs
+save-load-roundtrip-preserves-item-and-prefix	state-roundtrip	Save/load retains stored item and prefix	Content/Items/Tiles/EnchantedTreeTileEntity.cs
+missing-tree-entry-does-not-block-later-cooldown	global-update-loop	Missing entry does not abort later trees	Content/Items/Tiles/EnchantedTreeTileEntity.cs
+adjacent-expired-fruit-are-all-removed	global-update-loop	Shifted fruit is processed after removal	Content/Items/Tiles/EnchantedTreeTileEntity.cs
+expired-removal-rebases-later-parent	fruit-index-compaction	Removing an earlier root rebases later parent indices	Content/Items/Tiles/EnchantedTreeTileEntity.cs
+adjacent-expired-removal-rebases-deep-survivor	fruit-index-compaction	Adjacent removals leave a deep survivor with canonical topology	Content/Items/Tiles/EnchantedTreeTileEntity.cs
+removed-internal-parent-relinks-child	fruit-index-compaction	A removed internal node's child attaches to the surviving ancestor	Content/Items/Tiles/EnchantedTreeTileEntity.cs
+removed-root-promotes-direct-child	fruit-index-compaction	A removed root promotes each direct child to a canonical root	Content/Items/Tiles/EnchantedTreeTileEntity.cs
+removed-grabbed-fruit-clears-ownership	fruit-index-compaction	Removing the grabbed fruit clears local player ownership	Content/Items/Tiles/EnchantedTreeTileEntity.cs
+expired-removal-preserves-fruit-list-reference	fruit-index-compaction	Runtime compaction preserves the fruit-list object identity	Content/Items/Tiles/EnchantedTreeTileEntity.cs
+branch-expansion-adds-recipe-children-in-order	branch-lifecycle	Expansion adds one child per stored recipe entry in order	Content/Items/Tiles/EnchantedTreeTileEntity.cs
+branch-expansion-links-parent-and-next-layer	branch-lifecycle	Expanded children link to the dragged fruit and next layer	Content/Items/Tiles/EnchantedTreeTileEntity.cs
+fading-direct-child-still-blocks-duplicate-expansion	branch-lifecycle	A fading direct child still prevents duplicate expansion	Content/Items/Tiles/EnchantedTreeTileEntity.cs
+revisiting-branch-despawns-deeper-live-fruit	branch-lifecycle	Revisiting a branch starts deeper live descendants despawning	Content/Items/Tiles/EnchantedTreeTileEntity.cs
+revisiting-branch-preserves-unrelated-deep-fruit	branch-ancestry	Branch collapse leaves deep nodes of unrelated roots and siblings live	Content/Items/Tiles/EnchantedTreeTileEntity.cs
+revisiting-branch-prunes-through-fading-child	branch-ancestry	Branch collapse follows ancestry through a fading direct child	Content/Items/Tiles/EnchantedTreeTileEntity.cs
+branch-mutation-syncs-on-multiplayer-client	branch-lifecycle	A multiplayer client syncs an observable branch mutation	Content/Items/Tiles/EnchantedTreeTileEntity.cs
+unchanged-branch-does-not-sync	branch-lifecycle	An unchanged branch emits no fruit packet	Content/Items/Tiles/EnchantedTreeTileEntity.cs
+drag-release-clears-player-ownership	duplication-purchase	Threshold release clears fruit and player ownership	Content/Items/Tiles/EnchantedTreeTileEntity.cs
+drag-release-arms-grab-cooldown	duplication-purchase	Threshold release sets grab cooldown to 30	Content/Items/Tiles/EnchantedTreeTileEntity.cs
+duplication-charges-double-item-value	duplication-purchase	Duplication price is twice the base item value	Content/Items/Tiles/EnchantedTreeTileEntity.cs
+successful-duplication-preserves-prefix-and-tags-item	duplication-purchase	A paid duplicate preserves prefix and carries origin metadata	Content/Items/Tiles/EnchantedTreeTileEntity.cs
+successful-duplication-syncs-spawned-item	duplication-purchase	A paid duplicate synchronizes the spawned item	Content/Items/Tiles/EnchantedTreeTileEntity.cs
+failed-duplication-is-payment-atomic	duplication-purchase	Failed payment charges and spawns nothing while release persists	Content/Items/Tiles/EnchantedTreeTileEntity.cs
+duplicate-tree-coordinate-decrements-cooldown-once	tree-registry-deduplication	A duplicated registry coordinate decrements insertion cooldown once per frame	Content/Items/Tiles/EnchantedTreeTileEntity.cs
+duplicate-tree-coordinate-advances-despawn-once	tree-registry-deduplication	A duplicated registry coordinate advances despawn once per frame	Content/Items/Tiles/EnchantedTreeTileEntity.cs
+duplicate-tree-coordinate-does-not-consume-new-purchase-cooldown	tree-registry-deduplication	A duplicated registry coordinate cannot consume a newly armed purchase cooldown twice	Content/Items/Tiles/EnchantedTreeTileEntity.cs

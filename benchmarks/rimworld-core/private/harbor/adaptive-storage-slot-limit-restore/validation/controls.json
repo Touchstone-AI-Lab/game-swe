@@ -1,0 +1,477 @@
+{
+  "schemaVersion": 3,
+  "catalogVersion": "0.4.1",
+  "authoringRevision": 6,
+  "privateProtocol": "rhenium-rimworld-private-v3",
+  "assertionManifestSha256": "fe644dac63a1f5af0ba1230e19930e4954e78a81fb74bc4323874eaf3ae2ec6c",
+  "runtime": "rimworld/rimworld-1.6.4871-linux-x64",
+  "engineAssertionsRan": true,
+  "evidenceGeneration": {
+    "status": "run",
+    "date": "2026-10-30",
+    "host": "Linux x86_64 Docker host (NixOS), networkless evaluation",
+    "path": "rhenium run --profile full through the Hub; fixture mutations on the diagnostic path",
+    "note": "authoring revision 6 verifier repair first; see docs/games/rimworld.md#adaptive-storage-acceptance-revision-6"
+  },
+  "identity": {
+    "catalog": "sha256:b4312fc61c029ed0cfe994dfa559227d364df0933884c5f04f4d5258530cbce0",
+    "rubric": "sha256:40f3e91b8624fa730bd48534dcd051a4cc7c3ef373ac439e5632bf1f36aa8d7d",
+    "adapterAssembly": "sha256:0cf2aa5fc3eb972c2b41d342dc7585f067632a793bf130dbb8964ce9739849bb",
+    "adapterEvidence": "sha256:02204749a4b6706d78f6262ac663e31c04e595ec4b4fd05ef1043d2ee8194c31",
+    "buildEvidence": "sha256:8eb7fd8369aedca7e1fa56ce0c1d5a2f3efba3bf55514af7aa0416485becfd90",
+    "sourceEvidence": "sha256:4011e5d19d2bd984bd3a00ddf50f1de7521503d4dffbfe3298b329f63dee205d",
+    "runtimeFingerprint": "sha256:f29e50473bdf4c7b782b1589ffb59a850ff2bcfe71b076c3610eecba2e2d93db",
+    "runtimeArtifact": "sha256:73d0e5ac4ec5d8a8d2bbbe424ab4d58d390cdb4e8cd0070324a9c0206c1419d2",
+    "builderImage": "sha256:19bd60f3fd1a1b72837935ee597df7c64c8c7e92b9d6f5d13b483bcac2ff82a8",
+    "evaluatorImage": "sha256:b40f06e2d837d654a65ad15787113c533628488dd1307b954374bd83b5314b42"
+  },
+  "plannedMatrix": {
+    "oracle": {
+      "expectedPassed": 15,
+      "expectedFailed": 0
+    },
+    "base": {
+      "mustFailCases": [
+        "saved-unlimited-restored",
+        "setter-not-skipped"
+      ],
+      "complete": true,
+      "passed": false
+    },
+    "nop": {
+      "mustFailCases": [
+        "saved-unlimited-restored",
+        "setter-not-skipped"
+      ],
+      "complete": true,
+      "passed": false
+    }
+  },
+  "plannedOutcomesAreAuthoringExpectations": true,
+  "referenceCompile": {
+    "status": "passed",
+    "date": "2026-10-30",
+    "note": "every control compiled in the prepared builder role (SDK 8.0.422, locked restore) during its run"
+  },
+  "containerBuild": {
+    "status": "passed",
+    "date": "2026-10-30"
+  },
+  "realEngine": {
+    "status": "passed",
+    "date": "2026-10-30"
+  },
+  "reusablePriorEvidence": false,
+  "oracle": {
+    "status": "passed",
+    "evidenceProtocol": "rhenium-rimworld-private-v3",
+    "runs": [
+      "run-3fb321006ad44613",
+      "run-25ca6fa0de814601",
+      "run-2c83671f8d984769"
+    ],
+    "score": 100.0,
+    "passed": 15,
+    "failed": 0,
+    "identicalCaseOutcomes": true
+  },
+  "base": {
+    "status": "failed-targets-only",
+    "evidenceProtocol": "rhenium-rimworld-private-v3",
+    "run": "run-ae9667a8ed9745c4",
+    "score": 10.0,
+    "passed": 13,
+    "failed": 2,
+    "failedCases": [
+      "saved-unlimited-restored",
+      "setter-not-skipped"
+    ]
+  },
+  "nop": {
+    "status": "failed-targets-only",
+    "evidenceProtocol": "rhenium-rimworld-private-v3",
+    "run": "run-78030add79a04571",
+    "score": 10.0,
+    "passed": 13,
+    "failed": 2,
+    "failedCases": [
+      "saved-unlimited-restored",
+      "setter-not-skipped"
+    ],
+    "materialization": "validation/materialize_control.py independent copy of the starter"
+  },
+  "negativeControls": {
+    "status": "run",
+    "plan": "validation/mutation-controls.json (authoring expectations; unchanged by these runs)",
+    "behavioral": [
+      {
+        "control": "historical-early-return",
+        "run": "run-82eb3ad2f6fe427f",
+        "score": 10.0,
+        "complete": true,
+        "failedCases": [
+          "saved-unlimited-restored",
+          "setter-not-skipped"
+        ],
+        "plannedMustFailCases": [
+          "saved-unlimited-restored",
+          "setter-not-skipped"
+        ],
+        "detectedIntendedDefect": true
+      },
+      {
+        "control": "bypass-setter",
+        "run": "run-906c0120682b4a93",
+        "score": 10.0,
+        "complete": true,
+        "failedCases": [
+          "multi-cell-ceiling",
+          "saved-unlimited-restored",
+          "setter-not-skipped",
+          "zero-limit-restored"
+        ],
+        "plannedMustFailCases": [
+          "setter-not-skipped",
+          "multi-cell-ceiling"
+        ],
+        "detectedIntendedDefect": true
+      },
+      {
+        "control": "wrong-unlimited",
+        "run": "run-4999e7843bab4e86",
+        "score": 10.0,
+        "complete": true,
+        "failedCases": [
+          "default-limit-preserved",
+          "per-cell-recomputed",
+          "repeat-initialize-idempotent",
+          "saved-unlimited-restored",
+          "unlimited-sentinel-preserved"
+        ],
+        "plannedMustFailCases": [
+          "saved-unlimited-restored",
+          "unlimited-sentinel-preserved"
+        ],
+        "detectedIntendedDefect": true
+      },
+      {
+        "control": "omit-cell-update",
+        "run": "run-f287ad1867e14b83",
+        "score": 10.0,
+        "complete": true,
+        "failedCases": [
+          "multi-cell-ceiling",
+          "zero-limit-restored"
+        ],
+        "plannedMustFailCases": [
+          "multi-cell-ceiling",
+          "zero-limit-restored"
+        ],
+        "detectedIntendedDefect": true
+      },
+      {
+        "control": "omit-settings-notification",
+        "run": "run-3b3d29b07697408b",
+        "score": 10.0,
+        "complete": true,
+        "failedCases": [
+          "setter-not-skipped"
+        ],
+        "plannedMustFailCases": [
+          "setter-not-skipped"
+        ],
+        "detectedIntendedDefect": true
+      },
+      {
+        "control": "abort-after-cells",
+        "run": "run-705d57ab4e2d4a7c",
+        "score": 10.0,
+        "complete": true,
+        "failedCases": [
+          "default-limit-preserved",
+          "initialization-bookkeeping-preserved",
+          "initialization-notifications-preserved",
+          "multi-cell-ceiling",
+          "near-unlimited-finite-restored",
+          "per-cell-recomputed",
+          "repeat-initialize-idempotent",
+          "saved-finite-restored",
+          "saved-one-restored",
+          "saved-unlimited-restored",
+          "setter-not-skipped",
+          "unlimited-sentinel-preserved",
+          "zero-limit-restored"
+        ],
+        "plannedMustFailCases": [
+          "saved-one-restored",
+          "initialization-bookkeeping-preserved"
+        ],
+        "detectedIntendedDefect": true
+      },
+      {
+        "control": "abort-after-setter",
+        "run": "run-af79142ac4f14f97",
+        "score": 10.0,
+        "complete": true,
+        "failedCases": [
+          "default-limit-preserved",
+          "initialization-bookkeeping-preserved",
+          "initialization-notifications-preserved",
+          "multi-cell-ceiling",
+          "near-unlimited-finite-restored",
+          "per-cell-recomputed",
+          "repeat-initialize-idempotent",
+          "saved-finite-restored",
+          "saved-one-restored",
+          "saved-unlimited-restored",
+          "setter-not-skipped",
+          "unlimited-sentinel-preserved",
+          "zero-limit-restored"
+        ],
+        "plannedMustFailCases": [
+          "saved-one-restored",
+          "initialization-bookkeeping-preserved"
+        ],
+        "detectedIntendedDefect": true
+      },
+      {
+        "control": "omit-collection-subscription",
+        "run": "run-08316013f07c4e82",
+        "score": 10.0,
+        "complete": true,
+        "failedCases": [
+          "initialization-notifications-preserved"
+        ],
+        "plannedMustFailCases": [
+          "initialization-notifications-preserved"
+        ],
+        "detectedIntendedDefect": true
+      },
+      {
+        "control": "candidate-constructor-throws",
+        "run": "run-7a148be17d144443",
+        "score": 10.0,
+        "complete": true,
+        "failedCases": [
+          "default-limit-preserved",
+          "initialization-bookkeeping-preserved",
+          "initialization-notifications-preserved",
+          "multi-cell-ceiling",
+          "near-unlimited-finite-restored",
+          "per-cell-recomputed",
+          "repeat-initialize-idempotent",
+          "saved-finite-restored",
+          "saved-one-restored",
+          "saved-unlimited-restored",
+          "setter-not-skipped",
+          "unlimited-sentinel-preserved",
+          "zero-limit-restored"
+        ],
+        "plannedMustFailCases": [
+          "saved-one-restored"
+        ],
+        "detectedIntendedDefect": true
+      }
+    ],
+    "fixture": [
+      {
+        "control": "omit-restoration",
+        "path": "diagnostic",
+        "processExit": 2,
+        "complete": false,
+        "passed": false,
+        "casesObservedBeforeFatal": [
+          "runtime-defs-ready",
+          "saved-one-restored"
+        ],
+        "fatal": "InvalidOperationException: fixture cleanup failed",
+        "plannedMustFailCases": [
+          "fixture-state-restored"
+        ],
+        "failedClosed": true
+      },
+      {
+        "control": "throw-restoration",
+        "path": "diagnostic",
+        "processExit": 2,
+        "complete": false,
+        "passed": false,
+        "casesObservedBeforeFatal": [
+          "runtime-defs-ready",
+          "saved-one-restored"
+        ],
+        "fatal": "InvalidOperationException: fixture cleanup failed",
+        "plannedMustFailCases": [
+          "fixture-state-restored"
+        ],
+        "failedClosed": true
+      },
+      {
+        "control": "leave-restored-state",
+        "path": "diagnostic",
+        "processExit": 2,
+        "complete": false,
+        "passed": false,
+        "casesObservedBeforeFatal": [
+          "runtime-defs-ready",
+          "saved-one-restored"
+        ],
+        "fatal": "InvalidOperationException: fixture cleanup failed",
+        "plannedMustFailCases": [
+          "fixture-state-restored"
+        ],
+        "failedClosed": true
+      },
+      {
+        "control": "extra-rand-push",
+        "path": "diagnostic",
+        "processExit": 2,
+        "complete": false,
+        "passed": false,
+        "casesObservedBeforeFatal": [
+          "runtime-defs-ready"
+        ],
+        "fatal": "InvalidOperationException: fixture cleanup failed",
+        "plannedMustFailCases": [
+          "fixture-state-restored"
+        ],
+        "failedClosed": true
+      },
+      {
+        "control": "broken-rectangle-fixture",
+        "path": "diagnostic",
+        "processExit": 2,
+        "complete": false,
+        "passed": false,
+        "casesObservedBeforeFatal": [],
+        "fatal": "FixtureFailure: authoring fixture fault",
+        "plannedMustFailCases": [
+          "runtime-defs-ready"
+        ],
+        "failedClosed": true
+      }
+    ],
+    "fixturePath": "the prepared builder and evaluator images run directly with the evaluator's sandbox flags and the mutated adapter source, because the Hub refuses an adapter that differs from the prepared one; each run ended incomplete with a fatal, so no fixture fault can pass"
+  },
+  "verifierRepairs": [
+    "the runtime-defs-ready rectangle self-check compares StorageCellRect with CellRect.Cells and CellRect.Area; CellRect's struct enumerator yields one cell for a zero-width rectangle whose Cells and Area are empty, so the previous comparison could never pass"
+  ],
+  "plannedCountsNeedEngineReconciliation": false,
+  "history": [
+    {
+      "schemaVersion": 3,
+      "catalogVersion": "0.3.4",
+      "privateProtocol": "rhenium-rimworld-private-v3",
+      "assertionManifestSha256": "fe644dac63a1f5af0ba1230e19930e4954e78a81fb74bc4323874eaf3ae2ec6c",
+      "runtime": "rimworld/rimworld-1.6.4871-linux-x64",
+      "engineAssertionsRan": false,
+      "evidenceGeneration": {
+        "status": "blocked",
+        "date": "2026-10-26",
+        "reason": "Reference compilation passed on macOS arm64; no licensed controlled Linux x86_64 Docker host is available for immutable image construction and real-engine controls."
+      },
+      "plannedMatrix": {
+        "oracle": {
+          "expectedPassed": 15,
+          "expectedFailed": 0
+        },
+        "base": {
+          "mustFailCases": [
+            "saved-unlimited-restored",
+            "setter-not-skipped"
+          ],
+          "complete": true,
+          "passed": false
+        },
+        "nop": {
+          "mustFailCases": [
+            "saved-unlimited-restored",
+            "setter-not-skipped"
+          ],
+          "complete": true,
+          "passed": false
+        }
+      },
+      "plannedOutcomesAreAuthoringExpectations": true,
+      "referenceCompile": {
+        "status": "passed",
+        "date": "2026-10-26",
+        "host": "macOS arm64",
+        "sdk": "8.0.422",
+        "targetFramework": "net472",
+        "languageVersion": "12.0",
+        "lockedRestore": true,
+        "engineAssertionsRan": false,
+        "controls": [
+          {
+            "id": "base",
+            "status": "compile-validated",
+            "assemblies": {
+              "candidate": "c515098a994210a88ab8d7300d7fedac96fb29d692e341fa2e4b88b74de6cf29",
+              "verifier": "90a0c564e60cbf98fb2e82bf810fb7f9d1307c7852be825b6159f79940226449"
+            }
+          },
+          {
+            "id": "oracle",
+            "status": "compile-validated",
+            "assemblies": {
+              "candidate": "97429ff556fa4f887d7f4d16aa2c25dc3102a91af02a36597ad7a4b482f1a6f9",
+              "verifier": "90a0c564e60cbf98fb2e82bf810fb7f9d1307c7852be825b6159f79940226449"
+            }
+          },
+          {
+            "id": "nop",
+            "status": "compile-validated",
+            "assemblies": {
+              "candidate": "c515098a994210a88ab8d7300d7fedac96fb29d692e341fa2e4b88b74de6cf29",
+              "verifier": "90a0c564e60cbf98fb2e82bf810fb7f9d1307c7852be825b6159f79940226449"
+            }
+          }
+        ],
+        "note": "All three candidate builds retain 560 upstream warnings and zero errors; all three verifier builds have zero warnings and errors. This is reference compilation, not a Linux container or real-game result."
+      },
+      "containerBuild": {
+        "status": "not-run"
+      },
+      "realEngine": {
+        "status": "not-run"
+      },
+      "reusablePriorEvidence": false,
+      "oracle": {
+        "status": "not-run",
+        "evidenceProtocol": null
+      },
+      "base": {
+        "status": "not-run",
+        "evidenceProtocol": null
+      },
+      "nop": {
+        "status": "not-run",
+        "evidenceProtocol": null
+      },
+      "authoringRevision": 5,
+      "negativeControls": {
+        "status": "not-run",
+        "kind": "authoring expectations",
+        "plan": "mutation-controls.json"
+      },
+      "plannedCountsNeedEngineReconciliation": true,
+      "history": [
+        {
+          "catalogVersion": "0.3.3",
+          "authoringRevision": 4,
+          "evidenceGeneration": {
+            "status": "blocked",
+            "date": "2026-09-24",
+            "reason": "The starter and reference StorageRenderer.cs use C# 14 lambda parameters with modifiers but no types, which the pinned .NET SDK 8.0.422 compiler rejects under the C# 12 build (CS1001); a newer Roslyn needs .NET 9 and cannot run in the pinned SDK image."
+          },
+          "referenceCompile": {
+            "status": "failed",
+            "date": "2026-09-24",
+            "reason": "CS1001 at StorageRenderer.cs lines 241, 274 and 343 (identical in the starter); in a scratch copy with those three lambdas given explicit parameter types the reference and harness compiled, and the runtime-defs-ready gate then failed its StorageCellRect enumeration check"
+          }
+        }
+      ]
+    }
+  ]
+}

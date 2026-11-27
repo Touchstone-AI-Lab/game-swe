@@ -1,0 +1,304 @@
+{
+  "id": "gmod-addon-repairs",
+  "version": "1.0.0",
+  "game": "garrys-mod",
+  "name": {
+    "en": "Garry's Mod addon repair tasks",
+    "zh": "Garry's Mod 插件修复任务"
+  },
+  "description": {
+    "en": "Multi-defect repair tasks built from real open-source Garry's Mod addons: each starter is an upstream tree with several real upstream fixes reverted, evaluated against a real headless Garry's Mod dedicated server running GLuaTest. Every task reports only user-visible symptoms and never states how many defects there are.",
+    "zh": "基于真实开源 Garry's Mod 插件构建的多缺陷修复任务：每个初始代码都是回退了若干真实上游修复的上游代码树，在运行 GLuaTest 的真实无头 Garry's Mod 专用服务器中评测。每道题只给出用户可见的现象，且不告知缺陷数量。"
+  },
+  "tasks": [
+    {
+      "id": "advdupe2-paste-regressions",
+      "difficulty": "hard",
+      "title": {
+        "en": "Advanced Duplicator 2: reports from a building server",
+        "zh": "Advanced Duplicator 2：来自建造服务器的问题报告"
+      },
+      "summary": {
+        "en": "Diagnose and repair every reported problem in the Advanced Duplicator 2 addon.",
+        "zh": "诊断并修复 Advanced Duplicator 2 插件中报告的全部问题。"
+      },
+      "brief": {
+        "en": "Diagnose and repair every reported problem in the Advanced Duplicator 2 addon.",
+        "zh": "诊断并修复 Advanced Duplicator 2 插件中报告的全部问题。"
+      },
+      "requirements": {
+        "en": [
+          "Fix the underlying causes rather than suppressing the symptoms.",
+          "Preserve the behaviour of every code path that already works."
+        ],
+        "zh": [
+          "修复根本原因，而不是掩盖现象。",
+          "保持所有已经正常的代码路径的既有行为。"
+        ]
+      },
+      "api_usage": {
+        "en": [
+          "Use the addon's own code and the Garry's Mod APIs already present in the tree."
+        ],
+        "zh": [
+          "使用插件自身的代码以及代码树中已有的 Garry's Mod API。"
+        ]
+      },
+      "acceptance": {
+        "en": [
+          "Every private GLuaTest assertion must pass on a headless server without network access."
+        ],
+        "zh": [
+          "所有私有 GLuaTest 断言必须在无网络的无头服务器中通过。"
+        ]
+      },
+      "domains": [
+        "glua",
+        "debugging",
+        "real-game-runtime",
+        "physics"
+      ],
+      "estimated_minutes": 180,
+      "required_files": [
+        "advdupe2/lua/autorun/server/advdupe2_sv_init.lua",
+        "advdupe2/lua/advdupe2/sv_clipboard.lua"
+      ],
+      "task_kind": "debugging",
+      "source_mod": "Advanced Duplicator 2",
+      "source_commit": "e3ffa3c5d772658a11eacfb8570d543636392f9c",
+      "source_kind": "addon",
+      "starter_directory": "advdupe2"
+    },
+    {
+      "id": "cfw-contraption-regressions",
+      "difficulty": "medium",
+      "title": {
+        "en": "Contraption Framework: reports about contraption tracking",
+        "zh": "Contraption Framework：关于载具组合追踪的问题报告"
+      },
+      "summary": {
+        "en": "Diagnose and repair every reported problem in the Contraption Framework addon.",
+        "zh": "诊断并修复 Contraption Framework 插件中报告的全部问题。"
+      },
+      "brief": {
+        "en": "Diagnose and repair every reported problem in the Contraption Framework addon.",
+        "zh": "诊断并修复 Contraption Framework 插件中报告的全部问题。"
+      },
+      "requirements": {
+        "en": [
+          "Fix the underlying causes rather than suppressing the symptoms.",
+          "Preserve the behaviour of every code path that already works."
+        ],
+        "zh": [
+          "修复根本原因，而不是掩盖现象。",
+          "保持所有已经正常的代码路径的既有行为。"
+        ]
+      },
+      "api_usage": {
+        "en": [
+          "Use the addon's own code and the Garry's Mod APIs already present in the tree."
+        ],
+        "zh": [
+          "使用插件自身的代码以及代码树中已有的 Garry's Mod API。"
+        ]
+      },
+      "acceptance": {
+        "en": [
+          "Every private GLuaTest assertion must pass on a headless server without network access."
+        ],
+        "zh": [
+          "所有私有 GLuaTest 断言必须在无网络的无头服务器中通过。"
+        ]
+      },
+      "domains": [
+        "glua",
+        "debugging",
+        "real-game-runtime"
+      ],
+      "estimated_minutes": 150,
+      "required_files": [
+        "cfw/lua/autorun/cfw_loader.lua",
+        "cfw/lua/cfw/core/parenting_sv.lua"
+      ],
+      "task_kind": "debugging",
+      "source_mod": "Contraption Framework",
+      "source_commit": "5bb6f9fec64d7aa62abd01b49b2a75acf5e7712d",
+      "source_kind": "addon",
+      "starter_directory": "cfw"
+    },
+    {
+      "id": "starfallex-library-regressions",
+      "difficulty": "hard",
+      "title": {
+        "en": "StarfallEx: reports from a scripting server",
+        "zh": "StarfallEx：来自脚本服务器的问题报告"
+      },
+      "summary": {
+        "en": "Diagnose and repair every reported problem in the StarfallEx addon.",
+        "zh": "诊断并修复 StarfallEx 插件中报告的全部问题。"
+      },
+      "brief": {
+        "en": "Diagnose and repair every reported problem in the StarfallEx addon.",
+        "zh": "诊断并修复 StarfallEx 插件中报告的全部问题。"
+      },
+      "requirements": {
+        "en": [
+          "Fix the underlying causes rather than suppressing the symptoms.",
+          "Preserve the behaviour of every code path that already works."
+        ],
+        "zh": [
+          "修复根本原因，而不是掩盖现象。",
+          "保持所有已经正常的代码路径的既有行为。"
+        ]
+      },
+      "api_usage": {
+        "en": [
+          "Use the addon's own code and the Garry's Mod APIs already present in the tree."
+        ],
+        "zh": [
+          "使用插件自身的代码以及代码树中已有的 Garry's Mod API。"
+        ]
+      },
+      "acceptance": {
+        "en": [
+          "Every private GLuaTest assertion must pass on a headless server without network access."
+        ],
+        "zh": [
+          "所有私有 GLuaTest 断言必须在无网络的无头服务器中通过。"
+        ]
+      },
+      "domains": [
+        "glua",
+        "debugging",
+        "real-game-runtime",
+        "sandboxing"
+      ],
+      "estimated_minutes": 210,
+      "required_files": [
+        "starfallex/lua/autorun/server/sf_init.lua",
+        "starfallex/lua/starfall/sflib.lua"
+      ],
+      "task_kind": "debugging",
+      "source_mod": "StarfallEx",
+      "source_commit": "0e8e3d7e0be897bd8f67fa324c97a4e2dd61b968",
+      "source_kind": "addon",
+      "starter_directory": "starfallex"
+    },
+    {
+      "id": "wiremod-e2-library-regressions",
+      "difficulty": "hard",
+      "title": {
+        "en": "Wiremod: reports against the Expression 2 standard library",
+        "zh": "Wiremod：针对 Expression 2 标准库的问题报告"
+      },
+      "summary": {
+        "en": "Diagnose and repair every reported problem in the Wiremod addon.",
+        "zh": "诊断并修复 Wiremod 插件中报告的全部问题。"
+      },
+      "brief": {
+        "en": "Diagnose and repair every reported problem in the Wiremod addon.",
+        "zh": "诊断并修复 Wiremod 插件中报告的全部问题。"
+      },
+      "requirements": {
+        "en": [
+          "Fix the underlying causes rather than suppressing the symptoms.",
+          "Preserve the behaviour of every code path that already works."
+        ],
+        "zh": [
+          "修复根本原因，而不是掩盖现象。",
+          "保持所有已经正常的代码路径的既有行为。"
+        ]
+      },
+      "api_usage": {
+        "en": [
+          "Use the addon's own code and the Garry's Mod APIs already present in the tree."
+        ],
+        "zh": [
+          "使用插件自身的代码以及代码树中已有的 Garry's Mod API。"
+        ]
+      },
+      "acceptance": {
+        "en": [
+          "Every private GLuaTest assertion must pass on a headless server without network access."
+        ],
+        "zh": [
+          "所有私有 GLuaTest 断言必须在无网络的无头服务器中通过。"
+        ]
+      },
+      "domains": [
+        "glua",
+        "debugging",
+        "real-game-runtime",
+        "compilers"
+      ],
+      "estimated_minutes": 210,
+      "required_files": [
+        "wire/lua/autorun/wire_load.lua",
+        "wire/lua/entities/gmod_wire_expression2/base/compiler.lua"
+      ],
+      "task_kind": "debugging",
+      "source_mod": "Wiremod",
+      "source_commit": "f31ba74e7c607918fed0e5607cb425df052f132d",
+      "source_kind": "addon",
+      "starter_directory": "wire"
+    },
+    {
+      "id": "wiremod-gates-chips-regressions",
+      "difficulty": "hard",
+      "title": {
+        "en": "Wiremod: reports about gates, chips and holograms",
+        "zh": "Wiremod：关于逻辑门、芯片与全息投影的问题报告"
+      },
+      "summary": {
+        "en": "Diagnose and repair every reported problem in the Wiremod addon.",
+        "zh": "诊断并修复 Wiremod 插件中报告的全部问题。"
+      },
+      "brief": {
+        "en": "Diagnose and repair every reported problem in the Wiremod addon.",
+        "zh": "诊断并修复 Wiremod 插件中报告的全部问题。"
+      },
+      "requirements": {
+        "en": [
+          "Fix the underlying causes rather than suppressing the symptoms.",
+          "Preserve the behaviour of every code path that already works."
+        ],
+        "zh": [
+          "修复根本原因，而不是掩盖现象。",
+          "保持所有已经正常的代码路径的既有行为。"
+        ]
+      },
+      "api_usage": {
+        "en": [
+          "Use the addon's own code and the Garry's Mod APIs already present in the tree."
+        ],
+        "zh": [
+          "使用插件自身的代码以及代码树中已有的 Garry's Mod API。"
+        ]
+      },
+      "acceptance": {
+        "en": [
+          "Every private GLuaTest assertion must pass on a headless server without network access."
+        ],
+        "zh": [
+          "所有私有 GLuaTest 断言必须在无网络的无头服务器中通过。"
+        ]
+      },
+      "domains": [
+        "glua",
+        "debugging",
+        "real-game-runtime",
+        "compilers"
+      ],
+      "estimated_minutes": 240,
+      "required_files": [
+        "wire/lua/autorun/wire_load.lua",
+        "wire/lua/wire/server/wirelib.lua"
+      ],
+      "task_kind": "debugging",
+      "source_mod": "Wiremod",
+      "source_commit": "f31ba74e7c607918fed0e5607cb425df052f132d",
+      "source_kind": "addon",
+      "starter_directory": "wire"
+    }
+  ]
+}

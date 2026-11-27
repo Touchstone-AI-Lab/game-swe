@@ -1,0 +1,34 @@
+diff --git a/Common/IO/ValueReader.cs b/Common/IO/ValueReader.cs
+--- a/Common/IO/ValueReader.cs
++++ b/Common/IO/ValueReader.cs
+@@ -188,17 +188,21 @@ namespace MagicStorage.Common.IO {
+ 		// Specialized methods for handling item data
+ 
+ 		internal void ReadModData(Item item, LengthCompressor<uint> lengthReader) {
+-			if (ReadBoolean() && item.ModItem is { } modItem) {
+-				using (ReadScope(lengthReader, optimizeForBytes: true)) {
+-					uint byteCount = _activeScope.ExpectedBitCount / 8;
+-					byte[] bytes = ReadBytes((int)byteCount);
++			if (!ReadBoolean())
++				return;
+ 
+-					var ms = new MemoryStream(bytes, 0, bytes.Length, writable: false, publiclyVisible: true);
+-					modItem.NetReceive(new BinaryReader(ms));
++			using (ReadScope(lengthReader, optimizeForBytes: true)) {
++				uint byteCount = _activeScope.ExpectedBitCount / 8;
++				byte[] bytes = ReadBytes((int)byteCount);
+ 
+-					if ((uint)ms.Position != byteCount)
+-						throw new InvalidOperationException($"Read underflow {ms.Position} of {byteCount} bytes caused by {modItem.Name} from the {modItem.Mod.Name} mod.");
+-				}
++				if (item.ModItem is not { } modItem)
++					throw new InvalidOperationException("Received ModItem data for an item without a ModItem instance");
++
++				var ms = new MemoryStream(bytes, 0, bytes.Length, writable: false, publiclyVisible: true);
++				modItem.NetReceive(new BinaryReader(ms));
++
++				if ((uint)ms.Position != byteCount)
++					throw new InvalidOperationException($"Read underflow {ms.Position} of {byteCount} bytes caused by {modItem.Name} from the {modItem.Mod.Name} mod.");
+ 			}
+ 		}
+ 

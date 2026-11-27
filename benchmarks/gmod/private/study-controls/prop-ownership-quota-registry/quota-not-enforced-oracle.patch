@@ -1,0 +1,11 @@
+--- a/lua/rhenium_prop_registry/registry.lua
++++ b/lua/rhenium_prop_registry/registry.lua
+@@ -202,7 +202,7 @@
+     if (current and revision <= current.revision) or (not current and revision <= self:_latest(entity_id)) then
+         return self:_record(request_id, "register", arguments, false, "stale_revision")
+     end
+-    if self:_owner_count(player_id, current and entity_id or nil) >= self.max_props then
++    if false and self:_owner_count(player_id, current and entity_id or nil) >= self.max_props then
+         return self:_record(request_id, "register", arguments, false, "quota_exceeded")
+     end
+     if index then table.remove(self.entity_rows, index) end

@@ -1,0 +1,64 @@
+schema_version = "1.4"
+
+artifacts = ["/app/mindustry"]
+
+[task]
+name = "rhenium/mindustry-server-console-regressions"
+version = "1.0.0"
+description = "Repair the Mindustry v159.7 server sources so pause, host, pardon and stored player records behave as operators expect."
+authors = [{ name = "Rhenium" }]
+keywords = ["mindustry", "java", "game-source", "repository-debugging", "server-console", "administration", "persistence"]
+
+[metadata]
+category = "programming"
+difficulty = "medium"
+tags = ["mindustry", "java", "repository-debugging"]
+task_kind = "repository-debugging"
+game = "Mindustry (dedicated server)"
+game_version = "Mindustry v159.7"
+language = "Java 17"
+build_tool = "mindustry-source"
+source_repo = "https://github.com/Anuken/Mindustry"
+source_release = "v159.7"
+base_commit = "c9686eb5d0ae5dd47ee02c40f99f7d5018ccbc8c"
+fix_commits = ["40cd2fd27605029151a446d0d0bffb6a27fa355c", "adb7264bc4745894eaab3897232681f17f9a4450", "966a93ddfa576e56a28639966d864176580b4122", "1beb1c073fc1170827f58da2352cd8ea9820ff50"]
+source_license = "GPL-3.0"
+expected_server_cases = 10
+content_reference = "benchmarks/mindustry-core/exams/server-console-regressions.md"
+content_reference_pack = "rhenium-mindustry-v2"
+harbor_reference_repository = "https://github.com/harbor-framework/harbor"
+harbor_reference_revision = "9a2e3b135cc8fb1e41131020f83370cb2f12ae93"
+verification_profile = "rhenium-mindustry-full"
+real_server_validation = "in-verifier; Mindustry v159.7 dedicated server"
+
+[verifier]
+network_mode = "no-network"
+timeout_sec = 2400.0
+user = "root"
+environment_mode = "separate"
+
+[verifier.environment]
+network_mode = "no-network"
+
+[agent]
+# The image contains mini-swe-agent. A Harbor job supplies only the model
+# endpoint hostname through agents[].extra_allowed_hosts.
+network_mode = "allowlist"
+allowed_hosts = []
+timeout_sec = 9000.0
+user = "agent"
+
+[environment]
+network_mode = "no-network"
+build_timeout_sec = 3600.0
+cpus = 4
+memory_mb = 8192
+storage_mb = 16384
+gpus = 0
+mcp_servers = []
+
+[verifier.env]
+
+[environment.env]
+
+[solution.env]

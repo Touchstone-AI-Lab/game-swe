@@ -1,0 +1,12 @@
+--- a/scripts/fuelration/allocator.lua
++++ b/scripts/fuelration/allocator.lua
+@@ -226,9 +226,6 @@
+     if consumer == nil then
+         return fail("unknown_consumer")
+     end
+-    if now < consumer.reported_at then
+-        return { ok = true, status = "stale", level = consumer.level, demand = consumer.capacity - consumer.level }
+-    end
+     consumer.level = math.min(math.floor(level), consumer.capacity)
+     consumer.reported_at = now
+     return { ok = true, status = "reported", level = consumer.level, demand = consumer.capacity - consumer.level }

@@ -1,0 +1,925 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-27",
+  "purpose": "repository-maintenance controls, not model performance",
+  "host": {
+    "name": "Lab",
+    "platform": "linux-x64",
+    "dockerVersion": "28.0.4",
+    "imageStore": "classic overlay2",
+    "execution": "native Linux dedicated server in network-disabled containers",
+    "dockerClientVersion": "28.0.4",
+    "daemon": "owned isolated daemon with loopback TLS; host daemon configuration unchanged"
+  },
+  "acquisition": {
+    "provider": "steam",
+    "kind": "steam-depots",
+    "appId": 2394010,
+    "depots": [
+      {
+        "id": 1006,
+        "manifest": "4559160656493359681"
+      },
+      {
+        "id": 2394012,
+        "manifest": "7031055933861146620"
+      }
+    ],
+    "build": "25247047",
+    "operatorSuppliedGameFiles": false,
+    "helperVersion": "0.1.0",
+    "helperSha256": "50a9c25eef5c955e0d81ab05d5d022c57da1033ff107becdb1eda7823b2c5840",
+    "helperExecution": "local container override for the unchanged pinned helper on NixOS"
+  },
+  "runtime": {
+    "key": "palworld/palworld-linux-25247047-native-2397c7b",
+    "fingerprint": "668c3ea9453fd8adc2abcdc7e9eb2249305e6f8f2757e222ee7494d466dfc69d",
+    "imageId": "sha256:203c3fee6ffb11dd3f37d483fb38970b0fb6d02bc1c80471bc4b2bc80a623f8e",
+    "recipeSha256": "b08d0e3451f10e140a55b13e80bca7e44e410fded03af80ff541c549c230e1f0",
+    "sourceSha256": {
+      "Pal/Binaries/Linux/PalServer-Linux-Shipping": "8d5c5cb6277a46713df2ad329d7b6887068b39fa98fcf84b8a5dfa3a00caa666",
+      "linux64/steamclient.so": "1a99f39637a505ce2dbfec697dafa118c2d1b8df7dea1412557e2d5ad0a2c7d4"
+    }
+  },
+  "summary": {
+    "tasks": 10,
+    "qualifiedControls": 30,
+    "maintenanceRuns": 32,
+    "controlCoveragePassed": true,
+    "singleMatrixPassed": false,
+    "originalMatrixInvalidControls": 2,
+    "recheckedControls": 2,
+    "goldPassed": 10,
+    "goldEngineCasesPassed": 40,
+    "goldEngineCasesExpected": 40,
+    "emptyNopFailed": 10,
+    "serviceAbsentCompleteFailed": 10,
+    "serviceAbsentEngineCasesObserved": 40
+  },
+  "controls": [
+    {
+      "task": "palworld/core/base-containment-mincut",
+      "control": "nop",
+      "runId": "run-78faaf6e31cc4823",
+      "status": "failed",
+      "score": 0.0,
+      "complete": false,
+      "passed": false,
+      "engineCases": [],
+      "enginePassed": 0,
+      "engineTotal": 0
+    },
+    {
+      "task": "palworld/core/base-containment-mincut",
+      "control": "gold",
+      "runId": "run-f111499f08a84367",
+      "status": "passed",
+      "score": 100.0,
+      "complete": true,
+      "passed": true,
+      "engineCases": [
+        {
+          "name": "real dedicated authority and the native hook API exist",
+          "passed": true
+        },
+        {
+          "name": "server publishes the complete optimization service",
+          "passed": true
+        },
+        {
+          "name": "server computes canonical plans and rejects infeasible updates atomically",
+          "passed": true
+        },
+        {
+          "name": "recovery validates certificates and unmount stops mutation",
+          "passed": true
+        }
+      ],
+      "enginePassed": 4,
+      "engineTotal": 4
+    },
+    {
+      "task": "palworld/core/base-containment-mincut",
+      "control": "service-absent",
+      "runId": "run-446942db3d6b4a05",
+      "status": "failed",
+      "score": 15.0,
+      "complete": true,
+      "passed": false,
+      "engineCases": [
+        {
+          "name": "real dedicated authority and the native hook API exist",
+          "passed": true
+        },
+        {
+          "name": "server publishes the complete optimization service",
+          "passed": false
+        },
+        {
+          "name": "server computes canonical plans and rejects infeasible updates atomically",
+          "passed": false
+        },
+        {
+          "name": "recovery validates certificates and unmount stops mutation",
+          "passed": false
+        }
+      ],
+      "enginePassed": 1,
+      "engineTotal": 4
+    },
+    {
+      "task": "palworld/core/guild-consistent-checkpoint",
+      "control": "nop",
+      "runId": "run-b75ede48e3f44279",
+      "status": "failed",
+      "score": 0.0,
+      "complete": false,
+      "passed": false,
+      "engineCases": [],
+      "enginePassed": 0,
+      "engineTotal": 0
+    },
+    {
+      "task": "palworld/core/guild-consistent-checkpoint",
+      "control": "gold",
+      "runId": "run-5eb78309243845d1",
+      "status": "passed",
+      "score": 100.0,
+      "complete": true,
+      "passed": true,
+      "engineCases": [
+        {
+          "name": "dedicated server world and documented API are available",
+          "passed": true
+        },
+        {
+          "name": "service exposes complete trusted protocol",
+          "passed": true
+        },
+        {
+          "name": "server executes distinguishing protocol sequence",
+          "passed": true
+        },
+        {
+          "name": "server saves and restores the protocol without silent reset",
+          "passed": true
+        }
+      ],
+      "enginePassed": 4,
+      "engineTotal": 4
+    },
+    {
+      "task": "palworld/core/guild-consistent-checkpoint",
+      "control": "service-absent",
+      "runId": "run-051a5842fcbf4ee2",
+      "status": "failed",
+      "score": 15.0,
+      "complete": true,
+      "passed": false,
+      "engineCases": [
+        {
+          "name": "dedicated server world and documented API are available",
+          "passed": true
+        },
+        {
+          "name": "service exposes complete trusted protocol",
+          "passed": false
+        },
+        {
+          "name": "server executes distinguishing protocol sequence",
+          "passed": false
+        },
+        {
+          "name": "server saves and restores the protocol without silent reset",
+          "passed": false
+        }
+      ],
+      "enginePassed": 1,
+      "engineTotal": 4
+    },
+    {
+      "task": "palworld/core/guild-draft-canonical-order",
+      "control": "nop",
+      "runId": "run-b136f58cf2e2467c",
+      "status": "failed",
+      "score": 0.0,
+      "complete": false,
+      "passed": false,
+      "engineCases": [],
+      "enginePassed": 0,
+      "engineTotal": 0
+    },
+    {
+      "task": "palworld/core/guild-draft-canonical-order",
+      "control": "gold",
+      "runId": "run-f46b49e70da04429",
+      "status": "passed",
+      "score": 100.0,
+      "complete": true,
+      "passed": true,
+      "engineCases": [
+        {
+          "name": "real dedicated authority and the native hook API exist",
+          "passed": true
+        },
+        {
+          "name": "server publishes the complete optimization service",
+          "passed": true
+        },
+        {
+          "name": "server computes canonical plans and rejects infeasible updates atomically",
+          "passed": true
+        },
+        {
+          "name": "recovery validates certificates and unmount stops mutation",
+          "passed": true
+        }
+      ],
+      "enginePassed": 4,
+      "engineTotal": 4
+    },
+    {
+      "task": "palworld/core/guild-draft-canonical-order",
+      "control": "service-absent",
+      "runId": "run-267ceb5e6fae4e3d",
+      "status": "failed",
+      "score": 15.0,
+      "complete": true,
+      "passed": false,
+      "engineCases": [
+        {
+          "name": "real dedicated authority and the native hook API exist",
+          "passed": true
+        },
+        {
+          "name": "server publishes the complete optimization service",
+          "passed": false
+        },
+        {
+          "name": "server computes canonical plans and rejects infeasible updates atomically",
+          "passed": false
+        },
+        {
+          "name": "recovery validates certificates and unmount stops mutation",
+          "passed": false
+        }
+      ],
+      "enginePassed": 1,
+      "engineTotal": 4
+    },
+    {
+      "task": "palworld/core/guild-storage-ledger",
+      "control": "nop",
+      "runId": "run-f03fa2f8ed264038",
+      "status": "failed",
+      "score": 0.0,
+      "complete": false,
+      "passed": false,
+      "engineCases": [],
+      "enginePassed": 0,
+      "engineTotal": 0
+    },
+    {
+      "task": "palworld/core/guild-storage-ledger",
+      "control": "gold",
+      "runId": "run-cb7aced986fb471d",
+      "status": "passed",
+      "score": 100.0,
+      "complete": true,
+      "passed": true,
+      "engineCases": [
+        {
+          "name": "dedicated server context is available",
+          "passed": true
+        },
+        {
+          "name": "guild storage service is published",
+          "passed": true
+        },
+        {
+          "name": "the server resolves quotas and rolls back failed delivery",
+          "passed": true
+        },
+        {
+          "name": "guild storage state reloads",
+          "passed": true
+        }
+      ],
+      "enginePassed": 4,
+      "engineTotal": 4
+    },
+    {
+      "task": "palworld/core/guild-storage-ledger",
+      "control": "service-absent",
+      "runId": "run-b5f92bcb2c534f0a",
+      "status": "failed",
+      "score": 15.0,
+      "complete": true,
+      "passed": false,
+      "engineCases": [
+        {
+          "name": "dedicated server context is available",
+          "passed": true
+        },
+        {
+          "name": "guild storage service is published",
+          "passed": false
+        },
+        {
+          "name": "the server resolves quotas and rolls back failed delivery",
+          "passed": false
+        },
+        {
+          "name": "guild storage state reloads",
+          "passed": false
+        }
+      ],
+      "enginePassed": 1,
+      "engineTotal": 4
+    },
+    {
+      "task": "palworld/core/outbox-receipt-recovery",
+      "control": "nop",
+      "runId": "run-9450af885c9445ca",
+      "status": "failed",
+      "score": 0.0,
+      "complete": false,
+      "passed": false,
+      "engineCases": [],
+      "enginePassed": 0,
+      "engineTotal": 0
+    },
+    {
+      "task": "palworld/core/outbox-receipt-recovery",
+      "control": "gold",
+      "runId": "run-e81645e06a534352",
+      "status": "passed",
+      "score": 100.0,
+      "complete": true,
+      "passed": true,
+      "engineCases": [
+        {
+          "name": "dedicated server world and documented API are available",
+          "passed": true
+        },
+        {
+          "name": "service exposes complete trusted protocol",
+          "passed": true
+        },
+        {
+          "name": "server executes distinguishing protocol sequence",
+          "passed": true
+        },
+        {
+          "name": "server saves and restores the protocol without silent reset",
+          "passed": true
+        }
+      ],
+      "enginePassed": 4,
+      "engineTotal": 4
+    },
+    {
+      "task": "palworld/core/outbox-receipt-recovery",
+      "control": "service-absent",
+      "runId": "run-ea75a37f587a4d70",
+      "status": "failed",
+      "score": 15.0,
+      "complete": true,
+      "passed": false,
+      "engineCases": [
+        {
+          "name": "dedicated server world and documented API are available",
+          "passed": true
+        },
+        {
+          "name": "service exposes complete trusted protocol",
+          "passed": false
+        },
+        {
+          "name": "server executes distinguishing protocol sequence",
+          "passed": false
+        },
+        {
+          "name": "server saves and restores the protocol without silent reset",
+          "passed": false
+        }
+      ],
+      "enginePassed": 1,
+      "engineTotal": 4
+    },
+    {
+      "task": "palworld/core/pal-workforce-optimal-matching",
+      "control": "nop",
+      "runId": "run-539f4cda09764871",
+      "status": "failed",
+      "score": 0.0,
+      "complete": false,
+      "passed": false,
+      "engineCases": [],
+      "enginePassed": 0,
+      "engineTotal": 0
+    },
+    {
+      "task": "palworld/core/pal-workforce-optimal-matching",
+      "control": "gold",
+      "runId": "run-07cd2355effd4341",
+      "status": "passed",
+      "score": 100.0,
+      "complete": true,
+      "passed": true,
+      "engineCases": [
+        {
+          "name": "dedicated server world and documented API are available",
+          "passed": true
+        },
+        {
+          "name": "service exposes complete trusted protocol",
+          "passed": true
+        },
+        {
+          "name": "server executes distinguishing protocol sequence",
+          "passed": true
+        },
+        {
+          "name": "server saves and restores the protocol without silent reset",
+          "passed": true
+        }
+      ],
+      "enginePassed": 4,
+      "engineTotal": 4
+    },
+    {
+      "task": "palworld/core/pal-workforce-optimal-matching",
+      "control": "service-absent",
+      "runId": "run-5364a0fa2b534e3f",
+      "status": "failed",
+      "score": 15.0,
+      "complete": true,
+      "passed": false,
+      "engineCases": [
+        {
+          "name": "dedicated server world and documented API are available",
+          "passed": true
+        },
+        {
+          "name": "service exposes complete trusted protocol",
+          "passed": false
+        },
+        {
+          "name": "server executes distinguishing protocol sequence",
+          "passed": false
+        },
+        {
+          "name": "server saves and restores the protocol without silent reset",
+          "passed": false
+        }
+      ],
+      "enginePassed": 1,
+      "engineTotal": 4
+    },
+    {
+      "task": "palworld/core/raid-dispatch-queue",
+      "control": "nop",
+      "runId": "run-4983d5a43efd4f30",
+      "status": "failed",
+      "score": 0.0,
+      "complete": false,
+      "passed": false,
+      "engineCases": [],
+      "enginePassed": 0,
+      "engineTotal": 0
+    },
+    {
+      "task": "palworld/core/raid-dispatch-queue",
+      "control": "gold",
+      "runId": "run-5c17059dd5c34850",
+      "status": "passed",
+      "score": 100.0,
+      "complete": true,
+      "passed": true,
+      "engineCases": [
+        {
+          "name": "dedicated server context is available",
+          "passed": true
+        },
+        {
+          "name": "raid dispatch service is published",
+          "passed": true
+        },
+        {
+          "name": "leases are handed out and swept on the server",
+          "passed": true
+        },
+        {
+          "name": "dispatch state reloads",
+          "passed": true
+        }
+      ],
+      "enginePassed": 4,
+      "engineTotal": 4
+    },
+    {
+      "task": "palworld/core/raid-dispatch-queue",
+      "control": "service-absent",
+      "runId": "run-7801b78416ce4045",
+      "status": "failed",
+      "score": 15.0,
+      "complete": true,
+      "passed": false,
+      "engineCases": [
+        {
+          "name": "dedicated server context is available",
+          "passed": true
+        },
+        {
+          "name": "raid dispatch service is published",
+          "passed": false
+        },
+        {
+          "name": "leases are handed out and swept on the server",
+          "passed": false
+        },
+        {
+          "name": "dispatch state reloads",
+          "passed": false
+        }
+      ],
+      "enginePassed": 1,
+      "engineTotal": 4
+    },
+    {
+      "task": "palworld/core/raid-event-watermark",
+      "control": "nop",
+      "runId": "run-9233f0a3d45347d7",
+      "status": "failed",
+      "score": 0.0,
+      "complete": false,
+      "passed": false,
+      "engineCases": [],
+      "enginePassed": 0,
+      "engineTotal": 0
+    },
+    {
+      "task": "palworld/core/raid-event-watermark",
+      "control": "gold",
+      "runId": "run-0f980a286da84bed",
+      "status": "passed",
+      "score": 100.0,
+      "complete": true,
+      "passed": true,
+      "engineCases": [
+        {
+          "name": "dedicated server world and documented API are available",
+          "passed": true
+        },
+        {
+          "name": "service exposes complete trusted protocol",
+          "passed": true
+        },
+        {
+          "name": "server executes distinguishing protocol sequence",
+          "passed": true
+        },
+        {
+          "name": "server saves and restores the protocol without silent reset",
+          "passed": true
+        }
+      ],
+      "enginePassed": 4,
+      "engineTotal": 4
+    },
+    {
+      "task": "palworld/core/raid-event-watermark",
+      "control": "service-absent",
+      "runId": "run-fad58c6505ff4165",
+      "status": "failed",
+      "score": 15.0,
+      "complete": true,
+      "passed": false,
+      "engineCases": [
+        {
+          "name": "dedicated server world and documented API are available",
+          "passed": true
+        },
+        {
+          "name": "service exposes complete trusted protocol",
+          "passed": false
+        },
+        {
+          "name": "server executes distinguishing protocol sequence",
+          "passed": false
+        },
+        {
+          "name": "server saves and restores the protocol without silent reset",
+          "passed": false
+        }
+      ],
+      "enginePassed": 1,
+      "engineTotal": 4
+    },
+    {
+      "task": "palworld/core/server-rule-ballot",
+      "control": "nop",
+      "runId": "run-ff13aa4f65064b0a",
+      "status": "failed",
+      "score": 0.0,
+      "complete": false,
+      "passed": false,
+      "engineCases": [],
+      "enginePassed": 0,
+      "engineTotal": 0
+    },
+    {
+      "task": "palworld/core/server-rule-ballot",
+      "control": "gold",
+      "runId": "run-9381774ab4e04f4a",
+      "status": "passed",
+      "score": 100.0,
+      "complete": true,
+      "passed": true,
+      "engineCases": [
+        {
+          "name": "dedicated server context is available",
+          "passed": true
+        },
+        {
+          "name": "rule ballot service is published",
+          "passed": true
+        },
+        {
+          "name": "the server derives voter identity and settles a ballot",
+          "passed": true
+        },
+        {
+          "name": "ballot state reloads",
+          "passed": true
+        }
+      ],
+      "enginePassed": 4,
+      "engineTotal": 4
+    },
+    {
+      "task": "palworld/core/server-rule-ballot",
+      "control": "service-absent",
+      "runId": "run-a4ad49b5d55040ba",
+      "status": "failed",
+      "score": 15.0,
+      "complete": true,
+      "passed": false,
+      "engineCases": [
+        {
+          "name": "dedicated server context is available",
+          "passed": true
+        },
+        {
+          "name": "rule ballot service is published",
+          "passed": false
+        },
+        {
+          "name": "the server derives voter identity and settles a ballot",
+          "passed": false
+        },
+        {
+          "name": "ballot state reloads",
+          "passed": false
+        }
+      ],
+      "enginePassed": 1,
+      "engineTotal": 4
+    },
+    {
+      "task": "palworld/core/world-epoch-fenced-timers",
+      "control": "nop",
+      "runId": "run-ae05bc1771db4cbc",
+      "status": "failed",
+      "score": 0.0,
+      "complete": false,
+      "passed": false,
+      "engineCases": [],
+      "enginePassed": 0,
+      "engineTotal": 0
+    },
+    {
+      "task": "palworld/core/world-epoch-fenced-timers",
+      "control": "gold",
+      "runId": "run-514c6b2458174814",
+      "status": "passed",
+      "score": 100.0,
+      "complete": true,
+      "passed": true,
+      "engineCases": [
+        {
+          "name": "dedicated server world and documented API are available",
+          "passed": true
+        },
+        {
+          "name": "service exposes complete trusted protocol",
+          "passed": true
+        },
+        {
+          "name": "server executes distinguishing protocol sequence",
+          "passed": true
+        },
+        {
+          "name": "server saves and restores the protocol without silent reset",
+          "passed": true
+        }
+      ],
+      "enginePassed": 4,
+      "engineTotal": 4
+    },
+    {
+      "task": "palworld/core/world-epoch-fenced-timers",
+      "control": "service-absent",
+      "runId": "run-fa1922e2ebdc4494",
+      "status": "failed",
+      "score": 15.0,
+      "complete": true,
+      "passed": false,
+      "engineCases": [
+        {
+          "name": "dedicated server world and documented API are available",
+          "passed": true
+        },
+        {
+          "name": "service exposes complete trusted protocol",
+          "passed": false
+        },
+        {
+          "name": "server executes distinguishing protocol sequence",
+          "passed": false
+        },
+        {
+          "name": "server saves and restores the protocol without silent reset",
+          "passed": false
+        }
+      ],
+      "enginePassed": 1,
+      "engineTotal": 4
+    }
+  ],
+  "limits": [
+    "All required control outcomes were observed on the final recipe after one standard recheck of each of two infrastructure timeouts. The original matrix remains recorded as incomplete.",
+    "Sporadic Docker lifecycle stalls occurred on this shared Lab host; daemon and kernel stacks showed overlay2 unmount and Btrfs metadata-reservation waits. This does not prove the cause of every timeout.",
+    "Historical predecessor recipes remain separate evidence. No authored task, assertion, reference, scoring weight or pass criterion changed during review.",
+    "Evidence is limited to the pinned Linux x86_64 build and loader. No Windows, Wine or interactive client validation is claimed.",
+    "The NixOS host used a local container override for the unchanged pinned Steam helper; direct generic-helper execution on NixOS is unvalidated.",
+    "The temporary test daemon may be stopped after validation; reusing its images requires selecting that same Docker context.",
+    "Licensed caches, images and detailed diagnostics remain private on Lab; none are committed or published."
+  ],
+  "validationStatus": "passed-after-two-infrastructure-rechecks",
+  "blockers": [],
+  "priorAttempts": [
+    {
+      "imageId": "sha256:cbbc595ce0e37068dff7c0929a7cd960234f14bc5db0cc18a8976e7bdf5dedd5",
+      "recipeSha256": "e7cb0f4c741d754662135ef31ddbbc56bb7f965e3c5716aa7582984b1fa3d9d7",
+      "hostDockerVersion": "29.8.1",
+      "stage": "initial Steam-depot acquisition route",
+      "goldPassed": 10,
+      "goldEngineCasesPassed": 40,
+      "expectedNegativeVerdicts": 20,
+      "status": "passed; superseded by final runtime safeguards"
+    },
+    {
+      "imageId": "sha256:fb3afc2265c71341d6b44047c656737b7f4c3713a40e1d945753e716187c136a",
+      "recipeSha256": "44cc2dc3ff9ac36e66ee81fef61f8a5fbd2434302eed1b45e070f121b7f1e48d",
+      "hostDockerVersion": "29.8.1",
+      "stage": "explicit no-pull safeguard",
+      "status": "incomplete matrix",
+      "failedControl": "palworld/core/outbox-receipt-recovery service-absent",
+      "runId": "run-c0c2083f46a345b5",
+      "reason": "Docker container-inspect cleanup request timed out after 300 seconds",
+      "recoveredWorkerCases": 4,
+      "recovery": "Matching owner label confirmed; exited container logs preserved and only that container removed. Original incomplete receipt retained."
+    },
+    {
+      "imageId": "sha256:76d88ccf1516853218099f80788b9816b170841daee54431f0ab832f0c5b852d",
+      "recipeSha256": "b08d0e3451f10e140a55b13e80bca7e44e410fded03af80ff541c549c230e1f0",
+      "hostDockerVersion": "29.8.1",
+      "stage": "final source on containerd store",
+      "status": "incomplete matrix",
+      "failedControl": "palworld/core/guild-consistent-checkpoint gold",
+      "runId": "run-062bdf90db68484e",
+      "reason": "Docker run timed out after 300 seconds without a complete worker result"
+    },
+    {
+      "imageId": "sha256:76d88ccf1516853218099f80788b9816b170841daee54431f0ab832f0c5b852d",
+      "hostDockerVersion": "29.8.1",
+      "stage": "same immutable image with a local cache tag",
+      "status": "incomplete matrix",
+      "failedControl": "palworld/core/guild-consistent-checkpoint gold",
+      "runId": "run-d8902438222e422a",
+      "reason": "Docker run timeout reproduced; adding a cache reference did not resolve it"
+    },
+    {
+      "imageId": "sha256:203c3fee6ffb11dd3f37d483fb38970b0fb6d02bc1c80471bc4b2bc80a623f8e",
+      "recipeSha256": "b08d0e3451f10e140a55b13e80bca7e44e410fded03af80ff541c549c230e1f0",
+      "hostDockerVersion": "28.0.4",
+      "dockerClientVersion": "29.8.1",
+      "stage": "final source on isolated classic overlay2 store",
+      "status": "incomplete matrix",
+      "failedControl": "palworld/core/outbox-receipt-recovery service-absent",
+      "runId": "run-13c7986bffe241e8",
+      "reason": "Docker run timed out after 300 seconds without a complete worker result"
+    }
+  ],
+  "hostDiagnostics": [
+    "Daemon stack capture: ContainerInspect waiting on a mutex and overlay2 Unmount blocked for minutes.",
+    "Kernel stack capture from an owned daemon thread: handle_reserve_ticket / btrfs_reserve_metadata_bytes / btrfs_buffered_write.",
+    "These observations do not prove the cause of every timeout. Host storage configuration was not modified.",
+    "The unused VFS alternative was stopped before controls ran; it is not engine evidence."
+  ],
+  "ordinaryCliControl": {
+    "id": "run-99aaed307cdc4392",
+    "taskKey": "palworld/core/base-containment-mincut",
+    "status": "passed",
+    "score": 100.0,
+    "complete": true,
+    "passed": true,
+    "engineCasesPassed": 4,
+    "engineCasesExpected": 4
+  },
+  "originalMatrix": {
+    "passed": false,
+    "expectedOutcomesObserved": 28,
+    "invalidMandatoryControls": 2,
+    "failedControls": [
+      {
+        "task": "palworld/core/guild-consistent-checkpoint",
+        "control": "service-absent",
+        "runId": "run-7c1c61913e5a4f24",
+        "status": "failed",
+        "score": 5.0,
+        "complete": false,
+        "passed": false,
+        "engineStatus": "error",
+        "engineCasesObserved": 0,
+        "engineCasesPassed": 0,
+        "expectedOutcomeObserved": false
+      },
+      {
+        "task": "palworld/core/raid-dispatch-queue",
+        "control": "service-absent",
+        "runId": "run-783cb8a78a5747cd",
+        "status": "failed",
+        "score": 5.0,
+        "complete": false,
+        "passed": false,
+        "engineStatus": "error",
+        "engineCasesObserved": 0,
+        "engineCasesPassed": 0,
+        "expectedOutcomeObserved": false
+      }
+    ],
+    "unchangedSuccessfulRunIds": [
+      "run-78faaf6e31cc4823",
+      "run-f111499f08a84367",
+      "run-446942db3d6b4a05",
+      "run-b75ede48e3f44279",
+      "run-5eb78309243845d1",
+      "run-b136f58cf2e2467c",
+      "run-f46b49e70da04429",
+      "run-267ceb5e6fae4e3d",
+      "run-f03fa2f8ed264038",
+      "run-cb7aced986fb471d",
+      "run-b5f92bcb2c534f0a",
+      "run-9450af885c9445ca",
+      "run-e81645e06a534352",
+      "run-ea75a37f587a4d70",
+      "run-539f4cda09764871",
+      "run-07cd2355effd4341",
+      "run-5364a0fa2b534e3f",
+      "run-4983d5a43efd4f30",
+      "run-5c17059dd5c34850",
+      "run-9233f0a3d45347d7",
+      "run-0f980a286da84bed",
+      "run-fad58c6505ff4165",
+      "run-ff13aa4f65064b0a",
+      "run-9381774ab4e04f4a",
+      "run-a4ad49b5d55040ba",
+      "run-ae05bc1771db4cbc",
+      "run-514c6b2458174814",
+      "run-fa1922e2ebdc4494"
+    ]
+  },
+  "rechecks": [
+    {
+      "task": "palworld/core/guild-consistent-checkpoint",
+      "control": "service-absent",
+      "originalRunId": "run-7c1c61913e5a4f24",
+      "recheckRunId": "run-051a5842fcbf4ee2",
+      "complete": true,
+      "passed": false,
+      "score": 15
+    },
+    {
+      "task": "palworld/core/raid-dispatch-queue",
+      "control": "service-absent",
+      "originalRunId": "run-783cb8a78a5747cd",
+      "recheckRunId": "run-7801b78416ce4045",
+      "complete": true,
+      "passed": false,
+      "score": 15
+    }
+  ]
+}

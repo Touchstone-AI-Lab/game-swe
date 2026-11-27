@@ -1,0 +1,39 @@
+{
+  "schema_version": 1,
+  "runtimes": [
+    {
+      "id": "gmod-gluatest-addons",
+      "name": "Headless Garry's Mod dedicated server with GLuaTest (addon repairs)",
+      "version": "gluatest x86-64 @ sha256:23cd97d4",
+      "provider": "container",
+      "restricted": false,
+      "host_platforms": [
+        "linux-x64"
+      ],
+      "source": {
+        "kind": "container-image",
+        "image": "ghcr.io/cfc-servers/gluatest/x86-64@sha256:23cd97d4fa9cf44fc16cabed6b973e117581769725b5735c533d10da7fe0b1fb",
+        "expectedFiles": [
+          "home/steam/gmodserver/entrypoint.sh"
+        ]
+      }
+    }
+  ],
+  "task_bindings": {
+    "advdupe2-paste-regressions": [
+      "gmod-gluatest-addons"
+    ],
+    "cfw-contraption-regressions": [
+      "gmod-gluatest-addons"
+    ],
+    "starfallex-library-regressions": [
+      "gmod-gluatest-addons"
+    ],
+    "wiremod-e2-library-regressions": [
+      "gmod-gluatest-addons"
+    ],
+    "wiremod-gates-chips-regressions": [
+      "gmod-gluatest-addons"
+    ]
+  }
+}

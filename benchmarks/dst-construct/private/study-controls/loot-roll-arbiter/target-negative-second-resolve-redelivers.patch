@@ -1,0 +1,12 @@
+--- a/scripts/components/lootrollarbiter.lua
++++ b/scripts/components/lootrollarbiter.lua
+@@ -183,6 +183,9 @@
+         delivering = true
+         result = self.core:mark_delivered(roll_id, self:_deliver(result.item, result.winner), now)
+     end
++    if not first_settlement and not delivering and result.status == "delivered" then
++        self:_deliver(result.item, result.winner)
++    end
+     if first_settlement or delivering then
+         self:_announce(result)
+         self:_publish()

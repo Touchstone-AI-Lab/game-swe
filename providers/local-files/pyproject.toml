@@ -1,0 +1,19 @@
+[project]
+name = "rhenium-local-files"
+version = "0.1.0"
+description = "Explicit local file snapshot provider for Rhenium"
+requires-python = ">=3.12"
+dependencies = ["rhenium==0.6.0"]
+
+[project.entry-points."rhenium.auth_providers"]
+local-files = "rhenium_local_files.provider:LocalFilesProvider"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/rhenium_local_files"]
+
+[tool.uv.sources]
+rhenium = { workspace = true }

@@ -1,0 +1,70 @@
+schema_version = "1.1"
+
+[task]
+name = "gamecodebench/starfallex-library-regressions"
+description = "A StarfallEx build with six upstream fixes reverted across the chip builtins, entity wrappers, player library, string streams, quaternion maths and the preprocessor, reported only as user-visible symptoms."
+authors = []
+keywords = ["garrysmod", "glua", "lua", "starfallex", "multi-defect", "regression"]
+
+[metadata]
+category = "programming"
+difficulty = "hard"
+tags = ["game-modding", "glua", "gmod", "starfallex", "bug-fix", "composite"]
+source_repo = "https://github.com/thegrb93/StarfallEx"
+source_license = "BSD-3-Clause"
+base_commit = "0e8e3d7e0be897bd8f67fa324c97a4e2dd61b968"
+reverted_fixes = "c06b8744e245909b6f128adb2fa7d75501a9dd98,e7c57fd0177dfeb6a9579a81c6e3661a35e080ba,2eda19da47463fd037914b8f2cab94319a1fa6f9,b53506de2fed7923f58e40d6291382df83cdab75,07a9665f0ce407d4117650b3aa1986c4787767d1,1b7d91a292d942716d8072101ccb3f21b9e1b2d5"
+gold_patch_origin = "composed-from-upstream-fixes"
+
+# PROVENANCE. The reference is upstream master at base_commit (2026-09-20), vendored
+# whole with its License.txt (BSD 3-clause text; GitHub reports NOASSERTION only because
+# the file is not named LICENSE). The starter is that tree with the six upstream fix
+# commits below reverted together (`git revert --no-commit`, newest first, applied
+# cleanly). Nothing is hand-injected. The CI workflow directory and .gitignore are not
+# vendored.
+#   A  c06b8744 (#2432, 2026-08-13)  libs_sh/builtins.lua    loadstring drops its env
+#                                    argument
+#   B  e7c57fd0 (#2369, 2026-07-01)  libs_sh/entities.lua    __tostring unwraps with the
+#                                    throwing accessor, so a removed entity raises
+#   C  2eda19da (#2353, 2026-06-02)  libs_sv/players.lua     Ply_Give missing from the
+#                                    cached-method locals; giveWeapon calls nil
+#   D  b53506de (#2128, 2025-07-26)  libs_sh/bit.lua         skip() past the end moves
+#                                    the index beyond #buffer + 1
+#   E  07a9665f (#1872, 2024-10-15)  libs_sh/quaternion.lua  an extra quatConj in
+#                                    slerpQuaternion
+#   F  1b7d91a2 (#1847, 2024-09-10)  preprocessor.lua        --@includedata calls the
+#                                    include directive table instead of its process
+#                                    function
+#
+# VERIFIER COVERAGE. 6 reports / 6 groups / 6 target cases + 6 preserved cases +
+# 1 load sentinel = 13 cases. Each case compiles a real starfall_processor chip owned
+# by a bot (the tool's own ENT:Compile path) and reads the values the chip script left
+# in its own globals; B and C also check engine state (a removed prop, the bot's
+# weapons). The preserved cases pin the neighbouring behaviour a careless fix could
+# break: loadstring without env, tostring of a live entity, the giveweapon permission
+# refusal, in-buffer skip, slerp at t = 0 and plain --@include.
+#
+# VALIDATED. Unchanged starter: complete, sentinel and all preserved cases pass, every
+# target case fails. Reference: 13/13. See validation/ in this pack.
+
+[verifier]
+network_mode = "no-network"
+timeout_sec = 1200.0
+
+[agent]
+# The agent harness calls the model API from inside the container; only the model
+# endpoint may be reachable. A Harbor job passes that hostname through
+# `agents[].extra_allowed_hosts`; github.com stays unreachable because the upstream
+# repository contains the fixes.
+network_mode = "allowlist"
+allowed_hosts = []
+timeout_sec = 5400.0
+
+[environment]
+network_mode = "no-network"
+build_timeout_sec = 2400.0
+cpus = 6
+memory_mb = 16384
+storage_mb = 20480
+gpus = 0
+mcp_servers = []

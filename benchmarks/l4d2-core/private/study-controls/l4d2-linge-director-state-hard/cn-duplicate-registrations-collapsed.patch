@@ -1,0 +1,13 @@
+diff -ruN a/vscripts/LinGe/Base.nut b/vscripts/LinGe/Base.nut
+--- a/vscripts/LinGe/Base.nut
++++ b/vscripts/LinGe/Base.nut
+@@ -834,6 +834,9 @@
+ 	}
+ 
+ 	local callback = trigger[event].callback;
++	// Ignore a registration that is already present so one callback runs once per dispatch.
++	if (null != func && EventIndex(event, func, callOf) >= 0)
++		return callback.len();
+ 	if (null != func)
+ 	{
+ 		local _callOf = (callOf==null) ? null : callOf.weakref();

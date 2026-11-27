@@ -1,0 +1,132 @@
+{
+  "version": 1,
+  "base": "references/graph-map",
+  "mutations": [
+    {
+      "id": "source-id-stringified",
+      "file": "lua/rhenium_contraption_blueprints/blueprints.lua",
+      "old": "type(entity.source_id) ~= \"string\"\n            or not valid_id(entity.source_id) then return nil, \"unsupported_entity\" end",
+      "new": "false or not valid_id(tostring(entity.source_id)) then return nil, \"unsupported_entity\" end",
+      "check": "hidden-behavior",
+      "case": "source identifiers require raw unique nonempty strings",
+      "expectedLayer": "hidden-behavior"
+    },
+    {
+      "id": "duplicate-source-id-accepted",
+      "file": "lua/rhenium_contraption_blueprints/blueprints.lua",
+      "old": "if fields ~= 5 or ids[entity.source_id] or not CLASSES[entity.class]",
+      "new": "if fields ~= 5 or false or not CLASSES[entity.class]",
+      "check": "hidden-behavior",
+      "case": "source identifiers require raw unique nonempty strings",
+      "expectedLayer": "hidden-behavior"
+    },
+    {
+      "id": "malformed-row-read-before-type-check",
+      "file": "lua/rhenium_contraption_blueprints/blueprints.lua",
+      "old": "if type(entity) ~= \"table\" or type(entity.source_id) ~= \"string\"",
+      "new": "if false or type(entity.source_id) ~= \"string\"",
+      "check": "hidden-behavior",
+      "case": "malformed entity and constraint rows return stable errors",
+      "expectedLayer": "hidden-behavior"
+    },
+    {
+      "id": "constraint-params-omitted-from-hash",
+      "file": "lua/rhenium_contraption_blueprints/blueprints.lua",
+      "old": "parts[#parts + 1] = encode(constraint)",
+      "new": "parts[#parts + 1] = encode({ id=constraint.id, type=constraint.type, a=constraint.a, b=constraint.b })",
+      "check": "hidden-behavior",
+      "case": "constraint params are validated detached and included in hash",
+      "expectedLayer": "hidden-behavior"
+    },
+    {
+      "id": "constraint-params-unvalidated",
+      "file": "lua/rhenium_contraption_blueprints/blueprints.lua",
+      "old": "local params = normalize_params(constraint.params)\n        if not CONSTRAINTS[constraint.type]",
+      "new": "local params = copy(constraint.params or {})\n        if not CONSTRAINTS[constraint.type]",
+      "check": "hidden-behavior",
+      "case": "constraint params are validated detached and included in hash",
+      "expectedLayer": "hidden-behavior"
+    },
+    {
+      "id": "schema-hash-drift-accepted",
+      "file": "lua/rhenium_contraption_blueprints/blueprints.lua",
+      "old": "return schema.hash == schema_hash(schema.entities, schema.constraints)",
+      "new": "return true",
+      "check": "hidden-behavior",
+      "case": "malformed persisted graphs hashes requests and paste rows are rejected",
+      "expectedLayer": "hidden-behavior"
+    },
+    {
+      "id": "malformed-blueprint-state-accepted",
+      "file": "lua/rhenium_contraption_blueprints/blueprints.lua",
+      "old": "if options.state ~= nil and not restore(self, options.state) then return nil, \"invalid_state\" end",
+      "new": "if false and options.state ~= nil and not restore(self, options.state) then return nil, \"invalid_state\" end",
+      "check": "hidden-behavior",
+      "case": "malformed persisted graphs hashes requests and paste rows are rejected",
+      "expectedLayer": "hidden-behavior"
+    },
+    {
+      "id": "invalid-plan-identity-accepted",
+      "file": "lua/rhenium_contraption_blueprints/blueprints.lua",
+      "old": "if not valid_id(owner_id) or not valid_name(blueprint_name) or not integer(revision, 1) then",
+      "new": "if false then",
+      "check": "hidden-behavior",
+      "case": "invalid plan identity name revision and target return stable public errors",
+      "expectedLayer": "hidden-behavior"
+    },
+    {
+      "id": "request-replay-disabled",
+      "file": "lua/rhenium_contraption_blueprints/blueprints.lua",
+      "old": "local old = self.requests[request_id]",
+      "new": "local old = nil",
+      "check": "hidden-behavior",
+      "case": "capture request replay and conflict are exact",
+      "expectedLayer": "hidden-behavior"
+    },
+    {
+      "id": "stale-revision-overwrites",
+      "file": "lua/rhenium_contraption_blueprints/blueprints.lua",
+      "old": "if current and revision <= current.revision then",
+      "new": "if false and current and revision <= current.revision then",
+      "check": "hidden-behavior",
+      "case": "blueprint revision rejects stale replacement",
+      "expectedLayer": "hidden-behavior"
+    },
+    {
+      "id": "target-transform-x-skipped",
+      "file": "lua/rhenium_contraption_blueprints/blueprints.lua",
+      "old": "entity.pos.x = quantize(entity.pos.x + target.x)",
+      "new": "entity.pos.x = quantize(entity.pos.x)",
+      "check": "hidden-behavior",
+      "case": "paste plan applies target transform to every node",
+      "expectedLayer": "hidden-behavior"
+    },
+    {
+      "id": "gettable-graph-mismatch-ignored",
+      "file": "lua/rhenium_contraption_blueprints/server.lua",
+      "old": "if not graph then return false,\"capture_failed\",{}end",
+      "new": "if not graph then graph=graph_from_copy(copied,copied.Constraints)end",
+      "check": "gmod-integration",
+      "case": "constraint GetTable mismatch rejects capture atomically",
+      "expectedLayer": "gmod-integration"
+    },
+    {
+      "id": "partial-paste-not-rolled-back",
+      "file": "lua/rhenium_contraption_blueprints/server.lua",
+      "old": "for _,e in pairs(made)do if IsValid(e)then e:Remove()end end;return false,\"paste_failed\"",
+      "new": "return false,\"paste_failed\"",
+      "check": "gmod-integration",
+      "case": "partial Paste failure rolls back every live object",
+      "expectedLayer": "gmod-integration"
+    },
+    {
+      "id": "shutdown-leaks-timer",
+      "file": "lua/rhenium_contraption_blueprints/server.lua",
+      "old": "timer.Remove(Server.TimerName);installed=false",
+      "new": "installed=false",
+      "check": "lifecycle-cleanup",
+      "case": "shutdown removes hooks and timer",
+      "expectedLayer": "lifecycle-cleanup"
+    }
+  ]
+}

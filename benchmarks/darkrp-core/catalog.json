@@ -1,0 +1,400 @@
+{
+  "id": "darkrp-core",
+  "version": "1.1.0",
+  "game": "garrys-mod",
+  "name": {
+    "en": "DarkRP headless-server GLua tasks",
+    "zh": "DarkRP 无头服务器 GLua 任务"
+  },
+  "description": {
+    "en": "Multi-defect regression tasks for DarkRP, evaluated against a real headless Garry's Mod dedicated server running GLuaTest. Every task reports only user-visible symptoms and never states how many defects there are.",
+    "zh": "DarkRP 的多缺陷回归任务，在运行 GLuaTest 的真实无头 Garry's Mod 专用服务器中评测。每道题只给出用户可见的现象，且不告知缺陷数量。"
+  },
+  "tasks": [
+    {
+      "id": "darkrp-release-regressions-v3",
+      "difficulty": "hard",
+      "title": {
+        "en": "DarkRP: a release branch that missed a batch of fixes",
+        "zh": "DarkRP：漏掉一批修复的发布分支"
+      },
+      "summary": {
+        "en": "Diagnose and repair every reported problem in the DarkRP gamemode.",
+        "zh": "诊断并修复 DarkRP 游戏模式中报告的全部问题。"
+      },
+      "brief": {
+        "en": "Diagnose and repair every reported problem in the DarkRP gamemode.",
+        "zh": "诊断并修复 DarkRP 游戏模式中报告的全部问题。"
+      },
+      "requirements": {
+        "en": [
+          "Fix the underlying causes rather than suppressing the symptoms.",
+          "Preserve the behaviour of every code path that already works."
+        ],
+        "zh": [
+          "修复根本原因，而不是掩盖现象。",
+          "保持所有已经正常的代码路径的既有行为。"
+        ]
+      },
+      "api_usage": {
+        "en": [
+          "Use the DarkRP and Garry's Mod APIs already present in the tree."
+        ],
+        "zh": [
+          "使用代码树中已有的 DarkRP 与 Garry's Mod API。"
+        ]
+      },
+      "acceptance": {
+        "en": [
+          "Every private GLuaTest assertion must pass on a headless server without network access."
+        ],
+        "zh": [
+          "所有私有 GLuaTest 断言必须在无网络的无头服务器中通过。"
+        ]
+      },
+      "domains": [
+        "glua",
+        "debugging",
+        "real-game-runtime"
+      ],
+      "estimated_minutes": 180,
+      "required_files": [
+        "darkrp/gamemode/init.lua",
+        "darkrp/gamemode/cl_init.lua"
+      ],
+      "task_kind": "debugging",
+      "source_mod": "DarkRP",
+      "source_commit": "0b84274a84476b16ff28035cc0dfdf19deda4e72"
+    },
+    {
+      "id": "darkrp-live-server-regressions",
+      "difficulty": "hard",
+      "title": {
+        "en": "DarkRP: reports from a live server",
+        "zh": "DarkRP：来自线上服务器的报告"
+      },
+      "summary": {
+        "en": "Diagnose and repair every reported problem in the DarkRP gamemode.",
+        "zh": "诊断并修复 DarkRP 游戏模式中报告的全部问题。"
+      },
+      "brief": {
+        "en": "Diagnose and repair every reported problem in the DarkRP gamemode.",
+        "zh": "诊断并修复 DarkRP 游戏模式中报告的全部问题。"
+      },
+      "requirements": {
+        "en": [
+          "Fix the underlying causes rather than suppressing the symptoms.",
+          "Preserve the behaviour of every code path that already works."
+        ],
+        "zh": [
+          "修复根本原因，而不是掩盖现象。",
+          "保持所有已经正常的代码路径的既有行为。"
+        ]
+      },
+      "api_usage": {
+        "en": [
+          "Use the DarkRP and Garry's Mod APIs already present in the tree."
+        ],
+        "zh": [
+          "使用代码树中已有的 DarkRP 与 Garry's Mod API。"
+        ]
+      },
+      "acceptance": {
+        "en": [
+          "Every private GLuaTest assertion must pass on a headless server without network access."
+        ],
+        "zh": [
+          "所有私有 GLuaTest 断言必须在无网络的无头服务器中通过。"
+        ]
+      },
+      "domains": [
+        "glua",
+        "debugging",
+        "real-game-runtime"
+      ],
+      "estimated_minutes": 240,
+      "required_files": [
+        "darkrp/gamemode/init.lua",
+        "darkrp/gamemode/cl_init.lua"
+      ],
+      "task_kind": "debugging",
+      "source_mod": "DarkRP",
+      "source_commit": "5abcf7abab9e489b2d882a55d95f84c206d9d05c"
+    },
+    {
+      "id": "darkrp-door-economy-regressions",
+      "difficulty": "hard",
+      "title": {
+        "en": "DarkRP: reports from a roleplay server",
+        "zh": "DarkRP：来自角色扮演服务器的报告"
+      },
+      "summary": {
+        "en": "Diagnose and repair every reported problem in the DarkRP gamemode.",
+        "zh": "诊断并修复 DarkRP 游戏模式中报告的全部问题。"
+      },
+      "brief": {
+        "en": "Diagnose and repair every reported problem in the DarkRP gamemode.",
+        "zh": "诊断并修复 DarkRP 游戏模式中报告的全部问题。"
+      },
+      "requirements": {
+        "en": [
+          "Fix the underlying causes rather than suppressing the symptoms.",
+          "Preserve the behaviour of every code path that already works."
+        ],
+        "zh": [
+          "修复根本原因，而不是掩盖现象。",
+          "保持所有已经正常的代码路径的既有行为。"
+        ]
+      },
+      "api_usage": {
+        "en": [
+          "Use the DarkRP and Garry's Mod APIs already present in the tree."
+        ],
+        "zh": [
+          "使用代码树中已有的 DarkRP 与 Garry's Mod API。"
+        ]
+      },
+      "acceptance": {
+        "en": [
+          "Every private GLuaTest assertion must pass on a headless server without network access."
+        ],
+        "zh": [
+          "所有私有 GLuaTest 断言必须在无网络的无头服务器中通过。"
+        ]
+      },
+      "domains": [
+        "glua",
+        "debugging",
+        "real-game-runtime"
+      ],
+      "estimated_minutes": 240,
+      "required_files": [
+        "darkrp/gamemode/init.lua",
+        "darkrp/gamemode/cl_init.lua"
+      ],
+      "task_kind": "debugging",
+      "source_mod": "DarkRP",
+      "source_commit": "5abcf7abab9e489b2d882a55d95f84c206d9d05c"
+    },
+    {
+      "id": "darkrp-core-library-regressions",
+      "difficulty": "hard",
+      "title": {
+        "en": "DarkRP: reports against the shared helper libraries",
+        "zh": "DarkRP：针对公共辅助库的问题报告"
+      },
+      "summary": {
+        "en": "Diagnose and repair every reported problem in the DarkRP gamemode.",
+        "zh": "诊断并修复 DarkRP 游戏模式中报告的全部问题。"
+      },
+      "brief": {
+        "en": "Diagnose and repair every reported problem in the DarkRP gamemode.",
+        "zh": "诊断并修复 DarkRP 游戏模式中报告的全部问题。"
+      },
+      "requirements": {
+        "en": [
+          "Fix the underlying causes rather than suppressing the symptoms.",
+          "Preserve the behaviour of every code path that already works."
+        ],
+        "zh": [
+          "修复根本原因，而不是掩盖现象。",
+          "保持所有已经正常的代码路径的既有行为。"
+        ]
+      },
+      "api_usage": {
+        "en": [
+          "Use the DarkRP and Garry's Mod APIs already present in the tree."
+        ],
+        "zh": [
+          "使用代码树中已有的 DarkRP 与 Garry's Mod API。"
+        ]
+      },
+      "acceptance": {
+        "en": [
+          "Every private GLuaTest assertion must pass on a headless server without network access."
+        ],
+        "zh": [
+          "所有私有 GLuaTest 断言必须在无网络的无头服务器中通过。"
+        ]
+      },
+      "domains": [
+        "glua",
+        "debugging",
+        "real-game-runtime"
+      ],
+      "estimated_minutes": 240,
+      "required_files": [
+        "darkrp/gamemode/init.lua",
+        "darkrp/gamemode/cl_init.lua"
+      ],
+      "task_kind": "debugging",
+      "source_mod": "DarkRP",
+      "source_commit": "5abcf7abab9e489b2d882a55d95f84c206d9d05c"
+    },
+    {
+      "id": "darkrp-registration-regressions",
+      "difficulty": "hard",
+      "title": {
+        "en": "DarkRP: reports about things that will not register properly",
+        "zh": "DarkRP：关于声明注册不生效的问题报告"
+      },
+      "summary": {
+        "en": "Diagnose and repair every reported problem in the DarkRP gamemode.",
+        "zh": "诊断并修复 DarkRP 游戏模式中报告的全部问题。"
+      },
+      "brief": {
+        "en": "Diagnose and repair every reported problem in the DarkRP gamemode.",
+        "zh": "诊断并修复 DarkRP 游戏模式中报告的全部问题。"
+      },
+      "requirements": {
+        "en": [
+          "Fix the underlying causes rather than suppressing the symptoms.",
+          "Preserve the behaviour of every code path that already works."
+        ],
+        "zh": [
+          "修复根本原因，而不是掩盖现象。",
+          "保持所有已经正常的代码路径的既有行为。"
+        ]
+      },
+      "api_usage": {
+        "en": [
+          "Use the DarkRP and Garry's Mod APIs already present in the tree."
+        ],
+        "zh": [
+          "使用代码树中已有的 DarkRP 与 Garry's Mod API。"
+        ]
+      },
+      "acceptance": {
+        "en": [
+          "Every private GLuaTest assertion must pass on a headless server without network access."
+        ],
+        "zh": [
+          "所有私有 GLuaTest 断言必须在无网络的无头服务器中通过。"
+        ]
+      },
+      "domains": [
+        "glua",
+        "debugging",
+        "real-game-runtime"
+      ],
+      "estimated_minutes": 240,
+      "required_files": [
+        "darkrp/gamemode/init.lua",
+        "darkrp/gamemode/cl_init.lua"
+      ],
+      "task_kind": "debugging",
+      "source_mod": "DarkRP",
+      "source_commit": "5abcf7abab9e489b2d882a55d95f84c206d9d05c"
+    },
+    {
+      "id": "darkrp-money-regressions",
+      "difficulty": "hard",
+      "title": {
+        "en": "DarkRP: reports about money",
+        "zh": "DarkRP：关于金钱系统的问题报告"
+      },
+      "summary": {
+        "en": "Diagnose and repair every reported problem in the DarkRP gamemode.",
+        "zh": "诊断并修复 DarkRP 游戏模式中报告的全部问题。"
+      },
+      "brief": {
+        "en": "Diagnose and repair every reported problem in the DarkRP gamemode.",
+        "zh": "诊断并修复 DarkRP 游戏模式中报告的全部问题。"
+      },
+      "requirements": {
+        "en": [
+          "Fix the underlying causes rather than suppressing the symptoms.",
+          "Preserve the behaviour of every code path that already works."
+        ],
+        "zh": [
+          "修复根本原因，而不是掩盖现象。",
+          "保持所有已经正常的代码路径的既有行为。"
+        ]
+      },
+      "api_usage": {
+        "en": [
+          "Use the DarkRP and Garry's Mod APIs already present in the tree."
+        ],
+        "zh": [
+          "使用代码树中已有的 DarkRP 与 Garry's Mod API。"
+        ]
+      },
+      "acceptance": {
+        "en": [
+          "Every private GLuaTest assertion must pass on a headless server without network access."
+        ],
+        "zh": [
+          "所有私有 GLuaTest 断言必须在无网络的无头服务器中通过。"
+        ]
+      },
+      "domains": [
+        "glua",
+        "debugging",
+        "real-game-runtime"
+      ],
+      "estimated_minutes": 240,
+      "required_files": [
+        "darkrp/gamemode/init.lua",
+        "darkrp/gamemode/cl_init.lua"
+      ],
+      "task_kind": "debugging",
+      "source_mod": "DarkRP",
+      "source_commit": "5abcf7abab9e489b2d882a55d95f84c206d9d05c"
+    },
+    {
+      "id": "darkrp-persistence-regressions",
+      "difficulty": "hard",
+      "title": {
+        "en": "DarkRP: reports about what the server remembers",
+        "zh": "DarkRP：关于服务器记住了什么的问题报告"
+      },
+      "summary": {
+        "en": "Diagnose and repair every reported problem in the DarkRP gamemode.",
+        "zh": "诊断并修复 DarkRP 游戏模式中报告的全部问题。"
+      },
+      "brief": {
+        "en": "Diagnose and repair every reported problem in the DarkRP gamemode.",
+        "zh": "诊断并修复 DarkRP 游戏模式中报告的全部问题。"
+      },
+      "requirements": {
+        "en": [
+          "Fix the underlying causes rather than suppressing the symptoms.",
+          "Preserve the behaviour of every code path that already works."
+        ],
+        "zh": [
+          "修复根本原因，而不是掩盖现象。",
+          "保持所有已经正常的代码路径的既有行为。"
+        ]
+      },
+      "api_usage": {
+        "en": [
+          "Use the DarkRP and Garry's Mod APIs already present in the tree."
+        ],
+        "zh": [
+          "使用代码树中已有的 DarkRP 与 Garry's Mod API。"
+        ]
+      },
+      "acceptance": {
+        "en": [
+          "Every private GLuaTest assertion must pass on a headless server without network access."
+        ],
+        "zh": [
+          "所有私有 GLuaTest 断言必须在无网络的无头服务器中通过。"
+        ]
+      },
+      "domains": [
+        "glua",
+        "debugging",
+        "real-game-runtime"
+      ],
+      "estimated_minutes": 240,
+      "required_files": [
+        "darkrp/gamemode/init.lua",
+        "darkrp/gamemode/cl_init.lua"
+      ],
+      "task_kind": "debugging",
+      "source_mod": "DarkRP",
+      "source_commit": "5abcf7abab9e489b2d882a55d95f84c206d9d05c"
+    }
+  ]
+}

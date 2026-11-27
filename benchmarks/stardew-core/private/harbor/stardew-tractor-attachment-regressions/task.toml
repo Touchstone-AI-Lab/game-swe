@@ -1,0 +1,61 @@
+schema_version = "1.1"
+
+[task]
+name = "gamecodebench/stardew-tractor-attachment-regressions"
+description = "Four reverted upstream fixes in Tractor Mod 4.24.4, reported as player symptoms: the axe felling grown fruit trees under the sapling option, seeds sown into garden pots that hold a bush, unplaceable custom attachments dropped on the ground, and the break-objects option smashing stones."
+authors = ["Rhenium maintainers"]
+keywords = ["stardew-valley", "smapi", "csharp", "game-modding", "tractor-mod", "composite", "symptom-only"]
+
+[metadata]
+category = "programming"
+difficulty = "hard"
+tags = ["game-modding", "smapi", "stardew-valley", "csharp", "bug-fix", "composite"]
+source_repo = "https://github.com/Pathoschild/StardewMods"
+source_license = "MIT"
+source_mod = "TractorMod"
+# The starter is the tractor-mod/4.24.4 release tree (commit
+# b2d750f944dff2c0a540a02dd2af653b09e378c4) trimmed to TractorMod/, Common/ and the
+# repository build files, with four upstream fixes reverted (each revert restores the
+# pre-fix logic of its attachment exactly) and the release-note bullets naming those
+# fixes removed. The reference is the unmodified 4.24.4 tree.
+base_ref = "tractor-mod/4.24.4 with upstream fixes a92f4f9cd, f35bc8604, 6ad0cb951, bd38fead3 reverted"
+base_commit = "b2d750f944dff2c0a540a02dd2af653b09e378c4"
+fix_commit = "a92f4f9cd47adf5eee97eb5e2923baa4cee2a132+f35bc8604385d63e62d82556c071ce771bf94139+6ad0cb951396cd0956d5f143557723af9700afa8+bd38fead316f0330e552a9447490c8ca375b8075"
+gold_patch_origin = "upstream"
+task_kind = "composite-symptom-only"
+game_version = "1.6.15"
+smapi_version = "4.1.10"
+
+# Defect groups and their target cases (tests/SuiteTractorAttachments.cs):
+# - Axe fruit-tree growth stages (a92f4f9cd, tractor-mod 4.18.0): grown fruit tree kept.
+# - Seeds in garden pots (f35bc8604, 4.19.2): a pot holding a bush is not sown.
+# - Custom attachments (6ad0cb951, 4.20.0): an unplaceable item is never placed.
+# - Pickaxe break-objects option (bd38fead3, 4.24.4): stones kept when stone breaking is off.
+# Four preserved cases (sapling cleared, empty pot sown, placeable custom item placed,
+# placed object broken) plus a setup case that builds the garage and mounts the tractor.
+
+[verifier]
+network_mode = "no-network"
+timeout_sec = 2400.0
+
+[agent]
+# mini-swe-agent runs INSIDE the container and calls the model API from there, so a
+# blanket no-network kills it before it does any work. Everything else it needs is
+# baked into the image; github.com / nuget.org are deliberately NOT listed because
+# the reference fix is an upstream commit.
+network_mode = "allowlist"
+allowed_hosts = ["api.anthropic.com"]
+timeout_sec = 3600.0
+
+[environment]
+network_mode = "no-network"
+build_timeout_sec = 3600.0
+cpus = 6
+memory_mb = 16384
+storage_mb = 30720
+gpus = 0
+mcp_servers = []
+
+# Same isolation and responsible-release posture as the rest of the Stardew suite:
+# game files staged locally from the operator's own copy, never committed; images
+# stay private; pretraining contamination is not addressed by isolation.

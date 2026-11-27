@@ -1,0 +1,17 @@
+{
+  "schema_version": 3,
+  "new_scope_tests": 6,
+  "passed": true,
+  "whole_repo_ruff": true,
+  "owned_mypy_files": 24,
+  "whole_repo_linux_static_mypy_files": 189,
+  "not_engine_or_linux_runtime_evidence": true,
+  "logs": {
+    "scope-ruff2.log": "a4443afdcfb6d7363adb285762515ccf7cf50473b1a05c20c1a50f6bed4d26b0",
+    "scope-mypy2.log": "653c24af21ad3bc4a8cf9a6ba237261490a6dc0b9703ef71eef912330b8ca539",
+    "scope-mypy-linux-full2.log": "81a98f969835ac23af3a068a598d068393978ff7d328b2d34f8d03233d52dadd",
+    "scope-tests1.xml": "3f61fd707d52b6dd00b353904ad32b89be75821773451f380b8e61f59bffbb23"
+  },
+  "prior_final_adapter_checks_preserved": "branch-checks-v2.json",
+  "adapter_and_wheel_unchanged": true
+}

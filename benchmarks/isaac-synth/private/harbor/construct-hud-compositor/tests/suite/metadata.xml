@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<metadata>
+  <name>Construct HUD Compositor Verifier</name>
+  <directory>gcb_construct_hud_compositor_suite</directory>
+  <id>construct-hud-compositor-suite</id>
+  <description>Private verifier companion mod.</description>
+  <version>1.0.0</version>
+</metadata>

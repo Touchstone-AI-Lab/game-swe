@@ -1,0 +1,33 @@
+{
+  "schema_version": 1,
+  "created_at": "2026-09-20T12:21:46+0800",
+  "phase": "public specification frozen before candidate authoring",
+  "task": "durable-charge-v2",
+  "documents": {
+    "tasks/durable_charge/v2/API.md": "34f8dd9e308682afba2ebc9e409b5751c3e41f96311d483bb57cc9f362f870c6",
+    "tasks/durable_charge/v2/CASE-MUTATION-MATRIX.md": "2f0813807604bff0f8283c220449031b833aa19db118d9e9fe781a202aea1dda",
+    "tasks/durable_charge/v2/CONTRACT.md": "da009540c7941ee329b8540eb532129e008455ebc7d4dfc8c880d8f2d97f1a29",
+    "tasks/durable_charge/v2/INDEPENDENCE.md": "1bcb74a241abfef1dba094dc9fd8cffaa7d8dba3dc42120153482d3c215ad19f"
+  },
+  "prerequisite": {
+    "path": "validation-charge-prerequisite-v2-dev1.json",
+    "sha256": "90c15afcfe4e3bbae9b789dbfef6b271a0ca22e1c1d3c3615dd1167cdda311f4"
+  },
+  "fixed_source_hashes": {
+    "game.lua": "bbc67bd3fbadd1ea3f3f0aba07ef8596118d89ff1e9758718f9e17c07a96e912",
+    "card.lua": "5073d834e08119da9516f1795a8c3d93110669aeb409c29ad1b308e0eb0be453",
+    "functions/state_events.lua": "6c86aefb42d0323d737f87aaa84f53e42b755e72cd0bfd163b7d9cca5c0a99a9",
+    "fixed Steamodded/lovely/better_calc.toml": "131f7105837a65da724e561451c82a25ee5e8b108c9c45216ce77e878a0915e8"
+  },
+  "controls_planned": [
+    "gold",
+    "gold-journal",
+    "base",
+    "M01-duplicate",
+    "M02-snapshot-alias",
+    "M03-zero-restore",
+    "M04-restore-pollution",
+    "M05-row-restore",
+    "M06-display-only"
+  ]
+}

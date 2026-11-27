@@ -1,0 +1,12 @@
+diff -ruN a/scripts/statuseffects/stack.lua b/scripts/statuseffects/stack.lua
+--- a/scripts/statuseffects/stack.lua	2026-09-22 00:59:18.686420789 +0800
++++ b/scripts/statuseffects/stack.lua	2026-09-22 01:14:27.013660622 +0800
+@@ -457,7 +457,7 @@
+     if type(data) ~= "table" or data.version ~= 1 or not is_time(data.clock) then
+         return self
+     end
+-    local shift = clock - data.clock
++    local shift = 0
+     if type(data.targets) == "table" then
+         for _, saved in ipairs(data.targets) do
+             if type(saved) == "table" and is_id(saved.id) and self.targets[saved.id] == nil then

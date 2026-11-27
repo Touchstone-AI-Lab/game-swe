@@ -1,0 +1,8 @@
+case	layer	role	public_report
+the server loads patch files from its asset folder	server	sentinel	reloadassets loads a patch file from config/assets/patches
+a patch changes a block while its map is hosted	server	preserved	a plain patch applies while hosted and is undone without it
+a server-defined item can be used by a patch	server	target	a patch referring to dp-rhenium-alloy applies without warnings
+a server-defined item exists while its map is hosted	server	preserved	a server-defined item exists with its declared cost
+patching a build tower also changes the drones it builds with	server	target	the build tower's builder unit uses the patched build speed and range
+a planet-restricted patch applies on its planet	server	preserved	a serpulo-only patch applies and is listed on a serpulo map
+a patch for another planet is neither applied nor listed	server	target	an erekir-only patch is neither applied nor listed on a serpulo map

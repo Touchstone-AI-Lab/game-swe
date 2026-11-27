@@ -1,0 +1,27 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="../tModLoader.targets" />
+  <PropertyGroup>
+    <AssemblyName>GcbMagicStorage</AssemblyName>
+    <LangVersion>latest</LangVersion>
+    <Nullable>enable</Nullable>
+    <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
+    <CandidateRoot Condition="'$(CandidateRoot)' == ''">/workspace/solution</CandidateRoot>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Krafs.Publicizer" Version="2.2.1" PrivateAssets="all" />
+    <Publicize Include="tModLoader" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="GcbMagicStorage.cs" />
+    <Compile Include="EngineSupport.cs" />
+    <Compile Include="VerifierSystem.cs" />
+    <Compile Include="$(CandidateRoot)/magic-storage/Common/RefContainer.cs" Link="Production/Common/RefContainer.cs" />
+    <Compile Include="$(CandidateRoot)/magic-storage/Common/Utils/Utility.Math.cs" Link="Production/Common/Utils/Utility.Math.cs" />
+    <Compile Include="$(CandidateRoot)/magic-storage/Common/IO/BitBuffer128.cs" Link="Production/Common/IO/BitBuffer128.cs" />
+    <Compile Include="$(CandidateRoot)/magic-storage/Common/IO/LengthCompressor.cs" Link="Production/Common/IO/LengthCompressor.cs" />
+    <Compile Include="$(CandidateRoot)/magic-storage/Common/IO/StringCompressor.cs" Link="Production/Common/IO/StringCompressor.cs" />
+    <Compile Include="$(CandidateRoot)/magic-storage/Common/IO/ValueReader.cs" Link="Production/Common/IO/ValueReader.cs" />
+    <Compile Include="$(CandidateRoot)/magic-storage/Common/IO/ValueWriter.cs" Link="Production/Common/IO/ValueWriter.cs" />
+    <Compile Include="$(CandidateRoot)/magic-storage/Common/IO/NetCompression.NetIO.cs" Link="Production/Common/IO/NetCompression.NetIO.cs" />
+  </ItemGroup>
+</Project>

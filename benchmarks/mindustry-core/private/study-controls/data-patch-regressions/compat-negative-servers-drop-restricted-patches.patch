@@ -1,0 +1,15 @@
+--- a/core/src/mindustry/mod/DataPatcher.java
++++ b/core/src/mindustry/mod/DataPatcher.java
+@@ -229,6 +229,12 @@
+                 Object someValue = parser.getJson().fromJson(null, Jval.read(set.patch).toString(Jformat.plain));
+                 if(!(someValue instanceof JsonValue value)) throw new SerializationException("Patch must be a JSON object.");
+ 
++                if(Vars.headless && value.has("requiredPlanets")){
++                    //servers cannot tell which planet a client will be on: never apply restricted patches
++                    patchIt.remove();
++                    continue;
++                }
++
+                 if(Vars.state.rules.planet != null && value.has("requiredPlanets")){
+                     JsonValue req = value.get("requiredPlanets");
+                     value.remove("requiredPlanets");

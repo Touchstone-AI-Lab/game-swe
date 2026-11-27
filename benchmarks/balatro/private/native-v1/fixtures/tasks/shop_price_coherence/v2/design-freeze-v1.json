@@ -1,0 +1,19 @@
+{
+  "schema_version": 1,
+  "scope": "H2 public rules and private matrix frozen before candidate authoring",
+  "capability": {
+    "path": "validation-price-prerequisite-v2-dev2.json",
+    "sha256": "3cd2352bd2c8a2ff633cb61cfcb95e2c713edba308bdd9dda12f3296f03db5d0"
+  },
+  "files": {
+    "tasks/shop_price_coherence/v2/API.md": "930780f75150f42a7c2deabfb4011d9aec93b0602888e3ccafdc4005d5cc3e09",
+    "tasks/shop_price_coherence/v2/CASE-MUTATION-MATRIX.md": "36065a8e73f0cd72e257f73ea412d4ab944795430cb96aa6c821b2e29a2b3d7c",
+    "tasks/shop_price_coherence/v2/CONTRACT.md": "a3587c3bdf20f5735f16dc6f71b65312637e5802cd9681e97a3fe34c04f3d386",
+    "tasks/shop_price_coherence/v2/INDEPENDENCE.md": "676c0c77c161f443ab8c75f04b100351115c17cb1773c636e4822b2f7af5fef2"
+  },
+  "candidates_authored": false,
+  "source_record": {
+    "path": "tasks/shop_price_coherence/probe_v2/SOURCE.json",
+    "sha256": "92835bf296690f2d35923ad730e302569cb1e78c1d81aec80178220044fc2db0"
+  }
+}

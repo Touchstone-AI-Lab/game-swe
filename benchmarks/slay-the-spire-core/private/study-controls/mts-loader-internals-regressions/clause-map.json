@@ -1,0 +1,221 @@
+{
+  "task": "slay-the-spire/core/mts-loader-internals-regressions",
+  "task_version": "1.0.0",
+  "exam": "benchmarks/slay-the-spire-core/exams/mts-loader-internals-regressions.md",
+  "cases": [
+    {
+      "id": "check:submission-shape",
+      "role": "static",
+      "clauses": [],
+      "overlap": false,
+      "note": "source tree present, no symlinks, VCS metadata or compiled artifacts outside build output"
+    },
+    {
+      "id": "suite:gcb.ModRecordTest.theWholeRecordSurvives",
+      "role": "target",
+      "clauses": [
+        "report-1013"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "suite:gcb.ModRecordTest.aRenamedModIsStillTheSameMod",
+      "role": "target",
+      "clauses": [
+        "report-1016"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "suite:gcb.ModRecordTest.aLenientVersionSurvivesStorage",
+      "role": "target",
+      "clauses": [
+        "report-1010"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "suite:gcb.EarlyReturnTest.takingOverAValuelessMethodSkipsItsWork",
+      "role": "target",
+      "clauses": [
+        "report-1102"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "suite:gcb.ByRefBoxingTest.byRefWritesBackThroughAWrapperArray",
+      "role": "target",
+      "clauses": [
+        "report-912"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "suite:gcb.ModRecordTest.control_aRecordSurvivesBeingWrittenDown",
+      "role": "preserved",
+      "clauses": [
+        "preserve"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "suite:gcb.ModRecordTest.aTwoPartVersionSurvivesTheRoundTrip",
+      "role": "preserved",
+      "clauses": [
+        "preserve"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "suite:gcb.ModRecordTest.unidentifiedRecordsAreToldApartByTitle",
+      "role": "preserved",
+      "clauses": [
+        "preserve",
+        "report-1019"
+      ],
+      "overlap": true,
+      "note": "passes on the starter; see known issues"
+    },
+    {
+      "id": "suite:gcb.EarlyReturnTest.control_anObservingPatchLeavesTheAnswerAlone",
+      "role": "preserved",
+      "clauses": [
+        "preserve"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "suite:gcb.EarlyReturnTest.takingOverReplacesTheAnswer",
+      "role": "preserved",
+      "clauses": [
+        "preserve"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "suite:gcb.EarlyReturnTest.takingOverSkipsTheOriginalWork",
+      "role": "preserved",
+      "clauses": [
+        "preserve"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "suite:gcb.EarlyReturnTest.aSingleCharacterResultCanBeTakenOver",
+      "role": "preserved",
+      "clauses": [
+        "preserve"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "suite:gcb.PostfixPatchTest.control_theOriginalBodyStillRuns",
+      "role": "preserved",
+      "clauses": [
+        "preserve"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "suite:gcb.PostfixPatchTest.aReturningPostfixReplacesTheResult",
+      "role": "preserved",
+      "clauses": [
+        "preserve"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "suite:gcb.PostfixPatchTest.aPostfixRunsAfterTheBody",
+      "role": "preserved",
+      "clauses": [
+        "preserve"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "suite:gcb.PostfixPatchTest.aPostfixSeesTheResult",
+      "role": "preserved",
+      "clauses": [
+        "preserve",
+        "report-909"
+      ],
+      "overlap": true,
+      "note": "passes on the starter; see known issues"
+    }
+  ],
+  "clauses": [
+    {
+      "id": "report-1013",
+      "anchor": "Problem, report #1013: credited authors disappear after the first launch",
+      "status": "asserted"
+    },
+    {
+      "id": "report-1016",
+      "anchor": "Problem, report #1016: a renamed mod with the same identifier is treated as a new mod",
+      "status": "asserted"
+    },
+    {
+      "id": "report-1010",
+      "anchor": "Problem, report #1010: a mod with a two-number release loads once and never again",
+      "status": "asserted"
+    },
+    {
+      "id": "report-1019",
+      "anchor": "Problem, report #1019: unidentified helper mods told apart by title collapse into one",
+      "status": "weak",
+      "note": "the only assertion for this report already passes on the starter"
+    },
+    {
+      "id": "report-1102",
+      "anchor": "Problem, report #1102: taking over a method that returns nothing does not skip its work",
+      "status": "asserted"
+    },
+    {
+      "id": "report-909",
+      "anchor": "Problem, report #909: a postfix receives the caller's argument instead of the result",
+      "status": "weak",
+      "note": "the only assertion for this report already passes on the starter"
+    },
+    {
+      "id": "report-912",
+      "anchor": "Problem, report #912: by-reference patches of whole numbers fail class verification",
+      "status": "asserted"
+    },
+    {
+      "id": "preserve",
+      "anchor": "What to do, notes: behaviour that already works must keep working",
+      "status": "asserted"
+    },
+    {
+      "id": "scope-tests",
+      "anchor": "What to do, notes: do not change anything under /tests and add no test files",
+      "status": "unasserted",
+      "note": "enforced only indirectly: the verifier replaces the private suite, and an extra test changes the observed count, which makes the run incomplete"
+    },
+    {
+      "id": "fix-causes",
+      "anchor": "What to do, notes: fix the causes, do not special-case a report or work around it in a caller",
+      "status": "unasserted",
+      "note": "generalisation is probed only through the several inputs each assertion uses"
+    }
+  ],
+  "excluded_clauses": [],
+  "known_issues": [
+    "Reports #1019 and #909 are not enforced: their only assertions pass on the starter, so the suite observes five of the seven defect groups.",
+    "The reference hashes a mod by identifier and title while its equality ignores the title for identified mods, so equal records can hash differently; no assertion covers this."
+  ]
+}

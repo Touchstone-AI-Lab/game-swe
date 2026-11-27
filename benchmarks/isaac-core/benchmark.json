@@ -1,0 +1,7 @@
+{
+  "schema_version": 2,
+  "pack_id": "core",
+  "plugin": "isaac-rebirth",
+  "catalog": "catalog.json",
+  "runtime_catalog": "runtimes.json"
+}

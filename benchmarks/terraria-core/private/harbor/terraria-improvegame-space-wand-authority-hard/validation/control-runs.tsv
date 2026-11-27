@@ -1,0 +1,7 @@
+control	expected	observed	status
+broken-starter	at-least-one-intended-failure	33/82 pass; failures cover clipping, overflow-safe geometry, postcondition commits, full-neighborhood rollback, authority, validation, ordering, and final dirty-state sync	pass
+oracle	all-cases-pass	82/82 pass	pass
+empty-submission	rejected-before-build	missing required production source	pass
+unrelated-readme-only	still-fails	behavior remains 33/82	pass
+public-smoke-broken	compiles	zero errors and warnings	pass
+public-smoke-oracle	compiles	zero errors and warnings	pass

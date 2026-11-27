@@ -1,0 +1,62 @@
+{
+  "schema_version": 1,
+  "runtimes": [
+    {
+      "id": "paper-1.21.11-132",
+      "name": "Paper 1.21.11 build 132 dedicated server",
+      "version": "paper-1.21.11-132",
+      "provider": "official-download",
+      "restricted": false,
+      "host_platforms": [
+        "linux-x64"
+      ],
+      "source": {
+        "kind": "official-download",
+        "files": [
+          {
+            "name": "paper-1.21.11-132.jar",
+            "url": "https://fill-data.papermc.io/v1/objects/5ffef465eeeb5f2a3c23a24419d97c51afd7dbb4923ff42df9a3f58bba1ccfba/paper-1.21.11-132.jar",
+            "sha256": "5ffef465eeeb5f2a3c23a24419d97c51afd7dbb4923ff42df9a3f58bba1ccfba",
+            "size": 54846016
+          }
+        ],
+        "expectedFiles": [
+          "paper-1.21.11-132.jar"
+        ],
+        "sha256": "5ffef465eeeb5f2a3c23a24419d97c51afd7dbb4923ff42df9a3f58bba1ccfba"
+      }
+    }
+  ],
+  "task_bindings": {
+    "multiverse-core-case-insensitive-world-names": [
+      "paper-1.21.11-132"
+    ],
+    "chatty-bad-channel-disables-plugin": [
+      "paper-1.21.11-132"
+    ],
+    "betterteams-help-page-bounds": [
+      "paper-1.21.11-132"
+    ],
+    "prometheus-exporter-players-total-main-thread": [
+      "paper-1.21.11-132"
+    ],
+    "chatty-reload-ignores-chat-commands": [
+      "paper-1.21.11-132"
+    ],
+    "multiverse-core-world-exists-by-key": [
+      "paper-1.21.11-132"
+    ],
+    "betterteams-description-tag-injection": [
+      "paper-1.21.11-132"
+    ],
+    "chatty-reload-leaks-threads": [
+      "paper-1.21.11-132"
+    ],
+    "chatty-failed-migration-dead-plugin": [
+      "paper-1.21.11-132"
+    ],
+    "chatty-v2-migration-null-spy-format": [
+      "paper-1.21.11-132"
+    ]
+  }
+}

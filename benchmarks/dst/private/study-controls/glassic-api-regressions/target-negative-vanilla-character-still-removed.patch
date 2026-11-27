@@ -1,0 +1,11 @@
+--- a/utils/skinhandler.lua
++++ b/utils/skinhandler.lua
+@@ -196,7 +196,7 @@
+ 	end
+ 	local ret = { base_fn(...) }
+ 	for i = #DST_CHARACTERLIST, 1, -1 do
+-		if added_characters[DST_CHARACTERLIST[i]] then
++		if HEADSKIN_CHARACTERS[DST_CHARACTERLIST[i]] then
+ 			table.remove(DST_CHARACTERLIST, i)
+ 		end
+ 	end

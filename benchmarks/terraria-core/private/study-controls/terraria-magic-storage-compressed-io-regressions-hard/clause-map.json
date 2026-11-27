@@ -1,0 +1,599 @@
+{
+  "task": "terraria/core/terraria-magic-storage-compressed-io-regressions-hard",
+  "task_version": "0.1.0",
+  "exam": "benchmarks/terraria-core/exams/terraria-magic-storage-compressed-io-regressions-hard.md",
+  "cases": [
+    {
+      "id": "check:submission-shape",
+      "role": "static"
+    },
+    {
+      "id": "projection:scope-flat-bit-frame-compat",
+      "role": "target",
+      "clauses": [
+        "nested-scope-accounting"
+      ]
+    },
+    {
+      "id": "projection:scope-empty-child-keeps-parent-active",
+      "role": "target",
+      "clauses": [
+        "nested-scope-accounting"
+      ]
+    },
+    {
+      "id": "projection:scope-empty-child-counts-flag",
+      "role": "target",
+      "clauses": [
+        "nested-scope-accounting"
+      ]
+    },
+    {
+      "id": "projection:scope-nonempty-bit-child-counted",
+      "role": "target",
+      "clauses": [
+        "nested-scope-accounting"
+      ]
+    },
+    {
+      "id": "projection:scope-nonempty-byte-child-counted",
+      "role": "target",
+      "clauses": [
+        "nested-scope-accounting"
+      ]
+    },
+    {
+      "id": "projection:scope-two-child-frames",
+      "role": "target",
+      "clauses": [
+        "nested-scope-accounting"
+      ]
+    },
+    {
+      "id": "projection:scope-three-level-roundtrip",
+      "role": "target",
+      "clauses": [
+        "nested-scope-accounting"
+      ]
+    },
+    {
+      "id": "projection:u64-reader-aligned-max",
+      "role": "target",
+      "clauses": [
+        "unsigned-64"
+      ]
+    },
+    {
+      "id": "projection:u64-reader-high-pattern",
+      "role": "target",
+      "clauses": [
+        "unsigned-64"
+      ]
+    },
+    {
+      "id": "projection:u64-reader-keeps-sentinel",
+      "role": "runtime-sentinel"
+    },
+    {
+      "id": "projection:double-reader-preserves-bits",
+      "role": "target",
+      "clauses": [
+        "unsigned-64"
+      ]
+    },
+    {
+      "id": "projection:u64-writer-aligned-compat",
+      "role": "preserved",
+      "clauses": [
+        "preserve:misaligned-64-write"
+      ]
+    },
+    {
+      "id": "projection:u64-writer-offset-1",
+      "role": "target",
+      "clauses": [
+        "misaligned-64-write"
+      ]
+    },
+    {
+      "id": "projection:u64-writer-offset-2",
+      "role": "target",
+      "clauses": [
+        "misaligned-64-write"
+      ]
+    },
+    {
+      "id": "projection:u64-writer-offset-4",
+      "role": "target",
+      "clauses": [
+        "misaligned-64-write"
+      ]
+    },
+    {
+      "id": "projection:u64-writer-offset-7",
+      "role": "target",
+      "clauses": [
+        "misaligned-64-write"
+      ]
+    },
+    {
+      "id": "projection:u64-writer-two-adjacent-values",
+      "role": "preserved",
+      "clauses": [
+        "preserve:misaligned-64-write"
+      ]
+    },
+    {
+      "id": "projection:signed-int-min-full-width",
+      "role": "target",
+      "clauses": [
+        "signed-full-width"
+      ]
+    },
+    {
+      "id": "projection:signed-int-negative-pattern-full-width",
+      "role": "target",
+      "clauses": [
+        "signed-full-width"
+      ]
+    },
+    {
+      "id": "projection:signed-int-partial-31-bit",
+      "role": "preserved",
+      "clauses": [
+        "preserve:signed-full-width"
+      ]
+    },
+    {
+      "id": "projection:signed-long-min-full-width",
+      "role": "target",
+      "clauses": [
+        "signed-full-width"
+      ]
+    },
+    {
+      "id": "projection:signed-long-negative-pattern-full-width",
+      "role": "target",
+      "clauses": [
+        "signed-full-width"
+      ]
+    },
+    {
+      "id": "projection:signed-long-partial-40-bit",
+      "role": "target",
+      "clauses": [
+        "signed-full-width"
+      ]
+    },
+    {
+      "id": "projection:signed-long-partial-63-bit",
+      "role": "target",
+      "clauses": [
+        "signed-full-width"
+      ]
+    },
+    {
+      "id": "projection:signed-positive-and-zero-width-guards",
+      "role": "target",
+      "clauses": [
+        "signed-full-width"
+      ]
+    },
+    {
+      "id": "projection:string-ascii-2047-guard",
+      "role": "preserved",
+      "clauses": [
+        "preserve:long-strings"
+      ]
+    },
+    {
+      "id": "projection:string-ascii-2048-boundary",
+      "role": "preserved",
+      "clauses": [
+        "preserve:long-strings"
+      ]
+    },
+    {
+      "id": "projection:string-ascii-2049",
+      "role": "target",
+      "clauses": [
+        "long-strings"
+      ]
+    },
+    {
+      "id": "projection:string-ascii-4096",
+      "role": "target",
+      "clauses": [
+        "long-strings"
+      ]
+    },
+    {
+      "id": "projection:string-unicode-4096",
+      "role": "target",
+      "clauses": [
+        "long-strings"
+      ]
+    },
+    {
+      "id": "projection:string-unicode-mixed-large",
+      "role": "target",
+      "clauses": [
+        "long-strings"
+      ]
+    },
+    {
+      "id": "projection:string-max-representable-length",
+      "role": "target",
+      "clauses": [
+        "long-strings"
+      ]
+    },
+    {
+      "id": "projection:string-oversize-65536-rejected",
+      "role": "target",
+      "clauses": [
+        "oversized-string-atomicity"
+      ]
+    },
+    {
+      "id": "projection:string-oversize-unicode-rejected",
+      "role": "target",
+      "clauses": [
+        "oversized-string-atomicity"
+      ]
+    },
+    {
+      "id": "projection:string-oversize-rejection-is-atomic",
+      "role": "target",
+      "clauses": [
+        "oversized-string-atomicity"
+      ]
+    },
+    {
+      "id": "projection:item-partial-stack-roundtrip",
+      "role": "target",
+      "clauses": [
+        "network-stack-restore"
+      ]
+    },
+    {
+      "id": "projection:item-exact-max-stack-roundtrip",
+      "role": "target",
+      "clauses": [
+        "network-stack-restore"
+      ]
+    },
+    {
+      "id": "projection:item-overfull-stack-roundtrip",
+      "role": "target",
+      "clauses": [
+        "network-stack-restore"
+      ]
+    },
+    {
+      "id": "projection:item-custom-max-stack-roundtrip",
+      "role": "target",
+      "clauses": [
+        "network-stack-restore"
+      ]
+    },
+    {
+      "id": "projection:item-prefix-favorite-and-stack-roundtrip",
+      "role": "target",
+      "clauses": [
+        "network-stack-restore"
+      ]
+    },
+    {
+      "id": "projection:item-read-stack-false-preserved",
+      "role": "preserved",
+      "clauses": [
+        "preserve:network-stack-restore"
+      ]
+    },
+    {
+      "id": "projection:item-mixed-list-roundtrip",
+      "role": "target",
+      "clauses": [
+        "network-stack-restore"
+      ]
+    },
+    {
+      "id": "projection:item-zero-overflow-quotient-isolated",
+      "role": "target",
+      "clauses": [
+        "network-stack-restore"
+      ]
+    },
+    {
+      "id": "projection:item-overflow-arithmetic-isolated",
+      "role": "target",
+      "clauses": [
+        "network-stack-restore"
+      ]
+    },
+    {
+      "id": "projection:seven-bit-int-max-roundtrip",
+      "role": "preserved",
+      "clauses": [
+        "preserve:seven-bit-validation"
+      ]
+    },
+    {
+      "id": "projection:seven-bit-int-min-roundtrip",
+      "role": "preserved",
+      "clauses": [
+        "preserve:seven-bit-validation"
+      ]
+    },
+    {
+      "id": "projection:seven-bit-negative-one-roundtrip",
+      "role": "preserved",
+      "clauses": [
+        "preserve:seven-bit-validation"
+      ]
+    },
+    {
+      "id": "projection:seven-bit-final-group-overflow-rejected",
+      "role": "target",
+      "clauses": [
+        "seven-bit-validation"
+      ]
+    },
+    {
+      "id": "projection:seven-bit-final-group-high-pattern-rejected",
+      "role": "target",
+      "clauses": [
+        "seven-bit-validation"
+      ]
+    },
+    {
+      "id": "projection:seven-bit-sixth-group-rejected",
+      "role": "preserved",
+      "clauses": [
+        "preserve:seven-bit-validation"
+      ]
+    },
+    {
+      "id": "projection:item-missing-mod-payload-drained",
+      "role": "target",
+      "clauses": [
+        "item-handler-isolation"
+      ]
+    },
+    {
+      "id": "projection:item-missing-mod-still-reads-global",
+      "role": "target",
+      "clauses": [
+        "item-handler-isolation"
+      ]
+    },
+    {
+      "id": "projection:item-throwing-mod-still-reads-global",
+      "role": "target",
+      "clauses": [
+        "item-handler-isolation"
+      ]
+    },
+    {
+      "id": "projection:item-throwing-global-does-not-skip-later-global",
+      "role": "target",
+      "clauses": [
+        "item-handler-isolation"
+      ]
+    },
+    {
+      "id": "projection:send-item-binary-mod-failure-atomic",
+      "role": "target",
+      "clauses": [
+        "send-transaction-atomicity"
+      ]
+    },
+    {
+      "id": "projection:send-item-binary-global-failure-atomic",
+      "role": "target",
+      "clauses": [
+        "send-transaction-atomicity"
+      ]
+    },
+    {
+      "id": "projection:send-item-value-writer-misaligned-reusable",
+      "role": "target",
+      "clauses": [
+        "send-transaction-atomicity"
+      ]
+    },
+    {
+      "id": "projection:send-item-inside-parent-scope-reusable",
+      "role": "target",
+      "clauses": [
+        "send-transaction-atomicity"
+      ]
+    },
+    {
+      "id": "projection:send-item-success-format-compatible",
+      "role": "target",
+      "clauses": [
+        "send-transaction-atomicity"
+      ]
+    },
+    {
+      "id": "projection:send-item-hooks-called-once",
+      "role": "preserved",
+      "clauses": [
+        "preserve:send-transaction-atomicity"
+      ]
+    },
+    {
+      "id": "projection:send-items-binary-middle-failure-atomic",
+      "role": "target",
+      "clauses": [
+        "send-transaction-atomicity"
+      ]
+    },
+    {
+      "id": "projection:send-items-value-writer-middle-failure-atomic",
+      "role": "target",
+      "clauses": [
+        "send-transaction-atomicity"
+      ]
+    },
+    {
+      "id": "projection:send-items-inside-parent-scope-reusable",
+      "role": "target",
+      "clauses": [
+        "send-transaction-atomicity"
+      ]
+    },
+    {
+      "id": "projection:send-items-global-after-mod-failure-atomic",
+      "role": "target",
+      "clauses": [
+        "send-transaction-atomicity"
+      ]
+    },
+    {
+      "id": "projection:scope-out-of-order-nonempty-recoverable",
+      "role": "target",
+      "clauses": [
+        "scope-lifecycle-ordering"
+      ]
+    },
+    {
+      "id": "projection:scope-out-of-order-empty-recoverable",
+      "role": "target",
+      "clauses": [
+        "scope-lifecycle-ordering"
+      ]
+    },
+    {
+      "id": "projection:scope-out-of-order-three-level-recoverable",
+      "role": "target",
+      "clauses": [
+        "scope-lifecycle-ordering"
+      ]
+    },
+    {
+      "id": "projection:scope-double-close-still-rejected",
+      "role": "target",
+      "clauses": [
+        "scope-lifecycle-ordering"
+      ]
+    },
+    {
+      "id": "server:real_engine_nested_binary_frame",
+      "role": "target",
+      "clauses": [
+        "request"
+      ]
+    },
+    {
+      "id": "server:real_engine_long_string_full_width_scalar",
+      "role": "target",
+      "clauses": [
+        "request"
+      ]
+    },
+    {
+      "id": "server:real_engine_vanilla_item_metadata",
+      "role": "target",
+      "clauses": [
+        "request"
+      ]
+    }
+  ],
+  "clauses": [
+    {
+      "id": "nested-scope-accounting",
+      "anchor": "exam report nested-scope-accounting",
+      "status": "asserted"
+    },
+    {
+      "id": "unsigned-64",
+      "anchor": "exam report unsigned-64",
+      "status": "asserted"
+    },
+    {
+      "id": "preserve:misaligned-64-write",
+      "anchor": "behavior the unchanged starter already provides",
+      "status": "asserted"
+    },
+    {
+      "id": "misaligned-64-write",
+      "anchor": "exam report misaligned-64-write",
+      "status": "asserted"
+    },
+    {
+      "id": "signed-full-width",
+      "anchor": "exam report signed-full-width",
+      "status": "asserted"
+    },
+    {
+      "id": "preserve:signed-full-width",
+      "anchor": "behavior the unchanged starter already provides",
+      "status": "asserted"
+    },
+    {
+      "id": "preserve:long-strings",
+      "anchor": "behavior the unchanged starter already provides",
+      "status": "asserted"
+    },
+    {
+      "id": "long-strings",
+      "anchor": "exam report long-strings",
+      "status": "asserted"
+    },
+    {
+      "id": "oversized-string-atomicity",
+      "anchor": "exam report oversized-string-atomicity",
+      "status": "asserted"
+    },
+    {
+      "id": "network-stack-restore",
+      "anchor": "exam report network-stack-restore",
+      "status": "asserted"
+    },
+    {
+      "id": "preserve:network-stack-restore",
+      "anchor": "behavior the unchanged starter already provides",
+      "status": "asserted"
+    },
+    {
+      "id": "preserve:seven-bit-validation",
+      "anchor": "behavior the unchanged starter already provides",
+      "status": "asserted"
+    },
+    {
+      "id": "seven-bit-validation",
+      "anchor": "exam report seven-bit-validation",
+      "status": "asserted"
+    },
+    {
+      "id": "item-handler-isolation",
+      "anchor": "exam report item-handler-isolation",
+      "status": "asserted"
+    },
+    {
+      "id": "send-transaction-atomicity",
+      "anchor": "exam report send-transaction-atomicity",
+      "status": "asserted"
+    },
+    {
+      "id": "preserve:send-transaction-atomicity",
+      "anchor": "behavior the unchanged starter already provides",
+      "status": "asserted"
+    },
+    {
+      "id": "scope-lifecycle-ordering",
+      "anchor": "exam report scope-lifecycle-ordering",
+      "status": "asserted"
+    },
+    {
+      "id": "request",
+      "anchor": "exam body; split into individual clauses during review",
+      "status": "asserted"
+    }
+  ],
+  "excluded_clauses": [],
+  "known_issues": []
+}

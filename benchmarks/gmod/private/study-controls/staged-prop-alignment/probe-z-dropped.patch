@@ -1,0 +1,11 @@
+--- a/lua/rhenium_prop_alignment/alignment.lua
++++ b/lua/rhenium_prop_alignment/alignment.lua
+@@ -112,7 +112,7 @@
+     local s=self.sessions[player_id];if not s or s.entity_id~=entity_id or s.revision~=revision then return self:_record(request_id,"solve",args,false,"incomplete_stage",{}) end
+     local sf,se=frame(s.source);local tf,te=frame(s.target);if not sf or not tf then return self:_record(request_id,"solve",args,false,se or te,{}) end
+     if (self.spent[player_id] or 0)>=self.max_operations then return self:_record(request_id,"solve",args,false,"budget_exceeded",{}) end
+-    local d=sub(probe,sf.origin);local mapped=add(tf.origin,add(mul(tf.x,dot(d,sf.x)),add(mul(tf.y,dot(d,sf.y)),mul(tf.z,dot(d,sf.z)))))
++    local d=sub(probe,sf.origin);local mapped=add(tf.origin,add(mul(tf.x,dot(d,sf.x)),add(mul(tf.y,dot(d,sf.y)),mul(tf.z,0))))
+     local data={position={x=q(mapped.x),y=q(mapped.y),z=q(mapped.z)},basis={x={x=q(tf.x.x),y=q(tf.x.y),z=q(tf.x.z)},y={x=q(tf.y.x),y=q(tf.y.y),z=q(tf.y.z)},z={x=q(tf.z.x),y=q(tf.z.y),z=q(tf.z.z)}}}
+     self.spent[player_id]=(self.spent[player_id] or 0)+1;self.sessions[player_id]=nil
+     return self:_record(request_id,"solve",args,true,"solved",data)

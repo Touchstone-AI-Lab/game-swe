@@ -1,0 +1,6 @@
+control	kind	base	overlay	root	note
+target-negative-stale-revision	target-negative	reference	patch:target-negative-stale-revision.patch	.	cast no longer refuses an older or equal revision of the same voter
+alternative-a	alternative	starter	tree:alternative-a	.	closure-based core with a voter roll and running tallies, one open proposal at a time, JSON public state
+target-negative-unpublished-names	target-negative	starter	tree:target-negative-unpublished-names	.	alternative-a with status cancelled, result.winner and snapshot.tally instead of the published names
+target-negative-open-whitelist	target-negative	starter	tree:target-negative-open-whitelist	.	alternative-a whose Open refuses proposal ids outside its own list, which the exam now forbids
+target-negative-refuses-early-close	target-negative	starter	tree:target-negative-refuses-early-close	.	alternative-a whose close is refused before the deadline, which the exam now forbids

@@ -1,0 +1,20 @@
+name: BlockTrail
+version: 1.0.0
+main: com.example.blocktrail.BlockTrailPlugin
+api-version: '1.21'
+description: Block change log with lookup and rollback
+
+commands:
+  trail:
+    description: Look up, roll back and manage recorded block changes
+
+permissions:
+  blocktrail.lookup:
+    description: Use /trail lookup and /trail player
+    default: op
+  blocktrail.rollback:
+    description: Use /trail rollback
+    default: op
+  blocktrail.admin:
+    description: Use /trail purge and /trail reload
+    default: op

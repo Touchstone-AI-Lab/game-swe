@@ -1,0 +1,14 @@
+--- a/scripts/campsupply/ledger.lua	2026-09-21 05:43:48.552305320 +0800
++++ b/scripts/campsupply/ledger.lua	2026-09-21 05:43:48.581645298 +0800
+@@ -263,11 +263,6 @@
+         return { ok = false, status = "unknown", reason = "unknown_token" }
+     end
+     if reservation.status == "pending" then
+-        for index = 1, #reservation.items do
+-            local item = reservation.items[index]
+-            local used = self:_usage(reservation.day, reservation.player_id, item.prefab)
+-            used.reserved = used.reserved - item.count
+-        end
+         reservation.status = "rolled_back"
+         return { ok = true, status = "rolled_back", token = token }
+     end

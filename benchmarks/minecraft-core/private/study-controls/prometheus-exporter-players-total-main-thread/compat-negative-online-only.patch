@@ -1,0 +1,15 @@
+--- a/src/main/java/de/sldk/mc/metrics/PlayersTotal.java
++++ b/src/main/java/de/sldk/mc/metrics/PlayersTotal.java
+@@ -17,6 +17,11 @@
+ 
+     @Override
+     public void doCollect() {
+-        PLAYERS.set(Bukkit.getOfflinePlayers().length);
++        PLAYERS.set(Bukkit.getOnlinePlayers().size());
++    }
++
++    @Override
++    public boolean isAsyncCapable() {
++        return true;
+     }
+ }

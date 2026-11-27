@@ -1,0 +1,12 @@
+diff -ruN a/darkrp/gamemode/modules/base/sh_createitems.lua b/darkrp/gamemode/modules/base/sh_createitems.lua
+--- a/darkrp/gamemode/modules/base/sh_createitems.lua	2026-09-21 05:04:15.540165272 +0800
++++ b/darkrp/gamemode/modules/base/sh_createitems.lua	2026-09-21 05:42:05.651562638 +0800
+@@ -465,7 +465,7 @@
+     else
+         util.PrecacheModel(CustomTeam.model)
+     end
+-    return jobCount
++    return Team
+ end
+ AddExtraTeam = DarkRP.createJob
+ 

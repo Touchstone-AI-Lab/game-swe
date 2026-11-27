@@ -1,0 +1,716 @@
+{
+  "task": "balatro/core/deck-removal-consistency-v2",
+  "task_version": "0.2.0",
+  "exam": "benchmarks/balatro/public/v02/deck-removal-consistency-v2/CONTRACT.md",
+  "cases": [
+    {
+      "id": "position:1",
+      "role": "setup",
+      "clauses": [],
+      "overlap": false,
+      "note": "single.initial"
+    },
+    {
+      "id": "position:2",
+      "role": "preserved",
+      "clauses": [
+        "invalid-selection-rejected",
+        "structured-refusal"
+      ],
+      "overlap": false,
+      "note": "single.refusal.empty"
+    },
+    {
+      "id": "position:3",
+      "role": "preserved",
+      "clauses": [
+        "invalid-selection-rejected",
+        "structured-refusal"
+      ],
+      "overlap": false,
+      "note": "single.refusal.five"
+    },
+    {
+      "id": "position:4",
+      "role": "preserved",
+      "clauses": [
+        "consume-once"
+      ],
+      "overlap": false,
+      "note": "single.first.response"
+    },
+    {
+      "id": "position:5",
+      "role": "preserved",
+      "clauses": [
+        "consume-once",
+        "resources-unchanged"
+      ],
+      "overlap": false,
+      "note": "single.first.consumption"
+    },
+    {
+      "id": "position:6",
+      "role": "preserved",
+      "clauses": [
+        "destroy-exact-selection",
+        "highlighted-set-targets",
+        "destroyed-once"
+      ],
+      "overlap": false,
+      "note": "single.first.targets"
+    },
+    {
+      "id": "position:7",
+      "role": "preserved",
+      "clauses": [
+        "remove-from-all-stores",
+        "deck-bookkeeping",
+        "destroy-exact-selection",
+        "destroyed-once"
+      ],
+      "overlap": false,
+      "note": "single.first.registered"
+    },
+    {
+      "id": "position:8",
+      "role": "preserved",
+      "clauses": [
+        "remove-from-all-stores",
+        "native-destruction-complete"
+      ],
+      "overlap": false,
+      "note": "single.first.areas"
+    },
+    {
+      "id": "position:9",
+      "role": "preserved",
+      "clauses": [
+        "survivors-unchanged",
+        "duplicate-face-survivor",
+        "no-lookalike-replacement",
+        "highlighted-set-targets"
+      ],
+      "overlap": false,
+      "note": "single.first.unchanged"
+    },
+    {
+      "id": "position:10",
+      "role": "preserved",
+      "clauses": [
+        "consume-once",
+        "native-destruction-complete"
+      ],
+      "overlap": false,
+      "note": "single.first.lifecycle"
+    },
+    {
+      "id": "position:11",
+      "role": "preserved",
+      "clauses": [
+        "native-destruction-complete"
+      ],
+      "overlap": false,
+      "note": "single.first.stable"
+    },
+    {
+      "id": "position:12",
+      "role": "preserved",
+      "clauses": [
+        "play-continues",
+        "remove-from-all-stores",
+        "resources-unchanged"
+      ],
+      "overlap": false,
+      "note": "single.refill"
+    },
+    {
+      "id": "position:13",
+      "role": "preserved",
+      "clauses": [
+        "play-continues",
+        "removed-never-return",
+        "deck-bookkeeping",
+        "resources-unchanged"
+      ],
+      "overlap": false,
+      "note": "single.next_blind"
+    },
+    {
+      "id": "position:14",
+      "role": "preserved",
+      "clauses": [
+        "remove-from-all-stores",
+        "removed-never-return",
+        "survivors-unchanged",
+        "no-lookalike-replacement"
+      ],
+      "overlap": false,
+      "note": "single.full_pool"
+    },
+    {
+      "id": "position:15",
+      "role": "preserved",
+      "clauses": [
+        "play-continues"
+      ],
+      "overlap": false,
+      "note": "single.followup"
+    },
+    {
+      "id": "position:16",
+      "role": "runtime-sentinel",
+      "clauses": [],
+      "overlap": false,
+      "note": "single.sealed"
+    },
+    {
+      "id": "position:17",
+      "role": "setup",
+      "clauses": [],
+      "overlap": false,
+      "note": "four.initial"
+    },
+    {
+      "id": "position:18",
+      "role": "preserved",
+      "clauses": [
+        "invalid-selection-rejected",
+        "structured-refusal"
+      ],
+      "overlap": false,
+      "note": "four.refusal.empty"
+    },
+    {
+      "id": "position:19",
+      "role": "preserved",
+      "clauses": [
+        "invalid-selection-rejected",
+        "structured-refusal"
+      ],
+      "overlap": false,
+      "note": "four.refusal.five"
+    },
+    {
+      "id": "position:20",
+      "role": "preserved",
+      "clauses": [
+        "consume-once"
+      ],
+      "overlap": false,
+      "note": "four.first.response"
+    },
+    {
+      "id": "position:21",
+      "role": "preserved",
+      "clauses": [
+        "consume-once",
+        "resources-unchanged"
+      ],
+      "overlap": false,
+      "note": "four.first.consumption"
+    },
+    {
+      "id": "position:22",
+      "role": "target",
+      "clauses": [
+        "destroy-exact-selection",
+        "highlighted-set-targets",
+        "destroyed-once"
+      ],
+      "overlap": false,
+      "note": "four.first.targets"
+    },
+    {
+      "id": "position:23",
+      "role": "target",
+      "clauses": [
+        "remove-from-all-stores",
+        "deck-bookkeeping",
+        "destroy-exact-selection",
+        "destroyed-once"
+      ],
+      "overlap": false,
+      "note": "four.first.registered"
+    },
+    {
+      "id": "position:24",
+      "role": "target",
+      "clauses": [
+        "remove-from-all-stores",
+        "native-destruction-complete"
+      ],
+      "overlap": false,
+      "note": "four.first.areas"
+    },
+    {
+      "id": "position:25",
+      "role": "preserved",
+      "clauses": [
+        "survivors-unchanged",
+        "duplicate-face-survivor",
+        "no-lookalike-replacement",
+        "highlighted-set-targets"
+      ],
+      "overlap": true,
+      "note": "four.first.unchanged"
+    },
+    {
+      "id": "position:26",
+      "role": "preserved",
+      "clauses": [
+        "consume-once",
+        "native-destruction-complete"
+      ],
+      "overlap": false,
+      "note": "four.first.lifecycle"
+    },
+    {
+      "id": "position:27",
+      "role": "preserved",
+      "clauses": [
+        "native-destruction-complete"
+      ],
+      "overlap": false,
+      "note": "four.first.stable"
+    },
+    {
+      "id": "position:28",
+      "role": "target",
+      "clauses": [
+        "play-continues",
+        "remove-from-all-stores",
+        "resources-unchanged"
+      ],
+      "overlap": false,
+      "note": "four.refill"
+    },
+    {
+      "id": "position:29",
+      "role": "target",
+      "clauses": [
+        "play-continues",
+        "removed-never-return",
+        "deck-bookkeeping",
+        "resources-unchanged"
+      ],
+      "overlap": false,
+      "note": "four.next_blind"
+    },
+    {
+      "id": "position:30",
+      "role": "target",
+      "clauses": [
+        "remove-from-all-stores",
+        "removed-never-return",
+        "survivors-unchanged",
+        "no-lookalike-replacement"
+      ],
+      "overlap": false,
+      "note": "four.full_pool"
+    },
+    {
+      "id": "position:31",
+      "role": "preserved",
+      "clauses": [
+        "play-continues"
+      ],
+      "overlap": false,
+      "note": "four.followup"
+    },
+    {
+      "id": "position:32",
+      "role": "runtime-sentinel",
+      "clauses": [],
+      "overlap": false,
+      "note": "four.sealed"
+    },
+    {
+      "id": "position:33",
+      "role": "setup",
+      "clauses": [],
+      "overlap": false,
+      "note": "repeat.initial"
+    },
+    {
+      "id": "position:34",
+      "role": "preserved",
+      "clauses": [
+        "invalid-selection-rejected",
+        "structured-refusal"
+      ],
+      "overlap": false,
+      "note": "repeat.refusal.empty"
+    },
+    {
+      "id": "position:35",
+      "role": "preserved",
+      "clauses": [
+        "invalid-selection-rejected",
+        "structured-refusal"
+      ],
+      "overlap": false,
+      "note": "repeat.refusal.five"
+    },
+    {
+      "id": "position:36",
+      "role": "preserved",
+      "clauses": [
+        "consume-once"
+      ],
+      "overlap": false,
+      "note": "repeat.first.response"
+    },
+    {
+      "id": "position:37",
+      "role": "preserved",
+      "clauses": [
+        "consume-once",
+        "resources-unchanged"
+      ],
+      "overlap": false,
+      "note": "repeat.first.consumption"
+    },
+    {
+      "id": "position:38",
+      "role": "target",
+      "clauses": [
+        "destroy-exact-selection",
+        "highlighted-set-targets",
+        "destroyed-once"
+      ],
+      "overlap": false,
+      "note": "repeat.first.targets"
+    },
+    {
+      "id": "position:39",
+      "role": "target",
+      "clauses": [
+        "remove-from-all-stores",
+        "deck-bookkeeping",
+        "destroy-exact-selection",
+        "destroyed-once"
+      ],
+      "overlap": false,
+      "note": "repeat.first.registered"
+    },
+    {
+      "id": "position:40",
+      "role": "target",
+      "clauses": [
+        "remove-from-all-stores",
+        "native-destruction-complete"
+      ],
+      "overlap": false,
+      "note": "repeat.first.areas"
+    },
+    {
+      "id": "position:41",
+      "role": "preserved",
+      "clauses": [
+        "survivors-unchanged",
+        "duplicate-face-survivor",
+        "no-lookalike-replacement",
+        "highlighted-set-targets"
+      ],
+      "overlap": true,
+      "note": "repeat.first.unchanged"
+    },
+    {
+      "id": "position:42",
+      "role": "preserved",
+      "clauses": [
+        "consume-once",
+        "native-destruction-complete"
+      ],
+      "overlap": false,
+      "note": "repeat.first.lifecycle"
+    },
+    {
+      "id": "position:43",
+      "role": "preserved",
+      "clauses": [
+        "native-destruction-complete"
+      ],
+      "overlap": false,
+      "note": "repeat.first.stable"
+    },
+    {
+      "id": "position:44",
+      "role": "target",
+      "clauses": [
+        "play-continues",
+        "remove-from-all-stores",
+        "resources-unchanged"
+      ],
+      "overlap": false,
+      "note": "repeat.refill"
+    },
+    {
+      "id": "position:45",
+      "role": "target",
+      "clauses": [
+        "play-continues",
+        "removed-never-return",
+        "deck-bookkeeping",
+        "resources-unchanged"
+      ],
+      "overlap": false,
+      "note": "repeat.next_blind"
+    },
+    {
+      "id": "position:46",
+      "role": "preserved",
+      "clauses": [
+        "consume-once",
+        "later-cut-fresh-selection"
+      ],
+      "overlap": false,
+      "note": "repeat.second.response"
+    },
+    {
+      "id": "position:47",
+      "role": "preserved",
+      "clauses": [
+        "consume-once",
+        "resources-unchanged",
+        "later-cut-fresh-selection"
+      ],
+      "overlap": false,
+      "note": "repeat.second.consumption"
+    },
+    {
+      "id": "position:48",
+      "role": "target",
+      "clauses": [
+        "destroy-exact-selection",
+        "highlighted-set-targets",
+        "destroyed-once",
+        "later-cut-fresh-selection"
+      ],
+      "overlap": false,
+      "note": "repeat.second.targets"
+    },
+    {
+      "id": "position:49",
+      "role": "target",
+      "clauses": [
+        "remove-from-all-stores",
+        "deck-bookkeeping",
+        "destroy-exact-selection",
+        "destroyed-once",
+        "later-cut-fresh-selection",
+        "repeated-consistency"
+      ],
+      "overlap": false,
+      "note": "repeat.second.registered"
+    },
+    {
+      "id": "position:50",
+      "role": "target",
+      "clauses": [
+        "remove-from-all-stores",
+        "native-destruction-complete",
+        "later-cut-fresh-selection",
+        "repeated-consistency"
+      ],
+      "overlap": false,
+      "note": "repeat.second.areas"
+    },
+    {
+      "id": "position:51",
+      "role": "preserved",
+      "clauses": [
+        "survivors-unchanged",
+        "duplicate-face-survivor",
+        "no-lookalike-replacement",
+        "highlighted-set-targets",
+        "later-cut-fresh-selection",
+        "repeated-consistency"
+      ],
+      "overlap": true,
+      "note": "repeat.second.unchanged"
+    },
+    {
+      "id": "position:52",
+      "role": "preserved",
+      "clauses": [
+        "consume-once",
+        "native-destruction-complete",
+        "later-cut-fresh-selection"
+      ],
+      "overlap": false,
+      "note": "repeat.second.lifecycle"
+    },
+    {
+      "id": "position:53",
+      "role": "preserved",
+      "clauses": [
+        "native-destruction-complete",
+        "later-cut-fresh-selection"
+      ],
+      "overlap": false,
+      "note": "repeat.second.stable"
+    },
+    {
+      "id": "position:54",
+      "role": "target",
+      "clauses": [
+        "remove-from-all-stores",
+        "removed-never-return",
+        "survivors-unchanged",
+        "no-lookalike-replacement",
+        "repeated-consistency"
+      ],
+      "overlap": false,
+      "note": "repeat.full_pool"
+    },
+    {
+      "id": "position:55",
+      "role": "preserved",
+      "clauses": [
+        "play-continues"
+      ],
+      "overlap": false,
+      "note": "repeat.followup"
+    },
+    {
+      "id": "position:56",
+      "role": "runtime-sentinel",
+      "clauses": [],
+      "overlap": false,
+      "note": "repeat.sealed"
+    }
+  ],
+  "clauses": [
+    {
+      "id": "consume-once",
+      "anchor": "CONTRACT.md paragraph 2: \"A normal successful Use in SELECTING_HAND consumes this Tarot once\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "destroy-exact-selection",
+      "anchor": "CONTRACT.md paragraph 2: \"permanently destroys exactly the **one to four selected physical playing-card objects**\"",
+      "status": "asserted",
+      "note": "Batch sizes 1, 3 and 4 run (scenario.py:12,164); size 2 is not exercised."
+    },
+    {
+      "id": "highlighted-set-targets",
+      "anchor": "CONTRACT.md paragraph 2: \"Selection is the highlighted set at that use, not a prefix of the hand\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "destroyed-once",
+      "anchor": "CONTRACT.md paragraph 2: \"Each selected object is destroyed once.\"",
+      "status": "weak",
+      "note": "Only consequences are checked (removed flag, registry and limit); the fixture counts no destruction calls."
+    },
+    {
+      "id": "selection-order-irrelevant",
+      "anchor": "CONTRACT.md paragraph 2: \"The order of selections does not change the resulting target set.\"",
+      "status": "unasserted",
+      "note": "Every use passes ascending indices: [0], [0,2,5,7], [1,4,7] and [3] (scenario.py:12,164). No case varies selection order."
+    },
+    {
+      "id": "remove-from-all-stores",
+      "anchor": "CONTRACT.md paragraph 3: \"Remove each selected object from the active card area, the persistent playing-card registry and the subsequent draw pool.\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "deck-bookkeeping",
+      "anchor": "CONTRACT.md paragraph 3: \"The registered deck count and its ordinary deck-size bookkeeping decrease\"",
+      "status": "asserted",
+      "note": "Observed as G.deck.config.card_limit (fixture.lua:44)."
+    },
+    {
+      "id": "native-destruction-complete",
+      "anchor": "CONTRACT.md paragraph 3: \"Normal destruction completes through the native lifecycle; do not leave dangling live objects, duplicates, or pending work.\"",
+      "status": "asserted",
+      "note": "The lifecycle field events=bool(current['events']) is a cumulative list and adds nothing per action (scenario.py:127); pending, buffer and stable carry this clause."
+    },
+    {
+      "id": "survivors-unchanged",
+      "anchor": "CONTRACT.md paragraph 4: \"Every unselected physical card keeps its identity, rank, suit and ordinary base-card state.\"",
+      "status": "asserted",
+      "note": "Compared fields are id, rank, suit, center and removed (fixture.lua:31-35); seals and editions are outside the observation and outside the contract scope."
+    },
+    {
+      "id": "duplicate-face-survivor",
+      "anchor": "CONTRACT.md paragraph 4: \"This includes an unselected card with the same rank and suit as a selected card.\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "no-lookalike-replacement",
+      "anchor": "CONTRACT.md paragraph 4: \"Do not replace survivors with newly created lookalikes or change their attributes.\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "resources-unchanged",
+      "anchor": "CONTRACT.md paragraph 4: \"Other consumables, money, poker-hand levels and normal hand capacity stay unchanged\"",
+      "status": "asserted",
+      "note": "Hand capacity is inferred from later draws back to 8; the limit itself is not observed."
+    },
+    {
+      "id": "play-continues",
+      "anchor": "CONTRACT.md paragraph 5: \"After completion, normal play, refill, round completion and entry to a later blind still work.\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "removed-never-return",
+      "anchor": "CONTRACT.md paragraph 5: \"Permanently removed cards never return in later deals.\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "later-cut-fresh-selection",
+      "anchor": "CONTRACT.md paragraph 5: \"A later independently owned Clean Cut follows the same rule against its own current selection\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "repeated-consistency",
+      "anchor": "CONTRACT.md paragraph 5: \"Repeated operations keep the registry, areas, counts and remaining draw pool consistent.\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "invalid-selection-rejected",
+      "anchor": "CONTRACT.md paragraph 6: \"An empty selection or selection above the maximum is rejected by the fixed normal interface before effect execution\"",
+      "status": "asserted",
+      "note": "Refusal is performed by the fixed endpoint, not by candidate code; see known_issues."
+    },
+    {
+      "id": "structured-refusal",
+      "anchor": "CONTRACT.md paragraph 6: \"Only a verified structured business refusal with matching request identity counts as refusal.\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "no-external-alteration",
+      "anchor": "CONTRACT.md paragraph 8: \"Do not alter evaluator/observer/fixture/runtime, fixed components, original installation, personal data or external files.\"",
+      "status": "unasserted",
+      "note": "No evaluator case. A harness input-integrity field gates the whole result (plugins/balatro/src/rhenium_balatro/evaluator.py:33-37)."
+    },
+    {
+      "id": "file-boundary",
+      "anchor": "CONTRACT.md paragraph 9: \"Editable files: `main.lua` and `lib/lifecycle.lua`; immutable file: `deck_removal_consistency_v2.json`.\"",
+      "status": "unasserted",
+      "note": "No evaluator case. The submission gate rejects a changed file set or immutable file before evaluation (plugins/balatro/src/rhenium_balatro/submission.py:28-47)."
+    }
+  ],
+  "excluded_clauses": [
+    "selection-order-irrelevant",
+    "no-external-alteration",
+    "file-boundary"
+  ],
+  "known_issues": [
+    "Fixture trap: the six .refusal.empty and .refusal.five cases (benchmarks/balatro/private/native-v1/fixtures/tasks/deck_removal_consistency/v2/private/scenario.py:66-83) are decided by the fixed endpoint's count validation before highlight or effect code (OBSERVATION-ADDENDUM-v1.md:3), so candidate effect code is not reached. They separate candidates only if earlier code has already disturbed state.",
+    "Fixture trap: benchmarks/balatro/private/native-v1/fixtures/tasks/deck_removal_consistency/v2/private/scenario.py:149-150 and benchmarks/balatro/private/native-v1/fixtures/tasks/deck_removal_consistency/v2/private/scenario.py:176-177 raise ProtocolError when the five-H2 winning hand or the native H2 follow-up card is missing, so a candidate that destroys the wrong cards can end as incomplete_execution with later cases not executed, not as a behavior mismatch."
+  ]
+}

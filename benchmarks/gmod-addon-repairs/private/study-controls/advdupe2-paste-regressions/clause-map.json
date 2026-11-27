@@ -1,0 +1,174 @@
+{
+  "task": "garrys-mod/addon-repairs/advdupe2-paste-regressions",
+  "task_version": "1.0.0",
+  "exam": "benchmarks/gmod-addon-repairs/exams/advdupe2-paste-regressions.md",
+  "cases": [
+    {
+      "id": "check:submission-shape",
+      "role": "static",
+      "clauses": [
+        "Notes-tests"
+      ],
+      "overlap": false,
+      "note": "Static preflight: the addon tree with lua/ exists, no symbolic links or native modules, no harness tokens outside verbatim upstream lines, no lua/gluatest or lua/tests."
+    },
+    {
+      "id": "case:sentinel: the addon and its duplicator are loaded",
+      "role": "runtime-sentinel",
+      "clauses": [],
+      "overlap": false,
+      "note": "Passes in the starter; only checks that the addon loaded."
+    },
+    {
+      "id": "case:preserved: a copied prop pastes at the requested place, frozen",
+      "role": "preserved",
+      "clauses": [
+        "Task-preserve"
+      ],
+      "overlap": false,
+      "note": "Passes in the unchanged starter. Copy + Paste of a plain crate; position and frozen state."
+    },
+    {
+      "id": "case:A: a prop saved at a larger scale pastes with a matching physics size",
+      "role": "target",
+      "clauses": [
+        "[A]"
+      ],
+      "overlap": false,
+      "note": "Group A. Fails in the unchanged starter, passes with the reference."
+    },
+    {
+      "id": "case:B: a piece that fails to paste leaves nothing behind",
+      "role": "target",
+      "clauses": [
+        "[B]"
+      ],
+      "overlap": false,
+      "note": "Group B. Fails in the unchanged starter, passes with the reference."
+    },
+    {
+      "id": "case:C: props a player pasted are released by unfreeze-all",
+      "role": "target",
+      "clauses": [
+        "[C]"
+      ],
+      "overlap": false,
+      "note": "Group C. Fails in the unchanged starter, passes with the reference."
+    },
+    {
+      "id": "case:D: a pasted rope counts against the rope limit",
+      "role": "target",
+      "clauses": [
+        "[D]"
+      ],
+      "overlap": false,
+      "note": "Group D. Fails in the unchanged starter, passes with the reference."
+    },
+    {
+      "id": "case:D: the rope limit is enforced when pasting",
+      "role": "target",
+      "clauses": [
+        "[D]"
+      ],
+      "overlap": false,
+      "note": "Group D. Fails in the unchanged starter, passes with the reference."
+    },
+    {
+      "id": "case:preserved: a pasted weld still counts as a constraint",
+      "role": "preserved",
+      "clauses": [
+        "Task-preserve",
+        "[D]"
+      ],
+      "overlap": true,
+      "note": "Passes in the unchanged starter. Report D states that welds keep counting as constraints; also the boundary of the D fix."
+    },
+    {
+      "id": "case:E: file names lose the spaces around separators and dots",
+      "role": "target",
+      "clauses": [
+        "[E]"
+      ],
+      "overlap": false,
+      "note": "Group E. Fails in the unchanged starter, passes with the reference."
+    },
+    {
+      "id": "case:preserved: file names keep their other characters readable",
+      "role": "preserved",
+      "clauses": [
+        "Task-preserve",
+        "[E]"
+      ],
+      "overlap": true,
+      "note": "Passes in the unchanged starter. Report E lists the existing behaviour that must keep working (quotes/colons, collapsed spaces)."
+    },
+    {
+      "id": "case:preserved: an encoded dupe decodes to the same contraption",
+      "role": "preserved",
+      "clauses": [
+        "Task-preserve"
+      ],
+      "overlap": false,
+      "note": "Passes in the unchanged starter. AdvDupe2.Encode / Decode round trip of a copied crate."
+    }
+  ],
+  "clauses": [
+    {
+      "id": "[A]",
+      "anchor": "Problem, report [A]: props saved at a non-default scale paste with the physics of the unscaled model",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "[B]",
+      "anchor": "Problem, report [B]: an entry that fails to paste leaves a half-made entity behind",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "[C]",
+      "anchor": "Problem, report [C]: pasted props are not released by the physics gun's unfreeze-everything",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "[D]",
+      "anchor": "Problem, report [D]: pasted ropes use the constraint allowance and ignore sbox_maxropeconstraints",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "[E]",
+      "anchor": "Problem, report [E]: AdvDupe2.SanitizeFilename keeps spaces around / \\ and .",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "Task-preserve",
+      "anchor": "What to do, Notes bullet 4: behaviour that already works must keep working.",
+      "status": "asserted",
+      "note": "Every preserved case passes on the unchanged starter (validation/README.md) and is kept by the reference."
+    },
+    {
+      "id": "Notes-causes",
+      "anchor": "What to do, Notes bullet 2: fix the causes; do not special-case the exact scenario in a report.",
+      "status": "unasserted",
+      "note": "No case distinguishes a root-cause fix from a special case beyond using inputs other than the ones the report quotes. Excluded: not observable by the suite."
+    },
+    {
+      "id": "Notes-tests",
+      "anchor": "What to do, Notes bullet 3: do not change anything under /tests and do not add test files to the addon.",
+      "status": "weak",
+      "note": "Process constraint. The nearest gate is the static preflight in check:submission-shape (plugins/garrys-mod/src/rhenium_garrys_mod/darkrp/evaluator.py: harness-token scan and the lua/gluatest, lua/tests rejection). Excluded from contract analysis."
+    }
+  ],
+  "excluded_clauses": [
+    "Notes-causes",
+    "Notes-tests"
+  ],
+  "known_issues": [
+    "[A] is asserted through the physics volume of a pasted crate at scale 2 relative to one at scale 1 (ratio between 6 and 10); the report speaks of the collision hull.",
+    "[B] makes creation fail with a test-registered scripted entity class carrying a string Skin, so SetSkin raises inside duplicator.DoGeneric on the generic path.",
+    "[C] is observed through Player:UnfreezePhysicsObjects(), which sandbox's double-tap physics-gun reload calls."
+  ]
+}

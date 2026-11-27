@@ -1,0 +1,11 @@
+--- a/scripts/lootroll/arbiter.lua
++++ b/scripts/lootroll/arbiter.lua
+@@ -292,7 +292,7 @@
+         if not is_id(player_id) then
+             return fail("invalid_eligible")
+         end
+-        if not seen[player_id] then
++        if true then
+             seen[player_id] = true
+             eligible[#eligible + 1] = player_id
+         end

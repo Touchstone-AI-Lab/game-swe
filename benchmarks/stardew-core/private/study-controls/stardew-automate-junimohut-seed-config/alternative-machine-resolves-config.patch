@@ -1,0 +1,90 @@
+diff -ruN a/Automate/Framework/AutomationFactory.cs b/Automate/Framework/AutomationFactory.cs
+--- a/Automate/Framework/AutomationFactory.cs
++++ b/Automate/Framework/AutomationFactory.cs
+@@ -146,23 +146,7 @@
+                 return new FishPondMachine(pond, location);
+ 
+             case JunimoHut hut:
+-                {
+-                    ModConfig config = this.Config();
+-
+-                    JunimoHutBehavior gemBehavior = config.JunimoHutBehaviorForGems;
+-                    if (gemBehavior is JunimoHutBehavior.AutoDetect)
+-                        gemBehavior = JunimoHutBehavior.Ignore;
+-
+-                    JunimoHutBehavior fertilizerBehavior = config.JunimoHutBehaviorForFertilizer;
+-                    if (fertilizerBehavior is JunimoHutBehavior.AutoDetect)
+-                        fertilizerBehavior = this.IsBetterJunimosLoaded ? JunimoHutBehavior.Ignore : JunimoHutBehavior.MoveIntoChests;
+-
+-                    JunimoHutBehavior seedBehavior = config.JunimoHutBehaviorForFertilizer;
+-                    if (seedBehavior is JunimoHutBehavior.AutoDetect)
+-                        seedBehavior = this.IsBetterJunimosLoaded ? JunimoHutBehavior.Ignore : JunimoHutBehavior.MoveIntoChests;
+-
+-                    return new JunimoHutMachine(hut, location, gemBehavior, fertilizerBehavior, seedBehavior);
+-                }
++                return new JunimoHutMachine(hut, location, this.Config(), this.IsBetterJunimosLoaded);
+ 
+             case ShippingBin bin:
+                 return new ShippingBinMachine(bin, location);
+diff -ruN a/Automate/Framework/Machines/Buildings/JunimoHutMachine.cs b/Automate/Framework/Machines/Buildings/JunimoHutMachine.cs
+--- a/Automate/Framework/Machines/Buildings/JunimoHutMachine.cs
++++ b/Automate/Framework/Machines/Buildings/JunimoHutMachine.cs
+@@ -1,3 +1,4 @@
++using System;
+ using Pathoschild.Stardew.Automate.Framework.Models;
+ using StardewValley;
+ using StardewValley.Buildings;
+@@ -37,24 +38,20 @@
+     /// <summary>Construct an instance.</summary>
+     /// <param name="hut">The underlying Junimo hut.</param>
+     /// <param name="location">The location which contains the machine.</param>
+-    /// <param name="gemBehavior">How to handle gems in the hut or connected chests.</param>
+-    /// <param name="fertilizerBehavior">How to handle fertilizer in the hut or connected chests.</param>
+-    /// <param name="seedBehavior">How to handle seeds in the hut or connected chests.</param>
+-    public JunimoHutMachine(JunimoHut hut, GameLocation location, JunimoHutBehavior gemBehavior, JunimoHutBehavior fertilizerBehavior, JunimoHutBehavior seedBehavior)
++    /// <param name="config">The mod configuration from which to read the per-category Junimo hut options.</param>
++    /// <param name="isBetterJunimosLoaded">Whether the Better Junimos mod is installed, which changes what the auto-detect option means for seeds and fertilizer.</param>
++    public JunimoHutMachine(JunimoHut hut, GameLocation location, ModConfig config, bool isBetterJunimosLoaded)
+         : base(hut, location, BaseMachine.GetTileAreaFor(hut))
+     {
+-        this.GemBehavior = gemBehavior;
+-        this.FertilizerBehavior = fertilizerBehavior;
+-        this.SeedBehavior = seedBehavior;
+-
+-        this.HasInput =
+-            gemBehavior is JunimoHutBehavior.MoveIntoHut
+-            || fertilizerBehavior is JunimoHutBehavior.MoveIntoHut
+-            || seedBehavior is JunimoHutBehavior.MoveIntoHut;
+-        this.HasIgnoredOutput =
+-            gemBehavior is not JunimoHutBehavior.MoveIntoChests
+-            || fertilizerBehavior is not JunimoHutBehavior.MoveIntoChests
+-            || seedBehavior is not JunimoHutBehavior.MoveIntoChests;
++        JunimoHutBehavior cropSupplyDefault = isBetterJunimosLoaded ? JunimoHutBehavior.Ignore : JunimoHutBehavior.MoveIntoChests;
++
++        this.GemBehavior = JunimoHutMachine.Resolve(config.JunimoHutBehaviorForGems, JunimoHutBehavior.Ignore);
++        this.FertilizerBehavior = JunimoHutMachine.Resolve(config.JunimoHutBehaviorForFertilizer, cropSupplyDefault);
++        this.SeedBehavior = JunimoHutMachine.Resolve(config.JunimoHutBehaviorForSeeds, cropSupplyDefault);
++
++        JunimoHutBehavior[] behaviors = [this.GemBehavior, this.FertilizerBehavior, this.SeedBehavior];
++        this.HasInput = Array.Exists(behaviors, behavior => behavior is JunimoHutBehavior.MoveIntoHut);
++        this.HasIgnoredOutput = Array.Exists(behaviors, behavior => behavior is not JunimoHutBehavior.MoveIntoChests);
+     }
+ 
+     /// <inheritdoc />
+@@ -121,6 +118,16 @@
+     /*********
+     ** Private methods
+     *********/
++    /// <summary>Get the behavior to apply for one item category.</summary>
++    /// <param name="configured">The option as set by the player.</param>
++    /// <param name="autoDetected">The behavior to use when the player left the option on auto-detect.</param>
++    private static JunimoHutBehavior Resolve(JunimoHutBehavior configured, JunimoHutBehavior autoDetected)
++    {
++        return configured is JunimoHutBehavior.AutoDetect
++            ? autoDetected
++            : configured;
++    }
++
+     /// <summary>Remove an output item once it's been taken.</summary>
+     /// <param name="trackedStack">The tracked item stack that was reduced.</param>
+     /// <param name="item">The removed item.</param>

@@ -1,0 +1,10 @@
+services:
+  main:
+    network_mode: none
+    shm_size: 1gb
+    security_opt:
+      - apparmor=gcb-isaac-steam
+      - seccomp=unconfined
+    environment:
+      GTK_A11Y: none
+    stop_grace_period: 15s

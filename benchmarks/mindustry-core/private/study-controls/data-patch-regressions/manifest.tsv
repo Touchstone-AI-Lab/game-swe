@@ -1,0 +1,4 @@
+control	kind	base	overlay	root	note
+target-negative-speed-only	target-negative	reference	patch:target-negative-speed-only.patch	mindustry	reference, but a patched build tower only passes its build speed to the builder unit
+compat-negative-servers-drop-restricted-patches	compat-negative	reference	patch:compat-negative-servers-drop-restricted-patches.patch	mindustry	reference plus a dedicated server that drops every planet-restricted patch
+alternative-a	alternative	starter	tree:alternative-a	mindustry	own repair: patch sets applied by a separate method after custom content and skipped sets removed afterwards; build tower afterPatch copies its stats to the builder unit

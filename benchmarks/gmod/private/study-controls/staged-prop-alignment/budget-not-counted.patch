@@ -1,0 +1,11 @@
+--- a/lua/rhenium_prop_alignment/alignment.lua
++++ b/lua/rhenium_prop_alignment/alignment.lua
+@@ -114,7 +114,7 @@
+     if (self.spent[player_id] or 0)>=self.max_operations then return self:_record(request_id,"solve",args,false,"budget_exceeded",{}) end
+     local d=sub(probe,sf.origin);local mapped=add(tf.origin,add(mul(tf.x,dot(d,sf.x)),add(mul(tf.y,dot(d,sf.y)),mul(tf.z,dot(d,sf.z)))))
+     local data={position={x=q(mapped.x),y=q(mapped.y),z=q(mapped.z)},basis={x={x=q(tf.x.x),y=q(tf.x.y),z=q(tf.x.z)},y={x=q(tf.y.x),y=q(tf.y.y),z=q(tf.y.z)},z={x=q(tf.z.x),y=q(tf.z.y),z=q(tf.z.z)}}}
+-    self.spent[player_id]=(self.spent[player_id] or 0)+1;self.sessions[player_id]=nil
++    self.spent[player_id]=(self.spent[player_id] or 0);self.sessions[player_id]=nil
+     return self:_record(request_id,"solve",args,true,"solved",data)
+ end
+ function Alignment:clear(request_id,player_id)

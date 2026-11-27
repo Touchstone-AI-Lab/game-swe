@@ -1,0 +1,15 @@
+--- a/Playwright/Source/Playwright/Patches/TradeablePatches.cs
++++ b/Playwright/Source/Playwright/Patches/TradeablePatches.cs
+@@ -33,12 +33,6 @@
+                 return;
+             }
+ 
+-            // Don't use HasAnyThing here: it calls AnyThing, which is the thing that logs.
+-            if (__instance.FirstThingColony == null && __instance.FirstThingTrader == null)
+-            {
+-                return;
+-            }
+-
+             __state = new SoldThing
+             {
+                 Def = __instance.ThingDef,

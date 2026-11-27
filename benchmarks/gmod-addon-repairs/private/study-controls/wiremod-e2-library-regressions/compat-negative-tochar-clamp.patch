@@ -1,0 +1,14 @@
+diff -u a/wire/lua/entities/gmod_wire_expression2/core/string.lua b/wire/lua/entities/gmod_wire_expression2/core/string.lua
+--- a/wire/lua/entities/gmod_wire_expression2/core/string.lua
++++ b/wire/lua/entities/gmod_wire_expression2/core/string.lua
+@@ -120,8 +120,8 @@
+ __e2setcost(1)
+ 
+ e2function string toChar(number n)
+-	if n ~= n or n < 0 or n > 255 then return self:throw("Invalid argument (" .. n .. ") (must not be NaN and be between 0 and 255)", "") end
+-	return string_char(n)
++	if n ~= n then return self:throw("Invalid argument (NaN)", "") end
++	return string_char(math.Clamp(n, 0, 255))
+ end
+ 
+ e2function number toByte(string c)

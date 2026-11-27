@@ -1,0 +1,20 @@
+--- a/scripts/fuelration/allocator.lua
++++ b/scripts/fuelration/allocator.lua
+@@ -463,14 +463,9 @@
+     local consumers = {}
+     for index, consumer_id in ipairs(sorted_keys(self.consumers)) do
+         local consumer = self.consumers[consumer_id]
+-        consumers[index] = {
+-            consumer_id = consumer_id,
+-            priority = consumer.priority,
+-            capacity = consumer.capacity,
+-            level = consumer.level,
+-            demand = consumer.capacity - consumer.level,
+-            received = consumer.received,
+-        }
++        consumer.consumer_id = consumer_id
++        consumer.demand = consumer.capacity - consumer.level
++        consumers[index] = consumer
+     end
+     local contributors = {}
+     for index, player_id in ipairs(sorted_keys(self.contributions)) do

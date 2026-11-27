@@ -1,0 +1,12 @@
+diff -ruN a/vscripts/LinGe/Base.nut b/vscripts/LinGe/Base.nut
+--- a/vscripts/LinGe/Base.nut
++++ b/vscripts/LinGe/Base.nut
+@@ -775,7 +775,7 @@
+ 	local action = ACTION_CONTINUE;
+ 	local original = ::LinGe.DeepClone(params);
+ 	local _params = ::LinGe.DeepClone(original);
+-	local snapshot = clone callback;
++	local snapshot = callback;
+ 	local len = snapshot.len();
+ 	local val = null;
+ 	::LinGe.DebugPrintlTable(params);

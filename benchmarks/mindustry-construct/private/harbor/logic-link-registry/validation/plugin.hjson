@@ -1,0 +1,5 @@
+name: "processor-link-leases"
+displayName: "Logic Link Lease Registry"
+main: "LogicLinkRegistryPlugin"
+version: "1.0.0"
+minGameVersion: 159

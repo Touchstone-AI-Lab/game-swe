@@ -1,0 +1,4 @@
+control	kind	base	overlay	root	note
+target-negative-taunt-boundary	target-negative	reference	patch:target-negative-taunt-boundary.patch	.	Taunt lease made inclusive at expires_at (now <= expires_at); breaks only the exact-boundary rule of core-5
+alternative-a	alternative	starter	tree:alternative-a	.	Closure-based core over a flat edge list, registry module for entity bindings; one decay clock per source restarted on each accepted threat event
+alternative-b	alternative	starter	tree:alternative-b	.	per-entry linear decay exactly as core-3 states; accepted since the tie case is a genuine tie

@@ -1,0 +1,48 @@
+{
+  "schema_version": 1,
+  "runtimes": [
+    {
+      "id": "mindustry-159.7",
+      "name": "Mindustry v159.7 dedicated server",
+      "version": "v159.7",
+      "provider": "official-download",
+      "restricted": false,
+      "host_platforms": [],
+      "source": {
+        "kind": "official-download",
+        "files": [
+          {
+            "name": "server-release.jar",
+            "url": "https://github.com/Anuken/Mindustry/releases/download/v159.7/server-release.jar",
+            "sha256": "e41289c32bcf765eb50fa131e6b515d741e20f7843fb567d3aa949e7461f22ab",
+            "size": 19158443
+          }
+        ],
+        "redirectHosts": [
+          "release-assets.githubusercontent.com"
+        ],
+        "expectedFiles": [
+          "server-release.jar"
+        ],
+        "sha256": "e41289c32bcf765eb50fa131e6b515d741e20f7843fb567d3aa949e7461f22ab"
+      }
+    }
+  ],
+  "task_bindings": {
+    "logic-processor-regressions": [
+      "mindustry-159.7"
+    ],
+    "server-console-regressions": [
+      "mindustry-159.7"
+    ],
+    "defense-and-heat-regressions": [
+      "mindustry-159.7"
+    ],
+    "payload-and-save-regressions": [
+      "mindustry-159.7"
+    ],
+    "data-patch-regressions": [
+      "mindustry-159.7"
+    ]
+  }
+}

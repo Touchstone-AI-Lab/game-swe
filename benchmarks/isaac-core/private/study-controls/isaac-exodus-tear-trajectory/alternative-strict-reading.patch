@@ -1,0 +1,157 @@
+--- a/main.lua
++++ b/main.lua
+@@ -741,6 +741,16 @@
+     if player:HasCollectible(ItemId.RITUAL_CANDLE) then
+         ItemVariables.RITUAL_CANDLE.LitCandles = 0
+         
++        -- The aura pulses once per rounded-up third of the tear delay, and never less often than it can be counted.
++        local pulseInterval = math.max(1, math.ceil(player.MaxFireDelay / 3))
++        local frame = game:GetFrameCount()
++        local lastPulse = ItemVariables.RITUAL_CANDLE.LastPulseFrame
++        local auraPulse = lastPulse == nil or frame < lastPulse or frame - lastPulse >= pulseInterval
++        
++        if auraPulse then
++            ItemVariables.RITUAL_CANDLE.LastPulseFrame = frame
++        end
++        
+         for i, entity in pairs(Isaac.GetRoomEntities()) do 
+             local data = entity:GetData()
+             local sprite = entity:GetSprite()
+@@ -755,7 +765,7 @@
+                 range = 150
+             end
+             
+-            if ItemVariables.RITUAL_CANDLE.HasBonus and entity.Position:Distance(player.Position) <= range and entity:IsVulnerableEnemy() and entity:IsActiveEnemy() and game:GetFrameCount() % math.floor(player.MaxFireDelay / 3) == 0 then
++            if ItemVariables.RITUAL_CANDLE.HasBonus and entity.Position:Distance(player.Position) <= range and entity:IsVulnerableEnemy() and entity:IsActiveEnemy() and auraPulse then
+                 entity:TakeDamage((player.Damage / 4) * (player:GetCollectibleNum(CollectibleType.COLLECTIBLE_BFFS) + 1), 0, EntityRef(player), 0)
+             end
+             
+@@ -1896,6 +1906,13 @@
+ Exodus:AddCallback(ModCallbacks.MC_POST_ENTITY_KILL, Exodus.loopKeeperBoom, Entities.CLOCK_KEEPER.id)
+ 
+ --<<<TRINKETS>>>--
++local GridWormAxes = {
++    [Direction.LEFT] = Vector(-1, 0),
++    [Direction.UP] = Vector(0, -1),
++    [Direction.RIGHT] = Vector(1, 0),
++    [Direction.DOWN] = Vector(0, 1)
++}
++
+ function Exodus:trinketUpdate()
+     local player = Isaac.GetPlayer(0)
+     local playerData = player:GetData()
+@@ -1981,8 +1998,33 @@
+             local rand = rng:RandomInt(4) + 1
+             
+             if entity.Type == EntityType.ENTITY_TEAR and entity.SpawnerType == EntityType.ENTITY_PLAYER then
+-                if entity:CollidesWithGrid() then
+-                    entity.Velocity = entity.Velocity * -1
++                local tearData = entity:GetData()
++                
++                if not tearData.GridWormAligned then
++                    tearData.GridWormAligned = true
++                    
++                    -- A tear that is first seen while it is brand new starts on the axis the character is facing.
++                    if entity.FrameCount <= 1 then
++                        local axis = GridWormAxes[player:GetHeadDirection()]
++                        
++                        if axis == nil and entity.Velocity:Length() > 0.01 then
++                            if math.abs(entity.Velocity.X) >= math.abs(entity.Velocity.Y) then
++                                axis = Vector(entity.Velocity.X < 0 and -1 or 1, 0)
++                            else
++                                axis = Vector(0, entity.Velocity.Y < 0 and -1 or 1)
++                            end
++                        end
++                        
++                        if axis ~= nil then
++                            entity.Velocity = axis * (player.ShotSpeed * 10)
++                        end
++                    end
++                elseif entity:CollidesWithGrid() then
++                    if tearData.GridWormBounceFrame == nil or entity.FrameCount - tearData.GridWormBounceFrame > 3 then
++                        -- One reversal per impact; the tear is given a few frames to travel clear of what it struck.
++                        tearData.GridWormBounceFrame = entity.FrameCount
++                        entity.Velocity = entity.Velocity * -1
++                    end
+                 elseif entity.FrameCount % 10 == 1 and entity.FrameCount > 20 then
+                     local signX = 10
+                     local signY = 10
+@@ -2492,17 +2534,27 @@
+ Exodus:AddCallback(ModCallbacks.MC_USE_ITEM, Exodus.ominousLanternUse, ItemId.OMINOUS_LANTERN)
+ 
+ --<<<BASEBALL MITT>>>--
+-function Exodus:baseballMittUpdate()
+-    local player = Isaac.GetPlayer(0)
+-    
++function Exodus:baseballImpactUpdate()
++    -- Baseballs are only released when the stance ends, so their impact cannot depend on the stance.
+     for i, entity in pairs(Isaac.GetRoomEntities()) do
+-        if entity.Type == EntityType.ENTITY_TEAR and entity.Variant == Entities.BASEBALL.variant and entity:IsDead()
+-            and ItemVariables.BASEBALL_MITT.Used and player:HasCollectible(ItemId.BASEBALL_MITT) then
+-            local hit = Isaac.Spawn(Entities.BASEBALL_HIT.id, Entities.BASEBALL_HIT.variant, 0, entity.Position, NullVector, nil)
+-            hit:ToEffect():SetTimeout(20)
+-            hit.SpriteRotation = rng:RandomInt(360)
++        if entity.Type == EntityType.ENTITY_TEAR and entity.Variant == Entities.BASEBALL.variant and entity:IsDead() then
++            local data = entity:GetData()
++            
++            if not data.BaseballHitSpawned then
++                data.BaseballHitSpawned = true
++                
++                local hit = Isaac.Spawn(Entities.BASEBALL_HIT.id, Entities.BASEBALL_HIT.variant, 0, entity.Position, NullVector, nil)
++                hit:ToEffect():SetTimeout(20)
++                hit.SpriteRotation = rng:RandomInt(360)
++            end
+         end
+     end
++end
++
++Exodus:AddCallback(ModCallbacks.MC_POST_UPDATE, Exodus.baseballImpactUpdate)
++
++function Exodus:baseballMittUpdate()
++    local player = Isaac.GetPlayer(0)
+     
+     if ItemVariables.BASEBALL_MITT.Used and player:HasCollectible(ItemId.BASEBALL_MITT) then
+         player:AddEntityFlags(EntityFlag.FLAG_NO_PHYSICS_KNOCKBACK)
+@@ -3754,13 +3806,20 @@
+ Exodus:AddCallback(ModCallbacks.MC_EVALUATE_CACHE, Exodus.sadTearsCache)
+ 
+ --<<<DEJA VU>>>--
++local DejaVuExcludedFlags = TearFlags.TEAR_BONE | TearFlags.TEAR_SPLIT | TearFlags.TEAR_QUADSPLIT
++
++local function canDejaVuReturn(entity)
++    -- Tears that break into other tears already have a death effect of their own.
++    return entity:ToTear().TearFlags & DejaVuExcludedFlags == 0 and entity.Variant ~= Entities.FIREBALL_2.variant
++end
++
+ function Exodus:dejaVuUpdate()
+     local player = Isaac.GetPlayer(0)
+     
+     if player:HasCollectible(ItemId.DEJA_VU) then
+         for i, entity in pairs(Isaac.GetRoomEntities()) do
+             if entity.Type == EntityType.ENTITY_TEAR and entity:GetData().ReturnChance == nil and entity:IsDead() then
+-                if entity:ToTear().TearFlags & TearFlags.TEAR_BONE == 0 and entity:ToTear().TearFlags & TearFlags.TEAR_QUADSPLIT == 0 and entity.Variant ~= Entities.FIREBALL_2.variant then
++                if canDejaVuReturn(entity) then
+                     entity:GetData().ReturnChance = 50 + player.Luck
+                     if rng:RandomInt(100) < entity:GetData().ReturnChance then
+                         local tear = player:FireTear(player.Position, entity.Velocity, true, true, true)
+@@ -3773,7 +3832,7 @@
+                     end
+                 end
+             elseif entity.Type == EntityType.ENTITY_TEAR and entity:GetData().ReturnChance ~= nil and entity:IsDead() then
+-                if entity:ToTear().TearFlags & TearFlags.TEAR_BONE == 0 and entity:ToTear().TearFlags & TearFlags.TEAR_QUADSPLIT == 0 and entity.Variant ~= Entities.FIREBALL_2.variant then
++                if canDejaVuReturn(entity) then
+                     if rng:RandomInt(100) < entity:GetData().ReturnChance then
+                         local tear = player:FireTear(player.Position, entity.Velocity, true, true, true)
+                         tear:GetData().ReturnChance = entity:GetData().ReturnChance // 2
+@@ -4831,7 +4890,10 @@
+                 if entity.SpawnerType == EntityType.ENTITY_PLAYER or entity.SpawnerType == EntityType.ENTITY_FAMILIAR then
+                     if entity.SpawnerType == EntityType.ENTITY_PLAYER or entity.SpawnerVariant == 120 or entity.SpawnerVariant == 80 then
+                         entity.Color = player.TearColor
+-                        entity.Velocity = entity.Velocity - RandomVector()
++                        
++                        -- Young tears only drift at half strength; the usual wobble starts after about twenty frames.
++                        local wobble = entity.FrameCount <= 20 and 0.5 or 1
++                        entity.Velocity = entity.Velocity - RandomVector() * wobble
+                         
+                         if entity.FrameCount == 1 and player:HasCollectible(CollectibleType.COLLECTIBLE_HIVE_MIND) then
+                             entity.CollisionDamage = entity.CollisionDamage * 2

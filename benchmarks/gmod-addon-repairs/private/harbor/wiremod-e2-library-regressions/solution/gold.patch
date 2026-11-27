@@ -1,0 +1,227 @@
+diff --git a/data_static/expression2/tests/runtime/types/array/indexof.txt b/data_static/expression2/tests/runtime/types/array/indexof.txt
+new file mode 100644
+index 00000000..0bb14f7d
+--- /dev/null
++++ b/data_static/expression2/tests/runtime/types/array/indexof.txt
+@@ -0,0 +1,25 @@
++## SHOULD_PASS:EXECUTE
++
++A = array(1, vec2(2), vec(3), vec4(4), "five", ang(6), quat(7), quat(8),
++        matrix(ang(9)), matrix(ang(10)), entity(), noentity(), vec2(13), vec4(14), ang(15),
++        matrix2(16, 16, 16, 16), matrix4(ang(17)), matrix2(18, 18, 18, 18), matrix4(ang(19)))
++
++assert(A:indexOf(1) == 1)
++assert(A:indexOf(vec2(2)) == 2)
++assert(A:indexOf(vec(3)) == 3)
++assert(A:indexOf(vec4(4)) == 4)
++assert(A:indexOf("five") == 5)
++assert(A:indexOf(ang(6)) == 6)
++assert(A:indexOf(quat(7)) == 7)
++assert(A:indexOf(quat(8)) == 8)
++assert(A:indexOf(matrix(ang(9))) == 9)
++assert(A:indexOf(matrix(ang(10))) == 10)
++assert(A:indexOf(entity()) == 11)
++assert(A:indexOf(noentity()) == 12)
++assert(A:indexOf(vec2(13)) == 13)
++assert(A:indexOf(vec4(14)) == 14)
++assert(A:indexOf(ang(15)) == 15)
++assert(A:indexOf(matrix2(16, 16, 16, 16)) == 16)
++assert(A:indexOf(matrix4(ang(17))) == 17)
++assert(A:indexOf(matrix2(18, 18, 18, 18)) == 18)
++assert(A:indexOf(matrix4(ang(19))) == 19)
+diff --git a/lua/entities/gmod_wire_expression2/base/compiler.lua b/lua/entities/gmod_wire_expression2/base/compiler.lua
+index 4978286b..0f65e7e9 100644
+--- a/lua/entities/gmod_wire_expression2/base/compiler.lua
++++ b/lua/entities/gmod_wire_expression2/base/compiler.lua
+@@ -1412,17 +1412,17 @@ local CompileVisitors = {
+ 			end
+ 
+ 			return function(state) ---@param state RuntimeContext
+-				local array = {}
++				local array, arraytypes = {}, {}
+ 
+ 				for i = 1, len do
+ 					table_perf_inc(state)
+-
+ 					array[i] = args[i](state)
++					arraytypes[i] = argtypes[i]
+ 				end
+ 
+ 				local ret = newE2Table()
+ 				ret.n = array
+-				ret.ntypes = argtypes
++				ret.ntypes = arraytypes
+ 				ret.size = len
+ 				return ret
+ 			end, "t"
+diff --git a/lua/entities/gmod_wire_expression2/core/array.lua b/lua/entities/gmod_wire_expression2/core/array.lua
+index f1251cd3..5eba1f22 100644
+--- a/lua/entities/gmod_wire_expression2/core/array.lua
++++ b/lua/entities/gmod_wire_expression2/core/array.lua
+@@ -66,6 +66,21 @@ end
+ --------------------------------------------------------------------------------
+ registerCallback( "postinit", function()
+ 	local NO_LEGACY = { legacy = false }
++
++	-- Generic indexof function, created here to avoid recreating in the loop
++	local function default_indexof(self, args)
++		local arr, val = args[1], args[2]
++		local l = #arr
++		for i = 1, l do
++			if arr[i] == val then
++				self.prf = self.prf + i
++				return i
++			end
++		end
++		self.prf = self.prf + l
++		return 0
++	end
++
+ 	for k,v in pairs( wire_expression_types ) do
+ 		local name = k:lower()
+ 		if name == "normal" then name = "number" end
+@@ -217,19 +232,31 @@ registerCallback( "postinit", function()
+ 			end, nil, nil, NO_LEGACY)
+ 
+ 			-- indexOf
+-
+-			registerFunction("indexOf", "r:" .. id, "n", function(self, args)
+-				local arr, val = args[1], args[2]
+-				local l = #arr
+-				for i = 1, l do
+-					if arr[i] == val then
+-						self.prf = self.prf + i
+-						return i
++			do
++				-- Check if there's an equals function
++				local eq_fn = wire_expression2_funcs["op:eq(" .. id .. id .. ")"]
++				-- Use a predefined default that uses == if not
++				local fn_to_reg = default_indexof
++				-- If there is, create a function that uses that
++				if eq_fn then
++					local eq = eq_fn[3]
++					fn_to_reg = function(self, args)
++						local arr, val = args[1], args[2]
++						local l = #arr
++						for i = 1, l do
++							local v = arr[i]
++							if not (typecheck(v) or typecheck(val)) and eq(self, arr[i], val) ~= 0 then
++								self.prf = self.prf + i
++								return i
++							end
++						end
++						self.prf = self.prf + l
++						return 0
+ 					end
+ 				end
+-				self.prf = self.prf + l
+-				return 0
+-			end, nil, { "value" }, NO_LEGACY)
++
++				registerFunction("indexOf", "r:" .. id, "n", fn_to_reg, nil, { "value" }, NO_LEGACY)
++			end
+ 
+ 			--------------------------------------------------------------------------------
+ 			-- Foreach operators
+diff --git a/lua/entities/gmod_wire_expression2/core/complex.lua b/lua/entities/gmod_wire_expression2/core/complex.lua
+index 4f38ebea..f87e1425 100644
+--- a/lua/entities/gmod_wire_expression2/core/complex.lua
++++ b/lua/entities/gmod_wire_expression2/core/complex.lua
+@@ -18,8 +18,8 @@ local atan2 = math.atan2
+ local function format(value)
+ 	local dbginfo
+ 
+-	if abs(value[1]) < 0 then
+-		if abs(value[2]) < 0 then
++	if abs(value[1]) <= 0 then
++		if abs(value[2]) <= 0 then
+ 			dbginfo = "0"
+ 		else
+ 			dbginfo = Round(value[2]*1000)/1000 .. "i"
+@@ -28,7 +28,7 @@ local function format(value)
+ 		if value[2] > 0 then
+ 			dbginfo = Round(value[1]*1000)/1000 .. "+" .. Round(value[2]*1000)/1000 .. "i"
+ 		elseif abs(value[2]) <= 0 then
+-			dbginfo = Round(value[1]*1000)/1000
++			dbginfo = tostring(Round(value[1]*1000)/1000)
+ 		elseif value[2] < 0 then
+ 			dbginfo = Round(value[1]*1000)/1000 .. Round(value[2]*1000)/1000 .. "i"
+ 		end
+diff --git a/lua/entities/gmod_wire_expression2/core/number.lua b/lua/entities/gmod_wire_expression2/core/number.lua
+index de7c7dcd..dba9ae68 100644
+--- a/lua/entities/gmod_wire_expression2/core/number.lua
++++ b/lua/entities/gmod_wire_expression2/core/number.lua
+@@ -581,10 +581,15 @@ __e2setcost(10)
+ local CHARS = string.Split("0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ", "")
+ 
+ local function tobase(number, base, self)
+-	if base < 2 or base > 36 or base ~= base or number == 0 or number ~= number then return "0" end
+-	if base == 10 then return tostring(number) end
+ 	if number < 0 then return "-" .. tobase(-number, base, self) end
+ 
++	base = floor(base)
++	if base == 10 then return tostring(number) end
++	if base ~= base or base < 2 or base > 36 then return "0" end
++
++	number = floor(number)
++	if number ~= number or number == 0 then return "0" end
++
+ 	local out, loops, d = {}, floor(log(number) / log(base)) + 1, 0
+ 	if loops == inf then return "inf" end
+ 
+diff --git a/lua/entities/gmod_wire_expression2/core/string.lua b/lua/entities/gmod_wire_expression2/core/string.lua
+index 33f3e255..bbdd8686 100644
+--- a/lua/entities/gmod_wire_expression2/core/string.lua
++++ b/lua/entities/gmod_wire_expression2/core/string.lua
+@@ -120,7 +120,7 @@ local utf8_byte = utf8.codepoint
+ __e2setcost(1)
+ 
+ e2function string toChar(number n)
+-	if n < 0 or n > 255 then return self:throw("Invalid argument (" .. n .. ") (must be between 0 and 255)", "") end
++	if n ~= n or n < 0 or n > 255 then return self:throw("Invalid argument (" .. n .. ") (must not be NaN and be between 0 and 255)", "") end
+ 	return string_char(n)
+ end
+ 
+@@ -139,7 +139,7 @@ local math_floor = math.floor
+ e2function string toUnicodeChar(number byte)
+ 	-- upper limit used to be 2097152, new limit acquired using pcall and a for loop
+ 	-- above this limit, the function causes a lua error
+-	if byte < 1 or byte > 1114112 then return self:throw("Invalid argument (" .. byte .. ") (must be between 1 and 1,114,112)", "") end
++	if byte ~= byte or byte < 1 or byte > 1114112 then return self:throw("Invalid argument (" .. byte .. ") (must not be NaN and be between 1 and 1,114,112)", "") end
+ 	return utf8_char(byte)
+ end
+ 
+diff --git a/lua/entities/gmod_wire_expression2/core/vector.lua b/lua/entities/gmod_wire_expression2/core/vector.lua
+index 07b6a440..7a3567e9 100644
+--- a/lua/entities/gmod_wire_expression2/core/vector.lua
++++ b/lua/entities/gmod_wire_expression2/core/vector.lua
+@@ -477,11 +477,11 @@ e2function vector clamp(vector value, vector min, vector max)
+ 	local rx3, ry3, rz3 = max:Unpack()
+ 
+ 	if rx1 < rx2 then
+-		p = rx2
++		x = rx2
+ 	elseif rx1 > rx3 then
+-		p = rx3
++		x = rx3
+ 	else
+-		p = rx1
++		x = rx1
+ 	end
+ 
+ 	if ry1 < ry2 then
+@@ -493,11 +493,11 @@ e2function vector clamp(vector value, vector min, vector max)
+ 	end
+ 
+ 	if rz1 < rz2 then
+-		r = rz2
++		z = rz2
+ 	elseif rz1 > rz3 then
+-		r = rz3
++		z = rz3
+ 	else
+-		r = rz1
++		z = rz1
+ 	end
+ 
+ 	return Vector(x, y, z)

@@ -1,0 +1,13 @@
+diff --git a/main.lua b/main.lua
+--- a/main.lua
++++ b/main.lua
+@@ -3199,7 +3199,8 @@
+             sprite:Play("Appear", false)
+             mat.Visible = false
+             
+-            ItemVariables.WELCOME_MAT.Position = mat.Position
++            ItemVariables.WELCOME_MAT.Position.X = mat.Position.X
++            ItemVariables.WELCOME_MAT.Position.Y = mat.Position.Y
+             mat:Remove()
+         elseif ItemVariables.WELCOME_MAT.AppearFrame ~= nil then
+             local mat = Isaac.Spawn(Entities.WELCOME_MAT.id, 0, 0, ItemVariables.WELCOME_MAT.Position, Vector(0, 0), player)

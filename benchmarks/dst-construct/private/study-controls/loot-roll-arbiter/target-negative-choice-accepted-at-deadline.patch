@@ -1,0 +1,11 @@
+--- a/scripts/lootroll/arbiter.lua
++++ b/scripts/lootroll/arbiter.lua
+@@ -348,7 +348,7 @@
+     if roll == nil then
+         return fail("unknown_roll")
+     end
+-    if roll.status ~= "open" or now >= roll.deadline then
++    if roll.status ~= "open" or now > roll.deadline then
+         return fail("roll_closed")
+     end
+     if not is_id(player_id) or not is_member(roll, player_id) then

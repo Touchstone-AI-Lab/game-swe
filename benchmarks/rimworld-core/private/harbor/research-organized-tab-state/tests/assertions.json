@@ -1,0 +1,342 @@
+{
+  "schemaVersion": 3,
+  "protocol": "rhenium-rimworld-private-v3",
+  "adapter": "rhenium-rimworld-observer-v3",
+  "taskKey": "rimworld/core/research-organized-tab-state",
+  "weights": {
+    "submissionShape": 10,
+    "engineAssertions": 90
+  },
+  "cases": [
+    {
+      "id": "runtime-defs-ready",
+      "fixture": "RuntimeDefsReady",
+      "gate": true,
+      "scalars": [],
+      "expected": {
+        "facts": [
+          {
+            "name": "result",
+            "value": "ready"
+          }
+        ],
+        "outputs": []
+      }
+    },
+    {
+      "id": "entry-without-game",
+      "fixture": "EntryWithoutGame",
+      "gate": false,
+      "scalars": [],
+      "expected": {
+        "facts": [
+          {
+            "name": "result",
+            "value": "True"
+          }
+        ],
+        "outputs": []
+      }
+    },
+    {
+      "id": "uninitialized-flags",
+      "fixture": "UninitializedFlags",
+      "gate": false,
+      "scalars": [],
+      "expected": {
+        "facts": [
+          {
+            "name": "result",
+            "value": "True"
+          }
+        ],
+        "outputs": []
+      }
+    },
+    {
+      "id": "collapse-default",
+      "fixture": "CollapseDefault",
+      "gate": false,
+      "scalars": [],
+      "expected": {
+        "facts": [
+          {
+            "name": "result",
+            "value": "True"
+          }
+        ],
+        "outputs": []
+      }
+    },
+    {
+      "id": "flags-follow-tabs",
+      "fixture": "FlagsFollowTabs",
+      "gate": false,
+      "scalars": [],
+      "expected": {
+        "facts": [
+          {
+            "name": "result",
+            "value": "True"
+          }
+        ],
+        "outputs": []
+      }
+    },
+    {
+      "id": "expand-from-combined",
+      "fixture": "ExpandFromCombined",
+      "gate": false,
+      "scalars": [],
+      "expected": {
+        "facts": [
+          {
+            "name": "result",
+            "value": "True"
+          }
+        ],
+        "outputs": []
+      }
+    },
+    {
+      "id": "restored-defaults",
+      "fixture": "RestoredDefaults",
+      "gate": false,
+      "scalars": [],
+      "expected": {
+        "facts": [
+          {
+            "name": "result",
+            "value": "True"
+          }
+        ],
+        "outputs": []
+      }
+    },
+    {
+      "id": "new-tab-default-true",
+      "fixture": "NewTabDefaultTrue",
+      "gate": false,
+      "scalars": [],
+      "expected": {
+        "facts": [
+          {
+            "name": "result",
+            "value": "True"
+          }
+        ],
+        "outputs": []
+      }
+    },
+    {
+      "id": "new-tab-default-false",
+      "fixture": "NewTabDefaultFalse",
+      "gate": false,
+      "scalars": [],
+      "expected": {
+        "facts": [
+          {
+            "name": "result",
+            "value": "True"
+          }
+        ],
+        "outputs": []
+      }
+    },
+    {
+      "id": "repeated-relayout",
+      "fixture": "RepeatedRelayout",
+      "gate": false,
+      "scalars": [],
+      "expected": {
+        "facts": [
+          {
+            "name": "result",
+            "value": "True"
+          }
+        ],
+        "outputs": []
+      }
+    },
+    {
+      "id": "closed-window-tabs",
+      "fixture": "ClosedWindowTabs",
+      "gate": false,
+      "scalars": [],
+      "expected": {
+        "facts": [
+          {
+            "name": "result",
+            "value": "True"
+          }
+        ],
+        "outputs": []
+      }
+    },
+    {
+      "id": "hidden-current-tab",
+      "fixture": "HiddenCurrentTab",
+      "gate": false,
+      "scalars": [],
+      "expected": {
+        "facts": [
+          {
+            "name": "result",
+            "value": "True"
+          }
+        ],
+        "outputs": []
+      }
+    },
+    {
+      "id": "selected-project-preserved",
+      "fixture": "SelectedProjectPreserved",
+      "gate": false,
+      "scalars": [],
+      "expected": {
+        "facts": [
+          {
+            "name": "result",
+            "value": "True"
+          }
+        ],
+        "outputs": []
+      }
+    },
+    {
+      "id": "current-tab-preserved",
+      "fixture": "CurrentTabPreserved",
+      "gate": false,
+      "scalars": [],
+      "expected": {
+        "facts": [
+          {
+            "name": "result",
+            "value": "True"
+          }
+        ],
+        "outputs": []
+      }
+    },
+    {
+      "id": "explicit-closed-refresh",
+      "fixture": "ExplicitClosedRefresh",
+      "gate": false,
+      "scalars": [],
+      "expected": {
+        "facts": [
+          {
+            "name": "result",
+            "value": "True"
+          }
+        ],
+        "outputs": []
+      }
+    },
+    {
+      "id": "edited-visibility-preserved",
+      "fixture": "EditedVisibilityPreserved",
+      "gate": false,
+      "scalars": [],
+      "expected": {
+        "facts": [
+          {
+            "name": "result",
+            "value": "True"
+          }
+        ],
+        "outputs": []
+      }
+    },
+    {
+      "id": "selected-project-tab-preferred",
+      "fixture": "SelectedProjectTabPreferred",
+      "gate": false,
+      "scalars": [],
+      "expected": {
+        "facts": [
+          {
+            "name": "result",
+            "value": "True"
+          }
+        ],
+        "outputs": []
+      }
+    },
+    {
+      "id": "closed-view-recomputed",
+      "fixture": "ClosedViewRecomputed",
+      "gate": false,
+      "scalars": [],
+      "expected": {
+        "facts": [
+          {
+            "name": "result",
+            "value": "True"
+          }
+        ],
+        "outputs": []
+      }
+    },
+    {
+      "id": "open-view-recomputed",
+      "fixture": "OpenViewRecomputed",
+      "gate": false,
+      "scalars": [],
+      "expected": {
+        "facts": [
+          {
+            "name": "result",
+            "value": "True"
+          }
+        ],
+        "outputs": []
+      }
+    },
+    {
+      "id": "open-window-relayout",
+      "fixture": "OpenWindowRelayout",
+      "gate": false,
+      "scalars": [],
+      "expected": {
+        "facts": [
+          {
+            "name": "result",
+            "value": "True"
+          }
+        ],
+        "outputs": []
+      }
+    },
+    {
+      "id": "explicit-open-refresh",
+      "fixture": "ExplicitOpenRefresh",
+      "gate": false,
+      "scalars": [],
+      "expected": {
+        "facts": [
+          {
+            "name": "result",
+            "value": "True"
+          }
+        ],
+        "outputs": []
+      }
+    },
+    {
+      "id": "fixture-state-restored",
+      "fixture": "FixtureStateRestored",
+      "gate": true,
+      "scalars": [],
+      "expected": {
+        "facts": [
+          {
+            "name": "result",
+            "value": "restored"
+          }
+        ],
+        "outputs": []
+      }
+    }
+  ]
+}

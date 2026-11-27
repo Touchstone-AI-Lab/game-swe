@@ -1,0 +1,12 @@
+diff -u a/advdupe2/lua/advdupe2/sv_clipboard.lua b/advdupe2/lua/advdupe2/sv_clipboard.lua
+--- a/advdupe2/lua/advdupe2/sv_clipboard.lua
++++ b/advdupe2/lua/advdupe2/sv_clipboard.lua
+@@ -681,7 +681,7 @@
+ 		end
+ 
+ 		local is_rope = IsRopeConstraint(Ent) or IsRopeConstraint(Ent2) or IsRopeConstraint(Ent3) or IsRopeConstraint(Ent4)
+-		Player:AddCount(is_rope and "ropeconstraints" or "constraints", Ent)
++		Player:AddCount("ropeconstraints", Ent)
+ 	end
+ 
+ 	Ent.BuildDupeInfo = table.Copy(buildInfo)

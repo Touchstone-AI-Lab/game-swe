@@ -1,0 +1,28 @@
+case	layer	role	public_report
+BlockTrail is enabled	server	sentinel	the plugin enables on the real server
+default config.yml is written on first enable	server	target	requirement 5
+plugin.yml declares the trail command and permissions	server	target	requirement 7
+a broken block is recorded and shown by lookup	server	target	requirement 2; requirement 3; requirement 9; requirement 10
+a placed block records the material it replaced	server	target	requirement 2; requirement 4; requirement 9
+lookup lists every change at a block newest first	server	target	requirement 10; requirement 9
+cancelled changes are not recorded	server	target	requirement 1
+ignored materials are not recorded	server	target	requirement 4; requirement 5
+only the configured worlds are recorded	server	target	requirement 4; requirement 14
+each exploded block is recorded	server	target	requirement 2; requirement 4; requirement 1
+changes.log uses the documented line format	server	target	requirement 6; requirement 2
+player lists an actor's changes with paging	server	target	requirement 11; requirement 8
+lookup and player validate their arguments	server	target	requirement 8; requirement 10; requirement 11
+rollback restores broken and placed blocks	server	target	requirement 12
+rollback undoes changes newest first	server	target	requirement 12
+rollback only touches the actor's changes inside the radius	server	target	requirement 12; requirement 8
+rollback skips blocks that changed since	server	target	requirement 12
+rolled back changes are marked and never rolled back twice	server	target	requirement 12; requirement 6; requirement 9
+rollback validates radius and time	server	target	requirement 8; requirement 12
+a real TNT explosion is recorded and rolled back	server	target	requirement 2; requirement 12
+rollback honours the time window	server	target	requirement 12; requirement 14; requirement 3
+purge removes old changes and rewrites the log	server	target	requirement 13; requirement 3
+reload reads changes and rollback marks from disk	server	target	requirement 14; requirement 6; requirement 3
+permissions are enforced	server	target	requirement 7
+rollback combines actor, radius and time filters	server	target	requirements 12
+malformed commands show usage	server	target	requirement 7
+rollback restores directional block data and skips stale states	server	target	requirement 2; requirement 6; requirement 12

@@ -1,0 +1,9 @@
+{"cases":[
+  {"name":"priority and capability assignment","category":"core","maximum":10},
+  {"name":"event deduplication","category":"core","maximum":8},
+  {"name":"lease expiry and death requeue","category":"fault-injection","maximum":10},
+  {"name":"wave cleanup isolation","category":"core","maximum":10},
+  {"name":"save reload determinism","category":"persistence","maximum":10},
+  {"name":"real enemy and responder assignment","category":"integration","maximum":17},
+  {"name":"active plugin and headless world","category":"integration","maximum":5}
+]}

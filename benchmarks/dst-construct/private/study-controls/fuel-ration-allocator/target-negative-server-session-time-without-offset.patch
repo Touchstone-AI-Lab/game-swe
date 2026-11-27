@@ -1,0 +1,17 @@
+--- a/scripts/components/fuelration.lua
++++ b/scripts/components/fuelration.lua
+@@ -43,13 +43,7 @@
+ -- GetTime() restarts with every server session, the allocator clock does not:
+ -- the offset keeps the time handed to the core at or above the restored clock.
+ function FuelRation:Now()
+-    local now = self.time_offset + GetTime()
+-    local clock = self.allocator:snapshot(0).clock
+-    if now < clock then
+-        self.time_offset = self.time_offset + (clock - now)
+-        now = clock
+-    end
+-    return now
++    return self.time_offset + GetTime()
+ end
+ 
+ -- capacity rounds down and level rounds up, so capacity - level never asks for

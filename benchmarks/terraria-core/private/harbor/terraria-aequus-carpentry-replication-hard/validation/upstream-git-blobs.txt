@@ -1,0 +1,7 @@
+f823418776e7dd54b0f370e3ff1b4befc2bc857d
+a1da9515007a208f5e2f0a6fcb3a762b9c55aba4  Common/Carpentry/BuildBuffsData.cs
+0a772b705ab48611a644c751a776c9513e621483  Common/Carpentry/BuildChallengeSaveData.cs
+5c717989c947753b01418bc379e9545ae4d8d1aa  Common/Carpentry/CarpentryPlayer.cs
+dc7cc7c8a8fbda51e6eccdb16f296e7901761266  Common/Carpentry/CarpentrySystem.cs
+774e3837b94cd722422af5f3b0f8b414b5a09dd3  LICENSE.txt
+0ff77c64af448e9c3d078dbfafc7d1f7f4cd87fc  build.txt

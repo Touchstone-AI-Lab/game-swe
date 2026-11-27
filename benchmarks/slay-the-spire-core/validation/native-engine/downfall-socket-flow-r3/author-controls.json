@@ -1,0 +1,76 @@
+{
+  "schema_version": 1,
+  "validated": true,
+  "catalog_version": "1.4.0",
+  "task": "downfall-socket-flow-r3",
+  "harness": "Rhenium Hub full profile; real Steam game in networkless Linux containers",
+  "fairness_review_sha256": "0889ddffb68436913a5e468b5ff2c82cf008a1cc22a89cac4655ae297f09db17",
+  "task_files_sha256": "181c8db341a24ff946ff57213a01d7a03b4f3ffab7a9f4ef7bbc5d62ca6c7bc8",
+  "matrix_results": [
+    {
+      "variant": "base",
+      "passed": 6,
+      "expected": 13,
+      "complete": true,
+      "failed_case_ids": [
+        "back-reselect-escape",
+        "back-reselect-mouse",
+        "cancel-gem-smith-escape",
+        "cancel-gem-smith-guardian",
+        "cancel-gem-smith-mouse",
+        "cancel-socket-escape",
+        "cancel-socket-mouse"
+      ],
+      "matches_prediction": true,
+      "run_id": "run-c33de43fcf184d9a",
+      "receipt_sha256": "29b62c4deac0cab0968dee9a92e85278ec3de84323879ad2c368dc72d99f3bd7"
+    },
+    {
+      "variant": "gold",
+      "passed": 13,
+      "expected": 13,
+      "complete": true,
+      "failed_case_ids": [],
+      "matches_prediction": true,
+      "run_id": "run-fa8050882363481b",
+      "receipt_sha256": "8043b887fb5d7cd328d713ac137ffab3ef1133d567380f53f7128dadf93e1b8d"
+    },
+    {
+      "variant": "alternative",
+      "passed": 13,
+      "expected": 13,
+      "complete": true,
+      "failed_case_ids": [],
+      "matches_prediction": true,
+      "run_id": "run-db59a32228b74ebf"
+    },
+    {
+      "variant": "back-only",
+      "passed": 10,
+      "expected": 13,
+      "complete": true,
+      "failed_case_ids": [
+        "cancel-gem-smith-escape",
+        "cancel-gem-smith-guardian",
+        "cancel-gem-smith-mouse"
+      ],
+      "matches_prediction": true,
+      "run_id": "run-2c6a116530094d32"
+    },
+    {
+      "variant": "retirement-only",
+      "passed": 9,
+      "expected": 13,
+      "complete": true,
+      "failed_case_ids": [
+        "back-reselect-escape",
+        "back-reselect-mouse",
+        "cancel-socket-escape",
+        "cancel-socket-mouse"
+      ],
+      "matches_prediction": true,
+      "run_id": "run-a881063cdf6146fc"
+    }
+  ],
+  "historical_records": "r2 source, controls and unsuccessful authoring runs are preserved; r3 inherits no historical result"
+}

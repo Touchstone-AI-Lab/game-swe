@@ -1,0 +1,40 @@
+diff -ruN a/Automate/Framework/AutomationFactory.cs b/Automate/Framework/AutomationFactory.cs
+--- a/Automate/Framework/AutomationFactory.cs
++++ b/Automate/Framework/AutomationFactory.cs
+@@ -72,7 +72,7 @@
+                     return new MiniShippingBinMachine(chest, location);
+ 
+                 default:
+-                    if (chest.HasContextTag(ModConstants.StorageTag))
++                    if (chest.HasContextTag(ModConstants.StorageTag) || ModConstants.IsBuiltInStorage(chest))
+                         return new ChestContainer(chest, location, tile);
+                     break;
+             }
+diff -ruN a/Automate/Framework/GenericModConfigMenuIntegrationForAutomate.cs b/Automate/Framework/GenericModConfigMenuIntegrationForAutomate.cs
+--- a/Automate/Framework/GenericModConfigMenuIntegrationForAutomate.cs
++++ b/Automate/Framework/GenericModConfigMenuIntegrationForAutomate.cs
+@@ -309,7 +309,7 @@
+         return itemRepo
+             .GetAll(ItemRegistry.type_object, includeVariants: false)
+             .Concat(itemRepo.GetAll(ItemRegistry.type_bigCraftable, includeVariants: false))
+-            .Where(match => match.Item.HasContextTag(ModConstants.StorageTag))
++            .Where(match => match.Item.HasContextTag(ModConstants.StorageTag) || ModConstants.IsBuiltInStorage(match.Item))
+             .ToDictionary(
+                 match => match.Item.QualifiedItemId,
+                 match => new Func<string>(() => this.GetTranslatedChestName(match.Item.QualifiedItemId))
+diff -ruN a/Automate/Framework/ModConstants.cs b/Automate/Framework/ModConstants.cs
+--- a/Automate/Framework/ModConstants.cs
++++ b/Automate/Framework/ModConstants.cs
+@@ -18,5 +18,12 @@
+                 "BigStoneChest"
+             ];
+         }
++
++        /// <summary>Get whether an item is a vanilla storage container which is recognized by its item type, without needing the <see cref="StorageTag"/> context tag in its data.</summary>
++        /// <param name="item">The item to check.</param>
++        public static bool IsBuiltInStorage(StardewValley.Item item)
++        {
++            return item.QualifiedItemId == "(BC)216"; // mini-fridge
++        }
+     }
+ }

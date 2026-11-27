@@ -1,0 +1,47 @@
+{
+  "schema_version": 1,
+  "runtimes": [
+    {
+      "id": "paper-1.21.11-132-construct",
+      "name": "Paper 1.21.11 build 132 dedicated server",
+      "version": "paper-1.21.11-132",
+      "provider": "official-download",
+      "restricted": false,
+      "host_platforms": [
+        "linux-x64"
+      ],
+      "source": {
+        "kind": "official-download",
+        "files": [
+          {
+            "name": "paper-1.21.11-132.jar",
+            "url": "https://fill-data.papermc.io/v1/objects/5ffef465eeeb5f2a3c23a24419d97c51afd7dbb4923ff42df9a3f58bba1ccfba/paper-1.21.11-132.jar",
+            "sha256": "5ffef465eeeb5f2a3c23a24419d97c51afd7dbb4923ff42df9a3f58bba1ccfba",
+            "size": 54846016
+          }
+        ],
+        "expectedFiles": [
+          "paper-1.21.11-132.jar"
+        ],
+        "sha256": "5ffef465eeeb5f2a3c23a24419d97c51afd7dbb4923ff42df9a3f58bba1ccfba"
+      }
+    }
+  ],
+  "task_bindings": {
+    "coinledger-bank-ledger": [
+      "paper-1.21.11-132-construct"
+    ],
+    "blocktrail-block-log-rollback": [
+      "paper-1.21.11-132-construct"
+    ],
+    "towncrier-timed-announcements": [
+      "paper-1.21.11-132-construct"
+    ],
+    "wardstone-region-protection": [
+      "paper-1.21.11-132-construct"
+    ],
+    "recipesmith-config-recipes": [
+      "paper-1.21.11-132-construct"
+    ]
+  }
+}

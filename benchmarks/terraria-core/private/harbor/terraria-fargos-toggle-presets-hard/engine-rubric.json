@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "mode": "dedicated-server",
+  "cases": [
+    "real_engine_toggle_metadata_snapshot",
+    "real_engine_registry_load_is_fresh",
+    "real_engine_duplicate_identity_is_rejected"
+  ],
+  "client_only_exclusions": [
+    "Preferences-file persistence and local-player preset application are client-owned and remain source-projection assertions."
+  ]
+}

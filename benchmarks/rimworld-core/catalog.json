@@ -1,0 +1,940 @@
+{
+  "id": "rimworld-core",
+  "version": "0.5.0",
+  "game": "rimworld",
+  "name": {
+    "en": "RimWorld real-game C# tasks",
+    "zh": "RimWorld \u771f\u5b9e\u6e38\u620f C# \u4efb\u52a1"
+  },
+  "description": {
+    "en": "Review-stage C# Mod debugging tasks designed for the pinned RimWorld 1.6.4871 Linux client.",
+    "zh": "\u9762\u5411\u56fa\u5b9a RimWorld 1.6.4871 Linux \u5ba2\u6237\u7aef\u7684\u5ba1\u67e5\u9636\u6bb5 C# Mod \u8c03\u8bd5\u4efb\u52a1\u3002"
+  },
+  "tasks": [
+    {
+      "id": "r4-uncraftable-material-basis",
+      "difficulty": "medium",
+      "title": {
+        "en": "Restore R\u2074's material basis for uncraftable gear",
+        "zh": "\u6062\u590d R\u2074 \u5bf9\u4e0d\u53ef\u5236\u9020\u88c5\u5907\u7684\u6750\u6599\u57fa\u51c6"
+      },
+      "summary": {
+        "en": "Repair the missing material basis used by uncraftable reward and ultratech gear.",
+        "zh": "\u4fee\u590d\u5956\u52b1\u88c5\u5907\u4e0e\u8d85\u9ad8\u79d1\u6280\u4e0d\u53ef\u5236\u9020\u88c5\u5907\u7f3a\u5931\u7684\u6750\u6599\u57fa\u51c6\u3002"
+      },
+      "brief": {
+        "en": "Keep craftable-item behavior intact while giving uncraftable gear deterministic repair and clean costs.",
+        "zh": "\u4fdd\u6301\u53ef\u5236\u9020\u7269\u54c1\u884c\u4e3a\u4e0d\u53d8\uff0c\u540c\u65f6\u4e3a\u4e0d\u53ef\u5236\u9020\u88c5\u5907\u63d0\u4f9b\u786e\u5b9a\u6027\u7684\u4fee\u7406\u4e0e\u6e05\u6d01\u6210\u672c\u3002"
+      },
+      "requirements": {
+        "en": [
+          "Preserve a non-empty adjusted crafting cost exactly when one already exists.",
+          "Expose the resolved basis through public static ResolveMaterialBasis(Thing item) so operation code can share it.",
+          "Prefer a non-empty authored R4 material extension when no crafting cost exists.",
+          "Otherwise derive a non-empty material basis from 15% of the definition's non-negative abstract MarketValue, dividing by the bulk material definition's abstract MarketValue and rounding single-precision arithmetic to nearest-even with Unity's Mathf.RoundToInt.",
+          "Use Steel below Spacer technology, Plasteel at Spacer and above, and include two matching components for Industrial or higher technology.",
+          "Treat an undefined technology level as Industrial, and always return at least one bulk material.",
+          "Use the resolved basis for repair-cycle and cleaning-cost calculations while preserving their separate repairHpPerCycle and cleanCostFraction formulas.",
+          "Limit the scored behavior to material-basis resolution and repair/clean costs; recycling randomness, map placement, eligibility, DoRecycleProducts, and SpawnPartialReclaim are out of scope."
+        ],
+        "zh": [
+          "\u5df2\u6709\u975e\u7a7a\u8c03\u6574\u540e\u5236\u9020\u6210\u672c\u65f6\uff0c\u5fc5\u987b\u539f\u6837\u4fdd\u7559\u8be5\u6210\u672c\u3002",
+          "\u901a\u8fc7 public static ResolveMaterialBasis(Thing item) \u66b4\u9732\u89e3\u6790\u7ed3\u679c\uff0c\u4f9b\u5404\u64cd\u4f5c\u5171\u7528\u3002",
+          "\u6ca1\u6709\u5236\u9020\u6210\u672c\u65f6\uff0c\u4f18\u5148\u4f7f\u7528\u975e\u7a7a\u7684 R4 \u4eba\u5de5\u6750\u6599\u6269\u5c55\u3002",
+          "\u4ecd\u65e0\u6750\u6599\u65f6\uff0c\u4ee5\u5b9a\u4e49\u7684\u975e\u8d1f\u62bd\u8c61 MarketValue \u7684 15% \u9664\u4ee5\u5927\u5b97\u6750\u6599\u5b9a\u4e49\u7684\u62bd\u8c61 MarketValue\uff0c\u4f7f\u7528\u5355\u7cbe\u5ea6\u8ba1\u7b97\u53ca Unity Mathf.RoundToInt \u7684\u534a\u6574\u6570\u53d6\u5076\u89c4\u5219\u751f\u6210\u975e\u7a7a\u6750\u6599\u57fa\u51c6\u3002",
+          "Spacer \u4ee5\u4e0b\u4f7f\u7528 Steel\uff0cSpacer \u53ca\u4ee5\u4e0a\u4f7f\u7528 Plasteel\uff1bIndustrial \u53ca\u4ee5\u4e0a\u5305\u542b\u4e24\u4e2a\u5bf9\u5e94\u7ec4\u4ef6\u3002",
+          "\u672a\u5b9a\u4e49\u79d1\u6280\u7b49\u7ea7\u6309 Industrial \u5904\u7406\uff0c\u5e76\u59cb\u7ec8\u81f3\u5c11\u8fd4\u56de\u4e00\u4e2a\u5927\u5b97\u6750\u6599\u3002",
+          "\u4fee\u7406\u5468\u671f\u4e0e\u6e05\u6d01\u6210\u672c\u8ba1\u7b97\u5fc5\u987b\u4f7f\u7528\u89e3\u6790\u540e\u7684\u6750\u6599\u57fa\u51c6\uff0c\u540c\u65f6\u5206\u522b\u4fdd\u7559 repairHpPerCycle \u4e0e cleanCostFraction \u516c\u5f0f\u3002",
+          "\u8bc4\u5206\u4ec5\u8986\u76d6\u6750\u6599\u57fa\u51c6\u4e0e\u4fee\u7406/\u6e05\u6d01\u6210\u672c\uff1b\u968f\u673a\u56de\u6536\u3001\u5730\u56fe\u653e\u7f6e\u3001eligibility\u3001DoRecycleProducts \u548c SpawnPartialReclaim \u4e0d\u5728\u8303\u56f4\u5185\u3002"
+        ]
+      },
+      "api_usage": {
+        "en": [
+          "Use the supplied Verse, RimWorld and Unity APIs; do not bundle their assemblies."
+        ],
+        "zh": [
+          "\u4f7f\u7528\u63d0\u4f9b\u7684 Verse\u3001RimWorld \u4e0e Unity API\uff1b\u4e0d\u5f97\u6346\u7ed1\u5176\u7a0b\u5e8f\u96c6\u3002"
+        ]
+      },
+      "acceptance": {
+        "en": [
+          "All 38 private protocol v2 assertions must complete in the pinned real game without network access."
+        ],
+        "zh": [
+          "private protocol v2 \u7684\u5168\u90e8 38 \u9879\u65ad\u8a00\u5fc5\u987b\u5728\u56fa\u5b9a\u7684\u771f\u5b9e\u6e38\u620f\u4e2d\u65e0\u7f51\u7edc\u5b8c\u6210\u3002"
+        ]
+      },
+      "domains": [
+        "csharp",
+        "debugging",
+        "rimworld-mod",
+        "real-game-runtime"
+      ],
+      "estimated_minutes": 120,
+      "required_files": [
+        "R4/Source/Utility/MaterialUtility.cs",
+        "R4/Source/Defs/R4MaterialCostExtension.cs"
+      ],
+      "task_kind": "debugging",
+      "source_mod": "R\u2074",
+      "source_commit": "db9e85bc758c402e53c55dd19ca8a588899f139c",
+      "source_target_commit": "7fbf158f4b988a6f806cc609282175143a3a41a6",
+      "source_license": "MIT",
+      "game_version": "1.6.4871",
+      "unity_version": "2022.3.35f1",
+      "target_framework": "net472",
+      "harmony_version": "2.4.2",
+      "private_protocol": "rhenium-rimworld-private-v2",
+      "expected_assertions": 38,
+      "starter_root": "R4",
+      "package_id": "cheatereater.rrrr",
+      "assembly_name": "RRRR",
+      "mod_metadata_path": "tests/ModMetadata/R4/About.xml"
+    },
+    {
+      "id": "r4-small-bench-ingredient-consumption",
+      "difficulty": "hard",
+      "title": {
+        "en": "Consume repair ingredients placed around small workbenches",
+        "zh": "Consume repair ingredients placed around small workbenches"
+      },
+      "summary": {
+        "en": "Make repair consumption follow vanilla ingredient placement around one-cell benches without consuming unrelated stacks.",
+        "zh": "Make repair consumption follow vanilla ingredient placement around one-cell benches without consuming unrelated stacks."
+      },
+      "brief": {
+        "en": "Make repair consumption follow vanilla ingredient placement around one-cell benches without consuming unrelated stacks.",
+        "zh": "Make repair consumption follow vanilla ingredient placement around one-cell benches without consuming unrelated stacks."
+      },
+      "requirements": {
+        "en": [
+          "Consume requested item stacks first from the bill giver's ingredient stack cells, ordered by distance from its interaction cell.",
+          "If those cells do not satisfy the request, continue through vanilla-equivalent radial placement cells around the interaction cell.",
+          "Ignore out-of-bounds cells, already visited cells, the bench itself, non-item things, and impassable edifices with no usable surface.",
+          "Aggregate duplicate positive costs, ignore null or non-positive cost entries, consume no more than requested, and stop once all requirements are satisfied.",
+          "Preserve large-bench behavior and all unrelated material, repair, cleaning, recycling, hauling, and placement behavior."
+        ],
+        "zh": [
+          "Consume requested item stacks first from the bill giver's ingredient stack cells, ordered by distance from its interaction cell.",
+          "If those cells do not satisfy the request, continue through vanilla-equivalent radial placement cells around the interaction cell.",
+          "Ignore out-of-bounds cells, already visited cells, the bench itself, non-item things, and impassable edifices with no usable surface.",
+          "Aggregate duplicate positive costs, ignore null or non-positive cost entries, consume no more than requested, and stop once all requirements are satisfied.",
+          "Preserve large-bench behavior and all unrelated material, repair, cleaning, recycling, hauling, and placement behavior."
+        ]
+      },
+      "api_usage": {
+        "en": [
+          "Use the supplied RimWorld Core, Verse, Unity and Harmony APIs; do not bundle assemblies or require DLC or another Mod."
+        ],
+        "zh": [
+          "\u4ec5\u4f7f\u7528\u63d0\u4f9b\u7684 RimWorld Core\u3001Verse\u3001Unity \u4e0e Harmony API\uff1b\u4e0d\u5f97\u6346\u7ed1\u7a0b\u5e8f\u96c6\uff0c\u4e5f\u4e0d\u5f97\u4f9d\u8d56 DLC \u6216\u5176\u4ed6 Mod\u3002"
+        ]
+      },
+      "acceptance": {
+        "en": [
+          "All 16 private protocol v3 assertions must complete in the pinned real game without network access."
+        ],
+        "zh": [
+          "private protocol v3 \u7684\u5168\u90e8 16 \u9879\u65ad\u8a00\u5fc5\u987b\u5728\u56fa\u5b9a\u771f\u5b9e\u6e38\u620f\u4e2d\u65e0\u7f51\u7edc\u5b8c\u6210\u3002"
+        ]
+      },
+      "domains": [
+        "csharp",
+        "debugging",
+        "rimworld-mod",
+        "real-game-runtime"
+      ],
+      "estimated_minutes": 150,
+      "required_files": [
+        "R4/Source/Utility/MaterialUtility.cs"
+      ],
+      "task_kind": "debugging",
+      "source_mod": "R\u2074",
+      "source_commit": "40daa82d0bcc65d6542a6acb81515e808f6d4184",
+      "source_target_commit": "259c5d3992b2603b1a07e8d3db4b2446140874df",
+      "source_license": "MIT",
+      "game_version": "1.6.4871",
+      "unity_version": "2022.3.35f1",
+      "target_framework": "net472",
+      "harmony_version": "2.4.2",
+      "private_protocol": "rhenium-rimworld-private-v3",
+      "starter_root": "R4",
+      "package_id": "cheatereater.rrrr",
+      "assembly_name": "RRRR",
+      "mod_metadata_path": "tests/ModMetadata/R4/About.xml",
+      "expected_assertions": 16
+    },
+    {
+      "id": "project-rimfactory-cultivator-environment",
+      "difficulty": "hard",
+      "title": {
+        "en": "Use local growing conditions for cultivator planting",
+        "zh": "Use local growing conditions for cultivator planting"
+      },
+      "summary": {
+        "en": "Plant only when the selected cell's season, sowing, blocker, and vacuum conditions allow it.",
+        "zh": "Plant only when the selected cell's season, sowing, blocker, and vacuum conditions allow it."
+      },
+      "brief": {
+        "en": "Plant only when the selected cell's season, sowing, blocker, and vacuum conditions allow it.",
+        "zh": "Plant only when the selected cell's season, sowing, blocker, and vacuum conditions allow it."
+      },
+      "requirements": {
+        "en": [
+          "Evaluate whether the plant can be sown at the selected cell without using the map-wide temperature shortcut.",
+          "Require PlantUtility.GrowthSeasonNow for that exact cell and plant definition.",
+          "Continue to reject adjacent sow blockers and unavailable seed requirements.",
+          "Permit vacuum-resistant plants in vacuum and reject other plants when local vacuum is at least one half.",
+          "Place exactly one plant only after every condition passes; preserve harvesting, foreign-plant removal, zone, output, and selection behavior."
+        ],
+        "zh": [
+          "Evaluate whether the plant can be sown at the selected cell without using the map-wide temperature shortcut.",
+          "Require PlantUtility.GrowthSeasonNow for that exact cell and plant definition.",
+          "Continue to reject adjacent sow blockers and unavailable seed requirements.",
+          "Permit vacuum-resistant plants in vacuum and reject other plants when local vacuum is at least one half.",
+          "Place exactly one plant only after every condition passes; preserve harvesting, foreign-plant removal, zone, output, and selection behavior."
+        ]
+      },
+      "api_usage": {
+        "en": [
+          "Use the supplied RimWorld Core, Verse, Unity and Harmony APIs; do not bundle assemblies or require DLC or another Mod."
+        ],
+        "zh": [
+          "\u4ec5\u4f7f\u7528\u63d0\u4f9b\u7684 RimWorld Core\u3001Verse\u3001Unity \u4e0e Harmony API\uff1b\u4e0d\u5f97\u6346\u7ed1\u7a0b\u5e8f\u96c6\uff0c\u4e5f\u4e0d\u5f97\u4f9d\u8d56 DLC \u6216\u5176\u4ed6 Mod\u3002"
+        ]
+      },
+      "acceptance": {
+        "en": [
+          "All 12 private protocol v3 assertions must complete in the pinned real game without network access."
+        ],
+        "zh": [
+          "private protocol v3 \u7684\u5168\u90e8 12 \u9879\u65ad\u8a00\u5fc5\u987b\u5728\u56fa\u5b9a\u771f\u5b9e\u6e38\u620f\u4e2d\u65e0\u7f51\u7edc\u5b8c\u6210\u3002"
+        ]
+      },
+      "domains": [
+        "csharp",
+        "debugging",
+        "rimworld-mod",
+        "real-game-runtime"
+      ],
+      "estimated_minutes": 150,
+      "required_files": [
+        "ProjectRimFactory/Source/ProjectRimFactory/CultivatorTools/Building_Cultivator.cs"
+      ],
+      "task_kind": "debugging",
+      "source_mod": "Project RimFactory Revived",
+      "source_commit": "6464e78a570914d0637157f3b55f48fa29f6b9d7",
+      "source_target_commit": "4950a19d60cf8305ebad472b8ec256429cd18b45",
+      "source_license": "MIT",
+      "game_version": "1.6.4871",
+      "unity_version": "2022.3.35f1",
+      "target_framework": "net472",
+      "harmony_version": "2.4.2",
+      "private_protocol": "rhenium-rimworld-private-v3",
+      "starter_root": "ProjectRimFactory",
+      "package_id": "spdskatr.projectrimfactory",
+      "assembly_name": "ProjectRimFactory",
+      "mod_metadata_path": "tests/ModMetadata/ProjectRimFactory/About.xml",
+      "expected_assertions": 12
+    },
+    {
+      "id": "adaptive-storage-slot-limit-restore",
+      "difficulty": "hard",
+      "title": {
+        "en": "Restore a saved storage slot limit after loading",
+        "zh": "Restore a saved storage slot limit after loading"
+      },
+      "summary": {
+        "en": "Force the CurrentSlotLimit setter transition after initialization without exposing a temporary unlimited value.",
+        "zh": "Force the CurrentSlotLimit setter transition after initialization without exposing a temporary unlimited value."
+      },
+      "brief": {
+        "en": "Force the CurrentSlotLimit setter transition after initialization without exposing a temporary unlimited value.",
+        "zh": "Force the CurrentSlotLimit setter transition after initialization without exposing a temporary unlimited value."
+      },
+      "requirements": {
+        "en": [
+          "Capture the saved current slot limit during post-initialization and restore that exact value through the CurrentSlotLimit property setter.",
+          "Before invoking the setter, make the backing value different without overflowing and without exposing int.MaxValue as the final value.",
+          "Recompute the per-cell limit and dependent storage bookkeeping through the existing setter path.",
+          "Preserve default, one-slot, multi-cell, already-unlimited, and repeated-initialization behavior.",
+          "Do not bypass the setter or change unrelated packing, rendering, temperature-control, storage-filter, or serialization behavior."
+        ],
+        "zh": [
+          "Capture the saved current slot limit during post-initialization and restore that exact value through the CurrentSlotLimit property setter.",
+          "Before invoking the setter, make the backing value different without overflowing and without exposing int.MaxValue as the final value.",
+          "Recompute the per-cell limit and dependent storage bookkeeping through the existing setter path.",
+          "Preserve default, one-slot, multi-cell, already-unlimited, and repeated-initialization behavior.",
+          "Do not bypass the setter or change unrelated packing, rendering, temperature-control, storage-filter, or serialization behavior."
+        ]
+      },
+      "api_usage": {
+        "en": [
+          "Use the supplied RimWorld Core, Verse, Unity and Harmony APIs; do not bundle assemblies or require DLC or another Mod."
+        ],
+        "zh": [
+          "\u4ec5\u4f7f\u7528\u63d0\u4f9b\u7684 RimWorld Core\u3001Verse\u3001Unity \u4e0e Harmony API\uff1b\u4e0d\u5f97\u6346\u7ed1\u7a0b\u5e8f\u96c6\uff0c\u4e5f\u4e0d\u5f97\u4f9d\u8d56 DLC \u6216\u5176\u4ed6 Mod\u3002"
+        ]
+      },
+      "acceptance": {
+        "en": [
+          "All 12 private protocol v3 assertions must complete in the pinned real game without network access."
+        ],
+        "zh": [
+          "private protocol v3 \u7684\u5168\u90e8 12 \u9879\u65ad\u8a00\u5fc5\u987b\u5728\u56fa\u5b9a\u771f\u5b9e\u6e38\u620f\u4e2d\u65e0\u7f51\u7edc\u5b8c\u6210\u3002"
+        ]
+      },
+      "domains": [
+        "csharp",
+        "debugging",
+        "rimworld-mod",
+        "real-game-runtime"
+      ],
+      "estimated_minutes": 150,
+      "required_files": [
+        "AdaptiveStorage/Source/AdaptiveStorage/AdaptiveStorageFrameworkMod.cs",
+        "AdaptiveStorage/Source/AdaptiveStorage/AdaptiveStorageFrameworkSettings.cs",
+        "AdaptiveStorage/Source/AdaptiveStorage/AllowedRequirement.cs",
+        "AdaptiveStorage/Source/AdaptiveStorage/BackCompatibility/CodeInstructionEx.cs",
+        "AdaptiveStorage/Source/AdaptiveStorage/BackCompatibility/DrawPhase.cs",
+        "AdaptiveStorage/Source/AdaptiveStorage/BackCompatibility/GenEx.cs",
+        "AdaptiveStorage/Source/AdaptiveStorage/BackCompatibility/StatModifierQuality.cs",
+        "AdaptiveStorage/Source/AdaptiveStorage/BackCompatibility/StatUtilityEx.cs",
+        "AdaptiveStorage/Source/AdaptiveStorage/Blueprint.cs",
+        "AdaptiveStorage/Source/AdaptiveStorage/ContentColorExtensions.cs",
+        "AdaptiveStorage/Source/AdaptiveStorage/ContentColorSource.cs",
+        "AdaptiveStorage/Source/AdaptiveStorage/ContentLabelStyleDef.cs",
+        "AdaptiveStorage/Source/AdaptiveStorage/ContentLabelStyleDefOf.cs",
+        "AdaptiveStorage/Source/AdaptiveStorage/ContentLabelWorker.cs",
+        "AdaptiveStorage/Source/AdaptiveStorage/ContentsITab.cs",
+        "AdaptiveStorage/Source/AdaptiveStorage/DefEditorWindow.cs",
+        "AdaptiveStorage/Source/AdaptiveStorage/Extension.cs",
+        "AdaptiveStorage/Source/AdaptiveStorage/Fishery/CollectionExtensions.cs",
+        "AdaptiveStorage/Source/AdaptiveStorage/Fishery/Collections/FishSet.Debug.cs",
+        "AdaptiveStorage/Source/AdaptiveStorage/Fishery/Collections/FishSet.Enumerator.cs",
+        "AdaptiveStorage/Source/AdaptiveStorage/Fishery/Collections/FishSet.ThrowHelper.cs",
+        "AdaptiveStorage/Source/AdaptiveStorage/Fishery/Collections/FishSet.cs",
+        "AdaptiveStorage/Source/AdaptiveStorage/Fishery/Collections/IntFishTable.Debug.cs",
+        "AdaptiveStorage/Source/AdaptiveStorage/Fishery/Collections/IntFishTable.Entry.cs",
+        "AdaptiveStorage/Source/AdaptiveStorage/Fishery/Collections/IntFishTable.Enumerator.cs",
+        "AdaptiveStorage/Source/AdaptiveStorage/Fishery/Collections/IntFishTable.KeyCollection.cs",
+        "AdaptiveStorage/Source/AdaptiveStorage/Fishery/Collections/IntFishTable.ThrowHelper.cs",
+        "AdaptiveStorage/Source/AdaptiveStorage/Fishery/Collections/IntFishTable.ValueCollection.cs",
+        "AdaptiveStorage/Source/AdaptiveStorage/Fishery/Collections/IntFishTable.cs",
+        "AdaptiveStorage/Source/AdaptiveStorage/Fishery/Collections/Internal/CollectionThrowHelper.cs",
+        "AdaptiveStorage/Source/AdaptiveStorage/Fishery/Collections/Internal/ReplaceBehaviour.cs",
+        "AdaptiveStorage/Source/AdaptiveStorage/Fishery/Collections/Internal/Tails.cs",
+        "AdaptiveStorage/Source/AdaptiveStorage/Fishery/Collections/NibbleArray.cs",
+        "AdaptiveStorage/Source/AdaptiveStorage/Fishery/Diagnostics/Extensions/TypeExtensions.cs",
+        "AdaptiveStorage/Source/AdaptiveStorage/Fishery/Diagnostics/Extensions/ValueTypeExtensions.cs",
+        "AdaptiveStorage/Source/AdaptiveStorage/Fishery/Diagnostics/Generated/Guard.Collection.g.cs",
+        "AdaptiveStorage/Source/AdaptiveStorage/Fishery/Diagnostics/Generated/Guard.Comparable.Numeric.g.cs",
+        "AdaptiveStorage/Source/AdaptiveStorage/Fishery/Diagnostics/Generated/ThrowHelper.Collection.g.cs",
+        "AdaptiveStorage/Source/AdaptiveStorage/Fishery/Diagnostics/Guard.Boolean.cs",
+        "AdaptiveStorage/Source/AdaptiveStorage/Fishery/Diagnostics/Guard.Comparable.Generic.cs",
+        "AdaptiveStorage/Source/AdaptiveStorage/Fishery/Diagnostics/Guard.Comparable.Numeric.cs",
+        "AdaptiveStorage/Source/AdaptiveStorage/Fishery/Diagnostics/Guard.IO.cs",
+        "AdaptiveStorage/Source/AdaptiveStorage/Fishery/Diagnostics/Guard.String.cs",
+        "AdaptiveStorage/Source/AdaptiveStorage/Fishery/Diagnostics/Guard.Tasks.cs",
+        "AdaptiveStorage/Source/AdaptiveStorage/Fishery/Diagnostics/Guard.cs",
+        "AdaptiveStorage/Source/AdaptiveStorage/Fishery/Diagnostics/Internals/Guard.Collection.Generic.ThrowHelper.cs",
+        "AdaptiveStorage/Source/AdaptiveStorage/Fishery/Diagnostics/Internals/Guard.Comparable.Generic.ThrowHelper.cs",
+        "AdaptiveStorage/Source/AdaptiveStorage/Fishery/Diagnostics/Internals/Guard.Comparable.Numeric.ThrowHelper.cs",
+        "AdaptiveStorage/Source/AdaptiveStorage/Fishery/Diagnostics/Internals/Guard.IO.ThrowHelper.cs",
+        "AdaptiveStorage/Source/AdaptiveStorage/Fishery/Diagnostics/Internals/Guard.String.ThrowHelper.cs",
+        "AdaptiveStorage/Source/AdaptiveStorage/Fishery/Diagnostics/Internals/Guard.Tasks.ThrowHelper.cs",
+        "AdaptiveStorage/Source/AdaptiveStorage/Fishery/Diagnostics/Internals/Guard.ThrowHelper.cs",
+        "AdaptiveStorage/Source/AdaptiveStorage/Fishery/Diagnostics/ThrowHelper.Generic.cs",
+        "AdaptiveStorage/Source/AdaptiveStorage/Fishery/Diagnostics/ThrowHelper.cs",
+        "AdaptiveStorage/Source/AdaptiveStorage/Fishery/Equality.cs",
+        "AdaptiveStorage/Source/AdaptiveStorage/Fishery/FishMath.cs",
+        "AdaptiveStorage/Source/AdaptiveStorage/Fishery/FishTranspiler.cs",
+        "AdaptiveStorage/Source/AdaptiveStorage/Fishery/FunctionPointers/Equals.cs",
+        "AdaptiveStorage/Source/AdaptiveStorage/Fishery/FunctionPointers/MethodFactory.Equals.cs",
+        "AdaptiveStorage/Source/AdaptiveStorage/Fishery/FunctionPointers/MethodFactory.cs",
+        "AdaptiveStorage/Source/AdaptiveStorage/Fishery/Pools/FishPool.cs",
+        "AdaptiveStorage/Source/AdaptiveStorage/Fishery/Pools/IFishPoolable.cs",
+        "AdaptiveStorage/Source/AdaptiveStorage/Fishery/Pools/PooledIList.cs",
+        "AdaptiveStorage/Source/AdaptiveStorage/Fishery/Pools/PooledList.cs",
+        "AdaptiveStorage/Source/AdaptiveStorage/Fishery/Pools/PooledStringBuilder.cs",
+        "AdaptiveStorage/Source/AdaptiveStorage/Fishery/Pools/PooledStringBuilderHandler.cs",
+        "AdaptiveStorage/Source/AdaptiveStorage/Fishery/Reflection.cs",
+        "AdaptiveStorage/Source/AdaptiveStorage/Fishery/UtilityF.cs",
+        "AdaptiveStorage/Source/AdaptiveStorage/Frame.cs",
+        "AdaptiveStorage/Source/AdaptiveStorage/GizmoUtility.cs",
+        "AdaptiveStorage/Source/AdaptiveStorage/GodModeGizmos.cs",
+        "AdaptiveStorage/Source/AdaptiveStorage/GraphicsDef.cs",
+        "AdaptiveStorage/Source/AdaptiveStorage/GraphicsDefSelector.cs",
+        "AdaptiveStorage/Source/AdaptiveStorage/GroupContentsITab.cs",
+        "AdaptiveStorage/Source/AdaptiveStorage/HarmonyPatches/AddITabToLegacyStorages.cs",
+        "AdaptiveStorage/Source/AdaptiveStorage/HarmonyPatches/AddITabToStockpileZones.cs",
+        "AdaptiveStorage/Source/AdaptiveStorage/HarmonyPatches/AdjustSelectionBracketPosition.cs",
+        "AdaptiveStorage/Source/AdaptiveStorage/HarmonyPatches/AdjustThingTemperature.cs",
+        "AdaptiveStorage/Source/AdaptiveStorage/HarmonyPatches/AutomaticallyOpenTab.cs",
+        "AdaptiveStorage/Source/AdaptiveStorage/HarmonyPatches/CacheZoomAndMousePosition.cs",
+        "AdaptiveStorage/Source/AdaptiveStorage/HarmonyPatches/DeregisteredAtThingGridEvent.cs",
+        "AdaptiveStorage/Source/AdaptiveStorage/HarmonyPatches/EnablePackingOnMinify.cs",
+        "AdaptiveStorage/Source/AdaptiveStorage/HarmonyPatches/FixVanillaVegetarianFilter.cs",
+        "AdaptiveStorage/Source/AdaptiveStorage/HarmonyPatches/HideStorageGizmos.cs",
+        "AdaptiveStorage/Source/AdaptiveStorage/HarmonyPatches/HideStoredThingLabels.cs",
+        "AdaptiveStorage/Source/AdaptiveStorage/HarmonyPatches/HideStoredThingsFromSectionLayerAndOverlayDrawer.cs",
+        "AdaptiveStorage/Source/AdaptiveStorage/HarmonyPatches/ImprovedConfigErrors.cs",
+        "AdaptiveStorage/Source/AdaptiveStorage/HarmonyPatches/InitializeGraphicsDefs.cs",
+        "AdaptiveStorage/Source/AdaptiveStorage/HarmonyPatches/NotifyItemStackChanged.cs",
+        "AdaptiveStorage/Source/AdaptiveStorage/HarmonyPatches/PreventSelectionInRect.cs",
+        "AdaptiveStorage/Source/AdaptiveStorage/HarmonyPatches/PreventSelectionUnderMouse.cs",
+        "AdaptiveStorage/Source/AdaptiveStorage/HarmonyPatches/RegisteredAtThingGridEvent.cs",
+        "AdaptiveStorage/Source/AdaptiveStorage/HarmonyPatches/RemoveInvalidDefsOnStorageSettingsLoading.cs",
+        "AdaptiveStorage/Source/AdaptiveStorage/HarmonyPatches/ReplaceLegacyStorageInspectString.cs",
+        "AdaptiveStorage/Source/AdaptiveStorage/HarmonyPatches/SaveGameCompatibility.cs",
+        "AdaptiveStorage/Source/AdaptiveStorage/HarmonyPatches/StorageLimit.cs",
+        "AdaptiveStorage/Source/AdaptiveStorage/HarmonyPatches/StoreUtilityPatches.cs",
+        "AdaptiveStorage/Source/AdaptiveStorage/HarmonyPatches/ThingDefStatDrawEntries.cs",
+        "AdaptiveStorage/Source/AdaptiveStorage/HarmonyPatches/UpdateInvalidHaulablesAndMergeables.cs",
+        "AdaptiveStorage/Source/AdaptiveStorage/InspectStringUtility.cs",
+        "AdaptiveStorage/Source/AdaptiveStorage/InspectTabUtility.cs",
+        "AdaptiveStorage/Source/AdaptiveStorage/InternalDefOf.cs",
+        "AdaptiveStorage/Source/AdaptiveStorage/ItemGraphic.cs",
+        "AdaptiveStorage/Source/AdaptiveStorage/ItemGraphicWorker.cs",
+        "AdaptiveStorage/Source/AdaptiveStorage/LabelFormat.cs",
+        "AdaptiveStorage/Source/AdaptiveStorage/LabelFormatUtility.cs",
+        "AdaptiveStorage/Source/AdaptiveStorage/LegacyStorageUtility.cs",
+        "AdaptiveStorage/Source/AdaptiveStorage/Minified.cs",
+        "AdaptiveStorage/Source/AdaptiveStorage/MinifiedExtension.cs",
+        "AdaptiveStorage/Source/AdaptiveStorage/ModCompatibility/ActiveMods.cs",
+        "AdaptiveStorage/Source/AdaptiveStorage/ModCompatibility/LWM.cs",
+        "AdaptiveStorage/Source/AdaptiveStorage/ModCompatibility/Multiplayer.cs",
+        "AdaptiveStorage/Source/AdaptiveStorage/ModCompatibility/PackageIDs.cs",
+        "AdaptiveStorage/Source/AdaptiveStorage/ModCompatibility/PerformanceFish.cs",
+        "AdaptiveStorage/Source/AdaptiveStorage/ModCompatibility/ReflectionUtility.cs",
+        "AdaptiveStorage/Source/AdaptiveStorage/ModCompatibility/SaveOurShip2.cs",
+        "AdaptiveStorage/Source/AdaptiveStorage/ModCompatibility/ToggleableOverlays.cs",
+        "AdaptiveStorage/Source/AdaptiveStorage/OnStartup.cs",
+        "AdaptiveStorage/Source/AdaptiveStorage/PrintDatas/CorpsePrintData.cs",
+        "AdaptiveStorage/Source/AdaptiveStorage/PrintDatas/ITransformableGraphicPrintData.cs",
+        "AdaptiveStorage/Source/AdaptiveStorage/PrintDatas/ITransformableThingPrintData.cs",
+        "AdaptiveStorage/Source/AdaptiveStorage/PrintDatas/MinifiedThingPrintData.cs",
+        "AdaptiveStorage/Source/AdaptiveStorage/PrintDatas/OptimizedPrintData.cs",
+        "AdaptiveStorage/Source/AdaptiveStorage/PrintDatas/PrintData.cs",
+        "AdaptiveStorage/Source/AdaptiveStorage/PrintDatas/UnsupportedGraphicPrintData.cs",
+        "AdaptiveStorage/Source/AdaptiveStorage/PrintDatas/UnsupportedThingPrintData.cs",
+        "AdaptiveStorage/Source/AdaptiveStorage/RotateInShelvesMode.cs",
+        "AdaptiveStorage/Source/AdaptiveStorage/SpawnMode.cs",
+        "AdaptiveStorage/Source/AdaptiveStorage/StackBehaviour.cs",
+        "AdaptiveStorage/Source/AdaptiveStorage/StatDrawEntries.cs",
+        "AdaptiveStorage/Source/AdaptiveStorage/StatPart.cs",
+        "AdaptiveStorage/Source/AdaptiveStorage/StorageCell.cs",
+        "AdaptiveStorage/Source/AdaptiveStorage/StorageGraphic.cs",
+        "AdaptiveStorage/Source/AdaptiveStorage/StorageGraphicData.cs",
+        "AdaptiveStorage/Source/AdaptiveStorage/StorageGraphicWorker.cs",
+        "AdaptiveStorage/Source/AdaptiveStorage/StorageRenderer.cs",
+        "AdaptiveStorage/Source/AdaptiveStorage/Strings.cs",
+        "AdaptiveStorage/Source/AdaptiveStorage/ThingClass.cs",
+        "AdaptiveStorage/Source/AdaptiveStorage/ThingCollection.cs",
+        "AdaptiveStorage/Source/AdaptiveStorage/ThingGridEventHandler.cs",
+        "AdaptiveStorage/Source/AdaptiveStorage/TransformableGraphicSingle.cs",
+        "AdaptiveStorage/Source/AdaptiveStorage/Utility/BetterQuickSearchWidget.cs",
+        "AdaptiveStorage/Source/AdaptiveStorage/Utility/CellData.cs",
+        "AdaptiveStorage/Source/AdaptiveStorage/Utility/CellTable.cs",
+        "AdaptiveStorage/Source/AdaptiveStorage/Utility/CollectionExtensions.cs",
+        "AdaptiveStorage/Source/AdaptiveStorage/Utility/CommandWithFloatMenu.cs",
+        "AdaptiveStorage/Source/AdaptiveStorage/Utility/Exposable.cs",
+        "AdaptiveStorage/Source/AdaptiveStorage/Utility/GUIScope.cs",
+        "AdaptiveStorage/Source/AdaptiveStorage/Utility/GraphicDataExtensions.cs",
+        "AdaptiveStorage/Source/AdaptiveStorage/Utility/GraphicTransformScope.cs",
+        "AdaptiveStorage/Source/AdaptiveStorage/Utility/IHasPosition.cs",
+        "AdaptiveStorage/Source/AdaptiveStorage/Utility/ItemRenderControls.cs",
+        "AdaptiveStorage/Source/AdaptiveStorage/Utility/ListingExtensions.cs",
+        "AdaptiveStorage/Source/AdaptiveStorage/Utility/MatrixExtensions.cs",
+        "AdaptiveStorage/Source/AdaptiveStorage/Utility/PrintUtility.cs",
+        "AdaptiveStorage/Source/AdaptiveStorage/Utility/ReflectionExtensions.cs",
+        "AdaptiveStorage/Source/AdaptiveStorage/Utility/ScopedStatList.cs",
+        "AdaptiveStorage/Source/AdaptiveStorage/Utility/ScopedValue.cs",
+        "AdaptiveStorage/Source/AdaptiveStorage/Utility/StoreUtilityExtensions.cs",
+        "AdaptiveStorage/Source/AdaptiveStorage/Utility/ThingDefExtensions.cs",
+        "AdaptiveStorage/Source/AdaptiveStorage/Utility/ThingExtensions.cs",
+        "AdaptiveStorage/Source/AdaptiveStorage/Utility/ThingFilterExtensions.cs",
+        "AdaptiveStorage/Source/AdaptiveStorage/Utility/ThingMakerUtility.cs",
+        "AdaptiveStorage/Source/AdaptiveStorage/Utility/UIHelpers.cs",
+        "AdaptiveStorage/Source/AdaptiveStorage/Utility/ValuesByQuality.cs",
+        "AdaptiveStorage/Source/AdaptiveStorage/Utility/VectorExtensions.cs",
+        "AdaptiveStorage/Source/AdaptiveStorage/Utility/WorkerClassMaker.cs",
+        "AdaptiveStorage/Source/ITransformable/ITransformable.cs",
+        "AdaptiveStorage/Source/ITransformable/RotationAngle.cs",
+        "AdaptiveStorage/Source/ITransformable/TransformData.cs"
+      ],
+      "task_kind": "debugging",
+      "source_mod": "Adaptive Storage Framework",
+      "source_commit": "31ee88b46651cfbe37da3f89620bc0b907165cc0",
+      "source_target_commit": "31ee88b46651cfbe37da3f89620bc0b907165cc0",
+      "source_license": "MIT",
+      "game_version": "1.6.4871",
+      "unity_version": "2022.3.35f1",
+      "target_framework": "net472",
+      "harmony_version": "2.4.2",
+      "private_protocol": "rhenium-rimworld-private-v3",
+      "starter_root": "AdaptiveStorage",
+      "package_id": "adaptive.storage.framework",
+      "assembly_name": "AdaptiveStorage",
+      "mod_metadata_path": "tests/ModMetadata/AdaptiveStorage/About.xml",
+      "expected_assertions": 15
+    },
+    {
+      "id": "combat-readiness-colony-wealth",
+      "difficulty": "hard",
+      "title": {
+        "en": "Preserve raw colony wealth for storyteller accounting",
+        "zh": "\u4e3a\u53d9\u4e8b\u8005\u7edf\u8ba1\u4fdd\u7559\u539f\u59cb\u6b96\u6c11\u5730\u8d22\u5bcc"
+      },
+      "summary": {
+        "en": "Return raw armoury and building wealth while preserving vanilla pass-through states.",
+        "zh": "\u8fd4\u56de\u539f\u59cb\u519b\u68b0\u4e0e\u5efa\u7b51\u8d22\u5bcc\uff0c\u540c\u65f6\u4fdd\u7559\u539f\u7248\u76f4\u901a\u72b6\u6001\u3002"
+      },
+      "brief": {
+        "en": "Return raw armoury and building wealth while preserving vanilla pass-through states.",
+        "zh": "\u8fd4\u56de\u539f\u59cb\u519b\u68b0\u4e0e\u5efa\u7b51\u8d22\u5bcc\uff0c\u540c\u65f6\u4fdd\u7559\u539f\u7248\u76f4\u901a\u72b6\u6001\u3002"
+      },
+      "requirements": {
+        "en": [
+          "Let RimWorld's original wealth getter run for non-home maps and fixed-wealth storyteller difficulty.",
+          "For a player-home map in normal wealth mode, override the getter with raw armoury wealth plus the configured percentage of building wealth.",
+          "Do not convert either component through the incident-points curve.",
+          "Preserve zero, fractional, full, and intentionally out-of-range configured building percentages.",
+          "Keep the existing home-map interception and single armoury query behavior."
+        ],
+        "zh": [
+          "\u975e\u73a9\u5bb6\u4e3b\u5730\u56fe\u548c\u56fa\u5b9a\u8d22\u5bcc\u96be\u5ea6\u5e94\u7ee7\u7eed\u8c03\u7528 RimWorld \u539f\u7248\u8d22\u5bcc getter\u3002",
+          "\u666e\u901a\u8d22\u5bcc\u6a21\u5f0f\u7684\u73a9\u5bb6\u4e3b\u5730\u56fe\u5e94\u8fd4\u56de\u539f\u59cb\u519b\u68b0\u8d22\u5bcc\u52a0\u914d\u7f6e\u6bd4\u4f8b\u7684\u5efa\u7b51\u8d22\u5bcc\u3002",
+          "\u4e0d\u5f97\u5c06\u4efb\u4e00\u7ec4\u6210\u90e8\u5206\u518d\u6b21\u901a\u8fc7 incident-points \u66f2\u7ebf\u8f6c\u6362\u3002",
+          "\u4fdd\u7559\u96f6\u3001\u5206\u6570\u3001\u767e\u5206\u4e4b\u767e\u53ca\u6709\u610f\u8d85\u8303\u56f4\u7684\u5efa\u7b51\u8d22\u5bcc\u6bd4\u4f8b\u3002",
+          "\u4fdd\u7559\u4e3b\u5730\u56fe\u62e6\u622a\u548c\u4ec5\u67e5\u8be2\u4e00\u6b21\u519b\u68b0\u8d22\u5bcc\u7684\u65e2\u6709\u884c\u4e3a\u3002"
+        ]
+      },
+      "api_usage": {
+        "en": [
+          "Use the supplied RimWorld Core, Verse, Unity and Harmony APIs; do not bundle assemblies or require DLC or another Mod."
+        ],
+        "zh": [
+          "\u4ec5\u4f7f\u7528\u63d0\u4f9b\u7684 RimWorld Core\u3001Verse\u3001Unity \u4e0e Harmony API\uff1b\u4e0d\u5f97\u6346\u7ed1\u7a0b\u5e8f\u96c6\uff0c\u4e5f\u4e0d\u5f97\u4f9d\u8d56 DLC \u6216\u5176\u4ed6 Mod\u3002"
+        ]
+      },
+      "acceptance": {
+        "en": [
+          "All 16 private protocol v3 assertions must complete in the pinned real game without network access."
+        ],
+        "zh": [
+          "private protocol v3 \u7684\u5168\u90e8 16 \u9879\u65ad\u8a00\u5fc5\u987b\u5728\u56fa\u5b9a\u771f\u5b9e\u6e38\u620f\u4e2d\u65e0\u7f51\u7edc\u5b8c\u6210\u3002"
+        ]
+      },
+      "domains": [
+        "csharp",
+        "debugging",
+        "rimworld-mod",
+        "real-game-runtime"
+      ],
+      "estimated_minutes": 150,
+      "required_files": [
+        "CombatReadinessCheck/Source/CRC_Revivified/MarvsMapWealthForStoryTeller.cs"
+      ],
+      "task_kind": "debugging",
+      "source_mod": "Combat Readiness Check (Continued)",
+      "source_commit": "67f2446e4e6a3d38f7ac3b90c923f4967ee29f86",
+      "source_target_commit": "f9b83ce14d9147510969878ff1bf96ed55d99544",
+      "source_license": "MIT",
+      "game_version": "1.6.4871",
+      "unity_version": "2022.3.35f1",
+      "target_framework": "net472",
+      "harmony_version": "2.4.2",
+      "private_protocol": "rhenium-rimworld-private-v3",
+      "starter_root": "CombatReadinessCheck",
+      "package_id": "mlie.combatreadinesscheck",
+      "assembly_name": "CRC_Revivified",
+      "mod_metadata_path": "tests/ModMetadata/CombatReadinessCheck/About.xml",
+      "expected_assertions": 16
+    },
+    {
+      "id": "customize-weapon-ability-tracker",
+      "difficulty": "hard",
+      "title": {
+        "en": "Manage weapon abilities when a pawn has no tracker",
+        "zh": "Manage weapon abilities when a pawn has no tracker"
+      },
+      "summary": {
+        "en": "Lazily create the holder's ability tracker and synchronize only abilities owned by the equipped component.",
+        "zh": "Lazily create the holder's ability tracker and synchronize only abilities owned by the equipped component."
+      },
+      "brief": {
+        "en": "Lazily create the holder's ability tracker and synchronize only abilities owned by the equipped component.",
+        "zh": "Lazily create the holder's ability tracker and synchronize only abilities owned by the equipped component."
+      },
+      "requirements": {
+        "en": [
+          "Create Pawn_AbilityTracker lazily when an equipped pawn has no tracker and a managed ability must be synchronized.",
+          "Do not create a tracker when there is no current holder or no managed ability definition.",
+          "Add each managed ability once, update its reloadable properties, and preserve unrelated abilities.",
+          "Capture managed cooldown and charge state before unequip or replacement, then restore it after reequip or post-load synchronization.",
+          "Remove abilities no longer managed, prune stale stored state, tolerate null/duplicate properties, and preserve reload behavior."
+        ],
+        "zh": [
+          "Create Pawn_AbilityTracker lazily when an equipped pawn has no tracker and a managed ability must be synchronized.",
+          "Do not create a tracker when there is no current holder or no managed ability definition.",
+          "Add each managed ability once, update its reloadable properties, and preserve unrelated abilities.",
+          "Capture managed cooldown and charge state before unequip or replacement, then restore it after reequip or post-load synchronization.",
+          "Remove abilities no longer managed, prune stale stored state, tolerate null/duplicate properties, and preserve reload behavior."
+        ]
+      },
+      "api_usage": {
+        "en": [
+          "Use the supplied RimWorld Core, Verse, Unity and Harmony APIs; do not bundle assemblies or require DLC or another Mod."
+        ],
+        "zh": [
+          "\u4ec5\u4f7f\u7528\u63d0\u4f9b\u7684 RimWorld Core\u3001Verse\u3001Unity \u4e0e Harmony API\uff1b\u4e0d\u5f97\u6346\u7ed1\u7a0b\u5e8f\u96c6\uff0c\u4e5f\u4e0d\u5f97\u4f9d\u8d56 DLC \u6216\u5176\u4ed6 Mod\u3002"
+        ]
+      },
+      "acceptance": {
+        "en": [
+          "All 18 private protocol v3 assertions must complete in the pinned real game without network access."
+        ],
+        "zh": [
+          "private protocol v3 \u7684\u5168\u90e8 18 \u9879\u65ad\u8a00\u5fc5\u987b\u5728\u56fa\u5b9a\u771f\u5b9e\u6e38\u620f\u4e2d\u65e0\u7f51\u7edc\u5b8c\u6210\u3002"
+        ]
+      },
+      "domains": [
+        "csharp",
+        "debugging",
+        "rimworld-mod",
+        "real-game-runtime"
+      ],
+      "estimated_minutes": 150,
+      "required_files": [
+        "CustomizeWeapon/Source/ThingComps/CompAbilityProvider.cs"
+      ],
+      "task_kind": "debugging",
+      "source_mod": "Customize Weapon",
+      "source_commit": "47cf5e74ab3764242c1fbd833a97cba122c77f1e",
+      "source_target_commit": "37c7140e2b7d6211f0cd6bfa6ed381705b090c81",
+      "source_license": "MIT",
+      "game_version": "1.6.4871",
+      "unity_version": "2022.3.35f1",
+      "target_framework": "net472",
+      "harmony_version": "2.4.2",
+      "private_protocol": "rhenium-rimworld-private-v3",
+      "starter_root": "CustomizeWeapon",
+      "package_id": "vortex.customizeweapon",
+      "assembly_name": "CWF",
+      "mod_metadata_path": "tests/ModMetadata/CustomizeWeapon/About.xml",
+      "expected_assertions": 18
+    },
+    {
+      "id": "total-control-vanilla-gear-generation",
+      "difficulty": "hard",
+      "title": {
+        "en": "Preserve vanilla quality and hit points without overrides",
+        "zh": "Preserve vanilla quality and hit points without overrides"
+      },
+      "summary": {
+        "en": "Generate vanilla pawn-kind quality and gear health when Total Control has no explicit override.",
+        "zh": "Generate vanilla pawn-kind quality and gear health when Total Control has no explicit override."
+      },
+      "brief": {
+        "en": "Generate vanilla pawn-kind quality and gear health when Total Control has no explicit override.",
+        "zh": "Generate vanilla pawn-kind quality and gear health when Total Control has no explicit override."
+      },
+      "requirements": {
+        "en": [
+          "When a requirement explicitly specifies quality, apply it unchanged.",
+          "Otherwise generate quality through QualityUtility.GenerateQualityGeneratingPawn using the pawn kind and generated thing definition.",
+          "For Core-only fixtures, do not invent a Royalty minimum or require a royalty tracker.",
+          "When the thing uses hit points, draw the pawn kind's gearHealthRange and set at least one hit point when the drawn factor is below one.",
+          "Preserve full hit points when the health factor is one, and preserve style, color, material, biocoding, apparel/weapon type checks, and unrelated generation behavior."
+        ],
+        "zh": [
+          "When a requirement explicitly specifies quality, apply it unchanged.",
+          "Otherwise generate quality through QualityUtility.GenerateQualityGeneratingPawn using the pawn kind and generated thing definition.",
+          "For Core-only fixtures, do not invent a Royalty minimum or require a royalty tracker.",
+          "When the thing uses hit points, draw the pawn kind's gearHealthRange and set at least one hit point when the drawn factor is below one.",
+          "Preserve full hit points when the health factor is one, and preserve style, color, material, biocoding, apparel/weapon type checks, and unrelated generation behavior."
+        ]
+      },
+      "api_usage": {
+        "en": [
+          "Use the supplied RimWorld Core, Verse, Unity and Harmony APIs; do not bundle assemblies or require DLC or another Mod."
+        ],
+        "zh": [
+          "\u4ec5\u4f7f\u7528\u63d0\u4f9b\u7684 RimWorld Core\u3001Verse\u3001Unity \u4e0e Harmony API\uff1b\u4e0d\u5f97\u6346\u7ed1\u7a0b\u5e8f\u96c6\uff0c\u4e5f\u4e0d\u5f97\u4f9d\u8d56 DLC \u6216\u5176\u4ed6 Mod\u3002"
+        ]
+      },
+      "acceptance": {
+        "en": [
+          "All 18 private protocol v3 assertions must complete in the pinned real game without network access."
+        ],
+        "zh": [
+          "private protocol v3 \u7684\u5168\u90e8 18 \u9879\u65ad\u8a00\u5fc5\u987b\u5728\u56fa\u5b9a\u771f\u5b9e\u6e38\u620f\u4e2d\u65e0\u7f51\u7edc\u5b8c\u6210\u3002"
+        ]
+      },
+      "domains": [
+        "csharp",
+        "debugging",
+        "rimworld-mod",
+        "real-game-runtime"
+      ],
+      "estimated_minutes": 150,
+      "required_files": [
+        "TotalControl/Source/Patches/ApparelGenPatch.cs",
+        "TotalControl/Source/Patches/WeaponGenPatch.cs"
+      ],
+      "task_kind": "debugging",
+      "source_mod": "Rimsential - Total Control: Continued",
+      "source_commit": "cbaa04179a99e7020f592ab1d9f8cdf893960df6",
+      "source_target_commit": "d58b2691233e4bcf5a803154f0e8ee1ca2558f8e",
+      "source_license": "MIT",
+      "game_version": "1.6.4871",
+      "unity_version": "2022.3.35f1",
+      "target_framework": "net472",
+      "harmony_version": "2.4.2",
+      "private_protocol": "rhenium-rimworld-private-v3",
+      "starter_root": "TotalControl",
+      "package_id": "co.uk.epicguru.factionloadout",
+      "assembly_name": "FactionLoadout",
+      "mod_metadata_path": "tests/ModMetadata/TotalControl/About.xml",
+      "expected_assertions": 18
+    },
+    {
+      "id": "bill-autopilot-repeat-mode-ownership",
+      "difficulty": "hard",
+      "title": {
+        "en": "Preserve foreign bill repeat-mode ownership",
+        "zh": "Preserve foreign bill repeat-mode ownership"
+      },
+      "summary": {
+        "en": "Let foreign repeat modes decide readiness and persist them across automatic bill retirement and recreation.",
+        "zh": "Let foreign repeat modes decide readiness and persist them across automatic bill retirement and recreation."
+      },
+      "brief": {
+        "en": "Let foreign repeat modes decide readiness and persist them across automatic bill retirement and recreation.",
+        "zh": "Let foreign repeat modes decide readiness and persist them across automatic bill retirement and recreation."
+      },
+      "requirements": {
+        "en": [
+          "Treat every non-null repeat mode other than TargetCount, Forever, and RepeatCount as foreign-owned.",
+          "Do not flatten a foreign mode into an Autopilot mode when capturing UI drift.",
+          "Before deleting an owned automatic bill, remember its foreign repeat-mode defName together with compatible external bill memory.",
+          "When recreating the bill, restore a resolvable remembered foreign mode and let its own ShouldDoNow determine materialization and retirement.",
+          "Preserve TargetCount, Forever, RepeatCount, unresolved-mode, busy-bill, name, linked-group, serialization, and normal Autopilot target/floor behavior."
+        ],
+        "zh": [
+          "Treat every non-null repeat mode other than TargetCount, Forever, and RepeatCount as foreign-owned.",
+          "Do not flatten a foreign mode into an Autopilot mode when capturing UI drift.",
+          "Before deleting an owned automatic bill, remember its foreign repeat-mode defName together with compatible external bill memory.",
+          "When recreating the bill, restore a resolvable remembered foreign mode and let its own ShouldDoNow determine materialization and retirement.",
+          "Preserve TargetCount, Forever, RepeatCount, unresolved-mode, busy-bill, name, linked-group, serialization, and normal Autopilot target/floor behavior."
+        ]
+      },
+      "api_usage": {
+        "en": [
+          "Use the supplied RimWorld Core, Verse, Unity and Harmony APIs; do not bundle assemblies or require DLC or another Mod."
+        ],
+        "zh": [
+          "\u4ec5\u4f7f\u7528\u63d0\u4f9b\u7684 RimWorld Core\u3001Verse\u3001Unity \u4e0e Harmony API\uff1b\u4e0d\u5f97\u6346\u7ed1\u7a0b\u5e8f\u96c6\uff0c\u4e5f\u4e0d\u5f97\u4f9d\u8d56 DLC \u6216\u5176\u4ed6 Mod\u3002"
+        ]
+      },
+      "acceptance": {
+        "en": [
+          "All 17 private protocol v3 assertions must complete in the pinned real game without network access."
+        ],
+        "zh": [
+          "private protocol v3 \u7684\u5168\u90e8 17 \u9879\u65ad\u8a00\u5fc5\u987b\u5728\u56fa\u5b9a\u771f\u5b9e\u6e38\u620f\u4e2d\u65e0\u7f51\u7edc\u5b8c\u6210\u3002"
+        ]
+      },
+      "domains": [
+        "csharp",
+        "debugging",
+        "rimworld-mod",
+        "real-game-runtime"
+      ],
+      "estimated_minutes": 150,
+      "required_files": [
+        "BillAutopilot/Source/Runtime/AutoBillSync.cs",
+        "BillAutopilot/Source/Runtime/BillMemory.cs",
+        "BillAutopilot/Source/Runtime/RecipeProbe.cs"
+      ],
+      "task_kind": "debugging",
+      "source_mod": "Bill Autopilot",
+      "source_commit": "7c36614cb420b40068b67ea9b9b2225c01cdc06a",
+      "source_target_commit": "61e6b2fe67dff6296de63383d8d92ad78077d5f5",
+      "source_license": "MIT",
+      "game_version": "1.6.4871",
+      "unity_version": "2022.3.35f1",
+      "target_framework": "net472",
+      "harmony_version": "2.4.2",
+      "private_protocol": "rhenium-rimworld-private-v3",
+      "starter_root": "BillAutopilot",
+      "package_id": "nelim.billautopilot",
+      "assembly_name": "BillAutopilot",
+      "mod_metadata_path": "tests/ModMetadata/BillAutopilot/About.xml",
+      "expected_assertions": 17
+    },
+    {
+      "id": "playwright-nonbulk-trade-accounting",
+      "difficulty": "hard",
+      "title": {
+        "en": "Account for sold non-bulk trade goods",
+        "zh": "Account for sold non-bulk trade goods"
+      },
+      "summary": {
+        "en": "Capture sold item identity before ResolveTrade removes colony-side non-bulk things, then notify Core win conditions exactly once.",
+        "zh": "Capture sold item identity before ResolveTrade removes colony-side non-bulk things, then notify Core win conditions exactly once."
+      },
+      "brief": {
+        "en": "Capture sold item identity before ResolveTrade removes colony-side non-bulk things, then notify Core win conditions exactly once.",
+        "zh": "Capture sold item identity before ResolveTrade removes colony-side non-bulk things, then notify Core win conditions exactly once."
+      },
+      "requirements": {
+        "en": [
+          "In the prefix, capture ThingDef and CountToTransferToDestination only for PlayerSells actions with an actual colony or trader thing.",
+          "In the postfix, ignore empty state, non-positive counts, and missing scenarios.",
+          "Notify every sell-items win-condition part exactly once using the captured definition and positive count, including non-bulk goods removed by ResolveTrade.",
+          "Notify faction-specific parts only when the active trader has a faction, passing that exact faction.",
+          "Preserve bulk-item accounting and avoid counting purchases, zero transfers, null sessions, or unrelated scenario parts."
+        ],
+        "zh": [
+          "In the prefix, capture ThingDef and CountToTransferToDestination only for PlayerSells actions with an actual colony or trader thing.",
+          "In the postfix, ignore empty state, non-positive counts, and missing scenarios.",
+          "Notify every sell-items win-condition part exactly once using the captured definition and positive count, including non-bulk goods removed by ResolveTrade.",
+          "Notify faction-specific parts only when the active trader has a faction, passing that exact faction.",
+          "Preserve bulk-item accounting and avoid counting purchases, zero transfers, null sessions, or unrelated scenario parts."
+        ]
+      },
+      "api_usage": {
+        "en": [
+          "Use the supplied RimWorld Core, Verse, Unity and Harmony APIs; do not bundle assemblies or require DLC or another Mod."
+        ],
+        "zh": [
+          "\u4ec5\u4f7f\u7528\u63d0\u4f9b\u7684 RimWorld Core\u3001Verse\u3001Unity \u4e0e Harmony API\uff1b\u4e0d\u5f97\u6346\u7ed1\u7a0b\u5e8f\u96c6\uff0c\u4e5f\u4e0d\u5f97\u4f9d\u8d56 DLC \u6216\u5176\u4ed6 Mod\u3002"
+        ]
+      },
+      "acceptance": {
+        "en": [
+          "All 14 private protocol v3 assertions must complete in the pinned real game without network access."
+        ],
+        "zh": [
+          "private protocol v3 \u7684\u5168\u90e8 14 \u9879\u65ad\u8a00\u5fc5\u987b\u5728\u56fa\u5b9a\u771f\u5b9e\u6e38\u620f\u4e2d\u65e0\u7f51\u7edc\u5b8c\u6210\u3002"
+        ]
+      },
+      "domains": [
+        "csharp",
+        "debugging",
+        "rimworld-mod",
+        "real-game-runtime"
+      ],
+      "estimated_minutes": 150,
+      "required_files": [
+        "Playwright/Source/Playwright/Patches/TradeablePatches.cs"
+      ],
+      "task_kind": "debugging",
+      "source_mod": "Playwright",
+      "source_commit": "11fa563967cf368e00f5011d79c9f9476019edb2",
+      "source_target_commit": "f518aed8a2f2899c4e3c38a942685b7947eaeea7",
+      "source_license": "MIT",
+      "game_version": "1.6.4871",
+      "unity_version": "2022.3.35f1",
+      "target_framework": "net472",
+      "harmony_version": "2.4.2",
+      "private_protocol": "rhenium-rimworld-private-v3",
+      "starter_root": "Playwright",
+      "package_id": "rokk.playwright",
+      "assembly_name": "Playwright",
+      "mod_metadata_path": "tests/ModMetadata/Playwright/About.xml",
+      "expected_assertions": 14
+    },
+    {
+      "id": "research-organized-tab-state",
+      "difficulty": "hard",
+      "title": {
+        "en": "Keep research-tab state consistent after re-layout",
+        "zh": "\u91cd\u65b0\u5e03\u5c40\u540e\u4fdd\u6301\u7814\u7a76\u6807\u7b7e\u9875\u72b6\u6001\u4e00\u81f4"
+      },
+      "summary": {
+        "en": "Preserve per-tab visibility by tab identity and keep the persistent research window in step through re-layout.",
+        "zh": "\u91cd\u65b0\u5e03\u5c40\u65f6\u6309\u6807\u7b7e\u9875\u8eab\u4efd\u4fdd\u7559\u53ef\u89c1\u6027\u6807\u5fd7\uff0c\u5e76\u8ba9\u6301\u4e45\u7814\u7a76\u7a97\u53e3\u4fdd\u6301\u540c\u6b65\u3002"
+      },
+      "brief": {
+        "en": "Repair native research state after tabs are hidden, restored and re-indexed.",
+        "zh": "\u4fee\u590d\u6807\u7b7e\u9875\u88ab\u9690\u85cf\u3001\u6062\u590d\u548c\u91cd\u65b0\u7f16\u53f7\u540e\u7684\u539f\u751f\u7814\u7a76\u72b6\u6001\u3002"
+      },
+      "requirements": {
+        "en": [
+          "When a re-layout changes tab indices, preserve each known tab's edited information-visibility flag by tab identity and rebuild the native indexed flag storage for the active tabs.",
+          "Give restored or newly introduced tabs their visibleByDefault value, and let a game created with combined tabs return to separate tabs without an invalid visibility lookup.",
+          "Keep repeated re-layouts, calls without a game and calls before the native visibility map exists safe, with normal lazy/default visibility.",
+          "After every re-layout, refresh the persistent research window even while it is closed: tab records, a valid current tab, the selected project and a recomputed view.",
+          "Make RefreshOpenResearchWindow() refresh a closed persistent instance too, preserving unrelated layout, routing, settings, colors and game behavior."
+        ],
+        "zh": [
+          "\u91cd\u65b0\u5e03\u5c40\u6539\u53d8\u6807\u7b7e\u9875\u7d22\u5f15\u65f6\uff0c\u6309\u6807\u7b7e\u9875\u8eab\u4efd\u4fdd\u7559\u6bcf\u4e2a\u5df2\u77e5\u6807\u7b7e\u9875\u88ab\u7f16\u8f91\u8fc7\u7684\u4fe1\u606f\u53ef\u89c1\u6027\u6807\u5fd7\uff0c\u5e76\u4e3a\u5f53\u524d\u6807\u7b7e\u9875\u91cd\u5efa\u539f\u751f\u7d22\u5f15\u6807\u5fd7\u5b58\u50a8\u3002",
+          "\u6062\u590d\u6216\u65b0\u589e\u7684\u6807\u7b7e\u9875\u4f7f\u7528\u5176 visibleByDefault \u503c\uff1b\u5408\u5e76\u6807\u7b7e\u9875\u65f6\u521b\u5efa\u7684\u6e38\u620f\u5fc5\u987b\u80fd\u6062\u590d\u4e3a\u72ec\u7acb\u6807\u7b7e\u9875\uff0c\u4e14\u4e0d\u51fa\u73b0\u65e0\u6548\u7684\u53ef\u89c1\u6027\u67e5\u8be2\u3002",
+          "\u91cd\u590d\u91cd\u65b0\u5e03\u5c40\u3001\u6ca1\u6709\u6e38\u620f\u65f6\u7684\u8c03\u7528\u4ee5\u53ca\u539f\u751f\u53ef\u89c1\u6027\u6620\u5c04\u5c1a\u672a\u521b\u5efa\u65f6\u7684\u8c03\u7528\u90fd\u5fc5\u987b\u5b89\u5168\uff0c\u5e76\u4fdd\u6301\u6b63\u5e38\u7684\u5ef6\u8fdf/\u9ed8\u8ba4\u53ef\u89c1\u6027\u3002",
+          "\u6bcf\u6b21\u91cd\u65b0\u5e03\u5c40\u540e\uff0c\u5373\u4f7f\u7814\u7a76\u7a97\u53e3\u5df2\u5173\u95ed\u4e5f\u8981\u5237\u65b0\u8fd9\u4e00\u6301\u4e45\u7a97\u53e3\uff1a\u6807\u7b7e\u9875\u8bb0\u5f55\u3001\u6709\u6548\u7684\u5f53\u524d\u6807\u7b7e\u9875\u3001\u9009\u4e2d\u7684\u9879\u76ee\u4ee5\u53ca\u91cd\u65b0\u8ba1\u7b97\u7684\u89c6\u56fe\u3002",
+          "RefreshOpenResearchWindow() \u4e5f\u5fc5\u987b\u5237\u65b0\u5df2\u5173\u95ed\u7684\u6301\u4e45\u5b9e\u4f8b\uff0c\u5e76\u4fdd\u7559\u65e0\u5173\u7684\u5e03\u5c40\u3001\u8def\u7531\u3001\u8bbe\u7f6e\u3001\u989c\u8272\u4e0e\u6e38\u620f\u884c\u4e3a\u3002"
+        ]
+      },
+      "api_usage": {
+        "en": [
+          "Use the supplied RimWorld Core, Verse, Unity and Harmony APIs; do not bundle assemblies or require DLC or another Mod."
+        ],
+        "zh": [
+          "\u4ec5\u4f7f\u7528\u63d0\u4f9b\u7684 RimWorld Core\u3001Verse\u3001Unity \u4e0e Harmony API\uff1b\u4e0d\u5f97\u6346\u7ed1\u7a0b\u5e8f\u96c6\uff0c\u4e5f\u4e0d\u5f97\u4f9d\u8d56 DLC \u6216\u5176\u4ed6 Mod\u3002"
+        ]
+      },
+      "acceptance": {
+        "en": [
+          "All 22 private protocol v3 assertions must complete in the pinned real game without network access."
+        ],
+        "zh": [
+          "private protocol v3 \u7684\u5168\u90e8 22 \u9879\u65ad\u8a00\u5fc5\u987b\u5728\u56fa\u5b9a\u771f\u5b9e\u6e38\u620f\u4e2d\u65e0\u7f51\u7edc\u5b8c\u6210\u3002"
+        ]
+      },
+      "domains": [
+        "csharp",
+        "debugging",
+        "rimworld-mod",
+        "real-game-runtime"
+      ],
+      "estimated_minutes": 90,
+      "required_files": [
+        "ResearchOrganized/Source/Layout/CrossingCounter.cs",
+        "ResearchOrganized/Source/Layout/CycleBreaker.cs",
+        "ResearchOrganized/Source/Layout/EpochLayout.cs",
+        "ResearchOrganized/Source/Layout/EraPromotion.cs",
+        "ResearchOrganized/Source/Layout/LayoutGraph.cs",
+        "ResearchOrganized/Source/Layout/RowOptimizer.cs",
+        "ResearchOrganized/Source/Layout/TabLayout.cs",
+        "ResearchOrganized/Source/Layout/TabRoutingPolicy.cs",
+        "ResearchOrganized/Source/Properties/AssemblyInfo.cs",
+        "ResearchOrganized/Source/ResearchOrganizedConfig.cs",
+        "ResearchOrganized/Source/ResearchOrganizedLayout.cs",
+        "ResearchOrganized/Source/ResearchOrganizedMain.cs",
+        "ResearchOrganized/Source/ResearchOrganizedMod.cs"
+      ],
+      "task_kind": "debugging",
+      "source_mod": "Research: Organized",
+      "source_commit": "8d978d53095287c85da0bda09b73045ff68d244f",
+      "source_target_commit": "4941919bf33fb84ff280fa64c500c4439118b5e0",
+      "source_license": "MIT",
+      "game_version": "1.6.4871",
+      "unity_version": "2022.3.35f1",
+      "target_framework": "net472",
+      "harmony_version": "2.4.2",
+      "private_protocol": "rhenium-rimworld-private-v3",
+      "starter_root": "ResearchOrganized",
+      "package_id": "cruesoe.research.organized",
+      "assembly_name": "ResearchOrganized",
+      "mod_metadata_path": "tests/ModMetadata/ResearchOrganized/About.xml",
+      "expected_assertions": 22,
+      "runtime_data_files": [
+        "tests/ModMetadata/ResearchOrganized/Defs/ResearchTabs.xml",
+        "tests/ModMetadata/ResearchOrganized/Defs/TechTreeConfig.xml"
+      ]
+    }
+  ]
+}

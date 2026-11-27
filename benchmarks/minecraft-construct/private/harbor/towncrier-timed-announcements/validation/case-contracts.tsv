@@ -1,0 +1,21 @@
+case	layer	role	public_report
+TownCrier is enabled	server	sentinel	the plugin enables on the real server
+default announcements.yml is written on first enable	server	target	requirement 1
+plugin.yml declares the crier command and permissions	server	target	requirement 10
+list shows the default group	server	target	requirement 10; requirement 1
+preview renders placeholders and MiniMessage	server	target	requirement 4; requirement 10; requirement 2
+a sequential group announces at every interval and wraps	server	target	requirement 6; requirement 7; requirement 4; requirement 5
+groups keep separate timers	server	target	requirement 6
+announcements reach only receivers with the group permission	server	target	requirement 5; requirement 10
+disabled groups never announce on their own	server	target	requirement 6; requirement 10; requirement 2
+shuffle announces every message once per cycle	server	target	requirement 7
+now announces the next message immediately	server	target	requirement 8; requirement 10
+pause stops a group and resume restarts its timer	server	target	requirement 6; requirement 8; requirement 9; requirement 10
+reload restarts timers without leaving old ones	server	target	requirement 12; requirement 8
+reload reports invalid groups	server	target	requirement 3; requirement 12; requirement 2
+add appends a message and saves the file	server	target	requirement 11; requirement 8; requirement 10
+remove deletes a message and saves the file	server	target	requirement 11; requirement 8; requirement 10
+interval changes the period and is saved	server	target	requirement 6; requirement 11; requirement 10
+unknown groups are reported	server	target	requirement 10
+permissions are enforced	server	target	requirement 10
+malformed commands show usage	server	target	requirement 10

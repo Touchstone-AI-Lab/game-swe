@@ -1,0 +1,24 @@
+--- a/BetterTeams/src/main/java/com/booksaw/betterTeams/commands/HelpCommand.java
++++ b/BetterTeams/src/main/java/com/booksaw/betterTeams/commands/HelpCommand.java
+@@ -173,7 +173,7 @@
+ 
+ 	public Component createClickableHelpMiniMessage(String label, String commandPath, String description) {
+ 		Component parsedComponent = Formatter.absolute().process(
+-				MessageManager.getPrefix() + prefix + "/" + label + " " + commandPath
++				Main.plugin.getConfig().getString("prefixFormat", "") + prefix + "/" + label + " " + commandPath
+ 						+ " <white>-</white> " + HelpCommand.description + description);
+ 
+ 		return parsedComponent
+@@ -221,8 +221,11 @@
+ 
+ 		try {
+ 			int page = Integer.parseInt(request);
++			if (page < 1) {
++				return 0;
++			}
+ 			if (page > maxPage) {
+-				return maxPage;
++				return Math.max(0, maxPage - 1);
+ 			}
+ 			return page - 1;
+ 		} catch (NumberFormatException e) {

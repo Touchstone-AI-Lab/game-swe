@@ -1,0 +1,63 @@
+schema_version = "1.4"
+
+artifacts = ["/workspace/improvegame"]
+
+[task]
+name = "gamecodebench/terraria-improvegame-space-wand-authority-hard"
+version = "0.1.0"
+description = "Repair Space Wand geometry, postcondition-based neighborhood transactions, and authenticated multiplayer synchronization in Quality of Terraria."
+authors = [{ name = "PrinsYin" }]
+keywords = ["terraria", "tmodloader", "quality-of-terraria", "csharp", "geometry", "networking", "debugging"]
+
+[metadata]
+category = "programming"
+difficulty = "hard"
+tags = ["game-modding", "terraria", "tmodloader", "repository-debugging", "geometry", "transactions", "networking"]
+task_kind = "repository-debugging"
+game = "Terraria"
+game_build = "1.4.4.9"
+tmodloader_api = "1.4.4 stable API"
+source_repo = "https://github.com/487666123/ImproveGame"
+source_license = "MIT"
+base_commit = "284fa78849f2234e70300f101a92a36db34b256d"
+source_mod_version = "1.8.3"
+evaluation_boundary = "layered offline .NET 8 source projection plus pinned real tModLoader 2026.7.3.0 dedicated-server assertions against Terraria 1.4.4.9; disclosed client-only behavior remains source-projection-only"
+expected_private_cases = 82
+independent_defect_groups = 14
+public_smoke_command = "python3 tools/smoke.py"
+validation_status = "revision-5 oracle 82/82 and starter 33/82 controls passed"
+
+[verifier]
+environment_mode = "separate"
+network_mode = "no-network"
+timeout_sec = 900.0
+user = "root"
+
+[verifier.environment]
+network_mode = "no-network"
+cpus = 4
+memory_mb = 4096
+storage_mb = 8192
+gpus = 0
+mcp_servers = []
+
+[agent]
+user = "root"
+network_mode = "allowlist"
+allowed_hosts = ["api.openai.com"]
+timeout_sec = 7200.0
+
+[environment]
+network_mode = "no-network"
+build_timeout_sec = 1200.0
+cpus = 4
+memory_mb = 4096
+storage_mb = 8192
+gpus = 0
+mcp_servers = []
+
+[verifier.env]
+
+[environment.env]
+
+[solution.env]

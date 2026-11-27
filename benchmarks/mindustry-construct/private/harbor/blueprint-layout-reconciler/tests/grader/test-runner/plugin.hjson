@@ -1,0 +1,6 @@
+name: "blueprint-layout-reconciler-tests"
+displayName: "Blueprint Layout Reconciler Tests"
+main: "ContractTestRunner"
+version: "1.0.0"
+minGameVersion: 159
+dependencies: [layout-reconciler]

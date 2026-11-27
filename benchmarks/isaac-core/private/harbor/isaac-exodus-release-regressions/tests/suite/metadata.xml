@@ -1,0 +1,7 @@
+<metadata>
+  <name>GameCodeBench Exodus Verifier</name>
+  <directory>gcb_exodus_suite</directory>
+  <id>gcb-exodus-verifier</id>
+  <description>Private live-game regression verifier.</description>
+  <version>1.0.0</version>
+</metadata>

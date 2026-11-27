@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<metadata>
+  <name>Construct Option Rendering Verifier</name>
+  <directory>gcb_construct_option_rendering_suite</directory>
+  <id>construct-option-rendering-suite</id>
+  <description>Private verifier companion mod.</description>
+  <version>1.0.0</version>
+</metadata>

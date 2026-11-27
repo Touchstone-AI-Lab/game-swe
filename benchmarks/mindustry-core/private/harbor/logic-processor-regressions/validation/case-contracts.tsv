@@ -1,0 +1,12 @@
+case	layer	role	public_report
+processor output reaches a linked message block	server	sentinel	a logic processor prints to a linked message block on the pinned server
+linked blocks are named after their block type	server	preserved	new links are named conveyor1, sorter1, message1 and @links counts them
+sensor reads supported properties	server	preserved	@x, @type and item counts are sensed; a non-building target gives null
+sensor of an unsupported property yields null	server	target	sensor sets its output to null for a null or string property
+format fills placeholders in order	server	preserved	format fills the lowest-numbered placeholder first
+print output is capped at 400 characters	server	preserved	printing more than 400 characters keeps the first 400
+format fills a placeholder when the print buffer is full	server	target	format replaces {0} in a full 400-character buffer and keeps it at 400
+a replaced linked block is reachable under its new name	server	target	a junction built over a linked conveyor becomes junction1 and conveyor1 no longer refers to it
+other links keep their names when one linked block is replaced	server	preserved	unchanged links keep their names after another linked block is replaced
+processor variables survive a save and reload	server	preserved	processor code, strings and numbers survive a save and load
+a world processor holding query results can be saved	server	target	a world holding query results in a world processor variable saves and loads

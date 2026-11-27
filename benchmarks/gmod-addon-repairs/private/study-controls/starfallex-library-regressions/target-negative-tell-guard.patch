@@ -1,0 +1,21 @@
+diff -u a/starfallex/lua/starfall/libs_sh/bit.lua b/starfallex/lua/starfall/libs_sh/bit.lua
+--- a/starfallex/lua/starfall/libs_sh/bit.lua
++++ b/starfallex/lua/starfall/libs_sh/bit.lua
+@@ -283,7 +283,7 @@
+ 				self.subindex = 1
+ 			end
+ 		else
+-			self.index = #self + 1
++			self.index = self.index + 1
+ 			self.subindex = 1
+ 			break
+ 		end
+@@ -311,7 +311,7 @@
+ function ss_methods:tell()
+ 	local length = 0
+ 	for i=1, self.index-1 do
+-		length = length + #self[i]
++		length = length + #(self[i] or "")
+ 	end
+ 	return length + self.subindex
+ end

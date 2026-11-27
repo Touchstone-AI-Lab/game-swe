@@ -1,0 +1,64 @@
+schema_version = "1.1"
+
+[task]
+name = "gamecodebench/stardew-cjb-cheats-regressions"
+description = "Five reverted upstream fixes in CJB Cheats Menu 1.42.0, reported as player symptoms: one-hit kill turning grubs into flies, auto-feed stopping when silos are empty, auto-pet animals and auto-pet pets reaching outside the farm, and always-treasure never giving golden chests."
+authors = ["Rhenium maintainers"]
+keywords = ["stardew-valley", "smapi", "csharp", "game-modding", "cjb-cheats-menu", "composite", "symptom-only"]
+
+[metadata]
+category = "programming"
+difficulty = "hard"
+tags = ["game-modding", "smapi", "stardew-valley", "csharp", "bug-fix", "composite"]
+source_repo = "https://github.com/CJBok/SDV-Mods"
+source_license = "MIT"
+source_mod = "CJBCheatsMenu"
+# The starter is the cheats-menu/1.42.0 release tree (commit
+# 9bf8e959209eb19b047c6bfca81783408ade1db8) trimmed to CJBCheatsMenu/, Common/ and the
+# repository build files, with five upstream fixes reverted by hand (the files moved to
+# file-scoped namespaces after most of them, so the reverse patches do not apply
+# verbatim; each revert restores the pre-fix logic exactly). The release-note bullets
+# naming those five fixes were removed from the starter's release notes. The reference
+# is the unmodified 1.42.0 tree.
+base_ref = "cheats-menu/1.42.0 with upstream fixes 7fcfe1d, ad97de5, 2c05d09, 40e1912, 3a9ba55 reverted"
+base_commit = "9bf8e959209eb19b047c6bfca81783408ade1db8"
+fix_commit = "7fcfe1d09883930274f95ba032c89694364811d8+ad97de5458b330d00ed7115172f3733e6c6ff8e7+2c05d09d944175c1063695e96f00978a6f57fbef+40e1912d4493dfbc3385d1bff265e0ddc4b4f890+3a9ba556ed23f434db89bb1388656dfc4dddd3c5"
+gold_patch_origin = "upstream"
+task_kind = "composite-symptom-only"
+game_version = "1.6.15"
+smapi_version = "4.1.10"
+
+# Defect groups and their target cases (tests/SuiteCjbCheatsRegressions.cs):
+# - One-hit kill and grubs (7fcfe1d, cheats-menu 1.38.0): a grub must not pupate.
+# - Auto-feed with empty silos (2c05d09, 1.36.2): troughs filled without silo hay.
+# - Auto-pet animals (40e1912, 1.36.2): an animal in a non-buildable location is skipped.
+# - Auto-pet pets (3a9ba55, 1.36.2): a pet outside the farm and farmhouses is skipped.
+# - Always treasure (ad97de5, 1.37.0): golden chests appear with the fishing mastery.
+# Five preserved cases (max health kept, silo hay used, farm animals and farm pets
+# petted, treasure without mastery never golden) plus a load sentinel.
+
+[verifier]
+network_mode = "no-network"
+timeout_sec = 2400.0
+
+[agent]
+# mini-swe-agent runs INSIDE the container and calls the model API from there, so a
+# blanket no-network kills it before it does any work. Everything else it needs is
+# baked into the image; github.com / nuget.org are deliberately NOT listed because
+# the reference fix is an upstream commit.
+network_mode = "allowlist"
+allowed_hosts = ["api.anthropic.com"]
+timeout_sec = 3600.0
+
+[environment]
+network_mode = "no-network"
+build_timeout_sec = 3600.0
+cpus = 6
+memory_mb = 16384
+storage_mb = 30720
+gpus = 0
+mcp_servers = []
+
+# Same isolation and responsible-release posture as the rest of the Stardew suite:
+# game files staged locally from the operator's own copy, never committed; images
+# stay private; pretraining contamination is not addressed by isolation.

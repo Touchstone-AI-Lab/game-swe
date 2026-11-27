@@ -1,0 +1,17 @@
+{
+  "suite": [
+    "Target.java",
+    "TargetPatch.java",
+    "ByRefBoxingTest.java",
+    "ModIdentityTest.java"
+  ],
+  "cases": [
+    "gcb.ByRefBoxingTest.byRefWritesBackThroughAWrapperArray",
+    "gcb.ModIdentityTest.aBlankIdentifierFallsBackToTheName",
+    "gcb.ModIdentityTest.aModWithAnIdIsNotTheSameAsOneWithout",
+    "gcb.ModIdentityTest.aRequirementResolvesToTheFirstMatch",
+    "gcb.ModIdentityTest.control_aModWithoutAnIdIsKnownByItsName",
+    "gcb.ModIdentityTest.control_aNormalModIsKnownByItsId",
+    "gcb.ModIdentityTest.ordinaryVersionStringsAreAccepted"
+  ]
+}

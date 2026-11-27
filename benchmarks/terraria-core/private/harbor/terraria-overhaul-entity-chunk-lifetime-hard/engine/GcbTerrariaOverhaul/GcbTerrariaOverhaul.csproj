@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="../tModLoader.targets" />
+  <PropertyGroup>
+    <AssemblyName>GcbTerrariaOverhaul</AssemblyName>
+    <LangVersion>latest</LangVersion>
+    <Nullable>enable</Nullable>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
+    <CandidateRoot Condition="'$(CandidateRoot)' == ''">/workspace/solution</CandidateRoot>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="GcbTerrariaOverhaul.cs" />
+    <Compile Include="EngineSupport.cs" />
+    <Compile Include="VerifierSystem.cs" />
+    <Compile Include="$(CandidateRoot)/terraria-overhaul/Core/Data/DataStorage.cs" Link="Production/Core/Data/DataStorage.cs" />
+    <Compile Include="$(CandidateRoot)/terraria-overhaul/Core/Data/SparseSet.cs" Link="Production/Core/Data/SparseSet.cs" />
+    <Compile Include="$(CandidateRoot)/terraria-overhaul/Core/Data/Entities.cs" Link="Production/Core/Data/Entities.cs" />
+    <Compile Include="$(CandidateRoot)/terraria-overhaul/Core/Chunks/Chunks.cs" Link="Production/Core/Chunks/Chunks.cs" />
+    <Compile Include="$(CandidateRoot)/terraria-overhaul/Utilities/BitMasks.cs" Link="Production/Utilities/BitMasks.cs" />
+  </ItemGroup>
+</Project>

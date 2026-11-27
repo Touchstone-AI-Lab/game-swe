@@ -1,0 +1,6 @@
+name: "core-stockpile-router"
+displayName: "Transactional Core Stockpile Router"
+main: "TransactionalCoreRouterPlugin"
+description: "Crash-safe server-authoritative stockpile transfers."
+version: "1.0.0"
+minGameVersion: 159

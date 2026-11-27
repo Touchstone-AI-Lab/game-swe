@@ -1,0 +1,92 @@
+schema_version = "1.1"
+
+[task]
+name = "gamecodebench/darkrp-core-library-regressions"
+description = "A DarkRP branch carrying eight independent regressions in the shared helper libraries that the gamemode and third-party addons both build on, reported only as user-visible symptoms."
+authors = []
+keywords = ["garrysmod", "glua", "lua", "darkrp", "multi-defect", "regression"]
+
+[metadata]
+category = "programming"
+difficulty = "hard"
+tags = ["game-modding", "glua", "gmod", "darkrp", "bug-fix", "composite"]
+source_repo = "https://github.com/FPtje/DarkRP"
+source_license = "MIT"
+base_commit = "5abcf7abab9e489b2d882a55d95f84c206d9d05c"
+reverted_fixes = ""
+gold_patch_origin = "hand-injected"
+
+# WHY THIS TASK EXISTS. The three earlier DarkRP tasks all inject defects into
+# gamemode modules. This one injects into the shared helper libraries (fn.lua and
+# tablecheck.lua) instead, which buys two things the module tasks cannot:
+#   - the defects are PURE. No bot, no database, no entity, no timing. Every case runs
+#     in microseconds and cannot flake, which removes the single largest source of
+#     false results in this series.
+#   - the symptoms are DELOCALISED BY CONSTRUCTION. A helper used everywhere produces
+#     an effect nowhere near its own source, so the report can describe what an addon
+#     author saw without using a single word that appears in the code. That is the
+#     measured difficulty lever from the earlier tasks, obtained for free here.
+#
+#   A  fn.Filter        - renumbers the result instead of preserving keys, so a table
+#                         filed under caller-chosen ids comes back as a plain list
+#   B  fn.Null          - asks for the array length, so a table whose entries are under
+#                         non-array keys reports as empty. Real consumer: sv_doorvars
+#                         wipes a door's allow list when it believes it is empty.
+#   C  fn.Foldr         - folds from the left, so anything combined out of a list is
+#                         assembled in the opposite order
+#   D  fn.Init          - clears the first element instead of the last
+#   E  fn.Tail          - removes the last element instead of the first
+#   F  tc.optional      - returns a predicate that accepts anything, so an optional
+#                         field that IS supplied is no longer validated
+#   G  tc.nonEmpty      - drops the emptiness test and accepts an empty table
+#   H  tc.min           - built from Gte instead of Lte, so a floor behaves as a ceiling
+#
+# VERIFIER COVERAGE. 8 reports / 8 defect groups / 9 assertions + 1 load sentinel = 10
+# expected passes. Every report maps to at least one assertion and every assertion
+# maps to a report.
+#
+# VALIDATED PER DEFECT, not just base vs reference.
+#   base (all eight broken)   2 PASS / 8 FAIL
+#   reference (all fixed)    10 PASS / 0 FAIL
+#   fix A / B / C / D / E / F / G / H, each alone:
+#                             3 PASS / 7 FAIL -- sentinel + control + that group only
+# The always-passing control is "selecting entries from a plain list still works": it
+# holds on both trees, so an implementation that simply breaks the helper outright
+# cannot score.
+#
+# THREE OF MY OWN MISTAKES, recorded because each one cost a validation round:
+#   - this GLuaTest build has no beTruthy matcher; assertions must normalise with
+#     `x or false` and use beTrue/beFalse.
+#   - table.GetLastValue does not exist in this build, so the originally planned
+#     fn.Last defect could not be asserted on the REFERENCE tree either. An assertion
+#     that cannot run on the reference tree is a broken test, not a defect; the group
+#     was replaced with fn.Init.
+#   - in the per-defect matrix the revert anchor for G also matched tc.tableOf, so the
+#     single-fix tree patched the wrong function and G appeared not to flip. Anchors
+#     used to build validation trees must be checked for uniqueness before they are
+#     trusted.
+
+[verifier]
+network_mode = "no-network"
+timeout_sec = 1200.0
+
+[agent]
+# The agent harness runs INSIDE the container and calls the model API from there, so a
+# blanket no-network kills it before it does any work. Everything else it needs (uv,
+# mini-swe-agent, build tools) is baked into the image, so only model endpoints need to
+# be reachable. github.com and raw.githubusercontent.com are deliberately absent: DarkRP
+# is public and fetching the upstream tree is the leak this isolates against.
+# A Harbor job must pass the exact model endpoint hostname through
+# `agents[].extra_allowed_hosts`; do not edit the canonical task for each provider.
+network_mode = "allowlist"
+allowed_hosts = []
+timeout_sec = 5400.0
+
+[environment]
+network_mode = "no-network"
+build_timeout_sec = 2400.0
+cpus = 6
+memory_mb = 16384
+storage_mb = 20480
+gpus = 0
+mcp_servers = []

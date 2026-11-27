@@ -1,0 +1,15 @@
+{
+  "id": "bounded_generator_v2",
+  "name": "Configured Bounded Generator",
+  "author": [
+    "Balatro PoC"
+  ],
+  "description": "Configured ordinary consumable generation",
+  "prefix": "bg2",
+  "main_file": "main.lua",
+  "version": "2.0.0",
+  "priority": 0,
+  "dependencies": [
+    "Steamodded (>=1.~)"
+  ]
+}

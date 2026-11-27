@@ -1,0 +1,228 @@
+{
+  "task": "rimworld/core/zombieland-dynamic-needs-capacities",
+  "task_version": "0.3.3",
+  "exam": "benchmarks/rimworld-core/exams/zombieland-dynamic-needs-capacities.md",
+  "cases": [
+    {
+      "id": "check:submission-shape",
+      "role": "static",
+      "clauses": [
+        "delivery"
+      ],
+      "overlap": false,
+      "note": "required C# sources present as a safe snapshot; rejects binaries, links and private-harness markers"
+    },
+    {
+      "id": "case:runtime-defs-ready",
+      "role": "runtime-sentinel",
+      "clauses": [],
+      "overlap": false,
+      "note": "Core, Zombieland slice and verifier loaded"
+    },
+    {
+      "id": "case:need-max-one",
+      "role": "preserved",
+      "clauses": [
+        "req-1"
+      ],
+      "overlap": true,
+      "note": "half of MaxLevel 1 is 0.5, which the starter already writes"
+    },
+    {
+      "id": "case:need-max-two",
+      "role": "target",
+      "clauses": [
+        "req-1"
+      ],
+      "overlap": false,
+      "note": "formatted with \"0\", so 0.5 renders as 1 and the starter passes"
+    },
+    {
+      "id": "case:need-max-fractional",
+      "role": "target",
+      "clauses": [
+        "req-1"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:need-max-change-observed",
+      "role": "target",
+      "clauses": [
+        "req-2"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:unrelated-need-preserved",
+      "role": "preserved",
+      "clauses": [
+        "req-4"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:infected-capacity-below-one",
+      "role": "preserved",
+      "clauses": [
+        "req-3"
+      ],
+      "overlap": true,
+      "note": ""
+    },
+    {
+      "id": "case:infected-capacity-equal-one",
+      "role": "preserved",
+      "clauses": [
+        "req-3"
+      ],
+      "overlap": true,
+      "note": ""
+    },
+    {
+      "id": "case:infected-capacity-above-one",
+      "role": "target",
+      "clauses": [
+        "req-3"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:symbiant-capacity-above-one",
+      "role": "target",
+      "clauses": [
+        "req-3"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:dead-pawn-capacity-preserved",
+      "role": "preserved",
+      "clauses": [
+        "req-4"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:unrelated-pawn-capacity-preserved",
+      "role": "preserved",
+      "clauses": [
+        "req-4"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:capacity-negative-floored",
+      "role": "preserved",
+      "clauses": [
+        "req-3"
+      ],
+      "overlap": true,
+      "note": ""
+    },
+    {
+      "id": "case:mood-benefit-preserved",
+      "role": "preserved",
+      "clauses": [
+        "req-5"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:food-benefit-preserved",
+      "role": "target",
+      "clauses": [
+        "req-1",
+        "req-5"
+      ],
+      "overlap": true,
+      "note": "food need with MaxLevel 2; the starter writes 0.5 instead of 1"
+    },
+    {
+      "id": "case:rest-benefit-preserved",
+      "role": "target",
+      "clauses": [
+        "req-1",
+        "req-5"
+      ],
+      "overlap": true,
+      "note": "rest need with MaxLevel 2; the starter writes 0.5 instead of 1"
+    },
+    {
+      "id": "case:no-pain-preserved",
+      "role": "preserved",
+      "clauses": [
+        "req-5"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:unrelated-pain-preserved",
+      "role": "preserved",
+      "clauses": [
+        "req-5"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:fixture-state-restored",
+      "role": "setup",
+      "clauses": [],
+      "overlap": false,
+      "note": "terminal fixture-restoration gate"
+    }
+  ],
+  "clauses": [
+    {
+      "id": "req-1",
+      "anchor": "Required behavior, bullet 1: replace an incoming CurLevel with exactly one half of the need instance's current MaxLevel",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "req-2",
+      "anchor": "Required behavior, bullet 2: re-evaluate MaxLevel on every setter call",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "req-3",
+      "anchor": "Required behavior, bullet 3: living infected colonists and ZombieSymbiants keep a capacity above one and are raised to one below it",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "req-4",
+      "anchor": "Required behavior, bullet 4: no capacity change for dead or unrelated pawns and no change to unrelated needs",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "req-5",
+      "anchor": "Required behavior, bullet 5: preserve membership, mood-benefit, food/rest-benefit and no-pain decisions",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "delivery",
+      "anchor": "closing paragraph: do not add RimWorld, Unity or Harmony binaries, generated output, test results, credentials, Workshop content, assets, saves or logs",
+      "status": "weak",
+      "note": "the snapshot gate rejects binaries, links and harness markers; the other listed artefacts are not checked"
+    }
+  ],
+  "excluded_clauses": [],
+  "known_issues": [
+    "need-max-two formats its result with \"0\", so the starter's 0.5 and the required 1.0 both render as \"1\"; the case cannot detect the defect.",
+    "food-benefit-preserved and rest-benefit-preserved use a need with MaxLevel 2, so despite their names they fail on the starter and are target evidence."
+  ]
+}

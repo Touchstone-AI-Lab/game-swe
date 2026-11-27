@@ -1,0 +1,101 @@
+schema_version = "1.1"
+
+[task]
+name = "gamecodebench/darkrp-money-regressions"
+description = "A DarkRP branch carrying seven independent regressions in the money system -- affordability, wallet notifications, very large sums, recognising dropped cash, non-numeric amounts, uncapped placeable limits and player-to-player payment -- reported only as user-visible symptoms."
+authors = []
+keywords = ["garrysmod", "glua", "lua", "darkrp", "multi-defect", "regression"]
+
+[metadata]
+category = "programming"
+difficulty = "hard"
+tags = ["game-modding", "glua", "gmod", "darkrp", "bug-fix", "composite"]
+source_repo = "https://github.com/FPtje/DarkRP"
+source_license = "MIT"
+base_commit = "5abcf7abab9e489b2d882a55d95f84c206d9d05c"
+reverted_fixes = ""
+gold_patch_origin = "hand-injected"
+
+# SUBSYSTEM COVERAGE. Disjoint from the other DarkRP tasks in this pack. This one lives
+# in the MONEY system and the placeable-limit bookkeeping it depends on.
+#   A  money/sh_money.lua        - canAfford rounds the price down instead of up
+#   B  money/sv_money.lua        - addMoney hands the wallet hook the NEW balance as the
+#                                  "previous" one
+#   C  money/sv_money.lua        - createMoneyBag drops the clamp that keeps a networked
+#                                  int from wrapping negative
+#   D  money/sh_money.lua        - isMoneyBag drops the branch for player-dropped cash
+#   E  money/sv_money.lua        - addMoney drops the guard that rejects a non-number
+#   F  base/sv_entityvars.lua    - customEntityLimitReached loses the "0 means no limit"
+#                                  case
+#   G  money/sv_money.lua        - payPlayer credits the sender instead of the recipient
+#
+# VERIFIER COVERAGE. 7 reports / 7 defect groups / 7 assertions + 1 load sentinel +
+# 1 positive control = 9 expected passes.
+#   #6101 A   #6104 B   #6107 C   #6110 D   #6113 E   #6116 F   #6119 G
+# The control ("a whole amount larger than the wallet is not affordable") exercises the
+# same predicate group A breaks, but with whole numbers, where the rounding cannot
+# differ -- so it holds on BOTH trees and a submission that simply refuses everything
+# cannot score.
+#
+# DESIGNED AGAINST WHAT WAS MEASURED ON THE SIBLING TASKS, not guessed. Five measured
+# revisions of an earlier task established that defect COUNT is not a lever and report
+# WORDING is largely not one either (the agent guesses the gamemode's own API names from
+# the symptom's domain rather than grepping the report). What moved the number was
+#   (1) defects that do not ADVERTISE themselves, and
+#   (2) KNOWLEDGE TRAPS -- code that reads as correct unless you know one specific
+#       language or API subtlety, with a plausible WRONG fix available next to it.
+# Every defect here is built to those two rules:
+#   - No dangling unused local is left behind by any deletion, no comment or hint string
+#     next to a defect states the behaviour it contradicts, and no identifier names the
+#     intent the code fails to carry out.
+#   - A, C and F are knowledge traps. A depends on knowing that the floor/ceil asymmetry
+#     in the original is deliberate and conservative -- made symmetric it reads tidier
+#     and is wrong only for prices that are not whole numbers. C depends on knowing the
+#     amount is networked as a 32-bit int, so removing the clamp reads like a
+#     simplification and only shows up past a threshold nobody wrote down. F depends on
+#     knowing this codebase spells "no limit" as 0, so dropping the special case reads
+#     like removing a redundant comparison.
+#   - B is the read-after-write shape: the value handed to the hook as "before" is
+#     sampled after the write, so it always equals "after".
+#   - E and D are omissions, and G is a plausible variable mix-up (ply1 where ply2 was
+#     meant) rather than an inverted operator.
+#
+# VALIDATED PER DEFECT, not just base vs reference.
+#   base (all seven broken)   2 PASS / 7 FAIL  -- sentinel + control
+#   reference (all fixed)     9 PASS / 0 FAIL
+#   fix A..G, each alone:     3 PASS / 6 FAIL  -- sentinel + control + that group only
+# Each single-fix tree flips exactly its own group: no defect masks another.
+#
+# A HARNESS TRAP THIS TASK HIT, recorded so the next author does not lose a round to it.
+# A bot's player data never finishes loading in a headless container, so it keeps the
+# flag that makes canAfford refuse EVERY amount outright. With that flag left alone the
+# positive control failed on every tree and case A passed on every tree -- neither for
+# the reason its name claims, and the per-defect matrix still looked plausible. The two
+# cases that touch canAfford now clear the flag explicitly. Same family as the
+# gmod_language trap: a headless bot is not a fully initialised player, and any case
+# that assumes otherwise is measuring the harness rather than the defect.
+
+[verifier]
+network_mode = "no-network"
+timeout_sec = 1200.0
+
+[agent]
+# The agent harness runs INSIDE the container and calls the model API from there, so a
+# blanket no-network kills it before it does any work. Everything else it needs (uv,
+# mini-swe-agent, build tools) is baked into the image, so only model endpoints need to
+# be reachable. github.com and raw.githubusercontent.com are deliberately absent: DarkRP
+# is public and fetching the upstream tree is the leak this isolates against.
+# A Harbor job must pass the exact model endpoint hostname through
+# `agents[].extra_allowed_hosts`; do not edit the canonical task for each provider.
+network_mode = "allowlist"
+allowed_hosts = []
+timeout_sec = 5400.0
+
+[environment]
+network_mode = "no-network"
+build_timeout_sec = 2400.0
+cpus = 6
+memory_mb = 16384
+storage_mb = 20480
+gpus = 0
+mcp_servers = []

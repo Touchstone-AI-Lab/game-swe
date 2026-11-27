@@ -1,0 +1,37 @@
+schema_version = "1.4"
+# Native conservation cases: 19 controls; stale4, ownership5, zero1, batch3,
+# physical-retirement2 and rechannel4. Public native Dualcast and Recursion paths
+# retain per-evoke effects while separating physical-card ownership.
+# Full author matrix requires base19, gold38, independent alternative38,
+# stale-only23, ownership-only24, zero-only20, batch-only22, retirement-only21,
+# and rechannel-only23. Exact failed-case sets must match the frozen predictions.
+# All states enter through native players, rooms, card piles, channel/evoke and
+# the action manager; private engine tables and method-shape checks are absent.
+# Preserve complete source compilation, JDK8 local-variable debug metadata and
+# the public resource-only foundation when reproducing this task.
+artifacts = [{source = "/app/downfall/src/main/java"}]
+[metadata]
+source_repository = "https://github.com/mikemayhemdev/DownfallSTS"
+source_commit = "030ff7d4a7419a3e21c3075661550b1b479f3502"
+license = "MIT"
+difficulty = "unmeasured"
+construction = "Current-source queued Stasis ownership, retirement, admission and rechannel consistency"
+[agent]
+timeout_sec = 5400
+[environment]
+docker_image = "sha256:9d5a2e58936cd6086891e23d1566127d4a7f469ec36258728029044e795cc434"
+workdir = "/app/downfall"
+network_mode = "no-network"
+cpus = 2
+memory_mb = 4608
+storage_mb = 10240
+[verifier]
+timeout_sec = 1200
+environment_mode = "separate"
+[verifier.environment]
+docker_image = "sha256:9f737c92646e7d4735f81a69af53b1e5a0fe2e225c4f13b758232de6e511b750"
+workdir = "/tests"
+network_mode = "no-network"
+cpus = 2
+memory_mb = 4608
+storage_mb = 10240

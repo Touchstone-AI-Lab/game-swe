@@ -1,0 +1,78 @@
+{
+  "schema_version": 1,
+  "runtimes": [
+    {
+      "id": "modthespire-jdk8-maven",
+      "name": "ModTheSpire offline JDK 8 Maven evaluator",
+      "version": "sha256:d8b1b22e9301",
+      "provider": "container",
+      "restricted": false,
+      "host_platforms": [
+        "linux-x64"
+      ],
+      "source": {
+        "kind": "container-image",
+        "image": "maven:3.9-eclipse-temurin-8@sha256:d8b1b22e93012cd0257d37b3fd6d7bec3d0f7ae611730fc3ba0657b9ebe4e7ca",
+        "expectedFiles": [
+          "usr/share/maven/bin/mvn",
+          "opt/java/openjdk/bin/javac"
+        ]
+      }
+    },
+    {
+      "id": "sts-native-646570-build10180494",
+      "name": "Slay the Spire native verifier runtime (Steam build 10180494)",
+      "version": "Steam build 10180494; catalog 1.7.0",
+      "provider": "steam",
+      "restricted": true,
+      "host_platforms": [
+        "linux-x64"
+      ],
+      "source": {
+        "kind": "steam-depots",
+        "appId": 646570,
+        "depots": [
+          {
+            "id": 646571,
+            "manifest": "9072802409324604124"
+          }
+        ],
+        "expectedFiles": [
+          "desktop-1.0.jar"
+        ],
+        "sha256": {
+          "desktop-1.0.jar": "cfad868ac8d65a88e71a0bf096fb09f78811e553effe0787c5309a655e081673"
+        }
+      }
+    }
+  ],
+  "task_bindings": {
+    "basemod-dynamic-descriptions-r2": [
+      "sts-native-646570-build10180494"
+    ],
+    "stslib-block-ledger-r1": [
+      "sts-native-646570-build10180494"
+    ],
+    "stslib-icon-layout-r1": [
+      "sts-native-646570-build10180494"
+    ],
+    "downfall-stasis-lifecycle-r1": [
+      "sts-native-646570-build10180494"
+    ],
+    "basemod-phase-transitions-r1": [
+      "sts-native-646570-build10180494"
+    ],
+    "downfall-socket-flow-r3": [
+      "sts-native-646570-build10180494"
+    ],
+    "mts-enum-identity-r3": [
+      "sts-native-646570-build10180494"
+    ],
+    "mts-load-order-regressions-r2": [
+      "sts-native-646570-build10180494"
+    ],
+    "mts-mod-identity-regressions-r2": [
+      "sts-native-646570-build10180494"
+    ]
+  }
+}

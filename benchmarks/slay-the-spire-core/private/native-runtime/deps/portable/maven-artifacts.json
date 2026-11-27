@@ -1,0 +1,4104 @@
+{
+  "artifacts": [
+    {
+      "path": "aopalliance/aopalliance/1.0/aopalliance-1.0.pom",
+      "sha256": "26e82330157d6b844b67a8064945e206581e772977183e3e31fec6058aa9a59b",
+      "bytes": 363,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "backport-util-concurrent/backport-util-concurrent/3.1/backport-util-concurrent-3.1.pom",
+      "sha256": "770471090ca40a17b9e436ee2ec00819be42042da6f4085ece1d37916dc08ff9",
+      "bytes": 880,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "com/badlogicgames/gdx/gdx-backend-lwjgl3/1.9.5/gdx-backend-lwjgl3-1.9.5.jar",
+      "sha256": "611891422d142e44accb6b370d01d384ded283647ba598de284943244d92d381",
+      "bytes": 117974,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "com/badlogicgames/gdx/gdx-backend-lwjgl3/1.9.5/gdx-backend-lwjgl3-1.9.5.pom",
+      "sha256": "2c5712b41933832d055cde7598cd0be6e56ed7f0eadeaca57cf489e31d475e94",
+      "bytes": 5376,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "com/badlogicgames/gdx/gdx-controllers-lwjgl3/1.9.5/gdx-controllers-lwjgl3-1.9.5.jar",
+      "sha256": "1611591003aaa56c56a3023a4bbbf3068f5fcdb84fa7e64f67618b5f193e09cc",
+      "bytes": 7750,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "com/badlogicgames/gdx/gdx-controllers-lwjgl3/1.9.5/gdx-controllers-lwjgl3-1.9.5.pom",
+      "sha256": "459e6b16f6362750aa2f7c166721168cca31c9fa700be0b6c06fb2096d94a64a",
+      "bytes": 1748,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "com/badlogicgames/gdx/gdx-controllers-parent/1.9.5/gdx-controllers-parent-1.9.5.pom",
+      "sha256": "388154385d73c9159445974013e9a19d2963b950cad6efac167f436bf0fb4101",
+      "bytes": 887,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "com/badlogicgames/gdx/gdx-parent/1.9.5/gdx-parent-1.9.5.pom",
+      "sha256": "70ecbaf783fb60e38efbc8a0dcf1ff8fd8fa23a8110b0b3deaa32bfb42e352bd",
+      "bytes": 4575,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "com/code-disaster/steamworks4j/steamworks4j/1.9.0/steamworks4j-1.9.0.jar",
+      "sha256": "f5e70a648f77d09b3a665af5f8b110495b14f7e568280313b8a56903a4740379",
+      "bytes": 1077339,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "com/code-disaster/steamworks4j/steamworks4j/1.9.0/steamworks4j-1.9.0.pom",
+      "sha256": "429b38206eee2155ba484a4d930599c7811ef9597b5df6c75e3d95f8baee5e5a",
+      "bytes": 5343,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "com/github/luben/zstd-jni/1.5.5-11/zstd-jni-1.5.5-11.jar",
+      "sha256": "d75b2ced6059f81ad23e021c554259b906b6c4f2991cb772409827569ead4c1a",
+      "bytes": 6776400,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "com/github/luben/zstd-jni/1.5.5-11/zstd-jni-1.5.5-11.pom",
+      "sha256": "a0152b1897c4a6e7dd36e5f686f0e631c3839b5db208b38daa11a4f6dc9b25ff",
+      "bytes": 2009,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "com/github/trixt0r/Spriter/1.1/Spriter-1.1.jar",
+      "sha256": "732ad04cbfbe6d7315e12255f6263f9d7b4154dc78ac2f20feae3a8bceaae799",
+      "bytes": 85533,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "com/github/trixt0r/Spriter/1.1/Spriter-1.1.pom",
+      "sha256": "3250f6f214548668059fb09251504a9ba0c6a1bc6a460f696c30d660f777f73d",
+      "bytes": 3386,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "com/google/code/findbugs/jsr305/1.3.9/jsr305-1.3.9.jar",
+      "sha256": "905721a0eea90a81534abb7ee6ef4ea2e5e645fa1def0a5cd88402df1b46c9ed",
+      "bytes": 33015,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "com/google/code/findbugs/jsr305/1.3.9/jsr305-1.3.9.pom",
+      "sha256": "feab9191311c3d7aeef2b66d6064afc80d3d1d52d980fb07ae43c78c987ba93a",
+      "bytes": 965,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "com/google/code/findbugs/jsr305/2.0.1/jsr305-2.0.1.pom",
+      "sha256": "02c12c3c2ae12dd475219ff691c82a4d9ea21f44bc594a181295bf6d43dcfbb0",
+      "bytes": 965,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "com/google/code/gson/gson/2.8.9/gson-2.8.9.jar",
+      "sha256": "d3999291855de495c94c743761b8ab5176cfeabe281a5ab0d8e8d45326fd703e",
+      "bytes": 258075,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "com/google/code/gson/gson/2.8.9/gson-2.8.9.pom",
+      "sha256": "afded6e6a690fbf3ad4ae65ada397f0a90a5f630b303d1b741b9c97926fdd4de",
+      "bytes": 6325,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "com/google/code/gson/gson-parent/2.8.9/gson-parent-2.8.9.pom",
+      "sha256": "b16e026e63427c1972ad0fc68703ec379b1576e411ba49c32fa9a31ab0bbcffb",
+      "bytes": 4676,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "com/google/guava/guava/11.0.2/guava-11.0.2.jar",
+      "sha256": "e144a0ec7f5139c58d4f3729ccfb4240f9c576a1aa43790e4090e09316129ee1",
+      "bytes": 1648200,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "com/google/guava/guava/11.0.2/guava-11.0.2.pom",
+      "sha256": "dade5f381a729bbc6a4e2f8d0832888f946fd3c294e05fc30bd200718ecf4c73",
+      "bytes": 5470,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "com/google/guava/guava/16.0.1/guava-16.0.1.pom",
+      "sha256": "c676575845fc8ad6dcfeca0827f405066a140f5fa5434715598179c8ba1c0817",
+      "bytes": 6102,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "com/google/guava/guava/19.0/guava-19.0.jar",
+      "sha256": "58d4cc2e05ebb012bbac568b032f75623be1cb6fb096f3c60c72a86f7f057de4",
+      "bytes": 2308517,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "com/google/guava/guava/19.0/guava-19.0.pom",
+      "sha256": "addc064da7f1077fdf4dc90e5aaa887cd790850d1b74fe2e6e25d5f78551ac63",
+      "bytes": 6792,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "com/google/guava/guava-parent/11.0.2/guava-parent-11.0.2.pom",
+      "sha256": "1aa31e223080d87ef8f70fa4693022a49cf5567d41039c10467e8236cf6d7a06",
+      "bytes": 1959,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "com/google/guava/guava-parent/16.0.1/guava-parent-16.0.1.pom",
+      "sha256": "2c98892cbf7c606b91b4f0f0d1d91da26746bbf5f8595626f5b4d6a5a1914824",
+      "bytes": 7336,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "com/google/guava/guava-parent/19.0/guava-parent-19.0.pom",
+      "sha256": "3b76ff43ecdf10f74da36e4aae2b470c9d063e053c5ca026f5512ae94f1c3e10",
+      "bytes": 9877,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "com/thoughtworks/qdox/qdox/2.0-M7/qdox-2.0-M7.jar",
+      "sha256": "d5d596e64c49e91c4463e45673b8fb7f379d6ae01221ac0b555ad2b53cd5411c",
+      "bytes": 315037,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "com/thoughtworks/qdox/qdox/2.0-M7/qdox-2.0-M7.pom",
+      "sha256": "9cadf9ea7765f8b581e6aeac6a30606b3c486dc242c77b41888abe0fb7cbbeca",
+      "bytes": 15844,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "com/thoughtworks/qdox/qdox/2.0.3/qdox-2.0.3.jar",
+      "sha256": "ff70c10165714fe9546c418a65d74ecd5d57623ba408cecde9428f0a609b5d1c",
+      "bytes": 334163,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "com/thoughtworks/qdox/qdox/2.0.3/qdox-2.0.3.pom",
+      "sha256": "e7ebaead3c95e74934451fc5b5ae9d02066303db67430f59fe219714efcf3bf3",
+      "bytes": 17237,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "com/vdurmont/semver4j/2.2.0/semver4j-2.2.0.jar",
+      "sha256": "795d67b6e5854edb70d0925bd3dfc9595dd2a6862f9e0227ec9fc4d76d571f5e",
+      "bytes": 26534,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "com/vdurmont/semver4j/2.2.0/semver4j-2.2.0.pom",
+      "sha256": "da8602c9bf85c5c9c1344e7448485a6c0aee28f4510434b3f97b58215dee7c4c",
+      "bytes": 6147,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "commons-codec/commons-codec/1.11/commons-codec-1.11.jar",
+      "sha256": "e599d5318e97aa48f42136a2927e6dfa4e8881dff0e6c8e3109ddbbff51d7b7d",
+      "bytes": 335042,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "commons-codec/commons-codec/1.11/commons-codec-1.11.pom",
+      "sha256": "c1e7140d1dea8fdf3528bc1e3c5444ac0b541297311f45f9806c213ec3ee9a10",
+      "bytes": 13966,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "commons-codec/commons-codec/1.16.1/commons-codec-1.16.1.jar",
+      "sha256": "ec87bfb55f22cbd1b21e2190eeda28b2b312ed2a431ee49fbdcc01812d04a5e4",
+      "bytes": 365463,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "commons-codec/commons-codec/1.16.1/commons-codec-1.16.1.pom",
+      "sha256": "b826ddd92f9d7cc64371a02fa0830c154d67c98370ea54a2d196e72eb590ad28",
+      "bytes": 15675,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "commons-io/commons-io/2.11.0/commons-io-2.11.0.jar",
+      "sha256": "961b2f6d87dbacc5d54abf45ab7a6e2495f89b75598962d8c723cea9bc210908",
+      "bytes": 327135,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "commons-io/commons-io/2.11.0/commons-io-2.11.0.pom",
+      "sha256": "2e016fd7e3244b5f2c20acad834d93aa4790486ee1e4564641361a3e831eef59",
+      "bytes": 19729,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "commons-io/commons-io/2.15.1/commons-io-2.15.1.jar",
+      "sha256": "a58af12ee1b68cfd2ebb0c27caef164f084381a00ec81a48cc275fd7ea54e154",
+      "bytes": 501218,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "commons-io/commons-io/2.15.1/commons-io-2.15.1.pom",
+      "sha256": "171a1af82b6759eb5740b3b8809aca80113deaf1153036f2f4445901dfd3f91d",
+      "bytes": 19970,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "commons-io/commons-io/2.16.1/commons-io-2.16.1.jar",
+      "sha256": "f41f7baacd716896447ace9758621f62c1c6b0a91d89acee488da26fc477c84f",
+      "bytes": 508826,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "commons-io/commons-io/2.16.1/commons-io-2.16.1.pom",
+      "sha256": "5777d292251c7895c04a4c57015683ec3b353a12486c9b3e7178e9b0b3c38fff",
+      "bytes": 19623,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "commons-io/commons-io/2.2/commons-io-2.2.jar",
+      "sha256": "675f60bd11a82d481736591fe4054c66471fa5463d45616652fd71585792ba87",
+      "bytes": 173587,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "commons-io/commons-io/2.2/commons-io-2.2.pom",
+      "sha256": "6c221dc2dca94331a92a9cb19b3943631f7cb7c0302255fb5cd0450654e812c7",
+      "bytes": 11034,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "commons-io/commons-io/2.5/commons-io-2.5.jar",
+      "sha256": "a10418348d234968600ccb1d988efcbbd08716e1d96936ccc1880e7d22513474",
+      "bytes": 208700,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "commons-io/commons-io/2.5/commons-io-2.5.pom",
+      "sha256": "28ebb2998bc7d7acb25078526971640892000f3413586ff42d611f1043bfec30",
+      "bytes": 13290,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "commons-io/commons-io/2.6/commons-io-2.6.jar",
+      "sha256": "f877d304660ac2a142f3865badfc971dec7ed73c747c7f8d5d2f5139ca736513",
+      "bytes": 214788,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "commons-io/commons-io/2.6/commons-io-2.6.pom",
+      "sha256": "0c23863893a2291f5a7afdbd8d15923b3948afd87e563fa341cdcf6eae338a60",
+      "bytes": 14256,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "commons-logging/commons-logging/1.2/commons-logging-1.2.jar",
+      "sha256": "daddea1ea0be0f56978ab3006b8ac92834afeefbd9b7e4e6316fca57df0fa636",
+      "bytes": 61829,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "commons-logging/commons-logging/1.2/commons-logging-1.2.pom",
+      "sha256": "c91ab5aa570d86f6fd07cc158ec6bc2c50080402972ee9179fe24100739fbb20",
+      "bytes": 19206,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "io/github/spair/imgui-java-binding/1.86.4/imgui-java-binding-1.86.4.jar",
+      "sha256": "4694b0e8b841b337d44d7a04baff4289d0beee783ff81670f5678293f0936e5a",
+      "bytes": 141298,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "io/github/spair/imgui-java-binding/1.86.4/imgui-java-binding-1.86.4.pom",
+      "sha256": "46672acc41e937c8e3ec9546cbb8b4a3d931af479e3e03ec87604254d9aa3281",
+      "bytes": 1485,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "io/github/spair/imgui-java-lwjgl3/1.86.4/imgui-java-lwjgl3-1.86.4.jar",
+      "sha256": "7485d2a453f8d973d76dbea75540d5627e7aa0a495a051dbe371616632059af5",
+      "bytes": 32995,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "io/github/spair/imgui-java-lwjgl3/1.86.4/imgui-java-lwjgl3-1.86.4.pom",
+      "sha256": "db051e453d3e0e8768b70fd111d542f580fee68042c0d0401b00f1db23ecf80c",
+      "bytes": 2434,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "io/github/spair/imgui-java-natives-linux/1.86.4/imgui-java-natives-linux-1.86.4.jar",
+      "sha256": "eb6785a64f554e24bd79abf7447765b2e1e35b8491034e2180429adc151c3637",
+      "bytes": 1822985,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "io/github/spair/imgui-java-natives-linux/1.86.4/imgui-java-natives-linux-1.86.4.pom",
+      "sha256": "841e3ddb7802ab2110a01ebf0f3e3c7fa10e5112c21ae74948540b56bafe92d8",
+      "bytes": 1513,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "io/github/spair/imgui-java-natives-macos/1.86.4/imgui-java-natives-macos-1.86.4.jar",
+      "sha256": "6c2de138cb511d3293b9329052b11ae1930820c09fa43734be15b761f87a8428",
+      "bytes": 1549009,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "io/github/spair/imgui-java-natives-macos/1.86.4/imgui-java-natives-macos-1.86.4.pom",
+      "sha256": "984563395bd5cabfbfa37658c751c27b96fd5daf6070df01b137c73155630c25",
+      "bytes": 1513,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "io/github/spair/imgui-java-natives-windows/1.86.4/imgui-java-natives-windows-1.86.4.jar",
+      "sha256": "95b70c329a31ec9a17ca4c47a08ef8c5f6e03c0069a58ff78bc4ef0fdbf560d1",
+      "bytes": 1940526,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "io/github/spair/imgui-java-natives-windows/1.86.4/imgui-java-natives-windows-1.86.4.pom",
+      "sha256": "e6a50e93a4806e054f1710558e147d91e236655c47707b031f2b7901c865b034",
+      "bytes": 1519,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "javax/annotation/javax.annotation-api/1.2/javax.annotation-api-1.2.pom",
+      "sha256": "52d73f35f7e638ce3cb56546f879c20e7f7019f72aa20cde1fa80e97865dfd40",
+      "bytes": 13432,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "javax/enterprise/cdi-api/1.2/cdi-api-1.2.pom",
+      "sha256": "d7d713c993363764ba1667296b835ee914e19b2e70921eafe96b37f0d5b4088f",
+      "bytes": 6276,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "javax/inject/javax.inject/1/javax.inject-1.jar",
+      "sha256": "91c77044a50c481636c32d916fd89c9118a72195390452c81065080f957de7ff",
+      "bytes": 2497,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "javax/inject/javax.inject/1/javax.inject-1.pom",
+      "sha256": "943e12b100627804638fa285805a0ab788a680266531e650921ebfe4621a8bfa",
+      "bytes": 612,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "net/java/jvnet-parent/3/jvnet-parent-3.pom",
+      "sha256": "30f5789efa39ddbf96095aada3fc1260c4561faf2f714686717cb2dc5049475a",
+      "bytes": 4789,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/apache/apache/11/apache-11.pom",
+      "sha256": "9a4fb5addb41d8116b6441e9e3c48764d9cc562243d5608652bea6db0509297b",
+      "bytes": 14811,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/apache/apache/13/apache-13.pom",
+      "sha256": "ff513db0361fd41237bef4784968bc15aae478d4ec0a9496f811072ccaf3841d",
+      "bytes": 13974,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/apache/apache/14/apache-14.pom",
+      "sha256": "4c3acb6a5f8467babe3e9e4486e35224e20eff822f4bedb520f3319a96dc9579",
+      "bytes": 14685,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/apache/apache/15/apache-15.pom",
+      "sha256": "36c2f2f979ac67b450c0cb480e4e9baf6b40f3a681f22ba9692287d1139ad494",
+      "bytes": 15236,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/apache/apache/16/apache-16.pom",
+      "sha256": "9f85ff2fd7d6cb3097aa47fb419ee7f0ebe869109f98aba9f4eca3f49e74a40e",
+      "bytes": 15397,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/apache/apache/17/apache-17.pom",
+      "sha256": "398044b74b5a719326be218ae08124e5e2f3318ab5d78fe199d504efc2e0d43f",
+      "bytes": 16056,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/apache/apache/18/apache-18.pom",
+      "sha256": "7831307285fd475bbc36b20ae38e7882f11c3153b1d5930f852d44eda8f33c17",
+      "bytes": 15667,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/apache/apache/19/apache-19.pom",
+      "sha256": "91f7a33096ea69bac2cbaf6d01feb934cac002c48d8c8cfa9c240b40f1ec21df",
+      "bytes": 15489,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/apache/apache/21/apache-21.pom",
+      "sha256": "af10c108da014f17cafac7b52b2b4b5a3a1c18265fa2af97a325d9143537b380",
+      "bytes": 17107,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/apache/apache/23/apache-23.pom",
+      "sha256": "bc10624e0623f36577fac5639ca2936d3240ed152fb6d8d533ab4d270543491c",
+      "bytes": 18422,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/apache/apache/25/apache-25.pom",
+      "sha256": "e68fc19a48cec582a6732fd0b10dbfe9feca25060963def89e547f8a3759d379",
+      "bytes": 20539,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/apache/apache/26/apache-26.pom",
+      "sha256": "765b9c71832d2faad9611869c1f07263e3dfd000ebefdcd434d1f14cb2be3ea1",
+      "bytes": 20539,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/apache/apache/29/apache-29.pom",
+      "sha256": "3e49037174820bbd0df63420a977255886398954c2a06291fa61f727ac35b377",
+      "bytes": 20721,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/apache/apache/30/apache-30.pom",
+      "sha256": "63dd4a393a9c0dfcb314efe83871a41d243bc8d200cbc7f2d197f30da78239d8",
+      "bytes": 23241,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/apache/apache/31/apache-31.pom",
+      "sha256": "555d0c9eaa69c042aff924927b9381e8f8174136d355eead445224452e6291cc",
+      "bytes": 23531,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/apache/apache/32/apache-32.pom",
+      "sha256": "cfd872c0ec27f53ae68f43dbc0fecded8add773079a53afbd390e407b42ce72f",
+      "bytes": 24184,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/apache/apache/5/apache-5.pom",
+      "sha256": "1933a6037439b389bda2feaccfc0113880fd8d88f7d240d2052b91108dd5ae89",
+      "bytes": 4097,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/apache/apache/6/apache-6.pom",
+      "sha256": "12edb5096e13f40c362d0bd40902589fa9586505123fa26799ce50b116fa5bb3",
+      "bytes": 12796,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/apache/apache/9/apache-9.pom",
+      "sha256": "4946e60a547c8eda69f3bc23c5b6f0dadcf8469ea49b1d1da7de34aecfcf18dd",
+      "bytes": 15160,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/apache/commons/commons-compress/1.26.1/commons-compress-1.26.1.jar",
+      "sha256": "27bb5d40f37c3bb7205b4a0540247df057715e9f6cbbd97d626ab8b50318bb04",
+      "bytes": 1079377,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/apache/commons/commons-compress/1.26.1/commons-compress-1.26.1.pom",
+      "sha256": "5f448a021d88c96f3840dfe619128d62e5cfb62712cd6e66dca8a7704945b06e",
+      "bytes": 22371,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/apache/commons/commons-lang3/3.12.0/commons-lang3-3.12.0.jar",
+      "sha256": "d919d904486c037f8d193412da0c92e22a9fa24230b9d67a57855c5c31c7e94e",
+      "bytes": 587402,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/apache/commons/commons-lang3/3.12.0/commons-lang3-3.12.0.pom",
+      "sha256": "82d31f1dcc4583effd744e979165b16da64bf86bca623fc5d1b03ed94f45c85a",
+      "bytes": 30660,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/apache/commons/commons-lang3/3.14.0/commons-lang3-3.14.0.jar",
+      "sha256": "7b96bf3ee68949abb5bc465559ac270e0551596fa34523fddf890ec418dde13c",
+      "bytes": 657952,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/apache/commons/commons-lang3/3.14.0/commons-lang3-3.14.0.pom",
+      "sha256": "110438863bad37c28f906bf87016e38c7a8c758ba321e09d11dc5a2363a8e79e",
+      "bytes": 30894,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/apache/commons/commons-lang3/3.7/commons-lang3-3.7.jar",
+      "sha256": "6e8dc31e046508d9953c96534edf0c2e0bfe6f468966b5b842b3f87e43b6a847",
+      "bytes": 499634,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/apache/commons/commons-lang3/3.7/commons-lang3-3.7.pom",
+      "sha256": "16bf63e86f5ea0404e89ed0f654b0915bea0030129aea9531d74369b71f764da",
+      "bytes": 27535,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/apache/commons/commons-parent/24/commons-parent-24.pom",
+      "sha256": "aa392820b5e956f57f8d8f5b0878fcb8920b3961ffba153cb69203e96a713ccd",
+      "bytes": 47265,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/apache/commons/commons-parent/34/commons-parent-34.pom",
+      "sha256": "3a2e69d06d641d1f3b293126dc9e2e4ea6563bf8c36c87e0ab6fa4292d04b79c",
+      "bytes": 55943,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/apache/commons/commons-parent/39/commons-parent-39.pom",
+      "sha256": "87cd27e1a02a5c3eb6d85059ce98696bb1b44c2b8b650f0567c86df60fa61da7",
+      "bytes": 61975,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/apache/commons/commons-parent/42/commons-parent-42.pom",
+      "sha256": "cd313494c670b483ec256972af1698b330e598f807002354eb765479f604b09c",
+      "bytes": 67956,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/apache/commons/commons-parent/52/commons-parent-52.pom",
+      "sha256": "75dbe8f34e98e4c3ff42daae4a2f9eb4cbcd3b5f1047d54460ace906dbb4502e",
+      "bytes": 79273,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/apache/commons/commons-parent/64/commons-parent-64.pom",
+      "sha256": "6f19638994e8357b4ed734696f992057efaafa1235673998133299798e2ccddb",
+      "bytes": 77957,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/apache/commons/commons-parent/65/commons-parent-65.pom",
+      "sha256": "6cf3495fc2e6ac913a2b7f2e03fb5908fb3f229fb06d3358dc45678d5af3e36e",
+      "bytes": 77926,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/apache/commons/commons-parent/66/commons-parent-66.pom",
+      "sha256": "48fd6dc846e56b1f408660d163e75300f9e384bb63be482a8082a21d72a8db9c",
+      "bytes": 77001,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/apache/commons/commons-parent/69/commons-parent-69.pom",
+      "sha256": "d50da9c39bdca823d618d1b4a03b73f196497fcb8616fd0da727c8623592a9bb",
+      "bytes": 77006,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/apache/maven/maven/2.2.1/maven-2.2.1.pom",
+      "sha256": "d135cff96dcbbc8a5fab30180e557cae620373cf26941d4c738a88896a2d98ed",
+      "bytes": 22409,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/apache/maven/maven/3.0/maven-3.0.pom",
+      "sha256": "28fc63720c4a5ff92bf0e358ed55a6f24626f35bccc13cc3e194231e158848f6",
+      "bytes": 21885,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/apache/maven/maven/3.2.5/maven-3.2.5.pom",
+      "sha256": "75f8135d0a9ae8d63c3553f2eaefe25f1b0a01d7676e07f561835b95a88aedf5",
+      "bytes": 22371,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/apache/maven/maven-aether-provider/3.0/maven-aether-provider-3.0.jar",
+      "sha256": "1205a1f229999170dcadcfb885a278ad0bc2295540a251f4c438f887ead7bbd9",
+      "bytes": 51189,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/apache/maven/maven-aether-provider/3.0/maven-aether-provider-3.0.pom",
+      "sha256": "755c07a1ae47cff80f633265b224341d6d8cc26f02d37eb407bc45ff5db9a71d",
+      "bytes": 2470,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/apache/maven/maven-aether-provider/3.2.5/maven-aether-provider-3.2.5.pom",
+      "sha256": "317d515c5c69278a980c6219901d327efb4210ca44ae1f07c2a304d487ec7cae",
+      "bytes": 4250,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/apache/maven/maven-archiver/3.6.2/maven-archiver-3.6.2.jar",
+      "sha256": "1f895a587df4844d9b7565e8e9a6352afe1d55532458a0dbeb746bc1d02e9216",
+      "bytes": 26804,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/apache/maven/maven-archiver/3.6.2/maven-archiver-3.6.2.pom",
+      "sha256": "8b117b0dc205a71abda33463f8c7ff891513cfb92241d8a011f9e8ac5ea21e77",
+      "bytes": 4386,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/apache/maven/maven-artifact/2.2.1/maven-artifact-2.2.1.pom",
+      "sha256": "f658a628efd6e0efe416b977638ba144af660fe6413f3637a4d03feb6a1ce806",
+      "bytes": 1581,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/apache/maven/maven-artifact/3.0/maven-artifact-3.0.jar",
+      "sha256": "759079b9cf0cddae5ba06c96fd72347d82d0bc1d903c95d398c96522b139e470",
+      "bytes": 51908,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/apache/maven/maven-artifact/3.0/maven-artifact-3.0.pom",
+      "sha256": "c56a0dbd90cea691f83e58fa9a6388fb3ac6bc3c14b8c04d2e112544651fa528",
+      "bytes": 1928,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/apache/maven/maven-artifact/3.2.5/maven-artifact-3.2.5.pom",
+      "sha256": "4e7f1161d5e955492198699b47a413ae1059e9ba187de2970a75aa655a8cfd21",
+      "bytes": 2348,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/apache/maven/maven-artifact-manager/2.2.1/maven-artifact-manager-2.2.1.pom",
+      "sha256": "ecf58351f8fe0c398b8b452216705bece5291b9b327d30202c16b28ac680450c",
+      "bytes": 3103,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/apache/maven/maven-compat/3.0/maven-compat-3.0.jar",
+      "sha256": "3b8ad55703b8b60e6978b0efed24103a331c7ffd788374af85e2020f6c9b1f00",
+      "bytes": 284889,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/apache/maven/maven-compat/3.0/maven-compat-3.0.pom",
+      "sha256": "612a1751377f324c1a6167c6d70a26800cbe3f1b2a37d03a9377ef4f80e7b526",
+      "bytes": 4021,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/apache/maven/maven-core/2.2.1/maven-core-2.2.1.pom",
+      "sha256": "5cc81603cab47bf20dbfd5e28e311da1fd26f2e3617b50547da5cd0b4f59edf3",
+      "bytes": 11633,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/apache/maven/maven-core/3.0/maven-core-3.0.jar",
+      "sha256": "ba03294ee53e7ba31838e4950f280d033c7744c6c7b31253afc75aa351fbd989",
+      "bytes": 527040,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/apache/maven/maven-core/3.0/maven-core-3.0.pom",
+      "sha256": "f70e12ebea93f119f4f63766c2b8a3386c34bb48e588df710cb98c8e3822f7c7",
+      "bytes": 6629,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/apache/maven/maven-core/3.2.5/maven-core-3.2.5.pom",
+      "sha256": "88ffe6ab7548bda1a711d434a67cfb1599bfb38497f65b36d106a6e98f6eb955",
+      "bytes": 8063,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/apache/maven/maven-error-diagnostics/2.2.1/maven-error-diagnostics-2.2.1.pom",
+      "sha256": "228367b7569fb1462a3eb1423bc2778e2fc7fbaee3d3767890c02b8924fa1889",
+      "bytes": 1708,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/apache/maven/maven-model/2.2.1/maven-model-2.2.1.pom",
+      "sha256": "62dd8e35a2c4432bb22f8250bbfe08639635599b4064d5d747bd24cf3c02fac5",
+      "bytes": 3240,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/apache/maven/maven-model/3.0/maven-model-3.0.jar",
+      "sha256": "27e426d73f8662b47f60df0e43439b3dec2909c42b89175a6e4431dfed3edafd",
+      "bytes": 164685,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/apache/maven/maven-model/3.0/maven-model-3.0.pom",
+      "sha256": "3d6fdeb72b2967f1fa2784134fb832d08d8d6e879b7ace7712f2c7281994fc1e",
+      "bytes": 3892,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/apache/maven/maven-model-builder/3.0/maven-model-builder-3.0.jar",
+      "sha256": "1c98a4ec9eb0cb86ecf01710aa75c0346ee3f96edc6edeabcb21ed984120e154",
+      "bytes": 147974,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/apache/maven/maven-model-builder/3.0/maven-model-builder-3.0.pom",
+      "sha256": "c1413ace47dafabe7917072f26e0b667f5b3a762156f82893544cd71e6a6c4ba",
+      "bytes": 2246,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/apache/maven/maven-model-builder/3.2.5/maven-model-builder-3.2.5.pom",
+      "sha256": "ebf1341d424e9faa3e8d02c5e91a30868be6583ecb753c72208634f5c05f0738",
+      "bytes": 2993,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/apache/maven/maven-monitor/2.2.1/maven-monitor-2.2.1.pom",
+      "sha256": "bc962d48dcebb463c1071004015c4609516d616e884ce36eb7390f9a8095a65b",
+      "bytes": 1257,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/apache/maven/maven-parent/11/maven-parent-11.pom",
+      "sha256": "7450c3330cf06c254db9f0dc5ef49eac15502311cf19e0208ba473076ee043d6",
+      "bytes": 32409,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/apache/maven/maven-parent/15/maven-parent-15.pom",
+      "sha256": "e25770d5d46dcdfdbb9e38ca04f272c5bdf476d88392ab4044ba90678e616d54",
+      "bytes": 24003,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/apache/maven/maven-parent/22/maven-parent-22.pom",
+      "sha256": "165a409718070698b4eb18fdfee4325bc3361cbb8e96a35f4669982cd2adb79a",
+      "bytes": 29743,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/apache/maven/maven-parent/23/maven-parent-23.pom",
+      "sha256": "5425501edd9e0bd7b01eca53cc92e06836d24851151304f9c6759e1713541685",
+      "bytes": 32586,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/apache/maven/maven-parent/24/maven-parent-24.pom",
+      "sha256": "c7484a8a375ad6e3d14781c3675ff496d568b8c95e11b6a3784f6ef21419cdbf",
+      "bytes": 36898,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/apache/maven/maven-parent/25/maven-parent-25.pom",
+      "sha256": "3e66146707bc76e9d5b6cd8c98cf77d931c0894e7955a8e7f104f6790769abf1",
+      "bytes": 37440,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/apache/maven/maven-parent/27/maven-parent-27.pom",
+      "sha256": "56987ec424c449a9dc4dd427458ea1cb09b38e67ef4c219378a268a5e0d1b8a0",
+      "bytes": 40709,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/apache/maven/maven-parent/30/maven-parent-30.pom",
+      "sha256": "70709ad646f5aa57bb44e2a8b4f3de4993b108202ba095bd164e41cdc3181e70",
+      "bytes": 41321,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/apache/maven/maven-parent/31/maven-parent-31.pom",
+      "sha256": "42fde763a6e6fe8480b1608adff2c35d02612e279ec9ce72fabb4fd8fb5c5753",
+      "bytes": 43384,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/apache/maven/maven-parent/33/maven-parent-33.pom",
+      "sha256": "3856e3fcd169502d5f12fe2452604ebf6c7c025f15656bfa558ea99ed29d73ea",
+      "bytes": 44155,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/apache/maven/maven-parent/34/maven-parent-34.pom",
+      "sha256": "1a8faf7a6a2b848acb26a959954ee115c0d79dbe75a6206fb3b8c7c2f45a237f",
+      "bytes": 42838,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/apache/maven/maven-parent/35/maven-parent-35.pom",
+      "sha256": "d2edd4077c0abc9cc8202883c459503180424636cb39a83031ec1112394b2576",
+      "bytes": 45258,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/apache/maven/maven-parent/36/maven-parent-36.pom",
+      "sha256": "fcc3ab64c3cc80966d562a9aa604d8c280b3b7092441dd09e5290b081dfbedb5",
+      "bytes": 45474,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/apache/maven/maven-parent/39/maven-parent-39.pom",
+      "sha256": "cfe4820aa1d96ae51d1dc5b0e2a9dc582c42478c24c95ca8238f547e60bef721",
+      "bytes": 47971,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/apache/maven/maven-parent/41/maven-parent-41.pom",
+      "sha256": "762fcdd4ce8621c5fa0a2cf6495ad26972a8093eb432aa3e402bc2d4e2500c53",
+      "bytes": 49873,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/apache/maven/maven-parent/42/maven-parent-42.pom",
+      "sha256": "04534dea350a2187970a5b74444338bcf78ba8e537d44f262acfba16ebb33056",
+      "bytes": 50444,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/apache/maven/maven-plugin-api/2.2.1/maven-plugin-api-2.2.1.pom",
+      "sha256": "c10d0460c2d5c5076304598965991d6257d1bf31bdef921a17ce3d059bce654e",
+      "bytes": 1459,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/apache/maven/maven-plugin-api/3.0/maven-plugin-api-3.0.jar",
+      "sha256": "f5ecc6eaa4a32ee0c115d31525f588f491b2cc75fdeb4ed3c0c662c12ac0c32f",
+      "bytes": 48920,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/apache/maven/maven-plugin-api/3.0/maven-plugin-api-3.0.pom",
+      "sha256": "8a722af2564205ae996f9035cc04670d3e9e4ae592f5a643c58fb7b0f43e1501",
+      "bytes": 2288,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/apache/maven/maven-plugin-api/3.2.5/maven-plugin-api-3.2.5.pom",
+      "sha256": "2c3ba62ee26ffc694cfb2fc6132e4ccd7b4acf553aa86d9143dc0f77822f68ec",
+      "bytes": 3027,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/apache/maven/maven-plugin-descriptor/2.2.1/maven-plugin-descriptor-2.2.1.pom",
+      "sha256": "d4ef608f90dc9599c0cc325ca2ccc2e1ceb439b3d2ff31ae22e30ac1a63a68f0",
+      "bytes": 2064,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/apache/maven/maven-plugin-parameter-documenter/2.2.1/maven-plugin-parameter-documenter-2.2.1.pom",
+      "sha256": "902b0160f7b81ec76452468f8ae087fc1cfefc08367c84d9197512dfb01d845d",
+      "bytes": 1957,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/apache/maven/maven-plugin-registry/2.2.1/maven-plugin-registry-2.2.1.pom",
+      "sha256": "3db15325cd620c0e54c3d88b6b7ec1bac43db376e18c9bf56bd0c05402ee6be8",
+      "bytes": 1929,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/apache/maven/maven-profile/2.2.1/maven-profile-2.2.1.pom",
+      "sha256": "d125b3ade9f694ae60ef835f5ae000b6ba35fba8c34bafd8b40a1961375e63fa",
+      "bytes": 2171,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/apache/maven/maven-project/2.2.1/maven-project-2.2.1.pom",
+      "sha256": "34af0baedaef19375b7c1a7da967e9089d5e0754647fdbe9a302590392874b77",
+      "bytes": 2773,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/apache/maven/maven-repository-metadata/2.2.1/maven-repository-metadata-2.2.1.pom",
+      "sha256": "9dad0f56523955b60a9903f4e8342891355d7a59c77f36a3b53cf6ff2e4df625",
+      "bytes": 1871,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/apache/maven/maven-repository-metadata/3.0/maven-repository-metadata-3.0.jar",
+      "sha256": "c938e4d8cdf0674496749a87e6d3b29aa41b1b35a39898a1ade2bc9eae214c17",
+      "bytes": 30082,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/apache/maven/maven-repository-metadata/3.0/maven-repository-metadata-3.0.pom",
+      "sha256": "8d9ce34e4bc02c4df761578c5f48ac3da5af51f259f5e3e4ea9047ec345ed1b7",
+      "bytes": 1929,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/apache/maven/maven-repository-metadata/3.2.5/maven-repository-metadata-3.2.5.pom",
+      "sha256": "171c98a1e2a5a2445b0ddd83ee15cb53122b82c44bec045fd00d817c72948b1e",
+      "bytes": 2229,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/apache/maven/maven-settings/2.2.1/maven-settings-2.2.1.pom",
+      "sha256": "0d25a88a1b1e44801f8912206a40ff249cb5702ee87cf3d243d5213f7bcf534f",
+      "bytes": 2179,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/apache/maven/maven-settings/3.0/maven-settings-3.0.jar",
+      "sha256": "3b1a46b4bc26a0176acaf99312ff2f3a631faf3224b0996af546aa48bd73c647",
+      "bytes": 46667,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/apache/maven/maven-settings/3.0/maven-settings-3.0.pom",
+      "sha256": "2340855d40ce6125d9a23ab80d94848efa50b2957cf93531e2a7dcf631b4f22b",
+      "bytes": 1881,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/apache/maven/maven-settings/3.2.5/maven-settings-3.2.5.pom",
+      "sha256": "244564951300444c0c4c4a1a3f870756a110cb9a40405aed4ceccc3e33f5182f",
+      "bytes": 2171,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/apache/maven/maven-settings-builder/3.0/maven-settings-builder-3.0.jar",
+      "sha256": "e17e706c6f03c453f6000599cab607c2af5f1cc6e3a3b1e6fce27e5ef4999eab",
+      "bytes": 37780,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/apache/maven/maven-settings-builder/3.0/maven-settings-builder-3.0.pom",
+      "sha256": "1e707086b2efabe7527e75539f87e5b4544ed20e8b5ae8aa35bcc24d7ba3a2b0",
+      "bytes": 2220,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/apache/maven/maven-settings-builder/3.2.5/maven-settings-builder-3.2.5.pom",
+      "sha256": "c1837d6691e39a614c9179bbafaa2c4327457763cf71ffd8f67b7f81ce3084eb",
+      "bytes": 2596,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/apache/maven/plugins/maven-clean-plugin/3.2.0/maven-clean-plugin-3.2.0.jar",
+      "sha256": "b657bef2e1eb11e029a70cd688bde6adad29e4e99dacb18516bf651ecca32435",
+      "bytes": 35678,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/apache/maven/plugins/maven-clean-plugin/3.2.0/maven-clean-plugin-3.2.0.pom",
+      "sha256": "5b25a527e8b437d0e1bc0e589b435652c59a63eb3600f8333032abda6b11b376",
+      "bytes": 5309,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/apache/maven/plugins/maven-compiler-plugin/3.13.0/maven-compiler-plugin-3.13.0.jar",
+      "sha256": "6f819947a2a773792dc91d17f906e22113bfb2fefb6b64dec836175715d7402a",
+      "bytes": 82525,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/apache/maven/plugins/maven-compiler-plugin/3.13.0/maven-compiler-plugin-3.13.0.pom",
+      "sha256": "0d00b84f26ff5f3e845bf349302345633ca65f8d8e9101b31082082415912c1e",
+      "bytes": 10444,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/apache/maven/plugins/maven-compiler-plugin/3.7.0/maven-compiler-plugin-3.7.0.jar",
+      "sha256": "5b2e3a0c95d1125ba9312bd08f5e9e8b8bf0fa7842254a73e597728660044503",
+      "bytes": 58222,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/apache/maven/plugins/maven-compiler-plugin/3.7.0/maven-compiler-plugin-3.7.0.pom",
+      "sha256": "0619c970c7c1c9f7c1e074ab48a4b396a8b404a5fd3176144fad1d949c9bc21b",
+      "bytes": 10713,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/apache/maven/plugins/maven-jar-plugin/3.4.1/maven-jar-plugin-3.4.1.jar",
+      "sha256": "25e0a5b55b872d95e3a09a5d825bc1061f5ce25ee81f147e623405d8ebedfa5f",
+      "bytes": 33771,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/apache/maven/plugins/maven-jar-plugin/3.4.1/maven-jar-plugin-3.4.1.pom",
+      "sha256": "be9318cc19895ffd5532df090df37adb5b97396d9a827f961fde65753b5a922f",
+      "bytes": 7807,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/apache/maven/plugins/maven-plugins/28/maven-plugins-28.pom",
+      "sha256": "3c304158f6103cca5a6a4958cbf6f0d5d92daeb83995f478ebe87f490768a39f",
+      "bytes": 12031,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/apache/maven/plugins/maven-plugins/30/maven-plugins-30.pom",
+      "sha256": "439fe43023445ac759740e1ca29641fc54453911bc8b55f8c3d84b3d76843ab1",
+      "bytes": 10172,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/apache/maven/plugins/maven-plugins/33/maven-plugins-33.pom",
+      "sha256": "5db02c6f379712fa428b82f7742407bb712b98ad592c7779e2b66bd66ec8b1d2",
+      "bytes": 10687,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/apache/maven/plugins/maven-plugins/35/maven-plugins-35.pom",
+      "sha256": "42d759c550d723373ae34556e80930b9ed2e13495dace134adf99e64ddc8d2e1",
+      "bytes": 9902,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/apache/maven/plugins/maven-plugins/39/maven-plugins-39.pom",
+      "sha256": "18085afbef3a17942b442135a3f0e77018cda66edd33c6b18fd18440661bc29e",
+      "bytes": 8092,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/apache/maven/plugins/maven-plugins/41/maven-plugins-41.pom",
+      "sha256": "9e64593239bb69d80b2db9e595d8c0fc3cb44cf2aa5c1ed547718b4cfd732efe",
+      "bytes": 7353,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/apache/maven/plugins/maven-plugins/42/maven-plugins-42.pom",
+      "sha256": "5b31681ea67e838a8ed1f08af891d1ae50f16dfadd3fc2b787900ed69d5f2503",
+      "bytes": 7690,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/apache/maven/plugins/maven-resources-plugin/3.3.1/maven-resources-plugin-3.3.1.jar",
+      "sha256": "eb4069c7fe50a313b3f5295ccd214f30402f63971c26f443f7f3e798be8cc2a7",
+      "bytes": 30951,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/apache/maven/plugins/maven-resources-plugin/3.3.1/maven-resources-plugin-3.3.1.pom",
+      "sha256": "3269d0a6e3cd614a29486f57fc86488b0f1e458a11bebc61f9408fd6c7cf85ae",
+      "bytes": 8158,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/apache/maven/plugins/maven-shade-plugin/2.4.2/maven-shade-plugin-2.4.2.jar",
+      "sha256": "c022304726770d5dc4afaf7aa73b01f9b90ef8480f8f46a72f0e3626a63b558b",
+      "bytes": 103335,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/apache/maven/plugins/maven-shade-plugin/2.4.2/maven-shade-plugin-2.4.2.pom",
+      "sha256": "e30b252e0e14f16e649f59deb68e2f574476c58a50218260672d4780a9797e25",
+      "bytes": 8217,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/apache/maven/plugins/maven-shade-plugin/3.2.1/maven-shade-plugin-3.2.1.jar",
+      "sha256": "51073f8bb6d0b66dc09ba83c958a9a36a99c32ed9b3b8328bd7803788b9a8662",
+      "bytes": 113779,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/apache/maven/plugins/maven-shade-plugin/3.2.1/maven-shade-plugin-3.2.1.pom",
+      "sha256": "f76c6ffcbab8de56046d86d98b17a1c7610951bcb83a004ed473cb1126726d36",
+      "bytes": 9329,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/apache/maven/plugins/maven-surefire-plugin/3.2.5/maven-surefire-plugin-3.2.5.jar",
+      "sha256": "e35a8d2114b4c0166c3bf8e40ac63dd4608734347d7294555b6160a661294a92",
+      "bytes": 44571,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/apache/maven/plugins/maven-surefire-plugin/3.2.5/maven-surefire-plugin-3.2.5.pom",
+      "sha256": "284c61ddc929bbc9eeba3c8c11213f1f0f7bf0f8aa558067e0f9be3b90c8ddc0",
+      "bytes": 5319,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/apache/maven/shared/file-management/3.1.0/file-management-3.1.0.jar",
+      "sha256": "2e8cb2d546a01c2259cb17f1e06732db3d14b079d19622bf8400c82cb1ee6b96",
+      "bytes": 36328,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/apache/maven/shared/file-management/3.1.0/file-management-3.1.0.pom",
+      "sha256": "5e93a63b3042023e558dcbeb19914ce82e6a6fbccdbd68797f80b135121a8bde",
+      "bytes": 4487,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/apache/maven/shared/maven-artifact-transfer/0.10.0/maven-artifact-transfer-0.10.0.jar",
+      "sha256": "6f919f97c9272263fa910cfe7fa88595982a0451e7d7b121cca8ac85f6162882",
+      "bytes": 127897,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/apache/maven/shared/maven-artifact-transfer/0.10.0/maven-artifact-transfer-0.10.0.pom",
+      "sha256": "b78766b1bcf69834ed931e20ad1ccbb92dbcd03d517b568b207108f9cd89bed8",
+      "bytes": 11567,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/apache/maven/shared/maven-common-artifact-filters/3.0.1/maven-common-artifact-filters-3.0.1.jar",
+      "sha256": "b291bd2d46ecd42ba26938a78ec053eedb240e5a3eef3ffc82c46ecafa95c306",
+      "bytes": 61454,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/apache/maven/shared/maven-common-artifact-filters/3.0.1/maven-common-artifact-filters-3.0.1.pom",
+      "sha256": "0adc76dbae4051be08ed8205bd0f6caea6f4c7c3cb836a03f6bd2fd734d149ad",
+      "bytes": 4836,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/apache/maven/shared/maven-common-artifact-filters/3.1.1/maven-common-artifact-filters-3.1.1.jar",
+      "sha256": "4a8eea7663992e49206d9f928138f334a835ad3fbbc40929342ef007ccf5471b",
+      "bytes": 60844,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/apache/maven/shared/maven-common-artifact-filters/3.1.1/maven-common-artifact-filters-3.1.1.pom",
+      "sha256": "5498d020941318c23a707b11b73032632da91672e36cc4a7e2fc4e19726c1306",
+      "bytes": 5799,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/apache/maven/shared/maven-dependency-tree/2.2/maven-dependency-tree-2.2.jar",
+      "sha256": "1672dc69008e72e0785ebc7ba605bf854d20d56e8b6b62ce3c14b7b03cf377f1",
+      "bytes": 63566,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/apache/maven/shared/maven-dependency-tree/2.2/maven-dependency-tree-2.2.pom",
+      "sha256": "3fb4145aed54ac2a8139317627a26b75389c889c16aea26374790f4cd3525a4a",
+      "bytes": 7262,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/apache/maven/shared/maven-dependency-tree/3.0.1/maven-dependency-tree-3.0.1.jar",
+      "sha256": "c7d0968a60678fcabd3f6e7ef32812c77f14bb964e66f4ae2b907d4efd675067",
+      "bytes": 36678,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/apache/maven/shared/maven-dependency-tree/3.0.1/maven-dependency-tree-3.0.1.pom",
+      "sha256": "c3fea9f8a49214d045f8687cf6c2e0204e844165de67e347c38fd1f5f721353b",
+      "bytes": 7497,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/apache/maven/shared/maven-filtering/3.3.1/maven-filtering-3.3.1.jar",
+      "sha256": "b12663187d9ffc6a1ee76139c0ef497fe9400efbe2ebe01616fe2703656fb4f0",
+      "bytes": 54990,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/apache/maven/shared/maven-filtering/3.3.1/maven-filtering-3.3.1.pom",
+      "sha256": "a1d90278a9c3effef6c45db86c660749d2910d8d7361ed81983565950f667e85",
+      "bytes": 6036,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/apache/maven/shared/maven-shared-components/18/maven-shared-components-18.pom",
+      "sha256": "a1d54fb81b5a8f197f5b3d0a928f63da2278c79bc8dd06e0be93593403f05775",
+      "bytes": 4934,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/apache/maven/shared/maven-shared-components/19/maven-shared-components-19.pom",
+      "sha256": "d82408269aada2eb1521ee8ff17f7c67333684f8ed2a09a9e35badd2e7575957",
+      "bytes": 6359,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/apache/maven/shared/maven-shared-components/20/maven-shared-components-20.pom",
+      "sha256": "3dcc49b7261dc4c274b15a62f96961551f23fc0341622b068938ec3a66503748",
+      "bytes": 5106,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/apache/maven/shared/maven-shared-components/30/maven-shared-components-30.pom",
+      "sha256": "ad9df3b73df8bbc0309ad42818fa9779cd10528df0708788f4aceddc514bd031",
+      "bytes": 4583,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/apache/maven/shared/maven-shared-components/31/maven-shared-components-31.pom",
+      "sha256": "d81a80d2cb54500a4f9f2a015e484393cba991e39d336425458ec6682d9a2dca",
+      "bytes": 5110,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/apache/maven/shared/maven-shared-components/34/maven-shared-components-34.pom",
+      "sha256": "64d0edb5f21cfff600b1c3ab7d45f9754cd18ba5fbf83b3d1bb7c4849437d8e3",
+      "bytes": 5096,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/apache/maven/shared/maven-shared-components/36/maven-shared-components-36.pom",
+      "sha256": "ec8e973e7964aaf490dbddd39f312340e00d113b8470f135a13e35e45f4baf9f",
+      "bytes": 4894,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/apache/maven/shared/maven-shared-components/39/maven-shared-components-39.pom",
+      "sha256": "17e81388d88ba61c4055450ec90a32ee30acd07f46dc6e31e096b8e53735f4b2",
+      "bytes": 3220,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/apache/maven/shared/maven-shared-components/41/maven-shared-components-41.pom",
+      "sha256": "c6bd81e2588e0f0f87392d4db590e1d81c126a25ee9253252ef89c506cde1e34",
+      "bytes": 3176,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/apache/maven/shared/maven-shared-incremental/1.1/maven-shared-incremental-1.1.jar",
+      "sha256": "61988e54486a5dc38f06c70fdae5b108556c63bd433697b9f4305fcdb30fa40e",
+      "bytes": 13538,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/apache/maven/shared/maven-shared-incremental/1.1/maven-shared-incremental-1.1.pom",
+      "sha256": "f21d19eb49b4a66cd85354a9ee7335439ea92a368173760a202766008cc19924",
+      "bytes": 4742,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/apache/maven/shared/maven-shared-utils/0.1/maven-shared-utils-0.1.pom",
+      "sha256": "9ecb36b0e0d7d1d0f0dabd8705368b710df58b943091e9fa9071a29ccdc15a33",
+      "bytes": 4047,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/apache/maven/shared/maven-shared-utils/3.1.0/maven-shared-utils-3.1.0.jar",
+      "sha256": "88e5334c4c29a6e81c74a1d814c54a9a3b1e4fc6560a95da196fe16928095471",
+      "bytes": 163692,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/apache/maven/shared/maven-shared-utils/3.1.0/maven-shared-utils-3.1.0.pom",
+      "sha256": "68f9fdef85d2c89f53c63cbc559920e0115bd30eb6f7076c9854931d3829027b",
+      "bytes": 4979,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/apache/maven/shared/maven-shared-utils/3.3.4/maven-shared-utils-3.3.4.jar",
+      "sha256": "7925d9c5a0e2040d24b8fae3f612eb399cbffe5838b33ba368777dc7bddf6dda",
+      "bytes": 153143,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/apache/maven/shared/maven-shared-utils/3.3.4/maven-shared-utils-3.3.4.pom",
+      "sha256": "bf83482d96f76d63699d63e125e64f4ac73c8178985733662dbd69af9c60339e",
+      "bytes": 5831,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/apache/maven/shared/maven-shared-utils/3.4.2/maven-shared-utils-3.4.2.jar",
+      "sha256": "b613357e1bad4dfc1dead801691c9460f9585fe7c6b466bc25186212d7d18487",
+      "bytes": 151103,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/apache/maven/shared/maven-shared-utils/3.4.2/maven-shared-utils-3.4.2.pom",
+      "sha256": "a941745d7faeb8dc9a75edc2c330c994b7440b9a44d21142716b6053967a41c1",
+      "bytes": 5899,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/apache/maven/surefire/maven-surefire-common/3.2.5/maven-surefire-common-3.2.5.jar",
+      "sha256": "00c66c89a5a303c665db30da3d95edfa993660c85a778f27af73af63e6972685",
+      "bytes": 307901,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/apache/maven/surefire/maven-surefire-common/3.2.5/maven-surefire-common-3.2.5.pom",
+      "sha256": "f10334bd0e4023f689fdb6b8434be7612d9ccbe881140d79ebb10701220dfbeb",
+      "bytes": 6242,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/apache/maven/surefire/surefire/3.2.5/surefire-3.2.5.pom",
+      "sha256": "c70e0ba22e3ea026bc46a47028a07375cb9124d1748d84af9d4fa33d85820379",
+      "bytes": 21967,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/apache/maven/surefire/surefire-api/3.2.5/surefire-api-3.2.5.jar",
+      "sha256": "20a4b458d9f6d93223d6bb906c61032fa66925f9e867a0d6762d35bc0b528bb9",
+      "bytes": 170506,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/apache/maven/surefire/surefire-api/3.2.5/surefire-api-3.2.5.pom",
+      "sha256": "d0625e4a3f88a2fa680f278845f2ab08c9fbd3c2261e6b26e8b6b8a0dfda16f6",
+      "bytes": 3530,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/apache/maven/surefire/surefire-booter/3.2.5/surefire-booter-3.2.5.jar",
+      "sha256": "830ff373fad31d246ef5162333f3153d28c744fd95b05a572eb3be4cfb463e96",
+      "bytes": 117600,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/apache/maven/surefire/surefire-booter/3.2.5/surefire-booter-3.2.5.pom",
+      "sha256": "77e3f7579baab18a1b1fcbdce309ae0392a63462d93b719198e066f316b2e2e6",
+      "bytes": 4455,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/apache/maven/surefire/surefire-extensions-api/3.2.5/surefire-extensions-api-3.2.5.jar",
+      "sha256": "549cfb25613c0756d23ab15227f30f0f290af359fc2d21b4123f40c440b34209",
+      "bytes": 25852,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/apache/maven/surefire/surefire-extensions-api/3.2.5/surefire-extensions-api-3.2.5.pom",
+      "sha256": "3f7489bfbb172d545e8b4d3d49e03258c635721ba636479a2c8e4a61d2f3fdf7",
+      "bytes": 3305,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/apache/maven/surefire/surefire-extensions-spi/3.2.5/surefire-extensions-spi-3.2.5.jar",
+      "sha256": "af522c12a77f967e83cf243f9cfbb86217f01df66ebaa4690ad3cec1036d4c18",
+      "bytes": 8177,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/apache/maven/surefire/surefire-extensions-spi/3.2.5/surefire-extensions-spi-3.2.5.pom",
+      "sha256": "3d315c7c99f3a64022802ef5c93ded4f6ecce112e6c7ff919d9491714c726c1a",
+      "bytes": 1762,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/apache/maven/surefire/surefire-logger-api/3.2.5/surefire-logger-api-3.2.5.jar",
+      "sha256": "da275c04bd08355403f987d83f6ecef1afa54e92864cb73ca6ec89cc062ed50d",
+      "bytes": 13588,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/apache/maven/surefire/surefire-logger-api/3.2.5/surefire-logger-api-3.2.5.pom",
+      "sha256": "d14b0f073e7d5d7b051f4bea853b9c921cd6f4301e2b148f66a7108210504dc8",
+      "bytes": 3259,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/apache/maven/surefire/surefire-shared-utils/3.2.5/surefire-shared-utils-3.2.5.jar",
+      "sha256": "edbbbe4e9feee89b864e02cfc377963af6a3d6c3f0b7d860ebf99778d6886579",
+      "bytes": 2438463,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/apache/maven/surefire/surefire-shared-utils/3.2.5/surefire-shared-utils-3.2.5.pom",
+      "sha256": "50c9a8000949fe14e72ed484847a6ec57174e6639b909244070f0ca24c6c6a32",
+      "bytes": 4059,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/apache/maven/wagon/wagon/1.0-beta-6/wagon-1.0-beta-6.pom",
+      "sha256": "025caec7c56a0cb4d86c45bc18ac3e23dba291e22ebceb76302a9a9b9b7183cc",
+      "bytes": 12386,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/apache/maven/wagon/wagon-provider-api/1.0-beta-6/wagon-provider-api-1.0-beta-6.jar",
+      "sha256": "e116f32edcb77067289a3148143f2c0c97b27cf9a1342f8108ee37dec4868861",
+      "bytes": 53186,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/apache/maven/wagon/wagon-provider-api/1.0-beta-6/wagon-provider-api-1.0-beta-6.pom",
+      "sha256": "85c3c8840bb21554faf159998146f7ca9ef1b951defb29ec4e8252ec463728fd",
+      "bytes": 1760,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/codehaus/plexus/plexus/1.0.11/plexus-1.0.11.pom",
+      "sha256": "5197630dcd2336f5b4ab8e6d26e5b8675f5ebd83bd8c91d6aba431b09627d626",
+      "bytes": 8969,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/codehaus/plexus/plexus/10/plexus-10.pom",
+      "sha256": "bba9c521064b9ca132ce97cc1cc7eb4afc2dbe32bc88cb872c88e99f6162301f",
+      "bytes": 25398,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/codehaus/plexus/plexus/13/plexus-13.pom",
+      "sha256": "575945dc08966c66eb03d5bae9135bd22ca3920a1865bb99d3ecd93bef55abd3",
+      "bytes": 27377,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/codehaus/plexus/plexus/15/plexus-15.pom",
+      "sha256": "96dc0fbe73664a0f05c6770910473c1a12e1c112cb648364fca867daa689c21d",
+      "bytes": 27795,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/codehaus/plexus/plexus/16/plexus-16.pom",
+      "sha256": "68d4eed65a3dbbc342ed80dd138fbe9c67cb7fb4c2abc4f5201cdb5b9f645868",
+      "bytes": 27638,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/codehaus/plexus/plexus/17/plexus-17.pom",
+      "sha256": "91526ee66327c7f50fbb25bd41bfcb916e284414b868e31d50a23004bd7deea7",
+      "bytes": 28184,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/codehaus/plexus/plexus/2.0.2/plexus-2.0.2.pom",
+      "sha256": "e246e2a062b5d989fdefc521c9c56431ba5554ff8d2344edee9218a34a546a33",
+      "bytes": 11610,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/codehaus/plexus/plexus/2.0.6/plexus-2.0.6.pom",
+      "sha256": "bea12e747708d25e73410ca1c731ebdfa102e8bdb6ec7d81bd4522583b234bcc",
+      "bytes": 16763,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/codehaus/plexus/plexus/2.0.7/plexus-2.0.7.pom",
+      "sha256": "2b59062030ab0a15c5d0977ba22421706368926488739a65f25793e715cc8a74",
+      "bytes": 17295,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/codehaus/plexus/plexus/3.3.1/plexus-3.3.1.pom",
+      "sha256": "6ec96f889bc29250f90b167c14e547f1b05aa23565c63f9079595befbde816bb",
+      "bytes": 20446,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/codehaus/plexus/plexus/3.3.2/plexus-3.3.2.pom",
+      "sha256": "2fd3853acd7d8b548ab59507f1a5a06897efdc0c4f05acb7c2a49bc78ad83eff",
+      "bytes": 21529,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/codehaus/plexus/plexus/4.0/plexus-4.0.pom",
+      "sha256": "0a1b692d7fcc90d6a45dae2e50f4660d48f7a44504f174aa60ef34fbe1327f6a",
+      "bytes": 21500,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/codehaus/plexus/plexus/5.1/plexus-5.1.pom",
+      "sha256": "a343e44ff5796aed0ea60be11454c935ce20ab1c5f164acc8da574482dcbc7e9",
+      "bytes": 22504,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/codehaus/plexus/plexus-archiver/4.9.2/plexus-archiver-4.9.2.jar",
+      "sha256": "a837bd7d73291564dc8e8c826de0fede75896527a35bdcddb77b0545ee656a4c",
+      "bytes": 224755,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/codehaus/plexus/plexus-archiver/4.9.2/plexus-archiver-4.9.2.pom",
+      "sha256": "7b4a569c92f60c859ae69594f8935d11bcbb940d86c518742c30f0925a48ba9f",
+      "bytes": 5990,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/codehaus/plexus/plexus-classworlds/2.2.3/plexus-classworlds-2.2.3.jar",
+      "sha256": "7d95ad21733b060bfda2142b62439a196bde7644f9f127c299ae86d92179b518",
+      "bytes": 46099,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/codehaus/plexus/plexus-classworlds/2.2.3/plexus-classworlds-2.2.3.pom",
+      "sha256": "a2d14b6752e30a100a6cb03c040d0160b71b61928daf8ea97cabfb4a3335b213",
+      "bytes": 3997,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/codehaus/plexus/plexus-classworlds/2.5.2/plexus-classworlds-2.5.2.pom",
+      "sha256": "89811897b815beefa094c39b4603e3f60c42276a2cd5d80b924ab19183629925",
+      "bytes": 7305,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/codehaus/plexus/plexus-classworlds/2.6.0/plexus-classworlds-2.6.0.pom",
+      "sha256": "469a6c59f92effa62c0797ce7d52d2c03cf8ee1034b923c360dd78a9f505a7ba",
+      "bytes": 7911,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/codehaus/plexus/plexus-compiler/2.15.0/plexus-compiler-2.15.0.pom",
+      "sha256": "9c9b62a7703d4994b60fb7f9e42805f9abc798d1397e4d22c1118cd12aa678d8",
+      "bytes": 7600,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/codehaus/plexus/plexus-compiler/2.8.2/plexus-compiler-2.8.2.pom",
+      "sha256": "1cd7b9f07ba6708d2036009aee15b0db0b76d6ad962eb7fe0ab1d759a52ec7bd",
+      "bytes": 4882,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/codehaus/plexus/plexus-compiler-api/2.15.0/plexus-compiler-api-2.15.0.jar",
+      "sha256": "d31d744eb69f77dffd3722dca4094758e0f90e79918a7b3b9fdc37ce49b60342",
+      "bytes": 29072,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/codehaus/plexus/plexus-compiler-api/2.15.0/plexus-compiler-api-2.15.0.pom",
+      "sha256": "4c89cab0505b0ac901197d2dd1363fe5e26bcbfd43e99dd21a8ae023b443cc4e",
+      "bytes": 1362,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/codehaus/plexus/plexus-compiler-api/2.8.2/plexus-compiler-api-2.8.2.jar",
+      "sha256": "643b756033ee640e681a62b4a78de1f11b2aceb129f4331d27809fa791d9685e",
+      "bytes": 26386,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/codehaus/plexus/plexus-compiler-api/2.8.2/plexus-compiler-api-2.8.2.pom",
+      "sha256": "bd8199751c891b82d42b09561d2b42e3af6a57ce3c167c148bac202bc7b22eaf",
+      "bytes": 867,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/codehaus/plexus/plexus-compiler-javac/2.15.0/plexus-compiler-javac-2.15.0.jar",
+      "sha256": "89603334988453b9cf4d7ec404d4b54f140de28b678d6a8e8edc448240dd0e90",
+      "bytes": 25708,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/codehaus/plexus/plexus-compiler-javac/2.15.0/plexus-compiler-javac-2.15.0.pom",
+      "sha256": "bbe796c5fe109736980aff79860548d828abd27b36872b80a0e831642b65f328",
+      "bytes": 1291,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/codehaus/plexus/plexus-compiler-javac/2.8.2/plexus-compiler-javac-2.8.2.jar",
+      "sha256": "0d83c0bd17953e929f4a6b28cb809a5a79e4fbae82340cfe93785f10ae0363e4",
+      "bytes": 20067,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/codehaus/plexus/plexus-compiler-javac/2.8.2/plexus-compiler-javac-2.8.2.pom",
+      "sha256": "3d300388d9cca3fe814eb3ec3a7e7fd369419fc823000e33e2671a08147583ec",
+      "bytes": 771,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/codehaus/plexus/plexus-compiler-manager/2.15.0/plexus-compiler-manager-2.15.0.jar",
+      "sha256": "c13b12c32a18b00e457de9b93cfc3d5593bfa1fb992b2c46a3498be1a77c4889",
+      "bytes": 5232,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/codehaus/plexus/plexus-compiler-manager/2.15.0/plexus-compiler-manager-2.15.0.pom",
+      "sha256": "12bd3bfb803d2004ed8318583ac7b272115a8b9303eabcd100808c54d44d2017",
+      "bytes": 1348,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/codehaus/plexus/plexus-compiler-manager/2.8.2/plexus-compiler-manager-2.8.2.jar",
+      "sha256": "56ccc3d5815133308b2edee65b8b0b041db14913f7459a46ab1e722e39b70d61",
+      "bytes": 4683,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/codehaus/plexus/plexus-compiler-manager/2.8.2/plexus-compiler-manager-2.8.2.pom",
+      "sha256": "6551ace4307437594c9891d63c30f2cdaddb425020e6d6a3b69872e33bd3be83",
+      "bytes": 692,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/codehaus/plexus/plexus-compilers/2.15.0/plexus-compilers-2.15.0.pom",
+      "sha256": "1ce14d30276866a9493a2c72e42f990a2e3c1bd794026ccd9830475a12d9a91d",
+      "bytes": 1567,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/codehaus/plexus/plexus-compilers/2.8.2/plexus-compilers-2.8.2.pom",
+      "sha256": "655e73eed878cabb71370fadac653e5f6a821931c437323e9addc5cfe2788bf3",
+      "bytes": 1341,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/codehaus/plexus/plexus-component-annotations/1.5.5/plexus-component-annotations-1.5.5.jar",
+      "sha256": "4df7a6a7be64b35bbccf60b5c115697f9ea3421d22674ae67135dde375fcca1f",
+      "bytes": 4211,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/codehaus/plexus/plexus-component-annotations/1.5.5/plexus-component-annotations-1.5.5.pom",
+      "sha256": "815f3ec316b8c5fa701385fdf4009bfb51e07d780e8f6a6e2afe720c52d7e292",
+      "bytes": 815,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/codehaus/plexus/plexus-component-annotations/1.6/plexus-component-annotations-1.6.jar",
+      "sha256": "2b3a6ca5f19a9ad490bc233f45e68d3093c8c01b4acc3c1d14bad4ca7c7ff438",
+      "bytes": 4265,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/codehaus/plexus/plexus-component-annotations/1.6/plexus-component-annotations-1.6.pom",
+      "sha256": "593a0ff086fb81700e17707c303f8552880bf2a50ce41d9dcb5918e8443710dd",
+      "bytes": 748,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/codehaus/plexus/plexus-component-annotations/1.7.1/plexus-component-annotations-1.7.1.jar",
+      "sha256": "a7fee9435db716bff593e9fb5622bcf9f25e527196485929b0cd4065c43e61df",
+      "bytes": 4288,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/codehaus/plexus/plexus-component-annotations/1.7.1/plexus-component-annotations-1.7.1.pom",
+      "sha256": "a909a0cbe292e54122b6b785f6924ab2f09b1630b7889c800e099e2627f91a78",
+      "bytes": 770,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/codehaus/plexus/plexus-component-annotations/2.1.0/plexus-component-annotations-2.1.0.pom",
+      "sha256": "0670b605255f7dc9a454daaec7912918ccf1b5475cbfca374363b51fcfd4ea00",
+      "bytes": 750,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/codehaus/plexus/plexus-components/1.1.14/plexus-components-1.1.14.pom",
+      "sha256": "381d72c526be217b770f9f8c3f749a86d3b1548ac5c1fcb48d267530ec60d43f",
+      "bytes": 5842,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/codehaus/plexus/plexus-components/1.1.18/plexus-components-1.1.18.pom",
+      "sha256": "ef5dbc7fa918b6dbba71d27e5b3d7a00df624bcfa2549a7297f36fe275f634d7",
+      "bytes": 5355,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/codehaus/plexus/plexus-components/1.3.1/plexus-components-1.3.1.pom",
+      "sha256": "8cbcb2aacd7f4a7759866ce91b2f910310fbe5a586b5fc7b9bdb76af9257e7c4",
+      "bytes": 3064,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/codehaus/plexus/plexus-components/4.0/plexus-components-4.0.pom",
+      "sha256": "1a5c0f95f65ed3e98edcf4f3b27c21cbcb14567384d9e4cf07f83a49675347ed",
+      "bytes": 2657,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/codehaus/plexus/plexus-containers/1.5.5/plexus-containers-1.5.5.pom",
+      "sha256": "1bc264824ec876b0ca6f4f5838175c541c638cbc43326a268b9aee7d4778b5ef",
+      "bytes": 4240,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/codehaus/plexus/plexus-containers/1.6/plexus-containers-1.6.pom",
+      "sha256": "0829f2a50f20b098223d1f92c19badb0738267d953726ac56cac9f3c9c6fc9bb",
+      "bytes": 3766,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/codehaus/plexus/plexus-containers/1.7.1/plexus-containers-1.7.1.pom",
+      "sha256": "5566a0bb51dc994c0350206608c7b4cdcc9b66881497bab56a32c42edca53e79",
+      "bytes": 5032,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/codehaus/plexus/plexus-containers/2.1.0/plexus-containers-2.1.0.pom",
+      "sha256": "94d5aedb3c46023265396527cf8ce7fc944b7bd79e4ebab907386418eb5a08d7",
+      "bytes": 4805,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/codehaus/plexus/plexus-interpolation/1.11/plexus-interpolation-1.11.pom",
+      "sha256": "b84d281f59b9da528139e0752a0e1cab0bd98d52c58442b00e45c9748e1d9eee",
+      "bytes": 889,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/codehaus/plexus/plexus-interpolation/1.14/plexus-interpolation-1.14.jar",
+      "sha256": "7fc63378d3e84663619b9bedace9f9fe78b276c2be3c62ca2245449294c84176",
+      "bytes": 61072,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/codehaus/plexus/plexus-interpolation/1.14/plexus-interpolation-1.14.pom",
+      "sha256": "d08155c497df37b2c3d9b5b0dfdb02ec0525b2070b5be3739fffde942fcac9af",
+      "bytes": 910,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/codehaus/plexus/plexus-interpolation/1.21/plexus-interpolation-1.21.pom",
+      "sha256": "e078ac8780c6f2da5c11c5d2164bf2c2262112a89a82884de9c9886333267f7d",
+      "bytes": 1540,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/codehaus/plexus/plexus-interpolation/1.26/plexus-interpolation-1.26.jar",
+      "sha256": "b3b5412ce17889103ea564bcdfcf9fb3dfa540344ffeac6b538a73c9d7182662",
+      "bytes": 85348,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/codehaus/plexus/plexus-interpolation/1.26/plexus-interpolation-1.26.pom",
+      "sha256": "e1c10b3a6335641eb74a668daa9ee86ae4ab06610174e59ba07c8c68042327f7",
+      "bytes": 2655,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/codehaus/plexus/plexus-interpolation/1.27/plexus-interpolation-1.27.jar",
+      "sha256": "3fb4fb6143fdf964024c3cb738551524b9ea84e5c211cd660c559ad0703e5230",
+      "bytes": 85874,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/codehaus/plexus/plexus-interpolation/1.27/plexus-interpolation-1.27.pom",
+      "sha256": "d54fbcbc4399e352322874a4128b9d28fe9fe1583f89ec361de242ea38d33f9b",
+      "bytes": 3021,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/codehaus/plexus/plexus-io/3.4.2/plexus-io-3.4.2.jar",
+      "sha256": "6ba7fb0db6bfa348c248df3f983ae31318e9c14f35a86a932af5ffd7450aa62a",
+      "bytes": 78962,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/codehaus/plexus/plexus-io/3.4.2/plexus-io-3.4.2.pom",
+      "sha256": "aafc90ce29fe79bc6a0aeafb2bf6bdeaf979a1b8211493428a2290228170355d",
+      "bytes": 3862,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/codehaus/plexus/plexus-java/0.9.2/plexus-java-0.9.2.jar",
+      "sha256": "1f732f4d5e6c58de22e7fc14209d6b7345b1761da498c491ff36c27a02d77b13",
+      "bytes": 31174,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/codehaus/plexus/plexus-java/0.9.2/plexus-java-0.9.2.pom",
+      "sha256": "a3fea3eca2a696e11d9299e48181da81ca030e9edb7818613f93ad0fbcdc8752",
+      "bytes": 2437,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/codehaus/plexus/plexus-java/1.2.0/plexus-java-1.2.0.jar",
+      "sha256": "4d2d63cdcad46feba432110ef64bcdc8f8fad48538fda5cd2253686b45a94304",
+      "bytes": 57542,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/codehaus/plexus/plexus-java/1.2.0/plexus-java-1.2.0.pom",
+      "sha256": "d069564d4f490ae22ad885dd4b3ab9ac33a27e23a6f8542760970a36935ccf42",
+      "bytes": 4273,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/codehaus/plexus/plexus-languages/0.9.2/plexus-languages-0.9.2.pom",
+      "sha256": "3aeecce7c4eded0cf1538a68cdf36b140efc68ff77da5f082aa67ef168d4c653",
+      "bytes": 2279,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/codehaus/plexus/plexus-languages/1.2.0/plexus-languages-1.2.0.pom",
+      "sha256": "a28f034d79815cd7a4b107f66182c21ebf45fbb2fbe2c15697860b720c8a3bf7",
+      "bytes": 3193,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/codehaus/plexus/plexus-utils/1.4.2/plexus-utils-1.4.2.pom",
+      "sha256": "93d6675b2cf585c9c1148f1964156306c2573adfc1181c7219bd42a54a133771",
+      "bytes": 1959,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/codehaus/plexus/plexus-utils/1.5.15/plexus-utils-1.5.15.pom",
+      "sha256": "12a3c9a32b82fdc95223cab1f9d344e14ef3e396da14c4d0013451646f3280e7",
+      "bytes": 6849,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/codehaus/plexus/plexus-utils/1.5.5/plexus-utils-1.5.5.pom",
+      "sha256": "f860675cad10e561bfa175d5717e2d8617d40c62321086ca4a85c006a0fa30d1",
+      "bytes": 5147,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/codehaus/plexus/plexus-utils/2.0.4/plexus-utils-2.0.4.jar",
+      "sha256": "6a17cfbfffe6bb87215ad38bcaac716383e552ec2ba7b204e2673ee66a2afaaa",
+      "bytes": 222137,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/codehaus/plexus/plexus-utils/2.0.4/plexus-utils-2.0.4.pom",
+      "sha256": "2896dbf57e8c82121481400e8be4df6110edd37e346a6c144b3156f24bf98f72",
+      "bytes": 3334,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/codehaus/plexus/plexus-utils/2.0.5/plexus-utils-2.0.5.pom",
+      "sha256": "35bc7d1213616236571072b2c56da18f7a57658de8b4a4100645b7054a2b273b",
+      "bytes": 3334,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/codehaus/plexus/plexus-utils/3.0.22/plexus-utils-3.0.22.jar",
+      "sha256": "0f31c44b275f87e56d46a582ce96d03b9e2ab344cf87c4e268b34d3ad046beab",
+      "bytes": 244897,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/codehaus/plexus/plexus-utils/3.0.22/plexus-utils-3.0.22.pom",
+      "sha256": "f20db219a9c2ebbfea479a1c58a252d795689b8627d43442748d8a21e0052f57",
+      "bytes": 3831,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/codehaus/plexus/plexus-utils/3.1.0/plexus-utils-3.1.0.jar",
+      "sha256": "0ffa0ad084ebff5712540a7b7ea0abda487c53d3a18f78c98d1a3675dab9bf61",
+      "bytes": 261617,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/codehaus/plexus/plexus-utils/3.1.0/plexus-utils-3.1.0.pom",
+      "sha256": "1473d1eb9e2ffbed025819892b078985c5dd55c190b1d82fd1b5685505b2b819",
+      "bytes": 4658,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/codehaus/plexus/plexus-utils/3.5.0/plexus-utils-3.5.0.pom",
+      "sha256": "aa4ea451bb6fa92e9cc96654eef53e334ff4d36a946633e01765fed41e845e03",
+      "bytes": 8012,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/codehaus/plexus/plexus-utils/3.5.1/plexus-utils-3.5.1.jar",
+      "sha256": "86e0255d4c879c61b4833ed7f13124e8bb679df47debb127326e7db7dd49a07b",
+      "bytes": 269335,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/codehaus/plexus/plexus-utils/3.5.1/plexus-utils-3.5.1.pom",
+      "sha256": "94ff68edeb48204d12c99189c767164d3a9f778a1372d1dce11a41462e6236f2",
+      "bytes": 8768,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/codehaus/plexus/plexus-utils/4.0.0/plexus-utils-4.0.0.jar",
+      "sha256": "270cd703b48c6e5c8c691f1875f22d62d22cfe072c73ae2f5814d83d68c1da0b",
+      "bytes": 192368,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/codehaus/plexus/plexus-utils/4.0.0/plexus-utils-4.0.0.pom",
+      "sha256": "a44c5479426dea0e7bfffd2ec3adf49c68515019788965c4d231fc3f04da4129",
+      "bytes": 8656,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/codehaus/plexus/plexus-utils/4.0.1/plexus-utils-4.0.1.jar",
+      "sha256": "96b9cc44439191d2d0635974e2d44e768736b4fb2abcb65f94cd95e41912fa8b",
+      "bytes": 192527,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/codehaus/plexus/plexus-utils/4.0.1/plexus-utils-4.0.1.pom",
+      "sha256": "bc4235a95cd1ebae42644c81ebba9c1d4c52565f81e96ab204b6e56e3e378cc1",
+      "bytes": 7829,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/codehaus/plexus/plexus-xml/3.0.0/plexus-xml-3.0.0.jar",
+      "sha256": "d2622dc9339b16f5b8c9cad2add440e965831d0e16f19ae1de24e1202b0de536",
+      "bytes": 93014,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/codehaus/plexus/plexus-xml/3.0.0/plexus-xml-3.0.0.pom",
+      "sha256": "c07d67161cdf7f8fdce4cd921be5d3cccb9e2c259105ca1afeb772cbcb0cbec5",
+      "bytes": 3738,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/eclipse/aether/aether/0.9.0.M2/aether-0.9.0.M2.pom",
+      "sha256": "30bf8c64ccf77ebbf52b04ec576a0fa77b16b26eaf348519b1684263450d39ce",
+      "bytes": 27870,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/eclipse/aether/aether/1.0.0.v20140518/aether-1.0.0.v20140518.pom",
+      "sha256": "606b5fa03b171d8204aac0fbace11ee28e71175a0f869bd45f09c9319e7e88dc",
+      "bytes": 30152,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/eclipse/aether/aether-api/1.0.0.v20140518/aether-api-1.0.0.v20140518.jar",
+      "sha256": "84b98521684ab22f9528470fa6d8ab68a230e1b211623c989ba7016c306eb773",
+      "bytes": 136299,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/eclipse/aether/aether-api/1.0.0.v20140518/aether-api-1.0.0.v20140518.pom",
+      "sha256": "2cbb6b666dd1518153afd4939b126c2336506cf3b1bc4541263c09ba87c34b96",
+      "bytes": 1896,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/eclipse/aether/aether-impl/1.0.0.v20140518/aether-impl-1.0.0.v20140518.pom",
+      "sha256": "5a80a73241d6cf2e982688b0fe0dacd238d920d81d84fa9435d6d2dd595184e4",
+      "bytes": 3473,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/eclipse/aether/aether-spi/1.0.0.v20140518/aether-spi-1.0.0.v20140518.pom",
+      "sha256": "7d547087459c89b8717ec5081aa45922d605299da39e32a811041db1b7e2514e",
+      "bytes": 2052,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/eclipse/aether/aether-util/0.9.0.M2/aether-util-0.9.0.M2.jar",
+      "sha256": "7d62b0fdef90196ec4b2947f5973d750bfd3935785244e77cc06780131c404e9",
+      "bytes": 133588,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/eclipse/aether/aether-util/0.9.0.M2/aether-util-0.9.0.M2.pom",
+      "sha256": "8e1f27e5463f12e4e1d7b242562239c42065e9bcdbf01629399e265035606986",
+      "bytes": 2035,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/eclipse/aether/aether-util/1.0.0.v20140518/aether-util-1.0.0.v20140518.jar",
+      "sha256": "aff0951639837c4e3a4699a421fa79f410032f603f5c6a5bba435e98531f3984",
+      "bytes": 145829,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/eclipse/aether/aether-util/1.0.0.v20140518/aether-util-1.0.0.v20140518.pom",
+      "sha256": "5c8b507a80901fcdaef89f50c639176b516e8866c6bf07be1ab8ab9da5a4877f",
+      "bytes": 2194,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/eclipse/sisu/org.eclipse.sisu.inject/0.9.0.M2/org.eclipse.sisu.inject-0.9.0.M2.pom",
+      "sha256": "05666f27941117ccadfab6329118c1c348f8b838ce89ed23182c151cb2943ee9",
+      "bytes": 17341,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/eclipse/sisu/org.eclipse.sisu.plexus/0.9.0.M2/org.eclipse.sisu.plexus-0.9.0.M2.pom",
+      "sha256": "8feb5693e2d2b2379f9f9f483f2d2b47ab54f0f0ed22cb232e968c544f778752",
+      "bytes": 14966,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/eclipse/sisu/sisu-inject/0.9.0.M2/sisu-inject-0.9.0.M2.pom",
+      "sha256": "7630f4cd4d1620067fa83e1d748b012cffa0655e5380cc0e4a5e283d3b441fdb",
+      "bytes": 14800,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/eclipse/sisu/sisu-plexus/0.9.0.M2/sisu-plexus-0.9.0.M2.pom",
+      "sha256": "ec6e99407036014f81a39d81c56ba40d924c72d96e402ad14f7efd29b2c775cd",
+      "bytes": 14502,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/iq80/snappy/snappy/0.4/snappy-0.4.jar",
+      "sha256": "46a0c87d504ce9d6063e1ff6e4d20738feb49d8abf85b5071a7d18df4f11bac9",
+      "bytes": 57954,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/iq80/snappy/snappy/0.4/snappy-0.4.pom",
+      "sha256": "a709ce17111e4149d9b79a5295644e0cd5a8355aec4b2ef4c0436aba7b25d08a",
+      "bytes": 14537,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/javassist/javassist/3.22.0-GA/javassist-3.22.0-GA.jar",
+      "sha256": "59531c00f3e3aa1ff48b3a8cf4ead47d203ab0e2fd9e0ad401f764e05947e252",
+      "bytes": 739582,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/javassist/javassist/3.22.0-GA/javassist-3.22.0-GA.pom",
+      "sha256": "7e763b5821c9e7854eb2b0dfb2d2757eef7242b3020176968c17cd6a2ebb9b11",
+      "bytes": 9739,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/jboss/weld/weld-parent/26/weld-parent-26.pom",
+      "sha256": "13023471418b890557b982e4cbab2b5f6967adf1cebe54bf630fe201a63963cc",
+      "bytes": 32327,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/jdom/jdom/1.1/jdom-1.1.jar",
+      "sha256": "3c167654499436ee9c19674b519d04e7364085533f6facada1bf90b16ad34897",
+      "bytes": 153115,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/jdom/jdom/1.1/jdom-1.1.pom",
+      "sha256": "ac41c3fb1766896bd257d92afbdaa8a5363cdbe6580383ffd3ec9c50b3a6c3b7",
+      "bytes": 2188,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/jdom/jdom2/2.0.6/jdom2-2.0.6.jar",
+      "sha256": "1345f11ba606d15603d6740551a8c21947c0215640770ec67271fe78bea97cf5",
+      "bytes": 304924,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/jdom/jdom2/2.0.6/jdom2-2.0.6.pom",
+      "sha256": "47b23a79fe336b741b82434c6e049d68165256e405e75c10921fd72fa8a65d8d",
+      "bytes": 4598,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/jetbrains/annotations/13.0/annotations-13.0.jar",
+      "sha256": "ace2a10dc8e2d5fd34925ecac03e4988b2c0f851650c94b8cef49ba1bd111478",
+      "bytes": 17536,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/jetbrains/annotations/13.0/annotations-13.0.pom",
+      "sha256": "965aeb2bedff369819bdde1bf7a0b3b89b8247dd69c88b86375d76163bb8c397",
+      "bytes": 4930,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/jetbrains/kotlin/kotlin-reflect/1.4.10/kotlin-reflect-1.4.10.jar",
+      "sha256": "3ab3413ec945f801448360ad97bc6e14fec6d606889ede3c707cc277b4467f45",
+      "bytes": 2893802,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/jetbrains/kotlin/kotlin-reflect/1.4.10/kotlin-reflect-1.4.10.pom",
+      "sha256": "eef345ac9f76f39a8f0364bfbb335619eb506c4e54e1997be1c58dc624b425d9",
+      "bytes": 1396,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/jetbrains/kotlin/kotlin-stdlib/1.4.10/kotlin-stdlib-1.4.10.jar",
+      "sha256": "01ecb09782c042b931c1839acf21a188340b295d05400afd6e3415d4475b8daa",
+      "bytes": 1487085,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/jetbrains/kotlin/kotlin-stdlib/1.4.10/kotlin-stdlib-1.4.10.pom",
+      "sha256": "a4b9cfbb4bbda523af1e24d52c775fb9c0f7cb568e48b065d45aeb56e63c2762",
+      "bytes": 1970,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/jetbrains/kotlin/kotlin-stdlib-common/1.4.10/kotlin-stdlib-common-1.4.10.jar",
+      "sha256": "4681f2d436a68c7523595d84ed5758e1382f9da0f67c91e6a848690d711274fe",
+      "bytes": 191211,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/jetbrains/kotlin/kotlin-stdlib-common/1.4.10/kotlin-stdlib-common-1.4.10.pom",
+      "sha256": "63480e72a7d4de742b49a6ff90e45f544ca37f3fe11af8b4839f9cd747515d00",
+      "bytes": 1607,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/jetbrains/kotlin/kotlin-stdlib-jdk7/1.4.10/kotlin-stdlib-jdk7-1.4.10.jar",
+      "sha256": "f9566380c08722c780ce33ceee23e98ddf765ca98fabd3e2fabae7975c8d232b",
+      "bytes": 3985,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/jetbrains/kotlin/kotlin-stdlib-jdk7/1.4.10/kotlin-stdlib-jdk7-1.4.10.pom",
+      "sha256": "78f2fe1d48e99c64958930ccdc43fce5939460ecdfc65f302823a021d63c520d",
+      "bytes": 1805,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/jetbrains/kotlin/kotlin-stdlib-jdk8/1.4.10/kotlin-stdlib-jdk8-1.4.10.jar",
+      "sha256": "39b7a9442d7a3865e0f4a732c56c1d5da0e11ffb3bb82a461d32deb0c0ca7673",
+      "bytes": 16230,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/jetbrains/kotlin/kotlin-stdlib-jdk8/1.4.10/kotlin-stdlib-jdk8-1.4.10.pom",
+      "sha256": "c2f4d70082dbbfcea68fdfa74289cef32df9e4b5ddf359f006036dff1c5b06d6",
+      "bytes": 1997,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/junit/junit-bom/5.10.0/junit-bom-5.10.0.pom",
+      "sha256": "e006dd8894f9fc7b75fc32bb12fe5ed8be65667d5b454f99e2e0b8c5bb8d30b3",
+      "bytes": 5649,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/junit/junit-bom/5.10.1/junit-bom-5.10.1.pom",
+      "sha256": "21c4b0286f4b20069577ff4b20978a85c100ac8a46b6f1c8672fbaab337bc3f2",
+      "bytes": 5649,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/junit/junit-bom/5.10.2/junit-bom-5.10.2.pom",
+      "sha256": "169dd904a4b0f6520cffe658cc62292bfe9f3c14a989fa92120724cde43a9968",
+      "bytes": 5649,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/junit/junit-bom/5.7.1/junit-bom-5.7.1.pom",
+      "sha256": "0b9b14a3d62106fafe8c68a717b87b87ad18685899451b753c04fa41b6857784",
+      "bytes": 5098,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/junit/junit-bom/5.7.2/junit-bom-5.7.2.pom",
+      "sha256": "cd14aaa869991f82021c585d570d31ff342bcba58bb44233b70193771b96487b",
+      "bytes": 5098,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/junit/junit-bom/5.9.3/junit-bom-5.9.3.pom",
+      "sha256": "4d0329cd9e72f2420e5ca15724cbfe6ffa6e5fd2888361516271190fdc342ed7",
+      "bytes": 5630,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/lwjgl/lwjgl/3.3.1/lwjgl-3.3.1-natives-linux.jar",
+      "sha256": "22ef2afa31a1740a337ec9c6806c6b8d97e931a63e2c43270cbaf14fb3f6fc4e",
+      "bytes": 110704,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/lwjgl/lwjgl/3.3.1/lwjgl-3.3.1-natives-macos.jar",
+      "sha256": "f48e610a981dca515b9bbe7345cc76e3450c13404b052d8ac357ef0af8e90abf",
+      "bytes": 55706,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/lwjgl/lwjgl/3.3.1/lwjgl-3.3.1-natives-windows.jar",
+      "sha256": "093d13d62a6434bc656bf10a3b37e2530fd9af3b0bc20f8e9545be58659d1443",
+      "bytes": 159361,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/lwjgl/lwjgl/3.3.1/lwjgl-3.3.1.jar",
+      "sha256": "cf83f90e32fb973ff5edfca4ef35f55ca51bb70a579b6a1f290744f552e8e484",
+      "bytes": 724243,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/lwjgl/lwjgl/3.3.1/lwjgl-3.3.1.pom",
+      "sha256": "c4c5c7afab8eb7825366a23086c3dfeddae8308c115c5d6217a826ec324b37e3",
+      "bytes": 1128,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/lwjgl/lwjgl-bom/3.3.1/lwjgl-bom-3.3.1.pom",
+      "sha256": "75da638b7bb5993a7770fb6d2f4eb660ae92410c40ebe90f9f8f3ae44e6884ef",
+      "bytes": 62914,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/lwjgl/lwjgl-glfw/3.3.1/lwjgl-glfw-3.3.1-natives-linux.jar",
+      "sha256": "65ed04bff7d07fec9b7fde7c3b11c405286c8d66e4eb4f4c9b792e267ece5b06",
+      "bytes": 119817,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/lwjgl/lwjgl-glfw/3.3.1/lwjgl-glfw-3.3.1-natives-macos.jar",
+      "sha256": "1b6cff9e648a722ee0cc14669612052aa5ba809469fa8b3fb21f24c3abe70de9",
+      "bytes": 131655,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/lwjgl/lwjgl-glfw/3.3.1/lwjgl-glfw-3.3.1-natives-windows.jar",
+      "sha256": "9e744ecb84029d7acedae876e2557659184a29afee55e453f4ab2567349bf849",
+      "bytes": 145512,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/lwjgl/lwjgl-glfw/3.3.1/lwjgl-glfw-3.3.1.jar",
+      "sha256": "08bbc34eb752f863e37f83ab1c7b0c22f7cb26d0f8fb0a4a4a8c6028ac45b385",
+      "bytes": 128801,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/lwjgl/lwjgl-glfw/3.3.1/lwjgl-glfw-3.3.1.pom",
+      "sha256": "4ca42b43c8aa0e87485960747740b9945aaa1fdf7e4134e6fa24e8f9df1c1760",
+      "bytes": 1514,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/lwjgl/lwjgl-openal/3.3.1/lwjgl-openal-3.3.1-natives-linux.jar",
+      "sha256": "0b7381f51edc610cb607245dc34a762d2b21b7447814044068a1a6003bb87838",
+      "bytes": 476825,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/lwjgl/lwjgl-openal/3.3.1/lwjgl-openal-3.3.1-natives-macos.jar",
+      "sha256": "5184ca24b8dfe97255b6cb558c529bd6a388981bbe55e213718e3fd2bd9e86e4",
+      "bytes": 397196,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/lwjgl/lwjgl-openal/3.3.1/lwjgl-openal-3.3.1-natives-windows.jar",
+      "sha256": "5f7e666aa24ca8b3fb758e72c03ffb9d809b30489c6a7b47ead67c6977ff654e",
+      "bytes": 576872,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/lwjgl/lwjgl-openal/3.3.1/lwjgl-openal-3.3.1.jar",
+      "sha256": "7325ee1b91a8a10c0626c69b557a88f2df6ac1bdca0e52e2a92d324249f2cad0",
+      "bytes": 88237,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/lwjgl/lwjgl-openal/3.3.1/lwjgl-openal-3.3.1.pom",
+      "sha256": "f99ce8c1cb6a8725d26ddcb3345c403cdbbcc7ca8ee96608bbf3c2c4fd966a21",
+      "bytes": 1453,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/lwjgl/lwjgl-opengl/3.3.1/lwjgl-opengl-3.3.1-natives-linux.jar",
+      "sha256": "bcfcd9f8dfd229488ad9ec353d48c7b02de5ca21badd4092f1902239a1ed0690",
+      "bytes": 79125,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/lwjgl/lwjgl-opengl/3.3.1/lwjgl-opengl-3.3.1-natives-macos.jar",
+      "sha256": "711f29972888509262a957f1b3138bfa9b505519d11df6e5763d1c9a3f8b3c5d",
+      "bytes": 40709,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/lwjgl/lwjgl-opengl/3.3.1/lwjgl-opengl-3.3.1-natives-windows.jar",
+      "sha256": "851b9b593cac21e3af51dd4c303e8df3fe6a344a3f81d6b9bcc186e7e540bfda",
+      "bytes": 100205,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/lwjgl/lwjgl-opengl/3.3.1/lwjgl-opengl-3.3.1.jar",
+      "sha256": "e436d2144f3a36fff772fd64233316809b795f390defd4d55660fc686e7c2834",
+      "bytes": 921563,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/lwjgl/lwjgl-opengl/3.3.1/lwjgl-opengl-3.3.1.pom",
+      "sha256": "2cbf57c67a8d0466ad808e1a27fe3dd3c110e8ac02dc8ab2bac84a8519775541",
+      "bytes": 1474,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/ow2/asm/asm/5.0.2/asm-5.0.2.jar",
+      "sha256": "7f09dcaf552c608a7296540c8a055c9e9e79b35910e78c4f88aeddcd9cc4756f",
+      "bytes": 53232,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/ow2/asm/asm/5.0.2/asm-5.0.2.pom",
+      "sha256": "24e4261cac5b42a01a5a50128a8727f713bf34dc7abf616d9da7278f9ed34d5b",
+      "bytes": 1935,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/ow2/asm/asm/5.0.3/asm-5.0.3.pom",
+      "sha256": "7d34653ffe62be7714d2f1969660a17df9ec1b19d8250c4f03db1123c82ba6a0",
+      "bytes": 1935,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/ow2/asm/asm/6.0_BETA/asm-6.0_BETA.jar",
+      "sha256": "424252bafe280b3b58df8669d38aba56808acae15c4b4453e65a8b3fb67a6656",
+      "bytes": 56452,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/ow2/asm/asm/6.0_BETA/asm-6.0_BETA.pom",
+      "sha256": "4e41ae566a4ca9cd2b6e36a5bc71f05b7b8f6485df5c97fae9e07d79ce091f6b",
+      "bytes": 1938,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/ow2/asm/asm/6.2.1/asm-6.2.1.jar",
+      "sha256": "1460db6c33cc99c84e5cb30e46b017e4d1cc9a7fbc174101d6f84829bb64c085",
+      "bytes": 112958,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/ow2/asm/asm/6.2.1/asm-6.2.1.pom",
+      "sha256": "ac205ef9060adf1f2ab2c24bc9429c77bce48a1fb496fdfb5938eaf590f4e3a3",
+      "bytes": 2940,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/ow2/asm/asm/7.0/asm-7.0.jar",
+      "sha256": "b88ef66468b3c978ad0c97fd6e90979e56155b4ac69089ba7a44e9aa7ffe9acf",
+      "bytes": 113676,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/ow2/asm/asm/7.0/asm-7.0.pom",
+      "sha256": "83f65b1083d5ce4f8ba7f9545cfe9ff17824589c9a7cc82c3a4695801e4f5f68",
+      "bytes": 2936,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/ow2/asm/asm/7.0-beta/asm-7.0-beta.pom",
+      "sha256": "2d85484e0c0dd935e38edec52a33267ea1d50eb06d4c2ffb90d444c089571f86",
+      "bytes": 2946,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/ow2/asm/asm/9.6/asm-9.6.jar",
+      "sha256": "3c6fac2424db3d4a853b669f4e3d1d9c3c552235e19a319673f887083c2303a1",
+      "bytes": 123598,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/ow2/asm/asm/9.6/asm-9.6.pom",
+      "sha256": "92eee24bc3c843e4881d46c1dd6505471ee3142facfb466b428cfea5a56c6b60",
+      "bytes": 2370,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/ow2/asm/asm-analysis/5.0.3/asm-analysis-5.0.3.jar",
+      "sha256": "e8fa2a63462c96557dcd36c25525e1264b77366ff851cf0b94eb7592b290849d",
+      "bytes": 20443,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/ow2/asm/asm-analysis/5.0.3/asm-analysis-5.0.3.pom",
+      "sha256": "9ffc02a1bc3d846293ad9f889db9f42d0920e953acc4c4825726ff031405a7d0",
+      "bytes": 2096,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/ow2/asm/asm-analysis/7.0/asm-analysis-7.0.jar",
+      "sha256": "e981f8f650c4d900bb033650b18e122fa6b161eadd5f88978d08751f72ee8474",
+      "bytes": 33317,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/ow2/asm/asm-analysis/7.0/asm-analysis-7.0.pom",
+      "sha256": "c6b54477e9d5bae1e7addff2e24cbf92aaff2ff08fd6bc0596c3933c3fadc2cb",
+      "bytes": 3152,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/ow2/asm/asm-analysis/7.0-beta/asm-analysis-7.0-beta.pom",
+      "sha256": "7a068ba0c921fe69824731f6a1b14f86ff0828a0c5941e5c24b6b501e2f6e69f",
+      "bytes": 3167,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/ow2/asm/asm-commons/5.0.2/asm-commons-5.0.2.jar",
+      "sha256": "6f747b30355ed069a76ee2c0dd8621e5b67ed187b897409bc594e9217448900d",
+      "bytes": 41717,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/ow2/asm/asm-commons/5.0.2/asm-commons-5.0.2.pom",
+      "sha256": "55db696f9b882b06fafa1421477dbcd001389196eaac5a57576dd8a025adaab0",
+      "bytes": 2094,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/ow2/asm/asm-commons/5.0.3/asm-commons-5.0.3.pom",
+      "sha256": "e87ea4823ecf2dd856901da359270be904236be59c27e2781eb8d78c97e45b2a",
+      "bytes": 2094,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/ow2/asm/asm-commons/7.0/asm-commons-7.0.jar",
+      "sha256": "fed348ef05958e3e846a3ac074a12af5f7936ef3d21ce44a62c4fa08a771927d",
+      "bytes": 79850,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/ow2/asm/asm-commons/7.0/asm-commons-7.0.pom",
+      "sha256": "f4c697886cdb4a5b2472054a0b5e34371e9b48e620be40c3ed48e1f4b6d51eb4",
+      "bytes": 3660,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/ow2/asm/asm-commons/7.0-beta/asm-commons-7.0-beta.pom",
+      "sha256": "2b30b9d132f43dfba6ebced3c9661b1b5c60187dfc4d5cb7e759224fea7a279e",
+      "bytes": 3690,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/ow2/asm/asm-parent/5.0.2/asm-parent-5.0.2.pom",
+      "sha256": "63f61f3507779474b095516069d1a6918c9fb0b74e66b0956e5651276b3b8119",
+      "bytes": 5495,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/ow2/asm/asm-parent/5.0.3/asm-parent-5.0.3.pom",
+      "sha256": "c2edabf4128a534df4b8b4b0b9b562e94f242ba95ac24dc61485432b8a188e32",
+      "bytes": 5495,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/ow2/asm/asm-parent/6.0_BETA/asm-parent-6.0_BETA.pom",
+      "sha256": "6877adfe16143708322b98e4d23ab9c2a9761bec02d476a4600f39be877d6e09",
+      "bytes": 5498,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/ow2/asm/asm-tree/5.0.2/asm-tree-5.0.2.jar",
+      "sha256": "13dd91503d0e2b830d2c3a25d6bff3c7c11cd472cac651e892e920417d5f952f",
+      "bytes": 29037,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/ow2/asm/asm-tree/5.0.2/asm-tree-5.0.2.pom",
+      "sha256": "ab1fba039c217657c4b063baa05b1f2a0a6a2fced7e71d3cee3e65e4011605e1",
+      "bytes": 2083,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/ow2/asm/asm-tree/5.0.3/asm-tree-5.0.3.pom",
+      "sha256": "65819ca7c5a218ff49f8ebe72f3b39219c81f137d017acc1aec15b1054cf5236",
+      "bytes": 2083,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/ow2/asm/asm-tree/7.0/asm-tree-7.0.jar",
+      "sha256": "cfd7a0874f9de36a999c127feeadfbfe6e04d4a71ee954d7af3d853f0be48a6c",
+      "bytes": 50399,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/ow2/asm/asm-tree/7.0/asm-tree-7.0.pom",
+      "sha256": "d39e7dd12f4ff535a0839d1949c39c7644355a4470220c94b76a5c168c57a068",
+      "bytes": 3123,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/ow2/asm/asm-tree/7.0-beta/asm-tree-7.0-beta.pom",
+      "sha256": "56e37d6b54903ca842eef8fe6c8863bc7f405186bc43e74a21575a3f2428ba70",
+      "bytes": 3138,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/ow2/asm/asm-util/5.0.3/asm-util-5.0.3.jar",
+      "sha256": "2768edbfa2681b5077f08151de586a6d66b916703cda3ab297e58b41ae8f2362",
+      "bytes": 43296,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/ow2/asm/asm-util/5.0.3/asm-util-5.0.3.pom",
+      "sha256": "5ae20e8fdf549b9cede090834725f6454a2cac6f51901307eb4526177e4e3755",
+      "bytes": 2088,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/ow2/asm/asm-util/7.0-beta/asm-util-7.0-beta.jar",
+      "sha256": "26115f10e50ca84ec096af9e5f05a2d52ed389e14609de3f888e650905639dc8",
+      "bytes": 80811,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/ow2/asm/asm-util/7.0-beta/asm-util-7.0-beta.pom",
+      "sha256": "21dc992b56bc04b985419f974987b85eea4c386205e3c789bf5fb22699876859",
+      "bytes": 3669,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/ow2/ow2/1.3/ow2-1.3.pom",
+      "sha256": "51215c67d2c068d8b7d2f6f80f51372a098075deccc448d4bdd7b987ba8328fb",
+      "bytes": 9509,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/ow2/ow2/1.5/ow2-1.5.pom",
+      "sha256": "0f8a1b116e760b8fe6389c51b84e4b07a70fc11082d4f936e453b583dd50b43b",
+      "bytes": 11230,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/ow2/ow2/1.5.1/ow2-1.5.1.pom",
+      "sha256": "321ddbb7ee6fe4f53dea6b4cd6db74154d6bfa42391c1f763b361b9f485acf05",
+      "bytes": 11290,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/scannotation/scannotation/1.0.3/scannotation-1.0.3.jar",
+      "sha256": "0ce910eaaf9522d232702a3526c5e15b5dd721be59be0a646928f8f4cf92f95c",
+      "bytes": 18767,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/scannotation/scannotation/1.0.3/scannotation-1.0.3.pom",
+      "sha256": "8870ec84a7aa0fcb8b684eb62debcf328fa8fd0aeba2ce10efa863bcc11b934d",
+      "bytes": 3096,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/slf4j/jcl-over-slf4j/1.5.6/jcl-over-slf4j-1.5.6.pom",
+      "sha256": "d71d7748e68bb9cb7ad38b95d17c0466e31fc1f4d15bb1e635f3ebad34a38ff3",
+      "bytes": 2169,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/slf4j/slf4j-api/1.5.6/slf4j-api-1.5.6.pom",
+      "sha256": "91b0a0d016b8c0cba1ddd8a5c59e5bf5c2a9b49b95577e8e38927a7fdff55ce8",
+      "bytes": 2984,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/slf4j/slf4j-api/1.7.36/slf4j-api-1.7.36.jar",
+      "sha256": "d3ef575e3e4979678dc01bf1dcce51021493b4d11fb7f1be8ad982877c16a1c0",
+      "bytes": 41125,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/slf4j/slf4j-api/1.7.36/slf4j-api-1.7.36.pom",
+      "sha256": "fb046a9c229437928bb11c2d27c8b5d773eb8a25e60cbd253d985210dedc2684",
+      "bytes": 2743,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/slf4j/slf4j-api/1.7.5/slf4j-api-1.7.5.jar",
+      "sha256": "fe30825245d2336c859dc38d60c0fc5f3668dbf29cd586828d2b5667ec355b91",
+      "bytes": 26084,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/slf4j/slf4j-api/1.7.5/slf4j-api-1.7.5.pom",
+      "sha256": "afaf8e74019b230d3f56fdd7c93fb1070c0dca34f3d2d5ab5dea9fc616bd5ca4",
+      "bytes": 2689,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/slf4j/slf4j-jdk14/1.5.6/slf4j-jdk14-1.5.6.pom",
+      "sha256": "85f97344eeeed2714eda6f800aa712c1aa7405b0d7f98e207499363f82f37eec",
+      "bytes": 1898,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/slf4j/slf4j-parent/1.5.6/slf4j-parent-1.5.6.pom",
+      "sha256": "b9d17d6f915b389c7dd77f170d6fcc77f1c7d6c7362fefb146043d8412defddd",
+      "bytes": 7920,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/slf4j/slf4j-parent/1.7.36/slf4j-parent-1.7.36.pom",
+      "sha256": "bb388d37fbcdd3cde64c3cede21838693218dc451f04040c5df360a78ed7e812",
+      "bytes": 14093,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/slf4j/slf4j-parent/1.7.5/slf4j-parent-1.7.5.pom",
+      "sha256": "c43bc5a022dbfd9de82be232dffe46208cbc7de12c14385b5da824e331e535bb",
+      "bytes": 11804,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/sonatype/aether/aether-api/1.7/aether-api-1.7.jar",
+      "sha256": "1c5c5ac5e8f29aefc8faa051ffa14eccd85b9e20f4bb35dc82fba7d5da50d326",
+      "bytes": 74176,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/sonatype/aether/aether-api/1.7/aether-api-1.7.pom",
+      "sha256": "e855b04820e58822bda1ab448f7b29e2fccf363f1b2ca95c8c05f2d625b28928",
+      "bytes": 1673,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/sonatype/aether/aether-impl/1.7/aether-impl-1.7.jar",
+      "sha256": "288149850d8d131763df4151f7e443fd2739e48510a6e4cfe49ca082c76130fa",
+      "bytes": 106275,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/sonatype/aether/aether-impl/1.7/aether-impl-1.7.pom",
+      "sha256": "0cf0bc1966c54645ed9702538158cc4a363861905470991616f4dabd4030e851",
+      "bytes": 3693,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/sonatype/aether/aether-parent/1.7/aether-parent-1.7.pom",
+      "sha256": "29004012161043936443d59574924e0406a2326f53943f02eca7944b33c169df",
+      "bytes": 7725,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/sonatype/aether/aether-spi/1.7/aether-spi-1.7.jar",
+      "sha256": "f54a0a28ce3d62af0e1cfe41dde616f645c28e452e77f77b78bc36e74d5e1a69",
+      "bytes": 13549,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/sonatype/aether/aether-spi/1.7/aether-spi-1.7.pom",
+      "sha256": "a5a8a19df914af051d29eeb4084189a118c8c301054df41472d9f180ddcc6747",
+      "bytes": 1741,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/sonatype/aether/aether-util/1.7/aether-util-1.7.jar",
+      "sha256": "ff690ffc550b7ada3a4b79ef4ca89bf002b24f43a13a35d10195c3bba63d7654",
+      "bytes": 107949,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/sonatype/aether/aether-util/1.7/aether-util-1.7.pom",
+      "sha256": "0342bdcbd23208534dde58819ddf937aabbe3d61a47231ffb06632fb47dd2657",
+      "bytes": 2062,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/sonatype/forge/forge-parent/10/forge-parent-10.pom",
+      "sha256": "c14fb9c32b59cc03251f609416db7c0cff01f811edcccb4f6a865d6e7046bd0b",
+      "bytes": 13560,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/sonatype/forge/forge-parent/38/forge-parent-38.pom",
+      "sha256": "a406af6d1f345158b4d37c0f80bc6ba7c2b1da7cd34d1be9ef118d5fe00f020f",
+      "bytes": 18740,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/sonatype/forge/forge-parent/4/forge-parent-4.pom",
+      "sha256": "1838d132479005b4b7459b798e9d9915515090c288082fdcd86db0b10983a24c",
+      "bytes": 8397,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/sonatype/forge/forge-parent/5/forge-parent-5.pom",
+      "sha256": "e56188aa8ce51278006aa90bc7e0f304a81e2f1219f462e7d21f262535cd2795",
+      "bytes": 8363,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/sonatype/forge/forge-parent/6/forge-parent-6.pom",
+      "sha256": "9c5f7cd5226ac8c3798cb1f800c031f7dedc1606dc50dc29567877c8224459a7",
+      "bytes": 10754,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/sonatype/oss/oss-parent/5/oss-parent-5.pom",
+      "sha256": "1678d4120a585d8a630131aeec4c524d928398583b7eab616ee7d5a87f520d3d",
+      "bytes": 4082,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/sonatype/oss/oss-parent/7/oss-parent-7.pom",
+      "sha256": "b51f8867c92b6a722499557fc3a1fdea77bdf9ef574722fe90ce436a29559454",
+      "bytes": 4824,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/sonatype/oss/oss-parent/9/oss-parent-9.pom",
+      "sha256": "fb40265f982548212ff82e362e59732b2187ec6f0d80182885c14ef1f982827a",
+      "bytes": 6569,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/sonatype/plexus/plexus-build-api/0.0.7/plexus-build-api-0.0.7.jar",
+      "sha256": "934171640fbd3d2495c50b79b0d9adb11e2c83e65bad157df8fe34bcac0ff798",
+      "bytes": 8482,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/sonatype/plexus/plexus-build-api/0.0.7/plexus-build-api-0.0.7.pom",
+      "sha256": "e067317a47ed9e84b2ba85a76d3cf72980e2b0dc873a90b9cbfe74fe80c37c17",
+      "bytes": 3204,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/sonatype/plexus/plexus-cipher/1.4/plexus-cipher-1.4.jar",
+      "sha256": "5a15fdba22669e0fdd06e10dcce6320879e1f7398fbc910cd0677b50672a78c4",
+      "bytes": 13494,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/sonatype/plexus/plexus-cipher/1.4/plexus-cipher-1.4.pom",
+      "sha256": "a63a2e23988cca7fac6c93886d6f0506fd26d88d7e8cc0cb89b9c6e0d6c994ad",
+      "bytes": 2065,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/sonatype/plexus/plexus-sec-dispatcher/1.3/plexus-sec-dispatcher-1.3.jar",
+      "sha256": "3b0559bb8432f28937efe6ca193ef54a8506d0075d73fd7406b9b116c6a11063",
+      "bytes": 28555,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/sonatype/plexus/plexus-sec-dispatcher/1.3/plexus-sec-dispatcher-1.3.pom",
+      "sha256": "d5e650c50ef6958c028ed024b59af04cf3d38e1453a77d542b6b484bc0f4ca0b",
+      "bytes": 2961,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/sonatype/sisu/inject/guice-bean/1.4.2/guice-bean-1.4.2.pom",
+      "sha256": "d2ee7efbcdc82206c69559548aef86a99add95378f03cc58b4d9696b3969c8bb",
+      "bytes": 2606,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/sonatype/sisu/inject/guice-parent/3.2.3/guice-parent-3.2.3.pom",
+      "sha256": "5aa8d98b590478df88a349bd1dbe11d0620bfe2bdf11c4e52d51b27fe31d6168",
+      "bytes": 13473,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/sonatype/sisu/inject/guice-plexus/1.4.2/guice-plexus-1.4.2.pom",
+      "sha256": "13a66ca6e6ad1a186076513eea822db2c3c0e460a983a0a31f4d937de336ad98",
+      "bytes": 3128,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/sonatype/sisu/sisu-guice/2.1.7/sisu-guice-2.1.7-noaop.jar",
+      "sha256": "240113a2f22fd1f0b182b32baecf0e7876b3a8e41f3c4da3335eeb9ffb24b9f4",
+      "bytes": 471737,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/sonatype/sisu/sisu-guice/2.1.7/sisu-guice-2.1.7.pom",
+      "sha256": "2b3f02f2d0ec3e95884f9ab415596ce627492469c2d8fd75e3fb00fb69532c44",
+      "bytes": 11061,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/sonatype/sisu/sisu-guice/3.2.3/sisu-guice-3.2.3.pom",
+      "sha256": "4a14ec03fa5fdfef34b595d3fabb83832423a5d6e9b31571e44c8a48304014df",
+      "bytes": 10936,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/sonatype/sisu/sisu-inject/1.4.2/sisu-inject-1.4.2.pom",
+      "sha256": "a5991ead85259ba9f8c985d194aace3b069e14bcd8cde68fce928223714d3968",
+      "bytes": 1249,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/sonatype/sisu/sisu-inject-bean/1.4.2/sisu-inject-bean-1.4.2.jar",
+      "sha256": "fb3160e1e3a7852b441016dbcc97a34e3cf4eeb8ceb9e82edf2729439858f080",
+      "bytes": 152989,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/sonatype/sisu/sisu-inject-bean/1.4.2/sisu-inject-bean-1.4.2.pom",
+      "sha256": "06d75dd6f2a0dc9ea6bf73a67491ba4790f92251c654bf4925511e5e4f48f1df",
+      "bytes": 5457,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/sonatype/sisu/sisu-inject-plexus/1.4.2/sisu-inject-plexus-1.4.2.jar",
+      "sha256": "a65e27aefbe74102d73cd7e3c5c7637021d294a9e7f33132f3c782a76714d0a3",
+      "bytes": 201716,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/sonatype/sisu/sisu-inject-plexus/1.4.2/sisu-inject-plexus-1.4.2.pom",
+      "sha256": "e302200cf462cf1af9f3e870738253cdf90d7abc8279b9d3b507a5d0d3b9f289",
+      "bytes": 5369,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/sonatype/sisu/sisu-parent/1.4.2/sisu-parent-1.4.2.pom",
+      "sha256": "abb04084d0885319fd0b372d77655f8feb8aa8bb091699fcd99b45798a9587d5",
+      "bytes": 7777,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/sonatype/spice/spice-parent/12/spice-parent-12.pom",
+      "sha256": "21a19b26dbe5c38ddb5114cf4eadbf5ccb411bc6b128fdd5949b1ccb12f3683e",
+      "bytes": 6798,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/sonatype/spice/spice-parent/15/spice-parent-15.pom",
+      "sha256": "13d15ddfe9946b8427bb7b4b081ab63962285eed0bf6fa5142aea25a46e15814",
+      "bytes": 8358,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/sonatype/spice/spice-parent/17/spice-parent-17.pom",
+      "sha256": "9151f9a5b33ec36ee8778842fc56144fb0242d39cbcc42061b053b8909969bdf",
+      "bytes": 6759,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/tukaani/xz/1.9/xz-1.9.jar",
+      "sha256": "211b306cfc44f8f96df3a0a3ddaf75ba8c5289eed77d60d72f889bb855f535e5",
+      "bytes": 116013,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/tukaani/xz/1.9/xz-1.9.pom",
+      "sha256": "093be1b03331bce2932d6825c37e98272d7621e6a9e9fb93289a002518b8dd5a",
+      "bytes": 2047,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/vafer/jdependency/1.0/jdependency-1.0.jar",
+      "sha256": "991cb49620f079bb97b4dd3e9db0884c1be4bf0740fe725331688ea5262a6c96",
+      "bytes": 21891,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/vafer/jdependency/1.0/jdependency-1.0.pom",
+      "sha256": "de45f6e5dd5c7e926c26198fb535350a353566f424ed03717b5d617d83ef7e0c",
+      "bytes": 10819,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/vafer/jdependency/2.1.1/jdependency-2.1.1.jar",
+      "sha256": "642d23a86217850721d9fa80671683d8308fd03114f0da7af553d43b82013a09",
+      "bytes": 186219,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/vafer/jdependency/2.1.1/jdependency-2.1.1.pom",
+      "sha256": "4a139306cbe0aa3765bd9fd837a71253a911a9c4e55c50e062a4bd6843ee19a1",
+      "bytes": 11260,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/apache/maven/surefire/common-java5/3.2.5/common-java5-3.2.5.jar",
+      "sha256": "feadf94df4eae79457b3612f21d96fc2a1b37072d352bc6e994352b8fe571f58",
+      "bytes": 17555,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/apache/maven/surefire/common-java5/3.2.5/common-java5-3.2.5.pom",
+      "sha256": "afe641001c11f1b194d72ea7e8f68322cba87601805e75524d3a3b6c910962fc",
+      "bytes": 2814,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/apache/maven/surefire/surefire-junit-platform/3.2.5/surefire-junit-platform-3.2.5.jar",
+      "sha256": "a426d731705a4804f33b5f51ff9dd6c13eaba15bac41e2a01595ccd137548ef3",
+      "bytes": 27152,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/apache/maven/surefire/surefire-junit-platform/3.2.5/surefire-junit-platform-3.2.5.pom",
+      "sha256": "3574aa03854596289fa4cffe4a03fb4fe9e1406aa292945d58663d32c28dc668",
+      "bytes": 4665,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/apache/maven/surefire/surefire-providers/3.2.5/surefire-providers-3.2.5.pom",
+      "sha256": "6848e38924e3635a31b066a3eda4481ca2790d1d1b5242381df277bcfaf2256e",
+      "bytes": 2611,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/apiguardian/apiguardian-api/1.1.2/apiguardian-api-1.1.2.jar",
+      "sha256": "b509448ac506d607319f182537f0b35d71007582ec741832a1f111e5b5b70b38",
+      "bytes": 6806,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/apiguardian/apiguardian-api/1.1.2/apiguardian-api-1.1.2.pom",
+      "sha256": "32355081d109095c3d5d374d5a43b4f4c1b75d549e983ef50723e2772e5302a0",
+      "bytes": 1526,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/junit/jupiter/junit-jupiter-api/5.10.2/junit-jupiter-api-5.10.2.jar",
+      "sha256": "afff77c186cd317275803872fa5133aa801fd6ac40bd91c78a6cf8009b4b17cc",
+      "bytes": 210956,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/junit/jupiter/junit-jupiter-api/5.10.2/junit-jupiter-api-5.10.2.pom",
+      "sha256": "bb5da3060226b1b3ceb5408495dc69b59465bf50d7ebe63eef94f25909cf1900",
+      "bytes": 3184,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/junit/jupiter/junit-jupiter-engine/5.10.2/junit-jupiter-engine-5.10.2.jar",
+      "sha256": "b6df35da750a546ae932376f11b3c0df841f0c90c7cb2944cd39adb432886e4b",
+      "bytes": 244690,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/junit/jupiter/junit-jupiter-engine/5.10.2/junit-jupiter-engine-5.10.2.pom",
+      "sha256": "abe72c8fbf9a9c8f9ee79bac29ba6479d32b0dffaab88080a502911d24d39463",
+      "bytes": 3203,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/junit/jupiter/junit-jupiter-params/5.10.2/junit-jupiter-params-5.10.2.jar",
+      "sha256": "edb1e43ff0b8067626ffb55e5e9eeca1d9ab2478141a7c7f253d115b29cc7cf2",
+      "bytes": 586027,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/junit/jupiter/junit-jupiter-params/5.10.2/junit-jupiter-params-5.10.2.pom",
+      "sha256": "f27d7d096db48a05d6e7afd841a95454424e55c523d7aed1668178b33a63cbd7",
+      "bytes": 3010,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/junit/jupiter/junit-jupiter/5.10.2/junit-jupiter-5.10.2.jar",
+      "sha256": "263e43447f4b40f126ad6b1dcbd7df379448413bdedb8e0d240c5bcbba7c7a4f",
+      "bytes": 6359,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/junit/jupiter/junit-jupiter/5.10.2/junit-jupiter-5.10.2.pom",
+      "sha256": "d5b70c5c2d74522da610cd38776f225bac034ac2591843bee9797abab3880eab",
+      "bytes": 3205,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/junit/platform/junit-platform-commons/1.10.2/junit-platform-commons-1.10.2.jar",
+      "sha256": "b56a5ec000a479df4973b18bba24c98fe0db8faa14c8907d3ef451d8c71fd8ae",
+      "bytes": 106232,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/junit/platform/junit-platform-commons/1.10.2/junit-platform-commons-1.10.2.pom",
+      "sha256": "f3f825c7ca3bd89714d489447c77c76e27ea38f0285f5f796a1000a17fca4be7",
+      "bytes": 2833,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/junit/platform/junit-platform-commons/1.9.3/junit-platform-commons-1.9.3.jar",
+      "sha256": "8519157df813c210e85fc1414b74109e3d85f43d7092563ed704c43c48f0d5e6",
+      "bytes": 102989,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/junit/platform/junit-platform-commons/1.9.3/junit-platform-commons-1.9.3.pom",
+      "sha256": "e17a1fde4782f2fc23b42deca75c0b0566d5c29850d0306be65c5da73b802178",
+      "bytes": 2831,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/junit/platform/junit-platform-engine/1.10.2/junit-platform-engine-1.10.2.jar",
+      "sha256": "905cba9b4998ccc29d1239085a7fb1fe0e28024d7526152356d810edec0a49a3",
+      "bytes": 204821,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/junit/platform/junit-platform-engine/1.10.2/junit-platform-engine-1.10.2.pom",
+      "sha256": "12aa86ca1c0d648a225d4e7c696054c1fc76e88782c5c39fb7df379ae23bef6f",
+      "bytes": 3205,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/junit/platform/junit-platform-engine/1.9.3/junit-platform-engine-1.9.3.jar",
+      "sha256": "0c39553d9a03510757227f5a1c6cc6530287b1a321ed6258450664874aa2a16a",
+      "bytes": 189226,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/junit/platform/junit-platform-engine/1.9.3/junit-platform-engine-1.9.3.pom",
+      "sha256": "1c5ab7fcebe3a601183979baafbf2f40e5543882a7ca23e9f9eb719195a747d5",
+      "bytes": 3202,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/junit/platform/junit-platform-launcher/1.10.2/junit-platform-launcher-1.10.2.jar",
+      "sha256": "aed4f42fb90ada9b347c231f13656fc09121ba20dab6dc646a6bd9d4da31e4aa",
+      "bytes": 183814,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/junit/platform/junit-platform-launcher/1.10.2/junit-platform-launcher-1.10.2.pom",
+      "sha256": "5a311708e7906bb974629c1ac870bc11657465b989da4a077e45416bd98725e4",
+      "bytes": 3029,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/junit/platform/junit-platform-launcher/1.9.3/junit-platform-launcher-1.9.3.jar",
+      "sha256": "8515e91808a09c8c9af5e359185b5991b5e76b8adcf185b9a3dab4ec8e5ba8ff",
+      "bytes": 169237,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/junit/platform/junit-platform-launcher/1.9.3/junit-platform-launcher-1.9.3.pom",
+      "sha256": "0b7ccb4425e8209a0335cf83d63cc3672bf8d9110c6966efe7977d1166648f27",
+      "bytes": 3026,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/opentest4j/opentest4j/1.2.0/opentest4j-1.2.0.jar",
+      "sha256": "58812de60898d976fb81ef3b62da05c6604c18fd4a249f5044282479fc286af2",
+      "bytes": 7653,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/opentest4j/opentest4j/1.2.0/opentest4j-1.2.0.pom",
+      "sha256": "a96e671816c1ff8803bdec74c9241f025bdfb277da5d2b4ee02266405936f994",
+      "bytes": 1683,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/opentest4j/opentest4j/1.3.0/opentest4j-1.3.0.jar",
+      "sha256": "48e2df636cab6563ced64dcdff8abb2355627cb236ef0bf37598682ddf742f1b",
+      "bytes": 14304,
+      "repository_ids": [
+        "central"
+      ]
+    },
+    {
+      "path": "org/opentest4j/opentest4j/1.3.0/opentest4j-1.3.0.pom",
+      "sha256": "9bf7cffc410f3e8372c2522578df9ca56d9d43bd937e30948706c232a943b355",
+      "bytes": 2035,
+      "repository_ids": [
+        "central"
+      ]
+    }
+  ],
+  "metadata": [],
+  "repository_ids": [
+    "central"
+  ]
+}

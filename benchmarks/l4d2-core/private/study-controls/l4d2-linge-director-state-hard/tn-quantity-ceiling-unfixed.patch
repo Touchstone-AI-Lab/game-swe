@@ -1,0 +1,12 @@
+diff -ruN a/vscripts/LinGe/MoreSI.nut b/vscripts/LinGe/MoreSI.nut
+--- a/vscripts/LinGe/MoreSI.nut
++++ b/vscripts/LinGe/MoreSI.nut
+@@ -50,7 +50,7 @@
+ 		local simax = Config.sibase + autoNum;
+ 		if (simax < Config.simin)
+ 			simax = Config.simin;
+-		if (simax > 31)
++		else if (simax > 31)
+ 			simax = 31;
+ 
+ 		::SessionOptions.rawset("cm_MaxSpecials", simax);

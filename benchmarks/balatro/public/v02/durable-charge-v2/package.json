@@ -1,0 +1,54 @@
+{
+  "protocol": "v2",
+  "task": "durable-charge-v2",
+  "slot": "H1",
+  "target_difficulty": "hard",
+  "calibration_status": "unmeasured",
+  "calibration_model": null,
+  "calibration_evidence": [],
+  "formal_integration_status": "not_implemented",
+  "files": {
+    "CONTRACT.md": {
+      "size": 2866,
+      "sha256": "da009540c7941ee329b8540eb532129e008455ebc7d4dfc8c880d8f2d97f1a29"
+    },
+    "README.md": {
+      "size": 1373,
+      "sha256": "62521eff01c1fa4aecc8b7a68225b9bace38e592b9e0a70ad384bd2e2bb1259d"
+    },
+    "API.md": {
+      "size": 3896,
+      "sha256": "34f8dd9e308682afba2ebc9e409b5751c3e41f96311d483bb57cc9f362f870c6"
+    },
+    "starter/main.lua": {
+      "size": 1265,
+      "sha256": "a6c94963540062539694b86a5863388383b66af1a0ab121740b5f5c9ba85b3a7"
+    },
+    "starter/adapter.lua": {
+      "size": 2134,
+      "sha256": "bfaf02cd7aec801a3055f51553b76e2a497b5284cb1813e95e4a75a9ae1d949b"
+    },
+    "starter/lib/rules.lua": {
+      "size": 2995,
+      "sha256": "224cbd3258b8cc60f2fe5ed4cd2bf0623de26529163dbf15c15c0c66e0c669e2"
+    },
+    "starter/lib/ledger.lua": {
+      "size": 788,
+      "sha256": "1ce31fd53f240cc15a002361cb3fa319a83bee9d4f0c31fb8842ef0519324de1"
+    },
+    "starter/durable_charge_v2.json": {
+      "size": 291,
+      "sha256": "7cbaf462f2e1a1002cc0481166f55907633d260b83b1581e752c1cc09c88a1ed"
+    }
+  },
+  "content_sha256": "92d3f8ae288cb404236f11b74cab2b103563e921f418f429477c891b4b72926f",
+  "editable_files": [
+    "starter/main.lua",
+    "starter/adapter.lua",
+    "starter/lib/rules.lua",
+    "starter/lib/ledger.lua"
+  ],
+  "immutable_files": [
+    "starter/durable_charge_v2.json"
+  ]
+}

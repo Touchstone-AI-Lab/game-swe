@@ -1,0 +1,4 @@
+control	kind	base	overlay	root	note
+target-negative-requires-active-group	target-negative	reference	patch:target-negative-requires-active-group.patch	StardewMods	Fix wrongly applied as active.Any() && disabled.Any(): the caches are still not rebuilt when a reload pass finds only non-automated groups.
+compat-negative-api-drops-active-groups	compat-negative	reference	patch:compat-negative-api-drops-active-groups.patch	StardewMods	Reference plus GetForApi no longer concatenating the active groups: non-automated machines are reported, automated ones disappear from the API.
+alternative-api-reads-location-data	alternative	starter	patch:alternative-api-reads-location-data.patch	StardewMods	Leaves the cache-rebuild condition untouched; GetForApi reads the per-location MachineData record (always written by a reload) instead of the flattened caches.

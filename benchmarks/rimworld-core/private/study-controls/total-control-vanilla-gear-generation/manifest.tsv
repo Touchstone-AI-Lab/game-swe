@@ -1,0 +1,4 @@
+control	kind	base	overlay	root	note
+target-negative-no-hit-point-floor	target-negative	reference	patch:target-negative-no-hit-point-floor.patch	.	reference without the one-hit-point floor
+compat-negative-hit-points-for-every-thing	compat-negative	reference	patch:compat-negative-hit-points-for-every-thing.patch	.	reference that applies the gear health range to things without hit points
+alternative-a	alternative	starter	tree:alternative-a	.	one shared VanillaGearFinish helper for both generators, Royalty clamp left out

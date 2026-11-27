@@ -1,0 +1,70 @@
+schema_version = "1.1"
+
+[task]
+name = "gamecodebench/wiremod-e2-library-regressions"
+description = "A Wiremod build with six upstream fixes reverted in the Expression 2 standard library and compiler (vector clamp, base conversion, complex formatting, character codes, table literals, typed array search), reported only as user-visible symptoms."
+authors = []
+keywords = ["garrysmod", "glua", "lua", "wiremod", "expression2", "multi-defect", "regression"]
+
+[metadata]
+category = "programming"
+difficulty = "hard"
+tags = ["game-modding", "glua", "gmod", "wiremod", "bug-fix", "composite"]
+source_repo = "https://github.com/wiremod/wire"
+source_license = "Apache-2.0"
+base_commit = "f31ba74e7c607918fed0e5607cb425df052f132d"
+reverted_fixes = "3ad16644cc0625f47eeaa8d84b8212e945a1ae9d,21c1991d6ad9daea86a290c674dfbe55854af4d8,074ff60e4747b6a6581ba3fee0766fe68fde0156,e87fea312db5d0132d9f98aab5d8c4237acdb7f1,4dff1ee1ec53fcc5ce8ced9d7489feb7c7535ed5,e4a295157b14ffd8536bd8aafcdffae1a8fec29d"
+gold_patch_origin = "composed-from-upstream-fixes"
+
+# PROVENANCE. The reference is upstream master at base_commit (2026-09-21), vendored
+# whole (Lua, models, materials, sounds, data_static) with its Apache-2.0 LICENSE. The
+# starter is that tree with six upstream fix commits reverted together. Five revert
+# cleanly with `git revert --no-commit`; 4dff1ee1 was reverted with
+# `git show 4dff1ee1 -- lua/ | git apply -R`, and the E2 test file it added
+# (data_static/expression2/tests/runtime/types/array/indexof.txt, moved there later by
+# #3403) is deleted in the starter and present in the reference. Nothing is
+# hand-injected. The CI workflow directory and .gitignore are not vendored.
+#   A  3ad16644 (#3673, 2026-07-24)  core/vector.lua   clamp(vvv) assigns p/r instead of
+#                                    x/z (a regression from #3658)
+#   B  21c1991d (#3671, 2026-07-23)  core/number.lua   tobase does not floor the number
+#                                    and base, so a fractional digit indexes nil
+#   C  e87fea31 (#3635, 2026-06-19)  core/complex.lua  "< 0" instead of "<= 0" on the
+#                                    absolute parts, and a number returned as text
+#   D  e4a29515 (#3310, 2025-04-24)  core/string.lua   NaN passes the range guard of
+#                                    toChar / toUnicodeChar
+#   E  074ff60e (#3655, 2026-07-15)  base/compiler.lua positional table literals share
+#                                    one compile-time types array between evaluations
+#   F  4dff1ee1 (#3328, 2025-05-21)  core/array.lua    indexOf compares table-backed
+#                                    types with raw ==
+#
+# VERIFIER COVERAGE. 6 reports / 6 groups / 6 target cases + 4 preserved cases +
+# 1 load sentinel = 11 cases. Every case compiles and runs an E2 program through
+# E2Lib.compileScript (the path of the addon's own e2test command) on the real server;
+# the program asserts on its own values with E2's assert(). The preserved cases pin
+# whole-number base conversion, two-part complex formatting, in/out-of-range character
+# codes, and indexOf for numbers, strings, vectors and angles.
+#
+# VALIDATED. Unchanged starter: complete, sentinel and all preserved cases pass, every
+# target case fails. Reference: 11/11. See validation/ in this pack.
+
+[verifier]
+network_mode = "no-network"
+timeout_sec = 1200.0
+
+[agent]
+# The agent harness calls the model API from inside the container; only the model
+# endpoint may be reachable. A Harbor job passes that hostname through
+# `agents[].extra_allowed_hosts`; github.com stays unreachable because the upstream
+# repository contains the fixes.
+network_mode = "allowlist"
+allowed_hosts = []
+timeout_sec = 5400.0
+
+[environment]
+network_mode = "no-network"
+build_timeout_sec = 2400.0
+cpus = 6
+memory_mb = 16384
+storage_mb = 20480
+gpus = 0
+mcp_servers = []

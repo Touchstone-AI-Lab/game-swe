@@ -1,0 +1,12 @@
+diff -ruN a/vscripts/LinGe/VSLib/timer.nut b/vscripts/LinGe/VSLib/timer.nut
+--- a/vscripts/LinGe/VSLib/timer.nut
++++ b/vscripts/LinGe/VSLib/timer.nut
+@@ -101,6 +101,8 @@
+         options.count <- floor(options.duration / delay).tointeger();
+     }
+     if (paramTable == null) paramTable = {};
++    // Defensive copy so a caller cannot edit a queued array payload.
++    else if (typeof paramTable == "array") paramTable = clone paramTable;
+     ++count;
+     TimersList[count] <- {
+         _delay = delay, _func = func, _params = paramTable,

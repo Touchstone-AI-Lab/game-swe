@@ -1,0 +1,9 @@
+# CoinLedger configuration. Money values have at most two decimals.
+currency: coins
+starting-balance: 100.00
+max-balance: 1000000.00
+# Whole percent (0-100) of a transfer charged to the sender and paid to the fee account.
+transfer-fee-percent: 2
+# Account that receives transfer fees; an empty string disables fees.
+fee-account: treasury
+history-page-size: 5

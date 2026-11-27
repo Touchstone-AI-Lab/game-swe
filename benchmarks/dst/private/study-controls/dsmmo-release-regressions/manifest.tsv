@@ -1,0 +1,6 @@
+control	kind	base	overlay	root	note
+target-negative-self-attack-still-retaliated	target-negative	reference	patch:target-negative-self-attack-still-retaliated.patch	mod	Reference without the attacker-is-the-player check: a player who hurts themselves still gets a bee.
+compat-negative-haunt-branch-removed	compat-negative	reference	patch:compat-negative-haunt-branch-removed.patch	mod	Reference that silences the haunt error by deleting the whole HAUNT branch, which also removes Ghosty fireflies.
+alternative-a	alternative	starter	tree:alternative-a	mod	Independent fix: nil-safe event data, early return for missing or self attackers after the experience, a health-and-combat test for Explosive touch, a local tool check for digging, levels recomputed after loading when the saved Exp-gain setting differs, a usage message for an incomplete eat command.
+target-negative-stale-levels-kept	target-negative	reference	patch:target-negative-stale-levels-kept.patch	mod	Reference with the Exp-gain check of 9b93e05 reverted: a save made under another Exp-gain setting keeps its stale levels.
+compat-negative-eat-command-removed	compat-negative	reference	patch:compat-negative-eat-command-removed.patch	mod	Reference that silences the incomplete eat command by deleting the whole eat branch, which also removes Self-cannibalism.

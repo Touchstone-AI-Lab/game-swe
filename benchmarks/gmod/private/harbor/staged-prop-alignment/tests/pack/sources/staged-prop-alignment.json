@@ -1,0 +1,17 @@
+{
+  "schemaVersion": 1,
+  "taskId": "staged-prop-alignment",
+  "taskVersion": "2.2.0",
+  "originType": "workshop-functional-evidence",
+  "workshopId": "3704032230",
+  "url": "https://steamcommunity.com/sharedfiles/filedetails/?id=3704032230",
+  "title": "Magic Align",
+  "author": "SirRanjid",
+  "accessedAt": "2026-08-02",
+  "license": "unknown",
+  "licenseHandling": "clean-room behavior abstraction only",
+  "codeCopied": false,
+  "assetsCopied": false,
+  "capabilitiesObserved": ["three-point prop alignment", "Toolgun workflow", "constraint-aware operation", "Undo"],
+  "benchmarkCapabilities": ["staged anchors", "three-point rigid frame", "server authority", "transactional rollback", "real SWEP Toolgun dispatch"]
+}

@@ -1,0 +1,358 @@
+diff -ruN a/vscripts/LinGe/Base.nut b/vscripts/LinGe/Base.nut
+--- a/vscripts/LinGe/Base.nut
++++ b/vscripts/LinGe/Base.nut
+@@ -573,55 +573,47 @@
+ // key无视大小写
+ ::LinGe.Merge <- function (dest, source, typeMatch=true, reserveKey=false)
+ {
+-	if ("table" == typeof dest && "table" == typeof source)
+-	{
+-		foreach (key, val in source)
+-		{
+-			local keyIsExist = true;
+-			if (!dest.rawin(key))
+-			{
+-				// 为什么有些保存到 Cache 会产生大小写转换？？
+-				// HUD.Config.hurt 保存到 Cache 恢复后，hurt 居然变成了 Hurt
+-				foreach (_key, _val in dest)
+-				{
+-					if (_key.tolower() == key.tolower())
+-					{
+-						source[_key] <- source[key];
+-						key = _key;
+-						break;
+-					}
+-				}
+-				if (!dest.rawin(key))
+-					keyIsExist = false;
+-			}
+-			if (!keyIsExist)
+-			{
+-				if (reserveKey)
+-					dest.rawset(key, val);
+-				continue;
+-			}
+-			local type_dest = typeof dest[key];
+-			local type_src = typeof val;
+-			// 如果指定key也是table，则进行递归
+-			if ("table" == type_dest && "table" == type_src)
+-				::LinGe.Merge(dest[key], val, typeMatch, reserveKey);
+-			else if (type_dest != type_src)
+-			{
+-				if (!typeMatch)
+-					dest[key] = val;
+-				else if (type_dest == "bool" && type_src == "integer") // 争对某些情况下 bool 被转换成了 integer
+-					dest[key] = (val!=0);
+-				else if (type_dest == "array" && type_src == "table") // 争对某些情况下 array 被转换成了 table 原数组的顺序可能会错乱
+-				{
+-					dest[key].clear();
+-					foreach (_val in val)
+-						dest[key].append(_val);
+-				}
+-			}
+-			else
+-				dest[key] = val;
+-		}
+-	}
++    if (typeof dest != "table" || typeof source != "table") return;
++    foreach (key, val in source)
++    {
++        local target = key;
++        if (!dest.rawin(target) && typeof key == "string")
++            foreach (existing, unused in dest)
++                if (typeof existing == "string" && existing.tolower() == key.tolower())
++                { target = existing; break; }
++        if (!dest.rawin(target))
++        {
++            if (reserveKey) dest.rawset(target, ::LinGe.DeepClone(val));
++            continue;
++        }
++        local dt = typeof dest[target], st = typeof val;
++        if (dt == "table" && st == "table")
++            ::LinGe.Merge(dest[target], val, typeMatch, reserveKey);
++        else if (dt == st || !typeMatch)
++            dest[target] = ::LinGe.DeepClone(val);
++        else if (dt == "bool" && st == "integer")
++            dest[target] = val != 0;
++        else if (dt == "array" && st == "table")
++        {
++            local entries = [], valid = true;
++            foreach (key, value in val)
++            {
++                if (typeof key != "integer" && typeof key != "string") {valid=false;break;}
++                local index = null;
++                try {index=key.tointeger();} catch(e) {valid=false;break;}
++                if (index<0 || (typeof key=="string" && index.tostring()!=key)) {valid=false;break;}
++                entries.append({index=index,value=value});
++            }
++            entries.sort(@(a,b) a.index <=> b.index);
++            local result=[];
++            foreach (position, entry in entries)
++            {
++                if (position!=entry.index) {valid=false;break;}
++                result.append(::LinGe.DeepClone(entry.value));
++            }
++            if (valid) dest[target]=result;
++        }
++    }
+ }
+ // ---------------------------全局函数END-------------------------------------------
+ 
+@@ -717,82 +709,46 @@
+ // ---------------------------CONFIG-配置管理---------------------------------------
+ class ::LinGe.ConfigManager
+ {
+-	filePath = null;
+-	table = null;
+-
+-	constructor(_filePath)
+-	{
+-		filePath = _filePath;
+-		table = {};
+-	}
+-	// 添加表到配置管理 若表名重复则会覆盖
+-	function Add(tableName, _table, reserveKey=false)
+-	{
+-		table.rawset(tableName, _table.weakref());
+-		Load(tableName, reserveKey);
+-	}
+-
+-	// 从配置管理中删除表
+-	function Delete(tableName)
+-	{
+-		table.rawdelete(tableName);
+-	}
+-	// 载入指定表的配置
+-	// reserveKey为false时，配置载入只会载入已创建的key，配置文件中有但脚本代码未创建的key不会被载入
+-	// 反之则配置文件中的key会被保留
+-	function Load(tableName, reserveKey=false)
+-	{
+-		if (!table.rawin(tableName))
+-			throw "未找到表";
+-		local fromFile = null;
+-		try {
+-			fromFile = ::VSLib.FileIO.LoadTable(filePath);
+-		} catch (e)	{
+-			printl("[LinGe] 服务器配置文件损坏，将自动还原为默认设置");
+-			fromFile = null;
+-		}
+-		if (null != fromFile && fromFile.rawin(tableName))
+-		{
+-			::LinGe.Merge(table[tableName], fromFile[tableName], true, reserveKey);
+-		}
+-		Save(tableName); // 保持文件配置和已载入配置的一致性
+-	}
+-	// 保存指定表的配置
+-	function Save(tableName)
+-	{
+-		if (table.rawin(tableName))
+-		{
+-			local fromFile = null;
+-			try {
+-				fromFile = ::VSLib.FileIO.LoadTable(filePath);
+-			} catch (e) {
+-				fromFile = null;
+-			}
+-			if (null == fromFile)
+-				fromFile = {};
+-			fromFile.rawset(tableName, table[tableName]);
+-			::VSLib.FileIO.SaveTable(filePath, fromFile);
+-		}
+-		else
+-			throw "未找到表";
+-	}
+-
+-	// 载入所有表
+-	function LoadAll(reserveKey=false)
+-	{
+-		local fromFile = ::VSLib.FileIO.LoadTable(filePath);
+-		if (null != fromFile)
+-			::LinGe.Merge(table, fromFile, true, reserveKey);
+-		SaveAll();
+-	}
+-	// 保存所有表
+-	function SaveAll()
+-	{
+-		local fromFile = ::VSLib.FileIO.LoadTable(filePath);
+-		foreach (k, v in table)
+-			fromFile.rawset(k, v);
+-		::VSLib.FileIO.SaveTable(filePath, fromFile);
+-	}
++    filePath = null;
++    table = null;
++    constructor(path) { filePath=path; table={}; }
++    function ReadDocument()
++    {
++        local data = null;
++        try { data = ::VSLib.FileIO.LoadTable(filePath); } catch (e) {}
++        return typeof data == "table" ? data : {};
++    }
++    function Add(name, value, reserveKey=false)
++    { table.rawset(name, value.weakref()); Load(name, reserveKey); }
++    function Delete(name) { table.rawdelete(name); }
++    function Load(name, reserveKey=false)
++    {
++        if (!table.rawin(name)) throw "Unknown config section";
++        local data=ReadDocument();
++        if (data.rawin(name)) ::LinGe.Merge(table[name], data[name], true, reserveKey);
++        Save(name);
++    }
++    function Save(name)
++    {
++        if (!table.rawin(name)) throw "Unknown config section";
++        local data=ReadDocument();
++        data.rawset(name, table[name]);
++        ::VSLib.FileIO.SaveTable(filePath, data);
++    }
++    function LoadAll(reserveKey=false)
++    {
++        local data=ReadDocument();
++        foreach (name, value in table)
++            if (value != null && data.rawin(name))
++                ::LinGe.Merge(value, data[name], true, reserveKey);
++        foreach (name, value in table) if (value != null) Save(name);
++    }
++    function SaveAll()
++    {
++        local data=ReadDocument();
++        foreach (name, value in table) if (value != null) data.rawset(name, value);
++        ::VSLib.FileIO.SaveTable(filePath, data);
++    }
+ };
+ 
+ local FILE_CONFIG = "LinGe/Config_" + ::LinGe.hostport;
+@@ -811,13 +767,16 @@
+ ::LinGe.Events.TriggerFunc <- function (params)
+ {
+ 	local action = ACTION_CONTINUE;
+-	local _params = null==params ? null : clone params;
+-	local len = callback.len();
++	local original = ::LinGe.DeepClone(params);
++	local _params = ::LinGe.DeepClone(original);
++	local snapshot = [];
++	foreach (registration in callback) snapshot.append(registration);
++	local len = snapshot.len();
+ 	local val = null;
+ 	::LinGe.DebugPrintlTable(params);
+ 	for (local i=0; i<len; i++)
+ 	{
+-		val = callback[i];
++		val = snapshot[i];
+ 		if (null == val.func)
+ 			continue;
+ 		else
+@@ -833,7 +792,7 @@
+ 			case ACTION_CONTINUE:
+ 				break;
+ 			case ACTION_RESETPARAMS:
+-				_params = null==params ? null : clone params;
++				_params = ::LinGe.DeepClone(original);
+ 				break;
+ 			case ACTION_STOP:
+ 				return;
+@@ -932,7 +891,7 @@
+ 	{
+ 		if (delay > 0.0)
+ 			::VSLib.Timers.AddTimer(delay, false,
+-				@(params) ::LinGe.Events.trigger[event][event](params), params);
++				@(params) ::LinGe.Events.trigger[event][event](params), ::LinGe.DeepClone(params));
+ 		else
+ 			trigger[event][event](params);
+ 	}
+diff -ruN a/vscripts/LinGe/MoreSI.nut b/vscripts/LinGe/MoreSI.nut
+--- a/vscripts/LinGe/MoreSI.nut
++++ b/vscripts/LinGe/MoreSI.nut
+@@ -50,7 +50,7 @@
+ 		local simax = Config.sibase + autoNum;
+ 		if (simax < Config.simin)
+ 			simax = Config.simin;
+-		else if (simax > 31)
++		if (simax > 31)
+ 			simax = 31;
+ 
+ 		::SessionOptions.rawset("cm_MaxSpecials", simax);
+@@ -134,29 +134,16 @@
+ // 检查数组sionly值的有效性 移除无效值
+ ::LinGe.MoreSI.Checksionly <- function()
+ {
+-	local str = "";
+-	local firstChar = "";
+-	if ("array" != typeof Config.sionly)
+-		Config.sionly = [];
+-	else
+-	{
+-		foreach (idx, val in Config.sionly)
+-		{
+-			// 如果找不到则将其进行字母转换，再进行查找
+-			if (null == sitypelist.find(val))
+-			{
+-				// 首字母转为大写，其它转成小写
+-				firstChar = val.slice(0, 1).toupper();
+-				str = val.slice(1).tolower();
+-				str = firstChar + str;
+-
+-				if (null == sitypelist.find(str))
+-					Config.sionly.remove(idx);
+-				else
+-					Config.sionly[idx] = str;
+-			}
+-		}
+-	}
++    local result = [], seen = {};
++    if (typeof Config.sionly == "array")
++        foreach (value in Config.sionly)
++        {
++            if (typeof value != "string") continue;
++            foreach (valid in sitypelist)
++                if (value.tolower() == valid.tolower() && !seen.rawin(valid))
++                { seen.rawset(valid, true); result.append(valid); break; }
++        }
++    Config.sionly = result;
+ }
+ 
+ // 输出当前设置信息
+@@ -207,6 +194,7 @@
+ 		_enabled = ::LinGe.Cache.MoreSI_Config.enabled;
+ 	}
+ 	Config.enabled = false;
++	ExecConfig();
+ }
+ ::LinEventHook("cache_restore", ::LinGe.MoreSI.cache_restore, ::LinGe.MoreSI);
+ 
+@@ -214,11 +202,8 @@
+ ::LinGe.MoreSI.OnGameEvent_round_start <- function (params)
+ {
+ 	Config.enabled = _enabled;
+-	if (Config.enabled)
+-	{
+-		ExecConfig();
+-		ShowInfo();
+-	}
++	ExecConfig();
++	if (Config.enabled) ShowInfo();
+ }
+ ::LinEventHook("OnGameEvent_round_start", ::LinGe.MoreSI.OnGameEvent_round_start, ::LinGe.MoreSI);
+ 
+@@ -309,6 +294,7 @@
+ 		Config.sionly = sionly;
+ 	}
+ 
++	_enabled = true;
+ 	Config.enabled = true;
+ 	ExecConfig();
+ 	ShowInfo();
+@@ -320,11 +306,9 @@
+ {
+ 	if (args.len() == 1)
+ 	{
+-		if (Config.enabled)
+-		{
+-			Config.enabled = false;
+-			ExecConfig();
+-		}
++		_enabled = false;
++		Config.enabled = false;
++		ExecConfig();
+ 		ShowInfo();
+ 	}
+ }

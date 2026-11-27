@@ -1,0 +1,249 @@
+{
+  "task": "dst/core/composting-together-regressions",
+  "task_version": "1.0.0",
+  "exam": "benchmarks/dst/exams/composting-together-regressions.md",
+  "cases": [
+    {
+      "id": "check:submission-shape",
+      "role": "static",
+      "clauses": [
+        "context-tree"
+      ],
+      "overlap": false,
+      "note": "mod/ tree with modinfo.lua and modmain.lua, no symbolic links or native modules, parseable Lua"
+    },
+    {
+      "id": "case:sentinel: the compost pile is available on the server",
+      "role": "runtime-sentinel",
+      "clauses": [],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:the compost pile recipe costs the configured rocks, logs and manure",
+      "role": "target",
+      "clauses": [
+        "report-recipe",
+        "expect-recipe"
+      ],
+      "overlap": false,
+      "note": "AllRecipes.compostpile ingredient amounts."
+    },
+    {
+      "id": "case:a pile needs at least three items before it composts",
+      "role": "preserved",
+      "clauses": [
+        "expect-three-items"
+      ],
+      "overlap": false,
+      "note": "Composter:CanCompost with two and three twigs."
+    },
+    {
+      "id": "case:a small batch takes three days to become compost",
+      "role": "target",
+      "clauses": [
+        "report-duration",
+        "expect-duration"
+      ],
+      "overlap": false,
+      "note": "Time advanced with LongUpdate; HARVEST availability observed through CollectActions."
+    },
+    {
+      "id": "case:a finished pile reports that it is done when inspected",
+      "role": "target",
+      "clauses": [
+        "report-status",
+        "expect-status"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:harvesting a finished small batch hands over two manure",
+      "role": "preserved",
+      "clauses": [
+        "expect-harvest"
+      ],
+      "overlap": false,
+      "note": "The HARVEST action runs under pcall so the starter's later error does not hide the manure count."
+    },
+    {
+      "id": "case:harvesting with fireflies attracted completes and the pile can be refilled",
+      "role": "target",
+      "clauses": [
+        "report-harvest",
+        "expect-no-errors",
+        "expect-harvest",
+        "context-config"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:a rich batch that makes the soil fertile starts composting",
+      "role": "target",
+      "clauses": [
+        "report-fertile",
+        "expect-no-errors",
+        "expect-status"
+      ],
+      "overlap": false,
+      "note": "Five carrots at 20% freshness."
+    },
+    {
+      "id": "case:the rotten-food bonus of one batch is not paid again on the next",
+      "role": "target",
+      "clauses": [
+        "report-bonus",
+        "expect-bonus"
+      ],
+      "overlap": false,
+      "note": "Three carrots at 20% then three twigs."
+    },
+    {
+      "id": "case:a composting pile that is saved and reloaded finishes on time",
+      "role": "preserved",
+      "clauses": [
+        "expect-restart"
+      ],
+      "overlap": false,
+      "note": "Guards against dropping the remaining time on load."
+    },
+    {
+      "id": "case:a finished pile still offers its harvest after a save and reload",
+      "role": "target",
+      "clauses": [
+        "report-restart",
+        "expect-restart"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:setup: an empty pile is saved and reloaded",
+      "role": "setup",
+      "clauses": [],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:an empty pile stays empty and usable after a save and reload",
+      "role": "target",
+      "clauses": [
+        "report-restart",
+        "expect-restart"
+      ],
+      "overlap": false,
+      "note": "Observed two seconds after loading."
+    }
+  ],
+  "clauses": [
+    {
+      "id": "context-tree",
+      "anchor": "Context: \"`/app/mod` is **Composting Together**\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "context-config",
+      "anchor": "Context: \"**Attract Fireflies** (`spawn_fireflies`) is set to `always`\"",
+      "status": "asserted",
+      "note": "The verifier sets spawn_fireflies = always."
+    },
+    {
+      "id": "report-recipe",
+      "anchor": "Reports: \"recipe shows no ingredient amounts\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "report-duration",
+      "anchor": "Reports: \"Compost is ready within a minute instead of taking days.\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "report-status",
+      "anchor": "Reports: \"the game says the pile is\n> empty\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "report-fertile",
+      "anchor": "Reports: \"makes starting the compost fail with a Lua error\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "report-harvest",
+      "anchor": "Reports: \"Harvesting a finished pile hands over the manure and then throws a Lua\n> error\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "report-bonus",
+      "anchor": "Reports: \"the next batch pays that bonus again\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "report-restart",
+      "anchor": "Reports: \"After a server restart, finished piles no longer offer the Harvest action.\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "expect-recipe",
+      "anchor": "Expected behaviour 1: \"costs 6 Rocks, 3 Logs and\n  4 Manure\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "expect-duration",
+      "anchor": "Expected behaviour 2: \"takes three in-game days\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "expect-three-items",
+      "anchor": "Expected behaviour 3: \"at least three items\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "expect-status",
+      "anchor": "Expected behaviour 4: \"reports the `DONE` status\"",
+      "status": "asserted",
+      "note": "COMPOSTING_FERTILE is asserted inside the fertile-batch case."
+    },
+    {
+      "id": "expect-no-errors",
+      "anchor": "Expected behaviour 5: \"No step of the pile raises an error on a dedicated server\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "expect-harvest",
+      "anchor": "Expected behaviour 6: \"can be opened and filled again\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "expect-bonus",
+      "anchor": "Expected behaviour 7: \"applies only to the batch that\n  earned it\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "expect-restart",
+      "anchor": "Expected behaviour 8: \"Save and load (a server restart) keep the pile's state.\"",
+      "status": "asserted",
+      "note": "Composting, finished and empty piles are each asserted."
+    }
+  ],
+  "excluded_clauses": [],
+  "known_issues": [
+    "Upstream Harvest uses the poop stack to size the rot stack and never registers its meat recipe; the suite avoids meat batches. This is upstream behaviour in both starter and reference and is not part of the task.",
+    "The inspection status is asserted through the inspectable component's GetStatus key (DONE, COMPOSTING_FERTILE), not the rendered string; the exam names the keys."
+  ]
+}

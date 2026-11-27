@@ -1,0 +1,14 @@
+# Recipesmith custom recipes. Run /recipes reload after editing this file.
+recipes:
+  compact_dirt:
+    type: shaped
+    shape:
+      - "DD"
+      - "DD"
+    ingredients:
+      D: DIRT
+    result:
+      material: COARSE_DIRT
+      amount: 4
+# Vanilla recipe keys to remove from the server, such as minecraft:torch.
+disabled-vanilla: []

@@ -1,0 +1,17 @@
+task	control	status	reward	passed	failed	fatals	summaries	process
+construct-room-rng	reference	measured	1	35	0	0	1	1/1
+construct-room-rng	base	measured	0	0	35	0	1	1/1
+construct-config-persistence	reference	measured	1	35	0	0	1	1/1
+construct-config-persistence	base	measured	0	0	35	0	1	1/1
+construct-callback-transaction	reference	measured	1	35	0	0	1	1/1
+construct-callback-transaction	base	measured	0	0	35	0	1	1/1
+construct-option-rendering	reference	measured	1	35	0	0	1	1/1
+construct-option-rendering	base	measured	0	0	35	0	1	1/1
+construct-legacy-hud-lifecycle	reference	measured	1	35	0	0	1	1/1
+construct-legacy-hud-lifecycle	base	measured	0	0	35	0	1	1/1
+construct-hud-compositor	reference	measured	1	35	0	0	1	1/1
+construct-hud-compositor	base	measured	0	0	35	0	1	1/1
+construct-config-navigation	reference	measured	1	35	0	0	1	1/1
+construct-config-navigation	base	measured	0	0	35	0	1	1/1
+construct-entity-cleanup	reference	measured	1	35	0	0	1	1/1
+construct-entity-cleanup	base	measured	0	0	35	0	1	1/1

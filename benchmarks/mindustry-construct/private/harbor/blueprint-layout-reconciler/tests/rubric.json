@@ -1,0 +1,11 @@
+{"cases":[
+  {"name":"footprints and validation","category":"validation","maximum":8},
+  {"name":"matching rotation and untouched cells","category":"core","maximum":8},
+  {"name":"conflict removal and ordering","category":"core","maximum":10},
+  {"name":"budget refund and deferral","category":"core","maximum":10},
+  {"name":"applyTo replay and convergence","category":"core","maximum":7},
+  {"name":"checkpoint ordering","category":"persistence","maximum":5},
+  {"name":"world observation of real buildings","category":"integration","maximum":8},
+  {"name":"reconcile a real world region","category":"integration","maximum":9},
+  {"name":"apply rejects unsafe operations","category":"integration","maximum":5}
+]}

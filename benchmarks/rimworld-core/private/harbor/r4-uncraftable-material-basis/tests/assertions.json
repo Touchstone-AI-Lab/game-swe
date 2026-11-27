@@ -1,0 +1,298 @@
+{
+  "schemaVersion": 2,
+  "protocol": "rhenium-rimworld-private-v2",
+  "adapter": "rhenium-rimworld-observer-v2",
+  "taskKey": "rimworld/core/r4-uncraftable-material-basis",
+  "weights": {
+    "submissionShape": 10,
+    "engineAssertions": 90
+  },
+  "cases": [
+    {
+      "id": "runtime-definitions-ready",
+      "fixture": "RuntimeDefinitionsReady",
+      "gate": true,
+      "scalars": [],
+      "expected": {
+        "facts": [{"name": "ready", "value": "true"}],
+        "outputs": []
+      }
+    },
+    {
+      "id": "fixture-preconditions",
+      "fixture": "FixturePreconditions",
+      "gate": true,
+      "scalars": [],
+      "expected": {
+        "facts": [
+          {"name": "fixturesValid", "value": "true"},
+          {"name": "roundEvenBelowBits", "value": "401fffff"},
+          {"name": "roundEvenHalfBits", "value": "40200000"},
+          {"name": "roundEvenAboveBits", "value": "40200001"},
+          {"name": "roundOddBelowBits", "value": "405fffff"},
+          {"name": "roundOddHalfBits", "value": "40600000"},
+          {"name": "roundOddAboveBits", "value": "40600001"}
+        ],
+        "outputs": []
+      }
+    },
+    {
+      "id": "public-resolver-contract",
+      "fixture": "PublicResolverContract",
+      "gate": false,
+      "scalars": [],
+      "expected": {
+        "facts": [{"name": "signature", "value": "true"}],
+        "outputs": [
+          {"channel": "craft", "entries": [{"defName": "Steel", "count": 37}, {"defName": "WoodLog", "count": 8}]},
+          {"channel": "extension", "entries": [{"defName": "Uranium", "count": 9}]}
+        ]
+      }
+    },
+    {
+      "id": "craftable-cost-preserved",
+      "fixture": "CraftableCostPreserved",
+      "gate": false,
+      "scalars": [],
+      "expected": {"facts": [], "outputs": [{"channel": "clean", "entries": [{"defName": "Steel", "count": 37}, {"defName": "WoodLog", "count": 8}]}]}
+    },
+    {
+      "id": "craftable-beats-extension",
+      "fixture": "CraftableBeatsExtension",
+      "gate": false,
+      "scalars": [],
+      "expected": {"facts": [], "outputs": [{"channel": "clean", "entries": [{"defName": "Steel", "count": 37}, {"defName": "WoodLog", "count": 8}]}]}
+    },
+    {
+      "id": "stuff-adjusted-cost-preserved",
+      "fixture": "StuffAdjustedCostPreserved",
+      "gate": false,
+      "scalars": [],
+      "expected": {"facts": [], "outputs": [{"channel": "clean", "entries": [{"defName": "WoodLog", "count": 20}, {"defName": "Steel", "count": 7}]}]}
+    },
+    {
+      "id": "authored-extension-used",
+      "fixture": "AuthoredExtensionUsed",
+      "gate": false,
+      "scalars": [],
+      "expected": {"facts": [], "outputs": [{"channel": "clean", "entries": [{"defName": "Uranium", "count": 9}]}]}
+    },
+    {
+      "id": "null-cost-list-fallback",
+      "fixture": "NullCostListFallback",
+      "gate": false,
+      "scalars": ["marketValue", "bulkMarketValue", "targetValue", "quotient"],
+      "expected": {"facts": [], "outputs": [{"channel": "clean", "entries": [{"defName": "Steel", "count": 10}, {"defName": "ComponentIndustrial", "count": 2}]}]}
+    },
+    {
+      "id": "empty-cost-list-fallback",
+      "fixture": "EmptyCostListFallback",
+      "gate": false,
+      "scalars": ["marketValue", "bulkMarketValue", "targetValue", "quotient"],
+      "expected": {"facts": [], "outputs": [{"channel": "clean", "entries": [{"defName": "Steel", "count": 10}, {"defName": "ComponentIndustrial", "count": 2}]}]}
+    },
+    {
+      "id": "null-extension-materials-fallback",
+      "fixture": "NullExtensionMaterialsFallback",
+      "gate": false,
+      "scalars": ["marketValue", "bulkMarketValue", "targetValue", "quotient"],
+      "expected": {"facts": [], "outputs": [{"channel": "clean", "entries": [{"defName": "Steel", "count": 10}, {"defName": "ComponentIndustrial", "count": 2}]}]}
+    },
+    {
+      "id": "empty-extension-materials-fallback",
+      "fixture": "EmptyExtensionMaterialsFallback",
+      "gate": false,
+      "scalars": ["marketValue", "bulkMarketValue", "targetValue", "quotient"],
+      "expected": {"facts": [], "outputs": [{"channel": "clean", "entries": [{"defName": "Plasteel", "count": 10}, {"defName": "ComponentSpacer", "count": 2}]}]}
+    },
+    {
+      "id": "zero-market-value",
+      "fixture": "ZeroMarketValue",
+      "gate": false,
+      "scalars": ["marketValue", "bulkMarketValue", "targetValue", "quotient"],
+      "expected": {"facts": [], "outputs": [{"channel": "clean", "entries": [{"defName": "Steel", "count": 1}, {"defName": "ComponentIndustrial", "count": 2}]}]}
+    },
+    {
+      "id": "negative-market-value",
+      "fixture": "NegativeMarketValue",
+      "gate": false,
+      "scalars": ["marketValue", "bulkMarketValue", "targetValue", "quotient"],
+      "expected": {"facts": [], "outputs": [{"channel": "clean", "entries": [{"defName": "Steel", "count": 1}, {"defName": "ComponentIndustrial", "count": 2}]}]}
+    },
+    {
+      "id": "positive-minimum-bulk",
+      "fixture": "PositiveMinimumBulk",
+      "gate": false,
+      "scalars": ["marketValue", "bulkMarketValue", "targetValue", "quotient"],
+      "expected": {"facts": [], "outputs": [{"channel": "clean", "entries": [{"defName": "Steel", "count": 1}, {"defName": "ComponentIndustrial", "count": 2}]}]}
+    },
+    {
+      "id": "spacer-basis",
+      "fixture": "SpacerBasis",
+      "gate": false,
+      "scalars": ["marketValue", "bulkMarketValue", "targetValue", "quotient"],
+      "expected": {"facts": [], "outputs": [{"channel": "clean", "entries": [{"defName": "Plasteel", "count": 10}, {"defName": "ComponentSpacer", "count": 2}]}]}
+    },
+    {
+      "id": "ultra-basis",
+      "fixture": "UltraBasis",
+      "gate": false,
+      "scalars": ["marketValue", "bulkMarketValue", "targetValue", "quotient"],
+      "expected": {"facts": [], "outputs": [{"channel": "clean", "entries": [{"defName": "Plasteel", "count": 10}, {"defName": "ComponentSpacer", "count": 2}]}]}
+    },
+    {
+      "id": "archotech-basis",
+      "fixture": "ArchotechBasis",
+      "gate": false,
+      "scalars": ["marketValue", "bulkMarketValue", "targetValue", "quotient"],
+      "expected": {"facts": [], "outputs": [{"channel": "clean", "entries": [{"defName": "Plasteel", "count": 10}, {"defName": "ComponentSpacer", "count": 2}]}]}
+    },
+    {
+      "id": "undefined-basis",
+      "fixture": "UndefinedBasis",
+      "gate": false,
+      "scalars": ["marketValue", "bulkMarketValue", "targetValue", "quotient"],
+      "expected": {"facts": [], "outputs": [{"channel": "clean", "entries": [{"defName": "Steel", "count": 10}, {"defName": "ComponentIndustrial", "count": 2}]}]}
+    },
+    {
+      "id": "medieval-basis",
+      "fixture": "MedievalBasis",
+      "gate": false,
+      "scalars": ["marketValue", "bulkMarketValue", "targetValue", "quotient"],
+      "expected": {"facts": [], "outputs": [{"channel": "clean", "entries": [{"defName": "Steel", "count": 10}]}]}
+    },
+    {
+      "id": "neolithic-basis",
+      "fixture": "NeolithicBasis",
+      "gate": false,
+      "scalars": ["marketValue", "bulkMarketValue", "targetValue", "quotient"],
+      "expected": {"facts": [], "outputs": [{"channel": "clean", "entries": [{"defName": "Steel", "count": 10}]}]}
+    },
+    {
+      "id": "animal-basis",
+      "fixture": "AnimalBasis",
+      "gate": false,
+      "scalars": ["marketValue", "bulkMarketValue", "targetValue", "quotient"],
+      "expected": {"facts": [], "outputs": [{"channel": "clean", "entries": [{"defName": "Steel", "count": 10}]}]}
+    },
+    {
+      "id": "industrial-components-stay-two",
+      "fixture": "IndustrialComponentsStayTwo",
+      "gate": false,
+      "scalars": ["marketValue", "bulkMarketValue", "targetValue", "quotient"],
+      "expected": {"facts": [], "outputs": [{"channel": "clean", "entries": [{"defName": "Steel", "count": 100}, {"defName": "ComponentIndustrial", "count": 2}]}]}
+    },
+    {
+      "id": "spacer-components-stay-two",
+      "fixture": "SpacerComponentsStayTwo",
+      "gate": false,
+      "scalars": ["marketValue", "bulkMarketValue", "targetValue", "quotient"],
+      "expected": {"facts": [], "outputs": [{"channel": "clean", "entries": [{"defName": "Plasteel", "count": 100}, {"defName": "ComponentSpacer", "count": 2}]}]}
+    },
+    {
+      "id": "definition-market-value",
+      "fixture": "DefinitionMarketValue",
+      "gate": false,
+      "scalars": ["definitionMarketValue", "instanceMarketValue", "bulkMarketValue", "targetValue", "quotient", "instanceQuotient"],
+      "expected": {"facts": [], "outputs": [{"channel": "clean", "entries": [{"defName": "Steel", "count": 10}, {"defName": "ComponentIndustrial", "count": 2}]}]}
+    },
+    {
+      "id": "round-even-below",
+      "fixture": "RoundEvenBelow",
+      "gate": false,
+      "scalars": ["marketValue", "bulkMarketValue", "targetValue", "quotient"],
+      "expected": {"facts": [], "outputs": [{"channel": "clean", "entries": [{"defName": "Steel", "count": 2}, {"defName": "ComponentIndustrial", "count": 2}]}]}
+    },
+    {
+      "id": "round-even-half",
+      "fixture": "RoundEvenHalf",
+      "gate": false,
+      "scalars": ["marketValue", "bulkMarketValue", "targetValue", "quotient"],
+      "expected": {"facts": [], "outputs": [{"channel": "clean", "entries": [{"defName": "Steel", "count": 2}, {"defName": "ComponentIndustrial", "count": 2}]}]}
+    },
+    {
+      "id": "round-even-above",
+      "fixture": "RoundEvenAbove",
+      "gate": false,
+      "scalars": ["marketValue", "bulkMarketValue", "targetValue", "quotient"],
+      "expected": {"facts": [], "outputs": [{"channel": "clean", "entries": [{"defName": "Steel", "count": 3}, {"defName": "ComponentIndustrial", "count": 2}]}]}
+    },
+    {
+      "id": "round-odd-below",
+      "fixture": "RoundOddBelow",
+      "gate": false,
+      "scalars": ["marketValue", "bulkMarketValue", "targetValue", "quotient"],
+      "expected": {"facts": [], "outputs": [{"channel": "clean", "entries": [{"defName": "Plasteel", "count": 3}, {"defName": "ComponentSpacer", "count": 2}]}]}
+    },
+    {
+      "id": "round-odd-half",
+      "fixture": "RoundOddHalf",
+      "gate": false,
+      "scalars": ["marketValue", "bulkMarketValue", "targetValue", "quotient"],
+      "expected": {"facts": [], "outputs": [{"channel": "clean", "entries": [{"defName": "Plasteel", "count": 4}, {"defName": "ComponentSpacer", "count": 2}]}]}
+    },
+    {
+      "id": "round-odd-above",
+      "fixture": "RoundOddAbove",
+      "gate": false,
+      "scalars": ["marketValue", "bulkMarketValue", "targetValue", "quotient"],
+      "expected": {"facts": [], "outputs": [{"channel": "clean", "entries": [{"defName": "Plasteel", "count": 4}, {"defName": "ComponentSpacer", "count": 2}]}]}
+    },
+    {
+      "id": "repair-default",
+      "fixture": "RepairDefault",
+      "gate": false,
+      "scalars": [],
+      "expected": {"facts": [], "outputs": [{"channel": "repair", "entries": [{"defName": "Steel", "count": 6}]}]}
+    },
+    {
+      "id": "clean-default",
+      "fixture": "CleanDefault",
+      "gate": false,
+      "scalars": [],
+      "expected": {"facts": [], "outputs": [{"channel": "clean", "entries": [{"defName": "Steel", "count": 12}, {"defName": "ComponentIndustrial", "count": 1}]}]}
+    },
+    {
+      "id": "repair-settings",
+      "fixture": "RepairSettings",
+      "gate": false,
+      "scalars": [],
+      "expected": {"facts": [], "outputs": [{"channel": "repair", "entries": [{"defName": "Steel", "count": 15}]}]}
+    },
+    {
+      "id": "clean-settings",
+      "fixture": "CleanSettings",
+      "gate": false,
+      "scalars": [],
+      "expected": {"facts": [], "outputs": [{"channel": "clean", "entries": [{"defName": "Steel", "count": 30}, {"defName": "ComponentIndustrial", "count": 1}]}]}
+    },
+    {
+      "id": "repair-ignores-clean-settings",
+      "fixture": "RepairIgnoresCleanSettings",
+      "gate": false,
+      "scalars": [],
+      "expected": {"facts": [], "outputs": [{"channel": "repair", "entries": [{"defName": "Steel", "count": 6}]}]}
+    },
+    {
+      "id": "clean-ignores-repair-settings",
+      "fixture": "CleanIgnoresRepairSettings",
+      "gate": false,
+      "scalars": [],
+      "expected": {"facts": [], "outputs": [{"channel": "clean", "entries": [{"defName": "Steel", "count": 12}, {"defName": "ComponentIndustrial", "count": 1}]}]}
+    },
+    {
+      "id": "repair-strict-threshold",
+      "fixture": "RepairStrictThreshold",
+      "gate": false,
+      "scalars": [],
+      "expected": {"facts": [], "outputs": [{"channel": "repair", "entries": [{"defName": "Uranium", "count": 1}]}]}
+    },
+    {
+      "id": "repair-fallback-highest",
+      "fixture": "RepairFallbackHighest",
+      "gate": false,
+      "scalars": [],
+      "expected": {"facts": [], "outputs": [{"channel": "repair", "entries": [{"defName": "Uranium", "count": 1}]}]}
+    }
+  ]
+}

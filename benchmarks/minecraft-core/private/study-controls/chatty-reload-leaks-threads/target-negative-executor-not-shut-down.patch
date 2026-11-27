@@ -1,0 +1,79 @@
+--- a/spigot/src/main/java/ru/brikster/chatty/Chatty.java
++++ b/spigot/src/main/java/ru/brikster/chatty/Chatty.java
+@@ -308,6 +308,7 @@
+     }
+ 
+     private void closeResources() throws IOException {
++        MetricsSender.shutdownActive();
+         if (!isUseNativeAdventurePlatform()) {
+             BukkitAudiences.create(this).close();
+         }
+--- a/spigot/src/main/java/ru/brikster/chatty/metrics/MetricsSender.java
++++ b/spigot/src/main/java/ru/brikster/chatty/metrics/MetricsSender.java
+@@ -20,7 +20,17 @@
+     @Inject private ModerationConfig moderationConfig;
+     @Inject private VanillaConfig vanillaConfig;
+ 
++    private static Metrics activeMetrics;
++
++    public static void shutdownActive() {
++        if (activeMetrics != null) {
++            activeMetrics.shutdown();
++            activeMetrics = null;
++        }
++    }
++
+     public void run() {
++        shutdownActive();
+         if (settingsConfig.isSendMetrics()) {
+             if (PaperUtil.isFolia()) {
+                 plugin.getLogger().info("Skipping bStats metrics: the bundled version"
+@@ -28,6 +38,7 @@
+                 return;
+             }
+             Metrics metrics = new Metrics((JavaPlugin) plugin, 3466);
++            activeMetrics = metrics;
+             metrics.addCustomChart(new SimplePie("language",
+                     () -> settingsConfig.getLanguage()));
+ 
+--- a/spigot/src/main/java/ru/brikster/chatty/notification/ScheduledExecutorNotificationTicker.java
++++ b/spigot/src/main/java/ru/brikster/chatty/notification/ScheduledExecutorNotificationTicker.java
+@@ -42,7 +42,10 @@
+ 
+     @Override
+     public void cancelTicking() {
+-        future.cancel(false);
++        if (future != null) {
++            future.cancel(false);
++            future = null;
++        }
+     }
+ 
+ }
+--- a/spigot/src/main/java/ru/brikster/chatty/proxy/ProxyServiceImpl.java
++++ b/spigot/src/main/java/ru/brikster/chatty/proxy/ProxyServiceImpl.java
+@@ -44,6 +44,7 @@
+ 
+     private final UUID clientId = UUID.randomUUID();
+ 
++    private final RedissonClient redissonClient;
+     private final RMapCache<String, ProxyPlayer> playersCache;
+     private final RMapCache<String, String> pmReplyCache;
+     private final RTopic chatTopic;
+@@ -58,7 +59,7 @@
+                             ChatStylePlayerGrouper stylePlayerGrouper,
+                             PlayerDataRepository playerDataRepository,
+                             Plugin plugin) {
+-        RedissonClient redissonClient = Redisson.create(redissonConfig);
++        this.redissonClient = Redisson.create(redissonConfig);
+         this.playersCache = redissonClient.getMapCache("chatty_players");
+         this.pmReplyCache = redissonClient.getMapCache("chatty_pm_reply");
+         this.chatTopic = redissonClient.getTopic("chatty_chat");
+@@ -213,6 +214,7 @@
+         this.scheduledExecutor.shutdown();
+         this.chatTopic.removeAllListeners();
+         this.pmTopic.removeAllListeners();
++        this.redissonClient.shutdown();
+     }
+ 
+ }

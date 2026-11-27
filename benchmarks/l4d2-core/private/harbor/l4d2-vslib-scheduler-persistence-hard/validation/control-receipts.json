@@ -1,0 +1,2884 @@
+[
+  {
+    "task": "l4d2-vslib-scheduler-persistence-hard",
+    "candidate": "alternative",
+    "exit_code": 0,
+    "hash_algorithm": "sha256-relpath-nul-content-nul-posix-lexical-v1",
+    "contract": "646df4c073315181134d58382df6f90e29a2fc6b70b5fc696d9cde2ba587347a",
+    "component_hashes": {
+      "instruction.md": "de8e923c9f64f94986f06c3c52638375bdbe34d6b8520e52dd00edcd4734fa0a",
+      "task.toml": "4706c730c7c8d49c40edede575a148d5f715c9026844bb98ae05f273aa0c0894",
+      "environment": "e489367271d4f8320951c9d480a59377b057dfd0903547263c6d1d8cb07ad0fd",
+      "tests": "e57f1186c967421798424eefcf09db4b561e04049ce06b9e839f0cc16961d3ed",
+      "solution": "9c266dc6df228255c0d8fba480d3d47d801da60919f519f99c02ba5bd361ec9c",
+      "validation/case-contracts.tsv": "e91bf3fbb2f2fa99f08eba640be2796be8b66aa9884fcf4f89ef8f56fa3f620c"
+    },
+    "runtime_image_id": "sha256:3604481021c1b605741e994fb623834fb0725b2309e53b7ed9a4c86fe3fb65cd",
+    "source_hash": "2e8f049ffb5ab633156e35dc6d82bee6cc090d12566ea58a50e9045f8fc68705",
+    "tests_hash": "e57f1186c967421798424eefcf09db4b561e04049ce06b9e839f0cc16961d3ed",
+    "cases": [
+      {
+        "case": "data-control-characters",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "data-literal-legacy-markers",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "data-arbitrary-string-keys",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "data-key-type-separation",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "data-nested-array-order",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "data-null-bool-integer",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "data-float-precision",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "data-shared-noncyclic",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "data-save-input-purity",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "data-function-atomic-rejection",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "data-instance-atomic-rejection",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "data-cycle-atomic-rejection",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "data-invalid-key-rejection",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "legacy-clean-data",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "legacy-recursive-numeric-keys",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "legacy-recursive-markers",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "legacy-prefix-not-substring",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "data-missing-file",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "data-malformed-input",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "data-trailing-garbage",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "data-no-expression-execution",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "data-wrapper-roundtrip",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "data-configmanager-integration",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "timer-count-isolation",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "timer-options-input-purity",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "timer-duration-count",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "timer-subinterval-duration",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "timer-once-and-retirement",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "timer-exception-once",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "timer-exception-peer-survives",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "timer-self-replacement",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "timer-explicit-removal",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "timer-invalid-replace-atomic",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "timer-shared-params-preserved",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "timer-false-stops-repeat",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "timer-remove-due-peer",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "timer-new-work-own-delay",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "timer-reject-invalid-options",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "clock-current-read",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "clock-nonnegative-clamp",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "clock-negative-allowed",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "clock-unknown-null",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "clock-pause-settles",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "clock-resume-no-paused-time",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "clock-explicit-reset",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "timer-round-name-retirement",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "timer-round-keepalive",
+        "status": "PASS",
+        "detail": "ok"
+      }
+    ],
+    "passed": 47,
+    "total": 47,
+    "verifier_log_sha256": "1c08d638312c2deeda891f2556db71b015086544dc28984f1157c8569b8c0e87",
+    "server_log_hashes": {
+      "server.log": "fbb454ac750edf550bff128dbbca2767b8c50398f6e0a101a17de381b44ace83"
+    },
+    "local_run": "l4d2-vslib-scheduler-persistence-hard-alternative-1789763488333709800"
+  },
+  {
+    "task": "l4d2-vslib-scheduler-persistence-hard",
+    "candidate": "gold",
+    "exit_code": 0,
+    "hash_algorithm": "sha256-relpath-nul-content-nul-posix-lexical-v1",
+    "contract": "646df4c073315181134d58382df6f90e29a2fc6b70b5fc696d9cde2ba587347a",
+    "component_hashes": {
+      "instruction.md": "de8e923c9f64f94986f06c3c52638375bdbe34d6b8520e52dd00edcd4734fa0a",
+      "task.toml": "4706c730c7c8d49c40edede575a148d5f715c9026844bb98ae05f273aa0c0894",
+      "environment": "e489367271d4f8320951c9d480a59377b057dfd0903547263c6d1d8cb07ad0fd",
+      "tests": "e57f1186c967421798424eefcf09db4b561e04049ce06b9e839f0cc16961d3ed",
+      "solution": "9c266dc6df228255c0d8fba480d3d47d801da60919f519f99c02ba5bd361ec9c",
+      "validation/case-contracts.tsv": "e91bf3fbb2f2fa99f08eba640be2796be8b66aa9884fcf4f89ef8f56fa3f620c"
+    },
+    "runtime_image_id": "sha256:3604481021c1b605741e994fb623834fb0725b2309e53b7ed9a4c86fe3fb65cd",
+    "source_hash": "20f9df860b615b3589431914d8e47e3421ece80031d6c349d46feda81c714642",
+    "tests_hash": "e57f1186c967421798424eefcf09db4b561e04049ce06b9e839f0cc16961d3ed",
+    "cases": [
+      {
+        "case": "data-control-characters",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "data-literal-legacy-markers",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "data-arbitrary-string-keys",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "data-key-type-separation",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "data-nested-array-order",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "data-null-bool-integer",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "data-float-precision",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "data-shared-noncyclic",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "data-save-input-purity",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "data-function-atomic-rejection",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "data-instance-atomic-rejection",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "data-cycle-atomic-rejection",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "data-invalid-key-rejection",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "legacy-clean-data",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "legacy-recursive-numeric-keys",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "legacy-recursive-markers",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "legacy-prefix-not-substring",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "data-missing-file",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "data-malformed-input",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "data-trailing-garbage",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "data-no-expression-execution",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "data-wrapper-roundtrip",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "data-configmanager-integration",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "timer-count-isolation",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "timer-options-input-purity",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "timer-duration-count",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "timer-subinterval-duration",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "timer-once-and-retirement",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "timer-exception-once",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "timer-exception-peer-survives",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "timer-self-replacement",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "timer-explicit-removal",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "timer-invalid-replace-atomic",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "timer-shared-params-preserved",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "timer-false-stops-repeat",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "timer-remove-due-peer",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "timer-new-work-own-delay",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "timer-reject-invalid-options",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "clock-current-read",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "clock-nonnegative-clamp",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "clock-negative-allowed",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "clock-unknown-null",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "clock-pause-settles",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "clock-resume-no-paused-time",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "clock-explicit-reset",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "timer-round-name-retirement",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "timer-round-keepalive",
+        "status": "PASS",
+        "detail": "ok"
+      }
+    ],
+    "passed": 47,
+    "total": 47,
+    "verifier_log_sha256": "1ed557a8c4c961840fadf133dbff76365887bab2eb1ab0d078e91df203b9aa78",
+    "server_log_hashes": {
+      "server.log": "e94c4568fe66ea9e8397e4525b5a4c81c5135893ed961391d1302f2b97004259"
+    },
+    "local_run": "l4d2-vslib-scheduler-persistence-hard-gold-1789763488332703900"
+  },
+  {
+    "task": "l4d2-vslib-scheduler-persistence-hard",
+    "candidate": "minus-report-1",
+    "exit_code": 1,
+    "hash_algorithm": "sha256-relpath-nul-content-nul-posix-lexical-v1",
+    "contract": "646df4c073315181134d58382df6f90e29a2fc6b70b5fc696d9cde2ba587347a",
+    "component_hashes": {
+      "instruction.md": "de8e923c9f64f94986f06c3c52638375bdbe34d6b8520e52dd00edcd4734fa0a",
+      "task.toml": "4706c730c7c8d49c40edede575a148d5f715c9026844bb98ae05f273aa0c0894",
+      "environment": "e489367271d4f8320951c9d480a59377b057dfd0903547263c6d1d8cb07ad0fd",
+      "tests": "e57f1186c967421798424eefcf09db4b561e04049ce06b9e839f0cc16961d3ed",
+      "solution": "9c266dc6df228255c0d8fba480d3d47d801da60919f519f99c02ba5bd361ec9c",
+      "validation/case-contracts.tsv": "e91bf3fbb2f2fa99f08eba640be2796be8b66aa9884fcf4f89ef8f56fa3f620c"
+    },
+    "runtime_image_id": "sha256:3604481021c1b605741e994fb623834fb0725b2309e53b7ed9a4c86fe3fb65cd",
+    "source_hash": "cbce39e0937ad11a3f2a082a57f7553230eb8418ec9314d1c0fb8ba24f1ce646",
+    "tests_hash": "e57f1186c967421798424eefcf09db4b561e04049ce06b9e839f0cc16961d3ed",
+    "cases": [
+      {
+        "case": "data-control-characters",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "data-literal-legacy-markers",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "data-arbitrary-string-keys",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "data-key-type-separation",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "data-nested-array-order",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "data-null-bool-integer",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "data-float-precision",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "data-shared-noncyclic",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "data-save-input-purity",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "data-function-atomic-rejection",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "data-instance-atomic-rejection",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "data-cycle-atomic-rejection",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "data-invalid-key-rejection",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "legacy-clean-data",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "legacy-recursive-numeric-keys",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "legacy-recursive-markers",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "legacy-prefix-not-substring",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "data-missing-file",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "data-malformed-input",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "data-trailing-garbage",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "data-no-expression-execution",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "data-wrapper-roundtrip",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "data-configmanager-integration",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "timer-count-isolation",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "timer-options-input-purity",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "timer-duration-count",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "timer-subinterval-duration",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "timer-once-and-retirement",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "timer-exception-once",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "timer-exception-peer-survives",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "timer-self-replacement",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "timer-explicit-removal",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "timer-invalid-replace-atomic",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "timer-shared-params-preserved",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "timer-false-stops-repeat",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "timer-remove-due-peer",
+        "status": "FAIL",
+        "detail": "expected 1, got 2"
+      },
+      {
+        "case": "timer-new-work-own-delay",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "timer-reject-invalid-options",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "clock-current-read",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "clock-nonnegative-clamp",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "clock-negative-allowed",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "clock-unknown-null",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "clock-pause-settles",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "clock-resume-no-paused-time",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "clock-explicit-reset",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "timer-round-name-retirement",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "timer-round-keepalive",
+        "status": "PASS",
+        "detail": "ok"
+      }
+    ],
+    "passed": 46,
+    "total": 47,
+    "verifier_log_sha256": "b57d950792157247e0b4fc26a429da1d085fe5695cfc2647e3cdd2adb7f5f8c3",
+    "server_log_hashes": {
+      "server.log": "bd0c39bc5b08687c80845f27bfb9ba9d28996ed3241ed2c36b2bbe2b5f29cbba"
+    },
+    "local_run": "l4d2-vslib-scheduler-persistence-hard-minus-report-1-1789763500458981500"
+  },
+  {
+    "task": "l4d2-vslib-scheduler-persistence-hard",
+    "candidate": "minus-report-2",
+    "exit_code": 1,
+    "hash_algorithm": "sha256-relpath-nul-content-nul-posix-lexical-v1",
+    "contract": "646df4c073315181134d58382df6f90e29a2fc6b70b5fc696d9cde2ba587347a",
+    "component_hashes": {
+      "instruction.md": "de8e923c9f64f94986f06c3c52638375bdbe34d6b8520e52dd00edcd4734fa0a",
+      "task.toml": "4706c730c7c8d49c40edede575a148d5f715c9026844bb98ae05f273aa0c0894",
+      "environment": "e489367271d4f8320951c9d480a59377b057dfd0903547263c6d1d8cb07ad0fd",
+      "tests": "e57f1186c967421798424eefcf09db4b561e04049ce06b9e839f0cc16961d3ed",
+      "solution": "9c266dc6df228255c0d8fba480d3d47d801da60919f519f99c02ba5bd361ec9c",
+      "validation/case-contracts.tsv": "e91bf3fbb2f2fa99f08eba640be2796be8b66aa9884fcf4f89ef8f56fa3f620c"
+    },
+    "runtime_image_id": "sha256:3604481021c1b605741e994fb623834fb0725b2309e53b7ed9a4c86fe3fb65cd",
+    "source_hash": "ec6441b976ce24fae91d1dc5eee6f150bb3f303d0b89481f4ffdc2a4717baae1",
+    "tests_hash": "e57f1186c967421798424eefcf09db4b561e04049ce06b9e839f0cc16961d3ed",
+    "cases": [
+      {
+        "case": "data-control-characters",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "data-literal-legacy-markers",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "data-arbitrary-string-keys",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "data-key-type-separation",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "data-nested-array-order",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "data-null-bool-integer",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "data-float-precision",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "data-shared-noncyclic",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "data-save-input-purity",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "data-function-atomic-rejection",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "data-instance-atomic-rejection",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "data-cycle-atomic-rejection",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "data-invalid-key-rejection",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "legacy-clean-data",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "legacy-recursive-numeric-keys",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "legacy-recursive-markers",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "legacy-prefix-not-substring",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "data-missing-file",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "data-malformed-input",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "data-trailing-garbage",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "data-no-expression-execution",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "data-wrapper-roundtrip",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "data-configmanager-integration",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "timer-count-isolation",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "timer-options-input-purity",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "timer-duration-count",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "timer-subinterval-duration",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "timer-once-and-retirement",
+        "status": "FAIL",
+        "detail": "condition failed"
+      },
+      {
+        "case": "timer-exception-once",
+        "status": "FAIL",
+        "detail": "condition failed"
+      },
+      {
+        "case": "timer-exception-peer-survives",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "timer-self-replacement",
+        "status": "FAIL",
+        "detail": "condition failed"
+      },
+      {
+        "case": "timer-explicit-removal",
+        "status": "FAIL",
+        "detail": "condition failed"
+      },
+      {
+        "case": "timer-invalid-replace-atomic",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "timer-shared-params-preserved",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "timer-false-stops-repeat",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "timer-remove-due-peer",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "timer-new-work-own-delay",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "timer-reject-invalid-options",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "clock-current-read",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "clock-nonnegative-clamp",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "clock-negative-allowed",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "clock-unknown-null",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "clock-pause-settles",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "clock-resume-no-paused-time",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "clock-explicit-reset",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "timer-round-name-retirement",
+        "status": "FAIL",
+        "detail": "condition failed"
+      },
+      {
+        "case": "timer-round-keepalive",
+        "status": "FAIL",
+        "detail": "condition failed"
+      }
+    ],
+    "passed": 41,
+    "total": 47,
+    "verifier_log_sha256": "67b78cf9303b292e53abb0fece2b5ed71043fe5d3de9ca0a6931292eb3d7f5f7",
+    "server_log_hashes": {
+      "server.log": "79ad67a6756c4bfc685dbb9793de6c9cb8ff452d2298641ef0f10bd4af55884d"
+    },
+    "local_run": "l4d2-vslib-scheduler-persistence-hard-minus-report-2-1789763510228677700"
+  },
+  {
+    "task": "l4d2-vslib-scheduler-persistence-hard",
+    "candidate": "minus-report-3",
+    "exit_code": 1,
+    "hash_algorithm": "sha256-relpath-nul-content-nul-posix-lexical-v1",
+    "contract": "646df4c073315181134d58382df6f90e29a2fc6b70b5fc696d9cde2ba587347a",
+    "component_hashes": {
+      "instruction.md": "de8e923c9f64f94986f06c3c52638375bdbe34d6b8520e52dd00edcd4734fa0a",
+      "task.toml": "4706c730c7c8d49c40edede575a148d5f715c9026844bb98ae05f273aa0c0894",
+      "environment": "e489367271d4f8320951c9d480a59377b057dfd0903547263c6d1d8cb07ad0fd",
+      "tests": "e57f1186c967421798424eefcf09db4b561e04049ce06b9e839f0cc16961d3ed",
+      "solution": "9c266dc6df228255c0d8fba480d3d47d801da60919f519f99c02ba5bd361ec9c",
+      "validation/case-contracts.tsv": "e91bf3fbb2f2fa99f08eba640be2796be8b66aa9884fcf4f89ef8f56fa3f620c"
+    },
+    "runtime_image_id": "sha256:3604481021c1b605741e994fb623834fb0725b2309e53b7ed9a4c86fe3fb65cd",
+    "source_hash": "cbee8ce40e6f6b707440856bd2f29535b3f2cc8ed8d7b8908e1b6cd66c0268c6",
+    "tests_hash": "e57f1186c967421798424eefcf09db4b561e04049ce06b9e839f0cc16961d3ed",
+    "cases": [
+      {
+        "case": "data-control-characters",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "data-literal-legacy-markers",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "data-arbitrary-string-keys",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "data-key-type-separation",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "data-nested-array-order",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "data-null-bool-integer",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "data-float-precision",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "data-shared-noncyclic",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "data-save-input-purity",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "data-function-atomic-rejection",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "data-instance-atomic-rejection",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "data-cycle-atomic-rejection",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "data-invalid-key-rejection",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "legacy-clean-data",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "legacy-recursive-numeric-keys",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "legacy-recursive-markers",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "legacy-prefix-not-substring",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "data-missing-file",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "data-malformed-input",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "data-trailing-garbage",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "data-no-expression-execution",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "data-wrapper-roundtrip",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "data-configmanager-integration",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "timer-count-isolation",
+        "status": "FAIL",
+        "detail": "expected 2, got 1"
+      },
+      {
+        "case": "timer-options-input-purity",
+        "status": "FAIL",
+        "detail": "expected 2, got 0"
+      },
+      {
+        "case": "timer-duration-count",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "timer-subinterval-duration",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "timer-once-and-retirement",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "timer-exception-once",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "timer-exception-peer-survives",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "timer-self-replacement",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "timer-explicit-removal",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "timer-invalid-replace-atomic",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "timer-shared-params-preserved",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "timer-false-stops-repeat",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "timer-remove-due-peer",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "timer-new-work-own-delay",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "timer-reject-invalid-options",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "clock-current-read",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "clock-nonnegative-clamp",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "clock-negative-allowed",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "clock-unknown-null",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "clock-pause-settles",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "clock-resume-no-paused-time",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "clock-explicit-reset",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "timer-round-name-retirement",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "timer-round-keepalive",
+        "status": "PASS",
+        "detail": "ok"
+      }
+    ],
+    "passed": 45,
+    "total": 47,
+    "verifier_log_sha256": "3d4d26f0c03e7b19305603c71787f71427b58abaa34b9e6eb3d191117d15e435",
+    "server_log_hashes": {
+      "server.log": "247a5b41813ed86dfb32586ab21daeb9e89d8b302989af6143debbb8c2a22dc0"
+    },
+    "local_run": "l4d2-vslib-scheduler-persistence-hard-minus-report-3-1789763511434852800"
+  },
+  {
+    "task": "l4d2-vslib-scheduler-persistence-hard",
+    "candidate": "minus-report-4",
+    "exit_code": 1,
+    "hash_algorithm": "sha256-relpath-nul-content-nul-posix-lexical-v1",
+    "contract": "646df4c073315181134d58382df6f90e29a2fc6b70b5fc696d9cde2ba587347a",
+    "component_hashes": {
+      "instruction.md": "de8e923c9f64f94986f06c3c52638375bdbe34d6b8520e52dd00edcd4734fa0a",
+      "task.toml": "4706c730c7c8d49c40edede575a148d5f715c9026844bb98ae05f273aa0c0894",
+      "environment": "e489367271d4f8320951c9d480a59377b057dfd0903547263c6d1d8cb07ad0fd",
+      "tests": "e57f1186c967421798424eefcf09db4b561e04049ce06b9e839f0cc16961d3ed",
+      "solution": "9c266dc6df228255c0d8fba480d3d47d801da60919f519f99c02ba5bd361ec9c",
+      "validation/case-contracts.tsv": "e91bf3fbb2f2fa99f08eba640be2796be8b66aa9884fcf4f89ef8f56fa3f620c"
+    },
+    "runtime_image_id": "sha256:3604481021c1b605741e994fb623834fb0725b2309e53b7ed9a4c86fe3fb65cd",
+    "source_hash": "047296155eb9eda46a064bbbd91e3da4cf8ed28e84fe4578199eee95144721de",
+    "tests_hash": "e57f1186c967421798424eefcf09db4b561e04049ce06b9e839f0cc16961d3ed",
+    "cases": [
+      {
+        "case": "data-control-characters",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "data-literal-legacy-markers",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "data-arbitrary-string-keys",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "data-key-type-separation",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "data-nested-array-order",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "data-null-bool-integer",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "data-float-precision",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "data-shared-noncyclic",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "data-save-input-purity",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "data-function-atomic-rejection",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "data-instance-atomic-rejection",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "data-cycle-atomic-rejection",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "data-invalid-key-rejection",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "legacy-clean-data",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "legacy-recursive-numeric-keys",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "legacy-recursive-markers",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "legacy-prefix-not-substring",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "data-missing-file",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "data-malformed-input",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "data-trailing-garbage",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "data-no-expression-execution",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "data-wrapper-roundtrip",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "data-configmanager-integration",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "timer-count-isolation",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "timer-options-input-purity",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "timer-duration-count",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "timer-subinterval-duration",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "timer-once-and-retirement",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "timer-exception-once",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "timer-exception-peer-survives",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "timer-self-replacement",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "timer-explicit-removal",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "timer-invalid-replace-atomic",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "timer-shared-params-preserved",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "timer-false-stops-repeat",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "timer-remove-due-peer",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "timer-new-work-own-delay",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "timer-reject-invalid-options",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "clock-current-read",
+        "status": "FAIL",
+        "detail": "read did not settle current engine time"
+      },
+      {
+        "case": "clock-nonnegative-clamp",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "clock-negative-allowed",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "clock-unknown-null",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "clock-pause-settles",
+        "status": "FAIL",
+        "detail": "condition failed"
+      },
+      {
+        "case": "clock-resume-no-paused-time",
+        "status": "FAIL",
+        "detail": "condition failed"
+      },
+      {
+        "case": "clock-explicit-reset",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "timer-round-name-retirement",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "timer-round-keepalive",
+        "status": "PASS",
+        "detail": "ok"
+      }
+    ],
+    "passed": 44,
+    "total": 47,
+    "verifier_log_sha256": "8c3530f4eb6e7d659514c69b58507c660757062bf8106e3105bdb0f09b24b962",
+    "server_log_hashes": {
+      "server.log": "dd7d858e3c3709a31488d79560cc05a983ddc827d0195a5e95b51f18883e566a"
+    },
+    "local_run": "l4d2-vslib-scheduler-persistence-hard-minus-report-4-1789763522040404500"
+  },
+  {
+    "task": "l4d2-vslib-scheduler-persistence-hard",
+    "candidate": "minus-report-5",
+    "exit_code": 1,
+    "hash_algorithm": "sha256-relpath-nul-content-nul-posix-lexical-v1",
+    "contract": "646df4c073315181134d58382df6f90e29a2fc6b70b5fc696d9cde2ba587347a",
+    "component_hashes": {
+      "instruction.md": "de8e923c9f64f94986f06c3c52638375bdbe34d6b8520e52dd00edcd4734fa0a",
+      "task.toml": "4706c730c7c8d49c40edede575a148d5f715c9026844bb98ae05f273aa0c0894",
+      "environment": "e489367271d4f8320951c9d480a59377b057dfd0903547263c6d1d8cb07ad0fd",
+      "tests": "e57f1186c967421798424eefcf09db4b561e04049ce06b9e839f0cc16961d3ed",
+      "solution": "9c266dc6df228255c0d8fba480d3d47d801da60919f519f99c02ba5bd361ec9c",
+      "validation/case-contracts.tsv": "e91bf3fbb2f2fa99f08eba640be2796be8b66aa9884fcf4f89ef8f56fa3f620c"
+    },
+    "runtime_image_id": "sha256:3604481021c1b605741e994fb623834fb0725b2309e53b7ed9a4c86fe3fb65cd",
+    "source_hash": "1473e8d58e9c4b5e35cf81823eb5005f9a4a00d34ccf57620feec85d5c6c29d4",
+    "tests_hash": "e57f1186c967421798424eefcf09db4b561e04049ce06b9e839f0cc16961d3ed",
+    "cases": [
+      {
+        "case": "data-control-characters",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "data-literal-legacy-markers",
+        "status": "FAIL",
+        "detail": "expected {VSQUOTE}:{VSSLASH}:\\{VSQUOTE}, got \":\\:\\\""
+      },
+      {
+        "case": "data-arbitrary-string-keys",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "data-key-type-separation",
+        "status": "FAIL",
+        "detail": "the index 'len' does not exist"
+      },
+      {
+        "case": "data-nested-array-order",
+        "status": "FAIL",
+        "detail": "expected {VSQUOTE}, got \""
+      },
+      {
+        "case": "data-null-bool-integer",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "data-float-precision",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "data-shared-noncyclic",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "data-save-input-purity",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "data-function-atomic-rejection",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "data-instance-atomic-rejection",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "data-cycle-atomic-rejection",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "data-invalid-key-rejection",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "legacy-clean-data",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "legacy-recursive-numeric-keys",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "legacy-recursive-markers",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "legacy-prefix-not-substring",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "data-missing-file",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "data-malformed-input",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "data-trailing-garbage",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "data-no-expression-execution",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "data-wrapper-roundtrip",
+        "status": "FAIL",
+        "detail": "expected {VSQUOTE}, got \""
+      },
+      {
+        "case": "data-configmanager-integration",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "timer-count-isolation",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "timer-options-input-purity",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "timer-duration-count",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "timer-subinterval-duration",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "timer-once-and-retirement",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "timer-exception-once",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "timer-exception-peer-survives",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "timer-self-replacement",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "timer-explicit-removal",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "timer-invalid-replace-atomic",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "timer-shared-params-preserved",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "timer-false-stops-repeat",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "timer-remove-due-peer",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "timer-new-work-own-delay",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "timer-reject-invalid-options",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "clock-current-read",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "clock-nonnegative-clamp",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "clock-negative-allowed",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "clock-unknown-null",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "clock-pause-settles",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "clock-resume-no-paused-time",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "clock-explicit-reset",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "timer-round-name-retirement",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "timer-round-keepalive",
+        "status": "PASS",
+        "detail": "ok"
+      }
+    ],
+    "passed": 43,
+    "total": 47,
+    "verifier_log_sha256": "5cfc7de9e471323906e1cbbd66a4bbb8c15de1ff45a6cc2af9e1348aad81f49c",
+    "server_log_hashes": {
+      "server.log": "4807dbb33dd612221fe093f0038d0aec2fa01727c4fcbab34a2ca4546033c145"
+    },
+    "local_run": "l4d2-vslib-scheduler-persistence-hard-minus-report-5-1789763522610050900"
+  },
+  {
+    "task": "l4d2-vslib-scheduler-persistence-hard",
+    "candidate": "minus-report-6",
+    "exit_code": 1,
+    "hash_algorithm": "sha256-relpath-nul-content-nul-posix-lexical-v1",
+    "contract": "646df4c073315181134d58382df6f90e29a2fc6b70b5fc696d9cde2ba587347a",
+    "component_hashes": {
+      "instruction.md": "de8e923c9f64f94986f06c3c52638375bdbe34d6b8520e52dd00edcd4734fa0a",
+      "task.toml": "4706c730c7c8d49c40edede575a148d5f715c9026844bb98ae05f273aa0c0894",
+      "environment": "e489367271d4f8320951c9d480a59377b057dfd0903547263c6d1d8cb07ad0fd",
+      "tests": "e57f1186c967421798424eefcf09db4b561e04049ce06b9e839f0cc16961d3ed",
+      "solution": "9c266dc6df228255c0d8fba480d3d47d801da60919f519f99c02ba5bd361ec9c",
+      "validation/case-contracts.tsv": "e91bf3fbb2f2fa99f08eba640be2796be8b66aa9884fcf4f89ef8f56fa3f620c"
+    },
+    "runtime_image_id": "sha256:3604481021c1b605741e994fb623834fb0725b2309e53b7ed9a4c86fe3fb65cd",
+    "source_hash": "6033375ea76ff5c01f7280c762efeeb11c3d06dfe933cdd34780d93dc467a98a",
+    "tests_hash": "e57f1186c967421798424eefcf09db4b561e04049ce06b9e839f0cc16961d3ed",
+    "cases": [
+      {
+        "case": "data-control-characters",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "data-literal-legacy-markers",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "data-arbitrary-string-keys",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "data-key-type-separation",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "data-nested-array-order",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "data-null-bool-integer",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "data-float-precision",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "data-shared-noncyclic",
+        "status": "FAIL",
+        "detail": "save rejected supported data"
+      },
+      {
+        "case": "data-save-input-purity",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "data-function-atomic-rejection",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "data-instance-atomic-rejection",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "data-cycle-atomic-rejection",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "data-invalid-key-rejection",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "legacy-clean-data",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "legacy-recursive-numeric-keys",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "legacy-recursive-markers",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "legacy-prefix-not-substring",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "data-missing-file",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "data-malformed-input",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "data-trailing-garbage",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "data-no-expression-execution",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "data-wrapper-roundtrip",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "data-configmanager-integration",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "timer-count-isolation",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "timer-options-input-purity",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "timer-duration-count",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "timer-subinterval-duration",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "timer-once-and-retirement",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "timer-exception-once",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "timer-exception-peer-survives",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "timer-self-replacement",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "timer-explicit-removal",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "timer-invalid-replace-atomic",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "timer-shared-params-preserved",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "timer-false-stops-repeat",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "timer-remove-due-peer",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "timer-new-work-own-delay",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "timer-reject-invalid-options",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "clock-current-read",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "clock-nonnegative-clamp",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "clock-negative-allowed",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "clock-unknown-null",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "clock-pause-settles",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "clock-resume-no-paused-time",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "clock-explicit-reset",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "timer-round-name-retirement",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "timer-round-keepalive",
+        "status": "PASS",
+        "detail": "ok"
+      }
+    ],
+    "passed": 46,
+    "total": 47,
+    "verifier_log_sha256": "22b626c84262ac0d39ed2c4d206d0f876922cfacc4b885ccc05d796ca45d3463",
+    "server_log_hashes": {
+      "server.log": "206fe55de13d677f678e3a0357d6c0ce34f161187832544cfed481442c3dc0d0"
+    },
+    "local_run": "l4d2-vslib-scheduler-persistence-hard-minus-report-6-1789763532838914900"
+  },
+  {
+    "task": "l4d2-vslib-scheduler-persistence-hard",
+    "candidate": "minus-report-7",
+    "exit_code": 1,
+    "hash_algorithm": "sha256-relpath-nul-content-nul-posix-lexical-v1",
+    "contract": "646df4c073315181134d58382df6f90e29a2fc6b70b5fc696d9cde2ba587347a",
+    "component_hashes": {
+      "instruction.md": "de8e923c9f64f94986f06c3c52638375bdbe34d6b8520e52dd00edcd4734fa0a",
+      "task.toml": "4706c730c7c8d49c40edede575a148d5f715c9026844bb98ae05f273aa0c0894",
+      "environment": "e489367271d4f8320951c9d480a59377b057dfd0903547263c6d1d8cb07ad0fd",
+      "tests": "e57f1186c967421798424eefcf09db4b561e04049ce06b9e839f0cc16961d3ed",
+      "solution": "9c266dc6df228255c0d8fba480d3d47d801da60919f519f99c02ba5bd361ec9c",
+      "validation/case-contracts.tsv": "e91bf3fbb2f2fa99f08eba640be2796be8b66aa9884fcf4f89ef8f56fa3f620c"
+    },
+    "runtime_image_id": "sha256:3604481021c1b605741e994fb623834fb0725b2309e53b7ed9a4c86fe3fb65cd",
+    "source_hash": "9d17fc4f67d2f120bc21128e635348bb214d7366a2a51a117285a7b1de083208",
+    "tests_hash": "e57f1186c967421798424eefcf09db4b561e04049ce06b9e839f0cc16961d3ed",
+    "cases": [
+      {
+        "case": "data-control-characters",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "data-literal-legacy-markers",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "data-arbitrary-string-keys",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "data-key-type-separation",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "data-nested-array-order",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "data-null-bool-integer",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "data-float-precision",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "data-shared-noncyclic",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "data-save-input-purity",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "data-function-atomic-rejection",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "data-instance-atomic-rejection",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "data-cycle-atomic-rejection",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "data-invalid-key-rejection",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "legacy-clean-data",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "legacy-recursive-numeric-keys",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "legacy-recursive-markers",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "legacy-prefix-not-substring",
+        "status": "FAIL",
+        "detail": "the index 'x_vslInt_2' does not exist"
+      },
+      {
+        "case": "data-missing-file",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "data-malformed-input",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "data-trailing-garbage",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "data-no-expression-execution",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "data-wrapper-roundtrip",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "data-configmanager-integration",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "timer-count-isolation",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "timer-options-input-purity",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "timer-duration-count",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "timer-subinterval-duration",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "timer-once-and-retirement",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "timer-exception-once",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "timer-exception-peer-survives",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "timer-self-replacement",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "timer-explicit-removal",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "timer-invalid-replace-atomic",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "timer-shared-params-preserved",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "timer-false-stops-repeat",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "timer-remove-due-peer",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "timer-new-work-own-delay",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "timer-reject-invalid-options",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "clock-current-read",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "clock-nonnegative-clamp",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "clock-negative-allowed",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "clock-unknown-null",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "clock-pause-settles",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "clock-resume-no-paused-time",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "clock-explicit-reset",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "timer-round-name-retirement",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "timer-round-keepalive",
+        "status": "PASS",
+        "detail": "ok"
+      }
+    ],
+    "passed": 46,
+    "total": 47,
+    "verifier_log_sha256": "f2d09c4fd0c95abc9998d526693262c397ef11e31106d1d9e467ce09ebb65529",
+    "server_log_hashes": {
+      "server.log": "86ee390acb7b1df10129de125aba0b50fd6571dab6192db8fa78409601a4ccf8"
+    },
+    "local_run": "l4d2-vslib-scheduler-persistence-hard-minus-report-7-1789763533708130800"
+  },
+  {
+    "task": "l4d2-vslib-scheduler-persistence-hard",
+    "candidate": "minus-report-8",
+    "exit_code": 1,
+    "hash_algorithm": "sha256-relpath-nul-content-nul-posix-lexical-v1",
+    "contract": "646df4c073315181134d58382df6f90e29a2fc6b70b5fc696d9cde2ba587347a",
+    "component_hashes": {
+      "instruction.md": "de8e923c9f64f94986f06c3c52638375bdbe34d6b8520e52dd00edcd4734fa0a",
+      "task.toml": "4706c730c7c8d49c40edede575a148d5f715c9026844bb98ae05f273aa0c0894",
+      "environment": "e489367271d4f8320951c9d480a59377b057dfd0903547263c6d1d8cb07ad0fd",
+      "tests": "e57f1186c967421798424eefcf09db4b561e04049ce06b9e839f0cc16961d3ed",
+      "solution": "9c266dc6df228255c0d8fba480d3d47d801da60919f519f99c02ba5bd361ec9c",
+      "validation/case-contracts.tsv": "e91bf3fbb2f2fa99f08eba640be2796be8b66aa9884fcf4f89ef8f56fa3f620c"
+    },
+    "runtime_image_id": "sha256:3604481021c1b605741e994fb623834fb0725b2309e53b7ed9a4c86fe3fb65cd",
+    "source_hash": "bbb0b20bdf49dd79fb84414e920d33b46db69203e874a52cd9e7010d3e1a80cf",
+    "tests_hash": "e57f1186c967421798424eefcf09db4b561e04049ce06b9e839f0cc16961d3ed",
+    "cases": [
+      {
+        "case": "data-control-characters",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "data-literal-legacy-markers",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "data-arbitrary-string-keys",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "data-key-type-separation",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "data-nested-array-order",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "data-null-bool-integer",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "data-float-precision",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "data-shared-noncyclic",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "data-save-input-purity",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "data-function-atomic-rejection",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "data-instance-atomic-rejection",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "data-cycle-atomic-rejection",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "data-invalid-key-rejection",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "legacy-clean-data",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "legacy-recursive-numeric-keys",
+        "status": "FAIL",
+        "detail": "the index '2' does not exist"
+      },
+      {
+        "case": "legacy-recursive-markers",
+        "status": "FAIL",
+        "detail": "expected \", got {VSQUOTE}"
+      },
+      {
+        "case": "legacy-prefix-not-substring",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "data-missing-file",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "data-malformed-input",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "data-trailing-garbage",
+        "status": "FAIL",
+        "detail": "expected (null : 0x(nil)), got (table : 0x0x101ff310)"
+      },
+      {
+        "case": "data-no-expression-execution",
+        "status": "FAIL",
+        "detail": "expected (null : 0x(nil)), got (table : 0x0xfe47180)"
+      },
+      {
+        "case": "data-wrapper-roundtrip",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "data-configmanager-integration",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "timer-count-isolation",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "timer-options-input-purity",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "timer-duration-count",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "timer-subinterval-duration",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "timer-once-and-retirement",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "timer-exception-once",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "timer-exception-peer-survives",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "timer-self-replacement",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "timer-explicit-removal",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "timer-invalid-replace-atomic",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "timer-shared-params-preserved",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "timer-false-stops-repeat",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "timer-remove-due-peer",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "timer-new-work-own-delay",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "timer-reject-invalid-options",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "clock-current-read",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "clock-nonnegative-clamp",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "clock-negative-allowed",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "clock-unknown-null",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "clock-pause-settles",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "clock-resume-no-paused-time",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "clock-explicit-reset",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "timer-round-name-retirement",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "timer-round-keepalive",
+        "status": "PASS",
+        "detail": "ok"
+      }
+    ],
+    "passed": 43,
+    "total": 47,
+    "verifier_log_sha256": "be3ddca190e429e8a2f72225abdce997af4329542ade25647c481cc94e50cadc",
+    "server_log_hashes": {
+      "server.log": "974536a0c4525072e22c93e7caaee5218661adcf8aee581faea37778703419ea"
+    },
+    "local_run": "l4d2-vslib-scheduler-persistence-hard-minus-report-8-1789763543601701200"
+  },
+  {
+    "task": "l4d2-vslib-scheduler-persistence-hard",
+    "candidate": "nop",
+    "exit_code": 1,
+    "hash_algorithm": "sha256-relpath-nul-content-nul-posix-lexical-v1",
+    "contract": "646df4c073315181134d58382df6f90e29a2fc6b70b5fc696d9cde2ba587347a",
+    "component_hashes": {
+      "instruction.md": "de8e923c9f64f94986f06c3c52638375bdbe34d6b8520e52dd00edcd4734fa0a",
+      "task.toml": "4706c730c7c8d49c40edede575a148d5f715c9026844bb98ae05f273aa0c0894",
+      "environment": "e489367271d4f8320951c9d480a59377b057dfd0903547263c6d1d8cb07ad0fd",
+      "tests": "e57f1186c967421798424eefcf09db4b561e04049ce06b9e839f0cc16961d3ed",
+      "solution": "9c266dc6df228255c0d8fba480d3d47d801da60919f519f99c02ba5bd361ec9c",
+      "validation/case-contracts.tsv": "e91bf3fbb2f2fa99f08eba640be2796be8b66aa9884fcf4f89ef8f56fa3f620c"
+    },
+    "runtime_image_id": "sha256:3604481021c1b605741e994fb623834fb0725b2309e53b7ed9a4c86fe3fb65cd",
+    "source_hash": "b31ba2e03de1345deaa76fa36caf0f04f7f4b13f6b70907866fbd43cd045c576",
+    "tests_hash": "e57f1186c967421798424eefcf09db4b561e04049ce06b9e839f0cc16961d3ed",
+    "cases": [
+      {
+        "case": "data-control-characters",
+        "status": "FAIL",
+        "detail": "newline in a constant"
+      },
+      {
+        "case": "data-literal-legacy-markers",
+        "status": "FAIL",
+        "detail": "expected {VSQUOTE}:{VSSLASH}:\\{VSQUOTE}, got \":\\:\\\""
+      },
+      {
+        "case": "data-arbitrary-string-keys",
+        "status": "FAIL",
+        "detail": "expected 'IDENTIFIER'"
+      },
+      {
+        "case": "data-key-type-separation",
+        "status": "FAIL",
+        "detail": "expected 4, got 1"
+      },
+      {
+        "case": "data-nested-array-order",
+        "status": "FAIL",
+        "detail": "cannot brake deref/or comma needed after [exp]=exp slot declaration"
+      },
+      {
+        "case": "data-null-bool-integer",
+        "status": "FAIL",
+        "detail": "expected 6, got 5"
+      },
+      {
+        "case": "data-float-precision",
+        "status": "FAIL",
+        "detail": "expected float, got integer"
+      },
+      {
+        "case": "data-shared-noncyclic",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "data-save-input-purity",
+        "status": "FAIL",
+        "detail": "newline in a constant"
+      },
+      {
+        "case": "data-function-atomic-rejection",
+        "status": "FAIL",
+        "detail": "expected false, got true"
+      },
+      {
+        "case": "data-instance-atomic-rejection",
+        "status": "FAIL",
+        "detail": "expected false, got true"
+      },
+      {
+        "case": "data-cycle-atomic-rejection",
+        "status": "FAIL",
+        "detail": "Script terminated by SQQuerySuspend"
+      },
+      {
+        "case": "data-invalid-key-rejection",
+        "status": "FAIL",
+        "detail": "expected false, got true"
+      },
+      {
+        "case": "legacy-clean-data",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "legacy-recursive-numeric-keys",
+        "status": "FAIL",
+        "detail": "the index '2' does not exist"
+      },
+      {
+        "case": "legacy-recursive-markers",
+        "status": "FAIL",
+        "detail": "expected \", got {VSQUOTE}"
+      },
+      {
+        "case": "legacy-prefix-not-substring",
+        "status": "FAIL",
+        "detail": "cannot convert the string"
+      },
+      {
+        "case": "data-missing-file",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "data-malformed-input",
+        "status": "FAIL",
+        "detail": "expression expected"
+      },
+      {
+        "case": "data-trailing-garbage",
+        "status": "FAIL",
+        "detail": "expected (null : 0x(nil)), got (table : 0x0xf629a70)"
+      },
+      {
+        "case": "data-no-expression-execution",
+        "status": "FAIL",
+        "detail": "expected (null : 0x(nil)), got (table : 0x0xefa82f0)"
+      },
+      {
+        "case": "data-wrapper-roundtrip",
+        "status": "FAIL",
+        "detail": "expected (null : 0x(nil)), got {VSQUOTE}"
+      },
+      {
+        "case": "data-configmanager-integration",
+        "status": "FAIL",
+        "detail": "expected a"
+      },
+      {
+        "case": "timer-count-isolation",
+        "status": "FAIL",
+        "detail": "expected 2, got 1"
+      },
+      {
+        "case": "timer-options-input-purity",
+        "status": "FAIL",
+        "detail": "expected 2, got -1"
+      },
+      {
+        "case": "timer-duration-count",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "timer-subinterval-duration",
+        "status": "FAIL",
+        "detail": "condition failed"
+      },
+      {
+        "case": "timer-once-and-retirement",
+        "status": "FAIL",
+        "detail": "condition failed"
+      },
+      {
+        "case": "timer-exception-once",
+        "status": "FAIL",
+        "detail": "expected 1, got 2"
+      },
+      {
+        "case": "timer-exception-peer-survives",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "timer-self-replacement",
+        "status": "FAIL",
+        "detail": "condition failed"
+      },
+      {
+        "case": "timer-explicit-removal",
+        "status": "FAIL",
+        "detail": "condition failed"
+      },
+      {
+        "case": "timer-invalid-replace-atomic",
+        "status": "FAIL",
+        "detail": "expected -1, got gcb_atomic"
+      },
+      {
+        "case": "timer-shared-params-preserved",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "timer-false-stops-repeat",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "timer-remove-due-peer",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "timer-new-work-own-delay",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "timer-reject-invalid-options",
+        "status": "FAIL",
+        "detail": "expected -1, got 28"
+      },
+      {
+        "case": "clock-current-read",
+        "status": "FAIL",
+        "detail": "read did not settle current engine time"
+      },
+      {
+        "case": "clock-nonnegative-clamp",
+        "status": "FAIL",
+        "detail": "expected 0, got -0.0899999"
+      },
+      {
+        "case": "clock-negative-allowed",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "clock-unknown-null",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "clock-pause-settles",
+        "status": "FAIL",
+        "detail": "condition failed"
+      },
+      {
+        "case": "clock-resume-no-paused-time",
+        "status": "FAIL",
+        "detail": "condition failed"
+      },
+      {
+        "case": "clock-explicit-reset",
+        "status": "PASS",
+        "detail": "ok"
+      },
+      {
+        "case": "timer-round-name-retirement",
+        "status": "FAIL",
+        "detail": "condition failed"
+      },
+      {
+        "case": "timer-round-keepalive",
+        "status": "FAIL",
+        "detail": "condition failed"
+      }
+    ],
+    "passed": 12,
+    "total": 47,
+    "verifier_log_sha256": "8325c0120b2ffaa264b3cbc6c1513fb5c6ef967ee69d5bdf71eae2f4117fa76b",
+    "server_log_hashes": {
+      "server.log": "5de1dca0b0ff13c82f7e9ea58700df46efc29be0098a2eff200631c650c4923c"
+    },
+    "local_run": "l4d2-vslib-scheduler-persistence-hard-nop-1789763499392272200"
+  }
+]

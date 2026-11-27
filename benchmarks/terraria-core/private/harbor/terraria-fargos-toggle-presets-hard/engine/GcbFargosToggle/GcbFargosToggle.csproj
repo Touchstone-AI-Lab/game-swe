@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="../tModLoader.targets" />
+  <PropertyGroup>
+    <AssemblyName>GcbFargosToggle</AssemblyName>
+    <LangVersion>latest</LangVersion>
+    <Nullable>enable</Nullable>
+    <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
+    <CandidateRoot Condition="'$(CandidateRoot)' == ''">/workspace/solution</CandidateRoot>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="GcbFargosToggle.cs" />
+    <Compile Include="EngineSupport.cs" />
+    <Compile Include="VerifierSystem.cs" />
+    <Compile Include="$(CandidateRoot)/fargos-souls/Core/Toggler/Toggle.cs" Link="Production/Toggle.cs" />
+    <Compile Include="$(CandidateRoot)/fargos-souls/Core/Toggler/ToggleLoader.cs" Link="Production/ToggleLoader.cs" />
+  </ItemGroup>
+</Project>

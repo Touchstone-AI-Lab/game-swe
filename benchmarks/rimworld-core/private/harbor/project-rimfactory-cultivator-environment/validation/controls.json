@@ -1,0 +1,97 @@
+{
+  "schemaVersion": 3,
+  "catalogVersion": "0.3.2",
+  "privateProtocol": "rhenium-rimworld-private-v3",
+  "assertionManifestSha256": "637c6d86663aec469f7e8cf449038e14c65d00a5d2b6924c434f6e6924d29df3",
+  "runtime": "rimworld/rimworld-1.6.4871-linux-x64",
+  "engineAssertionsRan": true,
+  "evidenceGeneration": {
+    "status": "run",
+    "date": "2026-09-24",
+    "host": "Linux x86_64 Docker host (NixOS), networkless evaluation",
+    "path": "rhenium run and rhenium-study e0 run through the Hub",
+    "note": "verifier repairs of 2026-09-24 first; see docs/games/rimworld.md#engine-validation-2026-09-24"
+  },
+  "plannedMatrix": {
+    "oracle": {
+      "expectedPassed": 12,
+      "expectedFailed": 0
+    },
+    "base": {
+      "expectedPassed": 8,
+      "expectedFailed": 4
+    },
+    "nop": {
+      "expectedPassed": 8,
+      "expectedFailed": 4
+    }
+  },
+  "plannedOutcomesAreAuthoringExpectations": true,
+  "referenceCompile": {
+    "status": "passed",
+    "date": "2026-09-24"
+  },
+  "containerBuild": {
+    "status": "passed",
+    "date": "2026-09-24"
+  },
+  "realEngine": {
+    "status": "passed",
+    "date": "2026-09-24"
+  },
+  "reusablePriorEvidence": false,
+  "oracle": {
+    "status": "passed",
+    "evidenceProtocol": "rhenium-rimworld-private-v3",
+    "runs": [
+      "run-52b63ba3dc314278",
+      "run-bf2e3b808a0348ae",
+      "run-6be50b7d8ce34bee"
+    ],
+    "score": 100.0,
+    "passed": 12,
+    "failed": 0,
+    "identicalCaseOutcomes": true
+  },
+  "base": {
+    "status": "failed-targets-only",
+    "evidenceProtocol": "rhenium-rimworld-private-v3",
+    "run": "run-01b7a4d9fdb147da",
+    "score": 10.0,
+    "passed": 9,
+    "failed": 3,
+    "failedCases": [
+      "local-season-rejects",
+      "vacuum-boundary-rejects",
+      "vacuum-sensitive-rejects"
+    ]
+  },
+  "nop": {
+    "status": "failed-targets-only",
+    "evidenceProtocol": "rhenium-rimworld-private-v3",
+    "run": "run-50d6552d51464c62",
+    "score": 10.0,
+    "passed": 9,
+    "failed": 3,
+    "failedCases": [
+      "local-season-rejects",
+      "vacuum-boundary-rejects",
+      "vacuum-sensitive-rejects"
+    ],
+    "materialization": "rhenium-study e0 starter control (Hub workspace copy)"
+  },
+  "authoringRevision": 3,
+  "negativeControls": {
+    "status": "not-run",
+    "kind": "authoring expectations",
+    "mutations": [
+      "omit one started resource restoration registration while another same-name registration remains",
+      "leave a task field or collection changed",
+      "throw during restoration",
+      "leave an extra Rand push",
+      "candidate operation throws: complete failed if fixture integrity remains healthy"
+    ],
+    "studyControls": "private/study-controls/project-rimfactory-cultivator-environment/NOTES.md"
+  },
+  "plannedCountsNeedEngineReconciliation": false
+}

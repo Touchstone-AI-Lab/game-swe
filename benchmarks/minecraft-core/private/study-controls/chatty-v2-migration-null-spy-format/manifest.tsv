@@ -1,0 +1,6 @@
+control	kind	base	overlay	root	note
+target-negative-migrator-only	target-negative	starter	patch:target-negative-migrator-only.patch	plugin	migrator fixed, loader still rejects a spy block without a format; fails only that target
+target-negative-loader-guard-only	target-negative	starter	patch:target-negative-loader-guard-only.patch	plugin	loader guard only, migration still writes null formats; fails the two migrated-format targets
+target-negative-locale-migrator-only	target-negative	reference	patch:target-negative-locale-migrator-only.patch	plugin	spy repairs and the migrator's locale mapping, loader unchanged; fails the two language-loader targets
+compat-negative-ignore-explicit-format	compat-negative	reference	patch:compat-negative-ignore-explicit-format.patch	plugin	loader ignores explicit spy.format; fails only the preserved explicit-format case
+alternative-a	alternative	starter	tree:alternative-a	plugin	independent fix written from the 0.2.0 exam: shared language resolver for migrator and loader, spy format filled from the template in migrator and loader

@@ -1,0 +1,5 @@
+control	status	failing_cases	passed	failed	reward	processes	fatals	matches_prediction
+base	predicted	baseball_mitt_delayed_hit,big_scissors_trail,familiar_cleanup,forbidden_fruit,headcase_orphan_lob,iron_lung_orphan_gas,lil_rune_algiz_rune,lil_rune_jera_health,ritual_candle,ritual_candle_cadence,welcome_mat_flame_at_rest,welcome_mat_poof_at_rest	42		0			
+gold	predicted	-	54		1			
+base	measured	baseball_mitt_delayed_hit,big_scissors_trail,familiar_cleanup,forbidden_fruit,headcase_orphan_lob,iron_lung_orphan_gas,lil_rune_algiz_rune,lil_rune_jera_health,ritual_candle,ritual_candle_cadence,welcome_mat_flame_at_rest,welcome_mat_poof_at_rest	42	12	0	3/3	0	yes
+gold	measured	-	54	0	1	3/3	0	yes

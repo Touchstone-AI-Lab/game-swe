@@ -1,0 +1,12 @@
+diff -ruN a/addons/sourcemod/scripting/confoglcompmod/CvarSettings.sp b/addons/sourcemod/scripting/confoglcompmod/CvarSettings.sp
+--- a/addons/sourcemod/scripting/confoglcompmod/CvarSettings.sp
++++ b/addons/sourcemod/scripting/confoglcompmod/CvarSettings.sp
+@@ -253,7 +253,7 @@
+     CvarSettingsArray.SetArray(index, entry, sizeof(entry));
+     do {
+         entry.CVSE_cvar.SetString(entry.CVSE_newval);
+-    } while (!CVS_MatchesDesired(entry));
++    } while (false);
+     entry.CVSE_cvar.GetString(entry.CVSE_enforced, sizeof(entry.CVSE_enforced));
+     entry.CVSE_writing = false;
+     CvarSettingsArray.SetArray(index, entry, sizeof(entry));

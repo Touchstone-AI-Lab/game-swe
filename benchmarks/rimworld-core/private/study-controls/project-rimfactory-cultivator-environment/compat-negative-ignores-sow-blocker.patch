@@ -1,0 +1,10 @@
+--- a/ProjectRimFactory/Source/ProjectRimFactory/CultivatorTools/Building_Cultivator.cs
++++ b/ProjectRimFactory/Source/ProjectRimFactory/CultivatorTools/Building_Cultivator.cs
+@@ -90,7 +90,6 @@
+             // checkMapTemperature is not the temperature at the cell, but the map global
+             // GrowthSeasonNow checks the temperature at the cell
+             if (plantDef.CanEverPlantAt(c, Map, checkMapTemperature: false) 
+-                && PlantUtility.AdjacentSowBlocker(plantDef, c, Map) == null 
+                 && PlantUtility.GrowthSeasonNow(c, Map, plantDef)
+                 && (plantDef.plant.vacuumResistant ||  c.GetVacuum(Map) < 0.5f))
+             {

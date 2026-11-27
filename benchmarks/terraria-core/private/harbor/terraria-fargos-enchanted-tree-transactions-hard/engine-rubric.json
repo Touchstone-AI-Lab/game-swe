@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "mode": "dedicated-server",
+  "cases": [
+    "real_engine_recipe_graph_drops_stale_entries",
+    "real_engine_recipe_graph_deduplicates_ingredients",
+    "real_engine_recipe_graph_honors_not_from_dupable"
+  ],
+  "client_only_exclusions": [
+    "Tree fruit dragging, drawing, sound, and local purchase UI remain source-projection assertions."
+  ]
+}

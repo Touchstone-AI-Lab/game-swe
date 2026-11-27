@@ -1,0 +1,122 @@
+{
+  "task": "garrys-mod/darkrp/darkrp-job-loadout-regressions",
+  "task_version": "1.0.0",
+  "exam": "benchmarks/darkrp-core/exams/darkrp-job-loadout-regressions.md",
+  "cases": [
+    {
+      "id": "case:sentinel: the gamemode and its definition checkers are loaded",
+      "role": "runtime-sentinel"
+    },
+    {
+      "id": "case:control: a job that declares everything properly is accepted",
+      "role": "preserved",
+      "clauses": [
+        "preserve"
+      ]
+    },
+    {
+      "id": "case:control: a job whose name is not text is refused",
+      "role": "preserved",
+      "clauses": [
+        "preserve"
+      ]
+    },
+    {
+      "id": "case:A: a job that lists no model at all is refused",
+      "role": "target",
+      "clauses": [
+        "[#9101]"
+      ]
+    },
+    {
+      "id": "case:B: a job with nothing said about it is refused",
+      "role": "target",
+      "clauses": [
+        "[#9104]"
+      ]
+    },
+    {
+      "id": "case:C: a category that does not say how it opens is refused",
+      "role": "target",
+      "clauses": [
+        "[#9107]"
+      ]
+    },
+    {
+      "id": "case:D: a job that declares it cannot walk does not walk",
+      "role": "target",
+      "clauses": [
+        "[#9110]"
+      ]
+    },
+    {
+      "id": "case:E: a job starts a player on the health it declares, not on its ceiling",
+      "role": "target",
+      "clauses": [
+        "[#9113]"
+      ]
+    },
+    {
+      "id": "case:F: a job that sets no running speed runs at the speed for its side",
+      "role": "target",
+      "clauses": [
+        "[#9116]"
+      ]
+    },
+    {
+      "id": "case:G: a job that declares a health ceiling of zero is held to it",
+      "role": "target",
+      "clauses": [
+        "[#9119]"
+      ]
+    },
+    {
+      "id": "check:submission-shape",
+      "role": "static"
+    }
+  ],
+  "clauses": [
+    {
+      "id": "preserve",
+      "anchor": "behavior the unchanged starter already provides",
+      "status": "asserted"
+    },
+    {
+      "id": "[#9101]",
+      "anchor": "exam report [#9101]",
+      "status": "asserted"
+    },
+    {
+      "id": "[#9104]",
+      "anchor": "exam report [#9104]",
+      "status": "asserted"
+    },
+    {
+      "id": "[#9107]",
+      "anchor": "exam report [#9107]",
+      "status": "asserted"
+    },
+    {
+      "id": "[#9110]",
+      "anchor": "exam report [#9110]",
+      "status": "asserted"
+    },
+    {
+      "id": "[#9113]",
+      "anchor": "exam report [#9113]",
+      "status": "asserted"
+    },
+    {
+      "id": "[#9116]",
+      "anchor": "exam report [#9116]",
+      "status": "asserted"
+    },
+    {
+      "id": "[#9119]",
+      "anchor": "exam report [#9119]",
+      "status": "asserted"
+    }
+  ],
+  "excluded_clauses": [],
+  "known_issues": []
+}

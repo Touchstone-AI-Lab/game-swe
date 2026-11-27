@@ -1,0 +1,440 @@
+{
+  "id": "stardew-core",
+  "version": "1.5.0",
+  "game": "stardew-valley",
+  "name": {
+    "en": "Stardew Valley real-game SMAPI tasks",
+    "zh": "星露谷物语真实游戏 SMAPI 任务"
+  },
+  "description": {
+    "en": "Repair tasks on real SMAPI mods and mod generation tasks evaluated in Stardew Valley 1.6.15 with SMAPI 4.1.10.",
+    "zh": "在星露谷物语 1.6.15 与 SMAPI 4.1.10 中评测的真实 SMAPI 模组修复任务和模组生成任务。"
+  },
+  "tasks": [
+    {
+      "id": "stardew-automate-minifridge-storage",
+      "difficulty": "easy",
+      "title": {
+        "en": "Restore mini-fridge storage in Automate",
+        "zh": "修复 Automate 的迷你冰箱存储"
+      },
+      "summary": {
+        "en": "Repair a regression that prevents adjacent machines from using mini-fridges.",
+        "zh": "修复相邻机器无法使用迷你冰箱的回归问题。"
+      },
+      "brief": {
+        "en": "Diagnose and repair the authored Automate regression.",
+        "zh": "诊断并修复给定的 Automate 回归问题。"
+      },
+      "requirements": {
+        "en": ["Preserve the behavior of every unaffected storage type."],
+        "zh": ["保持所有未受影响存储类型的既有行为。"]
+      },
+      "api_usage": {
+        "en": ["Use the supplied Stardew Valley and SMAPI source contracts."],
+        "zh": ["使用提供的星露谷物语和 SMAPI 源码合同。"]
+      },
+      "acceptance": {
+        "en": ["All private real-game assertions must pass without network access."],
+        "zh": ["所有私有真实游戏断言必须在无网络环境中通过。"]
+      },
+      "domains": ["smapi", "debugging", "real-game-runtime"],
+      "estimated_minutes": 120,
+      "required_files": ["StardewMods/Automate/Framework/ModConstants.cs"],
+      "task_kind": "debugging",
+      "source_mod": "Automate",
+      "game_version": "1.6.15",
+      "smapi_version": "4.1.10"
+    },
+    {
+      "id": "stardew-automate-zero-stack-output",
+      "difficulty": "medium",
+      "title": {
+        "en": "Recover from zero-size machine output",
+        "zh": "从数量为零的机器产物中恢复"
+      },
+      "summary": {
+        "en": "Prevent malformed zero-stack output from wedging an Automate machine forever.",
+        "zh": "防止异常的零数量产物永久卡住 Automate 机器。"
+      },
+      "brief": {
+        "en": "Match the base game's recovery behavior while preserving normal output handling.",
+        "zh": "匹配原版游戏的恢复行为，并保持正常产物处理不变。"
+      },
+      "requirements": {
+        "en": ["Discard only malformed zero-size output and continue processing."],
+        "zh": ["仅丢弃异常的零数量产物并继续处理。"]
+      },
+      "api_usage": {
+        "en": ["Use the supplied Stardew Valley and SMAPI source contracts."],
+        "zh": ["使用提供的星露谷物语和 SMAPI 源码合同。"]
+      },
+      "acceptance": {
+        "en": ["All private real-game assertions must pass without network access."],
+        "zh": ["所有私有真实游戏断言必须在无网络环境中通过。"]
+      },
+      "domains": ["smapi", "state-machine", "debugging"],
+      "estimated_minutes": 180,
+      "required_files": [
+        "StardewMods/Automate/Framework/MachineGroup.cs",
+        "StardewMods/Automate/IStorage.cs"
+      ],
+      "task_kind": "debugging",
+      "source_mod": "Automate",
+      "game_version": "1.6.15",
+      "smapi_version": "4.1.10"
+    },
+    {
+      "id": "stardew-automate-release-regressions",
+      "difficulty": "hard",
+      "title": {
+        "en": "Repair four Automate release regressions",
+        "zh": "修复四个 Automate 发布回归"
+      },
+      "summary": {
+        "en": "Diagnose four independent failures from symptom-only reports.",
+        "zh": "根据仅描述症状的报告诊断四个独立故障。"
+      },
+      "brief": {
+        "en": "Restore mini-fridge, API scan, malformed-output, and Junimo configuration behavior.",
+        "zh": "恢复迷你冰箱、API 扫描、异常产物及祝尼魔配置行为。"
+      },
+      "requirements": {
+        "en": ["Resolve every reported regression without broad behavior changes."],
+        "zh": ["解决所有报告的回归，避免扩大行为改动。"]
+      },
+      "api_usage": {
+        "en": ["Preserve the supplied Automate and SMAPI contracts."],
+        "zh": ["保持提供的 Automate 与 SMAPI 合同。"]
+      },
+      "acceptance": {
+        "en": ["All private real-game assertions must pass without network access."],
+        "zh": ["所有私有真实游戏断言必须在无网络环境中通过。"]
+      },
+      "domains": ["smapi", "composite-debugging", "real-game-runtime"],
+      "estimated_minutes": 360,
+      "required_files": [
+        "StardewMods/Automate/Framework/AutomateConstants.cs",
+        "StardewMods/Automate/Framework/AutomationFactory.cs",
+        "StardewMods/Automate/Framework/MachineGroup.cs",
+        "StardewMods/Automate/Framework/MachineManager.cs",
+        "StardewMods/Automate/IStorage.cs"
+      ],
+      "task_kind": "debugging",
+      "source_mod": "Automate",
+      "game_version": "1.6.15",
+      "smapi_version": "4.1.10"
+    },
+    {
+      "id": "stardew-automate-release-regressions-v2",
+      "difficulty": "hard",
+      "title": {
+        "en": "Repair masked Automate regressions",
+        "zh": "修复相互掩盖的 Automate 回归"
+      },
+      "summary": {
+        "en": "Diagnose a composite release with upstream and engineered location-key defects.",
+        "zh": "诊断同时包含上游问题和人为地点键缺陷的复合版本。"
+      },
+      "brief": {
+        "en": "Resolve every asserted defect group from user-facing symptoms.",
+        "zh": "根据用户症状解决所有被断言的缺陷组。"
+      },
+      "requirements": {
+        "en": ["Handle duplicate building interiors without location identity collisions."],
+        "zh": ["正确处理重复建筑内部，避免地点标识冲突。"]
+      },
+      "api_usage": {
+        "en": ["Preserve the supplied Automate and SMAPI contracts."],
+        "zh": ["保持提供的 Automate 与 SMAPI 合同。"]
+      },
+      "acceptance": {
+        "en": ["All private real-game assertions must pass without network access."],
+        "zh": ["所有私有真实游戏断言必须在无网络环境中通过。"]
+      },
+      "domains": ["smapi", "composite-debugging", "identity"],
+      "estimated_minutes": 420,
+      "required_files": [
+        "StardewMods/Automate/Framework/AutomateConstants.cs",
+        "StardewMods/Automate/Framework/AutomationFactory.cs",
+        "StardewMods/Automate/Framework/GameLocationNameComparer.cs",
+        "StardewMods/Automate/Framework/MachineGroup.cs",
+        "StardewMods/Automate/Framework/MachineGroupFactory.cs",
+        "StardewMods/Automate/Framework/MachineManager.cs",
+        "StardewMods/Automate/Framework/Machines/DataBasedObjectMachine.cs",
+        "StardewMods/Automate/IStorage.cs"
+      ],
+      "task_kind": "debugging",
+      "source_mod": "Automate",
+      "game_version": "1.6.15",
+      "smapi_version": "4.1.10"
+    },
+    {
+      "id": "stardew-automate-release-regressions-v3",
+      "difficulty": "hard",
+      "title": {
+        "en": "Repair edge-case Automate regressions",
+        "zh": "修复 Automate 边界条件回归"
+      },
+      "summary": {
+        "en": "Repair malformed output, initial scans, stale references, and location identity.",
+        "zh": "修复异常产物、初始扫描、过期引用和地点标识问题。"
+      },
+      "brief": {
+        "en": "Diagnose four edge-case defect groups in one release branch.",
+        "zh": "诊断同一发布分支中的四个边界条件缺陷组。"
+      },
+      "requirements": {
+        "en": ["Preserve normal machine groups across live world mutations."],
+        "zh": ["在实时世界变化中保持正常机器组行为。"]
+      },
+      "api_usage": {
+        "en": ["Preserve the supplied Automate and SMAPI contracts."],
+        "zh": ["保持提供的 Automate 与 SMAPI 合同。"]
+      },
+      "acceptance": {
+        "en": ["All private real-game assertions must pass without network access."],
+        "zh": ["所有私有真实游戏断言必须在无网络环境中通过。"]
+      },
+      "domains": ["smapi", "composite-debugging", "state-machine"],
+      "estimated_minutes": 420,
+      "required_files": [
+        "StardewMods/Automate/Framework/GameLocationNameComparer.cs",
+        "StardewMods/Automate/Framework/MachineGroup.cs",
+        "StardewMods/Automate/Framework/MachineGroupFactory.cs",
+        "StardewMods/Automate/Framework/MachineManager.cs",
+        "StardewMods/Automate/Framework/Machines/TerrainFeatures/BushMachine.cs"
+      ],
+      "task_kind": "debugging",
+      "source_mod": "Automate",
+      "game_version": "1.6.15",
+      "smapi_version": "4.1.10"
+    },
+    {
+      "id": "stardew-automate-output-count-drift",
+      "difficulty": "easy",
+      "title": {
+        "en": "Make Automate's output counts add up",
+        "zh": "修正 Automate 产物数量不守恒"
+      },
+      "summary": {
+        "en": "Repair a regression where machine output counts no longer match what machines made.",
+        "zh": "修复机器产物数量与实际产出不一致的回归问题。"
+      },
+      "brief": {
+        "en": "Diagnose the reported item-count anomalies from player observations.",
+        "zh": "根据玩家观察诊断所报告的物品数量异常。"
+      },
+      "requirements": {
+        "en": ["Never create or destroy items; finished items join existing stacks when there is room."],
+        "zh": ["不得凭空产生或销毁物品；有空间时产物应并入已有堆叠。"]
+      },
+      "api_usage": {
+        "en": ["Preserve the supplied Automate and SMAPI contracts."],
+        "zh": ["保持提供的 Automate 与 SMAPI 合同。"]
+      },
+      "acceptance": {
+        "en": ["All private real-game assertions must pass without network access."],
+        "zh": ["所有私有真实游戏断言必须在无网络环境中通过。"]
+      },
+      "domains": ["smapi", "debugging", "item-accounting"],
+      "estimated_minutes": 240,
+      "required_files": ["StardewMods/Automate/Framework/Storage/ChestContainer.cs"],
+      "task_kind": "debugging",
+      "source_mod": "Automate",
+      "game_version": "1.6.15",
+      "smapi_version": "4.1.10"
+    },
+    {
+      "id": "stardew-summon-horse-anywhere",
+      "difficulty": "medium",
+      "title": {
+        "en": "Summon the player's horse indoors",
+        "zh": "在室内召唤玩家的马"
+      },
+      "summary": {
+        "en": "Create a SMAPI mod that removes only the horse flute's indoor restriction.",
+        "zh": "创建仅移除马笛室内限制的 SMAPI 模组。"
+      },
+      "brief": {
+        "en": "Implement a new mod from a behavioral requirement while preserving other rules.",
+        "zh": "根据行为需求实现新模组，同时保持其他规则。"
+      },
+      "requirements": {
+        "en": ["Keep outdoor and all non-location horse-flute conditions unchanged."],
+        "zh": ["保持室外行为和所有非地点相关的马笛条件不变。"]
+      },
+      "api_usage": {
+        "en": ["Use Stardew Valley 1.6.15, SMAPI, and the supplied Harmony reference."],
+        "zh": ["使用星露谷物语 1.6.15、SMAPI 和提供的 Harmony 引用。"]
+      },
+      "acceptance": {
+        "en": ["All private real-game assertions must pass without network access."],
+        "zh": ["所有私有真实游戏断言必须在无网络环境中通过。"]
+      },
+      "domains": ["smapi", "generation", "harmony"],
+      "estimated_minutes": 180,
+      "required_files": ["mod/SummonAnywhere/ModEntry.cs"],
+      "task_kind": "generation",
+      "source_mod": "Horse Flute Anywhere",
+      "game_version": "1.6.15",
+      "smapi_version": "4.1.10"
+    },
+    {
+      "id": "stardew-auto-workshop",
+      "difficulty": "hard",
+      "title": {
+        "en": "Build an adjacent-chest automation mod",
+        "zh": "构建相邻箱子自动化模组"
+      },
+      "summary": {
+        "en": "Create a new SMAPI mod implementing six interacting machine-storage behaviors.",
+        "zh": "创建实现六项相互作用的机器存储行为的 SMAPI 模组。"
+      },
+      "brief": {
+        "en": "Implement feeding, collection, loss prevention, recovery, location identity, and scope.",
+        "zh": "实现供料、收集、防丢失、恢复、地点标识和作用范围。"
+      },
+      "requirements": {
+        "en": ["Never lose products and never automate non-adjacent machines."],
+        "zh": ["不得丢失产物，也不得自动化不相邻的机器。"]
+      },
+      "api_usage": {
+        "en": ["Use the supplied Stardew Valley, SMAPI, and mod project contracts."],
+        "zh": ["使用提供的星露谷物语、SMAPI 和模组项目合同。"]
+      },
+      "acceptance": {
+        "en": ["All private real-game assertions must pass without network access."],
+        "zh": ["所有私有真实游戏断言必须在无网络环境中通过。"]
+      },
+      "domains": ["smapi", "generation", "automation"],
+      "estimated_minutes": 480,
+      "required_files": ["mod/AutoWorkshop/ModEntry.cs"],
+      "task_kind": "generation",
+      "source_mod": "New benchmark mod",
+      "game_version": "1.6.15",
+      "smapi_version": "4.1.10"
+    },
+    {
+      "id": "stardew-cp-release-regressions",
+      "difficulty": "hard",
+      "title": {
+        "en": "Repair Content Patcher release regressions",
+        "zh": "修复 Content Patcher 发布版本中的回归问题"
+      },
+      "summary": {
+        "en": "Diagnose several content pack authors' reports against a real Content Patcher release.",
+        "zh": "根据内容包作者的报告诊断真实 Content Patcher 发布版本中的多个问题。"
+      },
+      "brief": {
+        "en": "Repair token, data-model, and text-operation behavior from symptom-only reports.",
+        "zh": "根据仅描述症状的报告修复 token、数据模型和文本操作行为。"
+      },
+      "requirements": {
+        "en": ["Keep every behavior that already works in the release unchanged."],
+        "zh": ["保持该发布版本中已正常工作的行为不变。"]
+      },
+      "api_usage": {
+        "en": ["Preserve the Content Patcher content pack format and author guide contract."],
+        "zh": ["保持 Content Patcher 内容包格式与作者指南合同。"]
+      },
+      "acceptance": {
+        "en": ["All private real-game assertions must pass without network access."],
+        "zh": ["所有私有真实游戏断言必须在无网络环境中通过。"]
+      },
+      "domains": ["smapi", "composite-debugging", "content-pipeline"],
+      "estimated_minutes": 420,
+      "required_files": [
+        "StardewMods/ContentPatcher/Framework/Patches/EditDataPatch.cs",
+        "StardewMods/ContentPatcher/Framework/Patches/EditMapPatch.cs",
+        "StardewMods/ContentPatcher/Framework/TokenParser.cs",
+        "StardewMods/ContentPatcher/Framework/Tokens/ValueProviders/PathPartValueProvider.cs"
+      ],
+      "task_kind": "debugging",
+      "source_mod": "Content Patcher",
+      "game_version": "1.6.15",
+      "smapi_version": "4.1.10"
+    },
+    {
+      "id": "stardew-cjb-cheats-regressions",
+      "difficulty": "hard",
+      "title": {
+        "en": "Repair CJB Cheats Menu release regressions",
+        "zh": "修复 CJB Cheats Menu 发布版本中的回归问题"
+      },
+      "summary": {
+        "en": "Diagnose several player reports about cheats that misbehave on their own in a real release.",
+        "zh": "根据玩家报告诊断真实发布版本中多个自动运行作弊功能的异常行为。"
+      },
+      "brief": {
+        "en": "Repair combat, animal, pet, and fishing cheats from symptom-only reports.",
+        "zh": "根据仅描述症状的报告修复战斗、动物、宠物和钓鱼相关作弊功能。"
+      },
+      "requirements": {
+        "en": ["Keep every cheat behavior that already works unchanged."],
+        "zh": ["保持所有已正常工作的作弊行为不变。"]
+      },
+      "api_usage": {
+        "en": ["Use the pinned Stardew Valley and SMAPI APIs and the mod's config.json contract."],
+        "zh": ["使用固定版本的星露谷物语与 SMAPI API，以及该模组的 config.json 合同。"]
+      },
+      "acceptance": {
+        "en": ["All private real-game assertions must pass without network access."],
+        "zh": ["所有私有真实游戏断言必须在无网络环境中通过。"]
+      },
+      "domains": ["smapi", "composite-debugging", "game-mechanics"],
+      "estimated_minutes": 360,
+      "required_files": [
+        "StardewMods/CJBCheatsMenu/Framework/Cheats/FarmAndFishing/AlwaysFishTreasureCheat.cs",
+        "StardewMods/CJBCheatsMenu/Framework/Cheats/FarmAndFishing/AutoFeedAnimalsCheat.cs",
+        "StardewMods/CJBCheatsMenu/Framework/Cheats/FarmAndFishing/AutoPetAnimalsCheat.cs",
+        "StardewMods/CJBCheatsMenu/Framework/Cheats/FarmAndFishing/AutoPetPetsCheat.cs",
+        "StardewMods/CJBCheatsMenu/Framework/Cheats/PlayerAndTools/OneHitKillCheat.cs"
+      ],
+      "task_kind": "debugging",
+      "source_mod": "CJB Cheats Menu",
+      "game_version": "1.6.15",
+      "smapi_version": "4.1.10"
+    },
+    {
+      "id": "stardew-tractor-attachment-regressions",
+      "difficulty": "hard",
+      "title": {
+        "en": "Repair Tractor Mod attachment regressions",
+        "zh": "修复 Tractor Mod 工具附件回归问题"
+      },
+      "summary": {
+        "en": "Diagnose several player reports about tractor tools acting on the wrong things in a real release.",
+        "zh": "根据玩家报告诊断真实发布版本中拖拉机工具作用于错误目标的问题。"
+      },
+      "brief": {
+        "en": "Repair axe, seed, custom-attachment, and pickaxe behavior from symptom-only reports.",
+        "zh": "根据仅描述症状的报告修复斧头、种子、自定义附件和镐的行为。"
+      },
+      "requirements": {
+        "en": ["Keep every tool option that already works unchanged."],
+        "zh": ["保持所有已正常工作的工具选项行为不变。"]
+      },
+      "api_usage": {
+        "en": ["Use the pinned Stardew Valley and SMAPI APIs and the mod's config.json contract."],
+        "zh": ["使用固定版本的星露谷物语与 SMAPI API，以及该模组的 config.json 合同。"]
+      },
+      "acceptance": {
+        "en": ["All private real-game assertions must pass without network access."],
+        "zh": ["所有私有真实游戏断言必须在无网络环境中通过。"]
+      },
+      "domains": ["smapi", "composite-debugging", "world-interaction"],
+      "estimated_minutes": 360,
+      "required_files": [
+        "StardewMods/TractorMod/Framework/Attachments/AxeAttachment.cs",
+        "StardewMods/TractorMod/Framework/Attachments/CustomAttachment.cs",
+        "StardewMods/TractorMod/Framework/Attachments/PickaxeAttachment.cs",
+        "StardewMods/TractorMod/Framework/Attachments/SeedAttachment.cs"
+      ],
+      "task_kind": "debugging",
+      "source_mod": "Tractor Mod",
+      "game_version": "1.6.15",
+      "smapi_version": "4.1.10"
+    }
+  ]
+}

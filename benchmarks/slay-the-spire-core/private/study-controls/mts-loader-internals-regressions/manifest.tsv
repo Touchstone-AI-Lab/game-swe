@@ -1,0 +1,4 @@
+control	kind	base	overlay	root	note
+target-negative-valueless-return	target-negative	reference	patch:target-negative-valueless-return.patch	modthespire	reference with the valueless take-over fix left out
+compat-negative-strict-stored-loader-version	compat-negative	reference	patch:compat-negative-strict-stored-loader-version.patch	modthespire	reference plus strict parsing of the stored loader version
+alternative-a	alternative	starter	tree:alternative-a	modthespire	own record layout (authors appended last), equality-consistent hash, fresh valueless return, exact-type postfix result and explicit unboxing

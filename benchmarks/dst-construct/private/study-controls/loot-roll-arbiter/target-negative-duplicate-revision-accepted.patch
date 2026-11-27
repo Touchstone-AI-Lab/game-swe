@@ -1,0 +1,11 @@
+--- a/scripts/lootroll/arbiter.lua
++++ b/scripts/lootroll/arbiter.lua
+@@ -361,7 +361,7 @@
+         return fail("invalid_revision")
+     end
+     local previous = roll.revisions[player_id]
+-    if previous ~= nil and revision <= previous then
++    if previous ~= nil and revision < previous then
+         return fail("stale_revision")
+     end
+     if previous == nil then

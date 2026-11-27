@@ -1,0 +1,583 @@
+diff --git a/benchmarks/terraria-core/private/harbor/terraria-improvegame-space-wand-authority-hard/environment/improvegame/Content/Items/SpaceWand.Operations.cs b/benchmarks/terraria-core/private/harbor/terraria-improvegame-space-wand-authority-hard/solution/after/Content/Items/SpaceWand.Operations.cs
+index d3f68e71..97306829 100644
+--- a/benchmarks/terraria-core/private/harbor/terraria-improvegame-space-wand-authority-hard/environment/improvegame/Content/Items/SpaceWand.Operations.cs
++++ b/benchmarks/terraria-core/private/harbor/terraria-improvegame-space-wand-authority-hard/solution/after/Content/Items/SpaceWand.Operations.cs
+@@ -25,9 +25,79 @@ public partial class SpaceWand
+         TileID.RainbowMoss
+         ];
+ 
++    internal readonly record struct TileState(bool HasTile, ushort TileType, BlockType BlockType,
++        short TileFrameX, short TileFrameY, byte TileColor, bool IsActuated)
++    {
++        public static TileState Capture(Tile tile) => new(tile.HasTile, tile.TileType, tile.BlockType,
++            tile.TileFrameX, tile.TileFrameY, tile.TileColor, tile.IsActuated);
++
++        public void Restore(Tile tile)
++        {
++            tile.HasTile = HasTile;
++            tile.TileType = TileType;
++            tile.BlockType = BlockType;
++            tile.TileFrameX = TileFrameX;
++            tile.TileFrameY = TileFrameY;
++            tile.TileColor = TileColor;
++            tile.IsActuated = IsActuated;
++        }
++    }
++
++    internal sealed class TileMutationJournal
++    {
++        private readonly Dictionary<Point, TileState> originalStates;
++
++        private TileMutationJournal(Dictionary<Point, TileState> originalStates)
++        {
++            this.originalStates = originalStates;
++        }
++
++        public static TileMutationJournal CaptureNeighborhood(int x, int y)
++            => CaptureNeighborhoods([new Point(x, y)]);
++
++        public static TileMutationJournal CaptureNeighborhoods(IEnumerable<Point> centers)
++        {
++            var states = new Dictionary<Point, TileState>();
++            foreach (var center in centers)
++            {
++                for (int offsetX = -1; offsetX <= 1; offsetX++)
++                {
++                    for (int offsetY = -1; offsetY <= 1; offsetY++)
++                    {
++                        var position = new Point(center.X + offsetX, center.Y + offsetY);
++                        if (WorldGen.InWorld(position.X, position.Y) && !states.ContainsKey(position))
++                            states[position] = TileState.Capture(Main.tile[position.X, position.Y]);
++                    }
++                }
++            }
++            return new TileMutationJournal(states);
++        }
++
++        public void Restore()
++        {
++            foreach (var pair in originalStates)
++                pair.Value.Restore(Main.tile[pair.Key.X, pair.Key.Y]);
++        }
++
++        public IEnumerable<Point> GetChangedTiles()
++        {
++            foreach (var pair in originalStates)
++            {
++                if (TileState.Capture(Main.tile[pair.Key.X, pair.Key.Y]) != pair.Value)
++                    yield return pair.Key;
++            }
++        }
++    }
++
++    private static bool HasRequestedTile(Tile tile, int tileType)
++        => tile.HasTile && tile.TileType == tileType;
++
+     public static void OperateTile(Player player, int x, int y, HashSet<Point> tilesHashSet, PlaceType placeType,
+         BlockType blockType, ref bool playSound, Dictionary<int, int> itemsConsumed)
+     {
++        if (!WorldGen.InWorld(x, y, 10))
++            return;
++
+         int oneIndex = EnoughItem(player, GetConditions(placeType));
+         if (oneIndex <= -1)
+             return;
+@@ -45,84 +115,126 @@ public partial class SpaceWand
+             indexOfItemBeingConsumed = actualItemIndex;
+         }
+ 
++        var transaction = TileMutationJournal.CaptureNeighborhood(x, y);
+         if (!TileLoader.CanPlace(x, y, item.createTile))
++        {
++            transaction.Restore();
+             return;
++        }
++
++        Tile targetTile = Main.tile[x, y];
+ 
+         if (GrassSeeds.Contains(item.createTile))
+         {
+-            if (WorldGen.PlaceTile(x, y, item.createTile, true, false, player.whoAmI, item.placeStyle))
++            WorldGen.PlaceTile(x, y, item.createTile, true, false, player.whoAmI, item.placeStyle);
++            if (HasRequestedTile(targetTile, item.createTile))
+             {
+-                playSound = true;
+-                // PickItemInInventory(player, GetConditions(placeType), false, out int index);
+-                HandleItemConsumption(player, indexOfItemBeingConsumed, itemsConsumed, usingTileWand);
++                CommitPlacement(player, indexOfItemBeingConsumed, itemsConsumed, usingTileWand, false,
++                    x, y, tilesHashSet, placeType, blockType, ref playSound);
++            }
++            else
++            {
++                transaction.Restore();
+             }
+         }
+         else
+         {
+-            Tile originalTile = Main.tile[x, y];
+-
+-            if (originalTile.HasTile)
++            if (targetTile.HasTile)
+             {
+-                WorldGen.SlopeTile(x, y, noEffects: true);
+                 // 同种类，设置个斜坡就走
+-                if (originalTile.TileType == item.createTile)
++                if (targetTile.TileType == item.createTile)
++                {
++                    if (WorldGen.CanPoundTile(x, y))
++                        SetSlopeFor(placeType, blockType, x, y, tilesHashSet);
++                    else
++                        transaction.Restore();
++                    return;
++                }
++
++                if (!player.TileReplacementEnabled)
+                 {
+-                    SetSlopeFor(placeType, blockType, x, y, tilesHashSet);
++                    transaction.Restore();
++                    return;
+                 }
+ 
+-                if (player.TileReplacementEnabled)
++                // 物品放置的瓷砖就是位置对应的瓷砖则无需替换
++                if (!ValidTileForReplacement(item, x, y))
+                 {
+-                    // 物品放置的瓷砖就是位置对应的瓷砖则无需替换
+-                    if (!ValidTileForReplacement(item, x, y))
+-                    {
+-                        // 至少还可以设置个斜坡
+-                        SetSlopeFor(placeType, blockType, x, y, tilesHashSet);
+-                        return;
+-                    }
++                    transaction.Restore();
++                    return;
++                }
+ 
+-                    // 如果放的是绳子，且试图替换的是平台/铁轨，那就不放（笑点解析：绳子和平台/铁轨相交原理是判断上下有没有绳子，本身还是平台/铁轨）
+-                    if (placeType == PlaceType.Rope && (TileID.Sets.Platforms[originalTile.TileType] || originalTile.TileType == TileID.MinecartTrack))
+-                        return;
++                // 如果放的是绳子，且试图替换的是平台/铁轨，那就不放（笑点解析：绳子和平台/铁轨相交原理是判断上下有没有绳子，本身还是平台/铁轨）
++                if (placeType == PlaceType.Rope && (TileID.Sets.Platforms[targetTile.TileType] || targetTile.TileType == TileID.MinecartTrack))
++                {
++                    transaction.Restore();
++                    return;
++                }
++
++                // 有没有足够强大的镐子破坏瓷砖
++                if (!player.HasEnoughPickPowerToHurtTile(x, y))
++                {
++                    transaction.Restore();
++                    return;
++                }
+ 
+-                    // 有没有足够强大的镐子破坏瓷砖
+-                    if (!player.HasEnoughPickPowerToHurtTile(x, y))
+-                        return;
++                // 开始替换
++                WorldGen.ReplaceTile(x, y, (ushort)item.createTile, item.placeStyle);
++                if (HasRequestedTile(targetTile, item.createTile))
++                {
++                    CommitPlacement(player, indexOfItemBeingConsumed, itemsConsumed, usingTileWand, true,
++                        x, y, tilesHashSet, placeType, blockType, ref playSound);
++                }
++                else
++                {
++                    // Restore every exposed local mutation before the fallback so
++                    // killing observes the original terrain and metadata.
++                    transaction.Restore();
++                    targetTile = Main.tile[x, y];
+ 
+-                    // 开始替换
+-                    if (WorldGen.ReplaceTile(x, y, (ushort)item.createTile, item.placeStyle))
++                    // 尝试破坏
++                    TryKillTile(x, y, player);
++                    if (!targetTile.HasTile)
++                        WorldGen.PlaceTile(x, y, item.createTile, true, true, player.whoAmI, item.placeStyle);
++                    if (HasRequestedTile(targetTile, item.createTile))
+                     {
+-                        playSound = true;
+-                        // PickItemInInventory(player, GetConditions(placeType), false, out int index);
+-                        HandleItemConsumption(player, indexOfItemBeingConsumed, itemsConsumed, usingTileWand);
+-                        SetSlopeFor(placeType, blockType, x, y, tilesHashSet);
++                        CommitPlacement(player, indexOfItemBeingConsumed, itemsConsumed, usingTileWand, true,
++                            x, y, tilesHashSet, placeType, blockType, ref playSound);
+                     }
+                     else
+                     {
+-                        // 尝试破坏
+-                        TryKillTile(x, y, player);
+-                        if (!originalTile.HasTile && WorldGen.PlaceTile(x, y, item.createTile, true, true,
+-                                player.whoAmI, item.placeStyle))
+-                        {
+-                            playSound = true;
+-                            // PickItemInInventory(player, GetConditions(placeType), false, out int index);
+-                            HandleItemConsumption(player, indexOfItemBeingConsumed, itemsConsumed, usingTileWand);
+-                            SetSlopeFor(placeType, blockType, x, y, tilesHashSet);
+-                        }
++                        transaction.Restore();
+                     }
+                 }
+             }
+-            else if (WorldGen.PlaceTile(x, y, item.createTile, true, true, player.whoAmI, item.placeStyle))
++            else
+             {
+-                playSound = true;
+-                // PickItemInInventory(player, GetConditions(placeType), false, out int index);
+-                HandleItemConsumption(player, indexOfItemBeingConsumed, itemsConsumed, usingTileWand);
+-                SetSlopeFor(placeType, blockType, x, y, tilesHashSet);
++                WorldGen.PlaceTile(x, y, item.createTile, true, true, player.whoAmI, item.placeStyle);
++                if (HasRequestedTile(targetTile, item.createTile))
++                {
++                    CommitPlacement(player, indexOfItemBeingConsumed, itemsConsumed, usingTileWand, true,
++                        x, y, tilesHashSet, placeType, blockType, ref playSound);
++                }
++                else
++                {
++                    transaction.Restore();
++                }
+             }
+         }
+ 
+         // NetMessage.SendTileSquare(player.whoAmI, x, y);
+     }
+ 
++    private static void CommitPlacement(Player player, int itemIndex, Dictionary<int, int> itemsConsumed,
++        bool usingTileWand, bool setSlope, int x, int y, HashSet<Point> selectedTiles, PlaceType placeType,
++        BlockType blockType, ref bool playSound)
++    {
++        playSound = true;
++        HandleItemConsumption(player, itemIndex, itemsConsumed, usingTileWand);
++        if (setSlope)
++            SetSlopeFor(placeType, blockType, x, y, selectedTiles);
++    }
++
+     private static void HandleItemConsumption(Player player, int index, Dictionary<int, int> itemsConsumed,
+         bool ignoreConsumable)
+     {
+@@ -151,4 +263,4 @@ public partial class SpaceWand
+         if (placeType is PlaceType.Soild && blockType is BlockType.Solid && !positions.Contains(new Point(x, y + 1)))
+             WorldGen.SlopeTile(x, y + 1);
+     }
+-}
+\ No newline at end of file
++}
+diff --git a/benchmarks/terraria-core/private/harbor/terraria-improvegame-space-wand-authority-hard/environment/improvegame/Content/Items/SpaceWand.Shapes.cs b/benchmarks/terraria-core/private/harbor/terraria-improvegame-space-wand-authority-hard/solution/after/Content/Items/SpaceWand.Shapes.cs
+index baa6015f..1fac8572 100644
+--- a/benchmarks/terraria-core/private/harbor/terraria-improvegame-space-wand-authority-hard/environment/improvegame/Content/Items/SpaceWand.Shapes.cs
++++ b/benchmarks/terraria-core/private/harbor/terraria-improvegame-space-wand-authority-hard/solution/after/Content/Items/SpaceWand.Shapes.cs
+@@ -2,6 +2,20 @@ namespace ImproveGame.Content.Items;
+ 
+ public partial class SpaceWand
+ {
++    private static bool IsFinite(Vector2 point)
++        => float.IsFinite(point.X) && float.IsFinite(point.Y);
++
++    private static Point ToClampedTileCoordinates(Vector2 point)
++    {
++        static int Convert(float coordinate)
++        {
++            double tile = Math.Floor((double)coordinate / 16d);
++            return tile <= int.MinValue ? int.MinValue : tile >= int.MaxValue ? int.MaxValue : (int)tile;
++        }
++
++        return new Point(Convert(point.X), Convert(point.Y));
++    }
++
+     /// <summary>
+     /// 根据鼠标到放置起始点的角度，判断放置的方向
+     /// </summary>
+@@ -34,6 +48,13 @@ public partial class SpaceWand
+ 
+     public static IEnumerable<Point> GetSelectedTiles(ShapeType shapeType, Vector2 startPoint, Vector2 mousePosition, bool lastControlLeft)
+     {
++        if (!IsFinite(startPoint) || !IsFinite(mousePosition))
++            return [];
++
++        var startTile = ToClampedTileCoordinates(startPoint);
++        if (!WorldGen.InWorld(startTile.X, startTile.Y, 10))
++            return [];
++
+         switch (shapeType)
+         {
+             case ShapeType.Line:
+@@ -55,13 +76,19 @@ public partial class SpaceWand
+ 
+     public static IEnumerable<Point> GetLineTiles(Vector2 startPoint, Vector2 mousePosition)
+     {
++        if (!IsFinite(startPoint) || !IsFinite(mousePosition))
++            yield break;
++
+         var direction = GetDirection(startPoint, mousePosition);
+-        int distanceToMouseX = (int)(Math.Abs(startPoint.X - mousePosition.X) / 16f);
+-        int distanceToMouseY = (int)(Math.Abs(startPoint.Y - mousePosition.Y) / 16f);
+-        int distanceToMouse = Math.Max(distanceToMouseX, distanceToMouseY);
+-        var position = startPoint.ToTileCoordinates();
++        double distanceToMouseX = Math.Abs((double)startPoint.X - mousePosition.X) / 16d;
++        double distanceToMouseY = Math.Abs((double)startPoint.Y - mousePosition.Y) / 16d;
++        int distanceToMouse = (int)Math.Min(int.MaxValue, Math.Max(distanceToMouseX, distanceToMouseY));
++        var position = ToClampedTileCoordinates(startPoint);
+ 
+-        _dataText = $"{distanceToMouse + 1}";
++        if (!WorldGen.InWorld(position.X, position.Y, 10))
++            yield break;
++
++        _dataText = $"{Math.Min((long)distanceToMouse + 1, int.MaxValue)}";
+ 
+         var increment = direction switch
+         {
+@@ -78,34 +105,46 @@ public partial class SpaceWand
+ 
+         for (int i = 0; i <= distanceToMouse; i++)
+         {
+-            yield return position;
+-            position += increment;
+             if (!WorldGen.InWorld(position.X, position.Y, 10))
+                 break;
++            yield return position;
++            position += increment;
+         }
+     }
+ 
+     public static List<Point> GetCornerTiles(Vector2 startPoint, Vector2 mousePosition, bool lastControlLeft)
+     {
+         var tilePositions = new List<Point>();
+-        var position = startPoint.ToTileCoordinates();
+-        var destination = mousePosition.ToTileCoordinates();
++        if (!IsFinite(startPoint) || !IsFinite(mousePosition))
++            return tilePositions;
++
++        var position = ToClampedTileCoordinates(startPoint);
++        var destination = ToClampedTileCoordinates(mousePosition);
++        if (!WorldGen.InWorld(position.X, position.Y, 10))
++            return tilePositions;
+         tilePositions.Add(position);
+ 
++        bool clipped = false;
++
+         // 尺寸+总共放置的物块数量
+-        var size = (position - destination).Abs();
+-        _dataText = $"{size.X + 1}x{size.Y + 1}";
+-        _dataText += $" ({size.X + 1 + size.Y + 1 - 1})";
++        long sizeX = Math.Abs((long)position.X - destination.X);
++        long sizeY = Math.Abs((long)position.Y - destination.Y);
++        _dataText = $"{sizeX + 1}x{sizeY + 1}";
++        _dataText += $" ({sizeX + sizeY + 1})";
+ 
+         // 类原版蓝图
+         if (lastControlLeft)
+         {
+             DoHorizontal();
++            if (clipped)
++                return tilePositions;
+             DoVertical();
+         }
+         else
+         {
+             DoVertical();
++            if (clipped)
++                return tilePositions;
+             DoHorizontal();
+         }
+ 
+@@ -117,10 +156,14 @@ public partial class SpaceWand
+             while (position.Y != destination.Y)
+             {
+                 int increment = Math.Sign(destination.Y - position.Y);
+-                position.Y += increment;
+-                tilePositions.Add(position);
+-                if (!WorldGen.InWorld(position.X, position.Y, 10))
++                var next = new Point(position.X, position.Y + increment);
++                if (!WorldGen.InWorld(next.X, next.Y, 10))
++                {
++                    clipped = true;
+                     break;
++                }
++                position = next;
++                tilePositions.Add(position);
+ 
+                 // 令人“啊？”的情况
+                 tried++;
+@@ -135,10 +178,14 @@ public partial class SpaceWand
+             while (position.X != destination.X)
+             {
+                 int increment = Math.Sign(destination.X - position.X);
+-                position.X += increment;
+-                tilePositions.Add(position);
+-                if (!WorldGen.InWorld(position.X, position.Y, 10))
++                var next = new Point(position.X + increment, position.Y);
++                if (!WorldGen.InWorld(next.X, next.Y, 10))
++                {
++                    clipped = true;
+                     break;
++                }
++                position = next;
++                tilePositions.Add(position);
+ 
+                 // 令人“啊？”的情况
+                 tried++;
+@@ -150,8 +197,13 @@ public partial class SpaceWand
+ 
+     public static IEnumerable<Point> GetSquareTiles(Vector2 startPoint, Vector2 mousePosition, bool filled)
+     {
+-        var startingPoint = startPoint.ToTileCoordinates();
+-        var nowPoint = mousePosition.ToTileCoordinates();
++        if (!IsFinite(startPoint) || !IsFinite(mousePosition))
++            yield break;
++
++        var startingPoint = ToClampedTileCoordinates(startPoint);
++        if (!WorldGen.InWorld(startingPoint.X, startingPoint.Y, 10))
++            yield break;
++        var nowPoint = ToClampedTileCoordinates(mousePosition);
+         int maxSize = filled ? 60 : 160;
+         nowPoint = ModifySize(startingPoint, nowPoint, maxSize, maxSize);
+         var position = PointExtensions.Min(startingPoint, nowPoint);
+@@ -172,7 +224,9 @@ public partial class SpaceWand
+                 {
+                     case false when (i == 0 || i == size.X || j == 0 || j == size.Y):
+                     case true:
+-                        yield return position + new Point(i, j);
++                        var tile = position + new Point(i, j);
++                        if (WorldGen.InWorld(tile.X, tile.Y, 10))
++                            yield return tile;
+                         break;
+                 }
+             }
+@@ -181,10 +235,17 @@ public partial class SpaceWand
+ 
+     public static IEnumerable<Point> GetCircleTiles(Vector2 startPoint, Vector2 mousePosition, bool filled, bool lastControlLeft)
+     {
+-        var center = startPoint.ToTileCoordinates();
++        if (!IsFinite(startPoint) || !IsFinite(mousePosition))
++            yield break;
++
++        var center = ToClampedTileCoordinates(startPoint);
++        if (!WorldGen.InWorld(center.X, center.Y, 10))
++            yield break;
+         float maxSize = filled ? 49.5f : 99.5f;
+-        float radius = (int)(startPoint.Distance(mousePosition) / 16f) + 0.5f;
+-        radius = Math.Min(maxSize, radius);
++        double differenceX = (double)startPoint.X - mousePosition.X;
++        double differenceY = (double)startPoint.Y - mousePosition.Y;
++        double distanceInTiles = Math.Sqrt(differenceX * differenceX + differenceY * differenceY) / 16d;
++        float radius = distanceInTiles >= maxSize ? maxSize : (int)distanceInTiles + 0.5f;
+         float radiusSquared = radius * radius;
+         bool fat = lastControlLeft; // 边缘像素连起来的空心圆
+         int tileCount = 0;
+@@ -205,6 +266,8 @@ public partial class SpaceWand
+             {
+                 int x = center.X + i;
+                 int y = center.Y + j;
++                if (!WorldGen.InWorld(x, y, 10))
++                    continue;
+                 if (!IsInCircle(x, y))
+                     continue;
+ 
+@@ -227,4 +290,4 @@ public partial class SpaceWand
+         // 总共放置的物块数量
+         _dataText += $" ({tileCount})";
+     }
+-}
+\ No newline at end of file
++}
+diff --git a/benchmarks/terraria-core/private/harbor/terraria-improvegame-space-wand-authority-hard/environment/improvegame/Content/Packets/SpaceWandOperation.cs b/benchmarks/terraria-core/private/harbor/terraria-improvegame-space-wand-authority-hard/solution/after/Content/Packets/SpaceWandOperation.cs
+index b4b272a7..6d4d660f 100644
+--- a/benchmarks/terraria-core/private/harbor/terraria-improvegame-space-wand-authority-hard/environment/improvegame/Content/Packets/SpaceWandOperation.cs
++++ b/benchmarks/terraria-core/private/harbor/terraria-improvegame-space-wand-authority-hard/solution/after/Content/Packets/SpaceWandOperation.cs
+@@ -38,22 +38,40 @@ public class SpaceWandOperation : NetModule
+ 
+     public override void Receive()
+     {
++        if (Main.netMode is not NetmodeID.Server || Sender < 0 || Sender >= Main.player.Length)
++            return;
++        Player sender = Main.player[Sender];
++        if (!sender.active || sender.dead || sender.noBuilding || sender.HeldItem.ModItem is not SpaceWand)
++            return;
++        if (!Enum.IsDefined(typeof(ShapeType), _shapeType) ||
++            !Enum.IsDefined(typeof(BlockType), _blockType) ||
++            !Enum.IsDefined(typeof(PlaceType), _placeType) ||
++            !float.IsFinite(_startPoint.X) || !float.IsFinite(_startPoint.Y) ||
++            !float.IsFinite(_mousePosition.X) || !float.IsFinite(_mousePosition.Y))
++            return;
++
+         bool playSound = false;
+         var itemsConsumed = new Dictionary<int, int>();
+         var shapeType = (ShapeType)_shapeType;
+         var tiles = SpaceWand.GetSelectedTiles(shapeType, _startPoint, _mousePosition, _controlLeft);
+         var tilesHashSet = tiles.ToHashSet();
+-        ForeachTile(tilesHashSet, (x, y) =>
++        var sortedTiles = tilesHashSet.OrderByDescending(point => point.Y).ThenBy(point => point.X);
++        var mutationLedger = SpaceWand.TileMutationJournal.CaptureNeighborhoods(tilesHashSet);
++        ForeachTile(sortedTiles, (x, y) =>
+         {
+-            SpaceWand.OperateTile(Main.player[Sender], x, y, tilesHashSet, (PlaceType)_placeType, (BlockType)_blockType,
++            SpaceWand.OperateTile(sender, x, y, tilesHashSet, (PlaceType)_placeType, (BlockType)_blockType,
+                 ref playSound, itemsConsumed);
+         });
++        var changedTiles = mutationLedger.GetChangedTiles().ToHashSet();
+ 
+-        SendTiles(tilesHashSet);
+-        ConsumeItemPacket.Proceed(itemsConsumed, Sender);
+-
+-        if (playSound)
+-            PlaySoundPacket.PlaySound(LegacySoundIDs.Dig, _startPoint);
++        if (changedTiles.Count > 0)
++        {
++            SendTiles(changedTiles);
++            if (playSound)
++                PlaySoundPacket.PlaySound(LegacySoundIDs.Dig, _startPoint);
++            if (itemsConsumed.Count > 0)
++                ConsumeItemPacket.Proceed(itemsConsumed, Sender);
++        }
+     }
+ 
+     private void SendTiles(HashSet<Point> tilesHashSet)
+@@ -65,39 +83,26 @@ public class SpaceWandOperation : NetModule
+             case ShapeType.Corner:
+             case ShapeType.SquareEmpty:
+             case ShapeType.CircleEmpty:
+-                ForeachTile(tilesHashSet, (x, y) =>
++                ForeachTile(tilesHashSet.OrderByDescending(point => point.Y).ThenBy(point => point.X), (x, y) =>
+                 {
+                     // NetMessage.SendTileSquare(-1, x, y);
+                     NetMessage.SendTileSquare(-1, x - 1, y - 1, 3, 3);
+                 });
+                 break;
+             case ShapeType.SquareFilled:
+-            {
+-                var startingPoint = _startPoint.ToTileCoordinates();
+-                var nowPoint = _mousePosition.ToTileCoordinates();
+-                int maxSize = 60;
+-                nowPoint = ModifySize(startingPoint, nowPoint, maxSize, maxSize);
+-                var position = PointExtensions.Min(startingPoint, nowPoint);
+-                var size = (startingPoint - nowPoint).Abs();
+-                position.X -= 1;
+-                position.Y -= 1;
+-                size.X += 2;
+-                size.Y += 2;
+-                NetMessage.SendTileSquare(-1, position.X, position.Y, size.X, size.Y);
+-                break;
+-            }
+             case ShapeType.CircleFilled:
+             {
+-                var center = _startPoint.ToTileCoordinates();
+-                float maxSize = 49.5f;
+-                float radius = (int)(_startPoint.Distance(_mousePosition) / 16f) + 0.5f;
+-                radius = Math.Min(maxSize, radius);
+-                radius *= 2f; // 传入的是size，也就是直径
+-                NetMessage.SendTileSquare(-1, center.X, center.Y, (int)(radius + 2));
++                if (tilesHashSet.Count == 0)
++                    break;
++                int minX = tilesHashSet.Min(point => point.X);
++                int minY = tilesHashSet.Min(point => point.Y);
++                int maxX = tilesHashSet.Max(point => point.X);
++                int maxY = tilesHashSet.Max(point => point.Y);
++                NetMessage.SendTileSquare(-1, minX - 1, minY - 1, maxX - minX + 3, maxY - minY + 3);
+                 break;
+             }
+             default:
+                 throw new ArgumentOutOfRangeException();
+         }
+     }
+-}
+\ No newline at end of file
++}

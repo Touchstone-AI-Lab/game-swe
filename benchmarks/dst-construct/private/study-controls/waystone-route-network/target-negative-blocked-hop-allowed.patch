@@ -1,0 +1,12 @@
+diff -ruN a/scripts/waystones/network.lua b/scripts/waystones/network.lua
+--- a/scripts/waystones/network.lua	2026-09-22 01:12:00.496725017 +0800
++++ b/scripts/waystones/network.lua	2026-09-22 01:12:00.527639655 +0800
+@@ -274,7 +274,7 @@
+         end
+         done[current] = true
+         for other, cost in pairs(self.links[current]) do
+-            if not done[other] and not self.nodes[other].blocked then
++            if not done[other] then
+                 local known = best[other]
+                 local total, hops = label.cost + cost, label.hops + 1
+                 if known == nil or total < known.cost or (total == known.cost and hops < known.hops) then

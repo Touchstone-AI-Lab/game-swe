@@ -1,0 +1,2 @@
+import mindustry.mod.Plugin;
+public final class LogicLinkRegistryPlugin extends Plugin { private static LogicLinkRegistryPlugin INSTANCE; private final LogicLinkRegistry core=new LogicLinkRegistry(); public LogicLinkRegistryPlugin(){INSTANCE=this;} public static LogicLinkRegistryPlugin instance(){return INSTANCE;} public LogicLinkRegistry core(){return core;} public Object exportState(){return core.save();} }

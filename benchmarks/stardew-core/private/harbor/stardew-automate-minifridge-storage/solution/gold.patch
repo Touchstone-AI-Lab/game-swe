@@ -1,0 +1,15 @@
+diff --git a/Automate/Framework/ModConstants.cs b/Automate/Framework/ModConstants.cs
+index d2ad5ebd..9975b7b2 100644
+--- a/Automate/Framework/ModConstants.cs
++++ b/Automate/Framework/ModConstants.cs
+@@ -12,8 +12,9 @@ namespace Pathoschild.Stardew.Automate.Framework
+             return
+             [
+                 "130", // chest,
++                "216", // mini-fridge
+                 "232", // stone chest
+-                "256", // Junimo chest,
++                "256", // Junimo chest
+                 "BigChest",
+                 "BigStoneChest"
+             ];

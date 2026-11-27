@@ -1,0 +1,22 @@
+--- a/scripts/components/composter.lua
++++ b/scripts/components/composter.lua
+@@ -265,18 +265,8 @@
+ 		if self.inst.components.container ~= nil then
+ 			self.inst.components.container.canbeopened = false
+ 		end	
+-	elseif self.composting then
+-		self.targettime = GetTime() + math.max(0, data.remainingtime)
+-
+-		self.task = self.inst:DoTaskInTime(data.remainingtime, docompost, self)
+-		if self.oncontinuecomposting ~= nil then
+-			self.oncontinuecomposting(self.inst)
+-		end
+-
+-		if self.inst.components.container ~= nil then
+-			self.inst.components.container.canbeopened = false
+-		end	
+ 	else
++		self.composting = nil
+ 		if self.inst.components.container ~= nil then
+ 			self.inst.components.container.canbeopened = true
+ 		end	

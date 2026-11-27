@@ -1,0 +1,38 @@
+schema_version = "1.1"
+
+[task]
+name = "gamecodebench/bill-autopilot-repeat-mode-ownership"
+description = "Let foreign repeat modes decide readiness and persist them across automatic bill retirement and recreation."
+authors = []
+keywords = ["rimworld", "csharp", "mod", "debugging", "real-game"]
+
+[metadata]
+category = "programming"
+difficulty = "hard"
+tags = ["game-modding", "csharp", "rimworld", "bug-fix"]
+source_repo = "https://github.com/vbardales/Rimworld-Bill-Autopilot"
+source_license = "MIT"
+base_commit = "7c36614cb420b40068b67ea9b9b2225c01cdc06a"
+target_commit = "61e6b2fe67dff6296de63383d8d92ad78077d5f5"
+gold_patch_origin = "upstream-single-parent-fix"
+catalog_version = "0.3.2"
+authoring_revision = 3
+private_protocol = "rhenium-rimworld-private-v3"
+assertion_count = 17
+scored_scope = "AutoBillSync, BillMemory, and RecipeProbe repeat-mode lifecycle"
+
+[verifier]
+network_mode = "no-network"
+timeout_sec = 900.0
+[agent]
+network_mode = "no-network"
+allowed_hosts = []
+timeout_sec = 3600.0
+[environment]
+network_mode = "no-network"
+build_timeout_sec = 7200.0
+cpus = 6
+memory_mb = 16384
+storage_mb = 20480
+gpus = 0
+mcp_servers = []

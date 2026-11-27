@@ -1,0 +1,4 @@
+control	kind	base	overlay	root	note
+target-negative-tell-guard	target-negative	reference	patch:target-negative-tell-guard.patch	.	Reference with the skip() clamp reverted and tell() made tolerant of the gap instead: the position query stops erroring, but a later write still leaves a hole (report D).
+compat-negative-no-permission	compat-negative	reference	patch:compat-negative-no-permission.patch	.	Reference whose giveWeapon also drops its permission check: every target passes, but owners without the privilege can hand out weapons.
+alternative-independent-fix	alternative	starter	patch:alternative-independent-fix.patch	.	Starter plus an independent fix for all six reports: an env local in loadstring, pcall-guarded __tostring, PLY_META.Give at the call site, a post-skip clamp, a textbook sin-weighted slerp, and includedata registering the include directly.

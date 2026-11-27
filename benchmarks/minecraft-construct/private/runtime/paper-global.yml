@@ -1,0 +1,8 @@
+# Partial Paper global configuration; Paper fills in every other key with its
+# defaults on first boot. The benchmark server has no network, so profiling,
+# telemetry and update checks are switched off.
+spark:
+  enabled: false
+  enable-immediately: false
+misc:
+  region-file-cache-size: 64

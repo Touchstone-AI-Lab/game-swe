@@ -1,0 +1,16 @@
+--- a/scripts/lootroll/arbiter.lua
++++ b/scripts/lootroll/arbiter.lua
+@@ -388,10 +388,11 @@
+     if roll == nil then
+         return fail("unknown_roll")
+     end
+-    if roll.status == "open" then
+-        if not is_ready(roll, now) then
++    if roll.status == "open" or roll.status == "awarded" then
++        if roll.status == "open" and not is_ready(roll, now) then
+             return fail("not_ready")
+         end
++        roll.demoted = {}
+         settle(self, roll, now)
+     end
+     return build_result(roll)

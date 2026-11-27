@@ -1,0 +1,274 @@
+{
+  "task": "dst/core/dsmmo-release-regressions",
+  "task_version": "2.0.0",
+  "exam": "benchmarks/dst/exams/dsmmo-release-regressions.md",
+  "cases": [
+    {
+      "id": "check:submission-shape",
+      "role": "static",
+      "clauses": [
+        "context-tree"
+      ],
+      "overlap": false,
+      "note": "mod/ tree with the required files, no symbolic links or native modules, parseable Lua"
+    },
+    {
+      "id": "case:sentinel: DsMMO gives a spawned player its skill component",
+      "role": "runtime-sentinel",
+      "clauses": [],
+      "overlap": false,
+      "note": "The player's save record carries DsMMO experience."
+    },
+    {
+      "id": "case:an attack on the player earns attack experience",
+      "role": "preserved",
+      "clauses": [
+        "report-still-fine",
+        "expect-attack-exp"
+      ],
+      "overlap": false,
+      "note": "Read from the player's save record."
+    },
+    {
+      "id": "case:Beetaliation sends a bee after a creature that attacks the player",
+      "role": "preserved",
+      "clauses": [
+        "report-still-fine",
+        "expect-beetaliation"
+      ],
+      "overlap": false,
+      "note": "Guards against disabling Beetaliation to silence the errors."
+    },
+    {
+      "id": "case:damage without an attacker, like the darkness, is handled",
+      "role": "target",
+      "clauses": [
+        "report-darkness",
+        "expect-no-errors",
+        "expect-beetaliation"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:a player who hurts themselves is not chased by their own bee",
+      "role": "target",
+      "clauses": [
+        "report-self",
+        "expect-beetaliation"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:Explosive touch hits a creature that can fight",
+      "role": "preserved",
+      "clauses": [
+        "report-still-fine",
+        "expect-touch"
+      ],
+      "overlap": false,
+      "note": "A spider loses health."
+    },
+    {
+      "id": "case:Explosive touch on something that cannot fight back is handled",
+      "role": "target",
+      "clauses": [
+        "report-touch",
+        "expect-no-errors",
+        "expect-touch"
+      ],
+      "overlap": false,
+      "note": "Rocks as the attack target."
+    },
+    {
+      "id": "case:Ghosty fireflies turn a haunted evil flower into fireflies",
+      "role": "preserved",
+      "clauses": [
+        "report-still-fine",
+        "expect-haunt"
+      ],
+      "overlap": false,
+      "note": "Guards against deleting the haunt branch."
+    },
+    {
+      "id": "case:a haunt that has no target is handled",
+      "role": "target",
+      "clauses": [
+        "report-haunt",
+        "expect-no-errors",
+        "expect-haunt"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:digging earns dig experience",
+      "role": "preserved",
+      "clauses": [
+        "expect-dig"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:digging without a tool, as a werebeaver does, is handled",
+      "role": "target",
+      "clauses": [
+        "report-beaver",
+        "expect-no-errors",
+        "expect-dig"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:a save made under the current Exp-gain setting loads as it was saved",
+      "role": "preserved",
+      "clauses": [
+        "expect-load"
+      ],
+      "overlap": false,
+      "note": "Experience and levels of DIG and CHOP after loading a real save record into another player."
+    },
+    {
+      "id": "case:a save made under another Exp-gain setting gets its levels recalculated",
+      "role": "target",
+      "clauses": [
+        "report-exp-gain",
+        "expect-load"
+      ],
+      "overlap": false,
+      "note": "The save record is marked with another dsmmo_level_up_rate and a stale DIG level."
+    },
+    {
+      "id": "case:an incomplete #dsmmo eat command is handled",
+      "role": "target",
+      "clauses": [
+        "report-eat",
+        "expect-eat"
+      ],
+      "overlap": false,
+      "note": "Both `#dsmmo eat` and `#dsmmo eat dig`."
+    },
+    {
+      "id": "case:the full #dsmmo eat command still exchanges experience for sanity",
+      "role": "preserved",
+      "clauses": [
+        "expect-eat"
+      ],
+      "overlap": false,
+      "note": "Guards against deleting the eat command."
+    }
+  ],
+  "clauses": [
+    {
+      "id": "context-tree",
+      "anchor": "Context: \"`/app/mod` is **DsMMO**\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "report-darkness",
+      "anchor": "Reports: \"whenever\n> someone takes damage that no creature caused\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "report-self",
+      "anchor": "Reports: \"gets chased by a\n> Beetaliation bee that goes after the player themselves\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "report-touch",
+      "anchor": "Reports: \"Explosive touch sometimes throws a Lua error\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "report-haunt",
+      "anchor": "Reports: \"Ghosts get a Lua error from DsMMO when a haunt has no target.\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "report-beaver",
+      "anchor": "Reports: \"Woodie in werebeaver form digs without a tool\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "report-still-fine",
+      "anchor": "Reports: \"Everything else about the skills seems fine.\"",
+      "status": "asserted",
+      "note": "Each of the four listed behaviours has a preserved case."
+    },
+    {
+      "id": "expect-no-errors",
+      "anchor": "Expected behaviour 1: \"DsMMO never raises an error from its event handlers\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "expect-attack-exp",
+      "anchor": "Expected behaviour 2: \"Being attacked still earns one point of ATTACK experience\"",
+      "status": "weak",
+      "note": "Asserted with a creature attacker only; the no-attacker branch is only checked for errors and bees."
+    },
+    {
+      "id": "expect-beetaliation",
+      "anchor": "Expected behaviour 3: \"Beetaliation only ever sends a bee after an attacker that is not the player.\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "expect-touch",
+      "anchor": "Expected behaviour 4: \"Explosive touch only applies its extra damage to targets that can take\n  part in a fight.\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "expect-haunt",
+      "anchor": "Expected behaviour 5: \"A haunt without a target does nothing and raises no error.\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "expect-dig",
+      "anchor": "Expected behaviour 6: \"Digging without a tool raises no error.\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "report-exp-gain",
+      "anchor": "Reports: \"We changed the Exp-gain option and restarted the server.\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "report-eat",
+      "anchor": "Reports: \"A player whispered `#dsmmo eat` to try out Self-cannibalism\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "expect-load",
+      "anchor": "Expected behaviour 7: \"A player's saved DsMMO data loads with the experience it was saved with.\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "expect-eat",
+      "anchor": "Expected behaviour 8: \"A `#dsmmo eat` command that is missing its action or its stat raises no\"",
+      "status": "asserted",
+      "note": ""
+    }
+  ],
+  "excluded_clauses": [],
+  "known_issues": [
+    "Skill rolls are forced by answering math.random with its lower bound (0 for a bare call) while one event is dispatched; an implementation that draws randomness another way (for example from a private generator) would not see the forced roll and the preserved skill cases could fail. The mod itself only uses math.random.",
+    "The events are pushed directly with the same payloads the game uses (EntityScript:PushBufferedAction/PerformBufferedAction for performaction, Combat:GetAttacked for attacked); the base-game action itself is not executed.",
+    "The save from another Exp-gain setting is a real save record whose dsmmo_level_up_rate is changed and whose DIG level and next-level experience are made stale; a save written by an actual earlier server run is not used."
+  ]
+}

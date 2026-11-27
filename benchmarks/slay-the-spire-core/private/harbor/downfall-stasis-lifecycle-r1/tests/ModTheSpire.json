@@ -1,0 +1,16 @@
+{
+  "modid": "stasisscout",
+  "name": "Local gameplay state observer",
+  "version": "0.0.1",
+  "author_list": [
+    "Local observer"
+  ],
+  "description": "Unasserted observation",
+  "sts_version": "12-18-2022",
+  "mts_version": "3.30.3",
+  "dependencies": [
+    "basemod",
+    "stslib",
+    "downfall"
+  ]
+}

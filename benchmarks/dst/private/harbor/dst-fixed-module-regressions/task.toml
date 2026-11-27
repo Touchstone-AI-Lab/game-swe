@@ -1,0 +1,65 @@
+schema_version = "1.4"
+
+artifacts = ["/app/mod"]
+
+[task]
+name = "gamecodebench/dst-dst-fixed-module-regressions"
+version = "2.0.0"
+description = "Repair six optional DST Fixed modules: watch naming, combinable equipment, the Desert Stone portal, bung-blocked creatures, Glommer statue repairs and moon dial glass delivery."
+authors = [{ name = "GameCodeBench" }]
+keywords = ["dst", "dont-starve-together", "lua", "game-modding", "repository-debugging", "items", "creatures", "loot", "portals", "persistence"]
+
+[metadata]
+category = "programming"
+difficulty = "hard"
+tags = ["game-modding", "dst", "lua", "repository-debugging", "bug-fix", "composite"]
+task_kind = "repository-debugging"
+game = "Don't Starve Together Dedicated Server"
+game_version = "Steam app 343050 build 24700372"
+mod_loader = "DST Mod API 10"
+language = "Lua 5.1"
+source_mod = "DST Fixed"
+source_repo = "https://github.com/angribot/DST-Fixed"
+source_license = "Apache-2.0"
+base_commit = "841cd02d5d21d530e773548965e76aa7a2117805"
+reverted_fix_commits = ["44d9e2e7dc3d04f885175937154cfc0c49c03b0a", "f435f2e57a25c86b1e73352c94685c04aa4ac3bc", "cbd4ee97cd319ffa6405108fdb8681389488680d", "72b78c834feb23d18e8f15994e191d2f94406613", "2f5482b852351b1ba6b6e5f92d12d73af6eb38ab", "170b20bf1c871dd9ed9f8c961dfcce62984f11a9", "c4c2875576e405bf2b417b57ff4b41ac50be74c5"]
+gold_patch_origin = "upstream"
+expected_server_cases = 19
+content_reference = "benchmarks/dst/exams/dst-fixed-module-regressions.md"
+content_reference_pack = "dst-core"
+harbor_reference_repository = "https://github.com/harbor-framework/harbor"
+harbor_reference_revision = "9a2e3b135cc8fb1e41131020f83370cb2f12ae93"
+verification_profile = "rhenium-dst-full"
+real_server_validation = "in-verifier; Steam app 343050 build 24700372"
+
+[verifier]
+network_mode = "no-network"
+timeout_sec = 900.0
+user = "root"
+environment_mode = "separate"
+
+[verifier.environment]
+network_mode = "no-network"
+
+[agent]
+# The image already contains Codex CLI and mini-swe-agent. A Harbor job supplies
+# only the model endpoint hostname through agents[].extra_allowed_hosts.
+network_mode = "allowlist"
+allowed_hosts = []
+timeout_sec = 10800.0
+user = "agent"
+
+[environment]
+network_mode = "no-network"
+build_timeout_sec = 1800.0
+cpus = 4
+memory_mb = 8192
+storage_mb = 10240
+gpus = 0
+mcp_servers = []
+
+[verifier.env]
+
+[environment.env]
+
+[solution.env]

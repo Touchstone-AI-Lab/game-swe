@@ -1,0 +1,65 @@
+schema_version = "1.1"
+
+[task]
+name = "gamecodebench/cfw-contraption-regressions"
+description = "A Contraption Framework build with upstream fixes reverted in family mass tracking, the parenting veto hook, character exclusion and self-links, reported only as user-visible symptoms."
+authors = []
+keywords = ["garrysmod", "glua", "lua", "cfw", "acf", "multi-defect", "regression"]
+
+[metadata]
+category = "programming"
+difficulty = "medium"
+tags = ["game-modding", "glua", "gmod", "cfw", "bug-fix", "composite"]
+source_repo = "https://github.com/ACF-Team/CFW"
+source_license = "GPL-3.0"
+base_commit = "5bb6f9fec64d7aa62abd01b49b2a75acf5e7712d"
+reverted_fixes = "5bb6f9fec64d7aa62abd01b49b2a75acf5e7712d,14d289bde5a5a1840343d16d217a0bb41eaf9ed8,839af481295c3133b28c9a266024d03fa455e97e,4ef05dc2032ccb0c67a58c1efcf21432b4e65087,7331e604be11418902377b006cadd71d3482f2ae,cea75d5f7eb1f838959186e9cd2e3b1409723f15"
+gold_patch_origin = "composed-from-upstream-fixes"
+
+# PROVENANCE. The reference is upstream main at base_commit (2026-05-29), vendored whole
+# with its GPL-3.0 LICENSE.md. The starter is that tree with six upstream fix commits
+# reverted. 5bb6f9fe and 14d289bd revert cleanly with `git revert`. The other four only
+# ADD guard lines, but later commits rewrote their context, so they were reverted by
+# deleting exactly the lines they added (verified against `git show` of each commit);
+# 4ef05dc2 also edited the client-side tool (cfw_tool.lua), which is left at the base
+# version because it has no server behaviour. connectivity_sv.lua keeps its upstream
+# CRLF line endings. Nothing is hand-injected.
+#   A  5bb6f9fe (2026-05-29)  extensions/mass_sv.lua   SetMass updates only the
+#                             contraption total, not the family total
+#   B  14d289bd (2025-07-23)  core/parenting_sv.lua    CFW_PreParented is consulted only
+#                             when the parent also defines CFW_OnParented
+#   C  7331e604, 4ef05dc2, 839af481 (2024-06)  core/parenting_sv.lua  players, NPCs and
+#                             nextbots are not excluded from parent-based links
+#   D  cea75d5f (2024-06-10)  core/connectivity_sv.lua connect/disconnect accept an
+#                             entity linked to itself
+#
+# VERIFIER COVERAGE. 4 reports / 4 groups / 6 target cases (group C has one case per
+# character kind) + 3 preserved cases + 1 load sentinel = 10 cases. Cases use real
+# props, a ragdoll, an npc_citizen, a test-registered base_nextbot and a bot player,
+# real constraint.Weld and Entity:SetParent calls, and read the contraption and family
+# objects CFW publishes (CFW_GetContraption, GetFamily, GetCFWLink, count, totalMass).
+#
+# VALIDATED. Unchanged starter: complete, sentinel and all preserved cases pass, every
+# target case fails. Reference: 10/10. See validation/ in this pack.
+
+[verifier]
+network_mode = "no-network"
+timeout_sec = 1200.0
+
+[agent]
+# The agent harness calls the model API from inside the container; only the model
+# endpoint may be reachable. A Harbor job passes that hostname through
+# `agents[].extra_allowed_hosts`; github.com stays unreachable because the upstream
+# repository contains the fixes.
+network_mode = "allowlist"
+allowed_hosts = []
+timeout_sec = 5400.0
+
+[environment]
+network_mode = "no-network"
+build_timeout_sec = 2400.0
+cpus = 6
+memory_mb = 16384
+storage_mb = 20480
+gpus = 0
+mcp_servers = []

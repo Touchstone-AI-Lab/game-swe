@@ -1,0 +1,20 @@
+[manifest]
+version = "1.0.0"
+priority = -100000
+dump_lua = false
+
+[[patches]]
+[patches.module]
+source = "guard.lua"
+before = "main.lua"
+name = "poc_guard"
+load_now = true
+
+[[patches]]
+[patches.pattern]
+target = "main.lua"
+pattern = "if os == 'OS X' or os == 'Windows' then"
+position = "at"
+payload = "if false then -- PoC only: do not initialize Steam API"
+match_indent = true
+times = 1

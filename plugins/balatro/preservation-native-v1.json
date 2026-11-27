@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "native_final_audit": {
+    "protected_unchanged": true,
+    "dependencies_verified": true,
+    "fingerprints": {
+      "environment": "c2e4a2811da31ff11f4951639cc083e678c2329307d47c89ce0338b7745c3f9f",
+      "harness": "febd6bb1afda2c8e82008a6e4817dd23222392aabe6e4c9fbc53a85a0615702e",
+      "task": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+      "candidate": null
+    },
+    "task_imports_verified": 10
+  },
+  "all_platform_frozen_sources_unchanged": 455,
+  "original_poc_frozen_sources_unchanged": 501,
+  "preexisting_staged_files_unchanged": 76,
+  "original_repository_clean": true,
+  "original_repository_head": "2df2a057b09cf147de52df6dcbc2d427615330b6",
+  "staging_head": "a518348d92ec590d355d0c8e7b8bc351a2360f59",
+  "final_audit_evidence": {
+    "request.json": "d71f720d6b6b5e49423fbadc57930b071485c7956ac4f73e7511589d7cfb432e",
+    "response.json": "4914406b01b27aaa3b7c00cd743f371785a71772b3ca30acbf2eb7d24c2da541",
+    "supervisor.json": "b1b00b8264b65ca9e4133eb40e969d35e8b4322ffbb915fa3ba9d0548c2fd6ba"
+  },
+  "delivery_preservation_evidence_sha256": "de63017733bbc307ce503923f9ef672f63f4d8167f82ed2d8492a54ddff68d89"
+}

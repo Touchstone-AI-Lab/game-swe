@@ -1,0 +1,83 @@
+case	group	prompt_clause	production_path
+direction_axes_are_stable	directional-lines	Cardinal direction sectors remain stable	Content/Items/SpaceWand.Shapes.cs
+direction_diagonals_are_stable	directional-lines	Diagonal direction sectors remain stable	Content/Items/SpaceWand.Shapes.cs
+direction_sector_boundaries_are_deterministic	directional-lines	Preserve the frozen source's positive/negative half-sector tie policy	Content/Items/SpaceWand.Shapes.cs
+line_includes_both_endpoints	directional-lines	Lines include valid start and end tiles	Content/Items/SpaceWand.Shapes.cs
+line_rejects_unsafe_start	directional-lines	Unsafe starts yield nothing	Content/Items/SpaceWand.Shapes.cs
+line_stops_before_safe_margin	directional-lines	Lines stop before unsafe margin	Content/Items/SpaceWand.Shapes.cs
+every_shape_rejects_unsafe_start	directional-lines	Every shape rejects an unsafe start	Content/Items/SpaceWand.Shapes.cs
+corner_vertical_first_order	corner-path	Default corner is vertical then horizontal	Content/Items/SpaceWand.Shapes.cs
+corner_horizontal_first_order	corner-path	Control corner is horizontal then vertical	Content/Items/SpaceWand.Shapes.cs
+corner_contains_shared_vertex_once	corner-path	Shared corner vertex appears once	Content/Items/SpaceWand.Shapes.cs
+corner_clipping_stops_remaining_leg	corner-path	Clipping prevents the other corner leg resuming	Content/Items/SpaceWand.Shapes.cs
+filled_square_respects_sixty_limit	rectangular-geometry	Filled rectangle is at most 60 by 60	Content/Items/SpaceWand.Shapes.cs
+outline_square_respects_one_sixty_limit	rectangular-geometry	Outline rectangle is at most 160 by 160	Content/Items/SpaceWand.Shapes.cs
+degenerate_square_has_unique_tiles	rectangular-geometry	Degenerate outlines contain no duplicates	Content/Items/SpaceWand.Shapes.cs
+square_clips_to_safe_world	rectangular-geometry	Rectangles yield only safe-world tiles	Content/Items/SpaceWand.Shapes.cs
+filled_circle_has_unique_interior	circular-geometry	Filled circles contain unique interior tiles	Content/Items/SpaceWand.Shapes.cs
+thin_circle_contains_only_boundary	circular-geometry	Thin outline follows existing neighbor boundary rule	Content/Items/SpaceWand.Shapes.cs
+connected_circle_uses_cardinal_neighbor_boundary	circular-geometry	Connected outline preserves cardinal-neighbor policy	Content/Items/SpaceWand.Shapes.cs
+circle_radius_caps_are_enforced	circular-geometry	Filled and outline circle radius caps remain stable	Content/Items/SpaceWand.Shapes.cs
+circle_clips_to_safe_world	circular-geometry	Circles yield only safe-world tiles	Content/Items/SpaceWand.Shapes.cs
+successful_place_consumes_once	tile-transaction	Successful placement consumes/reports one resource	Content/Items/SpaceWand.Operations.cs
+nonconsumable_material_is_not_reported	tile-transaction	Non-consumable item is not decremented or reported	Content/Items/SpaceWand.Operations.cs
+consumption_hook_veto_keeps_valid_placement	tile-transaction	ConsumeItem veto leaves successful tile placement while reporting no resource	Content/Items/SpaceWand.Operations.cs
+tile_wand_consumes_ammo_not_wand	tile-transaction	Tile wand consumes its ammo	Content/Items/SpaceWand.Operations.cs
+tile_wand_ammo_veto_keeps_valid_placement	tile-transaction	Ammo consumption veto does not cancel tile-wand placement	Content/Items/SpaceWand.Operations.cs
+missing_tile_wand_ammo_is_atomic	tile-transaction	Missing tile-wand ammo is atomic	Content/Items/SpaceWand.Operations.cs
+loader_rejection_is_atomic	tile-transaction	TileLoader rejection is atomic	Content/Items/SpaceWand.Operations.cs
+failed_new_tile_place_is_atomic	tile-transaction	Failed new placement is atomic	Content/Items/SpaceWand.Operations.cs
+matching_tile_reshapes_without_consumption	replacement-slope	Matching tile reshapes without consumption or dig sound	Content/Items/SpaceWand.Operations.cs
+disabled_replacement_is_atomic	replacement-slope	Disabled replacement does not alter tile or slope	Content/Items/SpaceWand.Operations.cs
+rope_cannot_replace_platform	replacement-slope	Rope cannot replace platform or rail	Content/Items/SpaceWand.Operations.cs
+insufficient_pick_power_is_atomic	replacement-slope	Insufficient pick power is atomic	Content/Items/SpaceWand.Operations.cs
+successful_replacement_consumes_once	replacement-slope	Successful replacement consumes once	Content/Items/SpaceWand.Operations.cs
+replace_fallback_kills_then_places_once	replacement-slope	Fallback kills then places and consumes once	Content/Items/SpaceWand.Operations.cs
+failed_replace_fallback_restores_original_tile	replacement-slope	Failed kill-then-place fallback restores old tile and block shape	Content/Items/SpaceWand.Operations.cs
+solid_place_resets_external_below_slope	replacement-slope	Solid placement resets unselected below slope	Content/Items/SpaceWand.Operations.cs
+solid_place_preserves_selected_below_slope	replacement-slope	Solid placement preserves selected below slope	Content/Items/SpaceWand.Operations.cs
+unsafe_operation_stops_before_loader	replacement-slope	Unsafe operation stops before loader/world access	Content/Items/SpaceWand.Operations.cs
+packet_requires_server_authority	packet-authority-sync	Receive runs only on server authority	Content/Packets/SpaceWandOperation.cs
+packet_rejects_invalid_sender	packet-authority-sync	Out-of-range sender is rejected	Content/Packets/SpaceWandOperation.cs
+packet_rejects_inactive_sender	packet-authority-sync	Inactive sender is rejected	Content/Packets/SpaceWandOperation.cs
+packet_rejects_invalid_enums	packet-authority-sync	Undefined serialized enums are rejected	Content/Packets/SpaceWandOperation.cs
+packet_rejects_nonfinite_coordinates	packet-authority-sync	Non-finite vectors are rejected	Content/Packets/SpaceWandOperation.cs
+packet_operates_bottom_to_top	packet-authority-sync	Server operates descending Y then deterministic X	Content/Packets/SpaceWandOperation.cs
+outline_packet_syncs_three_by_three_neighborhoods	packet-authority-sync	Outline selection syncs 3-by-3 per selected tile	Content/Packets/SpaceWandOperation.cs
+filled_packet_syncs_one_bounding_region	packet-authority-sync	Filled selection syncs one expanded bounding box	Content/Packets/SpaceWandOperation.cs
+packet_reports_aggregated_consumption	packet-authority-sync	Consumption is aggregated once to sender	Content/Packets/SpaceWandOperation.cs
+packet_broadcasts_one_sound_on_change	packet-authority-sync	At most one dig sound is sent on change	Content/Packets/SpaceWandOperation.cs
+packet_with_no_change_emits_no_side_effect_packets	packet-authority-sync	No mutation emits no sync consumption or sound	Content/Packets/SpaceWandOperation.cs
+failed_replace_fallback_emits_no_packets	packet-authority-sync	Failed fallback sends no sync consumption or sound	Content/Items/SpaceWand.Operations.cs;Content/Packets/SpaceWandOperation.cs
+packet_syncs_placement_despite_consumption_veto	packet-authority-sync	Successful tile change under consumption veto still synchronizes without resource packet	Content/Items/SpaceWand.Operations.cs;Content/Packets/SpaceWandOperation.cs
+shape_methods_reject_nonfinite_inputs	geometry-input-safety	Direct shape helpers reject either non-finite vector	Content/Items/SpaceWand.Shapes.cs
+extreme_finite_line_clips_in_drag_direction	geometry-input-safety	Extreme finite line endpoints preserve direction and clip at the safe margin	Content/Items/SpaceWand.Shapes.cs
+extreme_finite_corner_clips_in_drag_direction	geometry-input-safety	Extreme finite corner endpoints preserve direction and stop after clipping	Content/Items/SpaceWand.Shapes.cs
+extreme_finite_square_clamps_in_drag_direction	geometry-input-safety	Extreme finite rectangles preserve their drag quadrant and size cap	Content/Items/SpaceWand.Shapes.cs
+failed_empty_place_restores_partial_mutation	transaction-rollback	A failed empty placement restores every exposed target tile field	Content/Items/SpaceWand.Operations.cs
+failed_grass_place_restores_partial_mutation	transaction-rollback	A failed grass placement restores every exposed target tile field	Content/Items/SpaceWand.Operations.cs
+failed_replace_restores_before_fallback	transaction-rollback	A false replacement result is restored before the kill fallback observes the tile	Content/Items/SpaceWand.Operations.cs
+forbidden_replacement_preserves_block_shape	transaction-rollback	A forbidden replacement cannot reshape the existing tile	Content/Items/SpaceWand.Operations.cs
+matching_tile_requires_pound_permission	transaction-rollback	A matching tile is reshaped only when pounding is permitted	Content/Items/SpaceWand.Operations.cs
+packet_syncs_slope_only_change_without_sound	mutation-ledger-sync	A target slope-only mutation synchronizes without resource or dig-sound packets	Content/Items/SpaceWand.Operations.cs;Content/Packets/SpaceWandOperation.cs
+packet_syncs_external_support_change	mutation-ledger-sync	An external below-tile slope reset is included in dirty synchronization	Content/Items/SpaceWand.Operations.cs;Content/Packets/SpaceWandOperation.cs
+outline_packet_syncs_only_changed_tiles	mutation-ledger-sync	Outline synchronization excludes selected coordinates whose state did not change	Content/Packets/SpaceWandOperation.cs
+filled_packet_bounds_only_changed_tiles	mutation-ledger-sync	Filled synchronization bounds the committed dirty set rather than the selection	Content/Packets/SpaceWandOperation.cs
+failed_partial_mutation_emits_no_packets	mutation-ledger-sync	A restored transient engine mutation produces no authority side-effect packets	Content/Items/SpaceWand.Operations.cs;Content/Packets/SpaceWandOperation.cs
+inventory_exhaustion_syncs_only_committed_tiles	mutation-ledger-sync	Mid-request resource exhaustion synchronizes and reports only committed tiles	Content/Items/SpaceWand.Operations.cs;Content/Packets/SpaceWandOperation.cs
+outline_dirty_sync_order_is_deterministic	mutation-ledger-sync	Dirty outline neighborhoods use descending Y then ascending X order	Content/Packets/SpaceWandOperation.cs
+false_place_with_committed_postcondition_succeeds	postcondition-commit	A false placement return with the requested target postcondition is committed	Content/Items/SpaceWand.Operations.cs
+true_place_without_committed_postcondition_fails	postcondition-commit	A true placement return without the requested target postcondition is rolled back	Content/Items/SpaceWand.Operations.cs
+false_grass_place_with_committed_postcondition_succeeds	postcondition-commit	Grass placement also commits by actual requested target state rather than return value	Content/Items/SpaceWand.Operations.cs
+false_replace_with_committed_postcondition_succeeds	postcondition-commit	A false replacement return with the requested target postcondition does not enter fallback	Content/Items/SpaceWand.Operations.cs
+true_replace_without_committed_postcondition_uses_fallback	postcondition-commit	A true replacement return without the requested target state restores before clean fallback	Content/Items/SpaceWand.Operations.cs
+loader_rejection_restores_full_neighborhood	full-state-neighborhood	CanPlace rejection restores all stated fields throughout the 3-by-3 transaction boundary	Content/Items/SpaceWand.Operations.cs
+failed_place_restores_full_neighborhood	full-state-neighborhood	Failed placement restores target and neighboring tile metadata throughout its transaction boundary	Content/Items/SpaceWand.Operations.cs
+failed_fallback_restores_full_neighborhood	full-state-neighborhood	Failed replacement fallback restores the complete original 3-by-3 neighborhood	Content/Items/SpaceWand.Operations.cs
+packet_requires_held_space_wand	request-authentication	Server authority rejects a sender whose held ModItem is not SpaceWand	Content/Packets/SpaceWandOperation.cs
+packet_rejects_building_disabled_sender	request-authentication	Server authority rejects a sender whose building is disabled	Content/Packets/SpaceWandOperation.cs
+packet_rejects_dead_sender	request-authentication	Server authority rejects a dead sender	Content/Packets/SpaceWandOperation.cs
+packet_syncs_frame_only_mutation	neighborhood-ledger-sync	The full-state request ledger synchronizes a frame-only final mutation without resource or sound packets	Content/Items/SpaceWand.Operations.cs;Content/Packets/SpaceWandOperation.cs
+outline_packet_syncs_committed_neighbor_mutation	neighborhood-ledger-sync	Outline synchronization includes a committed engine mutation on a neighbor outside the selected set	Content/Items/SpaceWand.Operations.cs;Content/Packets/SpaceWandOperation.cs
+failed_neighbor_mutation_emits_no_packets	neighborhood-ledger-sync	Rolled-back target and neighbor mutations are absent from final dirty synchronization	Content/Items/SpaceWand.Operations.cs;Content/Packets/SpaceWandOperation.cs
+filled_packet_bounds_committed_neighbor_mutation	neighborhood-ledger-sync	Filled dirty bounds include committed neighborhood mutations outside the selected set	Content/Items/SpaceWand.Operations.cs;Content/Packets/SpaceWandOperation.cs

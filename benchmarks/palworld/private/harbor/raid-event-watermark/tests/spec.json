@@ -1,0 +1,129 @@
+{
+  "task_id": "raid-event-watermark",
+  "required_files": [
+    "Info.json",
+    "scripts/main.lua",
+    "scripts/watermark/core.lua",
+    "scripts/services/watermark_service.lua"
+  ],
+  "minimum_lua_lines": 100,
+  "integration_checks": [
+    {
+      "id": "watermark-authority",
+      "label": {
+        "en": "Dedicated server mount",
+        "zh": "专服挂载"
+      },
+      "weight": 4,
+      "groups": [
+        {
+          "name": "guard",
+          "any_of": [
+            "IsDedicatedServer\\s*\\("
+          ]
+        },
+        {
+          "name": "service",
+          "any_of": [
+            "watermark_service"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "watermark-thread",
+      "label": {
+        "en": "Game thread boundary",
+        "zh": "游戏线程边界"
+      },
+      "weight": 4,
+      "groups": [
+        {
+          "name": "dispatch",
+          "any_of": [
+            "ExecuteInGameThread\\s*\\("
+          ]
+        },
+        {
+          "name": "console",
+          "any_of": [
+            "RegisterConsoleCommandGlobalHandler\\s*\\("
+          ]
+        }
+      ]
+    },
+    {
+      "id": "watermark-persistence",
+      "label": {
+        "en": "Persistence interface",
+        "zh": "持久化接口"
+      },
+      "weight": 3,
+      "groups": [
+        {
+          "name": "save",
+          "any_of": [
+            "[:.]Save\\s*\\("
+          ]
+        },
+        {
+          "name": "load",
+          "any_of": [
+            "[:.]Load\\s*\\("
+          ]
+        }
+      ]
+    },
+    {
+      "id": "watermark-lifecycle",
+      "label": {
+        "en": "Paired hooks",
+        "zh": "成对钩子"
+      },
+      "weight": 2,
+      "groups": [
+        {
+          "name": "register",
+          "any_of": [
+            "RegisterHook\\s*\\("
+          ]
+        },
+        {
+          "name": "unregister",
+          "any_of": [
+            "UnregisterHook\\s*\\("
+          ]
+        }
+      ]
+    },
+    {
+      "id": "watermark-manifest",
+      "label": {
+        "en": "Server manifest",
+        "zh": "专服清单"
+      },
+      "weight": 2,
+      "glob": "Info.json",
+      "groups": [
+        {
+          "name": "package",
+          "any_of": [
+            "\"PackageName\""
+          ]
+        },
+        {
+          "name": "lua",
+          "any_of": [
+            "\"Type\"\\s*:\\s*\"Lua\""
+          ]
+        },
+        {
+          "name": "server",
+          "any_of": [
+            "\"IsServer\"\\s*:\\s*true"
+          ]
+        }
+      ]
+    }
+  ]
+}

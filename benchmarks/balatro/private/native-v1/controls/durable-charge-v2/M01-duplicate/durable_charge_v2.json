@@ -1,0 +1,11 @@
+{
+  "id": "durable_charge_v2",
+  "name": "Durable Charge v2",
+  "author": ["Balatro-PoC"],
+  "description": "Physical-instance charge ledger repair task",
+  "prefix": "dc2",
+  "main_file": "main.lua",
+  "version": "2.0.0",
+  "priority": 0,
+  "dependencies": ["Steamodded (>=1.0.0~ALPHA)"]
+}

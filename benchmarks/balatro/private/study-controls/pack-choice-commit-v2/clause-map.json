@@ -1,0 +1,1074 @@
+{
+  "task": "balatro/core/pack-choice-commit-v2",
+  "task_version": "0.2.0",
+  "exam": "benchmarks/balatro/public/v02/pack-choice-commit-v2/CONTRACT.md",
+  "cases": [
+    {
+      "id": "position:1",
+      "role": "preserved",
+      "clauses": [
+        "api-export",
+        "api-core-independent",
+        "api-begin",
+        "api-register-replay",
+        "api-view"
+      ],
+      "overlap": false,
+      "note": "core.pure"
+    },
+    {
+      "id": "position:2",
+      "role": "preserved",
+      "clauses": [
+        "api-commit-success",
+        "api-settle",
+        "api-view"
+      ],
+      "overlap": false,
+      "note": "core.two_choices"
+    },
+    {
+      "id": "position:3",
+      "role": "preserved",
+      "clauses": [
+        "close-keeps-pending",
+        "api-close",
+        "api-settle"
+      ],
+      "overlap": false,
+      "note": "core.close_pending"
+    },
+    {
+      "id": "position:4",
+      "role": "preserved",
+      "clauses": [
+        "api-close"
+      ],
+      "overlap": false,
+      "note": "core.skip"
+    },
+    {
+      "id": "position:5",
+      "role": "preserved",
+      "clauses": [
+        "api-commit-success",
+        "no-inherited-marker"
+      ],
+      "overlap": false,
+      "note": "core.next_session"
+    },
+    {
+      "id": "position:6",
+      "role": "preserved",
+      "clauses": [
+        "api-commit-replay",
+        "api-commit-conflict"
+      ],
+      "overlap": false,
+      "note": "core.commit_replay"
+    },
+    {
+      "id": "position:7",
+      "role": "preserved",
+      "clauses": [
+        "api-commit-guards",
+        "api-commit-reuse",
+        "api-errors-atomic"
+      ],
+      "overlap": false,
+      "note": "core.selected_atomic"
+    },
+    {
+      "id": "position:8",
+      "role": "preserved",
+      "clauses": [
+        "api-register-guards",
+        "api-register-replay",
+        "api-commit-guards",
+        "api-errors-atomic"
+      ],
+      "overlap": false,
+      "note": "core.limits"
+    },
+    {
+      "id": "position:9",
+      "role": "preserved",
+      "clauses": [
+        "api-commit-guards",
+        "api-commit-reuse",
+        "api-errors-atomic"
+      ],
+      "overlap": false,
+      "note": "core.incomplete"
+    },
+    {
+      "id": "position:10",
+      "role": "preserved",
+      "clauses": [
+        "api-invalid-first",
+        "api-identifier-domain",
+        "api-errors-atomic",
+        "api-close",
+        "api-settle"
+      ],
+      "overlap": false,
+      "note": "core.invalid"
+    },
+    {
+      "id": "position:11",
+      "role": "preserved",
+      "clauses": [
+        "api-detached",
+        "api-view"
+      ],
+      "overlap": false,
+      "note": "core.view_alias"
+    },
+    {
+      "id": "position:12",
+      "role": "preserved",
+      "clauses": [
+        "api-detached",
+        "api-commit-replay"
+      ],
+      "overlap": false,
+      "note": "core.receipt_alias"
+    },
+    {
+      "id": "position:13",
+      "role": "preserved",
+      "clauses": [
+        "api-commit-guards",
+        "api-register-guards",
+        "api-begin",
+        "close-keeps-pending",
+        "api-errors-atomic"
+      ],
+      "overlap": false,
+      "note": "core.closed"
+    },
+    {
+      "id": "position:14",
+      "role": "preserved",
+      "clauses": [
+        "api-core-independent",
+        "api-register-replay",
+        "api-view",
+        "api-settle"
+      ],
+      "overlap": false,
+      "note": "core.interleave"
+    },
+    {
+      "id": "position:15",
+      "role": "setup",
+      "clauses": [],
+      "overlap": false,
+      "note": "full_full.initial"
+    },
+    {
+      "id": "position:16",
+      "role": "preserved",
+      "clauses": [
+        "booster-offer",
+        "choose-at-most-two",
+        "no-preview-reward",
+        "separate-sessions",
+        "api-native-identity"
+      ],
+      "overlap": false,
+      "note": "full_full.p1.open"
+    },
+    {
+      "id": "position:17",
+      "role": "preserved",
+      "clauses": [
+        "signing-rewards",
+        "reward-once-per-object",
+        "no-unpaid-work",
+        "deferred-payout",
+        "choose-at-most-two",
+        "live-ledger",
+        "api-payout-new-commit"
+      ],
+      "overlap": false,
+      "note": "full_full.p1.first"
+    },
+    {
+      "id": "position:18",
+      "role": "target",
+      "clauses": [
+        "two-choice-sum",
+        "signing-rewards",
+        "reward-once-per-object",
+        "api-payout-new-commit",
+        "no-unpaid-work",
+        "api-preserve-lifecycle"
+      ],
+      "overlap": false,
+      "note": "full_full.p1.close"
+    },
+    {
+      "id": "position:19",
+      "role": "preserved",
+      "clauses": [
+        "api-native-boundary",
+        "no-preview-reward"
+      ],
+      "overlap": false,
+      "note": "full_full.p1.identities"
+    },
+    {
+      "id": "position:20",
+      "role": "preserved",
+      "clauses": [
+        "no-unpaid-work",
+        "api-payout-new-commit",
+        "status-pure-detached"
+      ],
+      "overlap": false,
+      "note": "full_full.p1.stable"
+    },
+    {
+      "id": "position:21",
+      "role": "preserved",
+      "clauses": [
+        "live-ledger",
+        "api-native-routing",
+        "api-native-identity",
+        "no-display-ledger"
+      ],
+      "overlap": false,
+      "note": "full_full.p1.ledger"
+    },
+    {
+      "id": "position:22",
+      "role": "preserved",
+      "clauses": [
+        "booster-offer",
+        "choose-at-most-two",
+        "no-preview-reward",
+        "separate-sessions",
+        "api-native-identity",
+        "no-inherited-marker",
+        "repeated-operations"
+      ],
+      "overlap": false,
+      "note": "full_full.p2.open"
+    },
+    {
+      "id": "position:23",
+      "role": "preserved",
+      "clauses": [
+        "signing-rewards",
+        "reward-once-per-object",
+        "no-unpaid-work",
+        "deferred-payout",
+        "choose-at-most-two",
+        "live-ledger",
+        "api-payout-new-commit",
+        "no-inherited-marker",
+        "repeated-operations"
+      ],
+      "overlap": false,
+      "note": "full_full.p2.first"
+    },
+    {
+      "id": "position:24",
+      "role": "target",
+      "clauses": [
+        "two-choice-sum",
+        "signing-rewards",
+        "reward-once-per-object",
+        "api-payout-new-commit",
+        "no-unpaid-work",
+        "api-preserve-lifecycle",
+        "no-inherited-marker",
+        "repeated-operations"
+      ],
+      "overlap": false,
+      "note": "full_full.p2.close"
+    },
+    {
+      "id": "position:25",
+      "role": "preserved",
+      "clauses": [
+        "api-native-boundary",
+        "no-preview-reward"
+      ],
+      "overlap": false,
+      "note": "full_full.p2.identities"
+    },
+    {
+      "id": "position:26",
+      "role": "preserved",
+      "clauses": [
+        "no-unpaid-work",
+        "api-payout-new-commit",
+        "status-pure-detached"
+      ],
+      "overlap": false,
+      "note": "full_full.p2.stable"
+    },
+    {
+      "id": "position:27",
+      "role": "preserved",
+      "clauses": [
+        "live-ledger",
+        "api-native-routing",
+        "api-native-identity",
+        "no-display-ledger"
+      ],
+      "overlap": false,
+      "note": "full_full.p2.ledger"
+    },
+    {
+      "id": "position:28",
+      "role": "preserved",
+      "clauses": [
+        "sale-no-refund",
+        "native-cost-resale",
+        "live-ledger"
+      ],
+      "overlap": false,
+      "note": "full_full.sell"
+    },
+    {
+      "id": "position:29",
+      "role": "preserved",
+      "clauses": [
+        "repeated-operations",
+        "live-ledger"
+      ],
+      "overlap": false,
+      "note": "full_full.followup"
+    },
+    {
+      "id": "position:30",
+      "role": "preserved",
+      "clauses": [
+        "no-recurring-effect",
+        "later-play-no-payment"
+      ],
+      "overlap": false,
+      "note": "full_full.play"
+    },
+    {
+      "id": "position:31",
+      "role": "preserved",
+      "clauses": [
+        "later-play-no-payment",
+        "no-unpaid-work"
+      ],
+      "overlap": false,
+      "note": "full_full.final"
+    },
+    {
+      "id": "position:32",
+      "role": "runtime-sentinel",
+      "clauses": [],
+      "overlap": false,
+      "note": "full_full.sealed"
+    },
+    {
+      "id": "position:33",
+      "role": "setup",
+      "clauses": [],
+      "overlap": false,
+      "note": "partial_full.initial"
+    },
+    {
+      "id": "position:34",
+      "role": "preserved",
+      "clauses": [
+        "booster-offer",
+        "choose-at-most-two",
+        "no-preview-reward",
+        "separate-sessions",
+        "api-native-identity"
+      ],
+      "overlap": false,
+      "note": "partial_full.p1.open"
+    },
+    {
+      "id": "position:35",
+      "role": "preserved",
+      "clauses": [
+        "signing-rewards",
+        "reward-once-per-object",
+        "no-unpaid-work",
+        "deferred-payout",
+        "choose-at-most-two",
+        "live-ledger",
+        "api-payout-new-commit"
+      ],
+      "overlap": false,
+      "note": "partial_full.p1.first"
+    },
+    {
+      "id": "position:36",
+      "role": "target",
+      "clauses": [
+        "partial-skip-keeps-reward",
+        "close-keeps-pending",
+        "no-preview-reward",
+        "reward-once-per-object",
+        "no-unpaid-work",
+        "api-preserve-lifecycle"
+      ],
+      "overlap": false,
+      "note": "partial_full.p1.close"
+    },
+    {
+      "id": "position:37",
+      "role": "preserved",
+      "clauses": [
+        "api-native-boundary",
+        "no-preview-reward"
+      ],
+      "overlap": false,
+      "note": "partial_full.p1.identities"
+    },
+    {
+      "id": "position:38",
+      "role": "preserved",
+      "clauses": [
+        "no-unpaid-work",
+        "api-payout-new-commit",
+        "status-pure-detached"
+      ],
+      "overlap": false,
+      "note": "partial_full.p1.stable"
+    },
+    {
+      "id": "position:39",
+      "role": "preserved",
+      "clauses": [
+        "live-ledger",
+        "api-native-routing",
+        "api-native-identity",
+        "no-display-ledger"
+      ],
+      "overlap": false,
+      "note": "partial_full.p1.ledger"
+    },
+    {
+      "id": "position:40",
+      "role": "preserved",
+      "clauses": [
+        "booster-offer",
+        "choose-at-most-two",
+        "no-preview-reward",
+        "separate-sessions",
+        "api-native-identity",
+        "no-inherited-marker",
+        "repeated-operations"
+      ],
+      "overlap": false,
+      "note": "partial_full.p2.open"
+    },
+    {
+      "id": "position:41",
+      "role": "preserved",
+      "clauses": [
+        "signing-rewards",
+        "reward-once-per-object",
+        "no-unpaid-work",
+        "deferred-payout",
+        "choose-at-most-two",
+        "live-ledger",
+        "api-payout-new-commit",
+        "no-inherited-marker",
+        "repeated-operations"
+      ],
+      "overlap": false,
+      "note": "partial_full.p2.first"
+    },
+    {
+      "id": "position:42",
+      "role": "target",
+      "clauses": [
+        "two-choice-sum",
+        "signing-rewards",
+        "reward-once-per-object",
+        "api-payout-new-commit",
+        "no-unpaid-work",
+        "api-preserve-lifecycle",
+        "no-inherited-marker",
+        "repeated-operations"
+      ],
+      "overlap": false,
+      "note": "partial_full.p2.close"
+    },
+    {
+      "id": "position:43",
+      "role": "preserved",
+      "clauses": [
+        "api-native-boundary",
+        "no-preview-reward"
+      ],
+      "overlap": false,
+      "note": "partial_full.p2.identities"
+    },
+    {
+      "id": "position:44",
+      "role": "preserved",
+      "clauses": [
+        "no-unpaid-work",
+        "api-payout-new-commit",
+        "status-pure-detached"
+      ],
+      "overlap": false,
+      "note": "partial_full.p2.stable"
+    },
+    {
+      "id": "position:45",
+      "role": "preserved",
+      "clauses": [
+        "live-ledger",
+        "api-native-routing",
+        "api-native-identity",
+        "no-display-ledger"
+      ],
+      "overlap": false,
+      "note": "partial_full.p2.ledger"
+    },
+    {
+      "id": "position:46",
+      "role": "preserved",
+      "clauses": [
+        "sale-no-refund",
+        "native-cost-resale",
+        "live-ledger"
+      ],
+      "overlap": false,
+      "note": "partial_full.sell"
+    },
+    {
+      "id": "position:47",
+      "role": "preserved",
+      "clauses": [
+        "repeated-operations",
+        "live-ledger"
+      ],
+      "overlap": false,
+      "note": "partial_full.followup"
+    },
+    {
+      "id": "position:48",
+      "role": "preserved",
+      "clauses": [
+        "no-recurring-effect",
+        "later-play-no-payment"
+      ],
+      "overlap": false,
+      "note": "partial_full.play"
+    },
+    {
+      "id": "position:49",
+      "role": "preserved",
+      "clauses": [
+        "later-play-no-payment",
+        "no-unpaid-work"
+      ],
+      "overlap": false,
+      "note": "partial_full.final"
+    },
+    {
+      "id": "position:50",
+      "role": "runtime-sentinel",
+      "clauses": [],
+      "overlap": false,
+      "note": "partial_full.sealed"
+    },
+    {
+      "id": "position:51",
+      "role": "setup",
+      "clauses": [],
+      "overlap": false,
+      "note": "skip_full.initial"
+    },
+    {
+      "id": "position:52",
+      "role": "preserved",
+      "clauses": [
+        "booster-offer",
+        "choose-at-most-two",
+        "no-preview-reward",
+        "separate-sessions",
+        "api-native-identity"
+      ],
+      "overlap": false,
+      "note": "skip_full.p1.open"
+    },
+    {
+      "id": "position:53",
+      "role": "runtime-sentinel",
+      "clauses": [],
+      "overlap": false,
+      "note": "skip_full.p1.first"
+    },
+    {
+      "id": "position:54",
+      "role": "preserved",
+      "clauses": [
+        "skip-all-zero",
+        "no-preview-reward",
+        "no-unpaid-work",
+        "api-preserve-lifecycle"
+      ],
+      "overlap": false,
+      "note": "skip_full.p1.close"
+    },
+    {
+      "id": "position:55",
+      "role": "preserved",
+      "clauses": [
+        "api-native-boundary",
+        "no-preview-reward"
+      ],
+      "overlap": false,
+      "note": "skip_full.p1.identities"
+    },
+    {
+      "id": "position:56",
+      "role": "preserved",
+      "clauses": [
+        "no-unpaid-work",
+        "api-payout-new-commit",
+        "status-pure-detached"
+      ],
+      "overlap": false,
+      "note": "skip_full.p1.stable"
+    },
+    {
+      "id": "position:57",
+      "role": "preserved",
+      "clauses": [
+        "live-ledger",
+        "api-native-routing",
+        "api-native-identity",
+        "no-display-ledger"
+      ],
+      "overlap": false,
+      "note": "skip_full.p1.ledger"
+    },
+    {
+      "id": "position:58",
+      "role": "preserved",
+      "clauses": [
+        "booster-offer",
+        "choose-at-most-two",
+        "no-preview-reward",
+        "separate-sessions",
+        "api-native-identity",
+        "no-inherited-marker",
+        "repeated-operations"
+      ],
+      "overlap": false,
+      "note": "skip_full.p2.open"
+    },
+    {
+      "id": "position:59",
+      "role": "preserved",
+      "clauses": [
+        "signing-rewards",
+        "reward-once-per-object",
+        "no-unpaid-work",
+        "deferred-payout",
+        "choose-at-most-two",
+        "live-ledger",
+        "api-payout-new-commit",
+        "no-inherited-marker",
+        "repeated-operations"
+      ],
+      "overlap": false,
+      "note": "skip_full.p2.first"
+    },
+    {
+      "id": "position:60",
+      "role": "preserved",
+      "clauses": [
+        "two-choice-sum",
+        "signing-rewards",
+        "reward-once-per-object",
+        "api-payout-new-commit",
+        "no-unpaid-work",
+        "api-preserve-lifecycle",
+        "no-inherited-marker",
+        "repeated-operations"
+      ],
+      "overlap": true,
+      "note": "skip_full.p2.close"
+    },
+    {
+      "id": "position:61",
+      "role": "preserved",
+      "clauses": [
+        "api-native-boundary",
+        "no-preview-reward"
+      ],
+      "overlap": false,
+      "note": "skip_full.p2.identities"
+    },
+    {
+      "id": "position:62",
+      "role": "preserved",
+      "clauses": [
+        "no-unpaid-work",
+        "api-payout-new-commit",
+        "status-pure-detached"
+      ],
+      "overlap": false,
+      "note": "skip_full.p2.stable"
+    },
+    {
+      "id": "position:63",
+      "role": "preserved",
+      "clauses": [
+        "live-ledger",
+        "api-native-routing",
+        "api-native-identity",
+        "no-display-ledger"
+      ],
+      "overlap": false,
+      "note": "skip_full.p2.ledger"
+    },
+    {
+      "id": "position:64",
+      "role": "preserved",
+      "clauses": [
+        "sale-no-refund",
+        "native-cost-resale",
+        "live-ledger"
+      ],
+      "overlap": false,
+      "note": "skip_full.sell"
+    },
+    {
+      "id": "position:65",
+      "role": "preserved",
+      "clauses": [
+        "repeated-operations",
+        "live-ledger"
+      ],
+      "overlap": false,
+      "note": "skip_full.followup"
+    },
+    {
+      "id": "position:66",
+      "role": "preserved",
+      "clauses": [
+        "no-recurring-effect",
+        "later-play-no-payment"
+      ],
+      "overlap": false,
+      "note": "skip_full.play"
+    },
+    {
+      "id": "position:67",
+      "role": "preserved",
+      "clauses": [
+        "later-play-no-payment",
+        "no-unpaid-work"
+      ],
+      "overlap": false,
+      "note": "skip_full.final"
+    },
+    {
+      "id": "position:68",
+      "role": "runtime-sentinel",
+      "clauses": [],
+      "overlap": false,
+      "note": "skip_full.sealed"
+    }
+  ],
+  "clauses": [
+    {
+      "id": "booster-offer",
+      "anchor": "CONTRACT.md paragraph 2: \"The ordinary `p_pc2_choices` Booster costs $4 and presents three physical Common Jokers, in order\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "choose-at-most-two",
+      "anchor": "CONTRACT.md paragraph 2: \"Choose at most two through normal game actions.\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "signing-rewards",
+      "anchor": "CONTRACT.md paragraph 2: \"Their signing rewards are respectively $3, $5 and $7.\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "no-recurring-effect",
+      "anchor": "CONTRACT.md paragraph 2: \"They have no recurring scoring or money effect\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "native-cost-resale",
+      "anchor": "CONTRACT.md paragraph 2: \"their ordinary cost is $4 and native resale rules apply\"",
+      "status": "weak",
+      "note": "The expected sale credit is the object's observed sell_cost (scenario.py:74), not an independent value, and the $4 cost is never compared."
+    },
+    {
+      "id": "no-preview-reward",
+      "anchor": "CONTRACT.md paragraph 3: \"Opening, creating, displaying or destroying an unchosen preview gives no reward.\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "reward-once-per-object",
+      "anchor": "CONTRACT.md paragraph 3: \"Each actual selected-and-acquired physical object commits its own reward exactly once.\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "deferred-payout",
+      "anchor": "CONTRACT.md paragraph 3: \"Pay that reward in a normally scheduled deferred game event\"",
+      "status": "weak",
+      "note": "The tracked event rows are read by no case, so a synchronous payment settles to the same observations; only pending_events==0 is checked."
+    },
+    {
+      "id": "no-unpaid-work",
+      "anchor": "CONTRACT.md paragraph 3: \"after the action has settled, no unpaid work remains\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "partial-skip-keeps-reward",
+      "anchor": "CONTRACT.md paragraph 3: \"If the player selects one and skips the rest, retain the selected reward and grant nothing for unselected items.\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "skip-all-zero",
+      "anchor": "CONTRACT.md paragraph 3: \"Skipping all grants zero.\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "two-choice-sum",
+      "anchor": "CONTRACT.md paragraph 3: \"Choosing two grants the sum of those two objects' rewards, regardless of shifted preview positions.\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "separate-sessions",
+      "anchor": "CONTRACT.md paragraph 4: \"Each opened pack has a separate session and new preview identities.\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "no-inherited-marker",
+      "anchor": "CONTRACT.md paragraph 4: \"The next pack cannot inherit a prior choice or paid marker.\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "close-keeps-pending",
+      "anchor": "CONTRACT.md paragraph 4: \"Closing a session prevents new commits but does not cancel already committed pending rewards.\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "repeated-operations",
+      "anchor": "CONTRACT.md paragraph 4: \"Repeated normal operations remain usable.\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "later-play-no-payment",
+      "anchor": "CONTRACT.md paragraph 4: \"Later play does not pay again\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "sale-no-refund",
+      "anchor": "CONTRACT.md paragraph 4: \"sale gives only native resale income, neither refunding nor revoking the signing reward\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "status-pure-detached",
+      "anchor": "CONTRACT.md paragraph 5: \"`PC2_STATUS()` as a pure detached view of the live ledger\"",
+      "status": "weak",
+      "note": "Repeated polling shows purity (.stable), but no case mutates a returned live view, so detachment is checked only for core view in core.view_alias."
+    },
+    {
+      "id": "live-ledger",
+      "anchor": "CONTRACT.md paragraph 5: \"The real adapter must route preview creation, acquisition, closure and delayed payout through this ledger.\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "no-display-ledger",
+      "anchor": "CONTRACT.md paragraph 5: \"Do not use a separate display-only ledger.\"",
+      "status": "weak",
+      "note": "PC2_STATUS and money are each compared with expected values, but no case proves they share one ledger."
+    },
+    {
+      "id": "no-manual-or-overwrite",
+      "anchor": "CONTRACT.md paragraph 6: \"Do not manually execute callbacks, change fixed components, overwrite money after observing expected values, or suppress native business behavior.\"",
+      "status": "unasserted",
+      "note": "No case detects how money was reached or whether a callback was invoked manually."
+    },
+    {
+      "id": "api-export",
+      "anchor": "API.md paragraph 1: \"Global `PC2_MODEL` exports `new`, `begin`, `register`, `commit`, `close`, `settle`, `view`.\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "api-core-independent",
+      "anchor": "API.md paragraph 1: \"Core states are opaque, independent\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "api-no-game-globals",
+      "anchor": "API.md paragraph 1: \"need no game globals\"",
+      "status": "unasserted",
+      "note": "Core cases run inside the live engine at MENU (scenario.py:15-16), so a core that reads game globals is not detected."
+    },
+    {
+      "id": "api-identifier-domain",
+      "anchor": "API.md paragraph 2: \"All identifiers are nonempty ASCII strings, at most 96 characters\"",
+      "status": "weak",
+      "note": "core.invalid passes an empty string and non-strings; length and illegal characters are never tried."
+    },
+    {
+      "id": "api-invalid-first",
+      "anchor": "API.md paragraph 2: \"Validate argument domains first; invalid returns exactly `{ok=false,code='INVALID'}`.\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "api-errors-atomic",
+      "anchor": "API.md paragraph 2: \"Every other error has the same two fields with its specified code. Errors leave the entire state unchanged.\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "api-detached",
+      "anchor": "API.md paragraph 2: \"All returned tables must be detached.\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "api-begin",
+      "anchor": "API.md bullet 1: \"create an open session with two choices and no previews\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "api-register-replay",
+      "anchor": "API.md bullet 2: \"A previously registered same preview globally, same session and reward returns `{ok=true,created=false}` even after closure; different session/reward returns `PREVIEW_CONFLICT`.\"",
+      "status": "asserted",
+      "note": "Replay is exercised on an open session; replay after closure is not."
+    },
+    {
+      "id": "api-register-guards",
+      "anchor": "API.md bullet 2: \"closed session or any prior commit in that session returns `REGISTRATION_CLOSED`; already three previews returns `PREVIEW_LIMIT`.\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "api-register-session-missing",
+      "anchor": "API.md bullet 2: \"Session must exist or `SESSION_MISSING`.\"",
+      "status": "unasserted",
+      "note": "The only SESSION_MISSING request in core_cases.lua is close (line 44); register with an unknown session is never tried."
+    },
+    {
+      "id": "api-commit-replay",
+      "anchor": "API.md bullet 3: \"If already accepted with identical session/preview, return\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "api-commit-conflict",
+      "anchor": "API.md bullet 3: \"Conflicting reuse returns `COMMIT_CONFLICT`.\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "api-commit-guards",
+      "anchor": "API.md bullet 3: \"in that order\"",
+      "status": "weak",
+      "note": "SESSION_CLOSED, PREVIEWS_INCOMPLETE, PREVIEW_MISSING, PREVIEW_COMMITTED and CHOICES_EXHAUSTED each appear once alone. commit with an unknown session is never tried, and no request triggers two guards, so the order is not graded."
+    },
+    {
+      "id": "api-commit-success",
+      "anchor": "API.md bullet 3: \"Success marks only that preview selected, decrements remaining, creates one pending ticket\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "api-commit-reuse",
+      "anchor": "API.md bullet 3: \"A rejected ID remains available for a later legal request.\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "api-close",
+      "anchor": "API.md bullet 4: \"existing session becomes closed; repeats are harmless\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "api-settle",
+      "anchor": "API.md bullet 5: \"Pending ticket becomes settled, increments paid total by its reward\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "api-view",
+      "anchor": "API.md bullet 6: \"Sessions sorted by ID contain exactly\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "api-native-identity",
+      "anchor": "API.md paragraph 3: \"preview identity uses the chosen physical Joker's `sort_id`, never its mutable row index\"",
+      "status": "asserted",
+      "note": "The ledger comparison hard-codes more identity strings than the API requires; see known_issues."
+    },
+    {
+      "id": "api-native-boundary",
+      "anchor": "API.md paragraph 3: \"native add-to-deck is the acquisition boundary\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "api-native-routing",
+      "anchor": "API.md paragraph 3: \"Route native pack closure to `close` and deferred reward callbacks to `settle`.\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "api-preserve-lifecycle",
+      "anchor": "API.md paragraph 3: \"Preserve original lifecycle calls, arguments, return values and exceptions.\"",
+      "status": "weak",
+      "note": "Only completion of the closing lifecycle and the single RPC response are seen; arguments and returns of wrapped calls are not compared."
+    },
+    {
+      "id": "api-payout-new-commit",
+      "anchor": "API.md paragraph 3: \"Schedule a payout only for a new accepted commit; apply the returned settlement amount once.\"",
+      "status": "asserted",
+      "note": ""
+    }
+  ],
+  "excluded_clauses": [
+    "no-manual-or-overwrite",
+    "api-no-game-globals",
+    "api-register-session-missing"
+  ],
+  "known_issues": [
+    "Over-constraining assertion: benchmarks/balatro/private/native-v1/fixtures/tasks/pack_choice_commit/v2/private/scenario.py:39 fixes the session ID to str(booster sort_id) and benchmarks/balatro/private/native-v1/fixtures/tasks/pack_choice_commit/v2/private/scenario.py:50,58 fix the ticket ID to 'acquire:' + str(joker sort_id), then every ledger comparison requires those exact strings (benchmarks/balatro/private/native-v1/fixtures/tasks/pack_choice_commit/v2/private/scenario.py:44-45,52-54,70,74,77,81,84). API.md only says the session 'can use' the Booster's sort_id and that commit_id is a 'globally unique commit ID'; the 'acquire:' prefix appears only in the editable starter (public/v02/pack-choice-commit-v2/starter/adapter.lua:16). A valid adapter using another unique commit ID or session ID would fail the .open, .first, .ledger, .sell, .followup, .play and .final cases that compare the ledger. No control exercises this, so over_constrained is left false: it is unconfirmed by engine evidence.",
+    "Fixture trap: skip_full.p1.first compares two empty lists because that pack has no choice (benchmarks/balatro/private/native-v1/fixtures/tasks/pack_choice_commit/v2/private/scenario.py:47-54); it is relabelled runtime-sentinel.",
+    "Fixture trap: skip_full.p2.close passes on the starter for two scene reasons (benchmarks/balatro/private/native-v1/fixtures/tasks/pack_choice_commit/v2/private/scenario.py:9): the skipped first pack sets no paid-index flag, and its choices run from a higher to a lower preview, so the shifted-index defect has nothing to shift. The same clause fails on the starter in the other modes."
+  ]
+}

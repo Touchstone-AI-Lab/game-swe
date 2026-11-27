@@ -1,0 +1,10 @@
+!.vscode
+/release/*
+!/release/plugin.bat
+!/release/vpk.bat
+!/release/*-addoninfo.txt
+!/release/*-addonimage.jpg
+
+/plugin/*-build
+
+/note.txt

@@ -1,0 +1,123 @@
+{
+  "task": "mindustry/mindustry-core/data-patch-regressions",
+  "task_version": "1.0.0",
+  "exam": "benchmarks/mindustry-core/exams/data-patch-regressions.md",
+  "cases": [
+    {
+      "id": "check:submission-shape",
+      "role": "static",
+      "clauses": [
+        "scope-1"
+      ],
+      "overlap": false,
+      "note": "the mindustry/ tree with its source roots, no symlinks, VCS metadata or compiled artifacts"
+    },
+    {
+      "id": "check:offline-build",
+      "role": "static",
+      "clauses": [
+        "scope-1"
+      ],
+      "overlap": false,
+      "note": "every Java source under core/src and server/src compiles offline against the pinned server jar"
+    },
+    {
+      "id": "server:the server loads patch files from its asset folder",
+      "role": "runtime-sentinel",
+      "clauses": [
+        "assets-1"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "server:a patch changes a block while its map is hosted",
+      "role": "preserved",
+      "clauses": [
+        "expected-4"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "server:a server-defined item can be used by a patch",
+      "role": "target",
+      "clauses": [
+        "expected-1"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "server:a server-defined item exists while its map is hosted",
+      "role": "preserved",
+      "clauses": [
+        "expected-1"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "server:patching a build tower also changes the drones it builds with",
+      "role": "target",
+      "clauses": [
+        "expected-2"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "server:a planet-restricted patch applies on its planet",
+      "role": "preserved",
+      "clauses": [
+        "expected-3"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "server:a patch for another planet is neither applied nor listed",
+      "role": "target",
+      "clauses": [
+        "expected-3"
+      ],
+      "overlap": false,
+      "note": ""
+    }
+  ],
+  "clauses": [
+    {
+      "id": "expected-1",
+      "anchor": "Expected behaviour, first bullet: patches can refer to content from the server's content folder and apply without warnings; that content keeps loading",
+      "status": "asserted"
+    },
+    {
+      "id": "expected-2",
+      "anchor": "Expected behaviour, second bullet: a patched build tower's builder unit uses the patched build speed and range, restored without the patch",
+      "status": "asserted"
+    },
+    {
+      "id": "expected-3",
+      "anchor": "Expected behaviour, third bullet: patches skipped because of requiredPlanets are not listed; unrestricted and planet-matched patches are applied and listed",
+      "status": "asserted"
+    },
+    {
+      "id": "expected-4",
+      "anchor": "Expected behaviour, fourth bullet: plain patches apply while hosted and are undone when a map is hosted without them",
+      "status": "asserted"
+    },
+    {
+      "id": "assets-1",
+      "anchor": "Server data assets section: reloadassets loads files from config/assets and answers Loaded <n> data asset files.",
+      "status": "asserted"
+    },
+    {
+      "id": "scope-1",
+      "anchor": "Context, last paragraph: changes stay inside mindustry/core/src and mindustry/server/src, which the server build compiles",
+      "status": "weak",
+      "note": "enforced only through the offline build of those source roots"
+    }
+  ],
+  "excluded_clauses": [],
+  "known_issues": []
+}

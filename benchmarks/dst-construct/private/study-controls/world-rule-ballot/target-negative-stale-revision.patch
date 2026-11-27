@@ -1,0 +1,15 @@
+diff -ru a/scripts/ruleballot/ballot.lua b/scripts/ruleballot/ballot.lua
+--- a/scripts/ruleballot/ballot.lua
++++ b/scripts/ruleballot/ballot.lua
+@@ -211,10 +211,7 @@
+     if not is_revision(revision) then
+         return fail("invalid_revision")
+     end
+-    local last = record.revisions[voter_id]
+-    if last ~= nil and revision <= last then
+-        return fail("stale_revision")
+-    end
++    -- study control: the per-voter revision order is no longer enforced
+     record.revisions[voter_id] = revision
+     record.votes[voter_id] = { choice_id = choice_id, revision = revision }
+     return { ok = true, proposal_id = proposal_id, revision = revision }

@@ -1,0 +1,104 @@
+{
+  "id": "dst-core",
+  "version": "4.0.0",
+  "game": "dst",
+  "name": {
+    "en": "Don't Starve Together mod repair tasks",
+    "zh": "饥荒联机版模组修复任务"
+  },
+  "description": {
+    "en": "Repair tasks over real open-source Don't Starve Together mods with upstream fixes reverted, evaluated on the pinned dedicated server. Every task reports only operator and player symptoms and never states how many defects there are.",
+    "zh": "基于真实开源饥荒联机版模组、回退上游修复后的修复任务，在固定版本的专用服务器中评测。每道题只描述运维者与玩家看到的现象，不告知缺陷数量。"
+  },
+  "tasks": [
+    {
+      "id": "glassic-api-regressions",
+      "difficulty": "hard",
+      "title": {
+        "en": "Glassic API: recipe sorting and mod skins break other mods",
+        "zh": "Glassic API：配方排序与模组皮肤破坏依赖它的模组"
+      },
+      "summary": {
+        "en": "Repair the reported recipe filter, character list and skin problems in the Glassic API library mod.",
+        "zh": "修复 Glassic API 库模组中报告的配方筛选、角色列表与皮肤问题。"
+      },
+      "brief": {
+        "en": "Diagnose and repair every reported problem in the vendored Glassic API library while preserving the API behaviour that already works.",
+        "zh": "诊断并修复所附 Glassic API 库模组中报告的全部问题，同时保持已正常的 API 行为。"
+      },
+      "requirements": {
+        "en": [
+          "Fix the underlying causes rather than suppressing the symptoms.",
+          "Keep the public GlassicAPI functions and their documented behaviour."
+        ],
+        "zh": [
+          "修复根本原因，而不是掩盖现象。",
+          "保持公开的 GlassicAPI 函数及其文档所述行为。"
+        ]
+      },
+      "api_usage": {
+        "en": [
+          "Use the Don't Starve Together mod API and the base-game components the mod already relies on."
+        ],
+        "zh": [
+          "使用模组已依赖的饥荒联机版模组 API 与原版组件。"
+        ]
+      },
+      "acceptance": {
+        "en": [
+          "Every private assertion must pass on the pinned dedicated server without network access."
+        ],
+        "zh": [
+          "所有私有断言必须在固定版本、无网络的专用服务器中通过。"
+        ]
+      },
+      "domains": [
+        "lua",
+        "debugging",
+        "real-game-runtime",
+        "crafting",
+        "skins"
+      ],
+      "estimated_minutes": 120,
+      "required_files": [
+        "mod/modinfo.lua",
+        "mod/modmain.lua",
+        "mod/utils/skinhandler.lua"
+      ],
+      "task_kind": "repository-debugging",
+      "source_mod": "Glassic API",
+      "upstream": {
+        "repository": "https://github.com/angribot/DST-GlassicAPI",
+        "license_spdx": "Apache-2.0",
+        "license_file": "LICENSE",
+        "base_commit": "795af813e0d2b334a47b7c69df81cbfeac695f1f",
+        "fix_commits": [
+          "234b02c139b748ae3cf62167543a3ae057961364",
+          "bd4c0737c1ecf5a95975c0516ed5749289c2e633",
+          "2a96834ff43bd373b12ca373e3da5bae0fc67849",
+          "6721c645eef836d1cb84dd2903bb0eb692505dd8",
+          "795af813e0d2b334a47b7c69df81cbfeac695f1f"
+        ]
+      },
+      "server_test": "server/glassic-api-regressions.lua",
+      "server_cases": [
+        "sentinel: Glassic API is loaded",
+        "sorting the last recipe of a filter after the first keeps the filter intact",
+        "sorting a recipe after a later one keeps every recipe of the filter listed",
+        "sorting a recipe before an earlier one keeps every recipe of the filter listed",
+        "sorting a recipe to the end of a filter keeps every recipe listed",
+        "a spawn request for a vanilla character is accepted",
+        "a vanilla character that receives mod skins stays selectable",
+        "a mod character that receives mod skins is only borrowed into the base character list",
+        "an item without a skin reports an empty skin build",
+        "an item with a mod skin reports the mod skin's build",
+        "an item's skin build can be read while the item is removed",
+        "a mod skin that anyone may use is listed in the inventory",
+        "a mod skin that its test refuses is left out of the inventory",
+        "a character-exclusive skin is offered to its character",
+        "a character-exclusive skin is not offered to another character"
+      ],
+      "mod_options": {}
+    }
+  ]
+}

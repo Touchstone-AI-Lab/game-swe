@@ -1,0 +1,4 @@
+control	kind	base	overlay	root	note
+target-negative-complex-text	target-negative	reference	patch:target-negative-complex-text.patch	.	Reference with the zero-part comparisons fixed but a real-only complex number still returned as a number rather than text (half of report C).
+compat-negative-tochar-clamp	compat-negative	reference	patch:compat-negative-tochar-clamp.patch	.	Reference whose toChar clamps a bad code instead of rejecting it: NaN still yields an empty string, but an out-of-range code now yields a character.
+alternative-independent-fix	alternative	starter	patch:alternative-independent-fix.patch	.	Starter plus an independent fix for all six reports: a clamp helper, truncation in the toString(n, base) wrapper, a rewritten complex formatter, NaN-proof range checks, a per-evaluation copy of the table element types, and element-wise comparison in indexOf.

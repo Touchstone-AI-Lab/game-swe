@@ -1,0 +1,695 @@
+{
+  "task": "dst/construct/waystone-route-network",
+  "task_version": "2.1.0",
+  "exam": "benchmarks/dst-construct/exams/waystone-route-network.md",
+  "cases": [
+    {
+      "id": "check:required-files",
+      "role": "static",
+      "clauses": [
+        "deliver-1"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "check:lua-syntax",
+      "role": "static",
+      "clauses": [],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "hidden:nodes and links enforce ids caps rounding and length",
+      "role": "target",
+      "clauses": [
+        "deliver-2",
+        "core-1a",
+        "core-1c",
+        "core-3a",
+        "core-3b",
+        "core-3c",
+        "core-3d",
+        "core-4b",
+        "core-5a",
+        "core-5b",
+        "core-5c",
+        "core-5d",
+        "core-5f",
+        "core-10"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "hidden:cheapest route breaks ties by hops then node order",
+      "role": "target",
+      "clauses": [
+        "deliver-2",
+        "core-1a",
+        "core-6b",
+        "core-6c",
+        "core-6d"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "hidden:blocked and removed nodes leave routing",
+      "role": "target",
+      "clauses": [
+        "deliver-2",
+        "core-1a",
+        "core-3d",
+        "core-4a",
+        "core-4b",
+        "core-5e",
+        "core-6a",
+        "core-6b",
+        "core-10"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "hidden:reserve deduplicates prices and honors time boundaries",
+      "role": "target",
+      "clauses": [
+        "deliver-2",
+        "core-1a",
+        "core-1c",
+        "core-2b",
+        "core-3a",
+        "core-7a",
+        "core-7b",
+        "core-7c",
+        "core-7d",
+        "core-7e",
+        "core-7f",
+        "core-8c",
+        "core-8f",
+        "core-8h",
+        "core-9a",
+        "core-9b",
+        "core-10"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "hidden:commit is exactly once and rejects changed routes",
+      "role": "target",
+      "clauses": [
+        "deliver-2",
+        "core-1a",
+        "core-3a",
+        "core-5f",
+        "core-6c",
+        "core-7c",
+        "core-7f",
+        "core-8a",
+        "core-8b",
+        "core-8c",
+        "core-8d",
+        "core-8e",
+        "core-8f",
+        "core-8g",
+        "core-8h",
+        "core-10"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "hidden:time validation snapshot freshness and save load",
+      "role": "target",
+      "clauses": [
+        "deliver-2",
+        "deliver-3",
+        "core-1a",
+        "core-1b",
+        "core-1c",
+        "core-2a",
+        "core-2b",
+        "core-3c",
+        "core-7a",
+        "core-7c",
+        "core-7f",
+        "core-8f",
+        "core-8g",
+        "core-10",
+        "core-11a",
+        "core-11b",
+        "core-11c",
+        "core-11d"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "check:implementation-depth",
+      "role": "static",
+      "clauses": [
+        "accept-1"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "check:waystone-authority",
+      "role": "target",
+      "clauses": [
+        "dst-1"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "check:waystone-real-positions",
+      "role": "target",
+      "clauses": [
+        "dst-2c",
+        "api-2"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "check:waystone-fare",
+      "role": "target",
+      "clauses": [
+        "dst-5e",
+        "api-1"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "check:waystone-rpc",
+      "role": "target",
+      "clauses": [
+        "dst-5a",
+        "dst-9"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "check:waystone-lifecycle",
+      "role": "target",
+      "clauses": [
+        "dst-3",
+        "dst-6",
+        "dst-7",
+        "dst-8",
+        "api-3"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "server:world waystone component is master attached",
+      "role": "target",
+      "clauses": [
+        "dst-0",
+        "dst-1",
+        "dst-2a",
+        "dst-2c",
+        "dst-5a"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "server:real travel charges gold and moves the player",
+      "role": "target",
+      "clauses": [
+        "deliver-3",
+        "core-5d",
+        "dst-0",
+        "dst-2a",
+        "dst-2c",
+        "dst-4",
+        "dst-5a",
+        "dst-5b",
+        "dst-5d",
+        "dst-5e",
+        "dst-5f",
+        "dst-5h",
+        "dst-5i",
+        "api-1",
+        "api-2"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "server:removed anchor invalidates routes and rolls back travel",
+      "role": "target",
+      "clauses": [
+        "core-8d",
+        "dst-3",
+        "dst-4",
+        "dst-5f",
+        "dst-5g",
+        "api-1"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "server:state persists and listeners are released",
+      "role": "target",
+      "clauses": [
+        "dst-0",
+        "dst-2b",
+        "dst-3",
+        "dst-5b",
+        "dst-5c",
+        "dst-5i",
+        "dst-6",
+        "dst-7"
+      ],
+      "overlap": false,
+      "note": ""
+    }
+  ],
+  "clauses": [
+    {
+      "id": "deliver-1",
+      "anchor": "Required deliverables paragraph 1 (the four files): \"scripts/components/waystonenetwork.lua\"",
+      "status": "asserted",
+      "note": "evaluator required-files check"
+    },
+    {
+      "id": "deliver-2",
+      "anchor": "Required deliverables paragraph 2 (plus the export list of Network.new / Network.load and 12 methods): \"must `return` a table and export\"",
+      "status": "asserted",
+      "note": "every exported function is called by at least one hidden case"
+    },
+    {
+      "id": "deliver-3",
+      "anchor": "Required deliverables paragraph 3: \"The core module may use only plain Lua that is compatible with both Lua 5.1 and Lua 5.4\"",
+      "status": "asserted",
+      "note": "the core runs under Lua 5.4 in the sandbox and under the game's Lua 5.1 on the server; the sandbox has no os/clock at all"
+    },
+    {
+      "id": "core-1a",
+      "anchor": "Core semantics item 1: \"every method returns a newly created table\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "core-1b",
+      "anchor": "Core semantics item 1: \"a caller modifying them must not affect the internal state of the network\"",
+      "status": "asserted",
+      "note": "mutates a reserve result's ticket/path and every array of a snapshot, then compares a second snapshot"
+    },
+    {
+      "id": "core-1c",
+      "anchor": "Core semantics item 1: \"A failed call has no side effects at all, except for\"",
+      "status": "asserted",
+      "note": "failed reserve leaves request id reusable; invalid_time add_node creates no node; rejected add_node does not consume an owner slot"
+    },
+    {
+      "id": "core-2a",
+      "anchor": "Core semantics item 2: \"must be a number, not NaN, not positive or negative infinity\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "core-2b",
+      "anchor": "Core semantics item 2: \"the clock has already advanced\"",
+      "status": "asserted",
+      "note": "rejected add_node at 50 makes tick(49) invalid_time; reserve at expires_at sees the old ticket expired"
+    },
+    {
+      "id": "core-3a",
+      "anchor": "Core semantics item 3: \"is a string of length 1 to 64 that contains only the characters\"",
+      "status": "asserted",
+      "note": "empty, space, 65 chars, numeric owner, numeric link id, malformed request id, numeric ticket id; 64 chars accepted"
+    },
+    {
+      "id": "core-3b",
+      "anchor": "Core semantics item 3: \"the default value is used\"",
+      "status": "asserted",
+      "note": "max_nodes_per_owner=-1 and max_link_length='far' fall back to 4 and 60; defaults of cost_per_unit/ticket_ttl/cooldown are exercised only through the server component's explicit config, not through fallback"
+    },
+    {
+      "id": "core-3c",
+      "anchor": "Core semantics item 3: \"After time validation `add_node` checks in order\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "core-3d",
+      "anchor": "Core semantics item 3: \"A removed node no longer occupies a slot of its owner\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "core-4a",
+      "anchor": "Core semantics item 4: \"`blocked` must be a boolean\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "core-4b",
+      "anchor": "Core semantics item 4: \"on success it deletes the node and all of its links\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "core-5a",
+      "anchor": "Core semantics item 5: \"Links are undirected, and there is at most one per pair of nodes\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "core-5b",
+      "anchor": "Core semantics item 5: \"if this pair of nodes is already linked (regardless of argument order)\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "core-5c",
+      "anchor": "Core semantics item 5: \"a distance exactly equal to the limit is allowed\"",
+      "status": "asserted",
+      "note": "36-48-60 triangle accepted at exactly 60, (60,1) rejected"
+    },
+    {
+      "id": "core-5d",
+      "anchor": "Core semantics item 5: \"round to nearest, exactly .5 rounds up, minimum 1\"",
+      "status": "asserted",
+      "note": "2.5→3, 0→1, 7.07→7, 9.90→10, 5→5"
+    },
+    {
+      "id": "core-5e",
+      "anchor": "Core semantics item 5: \"Whether a node is blocked does not affect whether it can be linked\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "core-5f",
+      "anchor": "Core semantics item 5: \"<whether a link was actually deleted>\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "core-6a",
+      "anchor": "Core semantics item 6 (check order invalid_id -> unknown_node -> same_node -> blocked_endpoint -> search; no_route): \"either endpoint is blocked\"",
+      "status": "asserted",
+      "note": "each code is produced by a direct route call; route('b','b') on a blocked node pins same_node before blocked_endpoint"
+    },
+    {
+      "id": "core-6b",
+      "anchor": "Core semantics item 6: \"A path may pass only through existing nodes that are not blocked\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "core-6c",
+      "anchor": "Core semantics item 6: \"choose the one whose node ID sequence is lexicographically smallest\"",
+      "status": "asserted",
+      "note": "five graphs: cost beats hops, hops beats lexicographic order, lexicographic tie with skewed and equal distances, both insertion orders, full-sequence comparison in both directions"
+    },
+    {
+      "id": "core-6d",
+      "anchor": "Core semantics item 6: \"The result must not depend on the insertion order of nodes or links\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "core-7a",
+      "anchor": "Core semantics item 7, steps 1-2: \"regardless of what state the ticket is in now, and regardless of the cooldown\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "core-7b",
+      "anchor": "Core semantics item 7, step 2: \"Only a successful reservation is recorded in the request history\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "core-7c",
+      "anchor": "Core semantics item 7, step 3: \"reserving is already allowed\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "core-7d",
+      "anchor": "Core semantics item 7, step 4: \"Each traveler has at most one live ticket\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "core-7e",
+      "anchor": "Core semantics item 7, step 5: \"on failure return the error code of the route as is\"",
+      "status": "asserted",
+      "note": "unknown_node through reserve"
+    },
+    {
+      "id": "core-7f",
+      "anchor": "Core semantics item 7, ticket view: \"The fields of a ticket view are\"",
+      "status": "asserted",
+      "note": "prices 3.25→4, 2→2, 1.25→2, 6.25→7; uniqueness also after load"
+    },
+    {
+      "id": "core-8a",
+      "anchor": "Core semantics item 8: \"is a valid identifier (`invalid_id`) -> the ticket exists (`unknown_ticket`)\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "core-8b",
+      "anchor": "Core semantics item 8, commit: \"and changes no state (the cooldown does not start again)\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "core-8c",
+      "anchor": "Core semantics item 8, commit: \"when the ticket is in any other non-`reserved` state\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "core-8d",
+      "anchor": "Core semantics item 8, commit: \"For a live ticket the route is re-verified first\"",
+      "status": "asserted",
+      "note": "three causes: blocked hop, removed link, re-added node with different link costs; server: anchor removed mid-travel"
+    },
+    {
+      "id": "core-8e",
+      "anchor": "Core semantics item 8, commit: \"new, or even better, links appearing in the graph do not invalidate the ticket\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "core-8f",
+      "anchor": "Core semantics item 8, commit: \"If re-verification passes, the ticket is set to `committed`\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "core-8g",
+      "anchor": "Core semantics item 8, abort: \"a live ticket is set to `aborted`\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "core-8h",
+      "anchor": "Core semantics item 8, abort: \"never produce a cooldown, and the traveler can reserve again immediately\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "core-9a",
+      "anchor": "Core semantics item 9: \"A ticket is live only while `now < expires_at`\"",
+      "status": "asserted",
+      "note": "commit at expires_at-0.5 succeeds, commit at expires_at is ticket_closed/expired, reserve at expires_at is not traveler_busy"
+    },
+    {
+      "id": "core-9b",
+      "anchor": "Core semantics item 9: \"which contains only the tickets set to expired by this call\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "core-10",
+      "anchor": "Core semantics item 10 (shapes and ordering of nodes / links / tickets / cooldowns): \"in which each link appears only once with\"",
+      "status": "asserted",
+      "note": "ticket ordering is asserted with four live tickets (two expiry values, creation order differs from request_id order)"
+    },
+    {
+      "id": "core-11a",
+      "anchor": "Core semantics item 11: \"is newly created plain data\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "core-11b",
+      "anchor": "Core semantics item 11: \"returns a network that restores the nodes, the links and their costs\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "core-11c",
+      "anchor": "Core semantics item 11: \"must not keep a reference to `data`\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "core-11d",
+      "anchor": "Core semantics item 11: \"returns an empty network equivalent to\"",
+      "status": "asserted",
+      "note": "nil, false and a string are loaded; a table with an unrecognized layout is not exercised because the layout is implementation-defined"
+    },
+    {
+      "id": "dst-0",
+      "anchor": "DST integration paragraph 1: \"The server configuration is fixed as\"",
+      "status": "asserted",
+      "note": "owner cap 4 and link length 60/61 on real anchors, prices 3 and 2, radius boundary 4 vs 4.5, cooldown rejection; the ticket_ttl value and the numeric cooldown length are not probed on the server (no timers in a synchronous suite)"
+    },
+    {
+      "id": "dst-1",
+      "anchor": "DST integration item 1: \"to the world only on the master simulation\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "dst-2a",
+      "anchor": "DST integration item 2, Register (check order invalid_entity -> invalid_player -> already_registered -> duplicate_node): \"is a valid entity with a `Transform`\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "dst-2b",
+      "anchor": "DST integration item 2, Register: \"but has no bound entity (it comes from a save)\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "dst-2c",
+      "anchor": "DST integration item 2, Register: \"of the entity's real coordinates\"",
+      "status": "asserted",
+      "note": "link cost 5 and 10 can only come from the real transforms"
+    },
+    {
+      "id": "dst-3",
+      "anchor": "DST integration item 2, onremove listener: \"when the entity is removed, `remove_node` it from the core, unbind it\"",
+      "status": "asserted",
+      "note": "node and links disappear after :Remove(); callback identity is only checked through the listener table being empty after RemoveComponent"
+    },
+    {
+      "id": "dst-4",
+      "anchor": "DST integration item 2, Link and Route: \"return the results of the core `link` and `route` respectively\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "dst-5a",
+      "anchor": "DST integration item 2, Travel step 1: \"The traveler identity is taken only from `player.userid`\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "dst-5b",
+      "anchor": "DST integration item 2, Travel step 2: \"without charging or moving again\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "dst-5c",
+      "anchor": "DST integration item 2, Travel step 3: \"must be bound to a valid entity\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "dst-5d",
+      "anchor": "DST integration item 2, Travel step 4: \"exactly equal to the radius is allowed\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "dst-5e",
+      "anchor": "DST integration item 2, Travel step 5: \"not a single nugget may be deducted\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "dst-5f",
+      "anchor": "DST integration item 2, Travel step 6: \"and then call the core `commit`\"",
+      "status": "asserted",
+      "note": "order is observed through the itemlose hook firing before commit"
+    },
+    {
+      "id": "dst-5g",
+      "anchor": "DST integration item 2, Travel step 7: \"move the player back to the original position, refund all `price` gold nuggets\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "dst-5h",
+      "anchor": "DST integration item 2, Travel step 8: \"<committed ticket view>\"",
+      "status": "asserted",
+      "note": "cooldown_until value itself is not compared on the server"
+    },
+    {
+      "id": "dst-5i",
+      "anchor": "DST integration item 2, Travel closing paragraph: \"Any failure in steps 3 to 5 must `abort` the ticket before returning\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "dst-6",
+      "anchor": "DST integration item 2, OnSave/OnLoad: \"unregisters and clears all current entity bindings\"",
+      "status": "asserted",
+      "note": "clock offset is observed only through the cooldown still holding after load in the same process"
+    },
+    {
+      "id": "dst-7",
+      "anchor": "DST integration item 2, OnRemoveFromEntity: \"cancels the periodic task and unregisters the `onremove` callbacks on all registered entities\"",
+      "status": "weak",
+      "note": "listener release is asserted on the real engine; task cancellation is regex-only"
+    },
+    {
+      "id": "dst-8",
+      "anchor": "DST integration item 3: \"to call the core `tick` periodically\"",
+      "status": "weak",
+      "note": "the synchronous suite cannot wait for a timer"
+    },
+    {
+      "id": "dst-9",
+      "anchor": "DST integration item 4: \"accepts only these three string identifiers\"",
+      "status": "weak",
+      "note": "no client exists on the headless server; regex only"
+    },
+    {
+      "id": "api-1",
+      "anchor": "Base-game API contract code block (Has / ConsumeByName / SpawnPrefab + SetStackSize + GiveItem): \"refund.components.stackable:SetStackSize(count)\"",
+      "status": "asserted",
+      "note": "effects are observed in the real inventory; the exact call names are regex-checked"
+    },
+    {
+      "id": "api-2",
+      "anchor": "Base-game API contract code block (Physics:Teleport, otherwise Transform:SetPosition): \"player.Physics:Teleport(x, y, z)\"",
+      "status": "asserted",
+      "note": "one traveler has real Physics, the others do not; which branch ran is regex-only"
+    },
+    {
+      "id": "api-3",
+      "anchor": "Base-game API contract paragraph 1 (Class(...) and the OnSave/OnLoad/OnRemoveFromEntity method form): \"and defines the lifecycle methods in the form\"",
+      "status": "weak",
+      "note": ""
+    },
+    {
+      "id": "accept-1",
+      "anchor": "Acceptance item 3: \"the non-comment code totals at least 280 lines\"",
+      "status": "asserted",
+      "note": ""
+    }
+  ],
+  "excluded_clauses": [],
+  "known_issues": []
+}

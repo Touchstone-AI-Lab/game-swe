@@ -1,0 +1,5 @@
+control	kind	base	overlay	root	note
+target-negative-ex274	target-negative	reference	patch:target-negative-ex274.patch	exodus	reference with the two EX-274 Deja Vu hunks of the composite gold.patch (18, 19) reverted; split tears return again (same file as the composite task's control)
+compat-negative-deja-vu-normal-return	compat-negative	reference	patch:compat-negative-deja-vu-normal-return.patch	exodus	reference with the split-tear test written with | instead of &, which excludes every tear from the return mechanic, against EX-274's preserve sentence (same file as the composite task's control)
+alternative	alternative	starter	patch:alternative.patch	exodus	starter plus the composite task's independent alternative repairs of EX-203, EX-217, EX-226, EX-251, EX-266, EX-274, EX-318, EX-342 only (its hunks 1, 2, 6, 7, 8, 9, 13, 16, 17, 23, 24); written differently from gold.patch, see NOTES.md
+alternative-strict-reading	alternative	starter	patch:alternative-strict-reading.patch	exodus	same as alternative except the EX-226 rebound is a one-reversal-per-impact debounce without moving the tear; expected to be rejected by grid_worm_bounce only

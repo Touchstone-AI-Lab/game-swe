@@ -1,0 +1,17 @@
+{
+  "schemaVersion": 1,
+  "taskId": "prop-ownership-quota-registry",
+  "taskVersion": "2.2.0",
+  "originType": "workshop-functional-evidence",
+  "workshopId": "145061455",
+  "url": "https://steamcommunity.com/sharedfiles/filedetails/?id=145061455",
+  "title": "Simple Prop Protection",
+  "author": "Donkie",
+  "accessedAt": "2026-08-02",
+  "license": "unknown",
+  "licenseHandling": "clean-room behavior abstraction only",
+  "codeCopied": false,
+  "assetsCopied": false,
+  "capabilitiesObserved": ["prop ownership protection", "Physgun/Tool/Property protection", "delayed disconnect cleanup"],
+  "benchmarkCapabilities": ["server-authoritative logical ownership", "quota and request idempotency", "logical ID plus revision", "deterministic persistence"]
+}

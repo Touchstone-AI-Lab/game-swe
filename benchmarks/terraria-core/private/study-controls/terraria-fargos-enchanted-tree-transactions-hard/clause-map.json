@@ -1,0 +1,662 @@
+{
+  "task": "terraria/core/terraria-fargos-enchanted-tree-transactions-hard",
+  "task_version": "0.1.0",
+  "exam": "benchmarks/terraria-core/exams/terraria-fargos-enchanted-tree-transactions-hard.md",
+  "cases": [
+    {
+      "id": "check:submission-shape",
+      "role": "static"
+    },
+    {
+      "id": "projection:insert-stores-held-type",
+      "role": "target",
+      "clauses": [
+        "insertion-transaction"
+      ]
+    },
+    {
+      "id": "projection:insert-consumes-exactly-one",
+      "role": "target",
+      "clauses": [
+        "insertion-transaction"
+      ]
+    },
+    {
+      "id": "projection:insert-preserves-prefix",
+      "role": "target",
+      "clauses": [
+        "insertion-transaction"
+      ]
+    },
+    {
+      "id": "projection:insert-acknowledges-right-click",
+      "role": "target",
+      "clauses": [
+        "insertion-transaction"
+      ]
+    },
+    {
+      "id": "projection:insert-arms-removal-cooldown",
+      "role": "target",
+      "clauses": [
+        "insertion-transaction"
+      ]
+    },
+    {
+      "id": "projection:insert-creates-root-fruit-for-eligible-item",
+      "role": "target",
+      "clauses": [
+        "insertion-transaction"
+      ]
+    },
+    {
+      "id": "projection:insert-does-not-create-fruit-for-ineligible-item",
+      "role": "target",
+      "clauses": [
+        "insertion-transaction"
+      ]
+    },
+    {
+      "id": "projection:insert-rejects-favorited-item-atomically",
+      "role": "target",
+      "clauses": [
+        "insertion-transaction"
+      ]
+    },
+    {
+      "id": "projection:insert-rejects-occupied-tree-atomically",
+      "role": "target",
+      "clauses": [
+        "insertion-transaction"
+      ]
+    },
+    {
+      "id": "projection:insert-rejects-server-authority",
+      "role": "target",
+      "clauses": [
+        "insertion-transaction"
+      ]
+    },
+    {
+      "id": "projection:insert-sync-uses-canonical-tree-index",
+      "role": "target",
+      "clauses": [
+        "multiplayer-sync"
+      ]
+    },
+    {
+      "id": "projection:single-player-insert-does-not-send-tree-packet",
+      "role": "target",
+      "clauses": [
+        "multiplayer-sync"
+      ]
+    },
+    {
+      "id": "projection:removal-is-blocked-during-cooldown",
+      "role": "target",
+      "clauses": [
+        "removal-transaction"
+      ]
+    },
+    {
+      "id": "projection:removal-ejects-stored-item-once",
+      "role": "target",
+      "clauses": [
+        "removal-transaction"
+      ]
+    },
+    {
+      "id": "projection:removal-preserves-stored-prefix",
+      "role": "target",
+      "clauses": [
+        "removal-transaction"
+      ]
+    },
+    {
+      "id": "projection:removal-clears-stored-type",
+      "role": "target",
+      "clauses": [
+        "removal-transaction"
+      ]
+    },
+    {
+      "id": "projection:removal-marks-all-live-fruit-for-despawn",
+      "role": "target",
+      "clauses": [
+        "removal-transaction"
+      ]
+    },
+    {
+      "id": "projection:late-recipe-is-discovered-after-setup",
+      "role": "target",
+      "clauses": [
+        "recipe-lifecycle"
+      ]
+    },
+    {
+      "id": "projection:directly-duplicatable-ingredient-is-retained",
+      "role": "target",
+      "clauses": [
+        "duplication-policy"
+      ]
+    },
+    {
+      "id": "projection:material-policy-retains-ordinary-ingredient",
+      "role": "target",
+      "clauses": [
+        "duplication-policy"
+      ]
+    },
+    {
+      "id": "projection:material-policy-rejects-not-dupable-from-dupable",
+      "role": "target",
+      "clauses": [
+        "duplication-policy"
+      ]
+    },
+    {
+      "id": "projection:recipe-branches-deduplicate-ingredients",
+      "role": "target",
+      "clauses": [
+        "recipe-lifecycle"
+      ]
+    },
+    {
+      "id": "projection:recipe-branches-preserve-discovery-order",
+      "role": "target",
+      "clauses": [
+        "recipe-lifecycle"
+      ]
+    },
+    {
+      "id": "projection:recipe-rebuild-removes-stale-result",
+      "role": "target",
+      "clauses": [
+        "recipe-snapshot-rebuild"
+      ]
+    },
+    {
+      "id": "projection:recipe-rebuild-replaces-stale-ingredients",
+      "role": "target",
+      "clauses": [
+        "recipe-snapshot-rebuild"
+      ]
+    },
+    {
+      "id": "projection:recipe-rebuild-preserves-dictionary-reference",
+      "role": "target",
+      "clauses": [
+        "recipe-snapshot-rebuild"
+      ]
+    },
+    {
+      "id": "projection:recipe-rebuild-is-idempotent",
+      "role": "target",
+      "clauses": [
+        "recipe-snapshot-rebuild"
+      ]
+    },
+    {
+      "id": "projection:recipe-rebuild-drops-newly-ineligible-result",
+      "role": "target",
+      "clauses": [
+        "recipe-snapshot-rebuild"
+      ]
+    },
+    {
+      "id": "projection:network-roundtrip-preserves-header",
+      "role": "target",
+      "clauses": [
+        "state-roundtrip"
+      ]
+    },
+    {
+      "id": "projection:network-roundtrip-preserves-fruit-state",
+      "role": "target",
+      "clauses": [
+        "state-roundtrip"
+      ]
+    },
+    {
+      "id": "projection:network-receive-replaces-stale-fruit",
+      "role": "target",
+      "clauses": [
+        "state-roundtrip"
+      ]
+    },
+    {
+      "id": "projection:network-receive-negative-count-rolls-back",
+      "role": "target",
+      "clauses": [
+        "network-transaction"
+      ]
+    },
+    {
+      "id": "projection:network-receive-excessive-count-rolls-back",
+      "role": "target",
+      "clauses": [
+        "network-transaction"
+      ]
+    },
+    {
+      "id": "projection:network-receive-truncated-header-rolls-back",
+      "role": "target",
+      "clauses": [
+        "network-transaction"
+      ]
+    },
+    {
+      "id": "projection:network-receive-truncated-fruit-rolls-back",
+      "role": "target",
+      "clauses": [
+        "network-transaction"
+      ]
+    },
+    {
+      "id": "projection:network-receive-nan-center-rolls-back",
+      "role": "target",
+      "clauses": [
+        "network-transaction"
+      ]
+    },
+    {
+      "id": "projection:network-receive-infinite-target-rolls-back",
+      "role": "target",
+      "clauses": [
+        "network-transaction"
+      ]
+    },
+    {
+      "id": "projection:network-receive-infinite-velocity-rolls-back",
+      "role": "target",
+      "clauses": [
+        "network-transaction"
+      ]
+    },
+    {
+      "id": "projection:network-receive-nonfinite-despawn-rolls-back",
+      "role": "target",
+      "clauses": [
+        "network-graph-integrity"
+      ]
+    },
+    {
+      "id": "projection:network-receive-negative-despawn-rolls-back",
+      "role": "target",
+      "clauses": [
+        "network-graph-integrity"
+      ]
+    },
+    {
+      "id": "projection:network-receive-negative-grab-cooldown-rolls-back",
+      "role": "target",
+      "clauses": [
+        "network-graph-integrity"
+      ]
+    },
+    {
+      "id": "projection:network-receive-root-layer-rolls-back",
+      "role": "target",
+      "clauses": [
+        "network-graph-integrity"
+      ]
+    },
+    {
+      "id": "projection:network-receive-forward-parent-rolls-back",
+      "role": "target",
+      "clauses": [
+        "network-graph-integrity"
+      ]
+    },
+    {
+      "id": "projection:network-receive-negative-parent-rolls-back",
+      "role": "target",
+      "clauses": [
+        "network-graph-integrity"
+      ]
+    },
+    {
+      "id": "projection:network-receive-layer-mismatch-rolls-back",
+      "role": "target",
+      "clauses": [
+        "network-graph-integrity"
+      ]
+    },
+    {
+      "id": "projection:network-receive-valid-multilevel-forest",
+      "role": "target",
+      "clauses": [
+        "network-graph-integrity"
+      ]
+    },
+    {
+      "id": "projection:network-receive-valid-multiroot-forest",
+      "role": "target",
+      "clauses": [
+        "network-graph-integrity"
+      ]
+    },
+    {
+      "id": "projection:network-send-invalid-topology-is-atomic",
+      "role": "target",
+      "clauses": [
+        "network-graph-integrity"
+      ]
+    },
+    {
+      "id": "projection:network-send-invalid-scalar-is-atomic",
+      "role": "target",
+      "clauses": [
+        "network-graph-integrity"
+      ]
+    },
+    {
+      "id": "projection:network-send-excessive-count-is-atomic",
+      "role": "target",
+      "clauses": [
+        "network-graph-integrity"
+      ]
+    },
+    {
+      "id": "projection:network-receive-accepts-limit",
+      "role": "target",
+      "clauses": [
+        "network-transaction"
+      ]
+    },
+    {
+      "id": "projection:network-receive-leaves-following-field-aligned",
+      "role": "target",
+      "clauses": [
+        "network-transaction"
+      ]
+    },
+    {
+      "id": "projection:save-load-roundtrip-preserves-item-and-prefix",
+      "role": "target",
+      "clauses": [
+        "state-roundtrip"
+      ]
+    },
+    {
+      "id": "projection:missing-tree-entry-does-not-block-later-cooldown",
+      "role": "target",
+      "clauses": [
+        "global-update-loop"
+      ]
+    },
+    {
+      "id": "projection:adjacent-expired-fruit-are-all-removed",
+      "role": "target",
+      "clauses": [
+        "global-update-loop"
+      ]
+    },
+    {
+      "id": "projection:expired-removal-rebases-later-parent",
+      "role": "target",
+      "clauses": [
+        "fruit-index-compaction"
+      ]
+    },
+    {
+      "id": "projection:adjacent-expired-removal-rebases-deep-survivor",
+      "role": "target",
+      "clauses": [
+        "fruit-index-compaction"
+      ]
+    },
+    {
+      "id": "projection:removed-internal-parent-relinks-child",
+      "role": "target",
+      "clauses": [
+        "fruit-index-compaction"
+      ]
+    },
+    {
+      "id": "projection:removed-root-promotes-direct-child",
+      "role": "target",
+      "clauses": [
+        "fruit-index-compaction"
+      ]
+    },
+    {
+      "id": "projection:removed-grabbed-fruit-clears-ownership",
+      "role": "target",
+      "clauses": [
+        "fruit-index-compaction"
+      ]
+    },
+    {
+      "id": "projection:expired-removal-preserves-fruit-list-reference",
+      "role": "target",
+      "clauses": [
+        "fruit-index-compaction"
+      ]
+    },
+    {
+      "id": "projection:branch-expansion-adds-recipe-children-in-order",
+      "role": "target",
+      "clauses": [
+        "branch-lifecycle"
+      ]
+    },
+    {
+      "id": "projection:branch-expansion-links-parent-and-next-layer",
+      "role": "target",
+      "clauses": [
+        "branch-lifecycle"
+      ]
+    },
+    {
+      "id": "projection:fading-direct-child-still-blocks-duplicate-expansion",
+      "role": "target",
+      "clauses": [
+        "branch-lifecycle"
+      ]
+    },
+    {
+      "id": "projection:revisiting-branch-despawns-deeper-live-fruit",
+      "role": "target",
+      "clauses": [
+        "branch-lifecycle"
+      ]
+    },
+    {
+      "id": "projection:revisiting-branch-preserves-unrelated-deep-fruit",
+      "role": "target",
+      "clauses": [
+        "branch-ancestry"
+      ]
+    },
+    {
+      "id": "projection:revisiting-branch-prunes-through-fading-child",
+      "role": "target",
+      "clauses": [
+        "branch-ancestry"
+      ]
+    },
+    {
+      "id": "projection:branch-mutation-syncs-on-multiplayer-client",
+      "role": "target",
+      "clauses": [
+        "branch-lifecycle"
+      ]
+    },
+    {
+      "id": "projection:unchanged-branch-does-not-sync",
+      "role": "target",
+      "clauses": [
+        "branch-lifecycle"
+      ]
+    },
+    {
+      "id": "projection:drag-release-clears-player-ownership",
+      "role": "target",
+      "clauses": [
+        "duplication-purchase"
+      ]
+    },
+    {
+      "id": "projection:drag-release-arms-grab-cooldown",
+      "role": "target",
+      "clauses": [
+        "duplication-purchase"
+      ]
+    },
+    {
+      "id": "projection:duplication-charges-double-item-value",
+      "role": "target",
+      "clauses": [
+        "duplication-purchase"
+      ]
+    },
+    {
+      "id": "projection:successful-duplication-preserves-prefix-and-tags-item",
+      "role": "target",
+      "clauses": [
+        "duplication-purchase"
+      ]
+    },
+    {
+      "id": "projection:successful-duplication-syncs-spawned-item",
+      "role": "target",
+      "clauses": [
+        "duplication-purchase"
+      ]
+    },
+    {
+      "id": "projection:failed-duplication-is-payment-atomic",
+      "role": "target",
+      "clauses": [
+        "duplication-purchase"
+      ]
+    },
+    {
+      "id": "projection:duplicate-tree-coordinate-decrements-cooldown-once",
+      "role": "target",
+      "clauses": [
+        "tree-registry-deduplication"
+      ]
+    },
+    {
+      "id": "projection:duplicate-tree-coordinate-advances-despawn-once",
+      "role": "target",
+      "clauses": [
+        "tree-registry-deduplication"
+      ]
+    },
+    {
+      "id": "projection:duplicate-tree-coordinate-does-not-consume-new-purchase-cooldown",
+      "role": "target",
+      "clauses": [
+        "tree-registry-deduplication"
+      ]
+    },
+    {
+      "id": "server:real_engine_recipe_graph_drops_stale_entries",
+      "role": "target",
+      "clauses": [
+        "request"
+      ]
+    },
+    {
+      "id": "server:real_engine_recipe_graph_deduplicates_ingredients",
+      "role": "target",
+      "clauses": [
+        "request"
+      ]
+    },
+    {
+      "id": "server:real_engine_recipe_graph_honors_not_from_dupable",
+      "role": "target",
+      "clauses": [
+        "request"
+      ]
+    }
+  ],
+  "clauses": [
+    {
+      "id": "insertion-transaction",
+      "anchor": "exam report insertion-transaction",
+      "status": "asserted"
+    },
+    {
+      "id": "multiplayer-sync",
+      "anchor": "exam report multiplayer-sync",
+      "status": "asserted"
+    },
+    {
+      "id": "removal-transaction",
+      "anchor": "exam report removal-transaction",
+      "status": "asserted"
+    },
+    {
+      "id": "recipe-lifecycle",
+      "anchor": "exam report recipe-lifecycle",
+      "status": "asserted"
+    },
+    {
+      "id": "duplication-policy",
+      "anchor": "exam report duplication-policy",
+      "status": "asserted"
+    },
+    {
+      "id": "recipe-snapshot-rebuild",
+      "anchor": "exam report recipe-snapshot-rebuild",
+      "status": "asserted"
+    },
+    {
+      "id": "state-roundtrip",
+      "anchor": "exam report state-roundtrip",
+      "status": "asserted"
+    },
+    {
+      "id": "network-transaction",
+      "anchor": "exam report network-transaction",
+      "status": "asserted"
+    },
+    {
+      "id": "network-graph-integrity",
+      "anchor": "exam report network-graph-integrity",
+      "status": "asserted"
+    },
+    {
+      "id": "global-update-loop",
+      "anchor": "exam report global-update-loop",
+      "status": "asserted"
+    },
+    {
+      "id": "fruit-index-compaction",
+      "anchor": "exam report fruit-index-compaction",
+      "status": "asserted"
+    },
+    {
+      "id": "branch-lifecycle",
+      "anchor": "exam report branch-lifecycle",
+      "status": "asserted"
+    },
+    {
+      "id": "branch-ancestry",
+      "anchor": "exam report branch-ancestry",
+      "status": "asserted"
+    },
+    {
+      "id": "duplication-purchase",
+      "anchor": "exam report duplication-purchase",
+      "status": "asserted"
+    },
+    {
+      "id": "tree-registry-deduplication",
+      "anchor": "exam report tree-registry-deduplication",
+      "status": "asserted"
+    },
+    {
+      "id": "request",
+      "anchor": "exam body; split into individual clauses during review",
+      "status": "asserted"
+    }
+  ],
+  "excluded_clauses": [],
+  "known_issues": []
+}

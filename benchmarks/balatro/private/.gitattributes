@@ -1,0 +1,15 @@
+# Frozen authored CRLF is intentional; retain all byte checks in assets.json.
+native-v1/** whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
+# These exact hashed sources also contain pre-existing space-only lines.
+# Preserve them without exempting other whitespace classes or any source hash.
+native-v1/controls/isolated-card-wear-v2/M01-stale-cache/lib/wear.lua whitespace=-blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
+native-v1/controls/isolated-card-wear-v2/M02-last-reward/lib/wear.lua whitespace=-blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
+native-v1/controls/isolated-card-wear-v2/M03-shared-prototype/lib/wear.lua whitespace=-blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
+native-v1/controls/isolated-card-wear-v2/base/lib/wear.lua whitespace=-blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
+native-v1/controls/isolated-card-wear-v2/gold/lib/wear.lua whitespace=-blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
+native-v1/controls/live-joker-adjacency-v2/M01-shared-result/lib/adjacency.lua whitespace=-blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
+native-v1/controls/live-joker-adjacency-v2/M02-stale-index/lib/adjacency.lua whitespace=-blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
+native-v1/controls/live-joker-adjacency-v2/M03-exclude-target/lib/adjacency.lua whitespace=-blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
+native-v1/controls/live-joker-adjacency-v2/M04-wrap/lib/adjacency.lua whitespace=-blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
+native-v1/controls/live-joker-adjacency-v2/base/lib/adjacency.lua whitespace=-blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
+native-v1/controls/live-joker-adjacency-v2/gold/lib/adjacency.lua whitespace=-blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol

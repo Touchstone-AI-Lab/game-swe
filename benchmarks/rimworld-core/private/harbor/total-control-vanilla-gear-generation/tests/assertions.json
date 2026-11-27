@@ -1,0 +1,282 @@
+{
+  "schemaVersion": 3,
+  "protocol": "rhenium-rimworld-private-v3",
+  "adapter": "rhenium-rimworld-observer-v3",
+  "taskKey": "rimworld/core/total-control-vanilla-gear-generation",
+  "weights": {
+    "submissionShape": 10,
+    "engineAssertions": 90
+  },
+  "cases": [
+    {
+      "id": "runtime-defs-ready",
+      "fixture": "RuntimeDefsReady",
+      "gate": true,
+      "scalars": [],
+      "expected": {
+        "facts": [
+          {
+            "name": "result",
+            "value": "ready"
+          }
+        ],
+        "outputs": []
+      }
+    },
+    {
+      "id": "apparel-explicit-quality",
+      "fixture": "ApparelExplicitQuality",
+      "gate": false,
+      "scalars": [],
+      "expected": {
+        "facts": [
+          {
+            "name": "result",
+            "value": "Masterwork"
+          }
+        ],
+        "outputs": []
+      }
+    },
+    {
+      "id": "weapon-explicit-quality",
+      "fixture": "WeaponExplicitQuality",
+      "gate": false,
+      "scalars": [],
+      "expected": {
+        "facts": [
+          {
+            "name": "result",
+            "value": "Masterwork"
+          }
+        ],
+        "outputs": []
+      }
+    },
+    {
+      "id": "apparel-vanilla-quality",
+      "fixture": "ApparelVanillaQuality",
+      "gate": false,
+      "scalars": [],
+      "expected": {
+        "facts": [
+          {
+            "name": "result",
+            "value": "True"
+          }
+        ],
+        "outputs": []
+      }
+    },
+    {
+      "id": "weapon-vanilla-quality",
+      "fixture": "WeaponVanillaQuality",
+      "gate": false,
+      "scalars": [],
+      "expected": {
+        "facts": [
+          {
+            "name": "result",
+            "value": "True"
+          }
+        ],
+        "outputs": []
+      }
+    },
+    {
+      "id": "apparel-low-health",
+      "fixture": "ApparelLowHealth",
+      "gate": false,
+      "scalars": [],
+      "expected": {
+        "facts": [
+          {
+            "name": "result",
+            "value": "True"
+          }
+        ],
+        "outputs": []
+      }
+    },
+    {
+      "id": "weapon-low-health",
+      "fixture": "WeaponLowHealth",
+      "gate": false,
+      "scalars": [],
+      "expected": {
+        "facts": [
+          {
+            "name": "result",
+            "value": "True"
+          }
+        ],
+        "outputs": []
+      }
+    },
+    {
+      "id": "apparel-min-one-hp",
+      "fixture": "ApparelMinOneHp",
+      "gate": false,
+      "scalars": [],
+      "expected": {
+        "facts": [
+          {
+            "name": "result",
+            "value": "True"
+          }
+        ],
+        "outputs": []
+      }
+    },
+    {
+      "id": "weapon-min-one-hp",
+      "fixture": "WeaponMinOneHp",
+      "gate": false,
+      "scalars": [],
+      "expected": {
+        "facts": [
+          {
+            "name": "result",
+            "value": "True"
+          }
+        ],
+        "outputs": []
+      }
+    },
+    {
+      "id": "apparel-full-health",
+      "fixture": "ApparelFullHealth",
+      "gate": false,
+      "scalars": [],
+      "expected": {
+        "facts": [
+          {
+            "name": "result",
+            "value": "True"
+          }
+        ],
+        "outputs": []
+      }
+    },
+    {
+      "id": "weapon-full-health",
+      "fixture": "WeaponFullHealth",
+      "gate": false,
+      "scalars": [],
+      "expected": {
+        "facts": [
+          {
+            "name": "result",
+            "value": "True"
+          }
+        ],
+        "outputs": []
+      }
+    },
+    {
+      "id": "non-hitpoint-apparel",
+      "fixture": "NonHitpointApparel",
+      "gate": false,
+      "scalars": [],
+      "expected": {
+        "facts": [
+          {
+            "name": "result",
+            "value": "True"
+          }
+        ],
+        "outputs": []
+      }
+    },
+    {
+      "id": "non-hitpoint-weapon",
+      "fixture": "NonHitpointWeapon",
+      "gate": false,
+      "scalars": [],
+      "expected": {
+        "facts": [
+          {
+            "name": "result",
+            "value": "True"
+          }
+        ],
+        "outputs": []
+      }
+    },
+    {
+      "id": "style-preserved",
+      "fixture": "StylePreserved",
+      "gate": false,
+      "scalars": [],
+      "expected": {
+        "facts": [
+          {
+            "name": "result",
+            "value": "True"
+          }
+        ],
+        "outputs": []
+      }
+    },
+    {
+      "id": "color-preserved",
+      "fixture": "ColorPreserved",
+      "gate": false,
+      "scalars": [],
+      "expected": {
+        "facts": [
+          {
+            "name": "result",
+            "value": "True"
+          }
+        ],
+        "outputs": []
+      }
+    },
+    {
+      "id": "material-preserved",
+      "fixture": "MaterialPreserved",
+      "gate": false,
+      "scalars": [],
+      "expected": {
+        "facts": [
+          {
+            "name": "result",
+            "value": "True"
+          }
+        ],
+        "outputs": []
+      }
+    },
+    {
+      "id": "rand-state-restored",
+      "fixture": "RandStateRestored",
+      "gate": false,
+      "scalars": [],
+      "expected": {
+        "facts": [
+          {
+            "name": "result",
+            "value": "True"
+          }
+        ],
+        "outputs": []
+      }
+    },
+    {
+      "id": "fixture-state-restored",
+      "fixture": "FixtureStateRestored",
+      "gate": true,
+      "scalars": [],
+      "expected": {
+        "facts": [
+          {
+            "name": "result",
+            "value": "restored"
+          }
+        ],
+        "outputs": []
+      }
+    }
+  ]
+}

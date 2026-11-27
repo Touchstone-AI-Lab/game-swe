@@ -1,0 +1,88 @@
+case	group	prompt_clause	production_path
+completion_trim_is_stable_and_unique	completion-persistence	Saved names remain stable first-seen and unique	Common/Carpentry/BuildChallengeSaveData.cs
+completion_add_is_idempotent	completion-persistence	Adding the same completion is idempotent	Common/Carpentry/BuildChallengeSaveData.cs
+save_uses_independent_list	completion-persistence	Saved completion list is independent	Common/Carpentry/BuildChallengeSaveData.cs
+load_clears_stale_and_deduplicates	completion-persistence	Load replaces stale data and canonicalizes duplicates	Common/Carpentry/BuildChallengeSaveData.cs
+unknown_names_survive_local_persistence	completion-persistence	Unknown content names survive local persistence	Common/Carpentry/BuildChallengeSaveData.cs
+completion_frame_uses_global_ids	completion-network	Wire frame uses global challenge Type IDs	Common/Carpentry/BuildChallengeSaveData.cs
+completion_frame_is_unique_and_sorted	completion-network	Completion IDs are unique and ascending	Common/Carpentry/BuildChallengeSaveData.cs
+unknown_names_are_omitted_only_from_wire	completion-network	Unknown names are omitted without local deletion	Common/Carpentry/BuildChallengeSaveData.cs
+completion_receive_replaces_on_success	completion-network	Valid completion receive replaces once	Common/Carpentry/BuildChallengeSaveData.cs
+completion_receive_rejects_negative_count	completion-network	Negative completion count is malformed	Common/Carpentry/BuildChallengeSaveData.cs
+completion_receive_rejects_large_count	completion-network	Completion count is registry-bounded	Common/Carpentry/BuildChallengeSaveData.cs
+completion_receive_rejects_duplicate_ids	completion-network	Duplicate completion IDs are rejected	Common/Carpentry/BuildChallengeSaveData.cs
+completion_receive_rejects_out_of_range_id	completion-network	Invalid completion ID is rejected	Common/Carpentry/BuildChallengeSaveData.cs
+completion_receive_truncation_rolls_back	completion-network	Truncated completion frame rolls back	Common/Carpentry/BuildChallengeSaveData.cs
+completion_receive_rejects_unsorted_ids	completion-network	Completion receive requires canonical ascending IDs	Common/Carpentry/BuildChallengeSaveData.cs
+building_load_continues_after_missing_key	building-persistence	Load continues past absent challenge keys	Common/Carpentry/BuildBuffsData.cs
+building_load_clears_stale_state	building-persistence	Load clears stale state once	Common/Carpentry/BuildBuffsData.cs
+building_load_copies_tag_lists	building-persistence	Loaded rectangle lists are copied	Common/Carpentry/BuildBuffsData.cs
+world_save_does_not_clear_live_buildings	building-persistence	World save does not erase live buildings	Common/Carpentry/CarpentrySystem.cs
+world_save_load_restores_completions_and_buildings	building-persistence	World save/load restores both completed names and buildings	Common/Carpentry/CarpentrySystem.cs
+clear_world_clears_both_stores	building-persistence	ClearWorld clears completion and building stores	Common/Carpentry/CarpentrySystem.cs
+building_save_skips_unknown_and_invalid_state	building-persistence	Save snapshots only canonical registered groups	Common/Carpentry/BuildBuffsData.cs
+building_load_filters_overflowing_rectangles	building-persistence	Load rejects coordinate-overflow rectangles	Common/Carpentry/BuildBuffsData.cs
+trim_checks_every_step_without_stalling	building-validation	Trim evaluates every scan step and terminates	Common/Carpentry/BuildBuffsData.cs
+trim_removes_failed_location_and_keeps_later	building-validation	Failed location is removed and later location checked	Common/Carpentry/BuildBuffsData.cs
+trim_removes_throwing_location_and_keeps_later	building-validation	Throwing location is removed logged and isolated	Common/Carpentry/BuildBuffsData.cs
+add_rejects_unknown_challenge_id	building-validation	Unknown challenge ID is rejected	Common/Carpentry/BuildBuffsData.cs
+add_rejects_nonpositive_rectangle	building-validation	Rectangle dimensions must be positive	Common/Carpentry/BuildBuffsData.cs
+add_rejects_overlapping_rectangle	building-validation	Overlapping rectangle is rejected	Common/Carpentry/BuildBuffsData.cs
+add_rejects_overflowing_rectangle	building-validation	Rectangle edges may not overflow signed coordinates	Common/Carpentry/BuildBuffsData.cs
+building_frame_orders_groups	building-network-send	Building groups are ascending by challenge ID	Common/Carpentry/BuildBuffsData.cs
+building_frame_count_matches_nonempty_groups	building-network-send	Frame count matches emitted nonempty groups	Common/Carpentry/BuildBuffsData.cs
+building_frame_skips_empty_groups	building-network-send	Empty groups emit no payload	Common/Carpentry/BuildBuffsData.cs
+building_receive_replaces_on_success	building-network-receive	Valid building frame replaces once	Common/Carpentry/BuildBuffsData.cs
+building_receive_rejects_negative_group_count	building-network-receive	Negative group count is rejected	Common/Carpentry/BuildBuffsData.cs
+building_receive_rejects_duplicate_group	building-network-receive	Duplicate group IDs are rejected	Common/Carpentry/BuildBuffsData.cs
+building_receive_rejects_unknown_group	building-network-receive	Unknown group ID is rejected	Common/Carpentry/BuildBuffsData.cs
+building_receive_rejects_excessive_locations	building-network-receive	Per-group location count is bounded	Common/Carpentry/BuildBuffsData.cs
+building_receive_rejects_empty_group	building-network-receive	Canonical received building groups are nonempty	Common/Carpentry/BuildBuffsData.cs
+building_receive_rejects_invalid_rectangle	building-network-receive	Invalid rectangle is rejected transactionally	Common/Carpentry/BuildBuffsData.cs
+building_receive_rejects_overlap	building-network-receive	Overlapping received rectangles are rejected	Common/Carpentry/BuildBuffsData.cs
+building_receive_truncation_rolls_back	building-network-receive	Truncated building frame rolls back	Common/Carpentry/BuildBuffsData.cs
+building_receive_rejects_unsorted_groups	building-network-receive	Building receive requires canonical ascending groups	Common/Carpentry/BuildBuffsData.cs
+building_receive_rejects_overflowing_rectangle	building-network-receive	Overflowing rectangle rejects transactionally	Common/Carpentry/BuildBuffsData.cs
+world_sync_writes_completions_then_buildings	world-authority-clone	World sync orders both sections	Common/Carpentry/CarpentrySystem.cs
+world_sync_rolls_back_both_sections	world-authority-clone	Either receive failure restores both stores	Common/Carpentry/CarpentrySystem.cs
+client_completion_requests_without_local_mutation	world-authority-clone	Client completion is request-only	Common/Carpentry/CarpentrySystem.cs
+server_completion_adds_and_broadcasts_once	world-authority-clone	Server broadcasts only a new completion	Common/Carpentry/CarpentrySystem.cs
+server_reset_clears_then_broadcasts	world-authority-clone	Server reset clears before broadcast	Common/Carpentry/CarpentrySystem.cs
+building_add_packet_requires_real_change	world-authority-clone	Add packet follows successful state change	Common/Carpentry/CarpentrySystem.cs
+quiet_building_change_never_echoes	world-authority-clone	Quiet building changes do not echo	Common/Carpentry/CarpentrySystem.cs
+building_remove_packet_requires_real_change	world-authority-clone	Remove packet follows successful state change	Common/Carpentry/CarpentrySystem.cs
+player_clone_copies_independent_completion_list	world-authority-clone	Player clone deep-copies source completion state	Common/Carpentry/CarpentryPlayer.cs
+client_state_copy_is_independent	world-authority-clone	Client state copy transfers then isolates completion state	Common/Carpentry/CarpentryPlayer.cs
+invalid_selected_bounty_is_not_saved	world-authority-clone	Invalid selected challenge is not indexed or saved	Common/Carpentry/CarpentryPlayer.cs
+building_buff_includes_challenge_zero	player-buff-application	Registered challenge type zero grants its building buff	Common/Carpentry/CarpentryPlayer.cs
+building_buff_applies_once_per_group	player-buff-application	One intersecting group grants its buff once	Common/Carpentry/CarpentryPlayer.cs
+building_buff_ignores_nonintersecting_and_nonpositive	player-buff-application	Inapplicable buildings do not grant buffs	Common/Carpentry/CarpentryPlayer.cs
+building_buff_ignores_stale_or_null_groups	player-buff-application	Stale group IDs and null lists are ignored	Common/Carpentry/CarpentryPlayer.cs
+post_update_requires_owner_tenth_safe_tick	player-buff-application	PostUpdate gates buff checks by owner tick and danger	Common/Carpentry/CarpentryPlayer.cs
+completion_load_rejects_wrong_tag_type	completion-persistence	A present completion save key with the wrong value type is malformed and transactional	Common/Carpentry/BuildChallengeSaveData.cs
+completion_send_rejects_invalid_registry_without_writing	registry-generation	Outbound completion framing validates the canonical registry before emitting bytes	Common/Carpentry/BuildChallengeSaveData.cs
+completion_receive_registry_change_rolls_back	registry-generation	Completion receive is bound to one registry generation	Common/Carpentry/BuildChallengeSaveData.cs
+completion_writer_reentrancy_uses_snapshot	reentrant-snapshots	Completion output is fully prepared before writer callbacks can mutate state	Common/Carpentry/BuildChallengeSaveData.cs
+building_unloaded_name_survives_resave	stable-content-identity	Unloaded building groups survive a local load/save cycle by stable full name	Common/Carpentry/BuildBuffsData.cs
+building_unloaded_name_is_omitted_from_wire	stable-content-identity	Dormant building groups are omitted from wire output without local deletion	Common/Carpentry/BuildBuffsData.cs
+building_returning_content_reactivates	stable-content-identity	A dormant building group reactivates when its challenge returns	Common/Carpentry/BuildBuffsData.cs
+building_registry_reorder_preserves_identity	stable-content-identity	Live building geometry follows stable names across challenge-ID reorder	Common/Carpentry/BuildBuffsData.cs
+building_load_wrong_type_rolls_back	building-persistence	A present building save key with the wrong value type is malformed and transactional	Common/Carpentry/BuildBuffsData.cs
+building_send_rejects_invalid_registry_without_writing	registry-generation	Outbound building framing validates the canonical registry before emitting bytes	Common/Carpentry/BuildBuffsData.cs
+building_receive_registry_change_rolls_back	registry-generation	Building receive is bound to one registry generation	Common/Carpentry/BuildBuffsData.cs
+building_receive_rejects_global_location_budget	global-frame-budget	The complete received building frame is globally bounded to 4096 rectangles	Common/Carpentry/BuildBuffsData.cs
+building_send_rejects_global_location_budget_without_writing	global-frame-budget	An oversized outbound building snapshot fails before emitting bytes	Common/Carpentry/BuildBuffsData.cs
+building_save_validation_is_nonmutating	reentrant-snapshots	Save-time scans filter the saved snapshot without mutating live buildings	Common/Carpentry/BuildBuffsData.cs
+building_trim_reentrant_mutation_is_not_clobbered	reentrant-snapshots	Trim abandons its stale commit when scan callbacks mutate the live group	Common/Carpentry/BuildBuffsData.cs
+world_load_is_transactional_across_tag_sections	world-authority-clone	World tag load commits completions and buildings together or neither	Common/Carpentry/CarpentrySystem.cs
+world_send_rejects_invalid_registry_without_writing	registry-generation	World send validates one canonical registry before emitting either section	Common/Carpentry/CarpentrySystem.cs
+world_save_invalid_registry_leaves_tag_untouched	registry-generation	World save validates the canonical registry before changing the destination tag	Common/Carpentry/CarpentrySystem.cs
+duplicate_registry_names_fail_closed	registry-generation	Duplicate stable names invalidate the registry and prevent outbound output	Common/Carpentry/BuildChallengeSaveData.cs;Common/Carpentry/CarpentrySystem.cs
+world_receive_registry_change_rolls_back_both	registry-generation	World receive binds both sections to one unchanged registry generation	Common/Carpentry/CarpentrySystem.cs
+world_writer_reentrancy_uses_one_snapshot	reentrant-snapshots	World output prepares both sections before writer callbacks can mutate state	Common/Carpentry/CarpentrySystem.cs
+building_buff_reentrant_mutation_uses_snapshot	reentrant-snapshots	Buff callbacks may mutate live building state without invalidating the current snapshot	Common/Carpentry/CarpentryPlayer.cs
+selected_bounty_follows_stable_name_after_reorder	stable-content-identity	Player selected bounty identity follows full name rather than a transient Type	Common/Carpentry/CarpentryPlayer.cs
+selected_bounty_survives_unload_and_return	stable-content-identity	Player selected bounty identity survives content unload and reactivates when content returns	Common/Carpentry/CarpentryPlayer.cs
+selected_bounty_invalid_registry_fails_closed	registry-generation	Player selected-bounty lookup fails closed without discarding its stable identity	Common/Carpentry/CarpentryPlayer.cs
+player_load_invalid_registry_rolls_back	registry-generation	An invalid registry makes player load transactional and preserves all live player state	Common/Carpentry/CarpentryPlayer.cs
+building_buff_registry_reorder_uses_stable_identity	stable-content-identity	Buff geometry remains attached to its stable challenge after registry reorder	Common/Carpentry/CarpentryPlayer.cs

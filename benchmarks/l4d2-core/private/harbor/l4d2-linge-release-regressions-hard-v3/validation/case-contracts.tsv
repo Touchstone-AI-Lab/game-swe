@@ -1,0 +1,43 @@
+case	class	defect_group	public_contract
+ordinary-friendly-fire-updates-all-counters	guard	preservation	ordinary friendly fire updates attacker/victim cumulative and round counters symmetrically
+notifications-disabled-create-no-temporary-state	guard	preservation	disabling friendly-fire notifications emits no delayed message
+ordinary-delayed-message-preserves-pair-and-state	guard	preservation	an ordinary delayed output retains its original pair, damage, and nonterminal classification
+repeated-pair-accumulates-without-duplicating-state	guard	preservation	repeated hits for one pair aggregate without duplicating pair state
+multiple-attackers-remain-independent	guard	preservation	different attacker/victim pairs remain independent
+self-damage-does-not-change-friendly-fire-counters	guard	preservation	self-damage is not friendly fire
+invalid-attacker-is-ignored	guard	preservation	an unresolved attacker does not change damage statistics
+non-survivor-attacker-is-ignored	guard	preservation	a non-Survivor attacker does not change Survivor-owned statistics
+already-incapacitated-survivor-is-ignored	guard	preservation	damage after a Survivor was already incapacitated is ignored
+dying-survivor-is-ignored	guard	preservation	damage after a Survivor was already dying is ignored
+dead-survivor-is-ignored	guard	preservation	damage after a Survivor was already dead is ignored
+zero-damage-type-is-ignored	guard	preservation	zero-type damage remains ignored
+temporary-health-nonterminal-hit-remains-ordinary	guard	survivor_lethal	temporary health on a nonterminal hit does not falsely mark it terminal
+lethal-overflow-full-transition-clamps-real-health	target	survivor_lethal	a complete lethal transition clamps overkill to permanent plus temporary pre-hit health and prints that total
+stale-terminal-event-cannot-create-negative-accounting	guard	survivor_lethal	a stale negative-health event cannot create negative friendly-fire accounting
+exact-zero-delayed-output-is-terminal	target	survivor_zero	a complete death sequence landing on exactly zero keeps its real damage and prints a lethal label
+incapacitation-full-transition-captures-effective-health	target	survivor_incap	a complete incapacitation sequence accounts readable permanent and temporary pre-hit health once
+incapacitation-with-notifications-disabled-still-counts	target	survivor_incap	incapacitation counters remain correct when delayed messages are disabled
+self-incapacitation-does-not-change-friendly-fire-counters	guard	survivor_incap	self-incapacitation is not friendly fire
+ordinary-tank-damage-remains-counted	guard	preservation	ordinary damage to a live Tank remains counted
+tank-zero-type-is-ignored	guard	preservation	zero-type Tank damage remains ignored
+tank-synthetic-after-transition-adds-zero	target	tank_transition	the death transition's synthetic Tank hurt event adds nothing after the real terminal hit
+tank-terminal-with-invalid-attacker-is-ignored	guard	tank_transition	a Tank terminal event with no valid Survivor attacker is ignored
+tank-terminal-transition-counts-real-health-once	target	tank_transition	the complete Tank terminal transition accounts remaining real health exactly once
+non-tank-incapacitation-does-not-change-tank-total	guard	tank_transition	non-Tank incapacitation does not change Tank totals
+ordinary-shots-after-complete-tank-transition-are-ignored	target	tank_transition	ordinary shots after a complete Tank death transition do not inflate the ranking
+ordinary-special-infected-damage-remains-counted	guard	preservation	ordinary special-infected damage remains counted in both totals
+qualified-entityflame-tick-uses-real-health-loss	target	si_flame	the reported qualified entityflame tick is normalized to its real health loss
+ordinary-entityflame-type-is-not-multiplied	guard	si_flame	other entityflame damage types are not multiplied
+qualified-fire-type-on-other-weapon-is-not-multiplied	guard	si_flame	the qualified type on another weapon is not multiplied
+special-infected-terminal-overflow-remains-clamped	guard	si_stale	special-infected overkill remains clamped to real remaining health
+stale-special-infected-event-cannot-subtract-damage	target	si_stale	a stale post-death event cannot subtract from cumulative or round damage
+common-infected-kill-and-headshot-counters-remain-intact	guard	preservation	common-infected kill and headshot counters remain intact
+special-infected-kill-and-headshot-counters-remain-intact	guard	preservation	special-infected kill and headshot counters remain intact
+survivor-death-does-not-change-infected-kill-counters	guard	preservation	Survivor deaths do not change infected kill counters
+revive-marker-survives-domination-cleanup-tick	target	hint_modes	a revive marker survives a domination cleanup tick while a finished domination marker is removed
+incapacitated-and-ledge-hints-share-revive-cleanup	target	hint_modes	both incapacitated and ledge-hanging markers are removed by revive completion
+successful-map-baseline-survives-next-failed-map	target	cache_baseline	a successful map remains the rollback baseline after the next map fails
+replayed-failed-map-keeps-last-successful-baseline	target	cache_baseline	replaying and failing the map again preserves the same last-successful baseline
+rewardhp-temporary-only-mode-clamps-at-limit	target	reward_temp	RewardHP mode 2 grants only temporary health and clamps it at the total-health limit
+rewardhp-temporary-only-mode-keeps-full-fitting-reward	guard	reward_temp	RewardHP mode 2 preserves a full temporary reward when it fits
+rewardhp-hybrid-mode-preserves-permanent-fallback	guard	reward_temp	RewardHP mode 3 preserves its permanent-health fallback when the full temporary reward does not fit

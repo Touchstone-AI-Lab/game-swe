@@ -1,0 +1,18 @@
+--- a/R4/Source/Utility/MaterialUtility.cs
++++ b/R4/Source/Utility/MaterialUtility.cs
+@@ -270,12 +270,12 @@
+         /// </summary>
+         public static List<ThingDefCountClass> ResolveMaterialBasis(Thing item)
+         {
+-            var cost = item.def.CostListAdjusted(item.Stuff, errorOnNullStuff: false);
+-            if (cost != null && cost.Count > 0) return cost;
+-
+             var ext = item.def.GetModExtension<R4MaterialCostExtension>();
+             if (ext?.materials != null && ext.materials.Count > 0) return ext.materials;
+ 
++            var cost = item.def.CostListAdjusted(item.Stuff, errorOnNullStuff: false);
++            if (cost != null && cost.Count > 0) return cost;
++
+             return SynthesizeFallbackCost(item.def);
+         }
+ 

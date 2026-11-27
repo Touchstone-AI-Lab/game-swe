@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<metadata>
+  <name>Construct Legacy HUD Lifecycle Verifier</name>
+  <directory>gcb_construct_legacy_hud_lifecycle_suite</directory>
+  <id>construct-legacy-hud-lifecycle-suite</id>
+  <description>Private verifier companion mod.</description>
+  <version>1.0.0</version>
+</metadata>

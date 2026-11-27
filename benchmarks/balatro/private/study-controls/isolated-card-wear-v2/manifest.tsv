@@ -1,0 +1,5 @@
+control	kind	base	overlay	root	note
+M01-stale-cache	target-negative	starter	pack:private/native-v1/controls/isolated-card-wear-v2/M01-stale-cache	starter	frozen mutant: fails only requested-change cases
+M02-last-reward	target-negative	starter	pack:private/native-v1/controls/isolated-card-wear-v2/M02-last-reward	starter	frozen mutant: fails only requested-change cases
+M04-additive-refresh	target-negative	starter	pack:private/native-v1/controls/isolated-card-wear-v2/M04-additive-refresh	starter	frozen mutant: fails only requested-change cases
+alternative-public	alternative	starter	tree:alternative-public	starter	authored from the public contract: wear kept in a weak side table; reviewed seal 9b97787d

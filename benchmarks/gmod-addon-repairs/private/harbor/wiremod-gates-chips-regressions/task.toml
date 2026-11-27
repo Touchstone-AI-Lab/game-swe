@@ -1,0 +1,74 @@
+schema_version = "1.1"
+
+[task]
+name = "gamecodebench/wiremod-gates-chips-regressions"
+description = "A Wiremod build with six upstream fixes reverted across derivative gates, output port numbering, the E2 compiler's tick quota and string calls, lambda timers and hologram return values, reported only as user-visible symptoms."
+authors = []
+keywords = ["garrysmod", "glua", "lua", "wiremod", "expression2", "multi-defect", "regression"]
+
+[metadata]
+category = "programming"
+difficulty = "hard"
+tags = ["game-modding", "glua", "gmod", "wiremod", "bug-fix", "composite"]
+source_repo = "https://github.com/wiremod/wire"
+source_license = "Apache-2.0"
+base_commit = "f31ba74e7c607918fed0e5607cb425df052f132d"
+reverted_fixes = "d1f4690577fa3a0bb65e4fc373df77408625c5ee,0caed1c8eda9a010a64ed523f3265ac960802a42,a201ecb60a5109887128b65c9bfbef7f5a5dd8e6,808b8555a4d143e017aa33eb586168b1bb553810,af74e4fac68b85bd2b0f8a1955089253836972c2,8197779c4ff77d2bdb3c454b59103baac807fe93"
+gold_patch_origin = "composed-from-upstream-fixes"
+
+# PROVENANCE. The reference is upstream master at base_commit (2026-09-21), vendored
+# whole (Lua, models, materials, sounds, data_static) with its Apache-2.0 LICENSE. The
+# starter is that tree with six upstream fix commits reverted together
+# (`git revert --no-commit`, newest first, applied cleanly). The E2 regression test
+# added by a201ecb6 (data_static/expression2/tests/regressions/2841.txt) is therefore
+# absent from the starter and present in the reference. Nothing is hand-injected. The
+# CI workflow directory and .gitignore are not vendored.
+#   A  af74e4fa (#3318, 2025-05-08)  wire/gates/{time,vector,angle}.lua  derive is not
+#                                    timed; vector/angle derive test `if (dT)` (always
+#                                    true) and divide by zero
+#   B  8197779c (#3303, 2025-04-18)  wire/server/wirelib.lua  AdjustSpecialOutputs keeps
+#                                    old port numbers, so numbers collide and
+#                                    RefreshSpecialOutputs drops a port
+#   C  0caed1c8 (#3636, 2026-06-21)  base/compiler.lua  the compiler caches the quotatick
+#                                    convar and ignores wire_expression2_unlimited
+#   D  808b8555 (#3481, 2025-12-29)  core/timer.lua  a lambda timer's record is deleted
+#                                    before its last callback runs
+#   E  d1f46905 (#3719, 2026-09-12)  core/hologram.lua  typed functions return nil
+#                                    instead of their type's default
+#   F  a201ecb6 (#3630, 2026-06-17)  base/compiler.lua  a string call used as a
+#                                    statement rejects a non-void return type
+# C and F both touch base/compiler.lua, about 1,600 lines apart.
+#
+# VERIFIER COVERAGE. 6 reports / 6 groups / 7 target cases (A has one case for the
+# number gate and one for the vector/angle gates) + 6 preserved cases + 1 load
+# sentinel = 14 cases. Gates are real gmod_wire_gate entities driven through real wires
+# from Constant Value entities (WireLib.Link_Start / Link_End); chips are real
+# gmod_wire_expression2 entities owned by a bot (MakeWireExpression2 + ENT:Setup) whose
+# outputs are read from their ports; the remaining E2 checks run through
+# E2Lib.compileScript. The unlimited-mode case restores the convar and waits for it to
+# apply before finishing, so later cases run with the normal budget.
+#
+# VALIDATED. Unchanged starter: complete, sentinel and all preserved cases pass, every
+# target case fails. Reference: 14/14. See validation/ in this pack.
+
+[verifier]
+network_mode = "no-network"
+timeout_sec = 1200.0
+
+[agent]
+# The agent harness calls the model API from inside the container; only the model
+# endpoint may be reachable. A Harbor job passes that hostname through
+# `agents[].extra_allowed_hosts`; github.com stays unreachable because the upstream
+# repository contains the fixes.
+network_mode = "allowlist"
+allowed_hosts = []
+timeout_sec = 5400.0
+
+[environment]
+network_mode = "no-network"
+build_timeout_sec = 2400.0
+cpus = 6
+memory_mb = 16384
+storage_mb = 20480
+gpus = 0
+mcp_servers = []

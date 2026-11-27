@@ -1,0 +1,72 @@
+[
+  {
+    "candidate": "predicate-ammo",
+    "patch_sha256": "7bae72a28ec5d5bf0a77e70f6dfa60516095bb29c52f21030b15ff509a62fa88",
+    "tree_sha256": "bce8feb00757ccb9e2da7c87e58fcd15b75681689c76734867fc40f2fae725cb"
+  },
+  {
+    "candidate": "predicate-vomit",
+    "patch_sha256": "d6ebe6d7f444d59f5c090cc501fd6a99b58361e06a5914a6fb6583eba78a7298",
+    "tree_sha256": "576762bb2deacad762a1dbb13bf10adefe16d57f5167132781d1f59848443044"
+  },
+  {
+    "candidate": "predicate-spawn",
+    "patch_sha256": "15792b64b4474c578b812ea4b6f53588989c2bbe2545bebfd0a34b7a4444e837",
+    "tree_sha256": "ff05ef5311ff87be63598dbcbc0325f2a4c0768b2cb1b320d37c85a060e9250b"
+  },
+  {
+    "candidate": "predicate-weaponattr",
+    "patch_sha256": "09599f71ed22d422fcf2553eb6acc41a726f75bafe1524b3f380559da895bbd8",
+    "tree_sha256": "1218a7d6698fb2fc6c08fa13517f5c9377a15bc22ad95b73d25936c6fa044244"
+  },
+  {
+    "candidate": "predicate-animhook",
+    "patch_sha256": "1e109c930e2d761a42226b71daab393abc22ef2b2ba6303fa738574169a4182e",
+    "tree_sha256": "a4cf925882b8ba14c89b25c2e90d79587ac745dfb8c2c3d72aa0fa083ab85748"
+  },
+  {
+    "candidate": "predicate-pipebomb",
+    "patch_sha256": "05f867fef9ec84c18de4eb55eade69c8cd3e66f71a0274b2c79186371b357042",
+    "tree_sha256": "3c046f93c2cd271f11e718b88df0fedd51dd786eb408bc0b4b11003bd6aa6258"
+  },
+  {
+    "candidate": "predicate-campaignscores",
+    "patch_sha256": "9cab68d3193de09356f50d2e9cd0aebc752cf231a06c4596b735c24c2980db36",
+    "tree_sha256": "d19a919a1951747b355c19dadd2b58344e33e9268f2e364e3b06aa205b09a93b"
+  },
+  {
+    "candidate": "predicate-meleeinfo",
+    "patch_sha256": "195b4a9630c56873129912e567b06f61f49f582a452b5496574b4c24c2d59c53",
+    "tree_sha256": "52a1b1445d84bf559cb84eff8b7a610994b45fde0044ab11782c4877a43a2b6a"
+  },
+  {
+    "candidate": "predicate-stagger",
+    "patch_sha256": "ad9ebd50cde9aaec43ac4a48f70fe83fcda8ff32fc32d55ad3967c59abd84946",
+    "tree_sha256": "d9cb52c25e3d9b3291308e4170eacf28214ca3ea6f3b6aa791c88b412a93a269"
+  },
+  {
+    "candidate": "predicate-gascan",
+    "patch_sha256": "2dfd0e38ae1f896b2440177c9aa31a69fb2fe4150d9ce9291d1a9a3e88b7b6fb",
+    "tree_sha256": "1fc90b947a69753cdd735c2627dd4ad7608f9083a8aa656a65deb596ad94251d"
+  },
+  {
+    "candidate": "predicate-entityaddress",
+    "patch_sha256": "17040b12130dfeb421c737f6d4701d1f341e181a873b481f20a093a902f9125c",
+    "tree_sha256": "b79a1e8d063fb3e5d5ea742623edba071d7767d1420064b1246622c3d7db73cf"
+  },
+  {
+    "candidate": "predicate-lobbyreservation",
+    "patch_sha256": "b70cd393e8eb81f64d80d17229613854fd2d65a62de1d0d27e8daedb80895407",
+    "tree_sha256": "49d7f834f58072bc70664b830ef9c87494d6613c70e8d63bb59970f3cae25277"
+  },
+  {
+    "candidate": "alternative-a",
+    "patch_sha256": "790250e3869e40ba853df9be4231988968e7f1a774ec4679922f9fb22de33437",
+    "tree_sha256": "f1f1cdca796646b92dd76a03abe90aa7f8fb44d46d5d8de0b5f5b4fd30a0ece3"
+  },
+  {
+    "candidate": "alternative-b",
+    "patch_sha256": "78830fc89508b2d6f03deea2ecae854346c6474f8db04418891bbb60771e29e7",
+    "tree_sha256": "40f5770acec19635bc85613172e95fc7b2bc37bf6bb1ed37311fa04b35cb6190"
+  }
+]

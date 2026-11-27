@@ -1,0 +1,203 @@
+{
+  "task": "rimworld/core/adaptive-storage-slot-limit-restore",
+  "task_version": "0.4.1",
+  "exam": "benchmarks/rimworld-core/exams/adaptive-storage-slot-limit-restore.md",
+  "cases": [
+    {
+      "id": "check:submission-shape",
+      "role": "static",
+      "clauses": [
+        "delivery"
+      ],
+      "overlap": false,
+      "note": "required C# sources present as a safe snapshot; rejects binaries, links and private-harness markers"
+    },
+    {
+      "id": "case:runtime-defs-ready",
+      "role": "runtime-sentinel",
+      "clauses": [],
+      "overlap": false,
+      "note": "pinned Core and Adaptive Storage definitions, the verifier and its rectangle and fixture self-checks loaded"
+    },
+    {
+      "id": "case:saved-one-restored",
+      "role": "preserved",
+      "clauses": [
+        "req-5"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:saved-finite-restored",
+      "role": "preserved",
+      "clauses": [
+        "req-5"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:saved-unlimited-restored",
+      "role": "target",
+      "clauses": [
+        "req-1",
+        "req-3"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:per-cell-recomputed",
+      "role": "preserved",
+      "clauses": [
+        "req-4"
+      ],
+      "overlap": true,
+      "note": "the starter's setter path already recomputes the per-cell limit for a finite save; it guards fixes that bypass that path"
+    },
+    {
+      "id": "case:multi-cell-ceiling",
+      "role": "preserved",
+      "clauses": [
+        "req-5"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:setter-not-skipped",
+      "role": "target",
+      "clauses": [
+        "req-2",
+        "req-7"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:unlimited-sentinel-preserved",
+      "role": "preserved",
+      "clauses": [
+        "req-5"
+      ],
+      "overlap": false,
+      "note": "an already-unlimited storage keeps the int.MaxValue sentinel; despite its name this is behavior, not a runtime sentinel"
+    },
+    {
+      "id": "case:repeat-initialize-idempotent",
+      "role": "preserved",
+      "clauses": [
+        "req-6"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:initialization-bookkeeping-preserved",
+      "role": "preserved",
+      "clauses": [
+        "req-6"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:default-limit-preserved",
+      "role": "preserved",
+      "clauses": [
+        "req-5"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:near-unlimited-finite-restored",
+      "role": "preserved",
+      "clauses": [
+        "req-5"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:zero-limit-restored",
+      "role": "preserved",
+      "clauses": [
+        "req-5"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:initialization-notifications-preserved",
+      "role": "preserved",
+      "clauses": [
+        "req-6"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:fixture-state-restored",
+      "role": "setup",
+      "clauses": [],
+      "overlap": false,
+      "note": "terminal fixture-restoration gate"
+    }
+  ],
+  "clauses": [
+    {
+      "id": "req-1",
+      "status": "asserted",
+      "note": "",
+      "anchor": "bullet 1: capture the saved logical slot limit during post-initialization and restore that exact backing value through the real CurrentSlotLimit setter"
+    },
+    {
+      "id": "req-2",
+      "status": "asserted",
+      "note": "",
+      "anchor": "bullet 2: make the backing value differ before the setter so it cannot return early; a temporary unchecked wrap must not throw, leak into the restored value or change the effective capacity"
+    },
+    {
+      "id": "req-3",
+      "status": "asserted",
+      "note": "",
+      "anchor": "bullet 3: int.MaxValue is the logical unlimited sentinel, valid as saved input and final backing value; the getter caps it by TotalSlots"
+    },
+    {
+      "id": "req-4",
+      "status": "asserted",
+      "note": "",
+      "anchor": "bullet 4: recompute the per-cell limit and dependent storage bookkeeping through the existing setter path"
+    },
+    {
+      "id": "req-5",
+      "status": "asserted",
+      "note": "",
+      "anchor": "bullet 5: preserve zero, one-slot, finite, near-int.MaxValue, multi-cell, already-unlimited, default and repeated-initialization behavior"
+    },
+    {
+      "id": "req-6",
+      "status": "asserted",
+      "note": "",
+      "anchor": "bullet 6: initialization completes (per-cell collections, renderer, completion event, settings and slot notifications) and completes again when repeated"
+    },
+    {
+      "id": "req-7",
+      "status": "weak",
+      "anchor": "bullet 7: do not bypass the setter or change unrelated packing, rendering, temperature-control, storage-filter or serialization behavior",
+      "note": "only the setter path is asserted; the unrelated behaviors it names are not checked"
+    },
+    {
+      "id": "delivery",
+      "status": "weak",
+      "anchor": "closing paragraphs: keep unrelated upstream behavior; add no binaries, generated output, test results, credentials, Workshop content, assets, saves or logs",
+      "note": "the snapshot gate rejects binaries, links and harness markers; the other listed artefacts are not checked"
+    }
+  ],
+  "excluded_clauses": [],
+  "known_issues": [
+    "Roles come from the 2026-10-30 E0 baseline on the real game: the unchanged starter fails only saved-unlimited-restored and setter-not-skipped, so every other behavior case is preserved."
+  ]
+}

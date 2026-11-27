@@ -1,0 +1,27 @@
+diff --git a/sourcemod/scripting/l4dd/l4dd_natives.sp b/sourcemod/scripting/l4dd/l4dd_natives.sp
+--- a/sourcemod/scripting/l4dd/l4dd_natives.sp
++++ b/sourcemod/scripting/l4dd/l4dd_natives.sp
+@@ -360,12 +360,17 @@
+ // ==================================================
+ int GetEntityFromAddress(int addr)
+ {
+-	int max = GetEntityCount();
+-	for( int i = 0; i <= max; i++ )
+-		if( IsValidEdict(i) )
+-			if( GetEntityAddress(i) == view_as<Address>(addr) )
+-				return i;
+-	return -1;
++	Address entity = view_as<Address>(addr);
++	if( entity == Address_Null )
++		return -1;
++
++	static int handleOffset = -1;
++	if( handleOffset == -1 )
++		handleOffset = FindDataMapInfo(0, "m_angRotation") + 12;
++
++	int handle = LoadFromAddress(entity + view_as<Address>(handleOffset), NumberType_Int32);
++	int index = handle & 0xFFF;
++	return index == 0xFFF ? -1 : index;
+ }
+ 
+ int GetClientFromAddress(int addr)

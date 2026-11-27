@@ -1,0 +1,2177 @@
+{
+  "id": "rhenium-palworld-v1",
+  "version": "2.0.0",
+  "game": "palworld",
+  "name": {
+    "en": "Rhenium: Original Palworld UE4SS Systems Tasks",
+    "zh": "Rhenium：《幻兽帕鲁》UE4SS 原创系统工程题"
+  },
+  "description": {
+    "en": "Ten independent construct tasks. Catalog 2.0 retires two incompatible hook-based tasks and adds two exact-optimization systems tasks validated on the pinned native Linux maintenance runtime.",
+    "zh": "十道独立构建题。2.0 退役两道钩子不兼容题，并加入两道在固定原生 Linux 维护运行时验证的精确优化系统题。"
+  },
+  "tasks": [
+    {
+      "id": "guild-storage-ledger",
+      "difficulty": "hard",
+      "title": {
+        "en": "Server-authoritative Guild Storage Ledger",
+        "zh": "服务端权威公会仓库物资账本"
+      },
+      "summary": {
+        "en": "Distribute configured supply bundles under per-cycle guild-member quotas with reservations, idempotency, rollback, and restart-safe cycle transitions.",
+        "zh": "在每周期公会成员配额下发放预配置物资包，并正确处理预留、幂等、回滚以及可跨重启的周期切换。"
+      },
+      "brief": {
+        "en": "Build a UE4SS Lua mod from an empty workspace. Implement a plain-Lua ledger module and a dedicated-server service module. Clients submit only a request identifier and a configured bundle identifier through a server console command; the server resolves quotas and bundle contents, reserves capacity before delivery, commits only after the injected inventory adapter confirms every item, and rolls back every failed delivery. Guard the dedicated server with UKismetSystemLibrary::IsDedicatedServer, register the player entry hook with RegisterHook, release it with UnregisterHook, and persist state through an injected storage adapter.",
+        "zh": "从空工作区实现一个 UE4SS Lua 模组：纯 Lua 账本模块与专服服务模块。客户端只能通过服务端控制台命令提交请求标识与预配置物资包标识；服务端解析配额与物资内容，在发放前预留，只有注入的库存 adapter 确认全部物品后才提交，任何失败都必须回滚。用 UKismetSystemLibrary::IsDedicatedServer 守卫专服，用 RegisterHook 注册玩家进入钩子并用 UnregisterHook 释放，通过注入的存储 adapter 持久化状态。"
+      },
+      "requirements": {
+        "en": [
+          "Export Ledger.new(options), Ledger.load(data, options), begin_cycle(cycle), set_member(id, active), claim(member_id, request_id, bundle_id, cycle), commit(token), rollback(token), snapshot(), and save().",
+          "Validate identifiers and strictly monotonic non-negative integer cycles; a stale cycle may not reset quotas or alter any state.",
+          "Resolve bundle contents only from options.bundles and reject unknown bundles, inactive members, exhausted quotas, and malformed counts.",
+          "Deduplicate every member_id/request_id pair before quota mutation; a retry returns the original pending or final outcome.",
+          "A successful claim creates a unique reservation token and reduces available quota; commit consumes it once and rollback releases it once.",
+          "Return fresh deterministic snapshots and round-trip cycles, quotas, reservations, request outcomes, and token sequencing through save/load.",
+          "The service module exposes Claim(controller, request_id, bundle_id), commits only after the injected inventory adapter confirms every entry, and removes partial deliveries before rollback.",
+          "The core module must run on plain Lua with no UE4SS global available; all engine access stays in the service module and only on the dedicated server.",
+          "Save() must produce a table the injected storage adapter can serialise, and Load(data) must restore it without replaying committed requests.",
+          "scripts/main.lua must publish the mounted service instance as the single global RheniumService on the dedicated server and must not define any other global."
+        ],
+        "zh": [
+          "导出 Ledger.new(options)、Ledger.load(data, options)、begin_cycle(cycle)、set_member(id, active)、claim(member_id, request_id, bundle_id, cycle)、commit(token)、rollback(token)、snapshot() 与 save()。",
+          "校验标识与严格单调的非负整数 cycle；过期 cycle 不得重置配额或改变任何状态。",
+          "物资内容只能从 options.bundles 解析；拒绝未知物资包、非活跃成员、配额不足与非法数量。",
+          "必须先按 member_id/request_id 去重再修改配额；重试返回原 pending 或最终结果。",
+          "成功 claim 生成唯一预留 token 并减少可用配额；commit 只能消费一次，rollback 只能释放一次。",
+          "快照必须新建且顺序确定；保存加载完整往返周期、配额、预留、请求结果与 token 序列。",
+          "服务模块公开 Claim(controller, request_id, bundle_id)，注入的库存 adapter 确认全部条目后才提交，失败时移除部分交付并回滚。",
+          "核心模块必须能在没有任何 UE4SS 全局对象的普通 Lua 环境运行；引擎调用只允许出现在服务模块，且只在专服执行。",
+          "Save() 必须返回可被注入存储 adapter 序列化的表，Load(data) 恢复后不得重放已提交请求。",
+          "scripts/main.lua 必须在专用服务器上把已挂载的服务实例发布为唯一全局 RheniumService，且不得定义任何其他全局名。"
+        ]
+      },
+      "api_usage": {
+        "en": [
+          "UE4SS starts Lua mods before the dedicated server owns a valid UWorld, so poll UEHelpers.GetWorld() with ExecuteWithDelay until world:IsValid() is true, and only then run the authority check and register callbacks.",
+          "Guard the dedicated server with local Kismet = UEHelpers.GetKismetSystemLibrary(); if not Kismet:IsDedicatedServer(UEHelpers.GetWorld()) then return end. Palworld's shipping build does not export UGameplayStatics::IsDedicatedServer.",
+          "Register the player entry point with local pre, post = RegisterHook(\"/Script/Engine.PlayerController:ServerAcknowledgePossession\", function(Context, Pawn) ... end) and release it with UnregisterHook(\"/Script/Engine.PlayerController:ServerAcknowledgePossession\", pre, post).",
+          "Hook parameters arrive as RemoteUnrealParam values; call Context:get() before touching the controller and check Controller:IsValid().",
+          "Accept claims with RegisterConsoleCommandGlobalHandler(\"rhenium_supply\", function(Cmd, CommandParts, Ar) ... return true end); CommandParts is a table of argument strings and Ar is the FOutputDevice used for replies.",
+          "Apply every state mutation inside ExecuteInGameThread(function() ... end); UE4SS hooks run after the hooked function has finished, so never assume callback ordering.",
+          "Resolve engine objects with FindFirstOf(\"PalPlayerController\") or StaticFindObject(path) rather than caching raw pointers across ticks.",
+          "Package the mod as Info.json with an InstallRule entry of \"Type\": \"Lua\", \"IsServer\": true and a scripts/main.lua entry point loaded by UE4SS."
+        ],
+        "zh": [
+          "UE4SS 在专用服务器拥有有效 UWorld 之前就会启动 Lua 模组，因此必须用 ExecuteWithDelay 轮询 UEHelpers.GetWorld() 直到 world:IsValid() 为真，之后才做专服判定并注册回调。",
+          "用 local Kismet = UEHelpers.GetKismetSystemLibrary()；再判断 if not Kismet:IsDedicatedServer(UEHelpers.GetWorld()) then return end 守卫专服。",
+          "用 local pre, post = RegisterHook(\"/Script/Engine.PlayerController:ServerAcknowledgePossession\", function(Context, Pawn) ... end) 注册玩家入口，并用 UnregisterHook(\"/Script/Engine.PlayerController:ServerAcknowledgePossession\", pre, post) 释放。",
+          "钩子参数是 RemoteUnrealParam，必须先 Context:get() 再使用，并检查 Controller:IsValid()。",
+          "用 RegisterConsoleCommandGlobalHandler(\"rhenium_supply\", function(Cmd, CommandParts, Ar) ... return true end) 接收领取请求；CommandParts 是参数字符串表，Ar 是用于回复的 FOutputDevice。",
+          "所有状态修改必须放在 ExecuteInGameThread(function() ... end) 内；UE4SS 钩子在被钩函数执行完之后才触发，不得假设回调顺序。",
+          "用 FindFirstOf(\"PalPlayerController\") 或 StaticFindObject(path) 解析引擎对象，不要跨 tick 缓存裸指针。",
+          "模组必须打包为含 \"Type\": \"Lua\"、\"IsServer\": true 安装规则的 Info.json，并由 UE4SS 加载 scripts/main.lua 入口。"
+        ]
+      },
+      "acceptance": {
+        "en": [
+          "Retries never double-spend quota or duplicate items.",
+          "Rollback restores capacity exactly once.",
+          "Cycle rollover is monotonic and restart-safe.",
+          "Forged bundle contents supplied by a client are ignored.",
+          "The core module loads and runs with no UE4SS global present.",
+          "The dedicated server proves service attachment, delivery, rollback, and persistence."
+        ],
+        "zh": [
+          "重试不会重复消耗配额或复制物品。",
+          "回滚恰好一次恢复容量。",
+          "周期切换单调且可跨重启。",
+          "客户端伪造的物资内容无效。",
+          "核心模块在没有任何 UE4SS 全局对象时也能加载运行。",
+          "专服验证服务挂载、交付、回滚与持久化。"
+        ]
+      },
+      "domains": [
+        "quotas",
+        "idempotency",
+        "inventory",
+        "persistence"
+      ],
+      "estimated_minutes": 360,
+      "core_module": "scripts/guildledger/ledger.lua",
+      "hidden_test": "hidden/guild-storage-ledger.lua",
+      "server_test": "server/guild-storage-ledger.lua",
+      "required_files": [
+        "Info.json",
+        "scripts/main.lua",
+        "scripts/guildledger/ledger.lua",
+        "scripts/services/guild_storage_service.lua"
+      ],
+      "minimum_lua_lines": 220,
+      "integration_checks": [
+        {
+          "id": "supply-authority",
+          "label": {
+            "en": "Dedicated-server authority",
+            "zh": "专服权威"
+          },
+          "weight": 4,
+          "groups": [
+            {
+              "name": "guard",
+              "any_of": [
+                "IsDedicatedServer\\s*\\("
+              ]
+            },
+            {
+              "name": "service module",
+              "any_of": [
+                "guild_storage_service",
+                "GuildStorageService"
+              ]
+            }
+          ],
+          "none_of": [
+            "TODO",
+            "IMPLEMENT\\s+ME"
+          ]
+        },
+        {
+          "id": "supply-delivery",
+          "label": {
+            "en": "Validated console entry point",
+            "zh": "经校验的控制台入口"
+          },
+          "weight": 4,
+          "groups": [
+            {
+              "name": "console command",
+              "any_of": [
+                "RegisterConsoleCommand(?:Global)?Handler\\s*\\("
+              ]
+            },
+            {
+              "name": "game thread",
+              "any_of": [
+                "ExecuteInGameThread\\s*\\("
+              ]
+            },
+            {
+              "name": "object lookup",
+              "any_of": [
+                "FindFirstOf\\s*\\(",
+                "StaticFindObject\\s*\\("
+              ]
+            }
+          ]
+        },
+        {
+          "id": "supply-persistence",
+          "label": {
+            "en": "Cycle rollover and persistence",
+            "zh": "周期切换与持久化"
+          },
+          "weight": 3,
+          "groups": [
+            {
+              "name": "cycle",
+              "any_of": [
+                "begin_cycle",
+                "cycle"
+              ]
+            },
+            {
+              "name": "save",
+              "any_of": [
+                "[.:]Save\\s*\\(",
+                "\\bSave\\s*=\\s*function"
+              ]
+            },
+            {
+              "name": "load",
+              "any_of": [
+                "[.:]Load\\s*\\(",
+                "\\bLoad\\s*=\\s*function"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "supply-lifecycle",
+          "label": {
+            "en": "Paired hook lifecycle",
+            "zh": "成对钩子生命周期"
+          },
+          "weight": 2,
+          "groups": [
+            {
+              "name": "register",
+              "any_of": [
+                "RegisterHook\\s*\\("
+              ]
+            },
+            {
+              "name": "unregister",
+              "any_of": [
+                "UnregisterHook\\s*\\("
+              ]
+            }
+          ]
+        },
+        {
+          "id": "supply-manifest",
+          "label": {
+            "en": "Server-capable package manifest",
+            "zh": "支持专服的包清单"
+          },
+          "weight": 2,
+          "glob": "Info.json",
+          "groups": [
+            {
+              "name": "package name",
+              "any_of": [
+                "\"PackageName\"\\s*:\\s*\"[^\"]+\""
+              ]
+            },
+            {
+              "name": "lua rule",
+              "any_of": [
+                "\"Type\"\\s*:\\s*\"Lua\""
+              ]
+            },
+            {
+              "name": "server rule",
+              "any_of": [
+                "\"IsServer\"\\s*:\\s*true"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "base-containment-mincut",
+      "difficulty": "hard",
+      "title": {
+        "en": "Canonical Base Containment Under Coupled Costs",
+        "zh": "全局最优据点封控规划"
+      },
+      "summary": {
+        "en": "Canonical Base Containment Under Coupled Costs with exact global optimization, stable history and validated recovery.",
+        "zh": "全局最优据点封控规划；要求全局精确优化、历史稳定性和可验证恢复。"
+      },
+      "brief": {
+        "en": "Construct a pure-Lua optimizer and an authoritative UE4SS server service from an empty workspace. The exam defines the complete input, optimization, recovery and lifecycle contract.",
+        "zh": "从空工作区实现纯 Lua 精确优化器和权威专服服务；试题完整定义输入、优化目标、恢复与生命周期。"
+      },
+      "requirements": {
+        "en": [
+          "Implement Core.new(), Core.load(data), plan(request), snapshot() and save() exactly as specified in the authored exam.",
+          "Compute the exact global optimum under all objective levels; local greedy choices and incomplete tie-breaking are not sufficient.",
+          "Validate the complete request before checking its revision; rejected operations must preserve all state.",
+          "Treat a structurally valid but unsatisfiable hard-constraint graph as infeasible without accepting its revision.",
+          "Make equivalent input permutations produce identical canonical results and normalized saved data.",
+          "Detach all caller inputs, returned results and recovered state; validate the saved optimum instead of trusting cached scores.",
+          "Meet the documented maximum problem size within the unchanged Lua sandbox resource limits.",
+          "Publish RheniumService with Plan, Reset, Save, Load, Snapshot and idempotent Unmount on the dedicated server."
+        ],
+        "zh": [
+          "按公开试题实现 Core.new、Core.load、plan、snapshot 和 save。",
+          "严格求解所有层级目标的全局最优解，不接受局部贪心或不完整平局处理。",
+          "完整校验输入后检查版本；拒绝操作不得修改任何状态。",
+          "结构合法但硬约束不可满足时返回 infeasible，且不接受版本。",
+          "等价输入排列必须产生相同规范结果和规范保存数据。",
+          "隔离输入、返回值和恢复数据的别名；恢复时重算并验证最优结果。",
+          "在现有 Lua 沙箱资源限制内处理规定的最大规模。",
+          "仅在权威专服发布 RheniumService，公开 Plan、Reset、Save、Load、Snapshot 和幂等 Unmount。"
+        ]
+      },
+      "api_usage": {
+        "en": [
+          "Wait for a valid UWorld before registering callbacks.",
+          "Use UEHelpers.GetKismetSystemLibrary():IsDedicatedServer(world).",
+          "Use ExecuteInGameThread for asynchronous callers.",
+          "Pair RegisterHook with UnregisterHook on Unmount.",
+          "Use a read-only console entry point; do not infer caller identity from FindFirstOf.",
+          "Use Info.json with a server-only Lua InstallRule."
+        ],
+        "zh": [
+          "等待有效世界后再注册回调。",
+          "用 UEHelpers.GetKismetSystemLibrary():IsDedicatedServer(world) 守卫专服。",
+          "异步调用者用 ExecuteInGameThread 回到游戏线程。",
+          "Unmount 成对释放 RegisterHook/UnregisterHook。",
+          "控制台只读，不用 FindFirstOf 推断调用者身份。",
+          "Info.json 声明服务端 Lua 安装规则。"
+        ]
+      },
+      "acceptance": {
+        "en": [
+          "All public invariants hold under adversarial sequences.",
+          "Deterministic ordering matches the specified objective.",
+          "Rejected operations have no side effects.",
+          "Save/load preserves the accepted plan and its objective baseline.",
+          "Required real dedicated-server assertions must execute for full."
+        ],
+        "zh": [
+          "对抗事件序列满足全部公开不变量。",
+          "排序结果匹配题目定义。",
+          "拒绝操作无副作用。",
+          "保存恢复保留已接受方案及其目标基线。",
+          "full 必须执行真实专服断言。"
+        ]
+      },
+      "domains": [
+        "min-cut",
+        "hard-constraints",
+        "canonical-optimum",
+        "recovery"
+      ],
+      "estimated_minutes": 960,
+      "core_module": "scripts/containment/core.lua",
+      "hidden_test": "hidden/base-containment-mincut.lua",
+      "server_test": "server/base-containment-mincut.lua",
+      "required_files": [
+        "Info.json",
+        "scripts/main.lua",
+        "scripts/containment/core.lua",
+        "scripts/services/containment_service.lua"
+      ],
+      "minimum_lua_lines": 100,
+      "integration_checks": [
+        {
+          "id": "containment-authority",
+          "label": {
+            "en": "Dedicated server mount",
+            "zh": "专服挂载"
+          },
+          "weight": 4,
+          "groups": [
+            {
+              "name": "guard",
+              "any_of": [
+                "IsDedicatedServer\\s*\\("
+              ]
+            },
+            {
+              "name": "service",
+              "any_of": [
+                "containment_service"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "containment-thread",
+          "label": {
+            "en": "Game thread boundary",
+            "zh": "游戏线程边界"
+          },
+          "weight": 4,
+          "groups": [
+            {
+              "name": "dispatch",
+              "any_of": [
+                "ExecuteInGameThread\\s*\\("
+              ]
+            },
+            {
+              "name": "console",
+              "any_of": [
+                "RegisterConsoleCommandGlobalHandler\\s*\\("
+              ]
+            }
+          ]
+        },
+        {
+          "id": "containment-persistence",
+          "label": {
+            "en": "Persistence interface",
+            "zh": "持久化接口"
+          },
+          "weight": 3,
+          "groups": [
+            {
+              "name": "save",
+              "any_of": [
+                "[:.]Save\\s*\\("
+              ]
+            },
+            {
+              "name": "load",
+              "any_of": [
+                "[:.]Load\\s*\\("
+              ]
+            }
+          ]
+        },
+        {
+          "id": "containment-lifecycle",
+          "label": {
+            "en": "Paired hooks",
+            "zh": "成对钩子"
+          },
+          "weight": 2,
+          "groups": [
+            {
+              "name": "register",
+              "any_of": [
+                "RegisterHook\\s*\\("
+              ]
+            },
+            {
+              "name": "unregister",
+              "any_of": [
+                "UnregisterHook\\s*\\("
+              ]
+            }
+          ]
+        },
+        {
+          "id": "containment-manifest",
+          "label": {
+            "en": "Server manifest",
+            "zh": "专服清单"
+          },
+          "weight": 2,
+          "glob": "Info.json",
+          "groups": [
+            {
+              "name": "package",
+              "any_of": [
+                "\"PackageName\""
+              ]
+            },
+            {
+              "name": "lua",
+              "any_of": [
+                "\"Type\"\\s*:\\s*\"Lua\""
+              ]
+            },
+            {
+              "name": "server",
+              "any_of": [
+                "\"IsServer\"\\s*:\\s*true"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "raid-dispatch-queue",
+      "difficulty": "hard",
+      "title": {
+        "en": "Lease-based Raid Dispatch Queue",
+        "zh": "基于租约的突袭派遣队列"
+      },
+      "summary": {
+        "en": "Dispatch queued raid requests to worker slots under expiring leases with deterministic priority, disconnect handling, and restart-safe recovery.",
+        "zh": "在可过期租约下把排队的突袭请求派发给工作槽位，保证优先级确定、掉线可回收、重启可恢复。"
+      },
+      "brief": {
+        "en": "Implement a plain-Lua dispatch queue and a dedicated-server service module. The queue orders requests deterministically, hands out single-owner leases that expire, reclaims work from disconnected members, and survives a restart. The service registers arrivals with a UE4SS hook, detects departures by sweeping tracked controllers with Object:IsValid() inside a LoopAsync tick, and applies every mutation on the game thread.",
+        "zh": "实现纯 Lua 派遣队列与专服服务模块。队列必须确定性排序、发放单一持有者且会过期的租约、回收掉线成员的工作，并可跨重启恢复。服务模块用 UE4SS 钩子登记加入，用 LoopAsync 定时扫描已跟踪控制器的 Object:IsValid() 检测离开，所有修改都在游戏线程执行。"
+      },
+      "requirements": {
+        "en": [
+          "Export Queue.new(options), Queue.load(data, options), enqueue(request_id, member_id, priority, now), lease(worker_id, now), renew(token, now), complete(token, outcome, now), release(token, now), expire(now), snapshot(now), and save(now).",
+          "Validate identifiers, non-negative integer priorities, and strictly monotonic non-negative timestamps; a stale timestamp may not mutate any state.",
+          "Order ready work by descending priority, then ascending enqueue sequence; the ordering must not depend on Lua table iteration order.",
+          "enqueue deduplicates request_id; a duplicate returns the existing pending, leased, or final outcome without changing position.",
+          "lease grants at most one live lease per request and per worker, records expires_at from options.lease_seconds, and returns a unique token.",
+          "renew extends only a live lease owned by the same worker; complete and release each consume a token exactly once.",
+          "expire(now) returns expired requests to the ready set with their original priority and sequence, and increments an attempt counter.",
+          "snapshot returns a fresh deterministic table exposing aggregate counts only, never worker or member identity maps.",
+          "save/load round-trips the ready order, live leases, expiry deadlines, attempt counters, and token sequencing.",
+          "scripts/main.lua must publish the mounted service instance as the single global RheniumService on the dedicated server and must not define any other global."
+        ],
+        "zh": [
+          "导出 Queue.new(options)、Queue.load(data, options)、enqueue(request_id, member_id, priority, now)、lease(worker_id, now)、renew(token, now)、complete(token, outcome, now)、release(token, now)、expire(now)、snapshot(now) 与 save(now)。",
+          "校验标识、非负整数优先级与严格单调的非负时间戳；过期时间戳不得修改任何状态。",
+          "就绪工作按优先级降序、入队序号升序排序；排序不得依赖 Lua 表遍历顺序。",
+          "enqueue 按 request_id 去重；重复请求返回既有 pending、leased 或最终结果且不改变位置。",
+          "lease 对每个请求和每个工作者最多授予一个存活租约，按 options.lease_seconds 记录 expires_at，并返回唯一 token。",
+          "renew 只能延长同一工作者持有的存活租约；complete 与 release 各自只能消费 token 一次。",
+          "expire(now) 把过期请求按原优先级与序号放回就绪集合，并递增尝试计数。",
+          "snapshot 返回新建的确定性表，只公开聚合计数，不得泄漏工作者或成员身份映射。",
+          "save/load 完整往返就绪顺序、存活租约、过期时限、尝试计数与 token 序列。",
+          "scripts/main.lua 必须在专用服务器上把已挂载的服务实例发布为唯一全局 RheniumService，且不得定义任何其他全局名。"
+        ]
+      },
+      "api_usage": {
+        "en": [
+          "UE4SS starts Lua mods before the dedicated server owns a valid UWorld, so poll UEHelpers.GetWorld() with ExecuteWithDelay until world:IsValid() is true, and only then run the authority check and register callbacks.",
+          "Guard the dedicated server with UEHelpers.GetKismetSystemLibrary():IsDedicatedServer(UEHelpers.GetWorld()) before registering callbacks.",
+          "Register arrivals with local pre, post = RegisterHook(\"/Script/Engine.PlayerController:ServerAcknowledgePossession\", function(Context) ... end) and release them with UnregisterHook(\"/Script/Engine.PlayerController:ServerAcknowledgePossession\", pre, post).",
+          "Detect departures by sweeping tracked controllers inside LoopAsync(interval_ms, function() ... return false end); the loop stops only when the callback returns true.",
+          "Call Object:IsValid() on every tracked controller before use and drop it from tracking when it becomes invalid.",
+          "Marshal all queue mutations with ExecuteInGameThread(function() ... end) so asynchronous sweeps never mutate state off the game thread.",
+          "Expose operator control through RegisterConsoleCommandGlobalHandler(\"rhenium_raid\", function(Cmd, CommandParts, Ar) ... return true end) and answer with Ar:Log(message).",
+          "Package the mod as Info.json with an InstallRule of \"Type\": \"Lua\" and \"IsServer\": true and load scripts/main.lua as the UE4SS entry point."
+        ],
+        "zh": [
+          "UE4SS 在专用服务器拥有有效 UWorld 之前就会启动 Lua 模组，因此必须用 ExecuteWithDelay 轮询 UEHelpers.GetWorld() 直到 world:IsValid() 为真，之后才做专服判定并注册回调。",
+          "注册回调前用 UEHelpers.GetKismetSystemLibrary():IsDedicatedServer(UEHelpers.GetWorld()) 守卫专服。",
+          "用 local pre, post = RegisterHook(\"/Script/Engine.PlayerController:ServerAcknowledgePossession\", function(Context) ... end) 登记加入，并用 UnregisterHook(\"/Script/Engine.PlayerController:ServerAcknowledgePossession\", pre, post) 释放。",
+          "在 LoopAsync(interval_ms, function() ... return false end) 中扫描已跟踪控制器来检测离开；回调返回 true 才会停止循环。",
+          "使用前对每个已跟踪控制器调用 Object:IsValid()，失效后必须从跟踪表移除。",
+          "所有队列修改必须用 ExecuteInGameThread(function() ... end) 编排，异步扫描不得在游戏线程之外改状态。",
+          "用 RegisterConsoleCommandGlobalHandler(\"rhenium_raid\", function(Cmd, CommandParts, Ar) ... return true end) 暴露运维入口，并用 Ar:Log(message) 回复。",
+          "模组必须打包为含 \"Type\": \"Lua\" 与 \"IsServer\": true 安装规则的 Info.json，并以 scripts/main.lua 作为 UE4SS 入口。"
+        ]
+      },
+      "acceptance": {
+        "en": [
+          "Priority and sequence ordering is fully deterministic.",
+          "A request is never leased to two workers at once.",
+          "Expired leases return work without losing attempt history.",
+          "Snapshots never expose member or worker identity.",
+          "The core module contains no UE4SS global and runs on plain Lua.",
+          "The dedicated server proves attachment, lease handout, expiry sweep, and reload."
+        ],
+        "zh": [
+          "优先级与序号排序完全确定。",
+          "同一请求不会被两个工作者同时租用。",
+          "租约过期后工作被放回且尝试历史不丢失。",
+          "快照不得泄漏成员或工作者身份。",
+          "核心模块不含任何 UE4SS 全局对象，可在普通 Lua 运行。",
+          "专服验证服务挂载、租约发放、过期扫描与重载。"
+        ]
+      },
+      "domains": [
+        "scheduling",
+        "leases",
+        "player-lifecycle",
+        "recovery"
+      ],
+      "estimated_minutes": 390,
+      "core_module": "scripts/raiddispatch/queue.lua",
+      "hidden_test": "hidden/raid-dispatch-queue.lua",
+      "server_test": "server/raid-dispatch-queue.lua",
+      "required_files": [
+        "Info.json",
+        "scripts/main.lua",
+        "scripts/raiddispatch/queue.lua",
+        "scripts/services/raid_dispatch_service.lua"
+      ],
+      "minimum_lua_lines": 240,
+      "integration_checks": [
+        {
+          "id": "dispatch-authority",
+          "label": {
+            "en": "Dedicated-server authority",
+            "zh": "专服权威"
+          },
+          "weight": 4,
+          "groups": [
+            {
+              "name": "guard",
+              "any_of": [
+                "IsDedicatedServer\\s*\\("
+              ]
+            },
+            {
+              "name": "service module",
+              "any_of": [
+                "raid_dispatch_service",
+                "RaidDispatchService"
+              ]
+            }
+          ],
+          "none_of": [
+            "TODO",
+            "IMPLEMENT\\s+ME"
+          ]
+        },
+        {
+          "id": "dispatch-lifecycle",
+          "label": {
+            "en": "Player lifecycle tracking",
+            "zh": "玩家生命周期跟踪"
+          },
+          "weight": 4,
+          "groups": [
+            {
+              "name": "register",
+              "any_of": [
+                "RegisterHook\\s*\\("
+              ]
+            },
+            {
+              "name": "unregister",
+              "any_of": [
+                "UnregisterHook\\s*\\("
+              ]
+            },
+            {
+              "name": "validity",
+              "any_of": [
+                "IsValid\\s*\\("
+              ]
+            }
+          ]
+        },
+        {
+          "id": "dispatch-scheduling",
+          "label": {
+            "en": "Asynchronous sweep on the game thread",
+            "zh": "游戏线程上的异步扫描"
+          },
+          "weight": 3,
+          "groups": [
+            {
+              "name": "loop",
+              "any_of": [
+                "LoopAsync\\s*\\(",
+                "ExecuteWithDelay\\s*\\("
+              ]
+            },
+            {
+              "name": "game thread",
+              "any_of": [
+                "ExecuteInGameThread\\s*\\("
+              ]
+            }
+          ]
+        },
+        {
+          "id": "dispatch-command",
+          "label": {
+            "en": "Operator console entry point",
+            "zh": "运维控制台入口"
+          },
+          "weight": 2,
+          "groups": [
+            {
+              "name": "console command",
+              "any_of": [
+                "RegisterConsoleCommand(?:Global)?Handler\\s*\\("
+              ]
+            }
+          ]
+        },
+        {
+          "id": "dispatch-manifest",
+          "label": {
+            "en": "Server-capable package manifest",
+            "zh": "支持专服的包清单"
+          },
+          "weight": 2,
+          "glob": "Info.json",
+          "groups": [
+            {
+              "name": "package name",
+              "any_of": [
+                "\"PackageName\"\\s*:\\s*\"[^\"]+\""
+              ]
+            },
+            {
+              "name": "lua rule",
+              "any_of": [
+                "\"Type\"\\s*:\\s*\"Lua\""
+              ]
+            },
+            {
+              "name": "server rule",
+              "any_of": [
+                "\"IsServer\"\\s*:\\s*true"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "server-rule-ballot",
+      "difficulty": "hard",
+      "title": {
+        "en": "Server-authoritative World Rule Ballot",
+        "zh": "服务端权威世界规则投票"
+      },
+      "summary": {
+        "en": "Run time-boxed votes on a server-owned rule whitelist with a frozen electorate, quorum, deterministic tie handling, and restart-safe scheduling.",
+        "zh": "对服务端固定规则白名单进行限时投票，选民集冻结、法定人数明确、平票处理确定，并可跨重启重新排期。"
+      },
+      "brief": {
+        "en": "Implement a plain-Lua ballot state machine and a dedicated-server service module. Proposals, options, electorate, deadline, and quorum are all server-decided; a client may only express its own choice through a validated console command. Revotes, late packets, repeated settlement, mid-vote joins, and restarts must not change the contract. Only rules on the mod's own whitelist may be applied, and never client-supplied Lua, commands, or arbitrary configuration keys.",
+        "zh": "实现纯 Lua 投票状态机与专服服务模块。提案、选项、选民、截止时间与法定人数都由服务端决定；客户端只能通过经校验的控制台命令表达自己的选择。改票、迟到包、重复结算、中途加入与服务器重启都不能改变既定合同。只能应用模组自身白名单中的规则，绝不执行客户端提供的 Lua、命令或任意配置键。"
+      },
+      "requirements": {
+        "en": [
+          "Export Ballot.new(options), Ballot.load(data, options), open(proposal, electorate, now), cast(voter_id, proposal_id, choice_id, revision, now), close(proposal_id, now), cancel(proposal_id, now), snapshot(now), and save(now).",
+          "A proposal carries a unique id, at least two unique choices, a finite deadline, and a server-configured quorum.",
+          "open freezes the deduplicated electorate; members who join later cannot vote and members who leave still count toward the quorum base.",
+          "Accept votes only from frozen voters, only for whitelisted choices, and only strictly before the deadline; revision is a strictly increasing non-negative integer per voter.",
+          "Duplicate and stale revisions have no side effect, and abstention must be an explicit whitelisted choice when it is allowed.",
+          "close is idempotent and counts only each voter's latest vote; below quorum the result is no_quorum and a top tie is tie with no rule applied.",
+          "Counts are emitted in lexicographic option-ID order and a close after the deadline always matches the deadline-instant result.",
+          "cancel produces a final state that cannot reopen and applies no rule; a closed or canceled proposal ID can never be reused.",
+          "snapshot exposes only aggregate counts, never individual ballots, and returns a fresh table; save/load preserves the electorate, revisions, deadline, and final result.",
+          "scripts/main.lua must publish the mounted service instance as the single global RheniumService on the dedicated server and must not define any other global."
+        ],
+        "zh": [
+          "导出 Ballot.new(options)、Ballot.load(data, options)、open(proposal, electorate, now)、cast(voter_id, proposal_id, choice_id, revision, now)、close(proposal_id, now)、cancel(proposal_id, now)、snapshot(now) 与 save(now)。",
+          "提案至少含唯一 id、两个以上唯一 choices、有限 deadline 与服务端配置的 quorum。",
+          "open 冻结去重后的选民集；之后加入的玩家不能投票，离开的原选民仍计入法定人数基数。",
+          "只接受冻结选民、白名单选项、且严格早于截止时间的投票；revision 是每位选民严格递增的非负整数。",
+          "重复与旧 revision 无副作用；若允许弃权，必须是显式白名单选项。",
+          "close 幂等，每位选民只统计最新一票；未达 quorum 结果为 no_quorum，最高票平局结果为 tie 且不应用规则。",
+          "计数按 option ID 字典序输出；截止后任何时刻 close 的结果必须与截止瞬间一致。",
+          "cancel 产生不可重开的最终状态且不应用规则；已关闭或取消的 proposal ID 永远不能复用。",
+          "snapshot 只公开聚合计数、不泄漏个人选择并返回新表；save/load 保留选民集、revision、截止时间与最终结果。",
+          "scripts/main.lua 必须在专用服务器上把已挂载的服务实例发布为唯一全局 RheniumService，且不得定义任何其他全局名。"
+        ]
+      },
+      "api_usage": {
+        "en": [
+          "UE4SS starts Lua mods before the dedicated server owns a valid UWorld, so poll UEHelpers.GetWorld() with ExecuteWithDelay until world:IsValid() is true, and only then run the authority check and register callbacks.",
+          "Guard the dedicated server with UEHelpers.GetKismetSystemLibrary():IsDedicatedServer(UEHelpers.GetWorld()) before registering anything.",
+          "Accept votes with RegisterConsoleCommandGlobalHandler(\"rhenium_ballot\", function(Cmd, CommandParts, Ar) ... return true end); CommandParts carries the proposal ID, choice ID, and revision as strings.",
+          "Derive voter identity on the server from the controller captured by RegisterHook(\"/Script/Engine.PlayerController:ServerAcknowledgePossession\", handler), never from a client-supplied identity argument.",
+          "Schedule settlement with ExecuteWithDelay(remaining_milliseconds, function() ExecuteInGameThread(settle) end) and re-arm the remaining delay after Load.",
+          "Announce the final result with Ar:Log(message) on the requesting output device and print(message) for the server log; never echo an individual ballot.",
+          "Release every hook with UnregisterHook(\"/Script/Engine.PlayerController:ServerAcknowledgePossession\", pre, post) when the service shuts down.",
+          "Package the mod as Info.json with an InstallRule of \"Type\": \"Lua\" and \"IsServer\": true and load scripts/main.lua as the UE4SS entry point."
+        ],
+        "zh": [
+          "UE4SS 在专用服务器拥有有效 UWorld 之前就会启动 Lua 模组，因此必须用 ExecuteWithDelay 轮询 UEHelpers.GetWorld() 直到 world:IsValid() 为真，之后才做专服判定并注册回调。",
+          "注册任何回调前用 UEHelpers.GetKismetSystemLibrary():IsDedicatedServer(UEHelpers.GetWorld()) 守卫专服。",
+          "用 RegisterConsoleCommandGlobalHandler(\"rhenium_ballot\", function(Cmd, CommandParts, Ar) ... return true end) 接收投票；CommandParts 以字符串形式携带 proposal ID、choice ID 与 revision。",
+          "选民身份必须由服务端从 RegisterHook(\"/Script/Engine.PlayerController:ServerAcknowledgePossession\", handler) 捕获的控制器推导，绝不能来自客户端提供的身份参数。",
+          "用 ExecuteWithDelay(剩余毫秒, function() ExecuteInGameThread(settle) end) 排期结算，并在 Load 之后按剩余时间重新排期。",
+          "用请求方输出设备的 Ar:Log(message) 与服务器日志的 print(message) 公告最终结果；绝不回显任何个人选票。",
+          "服务关闭时用 UnregisterHook(\"/Script/Engine.PlayerController:ServerAcknowledgePossession\", pre, post) 释放全部钩子。",
+          "模组必须打包为含 \"Type\": \"Lua\" 与 \"IsServer\": true 安装规则的 Info.json，并以 scripts/main.lua 作为 UE4SS 入口。"
+        ]
+      },
+      "acceptance": {
+        "en": [
+          "Non-voters, forged choices, stale revisions, and late votes are all rejected.",
+          "Quorum, ties, and count ordering are fully deterministic.",
+          "close and cancel stay idempotent across retries and reloads.",
+          "A client cannot decide the electorate, deadline, quorum, or the rule to apply.",
+          "The core module contains no UE4SS global and runs on plain Lua.",
+          "The dedicated server proves attachment, server-derived identity, settlement, and reload."
+        ],
+        "zh": [
+          "非选民、伪造选项、旧 revision 与迟到投票全部无效。",
+          "法定人数、平票与计数顺序完全确定。",
+          "close 与 cancel 在重试与重载后保持幂等。",
+          "客户端无法决定选民、截止时间、quorum 或要执行的规则。",
+          "核心模块不含任何 UE4SS 全局对象，可在普通 Lua 运行。",
+          "专服验证服务挂载、服务端身份推导、结算与重载。"
+        ]
+      },
+      "domains": [
+        "voting",
+        "server-authority",
+        "timers",
+        "announcements"
+      ],
+      "estimated_minutes": 360,
+      "core_module": "scripts/ruleballot/ballot.lua",
+      "hidden_test": "hidden/server-rule-ballot.lua",
+      "server_test": "server/server-rule-ballot.lua",
+      "required_files": [
+        "Info.json",
+        "scripts/main.lua",
+        "scripts/ruleballot/ballot.lua",
+        "scripts/services/rule_ballot_service.lua"
+      ],
+      "minimum_lua_lines": 220,
+      "integration_checks": [
+        {
+          "id": "ballot-authority",
+          "label": {
+            "en": "Dedicated-server authority",
+            "zh": "专服权威"
+          },
+          "weight": 4,
+          "groups": [
+            {
+              "name": "guard",
+              "any_of": [
+                "IsDedicatedServer\\s*\\("
+              ]
+            },
+            {
+              "name": "service module",
+              "any_of": [
+                "rule_ballot_service",
+                "RuleBallotService"
+              ]
+            }
+          ],
+          "none_of": [
+            "TODO",
+            "IMPLEMENT\\s+ME",
+            "load\\s*\\(\\s*CommandParts",
+            "loadstring\\s*\\("
+          ]
+        },
+        {
+          "id": "ballot-identity",
+          "label": {
+            "en": "Server-derived voter identity",
+            "zh": "服务端推导的选民身份"
+          },
+          "weight": 4,
+          "groups": [
+            {
+              "name": "console command",
+              "any_of": [
+                "RegisterConsoleCommand(?:Global)?Handler\\s*\\("
+              ]
+            },
+            {
+              "name": "controller hook",
+              "any_of": [
+                "ServerAcknowledgePossession"
+              ]
+            },
+            {
+              "name": "unwrap",
+              "any_of": [
+                ":get\\s*\\("
+              ]
+            }
+          ]
+        },
+        {
+          "id": "ballot-timers",
+          "label": {
+            "en": "Deadline scheduling",
+            "zh": "截止时间排期"
+          },
+          "weight": 3,
+          "groups": [
+            {
+              "name": "delay",
+              "any_of": [
+                "ExecuteWithDelay\\s*\\("
+              ]
+            },
+            {
+              "name": "game thread",
+              "any_of": [
+                "ExecuteInGameThread\\s*\\("
+              ]
+            }
+          ]
+        },
+        {
+          "id": "ballot-lifecycle",
+          "label": {
+            "en": "Paired hooks and announcements",
+            "zh": "成对钩子与公告"
+          },
+          "weight": 2,
+          "groups": [
+            {
+              "name": "register",
+              "any_of": [
+                "RegisterHook\\s*\\("
+              ]
+            },
+            {
+              "name": "unregister",
+              "any_of": [
+                "UnregisterHook\\s*\\("
+              ]
+            },
+            {
+              "name": "announce",
+              "any_of": [
+                ":Log\\s*\\(",
+                "\\bprint\\s*\\("
+              ]
+            }
+          ]
+        },
+        {
+          "id": "ballot-manifest",
+          "label": {
+            "en": "Server-capable package manifest",
+            "zh": "支持专服的包清单"
+          },
+          "weight": 2,
+          "glob": "Info.json",
+          "groups": [
+            {
+              "name": "package name",
+              "any_of": [
+                "\"PackageName\"\\s*:\\s*\"[^\"]+\""
+              ]
+            },
+            {
+              "name": "lua rule",
+              "any_of": [
+                "\"Type\"\\s*:\\s*\"Lua\""
+              ]
+            },
+            {
+              "name": "server rule",
+              "any_of": [
+                "\"IsServer\"\\s*:\\s*true"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "guild-draft-canonical-order",
+      "difficulty": "hard",
+      "title": {
+        "en": "Stable Guild Draft Under Conflicting Priorities",
+        "zh": "冲突偏好下的稳定公会次序规划"
+      },
+      "summary": {
+        "en": "Stable Guild Draft Under Conflicting Priorities with exact global optimization, stable history and validated recovery.",
+        "zh": "冲突偏好下的稳定公会次序规划；要求全局精确优化、历史稳定性和可验证恢复。"
+      },
+      "brief": {
+        "en": "Construct a pure-Lua optimizer and an authoritative UE4SS server service from an empty workspace. The exam defines the complete input, optimization, recovery and lifecycle contract.",
+        "zh": "从空工作区实现纯 Lua 精确优化器和权威专服服务；试题完整定义输入、优化目标、恢复与生命周期。"
+      },
+      "requirements": {
+        "en": [
+          "Implement Core.new(), Core.load(data), plan(request), snapshot() and save() exactly as specified in the authored exam.",
+          "Compute the exact global optimum under all objective levels; local greedy choices and incomplete tie-breaking are not sufficient.",
+          "Validate the complete request before checking its revision; rejected operations must preserve all state.",
+          "Treat a structurally valid but unsatisfiable hard-constraint graph as infeasible without accepting its revision.",
+          "Make equivalent input permutations produce identical canonical results and normalized saved data.",
+          "Detach all caller inputs, returned results and recovered state; validate the saved optimum instead of trusting cached scores.",
+          "Meet the documented maximum problem size within the unchanged Lua sandbox resource limits.",
+          "Publish RheniumService with Plan, Reset, Save, Load, Snapshot and idempotent Unmount on the dedicated server."
+        ],
+        "zh": [
+          "按公开试题实现 Core.new、Core.load、plan、snapshot 和 save。",
+          "严格求解所有层级目标的全局最优解，不接受局部贪心或不完整平局处理。",
+          "完整校验输入后检查版本；拒绝操作不得修改任何状态。",
+          "结构合法但硬约束不可满足时返回 infeasible，且不接受版本。",
+          "等价输入排列必须产生相同规范结果和规范保存数据。",
+          "隔离输入、返回值和恢复数据的别名；恢复时重算并验证最优结果。",
+          "在现有 Lua 沙箱资源限制内处理规定的最大规模。",
+          "仅在权威专服发布 RheniumService，公开 Plan、Reset、Save、Load、Snapshot 和幂等 Unmount。"
+        ]
+      },
+      "api_usage": {
+        "en": [
+          "Wait for a valid UWorld before registering callbacks.",
+          "Use UEHelpers.GetKismetSystemLibrary():IsDedicatedServer(world).",
+          "Use ExecuteInGameThread for asynchronous callers.",
+          "Pair RegisterHook with UnregisterHook on Unmount.",
+          "Use a read-only console entry point; do not infer caller identity from FindFirstOf.",
+          "Use Info.json with a server-only Lua InstallRule."
+        ],
+        "zh": [
+          "等待有效世界后再注册回调。",
+          "用 UEHelpers.GetKismetSystemLibrary():IsDedicatedServer(world) 守卫专服。",
+          "异步调用者用 ExecuteInGameThread 回到游戏线程。",
+          "Unmount 成对释放 RegisterHook/UnregisterHook。",
+          "控制台只读，不用 FindFirstOf 推断调用者身份。",
+          "Info.json 声明服务端 Lua 安装规则。"
+        ]
+      },
+      "acceptance": {
+        "en": [
+          "All public invariants hold under adversarial sequences.",
+          "Deterministic ordering matches the specified objective.",
+          "Rejected operations have no side effects.",
+          "Save/load preserves the accepted plan and its objective baseline.",
+          "Required real dedicated-server assertions must execute for full."
+        ],
+        "zh": [
+          "对抗事件序列满足全部公开不变量。",
+          "排序结果匹配题目定义。",
+          "拒绝操作无副作用。",
+          "保存恢复保留已接受方案及其目标基线。",
+          "full 必须执行真实专服断言。"
+        ]
+      },
+      "domains": [
+        "exact-ordering",
+        "precedence",
+        "bottleneck-objective",
+        "recovery"
+      ],
+      "estimated_minutes": 960,
+      "core_module": "scripts/draft/core.lua",
+      "hidden_test": "hidden/guild-draft-canonical-order.lua",
+      "server_test": "server/guild-draft-canonical-order.lua",
+      "required_files": [
+        "Info.json",
+        "scripts/main.lua",
+        "scripts/draft/core.lua",
+        "scripts/services/draft_service.lua"
+      ],
+      "minimum_lua_lines": 100,
+      "integration_checks": [
+        {
+          "id": "draft-authority",
+          "label": {
+            "en": "Dedicated server mount",
+            "zh": "专服挂载"
+          },
+          "weight": 4,
+          "groups": [
+            {
+              "name": "guard",
+              "any_of": [
+                "IsDedicatedServer\\s*\\("
+              ]
+            },
+            {
+              "name": "service",
+              "any_of": [
+                "draft_service"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "draft-thread",
+          "label": {
+            "en": "Game thread boundary",
+            "zh": "游戏线程边界"
+          },
+          "weight": 4,
+          "groups": [
+            {
+              "name": "dispatch",
+              "any_of": [
+                "ExecuteInGameThread\\s*\\("
+              ]
+            },
+            {
+              "name": "console",
+              "any_of": [
+                "RegisterConsoleCommandGlobalHandler\\s*\\("
+              ]
+            }
+          ]
+        },
+        {
+          "id": "draft-persistence",
+          "label": {
+            "en": "Persistence interface",
+            "zh": "持久化接口"
+          },
+          "weight": 3,
+          "groups": [
+            {
+              "name": "save",
+              "any_of": [
+                "[:.]Save\\s*\\("
+              ]
+            },
+            {
+              "name": "load",
+              "any_of": [
+                "[:.]Load\\s*\\("
+              ]
+            }
+          ]
+        },
+        {
+          "id": "draft-lifecycle",
+          "label": {
+            "en": "Paired hooks",
+            "zh": "成对钩子"
+          },
+          "weight": 2,
+          "groups": [
+            {
+              "name": "register",
+              "any_of": [
+                "RegisterHook\\s*\\("
+              ]
+            },
+            {
+              "name": "unregister",
+              "any_of": [
+                "UnregisterHook\\s*\\("
+              ]
+            }
+          ]
+        },
+        {
+          "id": "draft-manifest",
+          "label": {
+            "en": "Server manifest",
+            "zh": "专服清单"
+          },
+          "weight": 2,
+          "glob": "Info.json",
+          "groups": [
+            {
+              "name": "package",
+              "any_of": [
+                "\"PackageName\""
+              ]
+            },
+            {
+              "name": "lua",
+              "any_of": [
+                "\"Type\"\\s*:\\s*\"Lua\""
+              ]
+            },
+            {
+              "name": "server",
+              "any_of": [
+                "\"IsServer\"\\s*:\\s*true"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "outbox-receipt-recovery",
+      "difficulty": "hard",
+      "title": {
+        "en": "Receipt-driven Supply Outbox Recovery",
+        "zh": "崩溃窗口下的物资发放回执协议"
+      },
+      "summary": {
+        "en": "Receipt-driven Supply Outbox Recovery with adversarial boundary and recovery cases.",
+        "zh": "公会发放物资时，外部库存可能已经写入，但响应丢失；进程也可能在写入库存后、记录终态前崩溃。实现按序恢复的 durable outbox，禁止把“没有收到确认”解释为“没有交付”。本题的物资目录和成员身份由可信服务调用者预先解析，核心只处理发放协议。"
+      },
+      "brief": {
+        "en": "Build a pure-Lua core, a trusted server service and a UE4SS entry point. The authored exam specifies the exact API, failure model, ordering and limits.",
+        "zh": "公会发放物资时，外部库存可能已经写入，但响应丢失；进程也可能在写入库存后、记录终态前崩溃。实现按序恢复的 durable outbox，禁止把“没有收到确认”解释为“没有交付”。本题的物资目录和成员身份由可信服务调用者预先解析，核心只处理发放协议。"
+      },
+      "requirements": {
+        "en": [
+          "Export Core.new(), Core.load(data), submit(request,journal), drain(adapter,journal), status(id), snapshot(), and save(). Requests contain id, member, bundle, and a positive integer count.",
+          "Deduplicate by ID and compare the original payload; conflicts fail without writing or delivering. Persist pending intent before admitting a request or consuming its sequence.",
+          "The atomic full-state journal returns true only after durable replacement; false or exceptions mean no write. A failed journal must not publish the tentative in-memory state.",
+          "Drain in submission-sequence order. Query the durable adapter receipt first; only absent permits deliver(record). Unknown outcomes or exceptions stop the entire drain without bypassing the head request.",
+          "Persist applied/rejected terminal receipts before removing pending work. If this write fails, retain pending and query the receipt after recovery instead of repeating the side effect.",
+          "The supplied adapter durably deduplicates request IDs and supports absent/applied/rejected/unknown receipts. No impossible exactly-once guarantee is assumed for non-idempotent inventories.",
+          "Preserve records, terminal outcomes and sequence through save/load; detach all inputs and outputs, including tables handed to the journal and adapter.",
+          "Publish RheniumService with Submit, Drain, Status, Reset, Save, Load, Snapshot and Unmount; only trusted game-thread callers supply adapters. Console access is read-only."
+        ],
+        "zh": [
+          "`submit` 先完整校验，再按 ID 比较 member、bundle、count。相同负载返回原 seq/state 和 `duplicate=true`；不同负载返回 `request_conflict`，均不调用 journal。",
+          "新请求必须先 journal 完整 pending 状态，确认后才发布到内存；序号从 1 递增。落盘失败返回 `storage_unavailable`，不占 ID 或序号、不交付。",
+          "`drain` 按 seq 升序处理 pending。每次先 lookup；只有 absent 才 deliver。已有终态只落盘，不重复交付。unknown、异常或非法回执立即停止整轮，返回 `delivery_uncertain`，后续请求不得越过它。",
+          "得到终态后 journal 新状态；失败保留内存 pending，返回 `storage_unavailable` 并停止。重试必须再次 lookup，不能盲重发或对已确认交付执行撤销。",
+          "已落盘终态永久跳过。`drain` 返回 `{ok=true,completed=n}` 或 `{ok=false,code=...,completed=n}`；n 只计本轮成功落盘的终态。",
+          "`status` 返回 `{state=\"unknown\"}` 或 `{state=\"pending\"|\"applied\"|\"rejected\",seq=n}`。`snapshot` 仅返回三个状态计数，不含成员和物资详情。",
+          "`save/load` 保留记录、序号和终态；调用方可在任意 journal 边界丢弃实例，用最后成功写入的数据恢复。存储与库存分别持久，二者没有共同事务。",
+          "先校验后判重；非法字段为 `invalid_request`。有限次故障结束、adapter 最终可查询且 journal 恢复后，反复 drain 必须完成所有 pending，不能靠永远拒绝恢复取得安全性。",
+          "专服只发布 RheniumService，核心独立于 UE4SS。"
+        ]
+      },
+      "api_usage": {
+        "en": [
+          "Wait for a valid UWorld before registering callbacks.",
+          "Use UEHelpers.GetKismetSystemLibrary():IsDedicatedServer(world).",
+          "Use ExecuteInGameThread for asynchronous callers.",
+          "Pair RegisterHook with UnregisterHook on Unmount.",
+          "Use a read-only console entry point; do not infer caller identity from FindFirstOf.",
+          "Use Info.json with a server-only Lua InstallRule."
+        ],
+        "zh": [
+          "等待有效世界后再注册回调。",
+          "用 UEHelpers.GetKismetSystemLibrary():IsDedicatedServer(world) 守卫专服。",
+          "异步调用者用 ExecuteInGameThread 回到游戏线程。",
+          "Unmount 成对释放 RegisterHook/UnregisterHook。",
+          "控制台只读，不用 FindFirstOf 推断调用者身份。",
+          "Info.json 声明服务端 Lua 安装规则。"
+        ]
+      },
+      "acceptance": {
+        "en": [
+          "All public invariants hold under adversarial sequences.",
+          "Deterministic ordering matches the specified objective.",
+          "Rejected operations have no side effects.",
+          "Save/load preserves recovery and deduplication.",
+          "Required real dedicated-server assertions must execute for full."
+        ],
+        "zh": [
+          "对抗事件序列满足全部公开不变量。",
+          "排序结果匹配题目定义。",
+          "拒绝操作无副作用。",
+          "保存恢复保留协议状态。",
+          "full 必须执行真实专服断言。"
+        ]
+      },
+      "domains": [
+        "durability",
+        "idempotency",
+        "recovery",
+        "uncertain-outcomes"
+      ],
+      "estimated_minutes": 660,
+      "core_module": "scripts/outbox/core.lua",
+      "hidden_test": "hidden/outbox-receipt-recovery.lua",
+      "server_test": "server/outbox-receipt-recovery.lua",
+      "required_files": [
+        "Info.json",
+        "scripts/main.lua",
+        "scripts/outbox/core.lua",
+        "scripts/services/outbox_service.lua"
+      ],
+      "minimum_lua_lines": 100,
+      "integration_checks": [
+        {
+          "id": "outbox-authority",
+          "label": {
+            "en": "Dedicated server mount",
+            "zh": "专服挂载"
+          },
+          "weight": 4,
+          "groups": [
+            {
+              "name": "guard",
+              "any_of": [
+                "IsDedicatedServer\\s*\\("
+              ]
+            },
+            {
+              "name": "service",
+              "any_of": [
+                "outbox_service"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "outbox-thread",
+          "label": {
+            "en": "Game thread boundary",
+            "zh": "游戏线程边界"
+          },
+          "weight": 4,
+          "groups": [
+            {
+              "name": "dispatch",
+              "any_of": [
+                "ExecuteInGameThread\\s*\\("
+              ]
+            },
+            {
+              "name": "console",
+              "any_of": [
+                "RegisterConsoleCommandGlobalHandler\\s*\\("
+              ]
+            }
+          ]
+        },
+        {
+          "id": "outbox-persistence",
+          "label": {
+            "en": "Persistence interface",
+            "zh": "持久化接口"
+          },
+          "weight": 3,
+          "groups": [
+            {
+              "name": "save",
+              "any_of": [
+                "[:.]Save\\s*\\("
+              ]
+            },
+            {
+              "name": "load",
+              "any_of": [
+                "[:.]Load\\s*\\("
+              ]
+            }
+          ]
+        },
+        {
+          "id": "outbox-lifecycle",
+          "label": {
+            "en": "Paired hooks",
+            "zh": "成对钩子"
+          },
+          "weight": 2,
+          "groups": [
+            {
+              "name": "register",
+              "any_of": [
+                "RegisterHook\\s*\\("
+              ]
+            },
+            {
+              "name": "unregister",
+              "any_of": [
+                "UnregisterHook\\s*\\("
+              ]
+            }
+          ]
+        },
+        {
+          "id": "outbox-manifest",
+          "label": {
+            "en": "Server manifest",
+            "zh": "专服清单"
+          },
+          "weight": 2,
+          "glob": "Info.json",
+          "groups": [
+            {
+              "name": "package",
+              "any_of": [
+                "\"PackageName\""
+              ]
+            },
+            {
+              "name": "lua",
+              "any_of": [
+                "\"Type\"\\s*:\\s*\"Lua\""
+              ]
+            },
+            {
+              "name": "server",
+              "any_of": [
+                "\"IsServer\"\\s*:\\s*true"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "pal-workforce-optimal-matching",
+      "difficulty": "hard",
+      "title": {
+        "en": "Globally Optimal Pal Workforce Matching",
+        "zh": "帕鲁工作适应性的全局最优分配"
+      },
+      "summary": {
+        "en": "Globally Optimal Pal Workforce Matching with adversarial boundary and recovery cases.",
+        "zh": "据点中不同帕鲁只能承担部分工作；优先处理一个局部最高收益任务可能占用唯一可完成其他任务的帕鲁。实现全局最优的一对一分配器，不能用贪心或枚举所有排列应付最大规模。"
+      },
+      "brief": {
+        "en": "Build a pure-Lua core, a trusted server service and a UE4SS entry point. The authored exam specifies the exact API, failure model, ordering and limits.",
+        "zh": "据点中不同帕鲁只能承担部分工作；优先处理一个局部最高收益任务可能占用唯一可完成其他任务的帕鲁。实现全局最优的一对一分配器，不能用贪心或枚举所有排列应付最大规模。"
+      },
+      "requirements": {
+        "en": [
+          "Export Core.new(), Core.load(data), plan(input), snapshot(), and save(). Input contains revision, up to 12 unique pals, and up to 12 jobs with id, priority and a pal-ID-to-cost map.",
+          "Compute a globally optimal partial one-to-one matching; missing edges are forbidden and zero-cost edges are valid.",
+          "Compare solutions by maximum assigned priority sum, then maximum cardinality, then minimum total cost, then minimum lexicographic assignment vector.",
+          "The vector follows sorted job IDs and contains the assigned pal ID or ~ for an unassigned job. Compare original byte strings, including prefix IDs; return only assigned pairs sorted by job ID.",
+          "Reject malformed dense arrays, duplicate IDs, unknown edge targets and invalid integers before checking the revision. A valid revision must exceed the last accepted revision, initially -1.",
+          "Return ok, revision, priority, count, cost and assignments. Equivalent input permutations must produce identical results, independent of table iteration order.",
+          "Handle a dense 12-by-12 graph within O(J*P*2^P) candidate transitions, allowing O(J+P) comparison/copy work per transition. Preserve the accepted plan through detached save/load.",
+          "Publish RheniumService with Plan, Reset, Save, Load, Snapshot and Unmount. Suitability and costs are trusted server snapshots, not undocumented game SDK fields or client-supplied mutations."
+        ],
+        "zh": [
+          "每个帕鲁最多分配一个工作，每个工作最多分配一个帕鲁；允许任意工作空缺。",
+          "严格按四级目标比较：最大化被分配工作的 priority 总和；其次最大化工作数量；其次最小化成本总和；最后最小化分配向量的字典序。不得用会溢出或损失精度的大权重合并这些目标。",
+          "分配向量按 job ID 字节字典序排列，各元素是 pal ID 或未分配标记 `~`。比较元素原始字符串（短前缀小于长字符串），`~` 大于所有合法 ID。不是比较仅含已分配项的串。",
+          "返回 `{ok=true,revision,priority,count,cost,assignments}`；assignments 只含已分配项 `{job,pal}`，按 job ID 升序。",
+          "完整输入校验先于 revision 检查；非法输入返回 `invalid_request`，合法但 revision 不大于上次成功版本返回 `stale_revision`。两者均不改状态。初始版本为 -1，允许版本 0。",
+          "等价 pals/jobs/边映射排列必须得到逐字段相同答案。不得依赖 pairs 顺序，也不能错误剪掉会在后续工作的第三级或第四级目标中获胜的候选。",
+          "`snapshot` 返回最后成功的完整结果，初始为 `{revision=-1,assignments={}}`。输入、结果、save/load 之间均隔离别名。",
+          "必须处理 12×12 全连接和稀疏陷阱图；要求 O(J·P·2^P) 个候选转移以内，可附加 O(J+P) 的比较/拷贝开销。隐藏测试包含最大规模；不以具体机器毫秒数作为语义判据。",
+          "专服只发布 RheniumService，核心独立于 UE4SS。"
+        ]
+      },
+      "api_usage": {
+        "en": [
+          "Wait for a valid UWorld before registering callbacks.",
+          "Use UEHelpers.GetKismetSystemLibrary():IsDedicatedServer(world).",
+          "Use ExecuteInGameThread for asynchronous callers.",
+          "Pair RegisterHook with UnregisterHook on Unmount.",
+          "Use a read-only console entry point; do not infer caller identity from FindFirstOf.",
+          "Use Info.json with a server-only Lua InstallRule."
+        ],
+        "zh": [
+          "等待有效世界后再注册回调。",
+          "用 UEHelpers.GetKismetSystemLibrary():IsDedicatedServer(world) 守卫专服。",
+          "异步调用者用 ExecuteInGameThread 回到游戏线程。",
+          "Unmount 成对释放 RegisterHook/UnregisterHook。",
+          "控制台只读，不用 FindFirstOf 推断调用者身份。",
+          "Info.json 声明服务端 Lua 安装规则。"
+        ]
+      },
+      "acceptance": {
+        "en": [
+          "All public invariants hold under adversarial sequences.",
+          "Deterministic ordering matches the specified objective.",
+          "Rejected operations have no side effects.",
+          "Save/load preserves recovery and deduplication.",
+          "Required real dedicated-server assertions must execute for full."
+        ],
+        "zh": [
+          "对抗事件序列满足全部公开不变量。",
+          "排序结果匹配题目定义。",
+          "拒绝操作无副作用。",
+          "保存恢复保留协议状态。",
+          "full 必须执行真实专服断言。"
+        ]
+      },
+      "domains": [
+        "optimization",
+        "matching",
+        "determinism",
+        "persistence"
+      ],
+      "estimated_minutes": 720,
+      "core_module": "scripts/workforce/core.lua",
+      "hidden_test": "hidden/pal-workforce-optimal-matching.lua",
+      "server_test": "server/pal-workforce-optimal-matching.lua",
+      "required_files": [
+        "Info.json",
+        "scripts/main.lua",
+        "scripts/workforce/core.lua",
+        "scripts/services/workforce_service.lua"
+      ],
+      "minimum_lua_lines": 100,
+      "integration_checks": [
+        {
+          "id": "workforce-authority",
+          "label": {
+            "en": "Dedicated server mount",
+            "zh": "专服挂载"
+          },
+          "weight": 4,
+          "groups": [
+            {
+              "name": "guard",
+              "any_of": [
+                "IsDedicatedServer\\s*\\("
+              ]
+            },
+            {
+              "name": "service",
+              "any_of": [
+                "workforce_service"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "workforce-thread",
+          "label": {
+            "en": "Game thread boundary",
+            "zh": "游戏线程边界"
+          },
+          "weight": 4,
+          "groups": [
+            {
+              "name": "dispatch",
+              "any_of": [
+                "ExecuteInGameThread\\s*\\("
+              ]
+            },
+            {
+              "name": "console",
+              "any_of": [
+                "RegisterConsoleCommandGlobalHandler\\s*\\("
+              ]
+            }
+          ]
+        },
+        {
+          "id": "workforce-persistence",
+          "label": {
+            "en": "Persistence interface",
+            "zh": "持久化接口"
+          },
+          "weight": 3,
+          "groups": [
+            {
+              "name": "save",
+              "any_of": [
+                "[:.]Save\\s*\\("
+              ]
+            },
+            {
+              "name": "load",
+              "any_of": [
+                "[:.]Load\\s*\\("
+              ]
+            }
+          ]
+        },
+        {
+          "id": "workforce-lifecycle",
+          "label": {
+            "en": "Paired hooks",
+            "zh": "成对钩子"
+          },
+          "weight": 2,
+          "groups": [
+            {
+              "name": "register",
+              "any_of": [
+                "RegisterHook\\s*\\("
+              ]
+            },
+            {
+              "name": "unregister",
+              "any_of": [
+                "UnregisterHook\\s*\\("
+              ]
+            }
+          ]
+        },
+        {
+          "id": "workforce-manifest",
+          "label": {
+            "en": "Server manifest",
+            "zh": "专服清单"
+          },
+          "weight": 2,
+          "glob": "Info.json",
+          "groups": [
+            {
+              "name": "package",
+              "any_of": [
+                "\"PackageName\""
+              ]
+            },
+            {
+              "name": "lua",
+              "any_of": [
+                "\"Type\"\\s*:\\s*\"Lua\""
+              ]
+            },
+            {
+              "name": "server",
+              "any_of": [
+                "\"IsServer\"\\s*:\\s*true"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "raid-event-watermark",
+      "difficulty": "hard",
+      "title": {
+        "en": "Revisioned Raid Contributions with Watermarks",
+        "zh": "支持撤销与迟到边界的突袭贡献结算"
+      },
+      "summary": {
+        "en": "Revisioned Raid Contributions with Watermarks with adversarial boundary and recovery cases.",
+        "zh": "突袭贡献事件会乱序到达，随后可能更正数值或撤销。服务器只在权威 watermark 后封账，禁止将“最大的事件序号”当作“以前的事件已经到齐”。实现窗口结算和不可逆封账之间的精确边界。"
+      },
+      "brief": {
+        "en": "Build a pure-Lua core, a trusted server service and a UE4SS entry point. The authored exam specifies the exact API, failure model, ordering and limits.",
+        "zh": "突袭贡献事件会乱序到达，随后可能更正数值或撤销。服务器只在权威 watermark 后封账，禁止将“最大的事件序号”当作“以前的事件已经到齐”。实现窗口结算和不可逆封账之间的精确边界。"
+      },
+      "requirements": {
+        "en": [
+          "Export Core.new(), Core.load(data), observe(event), advance(watermark), result(window), snapshot(), and save(). Events contain id, member, tick, amount, revision and explicit boolean deleted.",
+          "Freeze member and tick on first admission. Validate before identity-conflict checks, equal-revision deduplication/conflicts, stale revisions, and finally the lateness boundary, in that exact order.",
+          "A higher revision replaces an earlier event; deleted versions are tombstones. An exact equal-revision retry remains idempotent even after finality, while a new revision of a sealed event is late.",
+          "Watermark starts at zero and advances monotonically. Only tick < watermark is sealed; tick == watermark remains admissible. Windows have width ten and finalize when their right boundary is <= watermark.",
+          "Sum final non-deleted event versions by member; break top-score ties by member ID byte order. Zero-valued events participate; empty or fully retracted windows have amount zero and no member.",
+          "Return only finalized nonempty window aggregates in a window-sorted snapshot; result(window) rejects windows not yet finalized. Do not expose raw events in snapshots.",
+          "Keep all deduplication and tombstone state through save/load and prevent output aliasing. Order invariance applies to non-conflicting event sets within an open window, not arbitrary rearrangement across a watermark.",
+          "Publish RheniumService with Observe, Advance, Result, Reset, Save, Load, Snapshot and Unmount. Only a trusted coordinator may advance watermarks; neither wall-clock time nor maximum observed tick substitutes for it."
+        ],
+        "zh": [
+          "ID 全局唯一；首次接收冻结 member/tick。同 ID 不同 member 或 tick 返回 `identity_conflict`，即使 revision 更旧也不豁免。",
+          "按如下优先级处理：全字段校验 → 冻结身份校验 → 等 revision 判重/冲突 → 旧 revision → watermark → 接纳。等 revision 且 amount/deleted 相同返回 `{ok=true,duplicate=true}`，即使已经封账；不同内容返回 `revision_conflict`。",
+          "低 revision 返回 `stale_revision`；更高 revision 或全新事件若 tick < watermark，返回 `late_event`。tick == watermark 仍可接纳。更高版本替换旧值，不叠加；不得因高版本先到而丢弃其他 ID。",
+          "advance 单调不减；旧值为 `stale_watermark`。等值幂等。窗口右端点 <= watermark 才可 result；否则 `not_final`。advance 不要求每个窗口都有事件。",
+          "封账窗口按每个事件最终版本累加非 deleted 贡献；最高总分获胜，平局取 member ID 字节字典序最小。有效零分事件也参与；全空或全撤销窗口无 member，amount=0。",
+          "`result(w)` 返回 `{window=w,member=winner,amount=total}`，空窗口省略 member。`snapshot` 为 `{watermark=n,results={...}}`，仅列出已封账且至少有一个非 deleted 事件的窗口，按 window 升序。不暴露原始事件。",
+          "保存全部判重所需信息，包括撤销 tombstone；load 后不可使旧事件复活。封账后不可修改获胜者。",
+          "输入非法返回 `invalid_request`，拒绝无副作用；查询返回表与存档深拷贝。承诺排列不变性只针对同一开放窗口、每个 ID/revision 不冲突且都在 advance 前到达的事件集合；不对穿越 watermark 的任意重排作虚假承诺。",
+          "专服只发布 RheniumService，核心独立于 UE4SS。"
+        ]
+      },
+      "api_usage": {
+        "en": [
+          "Wait for a valid UWorld before registering callbacks.",
+          "Use UEHelpers.GetKismetSystemLibrary():IsDedicatedServer(world).",
+          "Use ExecuteInGameThread for asynchronous callers.",
+          "Pair RegisterHook with UnregisterHook on Unmount.",
+          "Use a read-only console entry point; do not infer caller identity from FindFirstOf.",
+          "Use Info.json with a server-only Lua InstallRule."
+        ],
+        "zh": [
+          "等待有效世界后再注册回调。",
+          "用 UEHelpers.GetKismetSystemLibrary():IsDedicatedServer(world) 守卫专服。",
+          "异步调用者用 ExecuteInGameThread 回到游戏线程。",
+          "Unmount 成对释放 RegisterHook/UnregisterHook。",
+          "控制台只读，不用 FindFirstOf 推断调用者身份。",
+          "Info.json 声明服务端 Lua 安装规则。"
+        ]
+      },
+      "acceptance": {
+        "en": [
+          "All public invariants hold under adversarial sequences.",
+          "Deterministic ordering matches the specified objective.",
+          "Rejected operations have no side effects.",
+          "Save/load preserves recovery and deduplication.",
+          "Required real dedicated-server assertions must execute for full."
+        ],
+        "zh": [
+          "对抗事件序列满足全部公开不变量。",
+          "排序结果匹配题目定义。",
+          "拒绝操作无副作用。",
+          "保存恢复保留协议状态。",
+          "full 必须执行真实专服断言。"
+        ]
+      },
+      "domains": [
+        "event-time",
+        "retractions",
+        "watermarks",
+        "recovery"
+      ],
+      "estimated_minutes": 660,
+      "core_module": "scripts/watermark/core.lua",
+      "hidden_test": "hidden/raid-event-watermark.lua",
+      "server_test": "server/raid-event-watermark.lua",
+      "required_files": [
+        "Info.json",
+        "scripts/main.lua",
+        "scripts/watermark/core.lua",
+        "scripts/services/watermark_service.lua"
+      ],
+      "minimum_lua_lines": 100,
+      "integration_checks": [
+        {
+          "id": "watermark-authority",
+          "label": {
+            "en": "Dedicated server mount",
+            "zh": "专服挂载"
+          },
+          "weight": 4,
+          "groups": [
+            {
+              "name": "guard",
+              "any_of": [
+                "IsDedicatedServer\\s*\\("
+              ]
+            },
+            {
+              "name": "service",
+              "any_of": [
+                "watermark_service"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "watermark-thread",
+          "label": {
+            "en": "Game thread boundary",
+            "zh": "游戏线程边界"
+          },
+          "weight": 4,
+          "groups": [
+            {
+              "name": "dispatch",
+              "any_of": [
+                "ExecuteInGameThread\\s*\\("
+              ]
+            },
+            {
+              "name": "console",
+              "any_of": [
+                "RegisterConsoleCommandGlobalHandler\\s*\\("
+              ]
+            }
+          ]
+        },
+        {
+          "id": "watermark-persistence",
+          "label": {
+            "en": "Persistence interface",
+            "zh": "持久化接口"
+          },
+          "weight": 3,
+          "groups": [
+            {
+              "name": "save",
+              "any_of": [
+                "[:.]Save\\s*\\("
+              ]
+            },
+            {
+              "name": "load",
+              "any_of": [
+                "[:.]Load\\s*\\("
+              ]
+            }
+          ]
+        },
+        {
+          "id": "watermark-lifecycle",
+          "label": {
+            "en": "Paired hooks",
+            "zh": "成对钩子"
+          },
+          "weight": 2,
+          "groups": [
+            {
+              "name": "register",
+              "any_of": [
+                "RegisterHook\\s*\\("
+              ]
+            },
+            {
+              "name": "unregister",
+              "any_of": [
+                "UnregisterHook\\s*\\("
+              ]
+            }
+          ]
+        },
+        {
+          "id": "watermark-manifest",
+          "label": {
+            "en": "Server manifest",
+            "zh": "专服清单"
+          },
+          "weight": 2,
+          "glob": "Info.json",
+          "groups": [
+            {
+              "name": "package",
+              "any_of": [
+                "\"PackageName\""
+              ]
+            },
+            {
+              "name": "lua",
+              "any_of": [
+                "\"Type\"\\s*:\\s*\"Lua\""
+              ]
+            },
+            {
+              "name": "server",
+              "any_of": [
+                "\"IsServer\"\\s*:\\s*true"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "guild-consistent-checkpoint",
+      "difficulty": "hard",
+      "title": {
+        "en": "Greatest Causally Consistent Guild Checkpoint",
+        "zh": "跨据点因果一致的最大存档切面"
+      },
+      "summary": {
+        "en": "Greatest Causally Consistent Guild Checkpoint with adversarial boundary and recovery cases.",
+        "zh": "公会多个据点各自产生有序日志；一条跨据点接收记录依赖另一个据点的发送记录。日志上传乱序且可能存在洞。给定备份上界，求最大的因果一致前缀向量，既不能保存“收到物资却没有发送”的半笔事务，也不能为了安全直接返回全零。"
+      },
+      "brief": {
+        "en": "Build a pure-Lua core, a trusted server service and a UE4SS entry point. The authored exam specifies the exact API, failure model, ordering and limits.",
+        "zh": "公会多个据点各自产生有序日志；一条跨据点接收记录依赖另一个据点的发送记录。日志上传乱序且可能存在洞。给定备份上界，求最大的因果一致前缀向量，既不能保存“收到物资却没有发送”的半笔事务，也不能为了安全直接返回全零。"
+      },
+      "requirements": {
+        "en": [
+          "Export Core.new(shards), Core.load(data), append(event), cut(limits), snapshot(), and save(). Configure 1-16 unique shards; events contain shard, positive seq and a dependency map.",
+          "Accept out-of-order events and future cross-shard dependencies. Deduplicate identical shard/sequence/dependency mappings and reject conflicting repeats; a same-shard dependency must precede the event.",
+          "A selected cut includes a complete prefix starting at sequence one in every shard, bounded by that shard limit; never skip a missing sequence.",
+          "Every dependency of every selected prefix event must lie within the selected cut. Checking only the last event or performing only one propagation pass is insufficient.",
+          "Return the unique componentwise greatest valid vector. Complete cross-shard cycles may be retained together; never reject all cycles or substitute the trivially safe zero vector.",
+          "Cut is read-only and must be recomputed after holes are filled or limits increase. Previously reduced prefixes do not permanently delete events.",
+          "Validate exact limit keys and dependency targets. Preserve sparse logs through detached save/load; snapshots report sorted shard IDs and counts of distinct received events, not prefix lengths.",
+          "Publish RheniumService with Append, Cut, Reset(shards), Save, Load, Snapshot and Unmount. Tests cover 16 shards with 256 events each; the task selects backup prefixes and does not parse proprietary save files."
+        ],
+        "zh": [
+          "append 允许乱序，按 `(shard,seq)` 去重；同一 deps 键值映射返回 `{ok=true,duplicate=true}`，不同映射为 `event_conflict`，均不覆盖旧事件。",
+          "cut 选择每个 shard 从 1 开始的完整前缀 `0..c[s]`，不能跨过日志洞，且 `c[s] <= limits[s]`。",
+          "每个被选事件 e 的每条依赖 `(t,k)` 必须满足 `c[t] >= k`；必须检查整个已选前缀，不能只检查最后一条事件。",
+          "返回唯一的分量意义最大合法向量：对每个其他合法向量 d，都有 `c[s] >= d[s]`。不是最大总和后的任意解，不允许为了方便丢弃所有环。",
+          "可从各分片连续前缀上界开始，反复缩减到所有依赖满足；发生一次缩减后须传播到间接依赖，直到不动点。即使跨分片依赖形成环，所有所需事件都存在且在上界内时环可整体保留。",
+          "cut 返回 `{ok=true,vector={shard=n,...}}`，纯查询不改变日志；之后补齐洞或增大上界可能得到更大结果。不缓存过去的缩减作为永久丢弃。",
+          "snapshot 返回 `{shards={{id=...,count=收到的不同事件数},...}}`，按 ID 升序；count 不是连续前缀长度。save/load 保留洞与全部 deps。",
+          "非法事件或 limits 返回 `invalid_request`，无副作用。new 非法配置抛出 `invalid_options`。测试最大 16 分片、每分片 256 事件；无需枚举所有向量。",
+          "专服只发布 RheniumService，核心独立于 UE4SS。"
+        ]
+      },
+      "api_usage": {
+        "en": [
+          "Wait for a valid UWorld before registering callbacks.",
+          "Use UEHelpers.GetKismetSystemLibrary():IsDedicatedServer(world).",
+          "Use ExecuteInGameThread for asynchronous callers.",
+          "Pair RegisterHook with UnregisterHook on Unmount.",
+          "Use a read-only console entry point; do not infer caller identity from FindFirstOf.",
+          "Use Info.json with a server-only Lua InstallRule."
+        ],
+        "zh": [
+          "等待有效世界后再注册回调。",
+          "用 UEHelpers.GetKismetSystemLibrary():IsDedicatedServer(world) 守卫专服。",
+          "异步调用者用 ExecuteInGameThread 回到游戏线程。",
+          "Unmount 成对释放 RegisterHook/UnregisterHook。",
+          "控制台只读，不用 FindFirstOf 推断调用者身份。",
+          "Info.json 声明服务端 Lua 安装规则。"
+        ]
+      },
+      "acceptance": {
+        "en": [
+          "All public invariants hold under adversarial sequences.",
+          "Deterministic ordering matches the specified objective.",
+          "Rejected operations have no side effects.",
+          "Save/load preserves recovery and deduplication.",
+          "Required real dedicated-server assertions must execute for full."
+        ],
+        "zh": [
+          "对抗事件序列满足全部公开不变量。",
+          "排序结果匹配题目定义。",
+          "拒绝操作无副作用。",
+          "保存恢复保留协议状态。",
+          "full 必须执行真实专服断言。"
+        ]
+      },
+      "domains": [
+        "causality",
+        "fixed-points",
+        "snapshots",
+        "recovery"
+      ],
+      "estimated_minutes": 720,
+      "core_module": "scripts/checkpoint/core.lua",
+      "hidden_test": "hidden/guild-consistent-checkpoint.lua",
+      "server_test": "server/guild-consistent-checkpoint.lua",
+      "required_files": [
+        "Info.json",
+        "scripts/main.lua",
+        "scripts/checkpoint/core.lua",
+        "scripts/services/checkpoint_service.lua"
+      ],
+      "minimum_lua_lines": 100,
+      "integration_checks": [
+        {
+          "id": "checkpoint-authority",
+          "label": {
+            "en": "Dedicated server mount",
+            "zh": "专服挂载"
+          },
+          "weight": 4,
+          "groups": [
+            {
+              "name": "guard",
+              "any_of": [
+                "IsDedicatedServer\\s*\\("
+              ]
+            },
+            {
+              "name": "service",
+              "any_of": [
+                "checkpoint_service"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "checkpoint-thread",
+          "label": {
+            "en": "Game thread boundary",
+            "zh": "游戏线程边界"
+          },
+          "weight": 4,
+          "groups": [
+            {
+              "name": "dispatch",
+              "any_of": [
+                "ExecuteInGameThread\\s*\\("
+              ]
+            },
+            {
+              "name": "console",
+              "any_of": [
+                "RegisterConsoleCommandGlobalHandler\\s*\\("
+              ]
+            }
+          ]
+        },
+        {
+          "id": "checkpoint-persistence",
+          "label": {
+            "en": "Persistence interface",
+            "zh": "持久化接口"
+          },
+          "weight": 3,
+          "groups": [
+            {
+              "name": "save",
+              "any_of": [
+                "[:.]Save\\s*\\("
+              ]
+            },
+            {
+              "name": "load",
+              "any_of": [
+                "[:.]Load\\s*\\("
+              ]
+            }
+          ]
+        },
+        {
+          "id": "checkpoint-lifecycle",
+          "label": {
+            "en": "Paired hooks",
+            "zh": "成对钩子"
+          },
+          "weight": 2,
+          "groups": [
+            {
+              "name": "register",
+              "any_of": [
+                "RegisterHook\\s*\\("
+              ]
+            },
+            {
+              "name": "unregister",
+              "any_of": [
+                "UnregisterHook\\s*\\("
+              ]
+            }
+          ]
+        },
+        {
+          "id": "checkpoint-manifest",
+          "label": {
+            "en": "Server manifest",
+            "zh": "专服清单"
+          },
+          "weight": 2,
+          "glob": "Info.json",
+          "groups": [
+            {
+              "name": "package",
+              "any_of": [
+                "\"PackageName\""
+              ]
+            },
+            {
+              "name": "lua",
+              "any_of": [
+                "\"Type\"\\s*:\\s*\"Lua\""
+              ]
+            },
+            {
+              "name": "server",
+              "any_of": [
+                "\"IsServer\"\\s*:\\s*true"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "world-epoch-fenced-timers",
+      "difficulty": "hard",
+      "title": {
+        "en": "World Epoch Fencing and Timer Redelivery",
+        "zh": "世界换代与旧回调隔离的任务调度器"
+      },
+      "summary": {
+        "en": "World Epoch Fencing and Timer Redelivery with adversarial boundary and recovery cases.",
+        "zh": "世界切换或服务热重载后，旧异步回调仍可能进入游戏线程；同一任务重试的新旧确认也可能交错。实现双重 fencing：世界 epoch 拒绝旧世界，任务 generation 拒绝同世界旧尝试。不得依赖成功取消所有已经入队的回调。"
+      },
+      "brief": {
+        "en": "Build a pure-Lua core, a trusted server service and a UE4SS entry point. The authored exam specifies the exact API, failure model, ordering and limits.",
+        "zh": "世界切换或服务热重载后，旧异步回调仍可能进入游戏线程；同一任务重试的新旧确认也可能交错。实现双重 fencing：世界 epoch 拒绝旧世界，任务 generation 拒绝同世界旧尝试。不得依赖成功取消所有已经入队的回调。"
+      },
+      "requirements": {
+        "en": [
+          "Export Core.new(), Core.load(data), mount(epoch,now), schedule(request), poll(epoch,now), ack(token,success), cancel(id), snapshot(), and save(). Requests contain id, payload and due.",
+          "Mount requires a strictly greater epoch and nondecreasing logical time; requeue leased tasks without resetting their generations or resurrecting terminal tasks.",
+          "Deduplicate schedule by ID and compare due/payload. Old due times are valid; canceled and completed identifiers cannot be reused.",
+          "Poll validates before checking current nonzero epoch and then logical time. A rejected old callback must not advance the live clock. Dispatch pending due tasks by due then ID, leasing each once.",
+          "Each dispatch increments the task generation and returns id, payload, epoch and generation. Ack requires the current epoch, leased state and exact generation; a failed ack requeues for a higher-generation retry.",
+          "Cancellation is idempotent except for unknown/done tasks and fences outstanding tokens. Successful completion is terminal; stale confirmations never resurrect canceled work.",
+          "Preserve epoch, time, generations and all terminal states through save/load. Load does not allocate a new epoch; an external durable authority must provide the higher epoch used after recovery.",
+          "Publish RheniumService with Mount, Schedule, Poll, Ack, Cancel, Reset, Save, Load, Snapshot and Unmount. Delivery is at least once; no unspecified exactly-once reward API is assumed."
+        ],
+        "zh": [
+          "mount 完整校验后依次检查 epoch 严格增加、now 不倒退；成功后将全部 leased 退回 pending，保留 generation、due、done/canceled 与全局时间。终态不可复活。",
+          "schedule 未 mount 为 `not_mounted`。全字段校验先于判重；同 ID 同 due/payload 返回原状态与 duplicate=true，负载不同为 `request_conflict`。过去的 due 合法，下一轮可派发。",
+          "poll 先完整校验，再拒绝 epoch 不等当前值或为 0（`stale_epoch`），再检查 now（`stale_now`）。拒绝不得推进时间或修改任务。",
+          "成功 poll 把所有 due<=now 的 pending 按 due 升序、ID 字节序升序改为 leased；每个 generation 加一，返回 `{ok=true,deliveries={{id,payload,epoch,generation},...}}`。重复 poll 不重派 leased。",
+          "ack 的 success 必须布尔。先校验、再 epoch、再 ID/leased 状态/generation；不匹配为 `stale_token`。success=true 进入 done；false 退回 pending，下次 poll 产生更高 generation。token 的 payload 不参与认证。",
+          "cancel 未知 ID 为 `unknown_task`，done 为 `already_done`；pending/leased/canceled 均变为 canceled 并成功。取消后旧 ack 不得复活任务；ID 永不复用。",
+          "save/load 保留所有状态，load 本身不换 epoch。操作者必须在恢复后以更高、外部持久分配的 epoch mount，再接受回调。绝不假设回滚的存档能自己制造全局唯一 epoch。",
+          "snapshot 只返回 `{epoch,now,pending,leased,done,canceled}`。返回值和存档无别名；输入非法为 `invalid_request`，拒绝无副作用。",
+          "专服只发布 RheniumService，核心独立于 UE4SS。"
+        ]
+      },
+      "api_usage": {
+        "en": [
+          "Wait for a valid UWorld before registering callbacks.",
+          "Use UEHelpers.GetKismetSystemLibrary():IsDedicatedServer(world).",
+          "Use ExecuteInGameThread for asynchronous callers.",
+          "Pair RegisterHook with UnregisterHook on Unmount.",
+          "Use a read-only console entry point; do not infer caller identity from FindFirstOf.",
+          "Use Info.json with a server-only Lua InstallRule."
+        ],
+        "zh": [
+          "等待有效世界后再注册回调。",
+          "用 UEHelpers.GetKismetSystemLibrary():IsDedicatedServer(world) 守卫专服。",
+          "异步调用者用 ExecuteInGameThread 回到游戏线程。",
+          "Unmount 成对释放 RegisterHook/UnregisterHook。",
+          "控制台只读，不用 FindFirstOf 推断调用者身份。",
+          "Info.json 声明服务端 Lua 安装规则。"
+        ]
+      },
+      "acceptance": {
+        "en": [
+          "All public invariants hold under adversarial sequences.",
+          "Deterministic ordering matches the specified objective.",
+          "Rejected operations have no side effects.",
+          "Save/load preserves recovery and deduplication.",
+          "Required real dedicated-server assertions must execute for full."
+        ],
+        "zh": [
+          "对抗事件序列满足全部公开不变量。",
+          "排序结果匹配题目定义。",
+          "拒绝操作无副作用。",
+          "保存恢复保留协议状态。",
+          "full 必须执行真实专服断言。"
+        ]
+      },
+      "domains": [
+        "lifecycle",
+        "fencing",
+        "timers",
+        "recovery"
+      ],
+      "estimated_minutes": 660,
+      "core_module": "scripts/epoch/core.lua",
+      "hidden_test": "hidden/world-epoch-fenced-timers.lua",
+      "server_test": "server/world-epoch-fenced-timers.lua",
+      "required_files": [
+        "Info.json",
+        "scripts/main.lua",
+        "scripts/epoch/core.lua",
+        "scripts/services/epoch_service.lua"
+      ],
+      "minimum_lua_lines": 100,
+      "integration_checks": [
+        {
+          "id": "epoch-authority",
+          "label": {
+            "en": "Dedicated server mount",
+            "zh": "专服挂载"
+          },
+          "weight": 4,
+          "groups": [
+            {
+              "name": "guard",
+              "any_of": [
+                "IsDedicatedServer\\s*\\("
+              ]
+            },
+            {
+              "name": "service",
+              "any_of": [
+                "epoch_service"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "epoch-thread",
+          "label": {
+            "en": "Game thread boundary",
+            "zh": "游戏线程边界"
+          },
+          "weight": 4,
+          "groups": [
+            {
+              "name": "dispatch",
+              "any_of": [
+                "ExecuteInGameThread\\s*\\("
+              ]
+            },
+            {
+              "name": "console",
+              "any_of": [
+                "RegisterConsoleCommandGlobalHandler\\s*\\("
+              ]
+            }
+          ]
+        },
+        {
+          "id": "epoch-persistence",
+          "label": {
+            "en": "Persistence interface",
+            "zh": "持久化接口"
+          },
+          "weight": 3,
+          "groups": [
+            {
+              "name": "save",
+              "any_of": [
+                "[:.]Save\\s*\\("
+              ]
+            },
+            {
+              "name": "load",
+              "any_of": [
+                "[:.]Load\\s*\\("
+              ]
+            }
+          ]
+        },
+        {
+          "id": "epoch-lifecycle",
+          "label": {
+            "en": "Paired hooks",
+            "zh": "成对钩子"
+          },
+          "weight": 2,
+          "groups": [
+            {
+              "name": "register",
+              "any_of": [
+                "RegisterHook\\s*\\("
+              ]
+            },
+            {
+              "name": "unregister",
+              "any_of": [
+                "UnregisterHook\\s*\\("
+              ]
+            }
+          ]
+        },
+        {
+          "id": "epoch-manifest",
+          "label": {
+            "en": "Server manifest",
+            "zh": "专服清单"
+          },
+          "weight": 2,
+          "glob": "Info.json",
+          "groups": [
+            {
+              "name": "package",
+              "any_of": [
+                "\"PackageName\""
+              ]
+            },
+            {
+              "name": "lua",
+              "any_of": [
+                "\"Type\"\\s*:\\s*\"Lua\""
+              ]
+            },
+            {
+              "name": "server",
+              "any_of": [
+                "\"IsServer\"\\s*:\\s*true"
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

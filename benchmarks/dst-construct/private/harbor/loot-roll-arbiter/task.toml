@@ -1,0 +1,57 @@
+schema_version = "1.4"
+
+artifacts = ["/app/mod"]
+
+[task]
+name = "gamecodebench/dst-loot-roll-arbiter"
+version = "1.0.0"
+description = "Build a server-authoritative need/greed loot roll with a frozen eligible set, a published deterministic generator, fairness demotion, and exactly-once delivery."
+authors = [{ name = "Xingzhi Li" }]
+keywords = ["dst", "dont-starve-together", "lua", "game-modding", "generation", "loot", "determinism", "authority", "persistence"]
+
+[metadata]
+category = "programming"
+difficulty = "hard"
+tags = ["game-modding", "dst", "lua", "generation", "composite"]
+task_kind = "generation-composite"
+game = "Don't Starve Together Dedicated Server"
+mod_loader = "DST Mod API 10"
+language = "Lua 5.1"
+content_reference = "benchmarks/dst-construct/exams/loot-roll-arbiter.md"
+content_reference_pack = "rhenium-dst-v2"
+harbor_reference_repository = "https://github.com/harbor-framework/harbor"
+harbor_reference_revision = "9a2e3b135cc8fb1e41131020f83370cb2f12ae93"
+verification_profile = "rhenium-dst-full"
+real_server_validation = "in-verifier; Steam app 343050 build 24700372"
+
+[verifier]
+network_mode = "no-network"
+timeout_sec = 600.0
+user = "root"
+environment_mode = "separate"
+
+[verifier.environment]
+network_mode = "no-network"
+
+[agent]
+# The image already contains Codex CLI and mini-swe-agent. A Harbor job supplies
+# only the model endpoint hostname through agents[].extra_allowed_hosts.
+network_mode = "allowlist"
+allowed_hosts = []
+timeout_sec = 23400.0
+user = "agent"
+
+[environment]
+network_mode = "no-network"
+build_timeout_sec = 1800.0
+cpus = 4
+memory_mb = 8192
+storage_mb = 10240
+gpus = 0
+mcp_servers = []
+
+[verifier.env]
+
+[environment.env]
+
+[solution.env]

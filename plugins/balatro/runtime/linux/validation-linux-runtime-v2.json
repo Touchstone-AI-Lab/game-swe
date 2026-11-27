@@ -1,0 +1,755 @@
+{
+  "schema_version": 2,
+  "recorded_utc": "2026-10-31T11:13:51.090353+00:00",
+  "status": "controlled_native_linux_engine_scope_validated",
+  "release_ready": false,
+  "linux_all_tasks_validated": true,
+  "linux_complete_task_pairs": 10,
+  "complete_control_workflows": 20,
+  "incomplete_final_control_workflows": 0,
+  "not_executed_final_controls": 0,
+  "native_processes_in_complete_controls": 56,
+  "required_outcomes_in_complete_controls": 912,
+  "rounds_per_control": 1,
+  "artifact": {
+    "runtime_key": "balatro/balatro-linux-17459173-controlled-v2",
+    "fingerprint": "e86485bd995e533dca9a32cabba96ee751a35e2185cb31c7d9e136d5e2852e28",
+    "kind": "balatro-controlled-linux-tree-v2",
+    "identity": "sha256:33a9292ff56d88fea60070c659954d85b2dfabd2b45dcd47bc583c2b8f1c6e40",
+    "metadata": {
+      "scope": "source-reviewed-native-linux",
+      "executionProfile": {
+        "schema_version": 1,
+        "scope": "source-reviewed-native-linux",
+        "visible": true,
+        "gamespeed": 1,
+        "fast": false,
+        "headless": false,
+        "audio_backend": "null",
+        "untrusted_sandbox": false
+      },
+      "requiresMatchingSmoke": true,
+      "recipeSha256": "2f2e92c21365fa75fa7605a222bd30740e9c58853904fbdc9ceb450f7fc1724e",
+      "transport": {
+        "path": "mods/bot/src/lua/core/server.lua",
+        "original_sha256": "668c10439162949e10dbf3f67d85a8d349d32cc0a58a32bb5dbf1e8bde47e928",
+        "derived_sha256": "e58590bf9507887be409b083ffe40a5f2ad14671a169f28faddf4cf2113b0e2f",
+        "replacement_sha256": "816874dedcd933d44a8854451215f27458294df8f8cf1db3562386f4aa4d5250"
+      }
+    }
+  },
+  "execution_profile": "visible-window800x600-null-audio-gs1-fast0-headless0-v2",
+  "environment_fingerprint": "1f4fac49547e187b9f48e68c3f77a61d7d162049c351e59fe761e4a07fc2f494",
+  "harness_fingerprint": "1417c682a810ea86bc072c65eeae8f6f0f0da32554b301130fd49e83f35351da",
+  "source_freeze_sha256": "0b869eab3b46f91f13d6bb274a52ffaa3bba9d949be53fc552d6c7fe6fe29ae3",
+  "assets_sha256": "0d7ad74d2cdcb25f554e1542a831cf4eb07adc8b0457a5c39cfb563f16bc7fcd",
+  "smoke": {
+    "smoke_complete": true,
+    "operation": "89011194be5046d5a089f77abfa37fe9",
+    "artifact_identity": "sha256:33a9292ff56d88fea60070c659954d85b2dfabd2b45dcd47bc583c2b8f1c6e40",
+    "required_cases": 6,
+    "normal_exit": true,
+    "elapsed_seconds": 37.516
+  },
+  "tasks": [
+    {
+      "task": "growth-v2",
+      "complete_pair": true,
+      "required_cases_per_control": 18,
+      "processes_per_control": 1,
+      "task_fingerprint": "2393348aad9e4ad7df49f6e361a11892c8c11279a43d774b5f78fe69b7a805ea",
+      "controls": [
+        {
+          "control": "gold",
+          "complete": true,
+          "passed": true,
+          "category": "complete_pass",
+          "expected_control_outcome": true,
+          "core_run_id": "run-c7d1c207153c4f41",
+          "operation": "5fd6953f027147a5b0b58728b7493292",
+          "elapsed_seconds": 149.393,
+          "submission_sha256": "bd86e52d1f968db26af0d1ba288f377c0926e73abcb1d4349da90a69a1c29f1a",
+          "engine_result_sha256": "ed957e788f3ccbb1274738f481e0d64065d830c5d152a4cba9231070b1dbd06f",
+          "failed_cases": 0,
+          "candidate_fingerprint": "ede5a754a4eebcaa26d2c4e5a4bb3dfec19179fe332c722c6ecdbcf2d96c67da"
+        },
+        {
+          "control": "base",
+          "complete": true,
+          "passed": false,
+          "category": "behavior_failure",
+          "expected_control_outcome": true,
+          "core_run_id": "run-62be041a0dda44ad",
+          "operation": "032dcb00c71e4a8ea86b1a612e30e0e9",
+          "elapsed_seconds": 153.35,
+          "submission_sha256": "aef72d25de72486fe382c0e00ea54e06d2ec78cc8288feb41b529707615ec41b",
+          "engine_result_sha256": "a4d68bd54da629141c141139a2b8944ef8b89f80fcbbfd307e76b16ce90eee27",
+          "failed_cases": 10,
+          "candidate_fingerprint": "7ef3fa407eb1308909cd4d2fda127325f3c705ef10d46d20db4e5e1f37d55d9b"
+        }
+      ]
+    },
+    {
+      "task": "reversible-hand-limit-v1",
+      "complete_pair": true,
+      "required_cases_per_control": 17,
+      "processes_per_control": 1,
+      "task_fingerprint": "b56f8f07e203d2bfca6e84a9a31cb217cdc23e0746b47ac7cf7dc260c326c7db",
+      "controls": [
+        {
+          "control": "gold",
+          "complete": true,
+          "passed": true,
+          "category": "complete_pass",
+          "expected_control_outcome": true,
+          "core_run_id": "run-1be38fe24ece46bf",
+          "operation": "d54e094902774c3fa1d58afd50636b61",
+          "elapsed_seconds": 87.97,
+          "submission_sha256": "2f8bc8a4a77d32dd92986f327dfa6eccf3e9b773dfa7e5afc1d4442fa9142435",
+          "engine_result_sha256": "9ea788a7899df148d4302e62b55494f400b3263eeef05daef46a19917b9c04b6",
+          "failed_cases": 0,
+          "candidate_fingerprint": "c1775c2e1db7a246c20c99b5a03499d66bdcd8e5ce9dcfe409fc0a8f2b78e4c1"
+        },
+        {
+          "control": "base",
+          "complete": true,
+          "passed": false,
+          "category": "behavior_failure",
+          "expected_control_outcome": true,
+          "core_run_id": "run-2840558e79ca4752",
+          "operation": "d1d7e089c3324120bb36c2aaa46fa919",
+          "elapsed_seconds": 88.585,
+          "submission_sha256": "3219f8f22a899d16fd12b522b5f89e8d9485c872847631a8e115f294378fce34",
+          "engine_result_sha256": "9e922305126317b5667a26031e31b6ad9b42afc212421e4126187fc055c92d0d",
+          "failed_cases": 9,
+          "candidate_fingerprint": "02a77e1c222fe6a1d27aa5272236cb555ab5ec37067086b4711911657fe0b533"
+        }
+      ]
+    },
+    {
+      "task": "seeded-effect-stream-v1",
+      "complete_pair": true,
+      "required_cases_per_control": 27,
+      "processes_per_control": 4,
+      "task_fingerprint": "c6f36ac3012a01356a7d673f95e78cecbf5bda70b9511ab5abf2d6c95fd83905",
+      "controls": [
+        {
+          "control": "gold",
+          "complete": true,
+          "passed": true,
+          "category": "complete_pass",
+          "expected_control_outcome": true,
+          "core_run_id": "run-371f8233c8974c75",
+          "operation": "2bfc1c888e9e448bb6a58f4411f279c4",
+          "elapsed_seconds": 129.625,
+          "submission_sha256": "d65c2036cf2b74d64fdc1a14c2873b96d209f30387fb129f450364d64f052818",
+          "engine_result_sha256": "f17c07b1274dea4babe2453a988d34284bfff08a5c54c81bc015928299fa4528",
+          "failed_cases": 0,
+          "candidate_fingerprint": "ea031f33fd2ff6904c61b40155f3e387348fcbd3a7d6406580a97c1e73ae34bc"
+        },
+        {
+          "control": "base",
+          "complete": true,
+          "passed": false,
+          "category": "behavior_failure",
+          "expected_control_outcome": true,
+          "core_run_id": "run-42b591f5e2ec4546",
+          "operation": "faca2e7ab49a491b8223fd18daffff5d",
+          "elapsed_seconds": 129.673,
+          "submission_sha256": "7711a135274658ed9f594f77e913bc52ac2f34152b3f67682b932e3ee5f69c9d",
+          "engine_result_sha256": "3a17cca4775b7ef186bb37179e71fb0c121f51c30929f46f85eb88493609738c",
+          "failed_cases": 5,
+          "candidate_fingerprint": "e7aeb3e93dfd12615ddaa991de56baaba22a295ad9ac2b29bf420c24c9171e71"
+        }
+      ]
+    },
+    {
+      "task": "bounded-generator-v2",
+      "complete_pair": true,
+      "required_cases_per_control": 75,
+      "processes_per_control": 5,
+      "task_fingerprint": "753546f3b9ffad3967c55ef3af36232a2023b42419440d2cc86cc1af0e0279d3",
+      "controls": [
+        {
+          "control": "gold",
+          "complete": true,
+          "passed": true,
+          "category": "complete_pass",
+          "expected_control_outcome": true,
+          "core_run_id": "run-01fc0c5767e44e08",
+          "operation": "e62c8782115240d3a998187eb2ef2359",
+          "elapsed_seconds": 188.716,
+          "submission_sha256": "95f73f3529ef2558500ff6dd2459f06a16c7776d55fe5f353fc0b69691b71239",
+          "engine_result_sha256": "d44c226e1b8b730190336c246c696cf5ae141eb4d5ed343389f588c029b4d9ce",
+          "failed_cases": 0,
+          "candidate_fingerprint": "8a6e8fb4fc41558ec49beca61cbafc49e760e0ee91bfb33077997b21ee94f755"
+        },
+        {
+          "control": "base",
+          "complete": true,
+          "passed": false,
+          "category": "behavior_failure",
+          "expected_control_outcome": true,
+          "core_run_id": "run-c054d442509a447c",
+          "operation": "ef709149003048389ad3e41b7ddbc3c0",
+          "elapsed_seconds": 186.666,
+          "submission_sha256": "ae2976c2b3e361dcca5cad5006dd0e4cce7ee885a4b8670317824cd288696bfe",
+          "engine_result_sha256": "59e9755bc099bdc35387ea3c40a447bb39e6822cd4df6f6fd2c8ed82b2375a46",
+          "failed_cases": 8,
+          "candidate_fingerprint": "c72496d2c611efbcdbc3ea2821caa44b8071fb8c751e970dbe535772f1997717"
+        }
+      ]
+    },
+    {
+      "task": "deck-removal-consistency-v2",
+      "complete_pair": true,
+      "required_cases_per_control": 56,
+      "processes_per_control": 3,
+      "task_fingerprint": "098e90d53617e6c2368df02dcd582cfdccda865dc2deef78cacca93bd0d57062",
+      "controls": [
+        {
+          "control": "gold",
+          "complete": true,
+          "passed": true,
+          "category": "complete_pass",
+          "expected_control_outcome": true,
+          "core_run_id": "run-0fc2a46a37764000",
+          "operation": "56a4f1aecbad4f6a8cb796aa929a8012",
+          "elapsed_seconds": 222.004,
+          "submission_sha256": "5214536c014ab22d1bb88caf2e3f4f3e4a58f2539a490592ebc5d31d0bbcc945",
+          "engine_result_sha256": "efc15359238b586c16cbf032d5552e3afcd0287b27f020a07df0fe7fec401cd2",
+          "failed_cases": 0,
+          "candidate_fingerprint": "cd6dc326c06d859f182fde044dbc44d73f2318f00b7c69401f736c4561d4daf6"
+        },
+        {
+          "control": "base",
+          "complete": true,
+          "passed": false,
+          "category": "behavior_failure",
+          "expected_control_outcome": true,
+          "core_run_id": "run-759d06e024924d64",
+          "operation": "c28976b3502d45228c1db51bc103137d",
+          "elapsed_seconds": 222.792,
+          "submission_sha256": "c73e5469852e930036c394b19b6671a5a867e259c8637bb1dd62f8607a7a09a0",
+          "engine_result_sha256": "046e89555ce48dc8a8039742963425ed6730417f0dbaf4b3e4171d3a835833b3",
+          "failed_cases": 15,
+          "candidate_fingerprint": "ea9009e041f211fc1abfdcb22bd38ecba43b5167114e47b281c52c58fd2cbdb3"
+        }
+      ]
+    },
+    {
+      "task": "live-joker-adjacency-v2",
+      "complete_pair": true,
+      "required_cases_per_control": 20,
+      "processes_per_control": 2,
+      "task_fingerprint": "d1dfa25aa3dbf948b08cc5cfef2385ca9e947d59ff37e975125374f3cf395d2f",
+      "controls": [
+        {
+          "control": "gold",
+          "complete": true,
+          "passed": true,
+          "category": "complete_pass",
+          "expected_control_outcome": true,
+          "core_run_id": "run-51926263f57d4ac3",
+          "operation": "ec14fff05b3b4e87ad7a1e1630fc4e3a",
+          "elapsed_seconds": 149.624,
+          "submission_sha256": "4c93288314e5ef551b679e8ee5b8622b36619426698cafc3d5bdadac69fa6e8d",
+          "engine_result_sha256": "6e7ad4258f2e75de31317d58da1f6c8e4e70478002546d8314d228e1e3cda25b",
+          "failed_cases": 0,
+          "candidate_fingerprint": "ec6c23972fa93ed245c30c9cbaa0b14f21da2a6a47b2191325771a2b6296154f"
+        },
+        {
+          "control": "base",
+          "complete": true,
+          "passed": false,
+          "category": "behavior_failure",
+          "expected_control_outcome": true,
+          "core_run_id": "run-a430f446848246ab",
+          "operation": "e8f8499493de42cca3ff8a875daab28b",
+          "elapsed_seconds": 149.727,
+          "submission_sha256": "36ae192e9605a036d7c8d447fb6697167af6100a6fe44c3f1a771a9617ce2398",
+          "engine_result_sha256": "506de5265e6e5c218a97c12637e7d2cfb8da204b7fe960a0f6a9e62577d691b7",
+          "failed_cases": 4,
+          "candidate_fingerprint": "ce9615013d1cb8608bd8643e452d9efad6bd0aa85a62138f2b0ead4ba91f662a"
+        }
+      ]
+    },
+    {
+      "task": "isolated-card-wear-v2",
+      "complete_pair": true,
+      "required_cases_per_control": 19,
+      "processes_per_control": 1,
+      "task_fingerprint": "6a25b4e22a6979bf5cefb50e77e1a8258c767ceb7420cb9be83f2ff1c61e1af1",
+      "controls": [
+        {
+          "control": "gold",
+          "complete": true,
+          "passed": true,
+          "category": "complete_pass",
+          "expected_control_outcome": true,
+          "core_run_id": "run-b56e733259f24d51",
+          "operation": "29ff2964a784412e86eb7be066bccea2",
+          "elapsed_seconds": 186.223,
+          "submission_sha256": "8b5556f1407421240ad1fcc97f83b3195a606aa7b11bee7c8c1414eb07bb75ac",
+          "engine_result_sha256": "fbcb7d862e2d1a10150b6ba0d255bd56c2a8257818d7ae004713ce94a58db144",
+          "failed_cases": 0,
+          "candidate_fingerprint": "be96afdd0f80e5d1f6a78f29ba07bacc7a8569ddb1debfdc4974d639039d9c98"
+        },
+        {
+          "control": "base",
+          "complete": true,
+          "passed": false,
+          "category": "behavior_failure",
+          "expected_control_outcome": true,
+          "core_run_id": "run-86732b3da7484b18",
+          "operation": "e912733e2be44ab6ad7186d89dff9556",
+          "elapsed_seconds": 177.434,
+          "submission_sha256": "01854b2f98a9f78559e17e7dee69a1cbc135490972c53dc52490b0033f148bad",
+          "engine_result_sha256": "3288df443d14d71f2ff1a05a39d66d3fef0c92923e07bcf4653b9fdb0a3ebd16",
+          "failed_cases": 12,
+          "candidate_fingerprint": "56733c92265540c481637e4c057aff49cd9aa117177eae82c654869734c5142d"
+        }
+      ]
+    },
+    {
+      "task": "durable-charge-v2",
+      "complete_pair": true,
+      "required_cases_per_control": 76,
+      "processes_per_control": 5,
+      "task_fingerprint": "9b3c545fe9a1244503a2d4c24d69ab7a53a8305a7e8e62e7c584d010f8a1431c",
+      "controls": [
+        {
+          "control": "gold",
+          "complete": true,
+          "passed": true,
+          "category": "complete_pass",
+          "expected_control_outcome": true,
+          "core_run_id": "run-9b5e2341676d4cbe",
+          "operation": "a49fe5b5be334acd93565d07bf94b2ea",
+          "elapsed_seconds": 241.895,
+          "submission_sha256": "de30d415b3222755061080841d2b84b348deb48ceb0238b40659cf126259ae98",
+          "engine_result_sha256": "038fe960957633e95f23707bfeaf47213aa677cfc4dd16eeaa7f43bad475ab46",
+          "failed_cases": 0,
+          "candidate_fingerprint": "61ca72b6be35274bf77223803b174121f6166c5b4b9f1f95d5f4a431ce7767d9"
+        },
+        {
+          "control": "base",
+          "complete": true,
+          "passed": false,
+          "category": "behavior_failure",
+          "expected_control_outcome": true,
+          "core_run_id": "run-da06f77c92b34297",
+          "operation": "89238db53a9d4295b454903ba8c597bd",
+          "elapsed_seconds": 241.207,
+          "submission_sha256": "4a30f786a0c8e343cb7a621a4138a1f739fecb5427210494273ccfd542c983f6",
+          "engine_result_sha256": "b36bab87be6b052aa8607a30aa074bfae341ff675d9167e42479efae59ba10e5",
+          "failed_cases": 11,
+          "candidate_fingerprint": "370cfe42a4cc9db07a08e55571952b0b663b73d828c288e6a7de404991bcca36"
+        }
+      ]
+    },
+    {
+      "task": "shop-price-coherence-v2",
+      "complete_pair": true,
+      "required_cases_per_control": 80,
+      "processes_per_control": 3,
+      "task_fingerprint": "36852d08bbc8c25e2569ca1720bfe4b5befc8e7e0c52a450277198e8db9347e9",
+      "controls": [
+        {
+          "control": "gold",
+          "complete": true,
+          "passed": true,
+          "category": "complete_pass",
+          "expected_control_outcome": true,
+          "core_run_id": "run-1ea90f7996164dde",
+          "operation": "c75b1fab56a24898aa009dc1c18e8ed1",
+          "elapsed_seconds": 256.755,
+          "submission_sha256": "7d9051eac3b1297c7af8e42dc7c214b77bff33881379ee8a345356c96f714d61",
+          "engine_result_sha256": "72fd20b30c3d4a2654efc260828faa9b25f9b203747fde4ed4f8e8bf489fdf9f",
+          "failed_cases": 0,
+          "candidate_fingerprint": "414c8f56f80ed828237be0b7911c471db8187778c3f2120d2a17583971a3bc14"
+        },
+        {
+          "control": "base",
+          "complete": true,
+          "passed": false,
+          "category": "behavior_failure",
+          "expected_control_outcome": true,
+          "core_run_id": "run-5f38941036484ad5",
+          "operation": "bc56f2fc2e2c4892b78832917f0f5a81",
+          "elapsed_seconds": 256.311,
+          "submission_sha256": "ec00a6f8507d697a9dab0e877a3772af4641284ae9c0de752996add20f782c84",
+          "engine_result_sha256": "37c886ea9673ea78a316616d158f66a43add701998d0d9f4f13bebaffe9fcd1c",
+          "failed_cases": 18,
+          "candidate_fingerprint": "70f056585757dfcc23a1b0ff6608bff559c134e355ccc7df56b504418f04c523"
+        }
+      ]
+    },
+    {
+      "task": "pack-choice-commit-v2",
+      "complete_pair": true,
+      "required_cases_per_control": 68,
+      "processes_per_control": 3,
+      "task_fingerprint": "c6be0a20c0ad05d0ac30da64bf6631ec2ad15124bfcd32788a01235d276346ed",
+      "controls": [
+        {
+          "control": "gold",
+          "complete": true,
+          "passed": true,
+          "category": "complete_pass",
+          "expected_control_outcome": true,
+          "core_run_id": "run-2383379b8cb047a2",
+          "operation": "2c74095cd4e740baa392360dc95bdfaa",
+          "elapsed_seconds": 262.739,
+          "submission_sha256": "3ba1c6360a42d027520e1d29e471b734a128c27209350a8e9eeab01e64626160",
+          "engine_result_sha256": "07869307f79dd5048a683562a18bf3d916ba5605520eb6f9211f39facbaf72cd",
+          "failed_cases": 0,
+          "candidate_fingerprint": "06c03f5e85776a95aed7832187e814df42e5c23dd51ca8ee513f558af6a4c280"
+        },
+        {
+          "control": "base",
+          "complete": true,
+          "passed": false,
+          "category": "behavior_failure",
+          "expected_control_outcome": true,
+          "core_run_id": "run-c972fda1ae85495a",
+          "operation": "0e801cb03a674fa9b6ea6119f61e6951",
+          "elapsed_seconds": 260.666,
+          "submission_sha256": "f1f39cedd6145fa3c99f6dce24426859128fe724c2fcb21ef5c10342341f2399",
+          "engine_result_sha256": "4326d76c37bbc6a566b7ef09969cc231e130ef9cfab87cfecf3377f76dc5e7e1",
+          "failed_cases": 4,
+          "candidate_fingerprint": "b7bb72eee37f9e5adc8c445305c3eec60582d1de0b5c31899083fd34f6f53f39"
+        }
+      ]
+    }
+  ],
+  "initialized_load_capability": {
+    "schema": "linux-save-capability-final-v2",
+    "complete_workflows": 3,
+    "required_cases_per_workflow": 6,
+    "normal_processes": 6,
+    "model_calibration": false,
+    "task_candidate": false,
+    "workflows": [
+      {
+        "round": 1,
+        "operation": "20261031-190531-75871fd9",
+        "complete": true,
+        "passed": true,
+        "required_cases": 6,
+        "normal_processes": 2,
+        "fingerprints": {
+          "environment": "1f4fac49547e187b9f48e68c3f77a61d7d162049c351e59fe761e4a07fc2f494",
+          "harness": "1417c682a810ea86bc072c65eeae8f6f0f0da32554b301130fd49e83f35351da",
+          "task": "7a57792307ccf2af75b98b87050b68b4014398fdfe7fa887bb528d914d3519d9",
+          "candidate": null
+        },
+        "elapsed_seconds": 64.37,
+        "checkpoint_bytes": 9834,
+        "checkpoint_sha256": "1165d3937100e0ec2306678edc60b0c3e65260e68f1b95cf218a73b325b8953e",
+        "checkpoint_unchanged": true,
+        "load_complete_response": true,
+        "engine_result_sha256": "90d553c893c469d52b858de21bdc93c6b605b9037ed3a7d886755eac48b54dfc"
+      },
+      {
+        "round": 2,
+        "operation": "20261031-190640-1d34c335",
+        "complete": true,
+        "passed": true,
+        "required_cases": 6,
+        "normal_processes": 2,
+        "fingerprints": {
+          "environment": "1f4fac49547e187b9f48e68c3f77a61d7d162049c351e59fe761e4a07fc2f494",
+          "harness": "1417c682a810ea86bc072c65eeae8f6f0f0da32554b301130fd49e83f35351da",
+          "task": "7a57792307ccf2af75b98b87050b68b4014398fdfe7fa887bb528d914d3519d9",
+          "candidate": null
+        },
+        "elapsed_seconds": 65.228,
+        "checkpoint_bytes": 9661,
+        "checkpoint_sha256": "3fa3f1847350db573b80dfe4c4a6d25072c1863af70bb7d5493b00b4da280129",
+        "checkpoint_unchanged": true,
+        "load_complete_response": true,
+        "engine_result_sha256": "fe51431f0db3ae899a8dcfe158c854e272e180051d3e90aa19dcfd56afba5610"
+      },
+      {
+        "round": 3,
+        "operation": "20261031-190752-f505f710",
+        "complete": true,
+        "passed": true,
+        "required_cases": 6,
+        "normal_processes": 2,
+        "fingerprints": {
+          "environment": "1f4fac49547e187b9f48e68c3f77a61d7d162049c351e59fe761e4a07fc2f494",
+          "harness": "1417c682a810ea86bc072c65eeae8f6f0f0da32554b301130fd49e83f35351da",
+          "task": "7a57792307ccf2af75b98b87050b68b4014398fdfe7fa887bb528d914d3519d9",
+          "candidate": null
+        },
+        "elapsed_seconds": 65.79,
+        "checkpoint_bytes": 9561,
+        "checkpoint_sha256": "4b2c33b17b936667dd3e7636563f3752d16e4cee867adc16848e8229a9427d7a",
+        "checkpoint_unchanged": true,
+        "load_complete_response": true,
+        "engine_result_sha256": "9301c7d4ba066b814f74fb4a35a9ecc30faf873d8b047ad0a9d74174c9ee2f56"
+      }
+    ]
+  },
+  "timings": {
+    "prepare_seconds": 234.787,
+    "startup_seconds": 492.76,
+    "test_seconds": 2690.063,
+    "exit_seconds": 56.189
+  },
+  "control_directory_bytes": 573795976,
+  "batch_elapsed_seconds": 3755.839,
+  "transport_loopback": {
+    "kind": "fixed_real_luasocket_loopback_no_game",
+    "cases": [
+      {
+        "case": "small",
+        "success": true,
+        "calls": 1,
+        "partials": 0,
+        "passed": true,
+        "elapsed_seconds": 0.0018,
+        "received_bytes": 1065,
+        "received_sha256": "14421427bef68cbe4e6e95666a521ed50d4fbc210edd8a80f84f3b93083d0978",
+        "reader_errors": []
+      },
+      {
+        "case": "partial",
+        "success": true,
+        "calls": 30,
+        "partials": 29,
+        "passed": true,
+        "elapsed_seconds": 0.0349,
+        "received_bytes": 1048620,
+        "received_sha256": "aaa40a22961323175d2c344e99319fe32afbadcd2d1c341e57d7491be420cb97",
+        "reader_errors": []
+      },
+      {
+        "case": "deadline",
+        "success": false,
+        "calls": 10,
+        "partials": 10,
+        "passed": true,
+        "elapsed_seconds": 1.0256,
+        "received_bytes": 0,
+        "received_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "reader_errors": []
+      }
+    ],
+    "passed": true,
+    "replacement_sha256": "816874dedcd933d44a8854451215f27458294df8f8cf1db3562386f4aa4d5250",
+    "libraries": {
+      "libluajit-5.1.so.2": "31d5cb010bae0664c53b621e5f8f1e5fc0430f12ab5dbfc47bb65dea8f465270",
+      "liblove-11.5.so": "e0091a41a41939289d438b5ae1ec580c2d8d2ee8a0e18e7c194396ea9823b575"
+    }
+  },
+  "base_framing": {
+    "framing_complete": true,
+    "expected_base_outcome": true,
+    "max_response_bytes": 194197,
+    "response_count": 229,
+    "dropped": 0,
+    "observer_errors": 0,
+    "old_halts_unchanged": true,
+    "processes": 3
+  },
+  "framing_diagnostic_counted_as_final_control": false,
+  "source_reuse": {
+    "prior_runtime_fingerprint": "89d340f003860f86d3019c3021c2037a55ebe8f41c27360e50a16c81a9bbfb5e",
+    "destination_runtime_fingerprint": "e86485bd995e533dca9a32cabba96ee751a35e2185cb31c7d9e136d5e2852e28",
+    "failed_request_preserved": true,
+    "reused_completed_attempt": "19ba5da56c0647f4819e5e47e15faef6",
+    "failed_attempt": "55055c09720f46158020446026f3621d",
+    "new_download_commands": 0,
+    "normal_exit_requirement_unchanged": true
+  },
+  "checks": {
+    "related_pytest": {
+      "passed": 229,
+      "skipped": 7,
+      "failed": 0,
+      "skip_reasons": [
+        {
+          "test": "test_owned_job_gates_and_reaps_only_its_descendants",
+          "reason": "native Windows Job Object test"
+        },
+        {
+          "test": "test_minimum_environment_and_serial_lock",
+          "reason": "Windows environment and lock"
+        },
+        {
+          "test": "test_probe_is_read_only_bounded_and_redacted[None]",
+          "reason": "native Windows readiness helper"
+        },
+        {
+          "test": "test_probe_is_read_only_bounded_and_redacted[nonce]",
+          "reason": "native Windows readiness helper"
+        },
+        {
+          "test": "test_probe_is_read_only_bounded_and_redacted[dependencies]",
+          "reason": "native Windows readiness helper"
+        },
+        {
+          "test": "test_probe_is_read_only_bounded_and_redacted[timeout]",
+          "reason": "native Windows readiness helper"
+        },
+        {
+          "test": "test_probe_is_read_only_bounded_and_redacted[halt]",
+          "reason": "native Windows readiness helper"
+        }
+      ]
+    },
+    "commands": [
+      {
+        "check": "scoped-ruff",
+        "exit_code": 0,
+        "elapsed_seconds": 0.723
+      },
+      {
+        "check": "scoped-mypy",
+        "exit_code": 0,
+        "elapsed_seconds": 4.338
+      },
+      {
+        "check": "relevant-pytest",
+        "exit_code": 0,
+        "elapsed_seconds": 297.445
+      },
+      {
+        "check": "full-ruff",
+        "exit_code": 1,
+        "elapsed_seconds": 1.108
+      },
+      {
+        "check": "full-mypy",
+        "exit_code": 2,
+        "elapsed_seconds": 5.091
+      },
+      {
+        "check": "full-pytest",
+        "exit_code": 4,
+        "elapsed_seconds": 4.138
+      },
+      {
+        "check": "shell-syntax",
+        "exit_code": 0,
+        "elapsed_seconds": 0.047
+      }
+    ],
+    "full_ruff_findings": 36,
+    "full_mypy_failure": "duplicate module in retained frozen capability fixtures",
+    "full_pytest_collection_failure": "rhenium_authoring not installed in existing environment",
+    "unavailable_tools": [
+      "devenv",
+      "nix",
+      "npm",
+      "node",
+      "shellcheck"
+    ],
+    "bash_syntax_files_passed": 6,
+    "bash_syntax_paths_unavailable": [
+      "benchmarks/stardew-core/private/harbor/scripts/validate-task.sh"
+    ],
+    "remote_ci_executed": false
+  },
+  "wheels": [
+    {
+      "wheel": "rhenium_balatro_plugin-0.2.2-py3-none-any.whl",
+      "sha256": "a5ed1cedbd6e3f17c3f58bc0476d907c7d8613b228d22102ebe7c30aa12482e9",
+      "source_files": 40,
+      "archive_entries": 44,
+      "missing": [],
+      "byte_differences": [],
+      "prohibited_name_matches": [],
+      "build_seconds": 2.27,
+      "source_unchanged": true
+    },
+    {
+      "wheel": "rhenium_steam-0.1.0-py3-none-any.whl",
+      "sha256": "69269cbbe840da118d8970266058d8c11f70ecd1392c80e5d0c8bd54a230a2ad",
+      "source_files": 10,
+      "archive_entries": 14,
+      "missing": [],
+      "byte_differences": [],
+      "prohibited_name_matches": [],
+      "build_seconds": 0.48,
+      "source_unchanged": true
+    }
+  ],
+  "wheel_verification": {
+    "wheel_byte_identity_verified": true,
+    "managed_artifact_verified": true,
+    "measured_smoke_binding_matches": true,
+    "halt_preserved": true,
+    "game_started": false,
+    "authentication_started": false,
+    "installed_or_upgraded_packages": false,
+    "environment": "1f4fac49547e187b9f48e68c3f77a61d7d162049c351e59fe761e4a07fc2f494",
+    "harness": "1417c682a810ea86bc072c65eeae8f6f0f0da32554b301130fd49e83f35351da",
+    "scope": "wheel extraction and read-only verification only"
+  },
+  "protection_audit": {
+    "schema_version": 1,
+    "protected_unchanged": true,
+    "frozen_controller_files": 16,
+    "frozen_pack_files": 350,
+    "dependency_groups": {
+      "game": "d48fd7f95d798f2ba71e6e367517eedefb2d1a7bacb59f6bd6be2d8a611beeaa",
+      "steamodded": "bd6e57565bddb6a34c2a7307eff9d9cbb14e9e2da1daef285b0d1337edf8afa9",
+      "python_runtime": "1175cd1159cbabada4d0a886586a7ce255ecdaba77abf68a01ef9d89fe084ba4",
+      "python_environment": "b6d90824994aab0dbfd2193ca735e1b52c65ed85ade5565b414630683f298e37",
+      "balatrobot_lua": "8630889bd92b727f59cf3aa7c1f18e087dc27d19ea68a3a8a03435859380b7bd",
+      "requirements_lock": "5e02c21ad4fe3a4c555e522d61dfc65d974854d51087cebc2dc9dff3bb53321b"
+    },
+    "errors": [],
+    "elapsed_seconds": 4.991,
+    "copied_personal_or_game_content": false
+  },
+  "historical_evidence_sha256": {
+    "validation-linux-runtime-v1.json": "c1e7102f2857221991da87440c155d81198df604f65a5b7d087dc40ab3438ca6",
+    "runtime-manifest-linux-v1.json": "0626734877747be2a0c2c0806b9eb372e958468baec5eb012648f81e3118e7d9",
+    "LINUX-RUNTIME-REPORT-v1.md": "bc367b7ed899f15b11de49ed4077e5d3e51312579ec3840e4f610bc535f681e4"
+  },
+  "retained_failures": [
+    {
+      "id": "55055c09720f46158020446026f3621d",
+      "category": "incomplete_acquisition",
+      "reason": "official client forced exit 143 after completed download"
+    },
+    {
+      "id": "e7623ef3e6804df18ec1e5d4e7b147ed",
+      "category": "incomplete_engine",
+      "reason": "fullscreen animation completion exceeded unchanged RPC deadline"
+    },
+    {
+      "id": "20261031-174257-ca347e37",
+      "category": "incomplete_diagnostic",
+      "reason": "1280x720 still exceeded original deadline"
+    },
+    {
+      "id": "20261031-173823",
+      "category": "diagnostic_harness_error",
+      "reason": "driver called nonexistent stop; owned parent-death cleanup, no normal exit claim"
+    }
+  ],
+  "unrun": [
+    "three Linux full repetitions per candidate",
+    "additional mutations and alternate-correct Linux controls",
+    "final-source Windows native engine regression",
+    "installed-wheel full engine suite",
+    "stock Nix/devenv exam wrapper",
+    "frontend lint/test/build",
+    "ShellCheck",
+    "remote CI",
+    "other Linux hosts and macOS",
+    "untrusted evaluation host",
+    "model calibration",
+    "benchmarks/stardew-core/private/harbor/scripts/validate-task.sh"
+  ],
+  "frozen_task_semantics_changed": false,
+  "host_permissions_changed_this_stage": false,
+  "model_calibration": false,
+  "commit_push_or_pr": false
+}

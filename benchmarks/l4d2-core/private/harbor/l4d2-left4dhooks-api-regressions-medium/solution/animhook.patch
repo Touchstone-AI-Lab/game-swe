@@ -1,0 +1,10 @@
+--- a/sourcemod/scripting/left4dhooks.sp
++++ b/sourcemod/scripting/left4dhooks.sp
+@@ -1148,6 +1148,8 @@ int Native_AnimHookDisable(Handle plugin, int numParams) // Native "AnimHookDi
+ 	// Loop through all anim hooks
+ 	for( int i = g_iAnimationHookedPlugins.Length-1; i >= 0; i-- )
+ 	{
++		keep = false;
++
+ 		// Get hooked plugin handle
+ 		target = g_iAnimationHookedPlugins.Get(i, 0);

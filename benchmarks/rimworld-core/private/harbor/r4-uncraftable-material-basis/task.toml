@@ -1,0 +1,39 @@
+schema_version = "1.1"
+
+[task]
+name = "gamecodebench/r4-uncraftable-material-basis"
+description = "Repair R⁴ material-basis resolution for uncraftable reward and ultratech gear while preserving craftable and authored-extension behavior."
+authors = []
+keywords = ["rimworld", "csharp", "mod", "debugging", "real-game"]
+
+[metadata]
+category = "programming"
+difficulty = "medium"
+tags = ["game-modding", "csharp", "rimworld", "bug-fix"]
+source_repo = "https://github.com/CheaterEater-RM/RRRR"
+source_license = "MIT"
+base_commit = "db9e85bc758c402e53c55dd19ca8a588899f139c"
+target_commit = "7fbf158f4b988a6f806cc609282175143a3a41a6"
+gold_patch_origin = "upstream-v1.48"
+catalog_version = "0.3.0"
+private_protocol = "rhenium-rimworld-private-v2"
+assertion_count = 38
+scored_scope = "material-basis-repair-clean"
+
+[verifier]
+network_mode = "no-network"
+timeout_sec = 900.0
+
+[agent]
+network_mode = "no-network"
+allowed_hosts = []
+timeout_sec = 3600.0
+
+[environment]
+network_mode = "no-network"
+build_timeout_sec = 7200.0
+cpus = 6
+memory_mb = 16384
+storage_mb = 20480
+gpus = 0
+mcp_servers = []

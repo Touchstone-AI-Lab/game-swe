@@ -1,0 +1,288 @@
+{
+  "id": "rhenium-dst-v2",
+  "version": "2.1.0",
+  "game": "dst",
+  "name": {
+    "en": "Rhenium: Original Don't Starve Together Systems Tasks",
+    "zh": "Rhenium：《饥荒联机版》原创系统工程题"
+  },
+  "description": {
+    "en": "Ten independently authored hard engineering tasks built only around base-game Don't Starve Together APIs, prefabs, components, and assets.",
+    "zh": "十道独立设计的高难度工程题，仅使用《饥荒联机版》原版 API、prefab、组件与资源。"
+  },
+  "tasks": [
+    {
+      "id": "waystone-route-network",
+      "difficulty": "hard",
+      "title": {
+        "en": "Server-authoritative Waystone Route Network",
+        "zh": "服务端权威路石传送网络"
+      },
+      "summary": {
+        "en": "Link player-registered waystones into a weighted graph, compute deterministic cheapest routes, and sell exactly-once fast travel with gold fares, cooldowns, expiring tickets, and rollback.",
+        "zh": "把玩家注册的路石连成带权图，确定性地计算最便宜路线，并以金块票价、冷却、限时票据与回滚实现恰好一次的快速传送。"
+      },
+      "brief": {
+        "en": "Create a pure route-network core plus a master-simulation world component. The core validates nodes and links, derives integer link costs from geometry with a published rounding rule, finds the cheapest route with a deterministic hops-then-lexicographic tie-break, and runs a reserve/commit/abort ticket lifecycle with request deduplication, cooldown and expiry boundaries, route revalidation, and save/load. The component reads waystone and player positions from real entities, derives identity from player.userid, charges goldnugget from the real inventory all-or-nothing, teleports with the real physics/transform API, rolls everything back when the commit fails, and releases listeners and tasks on removal.",
+        "zh": "创建纯路线网络核心与主模拟世界组件。核心校验节点与连接，按公开的取整规则由几何距离得到整数连接代价，以“跳数优先、再按节点序列字典序”的确定性规则求最便宜路线，并实现带请求去重、冷却与过期边界、路线复核及保存加载的 reserve/commit/abort 票据生命周期。组件从真实实体读取路石与玩家位置，从 player.userid 取得身份，以全有或全无方式从真实物品栏扣除 goldnugget，用真实 physics/transform API 传送，在提交失败时完整回滚，并在移除时释放监听与任务。"
+      },
+      "requirements": {
+        "en": [
+          "Export Network.new(options), Network.load(data, options), add_node(node_id, owner_id, x, z, now), remove_node(node_id, now), set_blocked(node_id, blocked, now), link(a_id, b_id, now), unlink(a_id, b_id, now), route(from_id, to_id, now), reserve(request_id, traveler_id, from_id, to_id, now), commit(ticket_id, now), abort(ticket_id, now), tick(now), snapshot(now), and save(now).",
+          "Every call validates a finite, non-regressing now, advances the clock, and expires tickets at now >= expires_at before doing anything else; an invalid_time call has no effect.",
+          "Validate identifiers and finite coordinates, enforce options.max_nodes_per_owner, and fall back to published defaults for missing or invalid options.",
+          "Links are undirected and deduplicated; cost = max(1, floor(distance + 0.5)); a link is rejected only when the squared distance exceeds max_link_length squared; removing a node removes its links.",
+          "route returns the minimum-cost path over unblocked nodes, breaking ties by fewest hops and then by the lexicographically smallest node-id sequence, independent of insertion or pairs order.",
+          "reserve deduplicates by request_id before checking cooldown (now < cooldown_until) and the one-live-ticket rule, prices the trip as ceil(cost * cost_per_unit), and records only successful reservations.",
+          "commit consumes a live ticket exactly once, starts the cooldown at now + options.cooldown, is idempotent, and rejects a ticket whose hops, links, or total cost changed with route_changed; abort releases without cooldown.",
+          "Snapshots and results are fresh, deterministically ordered tables; save/load round-trips nodes, links, blocked flags, all tickets, cooldowns, request history, the ticket sequence, and the clock through plain data. The world component runs only on the master simulation and persists this state through OnSave/OnLoad."
+        ],
+        "zh": [
+          "导出 Network.new(options)、Network.load(data, options)、add_node、remove_node、set_blocked、link、unlink、route、reserve、commit、abort、tick、snapshot 与 save，参数顺序见试卷。",
+          "每次调用先校验有限且不倒退的 now、推进时钟，并在做任何其他事情之前让 now >= expires_at 的票据过期；invalid_time 调用没有任何副作用。",
+          "校验标识与有限坐标，执行 options.max_nodes_per_owner 上限，缺失或非法的选项回退到公开默认值。",
+          "连接无向且去重；cost = max(1, floor(距离 + 0.5))；仅当距离平方大于 max_link_length 平方时拒绝；移除节点同时移除其连接。",
+          "route 在未封锁节点上返回最小代价路径，平局先比跳数，再比节点 ID 序列的字典序，结果不得依赖插入顺序或 pairs 顺序。",
+          "reserve 先按 request_id 去重，再检查冷却（now < cooldown_until）与每位旅行者一张活票；票价为 ceil(cost * cost_per_unit)；只记录成功的预订。",
+          "commit 恰好一次消费活票，把冷却设为 now + options.cooldown，且幂等；路径节点、连接或总代价已变化时以 route_changed 拒绝；abort 释放票据且不产生冷却。",
+          "快照与返回值都是新建且稳定排序的表；save/load 以纯数据往返节点、连接、封锁标记、全部票据、冷却、请求历史、票据序列与时钟。世界组件仅在主模拟运行，并通过 OnSave/OnLoad 持久化该状态。"
+        ]
+      },
+      "api_usage": {
+        "en": [
+          "Read waystone and player coordinates with entity.Transform:GetWorldPosition(); never accept coordinates, prices, or routes from a caller or client.",
+          "Charge with player.components.inventory:Has(\"goldnugget\", price) and :ConsumeByName(\"goldnugget\", price); refund with SpawnPrefab(\"goldnugget\"), stackable:SetStackSize, and inventory:GiveItem.",
+          "Move the traveler with player.Physics:Teleport(x, y, z) when Physics exists, otherwise player.Transform:SetPosition(x, y, z).",
+          "Listen for onremove on every registered entity and remove the same callback with RemoveEventCallback; DoPeriodicTask drives tick and its task is cancelled in OnRemoveFromEntity.",
+          "Attach waystonenetwork in AddPrefabPostInit(\"world\") behind the ismastersim guard; AddModRPCHandler(\"rhenium_waystone\", \"travel\", fn) forwards only request_id, from_id, and to_id and identity comes from player.userid."
+        ],
+        "zh": [
+          "用 entity.Transform:GetWorldPosition() 读取路石和玩家坐标；不得接受调用方或客户端提供的坐标、价格或路线。",
+          "用 player.components.inventory:Has(\"goldnugget\", price) 与 :ConsumeByName(\"goldnugget\", price) 扣费；用 SpawnPrefab(\"goldnugget\")、stackable:SetStackSize 与 inventory:GiveItem 退款。",
+          "存在 Physics 时用 player.Physics:Teleport(x, y, z) 移动旅行者，否则用 player.Transform:SetPosition(x, y, z)。",
+          "对每个已注册实体监听 onremove，并用 RemoveEventCallback 注销同一个回调；DoPeriodicTask 驱动 tick，其 task 在 OnRemoveFromEntity 中取消。",
+          "在 AddPrefabPostInit(\"world\") 的 ismastersim 守卫后挂载 waystonenetwork；AddModRPCHandler(\"rhenium_waystone\", \"travel\", fn) 只转发 request_id、from_id、to_id，身份来自 player.userid。"
+        ]
+      },
+      "acceptance": {
+        "en": [
+          "Link costs, prices, and every time boundary match the published formulas exactly.",
+          "Equal-cost routes resolve identically regardless of insertion order or direction of discovery.",
+          "A ticket is committed at most once and never through a blocked, removed, relinked, or repriced hop.",
+          "Failed trips leave the real position and the real inventory unchanged and leave no live ticket or cooldown.",
+          "The dedicated server verifies real transforms, goldnugget inventory charges, teleports, anchor removal, rollback, persistence, and listener release."
+        ],
+        "zh": [
+          "连接代价、票价与所有时间边界严格符合公开公式。",
+          "等代价路线的选择与插入顺序或搜索方向无关。",
+          "票据最多提交一次，且不会穿过被封锁、移除、重连或改价的节点。",
+          "失败的传送不改变真实位置与真实物品栏，也不留下活票或冷却。",
+          "专服验证真实 Transform、goldnugget 扣费、传送、路石移除、回滚、持久化与监听释放。"
+        ]
+      },
+      "domains": [
+        "pathfinding",
+        "server-authority",
+        "inventory",
+        "persistence"
+      ],
+      "estimated_minutes": 420,
+      "core_module": "scripts/waystones/network.lua",
+      "hidden_test": "hidden/waystone-route-network.lua",
+      "server_test": "server/waystone-route-network.lua",
+      "hidden_cases": [
+        "nodes and links enforce ids caps rounding and length",
+        "cheapest route breaks ties by hops then node order",
+        "blocked and removed nodes leave routing",
+        "reserve deduplicates prices and honors time boundaries",
+        "commit is exactly once and rejects changed routes",
+        "time validation snapshot freshness and save load"
+      ],
+      "server_cases": [
+        "world waystone component is master attached",
+        "real travel charges gold and moves the player",
+        "removed anchor invalidates routes and rolls back travel",
+        "state persists and listeners are released"
+      ],
+      "required_files": [
+        "modinfo.lua",
+        "modmain.lua",
+        "scripts/waystones/network.lua",
+        "scripts/components/waystonenetwork.lua"
+      ],
+      "minimum_lua_lines": 280,
+      "integration_checks": [
+        {
+          "id": "waystone-authority",
+          "label": {
+            "en": "Master authority",
+            "zh": "主模拟权威"
+          },
+          "weight": 3,
+          "groups": [
+            {
+              "name": "guard",
+              "any_of": [
+                "TheWorld\\.ismastersim",
+                "inst\\.ismastersim",
+                "world\\.ismastersim"
+              ]
+            },
+            {
+              "name": "world postinit",
+              "any_of": [
+                "AddPrefabPostInit\\s*\\(\\s*[\\\"']world[\\\"']"
+              ]
+            },
+            {
+              "name": "server component",
+              "any_of": [
+                "AddComponent\\s*\\(\\s*[\\\"']waystonenetwork[\\\"']"
+              ]
+            }
+          ],
+          "none_of": [
+            "TODO",
+            "IMPLEMENT\\s+ME"
+          ]
+        },
+        {
+          "id": "waystone-real-positions",
+          "label": {
+            "en": "Real positions and teleport",
+            "zh": "真实位置与传送"
+          },
+          "weight": 3,
+          "groups": [
+            {
+              "name": "position",
+              "any_of": [
+                "Transform:GetWorldPosition\\s*\\("
+              ]
+            },
+            {
+              "name": "physics teleport",
+              "any_of": [
+                "Physics:Teleport\\s*\\("
+              ]
+            },
+            {
+              "name": "transform fallback",
+              "any_of": [
+                "Transform:SetPosition\\s*\\("
+              ]
+            }
+          ]
+        },
+        {
+          "id": "waystone-fare",
+          "label": {
+            "en": "Real inventory fare",
+            "zh": "真实物品栏票价"
+          },
+          "weight": 3,
+          "groups": [
+            {
+              "name": "currency",
+              "any_of": [
+                "goldnugget"
+              ]
+            },
+            {
+              "name": "funds check",
+              "any_of": [
+                ":Has\\s*\\("
+              ]
+            },
+            {
+              "name": "charge",
+              "any_of": [
+                ":ConsumeByName\\s*\\("
+              ]
+            },
+            {
+              "name": "refund",
+              "any_of": [
+                ":GiveItem\\s*\\("
+              ]
+            }
+          ]
+        },
+        {
+          "id": "waystone-rpc",
+          "label": {
+            "en": "Identifier-only RPC",
+            "zh": "仅含标识的 RPC"
+          },
+          "weight": 3,
+          "groups": [
+            {
+              "name": "RPC",
+              "any_of": [
+                "AddModRPCHandler\\s*\\(\\s*[\\\"']rhenium_waystone[\\\"']\\s*,\\s*[\\\"']travel[\\\"']"
+              ]
+            },
+            {
+              "name": "identity",
+              "any_of": [
+                "\\.userid"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "waystone-lifecycle",
+          "label": {
+            "en": "Persistence and cleanup",
+            "zh": "持久化与清理"
+          },
+          "weight": 3,
+          "groups": [
+            {
+              "name": "save/load",
+              "any_of": [
+                ":OnSave\\s*\\("
+              ]
+            },
+            {
+              "name": "load",
+              "any_of": [
+                ":OnLoad\\s*\\("
+              ]
+            },
+            {
+              "name": "listen",
+              "any_of": [
+                "ListenForEvent\\s*\\(\\s*[\\\"']onremove[\\\"']"
+              ]
+            },
+            {
+              "name": "remove callbacks",
+              "any_of": [
+                "RemoveEventCallback\\s*\\(\\s*[\\\"']onremove[\\\"']"
+              ]
+            },
+            {
+              "name": "periodic task",
+              "any_of": [
+                "DoPeriodicTask\\s*\\("
+              ]
+            },
+            {
+              "name": "cancel task",
+              "any_of": [
+                ":Cancel\\s*\\("
+              ]
+            },
+            {
+              "name": "cleanup hook",
+              "any_of": [
+                ":OnRemoveFromEntity\\s*\\("
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

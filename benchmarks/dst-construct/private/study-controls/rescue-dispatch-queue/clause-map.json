@@ -1,0 +1,392 @@
+{
+  "task": "dst/construct/rescue-dispatch-queue",
+  "task_version": "2.1.0",
+  "exam": "benchmarks/dst-construct/exams/rescue-dispatch-queue.md",
+  "cases": [
+    {
+      "id": "check:required-files",
+      "role": "static",
+      "clauses": [
+        "deliver-1"
+      ],
+      "note": "presence of the five required files"
+    },
+    {
+      "id": "check:lua-syntax",
+      "role": "static"
+    },
+    {
+      "id": "hidden:priority ordering is severity then time then id",
+      "role": "target",
+      "clauses": [
+        "deliver-2",
+        "core-3a",
+        "accept-1",
+        "shape-4"
+      ],
+      "note": "only the severity key decides (2 vs 4); creation time and target-id tie-breaks are never the deciding key, one insertion order only"
+    },
+    {
+      "id": "hidden:one helper and target own at most one lease",
+      "role": "target",
+      "clauses": [
+        "core-4a",
+        "core-5",
+        "accept-2"
+      ]
+    },
+    {
+      "id": "hidden:lease expiry requeues unresolved target",
+      "role": "target",
+      "clauses": [
+        "core-4b",
+        "core-6a",
+        "core-6c",
+        "core-7a",
+        "accept-3",
+        "shape-4"
+      ],
+      "note": "tick and volunteer exactly at expires_at; late heartbeat by the original helper must fail"
+    },
+    {
+      "id": "hidden:request and volunteer retries are stable",
+      "role": "target",
+      "clauses": [
+        "core-4b",
+        "core-5",
+        "shape-4"
+      ],
+      "note": "relies on result fields target_id / lease_id that the exam does not name"
+    },
+    {
+      "id": "hidden:disconnect releases helper and recovery closes target",
+      "role": "target",
+      "clauses": [
+        "core-2",
+        "core-7a",
+        "core-7b",
+        "accept-4",
+        "shape-2",
+        "shape-7"
+      ],
+      "note": "helper disconnect and target recovery (health_percent=1) only; death, target disconnect and cancel are not exercised"
+    },
+    {
+      "id": "hidden:save load preserves active lease and defensive snapshot",
+      "role": "target",
+      "clauses": [
+        "core-6b",
+        "core-8a",
+        "core-8b",
+        "accept-4",
+        "shape-7"
+      ],
+      "note": "after load only heartbeat(...).ok and the lease count are checked"
+    },
+    {
+      "id": "check:implementation-depth",
+      "role": "static",
+      "note": "minimum of 260 non-comment Lua lines; the threshold is not stated in the exam"
+    },
+    {
+      "id": "check:rescue-authority",
+      "role": "target",
+      "clauses": [
+        "dst-1a"
+      ],
+      "note": "regular-expression gate over the submitted source, not an execution"
+    },
+    {
+      "id": "check:rescue-player-events",
+      "role": "target",
+      "clauses": [
+        "dst-1b",
+        "dst-2"
+      ],
+      "note": "regular-expression gate over the submitted source, not an execution; one alternative per group suffices (e.g. only 'death' and only 'ms_playerleft')"
+    },
+    {
+      "id": "check:rescue-network",
+      "role": "target",
+      "clauses": [
+        "dst-3",
+        "dst-5",
+        "api-2"
+      ],
+      "note": "regular-expression gate over the submitted source, not an execution"
+    },
+    {
+      "id": "check:rescue-cleanup",
+      "role": "target",
+      "clauses": [
+        "dst-4",
+        "dst-6",
+        "api-1"
+      ],
+      "note": "regular-expression gate over the submitted source, not an execution; DoPeriodicTask itself is not in any pattern"
+    },
+    {
+      "id": "server:server dispatch component is attached",
+      "role": "target",
+      "clauses": [
+        "dst-1a",
+        "accept-5"
+      ],
+      "note": "also proves the mod loaded on the real dedicated server"
+    },
+    {
+      "id": "server:health-backed entities receive a deterministic lease",
+      "role": "target",
+      "clauses": [
+        "dst-1b",
+        "api-3",
+        "accept-5",
+        "shape-8"
+      ],
+      "note": "entities with a real health component (20/100 target, 100/100 helper); accepts any ok lease whose target_id is the target's userid"
+    },
+    {
+      "id": "server:dispatch state persists",
+      "role": "target",
+      "clauses": [
+        "dst-6",
+        "accept-5"
+      ],
+      "note": "over-constraining: line 38 calls service.OnSave() without a receiver, see known_issues Resolved in catalog 2.1.0.",
+      "over_constrained": false
+    }
+  ],
+  "clauses": [
+    {
+      "id": "deliver-1",
+      "anchor": "Required deliverables item 1 (file list): \"scripts/components/rescuedispatch_replica.lua\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "deliver-2",
+      "anchor": "Required deliverables item 2 (API block Dispatch.new/load, update_player, request, volunteer, heartbeat, complete, cancel, tick, snapshot, save): \"Pure module exports\"; Background and goal: \"Implement a plain Lua dispatcher\"",
+      "status": "weak",
+      "note": "every hidden case loads the module in a sandbox without engine globals or require, but complete() and cancel() are never called by any case"
+    },
+    {
+      "id": "core-1a",
+      "anchor": "Core semantics item 1, first sentence: \"Time must be finite, non-negative and must not move the global clock backwards\"",
+      "status": "unasserted",
+      "note": "no case passes a non-finite, negative or regressing time"
+    },
+    {
+      "id": "core-1b",
+      "anchor": "Core semantics item 1, second sentence: \"stale updates have no side effects\"",
+      "status": "unasserted",
+      "note": "no case sends a stale or repeated revision"
+    },
+    {
+      "id": "core-2",
+      "anchor": "Core semantics item 2: \"an invalid or non-finite health ratio must be rejected\"",
+      "status": "weak",
+      "note": "cases only require that valid records are accepted (fresh(): update_player(...) ~= false) and that a newer record takes effect; no invalid record or health ratio is ever submitted"
+    },
+    {
+      "id": "core-3a",
+      "anchor": "Core semantics item 3, first sentence: \"Incidents are ordered by effective severity descending, creation time ascending, then target ID in lexicographic order\"",
+      "status": "weak",
+      "note": "only severity-descending is decisive (hidden/rescue-dispatch-queue.lua:16-22); an implementation that ignores creation time and target id passes"
+    },
+    {
+      "id": "core-3b",
+      "anchor": "Core semantics item 3, second sentence: \"must not depend on how often `tick` is called\"",
+      "status": "unasserted",
+      "note": "aging_interval=20 and no case lets 20 time units pass; aging is never observable"
+    },
+    {
+      "id": "core-4a",
+      "anchor": "Core semantics item 4, first sentence: \"One helper holds at most one live lease, and one target has at most one helper\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "core-4b",
+      "anchor": "Core semantics item 4, second sentence: \"Lease IDs are generated by an internal stable sequence\"",
+      "status": "weak",
+      "note": "checked only as 'a new lease gets a different id' and 'a retry returns the same id'; the sequence itself and its persistence are not checked"
+    },
+    {
+      "id": "core-5",
+      "anchor": "Core semantics item 5: \"must first deduplicate by helper/request ID, and then create a lease for the current highest-priority unassigned incident\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "core-6a",
+      "anchor": "Core semantics item 6, first sentence: \"Only a live lease belonging to the matching helper can be targeted by heartbeat or complete\"",
+      "status": "weak",
+      "note": "only the expired-lease heartbeat is rejected (line 39); a heartbeat by a different helper and complete() are never tried"
+    },
+    {
+      "id": "core-6b",
+      "anchor": "Core semantics item 6: \"A heartbeat sets the expiry time to a deterministic new boundary\"",
+      "status": "weak",
+      "note": "heartbeat is only required to return ok after load (line 68); the new expires_at is never read"
+    },
+    {
+      "id": "core-6c",
+      "anchor": "Core semantics item 6: \"reaching the boundary counts as expired\"",
+      "status": "asserted",
+      "note": "tick/volunteer/heartbeat exactly at lease.expires_at (lines 36-39)"
+    },
+    {
+      "id": "core-7a",
+      "anchor": "Core semantics item 7, first sentence: \"Expiry, helper disconnect or helper death releases the helper and requeues the unresolved target exactly once\"",
+      "status": "asserted",
+      "note": "expiry and helper disconnect are exercised; helper death and the exactly-once count are not"
+    },
+    {
+      "id": "core-7b",
+      "anchor": "Core semantics item 7, second sentence: \"Target recovery, death, disconnect or cancel ends the incident\"",
+      "status": "weak",
+      "note": "only recovery (health_percent=1) is exercised; target death, target disconnect and cancel() are not. The recovery threshold is not defined publicly"
+    },
+    {
+      "id": "core-8a",
+      "anchor": "Core semantics item 8: \"is stably ordered by queue and by lease and does not expose personal request history\"",
+      "status": "weak",
+      "note": "cases read only #snapshot.queue and #snapshot.leases and that mutating a snapshot does not change state; ordering and absence of history are not checked"
+    },
+    {
+      "id": "core-8b",
+      "anchor": "Core semantics item 8: \"must preserve the idempotency history and the lease boundaries\"",
+      "status": "weak",
+      "note": "the active lease must survive (heartbeat ok, one lease); idempotent history after load and the expiry boundary value are not checked"
+    },
+    {
+      "id": "dst-1a",
+      "anchor": "DST integration item 1: \"The master simulation world component\" (component on the master-simulation world)",
+      "status": "asserted",
+      "note": "server case asserts TheWorld.ismastersim and TheWorld.components.rescuedispatch; plus source gate rescue-authority"
+    },
+    {
+      "id": "dst-1b",
+      "anchor": "DST integration item 1: \"client coordinates or severity may only serve as non-authoritative hints\"",
+      "status": "weak",
+      "note": "the server case uses real health components but would also pass if health were never read; position is covered only by the source pattern 'Transform:GetWorldPosition'"
+    },
+    {
+      "id": "dst-2",
+      "anchor": "DST integration item 2: \"Listen for `ms_playerjoined`, `ms_playerleft` and the player's `healthdelta`, `death`, `respawnfromghost`, `onremove`\" (restated in the Base-game API contract listing)",
+      "status": "weak",
+      "note": "source pattern only; no event is pushed by the server suite"
+    },
+    {
+      "id": "dst-3",
+      "anchor": "DST integration item 3: \"The RPC handler obtains the helper identity from `player.userid` and accepts only request/lease identifiers\" (restated at the end of Base-game API contract)",
+      "status": "weak",
+      "note": "source pattern 'AddModRPCHandler(' only"
+    },
+    {
+      "id": "dst-4",
+      "anchor": "DST integration item 4: \"when the component is removed, cancel the task and unregister all events\"",
+      "status": "weak",
+      "note": "source patterns ':Cancel(' and 'RemoveEventCallback(' only; the component is never removed"
+    },
+    {
+      "id": "dst-5",
+      "anchor": "DST integration item 5: \"publish a compact, read-only task state without private request history\"",
+      "status": "weak",
+      "note": "source patterns only; the published value is never read"
+    },
+    {
+      "id": "dst-6",
+      "anchor": "DST integration item 6: \"Persist the dispatcher through `OnSave/OnLoad`\"",
+      "status": "asserted",
+      "note": "server case round-trips OnSave/OnLoad on the live component (but see known_issues for the receiver-less call); plus source pattern ':OnSave('"
+    },
+    {
+      "id": "api-1",
+      "anchor": "Base-game API contract item 1: \"Unregistering a listener must use the same callback and source as at registration\"",
+      "status": "weak",
+      "note": "source patterns only"
+    },
+    {
+      "id": "api-2",
+      "anchor": "Base-game API contract item 2: \"The replica and the netvar must be set up before the client early return\" with the net_string(inst.GUID, ...) block",
+      "status": "weak",
+      "note": "source patterns 'net_string(' / 'AddReplicableComponent(' only; no client exists in the run"
+    },
+    {
+      "id": "api-3",
+      "anchor": "Base-game API contract item 3: \"The server-side component must expose\"",
+      "status": "weak",
+      "note": "UpdatePlayer, Request and Volunteer are called; Heartbeat and Tick are never referenced"
+    },
+    {
+      "id": "accept-1",
+      "anchor": "Acceptance item 1: \"Ordering is not affected by insertion order or by `pairs` order\"",
+      "status": "weak",
+      "note": "one fixed insertion order with two incidents"
+    },
+    {
+      "id": "accept-2",
+      "anchor": "Acceptance item 2: \"A helper/target never has two live leases at the same time\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "accept-3",
+      "anchor": "Acceptance item 3: \"A late heartbeat must not revive an expired lease\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "accept-4",
+      "anchor": "Acceptance item 4: \"Disconnect, death, recovery and reload all correctly release or keep tasks\"",
+      "status": "asserted",
+      "note": "disconnect, recovery and reload are exercised; death is not"
+    },
+    {
+      "id": "accept-5",
+      "anchor": "Acceptance item 5: \"The headless dedicated server test creates server entities with the base-game `health` component\"",
+      "status": "weak",
+      "note": "the mod must load on the dedicated server and the lease and save/load assertions run; no real event is triggered and net state and cleanup are not asserted, contrary to the public sentence"
+    },
+    {
+      "id": "accept-6",
+      "anchor": "Acceptance closing line: \"Only base-game APIs and assets may be used, and authoritative dispatch must not be placed in the replica\"",
+      "status": "unasserted",
+      "note": "no case inspects the replica or the assets"
+    },
+    {
+      "id": "shape-2",
+      "anchor": "Return values and data shapes items 1-2: \"counts as recovered\" (recovery_threshold defaults to 0.75, health_percent >= threshold counts as recovered)",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "shape-4",
+      "anchor": "Return values and data shapes items 4-6: \"returns a new table containing a boolean `ok` and `target_id`\" (request/volunteer/heartbeat fields ok, target_id, lease_id, expires_at = now + lease_ttl)",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "shape-7",
+      "anchor": "Return values and data shapes item 7: \"The top level of `snapshot(now)` contains the array `queue`\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "shape-8",
+      "anchor": "Return values and data shapes item 8: \"returns a table containing `ok` and `target_id`, where `target_id` is the `userid` of the target player\"",
+      "status": "asserted",
+      "note": ""
+    }
+  ],
+  "excluded_clauses": [
+    "core-1a",
+    "core-1b",
+    "core-3b",
+    "accept-6"
+  ],
+  "known_issues": [
+    "Catalog 2.1.0: the server suite now calls service:OnSave() with a receiver; the exam publishes the option names, the recovery threshold and its default, every result field the suites read, and the implementation-depth requirement. The acceptance bullet about the server suite was rewritten to what the suite checks."
+  ]
+}

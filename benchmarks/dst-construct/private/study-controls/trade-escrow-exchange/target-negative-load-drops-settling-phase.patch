@@ -1,0 +1,11 @@
+--- a/scripts/tradeescrow/escrow.lua
++++ b/scripts/tradeescrow/escrow.lua
+@@ -464,7 +464,7 @@
+             if first ~= nil and second ~= nil and parties[1].id ~= parties[2].id then
+                 local trade = {
+                     id = row.trade_id,
+-                    phase = row.phase,
++                    phase = row.phase == "settling" and "open" or row.phase,
+                     opened_at = row.opened_at,
+                     expires_at = row.expires_at,
+                     order = { parties[1].id, parties[2].id },

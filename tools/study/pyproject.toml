@@ -1,0 +1,24 @@
+[project]
+name = "rhenium-study"
+version = "0.1.0"
+description = "Controlled-study tooling for Rhenium: contract admission, attempt ledger and replay"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+  "pydantic>=2.11.7",
+  "rhenium==0.6.0",
+  "typer>=0.16.0",
+]
+
+[project.scripts]
+rhenium-study = "rhenium_study.cli:app"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/rhenium_study"]
+
+[tool.uv.sources]
+rhenium = { workspace = true }

@@ -1,0 +1,55 @@
+diff -ruN a/sourcemod/scripting/l4dd/l4dd_natives.sp b/sourcemod/scripting/l4dd/l4dd_natives.sp
+--- a/sourcemod/scripting/l4dd/l4dd_natives.sp	2026-09-21 05:47:52.309074058 +0800
++++ b/sourcemod/scripting/l4dd/l4dd_natives.sp	2026-09-21 05:47:52.312967719 +0800
+@@ -2769,8 +2769,6 @@
+ 		GetNativeArray(3, vDir, sizeof(vDir));
+ 	}
+ 
+-	g_iCancelStagger[a1] = 0;
+-
+ 	//PrintToServer("#### CALL g_hSDK_CTerrorPlayer_OnStaggered");
+ 	SDKCall(g_hSDK_CTerrorPlayer_OnStaggered, a1, a2, vDir);
+ 	return 0;
+@@ -5000,15 +4998,13 @@
+ 
+ 	int client = GetNativeCell(1);
+ 
+-	// if( !g_bLeft4Dead2 && GetClientTeam(client) == 3 )
+ 	if( GetClientTeam(client) == 3 )
+ 	{
+-		// Hack for L4D1 to stop staggering on SI, the SDKCall does not stop the stagger animation, only resets the variables
+-		// Don't know if an L4D1 update broke the SDKCall, nothing has changed with the function itself, I thought it used to work
++		// Keep a short post-think cleanup window for infected stumble animations.
+ 		if( g_iCancelStagger[client] == 0 )
+ 			SDKHook(client, SDKHook_PostThinkPost, OnThinkCancelStagger);
+ 
+-		g_iCancelStagger[client] = 4;
++		g_iCancelStagger[client] = 3;
+ 	}
+ 
+ 	// PrintToServer("#### CALL g_hSDK_CTerrorPlayer_CancelStagger");
+@@ -5019,19 +5015,16 @@
+ 
+ void OnThinkCancelStagger(int client)
+ {
++	g_iCancelStagger[client]--;
+ 	if( g_iCancelStagger[client] == 0 )
+ 	{
+ 		SDKUnhook(client, SDKHook_PostThinkPost, OnThinkCancelStagger);
+ 	}
+-	else
+-	{
+-		g_iCancelStagger[client]--;
+ 
+-		if( GetClientTeam(client) == 3 && IsPlayerAlive(client) && L4D_IsPlayerStaggering(client) )
+-		{
+-			SetEntityMoveType(client, MOVETYPE_WALK); // Makes them move less than without this line
+-			SetEntPropFloat(client, Prop_Send, "m_flCycle", 1.0); // Skip stumble animation
+-		}
++	if( GetClientTeam(client) == 3 && IsPlayerAlive(client) && L4D_IsPlayerStaggering(client) )
++	{
++		SetEntityMoveType(client, MOVETYPE_WALK); // Makes them move less than without this line
++		SetEntPropFloat(client, Prop_Send, "m_flCycle", 1.0); // Skip stumble animation
+ 	}
+ }
+ 

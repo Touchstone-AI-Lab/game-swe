@@ -1,0 +1,5 @@
+control	status	failing_cases	passed	failed	reward	processes	fatals	matches_prediction
+base	predicted	anamnesis_charge,anamnesis_charge_persistence,birdbath_use_spawns,cursed_metronome,forbidden_fruit,hurdle_heels_landing_stomp,mutant_clover_stack,ominous_lantern_put_away,tragic_mushroom,tragic_mushroom_diminishing,tragic_mushroom_last_container,tragic_mushroom_repeat	42		0			
+gold	predicted	-	54		1			
+base	measured	anamnesis_charge,anamnesis_charge_persistence,birdbath_use_spawns,cursed_metronome,forbidden_fruit,hurdle_heels_landing_stomp,mutant_clover_stack,ominous_lantern_put_away,tragic_mushroom,tragic_mushroom_diminishing,tragic_mushroom_last_container,tragic_mushroom_repeat	42	12	0	3/3	0	yes
+gold	measured	-	54	0	1	3/3	0	yes

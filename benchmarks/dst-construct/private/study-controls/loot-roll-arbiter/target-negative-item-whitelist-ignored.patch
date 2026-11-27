@@ -1,0 +1,11 @@
+--- a/scripts/lootroll/arbiter.lua
++++ b/scripts/lootroll/arbiter.lua
+@@ -280,7 +280,7 @@
+     if self.rolls[roll_id] ~= nil then
+         return fail("duplicate_roll")
+     end
+-    if not is_id(item) or not self.config.allowed[item] then
++    if not is_id(item) then
+         return fail("item_not_allowed")
+     end
+     if type(eligible_ids) ~= "table" then

@@ -1,0 +1,11 @@
+--- a/scripts/components/fuelration.lua
++++ b/scripts/components/fuelration.lua
+@@ -87,7 +87,7 @@
+     record.onremove = function()
+         self:Untrack(consumer_id)
+     end
+-    self.inst:ListenForEvent("onremove", record.onremove, entity)
++    self.inst:ListenForEvent("onremove", function() end, entity)
+     self.tracked[consumer_id] = record
+     self.by_entity[entity] = consumer_id
+     return { ok = true, status = "registered", consumer_id = consumer_id, capacity = capacity, level = level }

@@ -1,0 +1,101 @@
+diff --git a/TractorMod/Framework/Attachments/AxeAttachment.cs b/TractorMod/Framework/Attachments/AxeAttachment.cs
+index 3592038..e10f5c1 100644
+--- a/TractorMod/Framework/Attachments/AxeAttachment.cs
++++ b/TractorMod/Framework/Attachments/AxeAttachment.cs
+@@ -161,11 +161,11 @@ internal class AxeAttachment : BaseAttachment
+         var config = this.Config;
+ 
+         // seed
+-        if (tree.growthStage.Value == Tree.seedStage)
++        if (tree.growthStage.Value == FruitTree.seedStage)
+             return config.ClearFruitTreeSeeds;
+ 
+         // sapling
+-        if (tree.growthStage.Value < Tree.treeStage)
++        if (tree.growthStage.Value < FruitTree.treeStage)
+             return config.ClearFruitTreeSaplings;
+ 
+         // full-grown
+diff --git a/TractorMod/Framework/Attachments/CustomAttachment.cs b/TractorMod/Framework/Attachments/CustomAttachment.cs
+index f6cf153..b80a8b3 100644
+--- a/TractorMod/Framework/Attachments/CustomAttachment.cs
++++ b/TractorMod/Framework/Attachments/CustomAttachment.cs
+@@ -52,7 +52,7 @@ internal class CustomAttachment : BaseAttachment
+         // apply item
+         if (item is { Stack: > 0 } && this.CustomNames.Contains(item.Name))
+         {
+-            if (item is SObject obj && obj.canBePlacedHere(location, tile) && obj.placementAction(location, (int)(tile.X * Game1.tileSize), (int)(tile.Y * Game1.tileSize), player))
++            if (item is SObject obj && obj.isPlaceable() && obj.canBePlacedHere(location, tile) && obj.placementAction(location, (int)(tile.X * Game1.tileSize), (int)(tile.Y * Game1.tileSize), player))
+             {
+                 this.ConsumeItem(player, item);
+                 return true;
+diff --git a/TractorMod/Framework/Attachments/PickaxeAttachment.cs b/TractorMod/Framework/Attachments/PickaxeAttachment.cs
+index b3f1703..c882056 100644
+--- a/TractorMod/Framework/Attachments/PickaxeAttachment.cs
++++ b/TractorMod/Framework/Attachments/PickaxeAttachment.cs
+@@ -61,7 +61,8 @@ internal class PickaxeAttachment : BaseAttachment
+         tool = tool.AssertNotNull();
+ 
+         // break stones
+-        if (this.Config.BreakMineStones && this.IsBreakableStone(tileObj))
++        bool isBreakableStone = this.IsBreakableStone(tileObj);
++        if (this.Config.BreakMineStones && isBreakableStone)
+             return this.UseToolOnTile(tool, tile, player, location);
+ 
+         // break flooring & paths
+@@ -70,7 +71,7 @@ internal class PickaxeAttachment : BaseAttachment
+ 
+         // break objects
+         bool isMineSpawn = location is MineShaft && tileObj?.IsSpawnedObject == true;
+-        if (this.Config.ClearObjects && tileObj != null && !isMineSpawn)
++        if (this.Config.ClearObjects && tileObj != null && !isMineSpawn && !isBreakableStone)
+             return this.UseToolOnTile(tool, tile, player, location);
+ 
+         // break mine containers
+diff --git a/TractorMod/Framework/Attachments/SeedAttachment.cs b/TractorMod/Framework/Attachments/SeedAttachment.cs
+index 0de9bd1..2a81c22 100644
+--- a/TractorMod/Framework/Attachments/SeedAttachment.cs
++++ b/TractorMod/Framework/Attachments/SeedAttachment.cs
+@@ -52,7 +52,7 @@ internal class SeedAttachment : BaseAttachment
+             return false;
+ 
+         // get dirt
+-        if (!this.TryGetHoeDirt(tileFeature, tileObj, out HoeDirt? dirt, out bool dirtCoveredByObj, out _) || dirt.crop != null)
++        if (!this.TryGetHoeDirt(tileFeature, tileObj, out HoeDirt? dirt, out bool dirtCoveredByObj, out IndoorPot? pot) || dirt.crop != null || pot?.bush.Value is not null)
+             return false;
+ 
+         // ignore if there's a giant crop, meteorite, etc covering the tile
+diff --git a/TractorMod/docs/release-notes.md b/TractorMod/docs/release-notes.md
+index bbe2d42..212e760 100644
+--- a/TractorMod/docs/release-notes.md
++++ b/TractorMod/docs/release-notes.md
+@@ -8,6 +8,7 @@ Released 14 March 2016 for SMAPI 4.1.10 or later.
+   _This guarantees that the download only contains what's in the public source code and hasn't been tampered with._
+ * Fixed crash when 'tractor sounds' is enabled but you have no audio device connected. The tractor sounds are now disabled automatically in that case.
+ * Fixed pickaxe 'clear debris' option not breaking calico egg stones.
++* Fixed pickaxe 'break objects' option also affecting mine stones.
+ * Improved translations. Thanks to CallMeFabioo (updated Portuguese) and MakinDay (updated Italian)!
+ 
+ ## 4.24.3
+@@ -94,11 +95,13 @@ Released 04 November 2024 for SMAPI 4.1.0 or later.
+ * The scythe can now harvest green rain bushes.
+ * Invalid or duplicate tractors are now removed on day start.
+ * Duplicate garage IDs are now reassigned on day start.
++* Fixed being able to place unplaceable items using the 'custom attachments' option.
+ * Improved translations. Thanks to Creeperkatze (updated German) and moonggae (updated Korean)!
+ 
+ ## 4.19.2
+ Released 29 June 2024 for SMAPI 4.0.7 or later.
+ 
++* Fixed able to plant seeds in a garden pot which already has a bush.
+ * Improved translations. Thanks to CuongNguyen0903 (added Vietnamese) and weizinai (updated Chinese)!
+ 
+ ## 4.19.1
+@@ -127,6 +130,7 @@ Released 22 May 2024 for SMAPI 4.0.0 or later.
+ * Split 'harvest grass' option into non-blue and blue grass.
+ * Simplified tractor names to improve display in mods like NPC Map Locations.
+ * Fixed tool options:
++  * Fixed axe 'chop free trees (saplings)' option affecting full-grown trees.
+   * Fixed pickaxe 'harvest mine spawns' option not working if 'clear placed objects' is also enabled.
+   * Fixed scythe 'harvest tree seeds' option missing in Generic Mod Config Menu UI.
+ * Fixed tractor sounds continuing to play during a cutscene if you were riding a tractor when it started.

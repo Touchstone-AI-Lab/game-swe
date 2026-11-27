@@ -1,0 +1,51 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <!-- Built inside the task image where the game (with SMAPI installed on top) sits at
+       $GAME_PATH. Plain HintPath references instead of Pathoschild.Stardew.ModBuildConfig
+       keep this project restorable with zero NuGet traffic, which the no-network trial
+       environment requires. -->
+  <PropertyGroup>
+    <AssemblyName>GcbHarness</AssemblyName>
+    <RootNamespace>GcbHarness</RootNamespace>
+    <TargetFramework>net6.0</TargetFramework>
+    <LangVersion>latest</LangVersion>
+    <Nullable>enable</Nullable>
+    <EnableDynamicLoading>true</EnableDynamicLoading>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+    <ProduceReferenceAssembly>false</ProduceReferenceAssembly>
+    <GamePath Condition="'$(GamePath)' == ''">$([System.Environment]::GetEnvironmentVariable('GAME_PATH'))</GamePath>
+    <GamePath Condition="'$(GamePath)' == ''">/opt/stardew</GamePath>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Reference Include="StardewValley">
+      <HintPath>$(GamePath)/Stardew Valley.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="StardewModdingAPI">
+      <HintPath>$(GamePath)/StardewModdingAPI.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="StardewValley.GameData" Condition="Exists('$(GamePath)/StardewValley.GameData.dll')">
+      <HintPath>$(GamePath)/StardewValley.GameData.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="MonoGame.Framework">
+      <HintPath>$(GamePath)/MonoGame.Framework.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="xTile" Condition="Exists('$(GamePath)/xTile.dll')">
+      <HintPath>$(GamePath)/xTile.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="Netcode" Condition="Exists('$(GamePath)/Netcode.dll')">
+      <HintPath>$(GamePath)/Netcode.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="SMAPI.Toolkit.CoreInterfaces" Condition="Exists('$(GamePath)/SMAPI.Toolkit.CoreInterfaces.dll')">
+      <HintPath>$(GamePath)/SMAPI.Toolkit.CoreInterfaces.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+  </ItemGroup>
+
+</Project>

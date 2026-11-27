@@ -1,0 +1,5 @@
+control	status	failing_cases	passed	failed	reward	processes	fatals	matches_prediction
+base	predicted	baseball_mitt_delayed_hit,baseball_mitt_return_flags,deja_vu_split_guard,grid_worm,grid_worm_bounce,grid_worm_heading,grid_worm_heading_cross_axis,headcase_orphan_lob,lil_rune_algiz_rune,lil_rune_jera_health,lovely_fly_target,unholy_mantle_burst,welcome_mat_poof_at_rest	41		0			
+gold	predicted	-	54		1			
+base	measured	baseball_mitt_delayed_hit,baseball_mitt_return_flags,deja_vu_split_guard,grid_worm,grid_worm_bounce,grid_worm_heading,grid_worm_heading_cross_axis,headcase_orphan_lob,lil_rune_algiz_rune,lil_rune_jera_health,lovely_fly_target,unholy_mantle_burst,welcome_mat_poof_at_rest	41	13	0	3/3	0	yes
+gold	measured	-	54	0	1	3/3	0	yes

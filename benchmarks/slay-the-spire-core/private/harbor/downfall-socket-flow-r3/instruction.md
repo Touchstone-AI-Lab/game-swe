@@ -1,0 +1,7 @@
+Campfire gem selection interferes with returning to earlier choices and with the next campfire activity. Repair the behavior below while preserving the existing public mod interfaces and ordinary card operations.
+
+"After choosing a gem, pressing Back on the card-selection screen exits all the way to the campfire instead of returning to the available gems. Escape does the same thing. I should be able to go back, choose a different gem and finish inserting that gem into a card. Going back must not consume the previous gem, and completing the choice should consume only the gem actually inserted. Cancelling from the initial gem list should still leave the deck unchanged and return to the campfire."
+
+"If I cancel the initial gem list and promptly choose Smith, upgrading an ordinary card can crash. Choosing a Guardian card for the upgrade can instead bring up another socket selection and leave the card unupgraded. The cancelled activity should no longer handle selections from the next campfire activity. The same upgrade works when I have not just cancelled gem selection. This occurs with both the on-screen cancel button and Escape."
+
+Normal gem insertion, the remaining gems, standalone card upgrades, and ordinary native selection/confirmation behavior must keep working. These reports concern valid gems, cards with free sockets, and normal sequential campfire interactions. No particular cancellation flag, patch type or cleanup implementation is required. The complete project is in `/app/downfall`; build offline with `bash build.sh`.

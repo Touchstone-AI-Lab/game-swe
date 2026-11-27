@@ -1,0 +1,341 @@
+{
+  "task": "isaac-rebirth/synth/construct-hud-compositor",
+  "task_version": "0.1.1",
+  "exam": "benchmarks/isaac-synth/exams/construct-hud-compositor.md",
+  "cases": [
+    {
+      "id": "case:hint_frame_0",
+      "role": "target",
+      "clauses": [
+        "request"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:warning_hidden_initially",
+      "role": "target",
+      "clauses": [
+        "request"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:hint_only_bottom_slot",
+      "role": "target",
+      "clauses": [
+        "request"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:hint_y_bottom_slot",
+      "role": "target",
+      "clauses": [
+        "request"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:hint_text_unchanged",
+      "role": "target",
+      "clauses": [
+        "request"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:both_messages_stack",
+      "role": "target",
+      "clauses": [
+        "request"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:stacked_hint_y",
+      "role": "target",
+      "clauses": [
+        "request"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:warning_text_unchanged",
+      "role": "target",
+      "clauses": [
+        "request"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:warning_reset_same_frame",
+      "role": "target",
+      "clauses": [
+        "request"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:fractional_offset_0_5_width_floor",
+      "role": "target",
+      "clauses": [
+        "request"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:fractional_offset_9_5_width_floor",
+      "role": "target",
+      "clauses": [
+        "request"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:integer_corner_width_unchanged",
+      "role": "target",
+      "clauses": [
+        "request"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:fractional_corner_no_render_error",
+      "role": "target",
+      "clauses": [
+        "request"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:warning_visible_when_pending",
+      "role": "target",
+      "clauses": [
+        "request"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:hint_returns_to_bottom_after_clear",
+      "role": "target",
+      "clauses": [
+        "request"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:warning_cleared_by_reset",
+      "role": "target",
+      "clauses": [
+        "request"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:reset_is_idempotent",
+      "role": "target",
+      "clauses": [
+        "request"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:live_offset_applies_next_frame",
+      "role": "target",
+      "clauses": [
+        "request"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:offset_command_validates_and_unknown_is_noop",
+      "role": "target",
+      "clauses": [
+        "request"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:hint_frame_839",
+      "role": "target",
+      "clauses": [
+        "request"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:hint_frame_840",
+      "role": "target",
+      "clauses": [
+        "request"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:hint_frame_899",
+      "role": "target",
+      "clauses": [
+        "request"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:hint_frame_900_hidden",
+      "role": "target",
+      "clauses": [
+        "request"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:warning_stays_bottom_when_hint_expires",
+      "role": "target",
+      "clauses": [
+        "request"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:warning_only_bottom_slot",
+      "role": "target",
+      "clauses": [
+        "request"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:warning_y_bottom_slot",
+      "role": "target",
+      "clauses": [
+        "request"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:hint_color_and_alpha",
+      "role": "target",
+      "clauses": [
+        "request"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:warning_color_constant",
+      "role": "target",
+      "clauses": [
+        "request"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:right_alignment_mode_preserved",
+      "role": "target",
+      "clauses": [
+        "request"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:warning_survives_room_change",
+      "role": "target",
+      "clauses": [
+        "request"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:warning_survives_floor_change",
+      "role": "target",
+      "clauses": [
+        "request"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:floor_change_keeps_hint_timer",
+      "role": "target",
+      "clauses": [
+        "request"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:new_run_clears_warning",
+      "role": "target",
+      "clauses": [
+        "request"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:game_start_restarts_hint",
+      "role": "target",
+      "clauses": [
+        "request"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:screen_resize_recomputes_corner",
+      "role": "target",
+      "clauses": [
+        "request"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "check:submission-shape",
+      "role": "static",
+      "clauses": [],
+      "overlap": false,
+      "note": "required Lua mod tree present as a safe snapshot"
+    }
+  ],
+  "clauses": [
+    {
+      "id": "request",
+      "status": "asserted",
+      "note": "",
+      "anchor": "the exam's required behavior; its acceptance section names every scored case"
+    }
+  ],
+  "excluded_clauses": [],
+  "known_issues": [
+    "Roles come from the 2026-11-02 E0 baseline of catalog 0.1.1 on the real game: the empty starter fails every case, so every case is a target and none is preserved. Clauses are not yet split per exam paragraph: each case cites the whole requested behavior."
+  ]
+}

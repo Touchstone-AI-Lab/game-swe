@@ -1,0 +1,15 @@
+--- a/scripts/components/lootrollarbiter.lua
++++ b/scripts/components/lootrollarbiter.lua
+@@ -158,11 +158,7 @@
+     end
+     local chosen = self.core:choose(roll_id, userid, choice, revision, GetTime())
+     if chosen.ok then
+-        if chosen.complete then
+-            self:Resolve(roll_id)
+-        else
+-            self:_publish()
+-        end
++        self:_publish()
+     end
+     return chosen
+ end

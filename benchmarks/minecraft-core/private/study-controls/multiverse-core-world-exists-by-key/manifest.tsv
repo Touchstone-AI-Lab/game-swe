@@ -1,0 +1,4 @@
+control	kind	base	overlay	root	note
+target-negative-no-import-key-lookup	target-negative	starter	patch:target-negative-no-import-key-lookup.patch	plugin	existence checks fixed, import still looks the Bukkit world up by name only
+compat-negative-key-only	compat-negative	starter	patch:compat-negative-key-only.patch	plugin	key-only existence checks, name lookup dropped; fails only the name-based preserved case
+alternative-a	alternative	starter	tree:alternative-a	plugin	independent fix written from the 0.2.0 exam: existence checked by name, key path and key; Bukkit.getWorld(NamespacedKey) for key imports

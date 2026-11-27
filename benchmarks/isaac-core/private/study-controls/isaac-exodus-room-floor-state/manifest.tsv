@@ -1,0 +1,4 @@
+control	kind	base	overlay	root	note
+target-negative-ex296	target-negative	reference	patch:target-negative-ex296.patch	exodus	reference with the EX-296 hunk of the composite gold.patch (7) reverted: the Book of Secrets use still runs for every character
+compat-negative-broken-glasses-floor-reset	compat-negative	reference	patch:compat-negative-broken-glasses-floor-reset.patch	exodus	reference without the Broken Glasses reset in trinketNewFloor; the broken-world effect survives the floor change, against EX-251's own 'reset there' (same file as the composite task's control)
+alternative	alternative	starter	patch:alternative.patch	exodus	starter plus the composite task's independent alternative repairs of EX-239, EX-251, EX-266, EX-296, EX-311, EX-318 only (its hunks 5, 6, 8, 10, 20, 21, 22, 23); written differently from gold.patch, see NOTES.md

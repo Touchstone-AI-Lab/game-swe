@@ -1,0 +1,2 @@
+control	kind	base	overlay	root	note
+probe-clears-every-restriction	compat-negative	reference	patch:probe-clears-every-restriction.patch	mod	PROBE: reference that reports no restriction at all (violates the unasserted Keep-2); expected to pass every case

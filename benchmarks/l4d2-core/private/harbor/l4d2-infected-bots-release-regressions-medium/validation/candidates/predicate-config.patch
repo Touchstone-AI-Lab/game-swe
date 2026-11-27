@@ -1,0 +1,12 @@
+diff --git a/environment/l4d1_2_plugins/l4dinfectedbots/scripting/l4dinfectedbots.sp b/environment/l4d1_2_plugins/l4dinfectedbots/scripting/l4dinfectedbots.sp
+--- a/environment/l4d1_2_plugins/l4dinfectedbots/scripting/l4dinfectedbots.sp
++++ b/environment/l4d1_2_plugins/l4dinfectedbots/scripting/l4dinfectedbots.sp
+@@ -6000,7 +6000,7 @@ void LoadData()
+ 		delete hData;
+ 	}
+ 
+-	if(hData.JumpToKey("Settings"))
++	if(hData.JumpToKey("Maps"))
+ 	{
+ 		if(hData.JumpToKey(g_sMap))
+ 		{

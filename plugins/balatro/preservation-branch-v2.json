@@ -1,0 +1,25 @@
+{
+  "schema_version": 2,
+  "native_final_audit": {
+    "protected_unchanged": true,
+    "dependencies_verified": true,
+    "fingerprints": {
+      "environment": "c2e4a2811da31ff11f4951639cc083e678c2329307d47c89ce0338b7745c3f9f",
+      "harness": "febd6bb1afda2c8e82008a6e4817dd23222392aabe6e4c9fbc53a85a0615702e",
+      "task": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+      "candidate": null
+    },
+    "task_imports_verified": 10
+  },
+  "original_poc_frozen_sources_unchanged": 501,
+  "preexisting_staged_files_unchanged": 76,
+  "frozen_branch_sources_unchanged": 465,
+  "historical_native_v1_files_unchanged": 16,
+  "historical_native_v1_workflow_evidence_unchanged": 74,
+  "original_repository_clean": true,
+  "original_repository_head": "2df2a057b09cf147de52df6dcbc2d427615330b6",
+  "staging_head": "a518348d92ec590d355d0c8e7b8bc351a2360f59",
+  "preservation_evidence_sha256": "de63017733bbc307ce503923f9ef672f63f4d8167f82ed2d8492a54ddff68d89",
+  "audit_evidence_sha256": "7fbbb87884c48d5aa1b484c639e7c110cdd0612c5cf909b58f0dd2c6cade88c0",
+  "native_v1_authored_baseline_zip_sha256": "289925bdbe9ffc6b246cd491441fa0977eb5ec705a2dd9ccaf98a546dcadb7ad"
+}

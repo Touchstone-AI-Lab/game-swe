@@ -1,0 +1,10 @@
+--- a/scripts/tradeescrow/escrow.lua
++++ b/scripts/tradeescrow/escrow.lua
+@@ -276,6 +276,7 @@
+ 
+     local problem = self:_validate_items(items)
+     if problem ~= nil then
++        side.revision = revision
+         return reject(problem, trade)
+     end
+ 

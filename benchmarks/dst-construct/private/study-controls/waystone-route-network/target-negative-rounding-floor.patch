@@ -1,0 +1,12 @@
+diff -ruN a/scripts/waystones/network.lua b/scripts/waystones/network.lua
+--- a/scripts/waystones/network.lua	2026-09-22 01:12:00.248460441 +0800
++++ b/scripts/waystones/network.lua	2026-09-22 01:12:00.283204454 +0800
+@@ -48,7 +48,7 @@
+ 
+ local function link_cost(a, b)
+     local dx, dz = a.x - b.x, a.z - b.z
+-    return math.max(1, math.floor(math.sqrt(dx * dx + dz * dz) + 0.5))
++    return math.max(1, math.floor(math.sqrt(dx * dx + dz * dz)))
+ end
+ 
+ function Network.new(options)

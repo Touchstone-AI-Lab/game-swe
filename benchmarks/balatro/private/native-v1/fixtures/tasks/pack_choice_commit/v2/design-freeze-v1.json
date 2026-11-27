@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "created_at": "2026-09-20T12:35:33+0800",
+  "phase": "specification frozen before candidate authoring",
+  "task": "pack-choice-commit-v2",
+  "documents": {
+    "tasks/pack_choice_commit/v2/API.md": "873fff80f1fdf6bf705ba413da3eeeb6c8427c9af81bace67c4ab44fb29f0fd4",
+    "tasks/pack_choice_commit/v2/CASE-MUTATION-MATRIX.md": "99c3df378bc4f17ca1d71705f0b020c92559804d09a3203198955433c4382f3f",
+    "tasks/pack_choice_commit/v2/CONTRACT.md": "ad9fdffa507c677f9b99a006ce92ba076dc584c5caace5e2d2969c13b0469b6c",
+    "tasks/pack_choice_commit/v2/INDEPENDENCE.md": "53a13c568e9e14b78ec3c65913ad029e74f1de7ca905c82a450a154298b69501"
+  },
+  "prerequisite": {
+    "path": "validation-pack-prerequisite-v2-dev1.json",
+    "sha256": "d9acf3368a402490ce3040557369b0c8472bb05850f6d4750f9b958ba25d26fb"
+  },
+  "fixed_sources": {
+    "functions/button_callbacks.lua": "c88a74ca3a8fa8ace0ce46ad10a97238f347c292842c9164d11136fe9952c101",
+    "fixed Steamodded/lovely/booster.toml": "7d39ba7de44033cb1946c4dd44039e6f37b2e96f7492d4fe42b31a08544ec77f"
+  }
+}

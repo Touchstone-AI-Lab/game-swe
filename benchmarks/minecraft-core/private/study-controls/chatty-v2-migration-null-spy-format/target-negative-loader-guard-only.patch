@@ -1,0 +1,30 @@
+--- a/spigot/src/main/java/ru/brikster/chatty/guice/ConfigsLoader.java
++++ b/spigot/src/main/java/ru/brikster/chatty/guice/ConfigsLoader.java
+@@ -2,6 +2,7 @@
+ 
+ import com.google.inject.Inject;
+ import net.kyori.adventure.platform.bukkit.BukkitAudiences;
++import net.kyori.adventure.text.Component;
+ import ru.brikster.chatty.api.chat.Chat;
+ import ru.brikster.chatty.api.chat.ChatStyle;
+ import ru.brikster.chatty.chat.ChatImpl;
+@@ -45,12 +46,18 @@
+                     chatConfig.isParseLinks(),
+                     chatConfig.getSpy().isEnable(),
+                     chatConfig.isPlaySound() ? chatConfig.getSound() : null,
+-                    componentConverter.stringToComponent(chatConfig.getSpy().getFormat()),
++                    spyFormat(componentConverter, chatConfig),
+                     chatConfig.getCooldown());
+             registry.register(chatId, chat);
+         });
+     }
+ 
++    /** A spy block may omit its format (hand-written or migrated): treat that as an empty line. */
++    private static Component spyFormat(ComponentStringConverter converter, ChatsConfig.ChatConfig chatConfig) {
++        String configured = chatConfig.getSpy().getFormat();
++        return converter.stringToComponent(configured == null ? "" : configured);
++    }
++
+     @Inject
+     public void loadTitleNotifications(NotificationTicker ticker,
+                                        NotificationsConfig config,

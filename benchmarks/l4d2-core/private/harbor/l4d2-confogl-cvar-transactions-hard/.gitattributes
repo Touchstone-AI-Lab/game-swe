@@ -1,0 +1,14 @@
+* text=auto eol=lf
+* -whitespace
+*.sp text eol=lf
+*.inc text eol=lf
+*.sh text eol=lf
+*.py text eol=lf
+*.md text eol=lf
+*.toml text eol=lf
+*.tsv text eol=lf
+Dockerfile text eol=lf
+
+# This frozen upstream changelog uses lines beginning with "=======" inside a
+# block comment; keep its bytes intact without Git mistaking them for conflict markers.
+environment/l4d2-competitive/addons/sourcemod/scripting/boomer_horde_equalizer_refactored.sp -diff

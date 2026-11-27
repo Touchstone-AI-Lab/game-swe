@@ -1,0 +1,12 @@
+diff -ruN a/Automate/Framework/AutomationFactory.cs b/Automate/Framework/AutomationFactory.cs
+--- a/Automate/Framework/AutomationFactory.cs
++++ b/Automate/Framework/AutomationFactory.cs
+@@ -149,7 +149,7 @@
+                 {
+                     ModConfig config = this.Config();
+ 
+-                    JunimoHutBehavior gemBehavior = config.JunimoHutBehaviorForGems;
++                    JunimoHutBehavior gemBehavior = config.JunimoHutBehaviorForSeeds;
+                     if (gemBehavior is JunimoHutBehavior.AutoDetect)
+                         gemBehavior = JunimoHutBehavior.Ignore;
+ 

@@ -1,0 +1,1044 @@
+{
+  "task": "left-4-dead-2/core/l4d2-left4dhooks-api-regressions-medium",
+  "task_version": "1.0.0",
+  "exam": "benchmarks/l4d2-core/exams/l4d2-left4dhooks-api-regressions-medium.md",
+  "cases": [
+    {
+      "id": "case:spawn_timer_public_include_abi_matches_runtime",
+      "role": "target",
+      "clauses": [
+        "LH-237.5"
+      ],
+      "overlap": false,
+      "note": "Compile + declaration regex, not a server execution."
+    },
+    {
+      "id": "case:spawn_timer_documentation_describes_absolute_value",
+      "role": "target",
+      "clauses": [
+        "LH-237.6"
+      ],
+      "overlap": false,
+      "note": "Keyword scan over include comments; see known_issues."
+    },
+    {
+      "id": "case:runtime_ammo_library_loaded",
+      "role": "runtime-sentinel",
+      "clauses": [
+        "Task-preserve-library"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:ammo_index_range_is_engine_valid",
+      "role": "preserved",
+      "clauses": [
+        "LH-204.5"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:ammo_names_are_nonempty",
+      "role": "target",
+      "clauses": [
+        "LH-204.1"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:ammo_name_roundtrips_to_index",
+      "role": "target",
+      "clauses": [
+        "LH-204.2"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:ammo_names_are_stable_and_unique",
+      "role": "target",
+      "clauses": [
+        "LH-204.1",
+        "LH-204.3"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:ammo_getname_preserves_other_fields",
+      "role": "preserved",
+      "clauses": [
+        "LH-204.4"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:runtime_vomit_library_loaded",
+      "role": "runtime-sentinel",
+      "clauses": [
+        "Task-preserve-library"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:vomit_pre_forward_once",
+      "role": "target",
+      "clauses": [
+        "LH-219.1"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:vomit_post_forward_once",
+      "role": "target",
+      "clauses": [
+        "LH-219.1"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:vomit_projectile_result_and_arguments",
+      "role": "target",
+      "clauses": [
+        "LH-219.1"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:vomit_changed_vectors_reach_creation_and_post",
+      "role": "target",
+      "clauses": [
+        "LH-219.3"
+      ],
+      "overlap": false,
+      "note": "Public wording says \"preserve\", but the path is unreachable in the starter (the forwards never fire), so it is target evidence."
+    },
+    {
+      "id": "case:vomit_handled_path_is_preserved",
+      "role": "target",
+      "clauses": [
+        "LH-219.3"
+      ],
+      "overlap": false,
+      "note": "Same as above."
+    },
+    {
+      "id": "case:molotov_forward_family_remains_functional",
+      "role": "preserved",
+      "clauses": [
+        "LH-219.4"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:vomit_creation_never_dispatches_molotov_family",
+      "role": "preserved",
+      "clauses": [
+        "LH-219.2"
+      ],
+      "overlap": true,
+      "note": "Passes in the starter because this consumer subscribes to both families; it also requires one VomitJar pre/post pair, so it doubles as target-boundary evidence."
+    },
+    {
+      "id": "case:runtime_spawn_library_loaded",
+      "role": "runtime-sentinel",
+      "clauses": [
+        "Task-preserve-library"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:spawn_timer_invalid_zero",
+      "role": "target",
+      "clauses": [
+        "LH-237.2"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:spawn_timer_invalid_above_max",
+      "role": "target",
+      "clauses": [
+        "LH-237.2"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:spawn_timer_returns_absolute_field",
+      "role": "target",
+      "clauses": [
+        "LH-237.1"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:spawn_timer_updates_and_relative_api_remains_distinct",
+      "role": "target",
+      "clauses": [
+        "LH-237.1",
+        "LH-237.3"
+      ],
+      "overlap": true,
+      "note": "Also asserts the unchanged relative API L4D_GetPlayerSpawnTime."
+    },
+    {
+      "id": "case:spawn_timer_read_preserves_adjacent_state",
+      "role": "preserved",
+      "clauses": [
+        "LH-237.4"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:runtime_weaponattr_library_loaded",
+      "role": "runtime-sentinel",
+      "clauses": [
+        "Task-preserve-library"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:ordinary_float_weapon_attribute_roundtrips",
+      "role": "preserved",
+      "clauses": [
+        "LH-246.1"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:penetration_layers_store_integral_count",
+      "role": "target",
+      "clauses": [
+        "LH-246.2"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:penetration_layers_preserve_adjacent_power",
+      "role": "preserved",
+      "clauses": [
+        "LH-246.3"
+      ],
+      "overlap": true,
+      "note": "Holds in the starter; boundary of the requested layer-count write."
+    },
+    {
+      "id": "case:missing_float_weapon_attribute_returns_negative_one",
+      "role": "target",
+      "clauses": [
+        "LH-246.4"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:runtime_animhook_library_loaded",
+      "role": "runtime-sentinel",
+      "clauses": [
+        "Task-preserve-library"
+      ],
+      "overlap": false,
+      "note": "Also requires both AnimHookEnable calls to succeed."
+    },
+    {
+      "id": "case:two_client_animation_hooks_fire",
+      "role": "preserved",
+      "clauses": [
+        "LH-251.1"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:reenabled_animation_hook_not_duplicated",
+      "role": "target",
+      "clauses": [
+        "LH-251.2",
+        "LH-251.5"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:peer_animation_hook_survives_other_client_cycle",
+      "role": "preserved",
+      "clauses": [
+        "LH-251.3"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:final_disable_removes_selected_client_callback",
+      "role": "preserved",
+      "clauses": [
+        "LH-251.4"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:runtime_pipebomb_library_loaded",
+      "role": "runtime-sentinel",
+      "clauses": [
+        "Task-preserve-library"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:real_pipebomb_creation_forwards_once",
+      "role": "preserved",
+      "clauses": [
+        "LH-258.1"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:real_pipebomb_detonation_forwards_once",
+      "role": "preserved",
+      "clauses": [
+        "LH-258.1"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:breakable_prop_real_break_path_completes",
+      "role": "preserved",
+      "clauses": [
+        "LH-258.2"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:breakable_prop_never_dispatches_pipebomb_creation",
+      "role": "target",
+      "clauses": [
+        "LH-258.3",
+        "LH-258.4"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:breakable_prop_never_dispatches_pipebomb_detonation",
+      "role": "target",
+      "clauses": [
+        "LH-258.3",
+        "LH-258.4"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:runtime_campaign_scores_library_loaded",
+      "role": "target",
+      "clauses": [
+        "LH-264.3",
+        "Task-preserve-library"
+      ],
+      "overlap": true,
+      "note": "Nominally a load sentinel (LibraryExists), but it FAILS in the unchanged starter because the boot is failed closed on the forward parameter error. Its outcome is therefore governed by LH-264.3, and every tree that leaves LH-264 unrepaired fails it; mapped as target evidence, not as a sentinel."
+    },
+    {
+      "id": "case:campaign_scores_pre_forward_once",
+      "role": "target",
+      "clauses": [
+        "LH-264.1",
+        "LH-264.3"
+      ],
+      "overlap": true,
+      "note": "Labelled guard in validation/case-contracts.tsv, but it fails in the starter (boot failed closed), so it cannot be preserved evidence."
+    },
+    {
+      "id": "case:campaign_scores_pre_receives_original_values",
+      "role": "target",
+      "clauses": [
+        "LH-264.1"
+      ],
+      "overlap": true,
+      "note": "Same as above."
+    },
+    {
+      "id": "case:campaign_scores_post_forward_once",
+      "role": "target",
+      "clauses": [
+        "LH-264.2",
+        "LH-264.3"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:campaign_scores_changed_values_reach_post",
+      "role": "target",
+      "clauses": [
+        "LH-264.2"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:runtime_melee_info_library_loaded",
+      "role": "target",
+      "clauses": [
+        "LH-271.1",
+        "LH-271.4",
+        "Task-preserve-library"
+      ],
+      "overlap": true,
+      "note": "Nominally a load sentinel, but it FAILS in the unchanged starter (boot failed closed on the null SDKCall) and it is the only check of the fireaxe index (>= 0); mapped as target evidence."
+    },
+    {
+      "id": "case:melee_float_attribute_is_readable",
+      "role": "target",
+      "clauses": [
+        "LH-271.2",
+        "LH-271.4"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:melee_int_attribute_is_readable",
+      "role": "target",
+      "clauses": [
+        "LH-271.2",
+        "LH-271.4"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:melee_bool_attribute_is_stable",
+      "role": "target",
+      "clauses": [
+        "LH-271.2",
+        "LH-271.4"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:melee_float_attribute_roundtrips_and_restores",
+      "role": "target",
+      "clauses": [
+        "LH-271.3"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:runtime_stagger_library_and_clients_ready",
+      "role": "runtime-sentinel",
+      "clauses": [
+        "Task-preserve-library"
+      ],
+      "overlap": false,
+      "note": "Fixture: one live survivor and one live Special Infected."
+    },
+    {
+      "id": "case:initial_stagger_becomes_active",
+      "role": "preserved",
+      "clauses": [
+        "LH-278.0"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:same_frame_restagger_survives_cancel_window",
+      "role": "target",
+      "clauses": [
+        "LH-278.1"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:next_frame_restagger_survives_cancel_window",
+      "role": "target",
+      "clauses": [
+        "LH-278.2"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:completed_cancel_still_allows_later_stagger",
+      "role": "preserved",
+      "clauses": [
+        "LH-278.3"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:runtime_unpicked_gascan_fixture_ready",
+      "role": "runtime-sentinel",
+      "clauses": [
+        "Task-preserve-library"
+      ],
+      "overlap": false,
+      "note": "Fixture: attacker and physical gas-can prop."
+    },
+    {
+      "id": "case:unpicked_gascan_pre_forward_once",
+      "role": "target",
+      "clauses": [
+        "LH-284.1"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:unpicked_gascan_pre_forward_arguments",
+      "role": "target",
+      "clauses": [
+        "LH-284.2"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:unpicked_gascan_post_forward_once",
+      "role": "target",
+      "clauses": [
+        "LH-284.1"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:unpicked_gascan_post_forward_arguments",
+      "role": "target",
+      "clauses": [
+        "LH-284.2"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:weapon_gascan_path_dispatches_once",
+      "role": "preserved",
+      "clauses": [
+        "LH-284.4"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:weapon_gascan_path_preserves_arguments",
+      "role": "preserved",
+      "clauses": [
+        "LH-284.4"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:ordinary_physics_prop_never_dispatches_gascan_family",
+      "role": "preserved",
+      "clauses": [
+        "LH-284.3"
+      ],
+      "overlap": true,
+      "note": "Holds in the starter (no physics-prop detour exists there); boundary of the requested new detour."
+    },
+    {
+      "id": "case:runtime_entity_address_library_loaded",
+      "role": "runtime-sentinel",
+      "clauses": [
+        "Task-preserve-library"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:entity_address_fixture_covers_engine_entities",
+      "role": "setup",
+      "clauses": [],
+      "overlap": false,
+      "note": "Fixture guard: at least one valid non-edict entity exists."
+    },
+    {
+      "id": "case:entity_addresses_roundtrip_for_all_live_entities",
+      "role": "target",
+      "clauses": [
+        "LH-291.1"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:non_edict_entity_addresses_roundtrip",
+      "role": "target",
+      "clauses": [
+        "LH-291.1"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:entity_address_lookup_is_stable",
+      "role": "preserved",
+      "clauses": [
+        "LH-291.2"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:null_entity_address_returns_negative_one",
+      "role": "preserved",
+      "clauses": [
+        "LH-291.3"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:runtime_lobby_reservation_library_loaded",
+      "role": "target",
+      "clauses": [
+        "LH-298.1",
+        "Task-preserve-library"
+      ],
+      "overlap": true,
+      "note": "Nominally a load sentinel, but it FAILS in the unchanged starter because the boot is failed closed on the short-cookie native error; its outcome is governed by LH-298.1, so it is mapped as target evidence."
+    },
+    {
+      "id": "case:short_lobby_cookie_call_survives",
+      "role": "target",
+      "clauses": [
+        "LH-298.1"
+      ],
+      "overlap": false,
+      "note": "Unconditional PASS line; the evidence is that the boot is not failed closed."
+    },
+    {
+      "id": "case:short_lobby_cookie_preserves_word_placement",
+      "role": "target",
+      "clauses": [
+        "LH-298.2"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:full_lobby_cookie_roundtrips",
+      "role": "target",
+      "clauses": [
+        "LH-298.3"
+      ],
+      "overlap": true,
+      "note": "Labelled guard, but fails in the starter (boot failed closed after the short-cookie native error), so it cannot be preserved evidence."
+    },
+    {
+      "id": "case:lobby_cookie_can_be_restored",
+      "role": "target",
+      "clauses": [
+        "LH-298.4"
+      ],
+      "overlap": true,
+      "note": "Same as above."
+    },
+    {
+      "id": "check:submission-shape",
+      "role": "static",
+      "clauses": [
+        "Task-source-only"
+      ],
+      "overlap": false,
+      "note": ""
+    }
+  ],
+  "clauses": [
+    {
+      "id": "LH-204.1",
+      "anchor": "Reports [#LH-204] s1: for every valid entry, Ammo_t.GetName returns the \"stable, non-empty engine name\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "LH-204.2",
+      "anchor": "Reports [#LH-204] s2a: AmmoDef.Index(name) \"must recover the same index\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "LH-204.3",
+      "anchor": "Reports [#LH-204] s2b: \"repeated reads must agree\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "LH-204.4",
+      "anchor": "Reports [#LH-204] s3a: \"reading the name must not change nDamageType\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "LH-204.5",
+      "anchor": "Reports [#LH-204] s3b: \"the exposed AmmoDef index range must remain valid\"",
+      "status": "weak",
+      "note": "suite_ammo.sp: only 2 < GetAmmoIndex() < 128."
+    },
+    {
+      "id": "LH-219.1",
+      "anchor": "Reports [#LH-219] s1: a real vomit-jar creation dispatches L4D2_VomitJarProjectile_Pre/_Post once \"with the existing owner, origin, angles and velocity semantics\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "LH-219.2",
+      "anchor": "Reports [#LH-219] s2: \"must not route those callbacks through the Molotov forward family\"",
+      "status": "asserted",
+      "note": "Observed only with a consumer subscribed to BOTH families (suite_molotov.sp), which is why it already passes in the starter."
+    },
+    {
+      "id": "LH-219.3",
+      "anchor": "Reports [#LH-219] s3a: \"Preserve the documented pre-forward blocking/change result and the post-handled return override\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "LH-219.4",
+      "anchor": "Reports [#LH-219] s3b: preserve \"normal Molotov projectile behavior\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "LH-237.1",
+      "anchor": "Reports [#LH-237] s1-2: L4D2Direct_GetSpawnTimer returns the stored absolute m_flBecomeGhostAt as a float, \"not a CountdownTimer reference and not a remaining-duration value\"",
+      "status": "asserted",
+      "note": "Tolerance 0.75 s around GetGameTime()+25 / +7.25."
+    },
+    {
+      "id": "LH-237.2",
+      "anchor": "Reports [#LH-237] s3: \"Invalid client indices return -1.0.\"",
+      "status": "asserted",
+      "note": "Indices 0 and MaxClients+1 only; a valid index without an entity is not tried."
+    },
+    {
+      "id": "LH-237.3",
+      "anchor": "Reports [#LH-237] s4a: \"Keep L4D_GetPlayerSpawnTime as the separate relative-time API\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "LH-237.4",
+      "anchor": "Reports [#LH-237] s4b: \"do not modify adjacent player state\"",
+      "status": "weak",
+      "note": "suite_spawn.sp only checks the fake client is still in game and on the same team."
+    },
+    {
+      "id": "LH-237.5",
+      "anchor": "Reports [#LH-237] s5a: \"The public include declaration ... must match the runtime native.\"",
+      "status": "asserted",
+      "note": "verify.py:265-297: a float consumer must compile and a regex must find \"native float L4D2Direct_GetSpawnTimer(int x);\"."
+    },
+    {
+      "id": "LH-237.6",
+      "anchor": "Reports [#LH-237] s5b: the public include \"documentation must match the runtime native\"",
+      "status": "weak",
+      "note": "verify.py:299-306 is a keyword scan of the 900 characters before the declaration (\"absolute\", \"m_flbecomeghostat\", \"-1.0\", and absence of \"until the si will spawn\"); see known_issues. Listed in excluded_clauses because the only evidence is over-constraining."
+    },
+    {
+      "id": "LH-246.1",
+      "anchor": "Reports [#LH-246] s1: Get/SetFloatWeaponAttribute \"must preserve normal decimal-valued weapon attributes\"",
+      "status": "weak",
+      "note": "One attribute (PenetrationPower=2.75) on one weapon."
+    },
+    {
+      "id": "LH-246.2",
+      "anchor": "Reports [#LH-246] s2a: setting L4D2FWA_PenetrationNumLayers to 3.75 \"must store the engine's integral layer count and read back 3.0\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "LH-246.3",
+      "anchor": "Reports [#LH-246] s2b: \"without changing the adjacent penetration-power attribute\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "LH-246.4",
+      "anchor": "Reports [#LH-246] s3: float attribute of a nonexistent weapon returns \"-1.0\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "LH-251.1",
+      "anchor": "Reports [#LH-251] s1: one consumer may install the same pre/post animation callbacks for two survivor clients",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "LH-251.2",
+      "anchor": "Reports [#LH-251] s2a: disable then re-enable for one client \"must leave exactly one callback registration for that client\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "LH-251.3",
+      "anchor": "Reports [#LH-251] s2b: \"the peer client's hook remains active\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "LH-251.4",
+      "anchor": "Reports [#LH-251] s3: \"A final disable must stop callbacks for only the selected client.\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "LH-251.5",
+      "anchor": "Reports [#LH-251] s4: \"Repeated enable/disable cycles must not multiply callback delivery.\"",
+      "status": "weak",
+      "note": "suite_animhook.sp:105-121 performs exactly one disable/enable cycle."
+    },
+    {
+      "id": "LH-258.1",
+      "anchor": "Reports [#LH-258] s1: a plugin subscribed to the pipe-bomb creation and detonation families (not the breakable-prop forward) receives \"exactly one matching pre/post pair\" per real creation and detonation",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "LH-258.2",
+      "anchor": "Reports [#LH-258] s2a: breaking a real propane physics prop \"must still complete its engine break lifecycle\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "LH-258.3",
+      "anchor": "Reports [#LH-258] s2b: that break \"must not dispatch either pipe-bomb forward family\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "LH-258.4",
+      "anchor": "Reports [#LH-258] s3: isolation holds \"on the first map after a normal plugin load without an administrative detour refresh\"",
+      "status": "asserted",
+      "note": "The suite runs on the boot map after a normal load and never issues a detour refresh."
+    },
+    {
+      "id": "LH-264.1",
+      "anchor": "Reports [#LH-264] s1: one L4D_SetCampaignScores(120, 340) call dispatches \"one pre forward with those original values\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "LH-264.2",
+      "anchor": "Reports [#LH-264] s2: after Plugin_Changed to (131, 362) \"the engine call must complete and the post forward must run once with (131, 362)\"",
+      "status": "asserted",
+      "note": "The engine-side scores are not read back; only the post forward is observed."
+    },
+    {
+      "id": "LH-264.3",
+      "anchor": "Reports [#LH-264] s3: the post callback receives ordinary values and \"must not report Invalid parameter or parameter type\"",
+      "status": "asserted",
+      "note": "Through the suite-level fatal-line scan (verify.py:425-431)."
+    },
+    {
+      "id": "LH-271.1",
+      "anchor": "Reports [#LH-271] s1: once the first map is live, L4D2_GetMeleeWeaponIndex(\"fireaxe\") \"must identify the map's real definition\"",
+      "status": "weak",
+      "note": "suite_meleeinfo.sp only requires index >= 0, inside the load sentinel."
+    },
+    {
+      "id": "LH-271.2",
+      "anchor": "Reports [#LH-271] s2: float damage, integer damage flags and boolean decapitation attribute \"must be readable and stable\"",
+      "status": "weak",
+      "note": "0 < damage < 1000, flags >= 0, two equal bool reads; no expected values."
+    },
+    {
+      "id": "LH-271.3",
+      "anchor": "Reports [#LH-271] s3: a temporary float-damage update round-trips and the original is restorable",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "LH-271.4",
+      "anchor": "Reports [#LH-271] s4: the calls \"must not fail with an unavailable/null SDKCall on a normal plugin load\"",
+      "status": "asserted",
+      "note": "Through the suite-level fatal-line scan."
+    },
+    {
+      "id": "LH-278.0",
+      "anchor": "Reports [#LH-278] s1a: \"A live Special Infected can be staggered\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "LH-278.1",
+      "anchor": "Reports [#LH-278] s1b-2: cancel then a new real stagger \"immediately in the same frame\" stays active through the next two frames and its animation is not forced to completion",
+      "status": "asserted",
+      "note": "m_flCycle < 0.99 and L4D_IsPlayerStaggering two frames later."
+    },
+    {
+      "id": "LH-278.2",
+      "anchor": "Reports [#LH-278] s1c-2: the same for a new stagger \"on the following frame\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "LH-278.3",
+      "anchor": "Reports [#LH-278] s3: \"Once cancellation has completed, later ordinary staggers must continue to work normally.\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "LH-284.1",
+      "anchor": "Reports [#LH-284] s1: damaging a never-picked-up physical gas can dispatches \"exactly one matching L4D2_CGasCan_EventKilled pre/post pair\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "LH-284.2",
+      "anchor": "Reports [#LH-284] s2: both callbacks identify the gas can and \"preserve the real inflictor and attacker\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "LH-284.3",
+      "anchor": "Reports [#LH-284] s3: \"An ordinary physics prop with a different model must not dispatch this forward family.\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "LH-284.4",
+      "anchor": "Reports [#LH-284] s4a: \"Keep the existing picked-up gas-can behavior\"",
+      "status": "asserted",
+      "note": "Exercised with a spawned weapon_gascan entity that is damaged, not with a can that was actually picked up and dropped."
+    },
+    {
+      "id": "LH-284.5",
+      "anchor": "Reports [#LH-284] s4b: keep \"the documented blocking/change semantics intact\"",
+      "status": "unasserted",
+      "note": "suite_gascan.sp:41-48 always returns Plugin_Continue; neither Plugin_Handled/_PostHandled nor Plugin_Changed is exercised for the gas-can family."
+    },
+    {
+      "id": "LH-291.1",
+      "anchor": "Reports [#LH-291] s1: for every live engine entity index, \"including a valid entity that is not currently a networked edict\", GetEntityAddress -> L4D_GetEntityFromAddress recovers the same index",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "LH-291.2",
+      "anchor": "Reports [#LH-291] s2a: \"Repeated lookups must be stable\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "LH-291.3",
+      "anchor": "Reports [#LH-291] s2b: \"the null address must continue to return -1\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "LH-291.4",
+      "anchor": "Reports [#LH-291] s3: \"Do not change the entity or allocate a replacement as a side effect of this lookup.\"",
+      "status": "unasserted",
+      "note": "No case compares entity state or entity counts around the lookup."
+    },
+    {
+      "id": "LH-291.5",
+      "anchor": "Reports [#LH-291] s4-10: implementation guidance (decode the embedded handle after m_angRotation, derive layout from runtime metadata, resolve lazily after map start)",
+      "status": "unasserted",
+      "note": "Behavioral cases accept any implementation that round-trips; the prescribed decoding strategy is not observed. An eager datamap probe on entity 0 at plugin start would only be caught indirectly as a load error."
+    },
+    {
+      "id": "LH-298.1",
+      "anchor": "Reports [#LH-298] s1: a hexadecimal cookie of eight digits or fewer \"must not index before the input buffer or raise a native error\"",
+      "status": "asserted",
+      "note": "suite_lobbyreservation.sp emits an unconditional PASS after the call; a native error is caught by the suite-level fatal-line scan. Only the one-digit cookie \"1\" is tried."
+    },
+    {
+      "id": "LH-298.2",
+      "anchor": "Reports [#LH-298] s2: setting \"1\" reads back as \"100000000\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "LH-298.3",
+      "anchor": "Reports [#LH-298] s3a: a full \"123456789ABCDEF0\" cookie must round-trip exactly",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "LH-298.4",
+      "anchor": "Reports [#LH-298] s3b: \"restoring the prior cookie after these calls must remain safe\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "Task-preserve-library",
+      "anchor": "Task paragraph 1: preserve \"gamedata loading\" and \"the SourceMod library registration surface\"",
+      "status": "asserted",
+      "note": "Each of the thirteen boots loads the submitted plugin with the submitted gamedata and checks LibraryExists(\"left4dhooks\")."
+    },
+    {
+      "id": "Task-preserve-unrelated-api",
+      "anchor": "Task paragraph 1: \"Preserve all unrelated natives, forwards\"",
+      "status": "unasserted",
+      "note": "No case targets a native or forward outside the twelve reports; other natives are only used incidentally as fixtures."
+    },
+    {
+      "id": "Task-preserve-l4d1",
+      "anchor": "Task paragraph 1: preserve \"L4D1 compatibility\"",
+      "status": "unasserted",
+      "note": "The verifier only runs Left 4 Dead 2."
+    },
+    {
+      "id": "Task-source-only",
+      "anchor": "Task paragraph 2: source-only submission, no .smx/native libraries/archives/symlinks/Git metadata/vendored game files",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "Task-no-tests-edit",
+      "anchor": "Task paragraph 2: \"Do not modify anything under /tests.\"",
+      "status": "unasserted",
+      "note": "Process rule; /tests is not part of the submitted tree."
+    }
+  ],
+  "excluded_clauses": [
+    "LH-284.5",
+    "LH-291.4",
+    "LH-291.5",
+    "Task-preserve-unrelated-api",
+    "Task-preserve-l4d1",
+    "Task-no-tests-edit",
+    "LH-237.6"
+  ],
+  "known_issues": [
+    "benchmarks/l4d2-core/private/harbor/l4d2-left4dhooks-api-regressions-medium/tests/verify.py:403-445: every server boot is all-or-nothing. A fatal-looking line before FINAL (\"[SM] Exception\", \"Native ... reported\", \"Invalid memory access\", ...), a duplicate/missing case or a FINAL mismatch fails every case of that boot. In the unchanged starter this turns 7 cases labelled \"guard\" in validation/case-contracts.tsv into failures (campaignscores x3, meleeinfo x1, lobbyreservation x3); they are therefore not usable as preserved or sentinel evidence and are all mapped as target (overlap) here: their outcome is decided by the boot-level fatal scan, i.e. by the target defect of that boot.",
+    "benchmarks/l4d2-core/private/harbor/l4d2-left4dhooks-api-regressions-medium/tests/verify.py:299-306: spawn_timer_documentation_describes_absolute_value is a keyword scan of the 900 characters preceding the declaration. It requires the literal substrings \"absolute\", \"m_flbecomeghostat\" and \"-1.0\" and forbids \"until the si will spawn\". Correct documentation that says e.g. \"game time at which the player becomes a ghost ... returns -1 for an invalid index\" is rejected; conversely the words alone pass regardless of meaning. Over-constraining and weak at once.",
+    "benchmarks/l4d2-core/private/harbor/l4d2-left4dhooks-api-regressions-medium/tests/verify.py:292-295: the ABI case requires the exact textual form \"native float L4D2Direct_GetSpawnTimer(int <name>);\" - a declaration using \"any\"/a typedef or an extra defaulted parameter would be rejected even if a float consumer compiles.",
+    "benchmarks/l4d2-core/private/harbor/l4d2-left4dhooks-api-regressions-medium/tests/suite_*.sp are compiled against the verifier copy tests/include/left4dhooks.inc (verify.py:455), not the submitted include; only the two ABI cases read the submitted include.",
+    "benchmarks/l4d2-core/private/harbor/l4d2-left4dhooks-api-regressions-medium/tests/suite_molotov.sp: vomit_creation_never_dispatches_molotov_family also requires exactly one VomitJar pre/post pair, so a submission that isolates the families but still fails to dispatch VomitJar forwards fails this \"guard\" too.",
+    "benchmarks/l4d2-core/private/harbor/l4d2-left4dhooks-api-regressions-medium/tests/suite_lobbyreservation.sp: short_lobby_cookie_call_survives is an unconditional PASS; it carries information only together with the fail-closed boot rule.",
+    "LH-291 prescribes an implementation strategy in the public text. The cases are behavioral, so this does not over-constrain, but a reader should not take a pass as evidence the prescribed m_angRotation decoding was used."
+  ]
+}

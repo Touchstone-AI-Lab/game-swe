@@ -1,0 +1,53 @@
+{
+  "repository": "https://github.com/Cruesoe/ResearchOrganized",
+  "base": "8d978d53095287c85da0bda09b73045ff68d244f",
+  "target": "4941919bf33fb84ff280fa64c500c4439118b5e0",
+  "parents": [
+    "8d978d53095287c85da0bda09b73045ff68d244f"
+  ],
+  "license": "MIT",
+  "licenseSha256": "7e76ff5f9ba8601bc99d9f414fefa849670cf1710121f373683ce0cf726d43f3",
+  "sourceUnitCount": 13,
+  "sourceUnits": {
+    "base": {
+      "Source/Layout/CrossingCounter.cs": "dbb1ab7cf249273a5dd6eb0ce2841d8509c2a8dd295a4eaf08fe12d25bd9c063",
+      "Source/Layout/CycleBreaker.cs": "5303fa93fda3fd4cbb7af54198ea1be8579aa63670e7d2d22be17cb61b34b8db",
+      "Source/Layout/EpochLayout.cs": "19183a0853bbf43a8b5a4df11c16fcec3a0b51eefc86f6e825361ec5bce0b366",
+      "Source/Layout/EraPromotion.cs": "b8ef8879c51f7fc1832a0aee48da6136ac227997588f09f584a6c9ffc205bd20",
+      "Source/Layout/LayoutGraph.cs": "ad7f8daa5418543ecff1310bd2800cd3a03185f3e3f1af4e5a87681ddbdacf9d",
+      "Source/Layout/RowOptimizer.cs": "3e7046870ccf5a72f08a0459a29d644e8fac394cb2d126cc0bdcfde398570968",
+      "Source/Layout/TabLayout.cs": "761562f0a2189ee8f7cbe1b504044edee8435c2429d69ef829b2caf47f8ba406",
+      "Source/Layout/TabRoutingPolicy.cs": "1173725404155da41a15929d3f64fa86d05721c54dbf279a8244172a3a37a0d9",
+      "Source/Properties/AssemblyInfo.cs": "d3a0d65fb9373bcc3a72c11e0add41dcba1731bbecf6487baebd9942aebbcd99",
+      "Source/ResearchOrganizedConfig.cs": "ad01cf25f38cf3959eb2f6524a51d7dc214f1ffff6c8c7125773fbb7680be040",
+      "Source/ResearchOrganizedLayout.cs": "1f3ee3410797a0f418ced94e261142b2c59bb3acb2e8d800c1be03c4cb4a2d43",
+      "Source/ResearchOrganizedMain.cs": "1273adf906142f1b87de9f9b7a1e3b8a160bab3ec954b1c6f143ba5008489d49",
+      "Source/ResearchOrganizedMod.cs": "b2582ddacc8d7b30eadb6785b85441a06f1334ecd2fa804a11d7c3d64b84c581",
+      "LICENSE": "7e76ff5f9ba8601bc99d9f414fefa849670cf1710121f373683ce0cf726d43f3"
+    },
+    "reference": {
+      "Source/Layout/CrossingCounter.cs": "dbb1ab7cf249273a5dd6eb0ce2841d8509c2a8dd295a4eaf08fe12d25bd9c063",
+      "Source/Layout/CycleBreaker.cs": "5303fa93fda3fd4cbb7af54198ea1be8579aa63670e7d2d22be17cb61b34b8db",
+      "Source/Layout/EpochLayout.cs": "19183a0853bbf43a8b5a4df11c16fcec3a0b51eefc86f6e825361ec5bce0b366",
+      "Source/Layout/EraPromotion.cs": "b8ef8879c51f7fc1832a0aee48da6136ac227997588f09f584a6c9ffc205bd20",
+      "Source/Layout/LayoutGraph.cs": "ad7f8daa5418543ecff1310bd2800cd3a03185f3e3f1af4e5a87681ddbdacf9d",
+      "Source/Layout/RowOptimizer.cs": "3e7046870ccf5a72f08a0459a29d644e8fac394cb2d126cc0bdcfde398570968",
+      "Source/Layout/TabLayout.cs": "761562f0a2189ee8f7cbe1b504044edee8435c2429d69ef829b2caf47f8ba406",
+      "Source/Layout/TabRoutingPolicy.cs": "1173725404155da41a15929d3f64fa86d05721c54dbf279a8244172a3a37a0d9",
+      "Source/Properties/AssemblyInfo.cs": "d3a0d65fb9373bcc3a72c11e0add41dcba1731bbecf6487baebd9942aebbcd99",
+      "Source/ResearchOrganizedConfig.cs": "ad01cf25f38cf3959eb2f6524a51d7dc214f1ffff6c8c7125773fbb7680be040",
+      "Source/ResearchOrganizedLayout.cs": "1f3ee3410797a0f418ced94e261142b2c59bb3acb2e8d800c1be03c4cb4a2d43",
+      "Source/ResearchOrganizedMain.cs": "694aabca7ec79ff3dd70af28ba0da8e3246c1c2dc423bb64ed851bd90e338421",
+      "Source/ResearchOrganizedMod.cs": "525c0c26c5ee1f91407321cb8af1c3d3ca03cb46663bfe784035934735cc8ecf",
+      "LICENSE": "7e76ff5f9ba8601bc99d9f414fefa849670cf1710121f373683ce0cf726d43f3"
+    }
+  },
+  "productionAdaptations": [],
+  "buildAdaptations": [
+    "Use fixed SDK 8.0.422/C#12/net472 instead of repository-local build settings and game paths."
+  ],
+  "archiveSha256": {
+    "base": "614c75382cb5e9eec7764004fa7aead8daf92700caa33b0bd9c18738ea99a8ab",
+    "reference": "d735405b0d14b6be9035d41943f1eadc64d92a82562c978ae6ac326a5f4fc576"
+  }
+}

@@ -1,0 +1,3 @@
+control	kind	base	overlay	root	note
+target-negative-enable-waits-for-reload	target-negative	reference	patch:target-negative-enable-waits-for-reload.patch	plugin	reference whose /recipes enable only edits the file; the vanilla recipe comes back with the next reload
+alternative	alternative	starter	tree:alternative	plugin	independently written from the exam alone: RecipeKind enum, NUL path separator for ids, resend-free registration with one updateRecipes call

@@ -1,0 +1,12 @@
+diff --git a/Common/IO/StringCompressor.cs b/Common/IO/StringCompressor.cs
+--- a/Common/IO/StringCompressor.cs
++++ b/Common/IO/StringCompressor.cs
+@@ -53,7 +53,7 @@ namespace MagicStorage.Common.IO {
+ 			if (strLength == 0)
+ 				return string.Empty;
+ 
+-			Span<char> chars = strLength < 2048 ? stackalloc char[strLength] : new char[2048];
++			Span<char> chars = strLength < 2048 ? stackalloc char[strLength] : new char[strLength];
+ 			ref char c = ref chars[0];
+ 
+ 			if (ascii) {

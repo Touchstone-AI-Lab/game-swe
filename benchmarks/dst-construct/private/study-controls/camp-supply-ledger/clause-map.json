@@ -1,0 +1,468 @@
+{
+  "task": "dst/construct/camp-supply-ledger",
+  "task_version": "2.1.0",
+  "exam": "benchmarks/dst-construct/exams/camp-supply-ledger.md",
+  "cases": [
+    {
+      "id": "check:required-files",
+      "role": "static",
+      "clauses": [
+        "deliver-1"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "check:lua-syntax",
+      "role": "static",
+      "clauses": [],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "hidden:claim reserves configured quota",
+      "role": "target",
+      "clauses": [
+        "deliver-2",
+        "deliver-3",
+        "core-4a",
+        "core-4b",
+        "core-2b",
+        "shape-1",
+        "shape-3"
+      ],
+      "overlap": false,
+      "note": "ok/token/items shape, then a second claim that would exceed the twigs limit is refused while the first is still pending"
+    },
+    {
+      "id": "hidden:rollback releases quota exactly once",
+      "role": "target",
+      "clauses": [
+        "core-5b",
+        "accept-2",
+        "shape-4"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "hidden:commit and request retries are idempotent",
+      "role": "target",
+      "clauses": [
+        "core-3a",
+        "core-5a",
+        "core-5b",
+        "accept-1",
+        "shape-3",
+        "shape-4"
+      ],
+      "overlap": false,
+      "note": "retry names another bundle and must still return the first token"
+    },
+    {
+      "id": "hidden:inactive and forged bundles are rejected",
+      "role": "target",
+      "clauses": [
+        "core-2a",
+        "core-2b",
+        "accept-4"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "hidden:day rollover is monotonic",
+      "role": "target",
+      "clauses": [
+        "core-1b",
+        "core-6a",
+        "accept-3"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "hidden:save load preserves reservations and defensive copies",
+      "role": "target",
+      "clauses": [
+        "deliver-2",
+        "core-3a",
+        "core-7b",
+        "core-7c",
+        "accept-3",
+        "shape-5"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "check:implementation-depth",
+      "role": "static",
+      "clauses": [
+        "constraint-1"
+      ],
+      "overlap": false,
+      "note": "non-comment line count >= 220"
+    },
+    {
+      "id": "check:supply-authority",
+      "role": "target",
+      "clauses": [
+        "dst-1",
+        "constraint-1"
+      ],
+      "overlap": false,
+      "note": "regular-expression gate over the submitted source, not an execution; also the only TODO/IMPLEMENT ME gate"
+    },
+    {
+      "id": "check:supply-delivery",
+      "role": "target",
+      "clauses": [
+        "dst-3",
+        "dst-4"
+      ],
+      "overlap": false,
+      "note": "regular-expression gate over the submitted source, not an execution"
+    },
+    {
+      "id": "check:supply-persistence",
+      "role": "target",
+      "clauses": [
+        "dst-6a",
+        "dst-6b",
+        "api-3"
+      ],
+      "overlap": false,
+      "note": "regular-expression gate over the submitted source, not an execution"
+    },
+    {
+      "id": "check:supply-lifecycle",
+      "role": "target",
+      "clauses": [
+        "dst-7a",
+        "api-2"
+      ],
+      "overlap": false,
+      "note": "regular-expression gate over the submitted source, not an execution"
+    },
+    {
+      "id": "server:world component is server authoritative",
+      "role": "target",
+      "clauses": [
+        "dst-1",
+        "accept-5"
+      ],
+      "overlap": false,
+      "note": "also the first proof that the mod loaded on the real dedicated server; kept as target because it checks the requested component"
+    },
+    {
+      "id": "server:component delivers configured base-game items",
+      "role": "target",
+      "clauses": [
+        "dst-2",
+        "dst-4",
+        "api-4",
+        "accept-5",
+        "shape-1"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "server:component state survives save and load",
+      "role": "target",
+      "clauses": [
+        "dst-6b",
+        "accept-5"
+      ],
+      "overlap": false,
+      "note": "over-constrained: calls component.OnSave() without a receiver, see known_issues Resolved in catalog 2.1.0.",
+      "over_constrained": false
+    },
+    {
+      "id": "server:world cycle event is accepted",
+      "role": "target",
+      "clauses": [
+        "dst-6a",
+        "accept-5"
+      ],
+      "overlap": false,
+      "note": "only requires OnSave to return a table before and after the event"
+    }
+  ],
+  "clauses": [
+    {
+      "id": "background-1",
+      "anchor": "Background and goal paragraph 2: \"You may use only base-game APIs, prefabs, components and assets; you must not ship custom art\"",
+      "status": "unasserted",
+      "note": "no case inspects assets or prefab provenance"
+    },
+    {
+      "id": "deliver-1",
+      "anchor": "Required deliverables paragraph 1 (file list): \"scripts/components/campsupplyledger.lua\"",
+      "status": "asserted",
+      "note": "static gate check:required-files"
+    },
+    {
+      "id": "deliver-2",
+      "anchor": "Required deliverables paragraph 2 (plus the export list of Ledger.new/load and seven methods): \"The core module must be able to run in a plain Lua environment\"",
+      "status": "asserted",
+      "note": "the hidden harness loads the core in a sandbox without engine globals or require; every method except snapshot ordering is called"
+    },
+    {
+      "id": "deliver-3",
+      "anchor": "Required deliverables paragraph 3: \"is the table of supply bundles configured by the server\"",
+      "status": "asserted",
+      "note": "the public text does not fix the bundle table shape; see known_issues"
+    },
+    {
+      "id": "core-1a",
+      "anchor": "Core semantics item 1, sentence 1: \"All IDs must be strings that are non-empty, bounded in length and free of control characters\"",
+      "status": "unasserted",
+      "note": "no case passes an empty, over-long or control-character id"
+    },
+    {
+      "id": "core-1b",
+      "anchor": "Core semantics item 1, sentence 2: \"must be a non-negative integer and strictly monotonic; an old day must not change any state\"",
+      "status": "weak",
+      "note": "only begin_day(7) after begin_day(8) == false is checked; negative/fractional days, a stale day passed to claim, and 'no state change' are not"
+    },
+    {
+      "id": "core-2a",
+      "anchor": "Core semantics item 2, sentence 1: \"controls whether a player may claim\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "core-2b",
+      "anchor": "Core semantics item 2, sentence 2 (part: unknown bundle, inactive player, insufficient quota): \"An unknown bundle, an inactive player, an illegal count or insufficient quota must be rejected\"",
+      "status": "asserted",
+      "note": "checked through ok == false only"
+    },
+    {
+      "id": "core-2c",
+      "anchor": "Core semantics item 2, sentence 2 (rest: illegal count; rejection precedes the reservation): \"must be rejected before a reservation is created\"",
+      "status": "unasserted",
+      "note": "no fixture bundle has an illegal count, and no case observes that a rejection left no reservation behind"
+    },
+    {
+      "id": "core-3a",
+      "anchor": "Core semantics item 3 (part: lookup first, retries of pending/committed requests): \"The idempotency record must be looked up before any quota is modified\"",
+      "status": "asserted",
+      "note": "retry of a pending request (same ledger and after load) returns the first token"
+    },
+    {
+      "id": "core-3b",
+      "anchor": "Core semantics item 3 (rest: retries of rolled_back or rejected requests): \"a retry returns the first pending, committed, rolled_back or rejected result\"",
+      "status": "unasserted",
+      "note": "no case retries a rolled-back or rejected request"
+    },
+    {
+      "id": "core-4a",
+      "anchor": "Core semantics item 4, sentence 1: \"creates a unique token and immediately reduces the available quota, but does not count it as issued\"",
+      "status": "asserted",
+      "note": "quota hold is asserted; token uniqueness across two claims and the reserved/committed distinction are not"
+    },
+    {
+      "id": "core-4b",
+      "anchor": "Core semantics item 4, sentence 2: \"and the list of items to create, resolved from the server-side configuration\"",
+      "status": "weak",
+      "note": "items is only checked to be a table with # == 2; prefab and count values are never read"
+    },
+    {
+      "id": "core-5a",
+      "anchor": "Core semantics item 5, sentence 1: \"a repeated commit returns the same final state and must not deduct quota again\"",
+      "status": "asserted",
+      "note": "status equality is asserted; 'no second deduction' is not observed"
+    },
+    {
+      "id": "core-5b",
+      "anchor": "Core semantics item 5, sentence 2: \"may release a pending quota only once; a committed token cannot be rolled back\"",
+      "status": "asserted",
+      "note": "duplicate rollback must report status rolled_back; an over-release is not probed"
+    },
+    {
+      "id": "core-6a",
+      "anchor": "Core semantics item 6 (part): \"moves to a newer day it resets the current day's consumption\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "core-6b",
+      "anchor": "Core semantics item 6 (rest): \"but keeps the idempotency history and the outstanding reservations\"",
+      "status": "unasserted",
+      "note": "no case settles a token after begin_day moved on"
+    },
+    {
+      "id": "core-7a",
+      "anchor": "Core semantics item 7, sentence 1 (part): \"stably sorted by player ID, item prefab and token\"",
+      "status": "unasserted",
+      "note": "snapshot contents and order are never read"
+    },
+    {
+      "id": "core-7b",
+      "anchor": "Core semantics item 7, sentence 1 (rest): \"must not expose mutable internal tables\"",
+      "status": "weak",
+      "note": "the case overwrites snapshot.day and snapshot.players on the returned table and then reads day from a ledger rebuilt by load; only returning the internal state table itself would be caught"
+    },
+    {
+      "id": "core-7c",
+      "anchor": "Core semantics item 7, sentence 2: \"round-trips the day, the quotas, the request states, the reservations and the token sequence completely\"",
+      "status": "asserted",
+      "note": "day, the pending request and its token are asserted after load; remaining quota and the next token number are not"
+    },
+    {
+      "id": "dst-1",
+      "anchor": "DST integration item 1: \"only on `TheWorld.ismastersim`\"",
+      "status": "asserted",
+      "note": "presence on the master sim is executed; absence on a client cannot be observed on a dedicated server (regex gate only)"
+    },
+    {
+      "id": "dst-2",
+      "anchor": "DST integration item 2: \"and obtains the identity from `player.userid`\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "dst-3",
+      "anchor": "DST integration item 3: \"the RPC payload must not contain a prefab, a count, the day, the remaining quota or a player object\"",
+      "status": "weak",
+      "note": "only the regex AddModRPCHandler\\s*\\( presence gate; the handler is never invoked"
+    },
+    {
+      "id": "dst-4",
+      "anchor": "DST integration item 4: \"is allowed only after every delivery has succeeded\"",
+      "status": "asserted",
+      "note": "real twigs x2 and cutgrass x1 must be in a real inventory; ordering of commit is not observed"
+    },
+    {
+      "id": "dst-5",
+      "anchor": "DST integration item 5: \"Partial items must not be left with the player\"",
+      "status": "unasserted",
+      "note": "no server case forces a spawn or inventory failure, although Acceptance says the server suite asserts rollback"
+    },
+    {
+      "id": "dst-6a",
+      "anchor": "DST integration item 6 (part): \"to advance the day\"",
+      "status": "weak",
+      "note": "the server case pushes the event and only requires OnSave to return a table before and after; plus a regex"
+    },
+    {
+      "id": "dst-6b",
+      "anchor": "DST integration item 6 (rest): \"persist through the component's `OnSave/OnLoad`\"",
+      "status": "weak",
+      "note": "OnSave must return a table and OnLoad must not error; the restored state is never compared"
+    },
+    {
+      "id": "dst-7a",
+      "anchor": "DST integration item 7 (part): \"must have a matching `RemoveEventCallback`\"",
+      "status": "weak",
+      "note": "regex presence of both calls only"
+    },
+    {
+      "id": "dst-7b",
+      "anchor": "DST integration item 7 (rest): \"it must cancel its own tasks and clean up temporary entities\"",
+      "status": "unasserted",
+      "note": "the component is never removed by a case"
+    },
+    {
+      "id": "api-1",
+      "anchor": "Base-game API contract paragraph 3: \"a failure rollback must also confirm the item's actual owner\"",
+      "status": "unasserted",
+      "note": "no failing GiveItem is exercised"
+    },
+    {
+      "id": "api-2",
+      "anchor": "Base-game API contract paragraph 3: \"Event listening must keep the same function object\"",
+      "status": "weak",
+      "note": "covered only by the ListenForEvent/RemoveEventCallback presence regex"
+    },
+    {
+      "id": "api-3",
+      "anchor": "Base-game API contract paragraph 4, sentence 1: \"form and hooks into the lifecycle with\"",
+      "status": "weak",
+      "note": "regex :OnSave\\s*\\( and :OnLoad\\s*\\( only; the server suite contradicts this clause by calling OnSave without a receiver"
+    },
+    {
+      "id": "api-4",
+      "anchor": "Base-game API contract paragraph 4, sentence 2: \"The dedicated server configuration must provide at least\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "accept-1",
+      "anchor": "Acceptance item 1: \"Network retries do not duplicate items or consume quota twice\"",
+      "status": "asserted",
+      "note": "ledger level only; a component-level retry is not run on the server"
+    },
+    {
+      "id": "accept-2",
+      "anchor": "Acceptance item 2: \"An inventory failure and a spawn failure restore the quota and the item state exactly once\"",
+      "status": "weak",
+      "note": "only the pure-ledger rollback is executed; no inventory or spawn failure is produced"
+    },
+    {
+      "id": "accept-3",
+      "anchor": "Acceptance item 3: \"Semantics stay consistent after a day change and after a save reload\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "accept-4",
+      "anchor": "Acceptance item 4: \"Items, counts and days forged by the client do not affect server-side decisions\"",
+      "status": "weak",
+      "note": "an unknown bundle id at ledger level is the only forged input"
+    },
+    {
+      "id": "accept-5",
+      "anchor": "Acceptance item 5: \"The mod can be loaded on a headless dedicated server\"",
+      "status": "asserted",
+      "note": "load, delivery, save/load call and cycle event run on the real server; rollback is not asserted there"
+    },
+    {
+      "id": "constraint-1",
+      "anchor": "Acceptance final paragraph: \"hollow code that exists only to match the static checks\"",
+      "status": "weak",
+      "note": "none_of TODO / IMPLEMENT ME regex on one gate plus the line-count gate"
+    },
+    {
+      "id": "shape-1",
+      "anchor": "Return values and data shapes item 1: \"both forms must be accepted\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "shape-3",
+      "anchor": "Return values and data shapes item 3: \"returns the first result (including the same `token`)\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "shape-4",
+      "anchor": "Return values and data shapes item 4: \"a repeated commit returns the same content\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "shape-5",
+      "anchor": "Return values and data shapes item 5: \"contains at least the current `day` and `players`\"",
+      "status": "asserted",
+      "note": ""
+    }
+  ],
+  "excluded_clauses": [
+    "background-1",
+    "core-1a",
+    "core-2c",
+    "core-3b",
+    "core-6b",
+    "core-7a",
+    "dst-5",
+    "dst-7b",
+    "api-1"
+  ],
+  "known_issues": [
+    "The starter is empty and never loads as a mod: the starter execution observes no server case at all (incomplete), so no case can be `preserved` and the task has no compat-negative control.",
+    "Catalog 2.1.0: the server suite now calls component:OnSave() with a receiver, and the exam publishes the bundle shapes, result fields and status strings the suites read (section Return values and data shapes). The acceptance bullet about the server suite was rewritten to what the suite checks; delivery rollback is still not exercised on the server (dst-5 stays unasserted)."
+  ]
+}

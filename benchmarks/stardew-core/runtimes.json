@@ -1,0 +1,35 @@
+{
+  "schema_version": 1,
+  "runtimes": [
+    {
+      "id": "stardew-1.6.15-smapi-4.1.10",
+      "name": "Stardew Valley 1.6.15 with SMAPI 4.1.10",
+      "version": "Steam build 24356",
+      "provider": "steam",
+      "restricted": true,
+      "host_platforms": ["linux-x64", "darwin-x64", "darwin-arm64"],
+      "source": {
+        "kind": "steam-depots",
+        "appId": 413150,
+        "os": "linux",
+        "depots": [
+          {"id": 413153, "manifest": "6005910083361727734"}
+        ],
+        "expectedFiles": ["Stardew Valley.dll", "Content"]
+      }
+    }
+  ],
+  "task_bindings": {
+    "stardew-automate-minifridge-storage": ["stardew-1.6.15-smapi-4.1.10"],
+    "stardew-automate-zero-stack-output": ["stardew-1.6.15-smapi-4.1.10"],
+    "stardew-automate-release-regressions": ["stardew-1.6.15-smapi-4.1.10"],
+    "stardew-automate-release-regressions-v2": ["stardew-1.6.15-smapi-4.1.10"],
+    "stardew-automate-release-regressions-v3": ["stardew-1.6.15-smapi-4.1.10"],
+    "stardew-automate-output-count-drift": ["stardew-1.6.15-smapi-4.1.10"],
+    "stardew-summon-horse-anywhere": ["stardew-1.6.15-smapi-4.1.10"],
+    "stardew-auto-workshop": ["stardew-1.6.15-smapi-4.1.10"],
+    "stardew-cp-release-regressions": ["stardew-1.6.15-smapi-4.1.10"],
+    "stardew-cjb-cheats-regressions": ["stardew-1.6.15-smapi-4.1.10"],
+    "stardew-tractor-attachment-regressions": ["stardew-1.6.15-smapi-4.1.10"]
+  }
+}

@@ -1,0 +1,21 @@
+diff -ruN a/sourcemod/scripting/l4dd/l4dd_forwards.sp b/sourcemod/scripting/l4dd/l4dd_forwards.sp
+--- a/sourcemod/scripting/l4dd/l4dd_forwards.sp	2026-09-21 05:47:52.330667116 +0800
++++ b/sourcemod/scripting/l4dd/l4dd_forwards.sp	2026-09-21 05:47:52.333663943 +0800
+@@ -4404,8 +4404,6 @@
+ 	//PrintToServer("##### DTR_CPhysicsProp_OnTakeDamage");
+ 	g_bBlock_CGasCanEvent_Killed = false;
+ 
+-	if( GetEntProp(pThis, Prop_Data, "m_nModelIndex") != g_iGasCanModel ) return MRES_Ignored; // Verify "weapon_gascan" type
+-
+ 	int a1 = hParams.GetObjectVar(1, 48, ObjectValueType_EhandlePtr);
+ 	int a2 = hParams.GetObjectVar(1, 52, ObjectValueType_EhandlePtr);
+ 
+@@ -4436,8 +4434,6 @@
+ 
+ MRESReturn DTR_CPhysicsProp_OnTakeDamage_Post(int pThis, DHookReturn hReturn, DHookParam hParams) // Forward "L4D2_CGasCan_EventKilled_Post" and "L4D2_CGasCan_EventKilled_PostHandled"
+ {
+-	if( GetEntProp(pThis, Prop_Data, "m_nModelIndex") != g_iGasCanModel ) return MRES_Ignored; // Verify "weapon_gascan" type
+-
+ 	//PrintToServer("##### DTR_CPhysicsProp_OnTakeDamage");
+ 	int a1 = hParams.GetObjectVar(1, 48, ObjectValueType_EhandlePtr);
+ 	int a2 = hParams.GetObjectVar(1, 52, ObjectValueType_EhandlePtr);

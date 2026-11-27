@@ -1,0 +1,86 @@
+[
+  {
+    "name": "glaze",
+    "repository": "stephenberry/glaze",
+    "commit": "3a850807501d98d23bab4bdc5af64d8d4e83e6bc",
+    "url": "https://codeload.github.com/stephenberry/glaze/tar.gz/3a850807501d98d23bab4bdc5af64d8d4e83e6bc",
+    "sha256": "d1d60cf7eaa385064b69c139c99ef9a0505013eae6f9a1ecdfe4ca98b25ae8f7"
+  },
+  {
+    "name": "ImGui",
+    "repository": "ocornut/imgui",
+    "commit": "5d4126876bc10396d4c6511853ff10964414c776",
+    "url": "https://codeload.github.com/ocornut/imgui/tar.gz/5d4126876bc10396d4c6511853ff10964414c776",
+    "sha256": "0c6f81b3aef443e74dc87131f705b838166dfb7671b662e887f326e61c62cf6c"
+  },
+  {
+    "name": "ImGuiTextEdit",
+    "repository": "UE4SS-RE/ImGuiColorTextEdit",
+    "commit": "6d943aba9f7cef05da80b86dbb0253b63818f95c",
+    "url": "https://codeload.github.com/UE4SS-RE/ImGuiColorTextEdit/tar.gz/6d943aba9f7cef05da80b86dbb0253b63818f95c",
+    "sha256": "af7b515dac04dddeb588b518afea49f67e5c9af2998800da7d99d7d77c5994cd"
+  },
+  {
+    "name": "IconFontCppHeaders",
+    "repository": "juliettef/IconFontCppHeaders",
+    "commit": "210b5a399a64270674560d633638952d1e8d804d",
+    "url": "https://codeload.github.com/juliettef/IconFontCppHeaders/tar.gz/210b5a399a64270674560d633638952d1e8d804d",
+    "sha256": "aae5fd355521f62a0257064f40bab5676aee93c9fa9dd7fd53375d3594933b3f"
+  },
+  {
+    "name": "zydis",
+    "repository": "zyantific/zydis",
+    "commit": "a2278f1d254e492f6a6b39f6cb5d1f5d515659dc",
+    "url": "https://codeload.github.com/zyantific/zydis/tar.gz/a2278f1d254e492f6a6b39f6cb5d1f5d515659dc",
+    "sha256": "efbca210596ef954241ef40732376d50be5b6b7ca7d63a3834ef0c71f3471f36"
+  },
+  {
+    "name": "zycore",
+    "repository": "zyantific/zycore-c",
+    "commit": "0b2432ced0884fd152b471d97ecf0258ff4d859f",
+    "url": "https://codeload.github.com/zyantific/zycore-c/tar.gz/0b2432ced0884fd152b471d97ecf0258ff4d859f",
+    "sha256": "698e4623e661db312eb9da327519f53f0a9dd7fbbfacf02159687bca62369467"
+  },
+  {
+    "name": "funchook",
+    "repository": "kubo/funchook",
+    "commit": "88388db3c69e16c1560fee65c6857d75f5ce6fd5",
+    "url": "https://codeload.github.com/kubo/funchook/tar.gz/88388db3c69e16c1560fee65c6857d75f5ce6fd5",
+    "sha256": "e0865c66a9d4e3a4da6de2fcbf5f326d7576eeac3ef02257556e4188f750861c"
+  },
+  {
+    "name": "distorm",
+    "repository": "gdabah/distorm",
+    "commit": "ab59d6e193948cfa5d1482fb6c7e64870e9e93b9",
+    "url": "https://codeload.github.com/gdabah/distorm/tar.gz/ab59d6e193948cfa5d1482fb6c7e64870e9e93b9",
+    "sha256": "3554976d3d03f9b72b8cca621ef6b54008dd9c3673eec0f2e05a6473cbc3faa5"
+  },
+  {
+    "name": "Corrosion",
+    "repository": "UE4SS-RE/corrosion",
+    "commit": "52844733e14f095c947577627e367ee5f6458af7",
+    "url": "https://codeload.github.com/UE4SS-RE/corrosion/tar.gz/52844733e14f095c947577627e367ee5f6458af7",
+    "sha256": "0efcb4005ac17b14719d2399de489ddfedf976589924398ef6d59423bd48b583"
+  },
+  {
+    "name": "fmt",
+    "repository": "fmtlib/fmt",
+    "commit": "40626af88bd7df9a5fb80be7b25ac85b122d6c21",
+    "url": "https://codeload.github.com/fmtlib/fmt/tar.gz/40626af88bd7df9a5fb80be7b25ac85b122d6c21",
+    "sha256": "992216a0605e03f0373984ecad11158f42d8569782f1b2c84035272da10f0ff1"
+  },
+  {
+    "name": "glfw",
+    "repository": "glfw/glfw",
+    "commit": "e2c92645460f680fd272fd2eed591efb2be7dc31",
+    "url": "https://codeload.github.com/glfw/glfw/tar.gz/e2c92645460f680fd272fd2eed591efb2be7dc31",
+    "sha256": "56d2700d72ac1e6bd093a46d2e95d0423dd6ba54e56b72c776dba5dcb40c39b7"
+  },
+  {
+    "name": "concurrentqueue",
+    "repository": "cameron314/concurrentqueue",
+    "commit": "c68072129c8a5b4025122ca5a0c82ab14b30cb03",
+    "url": "https://codeload.github.com/cameron314/concurrentqueue/tar.gz/c68072129c8a5b4025122ca5a0c82ab14b30cb03",
+    "sha256": "7d007112bb880171f0187339b01e7d2da75d966315705524f1d81d7b0f637098"
+  }
+]

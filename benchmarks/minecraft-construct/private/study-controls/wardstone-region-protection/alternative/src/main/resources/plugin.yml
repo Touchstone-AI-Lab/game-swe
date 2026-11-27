@@ -1,0 +1,15 @@
+name: Wardstone
+version: 1.0.0
+main: com.example.wardstone.WardstonePlugin
+api-version: '1.21'
+description: Cuboid region protection
+commands:
+  ward:
+    description: Define and manage Wardstone protected regions.
+permissions:
+  wardstone.admin:
+    description: Allows every /ward subcommand.
+    default: op
+  wardstone.bypass:
+    description: Allows breaking and placing blocks in regions that deny it.
+    default: op

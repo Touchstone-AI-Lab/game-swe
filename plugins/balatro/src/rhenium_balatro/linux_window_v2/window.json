@@ -1,0 +1,1 @@
+{"id":"poc_window_v2","name":"Owned visible window profile","author":["Balatro PoC"],"description":"Initialize only owned process video settings","prefix":"pocwp2","main_file":"window.lua","priority":100005,"version":"2.0.0","dependencies":["Steamodded (>=1.~)","balatrobot","poc_control"]}

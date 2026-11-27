@@ -1,0 +1,226 @@
+{
+  "id": "rhenium-dst-v2",
+  "version": "2.1.0",
+  "game": "dst",
+  "name": {
+    "en": "Rhenium: Original Don't Starve Together Systems Tasks",
+    "zh": "Rhenium：《饥荒联机版》原创系统工程题"
+  },
+  "description": {
+    "en": "Ten independently authored hard engineering tasks built only around base-game Don't Starve Together APIs, prefabs, components, and assets.",
+    "zh": "十道独立设计的高难度工程题，仅使用《饥荒联机版》原版 API、prefab、组件与资源。"
+  },
+  "tasks": [
+    {
+      "id": "camp-supply-ledger",
+      "difficulty": "hard",
+      "title": {
+        "en": "Server-authoritative Camp Supply Ledger",
+        "zh": "服务端权威营地物资账本"
+      },
+      "summary": {
+        "en": "Distribute base-game supplies under daily per-player quotas with reservations, idempotency, rollback, and reload-safe day transitions.",
+        "zh": "在每日玩家配额下发放原版物资，并正确处理预留、幂等、回滚及跨存档换日。"
+      },
+      "brief": {
+        "en": "Build a mod from an empty workspace. Implement a plain-Lua ledger and a master-simulation world component. Clients submit only a request identifier and a configured bundle identifier; the server resolves quotas and base-game prefabs, reserves capacity before delivery, commits only after inventory delivery succeeds, and rolls back every failed delivery. Use ms_cyclecomplete, inventory, SpawnPrefab, Mod RPC, OnSave/OnLoad, and paired event cleanup.",
+        "zh": "从空工作区实现纯 Lua 物资账本及主模拟世界组件。客户端只能提交请求标识与预配置物资包标识；服务端解析配额和原版 prefab，在发放前预留，只有库存交付成功后才提交，任何失败都必须回滚。使用 ms_cyclecomplete、inventory、SpawnPrefab、Mod RPC、OnSave/OnLoad，并成对清理事件监听。"
+      },
+      "requirements": {
+        "en": [
+          "Export Ledger.new(options), Ledger.load(data, options), begin_day(day), set_player(id, active), claim(player_id, request_id, bundle_id, day), commit(token), rollback(token), snapshot(), and save().",
+          "Validate identifiers and strictly monotonic non-negative integer days; stale days may not reset quotas or alter state.",
+          "Resolve bundle contents only from options.bundles and reject unknown bundles, inactive players, exhausted quotas, and malformed counts.",
+          "Deduplicate every player_id/request_id pair before quota mutation; retries return the original pending or final outcome.",
+          "A successful claim creates a unique reservation token and reduces available quota; commit consumes it once and rollback releases it once.",
+          "Return fresh deterministic snapshots and round-trip days, quotas, reservations, request outcomes, and token sequencing through save/load.",
+          "The world component exposes Claim(player, request_id, bundle_id), commits only after all base-game items reach inventory, and removes partial deliveries before rollback.",
+          "All authority remains on the master simulation; listen for ms_cyclecomplete, persist state, validate RPC callers, and remove long-lived callbacks."
+        ],
+        "zh": [
+          "导出 Ledger.new(options)、Ledger.load(data, options)、begin_day(day)、set_player(id, active)、claim(player_id, request_id, bundle_id, day)、commit(token)、rollback(token)、snapshot() 与 save()。",
+          "校验标识和严格单调的非负整数 day；旧 day 不得重置配额或改变状态。",
+          "物资内容只能从 options.bundles 解析；拒绝未知物资包、非活跃玩家、配额不足和非法数量。",
+          "必须先按 player_id/request_id 去重再修改配额；重试返回原 pending 或最终结果。",
+          "成功 claim 生成唯一预留 token 并减少可用配额；commit 只能消费一次，rollback 只能释放一次。",
+          "快照必须新建且顺序确定；保存加载完整往返日期、配额、预留、请求结果和 token 序列。",
+          "世界组件公开 Claim(player, request_id, bundle_id)，全部原版物品进入库存后才提交，失败时移除部分交付并回滚。",
+          "所有权威逻辑仅在主模拟；监听 ms_cyclecomplete、持久化状态、校验 RPC 玩家并移除长期回调。"
+        ]
+      },
+      "api_usage": {
+        "en": [
+          "Attach on the server with AddPrefabPostInit(\"world\", fn), guard with inst.ismastersim, then call inst:AddComponent(\"campsupplyledger\").",
+          "Register AddModRPCHandler(\"rhenium_supply\", \"claim\", function(player, request_id, bundle_id) ... end); player is supplied by the server framework.",
+          "Create items with SpawnPrefab(prefab) and deliver with player.components.inventory:GiveItem(item); treat false or nil as failure and verify the resulting owner.",
+          "Pair inst:ListenForEvent(\"ms_cyclecomplete\", callback, TheWorld) with RemoveEventCallback using the same callback and source.",
+          "Implement component OnSave, OnLoad(data), and OnRemoveFromEntity; the server configuration must include basic = { twigs = 2, cutgrass = 1 }."
+        ],
+        "zh": [
+          "用 AddPrefabPostInit(\"world\", fn) 挂载，先检查 inst.ismastersim，再调用 inst:AddComponent(\"campsupplyledger\")。",
+          "使用 AddModRPCHandler(\"rhenium_supply\", \"claim\", function(player, request_id, bundle_id) ... end)；player 由服务端框架传入。",
+          "用 SpawnPrefab(prefab) 创建物品，以 player.components.inventory:GiveItem(item) 交付；false/nil 视为失败，并核对最终 owner。",
+          "inst:ListenForEvent(\"ms_cyclecomplete\", callback, TheWorld) 必须以相同 callback/source 调用 RemoveEventCallback。",
+          "实现组件 OnSave、OnLoad(data)、OnRemoveFromEntity；专服配置必须含 basic = { twigs = 2, cutgrass = 1 }。"
+        ]
+      },
+      "acceptance": {
+        "en": [
+          "Retries never double-spend quota or duplicate items.",
+          "Rollback restores capacity exactly once.",
+          "Day rollover is monotonic and reload-safe.",
+          "Forged bundle contents are ignored.",
+          "The dedicated server proves inventory delivery, rollback, rollover, and persistence."
+        ],
+        "zh": [
+          "重试不会重复消耗配额或复制物品。",
+          "回滚恰好一次恢复容量。",
+          "换日单调且可跨重载。",
+          "伪造物资内容无效。",
+          "专服验证库存交付、回滚、换日和持久化。"
+        ]
+      },
+      "domains": [
+        "quotas",
+        "idempotency",
+        "inventory",
+        "persistence"
+      ],
+      "estimated_minutes": 360,
+      "core_module": "scripts/campsupply/ledger.lua",
+      "hidden_test": "hidden/camp-supply-ledger.lua",
+      "server_test": "server/camp-supply-ledger.lua",
+      "hidden_cases": [
+        "claim reserves configured quota",
+        "rollback releases quota exactly once",
+        "commit and request retries are idempotent",
+        "inactive and forged bundles are rejected",
+        "day rollover is monotonic",
+        "save load preserves reservations and defensive copies"
+      ],
+      "server_cases": [
+        "world component is server authoritative",
+        "component delivers configured base-game items",
+        "component state survives save and load",
+        "world cycle event is accepted"
+      ],
+      "required_files": [
+        "modinfo.lua",
+        "modmain.lua",
+        "scripts/campsupply/ledger.lua",
+        "scripts/components/campsupplyledger.lua"
+      ],
+      "minimum_lua_lines": 220,
+      "integration_checks": [
+        {
+          "id": "supply-authority",
+          "label": {
+            "en": "Master-simulation authority",
+            "zh": "主模拟权威"
+          },
+          "weight": 4,
+          "groups": [
+            {
+              "name": "guard",
+              "any_of": [
+                "TheWorld\\.ismastersim",
+                "inst\\.ismastersim"
+              ]
+            },
+            {
+              "name": "world component",
+              "any_of": [
+                "AddComponent\\s*\\(\\s*[\\\"']campsupplyledger[\\\"']",
+                "AddPrefabPostInit\\s*\\(\\s*[\\\"']world[\\\"']"
+              ]
+            }
+          ],
+          "none_of": [
+            "TODO",
+            "IMPLEMENT\\s+ME"
+          ]
+        },
+        {
+          "id": "supply-delivery",
+          "label": {
+            "en": "Validated inventory delivery",
+            "zh": "经校验的库存交付"
+          },
+          "weight": 4,
+          "groups": [
+            {
+              "name": "RPC",
+              "any_of": [
+                "AddModRPCHandler\\s*\\("
+              ]
+            },
+            {
+              "name": "inventory",
+              "any_of": [
+                "components\\.inventory",
+                "GiveItem\\s*\\("
+              ]
+            },
+            {
+              "name": "base prefab",
+              "any_of": [
+                "SpawnPrefab\\s*\\("
+              ]
+            }
+          ]
+        },
+        {
+          "id": "supply-persistence",
+          "label": {
+            "en": "Day events and persistence",
+            "zh": "换日事件与持久化"
+          },
+          "weight": 4,
+          "groups": [
+            {
+              "name": "cycle",
+              "any_of": [
+                "ms_cyclecomplete",
+                "cycles"
+              ]
+            },
+            {
+              "name": "save",
+              "any_of": [
+                ":OnSave\\s*\\("
+              ]
+            },
+            {
+              "name": "load",
+              "any_of": [
+                ":OnLoad\\s*\\("
+              ]
+            }
+          ]
+        },
+        {
+          "id": "supply-lifecycle",
+          "label": {
+            "en": "Paired lifecycle",
+            "zh": "成对生命周期"
+          },
+          "weight": 3,
+          "groups": [
+            {
+              "name": "listen",
+              "any_of": [
+                "ListenForEvent\\s*\\("
+              ]
+            },
+            {
+              "name": "remove",
+              "any_of": [
+                "RemoveEventCallback\\s*\\("
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

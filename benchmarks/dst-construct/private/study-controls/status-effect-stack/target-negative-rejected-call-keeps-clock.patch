@@ -1,0 +1,17 @@
+diff -ruN a/scripts/statuseffects/stack.lua b/scripts/statuseffects/stack.lua
+--- a/scripts/statuseffects/stack.lua	2026-09-22 00:59:18.686420789 +0800
++++ b/scripts/statuseffects/stack.lua	2026-09-22 01:14:26.997899686 +0800
+@@ -224,11 +224,13 @@
+ end
+ 
+ function Stack:apply(request_id, target_id, effect_id, source_id, now)
++    local before = self.clock
+     local code = self:_enter(now)
+     if code ~= nil then
+         return fail(code)
+     end
+     if not is_id(request_id) then
++        self.clock = before
+         return fail("invalid_argument")
+     end
+     local recorded = self.history[request_id]

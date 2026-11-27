@@ -1,0 +1,11 @@
+Custom multi-stage events can show the wrong choices after a callback redirects the event. Leaving a page can visit the departing page twice and end on an obsolete destination; redirecting while a new page is being prepared can leave that page's choices on screen even though another page is current. Repair the existing event lifecycle so a finite redirect from a hide, reset, or entry callback settles on the latest requested destination, with that destination's actual native dialog choices. Complete the active callback before dispatching its redirect. Requests superseded before activation must not reset or enter their obsolete destinations. Departing phases must not be hidden again just because their hide callback requests a redirect. Preserve ordinary sequential changes, reuse of phase instances, key-based navigation, and independence between event instances.
+
+If a lifecycle callback throws, propagate that exact throwable, discard its unfinished redirects, and allow a subsequent independent transition to work normally. This does not require rolling back callback side effects or prescribing an in-flight current phase after failure.
+
+Reopening an event has another stale-result problem: a callback can navigate successfully but return false, and the event still opens the map over its new page. A navigation during that callback counts as handled, including navigation away and back to the same phase object. Keep the normal false-without-navigation map fallback and true-without-navigation behavior.
+
+Combat continuation configuration must honor the most recent setter. Passing null to either continuation setter removes any earlier continuation, including one configured through the other setter. A cleared continuation must report none, permit the ordinary post-combat save behavior, and must not enter an old destination or fail with a null pointer.
+
+A null destination or unknown phase key must be rejected before hiding or changing the active page. Preserve existing public method signatures and ordinary text/combat behavior. Do not replace native event dialogs or turn off callbacks.
+
+The project is in `/app/basemod`. Build offline with `mvn -B -o clean test package -pl mod -am`.

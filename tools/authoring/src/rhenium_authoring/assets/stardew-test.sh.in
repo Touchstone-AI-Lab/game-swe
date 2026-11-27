@@ -1,0 +1,68 @@
+#!/usr/bin/env bash
+set -euo pipefail
+EXPECTED=__EXPECTED_COUNT__
+LOGDIR=/logs/verifier
+mkdir -p "$LOGDIR"
+printf '0\n' > "$LOGDIR/reward.txt"
+
+dotnet build /app/mod/Synthetic.sln -c Release -p:GamePath=/opt/stardew \
+  -p:EnableModDeploy=false -p:EnableModZip=false --nologo > "$LOGDIR/mod-build.log" 2>&1
+entry_dll=$(python3 - <<'PY'
+import json
+from pathlib import PurePosixPath
+with open("/app/mod/manifest.json", encoding="utf-8") as stream:
+    name = json.load(stream)["EntryDll"]
+if not isinstance(name, str) or PurePosixPath(name).name != name or "\\" in name or not name.endswith(".dll"):
+    raise SystemExit("invalid EntryDll")
+print(name)
+PY
+)
+mkdir -p /opt/stardew/Mods/SyntheticTarget /opt/stardew/Mods/GcbHarness
+cp "/app/mod/bin/Release/$entry_dll" /app/mod/manifest.json /opt/stardew/Mods/SyntheticTarget/
+cp /tests/TaskSuite.cs /opt/gcb/harness/GcbHarness/TaskSuite.cs
+dotnet build /opt/gcb/harness/GcbHarness/GcbHarness.csproj -c Release \
+  -p:GamePath=/opt/stardew --nologo > "$LOGDIR/harness-build.log" 2>&1
+cp /opt/gcb/harness/GcbHarness/bin/Release/GcbHarness.dll \
+  /opt/gcb/harness/GcbHarness/manifest.json /opt/stardew/Mods/GcbHarness/
+
+save_name=$(cat /opt/gcb/save-name.txt)
+export GCB_SAVE_NAME="$save_name"
+export GCB_MODE=run-suite
+export GCB_RESULT_PATH=/logs/verifier/result.json
+set +e
+xvfb-run -a timeout 900 /opt/stardew/StardewValley > "$LOGDIR/game.log" 2>&1
+game_status=$?
+set -e
+printf '\ngame exit code: %s\n' "$game_status" >> "$LOGDIR/game.log"
+if [ "$game_status" -ne 0 ]; then exit 1; fi
+
+EXPECTED="$EXPECTED" python3 - <<'PY'
+import json
+import os
+
+names = __EXPECTED_NAMES__
+with open("/logs/verifier/result.json", encoding="utf-8") as stream:
+    result = json.load(stream)
+cases = result.get("cases")
+valid = (
+    result.get("fatal") is None
+    and isinstance(cases, list)
+    and len(cases) == int(os.environ["EXPECTED"]) == len(names)
+    and all(isinstance(case, dict) and isinstance(case.get("Name"), str)
+            and type(case.get("Passed")) is bool for case in cases)
+)
+if not valid:
+    raise SystemExit("missing, malformed, or incomplete real-engine verdict")
+actual_names = [case["Name"] for case in cases]
+passed = sum(case["Passed"] for case in cases)
+if (len(set(actual_names)) != len(names) or set(actual_names) != set(names)
+        or type(result.get("passed")) is not int or type(result.get("failed")) is not int
+        or result["passed"] != passed or result["failed"] != len(cases) - passed):
+    raise SystemExit("inconsistent real-engine case names or counts")
+if passed != len(cases):
+    for case in cases:
+        if not case["Passed"]:
+            print(case["Name"], case.get("Error"))
+    raise SystemExit(1)
+PY
+printf '1\n' > "$LOGDIR/reward.txt"

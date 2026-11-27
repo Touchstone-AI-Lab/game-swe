@@ -1,0 +1,7 @@
+226fadeadbe3422785a7708ba2cdf53bd8548c00
+7f92b85ad11fb4d763a9ecd4a87302e7ba9d8ce2  Core/Toggler/Toggle.cs
+5d5ac039d6670f6253689e7e8473bb98757108d6  Core/Toggler/ToggleLoader.cs
+b0ac47bfdcb2479d0e4dd08a80ee9ac442d3f27a  Core/Toggler/ToggleBackend.cs
+29366a0b91c8167c282680fffaff24a9f38af6a0  Core/Toggler/SoulCheck.cs
+65ca0af6fb31121838ce7203927c95b7e816bc9c  LICENSE
+3e351023f8255d88d5f4a1b63d002d0918035a8f  build.txt

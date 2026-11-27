@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<metadata>
+  <name>Construct Config Navigation</name>
+  <directory>gcb_construct_config_navigation</directory>
+  <id>gcb_construct_config_navigation</id>
+  <description>Clean-room Construct benchmark starter.</description>
+  <version>1.0.0</version>
+</metadata>

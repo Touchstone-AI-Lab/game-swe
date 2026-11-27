@@ -1,0 +1,191 @@
+{
+  "Format": "2.6.0",
+  "DynamicTokens": [
+    { "Name": "KeyPrefix", "Value": "tokenised" },
+    { "Name": "Payload", "Value": "resolved-value" }
+  ],
+  "Changes": [
+    {
+      "LogName": "load probe",
+      "Action": "Load",
+      "Target": "Mods/GameCodeBench/Probe",
+      "FromFile": "assets/probe.json"
+    },
+    {
+      "LogName": "load models",
+      "Action": "Load",
+      "Target": "Mods/GameCodeBench/Models",
+      "FromFile": "assets/models.json"
+    },
+    {
+      "LogName": "sentinel",
+      "Action": "EditData",
+      "Target": "Mods/GameCodeBench/Probe",
+      "Entries": {
+        "sentinel": "{{Payload}}"
+      }
+    },
+    {
+      "LogName": "path parts from the left",
+      "Action": "EditData",
+      "Target": "Mods/GameCodeBench/Probe",
+      "Entries": {
+        "left0": "{{PathPart: assets/portraits/Abigail.png, 0}}",
+        "left1": "{{PathPart: assets/portraits/Abigail.png, 1}}",
+        "left2": "{{PathPart: assets/portraits/Abigail.png, 2}}"
+      }
+    },
+    {
+      "LogName": "path parts from the right",
+      "Action": "EditData",
+      "Target": "Mods/GameCodeBench/Probe",
+      "Entries": {
+        "right1": "{{PathPart: assets/portraits/Abigail.png, -1}}",
+        "right2": "{{PathPart: assets/portraits/Abigail.png, -2}}"
+      }
+    },
+    {
+      "LogName": "path fragments",
+      "Action": "EditData",
+      "Target": "Mods/GameCodeBench/Probe",
+      "Entries": {
+        "fileName": "{{PathPart: assets/portraits/Abigail.png, FileName}}",
+        "directory": "{{PathPart: assets/portraits/Abigail.png, DirectoryPath}}",
+        "stem": "{{PathPart: assets/portraits/Abigail.png, FileNameWithoutExtension}}",
+        "docExample": "{{PathPart: Portraits/Abigail, Filename}}"
+      }
+    },
+    {
+      "LogName": "nested keys",
+      "Action": "EditData",
+      "Target": "Mods/GameCodeBench/Models",
+      "Entries": {
+        "nested": {
+          "Label": "nested",
+          "Extra": {
+            "{{KeyPrefix}}_key": "{{Payload}}",
+            "plain_key": "{{Payload}}"
+          }
+        }
+      }
+    },
+    {
+      "LogName": "string position in an entry",
+      "Action": "EditData",
+      "Target": "Mods/GameCodeBench/Models",
+      "Entries": {
+        "stringFormat": {
+          "Label": "string",
+          "Offset": "15, 20"
+        }
+      }
+    },
+    {
+      "LogName": "object position in an entry",
+      "Action": "EditData",
+      "Target": "Mods/GameCodeBench/Models",
+      "Entries": {
+        "objectFormat": {
+          "Label": "object",
+          "Offset": { "X": 15, "Y": 20 }
+        }
+      }
+    },
+    {
+      "LogName": "object position in a field",
+      "Action": "EditData",
+      "Target": "Mods/GameCodeBench/Models",
+      "Fields": {
+        "fieldObject": {
+          "Offset": { "X": 7, "Y": 9 }
+        }
+      }
+    },
+    {
+      "LogName": "string position in a field",
+      "Action": "EditData",
+      "Target": "Mods/GameCodeBench/Models",
+      "Fields": {
+        "fieldString": {
+          "Offset": "7, 9"
+        }
+      }
+    },
+    {
+      "LogName": "list in an entry",
+      "Action": "EditData",
+      "Target": "Mods/GameCodeBench/Models",
+      "Entries": {
+        "listed": {
+          "Label": "listed",
+          "Tags": [ "alpha", "beta" ]
+        }
+      }
+    },
+    {
+      "LogName": "remove from a missing entry",
+      "Action": "EditData",
+      "Target": "Mods/GameCodeBench/Probe",
+      "TextOperations": [
+        {
+          "Operation": "RemoveDelimited",
+          "Target": [ "Entries", "absent" ],
+          "Search": "B",
+          "Delimiter": "/"
+        }
+      ]
+    },
+    {
+      "LogName": "remove from an existing entry",
+      "Action": "EditData",
+      "Target": "Mods/GameCodeBench/Probe",
+      "TextOperations": [
+        {
+          "Operation": "RemoveDelimited",
+          "Target": [ "Entries", "existing" ],
+          "Search": "B",
+          "Delimiter": "/"
+        }
+      ]
+    },
+    {
+      "LogName": "append to a missing entry",
+      "Action": "EditData",
+      "Target": "Mods/GameCodeBench/Probe",
+      "TextOperations": [
+        {
+          "Operation": "Append",
+          "Target": [ "Entries", "appended" ],
+          "Value": "fresh",
+          "Delimiter": "/"
+        }
+      ]
+    },
+    {
+      "LogName": "remove from a missing map property",
+      "Action": "EditMap",
+      "Target": "Maps/Town-EggFestival",
+      "TextOperations": [
+        {
+          "Operation": "RemoveDelimited",
+          "Target": [ "MapProperties", "GcbAbsent" ],
+          "Search": "x",
+          "Delimiter": " "
+        }
+      ]
+    },
+    {
+      "LogName": "append to a missing map property",
+      "Action": "EditMap",
+      "Target": "Maps/Town-EggFestival",
+      "TextOperations": [
+        {
+          "Operation": "Append",
+          "Target": [ "MapProperties", "GcbAppended" ],
+          "Value": "hello",
+          "Delimiter": " "
+        }
+      ]
+    }
+  ]
+}

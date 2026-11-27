@@ -1,0 +1,23 @@
+--- a/BetterTeams/src/main/java/com/booksaw/betterTeams/commands/HelpCommand.java
++++ b/BetterTeams/src/main/java/com/booksaw/betterTeams/commands/HelpCommand.java
+@@ -221,6 +221,9 @@
+ 
+ 		try {
+ 			int page = Integer.parseInt(request);
++			if (page < 1) {
++				return 0;
++			}
+ 			if (page > maxPage) {
+ 				return maxPage;
+ 			}
+--- a/BetterTeams/src/main/java/com/booksaw/betterTeams/message/MessageManager.java
++++ b/BetterTeams/src/main/java/com/booksaw/betterTeams/message/MessageManager.java
+@@ -73,7 +73,7 @@
+ 	}
+ 
+ 	public static String getPrefix() {
+-		return mainPluginService == null ? "" : getPrefixComponent().insertion();
++		return mainPluginService == null ? "" : mainPluginService.getPrefix();
+ 	}
+ 
+ 	public static Component getPrefixComponent() {

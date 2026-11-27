@@ -1,0 +1,10 @@
+--- a/scripts/tradeescrow/escrow.lua
++++ b/scripts/tradeescrow/escrow.lua
+@@ -160,7 +160,6 @@
+ local function build_plan(trade)
+     local plan = {}
+     local givers = { trade.order[1], trade.order[2] }
+-    table.sort(givers)
+     for _, giver in ipairs(givers) do
+         local items = trade.sides[giver].items
+         for _, prefab in ipairs(sorted_keys(items)) do

@@ -1,0 +1,27 @@
+--- a/spigot/src/main/java/ru/brikster/chatty/Chatty.java
++++ b/spigot/src/main/java/ru/brikster/chatty/Chatty.java
+@@ -308,7 +308,6 @@
+     }
+ 
+     private void closeResources() throws IOException {
+-        MetricsSender.shutdownActive();
+         if (!isUseNativeAdventurePlatform()) {
+             BukkitAudiences.create(this).close();
+         }
+--- a/spigot/src/main/java/ru/brikster/chatty/metrics/MetricsSender.java
++++ b/spigot/src/main/java/ru/brikster/chatty/metrics/MetricsSender.java
+@@ -30,13 +30,13 @@
+     }
+ 
+     public void run() {
+-        shutdownActive();
+         if (settingsConfig.isSendMetrics()) {
+             if (PaperUtil.isFolia()) {
+                 plugin.getLogger().info("Skipping bStats metrics: the bundled version"
+                         + " uses the Bukkit scheduler, which Folia does not provide.");
+                 return;
+             }
++            shutdownActive();
+             Metrics metrics = new Metrics((JavaPlugin) plugin, 3466);
+             activeMetrics = metrics;
+             metrics.addCustomChart(new SimplePie("language",

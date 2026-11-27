@@ -1,0 +1,10 @@
+{
+  "Name": "GCB Legacy Pack",
+  "Author": "GameCodeBench",
+  "Version": "1.0.0",
+  "Description": "Verifier fixture: a pre-1.6-format content pack that loads Data/ObjectInformation.",
+  "UniqueID": "GameCodeBench.LegacyPack",
+  "ContentPackFor": {
+    "UniqueID": "Pathoschild.ContentPatcher"
+  }
+}

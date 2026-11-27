@@ -1,0 +1,187 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-27",
+  "purpose": "repository-maintenance controls, not model performance",
+  "host": {
+    "name": "Lab",
+    "platform": "linux-x64",
+    "dockerVersion": "28.0.4",
+    "imageStore": "classic overlay2",
+    "daemon": "owned isolated daemon with loopback TLS; host daemon unchanged"
+  },
+  "acquisition": {
+    "provider": "steam",
+    "kind": "steam-depots",
+    "appId": 646570,
+    "depotId": 646571,
+    "manifest": "9072802409324604124",
+    "gameJarSha256": "cfad868ac8d65a88e71a0bf096fb09f78811e553effe0787c5309a655e081673",
+    "operatorSuppliedGameFiles": false
+  },
+  "runtime": {
+    "key": "slay-the-spire/sts-native-646570-build10180494",
+    "identity": "sha256:246262f8e756ec4b602812c8249914694a8f3964186bbf0bb7a999c8fea8a369",
+    "fingerprint": "419ac8e6040a01bd6c00b0fd467c43ab3f00163bdfff3f1b8c3e560e73a0afdc",
+    "imageCount": 7,
+    "evaluationNetwork": "none",
+    "javaProcessorCount": 2
+  },
+  "summary": {
+    "goldPassed": 5,
+    "goldEngineCasesPassed": 186,
+    "goldEngineCasesExpected": 186,
+    "nopFailureSetsMatched": 5,
+    "blockedRealGameTasks": 1,
+    "loaderOnlyTasks": 4
+  },
+  "controls": [
+    {
+      "task": "slay-the-spire/core/basemod-dynamic-descriptions-r2",
+      "control": "nop",
+      "runId": "run-cb3a539dbf1c42c9",
+      "status": "failed",
+      "score": 10.0,
+      "complete": true,
+      "passed": false,
+      "engineCasesPassed": 15,
+      "engineCasesExpected": 46,
+      "matchesFrozenFailureSet": true
+    },
+    {
+      "task": "slay-the-spire/core/basemod-dynamic-descriptions-r2",
+      "control": "gold",
+      "runId": "run-33899d039a7f4cfd",
+      "status": "passed",
+      "score": 100.0,
+      "complete": true,
+      "passed": true,
+      "engineCasesPassed": 46,
+      "engineCasesExpected": 46,
+      "matchesFrozenFailureSet": true
+    },
+    {
+      "task": "slay-the-spire/core/basemod-phase-transitions-r1",
+      "control": "nop",
+      "runId": "run-a4095b9d7a4e4329",
+      "status": "failed",
+      "score": 10.0,
+      "complete": true,
+      "passed": false,
+      "engineCasesPassed": 13,
+      "engineCasesExpected": 32,
+      "matchesFrozenFailureSet": true
+    },
+    {
+      "task": "slay-the-spire/core/basemod-phase-transitions-r1",
+      "control": "gold",
+      "runId": "run-6e17f3d5963445c7",
+      "status": "passed",
+      "score": 100.0,
+      "complete": true,
+      "passed": true,
+      "engineCasesPassed": 32,
+      "engineCasesExpected": 32,
+      "matchesFrozenFailureSet": true
+    },
+    {
+      "task": "slay-the-spire/core/downfall-stasis-lifecycle-r1",
+      "control": "nop",
+      "runId": "run-d7c1d44fc9744f1c",
+      "status": "failed",
+      "score": 10.0,
+      "complete": true,
+      "passed": false,
+      "engineCasesPassed": 19,
+      "engineCasesExpected": 38,
+      "matchesFrozenFailureSet": true
+    },
+    {
+      "task": "slay-the-spire/core/downfall-stasis-lifecycle-r1",
+      "control": "gold",
+      "runId": "run-b22721c88e334299",
+      "status": "passed",
+      "score": 100.0,
+      "complete": true,
+      "passed": true,
+      "engineCasesPassed": 38,
+      "engineCasesExpected": 38,
+      "matchesFrozenFailureSet": true
+    },
+    {
+      "task": "slay-the-spire/core/stslib-block-ledger-r1",
+      "control": "nop",
+      "runId": "run-d94b31d3284d48f2",
+      "status": "failed",
+      "score": 10.0,
+      "complete": true,
+      "passed": false,
+      "engineCasesPassed": 7,
+      "engineCasesExpected": 27,
+      "matchesFrozenFailureSet": true
+    },
+    {
+      "task": "slay-the-spire/core/stslib-block-ledger-r1",
+      "control": "gold",
+      "runId": "run-989d1d7adfbd4957",
+      "status": "passed",
+      "score": 100.0,
+      "complete": true,
+      "passed": true,
+      "engineCasesPassed": 27,
+      "engineCasesExpected": 27,
+      "matchesFrozenFailureSet": true
+    },
+    {
+      "task": "slay-the-spire/core/stslib-icon-layout-r1",
+      "control": "nop",
+      "runId": "run-fabd4775ea7e425b",
+      "status": "failed",
+      "score": 10.0,
+      "complete": true,
+      "passed": false,
+      "engineCasesPassed": 19,
+      "engineCasesExpected": 43,
+      "matchesFrozenFailureSet": true
+    },
+    {
+      "task": "slay-the-spire/core/stslib-icon-layout-r1",
+      "control": "gold",
+      "runId": "run-29d077e44a714877",
+      "status": "passed",
+      "score": 100.0,
+      "complete": true,
+      "passed": true,
+      "engineCasesPassed": 43,
+      "engineCasesExpected": 43,
+      "matchesFrozenFailureSet": true
+    }
+  ],
+  "blockers": [
+    {
+      "task": "downfall-socket-flow-r2",
+      "goldRunId": "run-5830b8a7f4f84285",
+      "goldComplete": true,
+      "goldPassedCases": 3,
+      "goldExpectedCases": 13,
+      "cpuLimitedDiagnosticComplete": true,
+      "cpuLimitedDiagnosticPassedCases": 3,
+      "cpuLimitedDiagnosticExpectedCases": 13,
+      "initialNop": "incomplete timeout; intended frozen negative was not reproduced",
+      "observation": "native click/selection workflows did not complete; cause unresolved"
+    },
+    {
+      "tasks": [
+        "mts-enum-identity-r2",
+        "mts-load-order-regressions",
+        "mts-mod-identity-regressions",
+        "mts-loader-internals-regressions"
+      ],
+      "reason": "standalone JVM/loader execution does not launch the real game and cannot count as a comparable full result"
+    }
+  ],
+  "limits": [
+    "Merge remains blocked by the recorded failures and real-game policy conflict.",
+    "No frozen task, reference, recipe hash or scoring weight was changed.",
+    "No licensed content, credentials, model submission, trajectory or model performance record is included."
+  ]
+}

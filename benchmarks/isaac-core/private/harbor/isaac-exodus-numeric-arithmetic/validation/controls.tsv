@@ -1,0 +1,5 @@
+control	status	failing_cases	passed	failed	reward	processes	fatals	matches_prediction
+base	predicted	apocryphon_stats,cursed_metronome,lil_rune_algiz_rune,lil_rune_jera_health,new_run_starts_with_base_stats,ritual_candle,ritual_candle_cadence,tragic_mushroom,tragic_mushroom_diminishing,tragic_mushroom_last_container,tragic_mushroom_repeat,unholy_mantle_burst	42		0			
+gold	predicted	-	54		1			
+base	measured	apocryphon_stats,cursed_metronome,lil_rune_algiz_rune,lil_rune_jera_health,new_run_starts_with_base_stats,ritual_candle,ritual_candle_cadence,tragic_mushroom,tragic_mushroom_diminishing,tragic_mushroom_last_container,tragic_mushroom_repeat,unholy_mantle_burst	42	12	0	3/3	0	yes
+gold	measured	-	54	0	1	3/3	0	yes

@@ -1,0 +1,568 @@
+diff --git a/benchmarks/terraria-core/private/harbor/terraria-overhaul-entity-chunk-lifetime-hard/environment/terraria-overhaul/Core/Chunks/Chunks.cs b/benchmarks/terraria-core/private/harbor/terraria-overhaul-entity-chunk-lifetime-hard/solution/after/Core/Chunks/Chunks.cs
+index 17c3c519..12676b36 100644
+--- a/benchmarks/terraria-core/private/harbor/terraria-overhaul-entity-chunk-lifetime-hard/environment/terraria-overhaul/Core/Chunks/Chunks.cs
++++ b/benchmarks/terraria-core/private/harbor/terraria-overhaul-entity-chunk-lifetime-hard/solution/after/Core/Chunks/Chunks.cs
+@@ -68,6 +68,7 @@ internal class Chunks : ModSystem
+ 	public const float MaxChunkSizeInPixels = MaxChunkSize * WorldUtils.TileSizeInPixels;
+ 
+ 	private static Dictionary<long, Chunk>? chunks;
++	private static bool unloading;
+ 	private static readonly Query activeChunks = Entities.Query().With<ChunkInfo>();
+ 	private static uint ChunkUnloadFrequency => 60 * (uint)TimeSystem.LogicFramerate;
+ 
+@@ -84,15 +85,22 @@ internal class Chunks : ModSystem
+ 
+ 	public override void Load()
+ 	{
++		unloading = false;
+ 		chunks = new Dictionary<long, Chunk>();
+ 	}
+ 	public override void Unload()
+ 	{
+ 		if (chunks != null) {
+-			var allChunks = chunks.Values;
+-			chunks = null;
+-			foreach (var chunk in allChunks) {
+-				DestroyChunk(chunk);
++			unloading = true;
++			try {
++				var allChunks = chunks.Values.ToArray();
++				foreach (var chunk in allChunks) {
++					DestroyChunk(chunk);
++				}
++			}
++			finally {
++				chunks = null;
++				unloading = false;
+ 			}
+ 		}
+ 	}
+@@ -102,28 +110,39 @@ internal class Chunks : ModSystem
+ 		if (chunks == null) return;
+ 
+ 		ulong currentTick = TimeSystem.UpdateCount;
+-		ulong cutoffTick = unchecked(currentTick - ChunkUnloadFrequency);
+-		if (cutoffTick < currentTick) {
+-			foreach (var chunkEntity in activeChunks) {
+-				var chunkInfo = chunkEntity.Get<ChunkInfo>();
+-				if (chunkInfo.LastKeepAliveTick > cutoffTick) continue;
+-				if (chunkInfo.ValuableComponentCount != 0) continue;
+-
+-				DestroyChunk(new Chunk(chunkEntity));
+-			}
++		foreach (var chunkEntity in activeChunks) {
++			var chunkInfo = chunkEntity.Get<ChunkInfo>();
++			if (unchecked(currentTick - chunkInfo.LastKeepAliveTick) < ChunkUnloadFrequency) continue;
++			if (chunkInfo.ValuableComponentCount != 0) continue;
++
++			DestroyChunk(new Chunk(chunkEntity));
+ 		}
+ 	}
+ 
+ 	private static void DestroyChunk(Chunk chunk)
+ 	{
++		if (chunks == null) return;
+ 		if (!chunk.Entity.IsValid) return;
+ 		if (!chunk.Entity.Has<ChunkInfo>()) return;
+ 
+ 		ref readonly var chunkInfo = ref chunk.Entity.Get<ChunkInfo>();
+ 		Debug.Assert(chunkInfo.ValuableComponentCount == 0);
+-		OnChunkDestroyed?.Invoke(chunk);
+-		chunks!.Remove(chunkInfo.EncodedPosition);
+-		chunk.Entity.Destroy();
++		if (!chunks.Remove(chunkInfo.EncodedPosition)) return;
++		try {
++			if (OnChunkDestroyed is { } observers) {
++				foreach (OnChunkDestroyedDelegate observer in observers.GetInvocationList()) {
++					try {
++						observer(chunk);
++					}
++					catch (Exception error) {
++						Debug.WriteLine(error);
++					}
++				}
++			}
++		}
++		finally {
++			chunk.Entity.Destroy();
++		}
+ 	}
+ 
+ 	public static void KeepAlive(Chunk chunk)
+@@ -132,7 +151,7 @@ internal class Chunks : ModSystem
+ 	}
+ 
+ 	public static IEnumerable<Chunk> IterateAllChunks()
+-		=> chunks != null ? chunks.Values : Enumerable.Empty<Chunk>();
++		=> chunks != null ? chunks.Values.ToArray() : Array.Empty<Chunk>();
+ 
+ 	public static IEnumerable<Chunk> IterateVisibleChunks()
+ 	{
+@@ -140,7 +159,7 @@ internal class Chunks : ModSystem
+ 			Main.screenPosition.X,
+ 			Main.screenPosition.Y,
+ 			Main.screenPosition.X + Main.screenWidth,
+-			Main.screenPosition.X + Main.screenHeight
++			Main.screenPosition.Y + Main.screenHeight
+ 		));
+ 	}
+ 	public static IEnumerable<Chunk> IterateChunksInWorldArea(Vector4 worldArea)
+@@ -188,12 +207,21 @@ internal class Chunks : ModSystem
+ 			return false;
+ 		}
+ 
+-		return chunks.TryGetValue(PackPosition(chunkPosition.X, chunkPosition.Y), out chunk!);
++		long encodedPosition = PackPosition(chunkPosition.X, chunkPosition.Y);
++		if (chunks.TryGetValue(encodedPosition, out chunk) && IsCanonicalChunk(encodedPosition, chunk)) {
++			return true;
++		}
++
++		if (chunks.Remove(encodedPosition, out var staleChunk) && staleChunk.Entity.IsValid) {
++			staleChunk.Entity.Destroy();
++		}
++		chunk = default;
++		return false;
+ 	}
+ 
+ 	// GetOrCreate
+ 	public static bool TryGetOrCreateChunkAtWorldPosition(Vector2 worldPosition, [NotNullWhen(true)] out Chunk chunk)
+-		=> TryGetOrCreateChunkAtTilePosition(TileToChunkCoordinates(worldPosition.ToTileCoordinates()), out chunk);
++		=> TryGetOrCreateChunkAtTilePosition(worldPosition.ToTileCoordinates(), out chunk);
+ 
+ 	public static bool TryGetOrCreateChunkAtTilePosition(Vector2Int tilePosition, [NotNullWhen(true)] out Chunk chunk)
+ 		=> TryGetOrCreateChunk(TileToChunkCoordinates(tilePosition), out chunk);
+@@ -203,6 +231,10 @@ internal class Chunks : ModSystem
+ 		if (chunks == null) {
+ 			throw new InvalidOperationException("Chunks are not initialized.");
+ 		}
++		if (unloading) {
++			chunk = default;
++			return false;
++		}
+ 
+ 		Debug.Assert(Program.IsMainThread);
+ 
+@@ -218,25 +250,60 @@ internal class Chunks : ModSystem
+ 			return false;
+ 		}
+ 
++		if (TryGetChunk(chunkPosition, out chunk)) {
++			return true;
++		}
++
+ 		long encodedPosition = PackPosition(chunkPosition.X, chunkPosition.Y);
+-		if (!chunks.TryGetValue(encodedPosition, out chunk)) {
+-			chunks[encodedPosition] = chunk = new(Entities.Create());
+-			chunk.Entity.Add(new ChunkInfo(chunkPosition.X, chunkPosition.Y));
+-			KeepAlive(chunk);
+-			OnChunkCreated?.Invoke(chunk);
++		chunks[encodedPosition] = chunk = new(Entities.Create());
++		chunk.Entity.Add(new ChunkInfo(chunkPosition.X, chunkPosition.Y));
++		KeepAlive(chunk);
++
++		if (OnChunkCreated is { } observers) {
++			foreach (OnChunkCreatedDelegate observer in observers.GetInvocationList()) {
++				try {
++					observer(chunk);
++				}
++				catch (Exception error) {
++					Debug.WriteLine(error);
++				}
++			}
++		}
++
++		if (chunks == null
++			|| !chunks.TryGetValue(encodedPosition, out var currentChunk)
++			|| currentChunk.Entity.Index != chunk.Entity.Index
++			|| currentChunk.Entity.Version != chunk.Entity.Version
++			|| !IsCanonicalChunk(encodedPosition, chunk)) {
++			if (chunks != null
++				&& chunks.TryGetValue(encodedPosition, out currentChunk)
++				&& currentChunk.Entity.Index == chunk.Entity.Index
++				&& currentChunk.Entity.Version == chunk.Entity.Version) {
++				chunks.Remove(encodedPosition);
++			}
++			if (chunk.Entity.IsValid) {
++				chunk.Entity.Destroy();
++			}
++			chunk = default;
++			return false;
+ 		}
+-		
++
+ 		return true;
+ 	}
+ 
++	private static bool IsCanonicalChunk(long encodedPosition, Chunk chunk)
++		=> chunk.Entity.IsValid
++		&& chunk.Entity.Has<ChunkInfo>()
++		&& chunk.Entity.Get<ChunkInfo>().EncodedPosition == encodedPosition;
++
+ 	// Coordinates
+ 
+ 	public static int WorldToChunkCoordinates(float coordinate)
+-		=> (int)(coordinate / (WorldUtils.TileSizeInPixels * MaxChunkSize));
++		=> (int)MathF.Floor(coordinate / (WorldUtils.TileSizeInPixels * MaxChunkSize));
+ 	public static int TileToChunkCoordinates(int coordinate)
+-		=> coordinate / MaxChunkSize;
++		=> (int)Math.Floor(coordinate / (double)MaxChunkSize);
+ 	public static Vector2Int TileToChunkCoordinates(Vector2Int tilePosition)
+-		=> new(tilePosition.X / MaxChunkSize, tilePosition.Y / MaxChunkSize);
++		=> new(TileToChunkCoordinates(tilePosition.X), TileToChunkCoordinates(tilePosition.Y));
+ 
+ 	public static long PackPosition(int x, int y)
+ 		=> ((long)y << 32) | (uint)x;
+diff --git a/benchmarks/terraria-core/private/harbor/terraria-overhaul-entity-chunk-lifetime-hard/environment/terraria-overhaul/Core/Data/DataStorage.cs b/benchmarks/terraria-core/private/harbor/terraria-overhaul-entity-chunk-lifetime-hard/solution/after/Core/Data/DataStorage.cs
+index 5bc64060..51bf3e48 100644
+--- a/benchmarks/terraria-core/private/harbor/terraria-overhaul-entity-chunk-lifetime-hard/environment/terraria-overhaul/Core/Data/DataStorage.cs
++++ b/benchmarks/terraria-core/private/harbor/terraria-overhaul-entity-chunk-lifetime-hard/solution/after/Core/Data/DataStorage.cs
+@@ -95,6 +95,11 @@ internal readonly struct Query
+ 
+ 	public ref struct Iterator
+ 	{
++		private readonly BitMask64[] presenceMasks;
++		private readonly uint[] entityVersions;
++		private readonly BitMask64[] includedComponentMasks;
++		private readonly BitMask64[] excludedComponentMasks;
++
+ 		public readonly ComponentMask IncludedComponents;
+ 		public readonly ComponentMask ExcludedComponents;
+ 		public BitMask64 PresenceMask;
+@@ -105,20 +110,24 @@ internal readonly struct Query
+ 
+ 		public Iterator(ComponentMask includedComponents, ComponentMask excludedComponents) : this()
+ 		{
+-			IncludedComponents = includedComponents;
+-			ExcludedComponents = excludedComponents;
++			presenceMasks = DataStorage.EntityPresenceMasks.ToArray();
++			entityVersions = DataStorage.EntityVersions.ToArray();
++			includedComponentMasks = includedComponents.Span.ToArray();
++			excludedComponentMasks = excludedComponents.Span.ToArray();
++			IncludedComponents = ComponentMask.InSpan(includedComponentMasks);
++			ExcludedComponents = ComponentMask.InSpan(excludedComponentMasks);
+ 		}
+ 
+ 		public bool MoveNext()
+ 		{
+ 			while (true) {
+ 				if (PresenceMask.IsZero) {
+-					if (++PresenceMaskIndex >= DataStorage.EntityPresenceMasks.Length) {
++					if (++PresenceMaskIndex >= presenceMasks.Length) {
+ 						Current = default;
+ 						return false;
+ 					}
+ 					BaseIndex += BitMask64.BitSize;
+-					PresenceMask = DataStorage.EntityPresenceMasks[PresenceMaskIndex];
++					PresenceMask = presenceMasks[PresenceMaskIndex];
+ 					continue;
+ 				}
+ 
+@@ -126,9 +135,9 @@ internal readonly struct Query
+ 				PresenceMask.Unset(bitIndex);
+ 
+ 				uint entityIndex = (uint)(BaseIndex + bitIndex);
+-				Current = new DataEntity(entityIndex, DataStorage.EntityVersions[entityIndex]);
++				Current = new DataEntity(entityIndex, entityVersions[entityIndex]);
+ 
+-				if (Current.HasAll(IncludedComponents) && !Current.HasAny(ExcludedComponents))
++				if (Current.IsValid && Current.HasAll(IncludedComponents) && !Current.HasAny(ExcludedComponents))
+ 					return true;
+ 			}
+ 		}
+@@ -144,15 +153,19 @@ internal static class DataStorage
+ 
+ 		static ComponentData()
+ 		{
+-			Handle = CreateComponent();
+-
+-			components[Handle.Id] = new() {
+-				Type = typeof(T),
+-				AddFromObject = Add,
+-				Remove = Remove,
+-			};
+-			componentByType[typeof(T)] = Handle;
+-			componentByName[typeof(T).Name] = Handle;
++			lock (operationLock) {
++				Handle = CreateComponent();
++
++				components[Handle.Id] = new() {
++					Type = typeof(T),
++					AddFromObject = Add,
++					Remove = Remove,
++				};
++				componentByType[typeof(T)] = Handle;
++				if (!componentByName.TryAdd(typeof(T).Name, Handle)) {
++					componentByName[typeof(T).Name] = Component.Invalid;
++				}
++			}
+ 		}
+ 
+ 		public static void Add(DataEntity entity, object value) => AddComponent(entity, (T)value);
+@@ -168,7 +181,7 @@ internal static class DataStorage
+ 	// These should have almost no cost unless a second thread kicks in.
+ 	private static readonly object operationLock = new();
+ 	// Components
+-	private static uint componentCount;
++	private static uint componentCount = 1;
+ 	private static uint componentMasksPerEntity = 1;
+ 	private static ComponentInfo[] components = [];
+ 	private static readonly Dictionary<Type, Component> componentByType = [];
+@@ -178,6 +191,7 @@ internal static class DataStorage
+ 	private static uint[] entityVersions = [];
+ 	private static BitMask64[] entityPresenceMasks = [];
+ 	private static BitMask64[] entityComponentMasks = [];
++	private static readonly Stack<uint> releasedEntityIndices = [];
+ 	// Queries
+ 	private static uint queryCount;
+ 	private static BitMask64[] queryExcludedComponentMasks = [];
+@@ -192,18 +206,21 @@ internal static class DataStorage
+ 
+ 	public static Component CreateComponent()
+ 	{
++		lock (operationLock) {
+ 		var handle = new Component(componentCount++);
+ 		if (handle.Id >= components.Length)
+-			Array.Resize(ref components, (int)BitOperations.RoundUpToPowerOf2((uint)(components.Length + 1)));
++			Array.Resize(ref components, (int)BitOperations.RoundUpToPowerOf2(handle.Id + 1));
+ 
+ 		uint newMasksPerEntity = (handle.Id / BitMask64.BitSize) + 1;
+-		if (newMasksPerEntity != componentMasksPerEntity && entityComponentMasks.Length > 0) {
++		if (newMasksPerEntity != componentMasksPerEntity) {
+ 			void GrowComponentMasks(ref BitMask64[] masks, uint entryCount)
+ 			{
+ 				var oldMasks = masks;
+ 				var newMasks = masks = new BitMask64[BitOperations.RoundUpToPowerOf2(entryCount + 1) * newMasksPerEntity];
+-				for (int i = 0, j = 0; i < oldMasks.Length; i++, j += (i % componentMasksPerEntity == 0) ? 2 : 1) {
+-					newMasks[j] = oldMasks[i];
++				for (uint entry = 0; entry < entryCount; entry++) {
++					for (uint mask = 0; mask < componentMasksPerEntity; mask++) {
++						newMasks[entry * newMasksPerEntity + mask] = oldMasks[entry * componentMasksPerEntity + mask];
++					}
+ 				}
+ 			}
+ 
+@@ -214,6 +231,7 @@ internal static class DataStorage
+ 		}
+ 
+ 		return handle;
++		}
+ 	}
+ 
+ 	public static void RegisterComponent(Type type)
+@@ -232,7 +250,11 @@ internal static class DataStorage
+ 		=> components[component.Id].Type;
+ 
+ 	public static bool TryGetComponentFromName(string name, [NotNullWhen(true)] out Component result)
+-		=> componentByName.TryGetValue(name, out result);
++	{
++		lock (operationLock) {
++			return componentByName.TryGetValue(name, out result) && result.IsValid;
++		}
++	}
+ 
+ 	public static void RegisterTypesFromAssembly(Assembly assembly)
+ 	{
+@@ -244,29 +266,36 @@ internal static class DataStorage
+ 	// Entity component data
+ 
+ 	public static bool HasComponent<T>(DataEntity entity) where T : IComponent
+-		=> ComponentData<T>.SparseSet.Has(entity.Index);
++		=> IsEntityValid(entity) && ComponentData<T>.SparseSet.Has(entity.Index);
+ 
+ 	public static bool HasAllComponents(DataEntity entity, ComponentMask mask)
+ 	{
++		if (!IsEntityValid(entity)) return false;
+ 		//	if (componentMasksPerEntity == 1)
+ 		//		return (mask.Span[0] & entityComponentMasks[entity.Index]) == mask.Span[0];
+ 
+ 		uint baseIndex = entity.Index * componentMasksPerEntity;
+-		for (int i = 0; i < componentMasksPerEntity; i++) {
++		int comparableLength = Math.Min(mask.Span.Length, (int)componentMasksPerEntity);
++		for (int i = 0; i < comparableLength; i++) {
+ 			// Halt with a negative result if AND'ing the masks loses any expected bits.
+ 			if ((mask.Span[i] & entityComponentMasks[baseIndex + i]) != mask.Span[i]) {
+ 				return false;
+ 			}
+ 		}
++		for (int i = comparableLength; i < mask.Span.Length; i++) {
++			if (!mask.Span[i].IsZero) return false;
++		}
+ 		return true;
+ 	}
+ 	public static bool HasAnyComponents(DataEntity entity, ComponentMask mask)
+ 	{
++		if (!IsEntityValid(entity)) return false;
+ 		//	if (componentMasksPerEntity == 1)
+ 		//		return !(mask.Span[0] & entityComponentMasks[entity.Index]).IsZero;
+ 
+ 		uint baseIndex = entity.Index * componentMasksPerEntity;
+-		for (int i = 0; i < componentMasksPerEntity; i++) {
++		int comparableLength = Math.Min(mask.Span.Length, (int)componentMasksPerEntity);
++		for (int i = 0; i < comparableLength; i++) {
+ 			// Halt with a positive result if AND'ing the masks results in anything but a zero.
+ 			if (!(mask.Span[i] & entityComponentMasks[baseIndex + i]).IsZero) {
+ 				return true;
+@@ -276,17 +305,25 @@ internal static class DataStorage
+ 	}
+ 
+ 	public static ref T GetComponent<T>(DataEntity entity) where T : IComponent
+-		=> ref ComponentData<T>.SparseSet.Get(entity.Index);
++	{
++		if (!IsEntityValid(entity) || !ComponentData<T>.SparseSet.Has(entity.Index))
++			throw new InvalidOperationException("The entity is stale or does not own the requested component.");
++		return ref ComponentData<T>.SparseSet.Get(entity.Index);
++	}
+ 
+ 	public static void AddComponent(DataEntity entity, Component component, object value)
+ 	{
+ 		lock (operationLock) {
++			if (!IsEntityValid(entity)) throw new InvalidOperationException("Cannot mutate a stale entity.");
++			if (!component.IsValid || component.Id >= components.Length || components[component.Id].Type == null)
++				throw new ArgumentException("The component handle is invalid.", nameof(component));
+ 			components[component.Id].AddFromObject(entity, value);
+ 		}
+ 	}
+ 	public static ref T AddComponent<T>(DataEntity entity, in T value) where T : IComponent
+ 	{
+ 		lock (operationLock) {
++			if (!IsEntityValid(entity)) throw new InvalidOperationException("Cannot mutate a stale entity.");
+ 			ComponentMask.InDynamicArray(entityComponentMasks, entity.Index).Set<T>();
+ 			return ref ComponentData<T>.SparseSet.Put(entity.Index, in value);
+ 		}
+@@ -294,11 +331,14 @@ internal static class DataStorage
+ 	public static void RemoveComponent<T>(DataEntity entity) where T : IComponent
+ 	{
+ 		Debug.Assert(Program.IsMainThread);
++		if (!IsEntityValid(entity)) throw new InvalidOperationException("Cannot mutate a stale entity.");
++		if (!ComponentData<T>.SparseSet.Has(entity.Index)) return;
+ 		ComponentMask.InDynamicArray(entityComponentMasks, entity.Index).Unset<T>();
+ 		ComponentData<T>.SparseSet.Remove(entity.Index);
+ 	}
+ 	public static void ClearEntity(DataEntity entity)
+ 	{
++		if (!IsEntityValid(entity)) throw new InvalidOperationException("Cannot clear a stale entity.");
+ 		uint baseMask = entity.Index * componentMasksPerEntity;
+ 		for (int maskIndex = 0, baseBit = 0; maskIndex < componentMasksPerEntity; maskIndex++, baseBit += BitMask64.BitSize) {
+ 			foreach (int bitIndex in entityComponentMasks[baseMask + maskIndex]) {
+@@ -312,14 +352,19 @@ internal static class DataStorage
+ 	public static DataEntity CreateEntity()
+ 	{
+ 		Debug.Assert(Program.IsMainThread);
+-		
+-		uint index = entityCount++;
+-		uint oldLength = BitOperations.RoundUpToPowerOf2(index + 0);
+-		uint newLength = BitOperations.RoundUpToPowerOf2(index + 1);
+-		if (newLength != oldLength) {
+-			Array.Resize(ref entityVersions, (int)newLength);
+-			Array.Resize(ref entityPresenceMasks, (int)(newLength / BitMask64.BitSize) + 1);
+-			Array.Resize(ref entityComponentMasks, (int)(newLength * componentMasksPerEntity));
++
++		uint index;
++		if (releasedEntityIndices.TryPop(out uint releasedIndex)) {
++			index = releasedIndex;
++		} else {
++			index = entityCount++;
++			uint oldLength = BitOperations.RoundUpToPowerOf2(index + 0);
++			uint newLength = BitOperations.RoundUpToPowerOf2(index + 1);
++			if (newLength != oldLength) {
++				Array.Resize(ref entityVersions, (int)newLength);
++				Array.Resize(ref entityPresenceMasks, (int)(newLength / BitMask64.BitSize) + 1);
++				Array.Resize(ref entityComponentMasks, (int)(newLength * componentMasksPerEntity));
++			}
+ 		}
+ 
+ 		var (div, rem) = Math.DivRem(index, BitMask64.BitSize);
+@@ -333,14 +378,28 @@ internal static class DataStorage
+ 	public static void DestroyEntity(DataEntity entity)
+ 	{
+ 		Debug.Assert(Program.IsMainThread);
+-		Debug.Assert(entity.IsValid);
+-		entityVersions[entity.Index]++;
++		if (!IsEntityValid(entity)) return;
++		ClearEntity(entity);
+ 		var (div, rem) = Math.DivRem(entity.Index, BitMask64.BitSize);
+ 		entityPresenceMasks[div].Unset((int)rem);
++		uint nextVersion = unchecked(entityVersions[entity.Index] + 1);
++		entityVersions[entity.Index] = nextVersion;
++		if (nextVersion == 0) return;
++		releasedEntityIndices.Push(entity.Index);
+ 	}
+ 
+ 	public static bool IsEntityValid(DataEntity entity)
+-		=> entity.Version != 0 && entity.Version == entityVersions[entity.Index];
++	{
++		if (entity.Version == 0
++			|| entity.Index >= entityCount
++			|| entity.Index >= entityVersions.Length
++			|| entity.Version != entityVersions[entity.Index]) {
++			return false;
++		}
++
++		var (div, rem) = Math.DivRem(entity.Index, BitMask64.BitSize);
++		return div < entityPresenceMasks.Length && entityPresenceMasks[div].Get((int)rem);
++	}
+ 
+ 	// Queries
+ 
+diff --git a/benchmarks/terraria-core/private/harbor/terraria-overhaul-entity-chunk-lifetime-hard/environment/terraria-overhaul/Core/Data/SparseSet.cs b/benchmarks/terraria-core/private/harbor/terraria-overhaul-entity-chunk-lifetime-hard/solution/after/Core/Data/SparseSet.cs
+index e4f4c4c5..404e1b56 100644
+--- a/benchmarks/terraria-core/private/harbor/terraria-overhaul-entity-chunk-lifetime-hard/environment/terraria-overhaul/Core/Data/SparseSet.cs
++++ b/benchmarks/terraria-core/private/harbor/terraria-overhaul-entity-chunk-lifetime-hard/solution/after/Core/Data/SparseSet.cs
+@@ -11,6 +11,7 @@ internal struct SparseSet<TData>()
+ 
+ 	private int[] sparse = [];
+ 	private TData[] dense = [];
++	private uint[] denseToSparse = [];
+ 
+ 	public int Count { get; private set; }
+ 
+@@ -20,6 +21,7 @@ internal struct SparseSet<TData>()
+ 	public SparseSet(int sparseCapacity, int denseCapacity) : this()
+ 	{
+ 		dense = denseCapacity > 0 ? new TData[denseCapacity] : [];
++		denseToSparse = denseCapacity > 0 ? new uint[denseCapacity] : [];
+ 		sparse = sparseCapacity > 0 ? new int[sparseCapacity] : [];
+ 		for (int i = 0; i < sparseCapacity; i++) sparse[i] = Invalid;
+ 	}
+@@ -44,22 +46,36 @@ internal struct SparseSet<TData>()
+ 		if (denseIndex == Invalid) {
+ 			sparse[index] = denseIndex = Count++;
+ 
+-			if (denseIndex >= dense.Length)
++			if (denseIndex >= dense.Length) {
+ 				Array.Resize(ref dense, (int)BitOperations.RoundUpToPowerOf2((uint)(denseIndex + 1)));
++				Array.Resize(ref denseToSparse, dense.Length);
++			}
++
++			denseToSparse[denseIndex] = index;
+ 		}
+ 
+ 		dense[denseIndex] = value;
+ 
+ 		return ref dense[denseIndex];
+ 	}
+-	public readonly TData Remove(uint index)
++	public TData Remove(uint index)
+ 	{
+ 		Debug.Assert(Has(index));
+ 
+-		ref var address = ref dense[sparse[index]];
+-		var result = address;
++		int denseIndex = sparse[index];
++		int lastDenseIndex = --Count;
++		var result = dense[denseIndex];
++
++		if (denseIndex != lastDenseIndex) {
++			dense[denseIndex] = dense[lastDenseIndex];
++			uint movedSparseIndex = denseToSparse[lastDenseIndex];
++			denseToSparse[denseIndex] = movedSparseIndex;
++			sparse[movedSparseIndex] = denseIndex;
++		}
++
+ 		sparse[index] = Invalid;
+-		address = default;
++		dense[lastDenseIndex] = default!;
++		denseToSparse[lastDenseIndex] = default;
+ 		return result;
+ 	}
+ }

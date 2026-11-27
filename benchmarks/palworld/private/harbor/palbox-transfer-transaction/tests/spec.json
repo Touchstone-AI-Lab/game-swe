@@ -1,0 +1,147 @@
+{
+  "task_id": "palbox-transfer-transaction",
+  "required_files": [
+    "Info.json",
+    "scripts/main.lua",
+    "scripts/palboxtransfer/transaction.lua",
+    "scripts/services/palbox_transfer_service.lua"
+  ],
+  "minimum_lua_lines": 260,
+  "integration_checks": [
+    {
+      "id": "transfer-authority",
+      "label": {
+        "en": "Dedicated-server authority",
+        "zh": "专服权威"
+      },
+      "weight": 4,
+      "groups": [
+        {
+          "name": "guard",
+          "any_of": [
+            "IsDedicatedServer\\s*\\("
+          ]
+        },
+        {
+          "name": "service module",
+          "any_of": [
+            "palbox_transfer_service",
+            "PalboxTransferService"
+          ]
+        }
+      ],
+      "none_of": [
+        "TODO",
+        "IMPLEMENT\\s+ME"
+      ]
+    },
+    {
+      "id": "transfer-containers",
+      "label": {
+        "en": "Container tracking",
+        "zh": "容器跟踪"
+      },
+      "weight": 4,
+      "groups": [
+        {
+          "name": "notify",
+          "any_of": [
+            "NotifyOnNewObject\\s*\\("
+          ]
+        },
+        {
+          "name": "validity",
+          "any_of": [
+            "IsValid\\s*\\("
+          ]
+        },
+        {
+          "name": "unwrap",
+          "any_of": [
+            ":get\\s*\\("
+          ]
+        }
+      ]
+    },
+    {
+      "id": "transfer-command",
+      "label": {
+        "en": "Console command and game thread",
+        "zh": "控制台命令与游戏线程"
+      },
+      "weight": 3,
+      "groups": [
+        {
+          "name": "console command",
+          "any_of": [
+            "RegisterConsoleCommand(?:Global)?Handler\\s*\\("
+          ]
+        },
+        {
+          "name": "game thread",
+          "any_of": [
+            "ExecuteInGameThread\\s*\\("
+          ]
+        }
+      ]
+    },
+    {
+      "id": "transfer-lifecycle",
+      "label": {
+        "en": "Persistence and paired hooks",
+        "zh": "持久化与成对钩子"
+      },
+      "weight": 2,
+      "groups": [
+        {
+          "name": "register",
+          "any_of": [
+            "RegisterHook\\s*\\("
+          ]
+        },
+        {
+          "name": "unregister",
+          "any_of": [
+            "UnregisterHook\\s*\\("
+          ]
+        },
+        {
+          "name": "recover",
+          "any_of": [
+            "recover",
+            "Recover"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "transfer-manifest",
+      "label": {
+        "en": "Server-capable package manifest",
+        "zh": "支持专服的包清单"
+      },
+      "weight": 2,
+      "glob": "Info.json",
+      "groups": [
+        {
+          "name": "package name",
+          "any_of": [
+            "\"PackageName\"\\s*:\\s*\"[^\"]+\""
+          ]
+        },
+        {
+          "name": "lua rule",
+          "any_of": [
+            "\"Type\"\\s*:\\s*\"Lua\""
+          ]
+        },
+        {
+          "name": "server rule",
+          "any_of": [
+            "\"IsServer\"\\s*:\\s*true"
+          ]
+        }
+      ]
+    }
+  ]
+}

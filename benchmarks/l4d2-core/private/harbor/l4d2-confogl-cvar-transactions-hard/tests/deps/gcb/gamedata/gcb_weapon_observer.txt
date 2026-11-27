@@ -1,0 +1,14 @@
+"Games"
+{
+	"left4dead2"
+	{
+		"Signatures"
+		{
+			"CBaseShotgun::GetReloadDurationModifier"
+			{
+				"library" "server"
+				"linux" "@_ZN12CBaseShotgun25GetReloadDurationModifierEv"
+			}
+		}
+	}
+}

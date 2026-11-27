@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <LangVersion>latest</LangVersion>
+    <ImplicitUsings>disable</ImplicitUsings>
+    <Nullable>disable</Nullable>
+    <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
+    <AssemblyName>MagicStorage.SourceProjection</AssemblyName>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="Common/RefContainer.cs" />
+    <Compile Include="Common/Utils/Utility.Math.cs" />
+    <Compile Include="Common/IO/BitBuffer128.cs" />
+    <Compile Include="Common/IO/LengthCompressor.cs" />
+    <Compile Include="Common/IO/StringCompressor.cs" />
+    <Compile Include="Common/IO/ValueReader.cs" />
+    <Compile Include="Common/IO/ValueWriter.cs" />
+    <Compile Include="Common/IO/NetCompression.NetIO.cs" />
+    <Compile Include="GameCodeBench/ProjectionStubs.cs" />
+  </ItemGroup>
+</Project>

@@ -1,0 +1,107 @@
+diff --git a/Automate/Framework/GameLocationNameComparer.cs b/Automate/Framework/GameLocationNameComparer.cs
+index 0290aed..f67bf38 100644
+--- a/Automate/Framework/GameLocationNameComparer.cs
++++ b/Automate/Framework/GameLocationNameComparer.cs
+@@ -12,8 +12,8 @@ internal class GameLocationNameComparer : IEqualityComparer<GameLocation>
+     /// <inheritdoc />
+     public bool Equals(GameLocation? left, GameLocation? right)
+     {
+-        string? leftName = left?.Name;
+-        string? rightName = right?.Name;
++        string? leftName = left?.NameOrUniqueName;
++        string? rightName = right?.NameOrUniqueName;
+ 
+         if (leftName is null)
+             return rightName is null;
+@@ -27,6 +27,6 @@ internal class GameLocationNameComparer : IEqualityComparer<GameLocation>
+     /// <inheritdoc />
+     public int GetHashCode(GameLocation obj)
+     {
+-        return (obj.Name ?? string.Empty).GetHashCode();
++        return (obj.NameOrUniqueName ?? string.Empty).GetHashCode();
+     }
+ }
+diff --git a/Automate/Framework/MachineGroup.cs b/Automate/Framework/MachineGroup.cs
+index f4fc701..8d18e29 100644
+--- a/Automate/Framework/MachineGroup.cs
++++ b/Automate/Framework/MachineGroup.cs
+@@ -172,7 +172,7 @@ internal class MachineGroup : IMachineGroup
+                     continue;
+ 
+                 // try to push output
+-                if (storage.TryPush(output))
++                if (this.TryPushOutput(machine, storage, output))
+                 {
+                     if (machine.GetState() is MachineState.Empty)
+                         inputReady.Add(machine);
+@@ -234,6 +234,29 @@ internal class MachineGroup : IMachineGroup
+             .ToArray();
+     }
+ 
++    /// <summary>Add the given item stack to the output pipe if there's space.</summary>
++    /// <param name="machine">The machine which produced the output.</param>
++    /// <param name="storage">The output storage receiving the output.</param>
++    /// <param name="output">The item stack to push.</param>
++    /// <returns>Returns whether at least some of the item stack was received.</returns>
++    private bool TryPushOutput(IMachine machine, IStorage storage, ITrackedStack output)
++    {
++        int stackSize = output.Count;
++
++        // valid input
++        if (storage.TryPush(output))
++            return true;
++
++        // special case: machine produced a zero-size stack
++        if (stackSize < 1)
++        {
++            this.Monitor.Log($"Machine '{machine.MachineTypeID}' at {machine.Location.Name} (tile: {machine.TileArea.X}, {machine.TileArea.Y}) produced an item with ID '{output.Sample.QualifiedItemId}' and {(stackSize == 0 ? "no stack size" : $"stack size {stackSize}")}, so the output will be discarded. This is generally due to another mod breaking machine logic, and isn't related to Automate.", LogLevel.Warn);
++            output.Take(1); // trigger on-empty callback
++            return true;
++        }
++
++        return false;
++    }
+ 
+     /// <summary>Handle a machine which threw an exception during processing.</summary>
+     /// <param name="machine">The machine which threw an exception.</param>
+diff --git a/Automate/Framework/MachineGroupFactory.cs b/Automate/Framework/MachineGroupFactory.cs
+index 43f11ea..c56a2ea 100644
+--- a/Automate/Framework/MachineGroupFactory.cs
++++ b/Automate/Framework/MachineGroupFactory.cs
+@@ -70,7 +70,9 @@ internal class MachineGroupFactory
+     /// <param name="location">The location instance.</param>
+     public string GetLocationKey(GameLocation location)
+     {
+-        return location.Name;
++        return location.uniqueName.Value != null && location.uniqueName.Value != location.Name
++            ? $"{location.Name} ({location.uniqueName.Value})"
++            : location.Name;
+     }
+ 
+     /// <summary>Sort machines by priority.</summary>
+diff --git a/Automate/Framework/MachineManager.cs b/Automate/Framework/MachineManager.cs
+index e5b4562..5a9cf21 100644
+--- a/Automate/Framework/MachineManager.cs
++++ b/Automate/Framework/MachineManager.cs
+@@ -274,7 +274,7 @@ internal class MachineManager
+                 junimoGroupChanged = true;
+                 anyChanged = true;
+             }
+-            else if (active.Any())
++            else if (active.Any() || disabled.Any())
+                 anyChanged = true;
+         }
+ 
+diff --git a/Automate/Framework/Machines/TerrainFeatures/BushMachine.cs b/Automate/Framework/Machines/TerrainFeatures/BushMachine.cs
+index c98a67d..7233dd5 100644
+--- a/Automate/Framework/Machines/TerrainFeatures/BushMachine.cs
++++ b/Automate/Framework/Machines/TerrainFeatures/BushMachine.cs
+@@ -68,7 +68,7 @@ internal class BushMachine : BaseMachine<Bush>
+     /// <inheritdoc />
+     public override MachineState GetState()
+     {
+-        if (!this.IsInSeason.Value)
++        if (this.Machine.Location is null || !this.IsInSeason.Value)
+             return MachineState.Disabled;
+ 
+         return this.Machine.tileSheetOffset.Value == 1

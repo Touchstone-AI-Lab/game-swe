@@ -1,0 +1,57 @@
+schema_version = "1.1"
+
+[task]
+name = "gamecodebench/stardew-automate-setup-extension"
+description = "One engineered defect in how Automate records a machine group's footprint: container tiles reach the flood fill but not the group's tile set, so world-change tracking cannot see a chest that belongs to a running group. Additions that touch a setup only through its chest are ignored until the save is reloaded."
+authors = ["Jiaxuan Luo"]
+keywords = ["stardew-valley", "smapi", "csharp", "game-modding", "symptom-only", "stale-cache"]
+
+[metadata]
+category = "programming"
+difficulty = "medium"
+tags = ["game-modding", "smapi", "stardew-valley", "csharp", "bug-fix"]
+source_repo = "https://github.com/Pathoschild/StardewMods"
+source_license = "MIT"
+source_mod = "Automate"
+base_ref = "automate/2.6.1 with one engineered defect in Framework/MachineGroupBuilder.cs"
+fix_commit = "none: engineered defect; the reference repair restores upstream automate/2.6.1"
+task_kind = "symptom-only"
+game_version = "1.6.15"
+smapi_version = "4.1.10"
+
+# note (luojiaxuan): the symptom surfaces in ModEntry's world-change handling, while
+# the cause sits three calls away: ReloadIfNeeded -> MachineDataForLocation
+# (ActiveTiles, IsConnectedToChest, ContainsOrAdjacent) -> MachineGroup.GetTiles ->
+# MachineGroupBuilder.Add(IContainer). The initial scan still works because the flood
+# fill follows NewTileAreas, and HasTiles counts containers so a chest-only group is
+# still emitted rather than leaking into the next group.
+#
+# Sentinels pass on the base tree because they connect through a machine tile, or
+# through a chest placed before its machine (the outdated-tile path). The two
+# discriminators connect only through a chest that already belongs to a running group.
+# A broad fix (reloading on every automatable change) is correct behaviour and passes.
+
+[verifier]
+network_mode = "no-network"
+timeout_sec = 2400.0
+
+[agent]
+# note (luojiaxuan): mini-swe-agent runs inside the container and calls the model API
+# from there, so a blanket no-network kills it. github.com and nuget.org stay off the
+# list: the reference repair is the upstream automate/2.6.1 file itself.
+network_mode = "allowlist"
+allowed_hosts = ["api.anthropic.com"]
+timeout_sec = 7200.0
+
+[environment]
+network_mode = "no-network"
+build_timeout_sec = 3600.0
+cpus = 6
+memory_mb = 16384
+storage_mb = 30720
+gpus = 0
+mcp_servers = []
+
+# note (luojiaxuan): same isolation and responsible-release posture as the rest of the Stardew suite:
+# game files staged locally from the operator's own copy, never committed; images
+# stay private; pretraining contamination is not addressed by isolation.

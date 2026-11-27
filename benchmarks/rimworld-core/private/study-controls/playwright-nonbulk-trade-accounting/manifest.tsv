@@ -1,0 +1,4 @@
+control	kind	base	overlay	root	note
+target-negative-no-thing-guard	target-negative	reference	patch:target-negative-no-thing-guard.patch	.	reference whose prefix captures sales with neither a colony nor a trader thing
+compat-negative-factionless-trader-notified	compat-negative	reference	patch:compat-negative-factionless-trader-notified.patch	.	reference that notifies faction parts when the trader has no faction
+alternative-a	alternative	starter	tree:alternative-a	.	own prefix and a single type-switch loop over AllParts in the postfix

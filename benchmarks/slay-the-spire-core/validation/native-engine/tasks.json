@@ -1,0 +1,87 @@
+[
+  {
+    "id": "basemod-dynamic-descriptions-r2",
+    "upstream": "BaseMod",
+    "title": "Card descriptions disagree across updates",
+    "zh": "卡牌描述在更新后显示不一致",
+    "source_commit": "26de1afc1a8ea7595b61f940de0ac29650f2c025",
+    "cases": 46,
+    "nop_passed": 15
+  },
+  {
+    "id": "stslib-block-ledger-r1",
+    "upstream": "StSLib",
+    "title": "Custom block gets counted incorrectly",
+    "zh": "自定义格挡结算出错",
+    "source_commit": "3be4b65948d2d9810f4bff7053e34d4ae511adff",
+    "cases": 27,
+    "nop_passed": 7
+  },
+  {
+    "id": "stslib-icon-layout-r1",
+    "upstream": "StSLib",
+    "title": "Custom icon measurements disagree with drawing",
+    "zh": "自定义图标的测量与绘制不一致",
+    "source_commit": "3be4b65948d2d9810f4bff7053e34d4ae511adff",
+    "cases": 43,
+    "nop_passed": 19
+  },
+  {
+    "id": "downfall-stasis-lifecycle-r1",
+    "upstream": "Downfall",
+    "title": "Queued stored-card transfers lose ownership",
+    "zh": "排队中的封存卡牌转移破坏归属关系",
+    "source_commit": "030ff7d4a7419a3e21c3075661550b1b479f3502",
+    "cases": 38,
+    "nop_passed": 19
+  },
+  {
+    "id": "basemod-phase-transitions-r1",
+    "upstream": "BaseMod",
+    "title": "Event redirects leave stale phases and choices",
+    "zh": "事件跳转残留过期阶段和选项",
+    "source_commit": "26de1afc1a8ea7595b61f940de0ac29650f2c025",
+    "cases": 32,
+    "nop_passed": 13
+  },
+  {
+    "id": "downfall-socket-flow-r3",
+    "upstream": "Downfall",
+    "title": "Campfire selections leak across cancellation",
+    "zh": "营火选择流程在取消后互相干扰",
+    "source_commit": "030ff7d4a7419a3e21c3075661550b1b479f3502",
+    "cases": 13,
+    "nop_passed": 6,
+    "supersedes": "downfall-socket-flow-r2"
+  },
+  {
+    "id": "mts-enum-identity-r3",
+    "upstream": "ModTheSpire",
+    "title": "Extended values disagree across mods",
+    "zh": "模组扩展值在不同用法中不一致",
+    "source_commit": "c6201995b8f5d97620cdb00f28a724a95b7742a6",
+    "cases": 15,
+    "nop_passed": 5,
+    "supersedes": "mts-enum-identity-r2"
+  },
+  {
+    "id": "mts-load-order-regressions-r2",
+    "upstream": "ModTheSpire",
+    "title": "Mods loading in the wrong order",
+    "zh": "mod 加载顺序出错",
+    "source_commit": "master",
+    "cases": 9,
+    "nop_passed": 5,
+    "supersedes": "mts-load-order-regressions"
+  },
+  {
+    "id": "mts-mod-identity-regressions-r2",
+    "upstream": "ModTheSpire",
+    "title": "The launcher losing track of which mod is which",
+    "zh": "启动器分不清哪个 mod 是哪个",
+    "source_commit": "master",
+    "cases": 7,
+    "nop_passed": 3,
+    "supersedes": "mts-mod-identity-regressions"
+  }
+]

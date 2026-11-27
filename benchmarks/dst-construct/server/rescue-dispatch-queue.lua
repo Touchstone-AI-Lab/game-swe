@@ -1,0 +1,40 @@
+local function test_player(id, health)
+    local entity = CreateEntity()
+    entity.entity:AddTransform()
+    entity:AddTag("player")
+    entity.userid = id
+    entity:AddComponent("health")
+    entity.components.health:SetMaxHealth(100)
+    entity.components.health:SetCurrentHealth(health)
+    return entity
+end
+
+return function(ctx)
+    ctx:case("server dispatch component is attached", function()
+        assert(TheWorld.ismastersim)
+        assert(TheWorld.components.rescuedispatch ~= nil, "world is missing rescuedispatch")
+    end)
+
+    ctx:case("health-backed entities receive a deterministic lease", function()
+        local service = assert(TheWorld.components.rescuedispatch)
+        assert(type(service.UpdatePlayer) == "function")
+        assert(type(service.Request) == "function" and type(service.Volunteer) == "function")
+        local target = test_player("server-target", 20)
+        local helper = test_player("server-helper", 100)
+        assert(service:UpdatePlayer(target) ~= false)
+        assert(service:UpdatePlayer(helper) ~= false)
+        assert(service:Request("server-incident", target) ~= false)
+        local result = service:Volunteer("server-volunteer", helper)
+        assert(type(result) == "table" and result.ok == true)
+        assert(result.target_id == "server-target")
+        target:Remove(); helper:Remove()
+    end)
+
+    ctx:case("dispatch state persists", function()
+        local service = assert(TheWorld.components.rescuedispatch)
+        assert(type(service.OnSave) == "function" and type(service.OnLoad) == "function")
+        local data = service:OnSave(); assert(type(data) == "table")
+        service:OnLoad(data)
+        assert(type(service:OnSave()) == "table")
+    end)
+end

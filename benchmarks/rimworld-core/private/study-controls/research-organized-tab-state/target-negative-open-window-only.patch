@@ -1,0 +1,12 @@
+--- a/ResearchOrganized/Source/ResearchOrganizedMain.cs
++++ b/ResearchOrganized/Source/ResearchOrganizedMain.cs
+@@ -240,8 +240,7 @@
+                 // fix it up even while closed: its remembered tab may now be hidden, and a hidden
+                 // tab's stale index would be read past the end of the tab-info flags on reopen.
+                 if (Current.Game == null) return;
+-                var window = MainButtonDefOf.Research?.TabWindow as MainTabWindow_Research
+-                             ?? Find.WindowStack?.WindowOfType<MainTabWindow_Research>();
++                var window = Find.WindowStack?.WindowOfType<MainTabWindow_Research>();
+                 if (window == null || researchWindowTabsField == null || researchTabRecordCtor == null || researchWindowCurTabField == null) return;
+                 if (!(researchWindowTabsField.GetValue(window) is System.Collections.IList tabs)) return;
+ 

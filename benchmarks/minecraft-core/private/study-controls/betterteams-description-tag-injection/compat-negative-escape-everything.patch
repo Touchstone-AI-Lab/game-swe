@@ -1,0 +1,20 @@
+--- a/BetterTeams/src/main/java/com/booksaw/betterTeams/commands/team/InfoCommand.java
++++ b/BetterTeams/src/main/java/com/booksaw/betterTeams/commands/team/InfoCommand.java
+@@ -6,6 +6,7 @@
+ import com.booksaw.betterTeams.message.HelpMessage;
+ import com.booksaw.betterTeams.message.MessageManager;
+ import com.booksaw.betterTeams.team.SetTeamComponent;
++import net.kyori.adventure.text.minimessage.MiniMessage;
+ import org.bukkit.ChatColor;
+ import org.bukkit.OfflinePlayer;
+ import org.bukkit.command.CommandSender;
+@@ -34,7 +35,8 @@
+ 
+ 		infoMessages.add(MessageManager.getMessage("info.name", team.getDisplayName()));
+ 		if (team.getDescription() != null && !team.getDescription().isEmpty()) {
+-			infoMessages.add(MessageManager.getMessage("info.description", team.getDescription()));
++			String description = MiniMessage.miniMessage().escapeTags(team.getDescription());
++			infoMessages.add(MessageManager.getMessage("info.description", description));
+ 		}
+ 
+ 		infoMessages.add(MessageManager.getMessage("info.open", team.isOpen()));

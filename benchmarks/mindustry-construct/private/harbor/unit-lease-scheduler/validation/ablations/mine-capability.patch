@@ -1,0 +1,10 @@
+--- a/solution/LeaseScheduler.java
++++ b/solution/LeaseScheduler.java
+@@ -254,6 +254,6 @@
+     private static boolean validLease(Lease l){return l!=null&&validId(l.leaseId())&&validId(l.taskId())&&l.unitId()>=0&&l.grantedTick()>=0&&l.heartbeatTick()>=l.grantedTick()&&l.expiresTick()>l.heartbeatTick();}
+     public static boolean compatible(UnitKind unit,TaskKind task){
+         if(unit==null||task==null)return false;
+-        return switch(task){case MINE -> unit==UnitKind.MONO; case REPAIR -> unit==UnitKind.POLY||unit==UnitKind.MEGA; case TRANSPORT -> unit==UnitKind.MEGA;};
++        return switch(task){case MINE -> false; case REPAIR -> unit==UnitKind.POLY||unit==UnitKind.MEGA; case TRANSPORT -> unit==UnitKind.MEGA;};
+     }
+     private static Result fail(String s){return new Result(false,false,s,null);}

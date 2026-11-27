@@ -1,0 +1,3478 @@
+[
+  {
+    "task": "l4d2-competitive-score-lifecycle-hard",
+    "candidate": "alternative",
+    "exit_code": 0,
+    "hash_algorithm": "sha256-relpath-nul-content-nul-posix-lexical-v1",
+    "contract": "777cec4df8806854c5071ffb0f346e816de9dfa2bb4985da2e45d1455d55c55c",
+    "component_hashes": {
+      "instruction.md": "da244e5495f8dfecb02c96a135a545c57f5df4ae88307e8b6e665c41e5d58341",
+      "task.toml": "d87f1391884e3b85ab42e638169ad2f49a03f7d73ded6962972e3a67290b7e7d",
+      "environment": "414d069b86ae1a9a4f09d86be6a268f20f55a4afff5b2172e29243a8b26b6ba0",
+      "tests": "aee18b17a80de9314a2207fe78f1baf1efaede8b91f27e096cc099c03b2156ac",
+      "solution": "743fc017f2cd201c5b6ed07e83a58f5ca2515584bca6297f0fd05c7a61870b67",
+      "validation/case-contracts.tsv": "9bd18eba08e5f8ca266dba1c17d9b3cea5d541f6f514f5c2dd98f3b54e613a50"
+    },
+    "runtime_image_id": "sha256:3604481021c1b605741e994fb623834fb0725b2309e53b7ed9a4c86fe3fb65cd",
+    "source_hash": "a05df3ac60cf104f6726422b41c129c984fe981d2f66cba178112a2ebe17a906",
+    "tests_hash": "aee18b17a80de9314a2207fe78f1baf1efaede8b91f27e096cc099c03b2156ac",
+    "cases": [
+      {
+        "case": "score_normal_budget",
+        "status": "PASS",
+        "detail": "full upright roster earns ordinary health and damage budgets"
+      },
+      {
+        "case": "score_dead_excluded",
+        "status": "PASS",
+        "detail": "dead survivor does not count as upright"
+      },
+      {
+        "case": "score_incap_excluded",
+        "status": "PASS",
+        "detail": "incap survivor excluded from damage multiplier"
+      },
+      {
+        "case": "score_falling_excluded",
+        "status": "PASS",
+        "detail": "falling survivor contributes neither health nor multiplier"
+      },
+      {
+        "case": "score_revived_health_policy",
+        "status": "PASS",
+        "detail": "existing zero permanent-health contribution after incap preserved"
+      },
+      {
+        "case": "score_upright_pills",
+        "status": "PASS",
+        "detail": "actual carried pills earn normal per-player bonus"
+      },
+      {
+        "case": "score_ledge_pills_excluded",
+        "status": "PASS",
+        "detail": "ledge hanging player cannot contribute pills"
+      },
+      {
+        "case": "score_falling_pills_excluded",
+        "status": "PASS",
+        "detail": "falling player cannot contribute pills"
+      },
+      {
+        "case": "live_multiplier_preserves_loss",
+        "status": "PASS",
+        "detail": "multiplier update reprices existing loss without clearing ledger"
+      },
+      {
+        "case": "live_proportion_reprices",
+        "status": "PASS",
+        "detail": "p=.5 uses 400 temporary-health units and retains 20 lost units"
+      },
+      {
+        "case": "live_pill_factor",
+        "status": "PASS",
+        "detail": "live factor update recalculates nearest-five minimum"
+      },
+      {
+        "case": "live_pill_cap",
+        "status": "PASS",
+        "detail": "live cap below five is itself the cap"
+      },
+      {
+        "case": "live_team_size",
+        "status": "PASS",
+        "detail": "live team-size update recalculates all coefficients"
+      },
+      {
+        "case": "score_roster_limit",
+        "status": "PASS",
+        "detail": "dead player still occupies first-two roster slot; extra survivors do not replace it"
+      },
+      {
+        "case": "bounds_zero_proportion",
+        "status": "PASS",
+        "detail": "all-damage endpoint has 100 temporary-health units per player"
+      },
+      {
+        "case": "bounds_one_proportion",
+        "status": "PASS",
+        "detail": "all-health endpoint has finite zero damage budget"
+      },
+      {
+        "case": "bounds_endpoint_events",
+        "status": "PASS",
+        "detail": "incap and death callbacks do not divide by zero at all-health endpoint"
+      },
+      {
+        "case": "bounds_high_proportion",
+        "status": "PASS",
+        "detail": "proportions above one clamp to one"
+      },
+      {
+        "case": "bounds_negative_proportion",
+        "status": "PASS",
+        "detail": "negative proportions clamp to zero"
+      },
+      {
+        "case": "bounds_zero_factor",
+        "status": "PASS",
+        "detail": "zero pills factor disables pills"
+      },
+      {
+        "case": "bounds_negative_factor",
+        "status": "PASS",
+        "detail": "negative pills factor disables pills"
+      },
+      {
+        "case": "bounds_zero_cap",
+        "status": "PASS",
+        "detail": "zero cap disables pills"
+      },
+      {
+        "case": "bounds_negative_cap",
+        "status": "PASS",
+        "detail": "negative cap disables pills"
+      },
+      {
+        "case": "bounds_zero_budget",
+        "status": "PASS",
+        "detail": "zero map bonus cannot manufacture a pills minimum"
+      },
+      {
+        "case": "bounds_negative_multiplier",
+        "status": "PASS",
+        "detail": "negative multiplier normalizes to zero"
+      },
+      {
+        "case": "bounds_zero_team",
+        "status": "PASS",
+        "detail": "nonpositive team size uses one-player effective roster"
+      },
+      {
+        "case": "adm_positive_loss",
+        "status": "PASS",
+        "detail": "valid forward debits the positive difference"
+      },
+      {
+        "case": "adm_healing_ignored",
+        "status": "PASS",
+        "detail": "healing/equal values cannot credit damage ledger"
+      },
+      {
+        "case": "adm_negative_after_clamped",
+        "status": "PASS",
+        "detail": "negative new health clamps to zero before subtracting"
+      },
+      {
+        "case": "adm_negative_both_ignored",
+        "status": "PASS",
+        "detail": "two negative inputs do not create loss"
+      },
+      {
+        "case": "adm_invalid_client",
+        "status": "PASS",
+        "detail": "invalid client indices are rejected safely"
+      },
+      {
+        "case": "adm_ineligible_client",
+        "status": "PASS",
+        "detail": "dead/incap/ledge/falling/non-survivor forwards do not enter ledger"
+      },
+      {
+        "case": "round_restart_clears_current",
+        "status": "PASS",
+        "detail": "same-half round_start resets current-half accumulated loss"
+      },
+      {
+        "case": "round_preserves_other_half",
+        "status": "PASS",
+        "detail": "starting second half retains first-half ledger"
+      },
+      {
+        "case": "round_independent_half",
+        "status": "PASS",
+        "detail": "second-half losses remain independent"
+      },
+      {
+        "case": "round_finalized_ledger_frozen",
+        "status": "PASS",
+        "detail": "late damage and incap/death events cannot mutate finalized loss"
+      },
+      {
+        "case": "round_end_idempotent",
+        "status": "PASS",
+        "detail": "duplicate end-round forward preserves published result"
+      },
+      {
+        "case": "round_tiebreak_ledgers",
+        "status": "PASS",
+        "detail": "round reset clears current tiebreak ledger while completed first half survives second-half start"
+      },
+      {
+        "case": "adm_tiebreak_compatibility",
+        "status": "PASS",
+        "detail": "valid alternate-damage losses still drive established depleted-bonus tiebreak"
+      },
+      {
+        "case": "round_finalized_sdk_damage",
+        "status": "PASS",
+        "detail": "real damage removes temporary health through SDKHooks while finalized score ledger remains frozen"
+      },
+      {
+        "case": "round_finalized_plasma_event",
+        "status": "PASS",
+        "detail": "late manipulated-shotgun hurt event cannot debit finalized ledger"
+      },
+      {
+        "case": "ledge_zero_debit_episode",
+        "status": "PASS",
+        "detail": "zero debit still establishes an outstanding episode and duplicate grab cannot charge it"
+      },
+      {
+        "case": "ledge_negative_debit_episode",
+        "status": "PASS",
+        "detail": "negative pre-incap value normalizes to zero without losing episode identity"
+      },
+      {
+        "case": "ledge_duplicate_grab",
+        "status": "PASS",
+        "detail": "one outstanding episode debits pre-incap buffer exactly once"
+      },
+      {
+        "case": "ledge_duplicate_revive",
+        "status": "PASS",
+        "detail": "duplicate revive has one quantized 20-unit refund"
+      },
+      {
+        "case": "ledge_refund_capped",
+        "status": "PASS",
+        "detail": "large restored buffer cannot refund unrelated losses"
+      },
+      {
+        "case": "ledge_ground_revive",
+        "status": "PASS",
+        "detail": "ground revive does not settle a ledge refund"
+      },
+      {
+        "case": "ledge_round_epoch",
+        "status": "PASS",
+        "detail": "queued refund cannot credit a restarted round"
+      },
+      {
+        "case": "ledge_half_binding",
+        "status": "PASS",
+        "detail": "queued first-half refund cannot modify second-half losses"
+      },
+      {
+        "case": "ledge_new_episode",
+        "status": "PASS",
+        "detail": "later ledge episode invalidates old pending work even if currently upright"
+      },
+      {
+        "case": "ledge_team_transition",
+        "status": "PASS",
+        "detail": "leaving survivor team invalidates refund even after return"
+      },
+      {
+        "case": "ledge_death_transition",
+        "status": "PASS",
+        "detail": "death invalidates pending refund even after restoration to an alive fixture"
+      },
+      {
+        "case": "ledge_finalization",
+        "status": "PASS",
+        "detail": "end-round invalidates queued refund"
+      },
+      {
+        "case": "ledge_client_disconnect",
+        "status": "PASS",
+        "detail": "initiated client disconnect cancels pending refund while replacement connects"
+      },
+      {
+        "case": "ledge_zero_buffer",
+        "status": "PASS",
+        "detail": "zero restored buffer does not create negative refund"
+      },
+      {
+        "case": "unload_restores_startup_values",
+        "status": "PASS",
+        "detail": "unload restores values captured by this instance, including non-default startup values"
+      },
+      {
+        "case": "unload_new_instance_snapshot",
+        "status": "PASS",
+        "detail": "next plugin instance captures its own baseline"
+      }
+    ],
+    "passed": 57,
+    "total": 57,
+    "verifier_log_sha256": "56febf9f5a79a85ff6d9ef687487f07de6bd26a01db8c190b8902f14822fdfcd",
+    "server_log_hashes": {
+      "server-ledge.log": "67578930b3376e8687c29512ea3f4d6e1aca37c169c7deb791b7ef1970eaae18",
+      "server-ledger.log": "21c9504f3555efdbf296d4570e7341c54ed52f1d206dd782f14ba863eff03e17",
+      "server-limits.log": "65951fb6689caa2c63f77a6d85b2efc492dc5c56f1c9a0d7d202f11b8da4a6fb",
+      "server-scoring.log": "e1279005ab4950952848ba1c0286848ea69f70ce75b28bdff50e1ad02628889d",
+      "server-unload.log": "8355902c7b49277009434ee831d17e6fa24b8620ffc06444b8a305b9ea305d70"
+    },
+    "local_run": "l4d2-competitive-score-lifecycle-hard-alternative-1789762495541384400"
+  },
+  {
+    "task": "l4d2-competitive-score-lifecycle-hard",
+    "candidate": "gold",
+    "exit_code": 0,
+    "hash_algorithm": "sha256-relpath-nul-content-nul-posix-lexical-v1",
+    "contract": "777cec4df8806854c5071ffb0f346e816de9dfa2bb4985da2e45d1455d55c55c",
+    "component_hashes": {
+      "instruction.md": "da244e5495f8dfecb02c96a135a545c57f5df4ae88307e8b6e665c41e5d58341",
+      "task.toml": "d87f1391884e3b85ab42e638169ad2f49a03f7d73ded6962972e3a67290b7e7d",
+      "environment": "414d069b86ae1a9a4f09d86be6a268f20f55a4afff5b2172e29243a8b26b6ba0",
+      "tests": "aee18b17a80de9314a2207fe78f1baf1efaede8b91f27e096cc099c03b2156ac",
+      "solution": "743fc017f2cd201c5b6ed07e83a58f5ca2515584bca6297f0fd05c7a61870b67",
+      "validation/case-contracts.tsv": "9bd18eba08e5f8ca266dba1c17d9b3cea5d541f6f514f5c2dd98f3b54e613a50"
+    },
+    "runtime_image_id": "sha256:3604481021c1b605741e994fb623834fb0725b2309e53b7ed9a4c86fe3fb65cd",
+    "source_hash": "4e764a8a7c2b2bf5f36042f54fd672a4e1477959cf1eb5158f94a9285a6d1f77",
+    "tests_hash": "aee18b17a80de9314a2207fe78f1baf1efaede8b91f27e096cc099c03b2156ac",
+    "cases": [
+      {
+        "case": "score_normal_budget",
+        "status": "PASS",
+        "detail": "full upright roster earns ordinary health and damage budgets"
+      },
+      {
+        "case": "score_dead_excluded",
+        "status": "PASS",
+        "detail": "dead survivor does not count as upright"
+      },
+      {
+        "case": "score_incap_excluded",
+        "status": "PASS",
+        "detail": "incap survivor excluded from damage multiplier"
+      },
+      {
+        "case": "score_falling_excluded",
+        "status": "PASS",
+        "detail": "falling survivor contributes neither health nor multiplier"
+      },
+      {
+        "case": "score_revived_health_policy",
+        "status": "PASS",
+        "detail": "existing zero permanent-health contribution after incap preserved"
+      },
+      {
+        "case": "score_upright_pills",
+        "status": "PASS",
+        "detail": "actual carried pills earn normal per-player bonus"
+      },
+      {
+        "case": "score_ledge_pills_excluded",
+        "status": "PASS",
+        "detail": "ledge hanging player cannot contribute pills"
+      },
+      {
+        "case": "score_falling_pills_excluded",
+        "status": "PASS",
+        "detail": "falling player cannot contribute pills"
+      },
+      {
+        "case": "live_multiplier_preserves_loss",
+        "status": "PASS",
+        "detail": "multiplier update reprices existing loss without clearing ledger"
+      },
+      {
+        "case": "live_proportion_reprices",
+        "status": "PASS",
+        "detail": "p=.5 uses 400 temporary-health units and retains 20 lost units"
+      },
+      {
+        "case": "live_pill_factor",
+        "status": "PASS",
+        "detail": "live factor update recalculates nearest-five minimum"
+      },
+      {
+        "case": "live_pill_cap",
+        "status": "PASS",
+        "detail": "live cap below five is itself the cap"
+      },
+      {
+        "case": "live_team_size",
+        "status": "PASS",
+        "detail": "live team-size update recalculates all coefficients"
+      },
+      {
+        "case": "score_roster_limit",
+        "status": "PASS",
+        "detail": "dead player still occupies first-two roster slot; extra survivors do not replace it"
+      },
+      {
+        "case": "bounds_zero_proportion",
+        "status": "PASS",
+        "detail": "all-damage endpoint has 100 temporary-health units per player"
+      },
+      {
+        "case": "bounds_one_proportion",
+        "status": "PASS",
+        "detail": "all-health endpoint has finite zero damage budget"
+      },
+      {
+        "case": "bounds_endpoint_events",
+        "status": "PASS",
+        "detail": "incap and death callbacks do not divide by zero at all-health endpoint"
+      },
+      {
+        "case": "bounds_high_proportion",
+        "status": "PASS",
+        "detail": "proportions above one clamp to one"
+      },
+      {
+        "case": "bounds_negative_proportion",
+        "status": "PASS",
+        "detail": "negative proportions clamp to zero"
+      },
+      {
+        "case": "bounds_zero_factor",
+        "status": "PASS",
+        "detail": "zero pills factor disables pills"
+      },
+      {
+        "case": "bounds_negative_factor",
+        "status": "PASS",
+        "detail": "negative pills factor disables pills"
+      },
+      {
+        "case": "bounds_zero_cap",
+        "status": "PASS",
+        "detail": "zero cap disables pills"
+      },
+      {
+        "case": "bounds_negative_cap",
+        "status": "PASS",
+        "detail": "negative cap disables pills"
+      },
+      {
+        "case": "bounds_zero_budget",
+        "status": "PASS",
+        "detail": "zero map bonus cannot manufacture a pills minimum"
+      },
+      {
+        "case": "bounds_negative_multiplier",
+        "status": "PASS",
+        "detail": "negative multiplier normalizes to zero"
+      },
+      {
+        "case": "bounds_zero_team",
+        "status": "PASS",
+        "detail": "nonpositive team size uses one-player effective roster"
+      },
+      {
+        "case": "adm_positive_loss",
+        "status": "PASS",
+        "detail": "valid forward debits the positive difference"
+      },
+      {
+        "case": "adm_healing_ignored",
+        "status": "PASS",
+        "detail": "healing/equal values cannot credit damage ledger"
+      },
+      {
+        "case": "adm_negative_after_clamped",
+        "status": "PASS",
+        "detail": "negative new health clamps to zero before subtracting"
+      },
+      {
+        "case": "adm_negative_both_ignored",
+        "status": "PASS",
+        "detail": "two negative inputs do not create loss"
+      },
+      {
+        "case": "adm_invalid_client",
+        "status": "PASS",
+        "detail": "invalid client indices are rejected safely"
+      },
+      {
+        "case": "adm_ineligible_client",
+        "status": "PASS",
+        "detail": "dead/incap/ledge/falling/non-survivor forwards do not enter ledger"
+      },
+      {
+        "case": "round_restart_clears_current",
+        "status": "PASS",
+        "detail": "same-half round_start resets current-half accumulated loss"
+      },
+      {
+        "case": "round_preserves_other_half",
+        "status": "PASS",
+        "detail": "starting second half retains first-half ledger"
+      },
+      {
+        "case": "round_independent_half",
+        "status": "PASS",
+        "detail": "second-half losses remain independent"
+      },
+      {
+        "case": "round_finalized_ledger_frozen",
+        "status": "PASS",
+        "detail": "late damage and incap/death events cannot mutate finalized loss"
+      },
+      {
+        "case": "round_end_idempotent",
+        "status": "PASS",
+        "detail": "duplicate end-round forward preserves published result"
+      },
+      {
+        "case": "round_tiebreak_ledgers",
+        "status": "PASS",
+        "detail": "round reset clears current tiebreak ledger while completed first half survives second-half start"
+      },
+      {
+        "case": "adm_tiebreak_compatibility",
+        "status": "PASS",
+        "detail": "valid alternate-damage losses still drive established depleted-bonus tiebreak"
+      },
+      {
+        "case": "round_finalized_sdk_damage",
+        "status": "PASS",
+        "detail": "real damage removes temporary health through SDKHooks while finalized score ledger remains frozen"
+      },
+      {
+        "case": "round_finalized_plasma_event",
+        "status": "PASS",
+        "detail": "late manipulated-shotgun hurt event cannot debit finalized ledger"
+      },
+      {
+        "case": "ledge_zero_debit_episode",
+        "status": "PASS",
+        "detail": "zero debit still establishes an outstanding episode and duplicate grab cannot charge it"
+      },
+      {
+        "case": "ledge_negative_debit_episode",
+        "status": "PASS",
+        "detail": "negative pre-incap value normalizes to zero without losing episode identity"
+      },
+      {
+        "case": "ledge_duplicate_grab",
+        "status": "PASS",
+        "detail": "one outstanding episode debits pre-incap buffer exactly once"
+      },
+      {
+        "case": "ledge_duplicate_revive",
+        "status": "PASS",
+        "detail": "duplicate revive has one quantized 20-unit refund"
+      },
+      {
+        "case": "ledge_refund_capped",
+        "status": "PASS",
+        "detail": "large restored buffer cannot refund unrelated losses"
+      },
+      {
+        "case": "ledge_ground_revive",
+        "status": "PASS",
+        "detail": "ground revive does not settle a ledge refund"
+      },
+      {
+        "case": "ledge_round_epoch",
+        "status": "PASS",
+        "detail": "queued refund cannot credit a restarted round"
+      },
+      {
+        "case": "ledge_half_binding",
+        "status": "PASS",
+        "detail": "queued first-half refund cannot modify second-half losses"
+      },
+      {
+        "case": "ledge_new_episode",
+        "status": "PASS",
+        "detail": "later ledge episode invalidates old pending work even if currently upright"
+      },
+      {
+        "case": "ledge_team_transition",
+        "status": "PASS",
+        "detail": "leaving survivor team invalidates refund even after return"
+      },
+      {
+        "case": "ledge_death_transition",
+        "status": "PASS",
+        "detail": "death invalidates pending refund even after restoration to an alive fixture"
+      },
+      {
+        "case": "ledge_finalization",
+        "status": "PASS",
+        "detail": "end-round invalidates queued refund"
+      },
+      {
+        "case": "ledge_client_disconnect",
+        "status": "PASS",
+        "detail": "initiated client disconnect cancels pending refund while replacement connects"
+      },
+      {
+        "case": "ledge_zero_buffer",
+        "status": "PASS",
+        "detail": "zero restored buffer does not create negative refund"
+      },
+      {
+        "case": "unload_restores_startup_values",
+        "status": "PASS",
+        "detail": "unload restores values captured by this instance, including non-default startup values"
+      },
+      {
+        "case": "unload_new_instance_snapshot",
+        "status": "PASS",
+        "detail": "next plugin instance captures its own baseline"
+      }
+    ],
+    "passed": 57,
+    "total": 57,
+    "verifier_log_sha256": "1ff70185852cefb3badee7212da53bb7ab5300df251eca8bacbfd212d0d5f07e",
+    "server_log_hashes": {
+      "server-ledge.log": "0ef156b96ba6da61d9d15ad86ce62071cf60adaf3840d247fc0bdb1fcbed4900",
+      "server-ledger.log": "b313e67b8040e01e0acd66865b02cb43a5dc7840e9bb6799cc4b5cfeafadd63a",
+      "server-limits.log": "6ac3b4128a1db49d6862a5a1a35e1b6bbf3cfe03a935c6f6125d0fc476dc296d",
+      "server-scoring.log": "47e461b1e7779c8874740a376bd5fc3a8af670a9a55513ce0c1b577eaae7b443",
+      "server-unload.log": "169cb8f9750dede94c072239c6cc36294beca5f154136212d327e15b3e17e746"
+    },
+    "local_run": "l4d2-competitive-score-lifecycle-hard-gold-1789762495540379000"
+  },
+  {
+    "task": "l4d2-competitive-score-lifecycle-hard",
+    "candidate": "minus-finalized-guards",
+    "exit_code": 1,
+    "hash_algorithm": "sha256-relpath-nul-content-nul-posix-lexical-v1",
+    "contract": "777cec4df8806854c5071ffb0f346e816de9dfa2bb4985da2e45d1455d55c55c",
+    "component_hashes": {
+      "instruction.md": "da244e5495f8dfecb02c96a135a545c57f5df4ae88307e8b6e665c41e5d58341",
+      "task.toml": "d87f1391884e3b85ab42e638169ad2f49a03f7d73ded6962972e3a67290b7e7d",
+      "environment": "414d069b86ae1a9a4f09d86be6a268f20f55a4afff5b2172e29243a8b26b6ba0",
+      "tests": "aee18b17a80de9314a2207fe78f1baf1efaede8b91f27e096cc099c03b2156ac",
+      "solution": "743fc017f2cd201c5b6ed07e83a58f5ca2515584bca6297f0fd05c7a61870b67",
+      "validation/case-contracts.tsv": "9bd18eba08e5f8ca266dba1c17d9b3cea5d541f6f514f5c2dd98f3b54e613a50"
+    },
+    "runtime_image_id": "sha256:3604481021c1b605741e994fb623834fb0725b2309e53b7ed9a4c86fe3fb65cd",
+    "source_hash": "d7af454724402043cb5d1fa09b8e5abae7c22cbb4107617775c53f4834bf760f",
+    "tests_hash": "aee18b17a80de9314a2207fe78f1baf1efaede8b91f27e096cc099c03b2156ac",
+    "cases": [
+      {
+        "case": "score_normal_budget",
+        "status": "PASS",
+        "detail": "full upright roster earns ordinary health and damage budgets"
+      },
+      {
+        "case": "score_dead_excluded",
+        "status": "PASS",
+        "detail": "dead survivor does not count as upright"
+      },
+      {
+        "case": "score_incap_excluded",
+        "status": "PASS",
+        "detail": "incap survivor excluded from damage multiplier"
+      },
+      {
+        "case": "score_falling_excluded",
+        "status": "PASS",
+        "detail": "falling survivor contributes neither health nor multiplier"
+      },
+      {
+        "case": "score_revived_health_policy",
+        "status": "PASS",
+        "detail": "existing zero permanent-health contribution after incap preserved"
+      },
+      {
+        "case": "score_upright_pills",
+        "status": "PASS",
+        "detail": "actual carried pills earn normal per-player bonus"
+      },
+      {
+        "case": "score_ledge_pills_excluded",
+        "status": "PASS",
+        "detail": "ledge hanging player cannot contribute pills"
+      },
+      {
+        "case": "score_falling_pills_excluded",
+        "status": "PASS",
+        "detail": "falling player cannot contribute pills"
+      },
+      {
+        "case": "live_multiplier_preserves_loss",
+        "status": "PASS",
+        "detail": "multiplier update reprices existing loss without clearing ledger"
+      },
+      {
+        "case": "live_proportion_reprices",
+        "status": "PASS",
+        "detail": "p=.5 uses 400 temporary-health units and retains 20 lost units"
+      },
+      {
+        "case": "live_pill_factor",
+        "status": "PASS",
+        "detail": "live factor update recalculates nearest-five minimum"
+      },
+      {
+        "case": "live_pill_cap",
+        "status": "PASS",
+        "detail": "live cap below five is itself the cap"
+      },
+      {
+        "case": "live_team_size",
+        "status": "PASS",
+        "detail": "live team-size update recalculates all coefficients"
+      },
+      {
+        "case": "score_roster_limit",
+        "status": "PASS",
+        "detail": "dead player still occupies first-two roster slot; extra survivors do not replace it"
+      },
+      {
+        "case": "bounds_zero_proportion",
+        "status": "PASS",
+        "detail": "all-damage endpoint has 100 temporary-health units per player"
+      },
+      {
+        "case": "bounds_one_proportion",
+        "status": "PASS",
+        "detail": "all-health endpoint has finite zero damage budget"
+      },
+      {
+        "case": "bounds_endpoint_events",
+        "status": "PASS",
+        "detail": "incap and death callbacks do not divide by zero at all-health endpoint"
+      },
+      {
+        "case": "bounds_high_proportion",
+        "status": "PASS",
+        "detail": "proportions above one clamp to one"
+      },
+      {
+        "case": "bounds_negative_proportion",
+        "status": "PASS",
+        "detail": "negative proportions clamp to zero"
+      },
+      {
+        "case": "bounds_zero_factor",
+        "status": "PASS",
+        "detail": "zero pills factor disables pills"
+      },
+      {
+        "case": "bounds_negative_factor",
+        "status": "PASS",
+        "detail": "negative pills factor disables pills"
+      },
+      {
+        "case": "bounds_zero_cap",
+        "status": "PASS",
+        "detail": "zero cap disables pills"
+      },
+      {
+        "case": "bounds_negative_cap",
+        "status": "PASS",
+        "detail": "negative cap disables pills"
+      },
+      {
+        "case": "bounds_zero_budget",
+        "status": "PASS",
+        "detail": "zero map bonus cannot manufacture a pills minimum"
+      },
+      {
+        "case": "bounds_negative_multiplier",
+        "status": "PASS",
+        "detail": "negative multiplier normalizes to zero"
+      },
+      {
+        "case": "bounds_zero_team",
+        "status": "PASS",
+        "detail": "nonpositive team size uses one-player effective roster"
+      },
+      {
+        "case": "adm_positive_loss",
+        "status": "PASS",
+        "detail": "valid forward debits the positive difference"
+      },
+      {
+        "case": "adm_healing_ignored",
+        "status": "PASS",
+        "detail": "healing/equal values cannot credit damage ledger"
+      },
+      {
+        "case": "adm_negative_after_clamped",
+        "status": "PASS",
+        "detail": "negative new health clamps to zero before subtracting"
+      },
+      {
+        "case": "adm_negative_both_ignored",
+        "status": "PASS",
+        "detail": "two negative inputs do not create loss"
+      },
+      {
+        "case": "adm_invalid_client",
+        "status": "PASS",
+        "detail": "invalid client indices are rejected safely"
+      },
+      {
+        "case": "adm_ineligible_client",
+        "status": "PASS",
+        "detail": "dead/incap/ledge/falling/non-survivor forwards do not enter ledger"
+      },
+      {
+        "case": "round_restart_clears_current",
+        "status": "PASS",
+        "detail": "same-half round_start resets current-half accumulated loss"
+      },
+      {
+        "case": "round_preserves_other_half",
+        "status": "PASS",
+        "detail": "starting second half retains first-half ledger"
+      },
+      {
+        "case": "round_independent_half",
+        "status": "PASS",
+        "detail": "second-half losses remain independent"
+      },
+      {
+        "case": "round_finalized_ledger_frozen",
+        "status": "PASS",
+        "detail": "late damage and incap/death events cannot mutate finalized loss"
+      },
+      {
+        "case": "round_end_idempotent",
+        "status": "PASS",
+        "detail": "duplicate end-round forward preserves published result"
+      },
+      {
+        "case": "round_tiebreak_ledgers",
+        "status": "PASS",
+        "detail": "round reset clears current tiebreak ledger while completed first half survives second-half start"
+      },
+      {
+        "case": "adm_tiebreak_compatibility",
+        "status": "PASS",
+        "detail": "valid alternate-damage losses still drive established depleted-bonus tiebreak"
+      },
+      {
+        "case": "round_finalized_sdk_damage",
+        "status": "FAIL",
+        "detail": "real damage removes temporary health through SDKHooks while finalized score ledger remains frozen"
+      },
+      {
+        "case": "round_finalized_plasma_event",
+        "status": "FAIL",
+        "detail": "late manipulated-shotgun hurt event cannot debit finalized ledger"
+      },
+      {
+        "case": "ledge_zero_debit_episode",
+        "status": "PASS",
+        "detail": "zero debit still establishes an outstanding episode and duplicate grab cannot charge it"
+      },
+      {
+        "case": "ledge_negative_debit_episode",
+        "status": "PASS",
+        "detail": "negative pre-incap value normalizes to zero without losing episode identity"
+      },
+      {
+        "case": "ledge_duplicate_grab",
+        "status": "PASS",
+        "detail": "one outstanding episode debits pre-incap buffer exactly once"
+      },
+      {
+        "case": "ledge_duplicate_revive",
+        "status": "PASS",
+        "detail": "duplicate revive has one quantized 20-unit refund"
+      },
+      {
+        "case": "ledge_refund_capped",
+        "status": "PASS",
+        "detail": "large restored buffer cannot refund unrelated losses"
+      },
+      {
+        "case": "ledge_ground_revive",
+        "status": "PASS",
+        "detail": "ground revive does not settle a ledge refund"
+      },
+      {
+        "case": "ledge_round_epoch",
+        "status": "PASS",
+        "detail": "queued refund cannot credit a restarted round"
+      },
+      {
+        "case": "ledge_half_binding",
+        "status": "PASS",
+        "detail": "queued first-half refund cannot modify second-half losses"
+      },
+      {
+        "case": "ledge_new_episode",
+        "status": "PASS",
+        "detail": "later ledge episode invalidates old pending work even if currently upright"
+      },
+      {
+        "case": "ledge_team_transition",
+        "status": "PASS",
+        "detail": "leaving survivor team invalidates refund even after return"
+      },
+      {
+        "case": "ledge_death_transition",
+        "status": "PASS",
+        "detail": "death invalidates pending refund even after restoration to an alive fixture"
+      },
+      {
+        "case": "ledge_finalization",
+        "status": "PASS",
+        "detail": "end-round invalidates queued refund"
+      },
+      {
+        "case": "ledge_client_disconnect",
+        "status": "PASS",
+        "detail": "initiated client disconnect cancels pending refund while replacement connects"
+      },
+      {
+        "case": "ledge_zero_buffer",
+        "status": "PASS",
+        "detail": "zero restored buffer does not create negative refund"
+      },
+      {
+        "case": "unload_restores_startup_values",
+        "status": "PASS",
+        "detail": "unload restores values captured by this instance, including non-default startup values"
+      },
+      {
+        "case": "unload_new_instance_snapshot",
+        "status": "PASS",
+        "detail": "next plugin instance captures its own baseline"
+      }
+    ],
+    "passed": 55,
+    "total": 57,
+    "verifier_log_sha256": "670a1afa040eefb03b938282f07b4892acace2616f68c09d7c37588da76e0090",
+    "server_log_hashes": {
+      "server-ledge.log": "857b2f566ec47cf64335eadce83e6308d398733c3767dc05901ad4978974138f",
+      "server-ledger.log": "2cad086e5003bdadcd159f1bd84f0bfe3f6a8317e6458555a4ccc49f21ea7d1e",
+      "server-limits.log": "04c3e845ff0748b6cd36c829f6641e77e235c07ef519124a00be36f9c0eee329",
+      "server-scoring.log": "b7eda83e7c4635d80a61a9fba4aa4a55198b15cbd91b808375056811f3534fb0",
+      "server-unload.log": "a293777f2efe99357cb634dc40ff5d68cb9b80494b6453c5eeabf66e5fb8ebbd"
+    },
+    "local_run": "l4d2-competitive-score-lifecycle-hard-minus-finalized-guards-1789763049525347500"
+  },
+  {
+    "task": "l4d2-competitive-score-lifecycle-hard",
+    "candidate": "minus-report-1",
+    "exit_code": 1,
+    "hash_algorithm": "sha256-relpath-nul-content-nul-posix-lexical-v1",
+    "contract": "777cec4df8806854c5071ffb0f346e816de9dfa2bb4985da2e45d1455d55c55c",
+    "component_hashes": {
+      "instruction.md": "da244e5495f8dfecb02c96a135a545c57f5df4ae88307e8b6e665c41e5d58341",
+      "task.toml": "d87f1391884e3b85ab42e638169ad2f49a03f7d73ded6962972e3a67290b7e7d",
+      "environment": "414d069b86ae1a9a4f09d86be6a268f20f55a4afff5b2172e29243a8b26b6ba0",
+      "tests": "aee18b17a80de9314a2207fe78f1baf1efaede8b91f27e096cc099c03b2156ac",
+      "solution": "743fc017f2cd201c5b6ed07e83a58f5ca2515584bca6297f0fd05c7a61870b67",
+      "validation/case-contracts.tsv": "9bd18eba08e5f8ca266dba1c17d9b3cea5d541f6f514f5c2dd98f3b54e613a50"
+    },
+    "runtime_image_id": "sha256:3604481021c1b605741e994fb623834fb0725b2309e53b7ed9a4c86fe3fb65cd",
+    "source_hash": "27d2dc46dd4e6329b68b8bb16706bd6bf9d00d9f0381c9b6a2a519123740d55b",
+    "tests_hash": "aee18b17a80de9314a2207fe78f1baf1efaede8b91f27e096cc099c03b2156ac",
+    "cases": [
+      {
+        "case": "score_normal_budget",
+        "status": "PASS",
+        "detail": "full upright roster earns ordinary health and damage budgets"
+      },
+      {
+        "case": "score_dead_excluded",
+        "status": "FAIL",
+        "detail": "dead survivor does not count as upright"
+      },
+      {
+        "case": "score_incap_excluded",
+        "status": "PASS",
+        "detail": "incap survivor excluded from damage multiplier"
+      },
+      {
+        "case": "score_falling_excluded",
+        "status": "PASS",
+        "detail": "falling survivor contributes neither health nor multiplier"
+      },
+      {
+        "case": "score_revived_health_policy",
+        "status": "PASS",
+        "detail": "existing zero permanent-health contribution after incap preserved"
+      },
+      {
+        "case": "score_upright_pills",
+        "status": "PASS",
+        "detail": "actual carried pills earn normal per-player bonus"
+      },
+      {
+        "case": "score_ledge_pills_excluded",
+        "status": "FAIL",
+        "detail": "ledge hanging player cannot contribute pills"
+      },
+      {
+        "case": "score_falling_pills_excluded",
+        "status": "FAIL",
+        "detail": "falling player cannot contribute pills"
+      },
+      {
+        "case": "live_multiplier_preserves_loss",
+        "status": "PASS",
+        "detail": "multiplier update reprices existing loss without clearing ledger"
+      },
+      {
+        "case": "live_proportion_reprices",
+        "status": "PASS",
+        "detail": "p=.5 uses 400 temporary-health units and retains 20 lost units"
+      },
+      {
+        "case": "live_pill_factor",
+        "status": "PASS",
+        "detail": "live factor update recalculates nearest-five minimum"
+      },
+      {
+        "case": "live_pill_cap",
+        "status": "PASS",
+        "detail": "live cap below five is itself the cap"
+      },
+      {
+        "case": "live_team_size",
+        "status": "PASS",
+        "detail": "live team-size update recalculates all coefficients"
+      },
+      {
+        "case": "score_roster_limit",
+        "status": "PASS",
+        "detail": "dead player still occupies first-two roster slot; extra survivors do not replace it"
+      },
+      {
+        "case": "bounds_zero_proportion",
+        "status": "PASS",
+        "detail": "all-damage endpoint has 100 temporary-health units per player"
+      },
+      {
+        "case": "bounds_one_proportion",
+        "status": "PASS",
+        "detail": "all-health endpoint has finite zero damage budget"
+      },
+      {
+        "case": "bounds_endpoint_events",
+        "status": "PASS",
+        "detail": "incap and death callbacks do not divide by zero at all-health endpoint"
+      },
+      {
+        "case": "bounds_high_proportion",
+        "status": "PASS",
+        "detail": "proportions above one clamp to one"
+      },
+      {
+        "case": "bounds_negative_proportion",
+        "status": "PASS",
+        "detail": "negative proportions clamp to zero"
+      },
+      {
+        "case": "bounds_zero_factor",
+        "status": "PASS",
+        "detail": "zero pills factor disables pills"
+      },
+      {
+        "case": "bounds_negative_factor",
+        "status": "PASS",
+        "detail": "negative pills factor disables pills"
+      },
+      {
+        "case": "bounds_zero_cap",
+        "status": "PASS",
+        "detail": "zero cap disables pills"
+      },
+      {
+        "case": "bounds_negative_cap",
+        "status": "PASS",
+        "detail": "negative cap disables pills"
+      },
+      {
+        "case": "bounds_zero_budget",
+        "status": "PASS",
+        "detail": "zero map bonus cannot manufacture a pills minimum"
+      },
+      {
+        "case": "bounds_negative_multiplier",
+        "status": "PASS",
+        "detail": "negative multiplier normalizes to zero"
+      },
+      {
+        "case": "bounds_zero_team",
+        "status": "PASS",
+        "detail": "nonpositive team size uses one-player effective roster"
+      },
+      {
+        "case": "adm_positive_loss",
+        "status": "PASS",
+        "detail": "valid forward debits the positive difference"
+      },
+      {
+        "case": "adm_healing_ignored",
+        "status": "PASS",
+        "detail": "healing/equal values cannot credit damage ledger"
+      },
+      {
+        "case": "adm_negative_after_clamped",
+        "status": "PASS",
+        "detail": "negative new health clamps to zero before subtracting"
+      },
+      {
+        "case": "adm_negative_both_ignored",
+        "status": "PASS",
+        "detail": "two negative inputs do not create loss"
+      },
+      {
+        "case": "adm_invalid_client",
+        "status": "PASS",
+        "detail": "invalid client indices are rejected safely"
+      },
+      {
+        "case": "adm_ineligible_client",
+        "status": "PASS",
+        "detail": "dead/incap/ledge/falling/non-survivor forwards do not enter ledger"
+      },
+      {
+        "case": "round_restart_clears_current",
+        "status": "PASS",
+        "detail": "same-half round_start resets current-half accumulated loss"
+      },
+      {
+        "case": "round_preserves_other_half",
+        "status": "PASS",
+        "detail": "starting second half retains first-half ledger"
+      },
+      {
+        "case": "round_independent_half",
+        "status": "PASS",
+        "detail": "second-half losses remain independent"
+      },
+      {
+        "case": "round_finalized_ledger_frozen",
+        "status": "PASS",
+        "detail": "late damage and incap/death events cannot mutate finalized loss"
+      },
+      {
+        "case": "round_end_idempotent",
+        "status": "PASS",
+        "detail": "duplicate end-round forward preserves published result"
+      },
+      {
+        "case": "round_tiebreak_ledgers",
+        "status": "PASS",
+        "detail": "round reset clears current tiebreak ledger while completed first half survives second-half start"
+      },
+      {
+        "case": "adm_tiebreak_compatibility",
+        "status": "PASS",
+        "detail": "valid alternate-damage losses still drive established depleted-bonus tiebreak"
+      },
+      {
+        "case": "round_finalized_sdk_damage",
+        "status": "PASS",
+        "detail": "real damage removes temporary health through SDKHooks while finalized score ledger remains frozen"
+      },
+      {
+        "case": "round_finalized_plasma_event",
+        "status": "PASS",
+        "detail": "late manipulated-shotgun hurt event cannot debit finalized ledger"
+      },
+      {
+        "case": "ledge_zero_debit_episode",
+        "status": "PASS",
+        "detail": "zero debit still establishes an outstanding episode and duplicate grab cannot charge it"
+      },
+      {
+        "case": "ledge_negative_debit_episode",
+        "status": "PASS",
+        "detail": "negative pre-incap value normalizes to zero without losing episode identity"
+      },
+      {
+        "case": "ledge_duplicate_grab",
+        "status": "PASS",
+        "detail": "one outstanding episode debits pre-incap buffer exactly once"
+      },
+      {
+        "case": "ledge_duplicate_revive",
+        "status": "PASS",
+        "detail": "duplicate revive has one quantized 20-unit refund"
+      },
+      {
+        "case": "ledge_refund_capped",
+        "status": "PASS",
+        "detail": "large restored buffer cannot refund unrelated losses"
+      },
+      {
+        "case": "ledge_ground_revive",
+        "status": "PASS",
+        "detail": "ground revive does not settle a ledge refund"
+      },
+      {
+        "case": "ledge_round_epoch",
+        "status": "PASS",
+        "detail": "queued refund cannot credit a restarted round"
+      },
+      {
+        "case": "ledge_half_binding",
+        "status": "PASS",
+        "detail": "queued first-half refund cannot modify second-half losses"
+      },
+      {
+        "case": "ledge_new_episode",
+        "status": "PASS",
+        "detail": "later ledge episode invalidates old pending work even if currently upright"
+      },
+      {
+        "case": "ledge_team_transition",
+        "status": "PASS",
+        "detail": "leaving survivor team invalidates refund even after return"
+      },
+      {
+        "case": "ledge_death_transition",
+        "status": "PASS",
+        "detail": "death invalidates pending refund even after restoration to an alive fixture"
+      },
+      {
+        "case": "ledge_finalization",
+        "status": "PASS",
+        "detail": "end-round invalidates queued refund"
+      },
+      {
+        "case": "ledge_client_disconnect",
+        "status": "PASS",
+        "detail": "initiated client disconnect cancels pending refund while replacement connects"
+      },
+      {
+        "case": "ledge_zero_buffer",
+        "status": "PASS",
+        "detail": "zero restored buffer does not create negative refund"
+      },
+      {
+        "case": "unload_restores_startup_values",
+        "status": "PASS",
+        "detail": "unload restores values captured by this instance, including non-default startup values"
+      },
+      {
+        "case": "unload_new_instance_snapshot",
+        "status": "PASS",
+        "detail": "next plugin instance captures its own baseline"
+      }
+    ],
+    "passed": 54,
+    "total": 57,
+    "verifier_log_sha256": "7fc919d30d7942ad26ecc04717a96ccf5f6856fabbd6bb052fa563bbf317f674",
+    "server_log_hashes": {
+      "server-ledge.log": "2c11a4f4641a506635edd22aea7d64396b3d7e53398c5f673233d9952435b7e1",
+      "server-ledger.log": "a86083b983dedd1fb9321e89e79d3bd0bff59bc42bab252d69c6d3d60d5ff67e",
+      "server-limits.log": "90f32979cec92301b80d36624327cf50c0b0312a00eed7078eff847bdbb62fae",
+      "server-scoring.log": "4239cda45399061510a8f7d3a863437010edd8cc1bd6a76b194269df94db4e4f",
+      "server-unload.log": "ec5d3fe98e826db2ed79e06fff3cc4a5a47e42da299b35556891a01eb99a0fcc"
+    },
+    "local_run": "l4d2-competitive-score-lifecycle-hard-minus-report-1-1789762605677567600"
+  },
+  {
+    "task": "l4d2-competitive-score-lifecycle-hard",
+    "candidate": "minus-report-2",
+    "exit_code": 1,
+    "hash_algorithm": "sha256-relpath-nul-content-nul-posix-lexical-v1",
+    "contract": "777cec4df8806854c5071ffb0f346e816de9dfa2bb4985da2e45d1455d55c55c",
+    "component_hashes": {
+      "instruction.md": "da244e5495f8dfecb02c96a135a545c57f5df4ae88307e8b6e665c41e5d58341",
+      "task.toml": "d87f1391884e3b85ab42e638169ad2f49a03f7d73ded6962972e3a67290b7e7d",
+      "environment": "414d069b86ae1a9a4f09d86be6a268f20f55a4afff5b2172e29243a8b26b6ba0",
+      "tests": "aee18b17a80de9314a2207fe78f1baf1efaede8b91f27e096cc099c03b2156ac",
+      "solution": "743fc017f2cd201c5b6ed07e83a58f5ca2515584bca6297f0fd05c7a61870b67",
+      "validation/case-contracts.tsv": "9bd18eba08e5f8ca266dba1c17d9b3cea5d541f6f514f5c2dd98f3b54e613a50"
+    },
+    "runtime_image_id": "sha256:3604481021c1b605741e994fb623834fb0725b2309e53b7ed9a4c86fe3fb65cd",
+    "source_hash": "914146104004b5b8b025d012868bfdb483a68e572000d9edbb6ed1725da1e6d6",
+    "tests_hash": "aee18b17a80de9314a2207fe78f1baf1efaede8b91f27e096cc099c03b2156ac",
+    "cases": [
+      {
+        "case": "score_normal_budget",
+        "status": "PASS",
+        "detail": "full upright roster earns ordinary health and damage budgets"
+      },
+      {
+        "case": "score_dead_excluded",
+        "status": "PASS",
+        "detail": "dead survivor does not count as upright"
+      },
+      {
+        "case": "score_incap_excluded",
+        "status": "PASS",
+        "detail": "incap survivor excluded from damage multiplier"
+      },
+      {
+        "case": "score_falling_excluded",
+        "status": "PASS",
+        "detail": "falling survivor contributes neither health nor multiplier"
+      },
+      {
+        "case": "score_revived_health_policy",
+        "status": "PASS",
+        "detail": "existing zero permanent-health contribution after incap preserved"
+      },
+      {
+        "case": "score_upright_pills",
+        "status": "PASS",
+        "detail": "actual carried pills earn normal per-player bonus"
+      },
+      {
+        "case": "score_ledge_pills_excluded",
+        "status": "PASS",
+        "detail": "ledge hanging player cannot contribute pills"
+      },
+      {
+        "case": "score_falling_pills_excluded",
+        "status": "PASS",
+        "detail": "falling player cannot contribute pills"
+      },
+      {
+        "case": "live_multiplier_preserves_loss",
+        "status": "PASS",
+        "detail": "multiplier update reprices existing loss without clearing ledger"
+      },
+      {
+        "case": "live_proportion_reprices",
+        "status": "PASS",
+        "detail": "p=.5 uses 400 temporary-health units and retains 20 lost units"
+      },
+      {
+        "case": "live_pill_factor",
+        "status": "FAIL",
+        "detail": "live factor update recalculates nearest-five minimum"
+      },
+      {
+        "case": "live_pill_cap",
+        "status": "FAIL",
+        "detail": "live cap below five is itself the cap"
+      },
+      {
+        "case": "live_team_size",
+        "status": "FAIL",
+        "detail": "live team-size update recalculates all coefficients"
+      },
+      {
+        "case": "score_roster_limit",
+        "status": "PASS",
+        "detail": "dead player still occupies first-two roster slot; extra survivors do not replace it"
+      },
+      {
+        "case": "bounds_zero_proportion",
+        "status": "PASS",
+        "detail": "all-damage endpoint has 100 temporary-health units per player"
+      },
+      {
+        "case": "bounds_one_proportion",
+        "status": "PASS",
+        "detail": "all-health endpoint has finite zero damage budget"
+      },
+      {
+        "case": "bounds_endpoint_events",
+        "status": "PASS",
+        "detail": "incap and death callbacks do not divide by zero at all-health endpoint"
+      },
+      {
+        "case": "bounds_high_proportion",
+        "status": "PASS",
+        "detail": "proportions above one clamp to one"
+      },
+      {
+        "case": "bounds_negative_proportion",
+        "status": "PASS",
+        "detail": "negative proportions clamp to zero"
+      },
+      {
+        "case": "bounds_zero_factor",
+        "status": "FAIL",
+        "detail": "zero pills factor disables pills"
+      },
+      {
+        "case": "bounds_negative_factor",
+        "status": "FAIL",
+        "detail": "negative pills factor disables pills"
+      },
+      {
+        "case": "bounds_zero_cap",
+        "status": "FAIL",
+        "detail": "zero cap disables pills"
+      },
+      {
+        "case": "bounds_negative_cap",
+        "status": "FAIL",
+        "detail": "negative cap disables pills"
+      },
+      {
+        "case": "bounds_zero_budget",
+        "status": "PASS",
+        "detail": "zero map bonus cannot manufacture a pills minimum"
+      },
+      {
+        "case": "bounds_negative_multiplier",
+        "status": "PASS",
+        "detail": "negative multiplier normalizes to zero"
+      },
+      {
+        "case": "bounds_zero_team",
+        "status": "FAIL",
+        "detail": "nonpositive team size uses one-player effective roster"
+      },
+      {
+        "case": "adm_positive_loss",
+        "status": "PASS",
+        "detail": "valid forward debits the positive difference"
+      },
+      {
+        "case": "adm_healing_ignored",
+        "status": "PASS",
+        "detail": "healing/equal values cannot credit damage ledger"
+      },
+      {
+        "case": "adm_negative_after_clamped",
+        "status": "PASS",
+        "detail": "negative new health clamps to zero before subtracting"
+      },
+      {
+        "case": "adm_negative_both_ignored",
+        "status": "PASS",
+        "detail": "two negative inputs do not create loss"
+      },
+      {
+        "case": "adm_invalid_client",
+        "status": "PASS",
+        "detail": "invalid client indices are rejected safely"
+      },
+      {
+        "case": "adm_ineligible_client",
+        "status": "PASS",
+        "detail": "dead/incap/ledge/falling/non-survivor forwards do not enter ledger"
+      },
+      {
+        "case": "round_restart_clears_current",
+        "status": "PASS",
+        "detail": "same-half round_start resets current-half accumulated loss"
+      },
+      {
+        "case": "round_preserves_other_half",
+        "status": "PASS",
+        "detail": "starting second half retains first-half ledger"
+      },
+      {
+        "case": "round_independent_half",
+        "status": "PASS",
+        "detail": "second-half losses remain independent"
+      },
+      {
+        "case": "round_finalized_ledger_frozen",
+        "status": "PASS",
+        "detail": "late damage and incap/death events cannot mutate finalized loss"
+      },
+      {
+        "case": "round_end_idempotent",
+        "status": "PASS",
+        "detail": "duplicate end-round forward preserves published result"
+      },
+      {
+        "case": "round_tiebreak_ledgers",
+        "status": "PASS",
+        "detail": "round reset clears current tiebreak ledger while completed first half survives second-half start"
+      },
+      {
+        "case": "adm_tiebreak_compatibility",
+        "status": "PASS",
+        "detail": "valid alternate-damage losses still drive established depleted-bonus tiebreak"
+      },
+      {
+        "case": "round_finalized_sdk_damage",
+        "status": "PASS",
+        "detail": "real damage removes temporary health through SDKHooks while finalized score ledger remains frozen"
+      },
+      {
+        "case": "round_finalized_plasma_event",
+        "status": "PASS",
+        "detail": "late manipulated-shotgun hurt event cannot debit finalized ledger"
+      },
+      {
+        "case": "ledge_zero_debit_episode",
+        "status": "PASS",
+        "detail": "zero debit still establishes an outstanding episode and duplicate grab cannot charge it"
+      },
+      {
+        "case": "ledge_negative_debit_episode",
+        "status": "PASS",
+        "detail": "negative pre-incap value normalizes to zero without losing episode identity"
+      },
+      {
+        "case": "ledge_duplicate_grab",
+        "status": "PASS",
+        "detail": "one outstanding episode debits pre-incap buffer exactly once"
+      },
+      {
+        "case": "ledge_duplicate_revive",
+        "status": "PASS",
+        "detail": "duplicate revive has one quantized 20-unit refund"
+      },
+      {
+        "case": "ledge_refund_capped",
+        "status": "PASS",
+        "detail": "large restored buffer cannot refund unrelated losses"
+      },
+      {
+        "case": "ledge_ground_revive",
+        "status": "PASS",
+        "detail": "ground revive does not settle a ledge refund"
+      },
+      {
+        "case": "ledge_round_epoch",
+        "status": "PASS",
+        "detail": "queued refund cannot credit a restarted round"
+      },
+      {
+        "case": "ledge_half_binding",
+        "status": "PASS",
+        "detail": "queued first-half refund cannot modify second-half losses"
+      },
+      {
+        "case": "ledge_new_episode",
+        "status": "PASS",
+        "detail": "later ledge episode invalidates old pending work even if currently upright"
+      },
+      {
+        "case": "ledge_team_transition",
+        "status": "PASS",
+        "detail": "leaving survivor team invalidates refund even after return"
+      },
+      {
+        "case": "ledge_death_transition",
+        "status": "PASS",
+        "detail": "death invalidates pending refund even after restoration to an alive fixture"
+      },
+      {
+        "case": "ledge_finalization",
+        "status": "PASS",
+        "detail": "end-round invalidates queued refund"
+      },
+      {
+        "case": "ledge_client_disconnect",
+        "status": "PASS",
+        "detail": "initiated client disconnect cancels pending refund while replacement connects"
+      },
+      {
+        "case": "ledge_zero_buffer",
+        "status": "PASS",
+        "detail": "zero restored buffer does not create negative refund"
+      },
+      {
+        "case": "unload_restores_startup_values",
+        "status": "PASS",
+        "detail": "unload restores values captured by this instance, including non-default startup values"
+      },
+      {
+        "case": "unload_new_instance_snapshot",
+        "status": "PASS",
+        "detail": "next plugin instance captures its own baseline"
+      }
+    ],
+    "passed": 49,
+    "total": 57,
+    "verifier_log_sha256": "dae5cfc752ebc0d54bbb3d4a418e5a2f8478bd07cb70a1743640ddc1f0120ace",
+    "server_log_hashes": {
+      "server-ledge.log": "61eb3813b391359761718d461c5b399dc894d4cca5af945aa606779dd31ad39c",
+      "server-ledger.log": "d4fddad6c7b6ab2c930cc639c340203452cfa783a7fd01b504857e0c13573fd4",
+      "server-limits.log": "18cf23d03cadf7f8e5b9489318b5f5ade4c7e9001a852958c9ad83ca71ee0bf1",
+      "server-scoring.log": "18c0f9b30287a673dc240f719ec512660887be2cb22688024a5f85af27262038",
+      "server-unload.log": "85e5e7dbdd6d06d9385a7435550348147c19ff278faf0de9342ff4ffc1305d40"
+    },
+    "local_run": "l4d2-competitive-score-lifecycle-hard-minus-report-2-1789762709985028300"
+  },
+  {
+    "task": "l4d2-competitive-score-lifecycle-hard",
+    "candidate": "minus-report-3",
+    "exit_code": 1,
+    "hash_algorithm": "sha256-relpath-nul-content-nul-posix-lexical-v1",
+    "contract": "777cec4df8806854c5071ffb0f346e816de9dfa2bb4985da2e45d1455d55c55c",
+    "component_hashes": {
+      "instruction.md": "da244e5495f8dfecb02c96a135a545c57f5df4ae88307e8b6e665c41e5d58341",
+      "task.toml": "d87f1391884e3b85ab42e638169ad2f49a03f7d73ded6962972e3a67290b7e7d",
+      "environment": "414d069b86ae1a9a4f09d86be6a268f20f55a4afff5b2172e29243a8b26b6ba0",
+      "tests": "aee18b17a80de9314a2207fe78f1baf1efaede8b91f27e096cc099c03b2156ac",
+      "solution": "743fc017f2cd201c5b6ed07e83a58f5ca2515584bca6297f0fd05c7a61870b67",
+      "validation/case-contracts.tsv": "9bd18eba08e5f8ca266dba1c17d9b3cea5d541f6f514f5c2dd98f3b54e613a50"
+    },
+    "runtime_image_id": "sha256:3604481021c1b605741e994fb623834fb0725b2309e53b7ed9a4c86fe3fb65cd",
+    "source_hash": "5d3dc16d1ab51e6298ec82991f4589f05432db2ad9f23eecc65d6cd15c909d9a",
+    "tests_hash": "aee18b17a80de9314a2207fe78f1baf1efaede8b91f27e096cc099c03b2156ac",
+    "cases": [
+      {
+        "case": "score_normal_budget",
+        "status": "PASS",
+        "detail": "full upright roster earns ordinary health and damage budgets"
+      },
+      {
+        "case": "score_dead_excluded",
+        "status": "PASS",
+        "detail": "dead survivor does not count as upright"
+      },
+      {
+        "case": "score_incap_excluded",
+        "status": "PASS",
+        "detail": "incap survivor excluded from damage multiplier"
+      },
+      {
+        "case": "score_falling_excluded",
+        "status": "PASS",
+        "detail": "falling survivor contributes neither health nor multiplier"
+      },
+      {
+        "case": "score_revived_health_policy",
+        "status": "PASS",
+        "detail": "existing zero permanent-health contribution after incap preserved"
+      },
+      {
+        "case": "score_upright_pills",
+        "status": "PASS",
+        "detail": "actual carried pills earn normal per-player bonus"
+      },
+      {
+        "case": "score_ledge_pills_excluded",
+        "status": "PASS",
+        "detail": "ledge hanging player cannot contribute pills"
+      },
+      {
+        "case": "score_falling_pills_excluded",
+        "status": "PASS",
+        "detail": "falling player cannot contribute pills"
+      },
+      {
+        "case": "live_multiplier_preserves_loss",
+        "status": "PASS",
+        "detail": "multiplier update reprices existing loss without clearing ledger"
+      },
+      {
+        "case": "live_proportion_reprices",
+        "status": "PASS",
+        "detail": "p=.5 uses 400 temporary-health units and retains 20 lost units"
+      },
+      {
+        "case": "live_pill_factor",
+        "status": "PASS",
+        "detail": "live factor update recalculates nearest-five minimum"
+      },
+      {
+        "case": "live_pill_cap",
+        "status": "FAIL",
+        "detail": "live cap below five is itself the cap"
+      },
+      {
+        "case": "live_team_size",
+        "status": "FAIL",
+        "detail": "live team-size update recalculates all coefficients"
+      },
+      {
+        "case": "score_roster_limit",
+        "status": "PASS",
+        "detail": "dead player still occupies first-two roster slot; extra survivors do not replace it"
+      },
+      {
+        "case": "bounds_zero_proportion",
+        "status": "FAIL",
+        "detail": "all-damage endpoint has 100 temporary-health units per player"
+      },
+      {
+        "case": "bounds_one_proportion",
+        "status": "PASS",
+        "detail": "all-health endpoint has finite zero damage budget"
+      },
+      {
+        "case": "bounds_endpoint_events",
+        "status": "PASS",
+        "detail": "incap and death callbacks do not divide by zero at all-health endpoint"
+      },
+      {
+        "case": "bounds_high_proportion",
+        "status": "FAIL",
+        "detail": "proportions above one clamp to one"
+      },
+      {
+        "case": "bounds_negative_proportion",
+        "status": "FAIL",
+        "detail": "negative proportions clamp to zero"
+      },
+      {
+        "case": "bounds_zero_factor",
+        "status": "FAIL",
+        "detail": "zero pills factor disables pills"
+      },
+      {
+        "case": "bounds_negative_factor",
+        "status": "FAIL",
+        "detail": "negative pills factor disables pills"
+      },
+      {
+        "case": "bounds_zero_cap",
+        "status": "PASS",
+        "detail": "zero cap disables pills"
+      },
+      {
+        "case": "bounds_negative_cap",
+        "status": "FAIL",
+        "detail": "negative cap disables pills"
+      },
+      {
+        "case": "bounds_zero_budget",
+        "status": "FAIL",
+        "detail": "zero map bonus cannot manufacture a pills minimum"
+      },
+      {
+        "case": "bounds_negative_multiplier",
+        "status": "FAIL",
+        "detail": "negative multiplier normalizes to zero"
+      },
+      {
+        "case": "bounds_zero_team",
+        "status": "FAIL",
+        "detail": "nonpositive team size uses one-player effective roster"
+      },
+      {
+        "case": "adm_positive_loss",
+        "status": "PASS",
+        "detail": "valid forward debits the positive difference"
+      },
+      {
+        "case": "adm_healing_ignored",
+        "status": "PASS",
+        "detail": "healing/equal values cannot credit damage ledger"
+      },
+      {
+        "case": "adm_negative_after_clamped",
+        "status": "PASS",
+        "detail": "negative new health clamps to zero before subtracting"
+      },
+      {
+        "case": "adm_negative_both_ignored",
+        "status": "PASS",
+        "detail": "two negative inputs do not create loss"
+      },
+      {
+        "case": "adm_invalid_client",
+        "status": "PASS",
+        "detail": "invalid client indices are rejected safely"
+      },
+      {
+        "case": "adm_ineligible_client",
+        "status": "PASS",
+        "detail": "dead/incap/ledge/falling/non-survivor forwards do not enter ledger"
+      },
+      {
+        "case": "round_restart_clears_current",
+        "status": "PASS",
+        "detail": "same-half round_start resets current-half accumulated loss"
+      },
+      {
+        "case": "round_preserves_other_half",
+        "status": "PASS",
+        "detail": "starting second half retains first-half ledger"
+      },
+      {
+        "case": "round_independent_half",
+        "status": "PASS",
+        "detail": "second-half losses remain independent"
+      },
+      {
+        "case": "round_finalized_ledger_frozen",
+        "status": "PASS",
+        "detail": "late damage and incap/death events cannot mutate finalized loss"
+      },
+      {
+        "case": "round_end_idempotent",
+        "status": "PASS",
+        "detail": "duplicate end-round forward preserves published result"
+      },
+      {
+        "case": "round_tiebreak_ledgers",
+        "status": "PASS",
+        "detail": "round reset clears current tiebreak ledger while completed first half survives second-half start"
+      },
+      {
+        "case": "adm_tiebreak_compatibility",
+        "status": "PASS",
+        "detail": "valid alternate-damage losses still drive established depleted-bonus tiebreak"
+      },
+      {
+        "case": "round_finalized_sdk_damage",
+        "status": "PASS",
+        "detail": "real damage removes temporary health through SDKHooks while finalized score ledger remains frozen"
+      },
+      {
+        "case": "round_finalized_plasma_event",
+        "status": "PASS",
+        "detail": "late manipulated-shotgun hurt event cannot debit finalized ledger"
+      },
+      {
+        "case": "ledge_zero_debit_episode",
+        "status": "PASS",
+        "detail": "zero debit still establishes an outstanding episode and duplicate grab cannot charge it"
+      },
+      {
+        "case": "ledge_negative_debit_episode",
+        "status": "PASS",
+        "detail": "negative pre-incap value normalizes to zero without losing episode identity"
+      },
+      {
+        "case": "ledge_duplicate_grab",
+        "status": "PASS",
+        "detail": "one outstanding episode debits pre-incap buffer exactly once"
+      },
+      {
+        "case": "ledge_duplicate_revive",
+        "status": "PASS",
+        "detail": "duplicate revive has one quantized 20-unit refund"
+      },
+      {
+        "case": "ledge_refund_capped",
+        "status": "PASS",
+        "detail": "large restored buffer cannot refund unrelated losses"
+      },
+      {
+        "case": "ledge_ground_revive",
+        "status": "PASS",
+        "detail": "ground revive does not settle a ledge refund"
+      },
+      {
+        "case": "ledge_round_epoch",
+        "status": "PASS",
+        "detail": "queued refund cannot credit a restarted round"
+      },
+      {
+        "case": "ledge_half_binding",
+        "status": "PASS",
+        "detail": "queued first-half refund cannot modify second-half losses"
+      },
+      {
+        "case": "ledge_new_episode",
+        "status": "PASS",
+        "detail": "later ledge episode invalidates old pending work even if currently upright"
+      },
+      {
+        "case": "ledge_team_transition",
+        "status": "PASS",
+        "detail": "leaving survivor team invalidates refund even after return"
+      },
+      {
+        "case": "ledge_death_transition",
+        "status": "PASS",
+        "detail": "death invalidates pending refund even after restoration to an alive fixture"
+      },
+      {
+        "case": "ledge_finalization",
+        "status": "PASS",
+        "detail": "end-round invalidates queued refund"
+      },
+      {
+        "case": "ledge_client_disconnect",
+        "status": "PASS",
+        "detail": "initiated client disconnect cancels pending refund while replacement connects"
+      },
+      {
+        "case": "ledge_zero_buffer",
+        "status": "PASS",
+        "detail": "zero restored buffer does not create negative refund"
+      },
+      {
+        "case": "unload_restores_startup_values",
+        "status": "PASS",
+        "detail": "unload restores values captured by this instance, including non-default startup values"
+      },
+      {
+        "case": "unload_new_instance_snapshot",
+        "status": "PASS",
+        "detail": "next plugin instance captures its own baseline"
+      }
+    ],
+    "passed": 46,
+    "total": 57,
+    "verifier_log_sha256": "4d47c49ffd685bc22ff17fe08ea55f82ec5bc56eac42185b70e12a6c4ba4da22",
+    "server_log_hashes": {
+      "server-ledge.log": "e10a867bb70e4f6f675fd9057ab94ca1a938b2e7ce0009f67690dda53258b80e",
+      "server-ledger.log": "cfe80dbd93b58572fa9307c97ad10fc3bd14eafd83ffc3bae6d55ac9b2d5042a",
+      "server-limits.log": "4b4c59acaf2f01455ca0c55e56ba0dc009055b78077aa7da6126ff4018dbbd68",
+      "server-scoring.log": "65252ad6b8c8031a00b932bd0563a691c4e20b680304e1fcada7fb56a484815d",
+      "server-unload.log": "e67b262e5262d7af44653a834fcc88dbee08f04d04313f5760a28a615bdc513e"
+    },
+    "local_run": "l4d2-competitive-score-lifecycle-hard-minus-report-3-1789762714117383000"
+  },
+  {
+    "task": "l4d2-competitive-score-lifecycle-hard",
+    "candidate": "minus-report-4",
+    "exit_code": 1,
+    "hash_algorithm": "sha256-relpath-nul-content-nul-posix-lexical-v1",
+    "contract": "777cec4df8806854c5071ffb0f346e816de9dfa2bb4985da2e45d1455d55c55c",
+    "component_hashes": {
+      "instruction.md": "da244e5495f8dfecb02c96a135a545c57f5df4ae88307e8b6e665c41e5d58341",
+      "task.toml": "d87f1391884e3b85ab42e638169ad2f49a03f7d73ded6962972e3a67290b7e7d",
+      "environment": "414d069b86ae1a9a4f09d86be6a268f20f55a4afff5b2172e29243a8b26b6ba0",
+      "tests": "aee18b17a80de9314a2207fe78f1baf1efaede8b91f27e096cc099c03b2156ac",
+      "solution": "743fc017f2cd201c5b6ed07e83a58f5ca2515584bca6297f0fd05c7a61870b67",
+      "validation/case-contracts.tsv": "9bd18eba08e5f8ca266dba1c17d9b3cea5d541f6f514f5c2dd98f3b54e613a50"
+    },
+    "runtime_image_id": "sha256:3604481021c1b605741e994fb623834fb0725b2309e53b7ed9a4c86fe3fb65cd",
+    "source_hash": "608e0f65053c3c1d77f4b32f06f81a7d598aa490a5e6dd0023f1fddd1f55fc20",
+    "tests_hash": "aee18b17a80de9314a2207fe78f1baf1efaede8b91f27e096cc099c03b2156ac",
+    "cases": [
+      {
+        "case": "score_normal_budget",
+        "status": "PASS",
+        "detail": "full upright roster earns ordinary health and damage budgets"
+      },
+      {
+        "case": "score_dead_excluded",
+        "status": "PASS",
+        "detail": "dead survivor does not count as upright"
+      },
+      {
+        "case": "score_incap_excluded",
+        "status": "PASS",
+        "detail": "incap survivor excluded from damage multiplier"
+      },
+      {
+        "case": "score_falling_excluded",
+        "status": "PASS",
+        "detail": "falling survivor contributes neither health nor multiplier"
+      },
+      {
+        "case": "score_revived_health_policy",
+        "status": "PASS",
+        "detail": "existing zero permanent-health contribution after incap preserved"
+      },
+      {
+        "case": "score_upright_pills",
+        "status": "PASS",
+        "detail": "actual carried pills earn normal per-player bonus"
+      },
+      {
+        "case": "score_ledge_pills_excluded",
+        "status": "PASS",
+        "detail": "ledge hanging player cannot contribute pills"
+      },
+      {
+        "case": "score_falling_pills_excluded",
+        "status": "PASS",
+        "detail": "falling player cannot contribute pills"
+      },
+      {
+        "case": "live_multiplier_preserves_loss",
+        "status": "PASS",
+        "detail": "multiplier update reprices existing loss without clearing ledger"
+      },
+      {
+        "case": "live_proportion_reprices",
+        "status": "PASS",
+        "detail": "p=.5 uses 400 temporary-health units and retains 20 lost units"
+      },
+      {
+        "case": "live_pill_factor",
+        "status": "PASS",
+        "detail": "live factor update recalculates nearest-five minimum"
+      },
+      {
+        "case": "live_pill_cap",
+        "status": "PASS",
+        "detail": "live cap below five is itself the cap"
+      },
+      {
+        "case": "live_team_size",
+        "status": "PASS",
+        "detail": "live team-size update recalculates all coefficients"
+      },
+      {
+        "case": "score_roster_limit",
+        "status": "PASS",
+        "detail": "dead player still occupies first-two roster slot; extra survivors do not replace it"
+      },
+      {
+        "case": "bounds_zero_proportion",
+        "status": "PASS",
+        "detail": "all-damage endpoint has 100 temporary-health units per player"
+      },
+      {
+        "case": "bounds_one_proportion",
+        "status": "PASS",
+        "detail": "all-health endpoint has finite zero damage budget"
+      },
+      {
+        "case": "bounds_endpoint_events",
+        "status": "PASS",
+        "detail": "incap and death callbacks do not divide by zero at all-health endpoint"
+      },
+      {
+        "case": "bounds_high_proportion",
+        "status": "PASS",
+        "detail": "proportions above one clamp to one"
+      },
+      {
+        "case": "bounds_negative_proportion",
+        "status": "PASS",
+        "detail": "negative proportions clamp to zero"
+      },
+      {
+        "case": "bounds_zero_factor",
+        "status": "PASS",
+        "detail": "zero pills factor disables pills"
+      },
+      {
+        "case": "bounds_negative_factor",
+        "status": "PASS",
+        "detail": "negative pills factor disables pills"
+      },
+      {
+        "case": "bounds_zero_cap",
+        "status": "PASS",
+        "detail": "zero cap disables pills"
+      },
+      {
+        "case": "bounds_negative_cap",
+        "status": "PASS",
+        "detail": "negative cap disables pills"
+      },
+      {
+        "case": "bounds_zero_budget",
+        "status": "PASS",
+        "detail": "zero map bonus cannot manufacture a pills minimum"
+      },
+      {
+        "case": "bounds_negative_multiplier",
+        "status": "PASS",
+        "detail": "negative multiplier normalizes to zero"
+      },
+      {
+        "case": "bounds_zero_team",
+        "status": "PASS",
+        "detail": "nonpositive team size uses one-player effective roster"
+      },
+      {
+        "case": "adm_positive_loss",
+        "status": "PASS",
+        "detail": "valid forward debits the positive difference"
+      },
+      {
+        "case": "adm_healing_ignored",
+        "status": "FAIL",
+        "detail": "healing/equal values cannot credit damage ledger"
+      },
+      {
+        "case": "adm_negative_after_clamped",
+        "status": "PASS",
+        "detail": "negative new health clamps to zero before subtracting"
+      },
+      {
+        "case": "adm_negative_both_ignored",
+        "status": "FAIL",
+        "detail": "two negative inputs do not create loss"
+      },
+      {
+        "case": "adm_invalid_client",
+        "status": "FAIL",
+        "detail": "invalid client indices are rejected safely"
+      },
+      {
+        "case": "adm_ineligible_client",
+        "status": "FAIL",
+        "detail": "dead/incap/ledge/falling/non-survivor forwards do not enter ledger"
+      },
+      {
+        "case": "round_restart_clears_current",
+        "status": "PASS",
+        "detail": "same-half round_start resets current-half accumulated loss"
+      },
+      {
+        "case": "round_preserves_other_half",
+        "status": "PASS",
+        "detail": "starting second half retains first-half ledger"
+      },
+      {
+        "case": "round_independent_half",
+        "status": "PASS",
+        "detail": "second-half losses remain independent"
+      },
+      {
+        "case": "round_finalized_ledger_frozen",
+        "status": "FAIL",
+        "detail": "late damage and incap/death events cannot mutate finalized loss"
+      },
+      {
+        "case": "round_end_idempotent",
+        "status": "PASS",
+        "detail": "duplicate end-round forward preserves published result"
+      },
+      {
+        "case": "round_tiebreak_ledgers",
+        "status": "PASS",
+        "detail": "round reset clears current tiebreak ledger while completed first half survives second-half start"
+      },
+      {
+        "case": "adm_tiebreak_compatibility",
+        "status": "PASS",
+        "detail": "valid alternate-damage losses still drive established depleted-bonus tiebreak"
+      },
+      {
+        "case": "round_finalized_sdk_damage",
+        "status": "PASS",
+        "detail": "real damage removes temporary health through SDKHooks while finalized score ledger remains frozen"
+      },
+      {
+        "case": "round_finalized_plasma_event",
+        "status": "PASS",
+        "detail": "late manipulated-shotgun hurt event cannot debit finalized ledger"
+      },
+      {
+        "case": "ledge_zero_debit_episode",
+        "status": "PASS",
+        "detail": "zero debit still establishes an outstanding episode and duplicate grab cannot charge it"
+      },
+      {
+        "case": "ledge_negative_debit_episode",
+        "status": "PASS",
+        "detail": "negative pre-incap value normalizes to zero without losing episode identity"
+      },
+      {
+        "case": "ledge_duplicate_grab",
+        "status": "PASS",
+        "detail": "one outstanding episode debits pre-incap buffer exactly once"
+      },
+      {
+        "case": "ledge_duplicate_revive",
+        "status": "PASS",
+        "detail": "duplicate revive has one quantized 20-unit refund"
+      },
+      {
+        "case": "ledge_refund_capped",
+        "status": "PASS",
+        "detail": "large restored buffer cannot refund unrelated losses"
+      },
+      {
+        "case": "ledge_ground_revive",
+        "status": "PASS",
+        "detail": "ground revive does not settle a ledge refund"
+      },
+      {
+        "case": "ledge_round_epoch",
+        "status": "PASS",
+        "detail": "queued refund cannot credit a restarted round"
+      },
+      {
+        "case": "ledge_half_binding",
+        "status": "PASS",
+        "detail": "queued first-half refund cannot modify second-half losses"
+      },
+      {
+        "case": "ledge_new_episode",
+        "status": "PASS",
+        "detail": "later ledge episode invalidates old pending work even if currently upright"
+      },
+      {
+        "case": "ledge_team_transition",
+        "status": "PASS",
+        "detail": "leaving survivor team invalidates refund even after return"
+      },
+      {
+        "case": "ledge_death_transition",
+        "status": "PASS",
+        "detail": "death invalidates pending refund even after restoration to an alive fixture"
+      },
+      {
+        "case": "ledge_finalization",
+        "status": "PASS",
+        "detail": "end-round invalidates queued refund"
+      },
+      {
+        "case": "ledge_client_disconnect",
+        "status": "PASS",
+        "detail": "initiated client disconnect cancels pending refund while replacement connects"
+      },
+      {
+        "case": "ledge_zero_buffer",
+        "status": "PASS",
+        "detail": "zero restored buffer does not create negative refund"
+      },
+      {
+        "case": "unload_restores_startup_values",
+        "status": "PASS",
+        "detail": "unload restores values captured by this instance, including non-default startup values"
+      },
+      {
+        "case": "unload_new_instance_snapshot",
+        "status": "PASS",
+        "detail": "next plugin instance captures its own baseline"
+      }
+    ],
+    "passed": 52,
+    "total": 57,
+    "verifier_log_sha256": "00a4a8dddde06c22155b54c592674288bfe6eedbdef7f6fa938c1bce6ebf5791",
+    "server_log_hashes": {
+      "server-ledge.log": "7d7368f161285d88b1df169dffb233049ad52dfa92eff1ff6f28d9d716281c37",
+      "server-ledger.log": "6f96c33a6e2b34b9b8f5a380000eda5e1819890dab0065f51da426d3f4c4f3e2",
+      "server-limits.log": "cd36e2ae81c818a638e9f7a8155ba096ff9ac31e05cb1dfa1c8e1cb09603d0f7",
+      "server-scoring.log": "b73b7bde3ecabd8a2442ae1c7095b4717b779f4b64f66704e684119ee21132dd",
+      "server-unload.log": "4262a24eb6c6dc54baadc3a43b22d2bfb698e992d06a8c73c4e8defc39a5d8d7"
+    },
+    "local_run": "l4d2-competitive-score-lifecycle-hard-minus-report-4-1789762822080317500"
+  },
+  {
+    "task": "l4d2-competitive-score-lifecycle-hard",
+    "candidate": "minus-report-5",
+    "exit_code": 1,
+    "hash_algorithm": "sha256-relpath-nul-content-nul-posix-lexical-v1",
+    "contract": "777cec4df8806854c5071ffb0f346e816de9dfa2bb4985da2e45d1455d55c55c",
+    "component_hashes": {
+      "instruction.md": "da244e5495f8dfecb02c96a135a545c57f5df4ae88307e8b6e665c41e5d58341",
+      "task.toml": "d87f1391884e3b85ab42e638169ad2f49a03f7d73ded6962972e3a67290b7e7d",
+      "environment": "414d069b86ae1a9a4f09d86be6a268f20f55a4afff5b2172e29243a8b26b6ba0",
+      "tests": "aee18b17a80de9314a2207fe78f1baf1efaede8b91f27e096cc099c03b2156ac",
+      "solution": "743fc017f2cd201c5b6ed07e83a58f5ca2515584bca6297f0fd05c7a61870b67",
+      "validation/case-contracts.tsv": "9bd18eba08e5f8ca266dba1c17d9b3cea5d541f6f514f5c2dd98f3b54e613a50"
+    },
+    "runtime_image_id": "sha256:3604481021c1b605741e994fb623834fb0725b2309e53b7ed9a4c86fe3fb65cd",
+    "source_hash": "93e15563fd262ea32b03311813109b7952dedaf6e69c0e7fd362ea1e177cf4ab",
+    "tests_hash": "aee18b17a80de9314a2207fe78f1baf1efaede8b91f27e096cc099c03b2156ac",
+    "cases": [
+      {
+        "case": "score_normal_budget",
+        "status": "PASS",
+        "detail": "full upright roster earns ordinary health and damage budgets"
+      },
+      {
+        "case": "score_dead_excluded",
+        "status": "PASS",
+        "detail": "dead survivor does not count as upright"
+      },
+      {
+        "case": "score_incap_excluded",
+        "status": "PASS",
+        "detail": "incap survivor excluded from damage multiplier"
+      },
+      {
+        "case": "score_falling_excluded",
+        "status": "PASS",
+        "detail": "falling survivor contributes neither health nor multiplier"
+      },
+      {
+        "case": "score_revived_health_policy",
+        "status": "PASS",
+        "detail": "existing zero permanent-health contribution after incap preserved"
+      },
+      {
+        "case": "score_upright_pills",
+        "status": "PASS",
+        "detail": "actual carried pills earn normal per-player bonus"
+      },
+      {
+        "case": "score_ledge_pills_excluded",
+        "status": "PASS",
+        "detail": "ledge hanging player cannot contribute pills"
+      },
+      {
+        "case": "score_falling_pills_excluded",
+        "status": "PASS",
+        "detail": "falling player cannot contribute pills"
+      },
+      {
+        "case": "live_multiplier_preserves_loss",
+        "status": "PASS",
+        "detail": "multiplier update reprices existing loss without clearing ledger"
+      },
+      {
+        "case": "live_proportion_reprices",
+        "status": "PASS",
+        "detail": "p=.5 uses 400 temporary-health units and retains 20 lost units"
+      },
+      {
+        "case": "live_pill_factor",
+        "status": "PASS",
+        "detail": "live factor update recalculates nearest-five minimum"
+      },
+      {
+        "case": "live_pill_cap",
+        "status": "PASS",
+        "detail": "live cap below five is itself the cap"
+      },
+      {
+        "case": "live_team_size",
+        "status": "PASS",
+        "detail": "live team-size update recalculates all coefficients"
+      },
+      {
+        "case": "score_roster_limit",
+        "status": "PASS",
+        "detail": "dead player still occupies first-two roster slot; extra survivors do not replace it"
+      },
+      {
+        "case": "bounds_zero_proportion",
+        "status": "PASS",
+        "detail": "all-damage endpoint has 100 temporary-health units per player"
+      },
+      {
+        "case": "bounds_one_proportion",
+        "status": "PASS",
+        "detail": "all-health endpoint has finite zero damage budget"
+      },
+      {
+        "case": "bounds_endpoint_events",
+        "status": "PASS",
+        "detail": "incap and death callbacks do not divide by zero at all-health endpoint"
+      },
+      {
+        "case": "bounds_high_proportion",
+        "status": "PASS",
+        "detail": "proportions above one clamp to one"
+      },
+      {
+        "case": "bounds_negative_proportion",
+        "status": "PASS",
+        "detail": "negative proportions clamp to zero"
+      },
+      {
+        "case": "bounds_zero_factor",
+        "status": "PASS",
+        "detail": "zero pills factor disables pills"
+      },
+      {
+        "case": "bounds_negative_factor",
+        "status": "PASS",
+        "detail": "negative pills factor disables pills"
+      },
+      {
+        "case": "bounds_zero_cap",
+        "status": "PASS",
+        "detail": "zero cap disables pills"
+      },
+      {
+        "case": "bounds_negative_cap",
+        "status": "PASS",
+        "detail": "negative cap disables pills"
+      },
+      {
+        "case": "bounds_zero_budget",
+        "status": "PASS",
+        "detail": "zero map bonus cannot manufacture a pills minimum"
+      },
+      {
+        "case": "bounds_negative_multiplier",
+        "status": "PASS",
+        "detail": "negative multiplier normalizes to zero"
+      },
+      {
+        "case": "bounds_zero_team",
+        "status": "PASS",
+        "detail": "nonpositive team size uses one-player effective roster"
+      },
+      {
+        "case": "adm_positive_loss",
+        "status": "PASS",
+        "detail": "valid forward debits the positive difference"
+      },
+      {
+        "case": "adm_healing_ignored",
+        "status": "PASS",
+        "detail": "healing/equal values cannot credit damage ledger"
+      },
+      {
+        "case": "adm_negative_after_clamped",
+        "status": "PASS",
+        "detail": "negative new health clamps to zero before subtracting"
+      },
+      {
+        "case": "adm_negative_both_ignored",
+        "status": "PASS",
+        "detail": "two negative inputs do not create loss"
+      },
+      {
+        "case": "adm_invalid_client",
+        "status": "PASS",
+        "detail": "invalid client indices are rejected safely"
+      },
+      {
+        "case": "adm_ineligible_client",
+        "status": "PASS",
+        "detail": "dead/incap/ledge/falling/non-survivor forwards do not enter ledger"
+      },
+      {
+        "case": "round_restart_clears_current",
+        "status": "PASS",
+        "detail": "same-half round_start resets current-half accumulated loss"
+      },
+      {
+        "case": "round_preserves_other_half",
+        "status": "PASS",
+        "detail": "starting second half retains first-half ledger"
+      },
+      {
+        "case": "round_independent_half",
+        "status": "PASS",
+        "detail": "second-half losses remain independent"
+      },
+      {
+        "case": "round_finalized_ledger_frozen",
+        "status": "PASS",
+        "detail": "late damage and incap/death events cannot mutate finalized loss"
+      },
+      {
+        "case": "round_end_idempotent",
+        "status": "PASS",
+        "detail": "duplicate end-round forward preserves published result"
+      },
+      {
+        "case": "round_tiebreak_ledgers",
+        "status": "PASS",
+        "detail": "round reset clears current tiebreak ledger while completed first half survives second-half start"
+      },
+      {
+        "case": "adm_tiebreak_compatibility",
+        "status": "PASS",
+        "detail": "valid alternate-damage losses still drive established depleted-bonus tiebreak"
+      },
+      {
+        "case": "round_finalized_sdk_damage",
+        "status": "PASS",
+        "detail": "real damage removes temporary health through SDKHooks while finalized score ledger remains frozen"
+      },
+      {
+        "case": "round_finalized_plasma_event",
+        "status": "PASS",
+        "detail": "late manipulated-shotgun hurt event cannot debit finalized ledger"
+      },
+      {
+        "case": "ledge_zero_debit_episode",
+        "status": "FAIL",
+        "detail": "zero debit still establishes an outstanding episode and duplicate grab cannot charge it"
+      },
+      {
+        "case": "ledge_negative_debit_episode",
+        "status": "FAIL",
+        "detail": "negative pre-incap value normalizes to zero without losing episode identity"
+      },
+      {
+        "case": "ledge_duplicate_grab",
+        "status": "FAIL",
+        "detail": "one outstanding episode debits pre-incap buffer exactly once"
+      },
+      {
+        "case": "ledge_duplicate_revive",
+        "status": "FAIL",
+        "detail": "duplicate revive has one quantized 20-unit refund"
+      },
+      {
+        "case": "ledge_refund_capped",
+        "status": "FAIL",
+        "detail": "large restored buffer cannot refund unrelated losses"
+      },
+      {
+        "case": "ledge_ground_revive",
+        "status": "PASS",
+        "detail": "ground revive does not settle a ledge refund"
+      },
+      {
+        "case": "ledge_round_epoch",
+        "status": "FAIL",
+        "detail": "queued refund cannot credit a restarted round"
+      },
+      {
+        "case": "ledge_half_binding",
+        "status": "FAIL",
+        "detail": "queued first-half refund cannot modify second-half losses"
+      },
+      {
+        "case": "ledge_new_episode",
+        "status": "FAIL",
+        "detail": "later ledge episode invalidates old pending work even if currently upright"
+      },
+      {
+        "case": "ledge_team_transition",
+        "status": "FAIL",
+        "detail": "leaving survivor team invalidates refund even after return"
+      },
+      {
+        "case": "ledge_death_transition",
+        "status": "FAIL",
+        "detail": "death invalidates pending refund even after restoration to an alive fixture"
+      },
+      {
+        "case": "ledge_finalization",
+        "status": "FAIL",
+        "detail": "end-round invalidates queued refund"
+      },
+      {
+        "case": "ledge_client_disconnect",
+        "status": "FAIL",
+        "detail": "initiated client disconnect cancels pending refund while replacement connects"
+      },
+      {
+        "case": "ledge_zero_buffer",
+        "status": "PASS",
+        "detail": "zero restored buffer does not create negative refund"
+      },
+      {
+        "case": "unload_restores_startup_values",
+        "status": "PASS",
+        "detail": "unload restores values captured by this instance, including non-default startup values"
+      },
+      {
+        "case": "unload_new_instance_snapshot",
+        "status": "PASS",
+        "detail": "next plugin instance captures its own baseline"
+      }
+    ],
+    "passed": 45,
+    "total": 57,
+    "verifier_log_sha256": "5c2c5b9c30ac136476286d900f3e41b503613ac997c004b18543bd5f770ea91b",
+    "server_log_hashes": {
+      "server-ledge.log": "6097e607e6f47e37f8a0893bbf11d951bfe17bebd75b07c2b48843beeeb24e7f",
+      "server-ledger.log": "b712e5f2712289752e709f9d2baa2d926dc1c5e6b4d4617157c66e4b07fc2daf",
+      "server-limits.log": "9d7e58bdbb76b3e94909a21ef5f277da73131313399ba5aae0c4863133d254ad",
+      "server-scoring.log": "6bfd3521d59deda8420ce1669cce8ee4e730bc3737174eeeefccc49ba0eab917",
+      "server-unload.log": "8d488a8c4a7689df4e7307cca26c57418210b97221e04e96f6aa88cca51704f0"
+    },
+    "local_run": "l4d2-competitive-score-lifecycle-hard-minus-report-5-1789762822124455800"
+  },
+  {
+    "task": "l4d2-competitive-score-lifecycle-hard",
+    "candidate": "minus-report-6",
+    "exit_code": 1,
+    "hash_algorithm": "sha256-relpath-nul-content-nul-posix-lexical-v1",
+    "contract": "777cec4df8806854c5071ffb0f346e816de9dfa2bb4985da2e45d1455d55c55c",
+    "component_hashes": {
+      "instruction.md": "da244e5495f8dfecb02c96a135a545c57f5df4ae88307e8b6e665c41e5d58341",
+      "task.toml": "d87f1391884e3b85ab42e638169ad2f49a03f7d73ded6962972e3a67290b7e7d",
+      "environment": "414d069b86ae1a9a4f09d86be6a268f20f55a4afff5b2172e29243a8b26b6ba0",
+      "tests": "aee18b17a80de9314a2207fe78f1baf1efaede8b91f27e096cc099c03b2156ac",
+      "solution": "743fc017f2cd201c5b6ed07e83a58f5ca2515584bca6297f0fd05c7a61870b67",
+      "validation/case-contracts.tsv": "9bd18eba08e5f8ca266dba1c17d9b3cea5d541f6f514f5c2dd98f3b54e613a50"
+    },
+    "runtime_image_id": "sha256:3604481021c1b605741e994fb623834fb0725b2309e53b7ed9a4c86fe3fb65cd",
+    "source_hash": "59c07ce8a49f201e9dd74087b403571dd58f36a28371f8ae6f19a1f9543d055f",
+    "tests_hash": "aee18b17a80de9314a2207fe78f1baf1efaede8b91f27e096cc099c03b2156ac",
+    "cases": [
+      {
+        "case": "score_normal_budget",
+        "status": "PASS",
+        "detail": "full upright roster earns ordinary health and damage budgets"
+      },
+      {
+        "case": "score_dead_excluded",
+        "status": "PASS",
+        "detail": "dead survivor does not count as upright"
+      },
+      {
+        "case": "score_incap_excluded",
+        "status": "PASS",
+        "detail": "incap survivor excluded from damage multiplier"
+      },
+      {
+        "case": "score_falling_excluded",
+        "status": "PASS",
+        "detail": "falling survivor contributes neither health nor multiplier"
+      },
+      {
+        "case": "score_revived_health_policy",
+        "status": "PASS",
+        "detail": "existing zero permanent-health contribution after incap preserved"
+      },
+      {
+        "case": "score_upright_pills",
+        "status": "PASS",
+        "detail": "actual carried pills earn normal per-player bonus"
+      },
+      {
+        "case": "score_ledge_pills_excluded",
+        "status": "PASS",
+        "detail": "ledge hanging player cannot contribute pills"
+      },
+      {
+        "case": "score_falling_pills_excluded",
+        "status": "PASS",
+        "detail": "falling player cannot contribute pills"
+      },
+      {
+        "case": "live_multiplier_preserves_loss",
+        "status": "PASS",
+        "detail": "multiplier update reprices existing loss without clearing ledger"
+      },
+      {
+        "case": "live_proportion_reprices",
+        "status": "PASS",
+        "detail": "p=.5 uses 400 temporary-health units and retains 20 lost units"
+      },
+      {
+        "case": "live_pill_factor",
+        "status": "PASS",
+        "detail": "live factor update recalculates nearest-five minimum"
+      },
+      {
+        "case": "live_pill_cap",
+        "status": "PASS",
+        "detail": "live cap below five is itself the cap"
+      },
+      {
+        "case": "live_team_size",
+        "status": "PASS",
+        "detail": "live team-size update recalculates all coefficients"
+      },
+      {
+        "case": "score_roster_limit",
+        "status": "PASS",
+        "detail": "dead player still occupies first-two roster slot; extra survivors do not replace it"
+      },
+      {
+        "case": "bounds_zero_proportion",
+        "status": "PASS",
+        "detail": "all-damage endpoint has 100 temporary-health units per player"
+      },
+      {
+        "case": "bounds_one_proportion",
+        "status": "PASS",
+        "detail": "all-health endpoint has finite zero damage budget"
+      },
+      {
+        "case": "bounds_endpoint_events",
+        "status": "PASS",
+        "detail": "incap and death callbacks do not divide by zero at all-health endpoint"
+      },
+      {
+        "case": "bounds_high_proportion",
+        "status": "PASS",
+        "detail": "proportions above one clamp to one"
+      },
+      {
+        "case": "bounds_negative_proportion",
+        "status": "PASS",
+        "detail": "negative proportions clamp to zero"
+      },
+      {
+        "case": "bounds_zero_factor",
+        "status": "PASS",
+        "detail": "zero pills factor disables pills"
+      },
+      {
+        "case": "bounds_negative_factor",
+        "status": "PASS",
+        "detail": "negative pills factor disables pills"
+      },
+      {
+        "case": "bounds_zero_cap",
+        "status": "PASS",
+        "detail": "zero cap disables pills"
+      },
+      {
+        "case": "bounds_negative_cap",
+        "status": "PASS",
+        "detail": "negative cap disables pills"
+      },
+      {
+        "case": "bounds_zero_budget",
+        "status": "PASS",
+        "detail": "zero map bonus cannot manufacture a pills minimum"
+      },
+      {
+        "case": "bounds_negative_multiplier",
+        "status": "PASS",
+        "detail": "negative multiplier normalizes to zero"
+      },
+      {
+        "case": "bounds_zero_team",
+        "status": "PASS",
+        "detail": "nonpositive team size uses one-player effective roster"
+      },
+      {
+        "case": "adm_positive_loss",
+        "status": "PASS",
+        "detail": "valid forward debits the positive difference"
+      },
+      {
+        "case": "adm_healing_ignored",
+        "status": "PASS",
+        "detail": "healing/equal values cannot credit damage ledger"
+      },
+      {
+        "case": "adm_negative_after_clamped",
+        "status": "PASS",
+        "detail": "negative new health clamps to zero before subtracting"
+      },
+      {
+        "case": "adm_negative_both_ignored",
+        "status": "PASS",
+        "detail": "two negative inputs do not create loss"
+      },
+      {
+        "case": "adm_invalid_client",
+        "status": "PASS",
+        "detail": "invalid client indices are rejected safely"
+      },
+      {
+        "case": "adm_ineligible_client",
+        "status": "PASS",
+        "detail": "dead/incap/ledge/falling/non-survivor forwards do not enter ledger"
+      },
+      {
+        "case": "round_restart_clears_current",
+        "status": "FAIL",
+        "detail": "same-half round_start resets current-half accumulated loss"
+      },
+      {
+        "case": "round_preserves_other_half",
+        "status": "FAIL",
+        "detail": "starting second half retains first-half ledger"
+      },
+      {
+        "case": "round_independent_half",
+        "status": "PASS",
+        "detail": "second-half losses remain independent"
+      },
+      {
+        "case": "round_finalized_ledger_frozen",
+        "status": "PASS",
+        "detail": "late damage and incap/death events cannot mutate finalized loss"
+      },
+      {
+        "case": "round_end_idempotent",
+        "status": "PASS",
+        "detail": "duplicate end-round forward preserves published result"
+      },
+      {
+        "case": "round_tiebreak_ledgers",
+        "status": "FAIL",
+        "detail": "round reset clears current tiebreak ledger while completed first half survives second-half start"
+      },
+      {
+        "case": "adm_tiebreak_compatibility",
+        "status": "PASS",
+        "detail": "valid alternate-damage losses still drive established depleted-bonus tiebreak"
+      },
+      {
+        "case": "round_finalized_sdk_damage",
+        "status": "PASS",
+        "detail": "real damage removes temporary health through SDKHooks while finalized score ledger remains frozen"
+      },
+      {
+        "case": "round_finalized_plasma_event",
+        "status": "PASS",
+        "detail": "late manipulated-shotgun hurt event cannot debit finalized ledger"
+      },
+      {
+        "case": "ledge_zero_debit_episode",
+        "status": "PASS",
+        "detail": "zero debit still establishes an outstanding episode and duplicate grab cannot charge it"
+      },
+      {
+        "case": "ledge_negative_debit_episode",
+        "status": "PASS",
+        "detail": "negative pre-incap value normalizes to zero without losing episode identity"
+      },
+      {
+        "case": "ledge_duplicate_grab",
+        "status": "FAIL",
+        "detail": "one outstanding episode debits pre-incap buffer exactly once"
+      },
+      {
+        "case": "ledge_duplicate_revive",
+        "status": "FAIL",
+        "detail": "duplicate revive has one quantized 20-unit refund"
+      },
+      {
+        "case": "ledge_refund_capped",
+        "status": "PASS",
+        "detail": "large restored buffer cannot refund unrelated losses"
+      },
+      {
+        "case": "ledge_ground_revive",
+        "status": "FAIL",
+        "detail": "ground revive does not settle a ledge refund"
+      },
+      {
+        "case": "ledge_round_epoch",
+        "status": "FAIL",
+        "detail": "queued refund cannot credit a restarted round"
+      },
+      {
+        "case": "ledge_half_binding",
+        "status": "PASS",
+        "detail": "queued first-half refund cannot modify second-half losses"
+      },
+      {
+        "case": "ledge_new_episode",
+        "status": "FAIL",
+        "detail": "later ledge episode invalidates old pending work even if currently upright"
+      },
+      {
+        "case": "ledge_team_transition",
+        "status": "FAIL",
+        "detail": "leaving survivor team invalidates refund even after return"
+      },
+      {
+        "case": "ledge_death_transition",
+        "status": "FAIL",
+        "detail": "death invalidates pending refund even after restoration to an alive fixture"
+      },
+      {
+        "case": "ledge_finalization",
+        "status": "FAIL",
+        "detail": "end-round invalidates queued refund"
+      },
+      {
+        "case": "ledge_client_disconnect",
+        "status": "FAIL",
+        "detail": "initiated client disconnect cancels pending refund while replacement connects"
+      },
+      {
+        "case": "ledge_zero_buffer",
+        "status": "FAIL",
+        "detail": "zero restored buffer does not create negative refund"
+      },
+      {
+        "case": "unload_restores_startup_values",
+        "status": "PASS",
+        "detail": "unload restores values captured by this instance, including non-default startup values"
+      },
+      {
+        "case": "unload_new_instance_snapshot",
+        "status": "PASS",
+        "detail": "next plugin instance captures its own baseline"
+      }
+    ],
+    "passed": 44,
+    "total": 57,
+    "verifier_log_sha256": "f70589e8814e8452168e5b06234f0e39af261f9bfdefc754c63d2aa2370aa689",
+    "server_log_hashes": {
+      "server-ledge.log": "56896ba33a5eab43e8b8d1b0b8ec270bd50e72ac4a43450dc973ad2562f34922",
+      "server-ledger.log": "42af2874b80288a473b2f1cac8ee4361c77ac91781737f28ce500dc3ac3005aa",
+      "server-limits.log": "265909e88a44a2450031ba729fd0556c1a820bf749bcec3751490be7c33e4827",
+      "server-scoring.log": "9414ae27afc6197227b2553c6cb27250de204bfd0677cb99028036eb9f819c68",
+      "server-unload.log": "a50957a0814a6eeb8610affb73274c7e9f16d7cd7236f635b16e0792047b0399"
+    },
+    "local_run": "l4d2-competitive-score-lifecycle-hard-minus-report-6-1789762934440995800"
+  },
+  {
+    "task": "l4d2-competitive-score-lifecycle-hard",
+    "candidate": "minus-report-7",
+    "exit_code": 1,
+    "hash_algorithm": "sha256-relpath-nul-content-nul-posix-lexical-v1",
+    "contract": "777cec4df8806854c5071ffb0f346e816de9dfa2bb4985da2e45d1455d55c55c",
+    "component_hashes": {
+      "instruction.md": "da244e5495f8dfecb02c96a135a545c57f5df4ae88307e8b6e665c41e5d58341",
+      "task.toml": "d87f1391884e3b85ab42e638169ad2f49a03f7d73ded6962972e3a67290b7e7d",
+      "environment": "414d069b86ae1a9a4f09d86be6a268f20f55a4afff5b2172e29243a8b26b6ba0",
+      "tests": "aee18b17a80de9314a2207fe78f1baf1efaede8b91f27e096cc099c03b2156ac",
+      "solution": "743fc017f2cd201c5b6ed07e83a58f5ca2515584bca6297f0fd05c7a61870b67",
+      "validation/case-contracts.tsv": "9bd18eba08e5f8ca266dba1c17d9b3cea5d541f6f514f5c2dd98f3b54e613a50"
+    },
+    "runtime_image_id": "sha256:3604481021c1b605741e994fb623834fb0725b2309e53b7ed9a4c86fe3fb65cd",
+    "source_hash": "477439268db19d8e9bce66233339d6b89941ab8fbc9d752207cc80c145639826",
+    "tests_hash": "aee18b17a80de9314a2207fe78f1baf1efaede8b91f27e096cc099c03b2156ac",
+    "cases": [
+      {
+        "case": "score_normal_budget",
+        "status": "PASS",
+        "detail": "full upright roster earns ordinary health and damage budgets"
+      },
+      {
+        "case": "score_dead_excluded",
+        "status": "PASS",
+        "detail": "dead survivor does not count as upright"
+      },
+      {
+        "case": "score_incap_excluded",
+        "status": "PASS",
+        "detail": "incap survivor excluded from damage multiplier"
+      },
+      {
+        "case": "score_falling_excluded",
+        "status": "PASS",
+        "detail": "falling survivor contributes neither health nor multiplier"
+      },
+      {
+        "case": "score_revived_health_policy",
+        "status": "PASS",
+        "detail": "existing zero permanent-health contribution after incap preserved"
+      },
+      {
+        "case": "score_upright_pills",
+        "status": "PASS",
+        "detail": "actual carried pills earn normal per-player bonus"
+      },
+      {
+        "case": "score_ledge_pills_excluded",
+        "status": "PASS",
+        "detail": "ledge hanging player cannot contribute pills"
+      },
+      {
+        "case": "score_falling_pills_excluded",
+        "status": "PASS",
+        "detail": "falling player cannot contribute pills"
+      },
+      {
+        "case": "live_multiplier_preserves_loss",
+        "status": "PASS",
+        "detail": "multiplier update reprices existing loss without clearing ledger"
+      },
+      {
+        "case": "live_proportion_reprices",
+        "status": "PASS",
+        "detail": "p=.5 uses 400 temporary-health units and retains 20 lost units"
+      },
+      {
+        "case": "live_pill_factor",
+        "status": "PASS",
+        "detail": "live factor update recalculates nearest-five minimum"
+      },
+      {
+        "case": "live_pill_cap",
+        "status": "PASS",
+        "detail": "live cap below five is itself the cap"
+      },
+      {
+        "case": "live_team_size",
+        "status": "PASS",
+        "detail": "live team-size update recalculates all coefficients"
+      },
+      {
+        "case": "score_roster_limit",
+        "status": "PASS",
+        "detail": "dead player still occupies first-two roster slot; extra survivors do not replace it"
+      },
+      {
+        "case": "bounds_zero_proportion",
+        "status": "PASS",
+        "detail": "all-damage endpoint has 100 temporary-health units per player"
+      },
+      {
+        "case": "bounds_one_proportion",
+        "status": "PASS",
+        "detail": "all-health endpoint has finite zero damage budget"
+      },
+      {
+        "case": "bounds_endpoint_events",
+        "status": "PASS",
+        "detail": "incap and death callbacks do not divide by zero at all-health endpoint"
+      },
+      {
+        "case": "bounds_high_proportion",
+        "status": "PASS",
+        "detail": "proportions above one clamp to one"
+      },
+      {
+        "case": "bounds_negative_proportion",
+        "status": "PASS",
+        "detail": "negative proportions clamp to zero"
+      },
+      {
+        "case": "bounds_zero_factor",
+        "status": "PASS",
+        "detail": "zero pills factor disables pills"
+      },
+      {
+        "case": "bounds_negative_factor",
+        "status": "PASS",
+        "detail": "negative pills factor disables pills"
+      },
+      {
+        "case": "bounds_zero_cap",
+        "status": "PASS",
+        "detail": "zero cap disables pills"
+      },
+      {
+        "case": "bounds_negative_cap",
+        "status": "PASS",
+        "detail": "negative cap disables pills"
+      },
+      {
+        "case": "bounds_zero_budget",
+        "status": "PASS",
+        "detail": "zero map bonus cannot manufacture a pills minimum"
+      },
+      {
+        "case": "bounds_negative_multiplier",
+        "status": "PASS",
+        "detail": "negative multiplier normalizes to zero"
+      },
+      {
+        "case": "bounds_zero_team",
+        "status": "PASS",
+        "detail": "nonpositive team size uses one-player effective roster"
+      },
+      {
+        "case": "adm_positive_loss",
+        "status": "PASS",
+        "detail": "valid forward debits the positive difference"
+      },
+      {
+        "case": "adm_healing_ignored",
+        "status": "PASS",
+        "detail": "healing/equal values cannot credit damage ledger"
+      },
+      {
+        "case": "adm_negative_after_clamped",
+        "status": "PASS",
+        "detail": "negative new health clamps to zero before subtracting"
+      },
+      {
+        "case": "adm_negative_both_ignored",
+        "status": "PASS",
+        "detail": "two negative inputs do not create loss"
+      },
+      {
+        "case": "adm_invalid_client",
+        "status": "PASS",
+        "detail": "invalid client indices are rejected safely"
+      },
+      {
+        "case": "adm_ineligible_client",
+        "status": "PASS",
+        "detail": "dead/incap/ledge/falling/non-survivor forwards do not enter ledger"
+      },
+      {
+        "case": "round_restart_clears_current",
+        "status": "PASS",
+        "detail": "same-half round_start resets current-half accumulated loss"
+      },
+      {
+        "case": "round_preserves_other_half",
+        "status": "PASS",
+        "detail": "starting second half retains first-half ledger"
+      },
+      {
+        "case": "round_independent_half",
+        "status": "PASS",
+        "detail": "second-half losses remain independent"
+      },
+      {
+        "case": "round_finalized_ledger_frozen",
+        "status": "PASS",
+        "detail": "late damage and incap/death events cannot mutate finalized loss"
+      },
+      {
+        "case": "round_end_idempotent",
+        "status": "PASS",
+        "detail": "duplicate end-round forward preserves published result"
+      },
+      {
+        "case": "round_tiebreak_ledgers",
+        "status": "PASS",
+        "detail": "round reset clears current tiebreak ledger while completed first half survives second-half start"
+      },
+      {
+        "case": "adm_tiebreak_compatibility",
+        "status": "PASS",
+        "detail": "valid alternate-damage losses still drive established depleted-bonus tiebreak"
+      },
+      {
+        "case": "round_finalized_sdk_damage",
+        "status": "PASS",
+        "detail": "real damage removes temporary health through SDKHooks while finalized score ledger remains frozen"
+      },
+      {
+        "case": "round_finalized_plasma_event",
+        "status": "PASS",
+        "detail": "late manipulated-shotgun hurt event cannot debit finalized ledger"
+      },
+      {
+        "case": "ledge_zero_debit_episode",
+        "status": "PASS",
+        "detail": "zero debit still establishes an outstanding episode and duplicate grab cannot charge it"
+      },
+      {
+        "case": "ledge_negative_debit_episode",
+        "status": "PASS",
+        "detail": "negative pre-incap value normalizes to zero without losing episode identity"
+      },
+      {
+        "case": "ledge_duplicate_grab",
+        "status": "PASS",
+        "detail": "one outstanding episode debits pre-incap buffer exactly once"
+      },
+      {
+        "case": "ledge_duplicate_revive",
+        "status": "PASS",
+        "detail": "duplicate revive has one quantized 20-unit refund"
+      },
+      {
+        "case": "ledge_refund_capped",
+        "status": "PASS",
+        "detail": "large restored buffer cannot refund unrelated losses"
+      },
+      {
+        "case": "ledge_ground_revive",
+        "status": "PASS",
+        "detail": "ground revive does not settle a ledge refund"
+      },
+      {
+        "case": "ledge_round_epoch",
+        "status": "PASS",
+        "detail": "queued refund cannot credit a restarted round"
+      },
+      {
+        "case": "ledge_half_binding",
+        "status": "PASS",
+        "detail": "queued first-half refund cannot modify second-half losses"
+      },
+      {
+        "case": "ledge_new_episode",
+        "status": "PASS",
+        "detail": "later ledge episode invalidates old pending work even if currently upright"
+      },
+      {
+        "case": "ledge_team_transition",
+        "status": "PASS",
+        "detail": "leaving survivor team invalidates refund even after return"
+      },
+      {
+        "case": "ledge_death_transition",
+        "status": "PASS",
+        "detail": "death invalidates pending refund even after restoration to an alive fixture"
+      },
+      {
+        "case": "ledge_finalization",
+        "status": "PASS",
+        "detail": "end-round invalidates queued refund"
+      },
+      {
+        "case": "ledge_client_disconnect",
+        "status": "PASS",
+        "detail": "initiated client disconnect cancels pending refund while replacement connects"
+      },
+      {
+        "case": "ledge_zero_buffer",
+        "status": "PASS",
+        "detail": "zero restored buffer does not create negative refund"
+      },
+      {
+        "case": "unload_restores_startup_values",
+        "status": "FAIL",
+        "detail": "unload restores values captured by this instance, including non-default startup values"
+      },
+      {
+        "case": "unload_new_instance_snapshot",
+        "status": "FAIL",
+        "detail": "next plugin instance captures its own baseline"
+      }
+    ],
+    "passed": 55,
+    "total": 57,
+    "verifier_log_sha256": "eb242246dcf881eec608b01510df7ab6073a75752ee9b3b403c7a4977082d89b",
+    "server_log_hashes": {
+      "server-ledge.log": "e7572f65f40b2ab9155e9db8355fdefd135be5bd0dbacac0172a22f3f23025b8",
+      "server-ledger.log": "dfa15c80b06a40e9c8c1ff851af7affd810f6bbffb6fd57b9747a448d2de6fdf",
+      "server-limits.log": "a358d3b9aa468fc3764d66a8ae4f7bae0753138554f4e655cda8fd805c9cdcfc",
+      "server-scoring.log": "3d95db50ded8e5e38ec95bfab1589484ba24a5973c1849f70f6f273dd4b481a3",
+      "server-unload.log": "9ea10effe2621b2fe10b20f283bf5670cdb4bbb0dabc175295c0c528a83ac943"
+    },
+    "local_run": "l4d2-competitive-score-lifecycle-hard-minus-report-7-1789762934515252700"
+  },
+  {
+    "task": "l4d2-competitive-score-lifecycle-hard",
+    "candidate": "nop",
+    "exit_code": 1,
+    "hash_algorithm": "sha256-relpath-nul-content-nul-posix-lexical-v1",
+    "contract": "777cec4df8806854c5071ffb0f346e816de9dfa2bb4985da2e45d1455d55c55c",
+    "component_hashes": {
+      "instruction.md": "da244e5495f8dfecb02c96a135a545c57f5df4ae88307e8b6e665c41e5d58341",
+      "task.toml": "d87f1391884e3b85ab42e638169ad2f49a03f7d73ded6962972e3a67290b7e7d",
+      "environment": "414d069b86ae1a9a4f09d86be6a268f20f55a4afff5b2172e29243a8b26b6ba0",
+      "tests": "aee18b17a80de9314a2207fe78f1baf1efaede8b91f27e096cc099c03b2156ac",
+      "solution": "743fc017f2cd201c5b6ed07e83a58f5ca2515584bca6297f0fd05c7a61870b67",
+      "validation/case-contracts.tsv": "9bd18eba08e5f8ca266dba1c17d9b3cea5d541f6f514f5c2dd98f3b54e613a50"
+    },
+    "runtime_image_id": "sha256:3604481021c1b605741e994fb623834fb0725b2309e53b7ed9a4c86fe3fb65cd",
+    "source_hash": "90dc412b5efcde46888d60ce39cea7b284f016621a1e8bf812bcafa8e9127779",
+    "tests_hash": "aee18b17a80de9314a2207fe78f1baf1efaede8b91f27e096cc099c03b2156ac",
+    "cases": [
+      {
+        "case": "score_normal_budget",
+        "status": "PASS",
+        "detail": "full upright roster earns ordinary health and damage budgets"
+      },
+      {
+        "case": "score_dead_excluded",
+        "status": "FAIL",
+        "detail": "dead survivor does not count as upright"
+      },
+      {
+        "case": "score_incap_excluded",
+        "status": "PASS",
+        "detail": "incap survivor excluded from damage multiplier"
+      },
+      {
+        "case": "score_falling_excluded",
+        "status": "PASS",
+        "detail": "falling survivor contributes neither health nor multiplier"
+      },
+      {
+        "case": "score_revived_health_policy",
+        "status": "PASS",
+        "detail": "existing zero permanent-health contribution after incap preserved"
+      },
+      {
+        "case": "score_upright_pills",
+        "status": "PASS",
+        "detail": "actual carried pills earn normal per-player bonus"
+      },
+      {
+        "case": "score_ledge_pills_excluded",
+        "status": "FAIL",
+        "detail": "ledge hanging player cannot contribute pills"
+      },
+      {
+        "case": "score_falling_pills_excluded",
+        "status": "FAIL",
+        "detail": "falling player cannot contribute pills"
+      },
+      {
+        "case": "live_multiplier_preserves_loss",
+        "status": "PASS",
+        "detail": "multiplier update reprices existing loss without clearing ledger"
+      },
+      {
+        "case": "live_proportion_reprices",
+        "status": "PASS",
+        "detail": "p=.5 uses 400 temporary-health units and retains 20 lost units"
+      },
+      {
+        "case": "live_pill_factor",
+        "status": "FAIL",
+        "detail": "live factor update recalculates nearest-five minimum"
+      },
+      {
+        "case": "live_pill_cap",
+        "status": "FAIL",
+        "detail": "live cap below five is itself the cap"
+      },
+      {
+        "case": "live_team_size",
+        "status": "FAIL",
+        "detail": "live team-size update recalculates all coefficients"
+      },
+      {
+        "case": "score_roster_limit",
+        "status": "PASS",
+        "detail": "dead player still occupies first-two roster slot; extra survivors do not replace it"
+      },
+      {
+        "case": "bounds_zero_proportion",
+        "status": "FAIL",
+        "detail": "all-damage endpoint has 100 temporary-health units per player"
+      },
+      {
+        "case": "bounds_one_proportion",
+        "status": "PASS",
+        "detail": "all-health endpoint has finite zero damage budget"
+      },
+      {
+        "case": "bounds_endpoint_events",
+        "status": "PASS",
+        "detail": "incap and death callbacks do not divide by zero at all-health endpoint"
+      },
+      {
+        "case": "bounds_high_proportion",
+        "status": "FAIL",
+        "detail": "proportions above one clamp to one"
+      },
+      {
+        "case": "bounds_negative_proportion",
+        "status": "FAIL",
+        "detail": "negative proportions clamp to zero"
+      },
+      {
+        "case": "bounds_zero_factor",
+        "status": "FAIL",
+        "detail": "zero pills factor disables pills"
+      },
+      {
+        "case": "bounds_negative_factor",
+        "status": "FAIL",
+        "detail": "negative pills factor disables pills"
+      },
+      {
+        "case": "bounds_zero_cap",
+        "status": "FAIL",
+        "detail": "zero cap disables pills"
+      },
+      {
+        "case": "bounds_negative_cap",
+        "status": "FAIL",
+        "detail": "negative cap disables pills"
+      },
+      {
+        "case": "bounds_zero_budget",
+        "status": "FAIL",
+        "detail": "zero map bonus cannot manufacture a pills minimum"
+      },
+      {
+        "case": "bounds_negative_multiplier",
+        "status": "FAIL",
+        "detail": "negative multiplier normalizes to zero"
+      },
+      {
+        "case": "bounds_zero_team",
+        "status": "FAIL",
+        "detail": "nonpositive team size uses one-player effective roster"
+      },
+      {
+        "case": "adm_positive_loss",
+        "status": "PASS",
+        "detail": "valid forward debits the positive difference"
+      },
+      {
+        "case": "adm_healing_ignored",
+        "status": "FAIL",
+        "detail": "healing/equal values cannot credit damage ledger"
+      },
+      {
+        "case": "adm_negative_after_clamped",
+        "status": "PASS",
+        "detail": "negative new health clamps to zero before subtracting"
+      },
+      {
+        "case": "adm_negative_both_ignored",
+        "status": "FAIL",
+        "detail": "two negative inputs do not create loss"
+      },
+      {
+        "case": "adm_invalid_client",
+        "status": "FAIL",
+        "detail": "invalid client indices are rejected safely"
+      },
+      {
+        "case": "adm_ineligible_client",
+        "status": "FAIL",
+        "detail": "dead/incap/ledge/falling/non-survivor forwards do not enter ledger"
+      },
+      {
+        "case": "round_restart_clears_current",
+        "status": "FAIL",
+        "detail": "same-half round_start resets current-half accumulated loss"
+      },
+      {
+        "case": "round_preserves_other_half",
+        "status": "FAIL",
+        "detail": "starting second half retains first-half ledger"
+      },
+      {
+        "case": "round_independent_half",
+        "status": "PASS",
+        "detail": "second-half losses remain independent"
+      },
+      {
+        "case": "round_finalized_ledger_frozen",
+        "status": "FAIL",
+        "detail": "late damage and incap/death events cannot mutate finalized loss"
+      },
+      {
+        "case": "round_end_idempotent",
+        "status": "PASS",
+        "detail": "duplicate end-round forward preserves published result"
+      },
+      {
+        "case": "round_tiebreak_ledgers",
+        "status": "FAIL",
+        "detail": "round reset clears current tiebreak ledger while completed first half survives second-half start"
+      },
+      {
+        "case": "adm_tiebreak_compatibility",
+        "status": "PASS",
+        "detail": "valid alternate-damage losses still drive established depleted-bonus tiebreak"
+      },
+      {
+        "case": "round_finalized_sdk_damage",
+        "status": "PASS",
+        "detail": "real damage removes temporary health through SDKHooks while finalized score ledger remains frozen"
+      },
+      {
+        "case": "round_finalized_plasma_event",
+        "status": "PASS",
+        "detail": "late manipulated-shotgun hurt event cannot debit finalized ledger"
+      },
+      {
+        "case": "ledge_zero_debit_episode",
+        "status": "FAIL",
+        "detail": "zero debit still establishes an outstanding episode and duplicate grab cannot charge it"
+      },
+      {
+        "case": "ledge_negative_debit_episode",
+        "status": "FAIL",
+        "detail": "negative pre-incap value normalizes to zero without losing episode identity"
+      },
+      {
+        "case": "ledge_duplicate_grab",
+        "status": "FAIL",
+        "detail": "one outstanding episode debits pre-incap buffer exactly once"
+      },
+      {
+        "case": "ledge_duplicate_revive",
+        "status": "FAIL",
+        "detail": "duplicate revive has one quantized 20-unit refund"
+      },
+      {
+        "case": "ledge_refund_capped",
+        "status": "FAIL",
+        "detail": "large restored buffer cannot refund unrelated losses"
+      },
+      {
+        "case": "ledge_ground_revive",
+        "status": "FAIL",
+        "detail": "ground revive does not settle a ledge refund"
+      },
+      {
+        "case": "ledge_round_epoch",
+        "status": "FAIL",
+        "detail": "queued refund cannot credit a restarted round"
+      },
+      {
+        "case": "ledge_half_binding",
+        "status": "FAIL",
+        "detail": "queued first-half refund cannot modify second-half losses"
+      },
+      {
+        "case": "ledge_new_episode",
+        "status": "FAIL",
+        "detail": "later ledge episode invalidates old pending work even if currently upright"
+      },
+      {
+        "case": "ledge_team_transition",
+        "status": "FAIL",
+        "detail": "leaving survivor team invalidates refund even after return"
+      },
+      {
+        "case": "ledge_death_transition",
+        "status": "FAIL",
+        "detail": "death invalidates pending refund even after restoration to an alive fixture"
+      },
+      {
+        "case": "ledge_finalization",
+        "status": "FAIL",
+        "detail": "end-round invalidates queued refund"
+      },
+      {
+        "case": "ledge_client_disconnect",
+        "status": "FAIL",
+        "detail": "initiated client disconnect cancels pending refund while replacement connects"
+      },
+      {
+        "case": "ledge_zero_buffer",
+        "status": "FAIL",
+        "detail": "zero restored buffer does not create negative refund"
+      },
+      {
+        "case": "unload_restores_startup_values",
+        "status": "FAIL",
+        "detail": "unload restores values captured by this instance, including non-default startup values"
+      },
+      {
+        "case": "unload_new_instance_snapshot",
+        "status": "FAIL",
+        "detail": "next plugin instance captures its own baseline"
+      }
+    ],
+    "passed": 17,
+    "total": 57,
+    "verifier_log_sha256": "0b4cbf19fcb51acf133964346110da6cbe2ee2e0f3acfd3befec5ccc1b3f0c4b",
+    "server_log_hashes": {
+      "server-ledge.log": "0006805c3b3b24811031aa7e3b3e16659c7250f72a495d664cac4c01d29f0d67",
+      "server-ledger.log": "0d544e74a017d674b03f3f9e58dcae0527885374eaa93a4f90a7389d0066c2f2",
+      "server-limits.log": "0d69b6b5934969498c7495b85dece671e7984246758cfb568085d6b47b29e030",
+      "server-scoring.log": "0f2aceef0a1937fbf5d5397f069453f9e3acad0fb30fa9a6a2de7ddcc0629e46",
+      "server-unload.log": "820153bc3e3f5002a1b5aaaa57b32c1fe7ea7a0831f1ef16abd2c292fadad0c6"
+    },
+    "local_run": "l4d2-competitive-score-lifecycle-hard-nop-1789762602104295700"
+  }
+]

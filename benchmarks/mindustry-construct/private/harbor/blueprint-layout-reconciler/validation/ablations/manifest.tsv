@@ -1,0 +1,2 @@
+ablation	patch	expected_failed_case
+observe-origin-only	observe-origin-only.patch	world observation of real buildings

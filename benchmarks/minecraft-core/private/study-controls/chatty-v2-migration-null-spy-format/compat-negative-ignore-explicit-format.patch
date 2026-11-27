@@ -1,0 +1,11 @@
+--- a/spigot/src/main/java/ru/brikster/chatty/guice/ConfigsLoader.java
++++ b/spigot/src/main/java/ru/brikster/chatty/guice/ConfigsLoader.java
+@@ -46,7 +46,7 @@
+                     chatConfig.isParseLinks(),
+                     chatConfig.getSpy().isEnable(),
+                     chatConfig.isPlaySound() ? chatConfig.getSound() : null,
+-                    componentConverter.stringToComponent(spyFormat == null ? "" : spyFormat),
++                    componentConverter.stringToComponent("&6[Spy] &r" + chatConfig.getFormat()),
+                     chatConfig.getCooldown());
+             registry.register(chatId, chat);
+         });

@@ -1,0 +1,372 @@
+{
+  "task": "balatro/core/isolated-card-wear-v2",
+  "task_version": "0.2.0",
+  "exam": "benchmarks/balatro/public/v02/isolated-card-wear-v2/CONTRACT.md",
+  "cases": [
+    {
+      "id": "position:1",
+      "role": "setup",
+      "clauses": [
+        "icw-registration-identity",
+        "icw-two-uses-when-polished",
+        "icw-loc-vars-remaining"
+      ],
+      "overlap": false,
+      "note": "initial"
+    },
+    {
+      "id": "position:2",
+      "role": "preserved",
+      "clauses": [
+        "icw-score-adds-twenty-consumes-one",
+        "icw-uses-per-physical-card",
+        "icw-several-cards-same-hand",
+        "icw-no-default-mutation",
+        "icw-loc-vars-remaining",
+        "icw-no-global-prototype-change"
+      ],
+      "overlap": true,
+      "note": "pair.first"
+    },
+    {
+      "id": "position:3",
+      "role": "preserved",
+      "clauses": [
+        "icw-non-scoring-events-no-change",
+        "icw-no-global-prototype-change"
+      ],
+      "overlap": true,
+      "note": "r2"
+    },
+    {
+      "id": "position:4",
+      "role": "preserved",
+      "clauses": [
+        "icw-non-scoring-events-no-change",
+        "icw-no-global-prototype-change"
+      ],
+      "overlap": true,
+      "note": "discard.held"
+    },
+    {
+      "id": "position:5",
+      "role": "target",
+      "clauses": [
+        "icw-applicator-valid-targets",
+        "icw-applicator-exactly-one-target",
+        "icw-tarot-consumed-normally",
+        "icw-reset-to-two-fresh-uses",
+        "icw-reapply-no-stale-or-additive",
+        "icw-reapply-preserves-card",
+        "icw-reapply-no-immediate-reward",
+        "icw-loc-vars-remaining"
+      ],
+      "overlap": false,
+      "note": "refresh.worn"
+    },
+    {
+      "id": "position:6",
+      "role": "target",
+      "clauses": [
+        "icw-score-adds-twenty-consumes-one",
+        "icw-uses-per-physical-card",
+        "icw-reset-to-two-fresh-uses"
+      ],
+      "overlap": false,
+      "note": "a.refreshed"
+    },
+    {
+      "id": "position:7",
+      "role": "target",
+      "clauses": [
+        "icw-second-use-full-reward",
+        "icw-depletion-reverts-to-base",
+        "icw-uses-per-physical-card",
+        "icw-ordinary-description"
+      ],
+      "overlap": false,
+      "note": "b.last"
+    },
+    {
+      "id": "position:8",
+      "role": "target",
+      "clauses": [
+        "icw-non-scoring-events-no-change"
+      ],
+      "overlap": false,
+      "note": "r3"
+    },
+    {
+      "id": "position:9",
+      "role": "target",
+      "clauses": [
+        "icw-applicator-valid-targets",
+        "icw-applicator-exactly-one-target",
+        "icw-tarot-consumed-normally",
+        "icw-reset-to-two-fresh-uses",
+        "icw-reapply-no-stale-or-additive",
+        "icw-reapply-preserves-card",
+        "icw-reapply-no-immediate-reward",
+        "icw-loc-vars-remaining"
+      ],
+      "overlap": false,
+      "note": "refresh.depleted"
+    },
+    {
+      "id": "position:10",
+      "role": "target",
+      "clauses": [
+        "icw-second-use-full-reward",
+        "icw-depletion-reverts-to-base",
+        "icw-ordinary-description"
+      ],
+      "overlap": false,
+      "note": "a.last"
+    },
+    {
+      "id": "position:11",
+      "role": "target",
+      "clauses": [
+        "icw-score-adds-twenty-consumes-one",
+        "icw-reset-to-two-fresh-uses"
+      ],
+      "overlap": false,
+      "note": "b.refreshed"
+    },
+    {
+      "id": "position:12",
+      "role": "target",
+      "clauses": [
+        "icw-two-uses-when-polished",
+        "icw-no-default-mutation",
+        "icw-applicator-valid-targets",
+        "icw-applicator-exactly-one-target",
+        "icw-tarot-consumed-normally",
+        "icw-reapply-no-stale-or-additive",
+        "icw-reapply-preserves-card",
+        "icw-reapply-no-immediate-reward",
+        "icw-loc-vars-remaining",
+        "icw-no-global-prototype-change"
+      ],
+      "overlap": false,
+      "note": "apply.new"
+    },
+    {
+      "id": "position:13",
+      "role": "target",
+      "clauses": [
+        "icw-score-adds-twenty-consumes-one",
+        "icw-no-default-mutation",
+        "icw-no-global-prototype-change"
+      ],
+      "overlap": false,
+      "note": "c.first"
+    },
+    {
+      "id": "position:14",
+      "role": "target",
+      "clauses": [
+        "icw-score-adds-twenty-consumes-one",
+        "icw-non-scoring-events-no-change"
+      ],
+      "overlap": false,
+      "note": "r4"
+    },
+    {
+      "id": "position:15",
+      "role": "target",
+      "clauses": [
+        "icw-no-bonus-after-depletion"
+      ],
+      "overlap": false,
+      "note": "a.ordinary"
+    },
+    {
+      "id": "position:16",
+      "role": "target",
+      "clauses": [
+        "icw-second-use-full-reward",
+        "icw-depletion-reverts-to-base",
+        "icw-uses-per-physical-card",
+        "icw-several-cards-same-hand",
+        "icw-ordinary-description"
+      ],
+      "overlap": false,
+      "note": "pair.last"
+    },
+    {
+      "id": "position:17",
+      "role": "preserved",
+      "clauses": [
+        "icw-registration-identity",
+        "icw-tarot-consumed-normally"
+      ],
+      "overlap": false,
+      "note": "applications.lifecycle"
+    },
+    {
+      "id": "position:18",
+      "role": "preserved",
+      "clauses": [
+        "icw-non-scoring-events-no-change",
+        "icw-description-reads-pure"
+      ],
+      "overlap": false,
+      "note": "stable"
+    },
+    {
+      "id": "position:19",
+      "role": "runtime-sentinel",
+      "clauses": [],
+      "overlap": false,
+      "note": "sealed"
+    }
+  ],
+  "clauses": [
+    {
+      "id": "icw-registration-identity",
+      "anchor": "CONTRACT.md paragraph 1: \"Repair mod `isolated_card_wear_v2`, prefix `icw2`, enhancement `m_icw2_polish` and ordinary single-use Tarot `c_icw2_applicator` (cost $3).\"",
+      "status": "asserted",
+      "note": "initial reads the center m_icw2_polish; applications.lifecycle reads the usage ledger key c_icw2_applicator."
+    },
+    {
+      "id": "icw-applicator-cost-three",
+      "anchor": "CONTRACT.md paragraph 1: \"Repair mod `isolated_card_wear_v2`, prefix `icw2`, enhancement `m_icw2_polish` and ordinary single-use Tarot `c_icw2_applicator` (cost $3).\"",
+      "status": "unasserted",
+      "note": "Applicators are created by the fixture and never priced or bought (tasks/isolated_card_wear/v2/private/mod/fixture.lua:14-16)."
+    },
+    {
+      "id": "icw-two-uses-when-polished",
+      "anchor": "CONTRACT.md bullet 1: \"Each newly polished physical playing card has **two uses**.\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "icw-score-adds-twenty-consumes-one",
+      "anchor": "CONTRACT.md bullet 1: \"Each time that card actually scores as a played card, it contributes **+20 Chips** and consumes exactly one use.\"",
+      "status": "asserted",
+      "note": "Every played card in every hand scores, so a polished card that is played but does not score never occurs."
+    },
+    {
+      "id": "icw-non-scoring-events-no-change",
+      "anchor": "CONTRACT.md bullet 1: \"Holding, discarding, dealing, description queries and changing blinds neither consume nor replenish uses.\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "icw-second-use-full-reward",
+      "anchor": "CONTRACT.md bullet 2: \"The second use still contributes the full +20 Chips.\"",
+      "status": "asserted",
+      "note": "M02-last-reward fails exactly these three cases."
+    },
+    {
+      "id": "icw-depletion-reverts-to-base",
+      "anchor": "CONTRACT.md bullet 2: \"change that same physical card to ordinary unenhanced `c_base`, preserving identity, rank and suit\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "icw-no-bonus-after-depletion",
+      "anchor": "CONTRACT.md bullet 2: \"Later scoring receives no polish bonus unless the card is polished again.\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "icw-uses-per-physical-card",
+      "anchor": "CONTRACT.md bullet 3: \"Uses belong to individual physical cards.\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "icw-several-cards-same-hand",
+      "anchor": "CONTRACT.md bullet 3: \"Several polished cards may score in the same hand; each gets its own reward and consumes only its own use.\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "icw-no-default-mutation",
+      "anchor": "CONTRACT.md bullet 3: \"Older cards must not mutate defaults for other or future cards.\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "icw-applicator-valid-targets",
+      "anchor": "CONTRACT.md bullet 4: \"the applicator can target exactly one currently ordinary card **or one card already carrying this polish**, including a partially worn card\"",
+      "status": "asserted",
+      "note": "A worn card, a depleted card and a never-polished card are each targeted once."
+    },
+    {
+      "id": "icw-applicator-exactly-one-target",
+      "anchor": "CONTRACT.md bullet 4: \"the applicator can target exactly one currently ordinary card **or one card already carrying this polish**, including a partially worn card\"",
+      "status": "weak",
+      "note": "Every use selects one card. Rejection of zero or several targets is not exercised."
+    },
+    {
+      "id": "icw-tarot-consumed-normally",
+      "anchor": "CONTRACT.md bullet 4: \"A real Use consumes the Tarot through normal engine lifecycle\"",
+      "status": "asserted",
+      "note": "The events flag in applications.lifecycle is cumulative (tasks/isolated_card_wear/v2/private/scenario.py:58), so only the first application proves it; the other flags are per application."
+    },
+    {
+      "id": "icw-reset-to-two-fresh-uses",
+      "anchor": "CONTRACT.md bullet 4: \"resets the selected card to **exactly two fresh uses**, independent of its previous remaining uses or prior exhaustion\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "icw-reapply-no-stale-or-additive",
+      "anchor": "CONTRACT.md bullet 4: \"Reapplication does not add old uses, retain stale wear or change another card.\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "icw-reapply-preserves-card",
+      "anchor": "CONTRACT.md bullet 4: \"It preserves target identity/rank/suit\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "icw-reapply-no-immediate-reward",
+      "anchor": "CONTRACT.md bullet 4: \"grants no immediate chip, money or card reward\"",
+      "status": "weak",
+      "note": "Money, inventory and the card set are compared. Chips are not: apply does not read them and the next play measures from the post-application snapshot (tasks/isolated_card_wear/v2/private/scenario.py:33-37,60-63)."
+    },
+    {
+      "id": "icw-loc-vars-remaining",
+      "anchor": "CONTRACT.md bullet 5: \"While polished, expose the numeric remaining count through pure `loc_vars(...).vars[1]`\"",
+      "status": "asserted",
+      "note": "Every observation reads it (tasks/isolated_card_wear/v2/private/mod/fixture.lua:27-30)."
+    },
+    {
+      "id": "icw-ordinary-description",
+      "anchor": "CONTRACT.md bullet 5: \"Once ordinary, use the ordinary description with no polish counter.\"",
+      "status": "weak",
+      "note": "Only the center key c_base is read; no description is read for an ordinary card."
+    },
+    {
+      "id": "icw-description-reads-pure",
+      "anchor": "CONTRACT.md bullet 5: \"description reads are not scoring or application events\"",
+      "status": "asserted",
+      "note": "Repeated observations must leave cards, chips and hands unchanged."
+    },
+    {
+      "id": "icw-no-global-prototype-change",
+      "anchor": "CONTRACT.md paragraph 2: \"No global card or enhancement prototype may be changed as an effect of one instance's wear.\"",
+      "status": "asserted",
+      "note": "Observed through other and future cards; the prototype tables are not read."
+    },
+    {
+      "id": "icw-edit-scope",
+      "anchor": "CONTRACT.md paragraph 3: \"Editable files: `main.lua` and `lib/wear.lua`; the manifest is fixed.\"",
+      "status": "unasserted",
+      "note": "Enforced when the submission is sealed (plugins/balatro/src/rhenium_balatro/submission.py:32-47), not by a case."
+    }
+  ],
+  "excluded_clauses": [
+    "icw-applicator-cost-three",
+    "icw-edit-scope"
+  ],
+  "known_issues": [
+    "Cascading failures: play and apply compare every card against the expected table (tasks/isolated_card_wear/v2/private/scenario.py:26-28,36-37,60-63), so one wrong use count fails the following cases. The starter and M01-stale-cache both fail all twelve target cases, so the number of failed target cases does not count defects."
+  ]
+}

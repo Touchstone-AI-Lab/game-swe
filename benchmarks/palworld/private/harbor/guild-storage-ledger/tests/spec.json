@@ -1,0 +1,150 @@
+{
+  "task_id": "guild-storage-ledger",
+  "required_files": [
+    "Info.json",
+    "scripts/main.lua",
+    "scripts/guildledger/ledger.lua",
+    "scripts/services/guild_storage_service.lua"
+  ],
+  "minimum_lua_lines": 220,
+  "integration_checks": [
+    {
+      "id": "supply-authority",
+      "label": {
+        "en": "Dedicated-server authority",
+        "zh": "专服权威"
+      },
+      "weight": 4,
+      "groups": [
+        {
+          "name": "guard",
+          "any_of": [
+            "IsDedicatedServer\\s*\\("
+          ]
+        },
+        {
+          "name": "service module",
+          "any_of": [
+            "guild_storage_service",
+            "GuildStorageService"
+          ]
+        }
+      ],
+      "none_of": [
+        "TODO",
+        "IMPLEMENT\\s+ME"
+      ]
+    },
+    {
+      "id": "supply-delivery",
+      "label": {
+        "en": "Validated console entry point",
+        "zh": "经校验的控制台入口"
+      },
+      "weight": 4,
+      "groups": [
+        {
+          "name": "console command",
+          "any_of": [
+            "RegisterConsoleCommand(?:Global)?Handler\\s*\\("
+          ]
+        },
+        {
+          "name": "game thread",
+          "any_of": [
+            "ExecuteInGameThread\\s*\\("
+          ]
+        },
+        {
+          "name": "object lookup",
+          "any_of": [
+            "FindFirstOf\\s*\\(",
+            "StaticFindObject\\s*\\("
+          ]
+        }
+      ]
+    },
+    {
+      "id": "supply-persistence",
+      "label": {
+        "en": "Cycle rollover and persistence",
+        "zh": "周期切换与持久化"
+      },
+      "weight": 3,
+      "groups": [
+        {
+          "name": "cycle",
+          "any_of": [
+            "begin_cycle",
+            "cycle"
+          ]
+        },
+        {
+          "name": "save",
+          "any_of": [
+            "[.:]Save\\s*\\(",
+            "\\bSave\\s*=\\s*function"
+          ]
+        },
+        {
+          "name": "load",
+          "any_of": [
+            "[.:]Load\\s*\\(",
+            "\\bLoad\\s*=\\s*function"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "supply-lifecycle",
+      "label": {
+        "en": "Paired hook lifecycle",
+        "zh": "成对钩子生命周期"
+      },
+      "weight": 2,
+      "groups": [
+        {
+          "name": "register",
+          "any_of": [
+            "RegisterHook\\s*\\("
+          ]
+        },
+        {
+          "name": "unregister",
+          "any_of": [
+            "UnregisterHook\\s*\\("
+          ]
+        }
+      ]
+    },
+    {
+      "id": "supply-manifest",
+      "label": {
+        "en": "Server-capable package manifest",
+        "zh": "支持专服的包清单"
+      },
+      "weight": 2,
+      "glob": "Info.json",
+      "groups": [
+        {
+          "name": "package name",
+          "any_of": [
+            "\"PackageName\"\\s*:\\s*\"[^\"]+\""
+          ]
+        },
+        {
+          "name": "lua rule",
+          "any_of": [
+            "\"Type\"\\s*:\\s*\"Lua\""
+          ]
+        },
+        {
+          "name": "server rule",
+          "any_of": [
+            "\"IsServer\"\\s*:\\s*true"
+          ]
+        }
+      ]
+    }
+  ]
+}

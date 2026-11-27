@@ -1,0 +1,10 @@
+--- a/core/src/mindustry/world/blocks/payloads/PayloadConveyor.java
++++ b/core/src/mindustry/world/blocks/payloads/PayloadConveyor.java
+@@ -32,6 +32,7 @@
+         rotate = true;
+         update = true;
+         outputsPayload = true;
++        noUpdateDisabled = true;
+         acceptsUnitPayloads = true;
+         priority = TargetPriority.transport;
+         envEnabled |= Env.space | Env.underwater;

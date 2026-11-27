@@ -1,0 +1,568 @@
+--- a/main.lua
++++ b/main.lua
+@@ -739,6 +739,16 @@
+     if player:HasCollectible(ItemId.RITUAL_CANDLE) then
+         ItemVariables.RITUAL_CANDLE.LitCandles = 0
+         
++        -- The aura pulses once per rounded-up third of the tear delay, and never less often than it can be counted.
++        local pulseInterval = math.max(1, math.ceil(player.MaxFireDelay / 3))
++        local frame = game:GetFrameCount()
++        local lastPulse = ItemVariables.RITUAL_CANDLE.LastPulseFrame
++        local auraPulse = lastPulse == nil or frame < lastPulse or frame - lastPulse >= pulseInterval
++        
++        if auraPulse then
++            ItemVariables.RITUAL_CANDLE.LastPulseFrame = frame
++        end
++        
+         for i, entity in pairs(Isaac.GetRoomEntities()) do 
+             local data = entity:GetData()
+             local sprite = entity:GetSprite()
+@@ -753,7 +763,7 @@
+                 range = 150
+             end
+             
+-            if ItemVariables.RITUAL_CANDLE.HasBonus and entity.Position:Distance(player.Position) <= range and entity:IsVulnerableEnemy() and entity:IsActiveEnemy() and game:GetFrameCount() % math.floor(player.MaxFireDelay / 3) == 0 then
++            if ItemVariables.RITUAL_CANDLE.HasBonus and entity.Position:Distance(player.Position) <= range and entity:IsVulnerableEnemy() and entity:IsActiveEnemy() and auraPulse then
+                 entity:TakeDamage((player.Damage / 4) * (player:GetCollectibleNum(CollectibleType.COLLECTIBLE_BFFS) + 1), 0, EntityRef(player), 0)
+             end
+             
+@@ -897,6 +907,31 @@
+ 
+ Exodus:AddCallback(ModCallbacks.MC_POST_RENDER, Exodus.ritualCandleRender)
+ 
++--<<<FAMILIAR OWNERSHIP>>>--
++local FamiliarOwners = {
++    [Entities.CANDLE.variant] = ItemId.RITUAL_CANDLE,
++    [Entities.SUN.variant] = ItemId.SUNDIAL,
++    [Entities.SHADOW.variant] = ItemId.SUNDIAL,
++    [Entities.ASTRO_BABY.variant] = ItemId.ASTRO_BABY,
++    [Entities.LIL_RUNE.variant] = ItemId.LIL_RUNE
++}
++
++function Exodus:familiarOwnershipUpdate()
++    local player = Isaac.GetPlayer(0)
++    
++    for i, entity in pairs(Isaac.GetRoomEntities()) do
++        if entity.Type == EntityType.ENTITY_FAMILIAR then
++            local owner = FamiliarOwners[entity.Variant]
++            
++            if owner ~= nil and not player:HasCollectible(owner) then
++                entity:Remove()
++            end
++        end
++    end
++end
++
++Exodus:AddCallback(ModCallbacks.MC_POST_UPDATE, Exodus.familiarOwnershipUpdate)
++
+ --<<<SCARED HEART>>>--
+ function Exodus:newScaredHeartLogic()
+     local player = Isaac.GetPlayer(0)
+@@ -1218,37 +1253,35 @@
+         end
+     end
+ 
+-    local entities = Isaac.GetRoomEntities()
++end
++
++Exodus:AddCallback(ModCallbacks.MC_NPC_UPDATE, Exodus.ironLungEntityUpdate, Entities.IRON_LUNG.id)
++
++function Exodus:ironLungGasUpdate(gas)
++    if gas.Type ~= Entities.IRON_LUNG_GAS.id then
++        return
++    end
+     
+-    for i, gas in pairs(entities) do
+-        if gas.Type == Entities.IRON_LUNG_GAS.id and gas.Variant == Entities.IRON_LUNG_GAS.variant then
+-            local gasSprite = gas:GetSprite()
+-            
+-            if gasSprite:IsFinished("Appear") then
+-                gasSprite:Play("Pyroclastic Flow", false)
+-            end
+-            
+-            if gasSprite:IsFinished("Pyroclastic Flow") then
+-                gasSprite:Play("Fade", false)
+-            end
+-            
+-            for v, tear in pairs(entities) do
+-                if tear:ToTear() then
+-                    if tear.Position:Distance(gas.Position) < gas.Size + tear.Size then
+-                        tear.Velocity = tear.Velocity * 0.8
+-                    end
+-                end
+-            end
+-            
+-            if gasSprite:IsFinished("Fade") then
+-                gas:Remove()
+-                gas.Visible = false
+-            end
++    local gasSprite = gas:GetSprite()
++    
++    if gasSprite:IsFinished("Appear") then
++        gasSprite:Play("Pyroclastic Flow", false)
++    elseif gasSprite:IsFinished("Pyroclastic Flow") then
++        gasSprite:Play("Fade", false)
++    elseif gasSprite:IsFinished("Fade") then
++        gas.Visible = false
++        gas:Remove()
++        return
++    end
++    
++    for i, tear in pairs(Isaac.GetRoomEntities()) do
++        if tear:ToTear() and tear.Position:Distance(gas.Position) < gas.Size + tear.Size then
++            tear.Velocity = tear.Velocity * 0.8
+         end
+     end
+ end
+ 
+-Exodus:AddCallback(ModCallbacks.MC_NPC_UPDATE, Exodus.ironLungEntityUpdate, Entities.IRON_LUNG.id)
++Exodus:AddCallback(ModCallbacks.MC_POST_EFFECT_UPDATE, Exodus.ironLungGasUpdate, Entities.IRON_LUNG_GAS.variant)
+ 
+ ---<<FLYERBALL>>---
+ function Exodus:flyerballFires()
+@@ -1428,17 +1461,22 @@
+ --<<JAMES>>--
+ function Exodus:jamesNewFloor()
+     local player = Isaac.GetPlayer(0)
+-    if player:GetPlayerType() == Characters.JAMES then
+-        if not EntityVariables.JAMES.HasGivenItems then
+-            player:AddCollectible(ItemId.THE_APOCRYPHON, 0, false)
+-            player:AddCollectible(ItemId.FULLERS_CLUB, 6, false)
+-            EntityVariables.JAMES.HasGivenItems = true
+-            player:AddCacheFlags(CacheFlag.CACHE_SPEED)
+-            player:AddCacheFlags(CacheFlag.CACHE_DAMAGE)
+-            player:AddCacheFlags(CacheFlag.CACHE_FIREDELAY)
+-            player:EvaluateItems()
+-        end
++    
++    -- Everything below is James's floor setup; nobody else gets any of it.
++    if player:GetPlayerType() ~= Characters.JAMES then
++        return
++    end
++    
++    if not EntityVariables.JAMES.HasGivenItems then
++        player:AddCollectible(ItemId.THE_APOCRYPHON, 0, false)
++        player:AddCollectible(ItemId.FULLERS_CLUB, 6, false)
++        EntityVariables.JAMES.HasGivenItems = true
++        player:AddCacheFlags(CacheFlag.CACHE_SPEED)
++        player:AddCacheFlags(CacheFlag.CACHE_DAMAGE)
++        player:AddCacheFlags(CacheFlag.CACHE_FIREDELAY)
++        player:EvaluateItems()
+     end
++    
+     player:UseActiveItem(CollectibleType.COLLECTIBLE_BOOK_OF_SECRETS, false, false, false, false)
+ end
+ 
+@@ -1702,6 +1740,8 @@
+     end
+ end
+ 
++Exodus:AddCallback(ModCallbacks.MC_EVALUATE_CACHE, Exodus.theApocryphonCache)
++
+ --<<BETTER LOOPS>>--
+ function loop()
+     local player = Isaac.GetPlayer(0)
+@@ -1884,6 +1924,13 @@
+ Exodus:AddCallback(ModCallbacks.MC_POST_ENTITY_KILL, Exodus.loopKeeperBoom, Entities.CLOCK_KEEPER.id)
+ 
+ --<<<TRINKETS>>>--
++local GridWormAxes = {
++    [Direction.LEFT] = Vector(-1, 0),
++    [Direction.UP] = Vector(0, -1),
++    [Direction.RIGHT] = Vector(1, 0),
++    [Direction.DOWN] = Vector(0, 1)
++}
++
+ function Exodus:trinketUpdate()
+     local player = Isaac.GetPlayer(0)
+     local playerData = player:GetData()
+@@ -1912,6 +1959,10 @@
+     ---<<BROKEN GLASSES>>---
+     if player:HasTrinket(ItemId.BROKEN_GLASSES) then
+         ItemVariables.BROKEN_GLASSES.Broke = true
++    end
++    
++    -- Once the world has broken it stays broken for the rest of the floor (trinketNewFloor clears it).
++    if ItemVariables.BROKEN_GLASSES.Broke then
+         for i, entity in pairs(Isaac.GetRoomEntities()) do
+             if entity:IsActiveEnemy() or entity.Type == EntityType.ENTITY_PICKUP then
+                 entity:GetSprite().Color = Color(0, 0, 0, 1, 0, 0, 0)
+@@ -1969,8 +2020,33 @@
+             local rand = rng:RandomInt(4) + 1
+             
+             if entity.Type == EntityType.ENTITY_TEAR and entity.SpawnerType == EntityType.ENTITY_PLAYER then
+-                if entity:CollidesWithGrid() then
+-                    entity.Velocity = entity.Velocity * -1
++                local tearData = entity:GetData()
++                
++                if not tearData.GridWormAligned then
++                    tearData.GridWormAligned = true
++                    
++                    -- A tear that is first seen while it is brand new starts on the axis the character is facing.
++                    if entity.FrameCount <= 1 then
++                        local axis = GridWormAxes[player:GetHeadDirection()]
++                        
++                        if axis == nil and entity.Velocity:Length() > 0.01 then
++                            if math.abs(entity.Velocity.X) >= math.abs(entity.Velocity.Y) then
++                                axis = Vector(entity.Velocity.X < 0 and -1 or 1, 0)
++                            else
++                                axis = Vector(0, entity.Velocity.Y < 0 and -1 or 1)
++                            end
++                        end
++                        
++                        if axis ~= nil then
++                            entity.Velocity = axis * (player.ShotSpeed * 10)
++                        end
++                    end
++                elseif entity:CollidesWithGrid() then
++                    if tearData.GridWormBounceFrame == nil or entity.FrameCount - tearData.GridWormBounceFrame > 3 then
++                        -- One reversal per impact; the tear is given a few frames to travel clear of what it struck.
++                        tearData.GridWormBounceFrame = entity.FrameCount
++                        entity.Velocity = entity.Velocity * -1
++                    end
+                 elseif entity.FrameCount % 10 == 1 and entity.FrameCount > 20 then
+                     local signX = 10
+                     local signY = 10
+@@ -2162,12 +2238,17 @@
+     ---<<BLUE MOON>>---
+     if player:HasTrinket(ItemId.BLUE_MOON) then
+         if room:GetType() == RoomType.ROOM_SECRET then
+-            for i = 1, room:GetGridSize() do
+-                local gridEnt = room:GetGridEntity(i)
+-                
+-                if gridEnt then
+-                    if not gridEnt:ToDoor() then
+-                        room:RemoveGridEntity(i, 0, true)
++            local gridWidth = room:GetGridWidth()
++            local gridHeight = room:GetGridHeight()
++            
++            -- The outermost ring of the grid is the room boundary (walls and doors); only the floor inside it is cleared.
++            for row = 1, gridHeight - 2 do
++                for column = 1, gridWidth - 2 do
++                    local index = row * gridWidth + column
++                    local gridEnt = room:GetGridEntity(index)
++                    
++                    if gridEnt and not gridEnt:ToDoor() and gridEnt:GetType() ~= GridEntityType.GRID_WALL then
++                        room:RemoveGridEntity(index, 0, true)
+                     end
+                 end
+             end
+@@ -2480,17 +2561,27 @@
+ Exodus:AddCallback(ModCallbacks.MC_USE_ITEM, Exodus.ominousLanternUse, ItemId.OMINOUS_LANTERN)
+ 
+ --<<<BASEBALL MITT>>>--
+-function Exodus:baseballMittUpdate()
+-    local player = Isaac.GetPlayer(0)
+-    
++function Exodus:baseballImpactUpdate()
++    -- Baseballs are only released when the stance ends, so their impact cannot depend on the stance.
+     for i, entity in pairs(Isaac.GetRoomEntities()) do
+-        if entity.Type == EntityType.ENTITY_TEAR and entity.Variant == Entities.BASEBALL.variant and entity:IsDead()
+-            and ItemVariables.BASEBALL_MITT.Used and player:HasCollectible(ItemId.BASEBALL_MITT) then
+-            local hit = Isaac.Spawn(Entities.BASEBALL_HIT.id, Entities.BASEBALL_HIT.variant, 0, entity.Position, NullVector, nil)
+-            hit:ToEffect():SetTimeout(20)
+-            hit.SpriteRotation = rng:RandomInt(360)
++        if entity.Type == EntityType.ENTITY_TEAR and entity.Variant == Entities.BASEBALL.variant and entity:IsDead() then
++            local data = entity:GetData()
++            
++            if not data.BaseballHitSpawned then
++                data.BaseballHitSpawned = true
++                
++                local hit = Isaac.Spawn(Entities.BASEBALL_HIT.id, Entities.BASEBALL_HIT.variant, 0, entity.Position, NullVector, nil)
++                hit:ToEffect():SetTimeout(20)
++                hit.SpriteRotation = rng:RandomInt(360)
++            end
+         end
+     end
++end
++
++Exodus:AddCallback(ModCallbacks.MC_POST_UPDATE, Exodus.baseballImpactUpdate)
++
++function Exodus:baseballMittUpdate()
++    local player = Isaac.GetPlayer(0)
+     
+     if ItemVariables.BASEBALL_MITT.Used and player:HasCollectible(ItemId.BASEBALL_MITT) then
+         player:AddEntityFlags(EntityFlag.FLAG_NO_PHYSICS_KNOCKBACK)
+@@ -2877,8 +2968,11 @@
+ 
+ --<<<THE FORBIDDEN FRUIT>>>--
+ function Exodus:forbiddenFruitCache(player, flag)
+-    if player:HasCollectible(ItemId.FORBIDDEN_FRUIT) and flag == CacheFlag.CACHE_DAMAGE then
+-        player.Damage = player.Damage + (math.floor((ItemVariables.FORBIDDEN_FRUIT.UseCount^0.7) * 100)) / 101
++    -- The damage is earned by eating the fruit, so it belongs to the run and not to the inventory slot.
++    local bites = ItemVariables.FORBIDDEN_FRUIT.UseCount
++
++    if flag == CacheFlag.CACHE_DAMAGE and bites > 0 then
++        player.Damage = player.Damage + (math.floor((bites^0.7) * 100)) / 101
+     end
+ end
+ 
+@@ -3498,11 +3592,16 @@
+     
+     if player:HasCollectible(ItemId.CURSED_METRONOME) then
+         if not ItemVariables.CURSED_METRONOME.HasCursedMetronome then
+-            local maxhp = player:GetHearts() - 2
+-            player:AddHearts(maxhp * -1)
+-            
+-            for i = 1, rng:RandomInt(maxhp / 2) do
+-                Isaac.Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_HEART, HeartSubType.HEART_FULL,  Isaac.GetFreeNearPosition(player.Position, 20), Vector(0, 0), player)
++            -- The conversion is sized by the red-heart capacity, never by how full the containers happen to be.
++            local capacity = player:GetMaxHearts()
++            local containers = capacity // 2
++            
++            player:AddHearts(-math.max(capacity - 2, 0))
++            
++            if containers > 0 then
++                for i = 1, rng:RandomInt(containers) do
++                    Isaac.Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_HEART, HeartSubType.HEART_FULL,  Isaac.GetFreeNearPosition(player.Position, 20), Vector(0, 0), player)
++                end
+             end
+             
+             player:AddNullCostume(CostumeId.CURSED_METRONOME)
+@@ -3537,14 +3636,30 @@
+ Exodus:AddCallback(ModCallbacks.MC_EVALUATE_CACHE, Exodus.cursedMetronomeCache)
+   
+ --<<<TRAGIC MUSHROOM>>>--
++local function tragicMushroomState()
++    local state = ItemVariables.TRAGIC_MUSHROOM
++
++    if state.Doses == nil then
++        state.Doses = 0
++        state.DamageScale = 1
++        state.DamageOffset = 0
++        state.Speed = 0
++        state.Range = 0
++    end
++
++    return state
++end
++
+ function Exodus:tragicMushroomCache(player, flag)
+-    if ItemVariables.TRAGIC_MUSHROOM.Used then
++    local state = tragicMushroomState()
++
++    if state.Doses > 0 then
+         if flag == CacheFlag.CACHE_DAMAGE then
+-            player.Damage = (player.Damage + 0.8) * 2
++            player.Damage = player.Damage * state.DamageScale + state.DamageOffset
+         elseif flag == CacheFlag.CACHE_RANGE then
+-            player.TearHeight = player.TearHeight - 7.25
++            player.TearHeight = player.TearHeight - state.Range
+         elseif flag == CacheFlag.CACHE_SPEED then
+-            player.MoveSpeed = player.MoveSpeed + 0.6
++            player.MoveSpeed = player.MoveSpeed + state.Speed
+         end
+     end
+ end
+@@ -3554,20 +3669,27 @@
+ function Exodus:tragicMushroomUse()
+     local player = Isaac.GetPlayer(0)
+     
+-    if player:GetMaxHearts() == 2 and player:GetSoulHearts() == 0 then
+-        player:AddHearts(-player:GetHearts())
++    if player:GetPlayerType() == PlayerType.PLAYER_XXX then
++        local maxhp = player:GetSoulHearts() - 2
++        player:AddSoulHearts(-maxhp)
+     else
+-        if player:GetPlayerType() == PlayerType.PLAYER_XXX then
+-            local maxhp = player:GetSoulHearts() - 2
+-            player:AddSoulHearts(-maxhp)
+-        else
+-            local maxhp = player:GetMaxHearts() - 2
+-            player:AddSoulHearts(-player:GetSoulHearts())
+-            player:AddMaxHearts(-maxhp)
+-        end
+-    end
+-    
+-    ItemVariables.TRAGIC_MUSHROOM.Used = true
++        -- Everything is traded for a single red-heart container, and that container is always left full.
++        player:AddSoulHearts(-player:GetSoulHearts())
++        player:AddMaxHearts(2 - player:GetMaxHearts())
++        player:AddHearts(player:GetMaxHearts() - player:GetHearts())
++    end
++    
++    -- Every dose is half as potent as the one before it. The first dose is the original (damage + 0.8) * 2.
++    local state = tragicMushroomState()
++    local potency = 0.5 ^ state.Doses
++    local multiplier = 1 + potency
++    
++    state.Doses = state.Doses + 1
++    state.DamageScale = state.DamageScale * multiplier
++    state.DamageOffset = (state.DamageOffset + 0.8 * potency) * multiplier
++    state.Speed = state.Speed + 0.6 * potency
++    state.Range = state.Range + 7.25 * potency
++    state.Used = true
+     sfx:Play(SoundEffect.SOUND_VAMP_GULP, 1, 0, false, 1)
+     player:AddCacheFlags(CacheFlag.CACHE_DAMAGE + CacheFlag.CACHE_RANGE + CacheFlag.CACHE_SPEED)
+     player:EvaluateItems()
+@@ -3743,13 +3865,20 @@
+ Exodus:AddCallback(ModCallbacks.MC_EVALUATE_CACHE, Exodus.sadTearsCache)
+ 
+ --<<<DEJA VU>>>--
++local DejaVuExcludedFlags = TearFlags.TEAR_BONE | TearFlags.TEAR_SPLIT | TearFlags.TEAR_QUADSPLIT
++
++local function canDejaVuReturn(entity)
++    -- Tears that break into other tears already have a death effect of their own.
++    return entity:ToTear().TearFlags & DejaVuExcludedFlags == 0 and entity.Variant ~= Entities.FIREBALL_2.variant
++end
++
+ function Exodus:dejaVuUpdate()
+     local player = Isaac.GetPlayer(0)
+     
+     if player:HasCollectible(ItemId.DEJA_VU) then
+         for i, entity in pairs(Isaac.GetRoomEntities()) do
+             if entity.Type == EntityType.ENTITY_TEAR and entity:GetData().ReturnChance == nil and entity:IsDead() then
+-                if entity:ToTear().TearFlags & TearFlags.TEAR_BONE == 0 and entity:ToTear().TearFlags & TearFlags.TEAR_QUADSPLIT == 0 and entity.Variant ~= Entities.FIREBALL_2.variant then
++                if canDejaVuReturn(entity) then
+                     entity:GetData().ReturnChance = 50 + player.Luck
+                     if rng:RandomInt(100) < entity:GetData().ReturnChance then
+                         local tear = player:FireTear(player.Position, entity.Velocity, true, true, true)
+@@ -3762,7 +3891,7 @@
+                     end
+                 end
+             elseif entity.Type == EntityType.ENTITY_TEAR and entity:GetData().ReturnChance ~= nil and entity:IsDead() then
+-                if entity:ToTear().TearFlags & TearFlags.TEAR_BONE == 0 and entity:ToTear().TearFlags & TearFlags.TEAR_QUADSPLIT == 0 and entity.Variant ~= Entities.FIREBALL_2.variant then
++                if canDejaVuReturn(entity) then
+                     if rng:RandomInt(100) < entity:GetData().ReturnChance then
+                         local tear = player:FireTear(player.Position, entity.Velocity, true, true, true)
+                         tear:GetData().ReturnChance = entity:GetData().ReturnChance // 2
+@@ -4445,12 +4574,12 @@
+                 if entity:ToNPC().ChildNPC ~= nil then
+                     entity:ToNPC().ChildNPC:Kill()
+                 end
+-                local dup = Isaac.Spawn(entity.Type, entity.Variant, entity.SubType, Isaac.GetFreeNearPosition(entity.Position, 1), Vector(0,0), nil)
+-                dup:ToNPC().Scale = dup:ToNPC().Scale / 1.3
+-                dup.MaxHitPoints = dup.MaxHitPoints / 2
+-                local dup = Isaac.Spawn(entity.Type, entity.Variant, entity.SubType, Isaac.GetFreeNearPosition(entity.Position, 1), Vector(0,0), nil)
+-                dup:ToNPC().Scale = dup:ToNPC().Scale / 1.3
+-                dup.MaxHitPoints = dup.MaxHitPoints / 2
++                for copy = 1, 2 do
++                    local dup = Isaac.Spawn(entity.Type, entity.Variant, entity.SubType, Isaac.GetFreeNearPosition(entity.Position, 1), Vector(0,0), nil)
++                    dup:ToNPC().Scale = dup:ToNPC().Scale / 1.3
++                    dup.MaxHitPoints = dup.MaxHitPoints / 2
++                    dup.HitPoints = math.min(dup.HitPoints, dup.MaxHitPoints)
++                end
+             elseif entity:IsEnemy() and entity:IsDead() and data.RuneSplitted == nil then
+                 data.RuneSplitted = true
+             end
+@@ -4802,7 +4931,10 @@
+                 if entity.SpawnerType == EntityType.ENTITY_PLAYER or entity.SpawnerType == EntityType.ENTITY_FAMILIAR then
+                     if entity.SpawnerType == EntityType.ENTITY_PLAYER or entity.SpawnerVariant == 120 or entity.SpawnerVariant == 80 then
+                         entity.Color = player.TearColor
+-                        entity.Velocity = entity.Velocity - RandomVector()
++                        
++                        -- Young tears only drift at half strength; the usual wobble starts after about twenty frames.
++                        local wobble = entity.FrameCount <= 20 and 0.5 or 1
++                        entity.Velocity = entity.Velocity - RandomVector() * wobble
+                         
+                         if entity.FrameCount == 1 and player:HasCollectible(CollectibleType.COLLECTIBLE_HIVE_MIND) then
+                             entity.CollisionDamage = entity.CollisionDamage * 2
+@@ -5285,6 +5417,7 @@
+     local player = Isaac.GetPlayer(0)
+     
+     ItemVariables.MUTANT_CLOVER.Used = false
++    ItemVariables.MUTANT_CLOVER.RoomLuck = 0
+     player:AddCacheFlags(CacheFlag.CACHE_LUCK)
+     player:EvaluateItems()
+ end
+@@ -5294,7 +5427,7 @@
+ function Exodus:mutantCloverCache(player, flag)
+     if player:HasCollectible(ItemId.MUTANT_CLOVER) and ItemVariables.MUTANT_CLOVER.Used then
+         if flag == CacheFlag.CACHE_LUCK then
+-            player.Luck = player.Luck + 10
++            player.Luck = player.Luck + (ItemVariables.MUTANT_CLOVER.RoomLuck or 0)
+         end
+     end
+ end
+@@ -5304,6 +5437,7 @@
+ function Exodus:mutantCloverUse()
+     local player = Isaac.GetPlayer(0)
+     ItemVariables.MUTANT_CLOVER.Used = true
++    ItemVariables.MUTANT_CLOVER.RoomLuck = (ItemVariables.MUTANT_CLOVER.RoomLuck or 0) + 10
+     player:AddCacheFlags(CacheFlag.CACHE_LUCK)
+     player:EvaluateItems()
+     
+@@ -5642,6 +5776,31 @@
+ 
+ Exodus:AddCallback(ModCallbacks.MC_USE_ITEM, Exodus.anamnesisUse, ItemId.ANAMNESIS)
+ 
++function Exodus:anamnesisChargeUpdate()
++    local player = Isaac.GetPlayer(0)
++    local memory = ItemVariables.ANAMNESIS
++    
++    if memory == nil then
++        memory = { InSlot = false, Charge = 0 }
++        ItemVariables.ANAMNESIS = memory
++    end
++    
++    if player:GetActiveItem() == ItemId.ANAMNESIS then
++        if memory.InSlot then
++            -- While it sits in the slot, whatever it gains or spends is its own.
++            memory.Charge = player:GetActiveCharge()
++        else
++            -- It has just entered the slot: it arrives with its own remembered charge, not the slot's.
++            memory.InSlot = true
++            player:SetActiveCharge(memory.Charge)
++        end
++    else
++        memory.InSlot = false
++    end
++end
++
++Exodus:AddCallback(ModCallbacks.MC_POST_UPDATE, Exodus.anamnesisChargeUpdate)
++
+ --<<<BIRDBATH>>>--
+ function Exodus:birdbathUse()
+     local player = Isaac.GetPlayer(0)
+@@ -6535,23 +6694,30 @@
+             entity.State = 0
+         end
+     end
++end
+ 
+-    if EntityVariables.HEADCASE.DoLobbed then
+-        for i, lobbed in pairs(Isaac.GetRoomEntities()) do 
+-            if lobbed.Type == EntityType.ENTITY_TEAR and lobbed:GetData().IsExodusLobbed == true then
+-                if lobbed.Position:DistanceSquared(player.Position) < 18^2 and lobbed:ToTear().Height < 5 then
+-                    lobbed:Die()
+-                    player:TakeDamage(1, 0, EntityRef(lobbed), 0)
+-                end
+-                if lobbed:ToTear().Height < 1 then
+-                    EntityVariables.HEADCASE.DoLobbed = false
+-                end
++Exodus:AddCallback(ModCallbacks.MC_NPC_UPDATE, Exodus.headcaseEntityUpdate, Entities.HEADCASE.id)
++
++function Exodus:headcaseLobUpdate()
++    -- A lob in flight is resolved on its own; whether the Headcase that threw it still exists does not matter.
++    local player = Isaac.GetPlayer(0)
++    local airborne = false
++    
++    for i, lobbed in pairs(Isaac.GetRoomEntities()) do
++        if lobbed.Type == EntityType.ENTITY_TEAR and lobbed:GetData().IsExodusLobbed == true and not lobbed:IsDead() then
++            airborne = true
++            
++            if lobbed.Position:DistanceSquared(player.Position) < 18^2 and lobbed:ToTear().Height < 5 then
++                lobbed:Die()
++                player:TakeDamage(1, 0, EntityRef(lobbed), 0)
+             end
+         end
+     end
++    
++    EntityVariables.HEADCASE.DoLobbed = airborne
+ end
+ 
+-Exodus:AddCallback(ModCallbacks.MC_NPC_UPDATE, Exodus.headcaseEntityUpdate, Entities.HEADCASE.id)
++Exodus:AddCallback(ModCallbacks.MC_POST_UPDATE, Exodus.headcaseLobUpdate)
+ 
+ --<<<HOLLOWHEAD>>>--
+ function Exodus:hollowheadEntityUpdate(entity)
+@@ -7088,7 +7254,8 @@
+             local checkDist = math.huge
+             
+             for i, entity in pairs(Isaac.GetRoomEntities()) do
+-                if entity:IsVulnerableEnemy() and entity.Index ~= fly.Index and entity.InitSeed ~= fly.InitSeed then
++                -- Only something that actually takes part in the fight can be a mate; vulnerable scenery cannot.
++                if entity:IsVulnerableEnemy() and entity:IsActiveEnemy(false) and entity.Index ~= fly.Index and entity.InitSeed ~= fly.InitSeed then
+                     local newDist = fly.Position:DistanceSquared(entity.Position)
+                     local entityData = entity:GetData()
+                     

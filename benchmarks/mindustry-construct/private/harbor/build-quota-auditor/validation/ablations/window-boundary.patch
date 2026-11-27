@@ -1,0 +1,11 @@
+--- a/solution/BuildQuotaEngine.java
++++ b/solution/BuildQuotaEngine.java
+@@ -144,7 +144,7 @@
+         reservations.values().removeIf(r->expired(r.tick(),tick));
+         usages.values().removeIf(u->expired(u.tick(),tick));
+     }
+-    private boolean expired(long made,long now){ return made <= now-policy.windowTicks(); }
++    private boolean expired(long made,long now){ return made < now-policy.windowTicks(); }
+     private int countPlayer(String p,String b){ int n=0; for(var r:reservations.values())if(r.playerId().equals(p)&&r.blockName().equals(b))n++; for(var u:usages.values())if(u.playerId().equals(p)&&u.blockName().equals(b))n++; return n; }
+     private int countTeam(int t,String b){ int n=0; for(var r:reservations.values())if(r.teamId()==t&&r.blockName().equals(b))n++; for(var u:usages.values())if(u.teamId()==t&&u.blockName().equals(b))n++; return n; }
+     private static int limit(Map<String,Integer> m,String b){ Integer n=m.get(b); if(n==null)n=m.get("*"); return n==null?Integer.MAX_VALUE:n; }

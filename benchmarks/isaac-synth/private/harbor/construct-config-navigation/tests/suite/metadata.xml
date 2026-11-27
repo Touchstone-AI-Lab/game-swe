@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<metadata>
+  <name>Construct Config Navigation Verifier</name>
+  <directory>gcb_construct_config_navigation_suite</directory>
+  <id>construct-config-navigation-suite</id>
+  <description>Private verifier companion mod.</description>
+  <version>1.0.0</version>
+</metadata>

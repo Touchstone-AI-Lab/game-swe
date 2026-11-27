@@ -1,0 +1,11 @@
+--- a/src/LayoutReconciler.java
++++ b/src/LayoutReconciler.java
+@@ -16,7 +16,7 @@
+     private static final Comparator<Cell> ROW_ORDER =
+         Comparator.comparingInt(Cell::y).thenComparingInt(Cell::x);
+     private static final Comparator<Cell> PLACE_ORDER =
+-        Comparator.comparingInt((Cell cell) -> -cell.size()).thenComparing(ROW_ORDER);
++        ROW_ORDER;
+ 
+     private final int width;
+     private final int height;

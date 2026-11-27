@@ -1,0 +1,22 @@
+diff -ruN a/sourcemod/scripting/l4dd/l4dd_natives.sp b/sourcemod/scripting/l4dd/l4dd_natives.sp
+--- a/sourcemod/scripting/l4dd/l4dd_natives.sp	2026-09-21 05:47:52.343554563 +0800
++++ b/sourcemod/scripting/l4dd/l4dd_natives.sp	2026-09-21 05:47:52.346803352 +0800
+@@ -3227,16 +3227,8 @@
+ 	int ptr = GetWeaponPointer();
+ 	if( ptr != -1 )
+ 	{
+-		if( attr == view_as<int>(L4D2FWA_PenetrationNumLayers) )
+-		{
+-			attr = L4D2FloatWeapon_Offsets[attr]; // Offset
+-			StoreToAddress(view_as<Address>(ptr + attr), RoundToFloor(GetNativeCell(3)), NumberType_Int32, false);
+-		}
+-		else
+-		{
+-			attr = L4D2FloatWeapon_Offsets[attr]; // Offset
+-			StoreToAddress(view_as<Address>(ptr + attr), GetNativeCell(3), NumberType_Int32, false);
+-		}
++		attr = L4D2FloatWeapon_Offsets[attr]; // Offset
++		StoreToAddress(view_as<Address>(ptr + attr), RoundToFloor(GetNativeCell(3)), NumberType_Int32, false);
+ 	}
+ 
+ 	return ptr;

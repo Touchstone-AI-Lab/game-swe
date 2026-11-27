@@ -1,0 +1,1 @@
+{"id":"poc_play_diag_v1","name":"Read-only play completion diagnosis","author":["Sangyu Pan"],"description":"Bounded lifecycle observation; no state repairs","prefix":"pocplaydiag","main_file":"diagnostic.lua","priority":100010,"version":"1.0.0","dependencies":["Steamodded (>=1.~)","balatrobot","poc_control"]}

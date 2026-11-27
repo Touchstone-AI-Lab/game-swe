@@ -1,0 +1,193 @@
+{
+  "task": "palworld/core/base-containment-mincut",
+  "task_version": "2.0.0",
+  "exam": "benchmarks/palworld/exams/base-containment-mincut.md",
+  "cases": [
+    {
+      "id": "check:required-files",
+      "role": "static"
+    },
+    {
+      "id": "check:lua-syntax",
+      "role": "static"
+    },
+    {
+      "id": "check:implementation-depth",
+      "role": "static"
+    },
+    {
+      "id": "hidden:a coupled global cut defeats independent local choices",
+      "role": "target",
+      "clauses": [
+        "optimization"
+      ]
+    },
+    {
+      "id": "hidden:hard implications dominate every finite cost and can be infeasible",
+      "role": "target",
+      "clauses": [
+        "optimization"
+      ]
+    },
+    {
+      "id": "hidden:stability precedes lexical preference across accepted revisions",
+      "role": "target",
+      "clauses": [
+        "optimization"
+      ]
+    },
+    {
+      "id": "hidden:parallel arcs zero penalties and raw prefix IDs preserve direction",
+      "role": "target",
+      "clauses": [
+        "optimization"
+      ]
+    },
+    {
+      "id": "hidden:independent exhaustive oracle covers directed cyclic graphs and history",
+      "role": "target",
+      "clauses": [
+        "optimization"
+      ]
+    },
+    {
+      "id": "hidden:48-node strongly coupled instance does not enumerate all partitions",
+      "role": "target",
+      "clauses": [
+        "optimization"
+      ]
+    },
+    {
+      "id": "hidden:validation precedes stale revision and every rejection is atomic",
+      "role": "target",
+      "clauses": [
+        "validation"
+      ]
+    },
+    {
+      "id": "hidden:save validates the optimality certificate and isolates aliases",
+      "role": "target",
+      "clauses": [
+        "recovery"
+      ]
+    },
+    {
+      "id": "check:containment-authority",
+      "role": "target",
+      "clauses": [
+        "integration:containment-authority"
+      ],
+      "note": "source-pattern gate; not execution evidence"
+    },
+    {
+      "id": "check:containment-thread",
+      "role": "target",
+      "clauses": [
+        "integration:containment-thread"
+      ],
+      "note": "source-pattern gate; not execution evidence"
+    },
+    {
+      "id": "check:containment-persistence",
+      "role": "target",
+      "clauses": [
+        "integration:containment-persistence"
+      ],
+      "note": "source-pattern gate; not execution evidence"
+    },
+    {
+      "id": "check:containment-lifecycle",
+      "role": "target",
+      "clauses": [
+        "integration:containment-lifecycle"
+      ],
+      "note": "source-pattern gate; not execution evidence"
+    },
+    {
+      "id": "check:containment-manifest",
+      "role": "target",
+      "clauses": [
+        "integration:containment-manifest"
+      ],
+      "note": "source-pattern gate; not execution evidence"
+    },
+    {
+      "id": "server:real dedicated authority and the native hook API exist",
+      "role": "runtime-sentinel"
+    },
+    {
+      "id": "server:server publishes the complete optimization service",
+      "role": "target",
+      "clauses": [
+        "lifecycle"
+      ]
+    },
+    {
+      "id": "server:server computes canonical plans and rejects infeasible updates atomically",
+      "role": "target",
+      "clauses": [
+        "optimization",
+        "validation"
+      ]
+    },
+    {
+      "id": "server:recovery validates certificates and unmount stops mutation",
+      "role": "target",
+      "clauses": [
+        "recovery",
+        "lifecycle"
+      ]
+    }
+  ],
+  "clauses": [
+    {
+      "id": "optimization",
+      "anchor": "Exact objective and history",
+      "status": "asserted"
+    },
+    {
+      "id": "validation",
+      "anchor": "Required files and API; revision and infeasibility precedence",
+      "status": "asserted"
+    },
+    {
+      "id": "recovery",
+      "anchor": "Snapshot and recovery format",
+      "status": "asserted"
+    },
+    {
+      "id": "lifecycle",
+      "anchor": "UE4SS server service and lifecycle",
+      "status": "asserted"
+    },
+    {
+      "id": "integration:containment-authority",
+      "anchor": "UE4SS server service and lifecycle; containment-authority",
+      "status": "weak"
+    },
+    {
+      "id": "integration:containment-thread",
+      "anchor": "UE4SS server service and lifecycle; containment-thread",
+      "status": "weak"
+    },
+    {
+      "id": "integration:containment-persistence",
+      "anchor": "UE4SS server service and lifecycle; containment-persistence",
+      "status": "weak"
+    },
+    {
+      "id": "integration:containment-lifecycle",
+      "anchor": "UE4SS server service and lifecycle; containment-lifecycle",
+      "status": "weak"
+    },
+    {
+      "id": "integration:containment-manifest",
+      "anchor": "UE4SS server service and lifecycle; containment-manifest",
+      "status": "weak"
+    }
+  ],
+  "excluded_clauses": [],
+  "known_issues": [
+    "The native PlayerController hook registers and unregisters in the engine; a player-triggered callback is not exercised by the headless controls."
+  ]
+}

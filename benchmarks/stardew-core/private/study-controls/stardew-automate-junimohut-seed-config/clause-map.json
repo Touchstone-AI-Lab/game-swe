@@ -1,0 +1,82 @@
+{
+  "task": "stardew-valley/core/stardew-automate-junimohut-seed-config",
+  "task_version": "1.1.0",
+  "exam": "benchmarks/stardew-core/exams/stardew-automate-junimohut-seed-config.md",
+  "cases": [
+    {
+      "id": "check:submission-shape",
+      "role": "static",
+      "clauses": [],
+      "overlap": false,
+      "note": "Evaluator file gate: StardewMods/ exists, required files present, no symlinks."
+    },
+    {
+      "id": "case:setup: build a Junimo hut with a connected chest",
+      "role": "setup",
+      "clauses": [],
+      "overlap": false,
+      "note": "Builds the hut through Farm.buildStructure, places the side chest, seeds the hut chest with parsnip seeds, fertilizer and diamonds. Asserts only fixture facts."
+    },
+    {
+      "id": "case:sentinel: fertilizer is moved out of the hut per config",
+      "role": "preserved",
+      "clauses": [
+        "Task-preserve",
+        "Problem-gems"
+      ],
+      "overlap": false,
+      "note": "P in the unchanged starter. With fertilizer=MoveIntoChests and gems=MoveIntoChests, both the fertilizer (O)368 and the diamond (O)72 must reach the side chest."
+    },
+    {
+      "id": "case:seeds stay in the hut when the seed behavior is Ignore",
+      "role": "target",
+      "clauses": [
+        "Problem-seeds-ignore",
+        "Task-1"
+      ],
+      "overlap": false,
+      "note": "With seeds=Ignore while fertilizer=MoveIntoChests: seeds (O)472 still in the hut and none in the side chest, 240 ticks after the sentinel observed the pipeline running."
+    }
+  ],
+  "clauses": [
+    {
+      "id": "Problem-seeds-ignore",
+      "anchor": "Problem, paragraph 2, sentence 2: \"I set seeds to Ignore ... but Automate still moves them out into my chests\"",
+      "status": "asserted",
+      "note": "The reported configuration is reproduced exactly by tests/mod-config.json."
+    },
+    {
+      "id": "Task-1",
+      "anchor": "Task, sentence 1 (first half): \"Make the Junimo hut seed behavior follow its own config option\"",
+      "status": "weak",
+      "note": "Only one value of the seed option (Ignore) under one fertilizer value (MoveIntoChests) is exercised in a single boot. The opposite direction (seeds=MoveIntoChests while fertilizer=Ignore, seeds must move), MoveIntoHut and AutoDetect are never run, so hard-coding seedBehavior = Ignore, or reading any other option that happens to be Ignore, scores 3/3."
+    },
+    {
+      "id": "Task-preserve",
+      "anchor": "Task, sentence 1 (second half): \"without changing how the other item types are handled\"",
+      "status": "asserted",
+      "note": "Fertilizer and gems under MoveIntoChests only; their Ignore/MoveIntoHut/AutoDetect handling is not exercised. Discoverable in the starter: Automate/Framework/Models/ModConfig.cs:30-40 documents the three options and Framework/Machines/Buildings/JunimoHutMachine.cs applies them per category."
+    },
+    {
+      "id": "Problem-gems",
+      "anchor": "Problem, paragraph 2, last sentence: \"The gem option works exactly as advertised\"",
+      "status": "asserted",
+      "note": "Diamond moved under gems=MoveIntoChests. Note AutoDetect for gems means Ignore, so the explicit MoveIntoChests in mod-config.json is what makes this observable."
+    },
+    {
+      "id": "Notes-3",
+      "anchor": "Notes, bullet 3: \"Do not modify anything under `/tests`\"",
+      "status": "unasserted",
+      "note": "Enforced by construction (pack tests are bind-mounted read-only), not by a case."
+    }
+  ],
+  "excluded_clauses": [
+    "Notes-3"
+  ],
+  "known_issues": [
+    "Single-configuration suite: tests/mod-config.json fixes seeds=Ignore, fertilizer=MoveIntoChests, gems=MoveIntoChests and tests/SuiteJunimoHut.cs:73-83 only asserts that seeds stay. No case distinguishes 'reads JunimoHutBehaviorForSeeds' from 'never moves seeds'. Task-1 is therefore weak; results on this task measure the reported symptom, not the general contract.",
+    "SuiteJunimoHut.cs:73-83 is a negative assertion after a fixed 240-tick sleep. It is only meaningful because the preceding sentinel proved the hut pipeline ran; if the sentinel fails (hut never outputs anything), the target case still passes. A submission that breaks the whole Junimo hut machine therefore scores target=P, preserved=F, which is exactly the compat-negative shape; do not read the target case in isolation.",
+    "Wait predicate SuiteJunimoHut.cs:61-65 guards this._sideChest with 'is not null' and uses null-conditional item access; it cannot throw. The harness fix in private/harbor/harness/GcbHarness/Framework/SuiteRunner.cs:80-96 does not change any verdict here. The prepared evaluator image recorded in runtimeIdentity (sha256:49358248b2a4...) still bakes the pre-fix SuiteRunner at /opt/gcb/harness.",
+    "The exam's player report names the masking option ('if I also set the fertilizer option to Ignore, the seeds stay put'), which localizes the defect to one line; see private/harbor/DEBUG-HARDENING.md section 1."
+  ]
+}

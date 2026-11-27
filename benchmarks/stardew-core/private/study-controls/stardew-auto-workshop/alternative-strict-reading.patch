@@ -1,0 +1,12 @@
+diff -ruN a/AutoWorkshop/ModEntry.cs b/AutoWorkshop/ModEntry.cs
+--- a/AutoWorkshop/ModEntry.cs
++++ b/AutoWorkshop/ModEntry.cs
+@@ -27,7 +27,7 @@
+ 
+         private void OnUpdateTicked(object? sender, UpdateTickedEventArgs e)
+         {
+-            if (!Context.IsWorldReady || !e.IsMultipleOf(30))
++            if (!Context.IsWorldReady)
+                 return;
+             Utility.ForEachLocation(loc => { this.Process(loc); return true; });
+         }

@@ -1,0 +1,23 @@
+diff -ruN a/addons/sourcemod/scripting/l4d2_fix_changelevel.sp b/addons/sourcemod/scripting/l4d2_fix_changelevel.sp
+--- a/addons/sourcemod/scripting/l4d2_fix_changelevel.sp	2026-09-21 05:40:05.602983477 +0800
++++ b/addons/sourcemod/scripting/l4d2_fix_changelevel.sp	2026-09-21 05:40:05.607522275 +0800
+@@ -160,6 +160,9 @@
+ 	// if (!hParams.IsNull(2))
+ 	//	hParams.GetString(2, reason, sizeof(reason));
+ 
++	if (TheDirector.IsTransitioning())
++		return MRES_Ignored;
++
+ 	/*
+ 		sm_map (and possible other callers) accept partial names like "c4m1" for "c4m1_milltown_a"
+ 		these get resolved for display via FindMap() but pass the original "c4m1" back to the
+@@ -178,9 +181,6 @@
+ 		changedParam = true;
+ 	}
+ 
+-	if (TheDirector.IsTransitioning())
+-		return changedParam ? MRES_ChangedHandled : MRES_Ignored;
+-
+ 	TheDirector.ClearTeamScores(true);
+ 
+ 	ITimer_Start(TheDirector.m_mapDurationTimer);

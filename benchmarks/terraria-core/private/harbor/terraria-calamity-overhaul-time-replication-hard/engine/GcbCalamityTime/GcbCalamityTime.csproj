@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="../tModLoader.targets" />
+  <PropertyGroup>
+    <AssemblyName>GcbCalamityTime</AssemblyName>
+    <LangVersion>latest</LangVersion>
+    <Nullable>enable</Nullable>
+    <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
+    <CandidateRoot Condition="'$(CandidateRoot)' == ''">/workspace/solution</CandidateRoot>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="GcbCalamityTime.cs" />
+    <Compile Include="EngineSupport.cs" />
+    <Compile Include="VerifierSystem.cs" />
+    <Compile Include="$(CandidateRoot)/calamity-overhaul/Content/TimeFreezes/NetworkEntityIdentity.cs" Link="Production/NetworkEntityIdentity.cs" />
+    <Compile Include="$(CandidateRoot)/calamity-overhaul/Content/TimeFreezes/TimeControlReplicationSystem.cs" Link="Production/TimeControlReplicationSystem.cs" />
+  </ItemGroup>
+</Project>

@@ -1,0 +1,599 @@
+{
+  "task": "garrys-mod/addons/prop-ownership-quota-registry",
+  "task_version": "2.2.0",
+  "exam": "benchmarks/gmod/exams/prop-ownership-quota-registry.md",
+  "cases": [
+    {
+      "id": "check:required-files",
+      "role": "static",
+      "clauses": [
+        "T1-FILE-01"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "check:lua-syntax",
+      "role": "static",
+      "clauses": [
+        "T1-FILE-01"
+      ],
+      "overlap": false,
+      "note": "also parses addon.json"
+    },
+    {
+      "id": "hidden:first registration increments quota",
+      "role": "target",
+      "clauses": [
+        "T1-API-01",
+        "T1-SEM-01",
+        "T1-API-02",
+        "T1-GOAL-02",
+        "T1-SCOPE-02"
+      ],
+      "overlap": false,
+      "note": "Carries the implicit sandbox evidence for GOAL-02/SCOPE-02 (first case after the core is loaded without GMod globals). Requires the undisclosed success code \"registered\" (hidden:23).",
+      "over_constrained": true
+    },
+    {
+      "id": "hidden:third prop is rejected without replacing state",
+      "role": "target",
+      "clauses": [
+        "T1-SEM-02",
+        "T1-ERR-01",
+        "T1-GOAL-01",
+        "T1-ACC-02"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "hidden:register retries are exact and request conflicts fail",
+      "role": "target",
+      "clauses": [
+        "T1-SEM-05",
+        "T1-ERR-01",
+        "T1-ACC-02"
+      ],
+      "overlap": false,
+      "note": "Traceability also lists T1-ERR-02 (adapter codes); this is a core-only case, dropped as nominal."
+    },
+    {
+      "id": "hidden:remove retries release quota exactly once",
+      "role": "target",
+      "clauses": [
+        "T1-SEM-06",
+        "T1-SEM-04",
+        "T1-SEM-05",
+        "T1-ERR-01",
+        "T1-ACC-02"
+      ],
+      "overlap": false,
+      "note": "Traceability also lists T1-FILE-01; nominal, moved to the static checks. Requires the undisclosed success code \"removed\" (hidden:51).",
+      "over_constrained": true
+    },
+    {
+      "id": "hidden:revision replacement rejects stale authority",
+      "role": "target",
+      "clauses": [
+        "T1-SEM-03",
+        "T1-ERR-01",
+        "T1-ACC-03"
+      ],
+      "overlap": false,
+      "note": "Traceability also lists T1-GOAL-01; nominal, re-cited from the quota/disconnect cases."
+    },
+    {
+      "id": "hidden:operations and ownership are enforced",
+      "role": "target",
+      "clauses": [
+        "T1-DATA-03",
+        "T1-SEM-04",
+        "T1-ERR-01"
+      ],
+      "overlap": false,
+      "note": "Traceability also lists T1-GOAL-02; nominal."
+    },
+    {
+      "id": "hidden:disconnect waits strictly below five seconds and cleans at boundary",
+      "role": "target",
+      "clauses": [
+        "T1-TIME-02",
+        "T1-GOAL-01",
+        "T1-ACC-04"
+      ],
+      "overlap": false,
+      "note": "Traceability also lists T1-SCOPE-01; nominal. Reads the undisclosed `data.removed` list of tick (hidden:86)."
+    },
+    {
+      "id": "hidden:reconnect before boundary cancels cleanup",
+      "role": "target",
+      "clauses": [
+        "T1-TIME-03",
+        "T1-GOAL-01",
+        "T1-ACC-04"
+      ],
+      "overlap": false,
+      "note": "Traceability also lists T1-SCOPE-02; nominal."
+    },
+    {
+      "id": "hidden:time reversal is clamped",
+      "role": "target",
+      "clauses": [
+        "T1-TIME-01",
+        "T1-ACC-04"
+      ],
+      "overlap": false,
+      "note": "Reads `cleanup_at` from the disconnect data table (hidden:104); the exam names the value but not where it is returned."
+    },
+    {
+      "id": "hidden:snapshot is deterministic and detached",
+      "role": "target",
+      "clauses": [
+        "T1-PERSIST-01",
+        "T1-PERSIST-02",
+        "T1-ACC-05"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "hidden:save load round trip preserves request idempotency",
+      "role": "target",
+      "clauses": [
+        "T1-PERSIST-03",
+        "T1-PERSIST-04",
+        "T1-SEM-06",
+        "T1-DATA-01",
+        "T1-ACC-05"
+      ],
+      "overlap": false,
+      "note": "Requires the undisclosed success code \"registered\" (hidden:131).",
+      "over_constrained": true
+    },
+    {
+      "id": "hidden:shutdown is idempotent and freezes mutations",
+      "role": "target",
+      "clauses": [
+        "T1-LIFE-01",
+        "T1-API-02",
+        "T1-ERR-01",
+        "T1-ACC-05"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "hidden:only the exact public two prop five second options are accepted",
+      "role": "target",
+      "clauses": [
+        "T1-DATA-01",
+        "T1-ERR-01"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "hidden:malformed saved state is rejected completely",
+      "role": "target",
+      "clauses": [
+        "T1-PERSIST-04",
+        "T1-PERSIST-03",
+        "T1-DATA-01",
+        "T1-ERR-01"
+      ],
+      "overlap": false,
+      "note": "Variants assume private row shapes (known_issues)."
+    },
+    {
+      "id": "integration:adapter installs required hooks and timer",
+      "role": "target",
+      "clauses": [
+        "T1-API-03",
+        "T1-NATIVE-01"
+      ],
+      "overlap": false,
+      "note": "Locates hooks/timer through undisclosed Server.HookPrefix/Server.TimerName (integration:49-51).",
+      "over_constrained": true
+    },
+    {
+      "id": "integration:entity bindings reject malformed logical identity and revision",
+      "role": "target",
+      "clauses": [
+        "T1-DATA-02",
+        "T1-TRUST-01",
+        "T1-ERR-02"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "integration:trusted player binding owns the prop",
+      "role": "target",
+      "clauses": [
+        "T1-TRUST-01",
+        "T1-API-03"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "integration:benchmark identity is independent of EntIndex",
+      "role": "target",
+      "clauses": [
+        "T1-SEM-03",
+        "T1-TRUST-01",
+        "T1-ACC-03"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "integration:all modification entry points reject non-owner",
+      "role": "target",
+      "clauses": [
+        "T1-NATIVE-02",
+        "T1-ACC-01"
+      ],
+      "overlap": false,
+      "note": "Stored hook callbacks are invoked directly on stub objects.",
+      "over_constrained": true
+    },
+    {
+      "id": "integration:client owner payload cannot override server player",
+      "role": "target",
+      "clauses": [
+        "T1-TRUST-01",
+        "T1-ACC-01"
+      ],
+      "overlap": false,
+      "note": "Identical call to the last assertion of the previous case (integration:88 vs 93)."
+    },
+    {
+      "id": "integration:quota rejects and removes third prop",
+      "role": "target",
+      "clauses": [
+        "T1-SEM-02",
+        "T1-NATIVE-03",
+        "T1-ACC-02"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "integration:entity removal releases once and revision blocks EntIndex reuse",
+      "role": "target",
+      "clauses": [
+        "T1-SEM-03",
+        "T1-SEM-06",
+        "T1-LIFE-01",
+        "T1-ACC-02",
+        "T1-ACC-03"
+      ],
+      "overlap": false,
+      "note": "",
+      "over_constrained": true
+    },
+    {
+      "id": "integration:disconnect cleanup and reconnect use real hooks",
+      "role": "target",
+      "clauses": [
+        "T1-NATIVE-01",
+        "T1-TIME-02",
+        "T1-TIME-03",
+        "T1-ACC-04"
+      ],
+      "overlap": false,
+      "note": "Despite the name this is the deterministic stub: stored PlayerDisconnected/PlayerInitialSpawn callbacks and the timer callback are called by hand with a fake clock. The native equivalent (real Kick, real timer) is in Phase B server:cleanup.",
+      "over_constrained": true
+    },
+    {
+      "id": "lifecycle:shutdown removes hooks and timer",
+      "role": "target",
+      "clauses": [
+        "T1-LIFE-01",
+        "T1-ACC-05"
+      ],
+      "overlap": false,
+      "note": "Leak scan only matches the private name fragment \"RheniumPropRegistry\" (integration:146)."
+    },
+    {
+      "id": "server:persistence",
+      "role": "target",
+      "clauses": [
+        "T1-PERSIST-04",
+        "T1-ACC-05",
+        "T1-ACC-03",
+        "T1-SEM-06",
+        "T1-PERSIST-03"
+      ],
+      "overlap": false,
+      "note": "Phase B group: state readable, hash pinned, register replay restored with code \"registered\" and count 1. Traceability's T1-ACC-03 is evidenced by server:lifecycle rather than this group; kept because the restored generation is what the replay runs against.",
+      "over_constrained": true
+    },
+    {
+      "id": "server:authority",
+      "role": "target",
+      "clauses": [
+        "T1-TRUST-01",
+        "T1-ACC-01",
+        "T1-NATIVE-02",
+        "T1-SEM-03"
+      ],
+      "overlap": false,
+      "note": "Real bots and props; hook callbacks fetched from hook.GetTable() via Server.HookPrefix and called directly.",
+      "over_constrained": true
+    },
+    {
+      "id": "server:quota",
+      "role": "target",
+      "clauses": [
+        "T1-SEM-02",
+        "T1-ACC-02",
+        "T1-NATIVE-03"
+      ],
+      "overlap": false,
+      "note": "",
+      "over_constrained": true
+    },
+    {
+      "id": "server:lifecycle",
+      "role": "target",
+      "clauses": [
+        "T1-TIME-02",
+        "T1-ACC-04",
+        "T1-SEM-03",
+        "T1-SEM-06",
+        "T1-ACC-03"
+      ],
+      "overlap": false,
+      "note": "Real EntityRemoved release and generation replacement; also holds the bot/prop creation sentinels and the undisclosed `RheniumBenchmarkEntityRevision` check (server:178).",
+      "over_constrained": true
+    },
+    {
+      "id": "server:cleanup",
+      "role": "target",
+      "clauses": [
+        "T1-LIFE-01",
+        "T1-ACC-05",
+        "T1-TIME-03",
+        "T1-NATIVE-01"
+      ],
+      "overlap": false,
+      "note": "Real Kick -> PlayerDisconnected, reconnect by a new bot + BindPlayer, five-second real-timer deadline, Shutdown residue.",
+      "over_constrained": true
+    }
+  ],
+  "clauses": [
+    {
+      "id": "T1-GOAL-01",
+      "anchor": "§1. Background and goals / item 1: “Implement a GMod server-side Addon that manages …”",
+      "status": "asserted",
+      "note": "Summary clause; evidenced through the quota, five-second boundary and reconnect cases (core, stub adapter and Phase B with real bots/props). Traceability maps it to the revision-replacement case, which does not exercise quota or disconnect; re-cited here."
+    },
+    {
+      "id": "T1-GOAL-02",
+      "anchor": "§1. Background and goals / item 2: “Ownership, quota, generation, replay and time be…”",
+      "status": "weak",
+      "note": "Only implicit: the core is loaded by the plain-Lua runner in a sandbox without any GMod global, so a core that touches hook/timer/Entity at load or on an exercised path errors. Nothing checks that ownership/quota logic lives in the core rather than the adapter. Traceability's citation (operations case) is nominal."
+    },
+    {
+      "id": "T1-FILE-01",
+      "anchor": "§2. Required files / item 1: “You must submit:”",
+      "status": "asserted",
+      "note": "check:required-files (presence, no path escape) and check:lua-syntax (addon.json parses). The no-Workshop/third-party/network prohibition is enforced only by the verifier environment (no network, no other addons), not by an assertion. Traceability cites the remove-retry case, which is nominal."
+    },
+    {
+      "id": "T1-API-01",
+      "anchor": "§3. Core public interface / item 1: “`lua/rhenium_prop_registry/registry.lua` returns…”",
+      "status": "asserted",
+      "note": "All ten methods are called by the hidden suite."
+    },
+    {
+      "id": "T1-API-02",
+      "anchor": "§3. Core public interface / item 2: “new returns an instance on success and `nil,erro…”",
+      "status": "asserted",
+      "note": "ok/code/data triple, nil+code from new, allowed+code from can_modify and a detached snapshot are checked. Not checked: that retry data is a fresh table, the literal \"shutdown\" code of shutdown() (only truthiness, hidden:137), nil+error_code from snapshot/save."
+    },
+    {
+      "id": "T1-DATA-01",
+      "anchor": "§4. Configuration, identifiers and operation / item 1: “`options.max_props=2`, `options.cleanup_delay=5`…”",
+      "status": "asserted",
+      "note": "max_props/cleanup_delay exactness (4 rejected variants) and state_configuration_mismatch are checked. Not checked: unknown option keys, storage.load(), explicit state taking priority over storage."
+    },
+    {
+      "id": "T1-DATA-02",
+      "anchor": "§4. Configuration, identifiers and operation / item 2: “request/player/entity IDs have length `1..128` a…”",
+      "status": "weak",
+      "note": "Only adapter.BindEntity is probed with three malformed values (\"bad id\", revision 0, 1.5; integration:57-62). Core invalid_request_id/invalid_player_id/invalid_entity_id/invalid_revision/invalid_now, the 128 length bound and the now rule are never exercised."
+    },
+    {
+      "id": "T1-DATA-03",
+      "anchor": "§4. Configuration, identifiers and operation / item 3: “operation is closed to `physgun`, `tool`, `prope…”",
+      "status": "asserted",
+      "note": "All four operations accepted for the owner and an unknown one returns invalid_operation (hidden:70-76)."
+    },
+    {
+      "id": "T1-ERR-01",
+      "anchor": "§5. Stable error codes / item 1: “The core must stably distinguish `invalid_option…”",
+      "status": "asserted",
+      "note": "10 of 16 codes are compared literally (invalid_options, invalid_state, state_configuration_mismatch, not_found, not_owner, stale_revision, quota_exceeded, request_conflict, invalid_operation, shutdown). Never exercised: invalid_request_id, invalid_player_id, invalid_entity_id, invalid_revision, invalid_now, storage_error."
+    },
+    {
+      "id": "T1-ERR-02",
+      "anchor": "§5. Stable error codes / item 2: “The adapter additionally uses, stably, `invalid_…”",
+      "status": "weak",
+      "note": "Only invalid_entity (integration:57-62) is compared. HandleDeleteRequest rejections check `ok == false` but not the not_owner code; invalid_player, not_installed, invalid_context are never exercised; reject-before-state-change is not checked. Traceability's citation (core register-retry case) is nominal."
+    },
+    {
+      "id": "T1-SEM-01",
+      "anchor": "§6. Ownership, quota and generation / item 1: “Each entity_id has only one current generation. …”",
+      "status": "asserted",
+      "note": "count and snapshot owner count are checked; of the register data only `count` is read (entity_id/revision/owner_id are not)."
+    },
+    {
+      "id": "T1-SEM-02",
+      "anchor": "§6. Ownership, quota and generation / item 2: “A third new Prop returns `quota_exceeded` and mu…”",
+      "status": "asserted",
+      "note": "quota_exceeded and unchanged entity count in core, stub adapter and Phase B. The same-owner higher-revision replacement quota rule is not exercised."
+    },
+    {
+      "id": "T1-SEM-03",
+      "anchor": "§6. Ownership, quota and generation / item 3: “Entity identity is `entity_id+revision`. A revis…”",
+      "status": "asserted",
+      "note": "stale_revision via can_modify on the old generation, higher revision replaces once, EntIndex collision/reuse in the stub adapter and with real entities in Phase B. register() with a lower/equal revision is not exercised."
+    },
+    {
+      "id": "T1-SEM-04",
+      "anchor": "§6. Ownership, quota and generation / item 4: “can_modify returns `true,\"allowed\"` only when ow…”",
+      "status": "asserted",
+      "note": "Owner/non-owner for all four operations; remove releases once (not_found afterwards). The \"allowed\" code and a wrong-revision remove are not compared."
+    },
+    {
+      "id": "T1-SEM-05",
+      "anchor": "§7. Request idempotency / item 1: “register and remove share a global request-ID na…”",
+      "status": "asserted",
+      "note": "Exact retry and same-method conflict for register; exact retry for remove. A register/remove cross-method conflict on one request ID (shared namespace) and the fresh-copy property are not exercised."
+    },
+    {
+      "id": "T1-SEM-06",
+      "anchor": "§7. Request idempotency / item 2: “Both successful and business-failure results go …”",
+      "status": "asserted",
+      "note": "Replay after save/load (hidden:130, Phase B server:128-130) and double EntityRemoved (integration:107-108, real entity removal in Phase B). Replay of a recorded business FAILURE is not exercised."
+    },
+    {
+      "id": "T1-TIME-01",
+      "anchor": "§8. Time, disconnect and boundary / item 1: “All time-taking calls use `effective_now=max(val…”",
+      "status": "asserted",
+      "note": "hidden:99-109 clamps a backwards disconnect time and backwards snapshot times."
+    },
+    {
+      "id": "T1-TIME-02",
+      "anchor": "§8. Time, disconnect and boundary / item 2: “The first disconnect records `cleanup_at=effecti…”",
+      "status": "asserted",
+      "note": "14.999 keeps / 15 cleans in core via tick; stub adapter timer; Phase B with real Kick and a real timer. A repeated disconnect keeping the first boundary and cleanup through snapshot/save are not exercised."
+    },
+    {
+      "id": "T1-TIME-03",
+      "anchor": "§8. Time, disconnect and boundary / item 3: “A reconnect before the boundary deletes the pend…”",
+      "status": "asserted",
+      "note": "`canceled` before the boundary is compared. `connected` without a pending cleanup and no-restore after the boundary are not exercised."
+    },
+    {
+      "id": "T1-PERSIST-01",
+      "anchor": "§9. snapshot, ordering and detached output / item 1: “snapshot returns `schema_version=1,now,owners,en…”",
+      "status": "asserted",
+      "note": "Ordering of owners and entities is checked. schema_version/now/pending_cleanup of the snapshot are never read."
+    },
+    {
+      "id": "T1-PERSIST-02",
+      "anchor": "§9. snapshot, ordering and detached output / item 2: “An owner row contains `player_id,count,disconnec…”",
+      "status": "asserted",
+      "note": "player_id/count/entity_id/revision/owner_id are read across cases and one nested row is tampered to prove detachment. disconnected/cleanup_at of the owner row are never read."
+    },
+    {
+      "id": "T1-PERSIST-03",
+      "anchor": "§10. Save schema and storage / item 1: “save returns `schema_version=1,max_props,cleanup…”",
+      "status": "asserted",
+      "note": "The named lists are present (they are mutated by the malformed-state variants) and Phase A writes the state as JSON. Stable ordering of the save lists is not checked."
+    },
+    {
+      "id": "T1-PERSIST-04",
+      "anchor": "§10. Save schema and storage / item 2: “load must validate the schema, configuration, id…”",
+      "status": "asserted",
+      "note": "Seven malformed variants plus configuration mismatch and a two-process round trip. storage.save()==false -> storage_error is never exercised. See known_issues for the private row-shape assumptions of the variants."
+    },
+    {
+      "id": "T1-API-03",
+      "anchor": "§11. Server-side adapter and native API / item 1: “`lua/rhenium_prop_registry/server.lua` returns t…”",
+      "status": "asserted",
+      "note": "Install/BindPlayer/BindEntity/RegisterProp/HandleDeleteRequest/Snapshot/Shutdown in the stub adapter, Save in Phase A."
+    },
+    {
+      "id": "T1-NATIVE-01",
+      "anchor": "§11. Server-side adapter and native API / item 2: “Install registers named `PhysgunPickup`, `CanToo…”",
+      "status": "asserted",
+      "note": "The six hooks and the timer must exist, but are located through the undisclosed `Server.HookPrefix`/`Server.TimerName` fields (known_issues). The .1 s interval and repetition count are not inspected."
+    },
+    {
+      "id": "T1-NATIVE-02",
+      "anchor": "§11. Server-side adapter and native API / item 3: “PhysgunPickup/CanTool perform the owner check on…”",
+      "status": "asserted",
+      "note": "Stored PhysgunPickup/CanTool/CanProperty callbacks are called directly (stub adapter and real hook table in Phase B); no real physgun/toolgun input, which a headless server cannot produce. A non-remover property is not exercised; owner delete succeeds in Phase B."
+    },
+    {
+      "id": "T1-NATIVE-03",
+      "anchor": "§11. Server-side adapter and native API / item 4: “A valid `prop_physics` that has not been explici…”",
+      "status": "weak",
+      "note": "Only the second sentence is checked (the rejected third runtime prop is removed; stub and real entity). The `prop:<n>` allocation from next_entity_sequence for an entity without BindEntity is never exercised: every suite binds explicitly."
+    },
+    {
+      "id": "T1-TRUST-01",
+      "anchor": "§12. Authority, lifecycle, out-of-scope and prohibitions / item 1: “The owner comes only from BindPlayer's binding t…”",
+      "status": "asserted",
+      "note": "A forged owner argument to HandleDeleteRequest is ignored in the stub adapter and in Phase B."
+    },
+    {
+      "id": "T1-LIFE-01",
+      "anchor": "§12. Authority, lifecycle, out-of-scope and prohibitions / item 2: “Install/Shutdown are idempotent. Shutdown remove…”",
+      "status": "asserted",
+      "note": "Double Shutdown, hooks/timer gone (stub + real hook table/timer.Exists), core writes frozen. Double Install and cleared object bindings are not checked."
+    },
+    {
+      "id": "T1-SCOPE-01",
+      "anchor": "§12. Authority, lifecycle, out-of-scope and prohibitions / item 3: “Only the four modification entry points above, `…”",
+      "status": "unasserted",
+      "note": "Scope disclaimer (what the task does not claim to intercept); it states no testable obligation and no case measures it. Traceability's citation (disconnect-boundary case) is nominal."
+    },
+    {
+      "id": "T1-SCOPE-02",
+      "anchor": "§12. Authority, lifecycle, out-of-scope and prohibitions / item 4: “The core must not reference Player, Entity, hook…”",
+      "status": "weak",
+      "note": "Same implicit evidence as T1-GOAL-02 (sandboxed load without GMod globals). No source scan for forbidden references and nothing detects TODO/stub bodies beyond behavior failing. Traceability's citation (reconnect case) is nominal."
+    },
+    {
+      "id": "T1-ACC-01",
+      "anchor": "§13. Acceptance criteria / item 1: “A's Prop belongs to A; B cannot modify or delete…”",
+      "status": "asserted",
+      "note": "Four entry points reject the non-owner in the stub adapter and in Phase B."
+    },
+    {
+      "id": "T1-ACC-02",
+      "anchor": "§13. Acceptance criteria / item 2: “The third Prop is rejected and the old state is …”",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "T1-ACC-03",
+      "anchor": "§13. Acceptance criteria / item 3: “Higher-revision replacement works; the old gener…”",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "T1-ACC-04",
+      "anchor": "§13. Acceptance criteria / item 4: “Disconnect strictly less than 5 seconds retains,…”",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "T1-ACC-05",
+      "anchor": "§13. Acceptance criteria / item 5: “snapshot/save are sorted and detached; load acro…”",
+      "status": "asserted",
+      "note": "Two-process persistence (Phase A writes, Phase B reads with hash pinning) and Shutdown residue checks."
+    }
+  ],
+  "excluded_clauses": [
+    "T1-SCOPE-01"
+  ],
+  "known_issues": [
+    "Undisclosed adapter fields: both adapter suites locate the submission's hooks and timer through `Server.HookPrefix` and `Server.TimerName` and the naming scheme `<HookPrefix>.<HookEvent>` (benchmarks/gmod/private/tasks/prop-ownership-quota-registry/integration/prop-ownership-integration.lua:49-51,84-87,106-108,119-126,146-148; benchmarks/gmod/private/tasks/prop-ownership-quota-registry/server/prop-ownership-suite.lua:131-135,211-217). The exam only says the hooks/timer are named (T1-NATIVE-01) and lists neither field. A valid adapter that names its hooks differently or does not export the two fields fails 4 integration cases and aborts Phase B with a nil-concatenation error (all server cases unobserved). Measured by control alternative-strict-reading.",
+    "Undisclosed success codes: `registered` and `removed` are compared literally (benchmarks/gmod/private/tasks/prop-ownership-quota-registry/hidden/prop-ownership-registry.lua:23,51,131; benchmarks/gmod/private/tasks/prop-ownership-quota-registry/server/prop-ownership-suite.lua:89,130) but the exam (T1-API-02, T1-ERR-01) defines only failure codes plus `allowed`, `canceled`, `connected`, `shutdown`. Any other success code fails 3 hidden cases and Phase A.",
+    "Undisclosed entity marker: Phase B requires `replacement.RheniumBenchmarkEntityRevision == 2` on the real entity (benchmarks/gmod/private/tasks/prop-ownership-quota-registry/server/prop-ownership-suite.lua:178); the exam never asks BindEntity to write a field on the Entity.",
+    "Private result/row shapes: tick data must contain a `removed` list (benchmarks/gmod/private/tasks/prop-ownership-quota-registry/hidden/prop-ownership-registry.lua:86) and disconnect data a `cleanup_at` field (benchmarks/gmod/private/tasks/prop-ownership-quota-registry/hidden/prop-ownership-registry.lua:104); the malformed-state variants mutate `latest_revisions[i].revision`, `pending_cleanup[i].cleanup_at` and `requests[i].arguments` (benchmarks/gmod/private/tasks/prop-ownership-quota-registry/hidden/prop-ownership-registry.lua:166-172). The exam names the top-level save lists (T1-PERSIST-03) but no row fields, and does not say unknown row keys must be rejected. An implementation with other row field names that ignores unknown keys accepts e.g. variant 6 and fails the case; variant 5 (`cleanup_at = last_now`) additionally presumes that a pending cleanup due at load time is invalid rather than immediately cleaned.",
+    "Fixture trap: the stub adapter environment provides only hook, timer, CurTime, IsValid, isstring, isnumber and include (benchmarks/gmod/private/tasks/prop-ownership-quota-registry/integration/prop-ownership-integration.lua:39-43). An adapter calling any other GMod global on an exercised path (e.g. istable, SERVER, ents) errors in the integration layer although it works on the real server.",
+    "Catalog api_usage cites clause id T1-NATIVE-04 (benchmarks/gmod/catalog.json), which does not exist in the exam; the timer obligation is part of T1-NATIVE-01.",
+    "contract-traceability.json contains nominal links that the cited case does not exercise (T1-FILE-01, T1-GOAL-01, T1-GOAL-02, T1-SCOPE-01, T1-SCOPE-02, T1-ERR-02); they are dropped or re-cited in this map and listed in the case notes.",
+    "mutations.json is written against references/table-registry while the Harbor oracle installs references/array-registry (lexicographically first); the four core mutations register-not-deduplicated, remove-repeats, quota-not-enforced and malformed-state-shape-accepted do not apply to the oracle text.",
+    "Server-layer case granularity: the five-to-eight `server:` cases are the group verdicts of the FINAL phase (B) only (plugins/garrys-mod/src/rhenium_garrys_mod/addons/evaluator.py:255-276 reads `final_payload['cases']`). A failed Phase A assertion stops the run before Phase B (server_runner.py:631-640), so it is never recorded as `F` on its group: every `server:` case becomes unobserved (`U`), `complete` is false and the dedicated-server check scores 0/40. The Phase A group verdicts do exist in the raw execution record (`result.runtime.phase_a.payload.cases`) but are not part of the case table. Phase-A-only evidence therefore acts as a gate, not as a named failing case. For this task Phase A only covers module load, first registration, and the state write (benchmarks/gmod/private/tasks/prop-ownership-quota-registry/server/prop-ownership-suite.lua:80-111); all authority/quota/lifecycle/cleanup evidence is in Phase B."
+  ]
+}

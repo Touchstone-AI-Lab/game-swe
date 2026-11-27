@@ -1,0 +1,27 @@
+diff --git a/Common/IO/NetCompression.NetIO.cs b/Common/IO/NetCompression.NetIO.cs
+--- a/Common/IO/NetCompression.NetIO.cs
++++ b/Common/IO/NetCompression.NetIO.cs
+@@ -186,13 +186,19 @@ namespace MagicStorage.Common.IO {
+ 			if (readStack && item.maxStack > 1) {
+ 				bool partialOrFull = reader.ReadBoolean();
+ 
+-				int overflow = 0;
++				int fullStacks = 0;
+ 				if (!partialOrFull) {
+-					int fullStacks = reader.Read7BitEncodedInt();
+-					overflow = fullStacks * item.maxStack;
++					fullStacks = reader.Read7BitEncodedInt();
++					if (fullStacks <= 0)
++						throw new FormatException("Overflow stack quotient must be positive");
+ 				}
+ 
+-				readData.stack = overflow + (int)reader.ReadUInt32(GetBitSize(item.maxStack));
++				int remainder = (int)reader.ReadUInt32(GetBitSize(item.maxStack));
++				int stack = partialOrFull
++					? remainder
++					: checked(fullStacks * item.maxStack + remainder);
++
++				item.stack = readData.stack = stack;
+ 			}
+ 
+ 			if (readFavorite)

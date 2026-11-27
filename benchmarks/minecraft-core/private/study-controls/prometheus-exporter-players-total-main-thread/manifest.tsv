@@ -1,0 +1,6 @@
+control	kind	base	overlay	root	note
+target-negative-sync-playerdata-count	target-negative	starter	patch:target-negative-sync-playerdata-count.patch	plugin	cheap synchronous playerdata count that still runs on the main thread; fails both target cases
+compat-negative-online-only	compat-negative	starter	patch:compat-negative-online-only.patch	plugin	asynchronous but counts only online players; fails only the preserved player-count case
+compat-negative-everything-async	compat-negative	starter	patch:compat-negative-everything-async.patch	plugin	every metric collected off the main thread; fixes both targets but breaks the main-thread contract of world-state metrics
+compat-negative-villagers-async	compat-negative	reference	patch:compat-negative-villagers-async.patch	plugin	reference plus the villager metric collected off the main thread; fails only the world-state main-thread case
+alternative-a	alternative	starter	tree:alternative-a	plugin	independent fix written from the 0.2.0 exam: PlayersTotal asynchronous plus a non-blocking main-thread dispatch in Metric.collect

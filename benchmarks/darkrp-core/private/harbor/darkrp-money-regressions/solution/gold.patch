@@ -1,0 +1,56 @@
+--- a/gamemode/modules/base/sv_entityvars.lua
++++ b/gamemode/modules/base/sv_entityvars.lua
+@@ -274,7 +274,7 @@
+     maxEntities[self][entTable.cmd] = maxEntities[self][entTable.cmd] or 0
+     local max = entTable.getMax and entTable.getMax(self) or entTable.max
+ 
+-    return maxEntities[self][entTable.cmd] >= max
++    return max ~= 0 and maxEntities[self][entTable.cmd] >= max
+ end
+ 
+ function meta:customEntityCount(entTable)
+--- a/gamemode/modules/money/sh_money.lua
++++ b/gamemode/modules/money/sh_money.lua
+@@ -3,9 +3,9 @@
+ 
+ function pMeta:canAfford(amount)
+     if not amount or self.DarkRPUnInitialized then return false end
+-    return math.floor(amount) >= 0 and (self:getDarkRPVar("money") or 0) - math.floor(amount) >= 0
++    return math.floor(amount) >= 0 and (self:getDarkRPVar("money") or 0) - math.ceil(amount) >= 0
+ end
+ 
+ function entMeta:isMoneyBag()
+-    return self:GetClass() == GAMEMODE.Config.MoneyClass
++    return self.IsSpawnedMoney or self:GetClass() == GAMEMODE.Config.MoneyClass
+ end
+--- a/gamemode/modules/money/sv_money.lua
++++ b/gamemode/modules/money/sv_money.lua
+@@ -4,8 +4,9 @@
+ local meta = FindMetaTable("Player")
+ function meta:addMoney(amount)
+     amount = DarkRP.toInt(amount)
++    if not amount then return false end
+     local total = self:getDarkRPVar("money") + amount
+-    total = hook.Call("playerWalletChanged", GAMEMODE, self, amount, total) or total
++    total = hook.Call("playerWalletChanged", GAMEMODE, self, amount, self:getDarkRPVar("money")) or total
+ 
+     self:setDarkRPVar("money", total)
+ 
+@@ -15,7 +16,7 @@
+ 
+ function DarkRP.payPlayer(ply1, ply2, amount)
+     ply1:addMoney(-amount)
+-    ply1:addMoney(amount)
++    ply2:addMoney(amount)
+ end
+ 
+ function meta:payDay()
+@@ -40,7 +41,7 @@
+ function DarkRP.createMoneyBag(pos, amount)
+     local moneybag = ents.Create(GAMEMODE.Config.MoneyClass)
+     moneybag:SetPos(pos)
+-    moneybag:Setamount(amount)
++    moneybag:Setamount(math.Min(amount, 2147483647))
+     moneybag:Spawn()
+     moneybag:Activate()
+     if GAMEMODE.Config.moneyRemoveTime and GAMEMODE.Config.moneyRemoveTime ~= 0 then

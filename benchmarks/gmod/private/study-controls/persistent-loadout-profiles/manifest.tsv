@@ -1,0 +1,9 @@
+control	kind	base	overlay	root	note
+alternative-second-reference	alternative	starter	tree:alternative-second-reference	.	second authored reference (profile-rows): row-list core and save layout instead of the oracle's nested player map
+alternative-strict-reading	alternative	starter	tree:alternative-strict-reading	.	profile-rows with undisclosed conventions replaced: own hook names (<prefix>.PlayerSpawn/.PlayerDisconnected) and no HookPrefix export; expected to show problems
+alternative-strict-reading-layout	alternative	starter	tree:alternative-strict-reading-layout	.	profile-rows with only the save-state list keys renamed (profile_rows/choice_rows instead of profiles/choices); T3-PERSIST-02 fixes no key names; expected to show problems
+shared-ammo-overwritten	target-negative	reference	patch:shared-ammo-overwritten.patch	.	mutation: shared ammo type is overwritten instead of summed
+save-drops-preference	target-negative	reference	patch:save-drops-preference.patch	.	mutation: save() drops all player profiles and choices
+give-failure-continues	target-negative	reference	patch:give-failure-continues.patch	.	mutation: Apply continues into the ammo stage after a failed Give
+fake-spawn-wiring	target-negative	reference	patch:fake-spawn-wiring.patch	.	mutation: PlayerSpawn hook is registered but does nothing
+shutdown-leaks-spawn-hook	target-negative	reference	patch:shutdown-leaks-spawn-hook.patch	.	study-authored lifecycle mutation (pack matrix has none for this task): Shutdown keeps the PlayerSpawn hook

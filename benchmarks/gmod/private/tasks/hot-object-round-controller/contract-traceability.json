@@ -1,0 +1,321 @@
+{
+  "schemaVersion": 1,
+  "taskId": "hot-object-round-controller",
+  "taskVersion": "2.2.0",
+  "caseMappings": {
+    "hidden-behavior": [
+      {
+        "name": "round starts with three stable players and frozen deadline",
+        "classification": "A",
+        "clauses": [
+          "T4-API-01",
+          "T4-API-02",
+          "T4-SEM-02",
+          "T4-SEM-03",
+          "T4-API-03"
+        ]
+      },
+      {
+        "name": "monotonic touch sequence transfers holder",
+        "classification": "A",
+        "clauses": [
+          "T4-SEM-05",
+          "T4-SEM-06",
+          "T4-DATA-01"
+        ]
+      },
+      {
+        "name": "event replay is exact and conflicts fail",
+        "classification": "A",
+        "clauses": [
+          "T4-SEM-04",
+          "T4-ERR-01"
+        ]
+      },
+      {
+        "name": "wrong object generation and dead player never transfer",
+        "classification": "A",
+        "clauses": [
+          "T4-SEM-05",
+          "T4-FILE-01"
+        ]
+      },
+      {
+        "name": "holder death and disconnect choose stable successor",
+        "classification": "A",
+        "clauses": [
+          "T4-LIFE-01",
+          "T4-GOAL-01"
+        ]
+      },
+      {
+        "name": "respawn creates a new player revision",
+        "classification": "A",
+        "clauses": [
+          "T4-LIFE-02",
+          "T4-GOAL-02"
+        ]
+      },
+      {
+        "name": "deadline settles exploding round exactly once",
+        "classification": "A",
+        "clauses": [
+          "T4-TIME-02",
+          "T4-SEM-08",
+          "T4-PERSIST-03"
+        ]
+      },
+      {
+        "name": "infectious variant excludes every infected survivor from winners",
+        "classification": "A",
+        "clauses": [
+          "T4-SEM-09",
+          "T4-SCOPE-01"
+        ]
+      },
+      {
+        "name": "time reversal cannot reopen or delay settlement",
+        "classification": "A",
+        "clauses": [
+          "T4-TIME-01",
+          "T4-SCOPE-02"
+        ]
+      },
+      {
+        "name": "finished transitions to cleanup without second consequence",
+        "classification": "A",
+        "clauses": [
+          "T4-TIME-03",
+          "T4-SEM-01"
+        ]
+      },
+      {
+        "name": "save load preserves audit result and deduplication",
+        "classification": "A",
+        "clauses": [
+          "T4-PERSIST-02"
+        ]
+      },
+      {
+        "name": "same tick ordering is sequence then stable identity",
+        "classification": "A",
+        "clauses": [
+          "T4-SEM-07"
+        ]
+      },
+      {
+        "name": "shutdown is idempotent and freezes events",
+        "classification": "A",
+        "clauses": [
+          "T4-LIFE-03"
+        ]
+      },
+      {
+        "name": "malformed players events audit result and revisions are rejected",
+        "classification": "A",
+        "clauses": [
+          "T4-PERSIST-04"
+        ]
+      }
+    ],
+    "gmod-integration": [
+      {
+        "name": "adapter installs lifecycle hooks and one timer",
+        "classification": "A",
+        "clauses": [
+          "T4-NATIVE-01"
+        ]
+      },
+      {
+        "name": "trusted bindings start a three player round",
+        "classification": "B",
+        "clauses": [
+          "T4-TRUST-01"
+        ]
+      },
+      {
+        "name": "object binding is single use and removal restores original callbacks",
+        "classification": "B",
+        "clauses": [
+          "T4-LIFE-01",
+          "T4-NATIVE-02"
+        ]
+      },
+      {
+        "name": "entity StartTouch and Touch share deterministic dispatch",
+        "classification": "A",
+        "clauses": [
+          "T4-API-04",
+          "T4-ADAPTER-01",
+          "T4-NATIVE-02"
+        ]
+      },
+      {
+        "name": "unbound physical touch cannot impersonate a player",
+        "classification": "A",
+        "clauses": [
+          "T4-TRUST-01"
+        ]
+      },
+      {
+        "name": "PlayerDeath hook changes holder once",
+        "classification": "B",
+        "clauses": [
+          "T4-NATIVE-03",
+          "T4-LIFE-01"
+        ]
+      },
+      {
+        "name": "PlayerSpawn rebinds a new revision",
+        "classification": "A",
+        "clauses": [
+          "T4-NATIVE-03",
+          "T4-LIFE-02"
+        ]
+      },
+      {
+        "name": "timer reaches fixed deadline exactly once",
+        "classification": "B",
+        "clauses": [
+          "T4-NATIVE-01",
+          "T4-TIME-02"
+        ]
+      },
+      {
+        "name": "Save exposes deterministic audit for restart",
+        "classification": "A",
+        "clauses": [
+          "T4-PERSIST-01",
+          "T4-PERSIST-02"
+        ]
+      }
+    ],
+    "lifecycle-cleanup": [
+      {
+        "name": "shutdown removes hooks timer restores callbacks and freezes adapter",
+        "classification": "B",
+        "clauses": [
+          "T4-LIFE-01"
+        ]
+      }
+    ],
+    "dedicated-server": [
+      {
+        "name": "physical-touch",
+        "classification": "A",
+        "clauses": [
+          "T4-NATIVE-02",
+          "T4-ACC-04",
+          "T4-ACC-01"
+        ]
+      },
+      {
+        "name": "three-bot",
+        "classification": "B",
+        "clauses": [
+          "T4-TRUST-01",
+          "T4-ACC-04"
+        ]
+      },
+      {
+        "name": "lifecycle",
+        "classification": "B",
+        "clauses": [
+          "T4-LIFE-01",
+          "T4-LIFE-02",
+          "T4-ACC-03"
+        ]
+      },
+      {
+        "name": "variants",
+        "classification": "B",
+        "clauses": [
+          "T4-SEM-09",
+          "T4-ACC-05"
+        ]
+      },
+      {
+        "name": "deadline",
+        "classification": "B",
+        "clauses": [
+          "T4-TIME-02",
+          "T4-ACC-02"
+        ]
+      },
+      {
+        "name": "exactly-once",
+        "classification": "B",
+        "clauses": [
+          "T4-TIME-02",
+          "T4-ACC-03"
+        ]
+      },
+      {
+        "name": "persistence",
+        "classification": "B",
+        "clauses": [
+          "T4-PERSIST-02",
+          "T4-ACC-05"
+        ]
+      },
+      {
+        "name": "cleanup",
+        "classification": "B",
+        "clauses": [
+          "T4-LIFE-03",
+          "T4-ACC-05"
+        ]
+      }
+    ]
+  },
+  "apiCoverage": {
+    "Controller.new(options)": [
+      "T4-API-01",
+      "T4-API-02"
+    ],
+    "controller:touch(event_id, object_id, object_revision, player_id, player_revision, sequence, now)": [
+      "T4-API-01",
+      "T4-SEM-05"
+    ],
+    "controller:respawn(event_id, player_id, old_revision, new_revision, now)": [
+      "T4-API-01",
+      "T4-LIFE-02"
+    ],
+    "adapter.Dispatch(event)": [
+      "T4-API-04",
+      "T4-ADAPTER-01"
+    ],
+    "adapter.BindObject(entity, object_id, revision)": [
+      "T4-API-04",
+      "T4-NATIVE-02"
+    ]
+  },
+  "acceptanceCoverage": {
+    "T4-ACC-01": [
+      "hidden-behavior:round starts with three stable players and frozen deadline"
+    ],
+    "T4-ACC-02": [
+      "hidden-behavior:time reversal cannot reopen or delay settlement"
+    ],
+    "T4-ACC-03": [
+      "hidden-behavior:deadline settles exploding round exactly once"
+    ],
+    "T4-ACC-04": [
+      "dedicated-server:physical-touch",
+      "dedicated-server:three-bot"
+    ],
+    "T4-ACC-05": [
+      "dedicated-server:persistence"
+    ]
+  },
+  "requiredPublicTokens": [
+    "StartTouch",
+    "Touch",
+    "PlayerDeath",
+    "PlayerSpawn",
+    "PlayerDisconnected",
+    "infectious",
+    "exploding",
+    "invalid_state"
+  ]
+}

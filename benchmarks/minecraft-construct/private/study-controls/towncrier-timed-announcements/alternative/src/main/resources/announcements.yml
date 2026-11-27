@@ -1,0 +1,10 @@
+prefix: "<gray>[<gold>Crier</gold>]</gray> "
+groups:
+  tips:
+    enabled: true
+    interval: 300
+    order: sequential
+    permission: ""
+    messages:
+      - "Use <yellow>/spawn</yellow> to return to spawn."
+      - "Be kind to other players!"

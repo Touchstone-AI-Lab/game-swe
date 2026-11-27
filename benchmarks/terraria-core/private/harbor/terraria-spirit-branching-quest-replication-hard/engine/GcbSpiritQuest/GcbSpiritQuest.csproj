@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="../tModLoader.targets" />
+  <PropertyGroup>
+    <AssemblyName>GcbSpiritQuest</AssemblyName>
+    <LangVersion>latest</LangVersion>
+    <Nullable>enable</Nullable>
+    <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
+    <CandidateRoot Condition="'$(CandidateRoot)' == ''">/workspace/solution</CandidateRoot>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="GcbSpiritQuest.cs" />
+    <Compile Include="EngineSupport.cs" />
+    <Compile Include="VerifierSystem.cs" />
+    <Compile Include="$(CandidateRoot)/spirit-mod/Mechanics/QuestSystem/Tasks/QuestTask.cs" Link="Production/QuestTask.cs" />
+    <Compile Include="$(CandidateRoot)/spirit-mod/Mechanics/QuestSystem/Tasks/BranchingTask.cs" Link="Production/BranchingTask.cs" />
+  </ItemGroup>
+</Project>

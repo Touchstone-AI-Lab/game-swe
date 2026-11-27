@@ -1,0 +1,5 @@
+name: "wave-resource-allocator"
+displayName: "Deterministic Wave Budget Planner"
+main: "WaveBudgetPlannerPlugin"
+version: "1.0.0"
+minGameVersion: 159

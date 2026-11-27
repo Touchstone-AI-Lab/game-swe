@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<metadata>
+  <name>Construct Config Persistence Verifier</name>
+  <directory>gcb_construct_config_persistence_suite</directory>
+  <id>construct-config-persistence-suite</id>
+  <description>Private verifier companion mod.</description>
+  <version>1.0.0</version>
+</metadata>

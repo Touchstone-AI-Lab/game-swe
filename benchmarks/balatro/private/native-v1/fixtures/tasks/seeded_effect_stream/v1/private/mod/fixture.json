@@ -1,0 +1,6 @@
+{
+  "id": "poc_ses_fixture", "name": "Private Stream scenario observation",
+  "author": ["Balatro PoC"], "description": "Sealed initial fixture and bounded read-only native cash/RNG telemetry",
+  "prefix": "sesfixture", "main_file": "fixture.lua", "version": "1.0.0",
+  "priority": 100009, "dependencies": ["Steamodded (>=1.~)", "balatrobot"]
+}

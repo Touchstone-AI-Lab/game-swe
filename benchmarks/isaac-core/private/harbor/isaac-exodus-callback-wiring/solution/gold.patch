@@ -1,0 +1,218 @@
+diff --git a/main.lua b/main.lua
+--- a/main.lua
++++ b/main.lua
+@@ -332,6 +332,8 @@
+                     { EntityType.ENTITY_MOMS_HEART, EntityType.ENTITY_SATAN, EntityType.ENTITY_ISAAC }
+                 }
+             },
++            ANAMNESIS = { IsHolding = false, Charge = 0 },
++
+             ---<<MISCELLANEOUS>>--
+             CHARGE_BAR = { Bar = Sprite(), Scale = Vector(1, 1) },
+             
+@@ -1077,6 +1079,39 @@
+ Exodus:AddCallback(ModCallbacks.MC_NPC_UPDATE, Exodus.occultistEntityUpdate, Entities.OCCULTIST.id)
+ 
+ --<<<IRON LUNG>>>--
++function Exodus:ironLungGasLogic()
++    local entities = Isaac.GetRoomEntities()
++
++    for i, entity in pairs(entities) do
++        if entity.Type == Entities.IRON_LUNG_GAS.id and entity.Variant == Entities.IRON_LUNG_GAS.variant then
++            local sprite = entity:GetSprite()
++
++            if sprite:IsFinished("Appear") then
++                sprite:Play("Pyroclastic Flow", false)
++            end
++
++            if sprite:IsFinished("Pyroclastic Flow") then
++                sprite:Play("Fade", false)
++            end
++
++            for v, tear in pairs(entities) do
++                if tear:ToTear() then
++                    if tear.Position:Distance(entity.Position) < entity.Size + tear.Size then
++                        tear.Velocity = tear.Velocity * 0.8
++                    end
++                end
++            end
++
++            if sprite:IsFinished("Fade") then
++                entity:Remove()
++                entity.Visible = false
++            end
++        end
++    end
++end
++
++Exodus:AddCallback(ModCallbacks.MC_POST_UPDATE, Exodus.ironLungGasLogic)
++
+ function Exodus:ironLungEntityUpdate(entity)
+     local player = Isaac.GetPlayer(0)
+     local data = entity:GetData()
+@@ -1219,35 +1254,6 @@
+             end
+         if sprite:IsFinished("HoriSlam") or sprite:IsFinished("UpSlam") or sprite:IsFinished("DownSlam") then
+             entity.State = 0
+-        end
+-    end
+-
+-    local entities = Isaac.GetRoomEntities()
+-
+-    for i, gas in pairs(entities) do
+-        if gas.Type == Entities.IRON_LUNG_GAS.id and gas.Variant == Entities.IRON_LUNG_GAS.variant then
+-            local gasSprite = gas:GetSprite()
+-
+-            if gasSprite:IsFinished("Appear") then
+-                gasSprite:Play("Pyroclastic Flow", false)
+-            end
+-
+-            if gasSprite:IsFinished("Pyroclastic Flow") then
+-                gasSprite:Play("Fade", false)
+-            end
+-
+-            for v, tear in pairs(entities) do
+-                if tear:ToTear() then
+-                    if tear.Position:Distance(gas.Position) < gas.Size + tear.Size then
+-                        tear.Velocity = tear.Velocity * 0.8
+-                    end
+-                end
+-            end
+-
+-            if gasSprite:IsFinished("Fade") then
+-                gas:Remove()
+-                gas.Visible = false
+-            end
+         end
+     end
+ end
+@@ -1705,6 +1711,8 @@
+         player.TearHeight = player.TearHeight - ItemVariables.THE_APOCRYPHON.ApocRange
+     end
+ end
++
++Exodus:AddCallback(ModCallbacks.MC_EVALUATE_CACHE, Exodus.theApocryphonCache)
+ 
+ --<<BETTER LOOPS>>--
+ function loop()
+@@ -2896,7 +2904,7 @@
+ 
+ --<<<THE FORBIDDEN FRUIT>>>--
+ function Exodus:forbiddenFruitCache(player, flag)
+-    if player:HasCollectible(ItemId.FORBIDDEN_FRUIT) and flag == CacheFlag.CACHE_DAMAGE then
++    if flag == CacheFlag.CACHE_DAMAGE then
+         player.Damage = player.Damage + (math.floor((ItemVariables.FORBIDDEN_FRUIT.UseCount^0.7) * 100)) / 101
+     end
+ end
+@@ -3517,8 +3525,9 @@
+     
+     if player:HasCollectible(ItemId.CURSED_METRONOME) then
+         if not ItemVariables.CURSED_METRONOME.HasCursedMetronome then
+-            local maxhp = player:GetHearts() - 2
++            local maxhp = player:GetMaxHearts() - 2
+             player:AddHearts(maxhp * -1)
++            maxhp = maxhp + 2
+             for i = 1, rng:RandomInt(maxhp / 2) do
+                 Isaac.Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_HEART, HeartSubType.HEART_FULL,  Isaac.GetFreeNearPosition(player.Position, 20), Vector(0, 0), player)
+             end
+@@ -4637,7 +4646,8 @@
+ 
+ Exodus:AddCallback(ModCallbacks.MC_POST_NEW_ROOM, Exodus.lilRuneNewRoom)
+ 
+-function Exodus:lilRuneUse(rune, player)
++function Exodus:lilRuneUse(rune)
++    local player = Isaac.GetPlayer(0)
+     if player:HasCollectible(ItemId.LIL_RUNE) then
+         if rune == Card.RUNE_ALGIZ then
+             ItemVariables.LIL_RUNE.State = "Purple"
+@@ -5422,7 +5432,7 @@
+ Exodus:AddCallback(ModCallbacks.MC_POST_UPDATE, Exodus.paperCutCostume)
+ 
+ function Exodus:paperCutCardUse()
+-    local player = Isaac.GetPlayer()
++    local player = Isaac.GetPlayer(0)
+     
+     if player:HasCollectible(ItemId.PAPER_CUT) then
+         for i, entity in pairs(Isaac.GetRoomEntities()) do
+@@ -5680,8 +5690,32 @@
+ 
+ Exodus:AddCallback(ModCallbacks.MC_USE_ITEM, Exodus.anamnesisUse, ItemId.ANAMNESIS)
+ 
++function Exodus:anamnesisUpdate()
++    local player = Isaac.GetPlayer(0)
++
++    if player:HasCollectible(ItemId.ANAMNESIS) then
++        if not ItemVariables.ANAMNESIS.IsHolding then
++            if player:GetActiveCharge() == 6 and ItemVariables.ANAMNESIS.Charge ~= 6 then
++                player:SetActiveCharge(0)
++                ItemVariables.ANAMNESIS.Charge = 0
++            elseif player:GetActiveCharge() ~= ItemVariables.ANAMNESIS.Charge then
++                player:SetActiveCharge(ItemVariables.ANAMNESIS.Charge)
++            end
++
++            ItemVariables.ANAMNESIS.IsHolding = true
++        else
++            ItemVariables.ANAMNESIS.Charge = player:GetActiveCharge()
++        end
++    elseif ItemVariables.ANAMNESIS.IsHolding then
++        ItemVariables.ANAMNESIS.IsHolding = false
++    end
++end
++
++Exodus:AddCallback(ModCallbacks.MC_POST_UPDATE, Exodus.anamnesisUpdate)
++
+ --<<<BIRDBATH>>>--
+-function Exodus:birdbathUse(collectibleType, rng, player)
++function Exodus:birdbathUse()
++    local player = Isaac.GetPlayer(0)
+     
+     local bath = Isaac.Spawn(Entities.BIRDBATH.id, Entities.BIRDBATH.variant, 0, Isaac.GetFreeNearPosition(player.Position, 7), NullVector, player)
+     bath:GetSprite():Play("Appear", true)
+@@ -6510,6 +6544,26 @@
+ Exodus:AddCallback(ModCallbacks.MC_NPC_UPDATE, Exodus.halfblindEntityUpdate, Entities.HALFBLIND.id)
+ 
+ --<<<HEADCASE>>>--
++function Exodus:lobbedShotCollision()
++    local player = Isaac.GetPlayer(0)
++
++    if EntityVariables.HEADCASE.DoLobbed then
++        for i, entity in pairs(Isaac.GetRoomEntities()) do
++            if entity.Type == EntityType.ENTITY_TEAR and entity:GetData().IsExodusLobbed == true then
++                if entity.Position:DistanceSquared(player.Position) < 18^2 and entity:ToTear().Height < 5 then
++                    entity:Die()
++                    player:TakeDamage(1, 0, EntityRef(entity), 0)
++                end
++                if entity:ToTear().Height < 1 then
++                    EntityVariables.HEADCASE.DoLobbed = false
++                end
++            end
++        end
++    end
++end
++
++Exodus:AddCallback(ModCallbacks.MC_POST_UPDATE, Exodus.lobbedShotCollision)
++
+ function Exodus:headcaseEntityUpdate(entity)
+     local player = Isaac.GetPlayer(0)
+     local data = entity:GetData()
+@@ -6570,20 +6624,6 @@
+         
+         if sprite:IsFinished("Stomp") then
+             entity.State = 0
+-        end
+-    end
+-
+-    if EntityVariables.HEADCASE.DoLobbed then
+-        for i, lobbed in pairs(Isaac.GetRoomEntities()) do
+-            if lobbed.Type == EntityType.ENTITY_TEAR and lobbed:GetData().IsExodusLobbed == true then
+-                if lobbed.Position:DistanceSquared(player.Position) < 18^2 and lobbed:ToTear().Height < 5 then
+-                    lobbed:Die()
+-                    player:TakeDamage(1, 0, EntityRef(lobbed), 0)
+-                end
+-                if lobbed:ToTear().Height < 1 then
+-                    EntityVariables.HEADCASE.DoLobbed = false
+-                end
+-            end
+         end
+     end
+ end

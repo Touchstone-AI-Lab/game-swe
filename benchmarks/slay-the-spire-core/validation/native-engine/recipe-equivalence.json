@@ -1,0 +1,22 @@
+{
+  "validated": true,
+  "recipe_manifest_sha256": "b7ca5b1c31e29ab31f93591473a02d62fd1c2007c32e25a98fcfe19a8fe26cbf",
+  "images": [
+    {
+      "task": "basemod-dynamic-descriptions-r2",
+      "agent_image": "sha256:4c62f7980b46347af547f338e3ee6087537ce09a3d7e4a09eae6dff0164715f1",
+      "verifier_image": "sha256:a72a38f407ab604ffd4679cb8afdcb8b1724cfaf25abcb8f0f280fba81985ebe"
+    },
+    {
+      "task": "mts-enum-identity-r2",
+      "agent_image": "sha256:c8e7b0bcecb50b50cacfb5566e93958e0766b9278be6b6d2027b17cbe604a4ef",
+      "verifier_image": "sha256:a72a38f407ab604ffd4679cb8afdcb8b1724cfaf25abcb8f0f280fba81985ebe"
+    },
+    {
+      "task": "stslib-block-ledger-r1",
+      "agent_image": "sha256:e8fc089e5584f768a995c6e19356b1ea0f97f14f9cc9c71abbfb93330be0a85e",
+      "verifier_image": "sha256:a72a38f407ab604ffd4679cb8afdcb8b1724cfaf25abcb8f0f280fba81985ebe"
+    }
+  ],
+  "scope": "Formatted and typed repository task preparation rebuilt all three exact agent images used by the fresh native controls."
+}

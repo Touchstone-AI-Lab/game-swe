@@ -1,0 +1,11 @@
+--- a/ResearchOrganized/Source/ResearchOrganizedMain.cs
++++ b/ResearchOrganized/Source/ResearchOrganizedMain.cs
+@@ -266,7 +266,7 @@
+                 }
+ 
+                 // Clearing the backing field first makes the setter recompute the view width.
+-                researchWindowCurTabField.SetValue(window, null);
++                // Negative control: retain the stale native view width.
+                 window.CurTab = target;
+             }
+             catch (Exception ex) { Log.Error($"[Research: Organized] Research window refresh error: {ex.Message}"); }

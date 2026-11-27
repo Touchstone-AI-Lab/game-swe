@@ -1,0 +1,273 @@
+{
+  "task": "slay-the-spire/core/stslib-block-ledger-r1",
+  "task_version": "1.4.0",
+  "exam": "benchmarks/slay-the-spire-core/exams/stslib-block-ledger-r1.md",
+  "cases": [
+    {
+      "id": "case:engine",
+      "role": "runtime-sentinel",
+      "clauses": [],
+      "overlap": false,
+      "note": "the evaluator's engine/run sentinel; passes on starter and reference"
+    },
+    {
+      "id": "case:player-plain",
+      "role": "preserved",
+      "clauses": [
+        "preserve"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:player-specific",
+      "role": "preserved",
+      "clauses": [
+        "preserve"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:player-zero-specific",
+      "role": "target",
+      "clauses": [
+        "request"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:player-refund",
+      "role": "target",
+      "clauses": [
+        "request"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:player-nested-loss",
+      "role": "target",
+      "clauses": [
+        "request"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:player-nested-specific",
+      "role": "target",
+      "clauses": [
+        "request"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:player-cross-owner",
+      "role": "target",
+      "clauses": [
+        "request"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:player-attenuate",
+      "role": "preserved",
+      "clauses": [
+        "preserve"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:player-cap-multiple",
+      "role": "target",
+      "clauses": [
+        "request"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:player-cap-full",
+      "role": "target",
+      "clauses": [
+        "request"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:player-cap-plain",
+      "role": "target",
+      "clauses": [
+        "request"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:player-cap-loss",
+      "role": "target",
+      "clauses": [
+        "request"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:player-zero-gain",
+      "role": "target",
+      "clauses": [
+        "request"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:monster-plain",
+      "role": "preserved",
+      "clauses": [
+        "preserve"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:monster-specific",
+      "role": "preserved",
+      "clauses": [
+        "preserve"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:monster-zero-specific",
+      "role": "target",
+      "clauses": [
+        "request"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:monster-refund",
+      "role": "target",
+      "clauses": [
+        "request"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:monster-nested-loss",
+      "role": "target",
+      "clauses": [
+        "request"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:monster-nested-specific",
+      "role": "target",
+      "clauses": [
+        "request"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:monster-cross-owner",
+      "role": "target",
+      "clauses": [
+        "request"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:monster-attenuate",
+      "role": "preserved",
+      "clauses": [
+        "preserve"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:monster-cap-multiple",
+      "role": "target",
+      "clauses": [
+        "request"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:monster-cap-full",
+      "role": "target",
+      "clauses": [
+        "request"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:monster-cap-plain",
+      "role": "target",
+      "clauses": [
+        "request"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:monster-cap-loss",
+      "role": "target",
+      "clauses": [
+        "request"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:monster-zero-gain",
+      "role": "target",
+      "clauses": [
+        "request"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "check:submission-shape",
+      "role": "static",
+      "clauses": [],
+      "overlap": false,
+      "note": "required source tree present as a safe snapshot"
+    }
+  ],
+  "clauses": [
+    {
+      "id": "request",
+      "status": "asserted",
+      "note": "",
+      "anchor": "the exam's requested repair (whole exam body)"
+    },
+    {
+      "id": "preserve",
+      "status": "asserted",
+      "note": "",
+      "anchor": "behavior the exam keeps and the unchanged starter already provides"
+    }
+  ],
+  "excluded_clauses": [],
+  "known_issues": [
+    "Roles come from the 2026-10-30 E0 baseline on the real game: a case the unchanged starter already passes is preserved, every other case is a target. Clauses are not yet split per exam paragraph: each target case cites the whole requested repair."
+  ]
+}

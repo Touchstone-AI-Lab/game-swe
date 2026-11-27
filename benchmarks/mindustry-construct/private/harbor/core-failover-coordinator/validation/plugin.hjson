@@ -1,0 +1,5 @@
+name: "core-continuity-manager"
+displayName: "Core Failover Coordinator"
+main: "CoreFailoverCoordinatorPlugin"
+version: "1.0.0"
+minGameVersion: 159

@@ -1,0 +1,12 @@
+diff -ruN a/scripts/waystones/network.lua b/scripts/waystones/network.lua
+--- a/scripts/waystones/network.lua	2026-09-22 01:12:00.401474326 +0800
++++ b/scripts/waystones/network.lua	2026-09-22 01:12:00.429820507 +0800
+@@ -117,7 +117,7 @@
+     local live = self:_live_tickets()
+     for index = 1, #live do
+         local ticket = live[index]
+-        if now >= ticket.expires_at then
++        if now > ticket.expires_at then
+             self:_close(ticket, "expired")
+             expired[#expired + 1] = ticket.ticket_id
+         end

@@ -1,0 +1,15 @@
+{
+  "id": "deck_removal_consistency_v2",
+  "name": "Physical Batch Removal",
+  "author": [
+    "Balatro PoC"
+  ],
+  "description": "Ordinary selected physical-card destruction",
+  "prefix": "dr2",
+  "main_file": "main.lua",
+  "version": "2.0.0",
+  "priority": 0,
+  "dependencies": [
+    "Steamodded (>=1.~)"
+  ]
+}

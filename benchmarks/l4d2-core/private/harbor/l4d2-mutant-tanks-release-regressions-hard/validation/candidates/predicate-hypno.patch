@@ -1,0 +1,71 @@
+diff --git a/addons/sourcemod/scripting/mutant_tanks/abilities/mt_hypno.sp b/addons/sourcemod/scripting/mutant_tanks/abilities/mt_hypno.sp
+--- a/addons/sourcemod/scripting/mutant_tanks/abilities/mt_hypno.sp
++++ b/addons/sourcemod/scripting/mutant_tanks/abilities/mt_hypno.sp
+@@ -307,7 +307,7 @@
+ #endif
+ {
+ 	SDKHook(client, SDKHook_OnTakeDamage, OnHypnoTakeDamage);
+-	vHypnoReset2(client);
++	vRemoveHypno(client);
+ }
+ 
+ #if defined MT_ABILITIES_MAIN
+@@ -1207,14 +1207,9 @@
+ 		return;
+ 	}
+ 
+-	if (MT_IsTankSupported(tank) && (!bIsInfected(tank, MT_CHECK_FAKECLIENT) || g_esHypnoCache[tank].g_iHumanAbility != 1) && MT_IsCustomTankSupported(tank))
+-	{
+-		vHypno(tank);
+-
+-		if (g_esHypnoCache[tank].g_iHypnoAbility == 1 && g_esHypnoCache[tank].g_iComboAbility == 0)
+-		{
+-			vHypnoAbility(tank, GetRandomFloat(0.1, 100.0));
+-		}
++	if (MT_IsTankSupported(tank) && (!bIsInfected(tank, MT_CHECK_FAKECLIENT) || g_esHypnoCache[tank].g_iHumanAbility != 1) && MT_IsCustomTankSupported(tank) && g_esHypnoCache[tank].g_iHypnoAbility == 1 && g_esHypnoCache[tank].g_iComboAbility == 0)
++	{
++		vHypnoAbility(tank, GetRandomFloat(0.1, 100.0));
+ 	}
+ }
+ 
+@@ -1269,7 +1264,7 @@
+ 
+ void vHypno(int tank)
+ {
+-	if (!g_esHypnoPlayer[tank].g_bActivated)
++	if (g_esHypnoCache[tank].g_iHypnoView == 1 && !g_esHypnoPlayer[tank].g_bActivated)
+ 	{
+ 		g_esHypnoPlayer[tank].g_bActivated = true;
+ 
+@@ -1549,7 +1544,7 @@
+ 	{
+ 		if (bIsValidClient(iPlayer, MT_CHECK_INGAME))
+ 		{
+-			vHypnoReset2(iPlayer);
++			vRemoveHypno(iPlayer);
+ 
+ 			g_esHypnoPlayer[iPlayer].g_iOwner = -1;
+ 		}
+diff --git a/addons/sourcemod/scripting/mutant_tanks/mt_abilities.sp b/addons/sourcemod/scripting/mutant_tanks/mt_abilities.sp
+--- a/addons/sourcemod/scripting/mutant_tanks/mt_abilities.sp
++++ b/addons/sourcemod/scripting/mutant_tanks/mt_abilities.sp
+@@ -448,6 +448,11 @@
+ public void OnMapEnd()
+ {
+ 	vAbilitySetup(2);
++}
++
++public void OnPluginEnd()
++{
++	vAbilitySetup(3);
+ }
+ 
+ public void MT_OnPluginEnd()
+@@ -2314,6 +2319,7 @@
+ 		case 0: vHypnoClientPutInServer(client);
+ 		case 2: vHypnoClientDisconnect_Post(client);
+ 		case 3: vHypnoAbilityActivated(client);
++		case 4: vHypnoPostTankSpawn(client);
+ 	}
+ #endif
+ #if defined MT_MENU_ICE

@@ -1,0 +1,12 @@
+diff -ruN a/addons/sourcemod/scripting/l4d2_hybrid_scoremod_zone.sp b/addons/sourcemod/scripting/l4d2_hybrid_scoremod_zone.sp
+--- a/addons/sourcemod/scripting/l4d2_hybrid_scoremod_zone.sp
++++ b/addons/sourcemod/scripting/l4d2_hybrid_scoremod_zone.sp
+@@ -549,6 +549,8 @@
+ 	{
+ 		if (IsSurvivor(i))
+ 		{
++			// Dead Survivors give up their roster slot to the next living Survivor.
++			if (!IsPlayerAlive(i)) continue;
+ 			survivorCount++;
+ 			if (IsPlayerAlive(i) && !IsPlayerIncap(i) && !IsPlayerLedged(i))
+ 			{

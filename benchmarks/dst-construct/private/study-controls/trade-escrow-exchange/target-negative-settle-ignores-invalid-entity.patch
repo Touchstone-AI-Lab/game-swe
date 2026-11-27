@@ -1,0 +1,11 @@
+--- a/scripts/components/tradeescrow.lua
++++ b/scripts/components/tradeescrow.lua
+@@ -65,7 +65,7 @@
+ 
+ function TradeEscrow:_entity(userid)
+     local player = self.players[userid]
+-    if player ~= nil and player:IsValid() and inventory_of(player) ~= nil then
++    if player ~= nil and inventory_of(player) ~= nil then
+         return player
+     end
+     for _, candidate in ipairs(AllPlayers) do

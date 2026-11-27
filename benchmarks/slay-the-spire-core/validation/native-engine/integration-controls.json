@@ -1,0 +1,1049 @@
+{
+  "validated": true,
+  "job": "pr14-native-integration-controls-r1",
+  "rows": [
+    {
+      "task": "stslib-block-ledger-r1",
+      "agent": "oracle",
+      "trial": "stslib-block-ledger-r1__kYJoiga",
+      "build_exit": 0,
+      "entrypoint_exit": 0,
+      "verifier": {
+        "complete": true,
+        "passed": 27,
+        "failed": 0,
+        "expected": 27,
+        "reward": 1,
+        "entrypoint_exit": 0,
+        "cases": [
+          {
+            "id": "engine",
+            "group": "control",
+            "passed": true
+          },
+          {
+            "id": "player-plain",
+            "group": "control",
+            "passed": true
+          },
+          {
+            "id": "player-specific",
+            "group": "control",
+            "passed": true
+          },
+          {
+            "id": "player-zero-specific",
+            "group": "targeting",
+            "passed": true
+          },
+          {
+            "id": "player-refund",
+            "group": "settlement",
+            "passed": true
+          },
+          {
+            "id": "player-nested-loss",
+            "group": "settlement",
+            "passed": true
+          },
+          {
+            "id": "player-nested-specific",
+            "group": "settlement",
+            "passed": true
+          },
+          {
+            "id": "player-cross-owner",
+            "group": "settlement",
+            "passed": true
+          },
+          {
+            "id": "player-attenuate",
+            "group": "control",
+            "passed": true
+          },
+          {
+            "id": "player-cap-multiple",
+            "group": "capacity",
+            "passed": true
+          },
+          {
+            "id": "player-cap-full",
+            "group": "capacity",
+            "passed": true
+          },
+          {
+            "id": "player-cap-plain",
+            "group": "capacity",
+            "passed": true
+          },
+          {
+            "id": "player-cap-loss",
+            "group": "capacity",
+            "passed": true
+          },
+          {
+            "id": "player-zero-gain",
+            "group": "capacity",
+            "passed": true
+          },
+          {
+            "id": "monster-plain",
+            "group": "control",
+            "passed": true
+          },
+          {
+            "id": "monster-specific",
+            "group": "control",
+            "passed": true
+          },
+          {
+            "id": "monster-zero-specific",
+            "group": "targeting",
+            "passed": true
+          },
+          {
+            "id": "monster-refund",
+            "group": "settlement",
+            "passed": true
+          },
+          {
+            "id": "monster-nested-loss",
+            "group": "settlement",
+            "passed": true
+          },
+          {
+            "id": "monster-nested-specific",
+            "group": "settlement",
+            "passed": true
+          },
+          {
+            "id": "monster-cross-owner",
+            "group": "settlement",
+            "passed": true
+          },
+          {
+            "id": "monster-attenuate",
+            "group": "control",
+            "passed": true
+          },
+          {
+            "id": "monster-cap-multiple",
+            "group": "capacity",
+            "passed": true
+          },
+          {
+            "id": "monster-cap-full",
+            "group": "capacity",
+            "passed": true
+          },
+          {
+            "id": "monster-cap-plain",
+            "group": "capacity",
+            "passed": true
+          },
+          {
+            "id": "monster-cap-loss",
+            "group": "capacity",
+            "passed": true
+          },
+          {
+            "id": "monster-zero-gain",
+            "group": "capacity",
+            "passed": true
+          }
+        ]
+      },
+      "raw_sha256": {
+        "probe.txt": "3c6f6c80cfd43cf9e106b8c508b1d627c4c8d1552f053813378d53d01e82b051",
+        "nonce.txt": "7fe5cff64d39c7d77412f2cfa5679ca88e828e9005c0add2453d97e8d29861ed",
+        "result.json": "bf3066cd3a8432d09423dfe8992a2534fd760c4898811ec5b82e2393f1a31e1e",
+        "build-exit.txt": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+        "entrypoint-exit.txt": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+      }
+    },
+    {
+      "task": "basemod-dynamic-descriptions-r2",
+      "agent": "oracle",
+      "trial": "basemod-dynamic-descriptions-r2__b58trTW",
+      "build_exit": 0,
+      "entrypoint_exit": 0,
+      "verifier": {
+        "complete": true,
+        "passed": 46,
+        "failed": 0,
+        "expected": 46,
+        "reward": 1,
+        "entrypoint_exit": 0,
+        "cases": [
+          {
+            "id": "engine",
+            "group": "control",
+            "passed": true
+          },
+          {
+            "id": "direct-control",
+            "group": "control",
+            "passed": true
+          },
+          {
+            "id": "rightmost-control",
+            "group": "control",
+            "passed": true
+          },
+          {
+            "id": "divisible-control",
+            "group": "control",
+            "passed": true
+          },
+          {
+            "id": "suffix-negative-control",
+            "group": "control",
+            "passed": true
+          },
+          {
+            "id": "empty-control",
+            "group": "control",
+            "passed": true
+          },
+          {
+            "id": "repeat-control",
+            "group": "control",
+            "passed": true
+          },
+          {
+            "id": "zero-repeat-control",
+            "group": "control",
+            "passed": true
+          },
+          {
+            "id": "negative-control",
+            "group": "control",
+            "passed": true
+          },
+          {
+            "id": "unmarked-control",
+            "group": "control",
+            "passed": true
+          },
+          {
+            "id": "unknown-control",
+            "group": "control",
+            "passed": true
+          },
+          {
+            "id": "suffix-two",
+            "group": "numeric",
+            "passed": true
+          },
+          {
+            "id": "suffix-width",
+            "group": "numeric",
+            "passed": true
+          },
+          {
+            "id": "suffix-leading-width",
+            "group": "control",
+            "passed": true
+          },
+          {
+            "id": "suffix-minimum",
+            "group": "numeric",
+            "passed": true
+          },
+          {
+            "id": "zero-divisor",
+            "group": "numeric",
+            "passed": true
+          },
+          {
+            "id": "zero-zero-divisor",
+            "group": "numeric",
+            "passed": true
+          },
+          {
+            "id": "fraction-operand",
+            "group": "numeric",
+            "passed": true
+          },
+          {
+            "id": "large-operand",
+            "group": "numeric",
+            "passed": true
+          },
+          {
+            "id": "decimal-leading-zero",
+            "group": "numeric",
+            "passed": true
+          },
+          {
+            "id": "literal-dollar",
+            "group": "literal",
+            "passed": true
+          },
+          {
+            "id": "literal-backslash",
+            "group": "literal",
+            "passed": true
+          },
+          {
+            "id": "payload-equals",
+            "group": "literal",
+            "passed": true
+          },
+          {
+            "id": "escaped-pipe",
+            "group": "literal",
+            "passed": true
+          },
+          {
+            "id": "escaped-braces",
+            "group": "literal",
+            "passed": true
+          },
+          {
+            "id": "escaped-backslash",
+            "group": "literal",
+            "passed": true
+          },
+          {
+            "id": "escaped-open",
+            "group": "literal",
+            "passed": true
+          },
+          {
+            "id": "nested-selected",
+            "group": "nested",
+            "passed": true
+          },
+          {
+            "id": "nested-fallback",
+            "group": "nested",
+            "passed": true
+          },
+          {
+            "id": "nested-repeat",
+            "group": "nested",
+            "passed": true
+          },
+          {
+            "id": "inactive-lazy",
+            "group": "nested",
+            "passed": true
+          },
+          {
+            "id": "overridden-lazy",
+            "group": "nested",
+            "passed": true
+          },
+          {
+            "id": "zero-repeat-lazy",
+            "group": "nested",
+            "passed": true
+          },
+          {
+            "id": "repeated-key",
+            "group": "snapshot",
+            "passed": true
+          },
+          {
+            "id": "cn-direct-control",
+            "group": "control",
+            "passed": true
+          },
+          {
+            "id": "cn-nested",
+            "group": "nested",
+            "passed": true
+          },
+          {
+            "id": "cn-suffix",
+            "group": "numeric",
+            "passed": true
+          },
+          {
+            "id": "raw-refresh",
+            "group": "snapshot",
+            "passed": true
+          },
+          {
+            "id": "generated-refresh",
+            "group": "refresh",
+            "passed": true
+          },
+          {
+            "id": "unmark",
+            "group": "refresh",
+            "passed": true
+          },
+          {
+            "id": "coherent-initialization",
+            "group": "snapshot",
+            "passed": true
+          },
+          {
+            "id": "ticking-render",
+            "group": "snapshot",
+            "passed": true
+          },
+          {
+            "id": "independent-cards",
+            "group": "control",
+            "passed": true
+          },
+          {
+            "id": "nested-card",
+            "group": "snapshot",
+            "passed": true
+          },
+          {
+            "id": "generated-rewrite",
+            "group": "refresh",
+            "passed": true
+          },
+          {
+            "id": "subscriber-refresh",
+            "group": "refresh",
+            "passed": true
+          }
+        ]
+      },
+      "raw_sha256": {
+        "probe.txt": "257f9d0abba2ec135d734994b1691937f713bc037d420bca6993e79e93f39a9a",
+        "nonce.txt": "8bb259cdf08123f946fc8a014595413968765124a0328853e11c1d2b229e398d",
+        "result.json": "98ce5260e72252dedb37a21a923407762eebae2665eef0a38248e94aadcda032",
+        "build-exit.txt": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+        "entrypoint-exit.txt": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+      }
+    },
+    {
+      "task": "basemod-dynamic-descriptions-r2",
+      "agent": "nop",
+      "trial": "basemod-dynamic-descriptions-r2__oNdfQkP",
+      "build_exit": 0,
+      "entrypoint_exit": 0,
+      "verifier": {
+        "complete": true,
+        "passed": 15,
+        "failed": 31,
+        "expected": 46,
+        "reward": 0,
+        "entrypoint_exit": 0,
+        "cases": [
+          {
+            "id": "engine",
+            "group": "control",
+            "passed": true
+          },
+          {
+            "id": "direct-control",
+            "group": "control",
+            "passed": true
+          },
+          {
+            "id": "rightmost-control",
+            "group": "control",
+            "passed": true
+          },
+          {
+            "id": "divisible-control",
+            "group": "control",
+            "passed": true
+          },
+          {
+            "id": "suffix-negative-control",
+            "group": "control",
+            "passed": true
+          },
+          {
+            "id": "empty-control",
+            "group": "control",
+            "passed": true
+          },
+          {
+            "id": "repeat-control",
+            "group": "control",
+            "passed": true
+          },
+          {
+            "id": "zero-repeat-control",
+            "group": "control",
+            "passed": true
+          },
+          {
+            "id": "negative-control",
+            "group": "control",
+            "passed": true
+          },
+          {
+            "id": "unmarked-control",
+            "group": "control",
+            "passed": true
+          },
+          {
+            "id": "unknown-control",
+            "group": "control",
+            "passed": true
+          },
+          {
+            "id": "suffix-two",
+            "group": "numeric",
+            "passed": false
+          },
+          {
+            "id": "suffix-width",
+            "group": "numeric",
+            "passed": false
+          },
+          {
+            "id": "suffix-leading-width",
+            "group": "control",
+            "passed": true
+          },
+          {
+            "id": "suffix-minimum",
+            "group": "numeric",
+            "passed": false
+          },
+          {
+            "id": "zero-divisor",
+            "group": "numeric",
+            "passed": false
+          },
+          {
+            "id": "zero-zero-divisor",
+            "group": "numeric",
+            "passed": false
+          },
+          {
+            "id": "fraction-operand",
+            "group": "numeric",
+            "passed": false
+          },
+          {
+            "id": "large-operand",
+            "group": "numeric",
+            "passed": false
+          },
+          {
+            "id": "decimal-leading-zero",
+            "group": "numeric",
+            "passed": false
+          },
+          {
+            "id": "literal-dollar",
+            "group": "literal",
+            "passed": false
+          },
+          {
+            "id": "literal-backslash",
+            "group": "literal",
+            "passed": false
+          },
+          {
+            "id": "payload-equals",
+            "group": "literal",
+            "passed": false
+          },
+          {
+            "id": "escaped-pipe",
+            "group": "literal",
+            "passed": false
+          },
+          {
+            "id": "escaped-braces",
+            "group": "literal",
+            "passed": false
+          },
+          {
+            "id": "escaped-backslash",
+            "group": "literal",
+            "passed": true
+          },
+          {
+            "id": "escaped-open",
+            "group": "literal",
+            "passed": false
+          },
+          {
+            "id": "nested-selected",
+            "group": "nested",
+            "passed": false
+          },
+          {
+            "id": "nested-fallback",
+            "group": "nested",
+            "passed": false
+          },
+          {
+            "id": "nested-repeat",
+            "group": "nested",
+            "passed": false
+          },
+          {
+            "id": "inactive-lazy",
+            "group": "nested",
+            "passed": false
+          },
+          {
+            "id": "overridden-lazy",
+            "group": "nested",
+            "passed": false
+          },
+          {
+            "id": "zero-repeat-lazy",
+            "group": "nested",
+            "passed": false
+          },
+          {
+            "id": "repeated-key",
+            "group": "snapshot",
+            "passed": false
+          },
+          {
+            "id": "cn-direct-control",
+            "group": "control",
+            "passed": true
+          },
+          {
+            "id": "cn-nested",
+            "group": "nested",
+            "passed": false
+          },
+          {
+            "id": "cn-suffix",
+            "group": "numeric",
+            "passed": false
+          },
+          {
+            "id": "raw-refresh",
+            "group": "snapshot",
+            "passed": false
+          },
+          {
+            "id": "generated-refresh",
+            "group": "refresh",
+            "passed": false
+          },
+          {
+            "id": "unmark",
+            "group": "refresh",
+            "passed": false
+          },
+          {
+            "id": "coherent-initialization",
+            "group": "snapshot",
+            "passed": false
+          },
+          {
+            "id": "ticking-render",
+            "group": "snapshot",
+            "passed": false
+          },
+          {
+            "id": "independent-cards",
+            "group": "control",
+            "passed": true
+          },
+          {
+            "id": "nested-card",
+            "group": "snapshot",
+            "passed": false
+          },
+          {
+            "id": "generated-rewrite",
+            "group": "refresh",
+            "passed": false
+          },
+          {
+            "id": "subscriber-refresh",
+            "group": "refresh",
+            "passed": false
+          }
+        ]
+      },
+      "raw_sha256": {
+        "probe.txt": "29340f2262011911cc1714b38b2b061e9a87bbfcaa1100a0a75fa359652029c0",
+        "nonce.txt": "4c698e66605244d097dd6b8406c5564ce24f3c71abf47ac3d2c39c4b5481d578",
+        "result.json": "5726d30677d1c18e64e39dc98b9ed3f819fbb1e63cb3dee31cc60d29900b8907",
+        "build-exit.txt": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+        "entrypoint-exit.txt": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+      }
+    },
+    {
+      "task": "stslib-block-ledger-r1",
+      "agent": "nop",
+      "trial": "stslib-block-ledger-r1__Ti4dcNw",
+      "build_exit": 0,
+      "entrypoint_exit": 0,
+      "verifier": {
+        "complete": true,
+        "passed": 7,
+        "failed": 20,
+        "expected": 27,
+        "reward": 0,
+        "entrypoint_exit": 0,
+        "cases": [
+          {
+            "id": "engine",
+            "group": "control",
+            "passed": true
+          },
+          {
+            "id": "player-plain",
+            "group": "control",
+            "passed": true
+          },
+          {
+            "id": "player-specific",
+            "group": "control",
+            "passed": true
+          },
+          {
+            "id": "player-zero-specific",
+            "group": "targeting",
+            "passed": false
+          },
+          {
+            "id": "player-refund",
+            "group": "settlement",
+            "passed": false
+          },
+          {
+            "id": "player-nested-loss",
+            "group": "settlement",
+            "passed": false
+          },
+          {
+            "id": "player-nested-specific",
+            "group": "settlement",
+            "passed": false
+          },
+          {
+            "id": "player-cross-owner",
+            "group": "settlement",
+            "passed": false
+          },
+          {
+            "id": "player-attenuate",
+            "group": "control",
+            "passed": true
+          },
+          {
+            "id": "player-cap-multiple",
+            "group": "capacity",
+            "passed": false
+          },
+          {
+            "id": "player-cap-full",
+            "group": "capacity",
+            "passed": false
+          },
+          {
+            "id": "player-cap-plain",
+            "group": "capacity",
+            "passed": false
+          },
+          {
+            "id": "player-cap-loss",
+            "group": "capacity",
+            "passed": false
+          },
+          {
+            "id": "player-zero-gain",
+            "group": "capacity",
+            "passed": false
+          },
+          {
+            "id": "monster-plain",
+            "group": "control",
+            "passed": true
+          },
+          {
+            "id": "monster-specific",
+            "group": "control",
+            "passed": true
+          },
+          {
+            "id": "monster-zero-specific",
+            "group": "targeting",
+            "passed": false
+          },
+          {
+            "id": "monster-refund",
+            "group": "settlement",
+            "passed": false
+          },
+          {
+            "id": "monster-nested-loss",
+            "group": "settlement",
+            "passed": false
+          },
+          {
+            "id": "monster-nested-specific",
+            "group": "settlement",
+            "passed": false
+          },
+          {
+            "id": "monster-cross-owner",
+            "group": "settlement",
+            "passed": false
+          },
+          {
+            "id": "monster-attenuate",
+            "group": "control",
+            "passed": true
+          },
+          {
+            "id": "monster-cap-multiple",
+            "group": "capacity",
+            "passed": false
+          },
+          {
+            "id": "monster-cap-full",
+            "group": "capacity",
+            "passed": false
+          },
+          {
+            "id": "monster-cap-plain",
+            "group": "capacity",
+            "passed": false
+          },
+          {
+            "id": "monster-cap-loss",
+            "group": "capacity",
+            "passed": false
+          },
+          {
+            "id": "monster-zero-gain",
+            "group": "capacity",
+            "passed": false
+          }
+        ]
+      },
+      "raw_sha256": {
+        "probe.txt": "5941d1f0e42b655861927c0458c07deada6acee6378aa7ef139f8c31b277bdb8",
+        "nonce.txt": "779e988c87bda8dea34afe2febdaac78faf1c6d9c0402a218af1a42c66548c7c",
+        "result.json": "7533ed577e8ed67a3eb372229084c7e784e62512f21b0724b5ceda77075be57e",
+        "build-exit.txt": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+        "entrypoint-exit.txt": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+      }
+    },
+    {
+      "task": "mts-enum-identity-r2",
+      "agent": "nop",
+      "trial": "mts-enum-identity-r2__wc2FNVf",
+      "build_exit": 0,
+      "entrypoint_exit": 0,
+      "verifier": {
+        "complete": true,
+        "expected": 15,
+        "passed": 5,
+        "failed": 10,
+        "reward": 0,
+        "entrypoint_exit": 0,
+        "cases": [
+          {
+            "id": "plain",
+            "group": "control",
+            "passed": true
+          },
+          {
+            "id": "alias-new",
+            "group": "aliases",
+            "passed": false
+          },
+          {
+            "id": "alias-existing",
+            "group": "aliases",
+            "passed": false
+          },
+          {
+            "id": "cold-add",
+            "group": "control",
+            "passed": true
+          },
+          {
+            "id": "warm-add",
+            "group": "queries",
+            "passed": false
+          },
+          {
+            "id": "warm-replace",
+            "group": "queries",
+            "passed": false
+          },
+          {
+            "id": "warm-delete",
+            "group": "queries",
+            "passed": false
+          },
+          {
+            "id": "warm-undo",
+            "group": "queries",
+            "passed": false
+          },
+          {
+            "id": "game-color",
+            "group": "queries",
+            "passed": false
+          },
+          {
+            "id": "switch-plain",
+            "group": "control",
+            "passed": true
+          },
+          {
+            "id": "switch-add",
+            "group": "dispatch",
+            "passed": false
+          },
+          {
+            "id": "switch-delete",
+            "group": "dispatch",
+            "passed": false
+          },
+          {
+            "id": "switch-undo",
+            "group": "control",
+            "passed": true
+          },
+          {
+            "id": "late-switch",
+            "group": "dispatch",
+            "passed": false
+          },
+          {
+            "id": "annotation-copy",
+            "group": "control",
+            "passed": true
+          }
+        ]
+      },
+      "raw_sha256": {
+        "probe.txt": "922c2c3b83d2c7bfe259b61bc5b748b85594037b23f69f9cb2f4b951e717dc5b",
+        "nonce.txt": "bcb6bae50521f1c56265f11193c88077257101d252bae73b2f7c7b46eed40de0",
+        "result.json": "0c718e5e80b428e99dae5ced67d125513c8db41e7fd0c6b29f19600fec6e1bfb",
+        "build-exit.txt": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+        "entrypoint-exit.txt": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+      }
+    },
+    {
+      "task": "mts-enum-identity-r2",
+      "agent": "oracle",
+      "trial": "mts-enum-identity-r2__sySnBLT",
+      "build_exit": 0,
+      "entrypoint_exit": 0,
+      "verifier": {
+        "complete": true,
+        "expected": 15,
+        "passed": 15,
+        "failed": 0,
+        "reward": 1,
+        "entrypoint_exit": 0,
+        "cases": [
+          {
+            "id": "plain",
+            "group": "control",
+            "passed": true
+          },
+          {
+            "id": "alias-new",
+            "group": "aliases",
+            "passed": true
+          },
+          {
+            "id": "alias-existing",
+            "group": "aliases",
+            "passed": true
+          },
+          {
+            "id": "cold-add",
+            "group": "control",
+            "passed": true
+          },
+          {
+            "id": "warm-add",
+            "group": "queries",
+            "passed": true
+          },
+          {
+            "id": "warm-replace",
+            "group": "queries",
+            "passed": true
+          },
+          {
+            "id": "warm-delete",
+            "group": "queries",
+            "passed": true
+          },
+          {
+            "id": "warm-undo",
+            "group": "queries",
+            "passed": true
+          },
+          {
+            "id": "game-color",
+            "group": "queries",
+            "passed": true
+          },
+          {
+            "id": "switch-plain",
+            "group": "control",
+            "passed": true
+          },
+          {
+            "id": "switch-add",
+            "group": "dispatch",
+            "passed": true
+          },
+          {
+            "id": "switch-delete",
+            "group": "dispatch",
+            "passed": true
+          },
+          {
+            "id": "switch-undo",
+            "group": "control",
+            "passed": true
+          },
+          {
+            "id": "late-switch",
+            "group": "dispatch",
+            "passed": true
+          },
+          {
+            "id": "annotation-copy",
+            "group": "control",
+            "passed": true
+          }
+        ]
+      },
+      "raw_sha256": {
+        "probe.txt": "dbe38b7d91c521226e6a01bf85657a50dc0b8055aece4e45a0150775372f7cfa",
+        "nonce.txt": "bc360413d9bad0f07c82dfad2de08aa78db6190755a3443e8bcc507584ab7a29",
+        "result.json": "165d7672296861b1405f78c187cb1e00c839d98219983a7824548d3d9fd708e5",
+        "build-exit.txt": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+        "entrypoint-exit.txt": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+      }
+    }
+  ],
+  "runtime_image": "sha256:a72a38f407ab604ffd4679cb8afdcb8b1724cfaf25abcb8f0f280fba81985ebe",
+  "task_images": [
+    {
+      "task": "basemod-dynamic-descriptions-r2",
+      "agent_image": "sha256:4c62f7980b46347af547f338e3ee6087537ce09a3d7e4a09eae6dff0164715f1",
+      "verifier_image": "sha256:a72a38f407ab604ffd4679cb8afdcb8b1724cfaf25abcb8f0f280fba81985ebe"
+    },
+    {
+      "task": "mts-enum-identity-r2",
+      "agent_image": "sha256:c8e7b0bcecb50b50cacfb5566e93958e0766b9278be6b6d2027b17cbe604a4ef",
+      "verifier_image": "sha256:a72a38f407ab604ffd4679cb8afdcb8b1724cfaf25abcb8f0f280fba81985ebe"
+    },
+    {
+      "task": "stslib-block-ledger-r1",
+      "agent_image": "sha256:e8fc089e5584f768a995c6e19356b1ea0f97f14f9cc9c71abbfb93330be0a85e",
+      "verifier_image": "sha256:a72a38f407ab604ffd4679cb8afdcb8b1724cfaf25abcb8f0f280fba81985ebe"
+    }
+  ],
+  "scope": "Six fresh complete controls from repository canonical sources on the independently reconstructed licensed runtime. Only local image IDs changed in disposable copies. All exact baseline failed-case sets and full references reproduced. Raw runtime logs stay local."
+}

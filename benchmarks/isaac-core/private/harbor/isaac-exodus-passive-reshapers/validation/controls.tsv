@@ -1,0 +1,5 @@
+control	status	failing_cases	passed	failed	reward	processes	fatals	matches_prediction
+base	predicted	beehive_early_wobble,big_scissors_trail,blue_moon,broken_glasses,childs_leash_orbitals,forbidden_fruit,grid_worm,grid_worm_bounce,grid_worm_heading,grid_worm_heading_cross_axis,ominous_lantern_put_away	43		0			
+gold	predicted	-	54		1			
+base	measured	beehive_early_wobble,big_scissors_trail,blue_moon,broken_glasses,childs_leash_orbitals,forbidden_fruit,grid_worm,grid_worm_bounce,grid_worm_heading,grid_worm_heading_cross_axis,ominous_lantern_put_away	43	11	0	3/3	0	yes
+gold	measured	-	54	0	1	3/3	0	yes

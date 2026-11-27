@@ -1,0 +1,697 @@
+{
+  "id": "rhenium-dst-v2",
+  "version": "2.1.0",
+  "game": "dst",
+  "name": {
+    "en": "Rhenium: Original Don't Starve Together Systems Tasks",
+    "zh": "Rhenium：《饥荒联机版》原创系统工程题"
+  },
+  "description": {
+    "en": "Ten independently authored hard engineering tasks built only around base-game Don't Starve Together APIs, prefabs, components, and assets.",
+    "zh": "十道独立设计的高难度工程题，仅使用《饥荒联机版》原版 API、prefab、组件与资源。"
+  },
+  "tasks": [
+    {
+      "id": "camp-supply-ledger",
+      "difficulty": "hard",
+      "title": {"en": "Server-authoritative Camp Supply Ledger", "zh": "服务端权威营地物资账本"},
+      "summary": {
+        "en": "Distribute base-game supplies under daily per-player quotas with reservations, idempotency, rollback, and reload-safe day transitions.",
+        "zh": "在每日玩家配额下发放原版物资，并正确处理预留、幂等、回滚及跨存档换日。"
+      },
+      "brief": {
+        "en": "Build a mod from an empty workspace. Implement a plain-Lua ledger and a master-simulation world component. Clients submit only a request identifier and a configured bundle identifier; the server resolves quotas and base-game prefabs, reserves capacity before delivery, commits only after inventory delivery succeeds, and rolls back every failed delivery. Use ms_cyclecomplete, inventory, SpawnPrefab, Mod RPC, OnSave/OnLoad, and paired event cleanup.",
+        "zh": "从空工作区实现纯 Lua 物资账本及主模拟世界组件。客户端只能提交请求标识与预配置物资包标识；服务端解析配额和原版 prefab，在发放前预留，只有库存交付成功后才提交，任何失败都必须回滚。使用 ms_cyclecomplete、inventory、SpawnPrefab、Mod RPC、OnSave/OnLoad，并成对清理事件监听。"
+      },
+      "requirements": {
+        "en": [
+          "Export Ledger.new(options), Ledger.load(data, options), begin_day(day), set_player(id, active), claim(player_id, request_id, bundle_id, day), commit(token), rollback(token), snapshot(), and save().",
+          "Validate identifiers and strictly monotonic non-negative integer days; stale days may not reset quotas or alter state.",
+          "Resolve bundle contents only from options.bundles and reject unknown bundles, inactive players, exhausted quotas, and malformed counts.",
+          "Deduplicate every player_id/request_id pair before quota mutation; retries return the original pending or final outcome.",
+          "A successful claim creates a unique reservation token and reduces available quota; commit consumes it once and rollback releases it once.",
+          "Return fresh deterministic snapshots and round-trip days, quotas, reservations, request outcomes, and token sequencing through save/load.",
+          "The world component exposes Claim(player, request_id, bundle_id), commits only after all base-game items reach inventory, and removes partial deliveries before rollback.",
+          "All authority remains on the master simulation; listen for ms_cyclecomplete, persist state, validate RPC callers, and remove long-lived callbacks."
+        ],
+        "zh": [
+          "导出 Ledger.new(options)、Ledger.load(data, options)、begin_day(day)、set_player(id, active)、claim(player_id, request_id, bundle_id, day)、commit(token)、rollback(token)、snapshot() 与 save()。",
+          "校验标识和严格单调的非负整数 day；旧 day 不得重置配额或改变状态。",
+          "物资内容只能从 options.bundles 解析；拒绝未知物资包、非活跃玩家、配额不足和非法数量。",
+          "必须先按 player_id/request_id 去重再修改配额；重试返回原 pending 或最终结果。",
+          "成功 claim 生成唯一预留 token 并减少可用配额；commit 只能消费一次，rollback 只能释放一次。",
+          "快照必须新建且顺序确定；保存加载完整往返日期、配额、预留、请求结果和 token 序列。",
+          "世界组件公开 Claim(player, request_id, bundle_id)，全部原版物品进入库存后才提交，失败时移除部分交付并回滚。",
+          "所有权威逻辑仅在主模拟；监听 ms_cyclecomplete、持久化状态、校验 RPC 玩家并移除长期回调。"
+        ]
+      },
+      "api_usage": {
+        "en": [
+          "Attach on the server with AddPrefabPostInit(\"world\", fn), guard with inst.ismastersim, then call inst:AddComponent(\"campsupplyledger\").",
+          "Register AddModRPCHandler(\"rhenium_supply\", \"claim\", function(player, request_id, bundle_id) ... end); player is supplied by the server framework.",
+          "Create items with SpawnPrefab(prefab) and deliver with player.components.inventory:GiveItem(item); treat false or nil as failure and verify the resulting owner.",
+          "Pair inst:ListenForEvent(\"ms_cyclecomplete\", callback, TheWorld) with RemoveEventCallback using the same callback and source.",
+          "Implement component OnSave, OnLoad(data), and OnRemoveFromEntity; the server configuration must include basic = { twigs = 2, cutgrass = 1 }."
+        ],
+        "zh": [
+          "用 AddPrefabPostInit(\"world\", fn) 挂载，先检查 inst.ismastersim，再调用 inst:AddComponent(\"campsupplyledger\")。",
+          "使用 AddModRPCHandler(\"rhenium_supply\", \"claim\", function(player, request_id, bundle_id) ... end)；player 由服务端框架传入。",
+          "用 SpawnPrefab(prefab) 创建物品，以 player.components.inventory:GiveItem(item) 交付；false/nil 视为失败，并核对最终 owner。",
+          "inst:ListenForEvent(\"ms_cyclecomplete\", callback, TheWorld) 必须以相同 callback/source 调用 RemoveEventCallback。",
+          "实现组件 OnSave、OnLoad(data)、OnRemoveFromEntity；专服配置必须含 basic = { twigs = 2, cutgrass = 1 }。"
+        ]
+      },
+      "acceptance": {
+        "en": ["Retries never double-spend quota or duplicate items.", "Rollback restores capacity exactly once.", "Day rollover is monotonic and reload-safe.", "Forged bundle contents are ignored.", "The dedicated server proves inventory delivery, rollback, rollover, and persistence."],
+        "zh": ["重试不会重复消耗配额或复制物品。", "回滚恰好一次恢复容量。", "换日单调且可跨重载。", "伪造物资内容无效。", "专服验证库存交付、回滚、换日和持久化。"]
+      },
+      "domains": ["quotas", "idempotency", "inventory", "persistence"],
+      "estimated_minutes": 360,
+      "core_module": "scripts/campsupply/ledger.lua",
+      "hidden_test": "hidden/camp-supply-ledger.lua",
+      "server_test": "server/camp-supply-ledger.lua",
+      "hidden_cases": ["claim reserves configured quota", "rollback releases quota exactly once", "commit and request retries are idempotent", "inactive and forged bundles are rejected", "day rollover is monotonic", "save load preserves reservations and defensive copies"],
+      "server_cases": ["world component is server authoritative", "component delivers configured base-game items", "component state survives save and load", "world cycle event is accepted"],
+      "required_files": ["modinfo.lua", "modmain.lua", "scripts/campsupply/ledger.lua", "scripts/components/campsupplyledger.lua"],
+      "minimum_lua_lines": 220,
+      "integration_checks": [
+        {"id": "supply-authority", "label": {"en": "Master-simulation authority", "zh": "主模拟权威"}, "weight": 4, "groups": [{"name": "guard", "any_of": ["TheWorld\\.ismastersim", "inst\\.ismastersim"]}, {"name": "world component", "any_of": ["AddComponent\\s*\\(\\s*[\\\"']campsupplyledger[\\\"']", "AddPrefabPostInit\\s*\\(\\s*[\\\"']world[\\\"']"]}], "none_of": ["TODO", "IMPLEMENT\\s+ME"]},
+        {"id": "supply-delivery", "label": {"en": "Validated inventory delivery", "zh": "经校验的库存交付"}, "weight": 4, "groups": [{"name": "RPC", "any_of": ["AddModRPCHandler\\s*\\("]}, {"name": "inventory", "any_of": ["components\\.inventory", "GiveItem\\s*\\("]}, {"name": "base prefab", "any_of": ["SpawnPrefab\\s*\\("]}]},
+        {"id": "supply-persistence", "label": {"en": "Day events and persistence", "zh": "换日事件与持久化"}, "weight": 4, "groups": [{"name": "cycle", "any_of": ["ms_cyclecomplete", "cycles"]}, {"name": "save", "any_of": [":OnSave\\s*\\("]}, {"name": "load", "any_of": [":OnLoad\\s*\\("]}]},
+        {"id": "supply-lifecycle", "label": {"en": "Paired lifecycle", "zh": "成对生命周期"}, "weight": 3, "groups": [{"name": "listen", "any_of": ["ListenForEvent\\s*\\("]}, {"name": "remove", "any_of": ["RemoveEventCallback\\s*\\("]}]}
+      ]
+    },
+    {
+      "id": "container-transfer-transaction",
+      "difficulty": "hard",
+      "title": {"en": "Crash-safe Container Transfer", "zh": "崩溃安全的容器转移事务"},
+      "summary": {"en": "Move stacks between base-game containers atomically despite capacity failures, partial adapter failures, retries, and reloads.", "zh": "在容量不足、适配器部分失败、重试及重载下，原子地转移原版容器物品堆。"},
+      "brief": {
+        "en": "Implement a plain-Lua transfer transaction with an injected adapter and a server world component that operates on base-game container components. Persist intent before removal, use deterministic source slots, preflight destination capacity, compensate in reverse order, recover unfinished transactions after load, and expose a validated Action and Mod RPC.",
+        "zh": "实现带注入 adapter 的纯 Lua 转移事务，以及操作原版 container 组件的服务端世界组件。移除物品前持久化意图，稳定选择来源槽位，预检目标容量，失败时反向补偿，加载后恢复未完成事务，并公开经校验的 Action 与 Mod RPC。"
+      },
+      "requirements": {
+        "en": [
+          "Export Transaction.new(adapter, persisted), Transaction.load(adapter, data), transfer(request), recover(), status(request_id), and save().",
+          "Requests contain request_id, source_id, destination_id, prefab, and positive integer count; reject identical containers and malformed values before adapter calls.",
+          "Use adapter.snapshot(id), capacity(id, prefab), remove(id, prefab, count), add(id, items), and restore(id, snapshot); no DST globals may appear in the core.",
+          "Preflight source count and destination capacity, persist a prepared intent, remove from source, add to destination, then mark committed.",
+          "If add fails, restore the destination snapshot before restoring the source; record a recoverable error if compensation itself fails.",
+          "Deduplicate request_id across success, failure, and reload; a committed request never invokes adapter operations again.",
+          "Select source stacks by ascending slot and preserve prefab, stack count, perish percentage, and finite uses metadata.",
+          "The server integration resolves container entities itself, listens to itemget/itemlose/onremove with cleanup, and never trusts client entity data beyond identifiers."
+        ],
+        "zh": [
+          "导出 Transaction.new(adapter, persisted)、Transaction.load(adapter, data)、transfer(request)、recover()、status(request_id) 与 save()。",
+          "请求包含 request_id、source_id、destination_id、prefab 和正整数 count；相同容器或非法值必须在调用 adapter 前拒绝。",
+          "使用 adapter.snapshot、capacity、remove、add、restore；核心模块不得出现 DST 全局对象。",
+          "预检来源数量和目标容量，持久化 prepared 意图，再从来源移除、加入目标并标记 committed。",
+          "add 失败时先恢复目标快照，再恢复来源；补偿失败必须记录可恢复错误。",
+          "成功、失败和重载均按 request_id 去重；已提交请求不得再次调用 adapter。",
+          "按槽位升序选择来源物品，并保留 prefab、堆叠数、腐烂比例和有限耐久元数据。",
+          "服务端自行解析容器实体，监听并清理 itemget/itemlose/onremove，除标识符外不信任客户端实体数据。"
+        ]
+      },
+      "api_usage": {
+        "en": [
+          "Read container:GetItemInSlot(slot), remove with RemoveItemBySlot(slot), and insert with container:GiveItem(item, slot, src_pos, false); false disables drop-on-failure.",
+          "itemget supplies data.item/data.slot/data.src_pos and itemlose supplies data.prev_item/data.slot; unregister both with the same callback.",
+          "Use stackable:StackSize()/SetStackSize(), perishable:GetPercent()/SetPercent(), and finiteuses:GetPercent()/SetPercent() for metadata.",
+          "Create actions with AddAction, AddComponentAction, AddStategraphActionHandler for wilson and wilson_client, and AddModRPCHandler.",
+          "The world component exposes Track(entity, stable_id), Transfer(request), and Recover(), and implements OnSave/OnLoad."
+        ],
+        "zh": [
+          "用 container:GetItemInSlot(slot) 读取、RemoveItemBySlot(slot) 移除、container:GiveItem(item, slot, src_pos, false) 放入；false 禁止失败掉落。",
+          "itemget 的 data 含 item/slot/src_pos，itemlose 含 prev_item/slot；必须用相同 callback 注销。",
+          "堆叠、腐烂、耐久分别使用 stackable:StackSize/SetStackSize、perishable:GetPercent/SetPercent、finiteuses:GetPercent/SetPercent。",
+          "使用 AddAction、AddComponentAction、AddStategraphActionHandler（wilson 与 wilson_client）和 AddModRPCHandler 接线。",
+          "世界组件公开 Track(entity, stable_id)、Transfer(request) 与 Recover()，并实现 OnSave/OnLoad。"
+        ]
+      },
+      "acceptance": {
+        "en": ["Capacity failures do not mutate either container.", "Partial failures compensate in reverse order.", "Recovery finishes or safely compensates every persisted phase.", "Retries are idempotent.", "The dedicated server transfers real base-game stacks and verifies rollback and reload."],
+        "zh": ["容量失败不修改任一容器。", "部分失败按反向顺序补偿。", "恢复流程完成或安全补偿每个持久阶段。", "重试具有幂等性。", "专服使用真实原版堆叠验证转移、回滚与重载。"]
+      },
+      "domains": ["transactions", "containers", "recovery", "actions"],
+      "estimated_minutes": 420,
+      "core_module": "scripts/containertransfer/transaction.lua",
+      "hidden_test": "hidden/container-transfer-transaction.lua",
+      "server_test": "server/container-transfer-transaction.lua",
+      "hidden_cases": ["successful transfer uses deterministic source slots", "capacity preflight prevents destructive calls", "add failure restores destination before source", "committed retry invokes no adapter operations", "malformed request is rejected before adapter", "save load preserves committed idempotency"],
+      "server_cases": ["world transfer component is attached", "real container stacks transfer without loss", "transaction state reloads"],
+      "required_files": ["modinfo.lua", "modmain.lua", "scripts/containertransfer/transaction.lua", "scripts/components/containertransfer.lua"],
+      "minimum_lua_lines": 260,
+      "integration_checks": [
+        {"id": "transfer-authority", "label": {"en": "Server authority", "zh": "服务端权威"}, "weight": 4, "groups": [{"name": "guard", "any_of": ["TheWorld\\.ismastersim", "inst\\.ismastersim"]}, {"name": "component", "any_of": ["AddComponent\\s*\\(\\s*[\\\"']containertransfer[\\\"']"]}], "none_of": ["TODO", "IMPLEMENT\\s+ME"]},
+        {"id": "transfer-containers", "label": {"en": "Container operations", "zh": "容器操作"}, "weight": 4, "groups": [{"name": "container", "any_of": ["components\\.container"]}, {"name": "remove", "any_of": ["RemoveItem", "RemoveItemBySlot"]}, {"name": "give", "any_of": ["GiveItem\\s*\\("]}]},
+        {"id": "transfer-action-rpc", "label": {"en": "Action and RPC", "zh": "动作与 RPC"}, "weight": 4, "groups": [{"name": "action", "any_of": ["AddAction\\s*\\("]}, {"name": "component action", "any_of": ["AddComponentAction\\s*\\("]}, {"name": "RPC", "any_of": ["AddModRPCHandler\\s*\\("]}]},
+        {"id": "transfer-lifecycle", "label": {"en": "Persistence and cleanup", "zh": "持久化与清理"}, "weight": 3, "groups": [{"name": "save/load", "any_of": [":OnSave\\s*\\("]}, {"name": "events", "any_of": ["itemget", "itemlose"]}, {"name": "cleanup", "any_of": ["RemoveEventCallback\\s*\\("]}]}
+      ]
+    },
+    {
+      "id": "rescue-dispatch-queue",
+      "difficulty": "hard",
+      "title": {"en": "Lease-based Rescue Dispatch Queue", "zh": "基于租约的救援调度队列"},
+      "summary": {"en": "Prioritize endangered players and lease rescue assignments without duplicate helpers, starvation, stale heartbeats, or client authority.", "zh": "为濒危玩家确定优先级并租赁救援任务，避免重复救援者、饥饿、过期心跳与客户端越权。"},
+      "brief": {"en": "Create a pure dispatch scheduler plus server and replica components. The server derives player health and position, accepts only intent identifiers from RPC, assigns helpers deterministically, expires stale leases, requeues unresolved incidents, persists state, and replicates presentation-safe assignments through net variables.", "zh": "创建纯调度器及服务端/replica 组件。服务端读取玩家生命和位置，RPC 只接受意图标识，确定性分配救援者，使过期租约失效并重排未解决事件，持久化状态，并通过 net variables 复制安全的任务展示。"},
+      "requirements": {
+        "en": [
+          "Export Dispatch.new(options), Dispatch.load(data, options), update_player(record, now), request(request_id, target_id, severity, now), volunteer(request_id, helper_id, now), heartbeat(lease_id, helper_id, now), complete(lease_id, helper_id, now), cancel(target_id, now), tick(now), snapshot(now), and save(now).",
+          "Validate finite monotonic time, identifiers, severity, and player state; stale player updates and duplicate request IDs are harmless.",
+          "Order incidents by descending severity, then creation time, then target ID; aging raises effective severity without making results iteration-dependent.",
+          "A helper owns at most one live lease and a target has at most one helper; lease IDs are unique and stable across retries.",
+          "Heartbeats extend only a matching live lease; expiry releases the helper and requeues the unresolved target exactly once.",
+          "Disconnecting, dying, recovering, completing, and canceling have explicit idempotent transitions.",
+          "Snapshots are fresh, deterministically ordered, and exclude private request history while save/load preserves it.",
+          "The master component derives health/position from entities, listens for player lifecycle events, validates RPC ownership, publishes net state, and cleans up callbacks/tasks."
+        ],
+        "zh": [
+          "导出 Dispatch.new/options、load、update_player、request、volunteer、heartbeat、complete、cancel、tick、snapshot 与 save。",
+          "校验有限且单调的时间、标识、严重度和玩家状态；旧玩家更新与重复请求无副作用。",
+          "按严重度降序、创建时间、目标 ID 排序；老化提高有效严重度且不得依赖 pairs 顺序。",
+          "一名救援者最多持有一个活租约，一个目标最多有一名救援者；租约 ID 唯一且重试稳定。",
+          "心跳只能延长匹配的活租约；过期恰好一次释放救援者并重排未解决目标。",
+          "断线、死亡、恢复、完成和取消必须具有明确且幂等的迁移。",
+          "快照新建、稳定排序且不泄漏私有请求历史；保存加载保留完整语义。",
+          "服务端主模拟组件从实体读取生命/位置，监听玩家生命周期，验证 RPC 归属，发布网络状态并清理回调和任务。"
+        ]
+      },
+      "api_usage": {
+        "en": [
+          "Read health with player.components.health:GetPercent() and position with player.Transform:GetWorldPosition().",
+          "Listen for ms_playerjoined/ms_playerleft on TheWorld and healthdelta/death/respawnfromghost/onremove on each player; healthdelta provides oldpercent/newpercent.",
+          "DoPeriodicTask(period, fn, initialdelay) returns a task that must be canceled with task:Cancel().",
+          "Create net_string(inst.GUID, \"rescuedispatch.state\", \"rescuedispatchdirty\") before the client return and register AddReplicableComponent(\"rescuedispatch\").",
+          "The server component exposes UpdatePlayer, Request, Volunteer, Heartbeat, and Tick, implements OnSave/OnLoad, and derives RPC identity from player.userid."
+        ],
+        "zh": [
+          "用 player.components.health:GetPercent() 读取生命，以 player.Transform:GetWorldPosition() 读取位置。",
+          "在 TheWorld 监听 ms_playerjoined/ms_playerleft，在玩家监听 healthdelta/death/respawnfromghost/onremove；healthdelta 含 oldpercent/newpercent。",
+          "DoPeriodicTask(period, fn, initialdelay) 返回 task，清理时调用 task:Cancel()。",
+          "在客户端提前返回前创建 net_string(inst.GUID, \"rescuedispatch.state\", \"rescuedispatchdirty\") 并调用 AddReplicableComponent(\"rescuedispatch\")。",
+          "服务端组件公开 UpdatePlayer、Request、Volunteer、Heartbeat、Tick，实现 OnSave/OnLoad；RPC 身份读取 player.userid。"
+        ]
+      },
+      "acceptance": {
+        "en": ["Assignments are deterministic.", "No helper or target has two live leases.", "Stale heartbeats cannot revive leases.", "Disconnect and recovery cleanly release assignments.", "The dedicated server verifies health events, expiry, net state, cleanup, and reload."],
+        "zh": ["分配结果确定。", "救援者或目标不会有两个活租约。", "过期心跳不能复活租约。", "断线与康复会正确释放任务。", "专服验证生命事件、过期、网络状态、清理与重载。"]
+      },
+      "domains": ["scheduling", "leases", "player-lifecycle", "replication"],
+      "estimated_minutes": 390,
+      "core_module": "scripts/rescuedispatch/dispatch.lua",
+      "hidden_test": "hidden/rescue-dispatch-queue.lua",
+      "server_test": "server/rescue-dispatch-queue.lua",
+      "hidden_cases": ["priority ordering is severity then time then id", "one helper and target own at most one lease", "lease expiry requeues unresolved target", "request and volunteer retries are stable", "disconnect releases helper and recovery closes target", "save load preserves active lease and defensive snapshot"],
+      "server_cases": ["server dispatch component is attached", "health-backed entities receive a deterministic lease", "dispatch state persists"],
+      "required_files": ["modinfo.lua", "modmain.lua", "scripts/rescuedispatch/dispatch.lua", "scripts/components/rescuedispatch.lua", "scripts/components/rescuedispatch_replica.lua"],
+      "minimum_lua_lines": 260,
+      "integration_checks": [
+        {"id": "rescue-authority", "label": {"en": "Master authority", "zh": "主模拟权威"}, "weight": 4, "groups": [{"name": "guard", "any_of": ["TheWorld\\.ismastersim", "inst\\.ismastersim"]}, {"name": "server component", "any_of": ["AddComponent\\s*\\(\\s*[\\\"']rescuedispatch[\\\"']"]}], "none_of": ["TODO", "IMPLEMENT\\s+ME"]},
+        {"id": "rescue-player-events", "label": {"en": "Player lifecycle", "zh": "玩家生命周期"}, "weight": 4, "groups": [{"name": "health", "any_of": ["healthdelta", "death", "respawnfromghost"]}, {"name": "join/leave", "any_of": ["ms_playerjoined", "ms_playerleft"]}, {"name": "position", "any_of": ["Transform:GetWorldPosition"]}]},
+        {"id": "rescue-network", "label": {"en": "Validated RPC and replication", "zh": "经校验的 RPC 与复制"}, "weight": 4, "groups": [{"name": "RPC", "any_of": ["AddModRPCHandler\\s*\\("]}, {"name": "replica", "any_of": ["AddReplicableComponent\\s*\\("]}, {"name": "netvar", "any_of": ["net_string\\s*\\(", "net_byte\\s*\\("]}]},
+        {"id": "rescue-cleanup", "label": {"en": "Persistence and cleanup", "zh": "持久化与清理"}, "weight": 3, "groups": [{"name": "save/load", "any_of": [":OnSave\\s*\\("]}, {"name": "remove callbacks", "any_of": ["RemoveEventCallback\\s*\\("]}, {"name": "cancel task", "any_of": [":Cancel\\s*\\("]}]}
+      ]
+    },
+    {
+      "id": "world-rule-ballot",
+      "difficulty": "hard",
+      "title": {"en": "Server-authoritative World Rule Ballot", "zh": "服务端权威世界规则投票"},
+      "summary": {"en": "Run deterministic timed ballots over a frozen electorate while rejecting forged options, stale revisions, late votes, and duplicate closure.", "zh": "针对冻结选民集运行确定性定时投票，拒绝伪造选项、旧版本、迟到投票与重复结算。"},
+      "brief": {"en": "Implement a plain-Lua ballot state machine and a server world component. Only the server chooses the proposal, option whitelist, electorate, deadline, and quorum. Clients send proposal, choice, and revision identifiers. Close on the server timer, publish a compact result using net variables and TheNet announcements, and persist open and completed ballots.", "zh": "实现纯 Lua 投票状态机与服务端世界组件。提案、选项白名单、选民集、截止时间和法定人数只能由服务端决定；客户端仅发送提案、选项和 revision 标识。使用服务端定时器结算，通过网络变量和 TheNet 公告发布结果，并持久化进行中及已完成投票。"},
+      "requirements": {
+        "en": [
+          "Export Ballot.new(options), Ballot.load(data, options), open(proposal, electorate, now), cast(voter_id, proposal_id, choice_id, revision, now), close(proposal_id, now), cancel(proposal_id, now), snapshot(now), and save(now).",
+          "Open validates a unique proposal ID, two or more unique option IDs, a frozen unique electorate, finite deadline, and quorum configured by the server.",
+          "Cast accepts only electorate members and whitelisted choices before the deadline; a revision must be strictly newer than that voter's prior ballot.",
+          "Duplicate or stale votes are side-effect free; explicit abstention is a configured choice rather than missing state.",
+          "Close is idempotent, counts one latest ballot per voter, enforces quorum, orders counts by option ID, and resolves any top tie as no-change.",
+          "Late close produces the same result as close at the deadline; cancel never applies a result and cannot reopen an ID.",
+          "Snapshots hide individual votes, return fresh ordered aggregates, and save/load preserves open deadlines, revisions, electorate, and final results.",
+          "The server validates RPC player identity, owns timer scheduling, uses only a configured rule whitelist, replicates compact state, announces results, and cancels tasks on removal."
+        ],
+        "zh": [
+          "导出 Ballot.new/options、load、open、cast、close、cancel、snapshot 与 save。",
+          "open 校验唯一提案 ID、至少两个唯一选项、冻结且唯一的选民集、有限截止时间和服务端法定人数。",
+          "cast 只接受截止前的选民和白名单选项；revision 必须严格大于该玩家上一票。",
+          "重复或过期投票无副作用；弃权必须是配置选项而不是缺失状态。",
+          "close 幂等，每位选民只计最新票，执行法定人数，按选项 ID 排序计数，最高票平局结果为不改变。",
+          "迟到 close 与截止时结算一致；cancel 永不应用结果且不能复用 ID。",
+          "快照隐藏个人选票、返回新建有序聚合；保存加载保留截止时间、revision、选民和最终结果。",
+          "服务端验证 RPC 玩家身份、拥有定时器、限制规则白名单、复制紧凑状态、公告结果并在移除时取消任务。"
+        ]
+      },
+      "api_usage": {
+        "en": [
+          "Use AddModRPCHandler(namespace, name, function(player, proposal_id, choice_id, revision) ... end) and derive voter identity from player.userid.",
+          "Schedule closure with inst:DoTaskInTime(delay, fn), retain the returned task, and cancel it with task:Cancel() when replaced or removed.",
+          "Announce with TheNet:Announce(message) and publish only aggregate JSON through net_string:set(value); clients read net_string:value() on the dirty event.",
+          "Network variables must be created before returning from the non-master branch.",
+          "The world component exposes Open(proposal, player_entities), Cast(player, proposal_id, choice_id, revision), Close(proposal_id), and OnSave/OnLoad; RPC cannot call Open."
+        ],
+        "zh": [
+          "使用 AddModRPCHandler(namespace, name, function(player, proposal_id, choice_id, revision) ... end)，从 player.userid 推导选民身份。",
+          "用 inst:DoTaskInTime(delay, fn) 安排结算，保存返回 task，并在替换或移除时 task:Cancel()。",
+          "用 TheNet:Announce(message) 公告，仅以 net_string:set(value) 发布聚合 JSON；客户端在 dirty event 读取 value()。",
+          "网络变量必须在非主模拟提前返回之前创建。",
+          "世界组件公开 Open(proposal, player_entities)、Cast(player, proposal_id, choice_id, revision)、Close(proposal_id) 和 OnSave/OnLoad；RPC 不可调用 Open。"
+        ]
+      },
+      "acceptance": {
+        "en": ["Forged options and non-electorate votes are ignored.", "Only the latest valid revision counts.", "Quorum and ties are deterministic.", "Closing and canceling are idempotent across reloads.", "The dedicated server verifies timers, player identity, net state, announcements, and persistence."],
+        "zh": ["伪造选项和非选民投票无效。", "只统计最新有效 revision。", "法定人数与平票结果确定。", "结算和取消跨重载幂等。", "专服验证定时器、玩家身份、网络状态、公告与持久化。"]
+      },
+      "domains": ["voting", "server-authority", "timers", "replication"],
+      "estimated_minutes": 360,
+      "core_module": "scripts/ruleballot/ballot.lua",
+      "hidden_test": "hidden/world-rule-ballot.lua",
+      "server_test": "server/world-rule-ballot.lua",
+      "hidden_cases": ["electorate and choices are frozen", "newer vote revision replaces old vote", "quorum and top ties are deterministic", "deadline boundary and close are idempotent", "cancel is final and identifier cannot reopen", "snapshot hides votes and save load preserves result"],
+      "server_cases": ["server ballot component is attached", "component derives voter identity and closes a ballot", "ballot state reloads"],
+      "required_files": ["modinfo.lua", "modmain.lua", "scripts/ruleballot/ballot.lua", "scripts/components/ruleballot.lua", "scripts/components/ruleballot_replica.lua"],
+      "minimum_lua_lines": 240,
+      "integration_checks": [
+        {"id": "ballot-authority", "label": {"en": "Server-owned ballot", "zh": "服务端拥有投票"}, "weight": 4, "groups": [{"name": "guard", "any_of": ["TheWorld\\.ismastersim", "inst\\.ismastersim"]}, {"name": "component", "any_of": ["AddComponent\\s*\\(\\s*[\\\"']ruleballot[\\\"']"]}], "none_of": ["TODO", "IMPLEMENT\\s+ME"]},
+        {"id": "ballot-network", "label": {"en": "RPC and net state", "zh": "RPC 与网络状态"}, "weight": 4, "groups": [{"name": "RPC", "any_of": ["AddModRPCHandler\\s*\\("]}, {"name": "replica", "any_of": ["AddReplicableComponent\\s*\\("]}, {"name": "netvar", "any_of": ["net_string\\s*\\(", "net_bool\\s*\\("]}]},
+        {"id": "ballot-timer", "label": {"en": "Timer and announcement", "zh": "定时器与公告"}, "weight": 4, "groups": [{"name": "schedule", "any_of": ["DoTaskInTime\\s*\\("]}, {"name": "announce", "any_of": ["TheNet:Announce\\s*\\("]}, {"name": "player identity", "any_of": ["userid"]}]},
+        {"id": "ballot-persistence", "label": {"en": "Persistence and cleanup", "zh": "持久化与清理"}, "weight": 3, "groups": [{"name": "save", "any_of": [":OnSave\\s*\\("]}, {"name": "load", "any_of": [":OnLoad\\s*\\("]}, {"name": "cancel", "any_of": [":Cancel\\s*\\("]}]}
+      ]
+    },
+    {
+      "id": "combat-target-arbiter",
+      "difficulty": "hard",
+      "title": {"en": "Deterministic Combat Target Arbiter", "zh": "确定性战斗目标仲裁器"},
+      "summary": {"en": "Choose combat targets from ordered threat events with decay, taunt leases, invalidation, deterministic ties, and reload-safe state.", "zh": "根据有序威胁事件、衰减、嘲讽租约、目标失效、确定性平局和可重载状态选择战斗目标。"},
+      "brief": {"en": "Implement a pure threat arbiter and a master-simulation component. Damage events carry per-source monotonic sequence numbers. Threat decays from event time, taunt leases temporarily override normal ranking, invalid or dead targets disappear immediately, and stable target IDs break ties. Integrate attacked/death/onremove events and the base-game health and combat components.", "zh": "实现纯威胁仲裁器和主模拟组件。伤害事件携带按攻击源单调递增的序号；威胁从事件时间开始衰减，嘲讽租约暂时覆盖普通排名，非法或死亡目标立即移除，并用稳定目标 ID 处理平局。接入 attacked/death/onremove 事件及原版 health、combat 组件。"},
+      "requirements": {
+        "en": [
+          "Export Arbiter.new(options), Arbiter.load(data, options, now), observe(entity, now), add_threat(source_id, target_id, amount, seq, now), taunt(request_id, source_id, target_id, duration, now), remove(target_id, now), choose(source_id, now), tick(now), snapshot(now), and save(now).",
+          "Validate identifiers, finite non-negative time, positive finite threat, strictly increasing integer sequence per source/target stream, and known live entities.",
+          "Each source/target entry decays linearly on its own from its last accepted threat event: max(0, value - decay_per_second * (now - updated_at)); a new event first decays that entry to the event time, then adds the amount. Remove zero-threat rows without depending on tick frequency.",
+          "Choose highest current threat, then oldest first-seen time, then lexical target ID; return fresh values.",
+          "A valid taunt lease overrides ranking until its exact expiry boundary; duplicate request IDs are stable and stale leases cannot revive removed targets.",
+          "Removing or marking an entity dead clears its threat and taunt participation immediately while preserving sequence anti-replay state.",
+          "Save/load at a supplied now value preserves effective threat, leases, first-seen ordering, request history, and anti-replay state.",
+          "The server component derives attacker/target identity, listens and unsubscribes from attacked/death/onremove, periodically reconciles targets, validates health/combat, and calls combat:SetTarget only on the master simulation."
+        ],
+        "zh": [
+          "导出 Arbiter.new/options、load、observe、add_threat、taunt、remove、choose、tick、snapshot 与 save。",
+          "校验标识、有限非负时间、正有限威胁、按源/目标流严格递增的整数序号以及已知存活实体。",
+          "每个 source/target 条目从其最近一次被接受的威胁事件起独立线性衰减：max(0, value - decay_per_second * (now - updated_at))；新事件先把该条目衰减到事件时刻再累加；以与 tick 频率无关的方式移除零威胁项。",
+          "按当前最高威胁、最早首次出现时间、目标 ID 字典序选择，并返回新值。",
+          "有效嘲讽租约在精确到期边界前覆盖排名；重复 request ID 稳定，旧租约不能复活已移除目标。",
+          "移除或死亡会立即清除威胁与嘲讽参与，同时保留序号防重放状态。",
+          "按给定 now 保存加载时保留有效威胁、租约、首次出现顺序、请求历史和防重放状态。",
+          "服务端推导攻击者/目标身份，监听并注销 attacked/death/onremove，周期性协调目标，验证 health/combat，并仅在主模拟调用 combat:SetTarget。"
+        ]
+      },
+      "api_usage": {
+        "en": [
+          "The attacked callback receives data.attacker, data.damage, data.weapon, and data.stimuli; attacker may be nil.",
+          "Validate target.components.health and not health:IsDead() before source.components.combat:SetTarget(target), then inspect combat.target because SetTarget performs base-game validation.",
+          "Listen for attacked/death/onremove with saved callbacks and remove each callback using the same function object.",
+          "DoPeriodicTask(period, fn, initialdelay) returns a task that must be canceled during component removal.",
+          "The server component exposes Track(entity, stable_id), ObserveDamage(source, target, amount, seq), Taunt, Reconcile(source), and OnSave/OnLoad."
+        ],
+        "zh": [
+          "attacked callback 的 data 含 attacker、damage、weapon、stimuli；attacker 可能为 nil。",
+          "调用 source.components.combat:SetTarget(target) 前检查 target.components.health 且未死亡；调用后核对 combat.target，因为原版仍会校验目标。",
+          "保存 attacked/death/onremove 的 callback，并以相同函数对象逐一注销。",
+          "DoPeriodicTask(period, fn, initialdelay) 返回 task，组件移除时必须取消。",
+          "服务端组件公开 Track(entity, stable_id)、ObserveDamage(source, target, amount, seq)、Taunt、Reconcile(source) 和 OnSave/OnLoad。"
+        ]
+      },
+      "acceptance": {
+        "en": ["Duplicate and out-of-order damage is ignored.", "Decay and tie-breaking are independent of table iteration and tick frequency.", "Taunts expire at the exact boundary.", "Death/removal cannot be undone by delayed events.", "The dedicated server verifies real combat events, SetTarget, expiry, cleanup, and reload."],
+        "zh": ["重复与乱序伤害被忽略。", "衰减和平局不依赖表遍历或 tick 频率。", "嘲讽在精确边界到期。", "死亡/移除不能被延迟事件撤销。", "专服验证真实战斗事件、SetTarget、过期、清理与重载。"]
+      },
+      "domains": ["combat", "event-ordering", "leases", "determinism"],
+      "estimated_minutes": 390,
+      "core_module": "scripts/combatarbiter/arbiter.lua",
+      "hidden_test": "hidden/combat-target-arbiter.lua",
+      "server_test": "server/combat-target-arbiter.lua",
+      "hidden_cases": ["duplicate and out of order threat is rejected", "decay is independent of tick frequency", "ties use first seen then lexical id", "taunt overrides until exact expiry", "death blocks delayed resurrection", "save load preserves effective threat and defensive state"],
+      "server_cases": ["server combat arbiter is attached", "real combat component receives chosen target", "arbiter state persists"],
+      "required_files": ["modinfo.lua", "modmain.lua", "scripts/combatarbiter/arbiter.lua", "scripts/components/combattargetarbiter.lua"],
+      "minimum_lua_lines": 240,
+      "integration_checks": [
+        {"id": "combat-authority", "label": {"en": "Master authority", "zh": "主模拟权威"}, "weight": 4, "groups": [{"name": "guard", "any_of": ["TheWorld\\.ismastersim", "inst\\.ismastersim"]}, {"name": "component", "any_of": ["AddComponent\\s*\\(\\s*[\\\"']combattargetarbiter[\\\"']"]}], "none_of": ["TODO", "IMPLEMENT\\s+ME"]},
+        {"id": "combat-components", "label": {"en": "Health and combat integration", "zh": "生命与战斗集成"}, "weight": 4, "groups": [{"name": "health", "any_of": ["components\\.health"]}, {"name": "combat", "any_of": ["components\\.combat"]}, {"name": "target", "any_of": ["SetTarget\\s*\\("]}]},
+        {"id": "combat-events", "label": {"en": "Combat event lifecycle", "zh": "战斗事件生命周期"}, "weight": 4, "groups": [{"name": "attacked", "any_of": ["attacked"]}, {"name": "death/remove", "any_of": ["death", "onremove"]}, {"name": "unsubscribe", "any_of": ["RemoveEventCallback\\s*\\("]}]},
+        {"id": "combat-persistence", "label": {"en": "Reconciliation and persistence", "zh": "协调与持久化"}, "weight": 3, "groups": [{"name": "periodic", "any_of": ["DoPeriodicTask\\s*\\("]}, {"name": "save", "any_of": [":OnSave\\s*\\("]}, {"name": "load", "any_of": [":OnLoad\\s*\\("]}]}
+      ]
+    },
+    {
+      "id": "waystone-route-network",
+      "difficulty": "hard",
+      "title": {"en": "Server-authoritative Waystone Route Network", "zh": "服务端权威路石传送网络"},
+      "summary": {
+        "en": "Link player-registered waystones into a weighted graph, compute deterministic cheapest routes, and sell exactly-once fast travel with gold fares, cooldowns, expiring tickets, and rollback.",
+        "zh": "把玩家注册的路石连成带权图，确定性地计算最便宜路线，并以金块票价、冷却、限时票据与回滚实现恰好一次的快速传送。"
+      },
+      "brief": {
+        "en": "Create a pure route-network core plus a master-simulation world component. The core validates nodes and links, derives integer link costs from geometry with a published rounding rule, finds the cheapest route with a deterministic hops-then-lexicographic tie-break, and runs a reserve/commit/abort ticket lifecycle with request deduplication, cooldown and expiry boundaries, route revalidation, and save/load. The component reads waystone and player positions from real entities, derives identity from player.userid, charges goldnugget from the real inventory all-or-nothing, teleports with the real physics/transform API, rolls everything back when the commit fails, and releases listeners and tasks on removal.",
+        "zh": "创建纯路线网络核心与主模拟世界组件。核心校验节点与连接，按公开的取整规则由几何距离得到整数连接代价，以“跳数优先、再按节点序列字典序”的确定性规则求最便宜路线，并实现带请求去重、冷却与过期边界、路线复核及保存加载的 reserve/commit/abort 票据生命周期。组件从真实实体读取路石与玩家位置，从 player.userid 取得身份，以全有或全无方式从真实物品栏扣除 goldnugget，用真实 physics/transform API 传送，在提交失败时完整回滚，并在移除时释放监听与任务。"
+      },
+      "requirements": {
+        "en": [
+          "Export Network.new(options), Network.load(data, options), add_node(node_id, owner_id, x, z, now), remove_node(node_id, now), set_blocked(node_id, blocked, now), link(a_id, b_id, now), unlink(a_id, b_id, now), route(from_id, to_id, now), reserve(request_id, traveler_id, from_id, to_id, now), commit(ticket_id, now), abort(ticket_id, now), tick(now), snapshot(now), and save(now).",
+          "Every call validates a finite, non-regressing now, advances the clock, and expires tickets at now >= expires_at before doing anything else; an invalid_time call has no effect.",
+          "Validate identifiers and finite coordinates, enforce options.max_nodes_per_owner, and fall back to published defaults for missing or invalid options.",
+          "Links are undirected and deduplicated; cost = max(1, floor(distance + 0.5)); a link is rejected only when the squared distance exceeds max_link_length squared; removing a node removes its links.",
+          "route returns the minimum-cost path over unblocked nodes, breaking ties by fewest hops and then by the lexicographically smallest node-id sequence, independent of insertion or pairs order.",
+          "reserve deduplicates by request_id before checking cooldown (now < cooldown_until) and the one-live-ticket rule, prices the trip as ceil(cost * cost_per_unit), and records only successful reservations.",
+          "commit consumes a live ticket exactly once, starts the cooldown at now + options.cooldown, is idempotent, and rejects a ticket whose hops, links, or total cost changed with route_changed; abort releases without cooldown.",
+          "Snapshots and results are fresh, deterministically ordered tables; save/load round-trips nodes, links, blocked flags, all tickets, cooldowns, request history, the ticket sequence, and the clock through plain data. The world component runs only on the master simulation and persists this state through OnSave/OnLoad."
+        ],
+        "zh": [
+          "导出 Network.new(options)、Network.load(data, options)、add_node、remove_node、set_blocked、link、unlink、route、reserve、commit、abort、tick、snapshot 与 save，参数顺序见试卷。",
+          "每次调用先校验有限且不倒退的 now、推进时钟，并在做任何其他事情之前让 now >= expires_at 的票据过期；invalid_time 调用没有任何副作用。",
+          "校验标识与有限坐标，执行 options.max_nodes_per_owner 上限，缺失或非法的选项回退到公开默认值。",
+          "连接无向且去重；cost = max(1, floor(距离 + 0.5))；仅当距离平方大于 max_link_length 平方时拒绝；移除节点同时移除其连接。",
+          "route 在未封锁节点上返回最小代价路径，平局先比跳数，再比节点 ID 序列的字典序，结果不得依赖插入顺序或 pairs 顺序。",
+          "reserve 先按 request_id 去重，再检查冷却（now < cooldown_until）与每位旅行者一张活票；票价为 ceil(cost * cost_per_unit)；只记录成功的预订。",
+          "commit 恰好一次消费活票，把冷却设为 now + options.cooldown，且幂等；路径节点、连接或总代价已变化时以 route_changed 拒绝；abort 释放票据且不产生冷却。",
+          "快照与返回值都是新建且稳定排序的表；save/load 以纯数据往返节点、连接、封锁标记、全部票据、冷却、请求历史、票据序列与时钟。世界组件仅在主模拟运行，并通过 OnSave/OnLoad 持久化该状态。"
+        ]
+      },
+      "api_usage": {
+        "en": [
+          "Read waystone and player coordinates with entity.Transform:GetWorldPosition(); never accept coordinates, prices, or routes from a caller or client.",
+          "Charge with player.components.inventory:Has(\"goldnugget\", price) and :ConsumeByName(\"goldnugget\", price); refund with SpawnPrefab(\"goldnugget\"), stackable:SetStackSize, and inventory:GiveItem.",
+          "Move the traveler with player.Physics:Teleport(x, y, z) when Physics exists, otherwise player.Transform:SetPosition(x, y, z).",
+          "Listen for onremove on every registered entity and remove the same callback with RemoveEventCallback; DoPeriodicTask drives tick and its task is cancelled in OnRemoveFromEntity.",
+          "Attach waystonenetwork in AddPrefabPostInit(\"world\") behind the ismastersim guard; AddModRPCHandler(\"rhenium_waystone\", \"travel\", fn) forwards only request_id, from_id, and to_id and identity comes from player.userid."
+        ],
+        "zh": [
+          "用 entity.Transform:GetWorldPosition() 读取路石和玩家坐标；不得接受调用方或客户端提供的坐标、价格或路线。",
+          "用 player.components.inventory:Has(\"goldnugget\", price) 与 :ConsumeByName(\"goldnugget\", price) 扣费；用 SpawnPrefab(\"goldnugget\")、stackable:SetStackSize 与 inventory:GiveItem 退款。",
+          "存在 Physics 时用 player.Physics:Teleport(x, y, z) 移动旅行者，否则用 player.Transform:SetPosition(x, y, z)。",
+          "对每个已注册实体监听 onremove，并用 RemoveEventCallback 注销同一个回调；DoPeriodicTask 驱动 tick，其 task 在 OnRemoveFromEntity 中取消。",
+          "在 AddPrefabPostInit(\"world\") 的 ismastersim 守卫后挂载 waystonenetwork；AddModRPCHandler(\"rhenium_waystone\", \"travel\", fn) 只转发 request_id、from_id、to_id，身份来自 player.userid。"
+        ]
+      },
+      "acceptance": {
+        "en": ["Link costs, prices, and every time boundary match the published formulas exactly.", "Equal-cost routes resolve identically regardless of insertion order or direction of discovery.", "A ticket is committed at most once and never through a blocked, removed, relinked, or repriced hop.", "Failed trips leave the real position and the real inventory unchanged and leave no live ticket or cooldown.", "The dedicated server verifies real transforms, goldnugget inventory charges, teleports, anchor removal, rollback, persistence, and listener release."],
+        "zh": ["连接代价、票价与所有时间边界严格符合公开公式。", "等代价路线的选择与插入顺序或搜索方向无关。", "票据最多提交一次，且不会穿过被封锁、移除、重连或改价的节点。", "失败的传送不改变真实位置与真实物品栏，也不留下活票或冷却。", "专服验证真实 Transform、goldnugget 扣费、传送、路石移除、回滚、持久化与监听释放。"]
+      },
+      "domains": ["pathfinding", "server-authority", "inventory", "persistence"],
+      "estimated_minutes": 420,
+      "core_module": "scripts/waystones/network.lua",
+      "hidden_test": "hidden/waystone-route-network.lua",
+      "server_test": "server/waystone-route-network.lua",
+      "hidden_cases": ["nodes and links enforce ids caps rounding and length", "cheapest route breaks ties by hops then node order", "blocked and removed nodes leave routing", "reserve deduplicates prices and honors time boundaries", "commit is exactly once and rejects changed routes", "time validation snapshot freshness and save load"],
+      "server_cases": ["world waystone component is master attached", "real travel charges gold and moves the player", "removed anchor invalidates routes and rolls back travel", "state persists and listeners are released"],
+      "required_files": ["modinfo.lua", "modmain.lua", "scripts/waystones/network.lua", "scripts/components/waystonenetwork.lua"],
+      "minimum_lua_lines": 280,
+      "integration_checks": [
+        {"id": "waystone-authority", "label": {"en": "Master authority", "zh": "主模拟权威"}, "weight": 3, "groups": [{"name": "guard", "any_of": ["TheWorld\\.ismastersim", "inst\\.ismastersim", "world\\.ismastersim"]}, {"name": "world postinit", "any_of": ["AddPrefabPostInit\\s*\\(\\s*[\\\"']world[\\\"']"]}, {"name": "server component", "any_of": ["AddComponent\\s*\\(\\s*[\\\"']waystonenetwork[\\\"']"]}], "none_of": ["TODO", "IMPLEMENT\\s+ME"]},
+        {"id": "waystone-real-positions", "label": {"en": "Real positions and teleport", "zh": "真实位置与传送"}, "weight": 3, "groups": [{"name": "position", "any_of": ["Transform:GetWorldPosition\\s*\\("]}, {"name": "physics teleport", "any_of": ["Physics:Teleport\\s*\\("]}, {"name": "transform fallback", "any_of": ["Transform:SetPosition\\s*\\("]}]},
+        {"id": "waystone-fare", "label": {"en": "Real inventory fare", "zh": "真实物品栏票价"}, "weight": 3, "groups": [{"name": "currency", "any_of": ["goldnugget"]}, {"name": "funds check", "any_of": [":Has\\s*\\("]}, {"name": "charge", "any_of": [":ConsumeByName\\s*\\("]}, {"name": "refund", "any_of": [":GiveItem\\s*\\("]}]},
+        {"id": "waystone-rpc", "label": {"en": "Identifier-only RPC", "zh": "仅含标识的 RPC"}, "weight": 3, "groups": [{"name": "RPC", "any_of": ["AddModRPCHandler\\s*\\(\\s*[\\\"']rhenium_waystone[\\\"']\\s*,\\s*[\\\"']travel[\\\"']"]}, {"name": "identity", "any_of": ["\\.userid"]}]},
+        {"id": "waystone-lifecycle", "label": {"en": "Persistence and cleanup", "zh": "持久化与清理"}, "weight": 3, "groups": [{"name": "save/load", "any_of": [":OnSave\\s*\\("]}, {"name": "load", "any_of": [":OnLoad\\s*\\("]}, {"name": "listen", "any_of": ["ListenForEvent\\s*\\(\\s*[\\\"']onremove[\\\"']"]}, {"name": "remove callbacks", "any_of": ["RemoveEventCallback\\s*\\(\\s*[\\\"']onremove[\\\"']"]}, {"name": "periodic task", "any_of": ["DoPeriodicTask\\s*\\("]}, {"name": "cancel task", "any_of": [":Cancel\\s*\\("]}, {"name": "cleanup hook", "any_of": [":OnRemoveFromEntity\\s*\\("]}]}
+      ]
+    },
+    {
+      "id": "status-effect-stack",
+      "difficulty": "hard",
+      "title": {"en": "Server-authoritative Status Effect Stack", "zh": "服务端权威状态效果堆叠管理器"},
+      "summary": {
+        "en": "Manage timed buffs and debuffs with stacking policies, exact expiry, frequency-independent health accrual, prioritized dispel, and reload-safe state, applied to real locomotor, combat, and health components.",
+        "zh": "管理限时增益与减益：叠加策略、精确到期、与 tick 频率无关的生命结算、按优先级驱散和可重载状态，并作用于真实的 locomotor、combat 与 health 组件。"
+      },
+      "brief": {
+        "en": "Implement a plain-Lua status-effect manager driven only by explicit now arguments, plus a master-simulation world component. Requests are idempotent by request_id, refresh/extend/independent policies have exact caps and an inclusive expiry boundary, modifiers aggregate live stacks without a prior tick, health-over-time is the exact integral clipped to each instance lifetime, dispel follows a published total order, and save/load rebases every timestamp. The component pushes the aggregate through SetExternalSpeedMultiplier and externaldamagemultipliers, applies health deltas with DoDelta without touching dead entities, cleans up on death and onremove, and exposes only a whitelisted self-cleanse RPC.",
+        "zh": "实现只由显式 now 参数驱动的纯 Lua 状态效果管理器，以及主模拟世界组件。请求按 request_id 幂等；refresh/extend/independent 三种策略有精确上限和包含边界的到期规则；聚合无需事先 tick；持续生命变化是裁剪到实例寿命的精确积分；驱散遵循公开的全序；存档重载平移全部时间戳。组件通过 SetExternalSpeedMultiplier 与 externaldamagemultipliers 写入聚合，用 DoDelta 结算生命且不触碰死亡实体，在 death 与 onremove 时清理，并且只暴露白名单内的自我净化 RPC。"
+      },
+      "requirements": {
+        "en": [
+          "Export Stack.new(options), Stack.load(data, options, now), add_target, remove_target, apply(request_id, target_id, effect_id, source_id, now), dispel(target_id, tag, max_count, now), tick, modifiers, snapshot, and save.",
+          "Validate time first (invalid_time, stale_time), then identifiers (invalid_argument), unknown_effect, and unknown_target; a call that passes the time check advances the clock, and rejected calls change nothing else.",
+          "Deduplicate apply by request_id: once a valid request_id reaches the dedupe step its success or failure is recorded, and every retry returns a fresh copy of the first result with no side effects, even after remove_target or reload.",
+          "refresh resets expiry to now + duration and adds a stack up to max_stacks; extend adds duration to the remaining time capped at extend_cap * duration; independent creates separate instances and replaces the lowest seq at max_stacks.",
+          "An instance is expired exactly when now >= expires_at; modifiers multiplies speed_mult ^ stacks and damage_mult ^ stacks and sums tick_health * stacks over live instances without requiring a tick.",
+          "tick returns, ordered by target id then effect id, the exact integral of tick_health * stacks since the previous tick clipped to each instance lifetime, so totals never depend on call frequency; remove_target discards unreported amounts.",
+          "dispel removes matching live instances by priority descending, applied_at ascending, effect id ascending, then seq ascending, limited by a positive integer max_count or unlimited when nil.",
+          "save returns plain data; load rebases all timestamps to the supplied now and keeps remaining durations, stacks, seq counter, targets, request history, and unreported health changes, dropping effects that are no longer configured. The world component runs only on the master simulation and persists this state through OnSave/OnLoad."
+        ],
+        "zh": [
+          "导出 Stack.new(options)、Stack.load(data, options, now)、add_target、remove_target、apply(request_id, target_id, effect_id, source_id, now)、dispel(target_id, tag, max_count, now)、tick、modifiers、snapshot 与 save。",
+          "先校验时间（invalid_time、stale_time），再校验标识符（invalid_argument）、unknown_effect 与 unknown_target；通过时间校验的调用推进时钟，被拒绝的调用不改变其他任何状态。",
+          "apply 按 request_id 去重：合法 request_id 一旦到达去重步骤，其成功或失败结果即被记录；每次重试返回首次结果的新副本且无副作用，remove_target 或重载之后依然如此。",
+          "refresh 把到期时间重置为 now + duration 并加一层（不超过 max_stacks）；extend 把 duration 加到剩余时间上并以 extend_cap * duration 封顶；independent 建立独立实例，达到 max_stacks 时替换 seq 最小者。",
+          "实例当且仅当 now >= expires_at 时到期；modifiers 对存活实例连乘 speed_mult ^ stacks 与 damage_mult ^ stacks，并累加 tick_health * stacks，无需事先 tick。",
+          "tick 按目标 ID、效果 ID 顺序返回自上次 tick 以来 tick_health * stacks 的精确积分，并裁剪到每个实例的寿命，总量与调用频率无关；remove_target 丢弃尚未取走的变化。",
+          "dispel 按 priority 降序、applied_at 升序、效果 ID 升序、seq 升序移除匹配的存活实例，数量受正整数 max_count 限制，nil 表示不限。",
+          "save 返回普通数据；load 把全部时间戳平移到给定 now，保留剩余时间、层数、seq 计数器、目标、请求历史与未取走的生命变化，并丢弃已不在配置中的效果。世界组件仅在主模拟运行，并通过 OnSave/OnLoad 持久化该状态。"
+        ]
+      },
+      "api_usage": {
+        "en": [
+          "Attach the statuseffects world component from AddPrefabPostInit(\"world\") only when inst.ismastersim, and use the published EFFECTS table with extend_cap = 3.",
+          "Reconcile writes locomotor:SetExternalSpeedMultiplier(source, key, mult) or RemoveExternalSpeedMultiplier(source, key), and combat.externaldamagemultipliers:SetModifier(source, mult, key) or RemoveModifier(source, key); source must be an entity.",
+          "Tick applies each delta with health:DoDelta(amount, true, effect_id) only while the entity is tracked, valid, and not health:IsDead(), then reconciles every tracked entity; a rejected time returns false.",
+          "Listen for death and onremove on every tracked entity, clear the target, remove both modifiers, and unregister with the same callbacks; run Tick from DoPeriodicTask and cancel it in OnRemoveFromEntity.",
+          "Optional now arguments default to math.max(GetTime(), largest accepted time); OnLoad rebases onto GetTime(); Cleanse(player, tag, now) and the rhenium_statuseffects/cleanse RPC derive identity from player.userid and accept only whitelisted tags."
+        ],
+        "zh": [
+          "在 AddPrefabPostInit(\"world\") 中仅当 inst.ismastersim 时挂载 statuseffects 世界组件，并使用公开的 EFFECTS 表与 extend_cap = 3。",
+          "Reconcile 调用 locomotor:SetExternalSpeedMultiplier(source, key, mult) 或 RemoveExternalSpeedMultiplier(source, key)，以及 combat.externaldamagemultipliers:SetModifier(source, mult, key) 或 RemoveModifier(source, key)；source 必须是实体。",
+          "Tick 仅当实体仍被跟踪、有效且 health:IsDead() 为假时，用 health:DoDelta(amount, true, effect_id) 结算每条变化，然后对全部被跟踪实体 Reconcile；时间被拒绝时返回 false。",
+          "对每个被跟踪实体监听 death 与 onremove，清除目标、移除两种修正并用同一 callback 注销；用 DoPeriodicTask 驱动 Tick，并在 OnRemoveFromEntity 中取消。",
+          "可选 now 缺省为 math.max(GetTime(), 已接受的最大时间)；OnLoad 平移到 GetTime()；Cleanse(player, tag, now) 与 rhenium_statuseffects/cleanse RPC 只从 player.userid 取得身份且只接受白名单 tag。"
+        ]
+      },
+      "acceptance": {
+        "en": ["Retries, malformed arguments, and stale times cause no side effects.", "Stacking caps and the now >= expires_at boundary hold exactly for all three policies.", "Aggregation and health accrual do not depend on tick frequency or table iteration order, and dispel order is deterministic.", "Reload keeps remaining durations, stacks, sequence numbers, request history, and unreported health changes.", "The dedicated server observes real locomotor speed, combat damage, and health changes, cleanup on real death and removal, and OnSave/OnLoad continuity."],
+        "zh": ["重试、畸形参数与过期时间不产生副作用。", "三种策略的层数上限与 now >= expires_at 到期边界精确成立。", "聚合与生命结算不依赖 tick 频率或表遍历顺序，驱散顺序确定。", "重载后保留剩余时间、层数、序号、请求历史与未取走的生命变化。", "专服观测真实的 locomotor 速度、combat 伤害与 health 变化，真实死亡与移除后的清理，以及 OnSave/OnLoad 的连续性。"]
+      },
+      "domains": ["status-effects", "timers", "combat", "persistence"],
+      "estimated_minutes": 390,
+      "core_module": "scripts/statuseffects/stack.lua",
+      "hidden_test": "hidden/status-effect-stack.lua",
+      "server_test": "server/status-effect-stack.lua",
+      "hidden_cases": ["validation and request dedupe leave no side effects", "stacking policies honor caps and the exact expiry boundary", "modifiers aggregate live stacks without any tick", "tick accrual is exact and independent of tick frequency", "dispel orders by priority age effect id and sequence", "save load rebases time and keeps history and accrual cursor"],
+      "server_cases": ["status effect component is attached and authoritative", "real locomotor and combat modifiers follow stacks dispel and expiry", "damage over time changes real health and death clears everything", "effects survive OnSave and OnLoad and component removal cleans up"],
+      "required_files": ["modinfo.lua", "modmain.lua", "scripts/statuseffects/stack.lua", "scripts/components/statuseffects.lua"],
+      "minimum_lua_lines": 260,
+      "integration_checks": [
+        {"id": "effects-authority", "label": {"en": "Master-simulation authority", "zh": "主模拟权威"}, "weight": 3, "groups": [{"name": "guard", "any_of": ["TheWorld\\.ismastersim", "inst\\.ismastersim", "world\\.ismastersim"]}, {"name": "world post init", "any_of": ["AddPrefabPostInit\\s*\\(\\s*[\\\"']world[\\\"']"]}, {"name": "component", "any_of": ["AddComponent\\s*\\(\\s*[\\\"']statuseffects[\\\"']"]}], "none_of": ["TODO", "IMPLEMENT\\s+ME"]},
+        {"id": "effects-engine-modifiers", "label": {"en": "Locomotor and combat modifiers", "zh": "移动与战斗修正"}, "weight": 3, "groups": [{"name": "set speed", "any_of": ["SetExternalSpeedMultiplier\\s*\\("]}, {"name": "remove speed", "any_of": ["RemoveExternalSpeedMultiplier\\s*\\("]}, {"name": "damage list", "any_of": ["externaldamagemultipliers"]}, {"name": "set damage", "any_of": [":\\s*SetModifier\\s*\\("]}, {"name": "remove damage", "any_of": [":\\s*RemoveModifier\\s*\\("]}]},
+        {"id": "effects-health", "label": {"en": "Guarded health deltas", "zh": "受保护的生命结算"}, "weight": 3, "groups": [{"name": "health component", "any_of": ["components\\.health"]}, {"name": "dead guard", "any_of": [":\\s*IsDead\\s*\\("]}, {"name": "delta", "any_of": [":\\s*DoDelta\\s*\\("]}]},
+        {"id": "effects-lifecycle", "label": {"en": "Listeners, task, and persistence", "zh": "监听、任务与持久化"}, "weight": 3, "groups": [{"name": "death", "any_of": ["ListenForEvent\\s*\\(\\s*[\\\"']death[\\\"']"]}, {"name": "onremove", "any_of": ["ListenForEvent\\s*\\(\\s*[\\\"']onremove[\\\"']"]}, {"name": "unregister", "any_of": ["RemoveEventCallback\\s*\\("]}, {"name": "periodic task", "any_of": ["DoPeriodicTask\\s*\\("]}, {"name": "cancel", "any_of": [":\\s*Cancel\\s*\\("]}, {"name": "component removal", "any_of": [":OnRemoveFromEntity\\s*\\("]}, {"name": "save", "any_of": [":OnSave\\s*\\("]}, {"name": "load", "any_of": [":OnLoad\\s*\\("]}]},
+        {"id": "effects-self-cleanse-rpc", "label": {"en": "Whitelisted self-cleanse RPC", "zh": "白名单自我净化 RPC"}, "weight": 3, "groups": [{"name": "RPC", "any_of": ["AddModRPCHandler\\s*\\(\\s*[\\\"']rhenium_statuseffects[\\\"']\\s*,\\s*[\\\"']cleanse[\\\"']"]}, {"name": "identity", "any_of": ["\\.userid"]}, {"name": "player join", "any_of": ["ms_playerjoined"]}]}
+      ]
+    },
+    {
+      "id": "fuel-ration-allocator",
+      "difficulty": "hard",
+      "title": {"en": "Server-authoritative Camp Fuel Ration Allocator", "zh": "服务端权威营地燃料配给器"},
+      "summary": {
+        "en": "Ration a shared fuel depot to tracked fires by priority class and integer max-min fairness, reserving each share until the real fueled component has accepted it.",
+        "zh": "按优先级分类和整数 max-min 公平把共享燃料库配给给被跟踪的火堆，每份配额在真实 fueled 组件接受之前只是预留。"
+      },
+      "brief": {
+        "en": "Create a pure integer allocator plus a master-simulation world component. Players deposit whitelisted fuel items from their real inventory into a bounded depot; each round the server reports real fuel levels, plans shares class by class with water-filling, a per-round cap and a reserve floor, adds fuel through fueled:DoDelta, commits what was really accepted, rolls back the rest, and persists depot, open round, request history and contributions.",
+        "zh": "创建纯整数配给核心和主模拟世界组件。玩家把白名单内的燃料物品从真实库存存入有容量上限的燃料库；每轮由服务端上报真实燃料水位，按优先级逐类做注水式分配（含单轮上限与保底库存），通过 fueled:DoDelta 加燃料，按真实接受量提交、其余回滚，并持久化库存、未结束轮次、请求历史与玩家贡献。"
+      },
+      "requirements": {
+        "en": [
+          "Export Allocator.new(options), Allocator.load(data, options), deposit(request_id, player_id, units, now), lookup(request_id, player_id), register(consumer_id, priority, capacity, now), unregister(consumer_id, now), report(consumer_id, level, now), plan(round_id, now), commit(round_id, consumer_id, delivered_units, now), abort(round_id, consumer_id, now), close(round_id, now), snapshot(now), and save(now).",
+          "Validate in the published order: finite non-negative non-decreasing time, identifiers of 1 to 64 characters, then integer quantities; reject fractions, NaN, infinities, negatives and non-numbers with the published codes and without changing state or the clock.",
+          "Deduplicate deposits by (player_id, request_id), replaying the first recorded outcome; accept only the free space of the depot (partial), reject with depot_full when none is free, and count reserved units against depot_capacity.",
+          "Plan class by class in ascending priority; inside a class hand out one unit at a time to the unsatisfied consumer holding the fewest units, ties to the smallest consumer id, never above min(demand, max_units_per_round) and never touching reserve_floor units.",
+          "Allow one open round; a plan retry with the open id returns the identical shares without reserving again, another id is round_open, and closed ids answer round_closed forever.",
+          "Settle each share exactly once: commit delivers at most the planned units and returns the rest, abort returns everything, repeats replay the first settlement, close aborts pending shares, and unregistering a consumer aborts its pending share.",
+          "Treat report time as measurement time: strictly older than the consumer's last report is stale, levels clamp to capacity, and reports never touch the global clock.",
+          "Snapshots are fresh and deterministically ordered; save/load round-trips plain data including clock, an open round with partially settled shares, request history, closed round ids and per-player contributions. The world component runs only on the master simulation and persists this state through OnSave/OnLoad."
+        ],
+        "zh": [
+          "导出 Allocator.new(options)、Allocator.load(data, options)、deposit、lookup、register、unregister、report、plan、commit、abort、close、snapshot 与 save，参数顺序以题面为准。",
+          "按公布顺序校验：有限、非负、不回退的时间，1 到 64 字符的标识，再到整数数量；小数、NaN、无穷、负数和非 number 以公布的错误码拒绝，且不改变状态和时钟。",
+          "存入按 (player_id, request_id) 去重并重放首次结果；只接受燃料库的剩余空间（partial），没有空间时以 depot_full 拒绝，预留单位同样占用 depot_capacity。",
+          "按优先级升序逐类分配；类内每次把一个单位给当前分得最少且未满足的消费者，平局取最小 consumer id，不超过 min(demand, max_units_per_round)，且不动用 reserve_floor。",
+          "同一时间只允许一个未结束轮次；用同一 id 重试 plan 返回完全相同的份额且不重复预留，其它 id 返回 round_open，已关闭的 id 永远返回 round_closed。",
+          "每份配额恰好结算一次：commit 最多交付计划单位并退回其余，abort 全部退回，重复调用重放首次结算，close 中止未结算份额，注销消费者会中止其未结算份额。",
+          "report 的时间是测量时间：严格早于该消费者上次上报的为 stale，水位按 capacity 截断，且 report 不读写全局时钟。",
+          "快照为新表且顺序确定；save/load 以纯数据往返时钟、含部分结算份额的未结束轮次、请求历史、已关闭轮次 id 与玩家贡献。世界组件仅在主模拟运行，并通过 OnSave/OnLoad 持久化该状态。"
+        ]
+      },
+      "api_usage": {
+        "en": [
+          "Attach with AddPrefabPostInit(\"world\", ...) behind inst.ismastersim and inst:AddComponent(\"fuelration\"); register AddModRPCHandler(\"rhenium_fuel\", \"deposit\", function(player, request_id, item_prefab, count)) and take identity from player.userid.",
+          "Read entity.components.fueled.maxfuel and currentfuel; capacity = floor(maxfuel / 15), level = min(capacity, ceil(currentfuel / 15)); deliver with fueled:DoDelta(units * 15) and commit floor((after - before) / 15) clamped to the planned units.",
+          "Check inventory:Has(prefab, count) and remove with inventory:ConsumeByName(prefab, count) (or RemoveItem) all-or-nothing, crediting the depot only after the items are gone.",
+          "Listen with ListenForEvent(\"onremove\", fn, entity) per tracked entity and remove the same function with RemoveEventCallback in Untrack and OnRemoveFromEntity; run rounds from self.inst:DoPeriodicTask and cancel the task with task:Cancel().",
+          "Expose Track, Untrack, Deposit, RunRound, Snapshot, OnSave, OnLoad and OnRemoveFromEntity; OnLoad keeps time non-decreasing although GetTime() restarts, closes a restored open round and reconciles consumers with the entities still tracked."
+        ],
+        "zh": [
+          "在 inst.ismastersim 保护下用 AddPrefabPostInit(\"world\", ...) 与 inst:AddComponent(\"fuelration\") 挂载；注册 AddModRPCHandler(\"rhenium_fuel\", \"deposit\", function(player, request_id, item_prefab, count))，身份取自 player.userid。",
+          "读取 entity.components.fueled.maxfuel 与 currentfuel；capacity = floor(maxfuel / 15)，level = min(capacity, ceil(currentfuel / 15))；用 fueled:DoDelta(units * 15) 交付，并按 floor((after - before) / 15) 截断到计划单位后提交。",
+          "用 inventory:Has(prefab, count) 预检，用 inventory:ConsumeByName(prefab, count)（或 RemoveItem）整体移除，物品确实移除后才记入燃料库。",
+          "对每个被跟踪实体 ListenForEvent(\"onremove\", fn, entity)，并在 Untrack 与 OnRemoveFromEntity 中用同一函数 RemoveEventCallback；用 self.inst:DoPeriodicTask 运行周期轮次并以 task:Cancel() 取消。",
+          "公开 Track、Untrack、Deposit、RunRound、Snapshot、OnSave、OnLoad 与 OnRemoveFromEntity；OnLoad 在 GetTime() 重新计时的情况下保持时间不回退，关闭恢复出的未结束轮次，并按仍被跟踪的实体对账消费者。"
+        ]
+      },
+      "acceptance": {
+        "en": ["Units are conserved: deposited_total always equals available + reserved + delivered_total and the depot never goes negative.", "Retried deposits, plans, commits, aborts and closes never move units twice.", "Priority, fairness, the per-round cap and the reserve floor are visible in exact integer shares.", "An open round with partially settled shares, request history and contributions survive save and load.", "The dedicated server verifies real inventory removal, real fueled.currentfuel increases per share, release of removed fires, reload reconciliation and listener/task cleanup."],
+        "zh": ["单位守恒：deposited_total 恒等于 available + reserved + delivered_total，库存不会为负。", "重试的存入、计划、提交、中止与关闭不会让单位移动两次。", "优先级、公平性、单轮上限和保底库存体现在精确的整数份额上。", "含部分结算份额的未结束轮次、请求历史与玩家贡献在保存加载后保持一致。", "专服验证真实库存扣除、真实 fueled.currentfuel 按份额上升、被移除火堆的释放、重载对账以及监听与任务清理。"]
+      },
+      "domains": ["resource-allocation", "fairness", "fueled", "persistence"],
+      "estimated_minutes": 390,
+      "core_module": "scripts/fuelration/allocator.lua",
+      "hidden_test": "hidden/fuel-ration-allocator.lua",
+      "server_test": "server/fuel-ration-allocator.lua",
+      "hidden_cases": ["quantities and time are validated before any state change", "deposits deduplicate and respect depot capacity", "plan is priority ordered max-min fair with cap and floor", "plan retries are identical and only one round is open", "shares settle exactly once and rollback returns units", "snapshots are fresh and save load preserves an open round"],
+      "server_cases": ["fuelration is attached with server authority", "deposit removes real items and credits the depot once", "round fuels real fires by priority and fairness", "removed fires are released and state survives reload"],
+      "required_files": ["modinfo.lua", "modmain.lua", "scripts/fuelration/allocator.lua", "scripts/components/fuelration.lua"],
+      "minimum_lua_lines": 260,
+      "integration_checks": [
+        {"id": "fuel-authority", "label": {"en": "Master authority", "zh": "主模拟权威"}, "weight": 4, "groups": [{"name": "guard", "any_of": ["TheWorld\\.ismastersim", "inst\\.ismastersim", "world\\.ismastersim"]}, {"name": "world hook", "any_of": ["AddPrefabPostInit\\s*\\(\\s*[\\\"']world[\\\"']"]}, {"name": "server component", "any_of": ["AddComponent\\s*\\(\\s*[\\\"']fuelration[\\\"']"]}], "none_of": ["TODO", "IMPLEMENT\\s+ME"]},
+        {"id": "fuel-real-components", "label": {"en": "Real fueled and inventory components", "zh": "真实 fueled 与 inventory 组件"}, "weight": 4, "groups": [{"name": "fueled component", "any_of": ["components\\.fueled"]}, {"name": "fuel levels", "any_of": ["\\.currentfuel"]}, {"name": "fuel capacity", "any_of": ["\\.maxfuel"]}, {"name": "deliver fuel", "any_of": [":DoDelta\\s*\\("]}, {"name": "inventory precheck", "any_of": [":Has\\s*\\("]}, {"name": "inventory removal", "any_of": [":ConsumeByName\\s*\\(", ":RemoveItem\\s*\\("]}]},
+        {"id": "fuel-rpc-identity", "label": {"en": "Validated RPC and server identity", "zh": "经校验的 RPC 与服务端身份"}, "weight": 3, "groups": [{"name": "RPC", "any_of": ["AddModRPCHandler\\s*\\(\\s*[\\\"']rhenium_fuel[\\\"']\\s*,\\s*[\\\"']deposit[\\\"']"]}, {"name": "identity", "any_of": ["\\.userid"]}]},
+        {"id": "fuel-lifecycle", "label": {"en": "Persistence and cleanup", "zh": "持久化与清理"}, "weight": 4, "groups": [{"name": "listen onremove", "any_of": ["ListenForEvent\\s*\\(\\s*[\\\"']onremove[\\\"']"]}, {"name": "remove callback", "any_of": ["RemoveEventCallback\\s*\\(\\s*[\\\"']onremove[\\\"']"]}, {"name": "periodic round", "any_of": ["DoPeriodicTask\\s*\\("]}, {"name": "cancel task", "any_of": [":Cancel\\s*\\("]}, {"name": "save/load", "any_of": [":OnSave\\s*\\("]}, {"name": "load", "any_of": [":OnLoad\\s*\\("]}, {"name": "component removal", "any_of": [":OnRemoveFromEntity\\s*\\("]}]}
+      ]
+    },
+    {
+      "id": "trade-escrow-exchange",
+      "difficulty": "hard",
+      "title": {"en": "Server-authoritative Two-player Trade Escrow", "zh": "服务端权威双人交易托管"},
+      "summary": {
+        "en": "Let two players escrow base-game items, confirm each other's exact offer revision, and swap the real inventory stacks atomically despite re-pricing, replays, expiry, shortfalls, full inventories, departures and reloads.",
+        "zh": "让两名玩家托管原版物品、确认对方的确切报价版本，并在改价、重放、过期、库存不足、背包已满、玩家离开与重载下原子地交换真实库存物品堆。"
+      },
+      "brief": {
+        "en": "Implement a plain-Lua escrow state machine and a master-simulation world component that operates on base-game inventory components. Offers are whitelisted prefab/count maps with strictly increasing revisions; any accepted change voids both confirmations; a confirmation must name the counterparty's current revision; trades expire at an exact boundary; settlement runs through a persisted settling phase with a deterministic transfer plan, and the component verifies holdings, moves the real item entities, restores both inventories on any failure, and recovers unfinished settlements after load.",
+        "zh": "实现纯 Lua 托管状态机，以及操作原版 inventory 组件的主模拟世界组件。报价是受白名单约束、revision 严格递增的 prefab/数量表；任何被接受的改动都会让双方确认失效；确认必须指明对方当前 revision；交易在精确边界过期；结算经过可持久化的 settling 阶段并给出确定性的转移计划，组件负责校验库存、移动真实物品实体、在任何失败时恢复双方库存，并在加载后恢复未完成的结算。"
+      },
+      "requirements": {
+        "en": [
+          "Export Escrow.new(options), Escrow.load(data, options), open(trade_id, a_id, b_id, now), offer(trade_id, party_id, items, revision, now), confirm(trade_id, party_id, seen_revision, now), cancel(trade_id, party_id, now), begin_settle(trade_id, now), finish_settle(trade_id, ok, now), tick(now), snapshot(now), and save(now); every result is a fresh table with ok, code and, for an existing trade, phase.",
+          "Validate arguments first (invalid_argument does nothing at all), then apply expiry, then resolve unknown_trade, not_a_party, the published phase table and the method's own rules; failed calls never change state.",
+          "Offers are prefab->positive-integer maps checked against options.allowed_prefabs and options.max_distinct; rejected offers consume no revision and void no confirmation.",
+          "Revisions strictly increase per party; an identical replay of the current revision succeeds without side effects, a different payload is revision_conflict, a lower one is stale_revision; any accepted new revision voids BOTH confirmations.",
+          "confirm must name the counterparty's current revision or fail with stale_confirmation; a party is in at most one in-progress trade (party_busy) and closed ids are never reusable (trade_closed).",
+          "Only open trades expire, exactly when now >= opened_at + ttl; tick reports newly expired ids once, in ascending order, and settling never expires.",
+          "begin_settle requires both live confirmations, moves to settling and returns a fresh plan ordered by giver id then prefab; finish_settle(true) settles, finish_settle(false) reopens with confirmations cleared and the original deadline.",
+          "snapshot returns fresh, deterministically ordered tables including closed trades; save/load round-trips every phase including settling through plain data, and the world component persists it, recovers settling trades after load, and cleans up its listener and periodic task. The world component runs only on the master simulation and persists this state through OnSave/OnLoad."
+        ],
+        "zh": [
+          "导出 Escrow.new(options)、Escrow.load(data, options)、open(trade_id, a_id, b_id, now)、offer(trade_id, party_id, items, revision, now)、confirm(trade_id, party_id, seen_revision, now)、cancel(trade_id, party_id, now)、begin_settle(trade_id, now)、finish_settle(trade_id, ok, now)、tick(now)、snapshot(now) 与 save(now)；每个结果都是含 ok、code（交易存在时还含 phase）的新表。",
+          "先校验参数（invalid_argument 时什么都不做），再做过期处理，然后依次判定 unknown_trade、not_a_party、公开的阶段表和方法自身规则；失败调用不得改变状态。",
+          "报价是 prefab->正整数 的表，受 options.allowed_prefabs 与 options.max_distinct 约束；被拒绝的报价不消耗 revision，也不清除确认。",
+          "revision 对每名参与者严格递增；当前 revision 的相同重放无副作用地成功，内容不同为 revision_conflict，更小为 stale_revision；任何被接受的新 revision 都使双方确认失效。",
+          "confirm 必须指明对方当前 revision，否则为 stale_confirmation；每名参与者同时最多参与一笔进行中的交易（party_busy），已关闭的 id 永不可复用（trade_closed）。",
+          "只有 open 交易会过期，且恰在 now >= opened_at + ttl 时过期；tick 只报告一次新过期的 id 并按升序排列，settling 永不过期。",
+          "begin_settle 要求双方确认有效，进入 settling 并返回按给出方 id、再按 prefab 排序的新计划表；finish_settle(true) 完成交易，finish_settle(false) 回到 open、清除确认并沿用原截止时间。",
+          "snapshot 返回全新且顺序确定的表（含已关闭交易）；save/load 用普通数据完整往返包括 settling 在内的所有阶段，世界组件负责持久化、加载后恢复 settling 交易，并清理监听与周期任务。世界组件仅在主模拟运行，并通过 OnSave/OnLoad 持久化该状态。"
+        ]
+      },
+      "api_usage": {
+        "en": [
+          "Attach the tradeescrow world component inside AddPrefabPostInit(\"world\", ...) behind an ismastersim guard, keep the core in self.escrow, and take identity only from player.userid.",
+          "Check holdings with inventory:Has(prefab, count), which returns (enough, found) and counts the active item; select stacks with inventory:GetItemByName(prefab, count).",
+          "Move real entities: inventory:RemoveItem(item, true) for a whole stack, item.components.stackable:Get(n) to split a partial stack, then the other inventory's GiveItem(item); confirm the outcome with item:IsValid() and inventoryitem:GetGrandOwner().",
+          "Register AddModRPCHandler(\"rhenium_trade\", name, fn) for open, offer, confirm and cancel; payloads contain only strings and numbers and malformed offer pairs drop the whole request.",
+          "Listen for ms_playerleft and run DoPeriodicTask for expiry; remove the same callback with RemoveEventCallback and Cancel() the task in OnRemoveFromEntity; implement OnSave/OnLoad with a clock that continues across restarts."
+        ],
+        "zh": [
+          "在 AddPrefabPostInit(\"world\", ...) 内以 ismastersim 守卫挂载 tradeescrow 世界组件，把核心保存在 self.escrow，身份只来自 player.userid。",
+          "用 inventory:Has(prefab, count) 校验库存，它返回（是否足够, 实际数量）并计入 active item；用 inventory:GetItemByName(prefab, count) 选取物品堆。",
+          "移动真实实体：整堆用 inventory:RemoveItem(item, true)，部分堆用 item.components.stackable:Get(n) 拆分，再调用对方 inventory 的 GiveItem(item)；用 item:IsValid() 与 inventoryitem:GetGrandOwner() 确认结果。",
+          "用 AddModRPCHandler(\"rhenium_trade\", name, fn) 注册 open、offer、confirm、cancel；负载只含字符串和数字，offer 的参数对不合法时丢弃整个请求。",
+          "监听 ms_playerleft 并用 DoPeriodicTask 处理过期；在 OnRemoveFromEntity 中用同一回调 RemoveEventCallback 并 Cancel() 任务；实现 OnSave/OnLoad，且时钟跨重启连续。"
+        ]
+      },
+      "acceptance": {
+        "en": ["Any re-pricing voids both confirmations and only trades whose current revisions were confirmed by both sides settle.", "Expiry is exact at now >= expires_at and replays, stale packets and closed ids behave deterministically without side effects.", "Shortfalls and failed deliveries leave both inventories exactly as before and reopen the trade for re-confirmation.", "The settling phase survives save and load and is recovered without replaying a swap of unknown progress.", "The dedicated server swaps real twigs, cutgrass and flint stacks between two inventory entities and asserts exact counts, rollback, departure, RPC validation and reload."],
+        "zh": ["任何改价都会让双方确认失效，只有双方都确认了对方当前 revision 的交易才会结算。", "过期边界精确到 now >= expires_at，重放、旧包与已关闭 id 的行为确定且无副作用。", "库存不足与交付失败后双方库存与之前完全一致，交易回到 open 等待重新确认。", "settling 阶段可保存加载，并在不重放进度未知的交换的前提下恢复。", "专服在两个带 inventory 的实体之间交换真实的 twigs、cutgrass、flint 物品堆，并断言精确数量、回滚、离开、RPC 校验与重载。"]
+      },
+      "domains": ["trading", "transactions", "inventory", "persistence"],
+      "estimated_minutes": 390,
+      "core_module": "scripts/tradeescrow/escrow.lua",
+      "hidden_test": "hidden/trade-escrow-exchange.lua",
+      "server_test": "server/trade-escrow-exchange.lua",
+      "hidden_cases": ["rejected offers leave revision and confirmations untouched", "any accepted offer change voids both confirmations", "replays are idempotent and revisions strictly increase", "expiry boundary is exact and tick is deterministic", "settlement plan is ordered and settling is exclusive", "snapshot is fresh and save load round-trips settling"],
+      "server_cases": ["trade escrow component is attached on the master simulation", "confirmed trade swaps real inventory stacks exactly", "failed settlement restores both inventories and reopens", "departure, rpc input and crash recovery keep state consistent"],
+      "required_files": ["modinfo.lua", "modmain.lua", "scripts/tradeescrow/escrow.lua", "scripts/components/tradeescrow.lua"],
+      "minimum_lua_lines": 260,
+      "integration_checks": [
+        {"id": "escrow-authority", "label": {"en": "Server authority", "zh": "服务端权威"}, "weight": 4, "groups": [{"name": "guard", "any_of": ["TheWorld\\.ismastersim", "inst\\.ismastersim", "world\\.ismastersim"]}, {"name": "world hook", "any_of": ["AddPrefabPostInit\\s*\\(\\s*[\\\"']world[\\\"']"]}, {"name": "component", "any_of": ["AddComponent\\s*\\(\\s*[\\\"']tradeescrow[\\\"']"]}, {"name": "identity", "any_of": ["\\.userid"]}], "none_of": ["TODO", "IMPLEMENT\\s+ME"]},
+        {"id": "escrow-inventory", "label": {"en": "Inventory operations", "zh": "库存操作"}, "weight": 4, "groups": [{"name": "inventory", "any_of": ["components\\.inventory"]}, {"name": "holdings", "any_of": [":Has\\s*\\("]}, {"name": "remove", "any_of": [":RemoveItem\\s*\\(", ":RemoveItemBySlot\\s*\\(", "stackable:Get\\s*\\("]}, {"name": "give", "any_of": [":GiveItem\\s*\\("]}]},
+        {"id": "escrow-rpc", "label": {"en": "Validated Mod RPC", "zh": "经校验的 Mod RPC"}, "weight": 3, "groups": [{"name": "namespace", "any_of": ["AddModRPCHandler\\s*\\(\\s*[\\\"']rhenium_trade[\\\"']"]}, {"name": "offer", "any_of": ["[\\\"']rhenium_trade[\\\"']\\s*,\\s*[\\\"']offer[\\\"']"]}, {"name": "confirm", "any_of": ["[\\\"']rhenium_trade[\\\"']\\s*,\\s*[\\\"']confirm[\\\"']"]}]},
+        {"id": "escrow-lifecycle", "label": {"en": "Persistence and cleanup", "zh": "持久化与清理"}, "weight": 4, "groups": [{"name": "save/load", "any_of": [":OnSave\\s*\\("]}, {"name": "load", "any_of": [":OnLoad\\s*\\("]}, {"name": "departure", "any_of": ["ListenForEvent\\s*\\(\\s*[\\\"']ms_playerleft[\\\"']"]}, {"name": "listener cleanup", "any_of": ["RemoveEventCallback\\s*\\(\\s*[\\\"']ms_playerleft[\\\"']"]}, {"name": "expiry task", "any_of": ["DoPeriodicTask\\s*\\("]}, {"name": "task cleanup", "any_of": [":Cancel\\s*\\(\\s*\\)"]}, {"name": "removal", "any_of": [":OnRemoveFromEntity\\s*\\("]}]}
+      ]
+    },
+    {
+      "id": "loot-roll-arbiter",
+      "difficulty": "hard",
+      "title": {"en": "Server-authoritative Loot Roll Arbiter", "zh": "服务端权威战利品掷点仲裁"},
+      "summary": {
+        "en": "Run need/greed/pass loot rolls for boss drops with a frozen eligible set, a deadline, a published deterministic generator, fair tie-breaks and exactly-once delivery into real inventories.",
+        "zh": "为 Boss 掉落运行 need/greed/pass 掷点：冻结资格名单、限时、公开的确定性随机数发生器、公平平局规则，并向真实背包恰好投递一次。"
+      },
+      "brief": {
+        "en": "Implement a plain-Lua loot roll arbiter and a master-simulation world component. Rolls freeze a deduplicated eligible set, accept revisioned need/greed/pass choices until a deadline, and resolve idempotently with a fully specified Park-Miller generator so every conforming implementation draws identical numbers. A fairness ledger demotes frequent winners, failed deliveries move the award down a lexicographic ranking exactly once per failure, and the component turns an award into one real base-game item whose ownership is verified.",
+        "zh": "实现纯 Lua 战利品掷点仲裁器与主模拟世界组件。掷点冻结去重后的资格名单，在截止前接受带 revision 的 need/greed/pass 选择，并用完整公开的 Park-Miller 发生器幂等结算，使所有合规实现得到完全相同的点数。公平账本会降级频繁获胜者，投递失败时按字典序排名每次失败恰好顺延一位，组件把一次授予变成一个经过归属校验的真实原版物品。"
+      },
+      "requirements": {
+        "en": [
+          "Export Arbiter.new(options), Arbiter.load(data, options), open(roll_id, item, eligible_ids, seed, now), choose(roll_id, player_id, choice, revision, now), resolve(roll_id, now), mark_delivered(roll_id, ok, now), cancel(roll_id, now), tick(now), snapshot(now), and save(now).",
+          "open freezes a deduplicated, ascending eligible set with deadline = now + options.window and rejects, without side effects, non-finite time, reused roll ids, items outside options.allowed_items, empty or malformed eligible lists, and seeds that are not integers in [0, 4294967295].",
+          "Choices are exactly need, greed, or pass; per-player revisions are strictly increasing non-negative integers; rejected calls change nothing; choices are accepted only while now < deadline and players who never chose count as pass.",
+          "resolve is legal once everyone has chosen or now >= deadline, is idempotent, and lets need beat greed; rolls come from state = (state * 48271) % 2147483647 seeded with seed % 2147483646 + 1, drawn in ascending player-id order as state % 100 + 1.",
+          "Only the tied leaders roll again, up to options.max_rounds rounds; candidates are ranked by their roll sequences compared lexicographically, then by ascending player id, and every draw is recorded in order as tier, round, player_id, roll.",
+          "A player with at least options.max_wins_per_window delivered wins satisfying t - win_time < options.fairness_window, with t = min(now, deadline), is demoted from need to greed at resolution.",
+          "mark_delivered(true) finalizes the roll and records the win; every mark_delivered(false) moves the award exactly one step down the ranking, then to a fresh greed contest with the continuing generator state, and finally to unclaimed; closed roll ids are final.",
+          "snapshot returns fresh, roll-id-ordered aggregates that never reveal choices of open rolls; save/load round-trips plain tables, preserves revisions, rankings, generator state, delivery phase and the ledger, and rebases stored times when options.now is supplied. The world component runs only on the master simulation and persists this state through OnSave/OnLoad."
+        ],
+        "zh": [
+          "导出 Arbiter.new(options)、Arbiter.load(data, options)、open(roll_id, item, eligible_ids, seed, now)、choose(roll_id, player_id, choice, revision, now)、resolve(roll_id, now)、mark_delivered(roll_id, ok, now)、cancel(roll_id, now)、tick(now)、snapshot(now) 与 save(now)。",
+          "open 冻结去重并升序排列的资格名单，deadline = now + options.window；对非有限时间、重复 roll id、不在 options.allowed_items 中的物品、空或非法名单、以及不是 [0, 4294967295] 内整数的 seed，必须无副作用地拒绝。",
+          "选择只能是 need、greed、pass；每位玩家的 revision 为严格递增的非负整数；被拒绝的调用不改变任何状态；仅当 now < deadline 时接受选择，从未选择的玩家按 pass 计。",
+          "全员已选择或 now >= deadline 后才可 resolve，且 resolve 幂等；need 优先于 greed；点数来自 state = (state * 48271) % 2147483647，初值为 seed % 2147483646 + 1，按玩家 id 升序抽取，点数为 state % 100 + 1。",
+          "只有并列最高者重掷，最多 options.max_rounds 轮；候选人按各轮点数序列的字典序降序、再按玩家 id 升序排名；每次抽取按顺序记录 tier、round、player_id、roll。",
+          "结算时取 t = min(now, deadline)，若玩家满足 t - win_time < options.fairness_window 的已投递获胜次数不少于 options.max_wins_per_window，则其 need 降级为 greed。",
+          "mark_delivered(true) 终结掷点并记入账本；每次 mark_delivered(false) 恰好沿排名顺延一位，need 档耗尽后用延续的发生器状态为 greed 档重新掷点，最后变为 unclaimed；已关闭的 roll id 永久有效且不可复用。",
+          "snapshot 返回全新、按 roll id 排序的聚合信息，且不泄漏未结算掷点的个人选择；save/load 通过纯表往返，保留 revision、排名、发生器状态、投递阶段与账本，并在提供 options.now 时平移所有存储时间。世界组件仅在主模拟运行，并通过 OnSave/OnLoad 持久化该状态。"
+        ]
+      },
+      "api_usage": {
+        "en": [
+          "Attach lootrollarbiter from AddPrefabPostInit(\"world\") on the master simulation only, and create inst._lootroll_state = net_string(inst.GUID, \"lootrollarbiter.state\", \"lootrolldirty\") before the non-master early return.",
+          "The component exposes Open(item_prefab, player_entities, seed), Choose(player, roll_id, choice, revision), Resolve(roll_id), OnSave(), OnLoad(data), and OnRemoveFromEntity(); identity always comes from player.userid.",
+          "Deliver with SpawnPrefab(item_prefab) and the winner's inventory:GiveItem(item); accept only a truthy return with item.components.inventoryitem:GetGrandOwner() == player or an item merged into a stack, otherwise item:Remove() and mark_delivered(false).",
+          "AddModRPCHandler(\"rhenium_lootroll\", \"choose\", function(player, roll_id, choice, revision) ... end) forwards only roll id, choice and revision; clients can never open rolls or supply items, seeds, player ids or deadlines.",
+          "Keep exactly one inst:DoTaskInTime deadline task per open roll and Cancel it on settlement and removal; listen to ms_playerleft on the component's own entity (forget the cached entity, never shrink the frozen set) and remove the callback; announce results with TheNet:Announce and publish open rolls as roll_id|item|chosen|total joined by ';'."
+        ],
+        "zh": [
+          "仅在主模拟通过 AddPrefabPostInit(\"world\") 挂载 lootrollarbiter；在非主模拟提前返回之前创建 inst._lootroll_state = net_string(inst.GUID, \"lootrollarbiter.state\", \"lootrolldirty\")。",
+          "组件公开 Open(item_prefab, player_entities, seed)、Choose(player, roll_id, choice, revision)、Resolve(roll_id)、OnSave()、OnLoad(data) 与 OnRemoveFromEntity()；身份始终来自 player.userid。",
+          "用 SpawnPrefab(item_prefab) 与获胜者的 inventory:GiveItem(item) 投递；仅当返回真值且 item.components.inventoryitem:GetGrandOwner() == player（或物品已并入堆叠）才算成功，否则 item:Remove() 并 mark_delivered(false)。",
+          "AddModRPCHandler(\"rhenium_lootroll\", \"choose\", function(player, roll_id, choice, revision) ... end) 只转发 roll id、choice 与 revision；客户端不能开启掷点，也不能提供物品、seed、玩家 id 或截止时间。",
+          "每个未结算掷点恰好保留一个 inst:DoTaskInTime 截止任务，并在结算与组件移除时 Cancel；在组件所在实体上监听 ms_playerleft（只丢弃实体缓存，不缩小冻结名单）并注销回调；用 TheNet:Announce 公告结果，并以 ';' 连接的 roll_id|item|chosen|total 发布未结算掷点。"
+        ]
+      },
+      "acceptance": {
+        "en": ["Every conforming implementation draws bit-identical rolls, winners and rankings for the same seed and choices.", "Stale revisions, late choices, forged players, reused identifiers and repeated resolves have no effect.", "Fairness demotion and deadline boundaries follow the published formulas exactly.", "Failed deliveries re-award once per failure, never to the same player twice, and end unclaimed.", "The dedicated server proves that the predicted winner holds exactly one real item, that failed or departed winners hand it on without leftovers, that deadline tasks and listeners are cleaned up, and that open rolls survive save and load."],
+        "zh": ["相同 seed 与选择下，所有合规实现得到逐位一致的点数、获胜者与排名。", "旧 revision、迟到选择、伪造玩家、复用标识符与重复结算均不产生影响。", "公平降级与截止边界严格遵循公开公式。", "投递失败每次恰好顺延一位，同一玩家不会被授予两次，最终为 unclaimed。", "专服验证预测的获胜者恰好持有一个真实物品、投递失败或玩家离开时物品顺延且不残留、截止任务与监听被清理、以及未结算掷点可经保存与加载恢复。"]
+      },
+      "domains": ["loot", "determinism", "server-authority", "persistence"],
+      "estimated_minutes": 390,
+      "core_module": "scripts/lootroll/arbiter.lua",
+      "hidden_test": "hidden/loot-roll-arbiter.lua",
+      "server_test": "server/loot-roll-arbiter.lua",
+      "hidden_cases": ["open freezes a deduplicated eligible set", "choices obey revisions and the deadline boundary", "published generator decides tiers and tie re-rolls", "resolution is idempotent and failed delivery re-awards once", "fairness ledger demotes need at the published boundary", "snapshot hides choices and save load preserves state"],
+      "server_cases": ["loot roll component is attached on the master simulation", "predicted winner receives one real item exactly once", "failed delivery moves the item to the next-best roll", "open rolls survive save and load and removal cleans up"],
+      "required_files": ["modinfo.lua", "modmain.lua", "scripts/lootroll/arbiter.lua", "scripts/components/lootrollarbiter.lua"],
+      "minimum_lua_lines": 280,
+      "integration_checks": [
+        {"id": "lootroll-authority", "label": {"en": "Server authority", "zh": "服务端权威"}, "weight": 3, "groups": [{"name": "guard", "any_of": ["TheWorld\\.ismastersim", "inst\\.ismastersim"]}, {"name": "world post init", "any_of": ["AddPrefabPostInit\\s*\\(\\s*[\\\"']world[\\\"']"]}, {"name": "component", "any_of": ["AddComponent\\s*\\(\\s*[\\\"']lootrollarbiter[\\\"']"]}], "none_of": ["TODO", "IMPLEMENT\\s+ME"]},
+        {"id": "lootroll-delivery", "label": {"en": "Verified inventory delivery", "zh": "经校验的背包投递"}, "weight": 4, "groups": [{"name": "spawn", "any_of": ["SpawnPrefab\\s*\\("]}, {"name": "give", "any_of": ["GiveItem\\s*\\("]}, {"name": "owner check", "any_of": ["GetGrandOwner\\s*\\(", "inventoryitem\\.owner", "IsHeldBy\\s*\\("]}, {"name": "remove undelivered item", "any_of": [":Remove\\s*\\(\\s*\\)"]}]},
+        {"id": "lootroll-rpc-identity", "label": {"en": "RPC and identity", "zh": "RPC 与身份"}, "weight": 3, "groups": [{"name": "RPC", "any_of": ["AddModRPCHandler\\s*\\("]}, {"name": "namespace", "any_of": ["[\\\"']rhenium_lootroll[\\\"']"]}, {"name": "identity", "any_of": ["\\.userid"]}]},
+        {"id": "lootroll-lifecycle", "label": {"en": "Timers, events and persistence", "zh": "定时器、事件与持久化"}, "weight": 3, "groups": [{"name": "deadline task", "any_of": ["DoTaskInTime\\s*\\("]}, {"name": "task cancel", "any_of": [":Cancel\\s*\\("]}, {"name": "player left", "any_of": ["ms_playerleft"]}, {"name": "listener cleanup", "any_of": ["RemoveEventCallback\\s*\\("]}, {"name": "save/load", "any_of": [":OnSave\\s*\\("]}, {"name": "removal", "any_of": [":OnRemoveFromEntity\\s*\\("]}]},
+        {"id": "lootroll-publication", "label": {"en": "Announcements and net state", "zh": "公告与网络状态"}, "weight": 2, "groups": [{"name": "net variable", "any_of": ["net_string\\s*\\("]}, {"name": "announce", "any_of": ["TheNet:Announce\\s*\\("]}]}
+      ]
+    }
+  ]
+}

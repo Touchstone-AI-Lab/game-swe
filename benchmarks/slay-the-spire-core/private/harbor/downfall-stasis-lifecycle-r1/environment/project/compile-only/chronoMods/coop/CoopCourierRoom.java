@@ -1,0 +1,2 @@
+package chronoMods.coop;
+public class CoopCourierRoom extends com.megacrit.cardcrawl.rooms.AbstractRoom {public void onPlayerEntry(){throw new UnsupportedOperationException("Compile-only optional API");}}

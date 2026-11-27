@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="400" viewBox="0 0 800 400" role="img" aria-labelledby="title desc">
+  <title id="title">Generate, verify, then export a clean-room repair task</title>
+  <desc id="desc">Current authoring workflow: Kimi or Together generates new code, independent tests, and two to seven injected defects from historical behavior. The real game engine must reject the broken base and each single-defect control and pass the gold code. Then review and export the problem, base code, and gold patch. Missing runtimes require explicit preparation and resume.</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10" fill="none" stroke="#78716c" stroke-width="1.5"/></marker>
+  </defs>
+  <rect width="800" height="400" rx="20" fill="#f5f5f4"/>
+  <g font-family="Arial, Helvetica, sans-serif">
+    <text x="32" y="49" font-size="27" font-weight="600" fill="#292524">Generate. Verify. Export.</text>
+    <text x="768" y="47" text-anchor="end" font-size="14" letter-spacing="1.2" fill="#78716c">WORKFLOW OVERVIEW</text>
+    <rect x="24" y="80" width="230" height="244" rx="14" fill="#ffffff" stroke="#d6d3d1"/>
+    <rect x="285" y="80" width="230" height="244" rx="14" fill="#ffffff" stroke="#d6d3d1"/>
+    <rect x="546" y="80" width="230" height="244" rx="14" fill="#ffffff" stroke="#d6d3d1"/>
+    <path d="M260 199H277" stroke="#78716c" stroke-width="2" marker-end="url(#arrow)"/>
+    <path d="M521 199H538" stroke="#78716c" stroke-width="2" marker-end="url(#arrow)"/>
+    <g font-size="18" font-weight="600" fill="#7c3aed">
+      <text x="45" y="116">01 / KIMI · TOGETHER</text>
+      <text x="306" y="116">02 / GAME ENGINE</text>
+      <text x="567" y="116">03 / YOUR DATASET</text>
+    </g>
+    <g font-size="29" font-weight="600" fill="#292524">
+      <text x="45" y="164">Generate</text>
+      <text x="306" y="164">Verify</text>
+      <text x="567" y="164">Export</text>
+    </g>
+    <g font-size="21" fill="#57534e">
+      <text x="45" y="212">New code</text>
+      <text x="45" y="249">Independent tests</text>
+      <text x="45" y="286">Inject 2–7 bugs</text>
+      <text x="306" y="212">Base must fail</text>
+      <text x="306" y="249">Gold must pass</text>
+      <text x="306" y="286">Each defect: fail</text>
+      <text x="567" y="212">Problem statement</text>
+      <text x="567" y="249">Base code archive</text>
+      <text x="567" y="286">Gold patch</text>
+    </g>
+    <text x="400" y="365" text-anchor="middle" font-size="20" fill="#57534e">Missing runtime? Prepare it explicitly, then resume.</text>
+  </g>
+</svg>

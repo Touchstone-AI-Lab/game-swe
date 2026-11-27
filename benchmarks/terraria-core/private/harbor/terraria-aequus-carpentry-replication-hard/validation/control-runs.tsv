@@ -1,0 +1,7 @@
+control	expected	observed	status
+broken-starter	at-least-one-intended-failure	12/87 pass; failures cover all twelve persistence, identity, registry, validation, network, lifecycle, authority, clone, budget, reentrancy, and player-buff groups	pass
+oracle	all-cases-pass	87/87 pass	pass
+empty-submission	rejected-before-build	missing required production source	pass
+unrelated-readme-only	still-fails	behavior remains 12/87	pass
+public-smoke-broken	compiles	zero errors and warnings	pass
+public-smoke-oracle	compiles	zero errors and warnings	pass

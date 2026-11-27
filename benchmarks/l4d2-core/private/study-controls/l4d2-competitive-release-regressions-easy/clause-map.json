@@ -1,0 +1,339 @@
+{
+  "task": "left-4-dead-2/core/l4d2-competitive-release-regressions-easy",
+  "task_version": "1.0.0",
+  "exam": "benchmarks/l4d2-core/exams/l4d2-competitive-release-regressions-easy.md",
+  "cases": [
+    {
+      "id": "case:incap_runtime_plugin_loaded",
+      "role": "runtime-sentinel",
+      "clauses": [
+        "Task-preserve-metadata"
+      ],
+      "overlap": false,
+      "note": "Load sentinel that also compares myinfo name/author/version/url (suite_incap.sp:29-41)."
+    },
+    {
+      "id": "case:incap_empty_clip_leaves_reload_unblocked",
+      "role": "target",
+      "clauses": [
+        "CR-101.2"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:incap_loaded_clip_delays_secondary_attack",
+      "role": "preserved",
+      "clauses": [
+        "CR-101.1"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:incap_exit_releases_applied_delay",
+      "role": "preserved",
+      "clauses": [
+        "CR-101.3"
+      ],
+      "overlap": true,
+      "note": "Holds in the starter; also the lifecycle end of the delay-ownership rule that CR-101 asks for."
+    },
+    {
+      "id": "case:incap_non_survivor_is_unchanged",
+      "role": "preserved",
+      "clauses": [
+        "CR-101.4"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:incap_missing_active_weapon_is_safe",
+      "role": "preserved",
+      "clauses": [
+        "CR-101.4"
+      ],
+      "overlap": false,
+      "note": "Weak: only checks the fake client is still in game and the plugin is still loaded (suite_incap.sp:134-137); a SourceMod exception would instead fail the whole suite through verify.py:267-284."
+    },
+    {
+      "id": "case:attributes_runtime_dependencies_loaded",
+      "role": "runtime-sentinel",
+      "clauses": [
+        "Task-preserve-metadata"
+      ],
+      "overlap": false,
+      "note": "Also requires verifier-owned observers (forward handle, SDK call) to load."
+    },
+    {
+      "id": "case:attributes_outgoing_mode_changes_take_effect",
+      "role": "preserved",
+      "clauses": [
+        "CR-118.0",
+        "Task-preserve-commands"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:attributes_unload_restores_engine_values",
+      "role": "target",
+      "clauses": [
+        "CR-118.1"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:attributes_second_mode_sees_true_baseline",
+      "role": "target",
+      "clauses": [
+        "CR-118.2"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:attributes_manual_reset_command_remains_functional",
+      "role": "preserved",
+      "clauses": [
+        "CR-118.3",
+        "Task-preserve-commands"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:attributes_config_reload_behavior_is_preserved",
+      "role": "preserved",
+      "clauses": [
+        "CR-118.4"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:changelevel_runtime_plugin_loaded",
+      "role": "runtime-sentinel",
+      "clauses": [
+        "Task-preserve-metadata"
+      ],
+      "overlap": false,
+      "note": "Also requires the verifier-owned Director detour to load."
+    },
+    {
+      "id": "case:changelevel_unique_partial_reaches_full_map",
+      "role": "target",
+      "clauses": [
+        "CR-126.1"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:changelevel_second_unique_partial_reaches_full_map",
+      "role": "target",
+      "clauses": [
+        "CR-126.1"
+      ],
+      "overlap": false,
+      "note": "Reported as failed without being run when the first partial times out (suite_change_partial.sp:134-143)."
+    },
+    {
+      "id": "case:changelevel_director_receives_same_full_map",
+      "role": "target",
+      "clauses": [
+        "CR-126.2"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:changelevel_complete_name_still_works",
+      "role": "preserved",
+      "clauses": [
+        "CR-126.3"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:changelevel_director_work_is_preserved_for_complete_name",
+      "role": "preserved",
+      "clauses": [
+        "CR-126.3",
+        "Task-preserve-director"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:changelevel_invalid_name_is_not_rewritten",
+      "role": "preserved",
+      "clauses": [
+        "CR-126.4"
+      ],
+      "overlap": true,
+      "note": "Holds in the starter (nothing is resolved there) and is labelled guard in validation/case-contracts.tsv; it is equally the negative boundary of the requested resolution, hence overlap."
+    },
+    {
+      "id": "case:changelevel_partial_is_honored_while_transitioning",
+      "role": "target",
+      "clauses": [
+        "CR-126.5"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "check:submission-shape",
+      "role": "static",
+      "clauses": [
+        "Task-source-only"
+      ],
+      "overlap": false,
+      "note": ""
+    }
+  ],
+  "clauses": [
+    {
+      "id": "CR-101.1",
+      "anchor": "Reports [#CR-101] sentence 1: \"still prevents shove from suppressing primary fire when an incapacitated Survivor has ammunition\"",
+      "status": "asserted",
+      "note": "Existing loaded-clip behavior; holds in the starter."
+    },
+    {
+      "id": "CR-101.2",
+      "anchor": "Reports [#CR-101] sentence 3: \"Empty clips must leave that timestamp unchanged.\"",
+      "status": "asserted",
+      "note": "suite_incap.sp:79-81 checks m_flNextSecondaryAttack < now+0.10 after 0.2 s of real OnPlayerRunCmd dispatch."
+    },
+    {
+      "id": "CR-101.3",
+      "anchor": "Reports [#CR-101] sentence 4a: \"leaving incap must release that delay\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "CR-101.4",
+      "anchor": "Reports [#CR-101] sentence 4b: \"clients outside the Survivor/incap path must remain unaffected\"",
+      "status": "asserted",
+      "note": "Only the non-Survivor (team 3) half is exercised; a non-incapacitated Survivor that never owned a delay is not checked."
+    },
+    {
+      "id": "CR-118.0",
+      "anchor": "Reports [#CR-118] sentence 1: a matchmode can change ordinary gun/melee attributes and the plugin-managed tankdamagemult / reloaddurationmult",
+      "status": "asserted",
+      "note": "Descriptive clause about existing sm_weapon behavior; holds in the starter."
+    },
+    {
+      "id": "CR-118.1",
+      "anchor": "Reports [#CR-118] sentence 3: at LGO_OnMatchModeUnloaded \"all values owned by this plugin must be restored to the values saved before the outgoing mode\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "CR-118.2",
+      "anchor": "Reports [#CR-118] sentence 4: \"A second mode must therefore observe the real baseline\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "CR-118.3",
+      "anchor": "Reports [#CR-118] sentence 5a: \"Keep the existing manual reset command\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "CR-118.4",
+      "anchor": "Reports [#CR-118] sentence 5b: keep \"normal config-reload behavior\"",
+      "status": "asserted",
+      "note": "suite_attributes.sp:200-207 calls the plugin's OnConfigsExecuted directly."
+    },
+    {
+      "id": "CR-126.1",
+      "anchor": "Reports [#CR-126] sentence 2: \"Resolve a valid unique partial name to its full installed-map name before the engine processes the change (for example c1m2 to c1m2_streets)\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "CR-126.2",
+      "anchor": "Reports [#CR-126] sentence 2b: \"use that same full name for the existing Director transition work\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "CR-126.3",
+      "anchor": "Reports [#CR-126] sentence 3: \"Already complete names must keep working.\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "CR-126.4",
+      "anchor": "Reports [#CR-126] sentence 4: \"Invalid input must not be rewritten to an unrelated map.\"",
+      "status": "weak",
+      "note": "suite_change_invalid.sp:22-37 only checks that the server is still on c1m1_hotel two seconds after ForceChangeLevel(\"__gcb_no_such_map__\"); the argument that reached the engine is not observed."
+    },
+    {
+      "id": "CR-126.5",
+      "anchor": "Reports [#CR-126] sentence 5: \"Resolution must also be honored when the Director reports that a transition is already in progress.\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "Task-preserve-forwards",
+      "anchor": "Task paragraph 1: preserve \"the existing event/forward integration\"",
+      "status": "unasserted",
+      "note": "No case observes an existing event hook or forward of the three plugins; the only forward exercised is the new LGO_OnMatchModeUnloaded target."
+    },
+    {
+      "id": "Task-preserve-commands",
+      "anchor": "Task paragraph 1: preserve \"commands\"",
+      "status": "asserted",
+      "note": "sm_weapon and sm_weapon_attributes_reset are driven by the attribute suite; sm_weaponstats / sm_weapon_attributes are not."
+    },
+    {
+      "id": "Task-preserve-director",
+      "anchor": "Task paragraph 1: preserve \"Director reset work\"",
+      "status": "weak",
+      "note": "Only the CTerrorGameRules::OnBeginChangeLevel call is observed (suite_change_full.sp:48-54); ClearTeamScores, the map-duration timer, SetOriginalMap and landmark clearing are not."
+    },
+    {
+      "id": "Task-preserve-metadata",
+      "anchor": "Task paragraph 1: preserve \"plugin metadata\"",
+      "status": "asserted",
+      "note": "Checked inside the three *_loaded sentinel cases (name/author/version, url for two plugins)."
+    },
+    {
+      "id": "Task-preserve-gpl",
+      "anchor": "Task paragraph 1: preserve \"GPL attribution\"",
+      "status": "unasserted",
+      "note": "verify.py:135-137 requires LICENSE to contain \"GNU GENERAL PUBLIC LICENSE\". Enforced only by a verify.py package gate that runs before any case; it has no named case, and a violation aborts verification with every case unobserved instead of failing one. check:submission-shape (plugin evaluator.py:176-205) covers only required files, symlinks, .git and forbidden suffixes."
+    },
+    {
+      "id": "Task-source-only",
+      "anchor": "Task paragraph 2: \"Keep the submission source-only. Do not add .smx files, native libraries, archives, symbolic links, Git metadata or vendored game files.\"",
+      "status": "asserted",
+      "note": "verify.py:104-131."
+    },
+    {
+      "id": "Task-no-tests-edit",
+      "anchor": "Task paragraph 2: \"Do not modify anything under /tests.\"",
+      "status": "unasserted",
+      "note": "Process rule; /tests is not part of the submitted tree, so nothing in the result can measure it."
+    }
+  ],
+  "excluded_clauses": [
+    "Task-preserve-forwards",
+    "Task-preserve-gpl",
+    "Task-no-tests-edit"
+  ],
+  "known_issues": [
+    "benchmarks/l4d2-core/private/harbor/l4d2-competitive-release-regressions-easy/tests/verify.py:267-284: a suite is all-or-nothing. Any \"[SM] Exception reported\", \"Native is not bound\" or \"Plugin ... failed to load\" line in the server log, a missing FINAL marker or a duplicate case turns EVERY case of that suite into a failure, including preserved guards and the load sentinel. A target defect that throws therefore also fails preserved cases of the same suite; read per-case outcomes of a failing suite with that in mind.",
+    "benchmarks/l4d2-core/private/harbor/l4d2-competitive-release-regressions-easy/tests/suite_change_partial.sp:134-143: when the first partial name times out, the second-partial and Director cases are emitted as FAIL without having been exercised (dependent cases, not independent evidence).",
+    "benchmarks/l4d2-core/private/harbor/l4d2-competitive-release-regressions-easy/tests/suite_change_transition.sp:41-42 reads CDirector::m_isTransitioning from the SUBMITTED gamedata file l4d2_fix_changelevel.txt (verify.py:181-182 copies it from the submission). A valid repair that renames or restructures that gamedata key fails changelevel_partial_is_honored_while_transitioning for a reason unrelated to the public contract.",
+    "benchmarks/l4d2-core/private/harbor/l4d2-competitive-release-regressions-easy/tests/suite_incap.sp:36-41, suite_attributes.sp:36-45, suite_change_partial.sp:36-46: the load sentinels compare exact myinfo strings, so a submission that bumps a plugin version string fails a sentinel although only \"plugin metadata\" preservation is stated publicly (no explicit ban on a version bump).",
+    "The maintainer NOTES.md records that upstream's own repair (GetMapDisplayName) does not resolve c1m2 on the pinned Linux runtime; only FindMap-based resolution is known to satisfy CR-126 here. This narrows the space of accepted implementations but follows from engine behavior, not from an assertion."
+  ]
+}

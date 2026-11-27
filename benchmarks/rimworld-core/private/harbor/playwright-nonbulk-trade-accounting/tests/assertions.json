@@ -1,0 +1,222 @@
+{
+  "schemaVersion": 3,
+  "protocol": "rhenium-rimworld-private-v3",
+  "adapter": "rhenium-rimworld-observer-v3",
+  "taskKey": "rimworld/core/playwright-nonbulk-trade-accounting",
+  "weights": {
+    "submissionShape": 10,
+    "engineAssertions": 90
+  },
+  "cases": [
+    {
+      "id": "runtime-defs-ready",
+      "fixture": "RuntimeDefsReady",
+      "gate": true,
+      "scalars": [],
+      "expected": {
+        "facts": [
+          {
+            "name": "result",
+            "value": "ready"
+          }
+        ],
+        "outputs": []
+      }
+    },
+    {
+      "id": "nonbulk-sale-captured",
+      "fixture": "NonbulkSaleCaptured",
+      "gate": false,
+      "scalars": [],
+      "expected": {
+        "facts": [
+          {
+            "name": "result",
+            "value": "RheniumTradeGood:3"
+          }
+        ],
+        "outputs": []
+      }
+    },
+    {
+      "id": "nonbulk-sale-counted",
+      "fixture": "NonbulkSaleCounted",
+      "gate": false,
+      "scalars": [],
+      "expected": {
+        "facts": [
+          {
+            "name": "result",
+            "value": "1:1"
+          }
+        ],
+        "outputs": []
+      }
+    },
+    {
+      "id": "bulk-sale-counted",
+      "fixture": "BulkSaleCounted",
+      "gate": false,
+      "scalars": [],
+      "expected": {
+        "facts": [
+          {
+            "name": "result",
+            "value": "12:1"
+          }
+        ],
+        "outputs": []
+      }
+    },
+    {
+      "id": "multiple-scenparts-notified",
+      "fixture": "MultipleScenpartsNotified",
+      "gate": false,
+      "scalars": [],
+      "expected": {
+        "facts": [
+          {
+            "name": "result",
+            "value": "1:1"
+          }
+        ],
+        "outputs": []
+      }
+    },
+    {
+      "id": "faction-part-notified",
+      "fixture": "FactionPartNotified",
+      "gate": false,
+      "scalars": [],
+      "expected": {
+        "facts": [
+          {
+            "name": "result",
+            "value": "1:RheniumTradeFaction"
+          }
+        ],
+        "outputs": []
+      }
+    },
+    {
+      "id": "null-faction-skipped",
+      "fixture": "NullFactionSkipped",
+      "gate": false,
+      "scalars": [],
+      "expected": {
+        "facts": [
+          {
+            "name": "result",
+            "value": "0"
+          }
+        ],
+        "outputs": []
+      }
+    },
+    {
+      "id": "purchase-not-counted",
+      "fixture": "PurchaseNotCounted",
+      "gate": false,
+      "scalars": [],
+      "expected": {
+        "facts": [
+          {
+            "name": "result",
+            "value": "null-def"
+          }
+        ],
+        "outputs": []
+      }
+    },
+    {
+      "id": "zero-transfer-not-counted",
+      "fixture": "ZeroTransferNotCounted",
+      "gate": false,
+      "scalars": [],
+      "expected": {
+        "facts": [
+          {
+            "name": "result",
+            "value": "0"
+          }
+        ],
+        "outputs": []
+      }
+    },
+    {
+      "id": "empty-tradeable-not-counted",
+      "fixture": "EmptyTradeableNotCounted",
+      "gate": false,
+      "scalars": [],
+      "expected": {
+        "facts": [
+          {
+            "name": "result",
+            "value": "0"
+          }
+        ],
+        "outputs": []
+      }
+    },
+    {
+      "id": "missing-scenario-not-counted",
+      "fixture": "MissingScenarioNotCounted",
+      "gate": false,
+      "scalars": [],
+      "expected": {
+        "facts": [
+          {
+            "name": "result",
+            "value": "True"
+          }
+        ],
+        "outputs": []
+      }
+    },
+    {
+      "id": "definition-preserved-after-resolve",
+      "fixture": "DefinitionPreservedAfterResolve",
+      "gate": false,
+      "scalars": [],
+      "expected": {
+        "facts": [
+          {
+            "name": "result",
+            "value": "RheniumTradeGood:3"
+          }
+        ],
+        "outputs": []
+      }
+    },
+    {
+      "id": "single-notification",
+      "fixture": "SingleNotification",
+      "gate": false,
+      "scalars": [],
+      "expected": {
+        "facts": [
+          {
+            "name": "result",
+            "value": "1"
+          }
+        ],
+        "outputs": []
+      }
+    },
+    {
+      "id": "fixture-state-restored",
+      "fixture": "FixtureStateRestored",
+      "gate": true,
+      "scalars": [],
+      "expected": {
+        "facts": [
+          {
+            "name": "result",
+            "value": "restored"
+          }
+        ],
+        "outputs": []
+      }
+    }
+  ]
+}

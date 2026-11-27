@@ -1,0 +1,12 @@
+diff --git a/main.lua b/main.lua
+--- a/main.lua
++++ b/main.lua
+@@ -5432,7 +5432,7 @@
+ Exodus:AddCallback(ModCallbacks.MC_POST_UPDATE, Exodus.paperCutCostume)
+ 
+ function Exodus:paperCutCardUse()
+-    local player = Isaac.GetPlayer(0)
++    local player = Isaac.GetPlayer()
+     
+     if player:HasCollectible(ItemId.PAPER_CUT) then
+         for i, entity in pairs(Isaac.GetRoomEntities()) do

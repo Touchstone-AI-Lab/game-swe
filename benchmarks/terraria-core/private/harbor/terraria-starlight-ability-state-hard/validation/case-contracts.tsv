@@ -1,0 +1,85 @@
+case	group	prompt_clause	production_path
+save_sorts_unique_shards	persistence-save	Save unique ascending shard IDs	Content/Abilities/AbilityHandler.cs
+save_sorts_unique_ability_names	persistence-save	Save unique ordinal ability names	Content/Abilities/AbilityHandler.cs
+save_preserves_sparse_infusion_slots	persistence-save	Save all three physical infusion positions	Content/Abilities/AbilityHandler.cs
+save_uses_independent_item_snapshots	persistence-save	Saved items do not alias live items	Content/Abilities/AbilityHandler.cs
+load_skips_unknown_ability_and_continues	transactional-load	Ignore unknown ability and continue	Content/Abilities/AbilityHandler.cs
+load_accepts_legacy_compact_infusions	transactional-load	Legacy compact infusion lists remain readable	Content/Abilities/AbilityHandler.cs
+load_preserves_positional_infusion_gaps	transactional-load	Air placeholders retain infusion gaps	Content/Abilities/AbilityHandler.cs
+load_defaults_missing_infusion_limit	transactional-load	Missing infusion limit defaults to one	Content/Abilities/AbilityHandler.cs
+load_negative_shard_rolls_back	transactional-load	Negative shard rejects whole load	Content/Abilities/AbilityHandler.cs
+load_excessive_shards_rolls_back	transactional-load	Shard count is bounded transactionally	Content/Abilities/AbilityHandler.cs
+load_excessive_abilities_rolls_back	transactional-load	Ability count is bounded transactionally	Content/Abilities/AbilityHandler.cs
+load_throwing_ability_rolls_back	transactional-load	Constructor failure preserves live state	Content/Abilities/AbilityHandler.cs
+load_locked_slot_rolls_back	transactional-load	Infusion in locked slot rejects whole load	Content/Abilities/AbilityHandler.cs
+load_duplicate_infusion_rolls_back	transactional-load	Duplicate infusion family rejects whole load	Content/Abilities/AbilityHandler.cs
+load_bad_item_rolls_back	transactional-load	Bad item clone preserves live state	Content/Abilities/AbilityHandler.cs
+infusion_rejects_negative_slot	infusion-transactions	Negative physical slot is rejected	Content/Abilities/AbilityHandler.cs
+infusion_rejects_high_slot	infusion-transactions	Physical slot above two is rejected	Content/Abilities/AbilityHandler.cs
+infusion_rejects_locked_slot	infusion-transactions	Install requires unlocked slot	Content/Abilities/AbilityHandler.cs
+infusion_removal_clears_slot	infusion-transactions	Null removes from any physical slot	Content/Abilities/AbilityHandler.cs
+infusion_replaces_same_slot_when_full	infusion-transactions	Same-slot replacement works at capacity	Content/Abilities/AbilityHandler.cs
+infusion_rejects_duplicate_ability_family	infusion-transactions	Duplicate ability family is rejected	Content/Abilities/AbilityHandler.cs
+infusion_rejects_unequippable_item	infusion-transactions	Unequippable infusion is rejected	Content/Abilities/AbilityHandler.cs
+infusion_install_clones_and_sets_owner	infusion-transactions	Install clones and assigns destination owner	Content/Abilities/AbilityHandler.cs
+infusion_clone_failure_rolls_back	infusion-transactions	Clone failure leaves old slot unchanged	Content/Abilities/AbilityHandler.cs
+clone_has_independent_shards	clone-isolation	Clone shard storage is independent	Content/Abilities/AbilityHandler.cs
+clone_has_independent_ability_instances	clone-isolation	Clone abilities are independent and re-owned	Content/Abilities/AbilityHandler.cs
+clone_has_independent_positional_infusions	clone-isolation	Clone infusion items retain slots and owner	Content/Abilities/AbilityHandler.cs
+clone_maps_active_ability_without_hooks	clone-isolation	Active identity maps without hooks or cost	Content/Abilities/AbilityHandler.cs
+client_state_copy_is_deep	clone-isolation	Client state copy is complete and independent	Content/Abilities/AbilityHandler.cs
+activation_is_queued_until_preupdate	transition-state-machine	Activation commits during PreUpdate	Content/Abilities/Ability.cs; Content/Abilities/AbilityHandler.cs
+activation_hooks_and_cost_run_once	transition-state-machine	Activation hooks and cost run once	Content/Abilities/AbilityHandler.cs
+duplicate_pending_activation_is_ignored	transition-state-machine	Duplicate pending activation is a no-op	Content/Abilities/Ability.cs; Content/Abilities/AbilityHandler.cs
+deactivation_hooks_run_once_in_order	transition-state-machine	Deactivate precedes one delayed exit/reset	Content/Abilities/Ability.cs; Content/Abilities/AbilityHandler.cs
+cancelled_pending_activation_has_no_effect	transition-state-machine	Cancelling pending activation has no effects	Content/Abilities/AbilityHandler.cs
+insufficient_stamina_rejects_activation	transition-state-machine	Insufficient stamina rejects without packets	Content/Abilities/Ability.cs; Content/Abilities/AbilityHandler.cs
+negative_cost_rejects_activation	transition-state-machine	Negative cost cannot subsidize activation	Content/Abilities/AbilityHandler.cs
+nonfinite_cost_rejects_activation	transition-state-machine	Nonfinite cost cannot corrupt stamina	Content/Abilities/AbilityHandler.cs
+activation_bonus_is_consumed_once	transition-state-machine	Activation bonus affects one cost then clears	Content/Abilities/AbilityHandler.cs
+activation_hook_observes_committed_state	hook-transactions	OnActivate observes itself as the committed active instance	Content/Abilities/AbilityHandler.cs
+activation_hook_failure_rolls_back	hook-transactions	Throwing OnActivate restores stamina bonus and inactive state then cleans once	Content/Abilities/AbilityHandler.cs
+failed_activation_discards_reentrant_request	hook-transactions	Failed activation discards transitions requested from its callback	Content/Abilities/AbilityHandler.cs
+deactivation_hook_failure_still_cleans_up	hook-transactions	Throwing OnDeactivate is logged and cannot block one exit/reset	Content/Abilities/AbilityHandler.cs
+exit_and_reset_failures_do_not_repeat	hook-transactions	Throwing exit and reset hooks are isolated and retirement still completes once	Content/Abilities/AbilityHandler.cs
+exit_reentrant_activation_waits_next_tick	hook-transactions	Activation requested by retirement cleanup is deferred to the next tick	Content/Abilities/AbilityHandler.cs
+death_discards_cleanup_reentrant_activation	hook-transactions	Death discards activation requests raised by teardown hooks	Content/Abilities/AbilityHandler.cs
+fixed_snapshot_defers_new_unlock	callback-snapshots	Abilities added by UpdateFixed wait until the next tick snapshot	Content/Abilities/AbilityHandler.cs
+fixed_snapshot_skips_removed_instance	callback-snapshots	Abilities removed by an earlier fixed callback are skipped	Content/Abilities/AbilityHandler.cs
+fixed_failure_does_not_skip_later_instance	callback-snapshots	A throwing fixed callback is logged and later snapshot entries still run	Content/Abilities/AbilityHandler.cs
+fixed_mutation_retires_before_active_update	callback-snapshots	Fixed-callback ownership loss retires active state before its active update	Content/Abilities/AbilityHandler.cs
+active_update_failure_retires_immediately	callback-snapshots	A throwing active update is logged and retires the ability immediately once	Content/Abilities/AbilityHandler.cs
+active_deactivation_suppresses_effects_and_controls	callback-snapshots	Deactivation during active update suppresses later effects and controls that tick	Content/Abilities/AbilityHandler.cs
+visual_effect_failure_preserves_active_state	callback-snapshots	Client visual failure is logged without ending gameplay state or controls	Content/Abilities/AbilityHandler.cs
+draw_snapshot_isolates_mutation_and_failure	callback-snapshots	Draw callbacks use an ownership-checked snapshot and isolate failures	Content/Abilities/AbilityHandler.cs
+lock_cancels_uncommitted_activation	ownership-reconciliation	Lock invalidates pending exact instance before activation/cost	Content/Abilities/AbilityHandler.cs
+lock_retires_active_once	ownership-reconciliation	Lock retires orphaned active instance before updates once	Content/Abilities/AbilityHandler.cs
+load_retires_replaced_active_instance	ownership-reconciliation	Successful load replaces exact instance and retires old active	Content/Abilities/AbilityHandler.cs
+infusion_removal_cancels_pending_instance	ownership-reconciliation	Removed infusion cancels pending activation without hooks/cost	Content/Abilities/AbilityHandler.cs
+infusion_replacement_retires_active_instance	ownership-reconciliation	Infusion replacement retires old active instance once	Content/Abilities/AbilityHandler.cs
+progress_replacement_retires_active_instance	ownership-reconciliation	Accepted progress replacement retires old active instance	Content/Abilities/AbilityHandler.cs;Content/Packets/AbilityProgress.cs
+death_retires_active_immediately	death-transition-lifecycle	Death immediately runs active deactivate exit reset	Content/Abilities/AbilityHandler.cs
+death_cancels_pending_start_without_cost	death-transition-lifecycle	Death cancels queued start without hooks cost or packet	Content/Abilities/AbilityHandler.cs
+death_finishes_prior_deactivation_once	death-transition-lifecycle	Death finishes queued exit without duplicate deactivate	Content/Abilities/AbilityHandler.cs
+repeated_dead_ticks_do_not_repeat_hooks	death-transition-lifecycle	Repeated dead ticks are idempotent	Content/Abilities/AbilityHandler.cs
+respawn_requires_fresh_activation	death-transition-lifecycle	Respawn does not replay old start and permits new one	Content/Abilities/AbilityHandler.cs
+death_of_clone_does_not_retire_source	death-transition-lifecycle	Copied handler death does not affect source	Content/Abilities/AbilityHandler.cs
+progress_snapshot_is_sorted_and_complete	progress-authority	Progress snapshot is canonical with three bits	Content/Packets/AbilityProgress.cs
+progress_receive_replaces_managed_state	progress-authority	Progress replaces shards and managed unlocks	Content/Packets/AbilityProgress.cs; Content/Abilities/AbilityHandler.cs
+progress_receive_preserves_custom_unlocks	progress-authority	Progress preserves unmanaged ability types	Content/Abilities/AbilityHandler.cs
+progress_server_rejects_spoofed_sender	progress-authority	Server requires Sender to equal fromWho	Content/Packets/AbilityProgress.cs
+progress_rejects_invalid_player	progress-authority	Invalid player index is rejected safely	Content/Packets/AbilityProgress.cs
+progress_rejects_duplicate_shards	progress-authority	Duplicate shard frame is rejected	Content/Packets/AbilityProgress.cs
+progress_rejects_negative_shard	progress-authority	Negative network shard is rejected	Content/Packets/AbilityProgress.cs
+progress_rejects_excessive_shards	progress-authority	Network shard count is bounded	Content/Packets/AbilityProgress.cs
+progress_rejects_reserved_mask_bits	progress-authority	Reserved unlock mask bits are rejected	Content/Packets/AbilityProgress.cs
+progress_server_relays_valid_frame	progress-authority	Valid server frame relays excluding Sender	Content/Packets/AbilityProgress.cs
+start_server_queues_valid_unlocked_ability	start-authority	Valid authoritative start queues then commits	Content/Packets/StartAbility.cs
+start_server_rejects_spoofed_sender	start-authority	Server start validates sender identity	Content/Packets/StartAbility.cs
+start_rejects_invalid_player	start-authority	Invalid start player is rejected safely	Content/Packets/StartAbility.cs
+start_rejects_unknown_type	start-authority	Unknown ability name is rejected	Content/Packets/StartAbility.cs
+start_rejects_nonability_type	start-authority	Resolved non-ability type is rejected	Content/Packets/StartAbility.cs
+start_rejects_locked_ability	start-authority	Locked ability cannot start	Content/Packets/StartAbility.cs
+start_rejects_insufficient_stamina	start-authority	Unavailable ability cannot start or relay	Content/Packets/StartAbility.cs
+start_duplicate_does_not_charge_or_relay_twice	start-authority	Duplicate start cannot charge or relay twice	Content/Packets/StartAbility.cs
+start_client_applies_without_relay	start-authority	Client applies accepted start without relay	Content/Packets/StartAbility.cs

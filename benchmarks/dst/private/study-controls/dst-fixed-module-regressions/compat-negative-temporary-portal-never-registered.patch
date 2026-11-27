@@ -1,0 +1,10 @@
+--- a/scripts/prefabs/townportal_invisible.lua
++++ b/scripts/prefabs/townportal_invisible.lua
+@@ -44,7 +44,6 @@
+ 	-- inst.AnimState:PlayAnimation("turn_on")
+ 	-- inst.AnimState:PushAnimation("idle_on_loop")
+ 	StartSoundLoop(inst)
+-	TheWorld:PushEvent("townportalactivated", inst)
+ 
+ 	inst.MiniMapEntity:SetIcon("townportalactive.png")
+ 	inst.MiniMapEntity:SetPriority(20)

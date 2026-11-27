@@ -1,0 +1,12 @@
+diff -ruN a/scripts/components/statuseffects.lua b/scripts/components/statuseffects.lua
+--- a/scripts/components/statuseffects.lua	2026-09-22 01:00:31.550230924 +0800
++++ b/scripts/components/statuseffects.lua	2026-09-22 01:14:27.029276393 +0800
+@@ -162,7 +162,7 @@
+     if not TheWorld.ismastersim then
+         return { ok = false, code = "not_authoritative" }
+     end
+-    if type(tag) ~= "string" or not CLEANSE_TAGS[tag] then
++    if type(tag) ~= "string" then
+         return { ok = false, code = "forbidden_tag" }
+     end
+     local userid = type(player) == "table" and player.userid or nil

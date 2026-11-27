@@ -1,0 +1,48 @@
+#!/usr/bin/env bash
+# Trusted runner rendered by rhenium-author from the structured case IDs of one
+# clean-room Minecraft task. Only the expected case names vary; the verification
+# flow below is the reviewed minecraft-core harness runner, which delegates to the
+# trusted verify.py baked into the verifier image next to the frozen task.json.
+set -uo pipefail
+
+EXPECTED=__EXPECTED_COUNT__
+declare -a EXPECTED_CASES=(
+__EXPECTED_NAMES__
+)
+[ "${#EXPECTED_CASES[@]}" -eq "$EXPECTED" ] || exit 1
+
+LOG_ROOT="${LOGS_DIR:-/logs}/verifier"
+mkdir -p "$LOG_ROOT"
+export GCB_LOGS="$LOG_ROOT"
+printf '0\n' > "$LOG_ROOT/reward.txt"
+
+# The frozen case set in task.json must be exactly the rendered names, so the
+# verifier can only ever audit the suite the catalog declares.
+EXPECTED="$EXPECTED" python3 - "${EXPECTED_CASES[@]}" <<'PY' || exit 1
+import json
+import os
+import sys
+
+names = sys.argv[1:]
+with open("/tests/task.json", encoding="utf-8") as stream:
+    task = json.load(stream)
+build = task.get("build") if isinstance(task.get("build"), dict) else {}
+if (
+    len(names) != int(os.environ["EXPECTED"])
+    or len(set(names)) != len(names)
+    or task.get("serverCases") != names
+    or task.get("unitCases") != []
+    or build.get("tool") != "javac"
+):
+    raise SystemExit("task.json does not declare the rendered clean-room case set")
+PY
+
+python3 /tests/verify.py 2>&1 | tee "$LOG_ROOT/verifier.log"
+status=${PIPESTATUS[0]}
+
+# verify.py writes the reward itself; a crash before that point fails closed.
+if [ ! -s "$LOG_ROOT/reward.txt" ]; then
+  echo 0 > "$LOG_ROOT/reward.txt"
+fi
+echo "verifier_exit=$status reward=$(cat "$LOG_ROOT/reward.txt")"
+exit 0

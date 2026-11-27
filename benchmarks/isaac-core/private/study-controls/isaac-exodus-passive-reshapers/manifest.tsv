@@ -1,0 +1,5 @@
+control	kind	base	overlay	root	note
+target-negative-ex226	target-negative	reference	patch:target-negative-ex226.patch	exodus	reference with the two EX-226 Grid Worm hunks of the composite gold.patch (10, 11) reverted; every other report stays repaired (same file as the composite task's control)
+compat-negative-broken-glasses-floor-reset	compat-negative	reference	patch:compat-negative-broken-glasses-floor-reset.patch	exodus	reference without the Broken Glasses reset in trinketNewFloor; the broken-world effect survives the floor change, against EX-251's own 'reset there' (same file as the composite task's control)
+alternative	alternative	starter	patch:alternative.patch	exodus	starter plus the composite task's independent alternative repairs of EX-226, EX-239, EX-251, EX-258 only (its hunks 7, 8, 9, 10, 19); written differently from gold.patch, see NOTES.md
+alternative-strict-reading	alternative	starter	patch:alternative-strict-reading.patch	exodus	same as alternative except the EX-226 rebound is a one-reversal-per-impact debounce without moving the tear; expected to be rejected by grid_worm_bounce only

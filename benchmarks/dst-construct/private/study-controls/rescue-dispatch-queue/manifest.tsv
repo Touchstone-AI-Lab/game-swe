@@ -1,0 +1,4 @@
+control	kind	base	overlay	root	note
+target-negative-expiry-boundary	target-negative	reference	patch:target-negative-expiry-boundary.patch	.	lease expiry uses now > expires_at, so a lease is still live exactly at its boundary
+alternative-a	alternative	starter	tree:alternative-a	.	closure-based dispatcher with a single ticket list; OnSave/OnLoad additionally tolerate a receiver-less call
+alternative-b	alternative	starter	tree:alternative-b	.	alternative-a with plain class-method OnSave/OnLoad; accepted since the server suite calls them with a receiver

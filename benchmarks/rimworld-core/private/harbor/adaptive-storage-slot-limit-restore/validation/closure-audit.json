@@ -1,0 +1,1210 @@
+{
+  "schemaVersion": 1,
+  "sourceCommit": "31ee88b46651cfbe37da3f89620bc0b907165cc0",
+  "sourceClosed": false,
+  "compileValidated": true,
+  "engineValidated": false,
+  "sourceFiles": [
+    {
+      "path": "Source/AdaptiveStorage/AdaptiveStorageFrameworkMod.cs",
+      "sha256": "1fae967684ffe204f718ed679ef7c2b8b2130971d31bad808567a8599cb9c49e",
+      "declaredLicense": "MIT",
+      "includedInPack": true
+    },
+    {
+      "path": "Source/AdaptiveStorage/AdaptiveStorageFrameworkSettings.cs",
+      "sha256": "41a52ba0bd65354b301112bf22669ed93ace14741525246de2665b49da68aa03",
+      "declaredLicense": "MIT",
+      "includedInPack": true
+    },
+    {
+      "path": "Source/AdaptiveStorage/AllowedRequirement.cs",
+      "sha256": "d2ac6cc7558ed05b64de58d7bb4cac1687e0cc096daa75b8610744987839233e",
+      "declaredLicense": "MIT",
+      "includedInPack": true
+    },
+    {
+      "path": "Source/AdaptiveStorage/BackCompatibility/CodeInstructionEx.cs",
+      "sha256": "3b479981fc534c9da613ff4ec1fd9ae406a99878bea7895c78ac881200206303",
+      "declaredLicense": "MIT",
+      "includedInPack": true
+    },
+    {
+      "path": "Source/AdaptiveStorage/BackCompatibility/DrawPhase.cs",
+      "sha256": "149638caad369ee45f2e5acf63eef0a0382e6cbf1f00a1443c9a48f730cba99a",
+      "declaredLicense": "MIT",
+      "includedInPack": true
+    },
+    {
+      "path": "Source/AdaptiveStorage/BackCompatibility/GenEx.cs",
+      "sha256": "c3494a5d5eab9bdde4857f563f5d757824ffec78b89e011276d84e99a0d4c134",
+      "declaredLicense": "MIT",
+      "includedInPack": true
+    },
+    {
+      "path": "Source/AdaptiveStorage/BackCompatibility/StatModifierQuality.cs",
+      "sha256": "06d6013174b0fbfe8ef7c13b3818dfdde54bd02f86f625d8edfeec18762744c7",
+      "declaredLicense": "MIT",
+      "includedInPack": true
+    },
+    {
+      "path": "Source/AdaptiveStorage/BackCompatibility/StatUtilityEx.cs",
+      "sha256": "2a32b4bfc69ca5644b9ecf815d186bcedf6013179ecaa79a0724c90ca4eddf93",
+      "declaredLicense": "MIT",
+      "includedInPack": true
+    },
+    {
+      "path": "Source/AdaptiveStorage/Blueprint.cs",
+      "sha256": "7104168e2d36df809ce3aa235033f1ce906b23f27b6ca802a5da14e63edc34d1",
+      "declaredLicense": "MIT",
+      "includedInPack": true
+    },
+    {
+      "path": "Source/AdaptiveStorage/ContentColorExtensions.cs",
+      "sha256": "43dbaef3e426be48e634687fb83aef6258e191eb554db9afea844f04d745bd73",
+      "declaredLicense": "MIT",
+      "includedInPack": true
+    },
+    {
+      "path": "Source/AdaptiveStorage/ContentColorSource.cs",
+      "sha256": "c39a445d39715d96c18304fd4c69f84b2ba6043075810af8984f32a17104b6c4",
+      "declaredLicense": "MIT",
+      "includedInPack": true
+    },
+    {
+      "path": "Source/AdaptiveStorage/ContentLabelStyleDef.cs",
+      "sha256": "a73d3a3d942b74c03859d4a725fdc33c9762c2f66fe7446e8b4f42a2fd783496",
+      "declaredLicense": "MIT",
+      "includedInPack": true
+    },
+    {
+      "path": "Source/AdaptiveStorage/ContentLabelStyleDefOf.cs",
+      "sha256": "f17cbd27a9998e0eafbacda91d3337e0d6f0865b662bb2243a4462b7481fe93d",
+      "declaredLicense": "MIT",
+      "includedInPack": true
+    },
+    {
+      "path": "Source/AdaptiveStorage/ContentLabelWorker.cs",
+      "sha256": "738fff2ea460f37601a8c7065ed08c6f25548b963c4d8c1962eac0e98abbfa6d",
+      "declaredLicense": "MIT",
+      "includedInPack": true
+    },
+    {
+      "path": "Source/AdaptiveStorage/ContentsITab.cs",
+      "sha256": "7e8032d7c05b9cb80b886e362524c45b0ae04f04126497bdcb03def6442c7c4b",
+      "declaredLicense": "MIT",
+      "includedInPack": true
+    },
+    {
+      "path": "Source/AdaptiveStorage/DefEditorWindow.cs",
+      "sha256": "9082520d7cf6640c09bb9287c090aecf96f09a6155f1fa041d236231fca605fc",
+      "declaredLicense": "MIT",
+      "includedInPack": true
+    },
+    {
+      "path": "Source/AdaptiveStorage/Extension.cs",
+      "sha256": "94b09d12460dcbb3723f4c80d6efbfd2021ae320dddae75deed2a14afacb337c",
+      "declaredLicense": "MIT",
+      "includedInPack": true
+    },
+    {
+      "path": "Source/AdaptiveStorage/Fishery/CollectionExtensions.cs",
+      "sha256": "9a6a50093055ecfd8f8f0a7240ab3cad4d5e2b9024ad42b1480a3a8a9fe2d57f",
+      "declaredLicense": "MPL-2.0",
+      "includedInPack": true
+    },
+    {
+      "path": "Source/AdaptiveStorage/Fishery/Collections/FishSet.Debug.cs",
+      "sha256": "51606a960841602c61b640226c180f9acf0735263081dc6f3fbb659649ab51a7",
+      "declaredLicense": "MPL-2.0",
+      "includedInPack": true
+    },
+    {
+      "path": "Source/AdaptiveStorage/Fishery/Collections/FishSet.Enumerator.cs",
+      "sha256": "621dee91a7a16ea92993f21da5fd7cdc668b74bbeff7a24cc7e4f40eaa0be4c4",
+      "declaredLicense": "MPL-2.0",
+      "includedInPack": true
+    },
+    {
+      "path": "Source/AdaptiveStorage/Fishery/Collections/FishSet.ThrowHelper.cs",
+      "sha256": "e96db0c69061a55d907dc13b98560113fb882fc62867c7ed06812433407d0a49",
+      "declaredLicense": "MPL-2.0",
+      "includedInPack": true
+    },
+    {
+      "path": "Source/AdaptiveStorage/Fishery/Collections/FishSet.cs",
+      "sha256": "664df5ed6cea8dd5a5ed31606b697dc11f32dadae36f0cba59584a61ffc39b9d",
+      "declaredLicense": "MPL-2.0",
+      "includedInPack": true
+    },
+    {
+      "path": "Source/AdaptiveStorage/Fishery/Collections/IntFishTable.Debug.cs",
+      "sha256": "337a17d7e753c04ac6329b48f24f8fe4c4ecd2d8f5c38d80328a82e16466d37c",
+      "declaredLicense": "MPL-2.0",
+      "includedInPack": true
+    },
+    {
+      "path": "Source/AdaptiveStorage/Fishery/Collections/IntFishTable.Entry.cs",
+      "sha256": "f0f5914a15691a8aec0f354bf51b94f359a27428b2b739efee1cac1a6458d088",
+      "declaredLicense": "MPL-2.0",
+      "includedInPack": true
+    },
+    {
+      "path": "Source/AdaptiveStorage/Fishery/Collections/IntFishTable.Enumerator.cs",
+      "sha256": "3f837a445032ec3e9966c731b4689e6e0744fd6ff17bb254d4f835541ae764f1",
+      "declaredLicense": "MPL-2.0",
+      "includedInPack": true
+    },
+    {
+      "path": "Source/AdaptiveStorage/Fishery/Collections/IntFishTable.KeyCollection.cs",
+      "sha256": "55be22d9b790c19486c097995f9cb1c8ab5cb0242ee07036311013dd174e59b3",
+      "declaredLicense": "MPL-2.0",
+      "includedInPack": true
+    },
+    {
+      "path": "Source/AdaptiveStorage/Fishery/Collections/IntFishTable.ThrowHelper.cs",
+      "sha256": "b48d7bebcc4bb86671e31dcd65354e9a2053eae5f6fb34c51bc50cc87bbd4af9",
+      "declaredLicense": "MPL-2.0",
+      "includedInPack": true
+    },
+    {
+      "path": "Source/AdaptiveStorage/Fishery/Collections/IntFishTable.ValueCollection.cs",
+      "sha256": "1765e3141b169d183b44995936b6611790c51a1469dbfbb2cbe38209bfa89922",
+      "declaredLicense": "MPL-2.0",
+      "includedInPack": true
+    },
+    {
+      "path": "Source/AdaptiveStorage/Fishery/Collections/IntFishTable.cs",
+      "sha256": "a617cbe62702c06753ad0930d9881241c15b1d2dff377628c589c6b4b3937aa8",
+      "declaredLicense": "MPL-2.0",
+      "includedInPack": true
+    },
+    {
+      "path": "Source/AdaptiveStorage/Fishery/Collections/Internal/CollectionThrowHelper.cs",
+      "sha256": "f1ac61e9018143f72339e9b499133862344b561023694ab989d2f8d60c6d9c94",
+      "declaredLicense": "MPL-2.0",
+      "includedInPack": true
+    },
+    {
+      "path": "Source/AdaptiveStorage/Fishery/Collections/Internal/ReplaceBehaviour.cs",
+      "sha256": "626c9df6c4eec4fe436d92cefabd349489d3a78fffbb17a7eb88d3868039711f",
+      "declaredLicense": "MPL-2.0",
+      "includedInPack": true
+    },
+    {
+      "path": "Source/AdaptiveStorage/Fishery/Collections/Internal/Tails.cs",
+      "sha256": "0e8732c2d5e45e2a0afdb082b64f26021578f299543cb83a214c7a6c7462a775",
+      "declaredLicense": "MPL-2.0",
+      "includedInPack": true
+    },
+    {
+      "path": "Source/AdaptiveStorage/Fishery/Collections/NibbleArray.cs",
+      "sha256": "8ee1f4e114e090096602ca9bff2f27f9fe162ae93710facf96469d0700a5e687",
+      "declaredLicense": "MPL-2.0",
+      "includedInPack": true
+    },
+    {
+      "path": "Source/AdaptiveStorage/Fishery/Diagnostics/Extensions/TypeExtensions.cs",
+      "sha256": "5d3bd54c22015f55d5ff01d2d4af0e30e7d6241fec328a67be75b72daff14a07",
+      "declaredLicense": "MIT",
+      "includedInPack": true
+    },
+    {
+      "path": "Source/AdaptiveStorage/Fishery/Diagnostics/Extensions/ValueTypeExtensions.cs",
+      "sha256": "185feebcefa4b03f33833c2ed0a7892d3f031d3f26adc250ff7815d76add0506",
+      "declaredLicense": "MIT",
+      "includedInPack": true
+    },
+    {
+      "path": "Source/AdaptiveStorage/Fishery/Diagnostics/Generated/Guard.Collection.g.cs",
+      "sha256": "35d50c91876ac3dd47d37b76b19a76f56e654d89bae801f0acda2367c95abcb4",
+      "declaredLicense": "MIT",
+      "includedInPack": true
+    },
+    {
+      "path": "Source/AdaptiveStorage/Fishery/Diagnostics/Generated/Guard.Comparable.Numeric.g.cs",
+      "sha256": "36f6463f3f7091e963e3663142e1415a7d6a665eb36c12c3a9d0c2a66beff947",
+      "declaredLicense": "MIT",
+      "includedInPack": true
+    },
+    {
+      "path": "Source/AdaptiveStorage/Fishery/Diagnostics/Generated/ThrowHelper.Collection.g.cs",
+      "sha256": "27ea3039ba26eaaa9333298cbe770b419918353809652efe193f599bf8718641",
+      "declaredLicense": "MIT",
+      "includedInPack": true
+    },
+    {
+      "path": "Source/AdaptiveStorage/Fishery/Diagnostics/Guard.Boolean.cs",
+      "sha256": "05bbd64c95a48e10bf27407004fca2f9889069f5b3072e6780be48f3934009aa",
+      "declaredLicense": "MIT",
+      "includedInPack": true
+    },
+    {
+      "path": "Source/AdaptiveStorage/Fishery/Diagnostics/Guard.Comparable.Generic.cs",
+      "sha256": "0a2d3cf826b2b95d11ef4af9f15a4cbd11e4bee4da3620231dae7e8986258664",
+      "declaredLicense": "MIT",
+      "includedInPack": true
+    },
+    {
+      "path": "Source/AdaptiveStorage/Fishery/Diagnostics/Guard.Comparable.Numeric.cs",
+      "sha256": "1c1b25d53154584a45afbdaa4d33969625fa93667e65358a06200fa41f1c09c8",
+      "declaredLicense": "MIT",
+      "includedInPack": true
+    },
+    {
+      "path": "Source/AdaptiveStorage/Fishery/Diagnostics/Guard.IO.cs",
+      "sha256": "273ae1bb81810a0523ffa91aac9509ea5239044bc8516a19c26c2de40ab99035",
+      "declaredLicense": "MIT",
+      "includedInPack": true
+    },
+    {
+      "path": "Source/AdaptiveStorage/Fishery/Diagnostics/Guard.String.cs",
+      "sha256": "25bd60086a0e417b6984392facf5c6b5cf728616ab287bae4d375f3fb02dc87d",
+      "declaredLicense": "MIT",
+      "includedInPack": true
+    },
+    {
+      "path": "Source/AdaptiveStorage/Fishery/Diagnostics/Guard.Tasks.cs",
+      "sha256": "44e5b186729902185a91362bc6d898fc6bfc02f39f8bf6463f8b9e83c0c1c3d8",
+      "declaredLicense": "MIT",
+      "includedInPack": true
+    },
+    {
+      "path": "Source/AdaptiveStorage/Fishery/Diagnostics/Guard.cs",
+      "sha256": "3dcb9769624c9fb4eceac6714452de34adf8fc459d6ed9cf90e4e46aff3b92a8",
+      "declaredLicense": "MIT",
+      "includedInPack": true
+    },
+    {
+      "path": "Source/AdaptiveStorage/Fishery/Diagnostics/Internals/Guard.Collection.Generic.ThrowHelper.cs",
+      "sha256": "390ec8b2d7bd2d963a51091be98efd85a7b8ba47b3996af405ede84fc371509e",
+      "declaredLicense": "MIT",
+      "includedInPack": true
+    },
+    {
+      "path": "Source/AdaptiveStorage/Fishery/Diagnostics/Internals/Guard.Comparable.Generic.ThrowHelper.cs",
+      "sha256": "85c3f7ace4d76a3e94130ace79414b66b0de15e9755338710da32230a8b50ef1",
+      "declaredLicense": "MIT",
+      "includedInPack": true
+    },
+    {
+      "path": "Source/AdaptiveStorage/Fishery/Diagnostics/Internals/Guard.Comparable.Numeric.ThrowHelper.cs",
+      "sha256": "6eea39e47e44a30a6180be84b14da6a86791d3fceb8085d0c674f317b3a5a2b6",
+      "declaredLicense": "MIT",
+      "includedInPack": true
+    },
+    {
+      "path": "Source/AdaptiveStorage/Fishery/Diagnostics/Internals/Guard.IO.ThrowHelper.cs",
+      "sha256": "509ef05dc1805f785567f7cb4136d28318cde42f78df5a8d3f7ba8a666b7bb8c",
+      "declaredLicense": "MIT",
+      "includedInPack": true
+    },
+    {
+      "path": "Source/AdaptiveStorage/Fishery/Diagnostics/Internals/Guard.String.ThrowHelper.cs",
+      "sha256": "3a30aa468b0d59745b17ccb168738960f8dafe273adb6e1f220750de7ba2234f",
+      "declaredLicense": "MIT",
+      "includedInPack": true
+    },
+    {
+      "path": "Source/AdaptiveStorage/Fishery/Diagnostics/Internals/Guard.Tasks.ThrowHelper.cs",
+      "sha256": "1c92483a049dee54c7269cdb4e32e77c39c3c721536b36bc0ddae8ede82a472f",
+      "declaredLicense": "MIT",
+      "includedInPack": true
+    },
+    {
+      "path": "Source/AdaptiveStorage/Fishery/Diagnostics/Internals/Guard.ThrowHelper.cs",
+      "sha256": "ba74e71abc0d3650deb9d1cf05cea9ee39e45ff28326632c2fd18cf3477534dc",
+      "declaredLicense": "MIT",
+      "includedInPack": true
+    },
+    {
+      "path": "Source/AdaptiveStorage/Fishery/Diagnostics/ThrowHelper.Generic.cs",
+      "sha256": "33ddb9329084bb30a917429b0f774ae9dc9f7740be7436eda28692c2c9b5105a",
+      "declaredLicense": "MIT",
+      "includedInPack": true
+    },
+    {
+      "path": "Source/AdaptiveStorage/Fishery/Diagnostics/ThrowHelper.cs",
+      "sha256": "1690a466f47e09198744a8817de555f82b83bf0c1bf628cb311cee43a18f4717",
+      "declaredLicense": "MIT",
+      "includedInPack": true
+    },
+    {
+      "path": "Source/AdaptiveStorage/Fishery/Equality.cs",
+      "sha256": "cbe8d0581708b00a41d504d51e367539d8d1fe1747f12abba7ca2a75ed046610",
+      "declaredLicense": "MPL-2.0",
+      "includedInPack": true
+    },
+    {
+      "path": "Source/AdaptiveStorage/Fishery/FishMath.cs",
+      "sha256": "03c001e56f52980b812d2db8a1054859cb5b58e986b48769784172e04bc49c45",
+      "declaredLicense": "MPL-2.0",
+      "includedInPack": true
+    },
+    {
+      "path": "Source/AdaptiveStorage/Fishery/FishTranspiler.cs",
+      "sha256": "4b015343e083988e879f1b5412dc34ba107e46887192ea5d5ed479d34e17bfab",
+      "declaredLicense": "MPL-2.0",
+      "includedInPack": true
+    },
+    {
+      "path": "Source/AdaptiveStorage/Fishery/FunctionPointers/Equals.cs",
+      "sha256": "6dcded965551cf7eca3fbcdbf57340030615a034b8545c9130e729afccbc7199",
+      "declaredLicense": "MPL-2.0",
+      "includedInPack": true
+    },
+    {
+      "path": "Source/AdaptiveStorage/Fishery/FunctionPointers/MethodFactory.Equals.cs",
+      "sha256": "9fcbbb0a2d1624e8571a5d89ef94746806b35563d898b153d942fc496b4baaff",
+      "declaredLicense": "MPL-2.0",
+      "includedInPack": true
+    },
+    {
+      "path": "Source/AdaptiveStorage/Fishery/FunctionPointers/MethodFactory.cs",
+      "sha256": "6c8a038a19112ade1d4cb7bdcae17cb4b3f1bfeeaaf0a47c0ab6fafce4d968ad",
+      "declaredLicense": "MPL-2.0",
+      "includedInPack": true
+    },
+    {
+      "path": "Source/AdaptiveStorage/Fishery/Pools/FishPool.cs",
+      "sha256": "a78e9bfdc8546a3539a8325fef93d404b201d1a7ab4b68ba963f4a8ed8f4669d",
+      "declaredLicense": "MPL-2.0",
+      "includedInPack": true
+    },
+    {
+      "path": "Source/AdaptiveStorage/Fishery/Pools/IFishPoolable.cs",
+      "sha256": "3b2dc320fe4cf6db62b3570906660593686a23b424051fdc935ca391ef53eb63",
+      "declaredLicense": "MPL-2.0",
+      "includedInPack": true
+    },
+    {
+      "path": "Source/AdaptiveStorage/Fishery/Pools/PooledIList.cs",
+      "sha256": "c0a78e134a82a03b09b78e1fc608ea8bf586a506afc845fec5792067b8f206bc",
+      "declaredLicense": "MPL-2.0",
+      "includedInPack": true
+    },
+    {
+      "path": "Source/AdaptiveStorage/Fishery/Pools/PooledList.cs",
+      "sha256": "9803a520db5eba9a90b42fe9ed183ce5a18bf0a00a4404dba9efcf46f45d6713",
+      "declaredLicense": "MPL-2.0",
+      "includedInPack": true
+    },
+    {
+      "path": "Source/AdaptiveStorage/Fishery/Pools/PooledStringBuilder.cs",
+      "sha256": "1702bad7032ae0af826f898fa0d5d0081a6c7aa1a724d9d4cf9f260c67ee7ac0",
+      "declaredLicense": "MPL-2.0",
+      "includedInPack": true
+    },
+    {
+      "path": "Source/AdaptiveStorage/Fishery/Pools/PooledStringBuilderHandler.cs",
+      "sha256": "ace5285e384b5613da0ef736168a00e8a5bb031caaa7ca3ccba8fbc139bb54f6",
+      "declaredLicense": "MPL-2.0",
+      "includedInPack": true
+    },
+    {
+      "path": "Source/AdaptiveStorage/Fishery/Reflection.cs",
+      "sha256": "693d96817eb80e4c70a3d18ede442d750b67795989905675a19caa27accb1524",
+      "declaredLicense": "MPL-2.0",
+      "includedInPack": true
+    },
+    {
+      "path": "Source/AdaptiveStorage/Fishery/UtilityF.cs",
+      "sha256": "b017d115f29ec73accaba968d4b669d7f1888ef0b28b8b3735a4b4cc07d67858",
+      "declaredLicense": "MPL-2.0",
+      "includedInPack": true
+    },
+    {
+      "path": "Source/AdaptiveStorage/Frame.cs",
+      "sha256": "3f7df3cc492e8962884630e85370e6bea09f82f2259aa80963d44d45e7ab8c3d",
+      "declaredLicense": "MIT",
+      "includedInPack": true
+    },
+    {
+      "path": "Source/AdaptiveStorage/GizmoUtility.cs",
+      "sha256": "f378f6e57db849e291a060871d1783fbb776f287103a06b9983fbe4e11152811",
+      "declaredLicense": "MIT",
+      "includedInPack": true
+    },
+    {
+      "path": "Source/AdaptiveStorage/GodModeGizmos.cs",
+      "sha256": "1b656004180ee5991c5664a134314fd39d954817a68a5b98f7ef7b9ed677f62a",
+      "declaredLicense": "MIT",
+      "includedInPack": true
+    },
+    {
+      "path": "Source/AdaptiveStorage/GraphicsDef.cs",
+      "sha256": "ca9ce77b94d93a9c0c603d666d6eab2e1cfa65018661a5cc0bee68661fb96b18",
+      "declaredLicense": "MIT",
+      "includedInPack": true
+    },
+    {
+      "path": "Source/AdaptiveStorage/GraphicsDefSelector.cs",
+      "sha256": "b2b2d9b138e61d19e030bd19c1d5fc3bcdbd008b18e07c66a5988fa0be4c2dda",
+      "declaredLicense": "MIT",
+      "includedInPack": true
+    },
+    {
+      "path": "Source/AdaptiveStorage/GroupContentsITab.cs",
+      "sha256": "e6a8dd4658249df9c27247b94206375ee42f87adbb0240ae85b907d197ac3a42",
+      "declaredLicense": "MIT",
+      "includedInPack": true
+    },
+    {
+      "path": "Source/AdaptiveStorage/HarmonyPatches/AddITabToLegacyStorages.cs",
+      "sha256": "11d4c12de34a92de3d764f1044738d602979119bf3f2915c89b8975dc488ca1b",
+      "declaredLicense": "MIT",
+      "includedInPack": true
+    },
+    {
+      "path": "Source/AdaptiveStorage/HarmonyPatches/AddITabToStockpileZones.cs",
+      "sha256": "222c3403d93dc486f4ff5738c37a52f7f7ef30af521f66efbf93f8fced6c3621",
+      "declaredLicense": "MIT",
+      "includedInPack": true
+    },
+    {
+      "path": "Source/AdaptiveStorage/HarmonyPatches/AdjustSelectionBracketPosition.cs",
+      "sha256": "3cba2b7749e8ca01ef48e48683e79f5dda33f2b48dd4064fe2837e1cbaa149e0",
+      "declaredLicense": "MIT",
+      "includedInPack": true
+    },
+    {
+      "path": "Source/AdaptiveStorage/HarmonyPatches/AdjustThingTemperature.cs",
+      "sha256": "394396cfabf9d7714199b05bc0f897f17413bc90cab404e889f6004e76a52311",
+      "declaredLicense": "MIT",
+      "includedInPack": true
+    },
+    {
+      "path": "Source/AdaptiveStorage/HarmonyPatches/AutomaticallyOpenTab.cs",
+      "sha256": "46d0008199654b1e026c8639fb7a869cf4516f8cb7d466ca2eced601e803a6ca",
+      "declaredLicense": "MIT",
+      "includedInPack": true
+    },
+    {
+      "path": "Source/AdaptiveStorage/HarmonyPatches/CacheZoomAndMousePosition.cs",
+      "sha256": "6e67bcc64f0198b4a0c733b5df4b8f9a3f353bdd34c57d64e236e3aca497b67f",
+      "declaredLicense": "MIT",
+      "includedInPack": true
+    },
+    {
+      "path": "Source/AdaptiveStorage/HarmonyPatches/DeregisteredAtThingGridEvent.cs",
+      "sha256": "59cda66b9980bed1537c4615c493c90ed2fcfbb65d72b892a0934f35326f83f2",
+      "declaredLicense": "MIT",
+      "includedInPack": true
+    },
+    {
+      "path": "Source/AdaptiveStorage/HarmonyPatches/EnablePackingOnMinify.cs",
+      "sha256": "a700300adf25d79fe7a811e134beeb082a7586bcf5cc90b9cae844a8d7f142b9",
+      "declaredLicense": "MIT",
+      "includedInPack": true
+    },
+    {
+      "path": "Source/AdaptiveStorage/HarmonyPatches/FixVanillaVegetarianFilter.cs",
+      "sha256": "3687c828cbfa66b489bdf31f616fc6ff01f4deb357dd456db5e83cf7dadc0160",
+      "declaredLicense": "MIT",
+      "includedInPack": true
+    },
+    {
+      "path": "Source/AdaptiveStorage/HarmonyPatches/HideStorageGizmos.cs",
+      "sha256": "dad40cb3de2f1a6962dca1f6cfa661ce1e00ce719f81ebf082f8a4198ea66df7",
+      "declaredLicense": "MIT",
+      "includedInPack": true
+    },
+    {
+      "path": "Source/AdaptiveStorage/HarmonyPatches/HideStoredThingLabels.cs",
+      "sha256": "bf49713c45ef03e497d0bce578b1dd34fbb6d0d02b217178a7afc9314765b7c4",
+      "declaredLicense": "MIT",
+      "includedInPack": true
+    },
+    {
+      "path": "Source/AdaptiveStorage/HarmonyPatches/HideStoredThingsFromSectionLayerAndOverlayDrawer.cs",
+      "sha256": "dfdffafede26e5cdfddd86ceb54e75b1faa1940f105ed7b44d75a92fb7a1f4ea",
+      "declaredLicense": "MIT",
+      "includedInPack": true
+    },
+    {
+      "path": "Source/AdaptiveStorage/HarmonyPatches/ImprovedConfigErrors.cs",
+      "sha256": "f0125162795485cdbab7466500713501979794e0bdd438a9e9773f9986f7abf4",
+      "declaredLicense": "MIT",
+      "includedInPack": true
+    },
+    {
+      "path": "Source/AdaptiveStorage/HarmonyPatches/InitializeGraphicsDefs.cs",
+      "sha256": "57ea920af9983470c4e62cb4d8ad7e596d895b9624b87c1cb545088c5926deef",
+      "declaredLicense": "MIT",
+      "includedInPack": true
+    },
+    {
+      "path": "Source/AdaptiveStorage/HarmonyPatches/NotifyItemStackChanged.cs",
+      "sha256": "766e1e65533884a6d4765d7e4c03d0e6b0ed3d5378dbf2f2b9e2fba5f56a26ce",
+      "declaredLicense": "MIT",
+      "includedInPack": true
+    },
+    {
+      "path": "Source/AdaptiveStorage/HarmonyPatches/PreventSelectionInRect.cs",
+      "sha256": "72c917f8a9ece736a5d7aa619df9b88a10d2ab9c22ba176000c106a85599ce1d",
+      "declaredLicense": "MIT",
+      "includedInPack": true
+    },
+    {
+      "path": "Source/AdaptiveStorage/HarmonyPatches/PreventSelectionUnderMouse.cs",
+      "sha256": "294baf17f54a00d61ece86f2c52359ccc4a308bc70da13d78922ea8698276c4c",
+      "declaredLicense": "MIT",
+      "includedInPack": true
+    },
+    {
+      "path": "Source/AdaptiveStorage/HarmonyPatches/RegisteredAtThingGridEvent.cs",
+      "sha256": "a0ec39cdc64b64bd1ed0503a9dfa359ac7ea1dc2dab400147080937b73d6a1a7",
+      "declaredLicense": "MIT",
+      "includedInPack": true
+    },
+    {
+      "path": "Source/AdaptiveStorage/HarmonyPatches/RemoveInvalidDefsOnStorageSettingsLoading.cs",
+      "sha256": "462076dffc87fa23fc803813bbdab7ca0b10847585a700c934715e9251c92f3c",
+      "declaredLicense": "MIT",
+      "includedInPack": true
+    },
+    {
+      "path": "Source/AdaptiveStorage/HarmonyPatches/ReplaceLegacyStorageInspectString.cs",
+      "sha256": "cb8fa24753ffd9cecc7872f40dac66b8492b0b067c82c4863484dd3359d2f795",
+      "declaredLicense": "MIT",
+      "includedInPack": true
+    },
+    {
+      "path": "Source/AdaptiveStorage/HarmonyPatches/SaveGameCompatibility.cs",
+      "sha256": "5ecef916980d9119c6c69036d17a5f7a05db8986176f93137e782aef9efe79ca",
+      "declaredLicense": "MIT",
+      "includedInPack": true
+    },
+    {
+      "path": "Source/AdaptiveStorage/HarmonyPatches/StorageLimit.cs",
+      "sha256": "2fca2ddae63ee635e1e89b5ecf088a1f3a19b7701ec1acfb226c5950bb10dae7",
+      "declaredLicense": "MIT",
+      "includedInPack": true
+    },
+    {
+      "path": "Source/AdaptiveStorage/HarmonyPatches/StoreUtilityPatches.cs",
+      "sha256": "f519b1024bb4f79f3f3021f85d44510e768cf4801a66ed7f37ddd9499e7c19a1",
+      "declaredLicense": "MIT",
+      "includedInPack": true
+    },
+    {
+      "path": "Source/AdaptiveStorage/HarmonyPatches/ThingDefStatDrawEntries.cs",
+      "sha256": "08d43689ff347ec137245a6042b6e629a7b4dc238f4d89dc7d5ed26084f149c0",
+      "declaredLicense": "MIT",
+      "includedInPack": true
+    },
+    {
+      "path": "Source/AdaptiveStorage/HarmonyPatches/UpdateInvalidHaulablesAndMergeables.cs",
+      "sha256": "5f355aea4e0c063ffb7a173e1411e75453ab6d67cbbdf2e22c84ccab89967352",
+      "declaredLicense": "MIT",
+      "includedInPack": true
+    },
+    {
+      "path": "Source/AdaptiveStorage/InspectStringUtility.cs",
+      "sha256": "5e0f9c6cee978e2f35acabd6caf74b116f67b2f6ecf471bc2978621a69e615b1",
+      "declaredLicense": "MIT",
+      "includedInPack": true
+    },
+    {
+      "path": "Source/AdaptiveStorage/InspectTabUtility.cs",
+      "sha256": "ee3465e302a33814d50ff21f61a39347eb125ebe173d76ea005aafb532694096",
+      "declaredLicense": "MIT",
+      "includedInPack": true
+    },
+    {
+      "path": "Source/AdaptiveStorage/InternalDefOf.cs",
+      "sha256": "031de91808bd47ddd9e89db9dcf79b4330e08ff82141ac208fdd9ff51a6f7681",
+      "declaredLicense": "MIT",
+      "includedInPack": true
+    },
+    {
+      "path": "Source/AdaptiveStorage/ItemGraphic.cs",
+      "sha256": "4930c097db0c57f1b6e9be631ddb52b33aba2e339a3905c65e454be1f937f1c8",
+      "declaredLicense": "MIT",
+      "includedInPack": true
+    },
+    {
+      "path": "Source/AdaptiveStorage/ItemGraphicWorker.cs",
+      "sha256": "5f00218e17f15e598ae323d84326294bfa05cde294b87df821c95110f5c8cbe2",
+      "declaredLicense": "MIT",
+      "includedInPack": true
+    },
+    {
+      "path": "Source/AdaptiveStorage/LabelFormat.cs",
+      "sha256": "af607eeeac4cde7aabb25a8d72e21cdcea973c9d2272a007efafe1aad3a3f715",
+      "declaredLicense": "MIT",
+      "includedInPack": true
+    },
+    {
+      "path": "Source/AdaptiveStorage/LabelFormatUtility.cs",
+      "sha256": "03fbbc36aa825c89c9943d69e44543a9399a1b9e851ba31e2bc34836f2d26722",
+      "declaredLicense": "MIT",
+      "includedInPack": true
+    },
+    {
+      "path": "Source/AdaptiveStorage/LegacyStorageUtility.cs",
+      "sha256": "f56c5b8f9828dc8b07b3d014a2becba7a85031f3c909502a7480f53434d78a77",
+      "declaredLicense": "MIT",
+      "includedInPack": true
+    },
+    {
+      "path": "Source/AdaptiveStorage/Minified.cs",
+      "sha256": "18a727ff48a9f11b72dc81f60b1baa54030ee58b162848d89f7625fcab68210f",
+      "declaredLicense": "MIT",
+      "includedInPack": true
+    },
+    {
+      "path": "Source/AdaptiveStorage/MinifiedExtension.cs",
+      "sha256": "744de22f28b652cb75bcca46e373726e9ff84ba44859801a751de3920411a572",
+      "declaredLicense": "MIT",
+      "includedInPack": true
+    },
+    {
+      "path": "Source/AdaptiveStorage/ModCompatibility/ActiveMods.cs",
+      "sha256": "f1fe97ee5e75c71bc8952d01a19c15ca4d400058c45b8e82b0972eddf50c7c49",
+      "declaredLicense": "MIT",
+      "includedInPack": true
+    },
+    {
+      "path": "Source/AdaptiveStorage/ModCompatibility/LWM.cs",
+      "sha256": "59369ba245b1c08b306d372ee000201e6594e28a99e47588db0cb9c13d66e95c",
+      "declaredLicense": "MIT",
+      "includedInPack": true
+    },
+    {
+      "path": "Source/AdaptiveStorage/ModCompatibility/Multiplayer.cs",
+      "sha256": "3fc5483703b4bb29f48c914316fed89e8e4a329e93886b867eec503a39563655",
+      "declaredLicense": "MIT",
+      "includedInPack": true
+    },
+    {
+      "path": "Source/AdaptiveStorage/ModCompatibility/PackageIDs.cs",
+      "sha256": "05440bebec3502c94798fd130f91e543d5f342c56919542d2d3f3bf52f1eecc1",
+      "declaredLicense": "MIT",
+      "includedInPack": true
+    },
+    {
+      "path": "Source/AdaptiveStorage/ModCompatibility/PerformanceFish.cs",
+      "sha256": "9a409a81d9a083e50422daac56a3d09e9d4d38ff22743942b4bd34c27fe4e1e0",
+      "declaredLicense": "MIT",
+      "includedInPack": true
+    },
+    {
+      "path": "Source/AdaptiveStorage/ModCompatibility/ReflectionUtility.cs",
+      "sha256": "d6da5b8cb25740843af9076b9df9a760d95f2ede46027ed987e466b310d55a39",
+      "declaredLicense": "MIT",
+      "includedInPack": true
+    },
+    {
+      "path": "Source/AdaptiveStorage/ModCompatibility/SaveOurShip2.cs",
+      "sha256": "9368b5ffa337a2f0291d59804e3fcab7c9c77e9f0ff70187304bc76295a20b30",
+      "declaredLicense": "MIT",
+      "includedInPack": true
+    },
+    {
+      "path": "Source/AdaptiveStorage/ModCompatibility/ToggleableOverlays.cs",
+      "sha256": "5d09e0b08f1d942783d4a9f8cf275c057c1646290f735dcae8543f3328362614",
+      "declaredLicense": "MIT",
+      "includedInPack": true
+    },
+    {
+      "path": "Source/AdaptiveStorage/OnStartup.cs",
+      "sha256": "ab6cabd85f1ba4d0a2270769766b624aee1f20d4b77e7ba013dd061e21dc6d3e",
+      "declaredLicense": "MIT",
+      "includedInPack": true
+    },
+    {
+      "path": "Source/AdaptiveStorage/PrintDatas/CorpsePrintData.cs",
+      "sha256": "b12b430d1fac0d148a14c8028bd829378e54c502b2144ee95117521c230a9b1f",
+      "declaredLicense": "MIT",
+      "includedInPack": true
+    },
+    {
+      "path": "Source/AdaptiveStorage/PrintDatas/ITransformableGraphicPrintData.cs",
+      "sha256": "8baab085bf2b630c5eaac741ec7d4247bbff08c1e620b818ba58425535cffed1",
+      "declaredLicense": "MIT",
+      "includedInPack": true
+    },
+    {
+      "path": "Source/AdaptiveStorage/PrintDatas/ITransformableThingPrintData.cs",
+      "sha256": "2a27f689768865e9a6e959e2e3ca6e6f0f98b5578b784fbc7341acbc3848464f",
+      "declaredLicense": "MIT",
+      "includedInPack": true
+    },
+    {
+      "path": "Source/AdaptiveStorage/PrintDatas/MinifiedThingPrintData.cs",
+      "sha256": "ac35df4ccf0d869fec8ce1a21cec314dab860d9e7d20d072003e16d819f94e84",
+      "declaredLicense": "MIT",
+      "includedInPack": true
+    },
+    {
+      "path": "Source/AdaptiveStorage/PrintDatas/OptimizedPrintData.cs",
+      "sha256": "b825baea2573750b173ebfe33af79e0c9edf270d95ad0928e61d483a00e3df77",
+      "declaredLicense": "MIT",
+      "includedInPack": true
+    },
+    {
+      "path": "Source/AdaptiveStorage/PrintDatas/PrintData.cs",
+      "sha256": "5cc15bb89ae099795530b7c796cb9d6c77f8b1669f42024b10acc8488dca74d9",
+      "declaredLicense": "MIT",
+      "includedInPack": true
+    },
+    {
+      "path": "Source/AdaptiveStorage/PrintDatas/UnsupportedGraphicPrintData.cs",
+      "sha256": "1850da974df8efe9d6961bc1d25a19e65de5ef726cc2613b72e101f32d6b04e8",
+      "declaredLicense": "MIT",
+      "includedInPack": true
+    },
+    {
+      "path": "Source/AdaptiveStorage/PrintDatas/UnsupportedThingPrintData.cs",
+      "sha256": "234abb84b356900be0c3c41646ca032120a45fd2aa28ff0fe899d3aed33b41bc",
+      "declaredLicense": "MIT",
+      "includedInPack": true
+    },
+    {
+      "path": "Source/AdaptiveStorage/RotateInShelvesMode.cs",
+      "sha256": "f90161861739b4c94d5522df21e9d815a8b6973656eaa396acfa16e9bca65e3f",
+      "declaredLicense": "MIT",
+      "includedInPack": true
+    },
+    {
+      "path": "Source/AdaptiveStorage/SpawnMode.cs",
+      "sha256": "0c2f2676cd1bf78bc89cacab8e5766c4f4069100ab4f98f5e58c2d7aa718122e",
+      "declaredLicense": "MIT",
+      "includedInPack": true
+    },
+    {
+      "path": "Source/AdaptiveStorage/StackBehaviour.cs",
+      "sha256": "bc83d9782159b620afc27caa251243fd54677be4988711b4086dd20bf1c08ded",
+      "declaredLicense": "MIT",
+      "includedInPack": true
+    },
+    {
+      "path": "Source/AdaptiveStorage/StatDrawEntries.cs",
+      "sha256": "66f6e65563a20912027790dffc3840a3c3018d69a701989cb72b151afd2470d6",
+      "declaredLicense": "MIT",
+      "includedInPack": true
+    },
+    {
+      "path": "Source/AdaptiveStorage/StatPart.cs",
+      "sha256": "52cb8c1eed775a556699fac03ed4c14d6642954711d75cb6091cb16dd8f703f9",
+      "declaredLicense": "MIT",
+      "includedInPack": true
+    },
+    {
+      "path": "Source/AdaptiveStorage/StorageCell.cs",
+      "sha256": "b88d93dd5c3450d95efb1692242e89f32a59cf43251c93ffc8bf460f015f3b63",
+      "declaredLicense": "MIT",
+      "includedInPack": true
+    },
+    {
+      "path": "Source/AdaptiveStorage/StorageCellRect.cs",
+      "sha256": "4b1d989e1b4aa4fb94b27f0e77758b2bc4404c376a3037250d8c19d3ac91f206",
+      "declaredLicense": "MIT",
+      "includedInPack": false
+    },
+    {
+      "path": "Source/AdaptiveStorage/StorageGraphic.cs",
+      "sha256": "baf305c20eada27848a4abb0c8c937d37cb1659c6b3bab7ceb2587a25d9c8712",
+      "declaredLicense": "MIT",
+      "includedInPack": true
+    },
+    {
+      "path": "Source/AdaptiveStorage/StorageGraphicData.cs",
+      "sha256": "2e903e2d28e922f9017fdb2d9903510780f0a5daf39107a52d31fed4e20ec97f",
+      "declaredLicense": "MIT",
+      "includedInPack": true
+    },
+    {
+      "path": "Source/AdaptiveStorage/StorageGraphicWorker.cs",
+      "sha256": "6488390c25fefd62a7394541aa407678a420d93acec71e904efeb1b21e7ab8da",
+      "declaredLicense": "MIT",
+      "includedInPack": true
+    },
+    {
+      "path": "Source/AdaptiveStorage/StorageRenderer.cs",
+      "sha256": "7f41aea5c8c6d514d647d3d834efa1408523bd569338c42f2a52bb84b3a07c2f",
+      "declaredLicense": "MIT",
+      "includedInPack": true
+    },
+    {
+      "path": "Source/AdaptiveStorage/Strings.cs",
+      "sha256": "b6871ea9e00ad6f3f8fe58fcba1c2c53d7b1fa2802fc02febdda063e217b472e",
+      "declaredLicense": "MIT",
+      "includedInPack": true
+    },
+    {
+      "path": "Source/AdaptiveStorage/ThingClass.cs",
+      "sha256": "7106bc1cbbddc4d7c3c4f55df92ad131520aa2b2411022475bc0c1326744467d",
+      "declaredLicense": "MIT",
+      "includedInPack": true
+    },
+    {
+      "path": "Source/AdaptiveStorage/ThingCollection.cs",
+      "sha256": "502a7cb30856244eefc370a3f6ea3653118512704ee7e4b1efd70587c494cdf4",
+      "declaredLicense": "MIT",
+      "includedInPack": true
+    },
+    {
+      "path": "Source/AdaptiveStorage/ThingGridEventHandler.cs",
+      "sha256": "ed4711d29c8303b0eef9ee71c487a13ae5689d04f631c259a2d87a407c3707c8",
+      "declaredLicense": "MIT",
+      "includedInPack": true
+    },
+    {
+      "path": "Source/AdaptiveStorage/TransformableGraphicSingle.cs",
+      "sha256": "25530a70a1e121c17a00f117673e45d609a28544f4a7b72bddd203a2428533dd",
+      "declaredLicense": "MIT",
+      "includedInPack": true
+    },
+    {
+      "path": "Source/AdaptiveStorage/Utility/BetterQuickSearchWidget.cs",
+      "sha256": "5668574672574bd1fa46aea8a6185045ab86b6d01746baaaadfdec8608dc5a55",
+      "declaredLicense": "MIT",
+      "includedInPack": true
+    },
+    {
+      "path": "Source/AdaptiveStorage/Utility/CellData.cs",
+      "sha256": "dd701a65ffed810f4ab223f2592c0634e1fdcfd2e882151869b3556a68d9f2ad",
+      "declaredLicense": "MIT",
+      "includedInPack": true
+    },
+    {
+      "path": "Source/AdaptiveStorage/Utility/CellTable.cs",
+      "sha256": "1775fda1ad54a174e9ee3a76b24ab52f4fc13789a3c3c66d85c8bf0790146024",
+      "declaredLicense": "MIT",
+      "includedInPack": true
+    },
+    {
+      "path": "Source/AdaptiveStorage/Utility/CollectionExtensions.cs",
+      "sha256": "61c5fc2db29b4b597769972acdbf8202a41a69086a45e27afba3730d5f0ccf59",
+      "declaredLicense": "MIT",
+      "includedInPack": true
+    },
+    {
+      "path": "Source/AdaptiveStorage/Utility/CommandWithFloatMenu.cs",
+      "sha256": "09b4bfa444c24081764f22f9ac29cc67da9b40b360cf4b37a1d198be5f6f7182",
+      "declaredLicense": "MIT",
+      "includedInPack": true
+    },
+    {
+      "path": "Source/AdaptiveStorage/Utility/Exposable.cs",
+      "sha256": "d82503919dffcc9668f946ea3a7874bf1e7058a0ba3dfcf2363348b7eea06bd0",
+      "declaredLicense": "MIT",
+      "includedInPack": true
+    },
+    {
+      "path": "Source/AdaptiveStorage/Utility/GUIScope.cs",
+      "sha256": "290512039c5154f67883fef50b31cc7a731f8417423c0bf6c697512589b492b9",
+      "declaredLicense": "MIT",
+      "includedInPack": true
+    },
+    {
+      "path": "Source/AdaptiveStorage/Utility/GraphicDataExtensions.cs",
+      "sha256": "b614260f0e0871321adbba5ee19e32054e4078ae7c2918ed834d5f66abb91773",
+      "declaredLicense": "root-MIT-no-file-header",
+      "includedInPack": true
+    },
+    {
+      "path": "Source/AdaptiveStorage/Utility/GraphicTransformScope.cs",
+      "sha256": "d8ca3ba5b0ce879d87a6a6e4b61c89e8fa9b929b321c675150594067b9763a34",
+      "declaredLicense": "MIT",
+      "includedInPack": true
+    },
+    {
+      "path": "Source/AdaptiveStorage/Utility/IHasPosition.cs",
+      "sha256": "a24ab47f24f48e8ed45ec248d3414e3a5fba4808dc6dda33ac4067567145f7b9",
+      "declaredLicense": "MIT",
+      "includedInPack": true
+    },
+    {
+      "path": "Source/AdaptiveStorage/Utility/ItemRenderControls.cs",
+      "sha256": "fd2aadfe9886e49eacd1356b2680f4075d645a125d9b541bd4927b82f8552fe8",
+      "declaredLicense": "MIT",
+      "includedInPack": true
+    },
+    {
+      "path": "Source/AdaptiveStorage/Utility/ListingExtensions.cs",
+      "sha256": "cc07654240e930c145321197faa63b6515d7e75e3cd1cd4ef186721f35217558",
+      "declaredLicense": "MIT",
+      "includedInPack": true
+    },
+    {
+      "path": "Source/AdaptiveStorage/Utility/MatrixExtensions.cs",
+      "sha256": "e8b8ecb71e9171dfbcf6f3703a6b0419385077e326e2a33646d9e37c634aa492",
+      "declaredLicense": "MIT",
+      "includedInPack": true
+    },
+    {
+      "path": "Source/AdaptiveStorage/Utility/PrintUtility.cs",
+      "sha256": "e08090bcf386f40e4d97dbcedb3376d26a346f6c9c87d8c2370d2ecb4b24cd59",
+      "declaredLicense": "MIT",
+      "includedInPack": true
+    },
+    {
+      "path": "Source/AdaptiveStorage/Utility/ReflectionExtensions.cs",
+      "sha256": "2b35617ff7428c289b72cd58825f7aa451924747a0dff759283e2312efe5dd51",
+      "declaredLicense": "MIT",
+      "includedInPack": true
+    },
+    {
+      "path": "Source/AdaptiveStorage/Utility/ScopedStatList.cs",
+      "sha256": "d96eeee78c5472ba3871f5157fb51a601cdafa76d4e934753cc52226826fda73",
+      "declaredLicense": "MIT",
+      "includedInPack": true
+    },
+    {
+      "path": "Source/AdaptiveStorage/Utility/ScopedValue.cs",
+      "sha256": "354f52351e5c3deebb2ea8bd8826bbe1325565d79381d2f5eda8f3ca113c0b56",
+      "declaredLicense": "MIT",
+      "includedInPack": true
+    },
+    {
+      "path": "Source/AdaptiveStorage/Utility/StoreUtilityExtensions.cs",
+      "sha256": "68ec6082708f7e9a90ffb47cf82931ef70da70a47a1d41b1e8ec3eba87c4ba5d",
+      "declaredLicense": "MIT",
+      "includedInPack": true
+    },
+    {
+      "path": "Source/AdaptiveStorage/Utility/ThingDefExtensions.cs",
+      "sha256": "8b49e92fc00cf1148c3ad1413bca3fde54b16c852b9bf1a10c165fb7ad1144e0",
+      "declaredLicense": "MIT",
+      "includedInPack": true
+    },
+    {
+      "path": "Source/AdaptiveStorage/Utility/ThingExtensions.cs",
+      "sha256": "748fee5e15c8ee4f108339c6fc4060c48562c4358a4445873bd6c09c424147e3",
+      "declaredLicense": "MIT",
+      "includedInPack": true
+    },
+    {
+      "path": "Source/AdaptiveStorage/Utility/ThingFilterExtensions.cs",
+      "sha256": "fa431080ff2625e9dc6a07d3a28998b5c221b9b036152624ac84c01b6c7ea6b0",
+      "declaredLicense": "MIT",
+      "includedInPack": true
+    },
+    {
+      "path": "Source/AdaptiveStorage/Utility/ThingMakerUtility.cs",
+      "sha256": "227d36bf42974aa2839d8cfe9e7fe197b733a5d8739c7b0a32f5235fbc9cd905",
+      "declaredLicense": "MIT",
+      "includedInPack": true
+    },
+    {
+      "path": "Source/AdaptiveStorage/Utility/UIHelpers.cs",
+      "sha256": "8555c22117b1cd30ad5de610a3a5b87b1b88caec73f31230c6b82a4fa1d9d2e8",
+      "declaredLicense": "MIT",
+      "includedInPack": true
+    },
+    {
+      "path": "Source/AdaptiveStorage/Utility/ValuesByQuality.cs",
+      "sha256": "69c7127ebf9a2620da90c26a284e28d724285d05756a1e513f20952c50d82849",
+      "declaredLicense": "MIT",
+      "includedInPack": true
+    },
+    {
+      "path": "Source/AdaptiveStorage/Utility/VectorExtensions.cs",
+      "sha256": "c22b40e729a754dabe5c7042bc1c1ee59d1c8ee7cb7a46927794118e4f98b6c4",
+      "declaredLicense": "MIT",
+      "includedInPack": true
+    },
+    {
+      "path": "Source/AdaptiveStorage/Utility/WorkerClassMaker.cs",
+      "sha256": "e17a3a2187ffd2852174e52c1f93591620af6757958b86e3b03fbc59a63350b1",
+      "declaredLicense": "MIT",
+      "includedInPack": true
+    },
+    {
+      "path": "Source/ITransformable/ITransformable.cs",
+      "sha256": "d94d0202a3957f9d19fbe4959bf0d35f325dacc4eebe345c6ade16d527b00f66",
+      "declaredLicense": "MIT",
+      "includedInPack": true
+    },
+    {
+      "path": "Source/ITransformable/RotationAngle.cs",
+      "sha256": "2d853eea76e30bd67f30211600216d109733388d1cf0347e6268b0bf4213bb7e",
+      "declaredLicense": "MIT",
+      "includedInPack": true
+    },
+    {
+      "path": "Source/ITransformable/TransformData.cs",
+      "sha256": "bc07202da2f2d0fa831f34f238ab61f7c88e22be227091781e60880a2fddef2d",
+      "declaredLicense": "MIT",
+      "includedInPack": true
+    }
+  ],
+  "packages": [
+    {
+      "id": "Krafs.Publicizer",
+      "version": "2.3.0",
+      "packageSha256": "98f01c0ec0706eb8e98707221918c0b4207baf89613e0e32fcdbb5339511ff43",
+      "archiveSha512": "M+eAjV+8oX4M5Ahq1YjVV2d9+l06JniPo79sRnt/0xNz2wHo0m5wYwI4a79JYrHYvtF0SaI9gGaJQHlwmgbfkw==",
+      "contentHash": "DjktTgctwxUMhMkWKrRECer3LR1lHzanCOlE4mpinAiY8SfWJq4DG/QitP5h1A+WBjyWHzQSOG+204i3VpO1FA==",
+      "declaredDependenciesForNet472": [],
+      "adopted": true,
+      "status": "downloaded-inspected-not-restored",
+      "source": "https://api.nuget.org/v3/index.json",
+      "contentHashMethod": "NuGet signature-excluding content hash; independent byte reconstruction, not dotnet restore",
+      "requireLicenseAcceptance": "not-declared",
+      "repository": {
+        "type": "git",
+        "url": "https://github.com/krafs/Publicizer.git",
+        "commit": "91f9f5ad6589da81dd240075186d1c048a53929c"
+      }
+    },
+    {
+      "id": "Krafs.Rimworld.Ref",
+      "version": "1.6.4871",
+      "packageSha256": "81b168db70a9aceaeab293b1519bb695bc5167f4510966a45f7ff38cb236f54e",
+      "archiveSha512": "892qPYPJ4ylZZk+zRCrMUKh1xZAGusrwXxKlMMI0mRrgXbdvyLmocZOrbOSAIkQUs6wSnuWJveffoLYD0xtDjQ==",
+      "contentHash": "aKebbihZfq47VI9UgyEdrnYslEDeMK3l9+QwC21zL6noJCOLlr5D4+jvhP/F5UA9q+9YVkuTx3NH3eJ03/ivlA==",
+      "declaredDependenciesForNet472": [],
+      "adopted": true,
+      "status": "downloaded-inspected-not-restored",
+      "source": "https://api.nuget.org/v3/index.json",
+      "contentHashMethod": "NuGet signature-excluding content hash; independent byte reconstruction, not dotnet restore",
+      "requireLicenseAcceptance": "false"
+    },
+    {
+      "id": "Lib.Harmony",
+      "version": "2.4.2",
+      "packageSha256": "d64592e53090464559fce48612c9ca7c8dc73113841376b7aa3455f46fc5d579",
+      "archiveSha512": "yWqWJE/ajrLUY2JsaIIWKxpYd8foJVlgU3InsCp09/6oNOibs3MxC/CHkmLUqYSFsD3uYMgfkoHRTU6v2+seyg==",
+      "contentHash": "D2X9ojVjqbqdqWVK3VQETrEb56yVoXxtEp6tP5UvW0PP+bA4uJiswqOxF8GhH02ECwyevUa9vwhwdLzyXfksbw==",
+      "declaredDependenciesForNet472": [],
+      "adopted": true,
+      "status": "downloaded-inspected-not-restored",
+      "source": "https://api.nuget.org/v3/index.json",
+      "contentHashMethod": "NuGet signature-excluding content hash; independent byte reconstruction, not dotnet restore",
+      "requireLicenseAcceptance": "not-declared",
+      "repository": {
+        "type": "git",
+        "url": "https://github.com/pardeike/Harmony",
+        "branch": "refs/heads/master",
+        "commit": "a264a1bf1ce689e4589e8dcc54b1e2818602a90a"
+      }
+    },
+    {
+      "id": "Microsoft.NETFramework.ReferenceAssemblies",
+      "version": "1.0.3",
+      "packageSha256": "141a093f90c7645d101ccd312e6f727781c965540eb92a52280f95411a698441",
+      "archiveSha512": "47gxeykGlqOAoyq92edecd2uaASXab64lQJMNAifQSYq7d9T4wmEMwsSk/AT402FSoMiOuHir+QXGGeV2o3BSA==",
+      "contentHash": "vUc9Npcs14QsyOD01tnv/m8sQUnGTGOw1BCmKcv77LBJY7OxhJ+zJF7UD/sCL3lYNFuqmQEVlkfS4Quif6FyYg==",
+      "declaredDependenciesForNet472": [
+        {
+          "id": "Microsoft.NETFramework.ReferenceAssemblies.net472",
+          "version": "1.0.3",
+          "include": "Runtime,Compile,Build,Native,ContentFiles"
+        }
+      ],
+      "adopted": true,
+      "status": "downloaded-inspected-not-restored",
+      "source": "https://api.nuget.org/v3/index.json",
+      "contentHashMethod": "NuGet signature-excluding content hash; independent byte reconstruction, not dotnet restore",
+      "requireLicenseAcceptance": "false"
+    },
+    {
+      "id": "Microsoft.NETFramework.ReferenceAssemblies.net472",
+      "version": "1.0.3",
+      "packageSha256": "ffa0a5570a39f911399164d0581ffddef99b5e3dfbaa5f220e5ce22969bcf57c",
+      "archiveSha512": "PvZKpFbtsxtJBi6hJyzt/iaK71qGdu9mNVpJT43+i1Wp23ym57YVuQI+BEnO/99K2pxPMEgYtz62n7yZFEgi2A==",
+      "contentHash": "0E7evZXHXaDYYiLRfpyXvCh+yzM2rNTyuZDI+ZO7UUqSc6GfjePiXTdqJGtgIKUwdI81tzQKmaWprnUiPj9hAw==",
+      "declaredDependenciesForNet472": [],
+      "adopted": true,
+      "status": "downloaded-inspected-not-restored",
+      "source": "https://api.nuget.org/v3/index.json",
+      "contentHashMethod": "NuGet signature-excluding content hash; independent byte reconstruction, not dotnet restore",
+      "requireLicenseAcceptance": "false"
+    },
+    {
+      "id": "PolySharp",
+      "version": "1.15.0+02753db24d9685e54db06739eb63183d86eb5b62",
+      "packageSha256": "9c7fd43995b85fddc55042da0ed78cbc4116a1f5f8be28b87b9f633aac7d2538",
+      "archiveSha512": "RI7vQM7i4Yt5tabZYePJqxU+J4Q2CC9C8svmnKbBJSiDEM7cGEFlP5LaaLk+IW24lD08WFwKYeydaEtwed808w==",
+      "contentHash": "FbU0El+EEjdpuIX4iDbeS7ki1uzpJPx8vbqOzEtqnl1GZeAGJfq+jCbxeJL2y0EPnUNk8dRnnqR2xnYXg9Tf+g==",
+      "declaredDependenciesForNet472": [],
+      "adopted": true,
+      "status": "downloaded-inspected-not-restored",
+      "source": "https://api.nuget.org/v3/index.json",
+      "contentHashMethod": "NuGet signature-excluding content hash; independent byte reconstruction, not dotnet restore",
+      "requireLicenseAcceptance": "true",
+      "repository": {
+        "type": "git",
+        "url": "https://github.com/Sergio0694/PolySharp/",
+        "branch": "refs/heads/rel/1.15.0",
+        "commit": "02753db24d9685e54db06739eb63183d86eb5b62"
+      }
+    },
+    {
+      "id": "RimWorld.MultiplayerAPI",
+      "version": "0.6.0",
+      "packageSha256": "7c1b0e8d74fb233a6463685bb9b05ac502e8288702918dc3592e36ac55cd8261",
+      "archiveSha512": "akmdJoSRPeXz9GXfyhBXEDXFqB/oAWCM6veQi+RDoHhuFDgwR1oK4nXPAfRDZYTNYFaypyXHk5ADuG94OLACBQ==",
+      "contentHash": "JQ57MGb20RRIBuxF5Y4xKs0UHIGtfLGGJH0DL0mpASsMvH68+2iSLGPOaGRXs8BBt5zz5susHh5AzkL2t9cWXw==",
+      "declaredDependenciesForNet472": [
+        {
+          "id": "Krafs.Rimworld.Ref",
+          "version": "1.6.4518",
+          "exclude": "Build,Analyzers"
+        }
+      ],
+      "adopted": true,
+      "status": "downloaded-inspected-not-restored",
+      "source": "https://api.nuget.org/v3/index.json",
+      "contentHashMethod": "NuGet signature-excluding content hash; independent byte reconstruction, not dotnet restore",
+      "requireLicenseAcceptance": "not-declared",
+      "repository": {
+        "type": "git",
+        "commit": "2840872473baf7654fa05fe7a461ad71dae78722"
+      }
+    }
+  ],
+  "upstreamBuildFiles": [
+    {
+      "path": "Source/AdaptiveStorage/AdaptiveStorage.1.4.csproj",
+      "sha256": "b4b074ca6ba54561ce2aff9234255e78b617e01c45b06963f05fe1d992104b7e"
+    },
+    {
+      "path": "Source/AdaptiveStorage/AdaptiveStorage.1.5.csproj",
+      "sha256": "1c5359c90123c8b046bdebbeb800112fe12f794311169d6cc60c235664d476f3"
+    },
+    {
+      "path": "Source/AdaptiveStorage/AdaptiveStorage.1.6.csproj",
+      "sha256": "ccf79910f237bb0a19cdd2f8c158aa6dbafb82187df313758ecfbf2053a3178e"
+    },
+    {
+      "path": "Source/AdaptiveStorage/Directory.Build.props",
+      "sha256": "0a075b6730e04b10a9458b495e06de2d98de6a179e3e7b2d0e4059e3cc2745fb"
+    },
+    {
+      "path": "Source/Directory.Build.props",
+      "sha256": "969c2d43d055be981633b8a86ec8fbd495520410ef9f12a4a893225566798c19"
+    },
+    {
+      "path": "Source/ITransformable/Directory.Build.props",
+      "sha256": "f63fc5711e03eb55addebdd53e14ac10f1d4ba7e811f249aef39528b5a9a4a62"
+    },
+    {
+      "path": "Source/ITransformable/ITransformable.1.4.csproj",
+      "sha256": "98ef27a16ee88e6c41a988e9e72ba3d375c8909a4af0497a8bdd2a93687b2e9b"
+    },
+    {
+      "path": "Source/ITransformable/ITransformable.1.5.csproj",
+      "sha256": "64ff88d7cf91d74cf17823b861a5545c2ba4d7ddcc5bbb8a629b3df5de1d88ba"
+    },
+    {
+      "path": "Source/ITransformable/ITransformable.1.6.csproj",
+      "sha256": "ef613b3402dc804b086681e5b106963b58c77750a0db694fa69ac4cbfbc77e74"
+    }
+  ],
+  "note": "All 171 fixed upstream C# units inventoried; 170 included (six mechanically adapted: 13 field-backed properties and three explicitly typed renderer lambdas). StorageCellRect delegates to public Verse.CellRect, enumerating its Cells property. Base/oracle/nop and their verifiers compiled with SDK 8.0.422 on macOS arm64; actual Linux-image, runtime private-access and engine closure remain unverified.",
+  "sourceGraphAuthored": true,
+  "productionCompileUnits": 170,
+  "benchmarkSupportCompileUnits": 1,
+  "rejectedCompiler": {
+    "id": "Microsoft.Net.Compilers.Toolset",
+    "version": "4.13.0",
+    "packageSha256": "03a9d9d52540b98f6dd823527d2265d66799600cd5ee93d9dadac8a301a6aa8c",
+    "reason": "csc runtimeconfig requires .NET 9, incompatible with selected SDK 8 runtime; not adopted/restored/executed"
+  },
+  "hashAlgorithmSource": "https://github.com/NuGet/NuGet.Client/blob/d3a633a04da7cd83900498334ec5e7650a52fa86/src/NuGet.Core/NuGet.Packaging/Signing/Archive/SignedPackageArchiveUtility.cs#L593"
+}

@@ -1,0 +1,844 @@
+{
+  "task": "terraria/core/terraria-modliquid-map-persistence-hard",
+  "task_version": "0.1.0",
+  "exam": "benchmarks/terraria-core/exams/terraria-modliquid-map-persistence-hard.md",
+  "cases": [
+    {
+      "id": "check:submission-shape",
+      "role": "static"
+    },
+    {
+      "id": "projection:empty_map_writes_no_header",
+      "role": "target",
+      "clauses": [
+        "header-discovery"
+      ]
+    },
+    {
+      "id": "projection:hidden_mod_entries_do_not_create_sidecar",
+      "role": "target",
+      "clauses": [
+        "header-discovery"
+      ]
+    },
+    {
+      "id": "projection:header_types_are_unique_and_ascending",
+      "role": "target",
+      "clauses": [
+        "header-discovery"
+      ]
+    },
+    {
+      "id": "projection:visible_threshold_is_strictly_above_eighteen",
+      "role": "target",
+      "clauses": [
+        "header-discovery"
+      ]
+    },
+    {
+      "id": "projection:unrepresentable_header_count_is_rejected",
+      "role": "target",
+      "clauses": [
+        "header-discovery"
+      ]
+    },
+    {
+      "id": "projection:tile_header_preserves_identity_and_option",
+      "role": "target",
+      "clauses": [
+        "entry-resolution"
+      ]
+    },
+    {
+      "id": "projection:liquid_header_preserves_identity_and_option",
+      "role": "target",
+      "clauses": [
+        "entry-resolution"
+      ]
+    },
+    {
+      "id": "projection:wall_header_preserves_identity_and_option",
+      "role": "target",
+      "clauses": [
+        "entry-resolution"
+      ]
+    },
+    {
+      "id": "projection:unknown_header_entry_uses_missing_sentinel",
+      "role": "runtime-sentinel"
+    },
+    {
+      "id": "projection:tile_option_out_of_range_falls_back_to_zero",
+      "role": "target",
+      "clauses": [
+        "entry-resolution"
+      ]
+    },
+    {
+      "id": "projection:liquid_option_out_of_range_falls_back_to_zero",
+      "role": "target",
+      "clauses": [
+        "entry-resolution"
+      ]
+    },
+    {
+      "id": "projection:wall_option_out_of_range_falls_back_to_zero",
+      "role": "target",
+      "clauses": [
+        "entry-resolution"
+      ]
+    },
+    {
+      "id": "projection:duplicate_old_type_is_rejected",
+      "role": "target",
+      "clauses": [
+        "entry-resolution"
+      ]
+    },
+    {
+      "id": "projection:header_discriminator_must_be_boolean",
+      "role": "target",
+      "clauses": [
+        "canonical-header-validation"
+      ]
+    },
+    {
+      "id": "projection:header_old_types_must_be_strictly_ascending",
+      "role": "target",
+      "clauses": [
+        "canonical-header-validation"
+      ]
+    },
+    {
+      "id": "projection:header_rejects_vanilla_old_type",
+      "role": "target",
+      "clauses": [
+        "canonical-header-validation"
+      ]
+    },
+    {
+      "id": "projection:zero_entry_header_rejects_payload",
+      "role": "target",
+      "clauses": [
+        "canonical-header-validation"
+      ]
+    },
+    {
+      "id": "projection:malformed_header_string_is_invaliddata",
+      "role": "target",
+      "clauses": [
+        "canonical-header-validation"
+      ]
+    },
+    {
+      "id": "projection:sparse_stream_preserves_first_cell",
+      "role": "target",
+      "clauses": [
+        "sparse-scan"
+      ]
+    },
+    {
+      "id": "projection:sparse_stream_preserves_interior_cell",
+      "role": "target",
+      "clauses": [
+        "sparse-scan"
+      ]
+    },
+    {
+      "id": "projection:sparse_stream_crosses_column_boundary",
+      "role": "target",
+      "clauses": [
+        "sparse-scan"
+      ]
+    },
+    {
+      "id": "projection:sparse_skip_splits_at_255",
+      "role": "target",
+      "clauses": [
+        "sparse-scan"
+      ]
+    },
+    {
+      "id": "projection:sparse_stream_preserves_final_cell",
+      "role": "target",
+      "clauses": [
+        "sparse-scan"
+      ]
+    },
+    {
+      "id": "projection:trailing_skip_does_not_invent_record",
+      "role": "target",
+      "clauses": [
+        "sparse-scan"
+      ]
+    },
+    {
+      "id": "projection:sparse_skip_past_world_is_rejected",
+      "role": "target",
+      "clauses": [
+        "sparse-scan"
+      ]
+    },
+    {
+      "id": "projection:rle_uses_one_byte_at_255",
+      "role": "target",
+      "clauses": [
+        "rle-continuation"
+      ]
+    },
+    {
+      "id": "projection:rle_uses_two_bytes_at_256",
+      "role": "target",
+      "clauses": [
+        "rle-continuation"
+      ]
+    },
+    {
+      "id": "projection:rle_uses_two_bytes_at_65535",
+      "role": "target",
+      "clauses": [
+        "rle-continuation"
+      ]
+    },
+    {
+      "id": "projection:rle_uses_four_bytes_at_65536",
+      "role": "target",
+      "clauses": [
+        "rle-continuation"
+      ]
+    },
+    {
+      "id": "projection:rle_preserves_light_and_color",
+      "role": "target",
+      "clauses": [
+        "rle-continuation"
+      ]
+    },
+    {
+      "id": "projection:adjacent_distinct_records_use_continuation",
+      "role": "target",
+      "clauses": [
+        "rle-continuation"
+      ]
+    },
+    {
+      "id": "projection:rle_crosses_column_boundary_in_scan_order",
+      "role": "target",
+      "clauses": [
+        "rle-continuation"
+      ]
+    },
+    {
+      "id": "projection:run_past_world_end_is_rejected",
+      "role": "target",
+      "clauses": [
+        "rle-continuation"
+      ]
+    },
+    {
+      "id": "projection:continuation_at_world_end_is_rejected",
+      "role": "target",
+      "clauses": [
+        "rle-continuation"
+      ]
+    },
+    {
+      "id": "projection:noncanonical_run_width_is_rejected",
+      "role": "target",
+      "clauses": [
+        "rle-continuation"
+      ]
+    },
+    {
+      "id": "projection:reserved_tile_flags_are_rejected_transactionally",
+      "role": "target",
+      "clauses": [
+        "malformed-records"
+      ]
+    },
+    {
+      "id": "projection:missing_type_table_reference_is_rejected",
+      "role": "target",
+      "clauses": [
+        "malformed-records"
+      ]
+    },
+    {
+      "id": "projection:null_type_table_is_rejected",
+      "role": "target",
+      "clauses": [
+        "malformed-records"
+      ]
+    },
+    {
+      "id": "projection:truncated_tile_record_is_rejected",
+      "role": "target",
+      "clauses": [
+        "malformed-records"
+      ]
+    },
+    {
+      "id": "projection:zero_rle_count_is_rejected",
+      "role": "target",
+      "clauses": [
+        "malformed-records"
+      ]
+    },
+    {
+      "id": "projection:run_width_without_rle_is_rejected",
+      "role": "target",
+      "clauses": [
+        "malformed-records"
+      ]
+    },
+    {
+      "id": "projection:uint_run_requires_ushort_width_flag",
+      "role": "target",
+      "clauses": [
+        "malformed-records"
+      ]
+    },
+    {
+      "id": "projection:malformed_second_record_rolls_back_first",
+      "role": "target",
+      "clauses": [
+        "malformed-records"
+      ]
+    },
+    {
+      "id": "projection:trailing_bytes_roll_back_payload",
+      "role": "target",
+      "clauses": [
+        "transactional-commit"
+      ]
+    },
+    {
+      "id": "projection:valid_payload_commits_each_decoded_cell_once",
+      "role": "target",
+      "clauses": [
+        "transactional-commit"
+      ]
+    },
+    {
+      "id": "projection:missing_content_maps_to_type_zero",
+      "role": "target",
+      "clauses": [
+        "transactional-commit"
+      ]
+    },
+    {
+      "id": "projection:skipped_vanilla_cells_remain_untouched",
+      "role": "target",
+      "clauses": [
+        "transactional-commit"
+      ]
+    },
+    {
+      "id": "projection:file_write_uses_tlmap_extension",
+      "role": "target",
+      "clauses": [
+        "file-lifecycle"
+      ]
+    },
+    {
+      "id": "projection:local_empty_write_deletes_local_sidecar",
+      "role": "target",
+      "clauses": [
+        "file-lifecycle"
+      ]
+    },
+    {
+      "id": "projection:cloud_empty_write_deletes_cloud_sidecar",
+      "role": "target",
+      "clauses": [
+        "file-lifecycle"
+      ]
+    },
+    {
+      "id": "projection:missing_cloud_provider_never_deletes_local_file",
+      "role": "target",
+      "clauses": [
+        "file-lifecycle"
+      ]
+    },
+    {
+      "id": "projection:missing_read_target_performs_no_read",
+      "role": "target",
+      "clauses": [
+        "file-lifecycle"
+      ]
+    },
+    {
+      "id": "projection:file_read_uses_tlmap_and_applies_valid_payload",
+      "role": "target",
+      "clauses": [
+        "file-lifecycle"
+      ]
+    },
+    {
+      "id": "projection:malformed_file_read_rolls_back_map",
+      "role": "target",
+      "clauses": [
+        "file-lifecycle"
+      ]
+    },
+    {
+      "id": "projection:writer_failure_preserves_existing_stream",
+      "role": "target",
+      "clauses": [
+        "coherent-save-snapshot"
+      ]
+    },
+    {
+      "id": "projection:writer_uses_one_map_snapshot",
+      "role": "target",
+      "clauses": [
+        "coherent-save-snapshot"
+      ]
+    },
+    {
+      "id": "projection:writer_rejects_ambiguous_registry_membership",
+      "role": "target",
+      "clauses": [
+        "coherent-save-snapshot"
+      ]
+    },
+    {
+      "id": "projection:writer_rejects_lookup_below_mod_range",
+      "role": "target",
+      "clauses": [
+        "coherent-save-snapshot"
+      ]
+    },
+    {
+      "id": "projection:writer_rejects_unrepresentable_option",
+      "role": "target",
+      "clauses": [
+        "coherent-save-snapshot"
+      ]
+    },
+    {
+      "id": "projection:file_write_preparation_failure_performs_no_io",
+      "role": "target",
+      "clauses": [
+        "coherent-save-snapshot"
+      ]
+    },
+    {
+      "id": "projection:nontile_identity_ambiguity_is_rejected",
+      "role": "target",
+      "clauses": [
+        "resolved-identity"
+      ]
+    },
+    {
+      "id": "projection:resolved_lookup_below_mod_range_is_rejected",
+      "role": "target",
+      "clauses": [
+        "resolved-identity"
+      ]
+    },
+    {
+      "id": "projection:resolved_lookup_overflow_is_rejected",
+      "role": "target",
+      "clauses": [
+        "resolved-identity"
+      ]
+    },
+    {
+      "id": "projection:resolved_content_requires_an_option",
+      "role": "target",
+      "clauses": [
+        "resolved-identity"
+      ]
+    },
+    {
+      "id": "projection:world_swap_during_resolution_is_rejected",
+      "role": "target",
+      "clauses": [
+        "destination-generation"
+      ]
+    },
+    {
+      "id": "projection:dimension_change_during_resolution_is_rejected",
+      "role": "target",
+      "clauses": [
+        "destination-generation"
+      ]
+    },
+    {
+      "id": "projection:commit_failure_rolls_back_written_prefix",
+      "role": "target",
+      "clauses": [
+        "destination-generation"
+      ]
+    },
+    {
+      "id": "projection:file_commit_failure_rolls_back_written_prefix",
+      "role": "target",
+      "clauses": [
+        "destination-generation"
+      ]
+    },
+    {
+      "id": "projection:save_hook_forwards_unique_anchor",
+      "role": "target",
+      "clauses": [
+        "hook-integration"
+      ]
+    },
+    {
+      "id": "projection:save_hook_rejects_missing_anchor",
+      "role": "target",
+      "clauses": [
+        "hook-integration"
+      ]
+    },
+    {
+      "id": "projection:save_hook_rejects_duplicate_anchor",
+      "role": "target",
+      "clauses": [
+        "hook-integration"
+      ]
+    },
+    {
+      "id": "projection:load_hook_forwards_unique_anchor",
+      "role": "target",
+      "clauses": [
+        "hook-integration"
+      ]
+    },
+    {
+      "id": "projection:load_hook_rejects_missing_anchor",
+      "role": "target",
+      "clauses": [
+        "hook-integration"
+      ]
+    },
+    {
+      "id": "projection:load_hook_rejects_duplicate_anchor",
+      "role": "target",
+      "clauses": [
+        "hook-integration"
+      ]
+    },
+    {
+      "id": "projection:registry_publication_is_atomic_deterministic_and_coherent",
+      "role": "target",
+      "clauses": [
+        "registry-publication"
+      ]
+    },
+    {
+      "id": "projection:registry_rejects_out_of_range_type_without_mutation",
+      "role": "target",
+      "clauses": [
+        "registry-publication"
+      ]
+    },
+    {
+      "id": "projection:registry_rejects_map_type_collision_without_mutation",
+      "role": "target",
+      "clauses": [
+        "registry-publication"
+      ]
+    },
+    {
+      "id": "projection:registry_rejects_ushort_overflow_without_mutation",
+      "role": "target",
+      "clauses": [
+        "registry-publication"
+      ]
+    },
+    {
+      "id": "projection:registry_rejects_null_localized_name_without_mutation",
+      "role": "target",
+      "clauses": [
+        "registry-publication"
+      ]
+    },
+    {
+      "id": "projection:registry_rejects_null_name_callback_without_mutation",
+      "role": "target",
+      "clauses": [
+        "registry-publication"
+      ]
+    },
+    {
+      "id": "projection:client_unload_clears_all_published_state",
+      "role": "target",
+      "clauses": [
+        "registry-lifecycle"
+      ]
+    },
+    {
+      "id": "projection:dedicated_server_unload_clears_all_published_state",
+      "role": "target",
+      "clauses": [
+        "registry-lifecycle"
+      ]
+    },
+    {
+      "id": "projection:map_option_resolves_from_published_base_once",
+      "role": "target",
+      "clauses": [
+        "map-option-transaction"
+      ]
+    },
+    {
+      "id": "projection:invalid_map_option_preserves_input",
+      "role": "target",
+      "clauses": [
+        "map-option-transaction"
+      ]
+    },
+    {
+      "id": "projection:map_option_rejects_generation_change",
+      "role": "target",
+      "clauses": [
+        "map-option-transaction"
+      ]
+    },
+    {
+      "id": "projection:map_option_rejects_loader_generation_change_before_callback",
+      "role": "target",
+      "clauses": [
+        "map-option-transaction"
+      ]
+    },
+    {
+      "id": "projection:map_option_rejects_direct_topology_change",
+      "role": "target",
+      "clauses": [
+        "map-option-transaction"
+      ]
+    },
+    {
+      "id": "projection:map_option_rejects_owner_alias_outside_range",
+      "role": "target",
+      "clauses": [
+        "map-option-transaction"
+      ]
+    },
+    {
+      "id": "projection:writer_rejects_registry_republication_before_output",
+      "role": "target",
+      "clauses": [
+        "registry-generation-persistence"
+      ]
+    },
+    {
+      "id": "projection:reader_rejects_registry_republication_before_commit",
+      "role": "target",
+      "clauses": [
+        "registry-generation-persistence"
+      ]
+    },
+    {
+      "id": "projection:file_writer_republication_failure_performs_no_io",
+      "role": "target",
+      "clauses": [
+        "registry-generation-persistence"
+      ]
+    },
+    {
+      "id": "projection:file_reader_republication_failure_preserves_map",
+      "role": "target",
+      "clauses": [
+        "registry-generation-persistence"
+      ]
+    },
+    {
+      "id": "projection:finish_setup_hook_forwards_unique_anchor",
+      "role": "target",
+      "clauses": [
+        "liquid-hook-preflight"
+      ]
+    },
+    {
+      "id": "projection:finish_setup_hook_rejects_missing_anchor",
+      "role": "target",
+      "clauses": [
+        "liquid-hook-preflight"
+      ]
+    },
+    {
+      "id": "projection:finish_setup_hook_rejects_duplicate_anchor",
+      "role": "target",
+      "clauses": [
+        "liquid-hook-preflight"
+      ]
+    },
+    {
+      "id": "projection:liquid_lookup_hook_forwards_both_unique_anchors",
+      "role": "target",
+      "clauses": [
+        "liquid-hook-preflight"
+      ]
+    },
+    {
+      "id": "projection:liquid_lookup_hook_rejects_missing_second_anchor",
+      "role": "target",
+      "clauses": [
+        "liquid-hook-preflight"
+      ]
+    },
+    {
+      "id": "projection:liquid_lookup_hook_rejects_duplicate_first_anchor",
+      "role": "target",
+      "clauses": [
+        "liquid-hook-preflight"
+      ]
+    },
+    {
+      "id": "projection:liquid_lookup_hook_rejects_reversed_anchors",
+      "role": "target",
+      "clauses": [
+        "liquid-hook-preflight"
+      ]
+    },
+    {
+      "id": "projection:liquid_count_hook_forwards_all_unique_anchors",
+      "role": "target",
+      "clauses": [
+        "liquid-hook-preflight"
+      ]
+    },
+    {
+      "id": "projection:liquid_count_hook_rejects_missing_third_anchor",
+      "role": "target",
+      "clauses": [
+        "liquid-hook-preflight"
+      ]
+    },
+    {
+      "id": "projection:liquid_count_hook_rejects_duplicate_middle_anchor",
+      "role": "target",
+      "clauses": [
+        "liquid-hook-preflight"
+      ]
+    },
+    {
+      "id": "projection:liquid_count_hook_rejects_reversed_anchors",
+      "role": "target",
+      "clauses": [
+        "liquid-hook-preflight"
+      ]
+    },
+    {
+      "id": "server:real_engine_dedicated_server_unload_clears_registry",
+      "role": "target",
+      "clauses": [
+        "request"
+      ]
+    },
+    {
+      "id": "server:real_engine_registry_collision_is_atomic",
+      "role": "target",
+      "clauses": [
+        "request"
+      ]
+    },
+    {
+      "id": "server:real_engine_map_decode_is_transactional",
+      "role": "target",
+      "clauses": [
+        "request"
+      ]
+    }
+  ],
+  "clauses": [
+    {
+      "id": "header-discovery",
+      "anchor": "exam report header-discovery",
+      "status": "asserted"
+    },
+    {
+      "id": "entry-resolution",
+      "anchor": "exam report entry-resolution",
+      "status": "asserted"
+    },
+    {
+      "id": "canonical-header-validation",
+      "anchor": "exam report canonical-header-validation",
+      "status": "asserted"
+    },
+    {
+      "id": "sparse-scan",
+      "anchor": "exam report sparse-scan",
+      "status": "asserted"
+    },
+    {
+      "id": "rle-continuation",
+      "anchor": "exam report rle-continuation",
+      "status": "asserted"
+    },
+    {
+      "id": "malformed-records",
+      "anchor": "exam report malformed-records",
+      "status": "asserted"
+    },
+    {
+      "id": "transactional-commit",
+      "anchor": "exam report transactional-commit",
+      "status": "asserted"
+    },
+    {
+      "id": "file-lifecycle",
+      "anchor": "exam report file-lifecycle",
+      "status": "asserted"
+    },
+    {
+      "id": "coherent-save-snapshot",
+      "anchor": "exam report coherent-save-snapshot",
+      "status": "asserted"
+    },
+    {
+      "id": "resolved-identity",
+      "anchor": "exam report resolved-identity",
+      "status": "asserted"
+    },
+    {
+      "id": "destination-generation",
+      "anchor": "exam report destination-generation",
+      "status": "asserted"
+    },
+    {
+      "id": "hook-integration",
+      "anchor": "exam report hook-integration",
+      "status": "asserted"
+    },
+    {
+      "id": "registry-publication",
+      "anchor": "exam report registry-publication",
+      "status": "asserted"
+    },
+    {
+      "id": "registry-lifecycle",
+      "anchor": "exam report registry-lifecycle",
+      "status": "asserted"
+    },
+    {
+      "id": "map-option-transaction",
+      "anchor": "exam report map-option-transaction",
+      "status": "asserted"
+    },
+    {
+      "id": "registry-generation-persistence",
+      "anchor": "exam report registry-generation-persistence",
+      "status": "asserted"
+    },
+    {
+      "id": "liquid-hook-preflight",
+      "anchor": "exam report liquid-hook-preflight",
+      "status": "asserted"
+    },
+    {
+      "id": "request",
+      "anchor": "exam body; split into individual clauses during review",
+      "status": "asserted"
+    }
+  ],
+  "excluded_clauses": [],
+  "known_issues": []
+}

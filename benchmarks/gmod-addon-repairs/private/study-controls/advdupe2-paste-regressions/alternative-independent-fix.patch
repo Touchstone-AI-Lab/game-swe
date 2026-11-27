@@ -1,0 +1,77 @@
+diff -u a/advdupe2/lua/advdupe2/sh_codec.lua b/advdupe2/lua/advdupe2/sh_codec.lua
+--- a/advdupe2/lua/advdupe2/sh_codec.lua
++++ b/advdupe2/lua/advdupe2/sh_codec.lua
+@@ -49,7 +49,11 @@
+ end
+ 
+ function AdvDupe2.SanitizeFilename(filename)
+-	return string.gsub(string.gsub(filename, "[\":]", "_"), "%s+", " ")
++	filename = string.gsub(filename, "[\":]", "_")
++	filename = string.gsub(filename, "%s+", " ")
++	filename = string.gsub(filename, " ([/\\.])", "%1")
++	filename = string.gsub(filename, "([/\\.]) ", "%1")
++	return filename
+ end
+ 
+ local function makeInfo(tbl)
+diff -u a/advdupe2/lua/advdupe2/sv_clipboard.lua b/advdupe2/lua/advdupe2/sv_clipboard.lua
+--- a/advdupe2/lua/advdupe2/sv_clipboard.lua
++++ b/advdupe2/lua/advdupe2/sv_clipboard.lua
+@@ -527,7 +527,8 @@
+ 	local Factory = duplicator.ConstraintType[Constraint.Type]
+ 	if not Factory then return end
+ 
+-	if Player and not Player:CheckLimit( "constraints" ) then return end
++	local limitName = Constraint.Type == "Rope" and "ropeconstraints" or "constraints"
++	if Player and not Player:CheckLimit( limitName ) then return end
+ 	local first, firstindex -- Ent1 or Ent in the constraint's table
+ 	local second, secondindex -- Any other Ent that is not Ent1 or Ent
+ 	local Args = {} -- Build the argument list for the Constraint's spawn function
+@@ -670,7 +671,7 @@
+ 	end
+ 
+ 	if Player then
+-		Player:AddCount( "constraints", Ent )
++		Player:AddCount( limitName, Ent )
+ 	end
+ 
+ 	Ent.BuildDupeInfo = table.Copy(buildInfo)
+@@ -767,8 +768,9 @@
+ local function DoGenericPhysics(entity, data, ply)
+ 	if not data.PhysicsObjects then return end
+ 
+-	for bone, args in ipairs(data.PhysicsObjects) do
+-		local phys = entity:GetPhysicsObjectNum(bone)
++	for bone = 0, entity:GetPhysicsObjectCount() - 1 do
++		local args = data.PhysicsObjects[bone]
++		local phys = args and entity:GetPhysicsObjectNum(bone)
+ 
+ 		if IsValid(phys) then
+ 			phys:SetPos(args.Pos)
+@@ -817,7 +819,11 @@
+ 		return
+ 	end
+ 
+-	duplicator.DoGeneric(entity, data)
++	local restored, reason = pcall(duplicator.DoGeneric, entity, data)
++	if not restored then
++		entity:Remove()
++		error(reason, 0)
++	end
+ 	if ply then entity:SetCreator(ply) end
+ 
+ 	entity:Spawn()
+@@ -1150,6 +1156,13 @@
+ 		AdvDupe2.SpawningEntity = false
+ 
+ 		if Ent then
++			if Ent:GetClass() == "prop_physics" and Ent:GetModelScale() ~= 1 then
++				local phys = Ent:GetPhysicsObject()
++				local frozen = IsValid(phys) and not phys:IsMotionEnabled()
++				Ent:Activate()
++				phys = Ent:GetPhysicsObject()
++				if frozen and IsValid(phys) then phys:EnableMotion(false) end
++			end
+ 			if (Player) then Player:AddCleanup("AdvDupe2", Ent) end
+ 			Ent.BoneMods = table.Copy(v.BoneMods)
+ 			Ent.EntityMods = table.Copy(v.EntityMods)

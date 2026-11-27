@@ -1,0 +1,12 @@
+diff --git a/main.lua b/main.lua
+--- a/main.lua
++++ b/main.lua
+@@ -3471,7 +3471,7 @@
+     local player = Isaac.GetPlayer(0)
+     
+     if ItemVariables.BIG_SCISSORS.Triggered and rng:RandomInt(3) == 0 then
+-        Isaac.Spawn(EntityType.ENTITY_EFFECT, EffectVariant.PLAYER_CREEP_RED, 3, player.Position, Vector(0, 0), player)
++        Isaac.Spawn(EntityType.ENTITY_EFFECT, EffectVariant.PLAYER_CREEP_RED, 3, player.Position, Vector.Zero, player)
+     end
+ end
+ 

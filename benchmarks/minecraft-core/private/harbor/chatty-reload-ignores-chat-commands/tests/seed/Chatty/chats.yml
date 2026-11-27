@@ -1,0 +1,27 @@
+# Chatty chats.yml present before the plugin enables for the first time on the
+# verifier server: both shipped chats declare a chat command so that the
+# start-up registration path is exercised. Fields left out take the plugin's
+# defaults; Chatty rewrites this file in its own layout when it loads it.
+chats:
+  local:
+    display-name: Local
+    format: '&7[&bLocal&7] &r{prefix}{player}{suffix}&8: &f{message}'
+    symbol: ''
+    range: 200
+    command: gcblocal
+    aliases:
+      - gcbl
+  global:
+    display-name: Global
+    format: '&7[&6Global&7] &r{prefix}{player}{suffix}&8: &f{message}'
+    symbol: '!'
+    range: -2
+    command: gcbglobal
+    aliases: []
+  gcbstaff:
+    display-name: Staff
+    format: '&7[&cStaff&7] &r{prefix}{player}{suffix}&8: &f{message}'
+    symbol: '%'
+    range: -2
+    command: gcbstaff
+    aliases: []

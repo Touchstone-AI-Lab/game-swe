@@ -1,0 +1,18 @@
+{
+  "id": "poc_wear2_fixture",
+  "name": "Renewable Polish private fixture",
+  "author": [
+    "Balatro PoC"
+  ],
+  "description": "Initial-only setup; passive physical/display observation",
+  "prefix": "wr2f",
+  "main_file": "fixture.lua",
+  "version": "2.0.0",
+  "priority": 100006,
+  "dependencies": [
+    "Steamodded (>=1.~)",
+    "balatrobot",
+    "poc_bg_observer",
+    "isolated_card_wear_v2"
+  ]
+}

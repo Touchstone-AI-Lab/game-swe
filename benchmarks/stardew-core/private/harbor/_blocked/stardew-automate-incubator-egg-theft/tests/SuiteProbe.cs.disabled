@@ -1,0 +1,75 @@
+using System.Collections;
+using System.Collections.Generic;
+using GcbHarness.Framework;
+using Microsoft.Xna.Framework;
+using StardewValley;
+using StardewValley.Buildings;
+using StardewValley.Objects;
+using SObject = StardewValley.Object;
+
+namespace GcbHarness.Suites
+{
+    /// <summary>Diagnostic-only suite (never shipped as a task's suite; the verifier
+    /// compiles exactly one). Every case fails on purpose — the assertion message is the
+    /// readout. Used to learn how an incubator's machine state evolves across the game's
+    /// own overnight path, so the real suite can reach the state where the upstream bug
+    /// actually bites.</summary>
+    public sealed class ProbeSuite : IGcbSuite
+    {
+        public string GroupName => "probe.incubator-state";
+
+        private static readonly Vector2 CoopTile = new(20, 26);
+        private GameLocation? _coop;
+        private SObject? _incubator;
+
+        public IEnumerable<GcbCase> Cases =>
+        [
+            new GcbCase("probe: state right after the egg goes in", this.AfterDropIn, timeoutTicks: 3000),
+            new GcbCase("probe: state after one location DayUpdate", this.AfterOneDayUpdate, timeoutTicks: 3000),
+            new GcbCase("probe: state after several DayUpdates", this.AfterManyDayUpdates, timeoutTicks: 3000),
+        ];
+
+        private static string Describe(SObject machine)
+        {
+            SObject? held = machine.heldObject.Value;
+            return $"held={held?.QualifiedItemId ?? "null"} minutesUntilReady={machine.MinutesUntilReady} " +
+                   $"readyForHarvest={machine.readyForHarvest.Value} isIncubator={machine.GetMachineData()?.IsIncubator}";
+        }
+
+        private IEnumerator AfterDropIn()
+        {
+            Farm farm = Game1.getFarm();
+            GcbWorld.ClearArea(farm, new Rectangle((int)CoopTile.X - 2, (int)CoopTile.Y - 2, 10, 8));
+            GcbAssert.IsTrue(
+                farm.buildStructure("Coop", CoopTile, Game1.player, out Building coop, magicalConstruction: true, skipSafetyChecks: true),
+                "coop built");
+            this._coop = coop.GetIndoors();
+            (Vector2 left, Vector2 right) = GcbWorld.FindAdjacentPlaceablePair(this._coop!);
+            this._incubator = GcbWorld.Place(this._coop!, left, "(BC)101");
+            GcbWorld.Place(this._coop!, right, "(BC)130");
+
+            SObject egg = (SObject)GcbWorld.Stack("(O)176", 1);
+            bool accepted = this._incubator.performObjectDropInAction(egg, false, Game1.player);
+            yield return GcbWait.Ticks(60);
+
+            GcbAssert.IsTrue(false, $"PROBE dropIn accepted={accepted} {Describe(this._incubator)}");
+        }
+
+        private IEnumerator AfterOneDayUpdate()
+        {
+            // The game's own time-passage entry point, the same call the clock makes.
+            bool ret = this._incubator!.minutesElapsed(9000);
+            yield return GcbWait.Ticks(60);
+            GcbAssert.IsTrue(false, $"PROBE afterMinutesElapsed9000 ret={ret} {Describe(this._incubator!)} " +
+                                    $"onlyOvernight={this._incubator.GetMachineData()?.OnlyCompleteOvernight}");
+        }
+
+        private IEnumerator AfterManyDayUpdates()
+        {
+            // Give Automate several automation cycles at the now-ready incubator: on a
+            // tree without the guards this is where the egg gets taken.
+            yield return GcbWait.Ticks(600);
+            GcbAssert.IsTrue(false, $"PROBE afterAutomationCycles {Describe(this._incubator!)}");
+        }
+    }
+}

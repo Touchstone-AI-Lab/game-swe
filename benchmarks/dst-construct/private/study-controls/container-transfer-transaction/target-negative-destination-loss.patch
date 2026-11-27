@@ -1,0 +1,13 @@
+--- a/scripts/components/containertransfer.lua
++++ b/scripts/components/containertransfer.lua
+@@ -167,8 +167,8 @@
+         local held = service.held
+         for index = 1, #held do
+             local item = held[index]
+-            if not item:IsValid() or not container:GiveItem(item, nil, nil, false) then
+-                return false
++            if item:IsValid() then
++                item:Remove()
+             end
+         end
+         service.held = {}

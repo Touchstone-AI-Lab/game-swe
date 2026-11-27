@@ -1,0 +1,22 @@
+{
+  "provider": "steam",
+  "restricted": true,
+  "source": {
+    "kind": "steam-depots",
+    "appId": 646570,
+    "depots": [
+      {
+        "id": 646571,
+        "manifest": "9072802409324604124"
+      }
+    ],
+    "expectedFiles": [
+      "desktop-1.0.jar"
+    ]
+  },
+  "observed_build_id": "10180494",
+  "expected_sha256": {
+    "desktop-1.0.jar": "cfad868ac8d65a88e71a0bf096fb09f78811e553effe0787c5309a655e081673"
+  },
+  "provenance": "Identifiers read from the installed Steam app manifest; JAR content hash verified. Obtain your own licensed copy."
+}

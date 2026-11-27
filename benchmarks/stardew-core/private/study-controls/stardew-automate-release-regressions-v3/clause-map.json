@@ -1,0 +1,160 @@
+{
+  "task": "stardew-valley/core/stardew-automate-release-regressions-v3",
+  "task_version": "1.1.0",
+  "exam": "benchmarks/stardew-core/exams/stardew-automate-release-regressions-v3.md",
+  "cases": [
+    {
+      "id": "check:submission-shape",
+      "role": "static",
+      "clauses": [],
+      "overlap": false,
+      "note": "file-existence gate: the catalog's required_files (exactly the files the gold patch touches) must exist and the tree must contain no symlink; every listed file already exists in the starter, so it constrains nothing; the list includes BushMachine.cs, the file of the unasserted #246 fix"
+    },
+    {
+      "id": "case:machine overlay data is available right after a save loads",
+      "role": "target",
+      "clauses": [
+        "#243"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:sentinel: a chest feeds an adjacent furnace",
+      "role": "preserved",
+      "clauses": [
+        "#248-preserve",
+        "Task-preserve"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:sentinel: the finished bar is collected",
+      "role": "preserved",
+      "clauses": [
+        "#248-preserve",
+        "Task-preserve"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:a zero-size output is discarded and the machine empties",
+      "role": "target",
+      "clauses": [
+        "#241"
+      ],
+      "overlap": false,
+      "note": "reuses the sentinel furnace: it first waits for that furnace to hold a second batch (SuiteV3.cs:116-117), so it also fails when plain chest automation is broken"
+    },
+    {
+      "id": "case:the machine resumes processing input after the discard",
+      "role": "target",
+      "clauses": [
+        "#241"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:setup: two coops of the same type, each with its own chest and furnace",
+      "role": "setup",
+      "clauses": [],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:machines in the first coop run",
+      "role": "target",
+      "clauses": [
+        "#248",
+        "#249"
+      ],
+      "overlap": false,
+      "note": "passes in the unchanged starter (one of the two coops always works); the pair with the next case is the evidence, and it fails for a repair that merely moves the collision to the other coop. Kept as target, not relabelled as compatibility."
+    },
+    {
+      "id": "case:machines in the second coop run too",
+      "role": "target",
+      "clauses": [
+        "#248",
+        "#249"
+      ],
+      "overlap": false,
+      "note": ""
+    }
+  ],
+  "clauses": [
+    {
+      "id": "#241",
+      "anchor": "Problem, report [#241]: 'the machine shows as ready, but Automate never empties it, never feeds it new input ... by hand in vanilla just discards a broken item'",
+      "status": "asserted",
+      "note": "asserted for a furnace whose finished output has Stack = 0; see known_issues for the under-determined report"
+    },
+    {
+      "id": "#243",
+      "anchor": "Problem, report [#243]: 'Right after a save loads, the API returns nothing at all for locations that clearly contain machines'",
+      "status": "weak",
+      "note": "SuiteV3.cs:84 only asserts GetMachineStates(farm, whole map).Any() after 360 idle ticks. One reported tile (the shipping bin) satisfies it; the report's other location ('a shed full of kegs'), the completeness of the result ('all the machines that were missing') and the state values are never checked."
+    },
+    {
+      "id": "#243-preserve",
+      "anchor": "Problem, report [#243], sentence 3: 'The moment the player sets up any chest next to any machine, everything pops into the overlay at once'",
+      "status": "unasserted",
+      "note": "v1/v2 check this working API path with 'the API reports the automated machine group'; the v3 suite dropped that case, so nothing here reads the API after a group exists"
+    },
+    {
+      "id": "#246",
+      "anchor": "Problem, report [#246]: 'I chopped the bush down. After that the whole setup in that corner went quiet ... My log has a wall of errors from Automate'",
+      "status": "unasserted",
+      "note": "the null-Location guard of BushMachine (upstream 001e64aa) is reverted in the starter and restored by gold.patch, but the suite class comment (SuiteV3.cs:27-31) and task.toml state that it carries NO assertion because the observable could not be produced in the harness"
+    },
+    {
+      "id": "#248",
+      "anchor": "Problem, report [#248]: 'Ever since I built a second coop, the machines inside one of my coops are just dead'",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "#248-preserve",
+      "anchor": "Problem, report [#248], last sentence: 'machines everywhere else on the farm still work'",
+      "status": "asserted",
+      "note": "one regular chest and one furnace on the farm"
+    },
+    {
+      "id": "#249",
+      "anchor": "Problem, report [#249]: 'two big sheds full of preserves jars ... only one shed's jars get refilled ... Two different buildings of any one type seems cursed'",
+      "status": "weak",
+      "note": "no shed and no preserves jar is ever built; covered only through its shared root cause with #248 (two coops, furnaces)"
+    },
+    {
+      "id": "Task-preserve",
+      "anchor": "Task, sentence 2: 'Behavior on the paths that already work must not change.'",
+      "status": "weak",
+      "note": "open-ended clause; the suite samples one working path (chest -> furnace -> chest on the farm)"
+    },
+    {
+      "id": "Notes-tests",
+      "anchor": "Notes, bullet 3: 'Do not modify anything under /tests.'",
+      "status": "unasserted",
+      "note": "no case; the evaluator mounts /tests read-only, so the clause cannot be violated in scoring and carries no behavioural content"
+    }
+  ],
+  "excluded_clauses": [
+    "#243-preserve",
+    "#246",
+    "Notes-tests"
+  ],
+  "known_issues": [
+    "Answer-key leak (DEBUG-HARDENING.md section 0): the composite starters used to ship Automate/docs/release-notes.md entries naming the reverted fixes. Verified for this task on the current tree: the entries for the zero-size output, GetMachineStates and the chopped bush are absent from benchmarks/stardew-core/private/harbor/stardew-automate-release-regressions-v3/environment/StardewMods/Automate/docs/release-notes.md and from the Hub workspace (the mini-fridge and seed-option entries are present, correctly: v3 does not revert those fixes). The leak is therefore closed for the starter that E0 materialises (commit a483c85, which precedes the catalog 1.1.0 bump b5915a1; the prepared 1.1.0 image bakes the scrubbed notes too).",
+    "Report #246 (automation dies after an automated bush is removed) is public, real in the starter and fixed by gold.patch, but has no assertion (benchmarks/stardew-core/private/harbor/stardew-automate-release-regressions-v3/tests/SuiteV3.cs:27-31). Probe probe-246-unfixed (reference with only that fix reverted; row kept in probes.tsv) was run in the real game and scores 100. It must stay outside both the target and the preserved set.",
+    "benchmarks/stardew-core/private/harbor/stardew-automate-release-regressions-v3/tests/SuiteV3.cs:84 only asserts GetMachineStates(farm, whole map).Any() after 360 idle ticks. One reported tile (the shipping bin) satisfies it; the report's other location ('a shed full of kegs'), the completeness of the result ('all the machines that were missing') and the state values are never checked.",
+    "Report #241 never says the stuck output has an empty stack; the fixture produces the wedge only by setting heldObject.Stack = 0 (SuiteV3.cs:121). DEBUG-HARDENING.md section 6 records the competing reading: 'a broken item' can be read as an item with missing data (the codebase has `catch (KeyNotFoundException) // invalid/broken item` in ChestContainer). A repair of that reading is rejected although the report as written admits it.",
+    "Reports #248 and #249 share one root cause; only coops are built (SuiteV3.cs:139-166), so #249 is evidenced indirectly.",
+    "The #241 cases are not independent of the preserved sentinel: they reuse the sentinel chest and furnace, so a submission that breaks plain chest automation fails target cases as well. A compat-negative therefore has to break collection in a way that still lets the furnace be emptied and refilled.",
+    "benchmarks/stardew-core/private/harbor/stardew-automate-release-regressions-v3/task.toml:16-17 was checked against DEBUG-HARDENING.md's remark about stale base_ref/fix_commit strings: in this tree they name 19b32715, f1a3b840 and 001e64aa, which matches gold.patch.",
+    "benchmarks/stardew-core/catalog.json:289 publishes a diagnosis the exam withholds (summary: 'Repair malformed output, initial scans, stale references, and location identity.'); the text is copied into the Hub's public tasks.json. The exam itself gives observations only.",
+    "The prepared evaluator image used for the E0 runs (sha256:ea86e13a2515) bakes /opt/gcb/harness with the SuiteRunner that predates commit 276a070: there a throwing wait predicate is treated as SATISFIED (`return true`) instead of failing the case (repo version: benchmarks/stardew-core/private/harbor/harness/GcbHarness/Framework/SuiteRunner.cs:80-95). Predicates that can throw in this suite: ZeroStackDiscarded/MachineResumes `_furnace!` (SuiteV3.cs:116, :133; null when the sentinel placement failed), CoopAWorks/CoopBWorks (:171, :178; null when the twin-coop setup case failed). In each of them the statement after the wait dereferences the same null/throwing object, so the case still fails under the old runner; no spurious pass was found, but the image does not contain the fix the repository claims."
+  ]
+}

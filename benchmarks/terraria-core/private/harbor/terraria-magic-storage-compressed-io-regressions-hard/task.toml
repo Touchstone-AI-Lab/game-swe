@@ -1,0 +1,63 @@
+schema_version = "1.4"
+
+artifacts = ["/workspace/magic-storage"]
+
+[task]
+name = "gamecodebench/terraria-magic-storage-compressed-io-regressions-hard"
+version = "0.1.0"
+description = "Repair eleven interacting framing, scalar, string, and item-codec regressions in Magic Storage's real compressed I/O path."
+authors = [{ name = "PrinsYin" }]
+keywords = ["terraria", "tmodloader", "magic-storage", "csharp", "serialization", "networking", "debugging"]
+
+[metadata]
+category = "programming"
+difficulty = "hard"
+tags = ["game-modding", "terraria", "tmodloader", "repository-debugging", "binary-format", "networking"]
+task_kind = "repository-debugging"
+game = "Terraria"
+game_build = "1.4.4.9"
+tmodloader_api = "1.4.4 stable API; historical stable context 2025.11.3.1"
+source_repo = "https://github.com/blushiemagic/MagicStorage"
+source_license = "MIT"
+base_commit = "08c76b8911c999908ea8f08b1aa217e8e7e604cd"
+source_mod_version = "0.7.1"
+evaluation_boundary = "layered offline .NET 8 source projection plus pinned real tModLoader 2026.7.3.0 dedicated-server assertions against Terraria 1.4.4.9; disclosed client-only behavior remains source-projection-only"
+expected_private_cases = 68
+independent_defect_groups = 11
+public_smoke_command = "python3 tools/smoke.py"
+validation_status = "revision-3 local controls passed"
+
+[verifier]
+environment_mode = "separate"
+network_mode = "no-network"
+timeout_sec = 900.0
+user = "root"
+
+[verifier.environment]
+network_mode = "no-network"
+cpus = 4
+memory_mb = 4096
+storage_mb = 8192
+gpus = 0
+mcp_servers = []
+
+[agent]
+user = "root"
+network_mode = "allowlist"
+allowed_hosts = ["api.openai.com"]
+timeout_sec = 7200.0
+
+[environment]
+network_mode = "no-network"
+build_timeout_sec = 1200.0
+cpus = 4
+memory_mb = 4096
+storage_mb = 8192
+gpus = 0
+mcp_servers = []
+
+[verifier.env]
+
+[environment.env]
+
+[solution.env]

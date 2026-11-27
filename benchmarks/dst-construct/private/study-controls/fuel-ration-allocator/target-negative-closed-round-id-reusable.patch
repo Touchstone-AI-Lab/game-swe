@@ -1,0 +1,13 @@
+--- a/scripts/fuelration/allocator.lua
++++ b/scripts/fuelration/allocator.lua
+@@ -288,10 +288,6 @@
+         end
+         return fail("round_open")
+     end
+-    if self.closed[round_id] ~= nil then
+-        return fail("round_closed")
+-    end
+-
+     local classes, wants = {}, {}
+     for _, consumer_id in ipairs(sorted_keys(self.consumers)) do
+         local consumer = self.consumers[consumer_id]

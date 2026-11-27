@@ -1,0 +1,159 @@
+{
+  "schema_version": 1,
+  "validation_sha256": "27506ae526a262e9933f8d0cef94c1fd61ddf6ea3350503d804a57e5ba3eb7bd",
+  "rationale": "Task assertions and candidates remain byte-identical. Every task has three gold/base repeats through the new common adapter plus one targeted full mutation suite; four correct alternatives cover implementation independence. Other historical controls retain only their original evidence.",
+  "tasks": [
+    {
+      "task": "growth-v2",
+      "new_native_roles": [
+        "M03-per-hand",
+        "alternative",
+        "base",
+        "gold"
+      ],
+      "historical_roles_not_rerun": [
+        "M06-cap-four",
+        "M08-four-kind-only"
+      ]
+    },
+    {
+      "task": "reversible-hand-limit-v1",
+      "new_native_roles": [
+        "M02-no-remove",
+        "base",
+        "gold"
+      ],
+      "historical_roles_not_rerun": [
+        "M01-double-add",
+        "M03-snapshot-restore"
+      ]
+    },
+    {
+      "task": "seeded-effect-stream-v1",
+      "new_native_roles": [
+        "M03-score-advances",
+        "base",
+        "gold"
+      ],
+      "historical_roles_not_rerun": [
+        "M01-per-card",
+        "M02-repeat-first"
+      ]
+    },
+    {
+      "task": "bounded-generator-v2",
+      "new_native_roles": [
+        "M02-fixed-release",
+        "base",
+        "gold"
+      ],
+      "historical_roles_not_rerun": [
+        "M01-min-two-admission",
+        "M03-truncate-products"
+      ]
+    },
+    {
+      "task": "deck-removal-consistency-v2",
+      "new_native_roles": [
+        "M02-area-only",
+        "base",
+        "gold"
+      ],
+      "historical_roles_not_rerun": [
+        "M01-prefix-targets",
+        "M03-first-two"
+      ]
+    },
+    {
+      "task": "live-joker-adjacency-v2",
+      "new_native_roles": [
+        "M02-stale-index",
+        "base",
+        "gold"
+      ],
+      "historical_roles_not_rerun": [
+        "M01-shared-result",
+        "M03-exclude-target",
+        "M04-wrap"
+      ]
+    },
+    {
+      "task": "isolated-card-wear-v2",
+      "new_native_roles": [
+        "M04-additive-refresh",
+        "base",
+        "gold"
+      ],
+      "historical_roles_not_rerun": [
+        "M01-stale-cache",
+        "M02-last-reward",
+        "M03-shared-prototype"
+      ]
+    },
+    {
+      "task": "durable-charge-v2",
+      "new_native_roles": [
+        "M06-display-only",
+        "base",
+        "gold",
+        "gold-journal"
+      ],
+      "historical_roles_not_rerun": [
+        "M01-duplicate",
+        "M02-snapshot-alias",
+        "M03-zero-restore",
+        "M04-restore-pollution",
+        "M05-row-restore"
+      ]
+    },
+    {
+      "task": "shop-price-coherence-v2",
+      "new_native_roles": [
+        "M04-stale-accepted",
+        "base",
+        "gold",
+        "gold-ledger"
+      ],
+      "historical_roles_not_rerun": [
+        "M01-round-each",
+        "M02-remove-all",
+        "M03-query-consumes",
+        "M05-never-consume",
+        "M06-view-alias",
+        "M07-no-dedup",
+        "M08-wrong-category"
+      ]
+    },
+    {
+      "task": "pack-choice-commit-v2",
+      "new_native_roles": [
+        "M07-repeat-commit",
+        "base",
+        "gold",
+        "gold-journal"
+      ],
+      "historical_roles_not_rerun": [
+        "M01-preview-reward",
+        "M02-shifted-index",
+        "M03-close-revocation",
+        "M04-global-flags",
+        "M05-repeat-settle",
+        "M06-view-alias"
+      ]
+    }
+  ],
+  "base_starter_identity_evidence": {
+    "file": ".test-state/balatro-native-v1/base-starter-identity-v1.json",
+    "sha256": "6b3a98da7d16a884327930b360a8dce463fb9d1d1705ed2d73519a91a85611c2",
+    "count": 10
+  },
+  "not_executed": [
+    "model calibration",
+    "arbitrary or untrusted external submissions",
+    "disposable evaluation host",
+    "generic blank MENU load",
+    "score-exam.ps1 wrapper engine invocation (installed CLI entry used)",
+    "ShellCheck (unavailable)",
+    "full pytest execution after collection errors"
+  ]
+}

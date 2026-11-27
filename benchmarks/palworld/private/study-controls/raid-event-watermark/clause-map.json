@@ -1,0 +1,184 @@
+{
+  "task": "palworld/core/raid-event-watermark",
+  "task_version": "1.2.0",
+  "exam": "benchmarks/palworld/exams/raid-event-watermark.md",
+  "cases": [
+    {
+      "id": "check:required-files",
+      "role": "static"
+    },
+    {
+      "id": "check:lua-syntax",
+      "role": "static"
+    },
+    {
+      "id": "hidden:out-of-order revisions replace rather than add",
+      "role": "target",
+      "clauses": [
+        "request"
+      ]
+    },
+    {
+      "id": "hidden:tombstone before create prevents resurrection until a higher revision",
+      "role": "target",
+      "clauses": [
+        "request"
+      ]
+    },
+    {
+      "id": "hidden:identity conflict and equal-revision payload conflict have stable precedence",
+      "role": "target",
+      "clauses": [
+        "request"
+      ]
+    },
+    {
+      "id": "hidden:watermark uses strict event bound and closed window bound",
+      "role": "target",
+      "clauses": [
+        "request"
+      ]
+    },
+    {
+      "id": "hidden:zero amount participates but a fully retracted window remains empty",
+      "role": "target",
+      "clauses": [
+        "request"
+      ]
+    },
+    {
+      "id": "hidden:all event permutations and intermediate restarts give identical finality",
+      "role": "target",
+      "clauses": [
+        "request"
+      ]
+    },
+    {
+      "id": "hidden:partial windows and checkpoint retain all pending corrections",
+      "role": "target",
+      "clauses": [
+        "request"
+      ]
+    },
+    {
+      "id": "hidden:invalid input and aliases never mutate accepted contributions",
+      "role": "target",
+      "clauses": [
+        "request"
+      ]
+    },
+    {
+      "id": "hidden:save version is explicit and unsupported versions fail closed",
+      "role": "target",
+      "clauses": [
+        "request"
+      ]
+    },
+    {
+      "id": "check:implementation-depth",
+      "role": "static"
+    },
+    {
+      "id": "check:watermark-authority",
+      "role": "target",
+      "clauses": [
+        "integration:watermark-authority"
+      ],
+      "note": "regular-expression gate over the submitted source, not an execution"
+    },
+    {
+      "id": "check:watermark-thread",
+      "role": "target",
+      "clauses": [
+        "integration:watermark-thread"
+      ],
+      "note": "regular-expression gate over the submitted source, not an execution"
+    },
+    {
+      "id": "check:watermark-persistence",
+      "role": "target",
+      "clauses": [
+        "integration:watermark-persistence"
+      ],
+      "note": "regular-expression gate over the submitted source, not an execution"
+    },
+    {
+      "id": "check:watermark-lifecycle",
+      "role": "target",
+      "clauses": [
+        "integration:watermark-lifecycle"
+      ],
+      "note": "regular-expression gate over the submitted source, not an execution"
+    },
+    {
+      "id": "check:watermark-manifest",
+      "role": "target",
+      "clauses": [
+        "integration:watermark-manifest"
+      ],
+      "note": "regular-expression gate over the submitted source, not an execution"
+    },
+    {
+      "id": "server:dedicated server world and documented API are available",
+      "role": "target",
+      "clauses": [
+        "request"
+      ]
+    },
+    {
+      "id": "server:service exposes complete trusted protocol",
+      "role": "target",
+      "clauses": [
+        "request"
+      ]
+    },
+    {
+      "id": "server:server executes distinguishing protocol sequence",
+      "role": "target",
+      "clauses": [
+        "request"
+      ]
+    },
+    {
+      "id": "server:server saves and restores the protocol without silent reset",
+      "role": "target",
+      "clauses": [
+        "request"
+      ]
+    }
+  ],
+  "clauses": [
+    {
+      "id": "request",
+      "anchor": "exam body; split into individual clauses during review",
+      "status": "asserted"
+    },
+    {
+      "id": "integration:watermark-authority",
+      "anchor": "host-integration section; source-pattern gate watermark-authority",
+      "status": "weak"
+    },
+    {
+      "id": "integration:watermark-thread",
+      "anchor": "host-integration section; source-pattern gate watermark-thread",
+      "status": "weak"
+    },
+    {
+      "id": "integration:watermark-persistence",
+      "anchor": "host-integration section; source-pattern gate watermark-persistence",
+      "status": "weak"
+    },
+    {
+      "id": "integration:watermark-lifecycle",
+      "anchor": "host-integration section; source-pattern gate watermark-lifecycle",
+      "status": "weak"
+    },
+    {
+      "id": "integration:watermark-manifest",
+      "anchor": "host-integration section; source-pattern gate watermark-manifest",
+      "status": "weak"
+    }
+  ],
+  "excluded_clauses": [],
+  "known_issues": []
+}

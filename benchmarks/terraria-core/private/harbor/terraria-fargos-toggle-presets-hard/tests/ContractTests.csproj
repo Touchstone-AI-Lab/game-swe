@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net8.0</TargetFramework>
+    <LangVersion>preview</LangVersion>
+    <ImplicitUsings>disable</ImplicitUsings>
+    <Nullable>disable</Nullable>
+    <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="$(CandidateRoot)/Core/Toggler/Toggle.cs" Link="Candidate/Toggle.cs" />
+    <Compile Include="$(CandidateRoot)/Core/Toggler/ToggleLoader.cs" Link="Candidate/ToggleLoader.cs" />
+    <Compile Include="$(CandidateRoot)/Core/Toggler/ToggleBackend.cs" Link="Candidate/ToggleBackend.cs" />
+    <Compile Include="$(CandidateRoot)/Core/Toggler/SoulCheck.cs" Link="Candidate/SoulCheck.cs" />
+    <Compile Include="VerifierSupport.cs" />
+    <Compile Include="Program.cs" />
+  </ItemGroup>
+</Project>

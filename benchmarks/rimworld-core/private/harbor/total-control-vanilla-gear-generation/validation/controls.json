@@ -1,0 +1,99 @@
+{
+  "schemaVersion": 3,
+  "catalogVersion": "0.3.2",
+  "privateProtocol": "rhenium-rimworld-private-v3",
+  "assertionManifestSha256": "dc39d3ff5bd577c09d5bdfa544ed572ad6b86baa46f0e35e62a4fbfd1839aaae",
+  "runtime": "rimworld/rimworld-1.6.4871-linux-x64",
+  "engineAssertionsRan": true,
+  "evidenceGeneration": {
+    "status": "run",
+    "date": "2026-09-24",
+    "host": "Linux x86_64 Docker host (NixOS), networkless evaluation",
+    "path": "rhenium run and rhenium-study e0 run through the Hub",
+    "note": "verifier repairs of 2026-09-24 first; see docs/games/rimworld.md#engine-validation-2026-09-24"
+  },
+  "plannedMatrix": {
+    "oracle": {
+      "expectedPassed": 18,
+      "expectedFailed": 0
+    },
+    "base": {
+      "expectedPassed": 6,
+      "expectedFailed": 12
+    },
+    "nop": {
+      "expectedPassed": 6,
+      "expectedFailed": 12
+    }
+  },
+  "plannedOutcomesAreAuthoringExpectations": true,
+  "referenceCompile": {
+    "status": "passed",
+    "date": "2026-09-24"
+  },
+  "containerBuild": {
+    "status": "passed",
+    "date": "2026-09-24"
+  },
+  "realEngine": {
+    "status": "passed",
+    "date": "2026-09-24"
+  },
+  "reusablePriorEvidence": false,
+  "oracle": {
+    "status": "passed",
+    "evidenceProtocol": "rhenium-rimworld-private-v3",
+    "runs": [
+      "run-982b83ea17234882",
+      "run-668bd15a15574a8e",
+      "run-4f06591586f643ae"
+    ],
+    "score": 100.0,
+    "passed": 18,
+    "failed": 0,
+    "identicalCaseOutcomes": true
+  },
+  "base": {
+    "status": "failed-targets-only",
+    "evidenceProtocol": "rhenium-rimworld-private-v3",
+    "run": "run-a8eaa4f9760646d5",
+    "score": 10.0,
+    "passed": 14,
+    "failed": 4,
+    "failedCases": [
+      "apparel-low-health",
+      "apparel-min-one-hp",
+      "weapon-low-health",
+      "weapon-min-one-hp"
+    ]
+  },
+  "nop": {
+    "status": "failed-targets-only",
+    "evidenceProtocol": "rhenium-rimworld-private-v3",
+    "run": "run-8f971105acbd42b3",
+    "score": 10.0,
+    "passed": 14,
+    "failed": 4,
+    "failedCases": [
+      "apparel-low-health",
+      "apparel-min-one-hp",
+      "weapon-low-health",
+      "weapon-min-one-hp"
+    ],
+    "materialization": "rhenium-study e0 starter control (Hub workspace copy)"
+  },
+  "authoringRevision": 3,
+  "negativeControls": {
+    "status": "not-run",
+    "kind": "authoring expectations",
+    "mutations": [
+      "omit one started resource restoration registration while another same-name registration remains",
+      "leave a task field or collection changed",
+      "throw during restoration",
+      "leave an extra Rand push",
+      "candidate operation throws: complete failed if fixture integrity remains healthy"
+    ],
+    "studyControls": "private/study-controls/total-control-vanilla-gear-generation/NOTES.md"
+  },
+  "plannedCountsNeedEngineReconciliation": false
+}

@@ -1,0 +1,104 @@
+{
+  "schema_version": 1,
+  "validated": true,
+  "catalog_version": "1.7.0",
+  "task": "mts-mod-identity-regressions-r2",
+  "harness": "Rhenium Hub full profile; the unchanged r1 JUnit suite runs inside the real Steam game launched by the submitted ModTheSpire in networkless Linux containers",
+  "fairness_review_sha256": "ba019de7a696c9a35467cfebc1580912dabd7d4d97a8b9de0f6534980ec99109",
+  "task_files_sha256": "2d7a85ef8a7df032a62185c7d755b0ef201394e85f2dc70b2ca6f760acf10c4a",
+  "runtime_fingerprint": "6d4d45b0e00c4049b76859172594068ee81cb9757817377b496a6ecd8355a141",
+  "runtime_identity": "sha256:1249467d2eee155341c56a118d6b7044fb5a64aaeaf2f225f72d2e735a237ef1",
+  "matrix_results": [
+    {
+      "variant": "base",
+      "passed": 3,
+      "expected": 7,
+      "complete": true,
+      "failed_case_ids": [
+        "gcb.ModIdentityTest.aBlankIdentifierFallsBackToTheName",
+        "gcb.ModIdentityTest.aModWithAnIdIsNotTheSameAsOneWithout",
+        "gcb.ModIdentityTest.aRequirementResolvesToTheFirstMatch",
+        "gcb.ModIdentityTest.ordinaryVersionStringsAreAccepted"
+      ],
+      "matches_prediction": true,
+      "run_id": "run-3724fedf35ff49ba",
+      "status": "failed",
+      "score": 10.0,
+      "receipt_sha256": "42062a5c038b86e7397bbcb555c46fbf1cff1a3600c21ad2f136948d411bb40a"
+    },
+    {
+      "variant": "gold",
+      "passed": 7,
+      "expected": 7,
+      "complete": true,
+      "failed_case_ids": [],
+      "matches_prediction": true,
+      "run_id": "run-90eddaaddd5540c8",
+      "status": "passed",
+      "score": 100.0,
+      "receipt_sha256": "51bb97bbe91005be87d45eb4611a96d0fa4edbc56c41bf3844103cefc7512b88"
+    },
+    {
+      "variant": "gold-repeat",
+      "passed": 7,
+      "expected": 7,
+      "complete": true,
+      "failed_case_ids": [],
+      "matches_prediction": true,
+      "run_id": "run-5ca1ac68a66840b8",
+      "status": "passed",
+      "score": 100.0,
+      "receipt_sha256": "1651737a238f8bacd52a9b30d183dc567abfb8aeb17090afb3304dfa8f4690f0"
+    },
+    {
+      "variant": "alternative",
+      "passed": 7,
+      "expected": 7,
+      "complete": true,
+      "failed_case_ids": [],
+      "matches_prediction": true,
+      "run_id": "run-cc0223c1c7244549",
+      "status": "passed",
+      "score": 100.0,
+      "receipt_sha256": "f485b17ff764b00f86793dbc8e182486f8203912cebab620cec483f5f592384c"
+    },
+    {
+      "variant": "target-negative-strict-versions",
+      "passed": 6,
+      "expected": 7,
+      "complete": true,
+      "failed_case_ids": [
+        "gcb.ModIdentityTest.ordinaryVersionStringsAreAccepted"
+      ],
+      "matches_prediction": true,
+      "run_id": "run-0bf0968dd2e04e3a",
+      "status": "failed",
+      "score": 10.0,
+      "receipt_sha256": "d0c5ff2e03c3275e00423c1b6bd0247f5bdfbf88feacb2cc183cb2cdd820e280"
+    },
+    {
+      "variant": "compat-negative-title-over-identifier",
+      "passed": 6,
+      "expected": 7,
+      "complete": true,
+      "failed_case_ids": [
+        "gcb.ModIdentityTest.control_aNormalModIsKnownByItsId"
+      ],
+      "matches_prediction": true,
+      "run_id": "run-bd09462a48684edd",
+      "status": "failed",
+      "score": 10.0,
+      "receipt_sha256": "365d50677ffec1940715e6deb8061d485d78cac53e65da2720cd3dd45e83768b"
+    }
+  ],
+  "historical_records": "r1 source, loader-only diagnostics and study controls are preserved; r2 inherits no historical result",
+  "superseded_attempts": [
+    {
+      "task": "mts-mod-identity-regressions-r2",
+      "control": "target-negative-strict-versions",
+      "run_id": null,
+      "complete": false,
+      "reason": "the Hub CLI raised a task-lookup KeyError before evaluation, so no verifier ran and no run record exists; the identical submission was re-run once."
+    }
+  ]
+}

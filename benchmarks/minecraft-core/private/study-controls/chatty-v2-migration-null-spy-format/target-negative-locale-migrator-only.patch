@@ -1,0 +1,36 @@
+--- a/spigot/src/main/java/ru/brikster/chatty/guice/GeneralGuiceModule.java
++++ b/spigot/src/main/java/ru/brikster/chatty/guice/GeneralGuiceModule.java
+@@ -101,6 +101,8 @@
+ 
+ public final class GeneralGuiceModule extends AbstractModule {
+ 
++    private static final Set<String> ALLOWED_LANGUAGES = Set.of("en-US", "ru-RU", "de-DE", "es-ES", "zh-CN");
++
+     private final Plugin plugin;
+     private final BukkitAudiences audienceProvider;
+ 
+@@ -140,13 +142,9 @@
+ 
+         SettingsConfig settingsConfig = createConfig(SettingsConfig.class, "settings.yml");
+ 
+-        String configuredLanguage = settingsConfig.getLanguage();
+-        String language = SettingsConfig.matchSupportedLanguage(configuredLanguage);
+-        if (language == null) {
++        String language = settingsConfig.getLanguage();
++        if (!ALLOWED_LANGUAGES.contains(language)) {
+             language = "en-US";
+-            plugin.getLogger().log(Level.WARNING,
+-                    "Unsupported language \"{0}\" in settings.yml — falling back to en-US. Supported: {1}",
+-                    new Object[]{configuredLanguage, String.join(", ", SettingsConfig.SUPPORTED_LANGUAGES)});
+         }
+         OkaeriConfig.LANGUAGE = language;
+ 
+@@ -359,7 +357,7 @@
+      * bundled resource — that case is ignored.
+      */
+     private void copyBundledLanguages() {
+-        for (String language : SettingsConfig.SUPPORTED_LANGUAGES) {
++        for (String language : ALLOWED_LANGUAGES) {
+             String resourcePath = "lang/" + language + ".yml";
+             if (Files.exists(dataFolderPath.resolve(resourcePath))) {
+                 continue;

@@ -1,0 +1,4 @@
+control	kind	base	overlay	root	note
+target-negative-ex203	target-negative	reference	patch:target-negative-ex203.patch	exodus	reference with the EX-203 hunk of the composite gold.patch (3) reverted: Ritual Candle keeps its floor-rounded pulse interval
+compat-negative-lil-rune-ownership	compat-negative	reference	patch:compat-negative-lil-rune-ownership.patch	exodus	reference with lilRuneFamiliarUpdate losing its HasCollectible removal while the Lil Rune code is edited for the Jera duplicate health; Lil Rune cleanup is not reported in this exam
+alternative	alternative	starter	patch:alternative.patch	exodus	starter plus the composite task's independent alternative repairs of EX-191, EX-203, EX-217, EX-281, EX-303 only (its hunks 1, 2, 13, 14, 15, 18); written differently from gold.patch, see NOTES.md

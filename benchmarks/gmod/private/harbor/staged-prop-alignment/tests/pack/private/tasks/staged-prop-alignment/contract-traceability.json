@@ -1,0 +1,311 @@
+{
+  "schemaVersion": 1,
+  "taskId": "staged-prop-alignment",
+  "taskVersion": "2.2.0",
+  "caseMappings": {
+    "hidden-behavior": [
+      {
+        "name": "six anchors must follow the public stage order",
+        "classification": "A",
+        "clauses": [
+          "T2-API-01",
+          "T2-SEM-02",
+          "T2-API-02"
+        ]
+      },
+      {
+        "name": "three point frames map origin axes and probe",
+        "classification": "A",
+        "clauses": [
+          "T2-GEO-01",
+          "T2-GEO-02",
+          "T2-API-03"
+        ]
+      },
+      {
+        "name": "collinear and zero length frames are rejected",
+        "classification": "A",
+        "clauses": [
+          "T2-GEO-01",
+          "T2-API-04"
+        ]
+      },
+      {
+        "name": "canonical output is quantized and detached",
+        "classification": "A",
+        "clauses": [
+          "T2-GEO-03",
+          "T2-SEM-07",
+          "T2-FILE-01"
+        ]
+      },
+      {
+        "name": "player entity and revision bind one staging session",
+        "classification": "A",
+        "clauses": [
+          "T2-SEM-01",
+          "T2-GOAL-01"
+        ]
+      },
+      {
+        "name": "exact request replay is idempotent and conflicts fail",
+        "classification": "A",
+        "clauses": [
+          "T2-SEM-04",
+          "T2-GOAL-02"
+        ]
+      },
+      {
+        "name": "solve requires a complete current generation",
+        "classification": "A",
+        "clauses": [
+          "T2-SEM-05",
+          "T2-SCOPE-01"
+        ]
+      },
+      {
+        "name": "operation budget is consumed once per solve",
+        "classification": "A",
+        "clauses": [
+          "T2-SEM-05",
+          "T2-SEM-06",
+          "T2-SCOPE-02"
+        ]
+      },
+      {
+        "name": "clear discards only the named player session",
+        "classification": "A",
+        "clauses": [
+          "T2-SEM-03"
+        ]
+      },
+      {
+        "name": "save load preserves stages budget and replay",
+        "classification": "A",
+        "clauses": [
+          "T2-PERSIST-01"
+        ]
+      },
+      {
+        "name": "invalid numbers and identifiers never mutate",
+        "classification": "A",
+        "clauses": [
+          "T2-DATA-01",
+          "T2-ERR-01"
+        ]
+      },
+      {
+        "name": "shutdown is idempotent and freezes alignment",
+        "classification": "A",
+        "clauses": [
+          "T2-LIFE-01"
+        ]
+      },
+      {
+        "name": "malformed sessions requests and budgets are rejected",
+        "classification": "A",
+        "clauses": [
+          "T2-PERSIST-02"
+        ]
+      }
+    ],
+    "gmod-integration": [
+      {
+        "name": "adapter installs CanTool lifecycle hooks and timer",
+        "classification": "A",
+        "clauses": [
+          "T2-API-05",
+          "T2-NATIVE-01",
+          "T2-LIFE-01",
+          "T2-ADAPTER-02"
+        ]
+      },
+      {
+        "name": "trusted player and entity bindings drive six traces",
+        "classification": "B",
+        "clauses": [
+          "T2-NATIVE-02",
+          "T2-TRUST-01"
+        ]
+      },
+      {
+        "name": "unbound and forged trace identity are rejected",
+        "classification": "A",
+        "clauses": [
+          "T2-NATIVE-02",
+          "T2-TRUST-01"
+        ]
+      },
+      {
+        "name": "CanTool denial blocks staging before mutation",
+        "classification": "A",
+        "clauses": [
+          "T2-NATIVE-01"
+        ]
+      },
+      {
+        "name": "execute creates one constrained copy and one undo unit",
+        "classification": "A",
+        "clauses": [
+          "T2-ADAPTER-01",
+          "T2-NATIVE-03"
+        ]
+      },
+      {
+        "name": "move changes original without clone and undo restores transform",
+        "classification": "B",
+        "clauses": [
+          "T2-NATIVE-03",
+          "T2-NATIVE-05",
+          "T2-ACC-04"
+        ]
+      },
+      {
+        "name": "unknown execution mode is rejected before core mutation",
+        "classification": "B",
+        "clauses": [
+          "T2-ERR-01",
+          "T2-NATIVE-03"
+        ]
+      },
+      {
+        "name": "constraint failure rolls back created entities",
+        "classification": "A",
+        "clauses": [
+          "T2-ROLLBACK-01"
+        ]
+      },
+      {
+        "name": "disconnect clears adapter staging identity",
+        "classification": "B",
+        "clauses": [
+          "T2-LIFE-01"
+        ]
+      }
+    ],
+    "lifecycle-cleanup": [
+      {
+        "name": "shutdown removes every hook and timer",
+        "classification": "A",
+        "clauses": [
+          "T2-LIFE-01"
+        ]
+      }
+    ],
+    "dedicated-server": [
+      {
+        "name": "toolgun",
+        "classification": "B",
+        "clauses": [
+          "T2-NATIVE-04",
+          "T2-ACC-04"
+        ]
+      },
+      {
+        "name": "geometry",
+        "classification": "B",
+        "clauses": [
+          "T2-GEO-02",
+          "T2-ACC-01"
+        ]
+      },
+      {
+        "name": "constraint",
+        "classification": "B",
+        "clauses": [
+          "T2-NATIVE-03",
+          "T2-ACC-04"
+        ]
+      },
+      {
+        "name": "move",
+        "classification": "B",
+        "clauses": [
+          "T2-NATIVE-03",
+          "T2-NATIVE-05",
+          "T2-ACC-04"
+        ]
+      },
+      {
+        "name": "authority",
+        "classification": "B",
+        "clauses": [
+          "T2-TRUST-01",
+          "T2-ACC-02"
+        ]
+      },
+      {
+        "name": "rollback",
+        "classification": "B",
+        "clauses": [
+          "T2-ROLLBACK-01",
+          "T2-ACC-04"
+        ]
+      },
+      {
+        "name": "persistence",
+        "classification": "B",
+        "clauses": [
+          "T2-PERSIST-01",
+          "T2-ACC-03"
+        ]
+      },
+      {
+        "name": "cleanup",
+        "classification": "B",
+        "clauses": [
+          "T2-LIFE-01",
+          "T2-ACC-05"
+        ]
+      }
+    ]
+  },
+  "apiCoverage": {
+    "Alignment.new(options)": [
+      "T2-API-01"
+    ],
+    "alignment:stage(request_id, player_id, entity_id, revision, frame, slot, point)": [
+      "T2-API-01",
+      "T2-SEM-02"
+    ],
+    "alignment:solve(request_id, player_id, entity_id, revision, probe)": [
+      "T2-API-01",
+      "T2-GEO-02"
+    ],
+    "adapter.HandleTrace(player, trace)": [
+      "T2-API-05",
+      "T2-NATIVE-02"
+    ],
+    "adapter.Execute(player, entity, request_id, mode)": [
+      "T2-API-05",
+      "T2-ADAPTER-01"
+    ]
+  },
+  "acceptanceCoverage": {
+    "T2-ACC-01": [
+      "hidden-behavior:three point frames map origin axes and probe"
+    ],
+    "T2-ACC-02": [
+      "gmod-integration:unbound and forged trace identity are rejected"
+    ],
+    "T2-ACC-03": [
+      "hidden-behavior:save load preserves stages budget and replay"
+    ],
+    "T2-ACC-04": [
+      "dedicated-server:toolgun",
+      "dedicated-server:rollback"
+    ],
+    "T2-ACC-05": [
+      "lifecycle-cleanup:shutdown removes every hook and timer"
+    ]
+  },
+  "requiredPublicTokens": [
+    "copy",
+    "move",
+    "invalid_mode",
+    "CanTool",
+    "undo.AddFunction",
+    "ents.Create",
+    "constraint.Weld"
+  ]
+}

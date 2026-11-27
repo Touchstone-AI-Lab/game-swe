@@ -1,0 +1,64 @@
+schema_version = "1.4"
+
+artifacts = ["/app/plugin"]
+
+[task]
+name = "gamecodebench/minecraft-multiverse-core-world-exists-by-key"
+version = "1.0.0"
+description = "Repair Multiverse-Core so createWorld, importWorld and cloneWorld refuse a request whose name or namespaced key belongs to an existing world, and importWorld adopts a loaded Bukkit world addressed by key."
+authors = [{ name = "GameCodeBench" }]
+keywords = ["minecraft", "paper", "java", "game-modding", "repository-debugging", "world-management", "registry", "namespaced-keys"]
+
+[metadata]
+category = "programming"
+difficulty = "medium"
+tags = ["game-modding", "minecraft", "java", "repository-debugging"]
+task_kind = "repository-debugging"
+game = "Minecraft (Paper dedicated server)"
+game_version = "Paper 1.21.11 build 132"
+language = "Java 21"
+build_tool = "gradle"
+plugin_name = "Multiverse-Core"
+source_repo = "https://github.com/Multiverse/Multiverse-Core"
+base_commit = "54900f55a94cf8e6dad22c2d9f2db8ed01d3713e"
+source_license = "BSD-3-Clause"
+expected_unit_cases = 177
+expected_server_cases = 10
+content_reference = "benchmarks/minecraft-core/exams/multiverse-core-world-exists-by-key.md"
+content_reference_pack = "rhenium-minecraft-v1"
+harbor_reference_repository = "https://github.com/harbor-framework/harbor"
+harbor_reference_revision = "9a2e3b135cc8fb1e41131020f83370cb2f12ae93"
+verification_profile = "rhenium-minecraft-full"
+real_server_validation = "in-verifier; Paper 1.21.11 build 132"
+
+[verifier]
+network_mode = "no-network"
+timeout_sec = 2400.0
+user = "root"
+environment_mode = "separate"
+
+[verifier.environment]
+network_mode = "no-network"
+
+[agent]
+# The image contains mini-swe-agent. A Harbor job supplies only the model
+# endpoint hostname through agents[].extra_allowed_hosts.
+network_mode = "allowlist"
+allowed_hosts = []
+timeout_sec = 5400.0
+user = "agent"
+
+[environment]
+network_mode = "no-network"
+build_timeout_sec = 3600.0
+cpus = 4
+memory_mb = 8192
+storage_mb = 16384
+gpus = 0
+mcp_servers = []
+
+[verifier.env]
+
+[environment.env]
+
+[solution.env]

@@ -1,0 +1,5 @@
+name: "build-policy-auditor"
+displayName: "Server-authoritative Build Quota Auditor"
+main: "BuildQuotaAuditorPlugin"
+version: "1.0.0"
+minGameVersion: 159

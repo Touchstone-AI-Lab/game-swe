@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <LangVersion>latest</LangVersion>
+    <ImplicitUsings>disable</ImplicitUsings>
+    <Nullable>disable</Nullable>
+    <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
+    <AssemblyName>SpiritMod.BranchingQuest.SourceProjection</AssemblyName>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="Mechanics/QuestSystem/Quest.cs" />
+    <Compile Include="Mechanics/QuestSystem/QuestMultiplayer.cs" />
+    <Compile Include="Mechanics/QuestSystem/Tasks/QuestTask.cs" />
+    <Compile Include="Mechanics/QuestSystem/Tasks/BranchingTask.cs" />
+    <Compile Include="GameCodeBench/ProjectionStubs.cs" />
+  </ItemGroup>
+</Project>

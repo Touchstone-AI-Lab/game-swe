@@ -1,0 +1,12 @@
+diff -ruN a/addons/sourcemod/scripting/confoglcompmod/CvarSettings.sp b/addons/sourcemod/scripting/confoglcompmod/CvarSettings.sp
+--- a/addons/sourcemod/scripting/confoglcompmod/CvarSettings.sp
++++ b/addons/sourcemod/scripting/confoglcompmod/CvarSettings.sp
+@@ -269,7 +269,7 @@
+         bool clamped = false;
+         if (hasLow && desired < low) { desired = low; clamped = true; }
+         if (hasHigh && desired > high) { desired = high; clamped = true; }
+-        if (clamped) return entry.CVSE_cvar.FloatValue == desired;
++        return entry.CVSE_cvar.FloatValue == desired;
+     }
+     char current[256];entry.CVSE_cvar.GetString(current, sizeof(current));
+     return StrEqual(current, entry.CVSE_newval);

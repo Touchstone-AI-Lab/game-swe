@@ -1,0 +1,5 @@
+name: "stockpile-hold-ledger"
+displayName: "Transactional Item Reservation Ledger"
+main: "ItemReservationLedgerPlugin"
+version: "1.0.0"
+minGameVersion: 159

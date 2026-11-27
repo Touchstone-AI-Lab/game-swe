@@ -1,0 +1,8 @@
+import java.util.*;
+public final class WaveBudgetPlanner {
+ public record Policy(int maxUnits,int reserve,int bossEvery){} public record Candidate(String type,int cost,int priority){} public record Plan(long wave,int budget,List<String> units,int spent){} public record PersistedState(long lastWave,List<Plan> plans){}
+ private final Policy policy; private long lastWave=-1; private final TreeMap<Long,Plan> plans=new TreeMap<>();
+ public WaveBudgetPlanner(Policy p){this(p,new PersistedState(-1,List.of()));} public WaveBudgetPlanner(Policy p,PersistedState s){if(p==null||p.maxUnits()<=0||p.reserve()<0||p.bossEvery()<=0||s==null)throw new IllegalArgumentException();policy=p;lastWave=s.lastWave();for(Plan x:s.plans())plans.put(x.wave(),x);}
+ public Plan plan(long wave,int budget,List<Candidate> candidates){if(wave<0||wave<lastWave||budget<0||candidates==null)throw new IllegalArgumentException();Plan old=plans.get(wave);if(old!=null)return old;ArrayList<Candidate> cs=new ArrayList<>(candidates);for(Candidate c:cs)if(c==null||c.type()==null||c.type().isBlank()||c.cost()<=0)throw new IllegalArgumentException();cs.sort(Comparator.comparingInt(Candidate::priority).reversed().thenComparing(Candidate::type));int cap=Math.max(0,budget-policy.reserve()),spent=0;ArrayList<String> out=new ArrayList<>();for(Candidate c:cs){while(out.size()<policy.maxUnits()&&spent+c.cost()<=cap){out.add(c.type());spent+=c.cost();if(wave%policy.bossEvery()==0)break;}}Plan p=new Plan(wave,budget,List.copyOf(out),spent);plans.put(wave,p);lastWave=wave;return p;}
+ public List<Plan> snapshot(){return List.copyOf(plans.values());} public PersistedState save(){return new PersistedState(lastWave,snapshot());}
+}

@@ -1,0 +1,12 @@
+--- a/scripts/lootroll/arbiter.lua
++++ b/scripts/lootroll/arbiter.lua
+@@ -418,7 +418,8 @@
+         times[#times + 1] = now
+     else
+         roll.failed[#roll.failed + 1] = roll.winner
+-        advance(self, roll)
++        roll.winner = nil
++        roll.status = "unclaimed"
+     end
+     return build_result(roll)
+ end

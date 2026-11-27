@@ -1,0 +1,83 @@
+{
+  "scope": "self-authored controls; unexecuted; not engine validation",
+  "design_sha256": "bcc114462154b9c58a5701a2187ca338d9e7304ae453ba47e4f6cce90cba8313",
+  "candidates": {
+    "base": {
+      "adapter.lua": "d1533a05357eedeba5085fab7d9aefc3716217c1b935ffc94c2234b300cd7bc3",
+      "lib/ledger.lua": "109fdccbfdbec455584f40b38ee5e771f02c9db24de6c635b9405d1a515213d9",
+      "lib/pricing.lua": "a48a63b117e347bba49fdf536b97632bc765ec207ed4072c5d68ac26fc53043a",
+      "main.lua": "7de53f38224035c053e7cb6dbfa8c3402cf9e006934820e4fe2f71d7fc57b9f7",
+      "shop_price_coherence_v2.json": "5f54926880aa80a79f8450e35821dbe02bb064a185161323e42b783db5034dc0"
+    },
+    "gold": {
+      "adapter.lua": "d1533a05357eedeba5085fab7d9aefc3716217c1b935ffc94c2234b300cd7bc3",
+      "lib/ledger.lua": "f750e599d9c1288ecf42addf94317bfe6b4ca13c0b2f14d2ca703a08e9ed44b6",
+      "lib/pricing.lua": "bbfd80870a9858167efd9c676c63a92eff7aba3e1707ffd14cbb67d09c346895",
+      "main.lua": "7de53f38224035c053e7cb6dbfa8c3402cf9e006934820e4fe2f71d7fc57b9f7",
+      "shop_price_coherence_v2.json": "5f54926880aa80a79f8450e35821dbe02bb064a185161323e42b783db5034dc0"
+    },
+    "gold-ledger": {
+      "adapter.lua": "d1533a05357eedeba5085fab7d9aefc3716217c1b935ffc94c2234b300cd7bc3",
+      "lib/ledger.lua": "99d3a6a32b01ff56ac98369f0a7efee0d54c92e32bccd65af21817d3e6ae3aa5",
+      "lib/pricing.lua": "d9c630f3656236bdafffb6fb1cf7e90e6927d1f5e2a96b38eb42c8220cbb8f7b",
+      "main.lua": "7de53f38224035c053e7cb6dbfa8c3402cf9e006934820e4fe2f71d7fc57b9f7",
+      "shop_price_coherence_v2.json": "5f54926880aa80a79f8450e35821dbe02bb064a185161323e42b783db5034dc0"
+    },
+    "M01-round-each": {
+      "adapter.lua": "d1533a05357eedeba5085fab7d9aefc3716217c1b935ffc94c2234b300cd7bc3",
+      "lib/ledger.lua": "f750e599d9c1288ecf42addf94317bfe6b4ca13c0b2f14d2ca703a08e9ed44b6",
+      "lib/pricing.lua": "a48a63b117e347bba49fdf536b97632bc765ec207ed4072c5d68ac26fc53043a",
+      "main.lua": "7de53f38224035c053e7cb6dbfa8c3402cf9e006934820e4fe2f71d7fc57b9f7",
+      "shop_price_coherence_v2.json": "5f54926880aa80a79f8450e35821dbe02bb064a185161323e42b783db5034dc0"
+    },
+    "M02-remove-all": {
+      "adapter.lua": "d1533a05357eedeba5085fab7d9aefc3716217c1b935ffc94c2234b300cd7bc3",
+      "lib/ledger.lua": "90ed9db97d785901ea8fa7014bcd7bf0db04f7c84d0e1a1371656bf3eb21d813",
+      "lib/pricing.lua": "bbfd80870a9858167efd9c676c63a92eff7aba3e1707ffd14cbb67d09c346895",
+      "main.lua": "7de53f38224035c053e7cb6dbfa8c3402cf9e006934820e4fe2f71d7fc57b9f7",
+      "shop_price_coherence_v2.json": "5f54926880aa80a79f8450e35821dbe02bb064a185161323e42b783db5034dc0"
+    },
+    "M03-query-consumes": {
+      "adapter.lua": "d1533a05357eedeba5085fab7d9aefc3716217c1b935ffc94c2234b300cd7bc3",
+      "lib/ledger.lua": "606794e87080cb49730c7ac27b146c978d59ccd120dd26a4208bc1ba50c98efd",
+      "lib/pricing.lua": "bbfd80870a9858167efd9c676c63a92eff7aba3e1707ffd14cbb67d09c346895",
+      "main.lua": "7de53f38224035c053e7cb6dbfa8c3402cf9e006934820e4fe2f71d7fc57b9f7",
+      "shop_price_coherence_v2.json": "5f54926880aa80a79f8450e35821dbe02bb064a185161323e42b783db5034dc0"
+    },
+    "M04-stale-accepted": {
+      "adapter.lua": "d1533a05357eedeba5085fab7d9aefc3716217c1b935ffc94c2234b300cd7bc3",
+      "lib/ledger.lua": "6f6a24459d21b87e50f4e5b5bac64f8bd2b7a1372207f0aa71f6947664d2494e",
+      "lib/pricing.lua": "bbfd80870a9858167efd9c676c63a92eff7aba3e1707ffd14cbb67d09c346895",
+      "main.lua": "7de53f38224035c053e7cb6dbfa8c3402cf9e006934820e4fe2f71d7fc57b9f7",
+      "shop_price_coherence_v2.json": "5f54926880aa80a79f8450e35821dbe02bb064a185161323e42b783db5034dc0"
+    },
+    "M05-never-consume": {
+      "adapter.lua": "d1533a05357eedeba5085fab7d9aefc3716217c1b935ffc94c2234b300cd7bc3",
+      "lib/ledger.lua": "f023b7704010c962d0da62aa45f4515eaa54518f12a4f370fd1bccfed3a7b850",
+      "lib/pricing.lua": "bbfd80870a9858167efd9c676c63a92eff7aba3e1707ffd14cbb67d09c346895",
+      "main.lua": "7de53f38224035c053e7cb6dbfa8c3402cf9e006934820e4fe2f71d7fc57b9f7",
+      "shop_price_coherence_v2.json": "5f54926880aa80a79f8450e35821dbe02bb064a185161323e42b783db5034dc0"
+    },
+    "M06-view-alias": {
+      "adapter.lua": "d1533a05357eedeba5085fab7d9aefc3716217c1b935ffc94c2234b300cd7bc3",
+      "lib/ledger.lua": "cd33c6f0756665817809ca08b79b281374d0ee6c6e6c1be2516b6e0617830b62",
+      "lib/pricing.lua": "bbfd80870a9858167efd9c676c63a92eff7aba3e1707ffd14cbb67d09c346895",
+      "main.lua": "7de53f38224035c053e7cb6dbfa8c3402cf9e006934820e4fe2f71d7fc57b9f7",
+      "shop_price_coherence_v2.json": "5f54926880aa80a79f8450e35821dbe02bb064a185161323e42b783db5034dc0"
+    },
+    "M07-no-dedup": {
+      "adapter.lua": "d1533a05357eedeba5085fab7d9aefc3716217c1b935ffc94c2234b300cd7bc3",
+      "lib/ledger.lua": "b56c49bd0ef2a091ab5122d52834db47bda114f63cdff4f886c676cd5b19b1e0",
+      "lib/pricing.lua": "bbfd80870a9858167efd9c676c63a92eff7aba3e1707ffd14cbb67d09c346895",
+      "main.lua": "7de53f38224035c053e7cb6dbfa8c3402cf9e006934820e4fe2f71d7fc57b9f7",
+      "shop_price_coherence_v2.json": "5f54926880aa80a79f8450e35821dbe02bb064a185161323e42b783db5034dc0"
+    },
+    "M08-wrong-category": {
+      "adapter.lua": "d1533a05357eedeba5085fab7d9aefc3716217c1b935ffc94c2234b300cd7bc3",
+      "lib/ledger.lua": "f750e599d9c1288ecf42addf94317bfe6b4ca13c0b2f14d2ca703a08e9ed44b6",
+      "lib/pricing.lua": "22a08c0ee9dad3e228a6440511762138e4c799598900a68007c1d52c9d14397e",
+      "main.lua": "7de53f38224035c053e7cb6dbfa8c3402cf9e006934820e4fe2f71d7fc57b9f7",
+      "shop_price_coherence_v2.json": "5f54926880aa80a79f8450e35821dbe02bb064a185161323e42b783db5034dc0"
+    }
+  }
+}

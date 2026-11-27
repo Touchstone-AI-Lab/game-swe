@@ -1,0 +1,11 @@
+--- a/scripts/components/DsMMO.lua
++++ b/scripts/components/DsMMO.lua
+@@ -771,7 +771,7 @@
+ local function onAttacked(player, data)
+ 	player.components.DsMMO:get_experience("ATTACK")
+ 	
+-	if data and data.attacker and data.attacker.prefab ~= "bee" and data.attacker.prefab ~= "killerbee" and data.attacker ~= player and player.components.DsMMO:test_skill(SKILLS.attacked) then
++	if data and data.attacker and data.attacker.prefab ~= "bee" and data.attacker.prefab ~= "killerbee" and player.components.DsMMO:test_skill(SKILLS.attacked) then
+ 		local bee = SpawnPrefab("bee")
+ 		bee.persists = false
+ 		bee.Transform:SetPosition(player.Transform:GetWorldPosition())

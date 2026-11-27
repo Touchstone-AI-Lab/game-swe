@@ -1,0 +1,6 @@
+control	kind	base	overlay	root	note
+tn-predicate-capacity-only	target-negative	starter	patch:predicate-capacity.patch	l4d1_2_plugins	starter plus only the capacity repair (validation/candidates/predicate-capacity.patch, header re-rooted); config, initial-window and finale defects remain
+tn-initial-window-unfixed	target-negative	reference	patch:tn-initial-window-unfixed.patch	l4d1_2_plugins	reference with the versus initial-window else-branch removed again (Contract-3 defect restored)
+cn-settings-count-inheritance-lost	compat-negative	reference	patch:cn-settings-count-inheritance-lost.patch	l4d1_2_plugins	reference whose Settings count profile no longer inherits spawn_time_max from Settings/default (hard-coded 60.0)
+alternative-a	alternative	starter	patch:alternative-a.patch	l4d1_2_plugins	validation/candidates/alternative-a.patch, header re-rooted: availableSlots capacity, local map-section selector, negated initial-window condition, shared finale-event macro
+alternative-b	alternative	starter	patch:alternative-b.patch	l4d1_2_plugins	validation/candidates/alternative-b.patch, header re-rooted: overflow-comparison capacity, map-profile jump helper, boolean initial-window check, HookEventEx finale lifecycle

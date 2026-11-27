@@ -1,0 +1,17 @@
+{
+  "id": "poc_lja2_fixture",
+  "name": "Common Neighbors v2 private fixture",
+  "author": [
+    "Balatro PoC"
+  ],
+  "description": "Initial setup plus passive native observation",
+  "prefix": "lja2f",
+  "main_file": "fixture.lua",
+  "version": "2.0.0",
+  "priority": 100006,
+  "dependencies": [
+    "Steamodded (>=1.~)",
+    "balatrobot",
+    "live_joker_adjacency_v2"
+  ]
+}

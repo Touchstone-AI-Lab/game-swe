@@ -1,0 +1,97 @@
+diff --git a/CJBCheatsMenu/Framework/Cheats/FarmAndFishing/AlwaysFishTreasureCheat.cs b/CJBCheatsMenu/Framework/Cheats/FarmAndFishing/AlwaysFishTreasureCheat.cs
+index 33dbb77..48f6437 100644
+--- a/CJBCheatsMenu/Framework/Cheats/FarmAndFishing/AlwaysFishTreasureCheat.cs
++++ b/CJBCheatsMenu/Framework/Cheats/FarmAndFishing/AlwaysFishTreasureCheat.cs
+@@ -2,6 +2,7 @@ using System.Collections.Generic;
+ using CJBCheatsMenu.Framework.Components;
+ using StardewModdingAPI.Events;
+ using StardewValley;
++using StardewValley.Extensions;
+ using StardewValley.Menus;
+ using StardewValley.Tools;
+ 
+@@ -34,7 +35,13 @@ internal class AlwaysFishTreasureCheat : BaseCheat
+     /// <inheritdoc />
+     public override void OnUpdated(CheatContext context, UpdateTickedEventArgs e)
+     {
+-        if (Game1.player?.CurrentTool is FishingRod && Game1.activeClickableMenu is BobberBar bobberMenu)
+-            context.Reflection.GetField<bool>(bobberMenu, "treasure").SetValue(true);
++        if (Game1.player?.CurrentTool is not FishingRod || Game1.activeClickableMenu is not BobberBar bobberMenu || bobberMenu.treasure)
++            return;
++
++        // The game only rolls for a golden chest when the catch already has treasure, so roll
++        // the same way when the cheat adds one.
++        bobberMenu.treasure = true;
++        bool hasMastery = Game1.player.stats.Get("mastery_" + Farmer.fishingSkill) != 0;
++        bobberMenu.goldenTreasure = hasMastery && Game1.random.NextBool(0.25 + Game1.player.team.AverageDailyLuck());
+     }
+ }
+diff --git a/CJBCheatsMenu/Framework/Cheats/FarmAndFishing/AutoFeedAnimalsCheat.cs b/CJBCheatsMenu/Framework/Cheats/FarmAndFishing/AutoFeedAnimalsCheat.cs
+index f71849c..5a94f52 100644
+--- a/CJBCheatsMenu/Framework/Cheats/FarmAndFishing/AutoFeedAnimalsCheat.cs
++++ b/CJBCheatsMenu/Framework/Cheats/FarmAndFishing/AutoFeedAnimalsCheat.cs
+@@ -85,11 +85,8 @@ internal class AutoFeedAnimalsCheat : BaseCheat
+                             {
+                                 if (!animalHouse.objects.ContainsKey(tile))
+                                 {
+-                                    Object hay = GameLocation.GetHayFromAnySilo(animalHouse);
+-                                    if (hay is null)
+-                                        return false; // no more hay available
+-
+-                                    animalHouse.objects.Add(tile, hay);
++                                    // take hay from a silo if possible; once they're empty, create it (it's a cheat)
++                                    animalHouse.objects.Add(tile, GameLocation.GetHayFromAnySilo(animalHouse) ?? new Object("178", 1));
+ 
+                                     missingHay--;
+                                     if (missingHay < 1)
+diff --git a/CJBCheatsMenu/Framework/Cheats/FarmAndFishing/AutoPetAnimalsCheat.cs b/CJBCheatsMenu/Framework/Cheats/FarmAndFishing/AutoPetAnimalsCheat.cs
+index d6468aa..812f7b7 100644
+--- a/CJBCheatsMenu/Framework/Cheats/FarmAndFishing/AutoPetAnimalsCheat.cs
++++ b/CJBCheatsMenu/Framework/Cheats/FarmAndFishing/AutoPetAnimalsCheat.cs
+@@ -39,7 +39,8 @@ internal class AutoPetAnimalsCheat : BaseCheat
+         Utility.ForEachLocation(
+             location =>
+             {
+-                if (location.animals.Length > 0 || location.buildings.Count > 0)
++                // only farms and other places where players can keep buildings and animals
++                if (location.IsBuildableLocation() && (location.animals.Length > 0 || location.buildings.Count > 0))
+                 {
+                     List<FarmAnimal> animalsToPet = location.getAllFarmAnimals();
+                     animalsToPet.RemoveAll(animal => animal.wasPet.Value);
+diff --git a/CJBCheatsMenu/Framework/Cheats/FarmAndFishing/AutoPetPetsCheat.cs b/CJBCheatsMenu/Framework/Cheats/FarmAndFishing/AutoPetPetsCheat.cs
+index dd45fe7..0559f89 100644
+--- a/CJBCheatsMenu/Framework/Cheats/FarmAndFishing/AutoPetPetsCheat.cs
++++ b/CJBCheatsMenu/Framework/Cheats/FarmAndFishing/AutoPetPetsCheat.cs
+@@ -4,6 +4,7 @@ using StardewModdingAPI;
+ using StardewModdingAPI.Events;
+ using StardewValley;
+ using StardewValley.Characters;
++using StardewValley.Locations;
+ 
+ namespace CJBCheatsMenu.Framework.Cheats.FarmAndFishing;
+ 
+@@ -39,7 +40,7 @@ internal class AutoPetPetsCheat : BaseCheat
+ 
+         Utility.ForEachCharacter(npc =>
+         {
+-            if (npc is Pet pet && (!pet.lastPetDay.TryGetValue(Game1.player.UniqueMultiplayerID, out int lastPetDay) || lastPetDay != Game1.Date.TotalDays))
++            if (npc is Pet { currentLocation: Farm or FarmHouse } pet && (!pet.lastPetDay.TryGetValue(Game1.player.UniqueMultiplayerID, out int lastPetDay) || lastPetDay != Game1.Date.TotalDays))
+                 pet.checkAction(Game1.player, pet.currentLocation);
+ 
+             return true;
+diff --git a/CJBCheatsMenu/Framework/Cheats/PlayerAndTools/OneHitKillCheat.cs b/CJBCheatsMenu/Framework/Cheats/PlayerAndTools/OneHitKillCheat.cs
+index 2e87703..a3369cb 100644
+--- a/CJBCheatsMenu/Framework/Cheats/PlayerAndTools/OneHitKillCheat.cs
++++ b/CJBCheatsMenu/Framework/Cheats/PlayerAndTools/OneHitKillCheat.cs
+@@ -46,6 +46,11 @@ internal class OneHitKillCheat : BaseCheat
+         {
+             if (character is Monster { Health: > 1 } monster)
+                 monster.Health = 1;
++
++            // A grub at low health starts its metamorphosis countdown. Keep the countdown
++            // topped up so it stays a grub, without touching its maximum health.
++            if (character is Grub { pupating.Value: false } grub)
++                grub.metamorphCounter = 2000;
+         }
+     }
+ }

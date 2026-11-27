@@ -1,0 +1,37 @@
+--- a/spigot/src/main/java/ru/brikster/chatty/config/migration/V2ConfigMigrator.java
++++ b/spigot/src/main/java/ru/brikster/chatty/config/migration/V2ConfigMigrator.java
+@@ -277,8 +277,8 @@
+             Map<String, Object> v3caps = asMap(root.get("caps"));
+             if (caps != null && v3caps != null) {
+                 copyBool(caps, "enable", v3caps, "enable");
+-                copyClampedInt(caps, "length", v3caps, "length", 1, Integer.MAX_VALUE, "caps.length");
+-                copyClampedInt(caps, "percent", v3caps, "percent", 0, 100, "caps.percent");
++                copyInt(caps, "length", v3caps, "length");
++                copyInt(caps, "percent", v3caps, "percent");
+                 copyBool(caps, "block", v3caps, "block");
+             }
+ 
+@@ -404,19 +404,11 @@
+         }
+     }
+ 
+-    private void copyClampedInt(Map<String, Object> from, String fromKey,
+-                                Map<String, Object> to, String toKey,
+-                                int min, int max, String label) {
+-        if (!(from.get(fromKey) instanceof Number)) {
+-            return;
+-        }
+-        int value = ((Number) from.get(fromKey)).intValue();
+-        int clamped = Math.min(Math.max(value, min), max);
+-        if (clamped != value) {
+-            notes.add(label + " " + value + " is outside the range v3 accepts"
+-                    + " and was clamped to " + clamped + ".");
++    private static void copyInt(Map<String, Object> from, String fromKey,
++                                Map<String, Object> to, String toKey) {
++        if (from.get(fromKey) instanceof Number) {
++            to.put(toKey, ((Number) from.get(fromKey)).intValue());
+         }
+-        to.put(toKey, clamped);
+     }
+ 
+     private static void copyStr(Map<String, Object> from, String fromKey,

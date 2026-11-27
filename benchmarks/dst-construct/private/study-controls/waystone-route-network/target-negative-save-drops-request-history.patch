@@ -1,0 +1,13 @@
+diff -ruN a/scripts/waystones/network.lua b/scripts/waystones/network.lua
+--- a/scripts/waystones/network.lua	2026-09-22 01:12:00.545586140 +0800
++++ b/scripts/waystones/network.lua	2026-09-22 01:12:00.576149965 +0800
+@@ -514,8 +514,7 @@
+     local request_ids = sorted_keys(self.requests)
+     for index = 1, #request_ids do
+         local seen = self.requests[request_ids[index]]
+-        data.requests[index] = { request_id = request_ids[index], traveler_id = seen.traveler_id,
+-            from_id = seen.from_id, to_id = seen.to_id, ticket_id = seen.ticket_id }
++        data.requests[index] = nil
+     end
+     local travelers = sorted_keys(self.cooldowns)
+     for index = 1, #travelers do

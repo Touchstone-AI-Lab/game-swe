@@ -1,0 +1,4 @@
+control	kind	base	overlay	root	note
+target-negative-strict-versions	target-negative	reference	patch:target-negative-strict-versions.patch	modthespire	reference with strict version parsing kept
+compat-negative-title-over-identifier	compat-negative	reference	patch:compat-negative-title-over-identifier.patch	modthespire	reference plus the readable title preferred over any identifier
+alternative-a	alternative	starter	tree:alternative-a	modthespire	own blank check, explicit one-sided identifier rule, loose version parsing and first-match loop guard

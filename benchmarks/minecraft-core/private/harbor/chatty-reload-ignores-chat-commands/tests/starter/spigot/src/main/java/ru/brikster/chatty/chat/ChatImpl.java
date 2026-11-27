@@ -1,0 +1,229 @@
+package ru.brikster.chatty.chat;
+
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import net.kyori.adventure.platform.bukkit.BukkitAudiences;
+import net.kyori.adventure.sound.Sound;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.serializer.gson.GsonComponentSerializer;
+import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
+import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
+import org.bukkit.plugin.Plugin;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+import ru.brikster.chatty.api.chat.Chat;
+import ru.brikster.chatty.api.chat.ChatStyle;
+import ru.brikster.chatty.api.chat.command.ChatCommand;
+import ru.brikster.chatty.chat.component.impl.ReplacementsStringTransformer;
+import ru.brikster.chatty.chat.selection.ChatSelectionState;
+import ru.brikster.chatty.api.chat.message.strategy.MessageTransformStrategy;
+import ru.brikster.chatty.api.chat.range.Ranges;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Set;
+import java.util.function.Predicate;
+
+@RequiredArgsConstructor
+public final class ChatImpl implements Chat {
+
+    @Getter
+    private final @NotNull String id;
+    private final @Nullable String displayName;
+
+    private final @NotNull BukkitAudiences audiences;
+
+    @Getter
+    private final @NotNull Component format;
+
+    @Getter
+    private final @NotNull String messageFormat;
+
+    @Getter
+    private final @NotNull String symbol;
+
+    @Getter
+    private final @Nullable ChatCommand command;
+
+    @Getter
+    private final int range;
+
+    @Getter
+    private final boolean permissionRequired;
+
+    @Getter
+    private final Set<ChatStyle> styles;
+
+    @Getter
+    private final boolean sendNobodyHeardYou;
+
+    @Getter
+    private final boolean parseLinks;
+
+    @Getter
+    private final boolean enableSpy;
+
+    @Getter
+    private final Sound sound;
+
+    @Getter
+    private final Component spyFormat;
+
+    @Getter
+    private final int cooldown;
+
+    private final @Nullable ChatSelectionState selectionState;
+
+    private final @NotNull List<SenderFormat> senderFormats;
+
+    private final @Nullable String matchPlaceholder;
+    private final @Nullable ReplacementsStringTransformer placeholderTransformer;
+
+    private final List<MessageTransformStrategy<?>> strategies
+            = new ArrayList<>();
+
+
+    @Override
+    public @NotNull String getDisplayName() {
+        return displayName == null
+                ? id
+                : displayName;
+    }
+
+    @Override
+    public @NotNull List<@NotNull MessageTransformStrategy<?>> getStrategies() {
+        return Collections.unmodifiableList(strategies);
+    }
+
+    @Override
+    public void addStrategy(@NotNull MessageTransformStrategy<?> strategy) {
+        strategies.add(strategy);
+    }
+
+    @Override
+    public boolean removeStrategy(@NotNull MessageTransformStrategy<?> strategy) {
+        return strategies.remove(strategy);
+    }
+
+    private @Nullable String senderMatchValue(@Nullable Player sender) {
+        if (sender == null || matchPlaceholder == null || matchPlaceholder.isBlank()) {
+            return null;
+        }
+        return resolveMatchValue(sender);
+    }
+
+    private @Nullable String resolveMatchValue(Player player) {
+        if (placeholderTransformer == null || matchPlaceholder == null) {
+            return null;
+        }
+        return placeholderTransformer.transform(player, matchPlaceholder);
+    }
+
+    @Override
+    public boolean hasSymbolWritePermission(Player sender) {
+        return sender.hasPermission("chatty.chat." + getId())
+                || sender.hasPermission("chatty.chat." + getId() + ".write")
+                || sender.hasPermission("chatty.chat." + getId() + ".send")
+                || sender.hasPermission("chatty.chat." + getId() + ".write.symbol")
+                || sender.hasPermission("chatty.chat." + getId() + ".send.symbol");
+    }
+
+    @Override
+    public boolean hasCommandWritePermission(Player sender) {
+        return sender.hasPermission("chatty.chat." + getId())
+                || sender.hasPermission("chatty.chat." + getId() + ".write")
+                || sender.hasPermission("chatty.chat." + getId() + ".send")
+                || sender.hasPermission("chatty.chat." + getId() + ".write.command")
+                || sender.hasPermission("chatty.chat." + getId() + ".send.command");
+    }
+
+    @Override
+    public boolean hasReadPermission(Player sender) {
+        return sender.hasPermission("chatty.chat." + getId())
+                || sender.hasPermission("chatty.chat." + getId() + ".read")
+                || sender.hasPermission("chatty.chat." + getId() + ".see");
+    }
+
+    @Override
+    public @NotNull Component getFormat(@Nullable Player sender) {
+        SenderFormat resolved = resolveSenderFormat(sender);
+        return resolved == null ? format : resolved.getFormat();
+    }
+
+    @Override
+    public @NotNull String getMessageFormat(@Nullable Player sender) {
+        SenderFormat resolved = resolveSenderFormat(sender);
+        return resolved == null ? messageFormat : resolved.getMessageFormat();
+    }
+
+    @Override
+    public @NotNull Set<ChatStyle> getStyles(@Nullable Player sender) {
+        SenderFormat resolved = resolveSenderFormat(sender);
+        return resolved == null ? styles : resolved.getStyles();
+    }
+
+    private @Nullable SenderFormat resolveSenderFormat(@Nullable Player sender) {
+        if (sender == null) {
+            return null;
+        }
+        for (SenderFormat candidate : senderFormats) {
+            if (sender.hasPermission("chatty.sender-format." + candidate.getId())
+                    || sender.hasPermission("chatty.chat." + id + ".sender-format." + candidate.getId())) {
+                return candidate;
+            }
+        }
+        return null;
+    }
+
+    @Override
+    public @NotNull Predicate<Player> getRecipientPredicate(@Nullable Player sender) {
+        String senderValue = senderMatchValue(sender);
+        return player -> {
+            if (player == sender || player.equals(sender)) {
+                return true;
+            }
+
+            if (isPermissionRequired() && !hasReadPermission(player)) {
+                return false;
+            }
+
+            if (command != null && command.isReadOnlySwitched() && selectionState != null
+                    && !selectionState.isSwitchedTo(player.getUniqueId(), id)) {
+                return false;
+            }
+
+            if (senderValue != null && !senderValue.equals(resolveMatchValue(player))) {
+                return false;
+            }
+
+            return sender == null || Ranges.isApplicable(sender, player, range);
+        };
+    }
+
+    @Override
+    public void sendLegacyMessage(Plugin plugin, String message, Predicate<CommandSender> recipientPredicate) {
+        var component = LegacyComponentSerializer.legacySection().deserialize(message);
+        sendComponent(plugin, component, recipientPredicate);
+    }
+
+    @Override
+    public void sendJsonComponent(Plugin plugin, String componentJson, Predicate<CommandSender> recipientPredicate) {
+        var component = GsonComponentSerializer.gson().deserialize(componentJson);
+        sendComponent(plugin, component, recipientPredicate);
+    }
+
+    private void sendComponent(Plugin plugin, Component component, Predicate<CommandSender> recipientPredicate) {
+        var audience = audiences
+                .filter(sender -> {
+                    if (sender instanceof Player) {
+                        boolean test = getRecipientPredicate(null).test((Player) sender);
+                        if (!test) return false;
+                    }
+                    return recipientPredicate.test(sender);
+                });
+        audience.sendMessage(component);
+    }
+
+}

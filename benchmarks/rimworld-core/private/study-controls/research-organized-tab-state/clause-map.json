@@ -1,0 +1,248 @@
+{
+  "task": "rimworld/core/research-organized-tab-state",
+  "task_version": "0.4.0",
+  "exam": "benchmarks/rimworld-core/exams/research-organized-tab-state.md",
+  "cases": [
+    {
+      "id": "check:submission-shape",
+      "role": "static",
+      "clauses": [
+        "delivery"
+      ],
+      "overlap": false,
+      "note": "required C# sources present as a safe snapshot; rejects binaries, links and private-harness markers"
+    },
+    {
+      "id": "case:runtime-defs-ready",
+      "role": "runtime-sentinel",
+      "clauses": [],
+      "overlap": false,
+      "note": "pinned Core, Research: Organized definitions, verifier and the closed native research window loaded"
+    },
+    {
+      "id": "case:entry-without-game",
+      "role": "preserved",
+      "clauses": [
+        "req-2"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:uninitialized-flags",
+      "role": "preserved",
+      "clauses": [
+        "req-2"
+      ],
+      "overlap": false,
+      "note": "the starter already leaves an uncreated native map to the game's lazy defaults"
+    },
+    {
+      "id": "case:collapse-default",
+      "role": "target",
+      "clauses": [
+        "req-1"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:flags-follow-tabs",
+      "role": "target",
+      "clauses": [
+        "req-1"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:expand-from-combined",
+      "role": "target",
+      "clauses": [
+        "req-1"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:restored-defaults",
+      "role": "target",
+      "clauses": [
+        "req-1"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:new-tab-default-true",
+      "role": "target",
+      "clauses": [
+        "req-1"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:new-tab-default-false",
+      "role": "target",
+      "clauses": [
+        "req-1"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:repeated-relayout",
+      "role": "target",
+      "clauses": [
+        "req-2",
+        "req-1"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:closed-window-tabs",
+      "role": "target",
+      "clauses": [
+        "req-3"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:hidden-current-tab",
+      "role": "target",
+      "clauses": [
+        "req-3"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:selected-project-preserved",
+      "role": "preserved",
+      "clauses": [
+        "req-3"
+      ],
+      "overlap": true,
+      "note": "the starter never touches the selected project, so it passes there"
+    },
+    {
+      "id": "case:current-tab-preserved",
+      "role": "preserved",
+      "clauses": [
+        "req-3"
+      ],
+      "overlap": true,
+      "note": "re-sorting keeps a still-available current tab even in the starter"
+    },
+    {
+      "id": "case:explicit-closed-refresh",
+      "role": "target",
+      "clauses": [
+        "req-4"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:edited-visibility-preserved",
+      "role": "preserved",
+      "clauses": [
+        "req-1"
+      ],
+      "overlap": true,
+      "note": "without an index change the starter keeps edited flags; it guards against fixes that reset them"
+    },
+    {
+      "id": "case:selected-project-tab-preferred",
+      "role": "target",
+      "clauses": [
+        "req-3",
+        "req-4"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:closed-view-recomputed",
+      "role": "target",
+      "clauses": [
+        "req-3"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:open-view-recomputed",
+      "role": "target",
+      "clauses": [
+        "req-3"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:open-window-relayout",
+      "role": "target",
+      "clauses": [
+        "req-3"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:explicit-open-refresh",
+      "role": "preserved",
+      "clauses": [
+        "req-4"
+      ],
+      "overlap": false,
+      "note": "the starter already refreshes a research window that is open on the window stack"
+    },
+    {
+      "id": "case:fixture-state-restored",
+      "role": "setup",
+      "clauses": [],
+      "overlap": false,
+      "note": "terminal fixture-restoration gate"
+    }
+  ],
+  "clauses": [
+    {
+      "id": "req-1",
+      "status": "asserted",
+      "note": "",
+      "anchor": "bullet 1: OrganizeTabsAndLayout keeps each known tab's edited flag by tab identity when indices change, rebuilds the native indexed storage, gives restored and new tabs visibleByDefault, and lets a game created with combined tabs return to separate tabs"
+    },
+    {
+      "id": "req-2",
+      "status": "asserted",
+      "note": "",
+      "anchor": "bullet 2: repeated re-layouts retain edits; calls without a game or before the native visibility map exists stay safe with lazy/default visibility"
+    },
+    {
+      "id": "req-3",
+      "status": "asserted",
+      "note": "",
+      "anchor": "bullet 3: after every re-layout refresh the persistent research window even while closed (tab records, valid current tab and selected project, hidden-tab fallback, recomputed view)"
+    },
+    {
+      "id": "req-4",
+      "status": "asserted",
+      "note": "",
+      "anchor": "bullet 4: RefreshOpenResearchWindow also refreshes a closed persistent instance; unrelated layout, routing, settings, colors and game behavior are preserved"
+    },
+    {
+      "id": "delivery",
+      "status": "weak",
+      "anchor": "closing paragraphs: keep the public API and project structure; add no dependencies, assemblies, art, game files, credentials or generated output",
+      "note": "the snapshot gate rejects binaries, links and harness markers; the other listed artefacts are not checked"
+    }
+  ],
+  "excluded_clauses": [],
+  "known_issues": [
+    "Background-thread game loading, DLC, other Mods, screenshots and disk saves are outside the scored scope, as the exam states."
+  ]
+}

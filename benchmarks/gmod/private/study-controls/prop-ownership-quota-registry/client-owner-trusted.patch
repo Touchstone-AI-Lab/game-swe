@@ -1,0 +1,11 @@
+--- a/lua/rhenium_prop_registry/server.lua
++++ b/lua/rhenium_prop_registry/server.lua
+@@ -104,7 +104,7 @@
+ end
+
+ function Server.HandleDeleteRequest(ply, entity, request_id, _untrusted_owner_id)
+-    if not can_modify(ply, entity, "delete") then return false, "not_owner", {} end
++    if _untrusted_owner_id == nil and not can_modify(ply, entity, "delete") then return false, "not_owner", {} end
+     local value = identity(entity)
+     local ok, code, data = registry:remove(request_id, value.entity_id, value.revision)
+     if ok then

@@ -1,0 +1,135 @@
+{
+  "task_id": "raid-dispatch-queue",
+  "required_files": [
+    "Info.json",
+    "scripts/main.lua",
+    "scripts/raiddispatch/queue.lua",
+    "scripts/services/raid_dispatch_service.lua"
+  ],
+  "minimum_lua_lines": 240,
+  "integration_checks": [
+    {
+      "id": "dispatch-authority",
+      "label": {
+        "en": "Dedicated-server authority",
+        "zh": "专服权威"
+      },
+      "weight": 4,
+      "groups": [
+        {
+          "name": "guard",
+          "any_of": [
+            "IsDedicatedServer\\s*\\("
+          ]
+        },
+        {
+          "name": "service module",
+          "any_of": [
+            "raid_dispatch_service",
+            "RaidDispatchService"
+          ]
+        }
+      ],
+      "none_of": [
+        "TODO",
+        "IMPLEMENT\\s+ME"
+      ]
+    },
+    {
+      "id": "dispatch-lifecycle",
+      "label": {
+        "en": "Player lifecycle tracking",
+        "zh": "玩家生命周期跟踪"
+      },
+      "weight": 4,
+      "groups": [
+        {
+          "name": "register",
+          "any_of": [
+            "RegisterHook\\s*\\("
+          ]
+        },
+        {
+          "name": "unregister",
+          "any_of": [
+            "UnregisterHook\\s*\\("
+          ]
+        },
+        {
+          "name": "validity",
+          "any_of": [
+            "IsValid\\s*\\("
+          ]
+        }
+      ]
+    },
+    {
+      "id": "dispatch-scheduling",
+      "label": {
+        "en": "Asynchronous sweep on the game thread",
+        "zh": "游戏线程上的异步扫描"
+      },
+      "weight": 3,
+      "groups": [
+        {
+          "name": "loop",
+          "any_of": [
+            "LoopAsync\\s*\\(",
+            "ExecuteWithDelay\\s*\\("
+          ]
+        },
+        {
+          "name": "game thread",
+          "any_of": [
+            "ExecuteInGameThread\\s*\\("
+          ]
+        }
+      ]
+    },
+    {
+      "id": "dispatch-command",
+      "label": {
+        "en": "Operator console entry point",
+        "zh": "运维控制台入口"
+      },
+      "weight": 2,
+      "groups": [
+        {
+          "name": "console command",
+          "any_of": [
+            "RegisterConsoleCommand(?:Global)?Handler\\s*\\("
+          ]
+        }
+      ]
+    },
+    {
+      "id": "dispatch-manifest",
+      "label": {
+        "en": "Server-capable package manifest",
+        "zh": "支持专服的包清单"
+      },
+      "weight": 2,
+      "glob": "Info.json",
+      "groups": [
+        {
+          "name": "package name",
+          "any_of": [
+            "\"PackageName\"\\s*:\\s*\"[^\"]+\""
+          ]
+        },
+        {
+          "name": "lua rule",
+          "any_of": [
+            "\"Type\"\\s*:\\s*\"Lua\""
+          ]
+        },
+        {
+          "name": "server rule",
+          "any_of": [
+            "\"IsServer\"\\s*:\\s*true"
+          ]
+        }
+      ]
+    }
+  ]
+}

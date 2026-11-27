@@ -1,0 +1,12 @@
+diff -u a/wire/lua/entities/gmod_wire_expression2/core/complex.lua b/wire/lua/entities/gmod_wire_expression2/core/complex.lua
+--- a/wire/lua/entities/gmod_wire_expression2/core/complex.lua
++++ b/wire/lua/entities/gmod_wire_expression2/core/complex.lua
+@@ -28,7 +28,7 @@
+ 		if value[2] > 0 then
+ 			dbginfo = Round(value[1]*1000)/1000 .. "+" .. Round(value[2]*1000)/1000 .. "i"
+ 		elseif abs(value[2]) <= 0 then
+-			dbginfo = tostring(Round(value[1]*1000)/1000)
++			dbginfo = Round(value[1]*1000)/1000
+ 		elseif value[2] < 0 then
+ 			dbginfo = Round(value[1]*1000)/1000 .. Round(value[2]*1000)/1000 .. "i"
+ 		end

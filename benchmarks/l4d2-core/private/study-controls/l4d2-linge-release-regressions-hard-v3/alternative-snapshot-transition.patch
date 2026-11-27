@@ -1,0 +1,260 @@
+diff -ruN a/vscripts/LinGe/Hint.nut b/vscripts/LinGe/Hint.nut
+--- a/vscripts/LinGe/Hint.nut	2026-09-21 05:58:19.789091508 +0800
++++ b/vscripts/LinGe/Hint.nut	2026-09-21 05:58:19.792736404 +0800
+@@ -84,18 +84,19 @@
+ // 数量限制不大于0时不加载标记提示功能
+ if (::LinGe.Hint.Config.limit > 0) {
+ 
++// 每个生命周期值都显式编号：Squirrel 在出现显式赋值后不会为后续成员继续递增
+ enum HINTMODE {
+ 	DOMINATE = 0, // 适用队友被控
+-	REVIVE, // 适用于队友倒地、挂边
+-	DYING, // 适用于队友黑白
+-	SPECIAL, // 适用于显示在特感上的标记
+-	WEAPON, // 适用于物资
+-	NORMAL, // 提示总是持续到设定时间才会关闭
+-	SCREEN, // 不管配置文件如何设定，提示都只在屏幕内显示
+-	SIGHT, // 提示只显示在视野内（不会在屏幕外和墙体后显示）
+-	RUN, // 适用于路线标记
+-	SELFSHOW, // 只显示给自己的提示
+-	__MAX__
++	REVIVE = 1, // 适用于队友倒地、挂边
++	DYING = 2, // 适用于队友黑白
++	SPECIAL = 3, // 适用于显示在特感上的标记
++	WEAPON = 4, // 适用于物资
++	NORMAL = 5, // 提示总是持续到设定时间才会关闭
++	SCREEN = 6, // 不管配置文件如何设定，提示都只在屏幕内显示
++	SIGHT = 7, // 提示只显示在视野内（不会在屏幕外和墙体后显示）
++	RUN = 8, // 适用于路线标记
++	SELFSHOW = 9, // 只显示给自己的提示
++	__MAX__ = 10
+ };
+ getconsttable()["LINGE_NONE_ICON"] <- "";
+ 
+diff -ruN a/vscripts/LinGe/HUD.nut b/vscripts/LinGe/HUD.nut
+--- a/vscripts/LinGe/HUD.nut	2026-09-21 05:58:19.789029416 +0800
++++ b/vscripts/LinGe/HUD.nut	2026-09-21 05:58:19.792691744 +0800
+@@ -841,6 +841,12 @@
+ ::LinGe.HUD.SaveHurt_RoundWin <- function (params)
+ {
+ 	BackupAllHurtData();
++	// 成功过关后，此刻的累计数据成为之后败局回滚的基准
++	foreach (id, d in hurtData_bak)
++	{
++		foreach (key in item_key)
++			d["o_" + key] = d["t_" + key];
++	}
+ }
+ ::LinEventHook("OnGameEvent_map_transition", ::LinGe.HUD.SaveHurt_RoundWin, ::LinGe.HUD);
+ 
+@@ -908,6 +914,85 @@
+ // 对witch伤害和对小僵尸伤害不会触发这个事件
+ // witch伤害不记录，tank伤害单独记录
+ ::LinGe.HUD.tempTeamHurt <- {}; // 友伤临时数据记录
++::LinGe.HUD.tankPreHealth <- {}; // Tank 在最近一次伤害生效前的真实血量，以实体索引为key
++
++// 部分伤害事件报告的 dmg_health 小于实际扣除的血量，此表记录其倍数
++// 第一层key为weapon，第二层key为伤害类型
++::LinGe.HUD.underReportedDamage <- {
++	entityflame = { [268435464] = 3 }
++};
++::LinGe.HUD.ReportedDamageScale <- function (params)
++{
++	if (!params.rawin("weapon") || !underReportedDamage.rawin(params.weapon))
++		return 1;
++	local byType = underReportedDamage[params.weapon];
++	return byType.rawin(params.type) ? byType[params.type] : 1;
++}.bindenv(::LinGe.HUD);
++
++// 记录一次友伤：累计统计 + 延迟提示所需的临时数据
++::LinGe.HUD.RecordTeamHurt <- function (attackerID, victimID, attacker, victim, dmg, lethal, incap)
++{
++	// 对自己造成的伤害不计入友伤统计
++	if (attacker != victim)
++	{
++		hurtData[attacker.GetEntityIndex()].atk += dmg;
++		hurtData[attacker.GetEntityIndex()].t_atk += dmg;
++		hurtData[victim.GetEntityIndex()].vct += dmg;
++		hurtData[victim.GetEntityIndex()].t_vct += dmg;
++	}
++
++	if (Config.hurt.teamHurtInfo < 1 || Config.hurt.teamHurtInfo > 2)
++		return;
++	local key = attackerID + "_" + victimID;
++	if (!tempTeamHurt.rawin(key))
++	{
++		tempTeamHurt[key] <- { dmg=0, attacker=attacker, atkName=attacker.GetPlayerName(),
++			victim=victim, vctName=victim.GetPlayerName(), isDead=false, isIncap=false };
++	}
++	local info = tempTeamHurt[key];
++	info.dmg += dmg;
++	if (lethal)
++		info.isDead = true;
++	if (incap)
++		info.isIncap = true;
++	// 友伤发生后，0.5秒内同一人若未再对同一人造成友伤，则输出其造成的伤害
++	VSLib.Timers.AddTimerByName(key, 0.5, false, Timer_PrintTeamHurt, key);
++}.bindenv(::LinGe.HUD);
++
++// 伤害生效前记录 Tank 的真实血量，用于修正进入死亡过渡那一击的溢出
++::LinGe.HUD.OnTakeDamage_TankSnapshot <- function (damageTable)
++{
++	local victim = damageTable.Victim;
++	local attacker = damageTable.Attacker;
++	if (victim == null || attacker == null)
++		return;
++	if (victim.GetClassname() != "player" || attacker.GetClassname() != "player")
++		return;
++	if (victim.IsSurvivor() || 8 != victim.GetZombieType() || !attacker.IsSurvivor())
++		return;
++	if (victim.IsIncapacitated())
++		return;
++	tankPreHealth[victim.GetEntityIndex()] <- victim.GetHealth();
++}.bindenv(::LinGe.HUD);
++::VSLib.EasyLogic.OnTakeDamage.LinGeHUD_TankSnapshot <- ::LinGe.HUD.OnTakeDamage_TankSnapshot;
++
++// 事件：生还者即将倒地，此时仍可读取倒地前的实血与虚血
++::LinGe.HUD.OnGameEvent_player_incapacitated_start <- function (params)
++{
++	if (!params.rawin("userid") || params.userid == 0 || !params.rawin("attacker"))
++		return;
++	local victim = GetPlayerFromUserID(params.userid);
++	local attacker = GetPlayerFromUserID(params.attacker);
++	if (null == victim || null == attacker)
++		return;
++	if (!victim.IsSurvivor() || !attacker.IsSurvivor())
++		return;
++	local dmg = victim.GetHealth() + victim.GetHealthBuffer().tointeger();
++	if (dmg < 1)
++		return;
++	RecordTeamHurt(params.attacker, params.userid, attacker, victim, dmg, false, true);
++}
++::LinEventHook("OnGameEvent_player_incapacitated_start", ::LinGe.HUD.OnGameEvent_player_incapacitated_start, ::LinGe.HUD);
+ ::LinGe.HUD.OnGameEvent_player_hurt <- function (params)
+ {
+ 	if (!params.rawin("dmg_health"))
+@@ -930,44 +1015,22 @@
+ 	// 如果被攻击者是生还者则统计友伤数据
+ 	if (victim.IsSurvivor())
+ 	{
+-		if (victim.IsDying() || victim.IsDead())
++		// 已经倒地、濒死或死亡之后报告的伤害不属于友伤
++		// 致其倒地的那一次伤害由 player_incapacitated_start 统计
++		if (victim.IsDying() || victim.IsDead() || victim.IsIncapacitated())
+ 			return;
+-		else if (vctHp < 0) // 致死伤害事件发生时，victim.IsDead()还不会为真，但血量会<0
+-		{
+-			// 如果是本次伤害致其死亡，则 生命值 + 伤害值 > 0
+-			if (vctHp + dmg <= 0)
+-				return;
+-		}
+-		else if (victim.IsIncapacitated())
+-		{
+-			// 如果是本次伤害致其倒地，则其当前血量+伤害量=300
+-			// 如果不是，则说明攻击时已经倒地，则不统计本次友伤
+-			if (vctHp + dmg != 300)
+-				return;
+-		}
+ 
+-		// 若不是对自己造成的伤害，则计入累计统计
+-		if (attacker != victim)
++		// 致死时血量为负，其绝对值包含了溢出伤害；虚血此时仍可读取
++		local remaining = vctHp + victim.GetHealthBuffer().tointeger();
++		local lethal = false;
++		if (remaining < 0)
+ 		{
+-			hurtData[attacker.GetEntityIndex()].atk += dmg;
+-			hurtData[attacker.GetEntityIndex()].t_atk += dmg;
+-			hurtData[victim.GetEntityIndex()].vct += dmg;
+-			hurtData[victim.GetEntityIndex()].t_vct += dmg;
+-		}
+-
+-		// 若开启了友伤提示，则计入临时数据统计
+-		if (Config.hurt.teamHurtInfo >= 1 && Config.hurt.teamHurtInfo <= 2)
+-		{
+-			local key = params.attacker + "_" + params.userid;
+-			if (!tempTeamHurt.rawin(key))
+-			{
+-				tempTeamHurt[key] <- { dmg=0, attacker=attacker, atkName=attacker.GetPlayerName(),
+-					victim=victim, vctName=victim.GetPlayerName(), isDead=false, isIncap=false };
+-			}
+-			tempTeamHurt[key].dmg += dmg;
+-			// 友伤发生后，0.5秒内同一人若未再对同一人造成友伤，则输出其造成的伤害
+-			VSLib.Timers.AddTimerByName(key, 0.5, false, Timer_PrintTeamHurt, key);
++			dmg += remaining;
++			if (dmg < 1) // 死亡之后才到达的陈旧事件
++				return;
++			lethal = true;
+ 		}
++		RecordTeamHurt(params.attacker, params.userid, attacker, victim, dmg, lethal, false);
+ 	}
+ 	else // 不是生还者团队则统计对特感的伤害数据
+ 	{
+@@ -976,12 +1039,33 @@
+ 		{
+ 			if (5000 == dmg) // 击杀Tank时会产生5000伤害事件，不知道为什么设计了这样的机制
+ 				return;
++			local tankIndex = victim.GetEntityIndex();
++			if (victim.IsIncapacitated())
++			{
++				// 进入死亡过渡后，只有触发过渡的那一击扣除了真实血量
++				// 其真实血量在伤害生效前由 OnTakeDamage 记录
++				if (!tankPreHealth.rawin(tankIndex))
++					return;
++				local real = tankPreHealth[tankIndex];
++				tankPreHealth.rawdelete(tankIndex);
++				if (real < dmg)
++					dmg = real;
++				if (dmg < 1)
++					return;
++			}
++			else if (tankPreHealth.rawin(tankIndex))
++				tankPreHealth.rawdelete(tankIndex);
+ 			hurtData[attacker.GetEntityIndex()].tank += dmg;
+ 		}
+ 		else // 不是生还者且不是Tank，则为普通特感(此事件下不可能为witch)
+ 		{
++			dmg *= ReportedDamageScale(params);
+ 			if (vctHp < 0)
++			{
+ 				dmg += vctHp; // 修正溢出伤害
++				if (dmg < 1) // 死亡之后才到达的陈旧事件
++					return;
++			}
+ 			hurtData[attacker.GetEntityIndex()].si += dmg;
+ 			hurtData[attacker.GetEntityIndex()].t_si += dmg;
+ 		}
+@@ -1101,7 +1185,7 @@
+ 		if (attackerEntity && attackerEntity.IsSurvivor())
+ 		{
+ 			local key = params.attacker + "_" + dier;
+-			if (dierEntity.GetHealth() < 0 && tempTeamHurt.rawin(key))
++			if (dierEntity.GetHealth() <= 0 && tempTeamHurt.rawin(key))
+ 				tempTeamHurt[key].isDead = true;
+ 		}
+ 	}
+diff -ruN a/vscripts/LinGe/RewardHP.nut b/vscripts/LinGe/RewardHP.nut
+--- a/vscripts/LinGe/RewardHP.nut	2026-09-21 05:58:19.789185464 +0800
++++ b/vscripts/LinGe/RewardHP.nut	2026-09-21 05:58:19.792801427 +0800
+@@ -69,9 +69,18 @@
+ 		break;
+ 	}
+ 
+-	// 判断回复虚血条件是否满足（模式不为1 且 虚血回复量>0 且 回复后总血量<=上限）
+-	// 满足则回复虚血，否则回复实血
+-	if (Config.mode != 1 && reward_temp > 0 && hp + hpbuffer + reward_temp <= Config.limit)
++	local room = Config.limit - hp - hpbuffer; // 距离总血量上限还能容纳多少
++	if (Config.mode == 2)
++	{
++		// 纯虚血模式：只给虚血，给到上限为止，永不转为实血
++		local grant = reward_temp < room ? reward_temp : room;
++		if (grant > 0)
++			attacker.SetHealthBuffer(hpbuffer + grant);
++		return;
++	}
++
++	// 模式3：虚血奖励能完整容纳则回复虚血，否则回复实血
++	if (Config.mode != 1 && reward_temp > 0 && reward_temp <= room)
+ 	{
+ 		attacker.SetHealthBuffer(hpbuffer + reward_temp);
+ 	}

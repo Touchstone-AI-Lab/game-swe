@@ -1,0 +1,12 @@
+diff -ruN a/Automate/Framework/ModConstants.cs b/Automate/Framework/ModConstants.cs
+--- a/Automate/Framework/ModConstants.cs
++++ b/Automate/Framework/ModConstants.cs
+@@ -12,7 +12,7 @@
+             return
+             [
+                 "130", // chest,
+-                "216", // mini-fridge
++                "(BC)216", // mini-fridge
+                 "232", // stone chest
+                 "256", // Junimo chest
+                 "BigChest",

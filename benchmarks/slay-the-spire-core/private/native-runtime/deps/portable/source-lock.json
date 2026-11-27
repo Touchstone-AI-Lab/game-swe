@@ -1,0 +1,6 @@
+{
+  "ModTheSpire": {"url": "https://github.com/kiooeht/ModTheSpire.git", "commit": "c6201995b8f5d97620cdb00f28a724a95b7742a6"},
+  "BaseMod": {"url": "https://github.com/pkuimyy/BaseMod.git", "commit": "26de1afc1a8ea7595b61f940de0ac29650f2c025"},
+  "StSLib": {"url": "https://github.com/kiooeht/StSLib.git", "commit": "3be4b65948d2d9810f4bff7053e34d4ae511adff"},
+  "PackmasterCharacter": {"url": "https://github.com/erasels/PackmasterCharacter.git", "commit": "ece7aac791df7926b2bfbd81c7e85ad981a82c28"}
+}

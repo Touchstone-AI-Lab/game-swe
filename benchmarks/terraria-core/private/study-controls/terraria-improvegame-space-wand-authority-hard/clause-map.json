@@ -1,0 +1,685 @@
+{
+  "task": "terraria/core/terraria-improvegame-space-wand-authority-hard",
+  "task_version": "0.1.0",
+  "exam": "benchmarks/terraria-core/exams/terraria-improvegame-space-wand-authority-hard.md",
+  "cases": [
+    {
+      "id": "check:submission-shape",
+      "role": "static"
+    },
+    {
+      "id": "projection:direction_axes_are_stable",
+      "role": "target",
+      "clauses": [
+        "directional-lines"
+      ]
+    },
+    {
+      "id": "projection:direction_diagonals_are_stable",
+      "role": "target",
+      "clauses": [
+        "directional-lines"
+      ]
+    },
+    {
+      "id": "projection:direction_sector_boundaries_are_deterministic",
+      "role": "target",
+      "clauses": [
+        "directional-lines"
+      ]
+    },
+    {
+      "id": "projection:line_includes_both_endpoints",
+      "role": "target",
+      "clauses": [
+        "directional-lines"
+      ]
+    },
+    {
+      "id": "projection:line_rejects_unsafe_start",
+      "role": "target",
+      "clauses": [
+        "directional-lines"
+      ]
+    },
+    {
+      "id": "projection:line_stops_before_safe_margin",
+      "role": "target",
+      "clauses": [
+        "directional-lines"
+      ]
+    },
+    {
+      "id": "projection:every_shape_rejects_unsafe_start",
+      "role": "target",
+      "clauses": [
+        "directional-lines"
+      ]
+    },
+    {
+      "id": "projection:corner_vertical_first_order",
+      "role": "target",
+      "clauses": [
+        "corner-path"
+      ]
+    },
+    {
+      "id": "projection:corner_horizontal_first_order",
+      "role": "target",
+      "clauses": [
+        "corner-path"
+      ]
+    },
+    {
+      "id": "projection:corner_contains_shared_vertex_once",
+      "role": "target",
+      "clauses": [
+        "corner-path"
+      ]
+    },
+    {
+      "id": "projection:corner_clipping_stops_remaining_leg",
+      "role": "target",
+      "clauses": [
+        "corner-path"
+      ]
+    },
+    {
+      "id": "projection:filled_square_respects_sixty_limit",
+      "role": "target",
+      "clauses": [
+        "rectangular-geometry"
+      ]
+    },
+    {
+      "id": "projection:outline_square_respects_one_sixty_limit",
+      "role": "target",
+      "clauses": [
+        "rectangular-geometry"
+      ]
+    },
+    {
+      "id": "projection:degenerate_square_has_unique_tiles",
+      "role": "target",
+      "clauses": [
+        "rectangular-geometry"
+      ]
+    },
+    {
+      "id": "projection:square_clips_to_safe_world",
+      "role": "target",
+      "clauses": [
+        "rectangular-geometry"
+      ]
+    },
+    {
+      "id": "projection:filled_circle_has_unique_interior",
+      "role": "target",
+      "clauses": [
+        "circular-geometry"
+      ]
+    },
+    {
+      "id": "projection:thin_circle_contains_only_boundary",
+      "role": "target",
+      "clauses": [
+        "circular-geometry"
+      ]
+    },
+    {
+      "id": "projection:connected_circle_uses_cardinal_neighbor_boundary",
+      "role": "target",
+      "clauses": [
+        "circular-geometry"
+      ]
+    },
+    {
+      "id": "projection:circle_radius_caps_are_enforced",
+      "role": "target",
+      "clauses": [
+        "circular-geometry"
+      ]
+    },
+    {
+      "id": "projection:circle_clips_to_safe_world",
+      "role": "target",
+      "clauses": [
+        "circular-geometry"
+      ]
+    },
+    {
+      "id": "projection:successful_place_consumes_once",
+      "role": "target",
+      "clauses": [
+        "tile-transaction"
+      ]
+    },
+    {
+      "id": "projection:nonconsumable_material_is_not_reported",
+      "role": "target",
+      "clauses": [
+        "tile-transaction"
+      ]
+    },
+    {
+      "id": "projection:consumption_hook_veto_keeps_valid_placement",
+      "role": "target",
+      "clauses": [
+        "tile-transaction"
+      ]
+    },
+    {
+      "id": "projection:tile_wand_consumes_ammo_not_wand",
+      "role": "target",
+      "clauses": [
+        "tile-transaction"
+      ]
+    },
+    {
+      "id": "projection:tile_wand_ammo_veto_keeps_valid_placement",
+      "role": "target",
+      "clauses": [
+        "tile-transaction"
+      ]
+    },
+    {
+      "id": "projection:missing_tile_wand_ammo_is_atomic",
+      "role": "target",
+      "clauses": [
+        "tile-transaction"
+      ]
+    },
+    {
+      "id": "projection:loader_rejection_is_atomic",
+      "role": "target",
+      "clauses": [
+        "tile-transaction"
+      ]
+    },
+    {
+      "id": "projection:failed_new_tile_place_is_atomic",
+      "role": "target",
+      "clauses": [
+        "tile-transaction"
+      ]
+    },
+    {
+      "id": "projection:matching_tile_reshapes_without_consumption",
+      "role": "target",
+      "clauses": [
+        "replacement-slope"
+      ]
+    },
+    {
+      "id": "projection:disabled_replacement_is_atomic",
+      "role": "target",
+      "clauses": [
+        "replacement-slope"
+      ]
+    },
+    {
+      "id": "projection:rope_cannot_replace_platform",
+      "role": "target",
+      "clauses": [
+        "replacement-slope"
+      ]
+    },
+    {
+      "id": "projection:insufficient_pick_power_is_atomic",
+      "role": "target",
+      "clauses": [
+        "replacement-slope"
+      ]
+    },
+    {
+      "id": "projection:successful_replacement_consumes_once",
+      "role": "target",
+      "clauses": [
+        "replacement-slope"
+      ]
+    },
+    {
+      "id": "projection:replace_fallback_kills_then_places_once",
+      "role": "target",
+      "clauses": [
+        "replacement-slope"
+      ]
+    },
+    {
+      "id": "projection:failed_replace_fallback_restores_original_tile",
+      "role": "target",
+      "clauses": [
+        "replacement-slope"
+      ]
+    },
+    {
+      "id": "projection:solid_place_resets_external_below_slope",
+      "role": "target",
+      "clauses": [
+        "replacement-slope"
+      ]
+    },
+    {
+      "id": "projection:solid_place_preserves_selected_below_slope",
+      "role": "target",
+      "clauses": [
+        "replacement-slope"
+      ]
+    },
+    {
+      "id": "projection:unsafe_operation_stops_before_loader",
+      "role": "target",
+      "clauses": [
+        "replacement-slope"
+      ]
+    },
+    {
+      "id": "projection:packet_requires_server_authority",
+      "role": "target",
+      "clauses": [
+        "packet-authority-sync"
+      ]
+    },
+    {
+      "id": "projection:packet_rejects_invalid_sender",
+      "role": "target",
+      "clauses": [
+        "packet-authority-sync"
+      ]
+    },
+    {
+      "id": "projection:packet_rejects_inactive_sender",
+      "role": "target",
+      "clauses": [
+        "packet-authority-sync"
+      ]
+    },
+    {
+      "id": "projection:packet_rejects_invalid_enums",
+      "role": "target",
+      "clauses": [
+        "packet-authority-sync"
+      ]
+    },
+    {
+      "id": "projection:packet_rejects_nonfinite_coordinates",
+      "role": "target",
+      "clauses": [
+        "packet-authority-sync"
+      ]
+    },
+    {
+      "id": "projection:packet_operates_bottom_to_top",
+      "role": "target",
+      "clauses": [
+        "packet-authority-sync"
+      ]
+    },
+    {
+      "id": "projection:outline_packet_syncs_three_by_three_neighborhoods",
+      "role": "target",
+      "clauses": [
+        "packet-authority-sync"
+      ]
+    },
+    {
+      "id": "projection:filled_packet_syncs_one_bounding_region",
+      "role": "target",
+      "clauses": [
+        "packet-authority-sync"
+      ]
+    },
+    {
+      "id": "projection:packet_reports_aggregated_consumption",
+      "role": "target",
+      "clauses": [
+        "packet-authority-sync"
+      ]
+    },
+    {
+      "id": "projection:packet_broadcasts_one_sound_on_change",
+      "role": "target",
+      "clauses": [
+        "packet-authority-sync"
+      ]
+    },
+    {
+      "id": "projection:packet_with_no_change_emits_no_side_effect_packets",
+      "role": "target",
+      "clauses": [
+        "packet-authority-sync"
+      ]
+    },
+    {
+      "id": "projection:failed_replace_fallback_emits_no_packets",
+      "role": "target",
+      "clauses": [
+        "packet-authority-sync"
+      ]
+    },
+    {
+      "id": "projection:packet_syncs_placement_despite_consumption_veto",
+      "role": "target",
+      "clauses": [
+        "packet-authority-sync"
+      ]
+    },
+    {
+      "id": "projection:shape_methods_reject_nonfinite_inputs",
+      "role": "target",
+      "clauses": [
+        "geometry-input-safety"
+      ]
+    },
+    {
+      "id": "projection:extreme_finite_line_clips_in_drag_direction",
+      "role": "target",
+      "clauses": [
+        "geometry-input-safety"
+      ]
+    },
+    {
+      "id": "projection:extreme_finite_corner_clips_in_drag_direction",
+      "role": "target",
+      "clauses": [
+        "geometry-input-safety"
+      ]
+    },
+    {
+      "id": "projection:extreme_finite_square_clamps_in_drag_direction",
+      "role": "target",
+      "clauses": [
+        "geometry-input-safety"
+      ]
+    },
+    {
+      "id": "projection:failed_empty_place_restores_partial_mutation",
+      "role": "target",
+      "clauses": [
+        "transaction-rollback"
+      ]
+    },
+    {
+      "id": "projection:failed_grass_place_restores_partial_mutation",
+      "role": "target",
+      "clauses": [
+        "transaction-rollback"
+      ]
+    },
+    {
+      "id": "projection:failed_replace_restores_before_fallback",
+      "role": "target",
+      "clauses": [
+        "transaction-rollback"
+      ]
+    },
+    {
+      "id": "projection:forbidden_replacement_preserves_block_shape",
+      "role": "target",
+      "clauses": [
+        "transaction-rollback"
+      ]
+    },
+    {
+      "id": "projection:matching_tile_requires_pound_permission",
+      "role": "target",
+      "clauses": [
+        "transaction-rollback"
+      ]
+    },
+    {
+      "id": "projection:packet_syncs_slope_only_change_without_sound",
+      "role": "target",
+      "clauses": [
+        "mutation-ledger-sync"
+      ]
+    },
+    {
+      "id": "projection:packet_syncs_external_support_change",
+      "role": "target",
+      "clauses": [
+        "mutation-ledger-sync"
+      ]
+    },
+    {
+      "id": "projection:outline_packet_syncs_only_changed_tiles",
+      "role": "target",
+      "clauses": [
+        "mutation-ledger-sync"
+      ]
+    },
+    {
+      "id": "projection:filled_packet_bounds_only_changed_tiles",
+      "role": "target",
+      "clauses": [
+        "mutation-ledger-sync"
+      ]
+    },
+    {
+      "id": "projection:failed_partial_mutation_emits_no_packets",
+      "role": "target",
+      "clauses": [
+        "mutation-ledger-sync"
+      ]
+    },
+    {
+      "id": "projection:inventory_exhaustion_syncs_only_committed_tiles",
+      "role": "target",
+      "clauses": [
+        "mutation-ledger-sync"
+      ]
+    },
+    {
+      "id": "projection:outline_dirty_sync_order_is_deterministic",
+      "role": "target",
+      "clauses": [
+        "mutation-ledger-sync"
+      ]
+    },
+    {
+      "id": "projection:false_place_with_committed_postcondition_succeeds",
+      "role": "target",
+      "clauses": [
+        "postcondition-commit"
+      ]
+    },
+    {
+      "id": "projection:true_place_without_committed_postcondition_fails",
+      "role": "target",
+      "clauses": [
+        "postcondition-commit"
+      ]
+    },
+    {
+      "id": "projection:false_grass_place_with_committed_postcondition_succeeds",
+      "role": "target",
+      "clauses": [
+        "postcondition-commit"
+      ]
+    },
+    {
+      "id": "projection:false_replace_with_committed_postcondition_succeeds",
+      "role": "target",
+      "clauses": [
+        "postcondition-commit"
+      ]
+    },
+    {
+      "id": "projection:true_replace_without_committed_postcondition_uses_fallback",
+      "role": "target",
+      "clauses": [
+        "postcondition-commit"
+      ]
+    },
+    {
+      "id": "projection:loader_rejection_restores_full_neighborhood",
+      "role": "target",
+      "clauses": [
+        "full-state-neighborhood"
+      ]
+    },
+    {
+      "id": "projection:failed_place_restores_full_neighborhood",
+      "role": "target",
+      "clauses": [
+        "full-state-neighborhood"
+      ]
+    },
+    {
+      "id": "projection:failed_fallback_restores_full_neighborhood",
+      "role": "target",
+      "clauses": [
+        "full-state-neighborhood"
+      ]
+    },
+    {
+      "id": "projection:packet_requires_held_space_wand",
+      "role": "target",
+      "clauses": [
+        "request-authentication"
+      ]
+    },
+    {
+      "id": "projection:packet_rejects_building_disabled_sender",
+      "role": "target",
+      "clauses": [
+        "request-authentication"
+      ]
+    },
+    {
+      "id": "projection:packet_rejects_dead_sender",
+      "role": "target",
+      "clauses": [
+        "request-authentication"
+      ]
+    },
+    {
+      "id": "projection:packet_syncs_frame_only_mutation",
+      "role": "target",
+      "clauses": [
+        "neighborhood-ledger-sync"
+      ]
+    },
+    {
+      "id": "projection:outline_packet_syncs_committed_neighbor_mutation",
+      "role": "target",
+      "clauses": [
+        "neighborhood-ledger-sync"
+      ]
+    },
+    {
+      "id": "projection:failed_neighbor_mutation_emits_no_packets",
+      "role": "target",
+      "clauses": [
+        "neighborhood-ledger-sync"
+      ]
+    },
+    {
+      "id": "projection:filled_packet_bounds_committed_neighbor_mutation",
+      "role": "target",
+      "clauses": [
+        "neighborhood-ledger-sync"
+      ]
+    },
+    {
+      "id": "server:real_worldgen_out_of_world_start_is_empty",
+      "role": "target",
+      "clauses": [
+        "request"
+      ]
+    },
+    {
+      "id": "server:real_worldgen_square_is_clipped",
+      "role": "target",
+      "clauses": [
+        "request"
+      ]
+    },
+    {
+      "id": "server:real_worldgen_corner_stops_after_clipping",
+      "role": "target",
+      "clauses": [
+        "request"
+      ]
+    }
+  ],
+  "clauses": [
+    {
+      "id": "directional-lines",
+      "anchor": "exam report directional-lines",
+      "status": "asserted"
+    },
+    {
+      "id": "corner-path",
+      "anchor": "exam report corner-path",
+      "status": "asserted"
+    },
+    {
+      "id": "rectangular-geometry",
+      "anchor": "exam report rectangular-geometry",
+      "status": "asserted"
+    },
+    {
+      "id": "circular-geometry",
+      "anchor": "exam report circular-geometry",
+      "status": "asserted"
+    },
+    {
+      "id": "tile-transaction",
+      "anchor": "exam report tile-transaction",
+      "status": "asserted"
+    },
+    {
+      "id": "replacement-slope",
+      "anchor": "exam report replacement-slope",
+      "status": "asserted"
+    },
+    {
+      "id": "packet-authority-sync",
+      "anchor": "exam report packet-authority-sync",
+      "status": "asserted"
+    },
+    {
+      "id": "geometry-input-safety",
+      "anchor": "exam report geometry-input-safety",
+      "status": "asserted"
+    },
+    {
+      "id": "transaction-rollback",
+      "anchor": "exam report transaction-rollback",
+      "status": "asserted"
+    },
+    {
+      "id": "mutation-ledger-sync",
+      "anchor": "exam report mutation-ledger-sync",
+      "status": "asserted"
+    },
+    {
+      "id": "postcondition-commit",
+      "anchor": "exam report postcondition-commit",
+      "status": "asserted"
+    },
+    {
+      "id": "full-state-neighborhood",
+      "anchor": "exam report full-state-neighborhood",
+      "status": "asserted"
+    },
+    {
+      "id": "request-authentication",
+      "anchor": "exam report request-authentication",
+      "status": "asserted"
+    },
+    {
+      "id": "neighborhood-ledger-sync",
+      "anchor": "exam report neighborhood-ledger-sync",
+      "status": "asserted"
+    },
+    {
+      "id": "request",
+      "anchor": "exam body; split into individual clauses during review",
+      "status": "asserted"
+    }
+  ],
+  "excluded_clauses": [],
+  "known_issues": []
+}

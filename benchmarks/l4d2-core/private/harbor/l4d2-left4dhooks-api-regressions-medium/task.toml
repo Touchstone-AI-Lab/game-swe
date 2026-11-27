@@ -1,0 +1,64 @@
+schema_version = "1.4"
+
+artifacts = ["/app/left4dhooks"]
+
+[task]
+name = "gamecodebench/l4d2-left4dhooks-api-regressions-medium"
+version = "1.10.0"
+description = "Repair twelve pointer/entity-address, lobby-cookie, detour-forward, ABI, weapon/melee-attribute, animation/stagger-lifecycle, and projectile/physics-prop/score-forward regressions in Left4DHooks."
+authors = [{ name = "PrinsYin" }]
+keywords = ["left4dead2", "sourcemod", "sourcepawn", "native-api", "debugging", "regression"]
+
+[metadata]
+category = "programming"
+difficulty = "medium"
+tags = ["game-modding", "l4d2", "sourcepawn", "bug-fix", "native-bridge", "multi-defect"]
+source_repo = "https://github.com/SilvDev/Left4DHooks"
+source_license = "GPL-3.0-or-later"
+base_commit = "3d44e2207d8ec1218f46667e2c05e4f127a5fb74"
+reference_revisions = "25825667e96824fb234b05c9dd0cceeb4feae525,b676121439e99cad96fb3d7e8031630871db379b,2e733b3d54df7d8ce0847bc8879d8e3aef59afe8,2a930c25dc1562183987b32517e752542d1eb4c8,6f38c79c27e82efdc661bab8401621172062f4df,f7d4a62fb230738dd2c40e31ef3640ccd14db0c7,33af74c749fbb067b441e814d4e8f2911336d259,f90ae5e62228e0b7baf12cda922e3fd40db844f4,02770f2a4d69c2ca73c10ac14546e4a528754c71,ceeafa65a5fc503bdc13d1cac69697f6a7d2e0d8,8326da5d884aebae925660208dbfc282f4eafaac,3d44e2207d8ec1218f46667e2c05e4f127a5fb74"
+gold_solution_origin = "nine-seeded-regressions-plus-three-preserved-upstream-regressions-repaired-from-upstream-fixes"
+task_kind = "repository-debugging"
+game = "Left 4 Dead 2 Dedicated Server"
+game_app_id = "222860"
+game_build = "23990100; depots 222861/4827977561765481436 and 222863/868244163643826330"
+expected_private_cases = 71
+expected_server_cases = 70
+independent_defect_groups = 12
+public_smoke_command = "python3 tools/smoke.py"
+agent_toolchain = "SourceMod/spcomp64 1.12.0.7246; mini-swe-agent 2.4.6; litellm 1.95.0"
+
+[verifier]
+environment_mode = "separate"
+network_mode = "no-network"
+timeout_sec = 900.0
+user = "root"
+
+[verifier.environment]
+network_mode = "no-network"
+cpus = 4
+memory_mb = 12288
+storage_mb = 32768
+gpus = 0
+mcp_servers = []
+
+[agent]
+user = "agent"
+network_mode = "allowlist"
+allowed_hosts = ["api.openai.com"]
+timeout_sec = 5400.0
+
+[environment]
+network_mode = "no-network"
+build_timeout_sec = 1800.0
+cpus = 4
+memory_mb = 8192
+storage_mb = 20480
+gpus = 0
+mcp_servers = []
+
+[verifier.env]
+
+[environment.env]
+
+[solution.env]

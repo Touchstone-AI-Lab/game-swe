@@ -1,0 +1,108 @@
+[project]
+name = "rhenium"
+version = "0.6.0"
+description = "Game-neutral multi-plugin benchmark Hub for coding agents"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+  "fastapi>=0.116.0",
+  "httpx>=0.28.1",
+  # 1.92.0 has no macOS wheel and its sdist omits required maturin build dependencies.
+  "litellm>=1.75.5,<1.92",
+  "mini-swe-agent>=2.4.5,<3",
+  "pydantic>=2.11.7",
+  "qrcode>=8.2",
+  "sqlalchemy>=2.0.41",
+  "typer>=0.16.0",
+  "uvicorn>=0.35.0",
+]
+
+[project.optional-dependencies]
+dev = [
+  "editables>=0.5",
+  "mypy>=1.16.1",
+  "pytest>=8.4.1",
+  "pytest-cov>=6.2.1",
+  "ruff>=0.12.2",
+  "types-qrcode>=8.2.0.20250506",
+]
+
+[project.scripts]
+rhenium = "rhenium.cli:app"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/rhenium"]
+
+[tool.hatch.build.targets.wheel.force-include]
+"web/dist" = "rhenium/web_dist"
+
+[tool.hatch.build.targets.sdist]
+only-include = ["src/rhenium", "README.md", "pyproject.toml", ".gitignore"]
+exclude = ["**/__pycache__/**", "**/*.pyc", "**/*.pyo"]
+
+[tool.hatch.build.targets.sdist.force-include]
+"web/dist" = "web/dist"
+
+[tool.uv.workspace]
+members = ["plugins/*", "providers/*", "tools/authoring", "tools/study"]
+
+[tool.pytest.ini_options]
+addopts = "-q"
+pythonpath = ["."]
+testpaths = [
+  "tests",
+  "plugins/dst/tests",
+  "plugins/contract/tests",
+  "plugins/balatro/tests",
+  "plugins/isaac-rebirth/tests",
+  "plugins/stardew-valley/tests",
+  "plugins/garrys-mod/tests",
+  "plugins/left-4-dead-2/tests",
+  "plugins/mindustry/tests",
+  "plugins/minecraft/tests",
+  "plugins/slay-the-spire/tests",
+  "plugins/rimworld/tests",
+  "plugins/palworld/tests",
+  "plugins/terraria/tests",
+  "providers/steam/tests",
+  "providers/container/tests",
+  "providers/local-files/tests",
+  "providers/official-download/tests",
+  "tools/authoring/tests",
+  "tools/study/tests",
+]
+
+[tool.ruff]
+line-length = 110
+target-version = "py312"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "SIM"]
+
+[tool.mypy]
+# These six immutable copies are dynamically loaded by the typed adapter.
+exclude = [
+  "^plugins/balatro/src/rhenium_balatro/linux_assets/legacy/",
+  "^plugins/balatro/runtime/linux/save_capability_v1/fixtures/",
+]
+python_version = "3.12"
+check_untyped_defs = true
+disallow_untyped_defs = true
+warn_unused_ignores = true
+
+# Byte-frozen compatibility snapshots; checked by the dedicated integrity gate.
+[tool.ruff.lint.per-file-ignores]
+"plugins/balatro/runtime/linux/save_capability_v1/fixtures/tasks/durable_charge/load_diag_v1/probe.py" = ["F401", "I001"]
+"plugins/balatro/runtime/linux/save_capability_v1/fixtures/tasks/durable_charge/probe.py" = ["E701", "E702", "I001"]
+"plugins/balatro/runtime/linux/save_capability_v1/fixtures/tasks/durable_charge/save_probe_v3/probe.py" = ["E701", "E702", "I001"]
+"plugins/balatro/src/rhenium_balatro/linux_assets/legacy/poc/checks.py" = ["E501", "E701", "E702", "I001"]
+"plugins/balatro/src/rhenium_balatro/linux_assets/legacy/poc/evaluate.py" = ["B905", "E501", "E701", "F401", "I001", "SIM102"]
+"plugins/balatro/src/rhenium_balatro/linux_assets/legacy/poc/rpc.py" = ["E501", "E701", "SIM102"]
+
+[[tool.mypy.overrides]]
+module = ["rhenium_balatro.linux_assets.legacy.poc.*"]
+follow_imports = "skip"

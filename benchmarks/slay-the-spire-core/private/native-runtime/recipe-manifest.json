@@ -1,0 +1,43 @@
+{
+  "scope": "Pinned reconstruction inputs and preparation code; catalog 1.4.0 replaces socket r2 with the explicitly authorized r3 verifier baseline, catalog 1.5.0 replaces the enum r2 JVM probe with the explicitly authorized real-game r3 verifier, catalog 1.6.0 replaces loader-only load-order r1 with a real-game r2 verifier that adds pinned JUnit artifacts, catalog 1.7.0 does the same for mod-identity r1, and catalog 1.8.0 retires loader-internals r1 without changing the prepared task set. Historical r2 files and measurements remain unchanged.",
+  "files": {
+    "README.md": "eeb583940775c52e4901aca7ec456a0dddbbdd454ff54efbc94d314d6142acc0",
+    "deps/downfall-foundation/ModTheSpire.json": "871d67b4ff343cc581ae2a5d3c862e080865f3ec660e68be4156c2e2361bf353",
+    "deps/downfall-foundation/receipt.json": "fac59444814ac724c6033bceddf680e2de7b92dad28f3f24870829e6f516dcdd",
+    "deps/downfall-foundation/source-lock.json": "50f2c54dd842c7cc15c76840fa29b8e913cc4db2aaa6fff2bbe8df7ffcc50d27",
+    "deps/portable/Dockerfile": "c2df90b44e74118f64ed193f56e87b579fb2d225f18ca39cc378d54a2108f861",
+    "deps/portable/base-packages.tsv": "3c4d1df3e1ed9fd3c669ba0db09ba42fa39b664bd2adb6911a18390c83cc4b80",
+    "deps/portable/maven-artifacts.json": "4f99d1108c0f0bf29412511788b5ed1ae8a40770c0f9a4aafd7e3a215041d674",
+    "deps/portable/package-closure.txt": "d93e4e3b1066ef8ea2d93e5ff89cd13eadbeb07b98e06ca7ed68ed3badfdc223",
+    "deps/portable/package-uris.txt": "c1ad7f5747251d976d9a65c6aa65fd0f24818753393a5325aa6403e7e567792a",
+    "deps/portable/runtime-package-lock.json": "30a6ea2a79db7dbfa041d7446a52fc7c80d19a2386fa1f5caef435877761a01e",
+    "deps/portable/runtime-packages.tsv": "358e0c1cce7ef0e0e283af44330a892b255057a0f73c12442eafae77434cc31e",
+    "deps/portable/source-lock.json": "c8d9dcb9cb18fb1efc56074062974532bc00bd5869dbc1cf8a68c18672ece254",
+    "game-input.json": "e26fb11b7aacea07163921a8822694080acfb67797eeda0abc5a6f4cf55c7908",
+    "prepare.py": "acda18057c69c9878eb9f41f7aeecafae23c00d956490eb1ae3125cf31eb8ad3",
+    "prepare_tasks.py": "d3a865c6f6556341556175346ea5e61f3f88a149c79007cf45393dc2574ad126",
+    "public-tools-image.json": "4072e3223f572718c4b014486f1d91e15ac49f0799e172095fd343b3a012fc24",
+    "scripts/build_portable_tools.py": "1cb800ba88234d2feed326d0be7b077e3e9995f805ec4e502137cbc56df48839",
+    "scripts/build_rebuilt_runtime.py": "b8bf686a8f2af247fdd5185b0510b3207fd4058c7ee1a93bc6b2ec296f0fadcc",
+    "scripts/build_sdk_offline.py": "1229de647d887a9f10d69bc29d24f6bd896af22886ed724c8106a13d39ec69ed",
+    "scripts/fetch_downfall_resources.py": "ea2537cd8a23127db75847f59ef99349f50f5ce3184ab3c1bd46a22ec6115d56",
+    "scripts/fetch_locked_maven.py": "2713c276d8d4c911129952f388ca85e2b4246204826d45491965b85e80ac3006",
+    "scripts/fetch_locked_runtime_packages.py": "7a18ba122df3e024e5e3db1302be636733b7c5f7602ab9c5b2380cdfa587844f",
+    "scripts/prepare_portable_tools_context.py": "81c5c34086c62a66c72ec99d562a94e1ecc0213ff113e60fc33fc1a5d1e51217",
+    "scripts/prepare_qualified_tasks_r2.py": "a3f58c4c2d41d25b5edfe0a458357040932169acfacef61ef65d31c8b0271e89",
+    "scripts/prepare_rebuilt_base_context.py": "98b6a1ccbd9dc11b5a59159aca78f00659e4bd14d64eb4289ccc0bd04484e673",
+    "scripts/prepare_sdk_sources.py": "a2e0fd2c8d11ba41e6645db053f2b06903d87b170cf10e8d9671cdc9b8752ec6",
+    "scripts/rebuild_downfall_foundation.py": "5099f4e7bbf401f14bdbdfe5eb349abd44061413c2faede6998957b152f0d16e"
+  },
+  "original_authoring_script_hashes": {
+    "scripts/build_portable_tools.py": "a2f13ec3a23ed300f514d8446f1fa7b0cfd061dcb77fc1d563170c1910f7fe9c",
+    "scripts/build_rebuilt_runtime.py": "9cd582eb473af12ce4cacfb0f2ffc851791275a2a6e4d02a2f63e7e43ff97aa5",
+    "scripts/build_sdk_offline.py": "9abefdba811d31eee954ed54cff701a5b40ffa2b9280bfefacd9d583114d65ec",
+    "scripts/fetch_locked_maven.py": "b5ba940700025a67a06932e7bf2a283676804175e476cc837fb23eae6f1ed181",
+    "scripts/fetch_locked_runtime_packages.py": "ea76e05b25dbc17c3f3f019be93e6f6705115a35dadcd1f1257638fc7a12523b",
+    "scripts/prepare_portable_tools_context.py": "56aaba75b39d2b4c84098a04199b1a95fcd1fa4bc530a74ae771d992ce7278ce",
+    "scripts/prepare_qualified_tasks_r2.py": "6da205b4db9334915147e6eb8ed2391358b65726919b846be3f8b4b75be11796",
+    "scripts/prepare_rebuilt_base_context.py": "74831d94ed4ecc9b888aeb959605e98545c6fec058c8ec9fabd680b645581b24",
+    "scripts/prepare_sdk_sources.py": "19a2e874a9f900879295fbb05daf4eba9e535a319356acff601338e82f45ac66"
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "id": "rhenium-contract-v1",
+  "version": "1.0.0",
+  "game": "contract",
+  "name": {"en": "Rhenium contract", "zh": "Rhenium 合同测试"},
+  "description": {
+    "en": "Internal dependency-free Hub conformance tasks.",
+    "zh": "内部无游戏依赖的 Hub 合同测试任务。"
+  },
+  "tasks": [
+    {
+      "id": "camp-supply-ledger",
+      "difficulty": "test",
+      "title": {"en": "Contract answer", "zh": "合同答案"},
+      "summary": {"en": "Write the required answer.", "zh": "写入要求的答案。"},
+      "brief": {
+        "en": "Create answer.txt containing the exact requested contract value followed by a newline.",
+        "zh": "创建 answer.txt，写入指定的合同值并以换行结束。"
+      },
+      "requirements": {
+        "en": ["Create answer.txt with the requested value and one trailing newline."],
+        "zh": ["创建 answer.txt，包含要求的值和一个结尾换行。"]
+      },
+      "api_usage": {
+        "en": ["Use ordinary UTF-8 text file semantics."],
+        "zh": ["使用普通 UTF-8 文本文件语义。"]
+      },
+      "acceptance": {
+        "en": ["The private contract evaluator accepts the exact file content."],
+        "zh": ["私有合同 evaluator 接受精确文件内容。"]
+      },
+      "domains": ["contract"],
+      "estimated_minutes": 1,
+      "required_files": ["answer.txt"]
+    }
+  ]
+}

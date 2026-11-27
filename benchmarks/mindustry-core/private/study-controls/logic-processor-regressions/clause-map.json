@@ -1,0 +1,152 @@
+{
+  "task": "mindustry/mindustry-core/logic-processor-regressions",
+  "task_version": "1.0.0",
+  "exam": "benchmarks/mindustry-core/exams/logic-processor-regressions.md",
+  "cases": [
+    {
+      "id": "check:submission-shape",
+      "role": "static",
+      "clauses": [
+        "scope-1"
+      ],
+      "overlap": false,
+      "note": "the mindustry/ tree with its source roots, no symlinks, VCS metadata or compiled artifacts"
+    },
+    {
+      "id": "check:offline-build",
+      "role": "static",
+      "clauses": [
+        "scope-1"
+      ],
+      "overlap": false,
+      "note": "every Java source under core/src and server/src compiles offline against the pinned server jar"
+    },
+    {
+      "id": "server:processor output reaches a linked message block",
+      "role": "runtime-sentinel",
+      "clauses": [],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "server:linked blocks are named after their block type",
+      "role": "preserved",
+      "clauses": [
+        "expected-2"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "server:sensor reads supported properties",
+      "role": "preserved",
+      "clauses": [
+        "expected-1"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "server:sensor of an unsupported property yields null",
+      "role": "target",
+      "clauses": [
+        "expected-1"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "server:format fills placeholders in order",
+      "role": "preserved",
+      "clauses": [
+        "expected-3"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "server:print output is capped at 400 characters",
+      "role": "preserved",
+      "clauses": [
+        "expected-3"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "server:format fills a placeholder when the print buffer is full",
+      "role": "target",
+      "clauses": [
+        "expected-3"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "server:a replaced linked block is reachable under its new name",
+      "role": "target",
+      "clauses": [
+        "expected-2"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "server:other links keep their names when one linked block is replaced",
+      "role": "preserved",
+      "clauses": [
+        "expected-2"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "server:processor variables survive a save and reload",
+      "role": "preserved",
+      "clauses": [
+        "expected-4"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "server:a world processor holding query results can be saved",
+      "role": "target",
+      "clauses": [
+        "expected-4"
+      ],
+      "overlap": false,
+      "note": ""
+    }
+  ],
+  "clauses": [
+    {
+      "id": "expected-1",
+      "anchor": "Expected behaviour, first bullet: sensor sets its output to null for values that are neither content nor a supported logic property; supported reads keep working",
+      "status": "asserted"
+    },
+    {
+      "id": "expected-2",
+      "anchor": "Expected behaviour, second bullet: a linked block replaced by a different block is renamed like a fresh link; unchanged links keep their names; new links are named after their block",
+      "status": "asserted"
+    },
+    {
+      "id": "expected-3",
+      "anchor": "Expected behaviour, third bullet: format replaces the lowest placeholder even in a full buffer and cuts it to 400 characters; order and the 400-character print limit keep working",
+      "status": "asserted"
+    },
+    {
+      "id": "expected-4",
+      "anchor": "Expected behaviour, fourth bullet: worlds whose world processors hold query results save and load; processor code and ordinary variables survive saving",
+      "status": "asserted"
+    },
+    {
+      "id": "scope-1",
+      "anchor": "Context, last paragraph: changes stay inside mindustry/core/src and mindustry/server/src, which the server build compiles",
+      "status": "weak",
+      "note": "enforced only through the offline build of those source roots"
+    }
+  ],
+  "excluded_clauses": [],
+  "known_issues": []
+}

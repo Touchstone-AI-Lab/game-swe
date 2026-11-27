@@ -1,0 +1,4 @@
+control	kind	base	overlay	root	note
+M06-cap-four	target-negative	starter	pack:private/native-v1/controls/growth-v2/M06-cap-four	starter	frozen mutant: fails only requested-change cases
+M08-four-kind-only	target-negative	starter	pack:private/native-v1/controls/growth-v2/M08-four-kind-only	starter	frozen mutant: fails only requested-change cases
+alternative	alternative	starter	pack:private/native-v1/controls/growth-v2/alternative	starter	frozen independent correct implementation

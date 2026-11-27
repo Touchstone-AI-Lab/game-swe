@@ -1,0 +1,10 @@
+# Git blob IDs from Fargo's Mutant Mod revision 85246bb5e4d3b225028b1bf73cd6d99b81674307
+65ca0af6fb31121838ce7203927c95b7e816bc9c  LICENSE
+7462442f438b0dc0bb091d37edd6594dcac152c0  build.txt
+efa845e8c248249e58329191d19270252817e4da  README.md
+91fa9280c15518cbe1a071367a6dda059a6de8ba  Common/Systems/Recipes/MiscRecipeSystem.cs
+a6ba5ccef3975bace068b8d7ae093ea14a9e9caf  Content/Items/Tiles/EnchantedTreeSheet.cs
+ac993d3545fddd082bb4e77d223e468158003840  Content/Items/Tiles/EnchantedTreeTileEntity.cs
+
+# The three affected starter files intentionally differ from these upstream
+# blobs by the auditable regression injection recorded in starter-delta.patch.

@@ -1,0 +1,192 @@
+{
+  "schemaVersion": 3,
+  "protocol": "rhenium-rimworld-private-v3",
+  "adapter": "rhenium-rimworld-observer-v3",
+  "taskKey": "rimworld/core/project-rimfactory-cultivator-environment",
+  "weights": {
+    "submissionShape": 10,
+    "engineAssertions": 90
+  },
+  "cases": [
+    {
+      "id": "runtime-defs-ready",
+      "fixture": "RuntimeDefsReady",
+      "gate": true,
+      "scalars": [],
+      "expected": {
+        "facts": [
+          {
+            "name": "result",
+            "value": "ready"
+          }
+        ],
+        "outputs": []
+      }
+    },
+    {
+      "id": "local-season-allows",
+      "fixture": "LocalSeasonAllows",
+      "gate": false,
+      "scalars": [],
+      "expected": {
+        "facts": [
+          {
+            "name": "result",
+            "value": "1"
+          }
+        ],
+        "outputs": []
+      }
+    },
+    {
+      "id": "local-season-rejects",
+      "fixture": "LocalSeasonRejects",
+      "gate": false,
+      "scalars": [],
+      "expected": {
+        "facts": [
+          {
+            "name": "result",
+            "value": "0"
+          }
+        ],
+        "outputs": []
+      }
+    },
+    {
+      "id": "map-temperature-not-authoritative",
+      "fixture": "MapTemperatureNotAuthoritative",
+      "gate": false,
+      "scalars": [],
+      "expected": {
+        "facts": [
+          {
+            "name": "result",
+            "value": "1:True"
+          }
+        ],
+        "outputs": []
+      }
+    },
+    {
+      "id": "sowability-rejects",
+      "fixture": "SowabilityRejects",
+      "gate": false,
+      "scalars": [],
+      "expected": {
+        "facts": [
+          {
+            "name": "result",
+            "value": "0"
+          }
+        ],
+        "outputs": []
+      }
+    },
+    {
+      "id": "adjacent-blocker-rejects",
+      "fixture": "AdjacentBlockerRejects",
+      "gate": false,
+      "scalars": [],
+      "expected": {
+        "facts": [
+          {
+            "name": "result",
+            "value": "0"
+          }
+        ],
+        "outputs": []
+      }
+    },
+    {
+      "id": "vacuum-resistant-allows",
+      "fixture": "VacuumResistantAllows",
+      "gate": false,
+      "scalars": [],
+      "expected": {
+        "facts": [
+          {
+            "name": "result",
+            "value": "1"
+          }
+        ],
+        "outputs": []
+      }
+    },
+    {
+      "id": "vacuum-sensitive-rejects",
+      "fixture": "VacuumSensitiveRejects",
+      "gate": false,
+      "scalars": [],
+      "expected": {
+        "facts": [
+          {
+            "name": "result",
+            "value": "0"
+          }
+        ],
+        "outputs": []
+      }
+    },
+    {
+      "id": "vacuum-boundary-rejects",
+      "fixture": "VacuumBoundaryRejects",
+      "gate": false,
+      "scalars": [],
+      "expected": {
+        "facts": [
+          {
+            "name": "result",
+            "value": "0"
+          }
+        ],
+        "outputs": []
+      }
+    },
+    {
+      "id": "seed-unavailable-rejects",
+      "fixture": "SeedUnavailableRejects",
+      "gate": false,
+      "scalars": [],
+      "expected": {
+        "facts": [
+          {
+            "name": "result",
+            "value": "0"
+          }
+        ],
+        "outputs": []
+      }
+    },
+    {
+      "id": "single-placement",
+      "fixture": "SinglePlacement",
+      "gate": false,
+      "scalars": [],
+      "expected": {
+        "facts": [
+          {
+            "name": "result",
+            "value": "1"
+          }
+        ],
+        "outputs": []
+      }
+    },
+    {
+      "id": "fixture-state-restored",
+      "fixture": "FixtureStateRestored",
+      "gate": true,
+      "scalars": [],
+      "expected": {
+        "facts": [
+          {
+            "name": "result",
+            "value": "restored"
+          }
+        ],
+        "outputs": []
+      }
+    }
+  ]
+}

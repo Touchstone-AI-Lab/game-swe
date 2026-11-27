@@ -1,0 +1,64 @@
+schema_version = "1.4"
+
+artifacts = ["/app/mindustry"]
+
+[task]
+name = "rhenium/mindustry-payload-and-save-regressions"
+version = "1.0.0"
+description = "Repair the Mindustry v159.7 server sources so derelict payload conveyors, long build queues and carried derelict blocks behave correctly."
+authors = [{ name = "Rhenium" }]
+keywords = ["mindustry", "java", "game-source", "repository-debugging", "payloads", "units", "saves"]
+
+[metadata]
+category = "programming"
+difficulty = "hard"
+tags = ["mindustry", "java", "repository-debugging"]
+task_kind = "repository-debugging"
+game = "Mindustry (dedicated server)"
+game_version = "Mindustry v159.7"
+language = "Java 17"
+build_tool = "mindustry-source"
+source_repo = "https://github.com/Anuken/Mindustry"
+source_release = "v159.7"
+base_commit = "c9686eb5d0ae5dd47ee02c40f99f7d5018ccbc8c"
+fix_commits = ["3b29a4877f6732e47941a71c3dd5d63bdfbf5054", "54443b9517eef7ea9acb7a283cd932e5e7660b47", "1e8317fbac4c8ce2509eac7a758f4f846c4c00d3"]
+source_license = "GPL-3.0"
+expected_server_cases = 10
+content_reference = "benchmarks/mindustry-core/exams/payload-and-save-regressions.md"
+content_reference_pack = "rhenium-mindustry-v2"
+harbor_reference_repository = "https://github.com/harbor-framework/harbor"
+harbor_reference_revision = "9a2e3b135cc8fb1e41131020f83370cb2f12ae93"
+verification_profile = "rhenium-mindustry-full"
+real_server_validation = "in-verifier; Mindustry v159.7 dedicated server"
+
+[verifier]
+network_mode = "no-network"
+timeout_sec = 2400.0
+user = "root"
+environment_mode = "separate"
+
+[verifier.environment]
+network_mode = "no-network"
+
+[agent]
+# The image contains mini-swe-agent. A Harbor job supplies only the model
+# endpoint hostname through agents[].extra_allowed_hosts.
+network_mode = "allowlist"
+allowed_hosts = []
+timeout_sec = 12600.0
+user = "agent"
+
+[environment]
+network_mode = "no-network"
+build_timeout_sec = 3600.0
+cpus = 4
+memory_mb = 8192
+storage_mb = 16384
+gpus = 0
+mcp_servers = []
+
+[verifier.env]
+
+[environment.env]
+
+[solution.env]

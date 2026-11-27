@@ -1,0 +1,182 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+usage() {
+  cat >&2 <<'EOF'
+Usage: run-benchmark <game-id/pack-id/task-id> [mini|codex|claude] [strict|practice] [attempt-dir]
+
+Defaults:
+  agent:       mini
+  mode:        strict
+  attempt-dir: ~/Projects/rhenium-attempts/attempt-<random>-<timestamp>
+EOF
+}
+
+fail() {
+  printf 'run-benchmark: %s\n' "$1" >&2
+  exit 2
+}
+
+if [[ ${1:-} == "-h" || ${1:-} == "--help" ]]; then
+  usage
+  exit 0
+fi
+
+if (( $# < 1 || $# > 4 )); then
+  usage
+  exit 2
+fi
+
+task_key=$1
+agent=${2:-mini}
+mode=${3:-strict}
+script_dir=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd -P)
+benchmark_root=$script_dir
+prepare="$benchmark_root/scripts/prepare-exam"
+score="$benchmark_root/scripts/score-exam"
+
+if [[ -f "$benchmark_root/.env" ]]; then
+  set -a
+  # shellcheck disable=SC1091
+  source "$benchmark_root/.env"
+  set +a
+fi
+
+case "$agent" in
+  mini|codex|claude) ;;
+  *) fail "agent must be mini, codex, or claude" ;;
+esac
+
+case "$mode" in
+  strict|practice) ;;
+  *) fail "mode must be strict or practice" ;;
+esac
+
+if [[ $agent != "mini" ]]; then
+  command -v "$agent" >/dev/null 2>&1 || fail "$agent is not installed or is not on PATH"
+fi
+[[ -x "$prepare" ]] || fail "missing executable: $prepare"
+[[ -x "$score" ]] || fail "missing executable: $score"
+[[ -f "$script_dir/PROMPT.md" ]] || fail "missing prompt: $script_dir/PROMPT.md"
+
+if (( $# == 4 )); then
+  attempt_input=$4
+  parent_input=$(dirname "$attempt_input")
+  [[ -d "$parent_input" ]] || fail "attempt parent directory does not exist: $parent_input"
+  parent=$(cd "$parent_input" && pwd -P)
+  attempt_path="$parent/$(basename "$attempt_input")"
+else
+  attempts_root="$HOME/Projects/rhenium-attempts"
+  mkdir -p "$attempts_root"
+  attempts_root=$(cd "$attempts_root" && pwd -P)
+  anonymous_suffix=$(od -An -N6 -tx1 /dev/urandom | tr -d ' \n')
+  attempt_path="$attempts_root/attempt-${anonymous_suffix}-$(date +%Y%m%d-%H%M%S)"
+fi
+
+case "$attempt_path" in
+  "$script_dir"|"$script_dir/"*)
+    fail "attempt directory must be outside the launcher repository"
+    ;;
+esac
+case "$script_dir" in
+  "$attempt_path/"*)
+    fail "attempt directory must not contain the launcher repository"
+    ;;
+esac
+
+"$prepare" "$task_key" "$attempt_path" "$mode"
+attempt_path=$(cd "$attempt_path" && pwd -P)
+
+case "$attempt_path" in
+  "$script_dir"|"$script_dir/"*)
+    fail "prepared attempt overlaps the launcher repository"
+    ;;
+esac
+
+if [[ $agent == "mini" ]]; then
+  export RHENIUM_MODEL_ENABLED=true
+  if [[ -z ${RHENIUM_MODEL_NAME:-} && -n ${MSWEA_MODEL_NAME:-} ]]; then
+    export RHENIUM_MODEL_NAME=$MSWEA_MODEL_NAME
+  fi
+  if [[ -z ${RHENIUM_MODEL_NAME:-} && -n ${CODEX_MODEL:-} ]]; then
+    export RHENIUM_MODEL_NAME=$CODEX_MODEL
+  fi
+  if [[ -z ${RHENIUM_MODEL_BASE_URL:-} && -n ${OPENAI_BASE_URL:-} ]]; then
+    export RHENIUM_MODEL_BASE_URL=$OPENAI_BASE_URL
+  fi
+  if [[ -z ${RHENIUM_MODEL_API_KEY:-} && -n ${OPENAI_API_KEY:-} ]]; then
+    export RHENIUM_MODEL_API_KEY=$OPENAI_API_KEY
+  fi
+  [[ -n ${RHENIUM_MODEL_NAME:-} ]] || fail \
+    "mini requires RHENIUM_MODEL_NAME (or MSWEA_MODEL_NAME/CODEX_MODEL)"
+
+  benchmark_path=${RHENIUM_BENCHMARK_PATH:-$benchmark_root/benchmarks}
+  state_dir=${RHENIUM_STATE_DIR:-$benchmark_root/.rhenium/hub}
+  cache_dir=${RHENIUM_CACHE_DIR:-$state_dir/cache}
+  database_url=${RHENIUM_DATABASE_URL:-sqlite:///$state_dir/state.sqlite}
+  common_environment=(
+    RHENIUM_ROOT="$benchmark_root"
+    RHENIUM_BENCHMARK_PATH="$benchmark_path"
+    RHENIUM_STATE_DIR="$state_dir"
+    RHENIUM_CACHE_DIR="$cache_dir"
+    RHENIUM_DATABASE_URL="$database_url"
+    RHENIUM_MODEL_ENABLED="$RHENIUM_MODEL_ENABLED"
+    RHENIUM_MODEL_NAME="$RHENIUM_MODEL_NAME"
+  )
+  if [[ -n ${RHENIUM_MODEL_CLASS:-} ]]; then
+    common_environment+=(RHENIUM_MODEL_CLASS="$RHENIUM_MODEL_CLASS")
+  fi
+  if [[ -n ${RHENIUM_MODEL_BASE_URL:-} ]]; then
+    common_environment+=(RHENIUM_MODEL_BASE_URL="$RHENIUM_MODEL_BASE_URL")
+  fi
+  if [[ -n ${RHENIUM_MODEL_MAX_STEPS:-} ]]; then
+    common_environment+=(RHENIUM_MODEL_MAX_STEPS="$RHENIUM_MODEL_MAX_STEPS")
+  fi
+  if [[ -n ${RHENIUM_MODEL_API_KEY:-} ]]; then
+    common_environment+=(RHENIUM_MODEL_API_KEY="$RHENIUM_MODEL_API_KEY")
+  fi
+
+  printf 'Launching mini-swe-agent in %s; the platform will score after submission\n' "$attempt_path"
+  cd "$benchmark_root"
+  if command -v rhenium >/dev/null 2>&1; then
+    exec env "${common_environment[@]}" rhenium solve-attempt "$attempt_path"
+  fi
+  if command -v devenv >/dev/null 2>&1; then
+    exec env \
+      "${common_environment[@]}" \
+      RHENIUM_QUIET_SHELL=1 \
+      devenv --quiet shell -- rhenium solve-attempt "$attempt_path"
+  fi
+  if command -v nix >/dev/null 2>&1; then
+    exec env \
+      "${common_environment[@]}" \
+      nix develop --command rhenium solve-attempt "$attempt_path"
+  fi
+  if command -v python3 >/dev/null 2>&1; then
+    exec env \
+      "${common_environment[@]}" \
+      PYTHONPATH="$benchmark_root/src${PYTHONPATH:+:$PYTHONPATH}" \
+      python3 -m rhenium.cli solve-attempt "$attempt_path"
+  fi
+  fail "rhenium, devenv, Nix, or Python is required to launch mini-swe-agent"
+fi
+
+launcher_prompt=$(<"$script_dir/PROMPT.md")
+task_prompt=$(<"$attempt_path/PROMPT.md")
+agent_args=()
+
+if [[ $agent == "codex" ]]; then
+  if [[ -n ${OPENAI_BASE_URL:-} ]]; then
+    agent_args+=(--config "openai_base_url=$OPENAI_BASE_URL")
+  fi
+  if [[ -n ${CODEX_MODEL:-} ]]; then
+    agent_args+=(--model "$CODEX_MODEL")
+  fi
+fi
+agent_args+=("${launcher_prompt}"$'\n\n'"${task_prompt}")
+
+printf 'Launching %s in %s\n' "$agent" "$attempt_path"
+printf "Scorer: %s \"\$PWD\"\n" "$score"
+
+cd "$attempt_path"
+exec "$agent" "${agent_args[@]}"

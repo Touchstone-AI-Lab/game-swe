@@ -1,0 +1,283 @@
+{
+  "id": "rhenium-dst-v2",
+  "version": "2.1.0",
+  "game": "dst",
+  "name": {
+    "en": "Rhenium: Original Don't Starve Together Systems Tasks",
+    "zh": "Rhenium：《饥荒联机版》原创系统工程题"
+  },
+  "description": {
+    "en": "Ten independently authored hard engineering tasks built only around base-game Don't Starve Together APIs, prefabs, components, and assets.",
+    "zh": "十道独立设计的高难度工程题，仅使用《饥荒联机版》原版 API、prefab、组件与资源。"
+  },
+  "tasks": [
+    {
+      "id": "loot-roll-arbiter",
+      "difficulty": "hard",
+      "title": {
+        "en": "Server-authoritative Loot Roll Arbiter",
+        "zh": "服务端权威战利品掷点仲裁"
+      },
+      "summary": {
+        "en": "Run need/greed/pass loot rolls for boss drops with a frozen eligible set, a deadline, a published deterministic generator, fair tie-breaks and exactly-once delivery into real inventories.",
+        "zh": "为 Boss 掉落运行 need/greed/pass 掷点：冻结资格名单、限时、公开的确定性随机数发生器、公平平局规则，并向真实背包恰好投递一次。"
+      },
+      "brief": {
+        "en": "Implement a plain-Lua loot roll arbiter and a master-simulation world component. Rolls freeze a deduplicated eligible set, accept revisioned need/greed/pass choices until a deadline, and resolve idempotently with a fully specified Park-Miller generator so every conforming implementation draws identical numbers. A fairness ledger demotes frequent winners, failed deliveries move the award down a lexicographic ranking exactly once per failure, and the component turns an award into one real base-game item whose ownership is verified.",
+        "zh": "实现纯 Lua 战利品掷点仲裁器与主模拟世界组件。掷点冻结去重后的资格名单，在截止前接受带 revision 的 need/greed/pass 选择，并用完整公开的 Park-Miller 发生器幂等结算，使所有合规实现得到完全相同的点数。公平账本会降级频繁获胜者，投递失败时按字典序排名每次失败恰好顺延一位，组件把一次授予变成一个经过归属校验的真实原版物品。"
+      },
+      "requirements": {
+        "en": [
+          "Export Arbiter.new(options), Arbiter.load(data, options), open(roll_id, item, eligible_ids, seed, now), choose(roll_id, player_id, choice, revision, now), resolve(roll_id, now), mark_delivered(roll_id, ok, now), cancel(roll_id, now), tick(now), snapshot(now), and save(now).",
+          "open freezes a deduplicated, ascending eligible set with deadline = now + options.window and rejects, without side effects, non-finite time, reused roll ids, items outside options.allowed_items, empty or malformed eligible lists, and seeds that are not integers in [0, 4294967295].",
+          "Choices are exactly need, greed, or pass; per-player revisions are strictly increasing non-negative integers; rejected calls change nothing; choices are accepted only while now < deadline and players who never chose count as pass.",
+          "resolve is legal once everyone has chosen or now >= deadline, is idempotent, and lets need beat greed; rolls come from state = (state * 48271) % 2147483647 seeded with seed % 2147483646 + 1, drawn in ascending player-id order as state % 100 + 1.",
+          "Only the tied leaders roll again, up to options.max_rounds rounds; candidates are ranked by their roll sequences compared lexicographically, then by ascending player id, and every draw is recorded in order as tier, round, player_id, roll.",
+          "A player with at least options.max_wins_per_window delivered wins satisfying t - win_time < options.fairness_window, with t = min(now, deadline), is demoted from need to greed at resolution.",
+          "mark_delivered(true) finalizes the roll and records the win; every mark_delivered(false) moves the award exactly one step down the ranking, then to a fresh greed contest with the continuing generator state, and finally to unclaimed; closed roll ids are final.",
+          "snapshot returns fresh, roll-id-ordered aggregates that never reveal choices of open rolls; save/load round-trips plain tables, preserves revisions, rankings, generator state, delivery phase and the ledger, and rebases stored times when options.now is supplied. The world component runs only on the master simulation and persists this state through OnSave/OnLoad."
+        ],
+        "zh": [
+          "导出 Arbiter.new(options)、Arbiter.load(data, options)、open(roll_id, item, eligible_ids, seed, now)、choose(roll_id, player_id, choice, revision, now)、resolve(roll_id, now)、mark_delivered(roll_id, ok, now)、cancel(roll_id, now)、tick(now)、snapshot(now) 与 save(now)。",
+          "open 冻结去重并升序排列的资格名单，deadline = now + options.window；对非有限时间、重复 roll id、不在 options.allowed_items 中的物品、空或非法名单、以及不是 [0, 4294967295] 内整数的 seed，必须无副作用地拒绝。",
+          "选择只能是 need、greed、pass；每位玩家的 revision 为严格递增的非负整数；被拒绝的调用不改变任何状态；仅当 now < deadline 时接受选择，从未选择的玩家按 pass 计。",
+          "全员已选择或 now >= deadline 后才可 resolve，且 resolve 幂等；need 优先于 greed；点数来自 state = (state * 48271) % 2147483647，初值为 seed % 2147483646 + 1，按玩家 id 升序抽取，点数为 state % 100 + 1。",
+          "只有并列最高者重掷，最多 options.max_rounds 轮；候选人按各轮点数序列的字典序降序、再按玩家 id 升序排名；每次抽取按顺序记录 tier、round、player_id、roll。",
+          "结算时取 t = min(now, deadline)，若玩家满足 t - win_time < options.fairness_window 的已投递获胜次数不少于 options.max_wins_per_window，则其 need 降级为 greed。",
+          "mark_delivered(true) 终结掷点并记入账本；每次 mark_delivered(false) 恰好沿排名顺延一位，need 档耗尽后用延续的发生器状态为 greed 档重新掷点，最后变为 unclaimed；已关闭的 roll id 永久有效且不可复用。",
+          "snapshot 返回全新、按 roll id 排序的聚合信息，且不泄漏未结算掷点的个人选择；save/load 通过纯表往返，保留 revision、排名、发生器状态、投递阶段与账本，并在提供 options.now 时平移所有存储时间。世界组件仅在主模拟运行，并通过 OnSave/OnLoad 持久化该状态。"
+        ]
+      },
+      "api_usage": {
+        "en": [
+          "Attach lootrollarbiter from AddPrefabPostInit(\"world\") on the master simulation only, and create inst._lootroll_state = net_string(inst.GUID, \"lootrollarbiter.state\", \"lootrolldirty\") before the non-master early return.",
+          "The component exposes Open(item_prefab, player_entities, seed), Choose(player, roll_id, choice, revision), Resolve(roll_id), OnSave(), OnLoad(data), and OnRemoveFromEntity(); identity always comes from player.userid.",
+          "Deliver with SpawnPrefab(item_prefab) and the winner's inventory:GiveItem(item); accept only a truthy return with item.components.inventoryitem:GetGrandOwner() == player or an item merged into a stack, otherwise item:Remove() and mark_delivered(false).",
+          "AddModRPCHandler(\"rhenium_lootroll\", \"choose\", function(player, roll_id, choice, revision) ... end) forwards only roll id, choice and revision; clients can never open rolls or supply items, seeds, player ids or deadlines.",
+          "Keep exactly one inst:DoTaskInTime deadline task per open roll and Cancel it on settlement and removal; listen to ms_playerleft on the component's own entity (forget the cached entity, never shrink the frozen set) and remove the callback; announce results with TheNet:Announce and publish open rolls as roll_id|item|chosen|total joined by ';'."
+        ],
+        "zh": [
+          "仅在主模拟通过 AddPrefabPostInit(\"world\") 挂载 lootrollarbiter；在非主模拟提前返回之前创建 inst._lootroll_state = net_string(inst.GUID, \"lootrollarbiter.state\", \"lootrolldirty\")。",
+          "组件公开 Open(item_prefab, player_entities, seed)、Choose(player, roll_id, choice, revision)、Resolve(roll_id)、OnSave()、OnLoad(data) 与 OnRemoveFromEntity()；身份始终来自 player.userid。",
+          "用 SpawnPrefab(item_prefab) 与获胜者的 inventory:GiveItem(item) 投递；仅当返回真值且 item.components.inventoryitem:GetGrandOwner() == player（或物品已并入堆叠）才算成功，否则 item:Remove() 并 mark_delivered(false)。",
+          "AddModRPCHandler(\"rhenium_lootroll\", \"choose\", function(player, roll_id, choice, revision) ... end) 只转发 roll id、choice 与 revision；客户端不能开启掷点，也不能提供物品、seed、玩家 id 或截止时间。",
+          "每个未结算掷点恰好保留一个 inst:DoTaskInTime 截止任务，并在结算与组件移除时 Cancel；在组件所在实体上监听 ms_playerleft（只丢弃实体缓存，不缩小冻结名单）并注销回调；用 TheNet:Announce 公告结果，并以 ';' 连接的 roll_id|item|chosen|total 发布未结算掷点。"
+        ]
+      },
+      "acceptance": {
+        "en": [
+          "Every conforming implementation draws bit-identical rolls, winners and rankings for the same seed and choices.",
+          "Stale revisions, late choices, forged players, reused identifiers and repeated resolves have no effect.",
+          "Fairness demotion and deadline boundaries follow the published formulas exactly.",
+          "Failed deliveries re-award once per failure, never to the same player twice, and end unclaimed.",
+          "The dedicated server proves that the predicted winner holds exactly one real item, that failed or departed winners hand it on without leftovers, that deadline tasks and listeners are cleaned up, and that open rolls survive save and load."
+        ],
+        "zh": [
+          "相同 seed 与选择下，所有合规实现得到逐位一致的点数、获胜者与排名。",
+          "旧 revision、迟到选择、伪造玩家、复用标识符与重复结算均不产生影响。",
+          "公平降级与截止边界严格遵循公开公式。",
+          "投递失败每次恰好顺延一位，同一玩家不会被授予两次，最终为 unclaimed。",
+          "专服验证预测的获胜者恰好持有一个真实物品、投递失败或玩家离开时物品顺延且不残留、截止任务与监听被清理、以及未结算掷点可经保存与加载恢复。"
+        ]
+      },
+      "domains": [
+        "loot",
+        "determinism",
+        "server-authority",
+        "persistence"
+      ],
+      "estimated_minutes": 390,
+      "core_module": "scripts/lootroll/arbiter.lua",
+      "hidden_test": "hidden/loot-roll-arbiter.lua",
+      "server_test": "server/loot-roll-arbiter.lua",
+      "hidden_cases": [
+        "open freezes a deduplicated eligible set",
+        "choices obey revisions and the deadline boundary",
+        "published generator decides tiers and tie re-rolls",
+        "resolution is idempotent and failed delivery re-awards once",
+        "fairness ledger demotes need at the published boundary",
+        "snapshot hides choices and save load preserves state"
+      ],
+      "server_cases": [
+        "loot roll component is attached on the master simulation",
+        "predicted winner receives one real item exactly once",
+        "failed delivery moves the item to the next-best roll",
+        "open rolls survive save and load and removal cleans up"
+      ],
+      "required_files": [
+        "modinfo.lua",
+        "modmain.lua",
+        "scripts/lootroll/arbiter.lua",
+        "scripts/components/lootrollarbiter.lua"
+      ],
+      "minimum_lua_lines": 280,
+      "integration_checks": [
+        {
+          "id": "lootroll-authority",
+          "label": {
+            "en": "Server authority",
+            "zh": "服务端权威"
+          },
+          "weight": 3,
+          "groups": [
+            {
+              "name": "guard",
+              "any_of": [
+                "TheWorld\\.ismastersim",
+                "inst\\.ismastersim"
+              ]
+            },
+            {
+              "name": "world post init",
+              "any_of": [
+                "AddPrefabPostInit\\s*\\(\\s*[\\\"']world[\\\"']"
+              ]
+            },
+            {
+              "name": "component",
+              "any_of": [
+                "AddComponent\\s*\\(\\s*[\\\"']lootrollarbiter[\\\"']"
+              ]
+            }
+          ],
+          "none_of": [
+            "TODO",
+            "IMPLEMENT\\s+ME"
+          ]
+        },
+        {
+          "id": "lootroll-delivery",
+          "label": {
+            "en": "Verified inventory delivery",
+            "zh": "经校验的背包投递"
+          },
+          "weight": 4,
+          "groups": [
+            {
+              "name": "spawn",
+              "any_of": [
+                "SpawnPrefab\\s*\\("
+              ]
+            },
+            {
+              "name": "give",
+              "any_of": [
+                "GiveItem\\s*\\("
+              ]
+            },
+            {
+              "name": "owner check",
+              "any_of": [
+                "GetGrandOwner\\s*\\(",
+                "inventoryitem\\.owner",
+                "IsHeldBy\\s*\\("
+              ]
+            },
+            {
+              "name": "remove undelivered item",
+              "any_of": [
+                ":Remove\\s*\\(\\s*\\)"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "lootroll-rpc-identity",
+          "label": {
+            "en": "RPC and identity",
+            "zh": "RPC 与身份"
+          },
+          "weight": 3,
+          "groups": [
+            {
+              "name": "RPC",
+              "any_of": [
+                "AddModRPCHandler\\s*\\("
+              ]
+            },
+            {
+              "name": "namespace",
+              "any_of": [
+                "[\\\"']rhenium_lootroll[\\\"']"
+              ]
+            },
+            {
+              "name": "identity",
+              "any_of": [
+                "\\.userid"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "lootroll-lifecycle",
+          "label": {
+            "en": "Timers, events and persistence",
+            "zh": "定时器、事件与持久化"
+          },
+          "weight": 3,
+          "groups": [
+            {
+              "name": "deadline task",
+              "any_of": [
+                "DoTaskInTime\\s*\\("
+              ]
+            },
+            {
+              "name": "task cancel",
+              "any_of": [
+                ":Cancel\\s*\\("
+              ]
+            },
+            {
+              "name": "player left",
+              "any_of": [
+                "ms_playerleft"
+              ]
+            },
+            {
+              "name": "listener cleanup",
+              "any_of": [
+                "RemoveEventCallback\\s*\\("
+              ]
+            },
+            {
+              "name": "save/load",
+              "any_of": [
+                ":OnSave\\s*\\("
+              ]
+            },
+            {
+              "name": "removal",
+              "any_of": [
+                ":OnRemoveFromEntity\\s*\\("
+              ]
+            }
+          ]
+        },
+        {
+          "id": "lootroll-publication",
+          "label": {
+            "en": "Announcements and net state",
+            "zh": "公告与网络状态"
+          },
+          "weight": 2,
+          "groups": [
+            {
+              "name": "net variable",
+              "any_of": [
+                "net_string\\s*\\("
+              ]
+            },
+            {
+              "name": "announce",
+              "any_of": [
+                "TheNet:Announce\\s*\\("
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

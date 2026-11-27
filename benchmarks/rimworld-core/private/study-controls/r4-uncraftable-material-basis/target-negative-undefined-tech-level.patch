@@ -1,0 +1,13 @@
+--- a/R4/Source/Utility/MaterialUtility.cs
++++ b/R4/Source/Utility/MaterialUtility.cs
+@@ -289,9 +289,7 @@
+         {
+             var result = new List<ThingDefCountClass>();
+ 
+-            TechLevel tech = def.techLevel == TechLevel.Undefined
+-                ? TechLevel.Industrial
+-                : def.techLevel;
++            TechLevel tech = def.techLevel;
+ 
+             ThingDef bulk;
+             ThingDef component;

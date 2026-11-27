@@ -1,0 +1,116 @@
+{
+  "id": "dst-core",
+  "version": "4.0.0",
+  "game": "dst",
+  "name": {
+    "en": "Don't Starve Together mod repair tasks",
+    "zh": "饥荒联机版模组修复任务"
+  },
+  "description": {
+    "en": "Repair tasks over real open-source Don't Starve Together mods with upstream fixes reverted, evaluated on the pinned dedicated server. Every task reports only operator and player symptoms and never states how many defects there are.",
+    "zh": "基于真实开源饥荒联机版模组、回退上游修复后的修复任务，在固定版本的专用服务器中评测。每道题只描述运维者与玩家看到的现象，不告知缺陷数量。"
+  },
+  "tasks": [
+    {
+      "id": "dst-fixed-module-regressions",
+      "difficulty": "hard",
+      "title": {
+        "en": "DST Fixed: six optional modules misbehave on a dedicated server",
+        "zh": "DST Fixed：六个可选模块在专用服务器上行为异常"
+      },
+      "summary": {
+        "en": "Repair the reported watch, equipment, Desert Stone, bung, Glommer statue and moon dial problems in the DST Fixed server mod.",
+        "zh": "修复 DST Fixed 服务器模组中报告的怀表、装备、沙之石、塞子、格罗姆雕像与月晷问题。"
+      },
+      "brief": {
+        "en": "Diagnose and repair every reported problem in the vendored DST Fixed mod while preserving the behaviour that already works.",
+        "zh": "诊断并修复所附 DST Fixed 模组中报告的全部问题，同时保持已正常的行为。"
+      },
+      "requirements": {
+        "en": [
+          "Fix the underlying causes rather than suppressing the symptoms.",
+          "Preserve every documented behaviour of the modules that already works."
+        ],
+        "zh": [
+          "修复根本原因，而不是掩盖现象。",
+          "保持模块中已正常工作的既有行为。"
+        ]
+      },
+      "api_usage": {
+        "en": [
+          "Use the Don't Starve Together mod API and the base-game components the mod already relies on."
+        ],
+        "zh": [
+          "使用模组已依赖的饥荒联机版模组 API 与原版组件。"
+        ]
+      },
+      "acceptance": {
+        "en": [
+          "Every private assertion must pass on the pinned dedicated server without network access."
+        ],
+        "zh": [
+          "所有私有断言必须在固定版本、无网络的专用服务器中通过。"
+        ]
+      },
+      "domains": [
+        "lua",
+        "debugging",
+        "real-game-runtime",
+        "loot",
+        "persistence"
+      ],
+      "estimated_minutes": 180,
+      "required_files": [
+        "mod/modinfo.lua",
+        "mod/modmain.lua"
+      ],
+      "task_kind": "repository-debugging",
+      "source_mod": "DST Fixed",
+      "upstream": {
+        "repository": "https://github.com/angribot/DST-Fixed",
+        "license_spdx": "Apache-2.0",
+        "license_file": "LICENSE",
+        "base_commit": "841cd02d5d21d530e773548965e76aa7a2117805",
+        "fix_commits": [
+          "44d9e2e7dc3d04f885175937154cfc0c49c03b0a",
+          "f435f2e57a25c86b1e73352c94685c04aa4ac3bc",
+          "cbd4ee97cd319ffa6405108fdb8681389488680d",
+          "72b78c834feb23d18e8f15994e191d2f94406613",
+          "2f5482b852351b1ba6b6e5f92d12d73af6eb38ab",
+          "170b20bf1c871dd9ed9f8c961dfcce62984f11a9",
+          "c4c2875576e405bf2b417b57ff4b41ac50be74c5"
+        ]
+      },
+      "server_test": "server/dst-fixed-module-regressions.lua",
+      "server_cases": [
+        "sentinel: DST Fixed is loaded with the operator's modules",
+        "a Backtrek Watch can be given a name that shows in its display name",
+        "a named Rift Watch keeps its name across a save and reload",
+        "naming a watch uses up one Feather Pencil of a stack",
+        "combining two spears adds up their durability",
+        "combining never raises durability above full",
+        "combining Turf-Raiser Helms keeps the turf loaded in the consumed helm",
+        "using a Desert Stone opens a temporary Lazy Deserter that other portals lead to",
+        "the temporary Lazy Deserter stops channeling cleanly and unlinks other portals",
+        "a beefalo takes one bung and refuses a second",
+        "a blocked beefalo stays blocked after a save and reload",
+        "a blocked koalefant drops its bung when it dies",
+        "blocking one koalefant does not give other koalefants a bung",
+        "setup: a fresh Glommer statue and one loaded from a base-game save stand in the world",
+        "a partly mined Glommer statue is repaired with Marble up to full and no further",
+        "a Glommer statue saved before the option was switched on can be repaired with Marble",
+        "without a celestial portal a dial drops its glass beside itself",
+        "setup: two moon dials are glassed and the storm ends next to a celestial portal",
+        "the celestial portal receives exactly one moon glass per dial"
+      ],
+      "mod_options": {
+        "NAMEABLE_WATCHES": true,
+        "EQUIPMENT": true,
+        "SANDSTONE": true,
+        "BLOCKABLEPOOPING": true,
+        "GLOMMER": true,
+        "GATHERMOONGLASS": true
+      }
+    }
+  ]
+}

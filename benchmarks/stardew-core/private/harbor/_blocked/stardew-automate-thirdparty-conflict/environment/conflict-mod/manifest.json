@@ -1,0 +1,9 @@
+{
+  "Name": "Smart Machines",
+  "Author": "thirdparty",
+  "Version": "1.2.0",
+  "Description": "Adds per-instance machine profiles.",
+  "UniqueID": "thirdparty.SmartMachines",
+  "EntryDll": "SmartMachines.dll",
+  "MinimumApiVersion": "4.0.0"
+}

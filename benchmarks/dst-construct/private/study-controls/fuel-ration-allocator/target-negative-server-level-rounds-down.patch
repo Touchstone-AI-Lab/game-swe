@@ -1,0 +1,11 @@
+--- a/scripts/components/fuelration.lua
++++ b/scripts/components/fuelration.lua
+@@ -56,7 +56,7 @@
+ -- more fuel than the real component can take.
+ local function measure(fueled)
+     local capacity = math.floor(fueled.maxfuel / OPTIONS.unit_size)
+-    local level = math.min(capacity, math.ceil(fueled.currentfuel / OPTIONS.unit_size))
++    local level = math.min(capacity, math.floor(fueled.currentfuel / OPTIONS.unit_size))
+     return capacity, level
+ end
+ 

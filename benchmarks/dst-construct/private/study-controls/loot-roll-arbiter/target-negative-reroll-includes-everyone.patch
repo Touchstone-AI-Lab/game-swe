@@ -1,0 +1,11 @@
+--- a/scripts/lootroll/arbiter.lua
++++ b/scripts/lootroll/arbiter.lua
+@@ -134,7 +134,7 @@
+                 still_tied[#still_tied + 1] = tied[index]
+             end
+         end
+-        tied = still_tied
++        tied = #still_tied > 1 and members or still_tied
+     until #tied <= 1 or round >= max_rounds
+     local ranking = copy_array(members)
+     table.sort(ranking, function(left, right)

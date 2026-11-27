@@ -1,0 +1,18 @@
+diff -ruN a/addons/sourcemod/scripting/l4d2_incap_fire_fix.sp b/addons/sourcemod/scripting/l4d2_incap_fire_fix.sp
+--- a/addons/sourcemod/scripting/l4d2_incap_fire_fix.sp	2026-09-21 05:40:05.584565657 +0800
++++ b/addons/sourcemod/scripting/l4d2_incap_fire_fix.sp	2026-09-21 05:40:05.588664437 +0800
+@@ -24,11 +24,10 @@
+ 	if (GetEntProp(client, Prop_Send, "m_isIncapacitated", 1) > 0)
+ 	{
+ 		int wep = GetEntPropEnt(client, Prop_Send, "m_hActiveWeapon");
+-		if (wep != -1 && GetEntProp(wep, Prop_Send, "m_iClip1") > 0)
+-		{
++		if (wep != -1)
+ 			SetEntPropFloat(wep, Prop_Send, "m_flNextSecondaryAttack", GetGameTime() + BUFFER_TIME);
+-			g_bBlocked[client] = true;
+-		}
++
++		g_bBlocked[client] = true;
+ 	}
+ 	else if (g_bBlocked[client])
+ 	{

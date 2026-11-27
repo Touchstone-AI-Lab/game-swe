@@ -1,0 +1,60 @@
+diff --git a/addons/sourcemod/scripting/mutant_tanks/mutant_tanks.sp b/addons/sourcemod/scripting/mutant_tanks/mutant_tanks.sp
+--- a/addons/sourcemod/scripting/mutant_tanks/mutant_tanks.sp
++++ b/addons/sourcemod/scripting/mutant_tanks/mutant_tanks.sp
+@@ -13469,6 +13469,36 @@
+ 	}
+ }
+ 
++float flClampRewardStack(float current, float incoming, float min, float max, bool add = true, float fallback = -1.0)
++{
++	float value = current;
++	if (0.0 < incoming <= current)
++	{
++		value = add ? (current + incoming) : (current - incoming);
++	}
++	else if (current <= 0.0 && incoming > 0.0)
++	{
++		value = incoming;
++	}
++
++	return (value > 0.0) ? flClamp(value, min, max) : fallback;
++}
++
++int iClampRewardStack(int current, int incoming, int min, int max, int type = 0, int fallback = -1)
++{
++	int value = current;
++	if (0 < incoming <= current)
++	{
++		value = (type == 0) ? (current + incoming) : ((type == 1) ? (current - incoming) : (current|incoming));
++	}
++	else if (current <= 0 && incoming > 0)
++	{
++		value = incoming;
++	}
++
++	return (value > 0) ? iClamp(value, min, max) : fallback;
++}
++
+ void vSetupRewardCounts(int survivor, int tank, int priority, int type)
+ {
+ 	switch (type)
+@@ -13583,8 +13613,7 @@
+ 			}
+ 			else if ((g_esTankCache[tank].g_iStackRewards[priority] & type) && (g_esPlayer[survivor].g_iRewardTypes & type) && g_esTankCache[tank].g_iStackLimits[2] > 0 && g_esPlayer[survivor].g_iRewardStack[2] < g_esTankCache[tank].g_iStackLimits[2])
+ 			{
+-				g_esPlayer[survivor].g_flDamageBoost += g_esTankCache[tank].g_flDamageBoostReward[priority];
+-				g_esPlayer[survivor].g_flDamageBoost = flClamp(g_esPlayer[survivor].g_flDamageBoost, 0.0, 99999.0);
++				g_esPlayer[survivor].g_flDamageBoost = flClampRewardStack(g_esPlayer[survivor].g_flDamageBoost, g_esTankCache[tank].g_flDamageBoostReward[priority], 0.0, 99999.0);
+ 				g_esPlayer[survivor].g_flDamageResistance -= g_esTankCache[tank].g_flDamageResistanceReward[priority] / 2.0;
+ 				g_esPlayer[survivor].g_flDamageResistance = flClamp(g_esPlayer[survivor].g_flDamageResistance, 0.0, 1.0);
+ 				g_esPlayer[survivor].g_flHollowpointAmmo += g_esTankCache[tank].g_flHollowpointAmmoReward[priority];
+@@ -13672,8 +13701,7 @@
+ 				g_esPlayer[survivor].g_flSupplier = flClamp(g_esPlayer[survivor].g_flSupplier, 0.0, 99999.0);
+ 				g_esPlayer[survivor].g_iAmmoBoost = g_esTankCache[tank].g_iAmmoBoostReward[priority];
+ 				g_esPlayer[survivor].g_iAmmoRefill = g_esTankCache[tank].g_iAmmoRefillReward[priority];
+-				g_esPlayer[survivor].g_iAmmoRegen += g_esTankCache[tank].g_iAmmoRegenReward[priority];
+-				g_esPlayer[survivor].g_iAmmoRegen = iClamp(g_esPlayer[survivor].g_iAmmoRegen, 0, 99999);
++				g_esPlayer[survivor].g_iAmmoRegen = iClampRewardStack(g_esPlayer[survivor].g_iAmmoRegen, g_esTankCache[tank].g_iAmmoRegenReward[priority], 0, 99999);
+ 				g_esPlayer[survivor].g_iClusterBombs += g_esTankCache[tank].g_iClusterBombsReward[priority];
+ 				g_esPlayer[survivor].g_iClusterBombs = iClamp(g_esPlayer[survivor].g_iClusterBombs, 0, 5);
+ 				g_esPlayer[survivor].g_iSpecialAmmo |= g_esTankCache[tank].g_iSpecialAmmoReward[priority];

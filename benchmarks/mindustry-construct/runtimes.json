@@ -1,0 +1,63 @@
+{
+  "schema_version": 1,
+  "runtimes": [
+    {
+      "id": "mindustry",
+      "name": "Mindustry v159.7 dedicated server",
+      "version": "v159.7",
+      "provider": "official-download",
+      "restricted": false,
+      "host_platforms": [],
+      "source": {
+        "kind": "official-download",
+        "files": [
+          {
+            "name": "server-release.jar",
+            "url": "https://github.com/Anuken/Mindustry/releases/download/v159.7/server-release.jar",
+            "sha256": "e41289c32bcf765eb50fa131e6b515d741e20f7843fb567d3aa949e7461f22ab",
+            "size": 19158443
+          }
+        ],
+        "redirectHosts": [
+          "release-assets.githubusercontent.com"
+        ],
+        "expectedFiles": [
+          "server-release.jar"
+        ],
+        "sha256": "e41289c32bcf765eb50fa131e6b515d741e20f7843fb567d3aa949e7461f22ab"
+      }
+    }
+  ],
+  "task_bindings": {
+    "transactional-core-router": [
+      "mindustry"
+    ],
+    "build-quota-auditor": [
+      "mindustry"
+    ],
+    "unit-lease-scheduler": [
+      "mindustry"
+    ],
+    "power-grid-controller": [
+      "mindustry"
+    ],
+    "wave-threat-arbiter": [
+      "mindustry"
+    ],
+    "core-failover-coordinator": [
+      "mindustry"
+    ],
+    "item-reservation-ledger": [
+      "mindustry"
+    ],
+    "logic-link-registry": [
+      "mindustry"
+    ],
+    "wave-budget-planner": [
+      "mindustry"
+    ],
+    "blueprint-layout-reconciler": [
+      "mindustry"
+    ]
+  }
+}

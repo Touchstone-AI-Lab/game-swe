@@ -1,0 +1,103 @@
+{
+  "schemaVersion": 3,
+  "catalogVersion": "0.3.2",
+  "privateProtocol": "rhenium-rimworld-private-v3",
+  "assertionManifestSha256": "a645325e28630635ebdd657c5a70501045d0501bac922bb0f2ff8f0890f9c9d1",
+  "runtime": "rimworld/rimworld-1.6.4871-linux-x64",
+  "engineAssertionsRan": true,
+  "evidenceGeneration": {
+    "status": "run",
+    "date": "2026-09-24",
+    "host": "Linux x86_64 Docker host (NixOS), networkless evaluation",
+    "path": "rhenium run and rhenium-study e0 run through the Hub",
+    "note": "verifier repairs of 2026-09-24 first; see docs/games/rimworld.md#engine-validation-2026-09-24"
+  },
+  "plannedMatrix": {
+    "oracle": {
+      "expectedPassed": 14,
+      "expectedFailed": 0
+    },
+    "base": {
+      "expectedPassed": 8,
+      "expectedFailed": 6
+    },
+    "nop": {
+      "expectedPassed": 8,
+      "expectedFailed": 6
+    }
+  },
+  "plannedOutcomesAreAuthoringExpectations": true,
+  "referenceCompile": {
+    "status": "passed",
+    "date": "2026-09-24"
+  },
+  "containerBuild": {
+    "status": "passed",
+    "date": "2026-09-24"
+  },
+  "realEngine": {
+    "status": "passed",
+    "date": "2026-09-24"
+  },
+  "reusablePriorEvidence": false,
+  "oracle": {
+    "status": "passed",
+    "evidenceProtocol": "rhenium-rimworld-private-v3",
+    "runs": [
+      "run-668675cce8b248b4",
+      "run-5fbff2f37d2f4d8d",
+      "run-f948c42e65b749ae"
+    ],
+    "score": 100.0,
+    "passed": 14,
+    "failed": 0,
+    "identicalCaseOutcomes": true
+  },
+  "base": {
+    "status": "failed-targets-only",
+    "evidenceProtocol": "rhenium-rimworld-private-v3",
+    "run": "run-f094d90a0f154091",
+    "score": 10.0,
+    "passed": 8,
+    "failed": 6,
+    "failedCases": [
+      "definition-preserved-after-resolve",
+      "empty-tradeable-not-counted",
+      "nonbulk-sale-captured",
+      "nonbulk-sale-counted",
+      "purchase-not-counted",
+      "zero-transfer-not-counted"
+    ]
+  },
+  "nop": {
+    "status": "failed-targets-only",
+    "evidenceProtocol": "rhenium-rimworld-private-v3",
+    "run": "run-a3ce7c69899a415c",
+    "score": 10.0,
+    "passed": 8,
+    "failed": 6,
+    "failedCases": [
+      "definition-preserved-after-resolve",
+      "empty-tradeable-not-counted",
+      "nonbulk-sale-captured",
+      "nonbulk-sale-counted",
+      "purchase-not-counted",
+      "zero-transfer-not-counted"
+    ],
+    "materialization": "rhenium-study e0 starter control (Hub workspace copy)"
+  },
+  "authoringRevision": 3,
+  "negativeControls": {
+    "status": "not-run",
+    "kind": "authoring expectations",
+    "mutations": [
+      "omit one started resource restoration registration while another same-name registration remains",
+      "leave a task field or collection changed",
+      "throw during restoration",
+      "leave an extra Rand push",
+      "candidate operation throws: complete failed if fixture integrity remains healthy"
+    ],
+    "studyControls": "private/study-controls/playwright-nonbulk-trade-accounting/NOTES.md"
+  },
+  "plannedCountsNeedEngineReconciliation": false
+}

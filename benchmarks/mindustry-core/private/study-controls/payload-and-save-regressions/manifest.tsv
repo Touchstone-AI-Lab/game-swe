@@ -1,0 +1,4 @@
+control	kind	base	overlay	root	note
+target-negative-disabled-conveyors-sleep	target-negative	reference	patch:target-negative-disabled-conveyors-sleep.patch	mindustry	reference, but payload conveyors still skip their whole update while disabled
+compat-negative-drops-ignore-core-protection	compat-negative	reference	patch:compat-negative-drops-ignore-core-protection.patch	mindustry	reference plus payload drops that ignore core protection for every team
+alternative-a	alternative	starter	tree:alternative-a	mindustry	own repair: payload placed on its conveyor while loading, only negative plan counts rejected, core protection skipped for derelict drops in the validPlace overload

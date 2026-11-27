@@ -1,0 +1,146 @@
+diff --git a/work/task2-upstream/Common/Systems/Recipes/MiscRecipeSystem.cs b/work/task2-starter-source/Common/Systems/Recipes/MiscRecipeSystem.cs
+index 91fa9280..fe3c267a 100644
+--- a/work/task2-upstream/Common/Systems/Recipes/MiscRecipeSystem.cs
++++ b/work/task2-starter-source/Common/Systems/Recipes/MiscRecipeSystem.cs
+@@ -56,26 +56,11 @@ public class MiscRecipeSystem : ModSystem
+             recipe.DisableDecraft();
+         }
+ 
++        RefreshDuplicatableRecipes();
++
+     }
+     public override void PostSetupRecipes()
+     {
+-        //finding items with duplicatable items sold
+-        foreach (Recipe recipe in Main.recipe.Where(recipe => EnchantedTreeTileEntity.IsItemDupable(recipe.createItem.type)))
+-        {
+-            int result = recipe.createItem.type;
+-            if (!DuplicatableRecipes.ContainsKey(result))
+-            {
+-                DuplicatableRecipes.Add(result, []);
+-            }
+-            foreach (Item item in recipe.requiredItem)
+-            {
+-                if (EnchantedTreeTileEntity.IsItemDupable(item.type) || (DuplicatableItems[recipe.createItem.type] == DupeType.MaterialsDupable && DuplicatableItems[item.type] != DupeType.NotDupableFromDupable))
+-                {
+-                    DuplicatableRecipes[recipe.createItem.type].Add(item.type);
+-                }
+-            }
+-        }
+-
+         // animate recipe groups
+         foreach (Recipe recipe in Main.recipe)
+         {
+@@ -94,6 +79,25 @@ public class MiscRecipeSystem : ModSystem
+         }
+     }
+ 
++    private static void RefreshDuplicatableRecipes()
++    {
++        foreach (Recipe recipe in Main.recipe.Where(recipe => EnchantedTreeTileEntity.IsItemDupable(recipe.createItem.type)))
++        {
++            int result = recipe.createItem.type;
++            if (!DuplicatableRecipes.ContainsKey(result))
++            {
++                DuplicatableRecipes.Add(result, []);
++            }
++            foreach (Item item in recipe.requiredItem)
++            {
++                if (EnchantedTreeTileEntity.IsItemDupable(item.type) || DuplicatableItems[recipe.createItem.type] == DupeType.MaterialsDupable)
++                {
++                    DuplicatableRecipes[recipe.createItem.type].Add(item.type);
++                }
++            }
++        }
++    }
++
+     private static void AddStatueRecipes()
+     {
+         // Functional
+diff --git a/work/task2-upstream/Content/Items/Tiles/EnchantedTreeSheet.cs b/work/task2-starter-source/Content/Items/Tiles/EnchantedTreeSheet.cs
+index a6ba5cce..10344d88 100644
+--- a/work/task2-upstream/Content/Items/Tiles/EnchantedTreeSheet.cs
++++ b/work/task2-starter-source/Content/Items/Tiles/EnchantedTreeSheet.cs
+@@ -121,18 +121,17 @@ public class EnchantedTreeSheet : ModTile
+             if (tree != null && player.HeldItem != null && player.HeldItem.type >= ItemID.None && tree.ItemType == -1 && player.HeldItem.stack > 0 && tree.Fruits.Count == 0 && !player.HeldItem.favorited)
+             {
+                 tree.ItemType = player.HeldItem.type;
+-                tree.Prefix = player.HeldItem.prefix;
++                tree.Prefix = 0;
+                 if (EnchantedTreeTileEntity.IsItemDupable(tree.ItemType))
+                 {
+                     tree.Fruits.Add(new(tree.ItemType, tree.Position.ToWorldCoordinates() + new Vector2(16, -12), tree.Position.ToWorldCoordinates() + new Vector2(16, -80), Vector2.Zero));
+                     if (Main.netMode == NetmodeID.MultiplayerClient)
+                     {
+-                        FargoNet.SendEnchantedTreeFruitPacket(EnchantedTrees.IndexOf(FargoUtils.GetTopLeftTileInMultitile(i, j)));
++                        FargoNet.SendEnchantedTreeFruitPacket(EnchantedTrees.IndexOf(new Point16(i, j)));
+                     }
+                 }
+                 player.HeldItem.stack -= 1;
+-                tree.CursorInsertCooldown = 10;
+-                return true;
++                return false;
+             }
+             //if the entity has item already drop it and set it to null
+             else if (tree != null && tree.ItemType >= 0 && tree.CursorInsertCooldown <= 0)
+diff --git a/work/task2-upstream/Content/Items/Tiles/EnchantedTreeTileEntity.cs b/work/task2-starter-source/Content/Items/Tiles/EnchantedTreeTileEntity.cs
+index ac993d35..6d6bfb31 100644
+--- a/work/task2-upstream/Content/Items/Tiles/EnchantedTreeTileEntity.cs
++++ b/work/task2-starter-source/Content/Items/Tiles/EnchantedTreeTileEntity.cs
+@@ -123,7 +123,6 @@ public class EnchantedTreeTileEntity : ModTileEntity
+ 
+         int count = reader.ReadInt32();
+         //Main.NewText(count);
+-        Fruits = [];
+         for (int i = 0; i < count; i++)
+         {
+             Fruit fruit = new(reader.ReadInt32(), reader.ReadVector2(), reader.ReadVector2(), reader.ReadVector2(), reader.ReadInt32(), reader.ReadInt32());
+@@ -197,7 +196,7 @@ public class EnchantedTreeTileEntity : ModTileEntity
+                     //radius for a dist check so width / 2
+                     float size = 30;
+                     
+-                    int cost = ContentSamples.ItemsByType[fruit.type].value * 2;
++                    int cost = ContentSamples.ItemsByType[fruit.type].value;
+                     //cost = Math.Clamp(cost, 1, 9999);
+                     if (!Main.LocalPlayer.controlUseItem)
+                     {
+@@ -229,8 +228,8 @@ public class EnchantedTreeTileEntity : ModTileEntity
+                         for (int k = 0; k < tree.Fruits.Count; k++)
+                         {
+                             Fruit fruit2 = tree.Fruits[k];
+-                            if (fruit2.previousItem == i && k != i) expand = false;
+-                            else if (fruit2.layer > fruit.layer && fruit2.despawnTimer == 0)
++                            if (fruit2.previousItem == i && k != i && fruit2.despawnTimer == 0) expand = false;
++                            else if (fruit2.layer == fruit.layer + 1 && fruit2.despawnTimer == 0)
+                             {
+                                 netsync = true;
+                                 fruit2.despawnTimer = 1;
+@@ -244,7 +243,7 @@ public class EnchantedTreeTileEntity : ModTileEntity
+                             {
+                                 float side = (d % 2 == 0 ? -1 : 1);
+                                 Vector2 position = fruit.targetPosition + new Vector2(0, 250) - new Vector2(0, 500).RotatedBy(MathHelper.ToRadians((d) * 7 - FargoItemSets.DuplicatableRecipes[fruit.type].Count * 7 / 2 + 3f));
+-                                tree.Fruits.Add(new Fruit(FargoItemSets.DuplicatableRecipes[fruit.type][d], fruit.center, position, Vector2.Zero, i, fruit.layer + 1));
++                                tree.Fruits.Add(new Fruit(FargoItemSets.DuplicatableRecipes[fruit.type][d], fruit.center, position, Vector2.Zero, fruit.previousItem, fruit.layer));
+                             }
+                         }
+                         if (netsync && Main.netMode == NetmodeID.MultiplayerClient)
+@@ -258,17 +257,13 @@ public class EnchantedTreeTileEntity : ModTileEntity
+                         if (fruit.center.Distance(fruit.targetPosition) > 100)
+                         {
+                             fruit.grabbed = false;
+-                            Main.LocalPlayer.FargoMutant().grabbedFruit = null;
+-                            fruit.grabCooldown = 30;
++                            fruit.grabCooldown = 0;
+ 
+                             if (Main.LocalPlayer.BuyItem(cost))
+                             {
+                                 if (Main.netMode != NetmodeID.Server)
+                                 {
+-                                    int item = Item.NewItem(Main.LocalPlayer.GetSource_TileInteraction(tree.Position.X, tree.Position.Y, "EnchantedTreeDuplication"), fruit.center, fruit.type, prefixGiven: tree.Prefix);
+-
+-                                    Main.item[item].GetGlobalItem<FargoGlobalItem>().Grabbed = Main.myPlayer;
+-                                    Main.item[item].GetGlobalItem<FargoGlobalItem>().FromEnchantedTree = true;
++                                    int item = Item.NewItem(Main.LocalPlayer.GetSource_TileInteraction(tree.Position.X, tree.Position.Y, "EnchantedTreeDuplication"), fruit.center, fruit.type);
+                                     //FargoNet.SyncItemFromFruitPacket(Main.item[item].type, Main.myPlayer, tree.Position.ToVector2(), fruit.center, item);
+                                     NetMessage.SendData(MessageID.SyncItem, Main.myPlayer, number: item, number2: 1f);
+ 

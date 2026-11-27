@@ -1,0 +1,11 @@
+diff -u a/starfallex/lua/starfall/libs_sv/players.lua b/starfallex/lua/starfall/libs_sv/players.lua
+--- a/starfallex/lua/starfall/libs_sv/players.lua
++++ b/starfallex/lua/starfall/libs_sv/players.lua
+@@ -199,7 +199,6 @@
+ 	if noAmmo ~= nil then checkluatype(noAmmo, TYPE_BOOL) end
+ 
+ 	local ply = unwrap(self)
+-    checkpermission(instance, ply, "player.giveweapon")
+ 
+     local wpnEntry = list.GetForEdit("Weapon", true)[weapon]
+     if not wpnEntry then SF.Throw(weapon .. " is not a Valid SWEP!") end

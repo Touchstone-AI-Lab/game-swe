@@ -1,0 +1,16 @@
+{
+  "Distance": 2,
+  "SoundEffects": "None",
+  "CustomAttachments": [ "Parsnip", "Torch" ],
+  "StandardAttachments": {
+    "Axe": {
+      "ClearFruitTreeSeeds": false,
+      "ClearFruitTreeSaplings": true,
+      "CutGrownFruitTrees": false
+    },
+    "PickAxe": {
+      "BreakMineStones": false,
+      "ClearObjects": true
+    }
+  }
+}

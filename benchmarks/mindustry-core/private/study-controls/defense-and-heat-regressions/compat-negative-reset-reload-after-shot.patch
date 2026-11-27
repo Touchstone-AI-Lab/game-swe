@@ -1,0 +1,12 @@
+--- a/core/src/mindustry/world/blocks/defense/turrets/Turret.java
++++ b/core/src/mindustry/world/blocks/defense/turrets/Turret.java
+@@ -737,7 +737,8 @@
+ 
+                 shoot(type);
+ 
+-                reloadCounter %= reload;
++                //start every reload from scratch so a turret can never bank a second shot
++                reloadCounter = 0f;
+             }
+         }
+ 

@@ -1,0 +1,11 @@
+--- a/main.lua
++++ b/main.lua
+@@ -1984,7 +1984,7 @@
+                 if entity:CollidesWithGrid() then
+                     entity.Velocity = entity.Velocity * -1
+                     entity.Position = entity.Position + entity.Velocity
+-                elseif entity.FrameCount % 10 == 1 and entity.FrameCount > 20 then
++                elseif entity.FrameCount % 10 == 1 and entity.FrameCount > 10 then
+                     local signX = 10
+                     local signY = 10
+                     

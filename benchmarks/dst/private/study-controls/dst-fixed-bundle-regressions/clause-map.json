@@ -1,0 +1,240 @@
+{
+  "task": "dst/core/dst-fixed-bundle-regressions",
+  "task_version": "2.0.0",
+  "exam": "benchmarks/dst/exams/dst-fixed-bundle-regressions.md",
+  "cases": [
+    {
+      "id": "check:submission-shape",
+      "role": "static",
+      "clauses": [
+        "context-tree"
+      ],
+      "overlap": false,
+      "note": "mod/ tree with modinfo.lua and modmain.lua, no symbolic links or native modules, parseable Lua"
+    },
+    {
+      "id": "case:sentinel: DST Fixed is loaded with Show Bundle and Inventory Unwrap",
+      "role": "runtime-sentinel",
+      "clauses": [],
+      "overlap": false,
+      "note": "Show Bundle's SB table and ShowBundle RPC exist."
+    },
+    {
+      "id": "case:ordinary items from a held bundle go into the player's inventory",
+      "role": "preserved",
+      "clauses": [
+        "expect-keep",
+        "context-config"
+      ],
+      "overlap": false,
+      "note": "Meat, twigs and grass plus the returned wax paper land in Wilson's inventory."
+    },
+    {
+      "id": "case:a live butterfly from a held bundle goes into the player's inventory",
+      "role": "preserved",
+      "clauses": [
+        "expect-keep"
+      ],
+      "overlap": false,
+      "note": "Guards against dropping every item that cannot be picked up by hand (upstream #4)."
+    },
+    {
+      "id": "case:moongleam from a held bundle goes into the player's inventory",
+      "role": "preserved",
+      "clauses": [
+        "expect-keep"
+      ],
+      "overlap": false,
+      "note": "Guards against the upstream intermediate fix (#5) that dropped Moongleam."
+    },
+    {
+      "id": "case:a bundle opened inside a chest fills the chest",
+      "role": "preserved",
+      "clauses": [
+        "expect-keep"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:a bundle opened on the ground drops its items and announces the unwrap",
+      "role": "preserved",
+      "clauses": [
+        "expect-keep",
+        "expect-events"
+      ],
+      "overlap": false,
+      "note": "The mod falls back to the base game's Unwrap here."
+    },
+    {
+      "id": "case:a surprise gift opened from the inventory releases its creature",
+      "role": "target",
+      "clauses": [
+        "report-surprise",
+        "expect-surprise"
+      ],
+      "overlap": false,
+      "note": "One hound appears near the opener and no giftsurprise stays in the inventory."
+    },
+    {
+      "id": "case:opening a held bundle announces the unwrap with the opener",
+      "role": "target",
+      "clauses": [
+        "report-events",
+        "expect-events"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:every item of a held bundle is told it was unwrapped, by whom and from what",
+      "role": "target",
+      "clauses": [
+        "report-events",
+        "expect-events"
+      ],
+      "overlap": false,
+      "note": "Listener attached through SpawnPrefab; two notices with bundle and doer."
+    },
+    {
+      "id": "case:the preview of a bundle wrapped from items lists every item",
+      "role": "preserved",
+      "clauses": [
+        "expect-preview"
+      ],
+      "overlap": false,
+      "note": "Entity-wrapped bundles already preview correctly in the starter."
+    },
+    {
+      "id": "case:the preview of a bundle the game wraps from prefab names lists every item",
+      "role": "target",
+      "clauses": [
+        "report-preview",
+        "expect-preview"
+      ],
+      "overlap": false,
+      "note": "Reply read by replacing SendModRPCToClient around the mod's ShowBundle handler."
+    },
+    {
+      "id": "case:a saved bundle with a blank preview shows its items after loading",
+      "role": "target",
+      "clauses": [
+        "report-saved",
+        "expect-saved"
+      ],
+      "overlap": false,
+      "note": "Save data whose showbundle_itemdata holds empty tables."
+    },
+    {
+      "id": "case:the preview shows Rot on the spoiled background it has in the inventory",
+      "role": "target",
+      "clauses": [
+        "report-rot",
+        "expect-draw"
+      ],
+      "overlap": false,
+      "note": "Read from the `show_spoiled` field that the mod's sbitemtile draws the background from."
+    },
+    {
+      "id": "case:the preview keeps fresh food's spoilage and leaves other items on a plain slot",
+      "role": "preserved",
+      "clauses": [
+        "report-rot-fine",
+        "expect-draw"
+      ],
+      "overlap": false,
+      "note": "Guards against marking every entry as spoiled."
+    }
+  ],
+  "clauses": [
+    {
+      "id": "context-tree",
+      "anchor": "Context: \"`/app/mod` is **DST Fixed**\"",
+      "status": "asserted",
+      "note": "Submission shape: the mod tree is graded in place."
+    },
+    {
+      "id": "context-config",
+      "anchor": "Context: \"Inventory Unwrap** (`SMARTUNWRAP`, switched on by us)\"",
+      "status": "asserted",
+      "note": "The verifier enables SMARTUNWRAP; Show Bundle is on by default."
+    },
+    {
+      "id": "report-surprise",
+      "anchor": "Reports: \"Winter's Feast gifts with a surprise inside\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "report-events",
+      "anchor": "Reports: \"It never hears about bundles that are\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "report-preview",
+      "anchor": "Reports: \"Bundles that the game wraps by itself show a preview full of blank slots\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "report-saved",
+      "anchor": "Reports: \"bundles that were saved back when the preview\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "expect-events",
+      "anchor": "Expected behaviour 1: \"must announce itself in\"",
+      "status": "asserted",
+      "note": "Both events and their payload fields are asserted."
+    },
+    {
+      "id": "expect-surprise",
+      "anchor": "Expected behaviour 2: \"must never be put into\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "expect-keep",
+      "anchor": "Expected behaviour 3: \"Everything else that comes out of a held bundle still goes into the\"",
+      "status": "asserted",
+      "note": "Ordinary items, a butterfly, Moongleam, a chest and a ground unwrap are each asserted."
+    },
+    {
+      "id": "expect-preview",
+      "anchor": "Expected behaviour 4: \"lists every wrapped item in wrap\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "expect-saved",
+      "anchor": "Expected behaviour 5: \"its\n  preview is rebuilt\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "report-rot",
+      "anchor": "Reports: \"In a bundle's preview, Rot sits on a plain slot.\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "report-rot-fine",
+      "anchor": "Reports: \"Fresh food in the preview still shows its\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "expect-draw",
+      "anchor": "Expected behaviour 6: \"Each preview entry carries what the mod's preview tile needs to draw the\"",
+      "status": "asserted",
+      "note": ""
+    }
+  ],
+  "excluded_clauses": [],
+  "known_issues": [
+    "The preview cases read the reply through the mod's ShowBundle RPC handler with SendModRPCToClient replaced for the duration of the call; an implementation that sends the preview through a different RPC name would fail them. The exam names the ShowBundle request.",
+    "Preview drawing is checked through the fields of the server's reply that the mod's sbitemtile reads (`show_spoiled`, `spoil`, `perish`); no client widget is drawn."
+  ]
+}

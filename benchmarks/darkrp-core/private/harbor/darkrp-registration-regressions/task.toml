@@ -1,0 +1,86 @@
+schema_version = "1.1"
+
+[task]
+name = "gamecodebench/darkrp-registration-regressions"
+description = "A DarkRP branch carrying eight independent regressions in the routines that register vehicles, groupings, command shortcuts, networked values and door values, reported only as user-visible symptoms."
+authors = []
+keywords = ["garrysmod", "glua", "lua", "darkrp", "multi-defect", "regression"]
+
+[metadata]
+category = "programming"
+difficulty = "hard"
+tags = ["game-modding", "glua", "gmod", "darkrp", "bug-fix", "composite"]
+source_repo = "https://github.com/FPtje/DarkRP"
+source_license = "MIT"
+base_commit = "5abcf7abab9e489b2d882a55d95f84c206d9d05c"
+reverted_fixes = ""
+gold_patch_origin = "hand-injected"
+
+# SUBSYSTEM COVERAGE. Disjoint from the four earlier DarkRP tasks. This one lives in
+# the REGISTRATION routines -- the entry points a server owner or addon author calls to
+# declare something to the gamemode -- rather than in the behaviour that consumes those
+# declarations. Every case drives a public DarkRP.* entry point and reads the result
+# back through a public getter, so no case needs a bot, the database or server timing.
+#   A  sh_createitems.lua  - createVehicle compares the catalogue key case sensitively,
+#                            so a correctly named vehicle is rejected
+#   B  sh_createitems.lua  - createEntityGroup no longer records the group's own name
+#   C  sh_chatcommands.lua - chatCommandAlias drops the metatable link, so an alias is
+#                            an empty shell with none of its target's behaviour
+#   D  sh_chatcommands.lua - getSortedChatCommands sorts descending
+#   E  sh_entityvars.lua   - re-registering a networked value updates the write side
+#                            but drops the read side AND falls through to allocate a
+#                            second identity for the same name
+#   F  sh_createitems.lua  - removeDemoteGroup finds the set but never detaches its
+#                            members, so the jobs stay grouped
+#   G  sh_doors.lua        - registerDoorVar stores an id one past its own slot
+#   H  sh_createitems.lua  - createAgenda registers only the first listener
+#
+# VERIFIER COVERAGE. 8 reports / 8 defect groups / 9 assertions + 1 load sentinel +
+# 1 positive control = 10 expected passes.
+#
+# VALIDATED PER DEFECT, not just base vs reference.
+#   base (all eight broken)   2 PASS / 8 FAIL  -- sentinel + control
+#   reference (all fixed)    10 PASS / 0 FAIL
+#   fix A / B / C / D / E / F / G / H, each alone:
+#                             3 PASS / 7 FAIL -- sentinel + control + that group only
+#
+# THE POSITIVE CONTROL IS LOAD-BEARING, AND MY FIRST ATTEMPT AT IT WAS FAKE.
+# It was originally "a vehicle declared exactly as the catalogue spells it is
+# accepted", chosen to prove that a submission which simply refuses every declaration
+# cannot score. It failed on the base tree too, because defect A breaks that case as
+# well -- so it was not a suite-wide control at all, it was a second assertion for
+# group A. It is now "a plainly declared command can be found again", which no defect
+# in this task touches and which therefore holds on BOTH trees.
+#
+# ONE INJECTION WAS BUILT AND THEN DISCARDED FOR BEING UNOBSERVABLE. createEntityGroup
+# originally handed out its id before incrementing the counter. Both variants advance
+# by exactly one between consecutive calls, so only the absolute starting value
+# differs, and by the time the suite runs the default door groups have already pushed
+# the counter well past it. base and reference behaved identically. Same class as the
+# hungermod registry and the demote-group union rejected in earlier tasks: a defect
+# the harness cannot observe must not ship. It was replaced with B.
+
+[verifier]
+network_mode = "no-network"
+timeout_sec = 1200.0
+
+[agent]
+# The agent harness runs INSIDE the container and calls the model API from there, so a
+# blanket no-network kills it before it does any work. Everything else it needs (uv,
+# mini-swe-agent, build tools) is baked into the image, so only model endpoints need to
+# be reachable. github.com and raw.githubusercontent.com are deliberately absent: DarkRP
+# is public and fetching the upstream tree is the leak this isolates against.
+# A Harbor job must pass the exact model endpoint hostname through
+# `agents[].extra_allowed_hosts`; do not edit the canonical task for each provider.
+network_mode = "allowlist"
+allowed_hosts = []
+timeout_sec = 5400.0
+
+[environment]
+network_mode = "no-network"
+build_timeout_sec = 2400.0
+cpus = 6
+memory_mb = 16384
+storage_mb = 20480
+gpus = 0
+mcp_servers = []

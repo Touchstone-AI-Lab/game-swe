@@ -1,0 +1,30 @@
+schema_version = "1.4"
+# Behavior grounded in native observations; author reference and a different
+# repair must pass every clause, while isolated fixes flip exactly their group.
+# See the immutable author matrix for predictions and all retained failed drafts.
+artifacts = [{source = "/app/downfall/src/main/java"}]
+[metadata]
+source_repository = "https://github.com/mikemayhemdev/DownfallSTS"
+source_commit = "030ff7d4a7419a3e21c3075661550b1b479f3502"
+license = "MIT"
+difficulty = "unmeasured"
+construction = "Original pinned source, no injected defects. Unasserted real UI observations establish two separate cancellation defects."
+[agent]
+timeout_sec = 5400
+[environment]
+docker_image = "sha256:9d5a2e58936cd6086891e23d1566127d4a7f469ec36258728029044e795cc434"
+workdir = "/app/downfall"
+network_mode = "no-network"
+cpus = 2
+memory_mb = 4608
+storage_mb = 10240
+[verifier]
+timeout_sec = 1200
+environment_mode = "separate"
+[verifier.environment]
+docker_image = "sha256:9f737c92646e7d4735f81a69af53b1e5a0fe2e225c4f13b758232de6e511b750"
+workdir = "/tests"
+network_mode = "no-network"
+cpus = 2
+memory_mb = 4608
+storage_mb = 10240

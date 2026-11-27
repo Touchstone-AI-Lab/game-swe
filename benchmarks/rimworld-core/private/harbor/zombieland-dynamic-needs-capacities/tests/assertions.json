@@ -1,0 +1,297 @@
+{
+  "schemaVersion": 3,
+  "protocol": "rhenium-rimworld-private-v3",
+  "adapter": "rhenium-rimworld-observer-v3",
+  "taskKey": "rimworld/core/zombieland-dynamic-needs-capacities",
+  "weights": {
+    "submissionShape": 10,
+    "engineAssertions": 90
+  },
+  "cases": [
+    {
+      "id": "runtime-defs-ready",
+      "fixture": "RuntimeDefsReady",
+      "gate": true,
+      "scalars": [],
+      "expected": {
+        "facts": [
+          {
+            "name": "result",
+            "value": "ready"
+          }
+        ],
+        "outputs": []
+      }
+    },
+    {
+      "id": "need-max-one",
+      "fixture": "NeedMaxOne",
+      "gate": false,
+      "scalars": [],
+      "expected": {
+        "facts": [
+          {
+            "name": "result",
+            "value": "0.5"
+          }
+        ],
+        "outputs": []
+      }
+    },
+    {
+      "id": "need-max-two",
+      "fixture": "NeedMaxTwo",
+      "gate": false,
+      "scalars": [],
+      "expected": {
+        "facts": [
+          {
+            "name": "result",
+            "value": "1"
+          }
+        ],
+        "outputs": []
+      }
+    },
+    {
+      "id": "need-max-fractional",
+      "fixture": "NeedMaxFractional",
+      "gate": false,
+      "scalars": [],
+      "expected": {
+        "facts": [
+          {
+            "name": "result",
+            "value": "0.65"
+          }
+        ],
+        "outputs": []
+      }
+    },
+    {
+      "id": "need-max-change-observed",
+      "fixture": "NeedMaxChangeObserved",
+      "gate": false,
+      "scalars": [],
+      "expected": {
+        "facts": [
+          {
+            "name": "result",
+            "value": "0.4:0.9"
+          }
+        ],
+        "outputs": []
+      }
+    },
+    {
+      "id": "unrelated-need-preserved",
+      "fixture": "UnrelatedNeedPreserved",
+      "gate": false,
+      "scalars": [],
+      "expected": {
+        "facts": [
+          {
+            "name": "result",
+            "value": "0.37"
+          }
+        ],
+        "outputs": []
+      }
+    },
+    {
+      "id": "infected-capacity-below-one",
+      "fixture": "InfectedCapacityBelowOne",
+      "gate": false,
+      "scalars": [],
+      "expected": {
+        "facts": [
+          {
+            "name": "result",
+            "value": "1"
+          }
+        ],
+        "outputs": []
+      }
+    },
+    {
+      "id": "infected-capacity-equal-one",
+      "fixture": "InfectedCapacityEqualOne",
+      "gate": false,
+      "scalars": [],
+      "expected": {
+        "facts": [
+          {
+            "name": "result",
+            "value": "1"
+          }
+        ],
+        "outputs": []
+      }
+    },
+    {
+      "id": "infected-capacity-above-one",
+      "fixture": "InfectedCapacityAboveOne",
+      "gate": false,
+      "scalars": [],
+      "expected": {
+        "facts": [
+          {
+            "name": "result",
+            "value": "1.4"
+          }
+        ],
+        "outputs": []
+      }
+    },
+    {
+      "id": "symbiant-capacity-above-one",
+      "fixture": "SymbiantCapacityAboveOne",
+      "gate": false,
+      "scalars": [],
+      "expected": {
+        "facts": [
+          {
+            "name": "result",
+            "value": "1.6"
+          }
+        ],
+        "outputs": []
+      }
+    },
+    {
+      "id": "dead-pawn-capacity-preserved",
+      "fixture": "DeadPawnCapacityPreserved",
+      "gate": false,
+      "scalars": [],
+      "expected": {
+        "facts": [
+          {
+            "name": "result",
+            "value": "0.4"
+          }
+        ],
+        "outputs": []
+      }
+    },
+    {
+      "id": "unrelated-pawn-capacity-preserved",
+      "fixture": "UnrelatedPawnCapacityPreserved",
+      "gate": false,
+      "scalars": [],
+      "expected": {
+        "facts": [
+          {
+            "name": "result",
+            "value": "0.4"
+          }
+        ],
+        "outputs": []
+      }
+    },
+    {
+      "id": "capacity-negative-floored",
+      "fixture": "CapacityNegativeFloored",
+      "gate": false,
+      "scalars": [],
+      "expected": {
+        "facts": [
+          {
+            "name": "result",
+            "value": "1"
+          }
+        ],
+        "outputs": []
+      }
+    },
+    {
+      "id": "mood-benefit-preserved",
+      "fixture": "MoodBenefitPreserved",
+      "gate": false,
+      "scalars": [],
+      "expected": {
+        "facts": [
+          {
+            "name": "result",
+            "value": "True"
+          }
+        ],
+        "outputs": []
+      }
+    },
+    {
+      "id": "food-benefit-preserved",
+      "fixture": "FoodBenefitPreserved",
+      "gate": false,
+      "scalars": [],
+      "expected": {
+        "facts": [
+          {
+            "name": "result",
+            "value": "True"
+          }
+        ],
+        "outputs": []
+      }
+    },
+    {
+      "id": "rest-benefit-preserved",
+      "fixture": "RestBenefitPreserved",
+      "gate": false,
+      "scalars": [],
+      "expected": {
+        "facts": [
+          {
+            "name": "result",
+            "value": "True"
+          }
+        ],
+        "outputs": []
+      }
+    },
+    {
+      "id": "no-pain-preserved",
+      "fixture": "NoPainPreserved",
+      "gate": false,
+      "scalars": [],
+      "expected": {
+        "facts": [
+          {
+            "name": "result",
+            "value": "False:0"
+          }
+        ],
+        "outputs": []
+      }
+    },
+    {
+      "id": "unrelated-pain-preserved",
+      "fixture": "UnrelatedPainPreserved",
+      "gate": false,
+      "scalars": [],
+      "expected": {
+        "facts": [
+          {
+            "name": "result",
+            "value": "True:0.7"
+          }
+        ],
+        "outputs": []
+      }
+    },
+    {
+      "id": "fixture-state-restored",
+      "fixture": "FixtureStateRestored",
+      "gate": true,
+      "scalars": [],
+      "expected": {
+        "facts": [
+          {
+            "name": "result",
+            "value": "restored"
+          }
+        ],
+        "outputs": []
+      }
+    }
+  ]
+}

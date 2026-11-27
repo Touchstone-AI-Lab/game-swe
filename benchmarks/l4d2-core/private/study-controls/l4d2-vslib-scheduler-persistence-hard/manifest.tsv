@@ -1,0 +1,5 @@
+control	kind	base	overlay	root	note
+tn-legacy-key-substring	target-negative	reference	patch:tn-legacy-key-substring.patch	linge-hud	reference whose legacy loader decodes any key containing _vslInt_ instead of only a whole canonical _vslInt_<n> key (report 7 unrepaired; validation/candidates.py minus-report-7)
+cn-removed-peer-still-runs	compat-negative	reference	patch:cn-removed-peer-still-runs.patch	linge-hud	reference without the stale-entry checks in the scheduler update, so a due timer removed by a peer in the same update still runs (validation/candidates.py minus-report-1)
+cn-copy-array-payloads	compat-negative	reference	patch:cn-copy-array-payloads.patch	linge-hud	reference that shallow-copies array payloads in AddTimer, against the explicit "do not wrap, clone, or reject them"
+alternative-reversed-exponent	alternative	starter	patch:alternative-reversed-exponent.patch	linge-hud	validation/candidates.py alternative: due timers run in reverse snapshot order, floats saved with %.9e, arrays space-separated; the other repairs are the oracle's

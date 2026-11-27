@@ -1,0 +1,12 @@
+diff -ru a/src/main/java/com/example/blocktrail/TrailCommand.java b/src/main/java/com/example/blocktrail/TrailCommand.java
+--- a/src/main/java/com/example/blocktrail/TrailCommand.java
++++ b/src/main/java/com/example/blocktrail/TrailCommand.java
+@@ -175,7 +175,7 @@
+         }
+         int restored = 0;
+         int skipped = 0;
+-        for (Change change : newestFirst(candidates)) {
++        for (Change change : candidates) {
+             Block block = world.getBlockAt(change.x(), change.y(), change.z());
+             if (block.getType() == change.to()) {
+                 block.setType(change.from(), false);

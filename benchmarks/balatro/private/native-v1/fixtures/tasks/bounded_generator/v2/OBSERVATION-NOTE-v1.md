@@ -1,0 +1,3 @@
+# Admission observation clarification before implementation
+
+Repeated gamestate RPCs are read-only stability observations; the fixed serializer does not itself call can_use. Do not claim those calls exercised repeated admission. The unchanged passive observer records the actual native `Card:can_use_consumeable` invocation made by fixed use.lua step 7, before effect execution. Check its inventory count and reservation value against the pre-action observation. No diagnostic code invokes the candidate callback. These are complementary checks, not an assumption that a read query schedules business behavior. Public semantics and the predeclared defects are unchanged.

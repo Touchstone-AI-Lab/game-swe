@@ -1,0 +1,291 @@
+{
+  "task": "left-4-dead-2/core/l4d2-infected-bots-release-regressions-medium",
+  "task_version": "1.0.0",
+  "exam": "benchmarks/l4d2-core/exams/l4d2-infected-bots-release-regressions-medium.md",
+  "cases": [
+    {
+      "id": "case:package_complete_public_source",
+      "role": "runtime-sentinel",
+      "clauses": [
+        "Intro-1",
+        "Keep-source-only"
+      ],
+      "overlap": false,
+      "note": "Package/file gate reported as a case; it passes in the starter and is outside both obligation sets."
+    },
+    {
+      "id": "case:submitted_plugins_compile",
+      "role": "runtime-sentinel",
+      "clauses": [
+        "Keep-natives"
+      ],
+      "overlap": false,
+      "note": "Compile gate (target, spawn dependency, external native consumer)."
+    },
+    {
+      "id": "case:capacity_library_loaded",
+      "role": "runtime-sentinel",
+      "clauses": [],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:capacity_exact_runtime_slots",
+      "role": "target",
+      "clauses": [
+        "Contract-1.1",
+        "Contract-1.2"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:capacity_unclamped_request_is_preserved",
+      "role": "preserved",
+      "clauses": [
+        "Contract-1.2"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:config_library_and_single_survivor_guard",
+      "role": "runtime-sentinel",
+      "clauses": [],
+      "overlap": false,
+      "note": "Fixture guard: exactly one alive survivor so the count profile is unambiguous."
+    },
+    {
+      "id": "case:config_settings_count_profile_overlays_all_types",
+      "role": "preserved",
+      "clauses": [
+        "Contract-2.1",
+        "Contract-2.5",
+        "Contract-2.6",
+        "Contract-2.8"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:config_settings_count_omitted_keys_inherit_default",
+      "role": "preserved",
+      "clauses": [
+        "Contract-2.2"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:config_admin_overrides_are_temporary",
+      "role": "preserved",
+      "clauses": [
+        "Contract-2.7"
+      ],
+      "overlap": false,
+      "note": "Only the \"override takes effect\" half; the name overstates what is checked (suite_config.sp:147-155)."
+    },
+    {
+      "id": "case:config_reload_replaces_overrides_and_applies_map_profiles",
+      "role": "target",
+      "clauses": [
+        "Contract-2.3",
+        "Contract-2.4",
+        "Contract-2.6",
+        "Contract-2.7",
+        "Contract-2.8"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:initial_timer_libraries_loaded",
+      "role": "runtime-sentinel",
+      "clauses": [],
+      "overlap": false,
+      "note": "Also guards L4D_HasPlayerControlledZombies() (versus fixture)."
+    },
+    {
+      "id": "case:initial_timer_victim_created",
+      "role": "setup",
+      "clauses": [],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:initial_timer_not_overwritten_by_normal_delay",
+      "role": "target",
+      "clauses": [
+        "Contract-3.1"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:initial_timer_eventually_replenishes",
+      "role": "preserved",
+      "clauses": [
+        "Contract-3.1"
+      ],
+      "overlap": false,
+      "note": "A bot exists 9.2 s after the death; holds in the starter because the starter replenishes early."
+    },
+    {
+      "id": "case:initial_timer_normal_delay_resumes_after_window",
+      "role": "preserved",
+      "clauses": [
+        "Contract-3.2"
+      ],
+      "overlap": true,
+      "note": "Holds in the starter; it is also the far boundary of the requested initial-window rule (an over-fix that always uses initial_spawn_time breaks it)."
+    },
+    {
+      "id": "case:finale_library_loaded",
+      "role": "runtime-sentinel",
+      "clauses": [],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:finale_win_event_available",
+      "role": "setup",
+      "clauses": [
+        "Contract-4.2"
+      ],
+      "overlap": false,
+      "note": "Fixture guard (event creatable, victim died once, allow cvar re-enabled); the allow toggle it records is the lifecycle precondition of Contract-4.2."
+    },
+    {
+      "id": "case:finale_win_cancels_pending_replenishment",
+      "role": "target",
+      "clauses": [
+        "Contract-4.1",
+        "Contract-4.2"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "check:submission-shape",
+      "role": "static",
+      "clauses": [
+        "Keep-source-only"
+      ],
+      "overlap": false,
+      "note": ""
+    }
+  ],
+  "clauses": [
+    {
+      "id": "Intro-1",
+      "anchor": "Intro paragraph 1, last sentence: \"Repair the regressions in the submitted source; do not replace the project with a smaller implementation.\"",
+      "status": "asserted",
+      "note": "verify.py:190-208 requires all 63 frozen snapshot files and minimum source-line counts."
+    },
+    {
+      "id": "Contract-1.1",
+      "anchor": "Contracts item 1 \"Server-capacity accounting\", sentences 1-2: sm_zlimit clamps to \"the running server's client capacity minus its current survivor clients\"; \"must not reserve a phantom extra slot\"",
+      "status": "asserted",
+      "note": "suite_capacity.sp:137,164-170 expects exactly MaxClients - survivors after \"sm_zlimit 30\"."
+    },
+    {
+      "id": "Contract-1.2",
+      "anchor": "Contracts item 1, sentence 3: \"The applied value must remain visible through L4DInfectedBots_GetConfigInt(\\\"max_specials\\\").\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "Contract-2.1",
+      "anchor": "Contracts item 2 \"Configuration profiles and reload\", sentence 1a: Settings profile = Settings/default plus the matching alive-survivor count entry",
+      "status": "asserted",
+      "note": "Only the one-survivor count entry is exercised."
+    },
+    {
+      "id": "Contract-2.2",
+      "anchor": "Contracts item 2, sentence 1b: \"omitted count keys inherit Settings/default\"",
+      "status": "weak",
+      "note": "Only one omitted key (spawn_time_max, a float) is observed: suite_config.sp:115-121."
+    },
+    {
+      "id": "Contract-2.3",
+      "anchor": "Contracts item 2, sentence 2a: a Maps/<map> profile becomes active, resolved from Maps/<map>/default plus its matching survivor-count entry",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "Contract-2.4",
+      "anchor": "Contracts item 2, sentence 2b: \"omitted map-count keys inherit the map default\"",
+      "status": "asserted",
+      "note": "max_specials, spawn_time_max and the string key are omitted by the map count entry in fixtures/gcb_b.cfg."
+    },
+    {
+      "id": "Contract-2.5",
+      "anchor": "Contracts item 2, sentence 3: \"Without a current-map entry, the resolved Settings profile remains active.\"",
+      "status": "asserted",
+      "note": "fixtures/gcb_a.cfg has an empty Maps section."
+    },
+    {
+      "id": "Contract-2.6",
+      "anchor": "Contracts item 2, sentence 4: \"Changing l4d_infectedbots_read_data reloads the selected profile.\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "Contract-2.7",
+      "anchor": "Contracts item 2, sentence 5: values set by sm_zlimit and sm_timer \"are temporary and must be replaced by the newly loaded data\"",
+      "status": "asserted",
+      "note": "Override half in config_admin_overrides_are_temporary, replacement half only inside the target reload case."
+    },
+    {
+      "id": "Contract-2.8",
+      "anchor": "Contracts item 2, sentence 6: \"Integer, float, and string settings must follow these profile rules.\"",
+      "status": "asserted",
+      "note": "One key per type: max_specials, spawn_time_min/max, coop_versus_join_access."
+    },
+    {
+      "id": "Contract-3.1",
+      "anchor": "Contracts item 3 \"Initial spawn timing\", sentences 1 and 3a: a death/replacement request in the initial window uses initial_spawn_time; \"No replacement may appear before initial_spawn_time\"",
+      "status": "weak",
+      "note": "suite_initial_timer.sp:164-181 samples the alive-infected count once, 2.2 s after the death (initial_spawn_time is 8 s, normal delay 1 s); the rest of the window and the coop/survival branch are not observed. Versus only."
+    },
+    {
+      "id": "Contract-3.2",
+      "anchor": "Contracts item 3, sentences 2 and 3b: normal bot and coop-versus respawn calculations apply only after the window; afterwards \"ordinary deaths must once again use the configured normal respawn delay\"",
+      "status": "weak",
+      "note": "Versus bot path only; a single sample 2.2 s after a post-window death (suite_initial_timer.sp:221-233)."
+    },
+    {
+      "id": "Contract-4.1",
+      "anchor": "Contracts item 4 \"Finale cleanup\", sentences 1-2: finale_win is a round-ending event; it transitions to the ended state and prevents pending bot/refill work from replenishing special infected",
+      "status": "weak",
+      "note": "suite_finale.sp:173-186 samples once, 8.5 s after the event, that no infected is alive; the \"ended state\" itself is not observed."
+    },
+    {
+      "id": "Contract-4.2",
+      "anchor": "Contracts item 4, sentence 3: disabling and re-enabling through the public allow cvar \"must remain error-free and preserve this behavior\"",
+      "status": "asserted",
+      "note": "The whole finale suite runs after an allow 0 -> 1 toggle (suite_finale.sp:105-116); an unhook/hook error is a SourceMod exception and fails the suite closed (verify.py:415-445)."
+    },
+    {
+      "id": "Keep-natives",
+      "anchor": "Closing paragraph, sentence 1a: \"Keep the public native declarations compatible\"",
+      "status": "asserted",
+      "note": "A verifier-owned consumer of the three config natives must compile and the suites call them at run time."
+    },
+    {
+      "id": "Keep-source-only",
+      "anchor": "Closing paragraph, sentence 1b: do not add compiled .smx files, Valve content, credential material, executable network-client helpers, or verifier-specific output",
+      "status": "asserted",
+      "note": "verify.py:145-189."
+    }
+  ],
+  "excluded_clauses": [],
+  "known_issues": [
+    "benchmarks/l4d2-core/private/harbor/l4d2-infected-bots-release-regressions-medium/tests/verify.py:415-445: a suite is all-or-nothing. Any SourceMod exception, unbound native, plugin load failure, crash marker, duplicate/missing case or FINAL mismatch turns every case of that server boot into a failure, including preserved guards and sentinels.",
+    "benchmarks/l4d2-core/private/harbor/l4d2-infected-bots-release-regressions-medium/tests/verify.py:136-211: a package failure raises before any case line is printed, so every case (not only package_complete_public_source) is then unobserved/failed.",
+    "benchmarks/l4d2-core/private/harbor/l4d2-infected-bots-release-regressions-medium/tests/suite_initial_timer.sp:164 and :221, suite_finale.sp:173: all timing targets are single wall-clock samples of \"alive infected count\"; they cannot distinguish \"replacement delayed by initial_spawn_time\" from \"replacement never scheduled\" at the sampled instant. initial_timer_eventually_replenishes (9.2 s) is the only check that a deferred replacement really arrives.",
+    "benchmarks/l4d2-core/private/harbor/l4d2-infected-bots-release-regressions-medium/tests/suite_initial_timer.sp:118-126: Contract-3 is exercised only in versus (player-controlled zombies); the coop/survival branch of the same death handler (reference l4dinfectedbots.sp:2578-2602) has no case, although the public text names \"Normal bot and coop-versus respawn calculations\".",
+    "The reference replaces the finale_vehicle_leaving hook with finale_win (solution l4dinfectedbots.sp:1876, 1919) rather than adding to it; no case observes finale_vehicle_leaving, so both \"replace\" and \"add\" implementations pass. Not an over-constraint, but results say nothing about finale_vehicle_leaving.",
+    "benchmarks/l4d2-core/private/harbor/l4d2-infected-bots-release-regressions-medium/tests/suite_capacity.sp:137: the expected clamp is MaxClients - survivor clients counted by team only (alive or not, bots included). An implementation that reads \"current survivor clients\" as connected human survivors would differ; the public wording does not fully pin this down."
+  ]
+}

@@ -1,0 +1,618 @@
+{
+  "task": "left-4-dead-2/core/l4d2-linge-release-regressions-hard-v3",
+  "task_version": "1.0.0",
+  "exam": "benchmarks/l4d2-core/exams/l4d2-linge-release-regressions-hard-v3.md",
+  "cases": [
+    {
+      "id": "case:ordinary-friendly-fire-updates-all-counters",
+      "role": "preserved",
+      "clauses": [
+        "LG-417.0",
+        "Task-preserve-ordinary-damage",
+        "Task-preserve-event-integration",
+        "Task-preserve-entrypoint"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:notifications-disabled-create-no-temporary-state",
+      "role": "preserved",
+      "clauses": [
+        "Task-preserve-ordinary-damage"
+      ],
+      "overlap": false,
+      "note": "Only checks that no message is printed; despite its name it does not inspect temporary state."
+    },
+    {
+      "id": "case:ordinary-delayed-message-preserves-pair-and-state",
+      "role": "preserved",
+      "clauses": [
+        "LG-PRES.1",
+        "LG-PRES.5"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:repeated-pair-accumulates-without-duplicating-state",
+      "role": "preserved",
+      "clauses": [
+        "LG-PRES.1"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:multiple-attackers-remain-independent",
+      "role": "preserved",
+      "clauses": [
+        "LG-PRES.2"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:self-damage-does-not-change-friendly-fire-counters",
+      "role": "preserved",
+      "clauses": [
+        "LG-PRES.3"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:invalid-attacker-is-ignored",
+      "role": "preserved",
+      "clauses": [
+        "Task-preserve-ordinary-damage"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:non-survivor-attacker-is-ignored",
+      "role": "preserved",
+      "clauses": [
+        "Task-preserve-ordinary-damage"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:already-incapacitated-survivor-is-ignored",
+      "role": "preserved",
+      "clauses": [
+        "LG-PRES.4"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:dying-survivor-is-ignored",
+      "role": "preserved",
+      "clauses": [
+        "LG-PRES.4"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:dead-survivor-is-ignored",
+      "role": "preserved",
+      "clauses": [
+        "LG-PRES.4"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:zero-damage-type-is-ignored",
+      "role": "preserved",
+      "clauses": [
+        "Task-preserve-ordinary-damage"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:temporary-health-nonterminal-hit-remains-ordinary",
+      "role": "preserved",
+      "clauses": [
+        "LG-417.0"
+      ],
+      "overlap": true,
+      "note": "Boundary of the requested terminal accounting (temporary health must not make an ordinary hit look terminal)."
+    },
+    {
+      "id": "case:lethal-overflow-full-transition-clamps-real-health",
+      "role": "target",
+      "clauses": [
+        "LG-417.1",
+        "LG-417.4",
+        "LG-PRES.5"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:stale-terminal-event-cannot-create-negative-accounting",
+      "role": "preserved",
+      "clauses": [
+        "LG-PRES.4"
+      ],
+      "overlap": true,
+      "note": "Boundary of the requested lethal clamp."
+    },
+    {
+      "id": "case:exact-zero-delayed-output-is-terminal",
+      "role": "target",
+      "clauses": [
+        "LG-417.3",
+        "LG-417.4",
+        "LG-PRES.5"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:incapacitation-full-transition-captures-effective-health",
+      "role": "target",
+      "clauses": [
+        "LG-417.2",
+        "LG-417.4",
+        "LG-PRES.5"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:incapacitation-with-notifications-disabled-still-counts",
+      "role": "target",
+      "clauses": [
+        "LG-417.2",
+        "LG-417.4"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:self-incapacitation-does-not-change-friendly-fire-counters",
+      "role": "preserved",
+      "clauses": [
+        "LG-PRES.3"
+      ],
+      "overlap": true,
+      "note": "Boundary of the requested incapacitation accounting."
+    },
+    {
+      "id": "case:ordinary-tank-damage-remains-counted",
+      "role": "preserved",
+      "clauses": [
+        "LG-428.3",
+        "Task-preserve-ordinary-damage"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:tank-zero-type-is-ignored",
+      "role": "preserved",
+      "clauses": [
+        "Task-preserve-ordinary-damage"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:tank-synthetic-after-transition-adds-zero",
+      "role": "target",
+      "clauses": [
+        "LG-428.1",
+        "LG-428.3"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:tank-terminal-with-invalid-attacker-is-ignored",
+      "role": "preserved",
+      "clauses": [
+        "LG-428.3"
+      ],
+      "overlap": true,
+      "note": "Boundary of the requested Tank terminal accounting."
+    },
+    {
+      "id": "case:tank-terminal-transition-counts-real-health-once",
+      "role": "target",
+      "clauses": [
+        "LG-428.1",
+        "LG-428.3"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:non-tank-incapacitation-does-not-change-tank-total",
+      "role": "preserved",
+      "clauses": [
+        "LG-428.3"
+      ],
+      "overlap": true,
+      "note": "Boundary of the requested Tank terminal accounting."
+    },
+    {
+      "id": "case:ordinary-shots-after-complete-tank-transition-are-ignored",
+      "role": "target",
+      "clauses": [
+        "LG-428.2"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:ordinary-special-infected-damage-remains-counted",
+      "role": "preserved",
+      "clauses": [
+        "Task-preserve-ordinary-damage"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:qualified-entityflame-tick-uses-real-health-loss",
+      "role": "target",
+      "clauses": [
+        "LG-433.1"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:ordinary-entityflame-type-is-not-multiplied",
+      "role": "preserved",
+      "clauses": [
+        "LG-433.2"
+      ],
+      "overlap": true,
+      "note": "Boundary of the requested flame normalization."
+    },
+    {
+      "id": "case:qualified-fire-type-on-other-weapon-is-not-multiplied",
+      "role": "preserved",
+      "clauses": [
+        "LG-433.2"
+      ],
+      "overlap": true,
+      "note": "Boundary of the requested flame normalization."
+    },
+    {
+      "id": "case:special-infected-terminal-overflow-remains-clamped",
+      "role": "preserved",
+      "clauses": [
+        "LG-433.3"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:stale-special-infected-event-cannot-subtract-damage",
+      "role": "target",
+      "clauses": [
+        "LG-433.4"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:common-infected-kill-and-headshot-counters-remain-intact",
+      "role": "preserved",
+      "clauses": [
+        "Task-preserve-kill-counters"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:special-infected-kill-and-headshot-counters-remain-intact",
+      "role": "preserved",
+      "clauses": [
+        "Task-preserve-kill-counters"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:survivor-death-does-not-change-infected-kill-counters",
+      "role": "preserved",
+      "clauses": [
+        "Task-preserve-kill-counters"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:revive-marker-survives-domination-cleanup-tick",
+      "role": "target",
+      "clauses": [
+        "LG-445.1",
+        "LG-445.2"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:incapacitated-and-ledge-hints-share-revive-cleanup",
+      "role": "target",
+      "clauses": [
+        "LG-445.2"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:successful-map-baseline-survives-next-failed-map",
+      "role": "target",
+      "clauses": [
+        "LG-439.1"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:replayed-failed-map-keeps-last-successful-baseline",
+      "role": "target",
+      "clauses": [
+        "LG-439.2"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:rewardhp-temporary-only-mode-clamps-at-limit",
+      "role": "target",
+      "clauses": [
+        "LG-452.1"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:rewardhp-temporary-only-mode-keeps-full-fitting-reward",
+      "role": "preserved",
+      "clauses": [
+        "LG-452.1"
+      ],
+      "overlap": true,
+      "note": "Holds in the starter; the non-clamping half of the requested mode-2 rule."
+    },
+    {
+      "id": "case:rewardhp-hybrid-mode-preserves-permanent-fallback",
+      "role": "preserved",
+      "clauses": [
+        "LG-452.2"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "check:submission-shape",
+      "role": "static",
+      "clauses": [
+        "Task-source-only"
+      ],
+      "overlap": false,
+      "note": ""
+    }
+  ],
+  "clauses": [
+    {
+      "id": "LG-417.0",
+      "anchor": "Problem [#LG-417] s1a: \"Ordinary friendly-fire totals agree\"",
+      "status": "asserted",
+      "note": "Existing behavior; holds in the starter."
+    },
+    {
+      "id": "LG-417.1",
+      "anchor": "Problem [#LG-417] s2: a lethal hit contributes only the health that was available (\"30 health available ... hit for 45 should contribute 30\")",
+      "status": "asserted",
+      "note": "Nonce-seeded permanent/temporary/overflow values; the fixture reports post-hit health = -(temporary + overflow) while the buffer is still readable (suite.nut:695-714)."
+    },
+    {
+      "id": "LG-417.2",
+      "anchor": "Problem [#LG-417] s3: an incapacitating hit contributes permanent plus temporary pre-hit health (\"12 permanent and 8 temporary ... should contribute 20\")",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "LG-417.3",
+      "anchor": "Problem [#LG-417] s4: a hit landing on exactly zero health must produce a delayed message saying the victim died",
+      "status": "asserted",
+      "note": "Looks for the substring \"杀死\" in any captured ClientPrint (suite.nut:746)."
+    },
+    {
+      "id": "LG-417.4",
+      "anchor": "Problem [#LG-417] s5: \"Damage received by the victim and all corresponding round totals must agree with the attacker.\"",
+      "status": "asserted",
+      "note": "AssertFriendlyFire compares atk/t_atk/vct/t_vct in every terminal case."
+    },
+    {
+      "id": "LG-PRES.1",
+      "anchor": "Problem [Preservation: delayed team-hurt messages.] s1a: \"repeated hits for one attacker/victim pair aggregate into one delayed message\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "LG-PRES.2",
+      "anchor": "Problem [Preservation] s1b: \"different pairs remain independent\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "LG-PRES.3",
+      "anchor": "Problem [Preservation] s2a: \"Self-damage ... [is] not friendly fire\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "LG-PRES.4",
+      "anchor": "Problem [Preservation] s2b: damage reported after a Survivor was already incapacitated, dying, or dead is not friendly fire",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "LG-PRES.5",
+      "anchor": "Problem [Preservation] s3: \"Terminal labels must describe the same pair and aggregate as their damage totals.\"",
+      "status": "weak",
+      "note": "Terminal cases check that the amount appears for attacker and victim and that a label substring appears in ANY printed message; no case mixes a terminal hit with earlier hits of the same pair or with a second pair."
+    },
+    {
+      "id": "LG-428.1",
+      "anchor": "Problem [#LG-428] s1: the last real-health Tank damage must be counted exactly once (neither absent nor twice)",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "LG-428.2",
+      "anchor": "Problem [#LG-428] s2: ordinary shots after the Tank entered its incapacitated death transition must not inflate the ranking",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "LG-428.3",
+      "anchor": "Problem [#LG-428] s3: \"only real Tank health removed by each Survivor may be counted\"",
+      "status": "asserted",
+      "note": "Single attacker only; \"each Survivor\" is not exercised with two attackers."
+    },
+    {
+      "id": "LG-433.1",
+      "anchor": "Problem [#LG-433] s1: the qualified entityflame tick (type 268435464, dmg_health 4) must add the real loss 12",
+      "status": "asserted",
+      "note": "Over-constrained towards a x3 rule; see known_issues."
+    },
+    {
+      "id": "LG-433.2",
+      "anchor": "Problem [#LG-433] s2: \"Other weapon/type combinations still report their real damage directly and must not be multiplied.\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "LG-433.3",
+      "anchor": "Problem [#LG-433] s3a: \"Terminal overkill remains clamped to remaining health\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "LG-433.4",
+      "anchor": "Problem [#LG-433] s3b: \"stale post-death events must never subtract from cumulative or round totals\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "LG-439.1",
+      "anchor": "Problem [#LG-439] s1: with cumulative statistics and discardLostRound, totals of a successfully completed map must survive a failed next map",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "LG-439.2",
+      "anchor": "Problem [#LG-439] s2: replaying the failed map discards only the failed attempt; the last successful-map totals are the baseline",
+      "status": "asserted",
+      "note": "One key (t_si) of one player; two failed attempts."
+    },
+    {
+      "id": "LG-445.1",
+      "anchor": "Problem [#LG-445] s1: incapacitated and ledge-hanging help markers must not disappear under the domination cleanup path",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "LG-445.2",
+      "anchor": "Problem [#LG-445] s2: \"Revive markers must share one lifecycle with each other, but not with domination markers.\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "LG-452.1",
+      "anchor": "Problem [#LG-452] s2: mode 2 grants only temporary health and clamps the reward to the remaining total-health capacity",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "LG-452.2",
+      "anchor": "Problem [#LG-452] s3: mode 3 keeps its behavior: full temporary reward when it fits, otherwise the permanent reward",
+      "status": "weak",
+      "note": "Only the permanent-fallback half is exercised; the \"fits\" half of mode 3 has no case."
+    },
+    {
+      "id": "Task-preserve-ordinary-damage",
+      "anchor": "Task paragraph 1: preserve \"ordinary damage\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "Task-preserve-kill-counters",
+      "anchor": "Task paragraph 1: preserve \"kill/headshot counters\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "Task-preserve-ranking-cache-config",
+      "anchor": "Task paragraph 1: preserve \"ranking and cache configuration\"",
+      "status": "unasserted",
+      "note": "No case reads rank columns, rank styles or the cache configuration; the cache cases only drive the discardLostRound rollback that is itself the target."
+    },
+    {
+      "id": "Task-preserve-event-integration",
+      "anchor": "Task paragraph 1: preserve \"the existing event integration\"",
+      "status": "weak",
+      "note": "Every case dispatches through the callbacks the submission registered in ::LinGe.Events.trigger for its owner table (suite.nut:199-218), so handlers must stay registered through LinEventHook; nothing checks the engine-side registration itself."
+    },
+    {
+      "id": "Task-preserve-entrypoint",
+      "anchor": "Task paragraph 1: preserve \"the addon entrypoint\"",
+      "status": "weak",
+      "note": "vscripts/director_base_addon.nut must exist (verify.py:31-37, a pre-case gate) and no case is observed at all unless the staged addon entrypoint loads the project; cited from the first case as a stand-in."
+    },
+    {
+      "id": "Task-no-polling",
+      "anchor": "Task paragraph 2: \"Do not replace event handling with per-tick health polling.\"",
+      "status": "unasserted",
+      "note": "No static or behavioral check looks for polling."
+    },
+    {
+      "id": "Task-license",
+      "anchor": "Task paragraph 2: \"Preserve the upstream MIT license and attribution.\"",
+      "status": "unasserted",
+      "note": "verify.py:156-160 requires two substrings in LICENSE. Enforced only by a verify.py package gate that runs before any case; it has no named case, and a violation aborts verification with every case unobserved instead of failing one. check:submission-shape (plugin evaluator.py:176-205) covers only required files, symlinks, .git and forbidden suffixes."
+    },
+    {
+      "id": "Task-source-only",
+      "anchor": "Task paragraph 2: source-only submission (no compiled binaries, archives, symbolic links, Git metadata)",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "Task-no-tests-edit",
+      "anchor": "Task paragraph 2: \"Do not modify anything under /tests.\"",
+      "status": "unasserted",
+      "note": "Process rule; /tests is not part of the submitted tree."
+    }
+  ],
+  "excluded_clauses": [
+    "Task-preserve-ranking-cache-config",
+    "Task-no-polling",
+    "Task-license",
+    "Task-no-tests-edit"
+  ],
+  "known_issues": [
+    "TOOLING: the implicit `reference` control cannot be built for this task. tools/study/src/rhenium_study/controls.py:88-102 relocates /app and /solution only inside solution/solve.sh, but this task's solve.sh delegates to solution/solve.py, which hard-codes ROOT = /app/linge-hud (solve.py:5). `rhenium-study e0 baseline` aborted here (no reference.execution.json, and no baseline at all for the following task). All controls of this task are therefore `base=starter` with complete patches; reference-equivalent.patch reproduces the oracle tree byte-for-byte and was executed once as evidence (see NOTES.md).",
+    "benchmarks/l4d2-core/private/harbor/l4d2-linge-release-regressions-hard-v3/tests/suite.nut:870-878 (qualified-entityflame-tick-uses-real-health-loss): the mock victim keeps health 70 and no pre-damage callback is driven, so the only way to obtain 12 is to multiply the reported 4 by 3 for weapon=entityflame/type=268435464. An implementation that derives the real loss from observed health (pre-damage snapshot vs. post-hit health), which the public wording \"while the target actually lost 12 health\" equally supports, reports 4 and fails. Over-constraining towards the reference strategy.",
+    "benchmarks/l4d2-core/private/harbor/l4d2-linge-release-regressions-hard-v3/tests/suite.nut:695-714 and :749-771: the terminal Survivor fixtures encode one specific engine convention (post-hit health is negative by temporary+overflow while GetHealthBuffer() still returns the pre-hit buffer; pre-hit health is still readable during player_incapacitated_start). Implementations are only accepted if their arithmetic matches that convention or they use the VSLib OnTakeDamage pre-damage chain; this is documented in the maintainer NOTES.md as the supported boundary.",
+    "benchmarks/l4d2-core/private/harbor/l4d2-linge-release-regressions-hard-v3/tests/suite.nut:33-50 and verify.py:328-395: the whole suite is one server boot. If the VM or server crashes mid-run (historically during case 28 for submissions whose Hint.nut merges the DOMINATE/REVIVE lifecycle, see harbor NOTES.md), no unique FINAL marker exists, verify.py raises before printing any case, and all 42 cases are unobserved (U) rather than failed.",
+    "benchmarks/l4d2-core/private/harbor/l4d2-linge-release-regressions-hard-v3/tests/suite.nut:52-120: all players are Squirrel mock objects, not engine entities; HUD/RewardHP cases therefore check event-handler arithmetic inside the real VM, not engine damage. Only the Hint cases touch real entities (env_instructor_hint through DoEntFire).",
+    "benchmarks/l4d2-core/private/harbor/l4d2-linge-release-regressions-hard-v3/tests/suite.nut:585, 713, 746, 770: terminal labels are matched by Chinese substrings (\"杀死\", \"倒\") in any captured message; the public text never fixes the wording, so a submission that rephrases the terminal messages fails these cases.",
+    "The Hint defect is `DOMINATE = 0` in enum HINTMODE: Squirrel does not advance its implicit counter after an explicit value, so REVIVE silently also becomes 0. The public smoke check cannot reveal this."
+  ]
+}

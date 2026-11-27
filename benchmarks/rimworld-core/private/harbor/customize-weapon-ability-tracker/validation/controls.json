@@ -1,0 +1,99 @@
+{
+  "schemaVersion": 3,
+  "catalogVersion": "0.3.2",
+  "privateProtocol": "rhenium-rimworld-private-v3",
+  "assertionManifestSha256": "377a6a4f53d879504729a8592b3e14aa121b46d9ea9fce892dfa785d048d099a",
+  "runtime": "rimworld/rimworld-1.6.4871-linux-x64",
+  "engineAssertionsRan": true,
+  "evidenceGeneration": {
+    "status": "run",
+    "date": "2026-09-24",
+    "host": "Linux x86_64 Docker host (NixOS), networkless evaluation",
+    "path": "rhenium run and rhenium-study e0 run through the Hub",
+    "note": "verifier repairs of 2026-09-24 first; see docs/games/rimworld.md#engine-validation-2026-09-24"
+  },
+  "plannedMatrix": {
+    "oracle": {
+      "expectedPassed": 18,
+      "expectedFailed": 0
+    },
+    "base": {
+      "expectedPassed": 7,
+      "expectedFailed": 11
+    },
+    "nop": {
+      "expectedPassed": 7,
+      "expectedFailed": 11
+    }
+  },
+  "plannedOutcomesAreAuthoringExpectations": true,
+  "referenceCompile": {
+    "status": "passed",
+    "date": "2026-09-24"
+  },
+  "containerBuild": {
+    "status": "passed",
+    "date": "2026-09-24"
+  },
+  "realEngine": {
+    "status": "passed",
+    "date": "2026-09-24"
+  },
+  "reusablePriorEvidence": false,
+  "oracle": {
+    "status": "passed",
+    "evidenceProtocol": "rhenium-rimworld-private-v3",
+    "runs": [
+      "run-169880b19aff4131",
+      "run-ef338d8f840b44bb",
+      "run-95ca3d9298e6484b"
+    ],
+    "score": 100.0,
+    "passed": 18,
+    "failed": 0,
+    "identicalCaseOutcomes": true
+  },
+  "base": {
+    "status": "failed-targets-only",
+    "evidenceProtocol": "rhenium-rimworld-private-v3",
+    "run": "run-3c5d095073dc4769",
+    "score": 10.0,
+    "passed": 14,
+    "failed": 4,
+    "failedCases": [
+      "duplicate-props-deduplicated",
+      "holder-update-adds-ability",
+      "managed-ability-added",
+      "missing-tracker-created"
+    ]
+  },
+  "nop": {
+    "status": "failed-targets-only",
+    "evidenceProtocol": "rhenium-rimworld-private-v3",
+    "run": "run-b768928ac41a466c",
+    "score": 10.0,
+    "passed": 14,
+    "failed": 4,
+    "failedCases": [
+      "duplicate-props-deduplicated",
+      "holder-update-adds-ability",
+      "managed-ability-added",
+      "missing-tracker-created"
+    ],
+    "materialization": "rhenium-study e0 starter control (Hub workspace copy)"
+  },
+  "authoringRevision": 3,
+  "negativeControls": {
+    "status": "not-run",
+    "kind": "authoring expectations",
+    "mutations": [
+      "omit one started resource restoration registration while another same-name registration remains",
+      "leave a task field or collection changed",
+      "throw during restoration",
+      "leave an extra Rand push",
+      "candidate operation throws: complete failed if fixture integrity remains healthy"
+    ],
+    "studyControls": "private/study-controls/customize-weapon-ability-tracker/NOTES.md"
+  },
+  "plannedCountsNeedEngineReconciliation": false
+}

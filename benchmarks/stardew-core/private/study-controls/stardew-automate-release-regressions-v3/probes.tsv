@@ -1,0 +1,2 @@
+control	kind	base	overlay	root	note
+probe-246-unfixed	target-negative	reference	patch:probe-246-unfixed.patch	StardewMods	PROBE: reference with only the #246 (removed bush) fix reverted; #246 is unasserted, expected to pass every case

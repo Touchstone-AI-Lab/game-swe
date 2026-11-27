@@ -1,0 +1,4 @@
+control	kind	base	overlay	root	note
+target-negative-ex335	target-negative	reference	patch:target-negative-ex335.patch	exodus	reference with the two EX-335 Iron Lung hunks of the composite gold.patch (5, 6) reverted: gas cleanup still runs only from a living Iron Lung
+compat-negative-jera-duplicate-health	compat-negative	reference	patch:compat-negative-jera-duplicate-health.patch	exodus	reference with lilRuneFamiliarUpdate losing its duplicate HitPoints assignment while the ownership check is added to that function; the Jera duplicate health is not reported in this exam
+alternative	alternative	starter	patch:alternative.patch	exodus	starter plus the composite task's independent alternative repairs of EX-203, EX-247, EX-327, EX-335, EX-342 only (its hunks 1, 2, 3, 4, 11, 24); written differently from gold.patch, see NOTES.md

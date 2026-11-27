@@ -1,0 +1,2 @@
+import mindustry.mod.Plugin;
+public final class ItemReservationLedgerPlugin extends Plugin { private static ItemReservationLedgerPlugin INSTANCE; private final ReservationLedger core=new ReservationLedger(); public ItemReservationLedgerPlugin(){INSTANCE=this;} public static ItemReservationLedgerPlugin instance(){return INSTANCE;} public ReservationLedger core(){return core;} public Object exportState(){return core.save();} }

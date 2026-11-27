@@ -1,0 +1,26 @@
+.direnv/
+.devenv*
+devenv.local.nix
+devenv.local.yaml
+.env
+.dstbench/
+.rhenium/
+/mine/
+.venv*/
+.cache/
+.test-state/
+.core-state/
+dist-check/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.DS_Store
+.deepseek
+# The Nix build symlink, at the repository root only: an unanchored rule also
+# matches vendored upstream source directories named `result`.
+/result
+.modelflare
+# Local reports for the maintainer; never committed.
+/.report/

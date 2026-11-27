@@ -1,0 +1,711 @@
+{
+  "id": "terraria-core",
+  "version": "0.1.0",
+  "game": "terraria",
+  "name": {
+    "en": "Terraria and tModLoader repository-debugging tasks",
+    "zh": "Terraria 与 tModLoader 仓库调试任务"
+  },
+  "description": {
+    "en": "Independently authored source-level repairs over frozen real mod repositories, evaluated offline against production code paths.",
+    "zh": "基于真实模组冻结源码、逐题独立设计的源码级修复任务，通过生产代码路径离线评测。"
+  },
+  "tasks": [
+    {
+      "id": "terraria-magic-storage-compressed-io-regressions-hard",
+      "difficulty": "hard",
+      "title": {
+        "en": "Repair Magic Storage compressed-I/O regressions",
+        "zh": "修复 Magic Storage 压缩 I/O 回归"
+      },
+      "summary": {
+      "en": "Repair nested framing, full-width scalar, long-string, malformed-length, item-codec, and transactional-send failures in Magic Storage's production binary format.",
+      "zh": "修复 Magic Storage 生产二进制格式中的嵌套帧、全宽标量、长字符串、畸形长度、物品编解码与事务发送故障。"
+      },
+      "brief": {
+      "en": "Diagnose eleven interacting operator reports while preserving unaffected encodings and failure isolation.",
+      "zh": "诊断十一组相互影响的运营者报告，同时保持未受影响的编码与失败隔离行为。"
+      },
+      "requirements": {
+        "en": [
+        "Repair all eleven reported behavior groups in the existing production files.",
+          "Keep the submission source-only and preserve public signatures."
+        ],
+        "zh": [
+        "在现有生产源码中修复全部十一组报告行为。",
+          "保持提交仅含源码并维持公共签名。"
+        ]
+      },
+      "api_usage": {
+        "en": [
+          "Preserve Magic Storage's ValueReader, ValueWriter, compressed-string, and NetCompression contracts."
+        ],
+        "zh": [
+          "保持 Magic Storage 的 ValueReader、ValueWriter、压缩字符串与 NetCompression 合同。"
+        ]
+      },
+      "acceptance": {
+        "en": [
+        "All 68 private offline source-projection cases must pass without network access."
+        ],
+        "zh": [
+        "全部 68 个私有离线源码投影用例必须在无网络环境中通过。"
+        ]
+      },
+      "domains": [
+        "csharp",
+        "binary-format",
+        "serialization",
+        "networking",
+        "repository-debugging"
+      ],
+      "estimated_minutes": 360,
+      "required_files": [
+        "magic-storage/Common/IO/BitBuffer128.cs",
+        "magic-storage/Common/IO/ValueReader.cs",
+        "magic-storage/Common/IO/ValueWriter.cs",
+        "magic-storage/Common/IO/StringCompressor.cs",
+        "magic-storage/Common/IO/NetCompression.NetIO.cs"
+      ],
+      "task_kind": "repository-debugging",
+      "source_mod": "Magic Storage",
+      "source_repo": "https://github.com/blushiemagic/MagicStorage",
+      "source_commit": "08c76b8911c999908ea8f08b1aa217e8e7e604cd",
+      "source_license": "MIT",
+      "starter_name": "magic-storage",
+      "container_destination": "/workspace/magic-storage",
+      "submission_language": "C#",
+      "game_version": "1.4.4.9",
+      "tmodloader_api": "1.4.4 stable API",
+      "evaluation_boundary": "layered offline .NET 8 source projection plus pinned real tModLoader 2026.7.3.0 dedicated-server assertions against Terraria 1.4.4.9; disclosed client-only behavior remains source-projection-only",
+    "expected_cases": 68,
+    "defect_groups": 11
+    },
+    {
+      "id": "terraria-fargos-enchanted-tree-transactions-hard",
+      "difficulty": "hard",
+      "title": {
+        "en": "Repair Fargo's Enchanted Tree transactions",
+        "zh": "修复 Fargo 魔法树事务"
+      },
+      "summary": {
+        "en": "Repair item insertion, graph compaction, branch expansion, paid duplication, recipe snapshots, network state, and once-per-frame updates in Fargo's Mutant Mod's Enchanted Tree.",
+        "zh": "修复 Fargo 突变体模组魔法树的物品插入、图压缩、分支展开、付费复制、配方快照、网络状态与逐帧唯一更新。"
+      },
+      "brief": {
+        "en": "Reconstruct one tile-entity feature across interaction, lifecycle, persistence, multiplayer, and collection-mutation boundaries.",
+        "zh": "跨交互、生命周期、持久化、多人同步与集合变更边界重建同一方块实体功能。"
+      },
+      "requirements": {
+        "en": [
+          "Repair all fifteen reported behavior groups in the existing production files.",
+          "Preserve public signatures and keep the submission source-only."
+        ],
+        "zh": [
+          "在现有生产源码中修复全部十五组报告行为。",
+          "保持公共签名并确保提交仅含源码。"
+        ]
+      },
+      "api_usage": {
+        "en": [
+          "Preserve FargoItemSets policy, ModSystem recipe lifecycle, ModTile interaction, and ModTileEntity save/network contracts."
+        ],
+        "zh": [
+          "保持 FargoItemSets 策略、ModSystem 配方生命周期、ModTile 交互与 ModTileEntity 存档/网络合同。"
+        ]
+      },
+      "acceptance": {
+        "en": [
+          "All 78 private offline source-projection cases must pass without network access."
+        ],
+        "zh": [
+          "全部 78 个私有离线源码投影用例必须在无网络环境中通过。"
+        ]
+      },
+      "domains": [
+        "csharp",
+        "tile-entity",
+        "lifecycle",
+        "serialization",
+        "networking",
+        "repository-debugging"
+      ],
+      "estimated_minutes": 480,
+      "required_files": [
+        "fargos-mutant/Common/Systems/Recipes/MiscRecipeSystem.cs",
+        "fargos-mutant/Content/Items/Tiles/EnchantedTreeSheet.cs",
+        "fargos-mutant/Content/Items/Tiles/EnchantedTreeTileEntity.cs"
+      ],
+      "task_kind": "repository-debugging",
+      "source_mod": "Fargo's Mutant Mod",
+      "source_repo": "https://github.com/Fargowilta/Fargowiltas",
+      "source_commit": "85246bb5e4d3b225028b1bf73cd6d99b81674307",
+      "source_license": "MIT",
+      "starter_name": "fargos-mutant",
+      "container_destination": "/workspace/fargos-mutant",
+      "submission_language": "C#",
+      "game_version": "1.4.4.9",
+      "tmodloader_api": "1.4.4 stable API",
+      "evaluation_boundary": "layered offline .NET 8 source projection plus pinned real tModLoader 2026.7.3.0 dedicated-server assertions against Terraria 1.4.4.9; disclosed client-only behavior remains source-projection-only",
+      "expected_cases": 78,
+      "defect_groups": 15
+    },
+    {
+      "id": "terraria-overhaul-entity-chunk-lifetime-hard",
+      "difficulty": "hard",
+      "title": {
+        "en": "Repair Terraria Overhaul entity-backed chunk lifetime",
+        "zh": "修复 Terraria Overhaul 实体化区块生命周期"
+      },
+      "summary": {
+        "en": "Repair load-order mask growth, active query snapshots, sparse mutation, generational entity-slot reuse, and transactional chunk creation and teardown in Terraria Overhaul's production data layer.",
+        "zh": "修复 Terraria Overhaul 生产数据层中的加载期掩码扩容、活动查询快照、稀疏变更、代际实体槽位复用以及事务化区块创建与销毁。"
+      },
+      "brief": {
+        "en": "Keep five coupled storage representations and a reentrant ModSystem lifecycle consistent across capacity and counter boundaries.",
+        "zh": "在容量与计数器边界上保持五个耦合存储表示及可重入 ModSystem 生命周期一致。"
+      },
+      "requirements": {
+        "en": [
+          "Repair all sixteen reported behavior groups in the existing production files.",
+          "Preserve existing type/method surfaces and keep the submission source-only."
+        ],
+        "zh": [
+          "在现有生产源码中修复全部十六组报告行为。",
+          "保持既有类型/方法接口并确保提交仅含源码。"
+        ]
+      },
+      "api_usage": {
+        "en": [
+          "Preserve Overhaul's Component, DataEntity, Query, SparseSet, and ModSystem chunk lifecycle contracts."
+        ],
+        "zh": [
+          "保持 Overhaul 的 Component、DataEntity、Query、SparseSet 与 ModSystem 区块生命周期合同。"
+        ]
+      },
+      "acceptance": {
+        "en": [
+          "All 78 private offline source-projection cases must pass without network access."
+        ],
+        "zh": [
+          "全部 78 个私有离线源码投影用例必须在无网络环境中通过。"
+        ]
+      },
+      "domains": [
+        "csharp",
+        "data-structures",
+        "entity-lifecycle",
+        "world-chunks",
+        "repository-debugging"
+      ],
+      "estimated_minutes": 480,
+      "required_files": [
+        "terraria-overhaul/Core/Data/DataStorage.cs",
+        "terraria-overhaul/Core/Data/SparseSet.cs",
+        "terraria-overhaul/Core/Data/Entities.cs",
+        "terraria-overhaul/Core/Chunks/Chunks.cs",
+        "terraria-overhaul/Utilities/BitMasks.cs"
+      ],
+      "task_kind": "repository-debugging",
+      "source_mod": "Terraria Overhaul",
+      "source_repo": "https://github.com/Mirsario/TerrariaOverhaul",
+      "source_commit": "55c23fbde42f6fcb9eb266992475a040d14c2b84",
+      "source_license": "GPL-3.0",
+      "starter_name": "terraria-overhaul",
+      "container_destination": "/workspace/terraria-overhaul",
+      "submission_language": "C#",
+      "game_version": "1.4.4.9",
+      "tmodloader_api": "1.4.4 stable API",
+      "evaluation_boundary": "layered offline .NET 8 source projection plus pinned real tModLoader 2026.7.3.0 dedicated-server assertions against Terraria 1.4.4.9; disclosed client-only behavior remains source-projection-only",
+      "expected_cases": 78,
+      "defect_groups": 16
+    },
+    {
+      "id": "terraria-improvegame-space-wand-authority-hard",
+      "difficulty": "hard",
+      "title": {
+        "en": "Repair Quality of Terraria Space Wand authority",
+        "zh": "修复 Quality of Terraria 空间法杖权限与几何逻辑"
+      },
+      "summary": {
+        "en": "Repair overflow-safe shape selection, postcondition-based neighborhood transactions, and authenticated mutation-ledger-driven Space Wand packet execution.",
+        "zh": "修复防溢出的形状选择、基于后置状态的邻域事务与经过身份校验、由脏状态账本驱动的空间法杖数据包执行。"
+      },
+      "brief": {
+        "en": "Keep drag geometry, rollback, world mutation, inventory accounting, execution order, and exact dirty synchronization consistent across client/server paths.",
+        "zh": "保持拖拽几何、回滚、世界变更、库存计账、执行顺序和精确脏区同步在客户端/服务端路径间一致。"
+      },
+      "requirements": {
+        "en": [
+          "Repair all fourteen behavior groups in the retained production files.",
+          "Preserve public signatures and keep the submission source-only."
+        ],
+        "zh": [
+          "在保留的生产源码中修复全部十四组行为。",
+          "保持公共签名并确保提交仅含源码。"
+        ]
+      },
+      "api_usage": {
+        "en": [
+          "Preserve Space Wand shape, TileLoader/WorldGen mutation, item consumption, NetModule receive, and NetMessage synchronization contracts."
+        ],
+        "zh": [
+          "保持空间法杖形状、TileLoader/WorldGen 变更、物品消耗、NetModule 接收与 NetMessage 同步合同。"
+        ]
+      },
+      "acceptance": {
+        "en": [
+          "All 82 private offline source-projection cases must pass without network access."
+        ],
+        "zh": [
+          "全部 82 个私有离线源码投影用例必须在无网络环境中通过。"
+        ]
+      },
+      "domains": [
+        "csharp",
+        "geometry",
+        "transactions",
+        "network-authority",
+        "repository-debugging"
+      ],
+      "estimated_minutes": 420,
+      "required_files": [
+        "improvegame/Content/Items/SpaceWand.Shapes.cs",
+        "improvegame/Content/Items/SpaceWand.Operations.cs",
+        "improvegame/Content/Packets/SpaceWandOperation.cs"
+      ],
+      "task_kind": "repository-debugging",
+      "source_mod": "Quality of Terraria",
+      "source_repo": "https://github.com/487666123/ImproveGame",
+      "source_commit": "284fa78849f2234e70300f101a92a36db34b256d",
+      "source_license": "MIT",
+      "starter_name": "improvegame",
+      "container_destination": "/workspace/improvegame",
+      "submission_language": "C#",
+      "game_version": "1.4.4.9",
+      "tmodloader_api": "1.4.4 stable API",
+      "evaluation_boundary": "layered offline .NET 8 source projection plus pinned real tModLoader 2026.7.3.0 dedicated-server assertions against Terraria 1.4.4.9; disclosed client-only behavior remains source-projection-only",
+      "expected_cases": 82,
+      "defect_groups": 14
+    },
+    {
+      "id": "terraria-spirit-branching-quest-replication-hard",
+      "difficulty": "hard",
+      "title": {
+        "en": "Repair Spirit Mod branching quest replication",
+        "zh": "修复 Spirit Mod 分支任务复制"
+      },
+      "summary": {
+        "en": "Repair quest debounce, deterministic branch identity, variable task-state framing, and authoritative multiplayer state transitions.",
+        "zh": "修复任务防抖、确定性分支身份、可变任务状态帧与服务端权威中继。"
+      },
+      "brief": {
+        "en": "Keep one branching transition consistent across local ticks, save/join buffers, packed snapshots, server validation, and remote application.",
+        "zh": "保持一次分支转换在本地更新、存档/加入缓冲、压缩快照、服务端校验与远程应用间一致。"
+      },
+      "requirements": {
+        "en": [
+          "Repair all sixteen behavior groups in the retained production files.",
+          "Preserve public signatures and keep the submission source-only."
+        ],
+        "zh": [
+          "在保留的生产源码中修复全部十六组行为。",
+          "保持公共签名并确保提交仅含源码。"
+        ]
+      },
+      "api_usage": {
+        "en": [
+          "Preserve Spirit Mod's Quest, QuestTask, BranchingTask, task-buffer, and QuestMultiplayer contracts."
+        ],
+        "zh": [
+          "保持 Spirit Mod 的 Quest、QuestTask、BranchingTask、任务缓冲与 QuestMultiplayer 合同。"
+        ]
+      },
+      "acceptance": {
+        "en": [
+          "All 97 private offline source-projection cases must pass without network access."
+        ],
+        "zh": [
+          "全部 97 个私有离线源码投影用例必须在无网络环境中通过。"
+        ]
+      },
+      "domains": [
+        "csharp",
+        "state-machine",
+        "serialization",
+        "network-authority",
+        "repository-debugging"
+      ],
+      "estimated_minutes": 420,
+      "required_files": [
+        "spirit-mod/Mechanics/QuestSystem/Quest.cs",
+        "spirit-mod/Mechanics/QuestSystem/QuestMultiplayer.cs",
+        "spirit-mod/Mechanics/QuestSystem/Tasks/QuestTask.cs",
+        "spirit-mod/Mechanics/QuestSystem/Tasks/BranchingTask.cs"
+      ],
+      "task_kind": "repository-debugging",
+      "source_mod": "Spirit Mod",
+      "source_repo": "https://github.com/GabeHasWon/SpiritMod",
+      "source_commit": "7ef2993d6f465f44420b2028e8666748ab31fe43",
+      "source_license": "MIT",
+      "starter_name": "spirit-mod",
+      "container_destination": "/workspace/spirit-mod",
+      "submission_language": "C#",
+      "game_version": "1.4.4.9",
+      "tmodloader_api": "1.4.4 stable API",
+      "evaluation_boundary": "layered offline .NET 8 source projection plus pinned real tModLoader 2026.7.3.0 dedicated-server assertions against Terraria 1.4.4.9; disclosed client-only behavior remains source-projection-only",
+      "expected_cases": 97,
+      "defect_groups": 16
+    },
+    {
+      "id": "terraria-modliquid-map-persistence-hard",
+      "difficulty": "hard",
+      "title": {
+        "en": "Repair ModLiquid map persistence",
+        "zh": "修复 ModLiquid 地图持久化"
+      },
+      "summary": {
+        "en": "Repair atomic custom-liquid registry generations, coherent sparse/RLE sidecar transactions, and fail-closed map hooks in ModLiquid.",
+        "zh": "修复 ModLiquid 的原子自定义液体注册表世代、一致的稀疏/RLE 边车事务与故障关闭式地图钩子。"
+      },
+      "brief": {
+        "en": "Keep registry publication, option callbacks, content identity, map generations, three run widths, rollback, sidecar cleanup, and eight exact IL anchors coherent across one production path.",
+        "zh": "在同一生产路径中保持注册表发布、选项回调、内容身份、地图世代、三种游程宽度、回滚、边车清理与八个精确 IL 锚点一致。"
+      },
+      "requirements": {
+        "en": [
+          "Repair all seventeen behavior groups across the five production repair targets and retained map-entry model.",
+          "Preserve method signatures and on-disk field order; keep the submission source-only."
+        ],
+        "zh": [
+          "在五个生产修复目标及保留的地图条目模型中修复全部十七组行为。",
+          "保持方法签名与磁盘字段顺序，并确保提交仅含源码。"
+        ]
+      },
+      "api_usage": {
+        "en": [
+          "Preserve ModLiquid's MapLiquidIO, MapLoader, MapLiquidLoader, FileUtilities, cloud sidecar, and MonoMod IL-hook contracts."
+        ],
+        "zh": [
+          "保持 ModLiquid 的 MapLiquidIO、MapLoader、MapLiquidLoader、FileUtilities、云端边车与 MonoMod IL 钩子合同。"
+        ]
+      },
+      "acceptance": {
+        "en": [
+          "All 103 private offline source-projection cases must pass without network access."
+        ],
+        "zh": [
+          "全部 103 个私有离线源码投影用例必须在无网络环境中通过。"
+        ]
+      },
+      "domains": [
+        "csharp",
+        "binary-format",
+        "run-length-encoding",
+        "transactions",
+        "registries",
+        "il-hooks",
+        "repository-debugging"
+      ],
+      "estimated_minutes": 600,
+      "required_files": [
+        "mod-liquid-lib/IO/MapLiquidIO.cs",
+        "mod-liquid-lib/Hooks/MapHelperHooks.cs",
+        "mod-liquid-lib/Hooks/MapLoaderHooks.cs",
+        "mod-liquid-lib/Hooks/WorldMapHooks.cs",
+        "mod-liquid-lib/ModLoader/MapEntry.cs",
+        "mod-liquid-lib/ModLoader/MapLiquidLoader.cs"
+      ],
+      "task_kind": "repository-debugging",
+      "source_mod": "ModLiquid Library",
+      "source_repo": "https://github.com/Lion8cake/ModLiquidLib",
+      "source_commit": "282498893150b53d2e52efe26be0813aa8c8e193",
+      "source_license": "MIT",
+      "starter_name": "mod-liquid-lib",
+      "container_destination": "/workspace/mod-liquid-lib",
+      "submission_language": "C#",
+      "game_version": "1.4.4.9",
+      "tmodloader_api": "1.4.4 stable API",
+      "evaluation_boundary": "layered offline .NET 8 source projection plus pinned real tModLoader 2026.7.3.0 dedicated-server assertions against Terraria 1.4.4.9; disclosed client-only behavior remains source-projection-only",
+      "expected_cases": 103,
+      "defect_groups": 17
+    },
+    {
+      "id": "terraria-aequus-carpentry-replication-hard",
+      "difficulty": "hard",
+      "title": {
+        "en": "Repair Aequus carpentry replication",
+        "zh": "修复 Aequus 木工任务复制"
+      },
+      "summary": {
+        "en": "Repair stable content identity, registry-generation transactions, building validation, world sync, packet authority, and player cloning in Aequus's carpentry feature.",
+        "zh": "修复 Aequus 木工功能中的稳定内容身份、注册表代际事务、建筑验证、世界同步、数据包权限与玩家克隆。"
+      },
+      "brief": {
+        "en": "Keep persistent names, transient IDs, two bounded binary frames, reentrant live scans, and client/server state transitions coherent across one production feature.",
+        "zh": "在同一生产功能中保持持久名称、临时 ID、两个有界二进制帧、可重入实时扫描与客户端/服务端状态转换一致。"
+      },
+      "requirements": {
+        "en": [
+          "Repair all twelve behavior groups in the retained production files.",
+          "Preserve public signatures and keep the submission source-only."
+        ],
+        "zh": [
+          "在保留的生产源码中修复全部十二组行为。",
+          "保持公共签名并确保提交仅含源码。"
+        ]
+      },
+      "api_usage": {
+        "en": [
+          "Preserve Aequus's BuildChallengeSaveData, BuildBuffsData, ModSystem lifecycle, packet, and ModPlayer clone contracts."
+        ],
+        "zh": [
+          "保持 Aequus 的 BuildChallengeSaveData、BuildBuffsData、ModSystem 生命周期、数据包与 ModPlayer 克隆合同。"
+        ]
+      },
+      "acceptance": {
+        "en": [
+          "All 87 private offline source-projection cases must pass without network access."
+        ],
+        "zh": [
+          "全部 87 个私有离线源码投影用例必须在无网络环境中通过。"
+        ]
+      },
+      "domains": [
+        "csharp",
+        "persistence",
+        "serialization",
+        "network-authority",
+        "repository-debugging"
+      ],
+      "estimated_minutes": 420,
+      "required_files": [
+        "aequus/Common/Carpentry/BuildChallengeSaveData.cs",
+        "aequus/Common/Carpentry/BuildBuffsData.cs",
+        "aequus/Common/Carpentry/CarpentrySystem.cs",
+        "aequus/Common/Carpentry/CarpentryPlayer.cs"
+      ],
+      "task_kind": "repository-debugging",
+      "source_mod": "Aequus",
+      "source_repo": "https://github.com/UriBuilder/AQMod",
+      "source_commit": "f823418776e7dd54b0f370e3ff1b4befc2bc857d",
+      "source_license": "MIT",
+      "starter_name": "aequus",
+      "container_destination": "/workspace/aequus",
+      "submission_language": "C#",
+      "game_version": "1.4.4.9",
+      "tmodloader_api": "1.4.4 stable API",
+      "evaluation_boundary": "layered offline .NET 8 source projection plus pinned real tModLoader 2026.7.3.0 dedicated-server assertions against Terraria 1.4.4.9; disclosed client-only behavior remains source-projection-only",
+      "expected_cases": 87,
+      "defect_groups": 12
+    },
+    {
+      "id": "terraria-starlight-ability-state-hard",
+      "difficulty": "hard",
+      "title": {
+        "en": "Repair Starlight River ability state",
+        "zh": "修复 Starlight River 能力状态"
+      },
+      "summary": {
+        "en": "Repair deterministic ability persistence, positional infusions, callback-safe delayed and death-interrupted transitions, revoked-instance retirement, and authoritative progress/start packets.",
+        "zh": "修复确定性能力持久化、位置化灌注、回调安全的延迟与死亡中断转换、被撤销实例的退役，以及权威进度/启动数据包。"
+      },
+      "brief": {
+        "en": "Keep runtime objects, save tags, queued hooks, stamina, bit masks, and sender identity coherent across one player progression feature.",
+        "zh": "在同一玩家进度功能中保持运行时对象、存档标签、排队钩子、耐力、位掩码与发送者身份一致。"
+      },
+      "requirements": {
+        "en": [
+          "Repair all eleven behavior groups in the retained production files.",
+          "Preserve public type and method names and keep the submission source-only."
+        ],
+        "zh": [
+          "在保留的生产源码中修复全部十一组行为。",
+          "保持公共类型与方法名称，并确保提交仅含源码。"
+        ]
+      },
+      "api_usage": {
+        "en": [
+          "Preserve Starlight River's Ability, AbilityHandler, ShardSet, InfusionItem, AbilityProgress, and StartAbility contracts."
+        ],
+        "zh": [
+          "保持 Starlight River 的 Ability、AbilityHandler、ShardSet、InfusionItem、AbilityProgress 与 StartAbility 合同。"
+        ]
+      },
+      "acceptance": {
+        "en": [
+          "All 84 private offline source-projection cases must pass without network access."
+        ],
+        "zh": [
+          "全部 84 个私有离线源码投影用例必须在无网络环境中通过。"
+        ]
+      },
+      "domains": [
+        "csharp",
+        "persistence",
+        "state-machine",
+        "network-authority",
+        "repository-debugging"
+      ],
+      "estimated_minutes": 480,
+      "required_files": [
+        "starlight-river/Content/Abilities/Ability.cs",
+        "starlight-river/Content/Abilities/AbilityHandler.cs",
+        "starlight-river/Content/Abilities/ShardSet.cs",
+        "starlight-river/Content/Abilities/InfusionItem.cs",
+        "starlight-river/Content/Abilities/InfusionTier.cs",
+        "starlight-river/Content/Packets/AbilityProgress.cs",
+        "starlight-river/Content/Packets/StartAbility.cs"
+      ],
+      "task_kind": "repository-debugging",
+      "source_mod": "Starlight River",
+      "source_repo": "https://github.com/ProjectStarlight/StarlightRiver",
+      "source_commit": "d367416dcadfe68a541a5821a0c4be86b42db219",
+      "source_license": "GPL-3.0",
+      "starter_name": "starlight-river",
+      "container_destination": "/workspace/starlight-river",
+      "submission_language": "C#",
+      "game_version": "1.4.4.9",
+      "tmodloader_api": "1.4.4 stable API",
+      "evaluation_boundary": "layered offline .NET 8 source projection plus pinned real tModLoader 2026.7.3.0 dedicated-server assertions against Terraria 1.4.4.9; disclosed client-only behavior remains source-projection-only",
+      "expected_cases": 84,
+      "defect_groups": 11
+    },
+    {
+      "id": "terraria-fargos-toggle-presets-hard",
+      "difficulty": "hard",
+      "title": {
+        "en": "Repair Fargo's Souls toggle presets",
+        "zh": "修复 Fargo 灵魂模组切换预设"
+      },
+      "summary": {
+        "en": "Repair immutable definition snapshots, live registry rebasing, player-local state, durable presets, player restore, built-in/custom presets, and safe lookup.",
+        "zh": "修复不可变定义快照、实时注册表迁移、玩家本地状态、持久预设、玩家恢复、内建/自定义预设与安全查找。"
+      },
+      "brief": {
+        "en": "Keep changing global definitions, per-player backends, preference files, custom slots, sync snapshots, and Mutant Presence policy coherent across one production toggler.",
+        "zh": "在同一生产切换系统中保持变化中的全局定义、玩家后端、偏好文件、自定义槽位、同步快照与突变体存在策略一致。"
+      },
+      "requirements": {
+        "en": [
+          "Repair all eight behavior groups in the retained production files.",
+          "Preserve public type and method names and keep the submission source-only."
+        ],
+        "zh": [
+          "在保留的生产源码中修复全部八组行为。",
+          "保持公共类型与方法名称，并确保提交仅含源码。"
+        ]
+      },
+      "api_usage": {
+        "en": [
+          "Preserve Fargo's Souls Toggle, ToggleLoader, ToggleBackend, and SoulCheck contracts."
+        ],
+        "zh": [
+          "保持 Fargo 灵魂模组的 Toggle、ToggleLoader、ToggleBackend 与 SoulCheck 合同。"
+        ]
+      },
+      "acceptance": {
+        "en": [
+          "All 82 private offline source-projection cases must pass without network access."
+        ],
+        "zh": [
+          "全部 82 个私有离线源码投影用例必须在无网络环境中通过。"
+        ]
+      },
+      "domains": [
+        "csharp",
+        "persistence",
+        "state-isolation",
+        "content-registry",
+        "repository-debugging"
+      ],
+      "estimated_minutes": 480,
+      "required_files": [
+        "fargos-souls/Core/Toggler/Toggle.cs",
+        "fargos-souls/Core/Toggler/ToggleLoader.cs",
+        "fargos-souls/Core/Toggler/ToggleBackend.cs",
+        "fargos-souls/Core/Toggler/SoulCheck.cs"
+      ],
+      "task_kind": "repository-debugging",
+      "source_mod": "Fargo's Souls Mod",
+      "source_repo": "https://github.com/Fargowilta/FargowiltasSouls",
+      "source_commit": "226fadeadbe3422785a7708ba2cdf53bd8548c00",
+      "source_license": "MIT",
+      "starter_name": "fargos-souls",
+      "container_destination": "/workspace/fargos-souls",
+      "submission_language": "C#",
+      "game_version": "1.4.4.9",
+      "tmodloader_api": "1.4.4 stable API",
+      "evaluation_boundary": "layered offline .NET 8 source projection plus pinned real tModLoader 2026.7.3.0 dedicated-server assertions against Terraria 1.4.4.9; disclosed client-only behavior remains source-projection-only",
+      "expected_cases": 82,
+      "defect_groups": 10
+    },
+    {
+      "id": "terraria-calamity-overhaul-time-replication-hard",
+      "difficulty": "hard",
+      "title": {
+        "en": "Repair Calamity Overhaul time-control replication",
+        "zh": "修复灾厄大修时间控制复制"
+      },
+      "summary": {
+        "en": "Repair entity identity, deferred binding, cancellation, expiry, and sectioned late-join time-control snapshots.",
+        "zh": "修复实体身份、延迟绑定、取消、过期与分段的后加入时间控制快照。"
+      },
+      "brief": {
+        "en": "Keep NPC and projectile wire identities, pending work, callback failures, bounded timers, and transactional snapshot framing coherent across one replication system.",
+        "zh": "在同一复制系统中保持 NPC 与弹射物线缆身份、待处理工作、回调故障、有界计时器与事务化快照帧一致。"
+      },
+      "requirements": {
+        "en": [
+          "Repair all eight behavior groups in the retained production files.",
+          "Preserve existing type and method names and keep the submission source-only."
+        ],
+        "zh": [
+          "在保留的生产源码中修复全部八组行为。",
+          "保持既有类型与方法名称，并确保提交仅含源码。"
+        ]
+      },
+      "api_usage": {
+        "en": [
+          "Preserve Calamity Overhaul's NetworkEntityIdentity and TimeControlReplicationSystem contracts."
+        ],
+        "zh": [
+          "保持灾厄大修的 NetworkEntityIdentity 与 TimeControlReplicationSystem 合同。"
+        ]
+      },
+      "acceptance": {
+        "en": [
+          "All 78 private offline source-projection cases must pass without network access."
+        ],
+        "zh": [
+          "全部 78 个私有离线源码投影用例必须在无网络环境中通过。"
+        ]
+      },
+      "domains": [
+        "csharp",
+        "entity-identity",
+        "deferred-work",
+        "network-framing",
+        "repository-debugging"
+      ],
+      "estimated_minutes": 480,
+      "required_files": [
+        "calamity-overhaul/Content/TimeFreezes/NetworkEntityIdentity.cs",
+        "calamity-overhaul/Content/TimeFreezes/TimeControlReplicationSystem.cs"
+      ],
+      "task_kind": "repository-debugging",
+      "source_mod": "Calamity Overhaul",
+      "source_repo": "https://github.com/hocha113/CalamityOverhaul",
+      "source_commit": "91d8ea961644a48d20d051ace9a948dbf9f8298c",
+      "source_license": "MIT",
+      "starter_name": "calamity-overhaul",
+      "container_destination": "/workspace/calamity-overhaul",
+      "submission_language": "C#",
+      "game_version": "1.4.4.9",
+      "tmodloader_api": "1.4.4 stable API",
+      "evaluation_boundary": "layered offline .NET 8 source projection plus pinned real tModLoader 2026.7.3.0 dedicated-server assertions against Terraria 1.4.4.9; disclosed client-only behavior remains source-projection-only",
+      "expected_cases": 78,
+      "defect_groups": 8
+    }
+  ]
+}

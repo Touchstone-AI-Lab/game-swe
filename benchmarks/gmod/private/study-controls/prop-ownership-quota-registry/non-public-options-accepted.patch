@@ -1,0 +1,11 @@
+--- a/lua/rhenium_prop_registry/registry.lua
++++ b/lua/rhenium_prop_registry/registry.lua
+@@ -171,7 +171,7 @@
+ end
+
+ function Registry.new(options)
+-    if type(options) ~= "table" or options.max_props ~= 2 or options.cleanup_delay ~= 5 then
++    if type(options) ~= "table" or type(options.max_props) ~= "number" or type(options.cleanup_delay) ~= "number" then
+         return nil, "invalid_options"
+     end
+     local self = setmetatable({ max_props = options.max_props,

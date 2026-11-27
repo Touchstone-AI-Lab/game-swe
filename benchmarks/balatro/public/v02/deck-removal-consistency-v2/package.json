@@ -1,0 +1,40 @@
+{
+  "protocol": "v2",
+  "task": "deck-removal-consistency-v2",
+  "slot": "M2",
+  "target_difficulty": "medium",
+  "calibration_status": "unmeasured",
+  "calibration_model": null,
+  "calibration_evidence": [],
+  "formal_integration_status": "not_implemented",
+  "files": {
+    "CONTRACT.md": {
+      "size": 3720,
+      "sha256": "2f6e7e99ebe84425419e45d47e942fa12216b4d437accfc4ec7ca49c77f34918"
+    },
+    "README.md": {
+      "size": 1373,
+      "sha256": "62521eff01c1fa4aecc8b7a68225b9bace38e592b9e0a70ad384bd2e2bb1259d"
+    },
+    "starter/main.lua": {
+      "size": 453,
+      "sha256": "b1d269e26f3720bdff7d75f95ed74342c4661ed6af7508defa053a8e670289dc"
+    },
+    "starter/lib/lifecycle.lua": {
+      "size": 499,
+      "sha256": "4157cf9eb82ec43e097f62ca0132e7427946e618de264571094745943e120741"
+    },
+    "starter/deck_removal_consistency_v2.json": {
+      "size": 329,
+      "sha256": "b1c7118eb28048738a9f95ce9a4aff1bbff6f237840b5f037716417dc542c73f"
+    }
+  },
+  "content_sha256": "cd24bfca58c3c8ed75f731c36a3ac9c42839dae05e7b27fcccca56742573edef",
+  "editable_files": [
+    "starter/main.lua",
+    "starter/lib/lifecycle.lua"
+  ],
+  "immutable_files": [
+    "starter/deck_removal_consistency_v2.json"
+  ]
+}

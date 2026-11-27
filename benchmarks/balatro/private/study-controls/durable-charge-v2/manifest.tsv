@@ -1,0 +1,7 @@
+control	kind	base	overlay	root	note
+M01-duplicate	compat-negative	starter	pack:private/native-v1/controls/durable-charge-v2/M01-duplicate	starter	frozen mutant: every requested-change case passes and a preserved case fails
+M02-snapshot-alias	target-negative	starter	pack:private/native-v1/controls/durable-charge-v2/M02-snapshot-alias	starter	frozen mutant: fails only requested-change cases
+M03-zero-restore	target-negative	starter	pack:private/native-v1/controls/durable-charge-v2/M03-zero-restore	starter	frozen mutant: fails only requested-change cases
+M04-restore-pollution	compat-negative	starter	pack:private/native-v1/controls/durable-charge-v2/M04-restore-pollution	starter	frozen mutant: every requested-change case passes and a preserved case fails
+M05-row-restore	target-negative	starter	pack:private/native-v1/controls/durable-charge-v2/M05-row-restore	starter	frozen mutant: fails only requested-change cases
+gold-journal	alternative	starter	pack:private/native-v1/controls/durable-charge-v2/gold-journal	starter	frozen independent correct implementation

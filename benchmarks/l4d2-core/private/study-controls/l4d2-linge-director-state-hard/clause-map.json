@@ -1,0 +1,575 @@
+{
+  "task": "left-4-dead-2/core/l4d2-linge-director-state-hard",
+  "task_version": "1.0.0",
+  "exam": "benchmarks/l4d2-core/exams/l4d2-linge-director-state-hard.md",
+  "cases": [
+    {
+      "id": "case:merge-case-input-purity",
+      "role": "target",
+      "clauses": [
+        "R1.1",
+        "R1.2"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:merge-array-no-alias",
+      "role": "target",
+      "clauses": [
+        "R1.1"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:merge-reserved-copy",
+      "role": "target",
+      "clauses": [
+        "R1.1",
+        "R1.3"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:merge-replacement-and-guards",
+      "role": "target",
+      "clauses": [
+        "R1.3"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:restore-array-numeric-order",
+      "role": "target",
+      "clauses": [
+        "R2.1"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:restore-array-invalid-is-atomic",
+      "role": "target",
+      "clauses": [
+        "R2.2"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:restore-array-copy-and-empty",
+      "role": "target",
+      "clauses": [
+        "R2.1",
+        "R2.3"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:config-loadall-missing",
+      "role": "target",
+      "clauses": [
+        "R3.1"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:config-saveall-missing",
+      "role": "target",
+      "clauses": [
+        "R3.1"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:config-bulk-malformed-roots",
+      "role": "target",
+      "clauses": [
+        "R3.1"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:config-sections-identity-and-reserve",
+      "role": "target",
+      "clauses": [
+        "R3.2"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:config-single-recovery-and-preservation",
+      "role": "target",
+      "clauses": [
+        "R3.3"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:event-remove-current-snapshot",
+      "role": "target",
+      "clauses": [
+        "R4.1"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:event-prepend-next-dispatch",
+      "role": "target",
+      "clauses": [
+        "R4.1",
+        "R4.2"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:event-nested-sees-current-registration",
+      "role": "target",
+      "clauses": [
+        "R4.1"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:event-duplicates-binding-index",
+      "role": "preserved",
+      "clauses": [
+        "R4.2"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:event-nested-reset-isolation",
+      "role": "target",
+      "clauses": [
+        "R5.1"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:event-shared-edits-within-dispatch",
+      "role": "target",
+      "clauses": [
+        "R5.1"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:event-nested-dispatch-payload",
+      "role": "target",
+      "clauses": [
+        "R5.2"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:event-null-and-stop",
+      "role": "target",
+      "clauses": [
+        "R5.2",
+        "R5.1"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:director-whitelist-invalid-and-dedup",
+      "role": "target",
+      "clauses": [
+        "R7.1",
+        "R7.3"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:director-whitelist-without-quantity",
+      "role": "target",
+      "clauses": [
+        "R7.2",
+        "R8.2"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:director-nonarray-clears-restriction",
+      "role": "preserved",
+      "clauses": [
+        "R7.1"
+      ],
+      "overlap": true,
+      "note": "Holds in the starter; it is the nonarray boundary of the requested whitelist normalisation, hence overlap."
+    },
+    {
+      "id": "case:director-minimum-obeys-ceiling",
+      "role": "target",
+      "clauses": [
+        "R8.1"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:director-independent-controls",
+      "role": "preserved",
+      "clauses": [
+        "R8.2"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:director-population-expression",
+      "role": "preserved",
+      "clauses": [
+        "R8.1"
+      ],
+      "overlap": true,
+      "note": "Holds in the starter for these in-range values (3 + 2 x survivors, simin 1); the requested ceiling itself is director-minimum-obeys-ceiling."
+    },
+    {
+      "id": "case:director-command-survives-round",
+      "role": "target",
+      "clauses": [
+        "R9.1"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:director-disable-survives-round",
+      "role": "target",
+      "clauses": [
+        "R9.1"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:director-invalid-cache-preserves-choice",
+      "role": "target",
+      "clauses": [
+        "R9.1"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:director-valid-cache-defers-activation",
+      "role": "target",
+      "clauses": [
+        "R9.1"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:director-disable-idempotent",
+      "role": "preserved",
+      "clauses": [
+        "R9.2"
+      ],
+      "overlap": true,
+      "note": "Holds in the starter; it is the repeated-disable half of R9.2."
+    },
+    {
+      "id": "case:director-command-preserves-sentinels",
+      "role": "preserved",
+      "clauses": [
+        "R9.4"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:director-valid-restore-releases-active-overrides",
+      "role": "target",
+      "clauses": [
+        "R9.1",
+        "R9.2"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:director-invalid-restore-releases-active-overrides",
+      "role": "target",
+      "clauses": [
+        "R9.1",
+        "R9.2"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:event-delayed-queue-snapshot",
+      "role": "target",
+      "clauses": [
+        "R6.1",
+        "R6.2"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:event-delayed-payloads-independent",
+      "role": "target",
+      "clauses": [
+        "R6.1"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:event-delayed-subscribers-at-delivery",
+      "role": "preserved",
+      "clauses": [
+        "R6.1"
+      ],
+      "overlap": true,
+      "note": "Holds in the starter (subscribers were already selected at delivery); the payload-capture half is the target."
+    },
+    {
+      "id": "case:director-pending-refresh-after-disable",
+      "role": "preserved",
+      "clauses": [
+        "R9.3"
+      ],
+      "overlap": true,
+      "note": "Holds in the starter for this fixture."
+    },
+    {
+      "id": "case:director-common-cleanup-fixture",
+      "role": "setup",
+      "clauses": [
+        "R9.2"
+      ],
+      "overlap": false,
+      "note": "Fixture: spawns a real common infected with MoreSI enabled."
+    },
+    {
+      "id": "case:director-common-cleanup-enabled",
+      "role": "preserved",
+      "clauses": [
+        "R9.4"
+      ],
+      "overlap": false,
+      "note": "Existing enabled cleanup (sinoci) still removes commons."
+    },
+    {
+      "id": "case:director-common-cleanup-disabled",
+      "role": "preserved",
+      "clauses": [
+        "R9.2"
+      ],
+      "overlap": true,
+      "note": "Holds in the starter."
+    },
+    {
+      "id": "check:submission-shape",
+      "role": "static",
+      "clauses": [
+        "Task-source-only"
+      ],
+      "overlap": false,
+      "note": "Evaluator gate (plugin evaluator.py _static_check); verify.py adds its own package checks before the server starts."
+    }
+  ],
+  "clauses": [
+    {
+      "id": "R1.1",
+      "anchor": "Report 1 s3: `LinGe.Merge(dest, source, ...)` leaves `source` unchanged and copies accepted table/array values recursively",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "R1.2",
+      "anchor": "Report 1 s4-5: case-insensitive matching with exact-key precedence; preserve destination spelling and existing nested table identity",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "R1.3",
+      "anchor": "Report 1 s6-7: unrecognised keys ignored unless reserveKey; keep integer-to-bool conversion and the typeMatch=false replacement behaviour",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "R2.1",
+      "anchor": "Report 2 s2-3: a table keyed by exactly `0..n-1` (integers or canonical decimal strings) merges into an array in numeric order; empty tables mean empty arrays",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "R2.2",
+      "anchor": "Report 2 s4: sparse, negative, noncanonical, duplicate or nonnumeric indexes leave the destination array unchanged without rejecting valid siblings",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "R2.3",
+      "anchor": "Report 2 s5: reconstructed nested values do not alias the source",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "R3.1",
+      "anchor": "Report 3 s1-2: `ConfigManager.LoadAll`/`SaveAll` recover from an absent or malformed file (including a non-table root) to the registered values and write a valid file",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "R3.2",
+      "anchor": "Report 3 s3: loading updates registered tables in place, obeys reserveKey per section and never registers an unknown file section",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "R3.3",
+      "anchor": "Report 3 s4-5: bulk and single-section saves preserve unrelated sections; single-section Load/Save share the malformed-root recovery",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "R4.1",
+      "anchor": "Report 4 s2-3: each `LinEventTrigger` runs the callback list captured when it begins; changes affect later (including nested) invocations only",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "R4.2",
+      "anchor": "Report 4 s4: preserve duplicate registrations, prepend order, `callOf` binding, forward/reverse unhooking, return values and the public Hook/UnHook/Index/Trigger APIs",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "R5.1",
+      "anchor": "Report 5 s2-3: each dispatch deep-copies the caller's payload; subscribers share edits until RESET, which restores the original for later subscribers",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "R5.2",
+      "anchor": "Report 5 s4-5: nested dispatches are isolated from their parent; ACTION_STOP stops only its own invocation; null payloads remain valid",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "R6.1",
+      "anchor": "Report 6 s2: delayed events capture their payload when queued but select subscribers when the delay expires; two queued events stay independent",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "R6.2",
+      "anchor": "Report 6 s3-4: preserve ignoring never-registered names, the VSLib timer path and ordinary immediate events",
+      "status": "weak",
+      "note": "Only the timer path is exercised through the delayed cases; never-registered names are not."
+    },
+    {
+      "id": "R7.1",
+      "anchor": "Report 7 s2: normalise string entries case-insensitively, keep the first occurrence of each supported class, discard invalid/nonstring entries; nonarray input means no restriction",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "R7.2",
+      "anchor": "Report 7 s3: resolve the per-class ceiling from the number of distinct supported classes, also with quantity control disabled (total of four)",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "R7.3",
+      "anchor": "Report 7 s4: \"Do not mutate a caller's input array while normalising it.\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "R8.1",
+      "anchor": "Report 8 s2: with quantity control enabled the effective maximum is `min(31, max(simin, sibase + siauto * survivorCount))`, applied to total, dominator and per-class limits",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "R8.2",
+      "anchor": "Report 8 s3: disabling quantity control keeps the whitelist, respawn interval and initial delay working",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "R9.1",
+      "anchor": "Report 9 s2-4: the latest `sion`/`sioff` choice survives round start; a valid cache restore overrides it, an invalid one preserves it; restore keeps MoreSI disabled until round start",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "R9.2",
+      "anchor": "Report 9 s5: starting disabled or disabling repeatedly removes MoreSI's Director overrides and cleanup timer without exception",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "R9.3",
+      "anchor": "Report 9 s6: a pending population-refresh timer must not re-enable a disabled controller",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "R9.4",
+      "anchor": "Report 9 s7: keep command argument semantics (`-2` unchanged), public command registration and independent option-disable behaviour",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "Task-preserve-behaviour",
+      "anchor": "Delivery: preserve the addon entrypoint, API names, licenses, normal HUD/damage, hint and reward behaviour",
+      "status": "unasserted",
+      "note": "No case observes HUD, hint or reward behaviour; the license is a pre-case package gate."
+    },
+    {
+      "id": "Task-no-polling",
+      "anchor": "Delivery: \"Do not add polling as a substitute for event handling.\"",
+      "status": "unasserted",
+      "note": "Not measurable from the suite."
+    },
+    {
+      "id": "Task-source-only",
+      "anchor": "Delivery: keep source only; no binaries, archives, symlinks or Git metadata",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "Task-no-tests-edit",
+      "anchor": "Delivery: do not modify `/tests`",
+      "status": "unasserted",
+      "note": "Process rule."
+    }
+  ],
+  "excluded_clauses": [
+    "Task-preserve-behaviour",
+    "Task-no-polling",
+    "Task-no-tests-edit"
+  ],
+  "known_issues": [
+    "benchmarks/l4d2-core/private/harbor/l4d2-linge-director-state-hard/tests/verify.py:parse_results: the suite is one server boot. A missing or non-unique FINAL marker, or conflicting duplicate case markers, raises SubmissionFailure before any case line is printed, so every case is unobserved and the evaluator reports an incomplete (not a failing) result.",
+    "benchmarks/l4d2-core/private/harbor/l4d2-linge-director-state-hard/tests/verify.py:collect_server: boot plus suite must reach FINAL within SUITE_DEADLINE_SECONDS (240 s since 2026-09-24, previously 55 s) of wall time; the suite itself needs about 7 s of engine time, so this is a slow-host limit, not an assertion. A missed deadline is an incomplete run.",
+    "Merge/config/event cases are Squirrel VM-level API tests inside the real server; they do not simulate a campaign or measure Director spawn frequency (task NOTES.md)."
+  ]
+}

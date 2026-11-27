@@ -1,0 +1,15 @@
+--- a/R4/Source/Utility/MaterialUtility.cs
++++ b/R4/Source/Utility/MaterialUtility.cs
+@@ -426,12 +426,6 @@
+                 if (visitedCells.Contains(cell)) continue;
+                 if (!cell.InBounds(map)) continue;
+ 
+-                Building edifice = cell.GetEdifice(map);
+-                if (edifice != null
+-                    && edifice.def.passability == Traversability.Impassable
+-                    && edifice.def.surfaceType == SurfaceType.None)
+-                    continue;
+-
+                 TryConsumeFromCell(cell, bench, map, remaining);
+             }
+         }

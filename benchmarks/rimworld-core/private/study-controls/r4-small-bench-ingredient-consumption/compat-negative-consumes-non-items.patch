@@ -1,0 +1,10 @@
+--- a/R4/Source/Utility/MaterialUtility.cs
++++ b/R4/Source/Utility/MaterialUtility.cs
+@@ -448,7 +448,6 @@
+                 if (remaining.Count == 0) break;
+                 Thing t = things[i];
+                 if (t == bench) continue;
+-                if (t.def.category != ThingCategory.Item) continue;
+                 if (!remaining.TryGetValue(t.def, out int need)) continue;
+ 
+                 int toConsume = Mathf.Min(need, t.stackCount);

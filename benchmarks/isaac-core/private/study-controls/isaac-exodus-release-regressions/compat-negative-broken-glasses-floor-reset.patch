@@ -1,0 +1,11 @@
+--- a/main.lua
++++ b/main.lua
+@@ -2247,7 +2247,7 @@
+ 
+ function Exodus:trinketNewFloor()
+     if ItemVariables.BROKEN_GLASSES.Broke then
+-        ItemVariables.BROKEN_GLASSES.Broke = false
++        -- the broken-world state is kept across floors
+     end
+ end
+ 

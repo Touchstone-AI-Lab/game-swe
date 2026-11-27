@@ -1,0 +1,9 @@
+control	kind	base	overlay	root	note
+alternative-second-reference	alternative	starter	tree:alternative-second-reference	.	second authored reference (player-rows): sorted row lists for players/events instead of the oracle's keyed maps
+alternative-strict-reading	alternative	starter	tree:alternative-strict-reading	.	player-rows with undisclosed conventions replaced: own hook/timer names (<prefix>.<HookEvent>) and no HookPrefix/TimerName export; expected to show problems
+alternative-strict-reading-layout	alternative	starter	tree:alternative-strict-reading-layout	.	player-rows with only the snapshot/save list keys renamed (sorted lists under players/events instead of player_rows/event_rows); T4-PERSIST-01 names no key for player state; expected to show problems
+holder-successor-unsorted	target-negative	reference	patch:holder-successor-unsorted.patch	.	mutation: holder successor is not chosen in player-ID order
+infected-survivors-can-win	target-negative	reference	patch:infected-survivors-can-win.patch	.	mutation: infectious settlement keeps infected survivors among winners
+fake-death-lifecycle	target-negative	reference	patch:fake-death-lifecycle.patch	.	mutation: PlayerDeath hook is registered but does not reach the core
+callback-restoration-removed	target-negative	reference	patch:callback-restoration-removed.patch	.	mutation: original StartTouch/Touch callbacks are not restored on unbind
+shutdown-leaks-timer	target-negative	reference	patch:shutdown-leaks-timer.patch	.	lifecycle mutation: Shutdown keeps the repeating timer

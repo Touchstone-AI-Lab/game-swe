@@ -1,0 +1,2 @@
+# Largest region, in blocks, that /ward define accepts.
+max-region-volume: 1000000

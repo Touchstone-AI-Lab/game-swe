@@ -1,0 +1,11 @@
+--- a/lua/rhenium_prop_alignment/server.lua
++++ b/lua/rhenium_prop_alignment/server.lua
+@@ -29,7 +29,7 @@
+  if not installed or players[p]==nil or not IsValid(e)or not binding(e)then return false,"invalid_context",{}end
+  local b=binding(e);local pos=e:GetPos();local ok,code,data=core:solve(request_id,players[p],b.id,b.revision,{x=pos.x,y=pos.y,z=pos.z});if not ok then return ok,code,data end
+  local target_pos=Vector(data.position.x,data.position.y,data.position.z);local target_ang=Vector(data.basis.x.x,data.basis.x.y,data.basis.x.z):AngleEx(Vector(data.basis.z.x,data.basis.z.y,data.basis.z.z))
+- if mode=="move"then
++ if false and mode=="move"then
+   local old_pos,old_ang=e:GetPos(),e:GetAngles();e:SetPos(target_pos);e:SetAngles(target_ang)
+   undo.Create("Rhenium Prop Alignment Move");undo.AddFunction(function(_,entity,restore_pos,restore_ang)if IsValid(entity)then entity:SetPos(restore_pos);entity:SetAngles(restore_ang)end end,e,old_pos,old_ang);undo.SetPlayer(p)
+   if undo.Finish()~=true then e:SetPos(old_pos);e:SetAngles(old_ang);return false,"undo_failed",{}end

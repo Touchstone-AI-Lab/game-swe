@@ -1,0 +1,12 @@
+diff -ruN a/l4dinfectedbots/scripting/l4dinfectedbots.sp b/l4dinfectedbots/scripting/l4dinfectedbots.sp
+--- a/l4dinfectedbots/scripting/l4dinfectedbots.sp	2026-09-21 05:44:06.875949098 +0800
++++ b/l4dinfectedbots/scripting/l4dinfectedbots.sp	2026-09-21 05:44:06.879251045 +0800
+@@ -5933,7 +5933,7 @@
+ 				ePluginData[i].m_iMaxSpecials = hData.GetNum("max_specials", ePluginData[0].m_iMaxSpecials);
+ 				ePluginData[i].m_bMaxSpecialsIncludingTank = view_as<bool>(hData.GetNum("max_specials_tank_including", ePluginData[0].m_bMaxSpecialsIncludingTank));
+ 
+-				ePluginData[i].m_fSpawnTimeMax = hData.GetFloat("spawn_time_max", ePluginData[0].m_fSpawnTimeMax);
++				ePluginData[i].m_fSpawnTimeMax = hData.GetFloat("spawn_time_max", 60.0);
+ 				ePluginData[i].m_fSpawnTimeMin = hData.GetFloat("spawn_time_min", ePluginData[0].m_fSpawnTimeMin);
+ 				ePluginData[i].m_fSILife = hData.GetFloat("life", ePluginData[0].m_fSILife);
+ 				ePluginData[i].m_fInitialSpawnTime = hData.GetFloat("initial_spawn_time", ePluginData[0].m_fInitialSpawnTime);

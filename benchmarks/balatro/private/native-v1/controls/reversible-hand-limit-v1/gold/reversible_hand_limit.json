@@ -1,0 +1,15 @@
+{
+  "id": "reversible_hand_limit",
+  "name": "Reversible Hand Limit",
+  "author": [
+    "Balatro PoC"
+  ],
+  "description": "Compositional hand limit on ordinary ownership changes",
+  "prefix": "rhl",
+  "main_file": "joker.lua",
+  "version": "1.0.0",
+  "priority": 10,
+  "dependencies": [
+    "Steamodded (>=1.~)"
+  ]
+}

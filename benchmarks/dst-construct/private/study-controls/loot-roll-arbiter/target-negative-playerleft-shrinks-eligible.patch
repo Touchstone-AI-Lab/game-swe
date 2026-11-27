@@ -1,0 +1,26 @@
+--- a/scripts/components/lootrollarbiter.lua
++++ b/scripts/components/lootrollarbiter.lua
+@@ -27,12 +27,14 @@
+     self.pending = {}
+     self.players = {}
+     self.next_roll = 1
++    self.departed = {}
+ 
+     -- A departing player stays in every frozen eligible set; only the cached
+     -- entity is forgotten so a later delivery resolves the userid again.
+     self._on_player_left = function(_, player)
+         if type(player) == "table" and type(player.userid) == "string" then
+             self.players[player.userid] = nil
++            self.departed[player.userid] = true
+         end
+     end
+     inst:ListenForEvent("ms_playerleft", self._on_player_left)
+@@ -153,7 +155,7 @@
+ 
+ function LootRollArbiter:Choose(player, roll_id, choice, revision)
+     local userid = type(player) == "table" and player.userid or nil
+-    if type(userid) ~= "string" or userid == "" then
++    if type(userid) ~= "string" or userid == "" or self.departed[userid] then
+         return { ok = false, code = "not_eligible" }
+     end
+     local chosen = self.core:choose(roll_id, userid, choice, revision, GetTime())

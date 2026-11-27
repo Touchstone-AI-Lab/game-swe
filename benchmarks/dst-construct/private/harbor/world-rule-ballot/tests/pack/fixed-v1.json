@@ -1,0 +1,230 @@
+{
+  "id": "rhenium-dst-v2",
+  "version": "2.1.0",
+  "game": "dst",
+  "name": {
+    "en": "Rhenium: Original Don't Starve Together Systems Tasks",
+    "zh": "Rhenium：《饥荒联机版》原创系统工程题"
+  },
+  "description": {
+    "en": "Ten independently authored hard engineering tasks built only around base-game Don't Starve Together APIs, prefabs, components, and assets.",
+    "zh": "十道独立设计的高难度工程题，仅使用《饥荒联机版》原版 API、prefab、组件与资源。"
+  },
+  "tasks": [
+    {
+      "id": "world-rule-ballot",
+      "difficulty": "hard",
+      "title": {
+        "en": "Server-authoritative World Rule Ballot",
+        "zh": "服务端权威世界规则投票"
+      },
+      "summary": {
+        "en": "Run deterministic timed ballots over a frozen electorate while rejecting forged options, stale revisions, late votes, and duplicate closure.",
+        "zh": "针对冻结选民集运行确定性定时投票，拒绝伪造选项、旧版本、迟到投票与重复结算。"
+      },
+      "brief": {
+        "en": "Implement a plain-Lua ballot state machine and a server world component. Only the server chooses the proposal, option whitelist, electorate, deadline, and quorum. Clients send proposal, choice, and revision identifiers. Close on the server timer, publish a compact result using net variables and TheNet announcements, and persist open and completed ballots.",
+        "zh": "实现纯 Lua 投票状态机与服务端世界组件。提案、选项白名单、选民集、截止时间和法定人数只能由服务端决定；客户端仅发送提案、选项和 revision 标识。使用服务端定时器结算，通过网络变量和 TheNet 公告发布结果，并持久化进行中及已完成投票。"
+      },
+      "requirements": {
+        "en": [
+          "Export Ballot.new(options), Ballot.load(data, options), open(proposal, electorate, now), cast(voter_id, proposal_id, choice_id, revision, now), close(proposal_id, now), cancel(proposal_id, now), snapshot(now), and save(now).",
+          "Open validates a unique proposal ID, two or more unique option IDs, a frozen unique electorate, finite deadline, and quorum configured by the server.",
+          "Cast accepts only electorate members and whitelisted choices before the deadline; a revision must be strictly newer than that voter's prior ballot.",
+          "Duplicate or stale votes are side-effect free; explicit abstention is a configured choice rather than missing state.",
+          "Close is idempotent, counts one latest ballot per voter, enforces quorum, orders counts by option ID, and resolves any top tie as no-change.",
+          "Late close produces the same result as close at the deadline; cancel never applies a result and cannot reopen an ID.",
+          "Snapshots hide individual votes, return fresh ordered aggregates, and save/load preserves open deadlines, revisions, electorate, and final results.",
+          "The server validates RPC player identity, owns timer scheduling, uses only a configured rule whitelist, replicates compact state, announces results, and cancels tasks on removal."
+        ],
+        "zh": [
+          "导出 Ballot.new/options、load、open、cast、close、cancel、snapshot 与 save。",
+          "open 校验唯一提案 ID、至少两个唯一选项、冻结且唯一的选民集、有限截止时间和服务端法定人数。",
+          "cast 只接受截止前的选民和白名单选项；revision 必须严格大于该玩家上一票。",
+          "重复或过期投票无副作用；弃权必须是配置选项而不是缺失状态。",
+          "close 幂等，每位选民只计最新票，执行法定人数，按选项 ID 排序计数，最高票平局结果为不改变。",
+          "迟到 close 与截止时结算一致；cancel 永不应用结果且不能复用 ID。",
+          "快照隐藏个人选票、返回新建有序聚合；保存加载保留截止时间、revision、选民和最终结果。",
+          "服务端验证 RPC 玩家身份、拥有定时器、限制规则白名单、复制紧凑状态、公告结果并在移除时取消任务。"
+        ]
+      },
+      "api_usage": {
+        "en": [
+          "Use AddModRPCHandler(namespace, name, function(player, proposal_id, choice_id, revision) ... end) and derive voter identity from player.userid.",
+          "Schedule closure with inst:DoTaskInTime(delay, fn), retain the returned task, and cancel it with task:Cancel() when replaced or removed.",
+          "Announce with TheNet:Announce(message) and publish only aggregate JSON through net_string:set(value); clients read net_string:value() on the dirty event.",
+          "Network variables must be created before returning from the non-master branch.",
+          "The world component exposes Open(proposal, player_entities), Cast(player, proposal_id, choice_id, revision), Close(proposal_id), and OnSave/OnLoad; RPC cannot call Open."
+        ],
+        "zh": [
+          "使用 AddModRPCHandler(namespace, name, function(player, proposal_id, choice_id, revision) ... end)，从 player.userid 推导选民身份。",
+          "用 inst:DoTaskInTime(delay, fn) 安排结算，保存返回 task，并在替换或移除时 task:Cancel()。",
+          "用 TheNet:Announce(message) 公告，仅以 net_string:set(value) 发布聚合 JSON；客户端在 dirty event 读取 value()。",
+          "网络变量必须在非主模拟提前返回之前创建。",
+          "世界组件公开 Open(proposal, player_entities)、Cast(player, proposal_id, choice_id, revision)、Close(proposal_id) 和 OnSave/OnLoad；RPC 不可调用 Open。"
+        ]
+      },
+      "acceptance": {
+        "en": [
+          "Forged options and non-electorate votes are ignored.",
+          "Only the latest valid revision counts.",
+          "Quorum and ties are deterministic.",
+          "Closing and canceling are idempotent across reloads.",
+          "The dedicated server verifies timers, player identity, net state, announcements, and persistence."
+        ],
+        "zh": [
+          "伪造选项和非选民投票无效。",
+          "只统计最新有效 revision。",
+          "法定人数与平票结果确定。",
+          "结算和取消跨重载幂等。",
+          "专服验证定时器、玩家身份、网络状态、公告与持久化。"
+        ]
+      },
+      "domains": [
+        "voting",
+        "server-authority",
+        "timers",
+        "replication"
+      ],
+      "estimated_minutes": 360,
+      "core_module": "scripts/ruleballot/ballot.lua",
+      "hidden_test": "hidden/world-rule-ballot.lua",
+      "server_test": "server/world-rule-ballot.lua",
+      "hidden_cases": [
+        "electorate and choices are frozen",
+        "newer vote revision replaces old vote",
+        "quorum and top ties are deterministic",
+        "deadline boundary and close are idempotent",
+        "cancel is final and identifier cannot reopen",
+        "snapshot hides votes and save load preserves result"
+      ],
+      "server_cases": [
+        "server ballot component is attached",
+        "component derives voter identity and closes a ballot",
+        "ballot state reloads"
+      ],
+      "required_files": [
+        "modinfo.lua",
+        "modmain.lua",
+        "scripts/ruleballot/ballot.lua",
+        "scripts/components/ruleballot.lua",
+        "scripts/components/ruleballot_replica.lua"
+      ],
+      "minimum_lua_lines": 240,
+      "integration_checks": [
+        {
+          "id": "ballot-authority",
+          "label": {
+            "en": "Server-owned ballot",
+            "zh": "服务端拥有投票"
+          },
+          "weight": 4,
+          "groups": [
+            {
+              "name": "guard",
+              "any_of": [
+                "TheWorld\\.ismastersim",
+                "inst\\.ismastersim"
+              ]
+            },
+            {
+              "name": "component",
+              "any_of": [
+                "AddComponent\\s*\\(\\s*[\\\"']ruleballot[\\\"']"
+              ]
+            }
+          ],
+          "none_of": [
+            "TODO",
+            "IMPLEMENT\\s+ME"
+          ]
+        },
+        {
+          "id": "ballot-network",
+          "label": {
+            "en": "RPC and net state",
+            "zh": "RPC 与网络状态"
+          },
+          "weight": 4,
+          "groups": [
+            {
+              "name": "RPC",
+              "any_of": [
+                "AddModRPCHandler\\s*\\("
+              ]
+            },
+            {
+              "name": "replica",
+              "any_of": [
+                "AddReplicableComponent\\s*\\("
+              ]
+            },
+            {
+              "name": "netvar",
+              "any_of": [
+                "net_string\\s*\\(",
+                "net_bool\\s*\\("
+              ]
+            }
+          ]
+        },
+        {
+          "id": "ballot-timer",
+          "label": {
+            "en": "Timer and announcement",
+            "zh": "定时器与公告"
+          },
+          "weight": 4,
+          "groups": [
+            {
+              "name": "schedule",
+              "any_of": [
+                "DoTaskInTime\\s*\\("
+              ]
+            },
+            {
+              "name": "announce",
+              "any_of": [
+                "TheNet:Announce\\s*\\("
+              ]
+            },
+            {
+              "name": "player identity",
+              "any_of": [
+                "userid"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "ballot-persistence",
+          "label": {
+            "en": "Persistence and cleanup",
+            "zh": "持久化与清理"
+          },
+          "weight": 3,
+          "groups": [
+            {
+              "name": "save",
+              "any_of": [
+                ":OnSave\\s*\\("
+              ]
+            },
+            {
+              "name": "load",
+              "any_of": [
+                ":OnLoad\\s*\\("
+              ]
+            },
+            {
+              "name": "cancel",
+              "any_of": [
+                ":Cancel\\s*\\("
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

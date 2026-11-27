@@ -1,0 +1,20 @@
+diff --git a/CJBCheatsMenu/Framework/Cheats/PlayerAndTools/OneHitKillCheat.cs b/CJBCheatsMenu/Framework/Cheats/PlayerAndTools/OneHitKillCheat.cs
+index bce6dab..3d4f351 100644
+--- a/CJBCheatsMenu/Framework/Cheats/PlayerAndTools/OneHitKillCheat.cs
++++ b/CJBCheatsMenu/Framework/Cheats/PlayerAndTools/OneHitKillCheat.cs
+@@ -47,14 +47,7 @@ internal class OneHitKillCheat : BaseCheat
+             if (character is Monster { Health: > 1 } monster)
+             {
+                 monster.Health = 1;
+-                if (monster is Grub)
+-                {
+-                    // We deliberately avoid setting MaxHealth in most cases, since that determines
+-                    // the amount of healing from the vampiric enchantment. Grubs are the exception
+-                    // since they turn into flies at low health, unless their max health is set to
+-                    // the same value.
+-                    monster.MaxHealth = 1;
+-                }
++                monster.MaxHealth = 1;
+             }
+         }
+     }

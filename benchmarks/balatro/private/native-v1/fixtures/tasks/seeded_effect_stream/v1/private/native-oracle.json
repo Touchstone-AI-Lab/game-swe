@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "source_summary": "validation-stream-prerequisite-v1.json",
+  "source_sha256": "f2360036d99c56e2ace2accd4136850872f77391786962c9bbb4aba3705f0ccd",
+  "trace_sha256": "e3e741cd920dd88dfc5aca5cb19d798ed4283977f97eda0d3ec5289fa5413d16",
+  "mapping": "1 + floor(9*u), u = next native unit pseudorandom(ses_private_v1)",
+  "rewards": {
+    "STREAM01": [
+      6,
+      8,
+      6,
+      5
+    ],
+    "STREAM02": [
+      2,
+      4,
+      1,
+      8
+    ]
+  },
+  "native_noise_chips": 7,
+  "scope": "Captured from native diagnostic only before candidates; observer never advances RNG to compute expectations"
+}

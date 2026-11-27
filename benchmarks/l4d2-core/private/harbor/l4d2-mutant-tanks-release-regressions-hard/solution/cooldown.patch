@@ -1,0 +1,22 @@
+--- a/addons/sourcemod/scripting/mutant_tanks/abilities/mt_acid.sp
++++ b/addons/sourcemod/scripting/mutant_tanks/abilities/mt_acid.sp
+@@ -1280,7 +1280,7 @@
+ 	}
+ 
+ 	int iTime = GetTime();
+-	if ((flags & MT_ATTACK_RANGE) && g_esAcidPlayer[tank].g_iRangeCooldown != -1 && g_esAcidPlayer[tank].g_iRangeCooldown >= iTime)
++	if (((flags & MT_ATTACK_RANGE) && g_esAcidPlayer[tank].g_iRangeCooldown != -1 && g_esAcidPlayer[tank].g_iRangeCooldown >= iTime) || (((flags & MT_ATTACK_CLAW) || (flags & MT_ATTACK_MELEE)) && g_esAcidPlayer[tank].g_iCooldown != -1 && g_esAcidPlayer[tank].g_iCooldown >= iTime))
+ 	{
+ 		return;
+ 	}
+--- a/addons/sourcemod/scripting/mutant_tanks/abilities/mt_ammo.sp
++++ b/addons/sourcemod/scripting/mutant_tanks/abilities/mt_ammo.sp
+@@ -1029,7 +1029,7 @@
+ 	}
+ 
+ 	int iSlot = GetPlayerWeaponSlot(survivor, 0), iTime = GetTime();
+-	if ((flags & MT_ATTACK_RANGE) && g_esAmmoPlayer[tank].g_iRangeCooldown != -1 && g_esAmmoPlayer[tank].g_iRangeCooldown >= iTime)
++	if (((flags & MT_ATTACK_RANGE) && g_esAmmoPlayer[tank].g_iRangeCooldown != -1 && g_esAmmoPlayer[tank].g_iRangeCooldown >= iTime) || (((flags & MT_ATTACK_CLAW) || (flags & MT_ATTACK_MELEE)) && g_esAmmoPlayer[tank].g_iCooldown != -1 && g_esAmmoPlayer[tank].g_iCooldown >= iTime))
+ 	{
+ 		return;
+ 	}

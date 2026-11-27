@@ -1,0 +1,6 @@
+control	kind	base	overlay	root	note
+tn-skips-building-interiors	target-negative	reference	patch:tn-skips-building-interiors.patch	mod	reference that walks Game1.locations only, so building interiors (both coops) are never serviced
+tn-ignores-zero-quantity-product	target-negative	reference	patch:tn-ignores-zero-quantity-product.patch	mod	reference that leaves a zero-quantity product in the machine, which then jams
+tn-overreach-feeds-lone-machine	target-negative	reference	patch:tn-overreach-feeds-lone-machine.patch	mod	reference that also FEEDS (never empties) a machine without an adjacent chest from a chest two tiles away, so the lone furnace keeps its product
+alternative	alternative	starter	tree:alternative	mod	chest-centric station index rebuilt on world-change events, 20-tick service pass, all-or-nothing transfer with a capacity pre-check
+alternative-strict-reading	alternative	reference	patch:alternative-strict-reading.patch	mod	the reference with its 30-tick throttle removed (services every tick); valid under the public exam, expected to be rejected by the observation-window assumption of the suite

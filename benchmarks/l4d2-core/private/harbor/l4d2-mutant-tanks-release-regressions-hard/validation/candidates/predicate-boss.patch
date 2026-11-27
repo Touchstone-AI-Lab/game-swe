@@ -1,0 +1,12 @@
+diff --git a/addons/sourcemod/scripting/mutant_tanks/mutant_tanks.sp b/addons/sourcemod/scripting/mutant_tanks/mutant_tanks.sp
+--- a/addons/sourcemod/scripting/mutant_tanks/mutant_tanks.sp
++++ b/addons/sourcemod/scripting/mutant_tanks/mutant_tanks.sp
+@@ -37097,7 +37097,7 @@
+ 	}
+ 
+ 	int iBossStageCount = g_esPlayer[iTank].g_iBossStageCount,
+-		iBossStages = pack.ReadCell(), iBossHealthValues[4] = {0, 0, 0, 0}, iTypes[4] = {0, 0, 0, 0};
++		iBossStages = pack.ReadCell(), iBossHealthValues[5] = {0, 0, 0, 0, -1}, iTypes[5] = {0, 0, 0, 0, 0};
+ 	pack.ReadCellArray(iBossHealthValues, sizeof iBossHealthValues);
+ 	pack.ReadCellArray(iTypes, sizeof iTypes);
+ 

@@ -1,0 +1,11 @@
+--- a/ResearchOrganized/Source/ResearchOrganizedMain.cs
++++ b/ResearchOrganized/Source/ResearchOrganizedMain.cs
+@@ -417,7 +417,7 @@
+                 var activeTabs = new HashSet<ResearchTabDef>(DefDatabase<ResearchProjectDef>.AllDefs.Select(p => p.tab).Where(t => t != null));
+                 HideEmptyTabs(activeTabs);
+                 SortAndIndexTabs();
+-                RebuildTabInfoVisibility(tabInfoVisibility);
++                // Negative control: omit rebuilding native indexed flags.
+ 
+                 var combinedTab = CombinedTab;
+                 activeCombinedTab = combinedTab;

@@ -1,0 +1,4 @@
+control	kind	base	overlay	root	note
+M02-area-only	target-negative	starter	pack:private/native-v1/controls/deck-removal-consistency-v2/M02-area-only	starter	frozen mutant: fails only requested-change cases
+M03-first-two	target-negative	starter	pack:private/native-v1/controls/deck-removal-consistency-v2/M03-first-two	starter	frozen mutant: fails only requested-change cases
+alternative-public	alternative	starter	tree:alternative-public	starter	authored from the public contract: identity snapshot and one native destruction per object; reviewed seal 67dc9f93

@@ -1,0 +1,11 @@
+--- a/core/src/mindustry/world/blocks/heat/HeatConductor.java
++++ b/core/src/mindustry/world/blocks/heat/HeatConductor.java
+@@ -87,7 +87,7 @@
+             if(lastHeatUpdate == Vars.state.updateId) return;
+ 
+             lastHeatUpdate = Vars.state.updateId;
+-            heat = enabled ? calculateHeat(sideHeat, cameFrom) : 0f;
++            heat = calculateHeat(sideHeat, cameFrom);
+         }
+ 
+         @Override

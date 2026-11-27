@@ -1,0 +1,65 @@
+schema_version = "1.4"
+
+artifacts = ["/app/mod"]
+
+[task]
+name = "gamecodebench/dst-glassic-api-regressions"
+version = "2.0.0"
+description = "Repair the Glassic API library so recipe sorting keeps crafting filters intact, mod skins for a base-game character never remove it from the character list, and skin builds, the skin inventory and character-exclusive skins behave as documented."
+authors = [{ name = "GameCodeBench" }]
+keywords = ["dst", "dont-starve-together", "lua", "game-modding", "repository-debugging", "library", "crafting", "skins", "characters"]
+
+[metadata]
+category = "programming"
+difficulty = "hard"
+tags = ["game-modding", "dst", "lua", "repository-debugging", "bug-fix", "composite"]
+task_kind = "repository-debugging"
+game = "Don't Starve Together Dedicated Server"
+game_version = "Steam app 343050 build 24700372"
+mod_loader = "DST Mod API 10"
+language = "Lua 5.1"
+source_mod = "Glassic API"
+source_repo = "https://github.com/angribot/DST-GlassicAPI"
+source_license = "Apache-2.0"
+base_commit = "795af813e0d2b334a47b7c69df81cbfeac695f1f"
+reverted_fix_commits = ["234b02c139b748ae3cf62167543a3ae057961364", "bd4c0737c1ecf5a95975c0516ed5749289c2e633", "2a96834ff43bd373b12ca373e3da5bae0fc67849", "6721c645eef836d1cb84dd2903bb0eb692505dd8", "795af813e0d2b334a47b7c69df81cbfeac695f1f"]
+gold_patch_origin = "upstream"
+expected_server_cases = 15
+content_reference = "benchmarks/dst/exams/glassic-api-regressions.md"
+content_reference_pack = "dst-core"
+harbor_reference_repository = "https://github.com/harbor-framework/harbor"
+harbor_reference_revision = "9a2e3b135cc8fb1e41131020f83370cb2f12ae93"
+verification_profile = "rhenium-dst-full"
+real_server_validation = "in-verifier; Steam app 343050 build 24700372"
+
+[verifier]
+network_mode = "no-network"
+timeout_sec = 900.0
+user = "root"
+environment_mode = "separate"
+
+[verifier.environment]
+network_mode = "no-network"
+
+[agent]
+# The image already contains Codex CLI and mini-swe-agent. A Harbor job supplies
+# only the model endpoint hostname through agents[].extra_allowed_hosts.
+network_mode = "allowlist"
+allowed_hosts = []
+timeout_sec = 7200.0
+user = "agent"
+
+[environment]
+network_mode = "no-network"
+build_timeout_sec = 1800.0
+cpus = 4
+memory_mb = 8192
+storage_mb = 10240
+gpus = 0
+mcp_servers = []
+
+[verifier.env]
+
+[environment.env]
+
+[solution.env]

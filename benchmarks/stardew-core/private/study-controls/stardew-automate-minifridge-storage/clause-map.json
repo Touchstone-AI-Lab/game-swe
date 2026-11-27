@@ -1,0 +1,92 @@
+{
+  "task": "stardew-valley/core/stardew-automate-minifridge-storage",
+  "task_version": "1.1.0",
+  "exam": "benchmarks/stardew-core/exams/stardew-automate-minifridge-storage.md",
+  "cases": [
+    {
+      "id": "check:submission-shape",
+      "role": "static",
+      "clauses": [],
+      "overlap": false,
+      "note": "Evaluator file gate: StardewMods/ exists, required files present, no symlinks. Not a behavior."
+    },
+    {
+      "id": "case:sentinel: standard chest feeds an adjacent furnace",
+      "role": "preserved",
+      "clauses": [
+        "Task-preserve-chest"
+      ],
+      "overlap": false,
+      "note": "P in the unchanged starter. Farm chest (BC)130 + furnace: furnace starts and the copper ore leaves the chest. Input side only; output collection into a standard chest is not checked here."
+    },
+    {
+      "id": "case:mini-fridge feeds an adjacent furnace",
+      "role": "target",
+      "clauses": [
+        "Problem-1-input",
+        "Task-1"
+      ],
+      "overlap": false,
+      "note": "FarmHouse mini-fridge (BC)216 + furnace: furnace starts and ore leaves the fridge."
+    },
+    {
+      "id": "case:furnace output is collected back into the mini-fridge",
+      "role": "target",
+      "clauses": [
+        "Problem-1-output",
+        "Task-1"
+      ],
+      "overlap": false,
+      "note": "Depends on the previous case's fridge and furnace; asserts a copper bar (O)334 lands in the fridge after the clock is advanced."
+    }
+  ],
+  "clauses": [
+    {
+      "id": "Problem-1-input",
+      "anchor": "Problem, paragraph 1, sentence 2 (first half): \"A furnace next to a mini-fridge full of ore and coal just sits there\"",
+      "status": "asserted",
+      "note": "Machines must pull input from a mini-fridge."
+    },
+    {
+      "id": "Problem-1-output",
+      "anchor": "Problem, paragraph 1, sentence 2 (second half): \"finished goods are no longer collected into the fridge either\"",
+      "status": "asserted",
+      "note": "Machine output must be pushed into a mini-fridge."
+    },
+    {
+      "id": "Task-1",
+      "anchor": "Task, sentence 1 (first half): \"Make machines treat mini-fridges as storage containers again\"",
+      "status": "asserted",
+      "note": "Umbrella of the two Problem clauses; exercised with one machine type (furnace) in the FarmHouse."
+    },
+    {
+      "id": "Task-preserve-chest",
+      "anchor": "Task, sentence 1 (second half): \"without changing the behavior of the other chest types\" + Problem, paragraph 1, sentence 4: \"Regular chests ... still work fine\"",
+      "status": "asserted",
+      "note": "Regular chest (BC)130 only, input side only. Also discoverable in the starter: Automate/docs/README.md lists chests as supported containers and Framework/ModConstants.cs lists \"130\"."
+    },
+    {
+      "id": "Task-preserve-other-types",
+      "anchor": "Task, sentence 1 (second half) applied to Problem, paragraph 1, sentence 4: \"stone chests ... Junimo chests or big chests say those are fine too\"",
+      "status": "unasserted",
+      "note": "No case places a stone chest, Junimo chest, big chest or big stone chest; removing any of those IDs from the default list would still score 3/3. Excluded from contract measurement."
+    },
+    {
+      "id": "Notes-3",
+      "anchor": "Notes, bullet 3: \"Do not modify anything under `/tests`\" (rendered to the model as \"the private verifier\")",
+      "status": "unasserted",
+      "note": "Enforced by construction, not by a case: the evaluator bind-mounts the pack's own tests read-only and never reads tests from the submission."
+    }
+  ],
+  "excluded_clauses": [
+    "Task-preserve-other-types",
+    "Notes-3"
+  ],
+  "known_issues": [
+    "Preserved coverage is a single behavior: private/harbor/stardew-automate-minifridge-storage/tests/SuiteMinifridge.cs:36-53 checks only that a regular chest feeds a furnace. The four other chest types named in the exam (stone, Junimo, big, big stone) and chest-side output collection have no case, so a compat regression limited to them is invisible.",
+    "SuiteMinifridge.cs:48 waits without a deadline (GcbWait.Until(() => furnace.heldObject.Value is not null)); when standard chests are broken the case ends as 'hung: exceeded 1200 ticks' rather than by its assertion. The verdict is still F, only the message differs.",
+    "SuiteMinifridge.cs:79-92: the second target case depends on state left by the first (this._fridge/_fridgeFurnace). If the first target case fails, the second fails at its first assertion ('previous case left the furnace smelting'), so the two target cases are not independent evidence.",
+    "Wait predicates (SuiteMinifridge.cs:48,72,87-88) dereference only locals assigned immediately before the wait or use null-conditional access, so none can throw. The harness fix in private/harbor/harness/GcbHarness/Framework/SuiteRunner.cs:80-96 (a throwing WaitUntil predicate fails the case) therefore does not change any verdict of this suite. Note that the prepared evaluator image recorded in runtimeIdentity (sha256:7df5b6a1e7c1...) still bakes the pre-fix SuiteRunner at /opt/gcb/harness (its SafePredicate returns true on a throw); tests/test.sh:36 copies and compiles that baked copy, not the source-tree harness.",
+    "The exam points at the cause ('a config option to choose which chest types Automate treats as storage'), and the public docs in the starter (Automate/docs/README.md:96) list mini-fridges as supported; localization is close to retrieval (see private/harbor/DEBUG-HARDENING.md section 1)."
+  ]
+}

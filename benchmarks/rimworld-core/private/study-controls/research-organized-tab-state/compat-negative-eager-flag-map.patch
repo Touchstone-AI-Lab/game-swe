@@ -1,0 +1,16 @@
+--- a/ResearchOrganized/Source/ResearchOrganizedMain.cs
++++ b/ResearchOrganized/Source/ResearchOrganizedMain.cs
+@@ -513,7 +513,12 @@
+             if (manager == null || tabInfoVisibilityField == null || defMapValuesField == null) return null;
+             // Created lazily by TabInfoVisible, already at the right size when it is.
+             var map = tabInfoVisibilityField.GetValue(manager);
+-            return map == null ? null : defMapValuesField.GetValue(map) as List<bool>;
++            if (map == null)
++            {
++                map = new DefMap<ResearchTabDef, bool>();
++                tabInfoVisibilityField.SetValue(manager, map);
++            }
++            return defMapValuesField.GetValue(map) as List<bool>;
+         }
+ 
+         private static void ResetCaches()

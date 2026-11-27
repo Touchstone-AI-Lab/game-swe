@@ -1,0 +1,190 @@
+{
+  "task": "garrys-mod/darkrp/darkrp-release-regressions-v3",
+  "task_version": "1.0.0",
+  "exam": "benchmarks/darkrp-core/exams/darkrp-release-regressions-v3.md",
+  "cases": [
+    {
+      "id": "case:The gamemode is loaded",
+      "role": "runtime-sentinel",
+      "clauses": [],
+      "overlap": false,
+      "note": "Passes in the unchanged starter. Only checks that DarkRP, DarkRP.createJob and GAMEMODE exist, i.e. that the submitted gamemode booted; it is fixture evidence, not evidence for the preservation sentence."
+    },
+    {
+      "id": "case:A: the arrested-player query API exists",
+      "role": "target",
+      "clauses": [
+        "[#4423]:functions"
+      ],
+      "overlap": false,
+      "note": "Group A. Fails in the starter (functions absent)."
+    },
+    {
+      "id": "case:A: the arrested-player query API is self-consistent",
+      "role": "target",
+      "clauses": [
+        "[#4423]:agree",
+        "[#4423]:empty"
+      ],
+      "overlap": false,
+      "note": "Group A. Runs with nobody arrested: the iterator's first call is nil, the list is a table and count == #list. Agreement is therefore only observed in the empty state."
+    },
+    {
+      "id": "case:B: spawned ammo survives a missing physics object",
+      "role": "target",
+      "clauses": [
+        "[#4415]"
+      ],
+      "overlap": false,
+      "note": "Group B. pcall of spawned_ammo ENT.Initialize on a stand-in table whose GetPhysicsObject returns NULL.",
+      "over_constrained": true
+    },
+    {
+      "id": "case:B: spawned weapon survives a missing physics object",
+      "role": "target",
+      "clauses": [
+        "[#4415]"
+      ],
+      "overlap": false,
+      "note": "Group B. Same stand-in technique for spawned_weapon.",
+      "over_constrained": true
+    },
+    {
+      "id": "case:D: destroying a question by an unknown id does not error",
+      "role": "target",
+      "clauses": [
+        "[#4421]"
+      ],
+      "overlap": false,
+      "note": "Group D. pcall(DarkRP.destroyQuestion) with an unknown string id and an unknown numeric id."
+    },
+    {
+      "id": "case:E: creating a job hands back the team number",
+      "role": "target",
+      "clauses": [
+        "[#4424]"
+      ],
+      "overlap": false,
+      "note": "Group E. The returned value must be a number that indexes the new job in RPExtraTeams."
+    },
+    {
+      "id": "case:F: a shipment created with mixed case is found by its lower-case name",
+      "role": "target",
+      "clauses": [
+        "[#4431]"
+      ],
+      "overlap": false,
+      "note": "Group F. With the reference's index design this case needs the store half (a lookup-only fix still misses it); fails in the starter."
+    },
+    {
+      "id": "case:F: a shipment created in lower case is found by a mixed-case name",
+      "role": "target",
+      "clauses": [
+        "[#4431]"
+      ],
+      "overlap": false,
+      "note": "Group F. With the reference's index design this case needs the lookup half (a store-only fix still misses it); fails in the starter."
+    },
+    {
+      "id": "case:G: unrestricting a weapon with no argument tells the admin",
+      "role": "target",
+      "clauses": [
+        "[#4418]"
+      ],
+      "overlap": false,
+      "note": "Group G. Async, spawns a bot, calls the unrestrictweapon command callback with {} and requires no error plus one FAdmin.Messages.SendMessage call."
+    },
+    {
+      "id": "check:submission-shape",
+      "role": "static",
+      "clauses": [
+        "Notes-tests"
+      ],
+      "overlap": false,
+      "note": "Static preflight: darkrp/gamemode exists, no symlinks, no native modules, no harness-tampering tokens."
+    }
+  ],
+  "clauses": [
+    {
+      "id": "[#4415]",
+      "anchor": "Problem, report [#4415]: 'Random Lua errors on a busy server from things players spawn - dropped weapons and ammo crates especially ... the item ends up half set up'",
+      "status": "asserted",
+      "note": "Asserted for exactly two entities (spawned_ammo, spawned_weapon) and only for the invalid-physics-object path of ENT:Initialize. The reference also guards spawned_shipment/commands.lua and sv_purchasing.lua (ents.Create failure, /makeshipment PlayerUse rollback); task.toml:213-218 records that those paths were trimmed from the report because they are not headlessly testable, and they carry no assertion."
+    },
+    {
+      "id": "[#4418]",
+      "anchor": "Problem, report [#4418]: unrestricting a weapon without naming one is silent, 'and sometimes the console spits an error instead'",
+      "status": "asserted",
+      "note": "Both halves are checked (no error, admin is told), but 'told' is observed only through FAdmin.Messages.SendMessage; see known_issues."
+    },
+    {
+      "id": "[#4421]",
+      "anchor": "Problem, report [#4421]: voting module throws 'attempt to index a nil value' while a vote is being cleaned up",
+      "status": "asserted",
+      "note": "Checked as: DarkRP.destroyQuestion on an id that does not exist must not error. The positive path (destroying a live question still notifies the client and removes it) is not asserted."
+    },
+    {
+      "id": "[#4424]",
+      "anchor": "Problem, report [#4424]: 'local id = DarkRP.createJob(...)' gets nothing back",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "[#4431]",
+      "anchor": "Problem, report [#4431]: shipments looked up by name only resolve when the name is all lower case",
+      "status": "asserted",
+      "note": "Two cases cover both directions (mixed-case store / lower-case lookup and the reverse), which is what makes the masking pair discriminating."
+    },
+    {
+      "id": "[#4423]:functions",
+      "anchor": "Problem, report [#4423], sentence 2: 'We need three functions on the DarkRP namespace - DarkRP.iterateArrestedPlayers, DarkRP.arrestedPlayers and DarkRP.arrestedPlayerCount'",
+      "status": "asserted",
+      "note": "Type check only (each is a function)."
+    },
+    {
+      "id": "[#4423]:agree",
+      "anchor": "Problem, report [#4423], sentences 2-3: 'an iterator usable directly in a for ... do loop, a plain list, and a count. They have to agree with one another'",
+      "status": "weak",
+      "note": "Agreement is only observed with zero arrested players (suite.lua:28-37). No case arrests anyone, so an implementation that always returns an empty iterator, {} and 0 passes."
+    },
+    {
+      "id": "[#4423]:empty",
+      "anchor": "Problem, report [#4423], sentence 3: 'and must work when nobody is arrested'",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "[#4423]:published",
+      "anchor": "Problem, report [#4423], last sentence: 'Publish them the way the rest of the police API is published.'",
+      "status": "unasserted",
+      "note": "The reference adds DarkRP.stub{} declarations to modules/police/sv_interface.lua. No case inspects DarkRP.getStubs() or the interface file, so an implementation without stubs passes. Excluded: no assertion."
+    },
+    {
+      "id": "Task-preserve",
+      "anchor": "Task, sentence 2 (unnumbered): 'Behaviour on the paths that already work must not change.'",
+      "status": "unasserted",
+      "note": "No case of this suite exercises a working code path. The only starter-passing case is the load sentinel. Excluded: the task has no preserved-contract evidence and can only enter general completion."
+    },
+    {
+      "id": "Notes-tests",
+      "anchor": "Notes, bullet 2: 'Do not modify anything under /tests.' (TASK.md in the workspace says 'Do not modify the private verifier.')",
+      "status": "weak",
+      "note": "Process constraint, not a behavioural contract. /tests is not part of the submission; the nearest gate is the static harness-tampering preflight in check:submission-shape (plugins/garrys-mod/src/rhenium_garrys_mod/darkrp/evaluator.py:287-336). Excluded from contract analysis."
+    }
+  ],
+  "excluded_clauses": [
+    "[#4423]:published",
+    "Task-preserve",
+    "Notes-tests"
+  ],
+  "known_issues": [
+    "No preserved case: starter.execution.json passes only 'The gamemode is loaded' (1 of 10). The preservation sentence under ## Task is unasserted, so this task gets no compat-negative control and cannot measure preserved contracts.",
+    "Fixture trap in group B (benchmarks/darkrp-core/private/harbor/darkrp-release-regressions-v3/tests/suite.lua:47-50 and 57-62): the stand-in's PhysicsInit returns true while GetPhysicsObject returns NULL, a combination the engine does not produce (PhysicsInit succeeding means a physics object exists). An implementation that keys the wake on the result of DarkRP.ValidatedPhysicsInit/PhysicsInit instead of on phys:IsValid() is correct in the real engine but fails both B cases. Control alternative-strict-reading demonstrates this.",
+    "Over-constraining observer in group G (benchmarks/darkrp-core/private/harbor/darkrp-release-regressions-v3/tests/suite.lua:140-149): 'the admin must be told something' is detected only by replacing FAdmin.Messages.SendMessage. Feedback sent through ply:PrintMessage/ChatPrint, DarkRP.notify, FAdmin.Messages.ConsoleNotify or a net message is not seen and would fail, although the comment at suite.lua:120-122 says the mechanism is unconstrained. Every neighbouring FAdmin command uses SendMessage, so the natural fix passes.",
+    "Group G stubs FAdmin.Access.PlayerHasPrivilege to true and calls entry.callback directly (benchmarks/darkrp-core/private/harbor/darkrp-release-regressions-v3/tests/suite.lua:134-147); a fix placed in the FAdmin command dispatcher (argument validation before the callback is reached) would not be exercised and would fail.",
+    "[#4423] agreement is only tested in the empty state (benchmarks/darkrp-core/private/harbor/darkrp-release-regressions-v3/tests/suite.lua:28-37); constant-empty implementations pass. Publication through DarkRP.stub is not tested at all.",
+    "Defect group C (voice-cache cleanup registered on the misspelt 'PlayerDisconnect' event) is still reverted in the starter but its assertion and its report #4412 were removed (benchmarks/darkrp-core/private/harbor/darkrp-release-regressions-v3/task.toml:69-81; placeholder comment at tests/suite.lua:67). Likewise the food-sound revert db01568d (task.toml:23-27) and the FAdmin teleport/ragdoll/slay/money_printer validity guards in solution/after are unreported haystack with no assertion. A submission that leaves them broken passes; none of them is a public obligation.",
+    "#4418 had zero assertions before group G was added and #4415 was trimmed to the asserted path (benchmarks/darkrp-core/private/harbor/darkrp-release-regressions-v3/task.toml:199-221). validation/per-defect-matrix.md still describes the pre-collector runs; validation/rhenium-controls.md re-established only base/reference for this task under the Rhenium plugin.",
+    "Masking pair F (validation/per-defect-matrix.md, 'Masking-pair controls'): fixing only the store or only the lookup passes exactly one of the two F cases. Control target-negative-shipment-store-half reverts the store half of the reference and is expected to fail only 'F: a shipment created with mixed case is found by its lower-case name'."
+  ]
+}

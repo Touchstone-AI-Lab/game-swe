@@ -1,0 +1,1 @@
+{"cases":[{"name":"deterministic core behavior","category":"core","maximum":30},{"name":"invalid input is rejected","category":"validation","maximum":15},{"name":"persistence round trip","category":"persistence","maximum":10},{"name":"active plugin and headless world","category":"integration","maximum":15}]}

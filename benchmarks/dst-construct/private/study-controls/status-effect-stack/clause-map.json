@@ -1,0 +1,691 @@
+{
+  "task": "dst/construct/status-effect-stack",
+  "task_version": "2.1.0",
+  "exam": "benchmarks/dst-construct/exams/status-effect-stack.md",
+  "cases": [
+    {
+      "id": "check:required-files",
+      "role": "static",
+      "clauses": [
+        "deliver-1"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "check:lua-syntax",
+      "role": "static",
+      "clauses": [],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "hidden:validation and request dedupe leave no side effects",
+      "role": "target",
+      "clauses": [
+        "deliver-2",
+        "deliver-3",
+        "core-1a",
+        "core-1b",
+        "core-1c",
+        "core-1d",
+        "core-2a",
+        "core-2b",
+        "core-2c",
+        "core-2d",
+        "core-2e",
+        "core-3a",
+        "core-3b",
+        "core-3c",
+        "core-4a",
+        "core-4b",
+        "core-4c",
+        "core-4d",
+        "core-4e",
+        "core-5a",
+        "core-10"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "hidden:stacking policies honor caps and the exact expiry boundary",
+      "role": "target",
+      "clauses": [
+        "deliver-2",
+        "deliver-4",
+        "core-4e",
+        "core-5a",
+        "core-5b",
+        "core-5c",
+        "core-5d",
+        "core-5e",
+        "core-6",
+        "core-10"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "hidden:modifiers aggregate live stacks without any tick",
+      "role": "target",
+      "clauses": [
+        "deliver-2",
+        "core-1b",
+        "core-2a",
+        "core-2c",
+        "core-2d",
+        "core-2e",
+        "core-3a",
+        "core-6",
+        "core-7"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "hidden:tick accrual is exact and independent of tick frequency",
+      "role": "target",
+      "clauses": [
+        "deliver-2",
+        "core-1a",
+        "core-1b",
+        "core-2b",
+        "core-3b",
+        "core-5d",
+        "core-8a",
+        "core-8b",
+        "core-8c"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "hidden:dispel orders by priority age effect id and sequence",
+      "role": "target",
+      "clauses": [
+        "deliver-2",
+        "core-1b",
+        "core-1d",
+        "core-2a",
+        "core-2c",
+        "core-5e",
+        "core-6",
+        "core-9a",
+        "core-9b",
+        "core-9c",
+        "core-9d",
+        "core-10"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "hidden:save load rebases time and keeps history and accrual cursor",
+      "role": "target",
+      "clauses": [
+        "deliver-2",
+        "deliver-3",
+        "core-1b",
+        "core-2b",
+        "core-3c",
+        "core-4b",
+        "core-5e",
+        "core-8c",
+        "core-10",
+        "core-11a",
+        "core-11b",
+        "core-11c",
+        "core-11d",
+        "core-11e",
+        "core-11f"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "check:implementation-depth",
+      "role": "static",
+      "clauses": [],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "check:effects-authority",
+      "role": "target",
+      "clauses": [
+        "dst-1",
+        "accept-1"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "check:effects-engine-modifiers",
+      "role": "target",
+      "clauses": [
+        "dst-8b"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "check:effects-health",
+      "role": "target",
+      "clauses": [
+        "dst-9b",
+        "dst-9c"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "check:effects-lifecycle",
+      "role": "target",
+      "clauses": [
+        "dst-10",
+        "dst-11a",
+        "dst-11b"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "check:effects-self-cleanse-rpc",
+      "role": "target",
+      "clauses": [
+        "dst-13a",
+        "dst-13b"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "server:status effect component is attached and authoritative",
+      "role": "target",
+      "clauses": [
+        "deliver-1",
+        "deliver-3",
+        "dst-1",
+        "dst-2",
+        "dst-3",
+        "dst-5a",
+        "dst-5b",
+        "dst-6",
+        "dst-7",
+        "dst-8a",
+        "dst-8b",
+        "dst-8c",
+        "dst-13b"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "server:real locomotor and combat modifiers follow stacks dispel and expiry",
+      "role": "target",
+      "clauses": [
+        "core-4b",
+        "core-5b",
+        "core-6",
+        "core-7",
+        "core-9c",
+        "dst-2",
+        "dst-4a",
+        "dst-6",
+        "dst-8a",
+        "dst-8b",
+        "dst-8c",
+        "dst-9b",
+        "dst-10"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "server:damage over time changes real health and death clears everything",
+      "role": "target",
+      "clauses": [
+        "core-5d",
+        "core-8a",
+        "dst-2",
+        "dst-4a",
+        "dst-4c",
+        "dst-5b",
+        "dst-8b",
+        "dst-9a",
+        "dst-9b",
+        "dst-9c",
+        "dst-10"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "server:effects survive OnSave and OnLoad and component removal cleans up",
+      "role": "target",
+      "clauses": [
+        "core-4b",
+        "core-11a",
+        "core-11b",
+        "core-11f",
+        "dst-2",
+        "dst-4a",
+        "dst-4b",
+        "dst-5c",
+        "dst-11a",
+        "dst-11b",
+        "dst-12a",
+        "dst-12b"
+      ],
+      "overlap": false,
+      "note": ""
+    }
+  ],
+  "clauses": [
+    {
+      "id": "deliver-1",
+      "anchor": "Required deliverables item 1 (file list): \"scripts/statuseffects/stack.lua\"",
+      "status": "asserted",
+      "note": "Evaluator required-files check; the server case needs modmain and the component to load."
+    },
+    {
+      "id": "deliver-2",
+      "anchor": "Required deliverables item 2 (exports): \"returns a table and exports:\"",
+      "status": "asserted",
+      "note": "Every exported function is called by at least one hidden case."
+    },
+    {
+      "id": "deliver-3",
+      "anchor": "Required deliverables item 3 (purity): \"The pure module must not use any DST global object\"",
+      "status": "asserted",
+      "note": "The sandbox has no require/os/io/DST globals (Lua 5.4) and the dedicated server loads the same file under Lua 5.1; a use hidden in a path no case reaches would go unnoticed."
+    },
+    {
+      "id": "deliver-4",
+      "anchor": "Required deliverables item 4 (options block): \"optional, a finite number >= 1, defaults to 3\"",
+      "status": "asserted",
+      "note": "Manager built without extend_cap caps f4 at 3 * duration; a second manager uses extend_cap = 2."
+    },
+    {
+      "id": "core-1a",
+      "anchor": "Core semantics item 1: \"is not a number, is NaN, is negative or is infinite\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "core-1b",
+      "anchor": "Core semantics item 1: \"is less than the clock, the call is rejected with code\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "core-1c",
+      "anchor": "Core semantics item 1: \"A call rejected because of its time has no side effect at all and is not written into the request history\"",
+      "status": "asserted",
+      "note": "request ids r0 and r9 stay usable after time rejections."
+    },
+    {
+      "id": "core-1d",
+      "anchor": "Core semantics item 1: \"A call that passes the time validation sets the clock to\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "core-2a",
+      "anchor": "Core semantics item 2: \"always return a new table:\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "core-2b",
+      "anchor": "Core semantics item 2: \"return the two values\"",
+      "status": "asserted",
+      "note": "snapshot in case 1, tick in case 4, save in case 6."
+    },
+    {
+      "id": "core-2c",
+      "anchor": "Core semantics item 2: \"A wrong argument shape\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "core-2d",
+      "anchor": "Core semantics item 2: \"The validation order of all methods is always: time -> argument shape ->\"",
+      "status": "asserted",
+      "note": "unknown effect + unknown target gives unknown_effect; numeric target id gives invalid_argument, not unknown_target."
+    },
+    {
+      "id": "core-2e",
+      "anchor": "Core semantics item 2: \"A caller modifying any returned table must not affect the internal state of the manager or any later return value\"",
+      "status": "asserted",
+      "note": "Checked for apply results, snapshot rows and modifiers; not checked for dispel/tick/save results."
+    },
+    {
+      "id": "core-3a",
+      "anchor": "Core semantics item 3: \"when the target is already registered it likewise returns success and does not change the effects the target already has\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "core-3b",
+      "anchor": "Core semantics item 3: \"otherwise it clears all instances of that target and all health changes of that target that have not yet been collected by\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "core-3c",
+      "anchor": "Core semantics item 3: \"The request history is not deleted because of\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "core-4a",
+      "anchor": "Core semantics item 4: \"(not written into the history)\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "core-4b",
+      "anchor": "Core semantics item 4: \"return a field-by-field copy of the first result (a new table), produce no other side effect, and ignore the remaining arguments of this call\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "core-4c",
+      "anchor": "Core semantics item 4: \"whether success or failure, is written into the history under that\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "core-4d",
+      "anchor": "Core semantics item 4: \"and the following are validated in order:\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "core-4e",
+      "anchor": "Core semantics item 4: \"The fields of a successful result are\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "core-5a",
+      "anchor": "Core semantics item 5: \"increases by one for every newly created instance\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "core-5b",
+      "anchor": "Core semantics item 5 (refresh): \"otherwise that single instance gets\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "core-5c",
+      "anchor": "Core semantics item 5 (extend): \"expires_at = now + min((expires_at - now) + D, extend_cap * D)\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "core-5d",
+      "anchor": "Core semantics item 5 (independent): \"the live instance with the smallest\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "core-5e",
+      "anchor": "Core semantics item 5 (last bullet): \"acts on an existing instance, it does not change that instance's\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "core-6",
+      "anchor": "Core semantics item 6: \"An instance is expired if and only if\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "core-7",
+      "anchor": "Core semantics item 7: \"(each stack multiplies once)\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "core-8a",
+      "anchor": "Core semantics item 8: \"of the integral of the rate over\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "core-8b",
+      "anchor": "Core semantics item 8: \"are still returned by a later\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "core-8c",
+      "anchor": "Core semantics item 8: \"The return value is a new list whose elements are\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "core-9a",
+      "anchor": "Core semantics item 9: \"for an unregistered target. Among the live instances of that target\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "core-9b",
+      "anchor": "Core semantics item 9: \"descending, `applied_at` ascending, `effect_id` ascending, `seq` ascending\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "core-9c",
+      "anchor": "Core semantics item 9: \"An instance with multiple stacks counts as one as a whole\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "core-9d",
+      "anchor": "Core semantics item 9: \"when nothing matches it likewise succeeds, with\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "core-10",
+      "anchor": "Core semantics item 10: \"returns a new list with one row per live instance\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "core-11a",
+      "anchor": "Core semantics item 11: \"later modifications of the manager must not affect a save that has already been returned\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "core-11b",
+      "anchor": "Core semantics item 11: \"and shifts all saved timestamps by\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "core-11c",
+      "anchor": "Core semantics item 11: \"are returned in the first `tick` after the reload together with the newly added amount\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "core-11d",
+      "anchor": "Core semantics item 11: \"The results in the request history are kept as they are\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "core-11e",
+      "anchor": "Core semantics item 11: \"its instances and its uncollected changes are discarded at reload\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "core-11f",
+      "anchor": "Core semantics item 11: \"is not a table produced by\"",
+      "status": "asserted",
+      "note": "Only nil is exercised; other malformed shapes are not."
+    },
+    {
+      "id": "dst-1",
+      "anchor": "DST integration item 1: \"only on the master simulation (\"",
+      "status": "asserted",
+      "note": "The server proves the component exists on a master-sim world; the master-sim guard itself is only a regex because the headless server has no client simulation."
+    },
+    {
+      "id": "dst-2",
+      "anchor": "DST integration item 2: \"The component must use the effect table below, and must create the manager with\"",
+      "status": "asserted",
+      "note": "Durations, multipliers, tick rates, policies, frenzy max_stacks, extend_cap = 3 and the venom-over-chill priority are observed on the server; chill max_stacks = 3, the regen/frenzy priorities and the heal/buff tags are not."
+    },
+    {
+      "id": "dst-3",
+      "anchor": "DST integration item 3: \"The component exposes the following methods\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "dst-4a",
+      "anchor": "DST integration item 4 (Component time): \"it is handed to the manager as is\"",
+      "status": "asserted",
+      "note": "Track, OnSave and the death callback all run after the suite has driven the clock about 1000 s ahead of GetTime(); a plain GetTime() default would be stale and break them."
+    },
+    {
+      "id": "dst-4b",
+      "anchor": "DST integration item 4 (Component time): \"is the exception: it uses\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "dst-4c",
+      "anchor": "DST integration item 4 (Component time): \"A periodic call whose time is rejected by the manager must fail quietly and must not raise an error\"",
+      "status": "weak",
+      "note": "Only Tick(stale) == false is asserted; the periodic task never fires inside the synchronous suite. A Lua error from the task before the suite runs would surface as a mod error line in the server log."
+    },
+    {
+      "id": "dst-5a",
+      "anchor": "DST integration item 5 (Track): \"the entity must be valid, have a `health` component and not be dead\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "dst-5b",
+      "anchor": "DST integration item 5 (Track): \"must not register the listeners a second time\"",
+      "status": "asserted",
+      "note": "Return values in case 1; case 3 tracks the same pair twice and compares the engine listener counts."
+    },
+    {
+      "id": "dst-5c",
+      "anchor": "DST integration item 5 (Track): \"they are kept and are applied to the entity immediately\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "dst-6",
+      "anchor": "DST integration item 6 (Apply/Dispel): \"After the manager has accepted the time, both must immediately run\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "dst-7",
+      "anchor": "DST integration item 7 (Cleanse): \"is the only player-facing entry point\"",
+      "status": "asserted",
+      "note": "Two venom instances are present and exactly one is removed."
+    },
+    {
+      "id": "dst-8a",
+      "anchor": "DST integration item 8 (Reconcile): \"when the entity is not tracked or the time is rejected, return nil and do nothing\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "dst-8b",
+      "anchor": "DST integration item 8 (Reconcile): \"write it into the base-game components\"",
+      "status": "asserted",
+      "note": "Observed through locomotor:GetSpeedMultiplier(), externaldamagemultipliers:Get() and combat:CalcDamage()."
+    },
+    {
+      "id": "dst-8c",
+      "anchor": "DST integration item 8 (Reconcile): \"Modifiers set by other sources must not be touched\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "dst-9a",
+      "anchor": "DST integration item 9 (Tick): \"and do not change any health value\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "dst-9b",
+      "anchor": "DST integration item 9 (Tick): \"only if the corresponding entity is still tracked, is valid and\"",
+      "status": "asserted",
+      "note": "Health values and post-Tick speed are asserted; the overtime/cause arguments of DoDelta are not."
+    },
+    {
+      "id": "dst-9c",
+      "anchor": "DST integration item 9 (Tick): \"A dead or removed entity must never be healed, damaged or revived\"",
+      "status": "asserted",
+      "note": "Because death also clears the target, the IsDead guard is not isolated from the death cleanup; the regex covers the guard itself."
+    },
+    {
+      "id": "dst-10",
+      "anchor": "DST integration item 10 (death/onremove): \"unregister both listeners using the same callback that was used at registration\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "dst-11a",
+      "anchor": "DST integration item 11: \"On the world entity that owns the component, use\"",
+      "status": "weak",
+      "note": "The suite sees a pending world task disappear on removal; that the task really calls Tick() is only a regex."
+    },
+    {
+      "id": "dst-11b",
+      "anchor": "DST integration item 11: \"must perform the same cleanup as in the previous item for all tracked entities\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "dst-12a",
+      "anchor": "DST integration item 12: \"returns a table that contains the\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "dst-12b",
+      "anchor": "DST integration item 12: \"keeps the entities already tracked in this process and their listeners\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "dst-13a",
+      "anchor": "DST integration item 13: \"Players are tracked by\"",
+      "status": "weak",
+      "note": "No real player can join the headless test server; regex only."
+    },
+    {
+      "id": "dst-13b",
+      "anchor": "DST integration item 13: \"The RPC exposes only self-cleansing\"",
+      "status": "weak",
+      "note": "Cleanse itself is asserted on the server; the RPC registration and its argument discipline are regex only."
+    },
+    {
+      "id": "accept-1",
+      "anchor": "Acceptance, closing line: \"placeholder implementations and client-authoritative implementations are forbidden\"",
+      "status": "weak",
+      "note": "none_of TODO/IMPLEMENT ME regex only."
+    }
+  ],
+  "excluded_clauses": [],
+  "known_issues": []
+}

@@ -1,0 +1,11 @@
+{
+  "id": "pack_choice_commit_v2",
+  "name": "Pack Choice Commit v2",
+  "author": ["Balatro-PoC"],
+  "description": "Two-choice signing reward lifecycle repair",
+  "prefix": "pc2",
+  "main_file": "main.lua",
+  "version": "2.0.0",
+  "priority": 0,
+  "dependencies": ["Steamodded (>=1.~)"]
+}

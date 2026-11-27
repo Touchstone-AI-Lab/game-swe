@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<metadata>
+  <name>Construct Callback Transaction Verifier</name>
+  <directory>gcb_construct_callback_transaction_suite</directory>
+  <id>construct-callback-transaction-suite</id>
+  <description>Private verifier companion mod.</description>
+  <version>1.0.0</version>
+</metadata>

@@ -1,0 +1,202 @@
+{
+  "task": "rimworld/core/r4-small-bench-ingredient-consumption",
+  "task_version": "0.3.3",
+  "exam": "benchmarks/rimworld-core/exams/r4-small-bench-ingredient-consumption.md",
+  "cases": [
+    {
+      "id": "check:submission-shape",
+      "role": "static",
+      "clauses": [
+        "delivery"
+      ],
+      "overlap": false,
+      "note": "required C# sources present as a safe snapshot; rejects binaries, links and private-harness markers"
+    },
+    {
+      "id": "case:runtime-defs-ready",
+      "role": "runtime-sentinel",
+      "clauses": [],
+      "overlap": false,
+      "note": "Core, R4 and verifier loaded"
+    },
+    {
+      "id": "case:empty-cost-noop",
+      "role": "preserved",
+      "clauses": [
+        "req-4"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:null-cost-noop",
+      "role": "preserved",
+      "clauses": [
+        "req-4"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:stack-cell-first",
+      "role": "preserved",
+      "clauses": [
+        "req-1"
+      ],
+      "overlap": true,
+      "note": "the starter already consumes from the bench's own stack cell"
+    },
+    {
+      "id": "case:small-bench-adjacent",
+      "role": "target",
+      "clauses": [
+        "req-2"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:interaction-cell-origin",
+      "role": "target",
+      "clauses": [
+        "req-1",
+        "req-2"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:duplicate-costs-aggregate",
+      "role": "target",
+      "clauses": [
+        "req-4"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:partial-stack-preserved",
+      "role": "target",
+      "clauses": [
+        "req-4"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:multiple-stacks-exact",
+      "role": "target",
+      "clauses": [
+        "req-4"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:unrelated-def-preserved",
+      "role": "preserved",
+      "clauses": [
+        "req-4"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:non-item-preserved",
+      "role": "preserved",
+      "clauses": [
+        "req-3"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:impassable-cell-skipped",
+      "role": "preserved",
+      "clauses": [
+        "req-3"
+      ],
+      "overlap": true,
+      "note": "holds in the starter, which never searches beyond the stack cells"
+    },
+    {
+      "id": "case:already-visited-not-recounted",
+      "role": "preserved",
+      "clauses": [
+        "req-3"
+      ],
+      "overlap": true,
+      "note": ""
+    },
+    {
+      "id": "case:radius-boundary-included",
+      "role": "target",
+      "clauses": [
+        "req-2"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:outside-radius-preserved",
+      "role": "preserved",
+      "clauses": [
+        "req-2"
+      ],
+      "overlap": true,
+      "note": "holds in the starter; requires the search to stop at radius 6",
+      "over_constrained": true
+    },
+    {
+      "id": "case:fixture-state-restored",
+      "role": "setup",
+      "clauses": [],
+      "overlap": false,
+      "note": "terminal fixture-restoration gate"
+    }
+  ],
+  "clauses": [
+    {
+      "id": "req-1",
+      "anchor": "Required behavior, bullet 1: consume first from the bill giver's stack cells, ordered by distance from its interaction cell",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "req-2",
+      "anchor": "Required behavior, bullet 2: then continue through vanilla-equivalent radial placement cells around the interaction cell",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "req-3",
+      "anchor": "Required behavior, bullet 3: ignore out-of-bounds, visited, bench, non-item and impassable no-surface cells",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "req-4",
+      "anchor": "Required behavior, bullet 4: aggregate duplicates, ignore null or non-positive costs, never over-consume, stop when satisfied",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "req-5",
+      "anchor": "Required behavior, bullet 5: preserve large-bench behavior and unrelated material, repair, cleaning, recycling, hauling and placement",
+      "status": "unasserted",
+      "note": "no case builds a large bench or exercises the other operations"
+    },
+    {
+      "id": "delivery",
+      "anchor": "closing paragraph: do not add RimWorld, Unity or Harmony binaries, generated output, test results, credentials, Workshop content, assets, saves or logs",
+      "status": "weak",
+      "note": "the snapshot gate rejects binaries, links and harness markers; the other listed artefacts are not checked"
+    }
+  ],
+  "excluded_clauses": [
+    "req-5"
+  ],
+  "known_issues": [
+    "The exam asks for vanilla-equivalent radial placement cells, but radius-boundary-included and outside-radius-preserved fix the search at radius 6 (the upstream MaxIngredientSearchRadius). Vanilla Toils_JobTransforms.IngredientPlaceCellsInOrder walks the first 200 radial cells, which reach the item seven cells east that outside-radius-preserved expects to remain; the alternative-strict-reading-vanilla-200 control records this."
+  ]
+}

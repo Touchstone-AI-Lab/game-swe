@@ -1,0 +1,16 @@
+--- a/scripts/tradeescrow/escrow.lua
++++ b/scripts/tradeescrow/escrow.lua
+@@ -268,10 +268,9 @@
+         return reject("stale_revision", trade)
+     end
+     if revision == side.revision then
+-        if same_items(side.items, items) then
+-            return result(true, "offered", trade, { revision = side.revision })
+-        end
+-        return reject("revision_conflict", trade)
++        if not same_items(side.items, items) then
++            return reject("revision_conflict", trade)
++        end
+     end
+ 
+     local problem = self:_validate_items(items)

@@ -1,0 +1,63 @@
+schema_version = "1.4"
+
+artifacts = ["/app/l4d2-competitive"]
+
+[task]
+name = "gamecodebench/l4d2-confogl-cvar-transactions-hard"
+version = "1.1.0"
+description = "Repair transactional ConVar activation, enforcement, late binding and release in Confogl."
+authors = [{ name = "PrinsYin" }]
+keywords = ["left4dead2", "sourcemod", "sourcepawn", "game-modding", "debugging", "regression"]
+
+[metadata]
+category = "programming"
+difficulty = "hard"
+tags = ["game-modding", "l4d2", "sourcepawn", "bug-fix", "multi-defect"]
+source_repo = "https://github.com/SirPlease/L4D2-Competitive-Rework"
+source_license = "GPL-3.0-only"
+base_commit = "6cb2fcbe092776c8287944ab541244e2b8262662"
+reference_revisions = "task-authored cvar transaction contracts; base snapshot 6cb2fcbe092776c8287944ab541244e2b8262662"
+gold_solution_origin = "task-authored transactional lifecycle repair over frozen upstream plus accepted prior repairs"
+task_kind = "repository-debugging"
+game = "Left 4 Dead 2 Dedicated Server"
+game_app_id = "222860"
+game_build = "23990100; depots 222861/4827977561765481436 and 222863/868244163643826330"
+expected_server_cases = 42
+independent_defect_groups = 7
+public_smoke_command = "python3 tools/smoke.py"
+agent_toolchain = "SourceMod/spcomp64 1.12.0.7246; mini-swe-agent 2.4.6; litellm 1.95.0"
+
+[verifier]
+environment_mode = "separate"
+network_mode = "no-network"
+timeout_sec = 420.0
+user = "root"
+
+[verifier.environment]
+network_mode = "no-network"
+cpus = 4
+memory_mb = 12288
+storage_mb = 32768
+gpus = 0
+mcp_servers = []
+
+[agent]
+user = "agent"
+network_mode = "allowlist"
+allowed_hosts = ["api.openai.com"]
+timeout_sec = 5400.0
+
+[environment]
+network_mode = "no-network"
+build_timeout_sec = 1800.0
+cpus = 4
+memory_mb = 8192
+storage_mb = 20480
+gpus = 0
+mcp_servers = []
+
+[verifier.env]
+
+[environment.env]
+
+[solution.env]

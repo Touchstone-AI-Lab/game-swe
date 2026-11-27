@@ -1,0 +1,11 @@
+--- a/scripts/lootroll/arbiter.lua
++++ b/scripts/lootroll/arbiter.lua
+@@ -313,7 +313,7 @@
+         choices = {},
+         revisions = {},
+         chosen = 0,
+-        state = seed % SEED_RANGE + 1,
++        state = seed,
+         rolls = {},
+         demoted = {},
+         failed = {},

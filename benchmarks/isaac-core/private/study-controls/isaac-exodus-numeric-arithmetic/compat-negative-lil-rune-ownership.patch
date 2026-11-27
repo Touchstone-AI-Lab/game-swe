@@ -1,0 +1,13 @@
+--- a/main.lua
++++ b/main.lua
+@@ -4376,10 +4376,6 @@
+     local sprite = rune:GetSprite()
+     local data = rune:GetData()
+ 
+-    if not player:HasCollectible(ItemId.LIL_RUNE) then
+-        rune:Remove()
+-    end
+-
+     rune:FollowParent()
+ 
+     if ItemVariables.LIL_RUNE.PlayAnim ~= nil then

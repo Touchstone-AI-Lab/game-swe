@@ -1,0 +1,8 @@
+# Preserve the exact validated public-package bytes, including CRLF where present.
+public/v02/** -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
+# These two hashed snapshots contain pre-existing space-only lines. Preserve them.
+# The candidate-release manifest remains authoritative for every byte.
+public/v02/isolated-card-wear-v2/starter/lib/wear.lua whitespace=-blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
+public/v02/live-joker-adjacency-v2/starter/lib/adjacency.lua whitespace=-blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
+# Preserve the already validated Linux runtime binding bytes.
+runtimes.json -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol

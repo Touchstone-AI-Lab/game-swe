@@ -1,0 +1,16 @@
+diff -ruN a/AutoWorkshop/ModEntry.cs b/AutoWorkshop/ModEntry.cs
+--- a/AutoWorkshop/ModEntry.cs
++++ b/AutoWorkshop/ModEntry.cs
+@@ -63,11 +63,7 @@
+                 return;
+             SObject? held = machine.heldObject.Value;
+             if (held is null || held.Stack <= 0)
+-            {
+-                machine.heldObject.Value = null;
+-                machine.readyForHarvest.Value = false;
+-                return;
+-            }
++                return; // not a product this mod knows how to store
+             Item? leftover = chest.addItem(held);
+             if (leftover is null)
+             {

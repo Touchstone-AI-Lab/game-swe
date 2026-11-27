@@ -1,0 +1,10 @@
+{
+  "schema_version": 1,
+  "mode": "dedicated-server",
+  "cases": [
+    "real_engine_active_query_snapshot",
+    "real_engine_world_coordinate_entrypoint",
+    "real_engine_creation_observer_transaction"
+  ],
+  "client_only_exclusions": []
+}

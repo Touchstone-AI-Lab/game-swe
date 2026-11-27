@@ -1,0 +1,480 @@
+{
+  "id": "slay-the-spire-core",
+  "version": "1.8.0",
+  "game": "slay-the-spire",
+  "name": {
+    "en": "Slay the Spire mod source repair tasks",
+    "zh": "杀戮尖塔模组源码修复任务"
+  },
+  "description": {
+    "en": "Nine native-runtime source-repair tasks for ModTheSpire, BaseMod, StSLib and Downfall. Each is evaluated in the licensed game, launched under ModTheSpire on the Steam-prepared Hub runtime.",
+    "zh": "九道 ModTheSpire、BaseMod、StSLib 与 Downfall 的原生运行时源码修复题，均在 Hub 通过 Steam 准备的运行时中由 ModTheSpire 启动正版游戏评测。"
+  },
+  "tasks": [
+    {
+      "id": "mts-load-order-regressions-r2",
+      "difficulty": "hard",
+      "title": {
+        "en": "ModTheSpire: mods loading in the wrong order",
+        "zh": "ModTheSpire：mod 加载顺序出错"
+      },
+      "summary": {
+        "en": "Diagnose and repair every reported problem in ModTheSpire.",
+        "zh": "诊断并修复 ModTheSpire 中报告的全部问题。"
+      },
+      "brief": {
+        "en": "Diagnose and repair every reported problem in ModTheSpire.",
+        "zh": "诊断并修复 ModTheSpire 中报告的全部问题。"
+      },
+      "requirements": {
+        "en": [
+          "Fix the underlying causes rather than suppressing the symptoms.",
+          "Preserve the behaviour of every code path that already works."
+        ],
+        "zh": [
+          "修复根本原因，而不是掩盖现象。",
+          "保持所有已经正常的代码路径的既有行为。"
+        ]
+      },
+      "api_usage": {
+        "en": [
+          "Use the Javassist and JDK 8 APIs already present in the tree."
+        ],
+        "zh": [
+          "使用代码树中已有的 Javassist 与 JDK 8 API。"
+        ]
+      },
+      "acceptance": {
+        "en": [
+          "Every private JUnit assertion must pass inside the licensed game launched by the submitted ModTheSpire."
+        ],
+        "zh": [
+          "所有私有 JUnit 断言必须在由提交的 ModTheSpire 启动的正版游戏中通过。"
+        ]
+      },
+      "domains": [
+        "java",
+        "bytecode",
+        "debugging"
+      ],
+      "estimated_minutes": 180,
+      "required_files": [
+        "project/pom.xml"
+      ],
+      "task_kind": "debugging",
+      "source_mod": "ModTheSpire",
+      "source_commit": "master"
+    },
+    {
+      "id": "mts-mod-identity-regressions-r2",
+      "difficulty": "hard",
+      "title": {
+        "en": "ModTheSpire: the launcher losing track of which mod is which",
+        "zh": "ModTheSpire：启动器分不清哪个 mod 是哪个"
+      },
+      "summary": {
+        "en": "Diagnose and repair every reported problem in ModTheSpire.",
+        "zh": "诊断并修复 ModTheSpire 中报告的全部问题。"
+      },
+      "brief": {
+        "en": "Diagnose and repair every reported problem in ModTheSpire.",
+        "zh": "诊断并修复 ModTheSpire 中报告的全部问题。"
+      },
+      "requirements": {
+        "en": [
+          "Fix the underlying causes rather than suppressing the symptoms.",
+          "Preserve the behaviour of every code path that already works."
+        ],
+        "zh": [
+          "修复根本原因，而不是掩盖现象。",
+          "保持所有已经正常的代码路径的既有行为。"
+        ]
+      },
+      "api_usage": {
+        "en": [
+          "Use the Javassist and JDK 8 APIs already present in the tree."
+        ],
+        "zh": [
+          "使用代码树中已有的 Javassist 与 JDK 8 API。"
+        ]
+      },
+      "acceptance": {
+        "en": [
+          "Every private JUnit assertion must pass inside the licensed game launched by the submitted ModTheSpire."
+        ],
+        "zh": [
+          "所有私有 JUnit 断言必须在由提交的 ModTheSpire 启动的正版游戏中通过。"
+        ]
+      },
+      "domains": [
+        "java",
+        "bytecode",
+        "debugging"
+      ],
+      "estimated_minutes": 180,
+      "required_files": [
+        "project/pom.xml"
+      ],
+      "task_kind": "debugging",
+      "source_mod": "ModTheSpire",
+      "source_commit": "master"
+    },
+    {
+      "id": "basemod-dynamic-descriptions-r2",
+      "difficulty": "hard",
+      "title": {
+        "en": "BaseMod: Card descriptions disagree across updates",
+        "zh": "BaseMod：卡牌描述在更新后显示不一致"
+      },
+      "summary": {
+        "en": "Repair the observed behavior while preserving existing public contracts.",
+        "zh": "修复报告中的行为问题，并保持已有公共接口约定。"
+      },
+      "brief": {
+        "en": "Repair all behavior described in the frozen public exam.",
+        "zh": "修复公开题面中描述的全部行为问题。"
+      },
+      "requirements": {
+        "en": [
+          "Preserve working behavior and public APIs."
+        ],
+        "zh": [
+          "保持正常行为与公共 API 兼容性。"
+        ]
+      },
+      "api_usage": {
+        "en": [
+          "Use the supplied Java 8 source project and offline build."
+        ],
+        "zh": [
+          "使用提供的 Java 8 源码项目与离线构建。"
+        ]
+      },
+      "acceptance": {
+        "en": [
+          "All private native-runtime checks must pass. A licensed game is required for evaluation."
+        ],
+        "zh": [
+          "全部私有真实运行时检查必须通过；评测需要有授权的游戏本体。"
+        ]
+      },
+      "domains": [
+        "java",
+        "debugging"
+      ],
+      "estimated_minutes": 180,
+      "required_files": [
+        "project/pom.xml"
+      ],
+      "task_kind": "debugging",
+      "source_mod": "BaseMod",
+      "source_commit": "26de1afc1a8ea7595b61f940de0ac29650f2c025"
+    },
+    {
+      "id": "stslib-block-ledger-r1",
+      "difficulty": "hard",
+      "title": {
+        "en": "StSLib: Custom block gets counted incorrectly",
+        "zh": "StSLib：自定义格挡结算出错"
+      },
+      "summary": {
+        "en": "Repair the observed behavior while preserving existing public contracts.",
+        "zh": "修复报告中的行为问题，并保持已有公共接口约定。"
+      },
+      "brief": {
+        "en": "Repair all behavior described in the frozen public exam.",
+        "zh": "修复公开题面中描述的全部行为问题。"
+      },
+      "requirements": {
+        "en": [
+          "Preserve working behavior and public APIs."
+        ],
+        "zh": [
+          "保持正常行为与公共 API 兼容性。"
+        ]
+      },
+      "api_usage": {
+        "en": [
+          "Use the supplied Java 8 source project and offline build."
+        ],
+        "zh": [
+          "使用提供的 Java 8 源码项目与离线构建。"
+        ]
+      },
+      "acceptance": {
+        "en": [
+          "All private native-runtime checks must pass. A licensed game is required for evaluation."
+        ],
+        "zh": [
+          "全部私有真实运行时检查必须通过；评测需要有授权的游戏本体。"
+        ]
+      },
+      "domains": [
+        "java",
+        "debugging"
+      ],
+      "estimated_minutes": 180,
+      "required_files": [
+        "project/pom.xml"
+      ],
+      "task_kind": "debugging",
+      "source_mod": "StSLib",
+      "source_commit": "3be4b65948d2d9810f4bff7053e34d4ae511adff"
+    },
+    {
+      "id": "mts-enum-identity-r3",
+      "difficulty": "hard",
+      "title": {
+        "en": "ModTheSpire: Extended values disagree across mods",
+        "zh": "ModTheSpire：模组扩展值在不同用法中不一致"
+      },
+      "summary": {
+        "en": "Repair the observed behavior while preserving existing public contracts.",
+        "zh": "修复报告中的行为问题，并保持已有公共接口约定。"
+      },
+      "brief": {
+        "en": "Repair all behavior described in the frozen public exam.",
+        "zh": "修复公开题面中描述的全部行为问题。"
+      },
+      "requirements": {
+        "en": [
+          "Preserve working behavior and public APIs."
+        ],
+        "zh": [
+          "保持正常行为与公共 API 兼容性。"
+        ]
+      },
+      "api_usage": {
+        "en": [
+          "Use the supplied Java 8 source project and offline build."
+        ],
+        "zh": [
+          "使用提供的 Java 8 源码项目与离线构建。"
+        ]
+      },
+      "acceptance": {
+        "en": [
+          "All private native-runtime checks must pass. A licensed game is required for evaluation."
+        ],
+        "zh": [
+          "全部私有真实运行时检查必须通过；评测需要有授权的游戏本体。"
+        ]
+      },
+      "domains": [
+        "java",
+        "debugging"
+      ],
+      "estimated_minutes": 180,
+      "required_files": [
+        "project/pom.xml"
+      ],
+      "task_kind": "debugging",
+      "source_mod": "ModTheSpire",
+      "source_commit": "c6201995b8f5d97620cdb00f28a724a95b7742a6"
+    },
+    {
+      "id": "stslib-icon-layout-r1",
+      "difficulty": "hard",
+      "title": {
+        "en": "StSLib: Custom icon measurements disagree with drawing",
+        "zh": "StSLib：自定义图标的测量与绘制不一致"
+      },
+      "summary": {
+        "en": "Repair the observed behavior while preserving existing public contracts.",
+        "zh": "修复报告中的行为问题，并保持已有公共接口约定。"
+      },
+      "brief": {
+        "en": "Repair all behavior described in the frozen public exam.",
+        "zh": "修复公开题面中描述的全部行为问题。"
+      },
+      "requirements": {
+        "en": [
+          "Preserve working behavior and public APIs."
+        ],
+        "zh": [
+          "保持正常行为与公共 API 兼容性。"
+        ]
+      },
+      "api_usage": {
+        "en": [
+          "Use the supplied Java 8 source project and offline build."
+        ],
+        "zh": [
+          "使用提供的 Java 8 源码项目与离线构建。"
+        ]
+      },
+      "acceptance": {
+        "en": [
+          "All private native-runtime checks must pass. A licensed game is required for evaluation."
+        ],
+        "zh": [
+          "全部私有真实运行时检查必须通过；评测需要有授权的游戏本体。"
+        ]
+      },
+      "domains": [
+        "java",
+        "debugging"
+      ],
+      "estimated_minutes": 180,
+      "required_files": [
+        "project/pom.xml"
+      ],
+      "task_kind": "debugging",
+      "source_mod": "StSLib",
+      "source_commit": "3be4b65948d2d9810f4bff7053e34d4ae511adff"
+    },
+    {
+      "id": "downfall-stasis-lifecycle-r1",
+      "difficulty": "hard",
+      "title": {
+        "en": "Downfall: Queued stored-card transfers lose ownership",
+        "zh": "Downfall：排队中的封存卡牌转移破坏归属关系"
+      },
+      "summary": {
+        "en": "Repair the observed behavior while preserving existing public contracts.",
+        "zh": "修复报告中的行为问题，并保持已有公共接口约定。"
+      },
+      "brief": {
+        "en": "Repair all behavior described in the frozen public exam.",
+        "zh": "修复公开题面中描述的全部行为问题。"
+      },
+      "requirements": {
+        "en": [
+          "Preserve working behavior and public APIs."
+        ],
+        "zh": [
+          "保持正常行为与公共 API 兼容性。"
+        ]
+      },
+      "api_usage": {
+        "en": [
+          "Use the supplied Java 8 source project and offline build."
+        ],
+        "zh": [
+          "使用提供的 Java 8 源码项目与离线构建。"
+        ]
+      },
+      "acceptance": {
+        "en": [
+          "All private native-runtime checks must pass. A licensed game is required for evaluation."
+        ],
+        "zh": [
+          "全部私有真实运行时检查必须通过；评测需要有授权的游戏本体。"
+        ]
+      },
+      "domains": [
+        "java",
+        "debugging"
+      ],
+      "estimated_minutes": 180,
+      "required_files": [
+        "project/build.sh"
+      ],
+      "task_kind": "debugging",
+      "source_mod": "Downfall",
+      "source_commit": "030ff7d4a7419a3e21c3075661550b1b479f3502"
+    },
+    {
+      "id": "basemod-phase-transitions-r1",
+      "difficulty": "hard",
+      "title": {
+        "en": "BaseMod: Event redirects leave stale phases and choices",
+        "zh": "BaseMod：事件跳转残留过期阶段和选项"
+      },
+      "summary": {
+        "en": "Repair the observed behavior while preserving existing public contracts.",
+        "zh": "修复报告中的行为问题，并保持已有公共接口约定。"
+      },
+      "brief": {
+        "en": "Repair all behavior described in the frozen public exam.",
+        "zh": "修复公开题面中描述的全部行为问题。"
+      },
+      "requirements": {
+        "en": [
+          "Preserve working behavior and public APIs."
+        ],
+        "zh": [
+          "保持正常行为与公共 API 兼容性。"
+        ]
+      },
+      "api_usage": {
+        "en": [
+          "Use the supplied Java 8 source project and offline build."
+        ],
+        "zh": [
+          "使用提供的 Java 8 源码项目与离线构建。"
+        ]
+      },
+      "acceptance": {
+        "en": [
+          "All private native-runtime checks must pass. A licensed game is required for evaluation."
+        ],
+        "zh": [
+          "全部私有真实运行时检查必须通过；评测需要有授权的游戏本体。"
+        ]
+      },
+      "domains": [
+        "java",
+        "debugging"
+      ],
+      "estimated_minutes": 180,
+      "required_files": [
+        "project/pom.xml"
+      ],
+      "task_kind": "debugging",
+      "source_mod": "BaseMod",
+      "source_commit": "26de1afc1a8ea7595b61f940de0ac29650f2c025"
+    },
+    {
+      "id": "downfall-socket-flow-r3",
+      "difficulty": "hard",
+      "title": {
+        "en": "Downfall: Campfire selections leak across cancellation",
+        "zh": "Downfall：营火选择流程在取消后互相干扰"
+      },
+      "summary": {
+        "en": "Repair the observed behavior while preserving existing public contracts.",
+        "zh": "修复报告中的行为问题，并保持已有公共接口约定。"
+      },
+      "brief": {
+        "en": "Repair all behavior described in the frozen public exam.",
+        "zh": "修复公开题面中描述的全部行为问题。"
+      },
+      "requirements": {
+        "en": [
+          "Preserve working behavior and public APIs."
+        ],
+        "zh": [
+          "保持正常行为与公共 API 兼容性。"
+        ]
+      },
+      "api_usage": {
+        "en": [
+          "Use the supplied Java 8 source project and offline build."
+        ],
+        "zh": [
+          "使用提供的 Java 8 源码项目与离线构建。"
+        ]
+      },
+      "acceptance": {
+        "en": [
+          "All private native-runtime checks must pass. A licensed game is required for evaluation."
+        ],
+        "zh": [
+          "全部私有真实运行时检查必须通过；评测需要有授权的游戏本体。"
+        ]
+      },
+      "domains": [
+        "java",
+        "debugging"
+      ],
+      "estimated_minutes": 180,
+      "required_files": [
+        "project/build.sh"
+      ],
+      "task_kind": "debugging",
+      "source_mod": "Downfall",
+      "source_commit": "030ff7d4a7419a3e21c3075661550b1b479f3502"
+    }
+  ]
+}

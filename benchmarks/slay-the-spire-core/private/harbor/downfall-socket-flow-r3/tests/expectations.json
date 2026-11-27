@@ -1,0 +1,214 @@
+{
+  "cases": {
+    "complete": {
+      "group": "control",
+      "expected": {
+        "error": "none",
+        "hostUpgraded": "false",
+        "ordinaryUpgraded": "false",
+        "screen": "NONE",
+        "up": "false",
+        "selected": "",
+        "deck": "Guardian:Gem_Green;Guardian:PrismaticBeam;Strike_R",
+        "hostGems": "[RED]",
+        "hidden": "false",
+        "phase": "5"
+      }
+    },
+    "cancel-gem-mouse": {
+      "group": "control",
+      "expected": {
+        "error": "none",
+        "hostUpgraded": "false",
+        "ordinaryUpgraded": "false",
+        "screen": "NONE",
+        "up": "false",
+        "selected": "",
+        "deck": "Guardian:Gem_Red;Guardian:Gem_Green;Guardian:PrismaticBeam;Strike_R",
+        "hostGems": "[]",
+        "hidden": "false",
+        "cancelHidden": "true",
+        "phase": "5"
+      }
+    },
+    "cancel-gem-escape": {
+      "group": "control",
+      "expected": {
+        "error": "none",
+        "hostUpgraded": "false",
+        "ordinaryUpgraded": "false",
+        "screen": "NONE",
+        "up": "false",
+        "selected": "",
+        "deck": "Guardian:Gem_Red;Guardian:Gem_Green;Guardian:PrismaticBeam;Strike_R",
+        "hostGems": "[]",
+        "hidden": "false",
+        "cancelHidden": "true",
+        "phase": "5"
+      }
+    },
+    "cancel-socket-mouse": {
+      "group": "back-navigation",
+      "expected": {
+        "error": "none",
+        "hostUpgraded": "false",
+        "ordinaryUpgraded": "false",
+        "screen": "GRID",
+        "up": "true",
+        "selected": "",
+        "deck": "Guardian:Gem_Red;Guardian:Gem_Green;Guardian:PrismaticBeam;Strike_R",
+        "hostGems": "[]",
+        "target": "Guardian:Gem_Red;Guardian:Gem_Green",
+        "cancelHidden": "false",
+        "phase": "5"
+      }
+    },
+    "cancel-socket-escape": {
+      "group": "back-navigation",
+      "expected": {
+        "error": "none",
+        "hostUpgraded": "false",
+        "ordinaryUpgraded": "false",
+        "screen": "GRID",
+        "up": "true",
+        "selected": "",
+        "deck": "Guardian:Gem_Red;Guardian:Gem_Green;Guardian:PrismaticBeam;Strike_R",
+        "hostGems": "[]",
+        "target": "Guardian:Gem_Red;Guardian:Gem_Green",
+        "cancelHidden": "false",
+        "phase": "5"
+      }
+    },
+    "smith-control": {
+      "group": "control",
+      "expected": {
+        "error": "none",
+        "hostUpgraded": "false",
+        "ordinaryUpgraded": "true",
+        "screen": "NONE",
+        "up": "false",
+        "selected": "",
+        "deck": "Guardian:Gem_Red;Guardian:Gem_Green;Guardian:PrismaticBeam;Strike_R",
+        "hostGems": "[]",
+        "phase": "8"
+      }
+    },
+    "smith-guardian-control": {
+      "group": "control",
+      "expected": {
+        "error": "none",
+        "hostUpgraded": "true",
+        "ordinaryUpgraded": "false",
+        "screen": "NONE",
+        "up": "false",
+        "selected": "",
+        "deck": "Guardian:Gem_Red;Guardian:Gem_Green;Guardian:PrismaticBeam;Strike_R",
+        "hostGems": "[]",
+        "phase": "8"
+      }
+    },
+    "cancel-gem-smith-mouse": {
+      "group": "cancel-ownership",
+      "expected": {
+        "error": "none",
+        "hostUpgraded": "false",
+        "ordinaryUpgraded": "true",
+        "screen": "NONE",
+        "up": "false",
+        "selected": "",
+        "deck": "Guardian:Gem_Red;Guardian:Gem_Green;Guardian:PrismaticBeam;Strike_R",
+        "hostGems": "[]",
+        "phase": "8"
+      }
+    },
+    "cancel-gem-smith-escape": {
+      "group": "cancel-ownership",
+      "expected": {
+        "error": "none",
+        "hostUpgraded": "false",
+        "ordinaryUpgraded": "true",
+        "screen": "NONE",
+        "up": "false",
+        "selected": "",
+        "deck": "Guardian:Gem_Red;Guardian:Gem_Green;Guardian:PrismaticBeam;Strike_R",
+        "hostGems": "[]",
+        "phase": "8"
+      }
+    },
+    "cancel-gem-smith-guardian": {
+      "group": "cancel-ownership",
+      "expected": {
+        "error": "none",
+        "hostUpgraded": "true",
+        "ordinaryUpgraded": "false",
+        "screen": "NONE",
+        "up": "false",
+        "selected": "",
+        "deck": "Guardian:Gem_Red;Guardian:Gem_Green;Guardian:PrismaticBeam;Strike_R",
+        "hostGems": "[]",
+        "phase": "8"
+      }
+    },
+    "back-reselect-mouse": {
+      "group": "back-navigation",
+      "expected": {
+        "error": "none",
+        "hostUpgraded": "false",
+        "ordinaryUpgraded": "false",
+        "screen": "NONE",
+        "up": "false",
+        "selected": "",
+        "deck": "Guardian:Gem_Red;Guardian:PrismaticBeam;Strike_R",
+        "hostGems": "[GREEN]",
+        "hidden": "false",
+        "phase": "11"
+      }
+    },
+    "back-reselect-escape": {
+      "group": "back-navigation",
+      "expected": {
+        "error": "none",
+        "hostUpgraded": "false",
+        "ordinaryUpgraded": "false",
+        "screen": "NONE",
+        "up": "false",
+        "selected": "",
+        "deck": "Guardian:Gem_Red;Guardian:PrismaticBeam;Strike_R",
+        "hostGems": "[GREEN]",
+        "hidden": "false",
+        "phase": "11"
+      }
+    }
+  },
+  "case_count_including_engine": 13,
+  "failures": {
+    "base": [
+      "back-reselect-escape",
+      "back-reselect-mouse",
+      "cancel-gem-smith-escape",
+      "cancel-gem-smith-guardian",
+      "cancel-gem-smith-mouse",
+      "cancel-socket-escape",
+      "cancel-socket-mouse"
+    ],
+    "gold": [],
+    "alternative": [],
+    "back-only": [
+      "cancel-gem-smith-escape",
+      "cancel-gem-smith-guardian",
+      "cancel-gem-smith-mouse"
+    ],
+    "retirement-only": [
+      "back-reselect-escape",
+      "back-reselect-mouse",
+      "cancel-socket-escape",
+      "cancel-socket-mouse"
+    ]
+  },
+  "frozen_before_repair_runs": false,
+  "qualified": false,
+  "assertion_policy": "Visible grid contents, deck/gem preservation, actual native upgrade outcome and absence of runtime exceptions. No private or public mod control flags are asserted. Exception containment only follows an already observed actual throw.",
+  "revision": "r3",
+  "supersedes": "downfall-socket-flow-r2",
+  "r3_behavior_frozen_before_deepseek_generation": true
+}

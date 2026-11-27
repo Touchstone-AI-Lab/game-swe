@@ -1,0 +1,113 @@
+{
+  "schemaVersion": 3,
+  "catalogVersion": "0.3.2",
+  "privateProtocol": "rhenium-rimworld-private-v3",
+  "assertionManifestSha256": "73a2bdcab3a5e92f7f8cc8b11bb13468f3610a8116af3fe398adb4f91813f235",
+  "runtime": "rimworld/rimworld-1.6.4871-linux-x64",
+  "engineAssertionsRan": true,
+  "evidenceGeneration": {
+    "status": "run",
+    "date": "2026-09-24",
+    "host": "Linux x86_64 Docker host (NixOS), networkless evaluation",
+    "path": "rhenium run and rhenium-study e0 run through the Hub",
+    "note": "verifier repairs of 2026-09-24 first; see docs/games/rimworld.md#engine-validation-2026-09-24"
+  },
+  "plannedMatrix": {
+    "oracle": {
+      "expectedPassed": 16,
+      "expectedFailed": 0
+    },
+    "base": {
+      "expectedPassed": 5,
+      "expectedFailed": 11
+    },
+    "nop": {
+      "expectedPassed": 5,
+      "expectedFailed": 11
+    }
+  },
+  "plannedOutcomesAreAuthoringExpectations": true,
+  "referenceCompile": {
+    "status": "passed",
+    "date": "2026-09-24"
+  },
+  "containerBuild": {
+    "status": "passed",
+    "date": "2026-09-24"
+  },
+  "realEngine": {
+    "status": "passed",
+    "date": "2026-09-24"
+  },
+  "reusablePriorEvidence": false,
+  "oracle": {
+    "status": "passed",
+    "evidenceProtocol": "rhenium-rimworld-private-v3",
+    "runs": [
+      "run-39bcdda283da4d58",
+      "run-3115c73ac20f464b",
+      "run-09d77c4ad0d34a54"
+    ],
+    "score": 100.0,
+    "passed": 16,
+    "failed": 0,
+    "identicalCaseOutcomes": true
+  },
+  "base": {
+    "status": "failed-targets-only",
+    "evidenceProtocol": "rhenium-rimworld-private-v3",
+    "run": "run-7f8eb9890b054399",
+    "score": 10.0,
+    "passed": 5,
+    "failed": 11,
+    "failedCases": [
+      "above-full-percentage-preserved",
+      "armoury-wealth-stays-raw",
+      "building-percentage-stays-raw",
+      "fixed-wealth-passes-through",
+      "fixed-wealth-skips-armoury",
+      "fractional-building-percentage",
+      "full-building-percentage",
+      "nonhome-map-passes-through",
+      "wealth-components-add",
+      "zero-building-percentage",
+      "zero-components-remain-zero"
+    ]
+  },
+  "nop": {
+    "status": "failed-targets-only",
+    "evidenceProtocol": "rhenium-rimworld-private-v3",
+    "run": "run-897aca78f1814eb8",
+    "score": 10.0,
+    "passed": 5,
+    "failed": 11,
+    "failedCases": [
+      "above-full-percentage-preserved",
+      "armoury-wealth-stays-raw",
+      "building-percentage-stays-raw",
+      "fixed-wealth-passes-through",
+      "fixed-wealth-skips-armoury",
+      "fractional-building-percentage",
+      "full-building-percentage",
+      "nonhome-map-passes-through",
+      "wealth-components-add",
+      "zero-building-percentage",
+      "zero-components-remain-zero"
+    ],
+    "materialization": "rhenium-study e0 starter control (Hub workspace copy)"
+  },
+  "authoringRevision": 3,
+  "negativeControls": {
+    "status": "not-run",
+    "kind": "authoring expectations",
+    "mutations": [
+      "omit one started resource restoration registration while another same-name registration remains",
+      "leave a task field or collection changed",
+      "throw during restoration",
+      "leave an extra Rand push",
+      "candidate operation throws: complete failed if fixture integrity remains healthy"
+    ],
+    "studyControls": "private/study-controls/combat-readiness-colony-wealth/NOTES.md"
+  },
+  "plannedCountsNeedEngineReconciliation": false
+}

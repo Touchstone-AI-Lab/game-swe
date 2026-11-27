@@ -1,0 +1,35 @@
+{
+  "protocol": "v2",
+  "task": "growth-v2",
+  "slot": "E1",
+  "target_difficulty": "easy",
+  "calibration_status": "unmeasured",
+  "calibration_model": null,
+  "calibration_evidence": [],
+  "formal_integration_status": "not_implemented",
+  "files": {
+    "CONTRACT.md": {
+      "size": 1901,
+      "sha256": "bc3af1e4a7f5ee77a28aa68c7c8e833e717a9ea669f443665e57a00655a44916"
+    },
+    "README.md": {
+      "size": 1373,
+      "sha256": "62521eff01c1fa4aecc8b7a68225b9bace38e592b9e0a70ad384bd2e2bb1259d"
+    },
+    "starter/joker.lua": {
+      "size": 845,
+      "sha256": "1c58c4caf46a7d8779a968d7472d24c69ffa400d1e050edfc57db1bef252a5b5"
+    },
+    "starter/round_end_growth.json": {
+      "size": 236,
+      "sha256": "8f09823432a9c599f62d970417932ecfc216b31bd088844ff4bab7a7db558f3b"
+    }
+  },
+  "content_sha256": "aa632ee02c478140300ec25bde107d14ed638c19f90a02869646229cab994914",
+  "editable_files": [
+    "starter/joker.lua"
+  ],
+  "immutable_files": [
+    "starter/round_end_growth.json"
+  ]
+}

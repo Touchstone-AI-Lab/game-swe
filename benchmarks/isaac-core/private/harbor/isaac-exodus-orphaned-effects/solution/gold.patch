@@ -1,0 +1,239 @@
+diff --git a/main.lua b/main.lua
+--- a/main.lua
++++ b/main.lua
+@@ -755,7 +755,7 @@
+                 range = 150
+             end
+             
+-            if ItemVariables.RITUAL_CANDLE.HasBonus and entity.Position:Distance(player.Position) <= range and entity:IsVulnerableEnemy() and entity:IsActiveEnemy() and game:GetFrameCount() % math.floor(player.MaxFireDelay / 3) == 0 then
++            if ItemVariables.RITUAL_CANDLE.HasBonus and entity.Position:Distance(player.Position) <= range and entity:IsVulnerableEnemy() and entity:IsActiveEnemy() and game:GetFrameCount() % math.ceil(player.MaxFireDelay / 3) == 0 then
+                 entity:TakeDamage((player.Damage / 4) * (player:GetCollectibleNum(CollectibleType.COLLECTIBLE_BFFS) + 1), 0, EntityRef(player), 0)
+             end
+             
+@@ -852,6 +852,10 @@
+     local data = candle:GetData()
+     local sprite = candle:GetSprite()
+     local player = Isaac.GetPlayer(0)
++
++    if not player:HasCollectible(ItemId.RITUAL_CANDLE) then
++        candle:Remove()
++    end
+ 
+     if player:HasCollectible(CollectibleType.COLLECTIBLE_BFFS) then
+         candle.OrbitDistance = Vector(150, 150)
+@@ -1075,6 +1079,39 @@
+ Exodus:AddCallback(ModCallbacks.MC_NPC_UPDATE, Exodus.occultistEntityUpdate, Entities.OCCULTIST.id)
+ 
+ --<<<IRON LUNG>>>--
++function Exodus:ironLungGasLogic()
++    local entities = Isaac.GetRoomEntities()
++
++    for i, entity in pairs(entities) do
++        if entity.Type == Entities.IRON_LUNG_GAS.id and entity.Variant == Entities.IRON_LUNG_GAS.variant then
++            local sprite = entity:GetSprite()
++
++            if sprite:IsFinished("Appear") then
++                sprite:Play("Pyroclastic Flow", false)
++            end
++
++            if sprite:IsFinished("Pyroclastic Flow") then
++                sprite:Play("Fade", false)
++            end
++
++            for v, tear in pairs(entities) do
++                if tear:ToTear() then
++                    if tear.Position:Distance(entity.Position) < entity.Size + tear.Size then
++                        tear.Velocity = tear.Velocity * 0.8
++                    end
++                end
++            end
++
++            if sprite:IsFinished("Fade") then
++                entity:Remove()
++                entity.Visible = false
++            end
++        end
++    end
++end
++
++Exodus:AddCallback(ModCallbacks.MC_POST_UPDATE, Exodus.ironLungGasLogic)
++
+ function Exodus:ironLungEntityUpdate(entity)
+     local player = Isaac.GetPlayer(0)
+     local data = entity:GetData()
+@@ -1217,35 +1254,6 @@
+             end
+         if sprite:IsFinished("HoriSlam") or sprite:IsFinished("UpSlam") or sprite:IsFinished("DownSlam") then
+             entity.State = 0
+-        end
+-    end
+-
+-    local entities = Isaac.GetRoomEntities()
+-
+-    for i, gas in pairs(entities) do
+-        if gas.Type == Entities.IRON_LUNG_GAS.id and gas.Variant == Entities.IRON_LUNG_GAS.variant then
+-            local gasSprite = gas:GetSprite()
+-
+-            if gasSprite:IsFinished("Appear") then
+-                gasSprite:Play("Pyroclastic Flow", false)
+-            end
+-
+-            if gasSprite:IsFinished("Pyroclastic Flow") then
+-                gasSprite:Play("Fade", false)
+-            end
+-
+-            for v, tear in pairs(entities) do
+-                if tear:ToTear() then
+-                    if tear.Position:Distance(gas.Position) < gas.Size + tear.Size then
+-                        tear.Velocity = tear.Velocity * 0.8
+-                    end
+-                end
+-            end
+-
+-            if gasSprite:IsFinished("Fade") then
+-                gas:Remove()
+-                gas.Visible = false
+-            end
+         end
+     end
+ end
+@@ -2504,8 +2512,7 @@
+     local player = Isaac.GetPlayer(0)
+     
+     for i, entity in pairs(Isaac.GetRoomEntities()) do
+-        if entity.Type == EntityType.ENTITY_TEAR and entity.Variant == Entities.BASEBALL.variant and entity:IsDead()
+-            and ItemVariables.BASEBALL_MITT.Used and player:HasCollectible(ItemId.BASEBALL_MITT) then
++        if entity.Type == EntityType.ENTITY_TEAR and entity.Variant == Entities.BASEBALL.variant and entity:IsDead() then
+             local hit = Isaac.Spawn(Entities.BASEBALL_HIT.id, Entities.BASEBALL_HIT.variant, 0, entity.Position, NullVector, nil)
+             hit:ToEffect():SetTimeout(20)
+             hit.SpriteRotation = rng:RandomInt(360)
+@@ -2897,7 +2904,7 @@
+ 
+ --<<<THE FORBIDDEN FRUIT>>>--
+ function Exodus:forbiddenFruitCache(player, flag)
+-    if player:HasCollectible(ItemId.FORBIDDEN_FRUIT) and flag == CacheFlag.CACHE_DAMAGE then
++    if flag == CacheFlag.CACHE_DAMAGE then
+         player.Damage = player.Damage + (math.floor((ItemVariables.FORBIDDEN_FRUIT.UseCount^0.7) * 100)) / 101
+     end
+ end
+@@ -3192,8 +3199,7 @@
+             sprite:Play("Appear", false)
+             mat.Visible = false
+             
+-            ItemVariables.WELCOME_MAT.Position.X = mat.Position.X
+-            ItemVariables.WELCOME_MAT.Position.Y = mat.Position.Y
++            ItemVariables.WELCOME_MAT.Position = mat.Position
+             mat:Remove()
+         elseif ItemVariables.WELCOME_MAT.AppearFrame ~= nil then
+             local mat = Isaac.Spawn(Entities.WELCOME_MAT.id, 0, 0, ItemVariables.WELCOME_MAT.Position, Vector(0, 0), player)
+@@ -3465,7 +3471,7 @@
+     local player = Isaac.GetPlayer(0)
+     
+     if ItemVariables.BIG_SCISSORS.Triggered and rng:RandomInt(3) == 0 then
+-        Isaac.Spawn(EntityType.ENTITY_EFFECT, EffectVariant.PLAYER_CREEP_RED, 3, player.Position, Vector.Zero, player)
++        Isaac.Spawn(EntityType.ENTITY_EFFECT, EffectVariant.PLAYER_CREEP_RED, 3, player.Position, Vector(0, 0), player)
+     end
+ end
+ 
+@@ -3982,6 +3988,10 @@
+         sun.Visible = false
+     end
+ 
++    if not player:HasCollectible(ItemId.SUNDIAL) then
++        sun:Remove()
++    end
++
+     if math.random(12) == 1 then
+         Isaac.Spawn(EntityType.ENTITY_EFFECT, EffectVariant.EMBER_PARTICLE, 0, Vector(sun.Position.X, sun.Position.Y - 8), RandomVector() * ((math.random() * 4) + 1), player)
+     end
+@@ -4031,6 +4041,10 @@
+         shadow.Visible = false
+     end
+ 
++    if not player:HasCollectible(ItemId.SUNDIAL) then
++        shadow:Remove()
++    end
++
+     if shadow.FrameCount == 1 then
+         shadow.SpawnerVariant = 0
+         shadow.SpawnerType = 0
+@@ -4087,6 +4101,10 @@
+     local sprite = astro:GetSprite()
+     local data = astro:GetData()
+     
++    if not player:HasCollectible(ItemId.ASTRO_BABY) then
++        astro:Remove()
++    end
++
+     astro:FollowParent()
+     
+     for i, entity in pairs(Isaac.GetRoomEntities()) do
+@@ -4357,6 +4375,10 @@
+     local player = Isaac.GetPlayer(0)
+     local sprite = rune:GetSprite()
+     local data = rune:GetData()
++
++    if not player:HasCollectible(ItemId.LIL_RUNE) then
++        rune:Remove()
++    end
+ 
+     rune:FollowParent()
+ 
+@@ -4624,7 +4646,8 @@
+ 
+ Exodus:AddCallback(ModCallbacks.MC_POST_NEW_ROOM, Exodus.lilRuneNewRoom)
+ 
+-function Exodus:lilRuneUse(rune, player)
++function Exodus:lilRuneUse(rune)
++    local player = Isaac.GetPlayer(0)
+     if player:HasCollectible(ItemId.LIL_RUNE) then
+         if rune == Card.RUNE_ALGIZ then
+             ItemVariables.LIL_RUNE.State = "Purple"
+@@ -6521,6 +6544,26 @@
+ Exodus:AddCallback(ModCallbacks.MC_NPC_UPDATE, Exodus.halfblindEntityUpdate, Entities.HALFBLIND.id)
+ 
+ --<<<HEADCASE>>>--
++function Exodus:lobbedShotCollision()
++    local player = Isaac.GetPlayer(0)
++
++    if EntityVariables.HEADCASE.DoLobbed then
++        for i, entity in pairs(Isaac.GetRoomEntities()) do
++            if entity.Type == EntityType.ENTITY_TEAR and entity:GetData().IsExodusLobbed == true then
++                if entity.Position:DistanceSquared(player.Position) < 18^2 and entity:ToTear().Height < 5 then
++                    entity:Die()
++                    player:TakeDamage(1, 0, EntityRef(entity), 0)
++                end
++                if entity:ToTear().Height < 1 then
++                    EntityVariables.HEADCASE.DoLobbed = false
++                end
++            end
++        end
++    end
++end
++
++Exodus:AddCallback(ModCallbacks.MC_POST_UPDATE, Exodus.lobbedShotCollision)
++
+ function Exodus:headcaseEntityUpdate(entity)
+     local player = Isaac.GetPlayer(0)
+     local data = entity:GetData()
+@@ -6581,20 +6624,6 @@
+         
+         if sprite:IsFinished("Stomp") then
+             entity.State = 0
+-        end
+-    end
+-
+-    if EntityVariables.HEADCASE.DoLobbed then
+-        for i, lobbed in pairs(Isaac.GetRoomEntities()) do
+-            if lobbed.Type == EntityType.ENTITY_TEAR and lobbed:GetData().IsExodusLobbed == true then
+-                if lobbed.Position:DistanceSquared(player.Position) < 18^2 and lobbed:ToTear().Height < 5 then
+-                    lobbed:Die()
+-                    player:TakeDamage(1, 0, EntityRef(lobbed), 0)
+-                end
+-                if lobbed:ToTear().Height < 1 then
+-                    EntityVariables.HEADCASE.DoLobbed = false
+-                end
+-            end
+         end
+     end
+ end

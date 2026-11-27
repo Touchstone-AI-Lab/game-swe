@@ -1,0 +1,9 @@
+# Git blob IDs from Spirit Mod revision 7ef2993d6f465f44420b2028e8666748ab31fe43
+30c29960f6df283704ed32786816d1410e80cfb5  Mechanics/QuestSystem/Quest.cs
+0f4995c46779721c2e4ebc651bc1f366d3448bb1  Mechanics/QuestSystem/QuestMultiplayer.cs
+d5d0a8991621ab2772816132362d60616833afc5  Mechanics/QuestSystem/Tasks/QuestTask.cs
+f66f6ed6be82856ba1f0322af8e97ef0a47b2701  Mechanics/QuestSystem/Tasks/BranchingTask.cs
+bf8af91c55d1862c8ad1140e4b20e016c310f751  LICENSE.txt
+2cd8e1654558e3cb09e16ccc34819be39386fbe8  build.txt
+
+# Starter content is preserved with repository-required LF normalization.

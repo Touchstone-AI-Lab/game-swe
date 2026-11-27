@@ -1,0 +1,14 @@
+diff -u a/wire/lua/entities/gmod_wire_expression2/core/timer.lua b/wire/lua/entities/gmod_wire_expression2/core/timer.lua
+--- a/wire/lua/entities/gmod_wire_expression2/core/timer.lua
++++ b/wire/lua/entities/gmod_wire_expression2/core/timer.lua
+@@ -105,10 +105,6 @@
+ 
+ 	timer.Create(internalName, delay, repetitions, function()
+ 		ent:Execute(callback)
+-
+-		if timer.RepsLeft(internalName) == 0 and luaTimers[entIndex] then
+-			luaTimers[entIndex][name] = nil
+-		end
+ 	end)
+ end
+ 

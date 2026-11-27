@@ -1,0 +1,38 @@
+schema_version = "1.1"
+
+[task]
+name = "gamecodebench/combat-readiness-colony-wealth"
+description = "Return raw Core colony wealth while preserving vanilla pass-through states."
+authors = []
+keywords = ["rimworld", "csharp", "mod", "debugging", "real-game"]
+
+[metadata]
+category = "programming"
+difficulty = "hard"
+tags = ["game-modding", "csharp", "rimworld", "bug-fix"]
+source_repo = "https://github.com/emipa606/CombatReadinessCheck"
+source_license = "MIT"
+base_commit = "67f2446e4e6a3d38f7ac3b90c923f4967ee29f86"
+target_commit = "f9b83ce14d9147510969878ff1bf96ed55d99544"
+gold_patch_origin = "upstream-single-parent-fix-with-documented-1.6-reconstruction"
+catalog_version = "0.3.2"
+authoring_revision = 3
+private_protocol = "rhenium-rimworld-private-v3"
+assertion_count = 16
+scored_scope = "CRC_Reintegrated.MarvsMapWealthForStoryTeller.Prefix"
+
+[verifier]
+network_mode = "no-network"
+timeout_sec = 900.0
+[agent]
+network_mode = "no-network"
+allowed_hosts = []
+timeout_sec = 3600.0
+[environment]
+network_mode = "no-network"
+build_timeout_sec = 7200.0
+cpus = 6
+memory_mb = 16384
+storage_mb = 20480
+gpus = 0
+mcp_servers = []

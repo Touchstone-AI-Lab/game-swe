@@ -1,0 +1,201 @@
+{
+  "task": "garrys-mod/addon-repairs/starfallex-library-regressions",
+  "task_version": "1.0.0",
+  "exam": "benchmarks/gmod-addon-repairs/exams/starfallex-library-regressions.md",
+  "cases": [
+    {
+      "id": "check:submission-shape",
+      "role": "static",
+      "clauses": [
+        "Notes-tests"
+      ],
+      "overlap": false,
+      "note": "Static preflight: the addon tree with lua/ exists, no symbolic links or native modules, no harness tokens outside verbatim upstream lines, no lua/gluatest or lua/tests."
+    },
+    {
+      "id": "case:sentinel: the addon and its processor are loaded",
+      "role": "runtime-sentinel",
+      "clauses": [],
+      "overlap": false,
+      "note": "Passes in the starter; only checks that the addon loaded."
+    },
+    {
+      "id": "case:A: loadstring runs the chunk in the environment it is given",
+      "role": "target",
+      "clauses": [
+        "[A]"
+      ],
+      "overlap": false,
+      "note": "Group A. Fails in the unchanged starter, passes with the reference."
+    },
+    {
+      "id": "case:preserved: loadstring without an environment runs in the chip",
+      "role": "preserved",
+      "clauses": [
+        "Task-preserve",
+        "[A]"
+      ],
+      "overlap": true,
+      "note": "Passes in the unchanged starter. Report A: without a third argument chunks keep running in the chip."
+    },
+    {
+      "id": "case:B: a removed entity can still be turned into text",
+      "role": "target",
+      "clauses": [
+        "[B]"
+      ],
+      "overlap": false,
+      "note": "Group B. Fails in the unchanged starter, passes with the reference."
+    },
+    {
+      "id": "case:preserved: a live entity turns into its usual text",
+      "role": "preserved",
+      "clauses": [
+        "Task-preserve",
+        "[B]"
+      ],
+      "overlap": true,
+      "note": "Passes in the unchanged starter. Report B: live entities still print as usual."
+    },
+    {
+      "id": "case:C: a permitted chip can hand its owner a weapon",
+      "role": "target",
+      "clauses": [
+        "[C]"
+      ],
+      "overlap": false,
+      "note": "Group C. Fails in the unchanged starter, passes with the reference."
+    },
+    {
+      "id": "case:preserved: an unpermitted chip still cannot hand out weapons",
+      "role": "preserved",
+      "clauses": [
+        "Task-preserve",
+        "[C]"
+      ],
+      "overlap": true,
+      "note": "Passes in the unchanged starter. Report C: owners without the privilege are still refused."
+    },
+    {
+      "id": "case:D: skipping past the end of a string stream leaves it usable",
+      "role": "target",
+      "clauses": [
+        "[D]"
+      ],
+      "overlap": false,
+      "note": "Group D. Fails in the unchanged starter, passes with the reference."
+    },
+    {
+      "id": "case:preserved: skipping inside a string stream still works",
+      "role": "preserved",
+      "clauses": [
+        "Task-preserve",
+        "[D]"
+      ],
+      "overlap": true,
+      "note": "Passes in the unchanged starter. Report D: skipping within the buffer works."
+    },
+    {
+      "id": "case:E: quaternion slerp lands halfway between its ends",
+      "role": "target",
+      "clauses": [
+        "[E]"
+      ],
+      "overlap": false,
+      "note": "Group E. Fails in the unchanged starter, passes with the reference."
+    },
+    {
+      "id": "case:preserved: quaternion slerp at zero returns its start",
+      "role": "preserved",
+      "clauses": [
+        "Task-preserve",
+        "[E]"
+      ],
+      "overlap": true,
+      "note": "Passes in the unchanged starter. Report E: at t = 0 it returns the first quaternion."
+    },
+    {
+      "id": "case:F: a chip that includes a data file compiles and can read it",
+      "role": "target",
+      "clauses": [
+        "[F]"
+      ],
+      "overlap": false,
+      "note": "Group F. Fails in the unchanged starter, passes with the reference."
+    },
+    {
+      "id": "case:preserved: a chip that includes a script can require it",
+      "role": "preserved",
+      "clauses": [
+        "Task-preserve",
+        "[F]"
+      ],
+      "overlap": true,
+      "note": "Passes in the unchanged starter. Report F: plain --@include still works."
+    }
+  ],
+  "clauses": [
+    {
+      "id": "[A]",
+      "anchor": "Problem, report [A]: loadstring ignores the environment table it is given",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "[B]",
+      "anchor": "Problem, report [B]: tostring of a removed entity throws instead of giving (null entity)",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "[C]",
+      "anchor": "Problem, report [C]: giveWeapon dies with a Lua error for permitted owners",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "[D]",
+      "anchor": "Problem, report [D]: skipping past the end of a bit.stringstream corrupts it",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "[E]",
+      "anchor": "Problem, report [E]: math.slerpQuaternion returns the wrong rotation",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "[F]",
+      "anchor": "Problem, report [F]: --@includedata makes every chip fail to compile",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "Task-preserve",
+      "anchor": "What to do, Notes bullet 4: behaviour that already works must keep working.",
+      "status": "asserted",
+      "note": "Every preserved case passes on the unchanged starter (validation/README.md) and is kept by the reference."
+    },
+    {
+      "id": "Notes-causes",
+      "anchor": "What to do, Notes bullet 2: fix the causes; do not special-case the exact scenario in a report.",
+      "status": "unasserted",
+      "note": "No case distinguishes a root-cause fix from a special case beyond using inputs other than the ones the report quotes. Excluded: not observable by the suite."
+    },
+    {
+      "id": "Notes-tests",
+      "anchor": "What to do, Notes bullet 3: do not change anything under /tests and do not add test files to the addon.",
+      "status": "weak",
+      "note": "Process constraint. The nearest gate is the static preflight in check:submission-shape (plugins/garrys-mod/src/rhenium_garrys_mod/darkrp/evaluator.py: harness-token scan and the lua/gluatest, lua/tests rejection). Excluded from contract analysis."
+    }
+  ],
+  "excluded_clauses": [
+    "Notes-causes",
+    "Notes-tests"
+  ],
+  "known_issues": [
+    "Cases read the variables a chip script leaves in its own globals (chip.instance.env) after compiling it through the processor's ENT:Compile.",
+    "[C] makes the bot a superadmin for the call so it holds the player.giveweapon privilege, and resets it afterwards."
+  ]
+}

@@ -1,0 +1,614 @@
+{
+  "task": "isaac-rebirth/core/isaac-exodus-active-item-state",
+  "task_version": "5.0.0",
+  "exam": "benchmarks/isaac-core/exams/isaac-exodus-active-item-state.md",
+  "cases": [
+    {
+      "id": "case:runtime_sentinel_secret",
+      "role": "runtime-sentinel",
+      "clauses": [],
+      "overlap": false,
+      "note": "Secret-room process started and the verifier mod resolved the Exodus item ids."
+    },
+    {
+      "id": "case:blue_moon",
+      "role": "preserved",
+      "clauses": [
+        "Task-preserve"
+      ],
+      "overlap": false,
+      "note": "Behaviour of EX-239, which this exam does not report and the starter already has (the composite's repair is present). It guards behaviour outside the reported paths."
+    },
+    {
+      "id": "case:apocryphon_stats",
+      "role": "preserved",
+      "clauses": [
+        "Task-preserve"
+      ],
+      "overlap": false,
+      "note": "Behaviour of EX-266, which this exam does not report and the starter already has (the composite's repair is present). It guards behaviour outside the reported paths."
+    },
+    {
+      "id": "case:runtime_sentinel_james",
+      "role": "runtime-sentinel",
+      "clauses": [],
+      "overlap": false,
+      "note": "James process restarted as the custom character."
+    },
+    {
+      "id": "case:james_book_of_secrets_positive",
+      "role": "preserved",
+      "clauses": [
+        "Task-preserve"
+      ],
+      "overlap": false,
+      "note": "Behaviour of EX-296, which this exam does not report and the starter already has (the composite's repair is present). It guards behaviour outside the reported paths."
+    },
+    {
+      "id": "case:runtime_sentinel_main",
+      "role": "runtime-sentinel",
+      "clauses": [],
+      "overlap": false,
+      "note": "Main process started; every Exodus item, trinket and entity id used by the suite resolved."
+    },
+    {
+      "id": "case:forbidden_fruit",
+      "role": "target",
+      "clauses": [
+        "EX-184"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:tragic_mushroom",
+      "role": "target",
+      "clauses": [
+        "EX-191-three-containers"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:tragic_mushroom_last_container",
+      "role": "target",
+      "clauses": [
+        "EX-191-last-container"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:tragic_mushroom_repeat",
+      "role": "target",
+      "clauses": [
+        "EX-303"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:tragic_mushroom_diminishing",
+      "role": "target",
+      "clauses": [
+        "EX-303"
+      ],
+      "overlap": false,
+      "note": "Labelled guard in validation/case-contracts.tsv, but F in the unchanged starter (gains 0,0): it is evidence for the requested change, not a preserved contract."
+    },
+    {
+      "id": "case:mutant_clover_stack",
+      "role": "target",
+      "clauses": [
+        "EX-311"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:anamnesis_charge",
+      "role": "target",
+      "clauses": [
+        "EX-318-fresh"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:anamnesis_charge_persistence",
+      "role": "target",
+      "clauses": [
+        "EX-318-persist"
+      ],
+      "overlap": false,
+      "note": "Labelled guard in validation/case-contracts.tsv, but F in the unchanged starter (restored=0): target evidence."
+    },
+    {
+      "id": "case:baseball_mitt_delayed_hit",
+      "role": "preserved",
+      "clauses": [
+        "Task-preserve"
+      ],
+      "overlap": false,
+      "note": "Behaviour of EX-327, which this exam does not report and the starter already has (the composite's repair is present). It guards behaviour outside the reported paths."
+    },
+    {
+      "id": "case:iron_lung_orphan_gas",
+      "role": "preserved",
+      "clauses": [
+        "Task-preserve"
+      ],
+      "overlap": false,
+      "note": "Behaviour of EX-335, which this exam does not report and the starter already has (the composite's repair is present). It guards behaviour outside the reported paths."
+    },
+    {
+      "id": "case:headcase_orphan_lob",
+      "role": "preserved",
+      "clauses": [
+        "Task-preserve"
+      ],
+      "overlap": false,
+      "note": "Behaviour of EX-342, which this exam does not report and the starter already has (the composite's repair is present). It guards behaviour outside the reported paths."
+    },
+    {
+      "id": "case:ritual_candle",
+      "role": "preserved",
+      "clauses": [
+        "Task-preserve"
+      ],
+      "overlap": false,
+      "note": "Behaviour of EX-203, which this exam does not report and the starter already has (the composite's repair is present). It guards behaviour outside the reported paths."
+    },
+    {
+      "id": "case:ritual_candle_cadence",
+      "role": "preserved",
+      "clauses": [
+        "Task-preserve"
+      ],
+      "overlap": false,
+      "note": "Behaviour of EX-203, which this exam does not report and the starter already has (the composite's repair is present). It guards behaviour outside the reported paths."
+    },
+    {
+      "id": "case:familiar_cleanup",
+      "role": "preserved",
+      "clauses": [
+        "Task-preserve"
+      ],
+      "overlap": false,
+      "note": "Behaviour of EX-247, which this exam does not report and the starter already has (the composite's repair is present). It guards behaviour outside the reported paths."
+    },
+    {
+      "id": "case:beehive_early_wobble",
+      "role": "preserved",
+      "clauses": [
+        "Task-preserve"
+      ],
+      "overlap": false,
+      "note": "Behaviour of EX-258, which this exam does not report and the starter already has (the composite's repair is present). It guards behaviour outside the reported paths."
+    },
+    {
+      "id": "case:beehive_mature_wobble",
+      "role": "preserved",
+      "clauses": [
+        "Task-preserve"
+      ],
+      "overlap": false,
+      "note": "Behaviour of EX-258, which this exam does not report and the starter already has (the composite's repair is present). It guards behaviour outside the reported paths."
+    },
+    {
+      "id": "case:deja_vu_split_guard",
+      "role": "preserved",
+      "clauses": [
+        "Task-preserve"
+      ],
+      "overlap": false,
+      "note": "Behaviour of EX-274, which this exam does not report and the starter already has (the composite's repair is present). It guards behaviour outside the reported paths."
+    },
+    {
+      "id": "case:deja_vu_normal_return",
+      "role": "preserved",
+      "clauses": [
+        "Task-preserve"
+      ],
+      "overlap": false,
+      "note": "Behaviour of EX-274, which this exam does not report and the starter already has (the composite's repair is present). It guards behaviour outside the reported paths."
+    },
+    {
+      "id": "case:lil_rune_jera_health",
+      "role": "preserved",
+      "clauses": [
+        "Task-preserve"
+      ],
+      "overlap": false,
+      "note": "Behaviour of EX-281, which this exam does not report and the starter already has (the composite's repair is present). It guards behaviour outside the reported paths."
+    },
+    {
+      "id": "case:lovely_fly_target",
+      "role": "preserved",
+      "clauses": [
+        "Task-preserve"
+      ],
+      "overlap": false,
+      "note": "Behaviour of EX-289, which this exam does not report and the starter already has (the composite's repair is present). It guards behaviour outside the reported paths."
+    },
+    {
+      "id": "case:cursed_metronome",
+      "role": "target",
+      "clauses": [
+        "EX-217"
+      ],
+      "overlap": false,
+      "note": "Added in catalog 4.3.0: target of report EX-217, reverted in this revision's starter."
+    },
+    {
+      "id": "case:broken_glasses",
+      "role": "preserved",
+      "clauses": [
+        "Task-preserve"
+      ],
+      "overlap": false,
+      "note": "Behaviour of EX-251, which this exam does not report and the starter already has (the composite's repair is present). It guards behaviour outside the reported paths."
+    },
+    {
+      "id": "case:james_book_of_secrets_scope",
+      "role": "preserved",
+      "clauses": [
+        "Task-preserve"
+      ],
+      "overlap": false,
+      "note": "Behaviour of EX-296, which this exam does not report and the starter already has (the composite's repair is present). It guards behaviour outside the reported paths."
+    },
+    {
+      "id": "case:mutant_clover_room_reset",
+      "role": "preserved",
+      "clauses": [
+        "EX-311-preserve",
+        "Task-preserve"
+      ],
+      "overlap": false,
+      "note": "P in the starter, but non-discriminating: see clause EX-311-preserve."
+    },
+    {
+      "id": "case:broken_glasses_floor_reset",
+      "role": "preserved",
+      "clauses": [
+        "Task-preserve"
+      ],
+      "overlap": false,
+      "note": "Behaviour of EX-251, which this exam does not report and the starter already has (the composite's repair is present). It guards behaviour outside the reported paths."
+    },
+    {
+      "id": "case:grid_worm",
+      "role": "preserved",
+      "clauses": [
+        "Task-preserve"
+      ],
+      "overlap": false,
+      "note": "Behaviour of EX-226, which this exam does not report and the starter already has (the composite's repair is present). It guards behaviour outside the reported paths."
+    },
+    {
+      "id": "case:grid_worm_heading",
+      "role": "preserved",
+      "clauses": [
+        "Task-preserve"
+      ],
+      "overlap": false,
+      "note": "Behaviour of EX-226, which this exam does not report and the starter already has (the composite's repair is present). It guards behaviour outside the reported paths."
+    },
+    {
+      "id": "case:grid_worm_cadence_regression",
+      "role": "preserved",
+      "clauses": [
+        "Task-preserve"
+      ],
+      "overlap": false,
+      "note": "Behaviour of EX-226, which this exam does not report and the starter already has (the composite's repair is present). It guards behaviour outside the reported paths."
+    },
+    {
+      "id": "case:grid_worm_bounce",
+      "role": "preserved",
+      "clauses": [
+        "Task-preserve"
+      ],
+      "overlap": false,
+      "note": "Behaviour of EX-226, which this exam does not report and the starter already has (the composite's repair is present). It guards behaviour outside the reported paths."
+    },
+    {
+      "id": "check:submission-shape",
+      "role": "static",
+      "clauses": [],
+      "overlap": false,
+      "note": "exodus/main.lua and exodus/metadata.xml exist; no symbolic links."
+    },
+    {
+      "id": "case:grid_worm_heading_cross_axis",
+      "role": "preserved",
+      "clauses": [
+        "Task-preserve"
+      ],
+      "overlap": false,
+      "note": "benchmarks/isaac-core/private/verifiers/exodus-v2/suite/main.lua:1058; added in catalog 5.0.0. The starter already passes it."
+    },
+    {
+      "id": "case:hurdle_heels_landing_stomp",
+      "role": "target",
+      "clauses": [
+        "EX-447"
+      ],
+      "overlap": false,
+      "note": "benchmarks/isaac-core/private/verifiers/exodus-v2/suite/main.lua:1261; added in catalog 5.0.0."
+    },
+    {
+      "id": "case:hurdle_heels_player_protected",
+      "role": "preserved",
+      "clauses": [
+        "Task-preserve"
+      ],
+      "overlap": false,
+      "note": "benchmarks/isaac-core/private/verifiers/exodus-v2/suite/main.lua:1262; added in catalog 5.0.0. The starter already passes it."
+    },
+    {
+      "id": "case:ominous_lantern_put_away",
+      "role": "target",
+      "clauses": [
+        "EX-441"
+      ],
+      "overlap": false,
+      "note": "benchmarks/isaac-core/private/verifiers/exodus-v2/suite/main.lua:1336; added in catalog 5.0.0."
+    },
+    {
+      "id": "case:ominous_lantern_throw_recharge",
+      "role": "preserved",
+      "clauses": [
+        "EX-441-preserve"
+      ],
+      "overlap": false,
+      "note": "benchmarks/isaac-core/private/verifiers/exodus-v2/suite/main.lua:1337; added in catalog 5.0.0. The starter already passes it."
+    },
+    {
+      "id": "case:childs_leash_orbitals",
+      "role": "preserved",
+      "clauses": [
+        "Task-preserve"
+      ],
+      "overlap": false,
+      "note": "benchmarks/isaac-core/private/verifiers/exodus-v2/suite/main.lua:1435; added in catalog 5.0.0. The starter already passes it."
+    },
+    {
+      "id": "case:lil_rune_algiz_rune",
+      "role": "preserved",
+      "clauses": [
+        "Task-preserve"
+      ],
+      "overlap": false,
+      "note": "benchmarks/isaac-core/private/verifiers/exodus-v2/suite/main.lua:1458; added in catalog 5.0.0. The starter already passes it."
+    },
+    {
+      "id": "case:big_scissors_trail",
+      "role": "preserved",
+      "clauses": [
+        "Task-preserve"
+      ],
+      "overlap": false,
+      "note": "benchmarks/isaac-core/private/verifiers/exodus-v2/suite/main.lua:1520; added in catalog 5.0.0. The starter already passes it."
+    },
+    {
+      "id": "case:unholy_mantle_burst",
+      "role": "preserved",
+      "clauses": [
+        "Task-preserve"
+      ],
+      "overlap": false,
+      "note": "benchmarks/isaac-core/private/verifiers/exodus-v2/suite/main.lua:1544; added in catalog 5.0.0. The starter already passes it."
+    },
+    {
+      "id": "case:unholy_mantle_once",
+      "role": "preserved",
+      "clauses": [
+        "Task-preserve"
+      ],
+      "overlap": false,
+      "note": "benchmarks/isaac-core/private/verifiers/exodus-v2/suite/main.lua:1562; added in catalog 5.0.0. The starter already passes it."
+    },
+    {
+      "id": "case:birdbath_use_spawns",
+      "role": "target",
+      "clauses": [
+        "EX-465"
+      ],
+      "overlap": false,
+      "note": "benchmarks/isaac-core/private/verifiers/exodus-v2/suite/main.lua:1581; added in catalog 5.0.0."
+    },
+    {
+      "id": "case:paper_cut_card_damage",
+      "role": "preserved",
+      "clauses": [
+        "Task-preserve"
+      ],
+      "overlap": false,
+      "note": "benchmarks/isaac-core/private/verifiers/exodus-v2/suite/main.lua:1602; added in catalog 5.0.0. The starter already passes it."
+    },
+    {
+      "id": "case:baseball_mitt_return_flags",
+      "role": "preserved",
+      "clauses": [
+        "Task-preserve"
+      ],
+      "overlap": false,
+      "note": "benchmarks/isaac-core/private/verifiers/exodus-v2/suite/main.lua:1640; added in catalog 5.0.0. The starter already passes it."
+    },
+    {
+      "id": "case:welcome_mat_poof_at_rest",
+      "role": "preserved",
+      "clauses": [
+        "Task-preserve"
+      ],
+      "overlap": false,
+      "note": "benchmarks/isaac-core/private/verifiers/exodus-v2/suite/main.lua:1684; added in catalog 5.0.0. The starter already passes it."
+    },
+    {
+      "id": "case:welcome_mat_flame_at_rest",
+      "role": "preserved",
+      "clauses": [
+        "Task-preserve"
+      ],
+      "overlap": false,
+      "note": "benchmarks/isaac-core/private/verifiers/exodus-v2/suite/main.lua:1686; added in catalog 5.0.0. The starter already passes it."
+    },
+    {
+      "id": "case:welcome_mat_bonus_kept",
+      "role": "preserved",
+      "clauses": [
+        "Task-preserve"
+      ],
+      "overlap": false,
+      "note": "benchmarks/isaac-core/private/verifiers/exodus-v2/suite/main.lua:1712; added in catalog 5.0.0. The starter already passes it."
+    },
+    {
+      "id": "case:welcome_mat_floor_start",
+      "role": "preserved",
+      "clauses": [
+        "Task-preserve"
+      ],
+      "overlap": false,
+      "note": "benchmarks/isaac-core/private/verifiers/exodus-v2/suite/main.lua:1735; added in catalog 5.0.0. The starter already passes it."
+    },
+    {
+      "id": "case:welcome_mat_next_room",
+      "role": "preserved",
+      "clauses": [
+        "Task-preserve"
+      ],
+      "overlap": false,
+      "note": "benchmarks/isaac-core/private/verifiers/exodus-v2/suite/main.lua:1736; added in catalog 5.0.0. The starter already passes it."
+    },
+    {
+      "id": "case:new_run_starts_with_base_stats",
+      "role": "preserved",
+      "clauses": [
+        "Task-preserve"
+      ],
+      "overlap": false,
+      "note": "benchmarks/isaac-core/private/verifiers/exodus-v2/suite/main.lua:1796; added in catalog 5.0.0. The starter already passes it."
+    }
+  ],
+  "clauses": [
+    {
+      "id": "EX-184",
+      "anchor": "Problem, report [#EX-184]: \"The Forbidden Fruit's earned damage disappears if the item is removed or rerolled.\"",
+      "status": "asserted",
+      "note": "benchmarks/isaac-core/private/harbor/isaac-exodus-release-regressions/tests/suite/main.lua:267-284 uses the item once, removes it with RemoveCollectible, re-evaluates the damage cache and requires the damage to stay within 0.05 of the held value. Only the removal path is exercised; a reroll is not."
+    },
+    {
+      "id": "EX-191-three-containers",
+      "anchor": "Problem, report [#EX-191], sentence 2: \"three red-heart containers and only half a red heart ... the item is supposed to leave one full red heart after reducing the containers\"",
+      "status": "asserted",
+      "note": "benchmarks/isaac-core/private/harbor/isaac-exodus-release-regressions/tests/suite/main.lua:285-296 requires max=2, red=2, soul=0 and a living player."
+    },
+    {
+      "id": "EX-191-last-container",
+      "anchor": "Problem, report [#EX-191], sentence 3: \"only one red-heart container: using the item on half a heart kills them instead of filling that final container\"",
+      "status": "asserted",
+      "note": "benchmarks/isaac-core/private/harbor/isaac-exodus-release-regressions/tests/suite/main.lua:302-312 requires max=2, red=2, soul=0 and not IsDead() in the same frame as the use."
+    },
+    {
+      "id": "EX-303",
+      "anchor": "Problem, report [#EX-303]: \"Each later use is meant to add a smaller, diminishing stat increase rather than no increase at all.\"",
+      "status": "asserted",
+      "note": "benchmarks/isaac-core/private/harbor/isaac-exodus-release-regressions/tests/suite/main.lua:315-358. tragic_mushroom_repeat requires the second use to raise damage, speed and range by > 0.05; tragic_mushroom_diminishing requires the third gain to be > 0.05 and smaller than the second for all three stats. See known_issues[1] for the speed cap."
+    },
+    {
+      "id": "EX-311",
+      "anchor": "Problem, report [#EX-311]: \"each activation in the current room should add another ten\"",
+      "status": "asserted",
+      "note": "benchmarks/isaac-core/private/harbor/isaac-exodus-release-regressions/tests/suite/main.lua:360-381 requires +10 after the first and +20 after the second activation."
+    },
+    {
+      "id": "EX-311-preserve",
+      "anchor": "Problem, report [#EX-311], last sentence: \"The whole temporary stack should continue to reset on entering another room.\"",
+      "status": "weak",
+      "note": "benchmarks/isaac-core/private/harbor/isaac-exodus-release-regressions/tests/suite/main.lua:972-975 compares Luck with the baseline only after Anamnesis has replaced Mutant Clover in the active slot (benchmarks/isaac-core/private/harbor/isaac-exodus-release-regressions/tests/suite/main.lua:383-385) and after a whole floor change. Exodus gates the bonus on HasCollectible, so Luck returns to the baseline even if the room reset is deleted; the case cannot detect a broken reset."
+    },
+    {
+      "id": "EX-318-fresh",
+      "anchor": "Problem, report [#EX-318]: \"a fresh copy must not inherit a full foreign charge\"",
+      "status": "asserted",
+      "note": "benchmarks/isaac-core/private/harbor/isaac-exodus-release-regressions/tests/suite/main.lua:383-390. The foreign charge is simulated by AddCollectible(Anamnesis, 6) plus SetActiveCharge(6) on Anamnesis itself; the case requires charge 0 four frames later."
+    },
+    {
+      "id": "EX-318-persist",
+      "anchor": "Problem, report [#EX-318]: \"dropping and later recovering it can likewise forget the charge it had earned. Its charge must belong to Anamnesis itself across active-item swaps\"",
+      "status": "asserted",
+      "note": "benchmarks/isaac-core/private/harbor/isaac-exodus-release-regressions/tests/suite/main.lua:391-409 sets charge 3, swaps to a fully charged Book of Belial and back (re-added with charge 0) and requires charge 3. Fails in the unchanged starter, so it is target evidence although validation/case-contracts.tsv calls it a guard."
+    },
+    {
+      "id": "Task-preserve",
+      "anchor": "Task, sentence 2: \"Preserve behaviour outside the reported paths.\"",
+      "status": "asserted",
+      "note": "24 preserved cases pass in the unchanged starter. Most observe the composite's other reports, whose repairs the starter already contains, so a fix that breaks them is caught; nothing observes an item, trinket, enemy or character outside the composite's twenty reports."
+    },
+    {
+      "id": "Notes-api",
+      "anchor": "Notes, bullet 2: \"This is an Afterbirth+ Lua mod, not a Repentance mod. Use APIs available in that runtime.\"",
+      "status": "unasserted",
+      "note": "No case checks API usage. A Repentance-only call shows up only indirectly, as a failure of whatever behaviour it breaks in the pinned v1.06.T1 process."
+    },
+    {
+      "id": "Notes-no-wholesale-replacement",
+      "anchor": "Notes, bullet 4: \"Do not replace the mod wholesale or add third-party code/assets.\"",
+      "status": "unasserted",
+      "note": "check:submission-shape (plugins/isaac-rebirth/src/rhenium_isaac_rebirth/evaluator.py:164-188) only requires exodus/main.lua and exodus/metadata.xml to exist and rejects symbolic links. Nothing compares the submission with the starter."
+    },
+    {
+      "id": "EX-217",
+      "anchor": "Problem, report [#EX-217]: \"A wounded player with six red-heart containers and two filled hearts is left with one filled heart, while the conversion should empty the red hearts consistently for that capacity.\"",
+      "status": "asserted",
+      "note": "benchmarks/isaac-core/private/harbor/isaac-exodus-release-regressions/tests/suite/main.lua:994-1002 checks the single reported data point (max=12, red=4 -> red=0, max still 12). It does not probe a second fill level, so capacity-based and empty-everything readings both pass."
+    },
+    {
+      "id": "EX-441",
+      "anchor": "Problem, report [#EX-441]: \"Lowering a lantern that was never thrown should leave it ready to raise again straight away.\"",
+      "status": "asserted",
+      "note": "Supplementary regression (benchmarks/isaac-core/private/supplementary-regressions/EX-441.patch), catalog 5.0.0."
+    },
+    {
+      "id": "EX-441-preserve",
+      "anchor": "Problem, report [#EX-441]: \"Throwing it must still empty it and start that recharge as before.\"",
+      "status": "asserted",
+      "note": "Regression guard the starter already satisfies."
+    },
+    {
+      "id": "EX-465",
+      "anchor": "Problem, report [#EX-465]: \"Birdbath does nothing when used: no bath appears next to Isaac.\"",
+      "status": "asserted",
+      "note": "Supplementary regression (benchmarks/isaac-core/private/supplementary-regressions/EX-465.patch), catalog 5.0.0."
+    },
+    {
+      "id": "EX-447",
+      "anchor": "Problem, report [#EX-447]: \"An enemy standing right next to Isaac when he comes down from the jump takes no damage at all.\"",
+      "status": "asserted",
+      "note": "Supplementary regression (benchmarks/isaac-core/private/supplementary-regressions/EX-447.patch), catalog 5.0.0."
+    },
+    {
+      "id": "Notes-lua",
+      "anchor": "Notes, bullet 3: \"Afterbirth+ embeds Lua 5.3.\"",
+      "status": "unasserted",
+      "note": "Runtime fact added in catalog 5.0.0; no case asserts it on its own."
+    }
+  ],
+  "excluded_clauses": [
+    "Notes-api",
+    "Notes-no-wholesale-replacement",
+    "Notes-lua"
+  ],
+  "known_issues": [
+    "Fixture trap: tragic_mushroom_diminishing (benchmarks/isaac-core/private/harbor/isaac-exodus-release-regressions/tests/suite/main.lua:343-351) requires the third speed gain to be > 0.05 while the engine clamps MoveSpeed at 2.0. Isaac starts at 1.0 and the first use adds 0.6, so only 0.4 of headroom is left for uses two and three; any valid diminishing series whose second speed gain is >= 0.35 (decay ratio >= ~0.58) reports a third gain <= 0.05 and fails. The reference itself only shows 0.10 instead of its nominal 0.15.",
+    "Order dependence: the thirty main-suite cases share one run and one player (benchmarks/isaac-core/private/harbor/isaac-exodus-release-regressions/tests/suite/main.lua:264-1009). State leaks forward (Forbidden Fruit's +0.99 damage is part of every later damage figure; Mutant Clover is silently replaced by Anamnesis before its reset guard; a pcall failure in any step emits GCB_FATAL and leaves every later case unobserved).",
+    "Shared game-log markers (private NOTES.md, Verifier design): results are parsed from unauthenticated `[GCB_CASE]` lines written through Isaac.DebugString into the same log the submission can write to, so outcomes are only meaningful under the honest-code assumption.",
+    "Process coupling: the secret-room process runs with continued=true as player_type=18 (James), inheriting the James process's run from Steam's in-memory cache (benchmarks/isaac-core/private/harbor/isaac-exodus-release-regressions/tests/test.sh:85-108). apocryphon_stats and blue_moon are therefore measured on James, who already owns The Apocryphon.",
+    "validation/case-contracts.tsv labels eight cases `guard`; two of them (tragic_mushroom_diminishing, anamnesis_charge_persistence) fail in the unchanged starter and are mapped as target here. validation/predicate-matrix.tsv agrees: the EX-303 and EX-318 single-report candidates newly pass them.",
+    "Launch harness: this task runs the frozen composite's three suites and test.sh unchanged, but the Hub mounts the task's own tests/run-game.sh over the image's copy. That script queues the launch request as soon as the offline Steam client proper is up, repeats an ignored request once, replaces a client that takes none (up to four starts per game process), and allows longer wall-clock budgets. It decides no case. The image's launch sequence left game processes unstarted on the congested host on 2026-09-23 (UTC); see NOTES.md.",
+    "Catalog 4.3.0 (2026-09-26): report EX-217 was added to this exam and its upstream repair reverted in the starter; base and gold were re-measured in the real game (validation/controls.tsv). The target-negative, compat-negative and alternative controls listed in manifest.tsv were measured on task 1.0.0 and have not been re-run against this revision.",
+    "Catalog 5.0.0 (2026-10-22): three supplementary regressions (EX-441, EX-465, EX-447) were added to this exam and starter, and the task runs the shared verifier benchmarks/isaac-core/private/verifiers/exodus-v2 (54 cases). Base and gold were re-measured in the real game (validation/controls.tsv). The target-negative, compat-negative and alternative controls listed in manifest.tsv predate this revision, were not re-run, and the alternative patches do not repair the supplementary regressions."
+  ]
+}

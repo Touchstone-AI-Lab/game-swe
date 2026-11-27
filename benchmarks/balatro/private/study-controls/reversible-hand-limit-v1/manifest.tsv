@@ -1,0 +1,3 @@
+control	kind	base	overlay	root	note
+M03-snapshot-restore	target-negative	starter	pack:private/native-v1/controls/reversible-hand-limit-v1/M03-snapshot-restore	starter	frozen mutant: fails only requested-change cases
+alternative-public	alternative	starter	tree:alternative-public	starter	authored from the public contract: per-instance contribution ledger; reviewed seal 2c5ca625

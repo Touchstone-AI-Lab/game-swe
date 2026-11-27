@@ -1,0 +1,14 @@
+# Recipesmith recipes. Types: shaped, shapeless, smelting, smoking, blasting, campfire, stonecutting.
+recipes:
+  compact_dirt:
+    type: shaped
+    shape:
+      - "DD"
+      - "DD"
+    ingredients:
+      D: DIRT
+    result:
+      material: COARSE_DIRT
+      amount: 4
+# Vanilla recipe keys to remove from the server, e.g. minecraft:torch.
+disabled-vanilla: []

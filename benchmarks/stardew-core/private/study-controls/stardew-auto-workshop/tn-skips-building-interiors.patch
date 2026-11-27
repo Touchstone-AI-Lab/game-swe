@@ -1,0 +1,13 @@
+diff -ruN a/AutoWorkshop/ModEntry.cs b/AutoWorkshop/ModEntry.cs
+--- a/AutoWorkshop/ModEntry.cs
++++ b/AutoWorkshop/ModEntry.cs
+@@ -29,7 +29,8 @@
+         {
+             if (!Context.IsWorldReady || !e.IsMultipleOf(30))
+                 return;
+-            Utility.ForEachLocation(loc => { this.Process(loc); return true; });
++            foreach (GameLocation loc in Game1.locations)
++                this.Process(loc);
+         }
+ 
+         private void Process(GameLocation loc)

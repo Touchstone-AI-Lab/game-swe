@@ -1,0 +1,145 @@
+--- a/main.lua
++++ b/main.lua
+@@ -741,6 +741,16 @@
+     if player:HasCollectible(ItemId.RITUAL_CANDLE) then
+         ItemVariables.RITUAL_CANDLE.LitCandles = 0
+         
++        -- The aura pulses once per rounded-up third of the tear delay, and never less often than it can be counted.
++        local pulseInterval = math.max(1, math.ceil(player.MaxFireDelay / 3))
++        local frame = game:GetFrameCount()
++        local lastPulse = ItemVariables.RITUAL_CANDLE.LastPulseFrame
++        local auraPulse = lastPulse == nil or frame < lastPulse or frame - lastPulse >= pulseInterval
++        
++        if auraPulse then
++            ItemVariables.RITUAL_CANDLE.LastPulseFrame = frame
++        end
++        
+         for i, entity in pairs(Isaac.GetRoomEntities()) do 
+             local data = entity:GetData()
+             local sprite = entity:GetSprite()
+@@ -755,7 +765,7 @@
+                 range = 150
+             end
+             
+-            if ItemVariables.RITUAL_CANDLE.HasBonus and entity.Position:Distance(player.Position) <= range and entity:IsVulnerableEnemy() and entity:IsActiveEnemy() and game:GetFrameCount() % math.floor(player.MaxFireDelay / 3) == 0 then
++            if ItemVariables.RITUAL_CANDLE.HasBonus and entity.Position:Distance(player.Position) <= range and entity:IsVulnerableEnemy() and entity:IsActiveEnemy() and auraPulse then
+                 entity:TakeDamage((player.Damage / 4) * (player:GetCollectibleNum(CollectibleType.COLLECTIBLE_BFFS) + 1), 0, EntityRef(player), 0)
+             end
+             
+@@ -3525,11 +3535,16 @@
+     
+     if player:HasCollectible(ItemId.CURSED_METRONOME) then
+         if not ItemVariables.CURSED_METRONOME.HasCursedMetronome then
+-            local maxhp = player:GetHearts() - 2
+-            player:AddHearts(maxhp * -1)
+-
+-            for i = 1, rng:RandomInt(maxhp / 2) do
+-                Isaac.Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_HEART, HeartSubType.HEART_FULL,  Isaac.GetFreeNearPosition(player.Position, 20), Vector(0, 0), player)
++            -- The conversion is sized by the red-heart capacity, never by how full the containers happen to be.
++            local capacity = player:GetMaxHearts()
++            local containers = capacity // 2
++            
++            player:AddHearts(-math.max(capacity - 2, 0))
++            
++            if containers > 0 then
++                for i = 1, rng:RandomInt(containers) do
++                    Isaac.Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_HEART, HeartSubType.HEART_FULL,  Isaac.GetFreeNearPosition(player.Position, 20), Vector(0, 0), player)
++                end
+             end
+             
+             player:AddNullCostume(CostumeId.CURSED_METRONOME)
+@@ -3564,14 +3579,30 @@
+ Exodus:AddCallback(ModCallbacks.MC_EVALUATE_CACHE, Exodus.cursedMetronomeCache)
+   
+ --<<<TRAGIC MUSHROOM>>>--
++local function tragicMushroomState()
++    local state = ItemVariables.TRAGIC_MUSHROOM
++
++    if state.Doses == nil then
++        state.Doses = 0
++        state.DamageScale = 1
++        state.DamageOffset = 0
++        state.Speed = 0
++        state.Range = 0
++    end
++
++    return state
++end
++
+ function Exodus:tragicMushroomCache(player, flag)
+-    if ItemVariables.TRAGIC_MUSHROOM.Used then
++    local state = tragicMushroomState()
++
++    if state.Doses > 0 then
+         if flag == CacheFlag.CACHE_DAMAGE then
+-            player.Damage = (player.Damage + 0.8) * 2
++            player.Damage = player.Damage * state.DamageScale + state.DamageOffset
+         elseif flag == CacheFlag.CACHE_RANGE then
+-            player.TearHeight = player.TearHeight - 7.25
++            player.TearHeight = player.TearHeight - state.Range
+         elseif flag == CacheFlag.CACHE_SPEED then
+-            player.MoveSpeed = player.MoveSpeed + 0.6
++            player.MoveSpeed = player.MoveSpeed + state.Speed
+         end
+     end
+ end
+@@ -3581,20 +3612,27 @@
+ function Exodus:tragicMushroomUse()
+     local player = Isaac.GetPlayer(0)
+ 
+-    if player:GetMaxHearts() == 2 and player:GetSoulHearts() == 0 then
+-        player:AddHearts(-player:GetHearts())
++    if player:GetPlayerType() == PlayerType.PLAYER_XXX then
++        local maxhp = player:GetSoulHearts() - 2
++        player:AddSoulHearts(-maxhp)
+     else
+-        if player:GetPlayerType() == PlayerType.PLAYER_XXX then
+-            local maxhp = player:GetSoulHearts() - 2
+-            player:AddSoulHearts(-maxhp)
+-        else
+-            local maxhp = player:GetMaxHearts() - 2
+-            player:AddSoulHearts(-player:GetSoulHearts())
+-            player:AddMaxHearts(-maxhp)
+-        end
+-    end
+-    
+-    ItemVariables.TRAGIC_MUSHROOM.Used = true
++        -- Everything is traded for a single red-heart container, and that container is always left full.
++        player:AddSoulHearts(-player:GetSoulHearts())
++        player:AddMaxHearts(2 - player:GetMaxHearts())
++        player:AddHearts(player:GetMaxHearts() - player:GetHearts())
++    end
++    
++    -- Every dose is half as potent as the one before it. The first dose is the original (damage + 0.8) * 2.
++    local state = tragicMushroomState()
++    local potency = 0.5 ^ state.Doses
++    local multiplier = 1 + potency
++    
++    state.Doses = state.Doses + 1
++    state.DamageScale = state.DamageScale * multiplier
++    state.DamageOffset = (state.DamageOffset + 0.8 * potency) * multiplier
++    state.Speed = state.Speed + 0.6 * potency
++    state.Range = state.Range + 7.25 * potency
++    state.Used = true
+     sfx:Play(SoundEffect.SOUND_VAMP_GULP, 1, 0, false, 1)
+     player:AddCacheFlags(CacheFlag.CACHE_DAMAGE + CacheFlag.CACHE_RANGE + CacheFlag.CACHE_SPEED)
+     player:EvaluateItems()
+@@ -4488,12 +4526,12 @@
+                 if entity:ToNPC().ChildNPC ~= nil then
+                     entity:ToNPC().ChildNPC:Kill()
+                 end
+-                local dup = Isaac.Spawn(entity.Type, entity.Variant, entity.SubType, Isaac.GetFreeNearPosition(entity.Position, 1), Vector(0,0), nil)
+-                dup:ToNPC().Scale = dup:ToNPC().Scale / 1.3
+-                dup.MaxHitPoints = dup.MaxHitPoints / 2
+-                local dup = Isaac.Spawn(entity.Type, entity.Variant, entity.SubType, Isaac.GetFreeNearPosition(entity.Position, 1), Vector(0,0), nil)
+-                dup:ToNPC().Scale = dup:ToNPC().Scale / 1.3
+-                dup.MaxHitPoints = dup.MaxHitPoints / 2
++                for copy = 1, 2 do
++                    local dup = Isaac.Spawn(entity.Type, entity.Variant, entity.SubType, Isaac.GetFreeNearPosition(entity.Position, 1), Vector(0,0), nil)
++                    dup:ToNPC().Scale = dup:ToNPC().Scale / 1.3
++                    dup.MaxHitPoints = dup.MaxHitPoints / 2
++                    dup.HitPoints = math.min(dup.HitPoints, dup.MaxHitPoints)
++                end
+             elseif entity:IsEnemy() and entity:IsDead() and data.RuneSplitted == nil then
+                 data.RuneSplitted = true
+             end

@@ -1,0 +1,122 @@
+diff -ruN a/Automate/Framework/AutomationFactory.cs b/Automate/Framework/AutomationFactory.cs
+--- a/Automate/Framework/AutomationFactory.cs
++++ b/Automate/Framework/AutomationFactory.cs
+@@ -73,7 +73,8 @@
+                     return new MiniShippingBinMachine(chest, location);
+ 
+                 default:
+-                    if (chest.HasContextTag(AutomateConstants.StorageTag))
++                    // a mini-fridge is a player chest flagged as a fridge; it stores items like any other chest
++                    if (chest.HasContextTag(AutomateConstants.StorageTag) || chest.fridge.Value)
+                         return new ChestContainer(chest, location, tile, isTakeOnly: chest.HasContextTag(AutomateConstants.StorageTakeOnlyTag));
+                     break;
+             }
+@@ -149,19 +150,22 @@
+                 {
+                     ModConfig config = this.Config();
+ 
+-                    JunimoHutBehavior gemBehavior = config.JunimoHutBehaviorForGems;
+-                    if (gemBehavior is JunimoHutBehavior.AutoDetect)
+-                        gemBehavior = JunimoHutBehavior.Ignore;
+-
+-                    JunimoHutBehavior fertilizerBehavior = config.JunimoHutBehaviorForFertilizer;
+-                    if (fertilizerBehavior is JunimoHutBehavior.AutoDetect)
+-                        fertilizerBehavior = this.IsBetterJunimosLoaded ? JunimoHutBehavior.Ignore : JunimoHutBehavior.MoveIntoChests;
+-
+-                    JunimoHutBehavior seedBehavior = config.JunimoHutBehaviorForFertilizer;
+-                    if (seedBehavior is JunimoHutBehavior.AutoDetect)
+-                        seedBehavior = this.IsBetterJunimosLoaded ? JunimoHutBehavior.Ignore : JunimoHutBehavior.MoveIntoChests;
+-
+-                    return new JunimoHutMachine(hut, location, gemBehavior, fertilizerBehavior, seedBehavior, config.JunimoHutBehaviors);
++                    // each item type reads its own option; only the auto-detect fallback differs
++                    static JunimoHutBehavior Resolve(JunimoHutBehavior configured, JunimoHutBehavior whenAutoDetect)
++                    {
++                        return configured is JunimoHutBehavior.AutoDetect ? whenAutoDetect : configured;
++                    }
++
++                    JunimoHutBehavior replantingDefault = this.IsBetterJunimosLoaded ? JunimoHutBehavior.Ignore : JunimoHutBehavior.MoveIntoChests;
++
++                    return new JunimoHutMachine(
++                        hut,
++                        location,
++                        gemBehavior: Resolve(config.JunimoHutBehaviorForGems, JunimoHutBehavior.Ignore),
++                        fertilizerBehavior: Resolve(config.JunimoHutBehaviorForFertilizer, replantingDefault),
++                        seedBehavior: Resolve(config.JunimoHutBehaviorForSeeds, replantingDefault),
++                        itemBehavior: config.JunimoHutBehaviors
++                    );
+                 }
+ 
+             case ShippingBin bin:
+diff -ruN a/Automate/Framework/GenericObjectMachine.cs b/Automate/Framework/GenericObjectMachine.cs
+--- a/Automate/Framework/GenericObjectMachine.cs
++++ b/Automate/Framework/GenericObjectMachine.cs
+@@ -37,6 +37,9 @@
+     /// <inheritdoc />
+     public override ITrackedStack? GetOutput()
+     {
++        if (this.TryDiscardEmptyOutput())
++            return null;
++
+         return this.GetTracked(this.Machine.heldObject.Value, onEmpty: this.GenericReset);
+     }
+ 
+@@ -64,6 +67,21 @@
+             : MachineState.Processing;
+     }
+ 
++    /// <summary>Discard a finished output which has no quantity, the same way the game does when the player empties such a machine by hand.</summary>
++    /// <returns>Returns whether an empty output was discarded.</returns>
++    protected bool TryDiscardEmptyOutput()
++    {
++        SObject? held = this.Machine.heldObject.Value;
++        if (held is null || held.Stack > 0 || !this.Machine.readyForHarvest.Value)
++            return false;
++
++        this.Machine.heldObject.Value = null;
++        this.Machine.readyForHarvest.Value = false;
++        this.Machine.showNextIndex.Value = false;
++        this.Machine.ResetParentSheetIndex();
++        return true;
++    }
++
+     /// <summary>Reset the machine so it's ready to accept a new input.</summary>
+     /// <param name="trackedStack">The tracked item stack that was reduced.</param>
+     /// <param name="item">The output item that was taken.</param>
+diff -ruN a/Automate/Framework/MachineManager.cs b/Automate/Framework/MachineManager.cs
+--- a/Automate/Framework/MachineManager.cs
++++ b/Automate/Framework/MachineManager.cs
+@@ -95,11 +95,15 @@
+     {
+         string locationKey = this.Factory.GetLocationKey(location);
+ 
+-        return this
+-            .ActiveMachineGroups
+-            .Concat(this.DisabledMachineGroups)
+-            .Concat(this.JunimoMachineGroup.GetAll())
+-            .Where(p => p.LocationKey == locationKey);
++        // read the per-location scan result directly instead of the flattened caches, which are only
++        // rebuilt when an automated group changes and so can lag behind the last scan
++        IEnumerable<IMachineGroup> scanned = this.MachineData.TryGetValue(locationKey, out MachineDataForLocation? data)
++            ? data.ActiveMachineGroups.Concat(data.DisabledMachineGroups)
++            : Enumerable.Empty<IMachineGroup>();
++
++        return scanned.Concat(
++            this.JunimoMachineGroup.GetAll().Where(p => p.LocationKey == locationKey)
++        );
+     }
+ 
+     /// <summary>Get the registered override settings.</summary>
+diff -ruN a/Automate/Framework/Machines/DataBasedObjectMachine.cs b/Automate/Framework/Machines/DataBasedObjectMachine.cs
+--- a/Automate/Framework/Machines/DataBasedObjectMachine.cs
++++ b/Automate/Framework/Machines/DataBasedObjectMachine.cs
+@@ -80,6 +80,10 @@
+         if (machineData?.IsIncubator is true)
+             return null; // don't grab incubating egg before it hatches
+ 
++        // a broken output with no quantity can never be stored, so drop it instead of retrying forever
++        if (this.TryDiscardEmptyOutput())
++            return null;
++
+         // recalculate output if needed (e.g. bee house honey)
+         if (machine.lastOutputRuleId.Value != null && machineData != null)
+         {

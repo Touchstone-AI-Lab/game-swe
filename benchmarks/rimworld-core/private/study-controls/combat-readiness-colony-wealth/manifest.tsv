@@ -1,0 +1,4 @@
+control	kind	base	overlay	root	note
+target-negative-fixed-wealth-overridden	target-negative	reference	patch:target-negative-fixed-wealth-overridden.patch	.	reference that still overrides the getter in fixed wealth mode
+compat-negative-armoury-queried-twice	compat-negative	reference	patch:compat-negative-armoury-queried-twice.patch	.	reference that asks the armoury for its points twice
+alternative-a	alternative	starter	tree:alternative-a	.	own prefix: one combined pass-through condition, raw armoury plus building share

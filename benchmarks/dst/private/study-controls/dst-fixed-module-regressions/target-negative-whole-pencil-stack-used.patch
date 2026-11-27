@@ -1,0 +1,15 @@
+--- a/main/modules/nameable_watches.lua
++++ b/main/modules/nameable_watches.lua
+@@ -65,11 +65,7 @@
+ 
+ RENAME_WATCH.fn = function(act)
+ 	if act.doer and act.doer.sg and act.target.components.writeable then
+-		if act.invobject.components.stackable then
+-			act.invobject.components.stackable:Get():Remove()
+-		else
+-			act.invobject:Remove()
+-		end
++		act.invobject:Remove()
+ 
+ 		act.target.components.writeable:BeginWriting(act.doer)
+ 		act.doer.sg.statemem.tool_prefab = act.invobject.prefab

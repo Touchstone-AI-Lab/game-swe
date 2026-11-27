@@ -1,0 +1,53 @@
+package sneckomod.cards;
+
+import basemod.BaseMod;
+import com.evacipated.cardcrawl.mod.stslib.actions.common.SelectCardsInHandAction;
+import com.megacrit.cardcrawl.cards.AbstractCard;
+import com.megacrit.cardcrawl.characters.AbstractPlayer;
+import com.megacrit.cardcrawl.core.Settings;
+import com.megacrit.cardcrawl.monsters.AbstractMonster;
+import downfall.downfallMod;
+import sneckomod.SneckoMod;
+import sneckomod.actions.MuddleMarkedAction;
+
+public class MarkedCard extends AbstractSneckoCard {
+
+    public final static String ID = makeID("MarkedCard");
+
+    //stupid intellij stuff SKILL, SELF, COMMON
+
+    private static final int MAGIC = 1;
+
+    public MarkedCard() {
+        super(ID, 0, CardType.SKILL, CardRarity.UNCOMMON, CardTarget.SELF);
+        SneckoMod.loadJokeCardImage(this, "MarkedCard.png");
+        baseMagicNumber = magicNumber = MAGIC;
+        exhaust = true;
+    }
+
+    public void use(AbstractPlayer p, AbstractMonster m) {
+        String stuff;
+        if(Settings.language == Settings.GameLanguage.DEU){
+            stuff = "irrst";
+        } else {
+            stuff = BaseMod.getKeywordProper("sneckomod:muddle");
+        }
+        addToBot(new SelectCardsInHandAction(magicNumber, stuff,
+                (AbstractCard c) -> true,
+                (cards) -> {
+                    for (AbstractCard card : cards) {
+                        addToBot(new MuddleMarkedAction(card));
+                    }
+                }
+        ));
+    }
+
+    public void upgrade() {
+        if (!upgraded) {
+            upgradeName();
+            rawDescription = UPGRADE_DESCRIPTION;
+            this.selfRetain = true;
+            initializeDescription();
+        }
+    }
+}

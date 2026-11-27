@@ -1,0 +1,36 @@
+case	class	report	public_contract
+runtime_sentinel_main	runtime	-	main game process and verifier mod must execute
+runtime_sentinel_secret	runtime	-	secret-room game process and verifier mod must execute
+runtime_sentinel_james	runtime	-	James game process and verifier mod must execute
+forbidden_fruit	target	EX-184	earned damage persists after item removal or reroll
+tragic_mushroom	target	EX-191	three containers and a half-heart become one full red heart
+tragic_mushroom_last_container	target	EX-191	last half-heart case fills the final container without killing the player
+tragic_mushroom_repeat	target	EX-303	repeated use adds another stat increase
+tragic_mushroom_diminishing	guard	EX-303	later stat increases are positive and smaller
+mutant_clover_stack	target	EX-311	each same-room activation adds ten luck
+mutant_clover_room_reset	guard	EX-311	temporary luck stack resets in another room
+anamnesis_charge	target	EX-318	fresh Anamnesis does not inherit a foreign full charge
+anamnesis_charge_persistence	guard	EX-318	Anamnesis keeps its earned charge across active-item swaps
+baseball_mitt_delayed_hit	target	EX-327	released ball creates its hit effect after the stance ends
+iron_lung_orphan_gas	target	EX-335	orphan gas finishes animation and cleanup
+headcase_orphan_lob	target	EX-342	in-flight lob still damages the player after Headcase dies
+ritual_candle	target	EX-203	five-flame aura damages a nearby enemy at tear delay two
+ritual_candle_cadence	target	EX-203	tear delay four uses the intended rounded interval instead of every frame
+familiar_cleanup	target	EX-247	five named familiar variants disappear when owners are removed
+beehive_early_wobble	target	EX-258	fresh tears use half-strength drift for roughly twenty frames
+beehive_mature_wobble	guard	EX-258	mature tears retain normal full-strength wobble
+deja_vu_split_guard	target	EX-274	split tears do not enter the return mechanic
+deja_vu_normal_return	guard	EX-274	ordinary eligible non-split tears still return
+lil_rune_jera_health	target	EX-281	Jera copies never have current health above halved maximum health
+lovely_fly_target	target	EX-289	inert shopkeepers are ineligible while an active enemy is available
+grid_worm	target	EX-226	new tear is axis-constrained immediately
+grid_worm_heading	target	EX-226	initial constrained direction agrees with firing direction
+grid_worm_bounce	target	EX-226	wall collision produces a clean rebound instead of tile oscillation
+grid_worm_cadence_regression	guard	EX-226	fix does not accelerate the existing later random-turn cadence
+blue_moon	target	EX-239	secret-room walls and door remain intact
+apocryphon_stats	target	EX-266	first visit to a non-standard room increases at least one eligible stat
+broken_glasses	target	EX-251	broken-world effect persists after dropping the trinket on the same floor
+broken_glasses_floor_reset	guard	EX-251	broken-world effect resets on the next floor
+james_book_of_secrets_scope	target	EX-296	normal Isaac gains no automatic mapping effect
+james_book_of_secrets_positive	guard	EX-296	James still receives the automatic floor-start mapping effect
+cursed_metronome	target	EX-217	conversion is capacity-based and empties the reported wounded player's red hearts

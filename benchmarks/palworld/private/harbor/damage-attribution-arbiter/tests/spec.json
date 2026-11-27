@@ -1,0 +1,154 @@
+{
+  "task_id": "damage-attribution-arbiter",
+  "required_files": [
+    "Info.json",
+    "scripts/main.lua",
+    "scripts/combat/arbiter.lua",
+    "scripts/services/damage_arbiter_service.lua"
+  ],
+  "minimum_lua_lines": 240,
+  "integration_checks": [
+    {
+      "id": "arbiter-authority",
+      "label": {
+        "en": "Dedicated-server authority",
+        "zh": "专服权威"
+      },
+      "weight": 4,
+      "groups": [
+        {
+          "name": "guard",
+          "any_of": [
+            "IsDedicatedServer\\s*\\("
+          ]
+        },
+        {
+          "name": "service module",
+          "any_of": [
+            "damage_arbiter_service",
+            "DamageArbiterService"
+          ]
+        }
+      ],
+      "none_of": [
+        "TODO",
+        "IMPLEMENT\\s+ME"
+      ]
+    },
+    {
+      "id": "arbiter-observation",
+      "label": {
+        "en": "Safe object observation",
+        "zh": "安全的对象观测"
+      },
+      "weight": 4,
+      "groups": [
+        {
+          "name": "notify",
+          "any_of": [
+            "NotifyOnNewObject\\s*\\("
+          ]
+        },
+        {
+          "name": "unwrap",
+          "any_of": [
+            ":get\\s*\\("
+          ]
+        },
+        {
+          "name": "validity",
+          "any_of": [
+            "IsValid\\s*\\("
+          ]
+        }
+      ]
+    },
+    {
+      "id": "arbiter-ordering",
+      "label": {
+        "en": "Game-thread ordering",
+        "zh": "游戏线程排序"
+      },
+      "weight": 3,
+      "groups": [
+        {
+          "name": "sampling",
+          "any_of": [
+            "LoopAsync\\s*\\(",
+            "ExecuteAsync\\s*\\(",
+            "ExecuteWithDelay\\s*\\("
+          ]
+        },
+        {
+          "name": "game thread",
+          "any_of": [
+            "ExecuteInGameThread\\s*\\("
+          ]
+        },
+        {
+          "name": "sequence",
+          "any_of": [
+            "sequence"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "arbiter-lifecycle",
+      "label": {
+        "en": "Paired hooks and intake",
+        "zh": "成对钩子与上报入口"
+      },
+      "weight": 2,
+      "groups": [
+        {
+          "name": "register",
+          "any_of": [
+            "RegisterHook\\s*\\("
+          ]
+        },
+        {
+          "name": "unregister",
+          "any_of": [
+            "UnregisterHook\\s*\\("
+          ]
+        },
+        {
+          "name": "console command",
+          "any_of": [
+            "RegisterConsoleCommand(?:Global)?Handler\\s*\\("
+          ]
+        }
+      ]
+    },
+    {
+      "id": "arbiter-manifest",
+      "label": {
+        "en": "Server-capable package manifest",
+        "zh": "支持专服的包清单"
+      },
+      "weight": 2,
+      "glob": "Info.json",
+      "groups": [
+        {
+          "name": "package name",
+          "any_of": [
+            "\"PackageName\"\\s*:\\s*\"[^\"]+\""
+          ]
+        },
+        {
+          "name": "lua rule",
+          "any_of": [
+            "\"Type\"\\s*:\\s*\"Lua\""
+          ]
+        },
+        {
+          "name": "server rule",
+          "any_of": [
+            "\"IsServer\"\\s*:\\s*true"
+          ]
+        }
+      ]
+    }
+  ]
+}

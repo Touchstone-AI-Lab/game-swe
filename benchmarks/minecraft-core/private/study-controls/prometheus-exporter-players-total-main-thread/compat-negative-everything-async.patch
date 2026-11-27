@@ -1,0 +1,11 @@
+--- a/src/main/java/de/sldk/mc/metrics/Metric.java
++++ b/src/main/java/de/sldk/mc/metrics/Metric.java
+@@ -74,7 +74,7 @@
+      * is overridden.
+      */
+     protected boolean isAsyncCapable() {
+-        return false;
++        return true;
+     }
+ 
+     private void logException(Exception e) {

@@ -1,0 +1,12 @@
+{
+  "schema_version": 3,
+  "created_utc": "2026-09-21T02:29:48.351371+00:00",
+  "adapter_unchanged": "a1e680ae3be1e9907bffd92c27cede61c2b8c5fb785b4cf3cd6dc49187ac6d79",
+  "source_freeze_v2_sha256": "69facd6a3069550b6a2e8684f66520b72c4e7b956ff00990b63798b3c5a70a5e",
+  "files": {
+    "plugins/balatro/scripts/native_scope_v3.py": "3c790c468fa1be4d1fdebc10dc69a4c4689e51f182e2e351d12ac25f469393a9",
+    "plugins/balatro/scripts/summarize_scope_v3.py": "1d0c069890e011427265ed5bc90485998a33d1956adc22bb0cb35dea00e585cc",
+    "plugins/balatro/tests/test_balatro_scope.py": "da89722366bf2dc895d6771d29b65d1cc19cf5f997fab26176f83aebdeb5cbf0",
+    "plugins/balatro/BRANCH-REGRESSION-SCOPE-v3.md": "6666c2cc29a49fb279242840151e23a51dcd60db47c8dbf11d56187650683160"
+  }
+}

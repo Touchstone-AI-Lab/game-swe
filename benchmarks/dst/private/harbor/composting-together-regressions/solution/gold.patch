@@ -1,0 +1,371 @@
+diff --git a/mod/modmain.lua b/mod/modmain.lua
+--- a/mod/modmain.lua
++++ b/mod/modmain.lua
+@@ -45,9 +45,9 @@
+ end
+ 
+ local recipe = AddRecipe("compostpile", {
+-        GLOBAL.Ingredient("rocks", COMPOSTPILE_COST_ROCKS),
+-        GLOBAL.Ingredient("log", COMPOSTPILE_COST_LOG),
+-        GLOBAL.Ingredient("poop", COMPOSTPILE_COST_POOP)
++        GLOBAL.Ingredient("rocks", TUNING.COMPOSTPILE_COST_ROCKS),
++        GLOBAL.Ingredient("log", TUNING.COMPOSTPILE_COST_LOG),
++        GLOBAL.Ingredient("poop", TUNING.COMPOSTPILE_COST_POOP)
+     },     
+     GLOBAL.RECIPETABS.FARM,  
+     GLOBAL.TECH.SCIENCE_ONE,
+@@ -105,15 +105,15 @@
+ -- constants
+ 
+ -- composting times
+--- TUNING.COMPOSTPILE_SMALLCOMPOST_TIME = TUNING.TOTAL_DAY_TIME * 3
+--- TUNING.COMPOSTPILE_MEDCOMPOST_TIME = TUNING.TOTAL_DAY_TIME * 2
+--- TUNING.COMPOSTPILE_LARGECOMPOST_TIME = TUNING.TOTAL_DAY_TIME * 2.2
+--- TUNING.COMPOSTPILE_ENLIGHTEDCOMPOST_TIME = TUNING.TOTAL_DAY_TIME * 4
++TUNING.COMPOSTPILE_SMALLCOMPOST_TIME = TUNING.TOTAL_DAY_TIME * 3
++TUNING.COMPOSTPILE_MEDCOMPOST_TIME = TUNING.TOTAL_DAY_TIME * 2
++TUNING.COMPOSTPILE_LARGECOMPOST_TIME = TUNING.TOTAL_DAY_TIME * 2.2
++TUNING.COMPOSTPILE_ENLIGHTEDCOMPOST_TIME = TUNING.TOTAL_DAY_TIME * 4
+ 
+-TUNING.COMPOSTPILE_SMALLCOMPOST_TIME = TUNING.TOTAL_DAY_TIME * 0.025
+-TUNING.COMPOSTPILE_MEDCOMPOST_TIME = TUNING.TOTAL_DAY_TIME * 0.025
+-TUNING.COMPOSTPILE_LARGECOMPOST_TIME = TUNING.TOTAL_DAY_TIME * 0.025
+-TUNING.COMPOSTPILE_ENLIGHTEDCOMPOST_TIME = TUNING.TOTAL_DAY_TIME * 0.025
++-- TUNING.COMPOSTPILE_SMALLCOMPOST_TIME = TUNING.TOTAL_DAY_TIME * 0.025
++-- TUNING.COMPOSTPILE_MEDCOMPOST_TIME = TUNING.TOTAL_DAY_TIME * 0.025
++-- TUNING.COMPOSTPILE_LARGECOMPOST_TIME = TUNING.TOTAL_DAY_TIME * 0.025
++-- TUNING.COMPOSTPILE_ENLIGHTEDCOMPOST_TIME = TUNING.TOTAL_DAY_TIME * 0.025
+ 
+ if (GetModConfigData("compost_duration") == "realistic") then
+     TUNING.COMPOSTPILE_SMALLCOMPOST_TIME = TUNING.TOTAL_DAY_TIME * 5
+diff --git a/mod/scripts/components/composter.lua b/mod/scripts/components/composter.lua
+--- a/mod/scripts/components/composter.lua
++++ b/mod/scripts/components/composter.lua
+@@ -2,19 +2,19 @@
+ 
+ -- Scene action callbacks
+ 
+-local function ondone(inst, done)
+-	if done then
+-			inst:AddTag("donecomposting")
++local function updatetags(inst)
++	if inst.components.composter.done then
++		inst:AddTag("donecomposting")
+ 	else
+-			inst:RemoveTag("donecomposting")
++		inst:RemoveTag("donecomposting")
+ 	end
+ end
+ 
+ local function oncheckready(inst)
+ 	if inst.components.container ~= nil and
+-				not inst.components.container:IsOpen() and
+-			inst.components.composter:CanCompost() then
+-			inst:AddTag("readytocompost")
++			not inst.components.container:IsOpen() and
++		inst.components.composter:CanCompost() then
++		inst:AddTag("readytocompost")
+ 	end
+ end
+ 
+@@ -28,28 +28,28 @@
+ ---------------------------
+ 
+ local Composter = Class(function(self, inst)
+-		self.inst = inst
+-		
+-		self.task = nil
+-
+-    self.composting = false
+-    self.done = false
+-    
+-		self.poopamount = 0
+-		self.rotamount = 0
+-		self.rottyness = 0
+-		self.fertilesoil = false
+-		self.spawnfireflies = 0
+-    self.recipes = nil
+-		self.default_recipe = nil
+-
+-		inst:ListenForEvent("itemget", oncheckready)
++	self.inst = inst
++
++	self.task = nil
++
++	self.composting = false
++	self.done = false
++
++	self.poopamount = 0
++	self.rotamount = 0
++	self.rottyness = 0
++	self.fertilesoil = false
++	self.spawnfireflies = 0
++
++	self.targettime = nil
++
++	inst:ListenForEvent("itemget", oncheckready)
+     inst:ListenForEvent("onclose", oncheckready)
+ 
+     inst:ListenForEvent("itemlose", onnotready)
+     inst:ListenForEvent("onopen", onnotready)
+ 		
+-		self.inst:AddTag("composter")
++	self.inst:AddTag("composter")
+ end)
+ 
+ function Composter:OnRemoveFromEntity()
+@@ -58,7 +58,6 @@
+ end
+ 
+ local function docompost(inst)
+-	print("docompost")
+ 	inst.components.composter.task = nil
+ 	
+ 	if inst.components.composter.ondonecomposting then
+@@ -68,7 +67,7 @@
+ 	inst.components.composter.done = true
+ 	inst.components.composter.composting = nil
+ 
+-	ondone(inst, inst.components.composter.done)
++	updatetags(inst)
+ end
+ 
+ function Composter:GetTimeToCompost()
+@@ -88,17 +87,17 @@
+ 
+ function Composter:LongUpdate(dt)
+ 	if self:IsComposting() then
+-			if self.task ~= nil then
+-					self.task:Cancel()
+-			end
+-			if self.targettime - dt > GetTime() then
+-					self.targettime = self.targettime - dt
+-					self.task = self.inst:DoTaskInTime(self.targettime - GetTime(), docompost, self)
+-					dt = 0            
+-			else
+-					dt = dt - self.targettime + GetTime()
+-					docompost(self.inst, self)
+-			end
++		if self.task ~= nil then
++			self.task:Cancel()
++		end
++		if self.targettime - dt > GetTime() then
++			self.targettime = self.targettime - dt
++			self.task = self.inst:DoTaskInTime(self.targettime - GetTime(), docompost, self)
++			dt = 0            
++		else
++			dt = dt - self.targettime + GetTime()
++			docompost(self.inst, self)
++		end
+ 	end
+ end
+ 
+@@ -160,12 +159,12 @@
+ 			-- when putting a huge amount of big fruits and veggies on the pile + given spoilage, the pile becomes extra fertile
+ 			if self.poopamount + self.rottyness >= TUNING.COMPOSTPILE_FERTILESOIL_THRES then
+ 				self.fertilesoil = true
+-				GetPlayer().components.talker:Say("I can see some hard working worms!")
+-			end
+-
+-			print("receive", self.poopamount, "poop");
+-			print("firefly spawn rate (%):", self.spawnfireflies);
+-			print("composting time in days: ", composttime/TUNING.TOTAL_DAY_TIME);
++				-- ThePlayer.components.talker:Say("I can see some hard working worms!")
++			end
++
++			-- print("receive", self.poopamount, "poop")
++			-- print("firefly spawn rate (%):", self.spawnfireflies)
++			-- print("composting time in days: ", composttime/TUNING.TOTAL_DAY_TIME)
+ 
+ 			self.targettime = GetTime() + composttime
+ 			if self.task ~= nil then
+@@ -206,8 +205,7 @@
+ 
+ 
+ function Composter:OnSave()
+-	return {
+-		remainingtime = self.targettime ~= nil and self.targettime - GetTime() or 0,
++	local data = {
+ 		composting = self.composting,
+ 		done = self.done,
+ 		
+@@ -216,50 +214,74 @@
+ 		rotamount = self.rotamount,
+ 		rottyness = self.rottyness,
+ 		spawnfireflies = self.spawnfireflies,
++		remainingtime = self.targettime ~= nil and self.targettime - GetTime() or 0,
++	
+ 	}
++	print("saving composter")
++	print(data.fertilesoil)
++	print(data.composting)
++	print(data.done)
++	print(data.poopamount)
++	print(data.rotamount)
++	print(data.rottyness)
++	print(data.spawnfireflies)
++	print(data.remainingtime)
++
++	return data
+ end
+ 
+ function Composter:OnLoad(data)
++	print("loading composter")
++	print(data.fertilesoil)
++	print(data.composting)
++	print(data.done)
++	print(data.poopamount)
++	print(data.rotamount)
++	print(data.rottyness)
++	print(data.spawnfireflies)
++	print(data.remainingtime)
++
+ 	self.fertilesoil = data.fertilesoil
+-	self.composting = data.composting or nil
+-	self.done = data.done or nil
+-	self.poopamount =data.poopamount;
+-	self.rotamount = data.rotamount;
+-	self.rottyness = data.rottyness;
+-	self.spawnfireflies = data.spawnfireflies;
++	self.composting = data.composting
++	self.done = data.done
++	self.poopamount = data.poopamount
++	self.rotamount = data.rotamount
++	self.rottyness = data.rottyness
++	self.spawnfireflies = data.spawnfireflies
+ 
+ 	if self.task ~= nil then
+-			self.task:Cancel()
+-			self.task = nil
++		self.task:Cancel()
++		self.task = nil
+ 	end
+ 	self.targettime = nil
+ 
+-	if not self.done and not self.composting then
+-		self.done = false
+-	end
+-
+-	if data.remainingtime ~= nil then
++	updatetags(self.inst)
++
++	if self.done then
++		if self.oncontinuedone ~= nil then
++			self.oncontinuedone(self.inst)
++		end
++
++		if self.inst.components.container ~= nil then
++			self.inst.components.container.canbeopened = false
++		end	
++	elseif self.composting then
+ 		self.targettime = GetTime() + math.max(0, data.remainingtime)
+-		print("remainingtime " ..data.remainingtime)
+-		print("targettime "..self.targettime)
+-
+-		if self.done then
+-			if self.oncontinuedone ~= nil then
+-					self.oncontinuedone(self.inst)
+-			end
+-		else
+-			self.task = self.inst:DoTaskInTime(data.remainingtime, docompost, self)
+-			if self.oncontinuecomposting ~= nil then
+-					self.oncontinuecomposting(self.inst)
+-			end
+-		end
+-	elseif self.oncontinuedone ~= nil then
+-			self.oncontinuedone(self.inst)
+-	end
+-
+-	if self.inst.components.container ~= nil then
++
++		self.task = self.inst:DoTaskInTime(data.remainingtime, docompost, self)
++		if self.oncontinuecomposting ~= nil then
++			self.oncontinuecomposting(self.inst)
++		end
++
++		if self.inst.components.container ~= nil then
+ 			self.inst.components.container.canbeopened = false
+-	end
++		end	
++	else
++		if self.inst.components.container ~= nil then
++			self.inst.components.container.canbeopened = true
++		end	
++	end
++	
+ end
+ 
+ function Composter:GetDebugString()
+@@ -274,7 +296,7 @@
+ 	end
+ 
+ 	if self.targettime then
+-			str = str.." ("..tostring(self.targettime - GetTime())..")"
++		str = str.." ("..tostring(self.targettime - GetTime())..")"
+ 	end
+     
+ 	return str
+@@ -291,7 +313,6 @@
+ 		local poop_stacksize = self.poopamount + self.rottyness
+ 		local rot_stacksize = self.rotamount
+ 
+-		print("stack: "..poop_stacksize)
+ 		if poop_stacksize > 0 then
+ 			local loot = SpawnPrefab("poop")
+ 			loot.components.stackable:SetStackSize(poop_stacksize)
+@@ -315,7 +336,7 @@
+ 		if math.random() <= self.spawnfireflies then
+ 			local item_inst = SpawnPrefab("fireflies")
+ 			item_inst.entity:SetParent(self.inst.entity)
+-			GetPlayer().components.talker:Say("I see bugs!")
++			-- ThePlayer.components.talker:Say("I see bugs!")
+ 		end
+ 
+ 		if self.task ~= nil then
+@@ -324,12 +345,16 @@
+ 		end
+ 		self.targettime = nil
+ 		self.done = nil
++		self.poopamount = 0
++		self.rotamount = 0
++		self.rottyness = 0
++		self.spawnfireflies = 0
+ 
+ 		if self.inst.components.container then		
+ 			self.inst.components.container.canbeopened = true
+ 		end
+ 
+-		ondone(self.inst, self.inst.components.composter.done)
++		updatetags(self.inst)
+ 		
+ 		return true
+ 	end
+diff --git a/mod/scripts/prefabs/compostpile.lua b/mod/scripts/prefabs/compostpile.lua
+--- a/mod/scripts/prefabs/compostpile.lua
++++ b/mod/scripts/prefabs/compostpile.lua
+@@ -332,16 +332,17 @@
+ 				return "COMPOSTING_FERTILE"
+ 			end
+ 
+-			if inst.components.composter.done then
+-				return "DONE"
+-			else 
+-				if inst.components.composter:GetTimeToCompost() >= TUNING.TOTAL_DAY_TIME * 2 then
+-					return "COMPOSTING_LONG"
+-				else
+-					return "COMPOSTING_SHORT"
+-				end
++			if inst.components.composter:GetTimeToCompost() >= TUNING.TOTAL_DAY_TIME * 2 then
++				return "COMPOSTING_LONG"
++			else
++				return "COMPOSTING_SHORT"
+ 			end
+ 		end
++
++		if inst.components.composter.done then
++			return "DONE"
++		end
++		
+ 		return "EMPTY"
+ 	end
+ 

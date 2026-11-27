@@ -1,0 +1,5 @@
+{
+  "JunimoHutBehaviorForSeeds": "Ignore",
+  "JunimoHutBehaviorForFertilizer": "MoveIntoChests",
+  "JunimoHutBehaviorForGems": "MoveIntoChests"
+}

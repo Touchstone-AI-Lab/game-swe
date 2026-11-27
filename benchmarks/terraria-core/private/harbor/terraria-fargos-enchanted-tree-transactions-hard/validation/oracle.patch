@@ -1,0 +1,354 @@
+diff --git a/benchmarks/terraria-core/private/harbor/terraria-fargos-enchanted-tree-transactions-hard/environment/fargos-mutant/Common/Systems/Recipes/MiscRecipeSystem.cs b/benchmarks/terraria-core/private/harbor/terraria-fargos-enchanted-tree-transactions-hard/solution/after/Common/Systems/Recipes/MiscRecipeSystem.cs
+index fe3c267a..94044ad7 100644
+--- a/benchmarks/terraria-core/private/harbor/terraria-fargos-enchanted-tree-transactions-hard/environment/fargos-mutant/Common/Systems/Recipes/MiscRecipeSystem.cs
++++ b/benchmarks/terraria-core/private/harbor/terraria-fargos-enchanted-tree-transactions-hard/solution/after/Common/Systems/Recipes/MiscRecipeSystem.cs
+@@ -56,11 +56,30 @@ public class MiscRecipeSystem : ModSystem
+             recipe.DisableDecraft();
+         }
+ 
+-        RefreshDuplicatableRecipes();
+-
+     }
+     public override void PostSetupRecipes()
+     {
++        Dictionary<int, List<int>> rebuiltRecipes = [];
++
++        //finding items with duplicatable items sold
++        foreach (Recipe recipe in Main.recipe.Where(recipe => EnchantedTreeTileEntity.IsItemDupable(recipe.createItem.type)))
++        {
++            int result = recipe.createItem.type;
++            if (!rebuiltRecipes.TryGetValue(result, out List<int> ingredients))
++                rebuiltRecipes.Add(result, ingredients = []);
++
++            foreach (Item item in recipe.requiredItem)
++            {
++                if ((EnchantedTreeTileEntity.IsItemDupable(item.type) || (DuplicatableItems[recipe.createItem.type] == DupeType.MaterialsDupable && DuplicatableItems[item.type] != DupeType.NotDupableFromDupable))
++                    && !ingredients.Contains(item.type))
++                    ingredients.Add(item.type);
++            }
++        }
++
++        DuplicatableRecipes.Clear();
++        foreach (KeyValuePair<int, List<int>> entry in rebuiltRecipes)
++            DuplicatableRecipes.Add(entry.Key, entry.Value);
++
+         // animate recipe groups
+         foreach (Recipe recipe in Main.recipe)
+         {
+@@ -79,25 +98,6 @@ public class MiscRecipeSystem : ModSystem
+         }
+     }
+ 
+-    private static void RefreshDuplicatableRecipes()
+-    {
+-        foreach (Recipe recipe in Main.recipe.Where(recipe => EnchantedTreeTileEntity.IsItemDupable(recipe.createItem.type)))
+-        {
+-            int result = recipe.createItem.type;
+-            if (!DuplicatableRecipes.ContainsKey(result))
+-            {
+-                DuplicatableRecipes.Add(result, []);
+-            }
+-            foreach (Item item in recipe.requiredItem)
+-            {
+-                if (EnchantedTreeTileEntity.IsItemDupable(item.type) || DuplicatableItems[recipe.createItem.type] == DupeType.MaterialsDupable)
+-                {
+-                    DuplicatableRecipes[recipe.createItem.type].Add(item.type);
+-                }
+-            }
+-        }
+-    }
+-
+     private static void AddStatueRecipes()
+     {
+         // Functional
+diff --git a/benchmarks/terraria-core/private/harbor/terraria-fargos-enchanted-tree-transactions-hard/environment/fargos-mutant/Content/Items/Tiles/EnchantedTreeSheet.cs b/benchmarks/terraria-core/private/harbor/terraria-fargos-enchanted-tree-transactions-hard/solution/after/Content/Items/Tiles/EnchantedTreeSheet.cs
+index 10344d88..a6ba5cce 100644
+--- a/benchmarks/terraria-core/private/harbor/terraria-fargos-enchanted-tree-transactions-hard/environment/fargos-mutant/Content/Items/Tiles/EnchantedTreeSheet.cs
++++ b/benchmarks/terraria-core/private/harbor/terraria-fargos-enchanted-tree-transactions-hard/solution/after/Content/Items/Tiles/EnchantedTreeSheet.cs
+@@ -121,17 +121,18 @@ public class EnchantedTreeSheet : ModTile
+             if (tree != null && player.HeldItem != null && player.HeldItem.type >= ItemID.None && tree.ItemType == -1 && player.HeldItem.stack > 0 && tree.Fruits.Count == 0 && !player.HeldItem.favorited)
+             {
+                 tree.ItemType = player.HeldItem.type;
+-                tree.Prefix = 0;
++                tree.Prefix = player.HeldItem.prefix;
+                 if (EnchantedTreeTileEntity.IsItemDupable(tree.ItemType))
+                 {
+                     tree.Fruits.Add(new(tree.ItemType, tree.Position.ToWorldCoordinates() + new Vector2(16, -12), tree.Position.ToWorldCoordinates() + new Vector2(16, -80), Vector2.Zero));
+                     if (Main.netMode == NetmodeID.MultiplayerClient)
+                     {
+-                        FargoNet.SendEnchantedTreeFruitPacket(EnchantedTrees.IndexOf(new Point16(i, j)));
++                        FargoNet.SendEnchantedTreeFruitPacket(EnchantedTrees.IndexOf(FargoUtils.GetTopLeftTileInMultitile(i, j)));
+                     }
+                 }
+                 player.HeldItem.stack -= 1;
+-                return false;
++                tree.CursorInsertCooldown = 10;
++                return true;
+             }
+             //if the entity has item already drop it and set it to null
+             else if (tree != null && tree.ItemType >= 0 && tree.CursorInsertCooldown <= 0)
+diff --git a/benchmarks/terraria-core/private/harbor/terraria-fargos-enchanted-tree-transactions-hard/environment/fargos-mutant/Content/Items/Tiles/EnchantedTreeTileEntity.cs b/benchmarks/terraria-core/private/harbor/terraria-fargos-enchanted-tree-transactions-hard/solution/after/Content/Items/Tiles/EnchantedTreeTileEntity.cs
+index 6d6bfb31..8d281c19 100644
+--- a/benchmarks/terraria-core/private/harbor/terraria-fargos-enchanted-tree-transactions-hard/environment/fargos-mutant/Content/Items/Tiles/EnchantedTreeTileEntity.cs
++++ b/benchmarks/terraria-core/private/harbor/terraria-fargos-enchanted-tree-transactions-hard/solution/after/Content/Items/Tiles/EnchantedTreeTileEntity.cs
+@@ -86,6 +86,7 @@ public class EnchantedTreeTileEntity : ModTileEntity
+     public int ItemType = -1;
+     public int Prefix = 0;
+     public int CursorInsertCooldown = 0;
++    private const int MaxFruitSnapshotCount = 4096;
+     public override void SaveData(TagCompound tag)
+     {
+         tag["ItemDefinition"] = new ItemDefinition(ItemType);
+@@ -99,13 +100,28 @@ public class EnchantedTreeTileEntity : ModTileEntity
+     //same concept as save and load
+     public override void NetSend(BinaryWriter writer)
+     {
+-        writer.Write(ItemType);
+-        writer.Write(Prefix);
++        if (Fruits.Count > MaxFruitSnapshotCount)
++            throw new InvalidDataException("Invalid fruit count in tree snapshot.");
+ 
+-        writer.Write(Fruits.Count);
++        List<Fruit> snapshot = new(Fruits.Count);
+         for (int i = 0; i < Fruits.Count; i++)
+         {
+             Fruit fruit = Fruits[i];
++            snapshot.Add(new Fruit(fruit.type, fruit.center, fruit.targetPosition, fruit.velocity, fruit.previousItem, fruit.layer)
++            {
++                grabCooldown = fruit.grabCooldown,
++                despawnTimer = fruit.despawnTimer
++            });
++        }
++        ValidateFruitSnapshot(snapshot);
++
++        writer.Write(ItemType);
++        writer.Write(Prefix);
++
++        writer.Write(snapshot.Count);
++        for (int i = 0; i < snapshot.Count; i++)
++        {
++            Fruit fruit = snapshot[i];
+             writer.Write(fruit.type);
+             writer.WriteVector2(fruit.center);
+             writer.WriteVector2(fruit.targetPosition);
+@@ -118,17 +134,132 @@ public class EnchantedTreeTileEntity : ModTileEntity
+     }
+     public override void NetReceive(BinaryReader reader)
+     {
+-        ItemType = reader.ReadInt32();
+-        Prefix = reader.ReadInt32();
++        int receivedItemType;
++        int receivedPrefix;
++        List<Fruit> receivedFruits = [];
++        try
++        {
++            receivedItemType = reader.ReadInt32();
++            receivedPrefix = reader.ReadInt32();
++            int count = reader.ReadInt32();
++            if (count < 0 || count > MaxFruitSnapshotCount)
++                throw new InvalidDataException("Invalid fruit count in tree snapshot.");
++
++            for (int i = 0; i < count; i++)
++            {
++                int type = reader.ReadInt32();
++                Vector2 center = reader.ReadVector2();
++                Vector2 target = reader.ReadVector2();
++                Vector2 velocity = reader.ReadVector2();
++                int parent = reader.ReadInt32();
++                int layer = reader.ReadInt32();
++                int grabCooldown = reader.ReadInt32();
++                float despawnTimer = reader.ReadSingle();
++                if (!float.IsFinite(center.X) || !float.IsFinite(center.Y) ||
++                    !float.IsFinite(target.X) || !float.IsFinite(target.Y) ||
++                    !float.IsFinite(velocity.X) || !float.IsFinite(velocity.Y))
++                    throw new InvalidDataException("Non-finite fruit position or velocity in tree snapshot.");
++
++                Fruit fruit = new(type, center, target, velocity, parent, layer)
++                {
++                    grabCooldown = grabCooldown,
++                    despawnTimer = despawnTimer
++                };
++                receivedFruits.Add(fruit);
++            }
++
++            ValidateFruitSnapshot(receivedFruits);
++        }
++        catch (EndOfStreamException error)
++        {
++            throw new InvalidDataException("Truncated tree snapshot.", error);
++        }
++
++        ItemType = receivedItemType;
++        Prefix = receivedPrefix;
++        Fruits = receivedFruits;
++    }
++
++    private static void ValidateFruitSnapshot(IReadOnlyList<Fruit> fruits)
++    {
++        if (fruits.Count > MaxFruitSnapshotCount)
++            throw new InvalidDataException("Invalid fruit count in tree snapshot.");
++
++        for (int i = 0; i < fruits.Count; i++)
++        {
++            Fruit fruit = fruits[i];
++            if (!float.IsFinite(fruit.center.X) || !float.IsFinite(fruit.center.Y) ||
++                !float.IsFinite(fruit.targetPosition.X) || !float.IsFinite(fruit.targetPosition.Y) ||
++                !float.IsFinite(fruit.velocity.X) || !float.IsFinite(fruit.velocity.Y) ||
++                !float.IsFinite(fruit.despawnTimer) || fruit.despawnTimer < 0 || fruit.grabCooldown < 0)
++                throw new InvalidDataException("Invalid fruit state in tree snapshot.");
++
++            if (fruit.previousItem == i)
++            {
++                if (fruit.layer != 0)
++                    throw new InvalidDataException("A root fruit must use layer zero.");
++            }
++            else
++            {
++                if (fruit.previousItem < 0 || fruit.previousItem >= i)
++                    throw new InvalidDataException("A fruit parent must precede its child.");
++
++                long expectedLayer = (long)fruits[fruit.previousItem].layer + 1;
++                if (fruit.layer != expectedLayer)
++                    throw new InvalidDataException("A fruit layer must follow its parent layer.");
++            }
++        }
++    }
++
++    private static int DescendantDepth(IReadOnlyList<Fruit> fruits, int candidateIndex, int ancestorIndex)
++    {
++        int current = candidateIndex;
++        for (int depth = 1; depth <= fruits.Count; depth++)
++        {
++            int parent = fruits[current].previousItem;
++            if (parent == ancestorIndex)
++                return depth;
++            if (parent < 0 || parent >= current)
++                return -1;
++            current = parent;
++        }
++        return -1;
++    }
++
++    private static void RemoveFruitAndRebase(EnchantedTreeTileEntity tree, int removedIndex)
++    {
++        List<Fruit> fruits = tree.Fruits;
++        Fruit removed = fruits[removedIndex];
++        int removedParent = removed.previousItem;
++
++        if (Main.LocalPlayer != null && ReferenceEquals(Main.LocalPlayer.FargoMutant().grabbedFruit, removed))
++            Main.LocalPlayer.FargoMutant().grabbedFruit = null;
+ 
+-        int count = reader.ReadInt32();
+-        //Main.NewText(count);
+-        for (int i = 0; i < count; i++)
++        fruits.RemoveAt(removedIndex);
++        for (int newIndex = 0; newIndex < fruits.Count; newIndex++)
+         {
+-            Fruit fruit = new(reader.ReadInt32(), reader.ReadVector2(), reader.ReadVector2(), reader.ReadVector2(), reader.ReadInt32(), reader.ReadInt32());
+-            fruit.grabCooldown = reader.ReadInt32();
+-            fruit.despawnTimer = reader.ReadSingle();
+-            Fruits.Add(fruit);
++            Fruit fruit = fruits[newIndex];
++            int oldIndex = newIndex >= removedIndex ? newIndex + 1 : newIndex;
++            int oldParent = fruit.previousItem;
++            int newParent;
++
++            if (oldParent == oldIndex)
++                newParent = newIndex;
++            else if (oldParent == removedIndex)
++            {
++                if (removedParent == removedIndex)
++                    newParent = newIndex;
++                else
++                    newParent = removedParent > removedIndex ? removedParent - 1 : removedParent;
++            }
++            else
++                newParent = oldParent > removedIndex ? oldParent - 1 : oldParent;
++
++            if (newParent < 0 || newParent > newIndex || newParent >= fruits.Count)
++                newParent = newIndex;
++
++            fruit.previousItem = newParent;
++            fruit.layer = newParent == newIndex ? 0 : fruits[newParent].layer + 1;
+         }
+     }
+ 
+@@ -152,12 +283,16 @@ public class EnchantedTreeTileEntity : ModTileEntity
+         if (!Main.dedServ)
+         {
+ 
++            HashSet<Point16> updatedTrees = [];
+             for (int t = 0; t < EnchantedTreeSheet.EnchantedTrees.Count; t++)
+             {
++                if (!updatedTrees.Add(EnchantedTreeSheet.EnchantedTrees[t]))
++                    continue;
++
+                 if (!FargoUtils.TryGetTileEntityAs(EnchantedTreeSheet.EnchantedTrees[t].X, EnchantedTreeSheet.EnchantedTrees[t].Y, out EnchantedTreeTileEntity tree))
+                 {
+                     //Main.NewText(EnchantedTreeTileEntity.EnchantedTrees.Count);
+-                    return;
++                    continue;
+                 }
+ 
+                 if (tree.CursorInsertCooldown > 0)
+@@ -196,7 +331,7 @@ public class EnchantedTreeTileEntity : ModTileEntity
+                     //radius for a dist check so width / 2
+                     float size = 30;
+                     
+-                    int cost = ContentSamples.ItemsByType[fruit.type].value;
++                    int cost = ContentSamples.ItemsByType[fruit.type].value * 2;
+                     //cost = Math.Clamp(cost, 1, 9999);
+                     if (!Main.LocalPlayer.controlUseItem)
+                     {
+@@ -228,8 +363,10 @@ public class EnchantedTreeTileEntity : ModTileEntity
+                         for (int k = 0; k < tree.Fruits.Count; k++)
+                         {
+                             Fruit fruit2 = tree.Fruits[k];
+-                            if (fruit2.previousItem == i && k != i && fruit2.despawnTimer == 0) expand = false;
+-                            else if (fruit2.layer == fruit.layer + 1 && fruit2.despawnTimer == 0)
++                            int descendantDepth = k == i ? -1 : DescendantDepth(tree.Fruits, k, i);
++                            if (descendantDepth == 1)
++                                expand = false;
++                            else if (descendantDepth > 1 && fruit2.despawnTimer == 0)
+                             {
+                                 netsync = true;
+                                 fruit2.despawnTimer = 1;
+@@ -243,7 +380,7 @@ public class EnchantedTreeTileEntity : ModTileEntity
+                             {
+                                 float side = (d % 2 == 0 ? -1 : 1);
+                                 Vector2 position = fruit.targetPosition + new Vector2(0, 250) - new Vector2(0, 500).RotatedBy(MathHelper.ToRadians((d) * 7 - FargoItemSets.DuplicatableRecipes[fruit.type].Count * 7 / 2 + 3f));
+-                                tree.Fruits.Add(new Fruit(FargoItemSets.DuplicatableRecipes[fruit.type][d], fruit.center, position, Vector2.Zero, fruit.previousItem, fruit.layer));
++                                tree.Fruits.Add(new Fruit(FargoItemSets.DuplicatableRecipes[fruit.type][d], fruit.center, position, Vector2.Zero, i, fruit.layer + 1));
+                             }
+                         }
+                         if (netsync && Main.netMode == NetmodeID.MultiplayerClient)
+@@ -257,13 +394,17 @@ public class EnchantedTreeTileEntity : ModTileEntity
+                         if (fruit.center.Distance(fruit.targetPosition) > 100)
+                         {
+                             fruit.grabbed = false;
+-                            fruit.grabCooldown = 0;
++                            Main.LocalPlayer.FargoMutant().grabbedFruit = null;
++                            fruit.grabCooldown = 30;
+ 
+                             if (Main.LocalPlayer.BuyItem(cost))
+                             {
+                                 if (Main.netMode != NetmodeID.Server)
+                                 {
+-                                    int item = Item.NewItem(Main.LocalPlayer.GetSource_TileInteraction(tree.Position.X, tree.Position.Y, "EnchantedTreeDuplication"), fruit.center, fruit.type);
++                                    int item = Item.NewItem(Main.LocalPlayer.GetSource_TileInteraction(tree.Position.X, tree.Position.Y, "EnchantedTreeDuplication"), fruit.center, fruit.type, prefixGiven: tree.Prefix);
++
++                                    Main.item[item].GetGlobalItem<FargoGlobalItem>().Grabbed = Main.myPlayer;
++                                    Main.item[item].GetGlobalItem<FargoGlobalItem>().FromEnchantedTree = true;
+                                     //FargoNet.SyncItemFromFruitPacket(Main.item[item].type, Main.myPlayer, tree.Position.ToVector2(), fruit.center, item);
+                                     NetMessage.SendData(MessageID.SyncItem, Main.myPlayer, number: item, number2: 1f);
+ 
+@@ -286,7 +427,8 @@ public class EnchantedTreeTileEntity : ModTileEntity
+                         fruit.despawnTimer++;
+                         if (fruit.despawnTimer > 20)
+                         {
+-                            tree.Fruits.RemoveAt(i);
++                            RemoveFruitAndRebase(tree, i);
++                            i--;
+                         }
+                     }
+                 }

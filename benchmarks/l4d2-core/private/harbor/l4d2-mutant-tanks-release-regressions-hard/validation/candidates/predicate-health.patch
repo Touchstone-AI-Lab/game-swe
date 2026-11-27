@@ -1,0 +1,25 @@
+diff --git a/addons/sourcemod/scripting/mutant_tanks/mutant_tanks.sp b/addons/sourcemod/scripting/mutant_tanks/mutant_tanks.sp
+--- a/addons/sourcemod/scripting/mutant_tanks/mutant_tanks.sp
++++ b/addons/sourcemod/scripting/mutant_tanks/mutant_tanks.sp
+@@ -19099,8 +19099,8 @@
+ 					g_esTankCache[tank].g_iAutoHop = iGetSubSettingValue(bAccess, true, g_esSpecial[iType].g_iAutoHop, g_esTank[iType].g_iAutoHop, g_esSpecific.g_iAutoHop, g_esGeneral.g_iAutoHop, 1);
+ 					g_esTankCache[tank].g_iAutoHop = iGetSubSettingValue(bAccess, bHuman, g_esTeammate[tank].g_iAutoHop, g_esPlayer[tank].g_iAutoHop, g_esTankCache[tank].g_iAutoHop, g_esTankCache[tank].g_iAutoHop, 1);
+ 					g_esTankCache[tank].g_iBaseHealth = iGetSubSettingValue(bAccess, true, g_esTank[iType].g_iBaseHealth, g_esSpecific.g_iBaseHealth[0], g_esSpecific.g_iBaseHealth[iSpecType + 1], g_esGeneral.g_iBaseHealth, 1);
+-					g_esTankCache[tank].g_iBaseHealth = iGetSubSettingValue(bAccess, bHuman, g_esTeammate[tank].g_iBaseHealth[iSpecType + 1], g_esPlayer[tank].g_iBaseHealth, g_esSpecial[iType].g_iBaseHealth[0], g_esSpecial[iType].g_iBaseHealth[iSpecType + 1], 1);
+-					g_esTankCache[tank].g_iBaseHealth = iGetSubSettingValue(bAccess, bHuman, g_esTeammate[tank].g_iBaseHealth[0], g_esTankCache[tank].g_iBaseHealth, g_esTankCache[tank].g_iBaseHealth, g_esTankCache[tank].g_iBaseHealth, 1);
++					g_esTankCache[tank].g_iBaseHealth = iGetSubSettingValue(bAccess, bHuman, g_esPlayer[tank].g_iBaseHealth, g_esSpecial[iType].g_iBaseHealth[0], g_esSpecial[iType].g_iBaseHealth[iSpecType + 1], g_esTankCache[tank].g_iBaseHealth, 1);
++					g_esTankCache[tank].g_iBaseHealth = iGetSubSettingValue(bAccess, bHuman, g_esTeammate[tank].g_iBaseHealth[0], g_esTeammate[tank].g_iBaseHealth[iSpecType + 1], g_esTankCache[tank].g_iBaseHealth, g_esTankCache[tank].g_iBaseHealth, 1);
+ 					g_esTankCache[tank].g_iBossEffects = iGetSubSettingValue(bAccess, bHuman, g_esTeammate[tank].g_iBossEffects, g_esPlayer[tank].g_iBossEffects, g_esSpecial[iType].g_iBossEffects, g_esTank[iType].g_iBossEffects, 1);
+ 					g_esTankCache[tank].g_iBossStages = iGetSubSettingValue(bAccess, bHuman, g_esTeammate[tank].g_iBossStages, g_esPlayer[tank].g_iBossStages, g_esSpecial[iType].g_iBossStages, g_esTank[iType].g_iBossStages, 1);
+ 					g_esTankCache[tank].g_iBulletImmunity = iGetSubSettingValue(bAccess, true, g_esSpecial[iType].g_iBulletImmunity, g_esTank[iType].g_iBulletImmunity, g_esSpecific.g_iBulletImmunity, g_esGeneral.g_iBulletImmunity, 1);
+@@ -19120,8 +19120,8 @@
+ 					g_esTankCache[tank].g_iExplosiveImmunity = iGetSubSettingValue(bAccess, true, g_esSpecial[iType].g_iExplosiveImmunity, g_esTank[iType].g_iExplosiveImmunity, g_esSpecific.g_iExplosiveImmunity, g_esGeneral.g_iExplosiveImmunity, 1);
+ 					g_esTankCache[tank].g_iExplosiveImmunity = iGetSubSettingValue(bAccess, bHuman, g_esTeammate[tank].g_iExplosiveImmunity, g_esPlayer[tank].g_iExplosiveImmunity, g_esTankCache[tank].g_iExplosiveImmunity, g_esTankCache[tank].g_iExplosiveImmunity, 1);
+ 					g_esTankCache[tank].g_iExtraHealth = iGetSubSettingValue(bAccess, true, g_esTank[iType].g_iExtraHealth, g_esSpecific.g_iExtraHealth[0], g_esSpecific.g_iExtraHealth[iSpecType + 1], g_esGeneral.g_iExtraHealth, 2, -1);
+-					g_esTankCache[tank].g_iExtraHealth = iGetSubSettingValue(bAccess, bHuman, g_esTeammate[tank].g_iExtraHealth[iSpecType + 1], g_esPlayer[tank].g_iExtraHealth, g_esSpecial[iType].g_iExtraHealth[0], g_esSpecial[iType].g_iExtraHealth[iSpecType + 1], 2, -1);
+-					g_esTankCache[tank].g_iExtraHealth = iGetSubSettingValue(bAccess, bHuman, g_esTeammate[tank].g_iExtraHealth[0], g_esTankCache[tank].g_iExtraHealth, g_esTankCache[tank].g_iExtraHealth, g_esTankCache[tank].g_iExtraHealth, 2, -1);
++					g_esTankCache[tank].g_iExtraHealth = iGetSubSettingValue(bAccess, bHuman, g_esPlayer[tank].g_iExtraHealth, g_esSpecial[iType].g_iExtraHealth[0], g_esSpecial[iType].g_iExtraHealth[iSpecType + 1], g_esTankCache[tank].g_iExtraHealth, 2, -1);
++					g_esTankCache[tank].g_iExtraHealth = iGetSubSettingValue(bAccess, bHuman, g_esTeammate[tank].g_iExtraHealth[0], g_esTeammate[tank].g_iExtraHealth[iSpecType + 1], g_esTankCache[tank].g_iExtraHealth, g_esTankCache[tank].g_iExtraHealth, 2, -1);
+ 					g_esTankCache[tank].g_iFireImmunity = iGetSubSettingValue(bAccess, true, g_esSpecial[iType].g_iFireImmunity, g_esTank[iType].g_iFireImmunity, g_esSpecific.g_iFireImmunity, g_esGeneral.g_iFireImmunity, 1);
+ 					g_esTankCache[tank].g_iFireImmunity = iGetSubSettingValue(bAccess, bHuman, g_esTeammate[tank].g_iFireImmunity, g_esPlayer[tank].g_iFireImmunity, g_esTankCache[tank].g_iFireImmunity, g_esTankCache[tank].g_iFireImmunity, 1);
+ 					g_esTankCache[tank].g_iHittableImmunity = iGetSubSettingValue(bAccess, true, g_esSpecial[iType].g_iHittableImmunity, g_esTank[iType].g_iHittableImmunity, g_esSpecific.g_iHittableImmunity, g_esGeneral.g_iHittableImmunity, 1);

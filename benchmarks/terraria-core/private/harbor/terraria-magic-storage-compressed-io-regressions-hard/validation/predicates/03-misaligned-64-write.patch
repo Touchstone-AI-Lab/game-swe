@@ -1,0 +1,29 @@
+diff --git a/Common/IO/BitBuffer128.cs b/Common/IO/BitBuffer128.cs
+--- a/Common/IO/BitBuffer128.cs
++++ b/Common/IO/BitBuffer128.cs
+@@ -140,6 +140,25 @@ namespace MagicStorage.Common.IO {
+ 			if (numBits == 0)
+ 				return;
+ 
++			if (typeof(T) == typeof(ulong) && numBits == MAX_LONG) {
++				if (head < 0 || head > MAX_LONG)
++					throw new ArgumentOutOfRangeException(nameof(head), $"Expected {MAX_LONG} bits of space, only {2 * MAX_LONG - head} were present");
++
++				ulong raw = Unsafe.As<T, ulong>(ref value);
++				if (head == 0)
++					_qword0 = raw;
++				else if (head == MAX_LONG)
++					_qword1 = raw;
++				else {
++					ulong preservedLowBits = (1uL << head) - 1;
++					_qword0 = (_qword0 & preservedLowBits) | (raw << head);
++					_qword1 = (_qword1 & ~preservedLowBits) | (raw >> (MAX_LONG - head));
++				}
++
++				head += MAX_LONG;
++				return;
++			}
++
+ 			int localHead = head;
+ 			GetDataAndHead(out var dataRef, ref localHead, numBits);
+ 

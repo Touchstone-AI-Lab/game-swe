@@ -1,0 +1,13 @@
+diff -ruN a/scripts/statuseffects/stack.lua b/scripts/statuseffects/stack.lua
+--- a/scripts/statuseffects/stack.lua	2026-09-22 00:59:18.686420789 +0800
++++ b/scripts/statuseffects/stack.lua	2026-09-22 01:14:27.016908472 +0800
+@@ -488,9 +488,6 @@
+             end
+         end
+     end
+-    if is_positive_integer(data.next_seq) and data.next_seq > self.next_seq then
+-        self.next_seq = data.next_seq
+-    end
+     if type(data.history) == "table" then
+         for _, entry in ipairs(data.history) do
+             if type(entry) == "table" and is_id(entry.request_id) and type(entry.result) == "table"

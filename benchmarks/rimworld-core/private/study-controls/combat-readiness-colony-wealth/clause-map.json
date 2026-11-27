@@ -1,0 +1,200 @@
+{
+  "task": "rimworld/core/combat-readiness-colony-wealth",
+  "task_version": "0.3.3",
+  "exam": "benchmarks/rimworld-core/exams/combat-readiness-colony-wealth.md",
+  "cases": [
+    {
+      "id": "check:submission-shape",
+      "role": "static",
+      "clauses": [
+        "delivery"
+      ],
+      "overlap": false,
+      "note": "required C# sources present as a safe snapshot; rejects binaries, links and private-harness markers"
+    },
+    {
+      "id": "case:runtime-defs-ready",
+      "role": "runtime-sentinel",
+      "clauses": [],
+      "overlap": false,
+      "note": "Core, Combat Readiness Check slice and verifier loaded"
+    },
+    {
+      "id": "case:home-map-overrides-vanilla",
+      "role": "preserved",
+      "clauses": [
+        "req-3"
+      ],
+      "overlap": true,
+      "note": "a home map in normal mode still replaces the getter result"
+    },
+    {
+      "id": "case:home-map-queries-armoury-once",
+      "role": "preserved",
+      "clauses": [
+        "req-3"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:nonhome-map-passes-through",
+      "role": "target",
+      "clauses": [
+        "req-1"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:nonhome-map-skips-armoury",
+      "role": "preserved",
+      "clauses": [
+        "req-1"
+      ],
+      "overlap": true,
+      "note": "the starter already skips the armoury query off the home map"
+    },
+    {
+      "id": "case:fixed-wealth-passes-through",
+      "role": "target",
+      "clauses": [
+        "req-2"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:fixed-wealth-skips-armoury",
+      "role": "target",
+      "clauses": [
+        "req-2"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:zero-components-remain-zero",
+      "role": "target",
+      "clauses": [
+        "req-4"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:armoury-wealth-stays-raw",
+      "role": "target",
+      "clauses": [
+        "req-3",
+        "req-4"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:building-percentage-stays-raw",
+      "role": "target",
+      "clauses": [
+        "req-3",
+        "req-4"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:wealth-components-add",
+      "role": "target",
+      "clauses": [
+        "req-3"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:zero-building-percentage",
+      "role": "target",
+      "clauses": [
+        "req-5"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:full-building-percentage",
+      "role": "target",
+      "clauses": [
+        "req-5"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:fractional-building-percentage",
+      "role": "target",
+      "clauses": [
+        "req-5"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:above-full-percentage-preserved",
+      "role": "target",
+      "clauses": [
+        "req-5"
+      ],
+      "overlap": false,
+      "note": "fails on the starter because the curve is applied, not because of the percentage"
+    },
+    {
+      "id": "case:fixture-state-restored",
+      "role": "setup",
+      "clauses": [],
+      "overlap": false,
+      "note": "terminal fixture-restoration gate"
+    }
+  ],
+  "clauses": [
+    {
+      "id": "req-1",
+      "anchor": "Required behavior, bullet 1: let the original PlayerWealthForStoryteller getter run for maps that are not player homes",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "req-2",
+      "anchor": "Required behavior, bullet 2: let the original getter run in fixed wealth mode",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "req-3",
+      "anchor": "Required behavior, bullet 3: for a home map in normal mode, raw armoury wealth plus the configured percentage of building wealth",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "req-4",
+      "anchor": "Required behavior, bullet 4: do not pass either component through the incident-points curve",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "req-5",
+      "anchor": "Required behavior, bullet 5: keep the percentage calculation for zero, fractional, full and out-of-range percentages",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "delivery",
+      "anchor": "closing paragraph: do not add RimWorld, Unity or Harmony binaries, generated output, test results, credentials, Workshop content, assets, saves or logs",
+      "status": "weak",
+      "note": "the snapshot gate rejects binaries, links and harness markers; the other listed artefacts are not checked"
+    }
+  ],
+  "excluded_clauses": [],
+  "known_issues": [
+    "Every percentage case also fails on the starter through the points curve (bullet 4), so bullet 5 has no case that isolates the percentage arithmetic."
+  ]
+}

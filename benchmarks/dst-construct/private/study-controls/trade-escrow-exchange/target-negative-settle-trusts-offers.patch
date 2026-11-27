@@ -1,0 +1,22 @@
+--- a/scripts/components/tradeescrow.lua
++++ b/scripts/components/tradeescrow.lua
+@@ -244,9 +244,6 @@
+     -- 1. Both sides must still hold what they offered.
+     local baseline = {}
+     for _, row in ipairs(begun.plan) do
+-        if not inventory_of(players[row.from]):Has(row.prefab, row.count) then
+-            return abort("insufficient_items")
+-        end
+         for _, userid in ipairs({ row.from, row.to }) do
+             baseline[userid] = baseline[userid] or {}
+             baseline[userid][row.prefab] = held(players[userid], row.prefab)
+@@ -259,9 +256,6 @@
+         local pieces, taken = take(inventory_of(players[row.from]), row.prefab, row.count)
+         for _, piece in ipairs(pieces) do
+             loose[#loose + 1] = { item = piece, from = row.from, to = row.to }
+-        end
+-        if taken ~= row.count then
+-            complete = false
+         end
+     end
+ 

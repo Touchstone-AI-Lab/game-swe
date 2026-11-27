@@ -1,0 +1,49 @@
+--- a/BetterTeams/src/main/java/com/booksaw/betterTeams/commands/HelpCommand.java
++++ b/BetterTeams/src/main/java/com/booksaw/betterTeams/commands/HelpCommand.java
+@@ -154,8 +154,8 @@
+ 	 */
+ 	public String createHelpMessage(String label, String commandPath, String description) {
+ 
+-		return prefix + "/" + label + " " + commandPath + ChatColor.WHITE + " - " + HelpCommand.description
+-				+ description;
++		return MessageManager.getPrefix() + prefix + "/" + label + " " + commandPath + ChatColor.WHITE + " - "
++				+ HelpCommand.description + description;
+ 	}
+ 
+ 	public TextComponent createClickableHelpMessage(String label, String commandPath, String description) {
+@@ -218,17 +218,21 @@
+ 	}
+ 
+ 	private int getPage(String request, int maxPage) {
+-
++		if (maxPage <= 0) {
++			return 0;
++		}
+ 		try {
+ 			int page = Integer.parseInt(request);
++			if (page <= 0) {
++				return 0;
++			}
+ 			if (page > maxPage) {
+-				return maxPage;
++				return maxPage - 1;
+ 			}
+ 			return page - 1;
+ 		} catch (NumberFormatException e) {
+ 			return 0;
+ 		}
+-
+ 	}
+ 
+ }
+--- a/BetterTeams/src/main/java/com/booksaw/betterTeams/message/MessageManager.java
++++ b/BetterTeams/src/main/java/com/booksaw/betterTeams/message/MessageManager.java
+@@ -73,7 +73,7 @@
+ 	}
+ 
+ 	public static String getPrefix() {
+-		return mainPluginService == null ? "" : getPrefixComponent().insertion();
++		return mainPluginService == null ? "" : mainPluginService.getPrefix();
+ 	}
+ 
+ 	public static Component getPrefixComponent() {

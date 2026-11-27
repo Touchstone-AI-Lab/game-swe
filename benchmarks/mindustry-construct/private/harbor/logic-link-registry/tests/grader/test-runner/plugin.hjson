@@ -1,0 +1,6 @@
+name: "logic-link-registry-tests"
+displayName: "Logic Link Lease Registry Tests"
+main: "ContractTestRunner"
+version: "1.0.0"
+minGameVersion: 159
+dependencies: [processor-link-leases]

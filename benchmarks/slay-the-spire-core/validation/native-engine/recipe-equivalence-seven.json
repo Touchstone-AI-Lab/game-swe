@@ -1,0 +1,59 @@
+{
+  "validated": true,
+  "prepared_file_counts": {
+    "basemod-dynamic-descriptions-r2": 542,
+    "basemod-phase-transitions-r1": 544,
+    "downfall-socket-flow-r2": 3544,
+    "downfall-stasis-lifecycle-r1": 3547,
+    "mts-enum-identity-r2": 295,
+    "stslib-block-ledger-r1": 234,
+    "stslib-icon-layout-r1": 232
+  },
+  "unchanged_prior_execution_copies": [
+    "basemod-dynamic-descriptions-r2",
+    "downfall-stasis-lifecycle-r1",
+    "mts-enum-identity-r2",
+    "stslib-block-ledger-r1",
+    "stslib-icon-layout-r1"
+  ],
+  "task_images": [
+    {
+      "task": "basemod-dynamic-descriptions-r2",
+      "agent_image": "sha256:4c62f7980b46347af547f338e3ee6087537ce09a3d7e4a09eae6dff0164715f1",
+      "verifier_image": "sha256:a72a38f407ab604ffd4679cb8afdcb8b1724cfaf25abcb8f0f280fba81985ebe"
+    },
+    {
+      "task": "basemod-phase-transitions-r1",
+      "agent_image": "sha256:4c62f7980b46347af547f338e3ee6087537ce09a3d7e4a09eae6dff0164715f1",
+      "verifier_image": "sha256:a72a38f407ab604ffd4679cb8afdcb8b1724cfaf25abcb8f0f280fba81985ebe"
+    },
+    {
+      "task": "downfall-socket-flow-r2",
+      "agent_image": "sha256:3ee30a7ab93c39d47fb0714f5b7eb2e771ba709bd3c30c58387ece920c8fd79e",
+      "verifier_image": "sha256:9af55aa11bd3320e096e482a0a00b3bd9e881aeece79514ac0aba0aaa07dcef4"
+    },
+    {
+      "task": "downfall-stasis-lifecycle-r1",
+      "agent_image": "sha256:3ee30a7ab93c39d47fb0714f5b7eb2e771ba709bd3c30c58387ece920c8fd79e",
+      "verifier_image": "sha256:9af55aa11bd3320e096e482a0a00b3bd9e881aeece79514ac0aba0aaa07dcef4"
+    },
+    {
+      "task": "mts-enum-identity-r2",
+      "agent_image": "sha256:c8e7b0bcecb50b50cacfb5566e93958e0766b9278be6b6d2027b17cbe604a4ef",
+      "verifier_image": "sha256:a72a38f407ab604ffd4679cb8afdcb8b1724cfaf25abcb8f0f280fba81985ebe"
+    },
+    {
+      "task": "stslib-block-ledger-r1",
+      "agent_image": "sha256:e8fc089e5584f768a995c6e19356b1ea0f97f14f9cc9c71abbfb93330be0a85e",
+      "verifier_image": "sha256:a72a38f407ab604ffd4679cb8afdcb8b1724cfaf25abcb8f0f280fba81985ebe"
+    },
+    {
+      "task": "stslib-icon-layout-r1",
+      "agent_image": "sha256:e8fc089e5584f768a995c6e19356b1ea0f97f14f9cc9c71abbfb93330be0a85e",
+      "verifier_image": "sha256:a72a38f407ab604ffd4679cb8afdcb8b1724cfaf25abcb8f0f280fba81985ebe"
+    }
+  ],
+  "recipe_manifest_sha256": "52e234e35cdc871805a805d49b51869c372d3fd43b973e9449e6f07c656f064d",
+  "source_build_receipt_sha256": "be29f56ac6897c18ecbd28f3211725f81192f591458a6ae07f62af4c9928950e",
+  "scope": "Current repository prepare_tasks.py rebuilt all seven agent images. Five older execution copies and image IDs exactly match their previously completed source-reproduction controls. Two new copies preserve all canonical bytes except local Docker identities and are exercised by four fresh controls below. No claim of fourteen fresh runs is made."
+}

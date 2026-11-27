@@ -1,0 +1,16 @@
+--- a/utils/skinhandler.lua
++++ b/utils/skinhandler.lua
+@@ -279,11 +279,11 @@
+ ---@diagnostic disable-next-line: duplicate-set-field
+ DefaultSkinSelectionPopup.GetSkinsList = function(self, ...)
+ 	local previous_check_ownership = InventoryProxy.CheckOwnership
+-	InventoryProxy.CheckOwnership = function(inventory, name, ...)
++	InventoryProxy.CheckOwnership = function(self, name, ...)
+ 		if not does_character_have_skin(name, self.character) then
+ 			return false
+ 		end
+-		return previous_check_ownership(inventory, name, ...)
++		return previous_check_ownership(self, name, ...)
+ 	end
+ 	local ret = { DefaultSkinSelectionPopup_GetSkinsList(self, ...) }
+ 	InventoryProxy.CheckOwnership = previous_check_ownership

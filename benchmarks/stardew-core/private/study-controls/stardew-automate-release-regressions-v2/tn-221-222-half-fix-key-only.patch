@@ -1,0 +1,22 @@
+diff -ruN a/Automate/Framework/GameLocationNameComparer.cs b/Automate/Framework/GameLocationNameComparer.cs
+--- a/Automate/Framework/GameLocationNameComparer.cs
++++ b/Automate/Framework/GameLocationNameComparer.cs
+@@ -12,8 +12,8 @@
+     /// <inheritdoc />
+     public bool Equals(GameLocation? left, GameLocation? right)
+     {
+-        string? leftName = left?.NameOrUniqueName;
+-        string? rightName = right?.NameOrUniqueName;
++        string? leftName = left?.Name;
++        string? rightName = right?.Name;
+ 
+         if (leftName is null)
+             return rightName is null;
+@@ -27,6 +27,6 @@
+     /// <inheritdoc />
+     public int GetHashCode(GameLocation obj)
+     {
+-        return (obj.NameOrUniqueName ?? string.Empty).GetHashCode();
++        return (obj.Name ?? string.Empty).GetHashCode();
+     }
+ }

@@ -1,0 +1,7 @@
+{
+  "schema_version": 2,
+  "pack_id": "mindustry-core",
+  "plugin": "mindustry",
+  "catalog": "catalog.json",
+  "runtime_catalog": "runtimes.json"
+}

@@ -1,0 +1,4 @@
+control	kind	base	overlay	root	note
+target-negative-ex266	target-negative	reference	patch:target-negative-ex266.patch	exodus	reference with the EX-266 hunk of the composite gold.patch (8) reverted: the missing Apocryphon cache registration is the one repair left out
+compat-negative-mutant-clover-cache	compat-negative	reference	patch:compat-negative-mutant-clover-cache.patch	exodus	reference with the Mutant Clover MC_EVALUATE_CACHE registration dropped during a cache-callback audit; Mutant Clover is not reported in this exam
+alternative	alternative	starter	patch:alternative.patch	exodus	starter plus the composite task's independent alternative repairs of EX-184, EX-266, EX-318, EX-335, EX-342 only (its hunks 4, 6, 12, 23, 24); written differently from gold.patch, see NOTES.md

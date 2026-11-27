@@ -1,0 +1,7 @@
+author = GameCodeBench
+displayName = GameCodeBench Terraria runtime probe
+version = 0.1.0
+hideCode = true
+hideResources = true
+includeSource = false
+buildIgnore = *.csproj, obj\*, bin\*

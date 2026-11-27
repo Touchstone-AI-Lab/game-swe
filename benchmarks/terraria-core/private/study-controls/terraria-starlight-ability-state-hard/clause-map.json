@@ -1,0 +1,714 @@
+{
+  "task": "terraria/core/terraria-starlight-ability-state-hard",
+  "task_version": "0.1.0",
+  "exam": "benchmarks/terraria-core/exams/terraria-starlight-ability-state-hard.md",
+  "cases": [
+    {
+      "id": "check:submission-shape",
+      "role": "static"
+    },
+    {
+      "id": "projection:save_sorts_unique_shards",
+      "role": "target",
+      "clauses": [
+        "persistence-save"
+      ]
+    },
+    {
+      "id": "projection:save_sorts_unique_ability_names",
+      "role": "target",
+      "clauses": [
+        "persistence-save"
+      ]
+    },
+    {
+      "id": "projection:save_preserves_sparse_infusion_slots",
+      "role": "target",
+      "clauses": [
+        "persistence-save"
+      ]
+    },
+    {
+      "id": "projection:save_uses_independent_item_snapshots",
+      "role": "target",
+      "clauses": [
+        "persistence-save"
+      ]
+    },
+    {
+      "id": "projection:load_skips_unknown_ability_and_continues",
+      "role": "preserved",
+      "clauses": [
+        "preserve:transactional-load"
+      ]
+    },
+    {
+      "id": "projection:load_accepts_legacy_compact_infusions",
+      "role": "preserved",
+      "clauses": [
+        "preserve:transactional-load"
+      ]
+    },
+    {
+      "id": "projection:load_preserves_positional_infusion_gaps",
+      "role": "preserved",
+      "clauses": [
+        "preserve:transactional-load"
+      ]
+    },
+    {
+      "id": "projection:load_defaults_missing_infusion_limit",
+      "role": "target",
+      "clauses": [
+        "transactional-load"
+      ]
+    },
+    {
+      "id": "projection:load_negative_shard_rolls_back",
+      "role": "target",
+      "clauses": [
+        "transactional-load"
+      ]
+    },
+    {
+      "id": "projection:load_excessive_shards_rolls_back",
+      "role": "target",
+      "clauses": [
+        "transactional-load"
+      ]
+    },
+    {
+      "id": "projection:load_excessive_abilities_rolls_back",
+      "role": "target",
+      "clauses": [
+        "transactional-load"
+      ]
+    },
+    {
+      "id": "projection:load_throwing_ability_rolls_back",
+      "role": "target",
+      "clauses": [
+        "transactional-load"
+      ]
+    },
+    {
+      "id": "projection:load_locked_slot_rolls_back",
+      "role": "target",
+      "clauses": [
+        "transactional-load"
+      ]
+    },
+    {
+      "id": "projection:load_duplicate_infusion_rolls_back",
+      "role": "target",
+      "clauses": [
+        "transactional-load"
+      ]
+    },
+    {
+      "id": "projection:load_bad_item_rolls_back",
+      "role": "target",
+      "clauses": [
+        "transactional-load"
+      ]
+    },
+    {
+      "id": "projection:infusion_rejects_negative_slot",
+      "role": "target",
+      "clauses": [
+        "infusion-transactions"
+      ]
+    },
+    {
+      "id": "projection:infusion_rejects_high_slot",
+      "role": "target",
+      "clauses": [
+        "infusion-transactions"
+      ]
+    },
+    {
+      "id": "projection:infusion_rejects_locked_slot",
+      "role": "target",
+      "clauses": [
+        "infusion-transactions"
+      ]
+    },
+    {
+      "id": "projection:infusion_removal_clears_slot",
+      "role": "preserved",
+      "clauses": [
+        "preserve:infusion-transactions"
+      ]
+    },
+    {
+      "id": "projection:infusion_replaces_same_slot_when_full",
+      "role": "target",
+      "clauses": [
+        "infusion-transactions"
+      ]
+    },
+    {
+      "id": "projection:infusion_rejects_duplicate_ability_family",
+      "role": "preserved",
+      "clauses": [
+        "preserve:infusion-transactions"
+      ]
+    },
+    {
+      "id": "projection:infusion_rejects_unequippable_item",
+      "role": "preserved",
+      "clauses": [
+        "preserve:infusion-transactions"
+      ]
+    },
+    {
+      "id": "projection:infusion_install_clones_and_sets_owner",
+      "role": "target",
+      "clauses": [
+        "infusion-transactions"
+      ]
+    },
+    {
+      "id": "projection:infusion_clone_failure_rolls_back",
+      "role": "preserved",
+      "clauses": [
+        "preserve:infusion-transactions"
+      ]
+    },
+    {
+      "id": "projection:clone_has_independent_shards",
+      "role": "target",
+      "clauses": [
+        "clone-isolation"
+      ]
+    },
+    {
+      "id": "projection:clone_has_independent_ability_instances",
+      "role": "target",
+      "clauses": [
+        "clone-isolation"
+      ]
+    },
+    {
+      "id": "projection:clone_has_independent_positional_infusions",
+      "role": "target",
+      "clauses": [
+        "clone-isolation"
+      ]
+    },
+    {
+      "id": "projection:clone_maps_active_ability_without_hooks",
+      "role": "target",
+      "clauses": [
+        "clone-isolation"
+      ]
+    },
+    {
+      "id": "projection:client_state_copy_is_deep",
+      "role": "target",
+      "clauses": [
+        "clone-isolation"
+      ]
+    },
+    {
+      "id": "projection:activation_is_queued_until_preupdate",
+      "role": "target",
+      "clauses": [
+        "transition-state-machine"
+      ]
+    },
+    {
+      "id": "projection:activation_hooks_and_cost_run_once",
+      "role": "preserved",
+      "clauses": [
+        "preserve:transition-state-machine"
+      ]
+    },
+    {
+      "id": "projection:duplicate_pending_activation_is_ignored",
+      "role": "target",
+      "clauses": [
+        "transition-state-machine"
+      ]
+    },
+    {
+      "id": "projection:deactivation_hooks_run_once_in_order",
+      "role": "target",
+      "clauses": [
+        "transition-state-machine"
+      ]
+    },
+    {
+      "id": "projection:cancelled_pending_activation_has_no_effect",
+      "role": "target",
+      "clauses": [
+        "transition-state-machine"
+      ]
+    },
+    {
+      "id": "projection:insufficient_stamina_rejects_activation",
+      "role": "target",
+      "clauses": [
+        "transition-state-machine"
+      ]
+    },
+    {
+      "id": "projection:negative_cost_rejects_activation",
+      "role": "target",
+      "clauses": [
+        "transition-state-machine"
+      ]
+    },
+    {
+      "id": "projection:nonfinite_cost_rejects_activation",
+      "role": "target",
+      "clauses": [
+        "transition-state-machine"
+      ]
+    },
+    {
+      "id": "projection:activation_bonus_is_consumed_once",
+      "role": "preserved",
+      "clauses": [
+        "preserve:transition-state-machine"
+      ]
+    },
+    {
+      "id": "projection:activation_hook_observes_committed_state",
+      "role": "target",
+      "clauses": [
+        "hook-transactions"
+      ]
+    },
+    {
+      "id": "projection:activation_hook_failure_rolls_back",
+      "role": "target",
+      "clauses": [
+        "hook-transactions"
+      ]
+    },
+    {
+      "id": "projection:failed_activation_discards_reentrant_request",
+      "role": "target",
+      "clauses": [
+        "hook-transactions"
+      ]
+    },
+    {
+      "id": "projection:deactivation_hook_failure_still_cleans_up",
+      "role": "target",
+      "clauses": [
+        "hook-transactions"
+      ]
+    },
+    {
+      "id": "projection:exit_and_reset_failures_do_not_repeat",
+      "role": "target",
+      "clauses": [
+        "hook-transactions"
+      ]
+    },
+    {
+      "id": "projection:exit_reentrant_activation_waits_next_tick",
+      "role": "target",
+      "clauses": [
+        "hook-transactions"
+      ]
+    },
+    {
+      "id": "projection:death_discards_cleanup_reentrant_activation",
+      "role": "target",
+      "clauses": [
+        "hook-transactions"
+      ]
+    },
+    {
+      "id": "projection:fixed_snapshot_defers_new_unlock",
+      "role": "preserved",
+      "clauses": [
+        "preserve:callback-snapshots"
+      ]
+    },
+    {
+      "id": "projection:fixed_snapshot_skips_removed_instance",
+      "role": "target",
+      "clauses": [
+        "callback-snapshots"
+      ]
+    },
+    {
+      "id": "projection:fixed_failure_does_not_skip_later_instance",
+      "role": "target",
+      "clauses": [
+        "callback-snapshots"
+      ]
+    },
+    {
+      "id": "projection:fixed_mutation_retires_before_active_update",
+      "role": "target",
+      "clauses": [
+        "callback-snapshots"
+      ]
+    },
+    {
+      "id": "projection:active_update_failure_retires_immediately",
+      "role": "target",
+      "clauses": [
+        "callback-snapshots"
+      ]
+    },
+    {
+      "id": "projection:active_deactivation_suppresses_effects_and_controls",
+      "role": "target",
+      "clauses": [
+        "callback-snapshots"
+      ]
+    },
+    {
+      "id": "projection:visual_effect_failure_preserves_active_state",
+      "role": "target",
+      "clauses": [
+        "callback-snapshots"
+      ]
+    },
+    {
+      "id": "projection:draw_snapshot_isolates_mutation_and_failure",
+      "role": "target",
+      "clauses": [
+        "callback-snapshots"
+      ]
+    },
+    {
+      "id": "projection:lock_cancels_uncommitted_activation",
+      "role": "target",
+      "clauses": [
+        "ownership-reconciliation"
+      ]
+    },
+    {
+      "id": "projection:lock_retires_active_once",
+      "role": "target",
+      "clauses": [
+        "ownership-reconciliation"
+      ]
+    },
+    {
+      "id": "projection:load_retires_replaced_active_instance",
+      "role": "target",
+      "clauses": [
+        "ownership-reconciliation"
+      ]
+    },
+    {
+      "id": "projection:infusion_removal_cancels_pending_instance",
+      "role": "target",
+      "clauses": [
+        "ownership-reconciliation"
+      ]
+    },
+    {
+      "id": "projection:infusion_replacement_retires_active_instance",
+      "role": "target",
+      "clauses": [
+        "ownership-reconciliation"
+      ]
+    },
+    {
+      "id": "projection:progress_replacement_retires_active_instance",
+      "role": "target",
+      "clauses": [
+        "ownership-reconciliation"
+      ]
+    },
+    {
+      "id": "projection:death_retires_active_immediately",
+      "role": "target",
+      "clauses": [
+        "death-transition-lifecycle"
+      ]
+    },
+    {
+      "id": "projection:death_cancels_pending_start_without_cost",
+      "role": "target",
+      "clauses": [
+        "death-transition-lifecycle"
+      ]
+    },
+    {
+      "id": "projection:death_finishes_prior_deactivation_once",
+      "role": "target",
+      "clauses": [
+        "death-transition-lifecycle"
+      ]
+    },
+    {
+      "id": "projection:repeated_dead_ticks_do_not_repeat_hooks",
+      "role": "target",
+      "clauses": [
+        "death-transition-lifecycle"
+      ]
+    },
+    {
+      "id": "projection:respawn_requires_fresh_activation",
+      "role": "target",
+      "clauses": [
+        "death-transition-lifecycle"
+      ]
+    },
+    {
+      "id": "projection:death_of_clone_does_not_retire_source",
+      "role": "target",
+      "clauses": [
+        "death-transition-lifecycle"
+      ]
+    },
+    {
+      "id": "projection:progress_snapshot_is_sorted_and_complete",
+      "role": "target",
+      "clauses": [
+        "progress-authority"
+      ]
+    },
+    {
+      "id": "projection:progress_receive_replaces_managed_state",
+      "role": "target",
+      "clauses": [
+        "progress-authority"
+      ]
+    },
+    {
+      "id": "projection:progress_receive_preserves_custom_unlocks",
+      "role": "preserved",
+      "clauses": [
+        "preserve:progress-authority"
+      ]
+    },
+    {
+      "id": "projection:progress_server_rejects_spoofed_sender",
+      "role": "target",
+      "clauses": [
+        "progress-authority"
+      ]
+    },
+    {
+      "id": "projection:progress_rejects_invalid_player",
+      "role": "target",
+      "clauses": [
+        "progress-authority"
+      ]
+    },
+    {
+      "id": "projection:progress_rejects_duplicate_shards",
+      "role": "target",
+      "clauses": [
+        "progress-authority"
+      ]
+    },
+    {
+      "id": "projection:progress_rejects_negative_shard",
+      "role": "target",
+      "clauses": [
+        "progress-authority"
+      ]
+    },
+    {
+      "id": "projection:progress_rejects_excessive_shards",
+      "role": "target",
+      "clauses": [
+        "progress-authority"
+      ]
+    },
+    {
+      "id": "projection:progress_rejects_reserved_mask_bits",
+      "role": "target",
+      "clauses": [
+        "progress-authority"
+      ]
+    },
+    {
+      "id": "projection:progress_server_relays_valid_frame",
+      "role": "preserved",
+      "clauses": [
+        "preserve:progress-authority"
+      ]
+    },
+    {
+      "id": "projection:start_server_queues_valid_unlocked_ability",
+      "role": "preserved",
+      "clauses": [
+        "preserve:start-authority"
+      ]
+    },
+    {
+      "id": "projection:start_server_rejects_spoofed_sender",
+      "role": "target",
+      "clauses": [
+        "start-authority"
+      ]
+    },
+    {
+      "id": "projection:start_rejects_invalid_player",
+      "role": "target",
+      "clauses": [
+        "start-authority"
+      ]
+    },
+    {
+      "id": "projection:start_rejects_unknown_type",
+      "role": "target",
+      "clauses": [
+        "start-authority"
+      ]
+    },
+    {
+      "id": "projection:start_rejects_nonability_type",
+      "role": "target",
+      "clauses": [
+        "start-authority"
+      ]
+    },
+    {
+      "id": "projection:start_rejects_locked_ability",
+      "role": "target",
+      "clauses": [
+        "start-authority"
+      ]
+    },
+    {
+      "id": "projection:start_rejects_insufficient_stamina",
+      "role": "target",
+      "clauses": [
+        "start-authority"
+      ]
+    },
+    {
+      "id": "projection:start_duplicate_does_not_charge_or_relay_twice",
+      "role": "target",
+      "clauses": [
+        "start-authority"
+      ]
+    },
+    {
+      "id": "projection:start_client_applies_without_relay",
+      "role": "preserved",
+      "clauses": [
+        "preserve:start-authority"
+      ]
+    },
+    {
+      "id": "server:real_server_start_rejects_invalid_player",
+      "role": "target",
+      "clauses": [
+        "request"
+      ]
+    },
+    {
+      "id": "server:real_server_start_rejects_spoofed_sender",
+      "role": "target",
+      "clauses": [
+        "request"
+      ]
+    },
+    {
+      "id": "server:real_server_progress_rejects_spoofed_sender",
+      "role": "target",
+      "clauses": [
+        "request"
+      ]
+    }
+  ],
+  "clauses": [
+    {
+      "id": "persistence-save",
+      "anchor": "exam report persistence-save",
+      "status": "asserted"
+    },
+    {
+      "id": "preserve:transactional-load",
+      "anchor": "behavior the unchanged starter already provides",
+      "status": "asserted"
+    },
+    {
+      "id": "transactional-load",
+      "anchor": "exam report transactional-load",
+      "status": "asserted"
+    },
+    {
+      "id": "infusion-transactions",
+      "anchor": "exam report infusion-transactions",
+      "status": "asserted"
+    },
+    {
+      "id": "preserve:infusion-transactions",
+      "anchor": "behavior the unchanged starter already provides",
+      "status": "asserted"
+    },
+    {
+      "id": "clone-isolation",
+      "anchor": "exam report clone-isolation",
+      "status": "asserted"
+    },
+    {
+      "id": "transition-state-machine",
+      "anchor": "exam report transition-state-machine",
+      "status": "asserted"
+    },
+    {
+      "id": "preserve:transition-state-machine",
+      "anchor": "behavior the unchanged starter already provides",
+      "status": "asserted"
+    },
+    {
+      "id": "hook-transactions",
+      "anchor": "exam report hook-transactions",
+      "status": "asserted"
+    },
+    {
+      "id": "preserve:callback-snapshots",
+      "anchor": "behavior the unchanged starter already provides",
+      "status": "asserted"
+    },
+    {
+      "id": "callback-snapshots",
+      "anchor": "exam report callback-snapshots",
+      "status": "asserted"
+    },
+    {
+      "id": "ownership-reconciliation",
+      "anchor": "exam report ownership-reconciliation",
+      "status": "asserted"
+    },
+    {
+      "id": "death-transition-lifecycle",
+      "anchor": "exam report death-transition-lifecycle",
+      "status": "asserted"
+    },
+    {
+      "id": "progress-authority",
+      "anchor": "exam report progress-authority",
+      "status": "asserted"
+    },
+    {
+      "id": "preserve:progress-authority",
+      "anchor": "behavior the unchanged starter already provides",
+      "status": "asserted"
+    },
+    {
+      "id": "preserve:start-authority",
+      "anchor": "behavior the unchanged starter already provides",
+      "status": "asserted"
+    },
+    {
+      "id": "start-authority",
+      "anchor": "exam report start-authority",
+      "status": "asserted"
+    },
+    {
+      "id": "request",
+      "anchor": "exam body; split into individual clauses during review",
+      "status": "asserted"
+    }
+  ],
+  "excluded_clauses": [],
+  "known_issues": []
+}

@@ -1,0 +1,17 @@
+diff --git a/main.lua b/main.lua
+--- a/main.lua
++++ b/main.lua
+@@ -370,13 +370,6 @@
+             ---<<BETTER LOOPS>>---
+             LOOPS = { Loop = 0, KeyFrame = 0, Keyhole = nil, IgnoreNegativeIndex = false, SSIndex = 0 }
+         }
+-        
+-        local player = Isaac.GetPlayer(0)
+-        
+-        if player then
+-            player:AddCacheFlags(CacheFlag.CACHE_ALL)
+-            player:EvaluateItems()
+-        end
+     end
+     
+     itemPool = game:GetItemPool()

@@ -1,0 +1,11 @@
+{
+  "id": "shop_price_coherence_v2",
+  "name": "Cooperative Checkout",
+  "author": ["Balatro PoC"],
+  "description": "Owned pricing rules and transaction consistency repair task",
+  "prefix": "sp2",
+  "main_file": "main.lua",
+  "version": "2.0.0",
+  "priority": 10,
+  "dependencies": ["Steamodded (>=1.~)"]
+}

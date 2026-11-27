@@ -1,0 +1,163 @@
+{
+  "task": "rimworld/core/project-rimfactory-cultivator-environment",
+  "task_version": "0.3.3",
+  "exam": "benchmarks/rimworld-core/exams/project-rimfactory-cultivator-environment.md",
+  "cases": [
+    {
+      "id": "check:submission-shape",
+      "role": "static",
+      "clauses": [
+        "delivery"
+      ],
+      "overlap": false,
+      "note": "required C# sources present as a safe snapshot; rejects binaries, links and private-harness markers"
+    },
+    {
+      "id": "case:runtime-defs-ready",
+      "role": "runtime-sentinel",
+      "clauses": [],
+      "overlap": false,
+      "note": "Core, Project RimFactory slice and verifier loaded"
+    },
+    {
+      "id": "case:local-season-allows",
+      "role": "preserved",
+      "clauses": [
+        "req-2",
+        "req-5"
+      ],
+      "overlap": true,
+      "note": ""
+    },
+    {
+      "id": "case:local-season-rejects",
+      "role": "target",
+      "clauses": [
+        "req-2"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:map-temperature-not-authoritative",
+      "role": "target",
+      "clauses": [
+        "req-1"
+      ],
+      "overlap": false,
+      "note": "passes on the starter: another default bool argument already reads as false"
+    },
+    {
+      "id": "case:sowability-rejects",
+      "role": "preserved",
+      "clauses": [
+        "req-1"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:adjacent-blocker-rejects",
+      "role": "preserved",
+      "clauses": [
+        "req-3"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:vacuum-resistant-allows",
+      "role": "preserved",
+      "clauses": [
+        "req-4"
+      ],
+      "overlap": true,
+      "note": ""
+    },
+    {
+      "id": "case:vacuum-sensitive-rejects",
+      "role": "target",
+      "clauses": [
+        "req-4"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:vacuum-boundary-rejects",
+      "role": "target",
+      "clauses": [
+        "req-4"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:seed-unavailable-rejects",
+      "role": "preserved",
+      "clauses": [
+        "req-3"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:single-placement",
+      "role": "preserved",
+      "clauses": [
+        "req-5"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:fixture-state-restored",
+      "role": "setup",
+      "clauses": [],
+      "overlap": false,
+      "note": "terminal fixture-restoration gate"
+    }
+  ],
+  "clauses": [
+    {
+      "id": "req-1",
+      "anchor": "Required behavior, bullet 1: evaluate sowability at the cell without the map-wide temperature shortcut",
+      "status": "weak",
+      "note": "map-temperature-not-authoritative records whether any bool argument of CanEverPlantAt was false, which the starter's default arguments already satisfy"
+    },
+    {
+      "id": "req-2",
+      "anchor": "Required behavior, bullet 2: require PlantUtility.GrowthSeasonNow for that exact cell and plant",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "req-3",
+      "anchor": "Required behavior, bullet 3: continue to reject adjacent sow blockers and unavailable seed requirements",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "req-4",
+      "anchor": "Required behavior, bullet 4: permit vacuum-resistant plants in vacuum and reject others at local vacuum of at least one half",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "req-5",
+      "anchor": "Required behavior, bullet 5: place exactly one plant only after every condition passes; preserve harvesting, removal, zone, output and selection",
+      "status": "weak",
+      "note": "placement count is observed; harvesting, foreign-plant removal, zones, output and selection are not exercised"
+    },
+    {
+      "id": "delivery",
+      "anchor": "closing paragraph: do not add RimWorld, Unity or Harmony binaries, generated output, test results, credentials, Workshop content, assets, saves or logs",
+      "status": "weak",
+      "note": "the snapshot gate rejects binaries, links and harness markers; the other listed artefacts are not checked"
+    }
+  ],
+  "excluded_clauses": [],
+  "known_issues": [
+    "map-temperature-not-authoritative cannot fail on the starter (tests/Harness/Verifier.cs CanPlantPrefix reads any false bool argument), so bullet 1 is weak."
+  ]
+}

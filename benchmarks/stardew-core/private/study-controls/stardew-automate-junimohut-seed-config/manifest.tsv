@@ -1,0 +1,4 @@
+control	kind	base	overlay	root	note
+target-negative-reads-gem-option	target-negative	reference	patch:target-negative-reads-gem-option.patch	StardewMods	Fix wrongly applied: the seed behavior now reads the gems option (MoveIntoChests in the verifier config), so seeds are still moved out.
+compat-negative-fertilizer-reads-seed-option	compat-negative	reference	patch:compat-negative-fertilizer-reads-seed-option.patch	StardewMods	Reference plus one swapped field: fertilizer now follows the seeds option (Ignore), so fertilizer is no longer moved while seeds correctly stay.
+alternative-machine-resolves-config	alternative	starter	patch:alternative-machine-resolves-config.patch	StardewMods	JunimoHutMachine takes the ModConfig and resolves each category from its own option through one helper; the factory no longer computes behaviors.

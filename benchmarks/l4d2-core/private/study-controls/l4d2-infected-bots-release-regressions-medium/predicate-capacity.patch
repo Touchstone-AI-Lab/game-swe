@@ -1,0 +1,16 @@
+diff --git a/l4dinfectedbots/scripting/l4dinfectedbots.sp b/l4dinfectedbots/scripting/l4dinfectedbots.sp
+--- a/l4dinfectedbots/scripting/l4dinfectedbots.sp
++++ b/l4dinfectedbots/scripting/l4dinfectedbots.sp
+@@ -2228,10 +2228,10 @@ Action Console_ZLimit(int client, int args)
+ 		else if(newlimit!=g_ePluginSettings.m_iMaxSpecials)
+ 		{
+ 			int survivors = GetSurvivorsInServer();
+-			if(L4D_MAXPLAYERS - survivors - 1 < newlimit)
++			if(MaxClients - survivors < newlimit)
+ 			{
+ 				CPrintToChat(client, "[{olive}TS{default}] %T", "Infected Over Limit", client, newlimit, survivors, MaxClients);
+-				newlimit = L4D_MAXPLAYERS - survivors - 1;
++				newlimit = MaxClients - survivors;
+ 			}
+ 
+ 			if(!g_bAdminOverridden_MaxSpecials)

@@ -1,0 +1,7 @@
+control	kind	base	overlay	root	note
+target-negative-ticker-only	target-negative	starter	patch:target-negative-ticker-only.patch	plugin	ticker shut down, bStats still leaked; fails only the thread-leak target
+target-negative-executor-not-shut-down	target-negative	starter	patch:target-negative-executor-not-shut-down.patch	plugin	bStats fixed but the old executor is never shut down; fails the two mapped targets
+target-negative-no-null-guard	target-negative	starter	patch:target-negative-no-null-guard.patch	plugin	no guard for a ticker that never started; fails only that target
+target-negative-recreate-only	target-negative	reference	patch:target-negative-recreate-only.patch	plugin	reference, but the previous bStats instance is shut down only when a new one is built; send-metrics off leaves it running
+compat-negative-metrics-kept-forever	compat-negative	starter	patch:compat-negative-metrics-kept-forever.patch	plugin	first Metrics instance kept forever; fails only the preserved bStats case
+alternative-a	alternative	starter	tree:alternative-a	plugin	independent fix written from the 0.2.0 exam: named daemon ticker thread shut down on cancel, Metrics owned per MetricsSender and shut down on teardown, Redisson field

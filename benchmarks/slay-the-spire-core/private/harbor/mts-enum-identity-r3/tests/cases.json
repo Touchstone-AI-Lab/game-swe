@@ -1,0 +1,92 @@
+[
+  {
+    "id": "plain",
+    "group": "control",
+    "loaded": true,
+    "value": "values=A:0;B:1;C:2;/constants=A:0;B:1;C:2;/lookup=true/enumset=[A, B, C]"
+  },
+  {
+    "id": "alias-new",
+    "group": "aliases",
+    "loaded": true,
+    "value": "same=true/first=values=A:0;B:1;C:2;NEW:3;/constants=A:0;B:1;C:2;NEW:3;/lookup=true/enumset=[A, B, C, NEW]/second=values=A:0;B:1;C:2;NEW:3;/constants=A:0;B:1;C:2;NEW:3;/lookup=true/enumset=[A, B, C, NEW]"
+  },
+  {
+    "id": "alias-existing",
+    "group": "aliases",
+    "loaded": true,
+    "value": "same=true/firstNative=true/secondNative=true"
+  },
+  {
+    "id": "cold-add",
+    "group": "control",
+    "loaded": true,
+    "value": "values=A:0;B:1;C:2;NEW:3;/constants=A:0;B:1;C:2;NEW:3;/lookup=true/enumset=[A, B, C, NEW]"
+  },
+  {
+    "id": "warm-add",
+    "group": "queries",
+    "loaded": true,
+    "value": "values=A:0;B:1;C:2;NEW:3;/constants=A:0;B:1;C:2;NEW:3;/lookup=true/enumset=[A, B, C, NEW]"
+  },
+  {
+    "id": "warm-replace",
+    "group": "queries",
+    "loaded": true,
+    "value": "constant=true/old=false/values=A:0;B:1;C:2;/constants=A:0;B:1;C:2;/lookup=true/enumset=[A, B, C]"
+  },
+  {
+    "id": "warm-delete",
+    "group": "queries",
+    "loaded": true,
+    "value": "deleted=true/nullConstant=true/values=A:0;C:1;/constants=A:0;C:1;/lookup=IllegalArgumentException/enumset=[A, C]"
+  },
+  {
+    "id": "warm-undo",
+    "group": "queries",
+    "loaded": true,
+    "value": "restored=true/values=A:0;B:1;C:2;/constants=A:0;B:1;C:2;/lookup=true/enumset=[A, B, C]"
+  },
+  {
+    "id": "game-color",
+    "group": "queries",
+    "loaded": true,
+    "value": "before=6/values=7/constants=7/lookup=true/set=7"
+  },
+  {
+    "id": "switch-plain",
+    "group": "control",
+    "loaded": true,
+    "value": "11:22:33"
+  },
+  {
+    "id": "switch-add",
+    "group": "dispatch",
+    "loaded": true,
+    "value": "11:11:33:99"
+  },
+  {
+    "id": "switch-delete",
+    "group": "dispatch",
+    "loaded": true,
+    "value": "33:11:33"
+  },
+  {
+    "id": "switch-undo",
+    "group": "control",
+    "loaded": true,
+    "value": "33:22:33"
+  },
+  {
+    "id": "late-switch",
+    "group": "dispatch",
+    "loaded": true,
+    "value": "999:333:999"
+  },
+  {
+    "id": "annotation-copy",
+    "group": "control",
+    "loaded": true,
+    "value": "a/b+c:19:[Ljava.lang.String;:C:[left, right]"
+  }
+]

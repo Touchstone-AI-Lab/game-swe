@@ -1,0 +1,4 @@
+control	kind	base	overlay	root	note
+tn-bounded-string-numeric	target-negative	reference	patch:tn-bounded-string-numeric.patch	l4d2-competitive	reference whose enforcement treats every bounded ConVar as matched by numeric equality, so an in-range desired string such as 01 is not restored after finite cross-ConVar writeback (validation/candidates.py minus-bounded-string)
+tn-finite-writeback-single-pass	target-negative	reference	patch:tn-finite-writeback-single-pass.patch	l4d2-competitive	reference whose drift correction runs once instead of repeating until the finite callback chain settles (validation/candidates.py minus-finite-return)
+alternative-reverse-apply	alternative	starter	patch:alternative-reverse-apply.patch	l4d2-competitive	validation/candidates.py alternative: the activation batch is applied in reverse order and drift is compared with strcmp; the other repairs are the oracle's

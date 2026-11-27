@@ -1,0 +1,4 @@
+control	kind	base	overlay	root	note
+target-negative-rope-limit	target-negative	reference	patch:target-negative-rope-limit.patch	.	Reference with the rope-limit check dropped: pasted ropes are counted as ropes but sbox_maxropeconstraints is never enforced (half of report D).
+compat-negative-all-ropes	compat-negative	reference	patch:compat-negative-all-ropes.patch	.	Reference that counts every pasted constraint as a rope: every target passes, but a pasted weld no longer counts against the constraint allowance.
+alternative-independent-fix	alternative	starter	patch:alternative-independent-fix.patch	.	Starter plus an independent fix for all five reports: re-activate scaled props in the paste loop, remove the entity where DoGeneric fails, a numeric bone loop from 0, a per-type rope limit, and one-sided separator trimming.

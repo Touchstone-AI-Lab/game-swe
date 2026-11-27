@@ -1,0 +1,14 @@
+{
+  "PackageName": "RheniumWorldEpochFencedTimers",
+  "Version": "1.0.0",
+  "DebugMode": false,
+  "InstallRule": [
+    {
+      "Type": "Lua",
+      "Targets": [
+        "./scripts"
+      ],
+      "IsServer": true
+    }
+  ]
+}

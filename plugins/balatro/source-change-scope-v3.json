@@ -1,0 +1,23 @@
+{
+  "schema_version": 3,
+  "baseline_entries": 471,
+  "changed_existing_files": [
+    "plugins/balatro/README.md",
+    "plugins/balatro/pyproject.toml",
+    "plugins/balatro/src/rhenium_balatro/__init__.py",
+    "plugins/balatro/src/rhenium_balatro/bridge.py",
+    "plugins/balatro/src/rhenium_balatro/evaluator.py",
+    "plugins/balatro/src/rhenium_balatro/files.py",
+    "plugins/balatro/src/rhenium_balatro/maintenance.py",
+    "plugins/balatro/src/rhenium_balatro/plugin.py",
+    "plugins/balatro/src/rhenium_balatro/results.py",
+    "plugins/balatro/src/rhenium_balatro/sidecar.py",
+    "plugins/balatro/src/rhenium_balatro/winjob.py",
+    "plugins/balatro/tests/test_balatro_native.py",
+    "uv.lock"
+  ],
+  "changed_existing_count": 13,
+  "benchmark_files_changed": false,
+  "baseline_zip_sha256": "289925bdbe9ffc6b246cd491441fa0977eb5ec705a2dd9ccaf98a546dcadb7ad",
+  "note": "New adapter/review/readiness tests and orchestration files are recorded in source and orchestration manifests; this list measures baseline entries only."
+}

@@ -1,0 +1,5 @@
+control	status	failing_cases	passed	failed	reward	processes	fatals	matches_prediction
+base	predicted	anamnesis_charge,anamnesis_charge_persistence,apocryphon_stats,birdbath_use_spawns,cursed_metronome,forbidden_fruit,headcase_orphan_lob,iron_lung_orphan_gas,lil_rune_algiz_rune,lil_rune_jera_health,paper_cut_card_damage	43		0			
+gold	predicted	-	54		1			
+base	measured	anamnesis_charge,anamnesis_charge_persistence,apocryphon_stats,birdbath_use_spawns,cursed_metronome,forbidden_fruit,headcase_orphan_lob,iron_lung_orphan_gas,lil_rune_algiz_rune,lil_rune_jera_health,paper_cut_card_damage	43	11	0	3/3	0	yes
+gold	measured	-	54	0	1	3/3	0	yes

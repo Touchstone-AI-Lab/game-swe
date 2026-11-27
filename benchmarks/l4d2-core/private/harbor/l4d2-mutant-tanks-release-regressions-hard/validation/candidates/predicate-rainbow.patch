@@ -1,0 +1,23 @@
+diff --git a/addons/sourcemod/scripting/mutant_tanks/mutant_tanks.sp b/addons/sourcemod/scripting/mutant_tanks/mutant_tanks.sp
+--- a/addons/sourcemod/scripting/mutant_tanks/mutant_tanks.sp
++++ b/addons/sourcemod/scripting/mutant_tanks/mutant_tanks.sp
+@@ -14471,7 +14471,6 @@
+ 	g_esPlayer[newSurvivor].g_bFinalFall = g_esPlayer[oldSurvivor].g_bFinalFall;
+ 	g_esPlayer[newSurvivor].g_bLadyKiller = g_esPlayer[oldSurvivor].g_bLadyKiller;
+ 	g_esPlayer[newSurvivor].g_bPunished = g_esPlayer[oldSurvivor].g_bPunished;
+-	g_esPlayer[newSurvivor].g_bRainbowColor = g_esPlayer[oldSurvivor].g_bRainbowColor;
+ 	g_esPlayer[newSurvivor].g_bReleasedJump = g_esPlayer[oldSurvivor].g_bReleasedJump;
+ 	g_esPlayer[newSurvivor].g_bSetup = g_esPlayer[oldSurvivor].g_bSetup;
+ 	g_esPlayer[newSurvivor].g_bVomited = g_esPlayer[oldSurvivor].g_bVomited;
+@@ -14582,6 +14581,11 @@
+ 		g_esPlayer[newSurvivor].g_iTankDamage[iTank] = g_esPlayer[oldSurvivor].g_iTankDamage[iTank];
+ 	}
+ 
++	if (g_esPlayer[oldSurvivor].g_bRainbowColor)
++	{
++		g_esPlayer[oldSurvivor].g_bRainbowColor = false;
++		g_esPlayer[newSurvivor].g_bRainbowColor = SDKHookEx(newSurvivor, SDKHook_PreThinkPost, OnTankRainbowPreThinkPost);
++	}
+ }
+ 
+ void vGiveGunSpecialAmmo(int survivor)

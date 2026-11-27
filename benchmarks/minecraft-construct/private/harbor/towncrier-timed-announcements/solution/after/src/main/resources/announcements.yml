@@ -1,0 +1,14 @@
+# TownCrier announcements. Messages use MiniMessage; placeholders: {group} {index} {count} {online} {max}.
+prefix: "<gray>[<gold>Crier</gold>]</gray> "
+groups:
+  tips:
+    enabled: true
+    # Seconds between two announcements of this group.
+    interval: 300
+    # sequential or shuffle
+    order: sequential
+    # Permission a receiver needs; empty means everyone (bukkit.broadcast.user).
+    permission: ""
+    messages:
+      - "Use <yellow>/spawn</yellow> to return to spawn."
+      - "Be kind to other players!"

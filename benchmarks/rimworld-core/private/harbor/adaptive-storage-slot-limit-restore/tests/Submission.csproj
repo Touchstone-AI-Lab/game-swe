@@ -1,0 +1,255 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net472</TargetFramework><OutputType>Library</OutputType>
+    <AssemblyName>AdaptiveStorage</AssemblyName><RootNamespace>AdaptiveStorage</RootNamespace>
+    <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+    <DebugType>none</DebugType><DebugSymbols>false</DebugSymbols><Optimize>true</Optimize>
+    <LangVersion>12.0</LangVersion>
+    <CheckForOverflowUnderflow>false</CheckForOverflowUnderflow>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <Deterministic>true</Deterministic>
+    <DefineConstants>V1_6</DefineConstants><RestorePackagesWithLockFile>true</RestorePackagesWithLockFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Krafs.Rimworld.Ref" Version="1.6.4871" PrivateAssets="all" />
+    <PackageReference Include="Lib.Harmony" Version="2.4.2" PrivateAssets="all" />
+    <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies.net472" Version="1.0.3" PrivateAssets="all" />
+    <PackageReference Include="RimWorld.MultiplayerAPI" Version="0.6.0" PrivateAssets="all" />
+    <PackageReference Include="PolySharp" Version="1.15.0" PrivateAssets="all" />
+    <PackageReference Include="Krafs.Publicizer" Version="2.3.0" PrivateAssets="all" />
+  </ItemGroup>
+  <ItemGroup>
+    <Publicize Include="Assembly-CSharp:RimWorld.FilthMonitor" />
+    <Publicize Include="Assembly-CSharp:RimWorld.Frame.BuildDef" />
+    <Publicize Include="Assembly-CSharp:RimWorld.InspectPaneUtility.IsOpen" />
+    <Publicize Include="Assembly-CSharp:RimWorld.ITab_ContentsBase.thingsToSelect" />
+    <Publicize Include="Assembly-CSharp:RimWorld.ITab_Storage.HiddenSpecialThingFilters" />
+    <Publicize Include="Assembly-CSharp:RimWorld.ListerHaulables.Check" />
+    <Publicize Include="Assembly-CSharp:RimWorld.ListerMergeables.Check" />
+    <Publicize Include="Assembly-CSharp:RimWorld.MinifiedThing.get_CrateFrontGraphic" />
+    <Publicize Include="Assembly-CSharp:RimWorld.OverlayDrawer.RenderForbiddenOverlay" />
+    <Publicize Include="Assembly-CSharp:RimWorld.Selector.SelectableObjectsUnderMouse" />
+    <Publicize Include="Assembly-CSharp:RimWorld.StorageGroup.map" />
+    <Publicize Include="Assembly-CSharp:RimWorld.StorageGroup.settings" />
+    <Publicize Include="Assembly-CSharp:RimWorld.Planet.CaravanThingsTabUtility.DrawMass" />
+    <Publicize Include="Assembly-CSharp:Verse.CellIndices.sizeX" />
+    <Publicize Include="Assembly-CSharp:Verse.CellIndices.sizeZ" />
+    <Publicize Include="Assembly-CSharp:Verse.DefDatabase`1.SetIndices" />
+    <Publicize Include="Assembly-CSharp:Verse.Graphic.AngleFromRot" />
+    <Publicize Include="Assembly-CSharp:Verse.Graphic_Collection.MultiGraphicType" />
+    <Publicize Include="Assembly-CSharp:Verse.Graphic_Collection.SingleGraphicType" />
+    <Publicize Include="Assembly-CSharp:Verse.Graphic_Shadow.GlobalShadowPosOffsetX" />
+    <Publicize Include="Assembly-CSharp:Verse.Graphic_Shadow.GlobalShadowPosOffsetZ" />
+    <Publicize Include="Assembly-CSharp:Verse.Graphic_Shadow.shadowInfo" />
+    <Publicize Include="Assembly-CSharp:Verse.GraphicData.Init" />
+    <Publicize Include="Assembly-CSharp:Verse.Listing.curX" />
+    <Publicize Include="Assembly-CSharp:Verse.Listing.curY" />
+    <Publicize Include="Assembly-CSharp:Verse.MapDrawer.sections" />
+    <Publicize Include="Assembly-CSharp:Verse.Pawn.DrawAt" />
+    <Publicize Include="Assembly-CSharp:Verse.PawnRenderer.GetBlitMeshUpdatedFrame" />
+    <Publicize Include="Assembly-CSharp:Verse.PawnRenderer.OverrideMaterialIfNeeded" />
+    <Publicize Include="Assembly-CSharp:Verse.PawnRenderer.results" />
+    <Publicize Include="Assembly-CSharp:Verse.PawnRenderer+PreRenderResults" />
+    <Publicize Include="Assembly-CSharp:Verse.PlayDataLoader.ResetStaticDataPost" />
+    <Publicize Include="Assembly-CSharp:Verse.SectionLayer_ThingsGeneral.TakePrintFrom" />
+    <Publicize Include="Assembly-CSharp:Verse.StorageGroupManager.groups" />
+    <Publicize Include="Assembly-CSharp:Verse.Text.tmpTextGUIContent" />
+    <Publicize Include="Assembly-CSharp:Verse.Thing.mapIndexOrState" />
+    <Publicize Include="Assembly-CSharp:Verse.ThingFilter.allowedDefs" />
+    <Publicize Include="Assembly-CSharp:Verse.ThingFilter.categories" />
+    <Publicize Include="Assembly-CSharp:Verse.ThingFilter.disallowedSpecialFilters" />
+    <Publicize Include="Assembly-CSharp:Verse.ThingGrid.RegisterInCell" />
+    <Publicize Include="Assembly-CSharp:Verse.ThingGrid.DeregisterInCell" />
+    <Publicize Include="Assembly-CSharp:Verse.WidgetRow.curY" />
+    <Publicize Include="Assembly-CSharp:Verse.WidgetRow.IncrementYIfWillExceedMaxWidth" />
+    <Publicize Include="Assembly-CSharp:Verse.WidgetRow.IncrementPosition" />
+    <Publicize Include="Assembly-CSharp:Verse.WidgetRow.LeftX" />
+    <Publicize Include="mscorlib:System.Array.UnsafeLoad" />
+    <Publicize Include="mscorlib:System.Array.UnsafeStore" />
+    <Publicize Include="mscorlib:System.Collections.Generic.List`1._items" />
+    <Publicize Include="mscorlib:System.Collections.Generic.List`1._size" />
+    <Publicize Include="mscorlib:System.Collections.Generic.List`1._version" />
+    <Publicize Include="mscorlib:System.Collections.Generic.List`1.EnsureCapacity" />
+    <Publicize Include="mscorlib:System.String._firstChar" />
+    <Publicize Include="mscorlib:System.Runtime.CompilerServices.Unsafe" />
+    <Publicize Include="mscorlib:System.Reflection.Emit.Label.label" />
+    <Publicize Include="mscorlib:System.Runtime.CompilerServices.JitHelpers.UnsafeEnumCast" />
+    <Publicize Include="mscorlib:System.Runtime.CompilerServices.JitHelpers.UnsafeEnumCastLong" />
+    <Publicize Include="UnityEngine.CoreModule:UnityEngine.Graphics.Internal_DrawMesh_Injected" />
+    <Publicize Include="0Harmony:HarmonyLib.CodeInstructionExtensions.constantLoadingCodes" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="$(SubmissionRoot)/Source/AdaptiveStorage/AdaptiveStorageFrameworkMod.cs" />
+    <Compile Include="$(SubmissionRoot)/Source/AdaptiveStorage/AdaptiveStorageFrameworkSettings.cs" />
+    <Compile Include="$(SubmissionRoot)/Source/AdaptiveStorage/AllowedRequirement.cs" />
+    <Compile Include="$(SubmissionRoot)/Source/AdaptiveStorage/BackCompatibility/CodeInstructionEx.cs" />
+    <Compile Include="$(SubmissionRoot)/Source/AdaptiveStorage/BackCompatibility/DrawPhase.cs" />
+    <Compile Include="$(SubmissionRoot)/Source/AdaptiveStorage/BackCompatibility/GenEx.cs" />
+    <Compile Include="$(SubmissionRoot)/Source/AdaptiveStorage/BackCompatibility/StatModifierQuality.cs" />
+    <Compile Include="$(SubmissionRoot)/Source/AdaptiveStorage/BackCompatibility/StatUtilityEx.cs" />
+    <Compile Include="$(SubmissionRoot)/Source/AdaptiveStorage/Blueprint.cs" />
+    <Compile Include="$(SubmissionRoot)/Source/AdaptiveStorage/ContentColorExtensions.cs" />
+    <Compile Include="$(SubmissionRoot)/Source/AdaptiveStorage/ContentColorSource.cs" />
+    <Compile Include="$(SubmissionRoot)/Source/AdaptiveStorage/ContentLabelStyleDef.cs" />
+    <Compile Include="$(SubmissionRoot)/Source/AdaptiveStorage/ContentLabelStyleDefOf.cs" />
+    <Compile Include="$(SubmissionRoot)/Source/AdaptiveStorage/ContentLabelWorker.cs" />
+    <Compile Include="$(SubmissionRoot)/Source/AdaptiveStorage/ContentsITab.cs" />
+    <Compile Include="$(SubmissionRoot)/Source/AdaptiveStorage/DefEditorWindow.cs" />
+    <Compile Include="$(SubmissionRoot)/Source/AdaptiveStorage/Extension.cs" />
+    <Compile Include="$(SubmissionRoot)/Source/AdaptiveStorage/Fishery/CollectionExtensions.cs" />
+    <Compile Include="$(SubmissionRoot)/Source/AdaptiveStorage/Fishery/Collections/FishSet.Debug.cs" />
+    <Compile Include="$(SubmissionRoot)/Source/AdaptiveStorage/Fishery/Collections/FishSet.Enumerator.cs" />
+    <Compile Include="$(SubmissionRoot)/Source/AdaptiveStorage/Fishery/Collections/FishSet.ThrowHelper.cs" />
+    <Compile Include="$(SubmissionRoot)/Source/AdaptiveStorage/Fishery/Collections/FishSet.cs" />
+    <Compile Include="$(SubmissionRoot)/Source/AdaptiveStorage/Fishery/Collections/IntFishTable.Debug.cs" />
+    <Compile Include="$(SubmissionRoot)/Source/AdaptiveStorage/Fishery/Collections/IntFishTable.Entry.cs" />
+    <Compile Include="$(SubmissionRoot)/Source/AdaptiveStorage/Fishery/Collections/IntFishTable.Enumerator.cs" />
+    <Compile Include="$(SubmissionRoot)/Source/AdaptiveStorage/Fishery/Collections/IntFishTable.KeyCollection.cs" />
+    <Compile Include="$(SubmissionRoot)/Source/AdaptiveStorage/Fishery/Collections/IntFishTable.ThrowHelper.cs" />
+    <Compile Include="$(SubmissionRoot)/Source/AdaptiveStorage/Fishery/Collections/IntFishTable.ValueCollection.cs" />
+    <Compile Include="$(SubmissionRoot)/Source/AdaptiveStorage/Fishery/Collections/IntFishTable.cs" />
+    <Compile Include="$(SubmissionRoot)/Source/AdaptiveStorage/Fishery/Collections/Internal/CollectionThrowHelper.cs" />
+    <Compile Include="$(SubmissionRoot)/Source/AdaptiveStorage/Fishery/Collections/Internal/ReplaceBehaviour.cs" />
+    <Compile Include="$(SubmissionRoot)/Source/AdaptiveStorage/Fishery/Collections/Internal/Tails.cs" />
+    <Compile Include="$(SubmissionRoot)/Source/AdaptiveStorage/Fishery/Collections/NibbleArray.cs" />
+    <Compile Include="$(SubmissionRoot)/Source/AdaptiveStorage/Fishery/Diagnostics/Extensions/TypeExtensions.cs" />
+    <Compile Include="$(SubmissionRoot)/Source/AdaptiveStorage/Fishery/Diagnostics/Extensions/ValueTypeExtensions.cs" />
+    <Compile Include="$(SubmissionRoot)/Source/AdaptiveStorage/Fishery/Diagnostics/Generated/Guard.Collection.g.cs" />
+    <Compile Include="$(SubmissionRoot)/Source/AdaptiveStorage/Fishery/Diagnostics/Generated/Guard.Comparable.Numeric.g.cs" />
+    <Compile Include="$(SubmissionRoot)/Source/AdaptiveStorage/Fishery/Diagnostics/Generated/ThrowHelper.Collection.g.cs" />
+    <Compile Include="$(SubmissionRoot)/Source/AdaptiveStorage/Fishery/Diagnostics/Guard.Boolean.cs" />
+    <Compile Include="$(SubmissionRoot)/Source/AdaptiveStorage/Fishery/Diagnostics/Guard.Comparable.Generic.cs" />
+    <Compile Include="$(SubmissionRoot)/Source/AdaptiveStorage/Fishery/Diagnostics/Guard.Comparable.Numeric.cs" />
+    <Compile Include="$(SubmissionRoot)/Source/AdaptiveStorage/Fishery/Diagnostics/Guard.IO.cs" />
+    <Compile Include="$(SubmissionRoot)/Source/AdaptiveStorage/Fishery/Diagnostics/Guard.String.cs" />
+    <Compile Include="$(SubmissionRoot)/Source/AdaptiveStorage/Fishery/Diagnostics/Guard.Tasks.cs" />
+    <Compile Include="$(SubmissionRoot)/Source/AdaptiveStorage/Fishery/Diagnostics/Guard.cs" />
+    <Compile Include="$(SubmissionRoot)/Source/AdaptiveStorage/Fishery/Diagnostics/Internals/Guard.Collection.Generic.ThrowHelper.cs" />
+    <Compile Include="$(SubmissionRoot)/Source/AdaptiveStorage/Fishery/Diagnostics/Internals/Guard.Comparable.Generic.ThrowHelper.cs" />
+    <Compile Include="$(SubmissionRoot)/Source/AdaptiveStorage/Fishery/Diagnostics/Internals/Guard.Comparable.Numeric.ThrowHelper.cs" />
+    <Compile Include="$(SubmissionRoot)/Source/AdaptiveStorage/Fishery/Diagnostics/Internals/Guard.IO.ThrowHelper.cs" />
+    <Compile Include="$(SubmissionRoot)/Source/AdaptiveStorage/Fishery/Diagnostics/Internals/Guard.String.ThrowHelper.cs" />
+    <Compile Include="$(SubmissionRoot)/Source/AdaptiveStorage/Fishery/Diagnostics/Internals/Guard.Tasks.ThrowHelper.cs" />
+    <Compile Include="$(SubmissionRoot)/Source/AdaptiveStorage/Fishery/Diagnostics/Internals/Guard.ThrowHelper.cs" />
+    <Compile Include="$(SubmissionRoot)/Source/AdaptiveStorage/Fishery/Diagnostics/ThrowHelper.Generic.cs" />
+    <Compile Include="$(SubmissionRoot)/Source/AdaptiveStorage/Fishery/Diagnostics/ThrowHelper.cs" />
+    <Compile Include="$(SubmissionRoot)/Source/AdaptiveStorage/Fishery/Equality.cs" />
+    <Compile Include="$(SubmissionRoot)/Source/AdaptiveStorage/Fishery/FishMath.cs" />
+    <Compile Include="$(SubmissionRoot)/Source/AdaptiveStorage/Fishery/FishTranspiler.cs" />
+    <Compile Include="$(SubmissionRoot)/Source/AdaptiveStorage/Fishery/FunctionPointers/Equals.cs" />
+    <Compile Include="$(SubmissionRoot)/Source/AdaptiveStorage/Fishery/FunctionPointers/MethodFactory.Equals.cs" />
+    <Compile Include="$(SubmissionRoot)/Source/AdaptiveStorage/Fishery/FunctionPointers/MethodFactory.cs" />
+    <Compile Include="$(SubmissionRoot)/Source/AdaptiveStorage/Fishery/Pools/FishPool.cs" />
+    <Compile Include="$(SubmissionRoot)/Source/AdaptiveStorage/Fishery/Pools/IFishPoolable.cs" />
+    <Compile Include="$(SubmissionRoot)/Source/AdaptiveStorage/Fishery/Pools/PooledIList.cs" />
+    <Compile Include="$(SubmissionRoot)/Source/AdaptiveStorage/Fishery/Pools/PooledList.cs" />
+    <Compile Include="$(SubmissionRoot)/Source/AdaptiveStorage/Fishery/Pools/PooledStringBuilder.cs" />
+    <Compile Include="$(SubmissionRoot)/Source/AdaptiveStorage/Fishery/Pools/PooledStringBuilderHandler.cs" />
+    <Compile Include="$(SubmissionRoot)/Source/AdaptiveStorage/Fishery/Reflection.cs" />
+    <Compile Include="$(SubmissionRoot)/Source/AdaptiveStorage/Fishery/UtilityF.cs" />
+    <Compile Include="$(SubmissionRoot)/Source/AdaptiveStorage/Frame.cs" />
+    <Compile Include="$(SubmissionRoot)/Source/AdaptiveStorage/GizmoUtility.cs" />
+    <Compile Include="$(SubmissionRoot)/Source/AdaptiveStorage/GodModeGizmos.cs" />
+    <Compile Include="$(SubmissionRoot)/Source/AdaptiveStorage/GraphicsDef.cs" />
+    <Compile Include="$(SubmissionRoot)/Source/AdaptiveStorage/GraphicsDefSelector.cs" />
+    <Compile Include="$(SubmissionRoot)/Source/AdaptiveStorage/GroupContentsITab.cs" />
+    <Compile Include="$(SubmissionRoot)/Source/AdaptiveStorage/HarmonyPatches/AddITabToLegacyStorages.cs" />
+    <Compile Include="$(SubmissionRoot)/Source/AdaptiveStorage/HarmonyPatches/AddITabToStockpileZones.cs" />
+    <Compile Include="$(SubmissionRoot)/Source/AdaptiveStorage/HarmonyPatches/AdjustSelectionBracketPosition.cs" />
+    <Compile Include="$(SubmissionRoot)/Source/AdaptiveStorage/HarmonyPatches/AdjustThingTemperature.cs" />
+    <Compile Include="$(SubmissionRoot)/Source/AdaptiveStorage/HarmonyPatches/AutomaticallyOpenTab.cs" />
+    <Compile Include="$(SubmissionRoot)/Source/AdaptiveStorage/HarmonyPatches/CacheZoomAndMousePosition.cs" />
+    <Compile Include="$(SubmissionRoot)/Source/AdaptiveStorage/HarmonyPatches/DeregisteredAtThingGridEvent.cs" />
+    <Compile Include="$(SubmissionRoot)/Source/AdaptiveStorage/HarmonyPatches/EnablePackingOnMinify.cs" />
+    <Compile Include="$(SubmissionRoot)/Source/AdaptiveStorage/HarmonyPatches/FixVanillaVegetarianFilter.cs" />
+    <Compile Include="$(SubmissionRoot)/Source/AdaptiveStorage/HarmonyPatches/HideStorageGizmos.cs" />
+    <Compile Include="$(SubmissionRoot)/Source/AdaptiveStorage/HarmonyPatches/HideStoredThingLabels.cs" />
+    <Compile Include="$(SubmissionRoot)/Source/AdaptiveStorage/HarmonyPatches/HideStoredThingsFromSectionLayerAndOverlayDrawer.cs" />
+    <Compile Include="$(SubmissionRoot)/Source/AdaptiveStorage/HarmonyPatches/ImprovedConfigErrors.cs" />
+    <Compile Include="$(SubmissionRoot)/Source/AdaptiveStorage/HarmonyPatches/InitializeGraphicsDefs.cs" />
+    <Compile Include="$(SubmissionRoot)/Source/AdaptiveStorage/HarmonyPatches/NotifyItemStackChanged.cs" />
+    <Compile Include="$(SubmissionRoot)/Source/AdaptiveStorage/HarmonyPatches/PreventSelectionInRect.cs" />
+    <Compile Include="$(SubmissionRoot)/Source/AdaptiveStorage/HarmonyPatches/PreventSelectionUnderMouse.cs" />
+    <Compile Include="$(SubmissionRoot)/Source/AdaptiveStorage/HarmonyPatches/RegisteredAtThingGridEvent.cs" />
+    <Compile Include="$(SubmissionRoot)/Source/AdaptiveStorage/HarmonyPatches/RemoveInvalidDefsOnStorageSettingsLoading.cs" />
+    <Compile Include="$(SubmissionRoot)/Source/AdaptiveStorage/HarmonyPatches/ReplaceLegacyStorageInspectString.cs" />
+    <Compile Include="$(SubmissionRoot)/Source/AdaptiveStorage/HarmonyPatches/SaveGameCompatibility.cs" />
+    <Compile Include="$(SubmissionRoot)/Source/AdaptiveStorage/HarmonyPatches/StorageLimit.cs" />
+    <Compile Include="$(SubmissionRoot)/Source/AdaptiveStorage/HarmonyPatches/StoreUtilityPatches.cs" />
+    <Compile Include="$(SubmissionRoot)/Source/AdaptiveStorage/HarmonyPatches/ThingDefStatDrawEntries.cs" />
+    <Compile Include="$(SubmissionRoot)/Source/AdaptiveStorage/HarmonyPatches/UpdateInvalidHaulablesAndMergeables.cs" />
+    <Compile Include="$(SubmissionRoot)/Source/AdaptiveStorage/InspectStringUtility.cs" />
+    <Compile Include="$(SubmissionRoot)/Source/AdaptiveStorage/InspectTabUtility.cs" />
+    <Compile Include="$(SubmissionRoot)/Source/AdaptiveStorage/InternalDefOf.cs" />
+    <Compile Include="$(SubmissionRoot)/Source/AdaptiveStorage/ItemGraphic.cs" />
+    <Compile Include="$(SubmissionRoot)/Source/AdaptiveStorage/ItemGraphicWorker.cs" />
+    <Compile Include="$(SubmissionRoot)/Source/AdaptiveStorage/LabelFormat.cs" />
+    <Compile Include="$(SubmissionRoot)/Source/AdaptiveStorage/LabelFormatUtility.cs" />
+    <Compile Include="$(SubmissionRoot)/Source/AdaptiveStorage/LegacyStorageUtility.cs" />
+    <Compile Include="$(SubmissionRoot)/Source/AdaptiveStorage/Minified.cs" />
+    <Compile Include="$(SubmissionRoot)/Source/AdaptiveStorage/MinifiedExtension.cs" />
+    <Compile Include="$(SubmissionRoot)/Source/AdaptiveStorage/ModCompatibility/ActiveMods.cs" />
+    <Compile Include="$(SubmissionRoot)/Source/AdaptiveStorage/ModCompatibility/LWM.cs" />
+    <Compile Include="$(SubmissionRoot)/Source/AdaptiveStorage/ModCompatibility/Multiplayer.cs" />
+    <Compile Include="$(SubmissionRoot)/Source/AdaptiveStorage/ModCompatibility/PackageIDs.cs" />
+    <Compile Include="$(SubmissionRoot)/Source/AdaptiveStorage/ModCompatibility/PerformanceFish.cs" />
+    <Compile Include="$(SubmissionRoot)/Source/AdaptiveStorage/ModCompatibility/ReflectionUtility.cs" />
+    <Compile Include="$(SubmissionRoot)/Source/AdaptiveStorage/ModCompatibility/SaveOurShip2.cs" />
+    <Compile Include="$(SubmissionRoot)/Source/AdaptiveStorage/ModCompatibility/ToggleableOverlays.cs" />
+    <Compile Include="$(SubmissionRoot)/Source/AdaptiveStorage/OnStartup.cs" />
+    <Compile Include="$(SubmissionRoot)/Source/AdaptiveStorage/PrintDatas/CorpsePrintData.cs" />
+    <Compile Include="$(SubmissionRoot)/Source/AdaptiveStorage/PrintDatas/ITransformableGraphicPrintData.cs" />
+    <Compile Include="$(SubmissionRoot)/Source/AdaptiveStorage/PrintDatas/ITransformableThingPrintData.cs" />
+    <Compile Include="$(SubmissionRoot)/Source/AdaptiveStorage/PrintDatas/MinifiedThingPrintData.cs" />
+    <Compile Include="$(SubmissionRoot)/Source/AdaptiveStorage/PrintDatas/OptimizedPrintData.cs" />
+    <Compile Include="$(SubmissionRoot)/Source/AdaptiveStorage/PrintDatas/PrintData.cs" />
+    <Compile Include="$(SubmissionRoot)/Source/AdaptiveStorage/PrintDatas/UnsupportedGraphicPrintData.cs" />
+    <Compile Include="$(SubmissionRoot)/Source/AdaptiveStorage/PrintDatas/UnsupportedThingPrintData.cs" />
+    <Compile Include="$(SubmissionRoot)/Source/AdaptiveStorage/RotateInShelvesMode.cs" />
+    <Compile Include="$(SubmissionRoot)/Source/AdaptiveStorage/SpawnMode.cs" />
+    <Compile Include="$(SubmissionRoot)/Source/AdaptiveStorage/StackBehaviour.cs" />
+    <Compile Include="$(SubmissionRoot)/Source/AdaptiveStorage/StatDrawEntries.cs" />
+    <Compile Include="$(SubmissionRoot)/Source/AdaptiveStorage/StatPart.cs" />
+    <Compile Include="$(SubmissionRoot)/Source/AdaptiveStorage/StorageCell.cs" />
+    <Compile Include="$(SubmissionRoot)/Source/AdaptiveStorage/StorageGraphic.cs" />
+    <Compile Include="$(SubmissionRoot)/Source/AdaptiveStorage/StorageGraphicData.cs" />
+    <Compile Include="$(SubmissionRoot)/Source/AdaptiveStorage/StorageGraphicWorker.cs" />
+    <Compile Include="$(SubmissionRoot)/Source/AdaptiveStorage/StorageRenderer.cs" />
+    <Compile Include="$(SubmissionRoot)/Source/AdaptiveStorage/Strings.cs" />
+    <Compile Include="$(SubmissionRoot)/Source/AdaptiveStorage/ThingClass.cs" />
+    <Compile Include="$(SubmissionRoot)/Source/AdaptiveStorage/ThingCollection.cs" />
+    <Compile Include="$(SubmissionRoot)/Source/AdaptiveStorage/ThingGridEventHandler.cs" />
+    <Compile Include="$(SubmissionRoot)/Source/AdaptiveStorage/TransformableGraphicSingle.cs" />
+    <Compile Include="$(SubmissionRoot)/Source/AdaptiveStorage/Utility/BetterQuickSearchWidget.cs" />
+    <Compile Include="$(SubmissionRoot)/Source/AdaptiveStorage/Utility/CellData.cs" />
+    <Compile Include="$(SubmissionRoot)/Source/AdaptiveStorage/Utility/CellTable.cs" />
+    <Compile Include="$(SubmissionRoot)/Source/AdaptiveStorage/Utility/CollectionExtensions.cs" />
+    <Compile Include="$(SubmissionRoot)/Source/AdaptiveStorage/Utility/CommandWithFloatMenu.cs" />
+    <Compile Include="$(SubmissionRoot)/Source/AdaptiveStorage/Utility/Exposable.cs" />
+    <Compile Include="$(SubmissionRoot)/Source/AdaptiveStorage/Utility/GUIScope.cs" />
+    <Compile Include="$(SubmissionRoot)/Source/AdaptiveStorage/Utility/GraphicDataExtensions.cs" />
+    <Compile Include="$(SubmissionRoot)/Source/AdaptiveStorage/Utility/GraphicTransformScope.cs" />
+    <Compile Include="$(SubmissionRoot)/Source/AdaptiveStorage/Utility/IHasPosition.cs" />
+    <Compile Include="$(SubmissionRoot)/Source/AdaptiveStorage/Utility/ItemRenderControls.cs" />
+    <Compile Include="$(SubmissionRoot)/Source/AdaptiveStorage/Utility/ListingExtensions.cs" />
+    <Compile Include="$(SubmissionRoot)/Source/AdaptiveStorage/Utility/MatrixExtensions.cs" />
+    <Compile Include="$(SubmissionRoot)/Source/AdaptiveStorage/Utility/PrintUtility.cs" />
+    <Compile Include="$(SubmissionRoot)/Source/AdaptiveStorage/Utility/ReflectionExtensions.cs" />
+    <Compile Include="$(SubmissionRoot)/Source/AdaptiveStorage/Utility/ScopedStatList.cs" />
+    <Compile Include="$(SubmissionRoot)/Source/AdaptiveStorage/Utility/ScopedValue.cs" />
+    <Compile Include="$(SubmissionRoot)/Source/AdaptiveStorage/Utility/StoreUtilityExtensions.cs" />
+    <Compile Include="$(SubmissionRoot)/Source/AdaptiveStorage/Utility/ThingDefExtensions.cs" />
+    <Compile Include="$(SubmissionRoot)/Source/AdaptiveStorage/Utility/ThingExtensions.cs" />
+    <Compile Include="$(SubmissionRoot)/Source/AdaptiveStorage/Utility/ThingFilterExtensions.cs" />
+    <Compile Include="$(SubmissionRoot)/Source/AdaptiveStorage/Utility/ThingMakerUtility.cs" />
+    <Compile Include="$(SubmissionRoot)/Source/AdaptiveStorage/Utility/UIHelpers.cs" />
+    <Compile Include="$(SubmissionRoot)/Source/AdaptiveStorage/Utility/ValuesByQuality.cs" />
+    <Compile Include="$(SubmissionRoot)/Source/AdaptiveStorage/Utility/VectorExtensions.cs" />
+    <Compile Include="$(SubmissionRoot)/Source/AdaptiveStorage/Utility/WorkerClassMaker.cs" />
+    <Compile Include="$(SubmissionRoot)/Source/ITransformable/ITransformable.cs" />
+    <Compile Include="$(SubmissionRoot)/Source/ITransformable/RotationAngle.cs" />
+    <Compile Include="$(SubmissionRoot)/Source/ITransformable/TransformData.cs" />
+    <Compile Include="Support.cs" />
+  </ItemGroup>
+</Project>

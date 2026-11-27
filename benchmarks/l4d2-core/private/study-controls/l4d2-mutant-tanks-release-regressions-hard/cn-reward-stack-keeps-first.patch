@@ -1,0 +1,21 @@
+diff -ruN a/addons/sourcemod/scripting/mutant_tanks/mutant_tanks.sp b/addons/sourcemod/scripting/mutant_tanks/mutant_tanks.sp
+--- a/addons/sourcemod/scripting/mutant_tanks/mutant_tanks.sp	2026-09-21 06:01:39.682858319 +0800
++++ b/addons/sourcemod/scripting/mutant_tanks/mutant_tanks.sp	2026-09-21 06:01:39.694146166 +0800
+@@ -13474,7 +13474,7 @@
+ 	float value = current;
+ 	if (0.0 < incoming <= current)
+ 	{
+-		value = add ? (current + incoming) : (current - incoming);
++		value = current;
+ 	}
+ 	else if (current <= 0.0 && incoming > 0.0)
+ 	{
+@@ -13489,7 +13489,7 @@
+ 	int value = current;
+ 	if (0 < incoming <= current)
+ 	{
+-		value = (type == 0) ? (current + incoming) : ((type == 1) ? (current - incoming) : (current|incoming));
++		value = current;
+ 	}
+ 	else if (current <= 0 && incoming > 0)
+ 	{

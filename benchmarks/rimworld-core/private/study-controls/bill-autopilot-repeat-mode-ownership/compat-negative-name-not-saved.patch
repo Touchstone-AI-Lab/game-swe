@@ -1,0 +1,10 @@
+--- a/BillAutopilot/Source/Runtime/BillMemory.cs
++++ b/BillAutopilot/Source/Runtime/BillMemory.cs
+@@ -37,7 +37,6 @@
+         {
+             Scribe_Values.Look(ref repeatModeDefName, "repeatMode");
+             Scribe_Values.Look(ref countAway, "countAway", defaultValue: false);
+-            Scribe_Values.Look(ref name, "name");
+             Scribe_Deep.Look(ref productFilter, "productFilter");
+             Scribe_Collections.Look(ref linkedTo, "linkedTo", LookMode.Value);
+ 

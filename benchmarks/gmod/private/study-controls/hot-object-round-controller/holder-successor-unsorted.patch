@@ -1,0 +1,11 @@
+--- a/lua/rhenium_hot_object_round/controller.lua
++++ b/lua/rhenium_hot_object_round/controller.lua
+@@ -2,7 +2,7 @@
+ local function cp(v)if type(v)~="table"then return v end;local o={};for k,x in pairs(v)do o[cp(k)]=cp(x)end;return o end
+ local function id(v)return type(v)=="string"and#v>0 and#v<=128 and v:match("^[%w][%w_.:%-]*$")~=nil end
+ local function now(self,n)if type(n)~="number"or n~=n or n<0 or n>=math.huge then return nil end;if n>self.last_now then self.last_now=n end;return self.last_now end
+-local function sorted_live(self,except,uninfected)local out={};for pid,p in pairs(self.players)do if pid~=except and p.alive and p.connected and(not uninfected or not p.infected)then out[#out+1]=pid end end;table.sort(out);return out end
++local function sorted_live(self,except,uninfected)local out={};for pid,p in pairs(self.players)do if pid~=except and p.alive and p.connected and(not uninfected or not p.infected)then out[#out+1]=pid end end;table.sort(out,function(a,b)return a>b end);return out end
+ local function signature(kind,args)local p={kind};for _,v in ipairs(args)do p[#p+1]=type(v)=="table"and table.concat(v,",")or tostring(v)end;return table.concat(p,"|")end
+ local function integer(v,min)return type(v)=="number"and v%1==0 and v>=min and v<math.huge end
+ local function finite(v)return type(v)=="number"and v==v and v>=0 and v<math.huge end

@@ -1,0 +1,6 @@
+<Project Sdk="Microsoft.NET.Sdk"><PropertyGroup><TargetFramework>net8.0</TargetFramework><OutputType>Exe</OutputType><LangVersion>latest</LangVersion><ImplicitUsings>disable</ImplicitUsings><Nullable>disable</Nullable><EnableDefaultCompileItems>false</EnableDefaultCompileItems><CandidateRoot Condition="'$(CandidateRoot)' == ''">../environment/aequus</CandidateRoot></PropertyGroup><ItemGroup>
+<Compile Include="$(CandidateRoot)/Common/Carpentry/BuildChallengeSaveData.cs" Link="Production/BuildChallengeSaveData.cs" />
+<Compile Include="$(CandidateRoot)/Common/Carpentry/BuildBuffsData.cs" Link="Production/BuildBuffsData.cs" />
+<Compile Include="$(CandidateRoot)/Common/Carpentry/CarpentrySystem.cs" Link="Production/CarpentrySystem.cs" />
+<Compile Include="$(CandidateRoot)/Common/Carpentry/CarpentryPlayer.cs" Link="Production/CarpentryPlayer.cs" />
+<Compile Include="VerifierSupport.cs"/><Compile Include="Program.cs"/></ItemGroup></Project>

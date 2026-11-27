@@ -1,0 +1,217 @@
+{
+  "task": "rimworld/core/customize-weapon-ability-tracker",
+  "task_version": "0.3.3",
+  "exam": "benchmarks/rimworld-core/exams/customize-weapon-ability-tracker.md",
+  "cases": [
+    {
+      "id": "check:submission-shape",
+      "role": "static",
+      "clauses": [
+        "delivery"
+      ],
+      "overlap": false,
+      "note": "required C# sources present as a safe snapshot; rejects binaries, links and private-harness markers"
+    },
+    {
+      "id": "case:runtime-defs-ready",
+      "role": "runtime-sentinel",
+      "clauses": [],
+      "overlap": false,
+      "note": "Core, Customize Weapon slice and verifier loaded"
+    },
+    {
+      "id": "case:missing-tracker-created",
+      "role": "target",
+      "clauses": [
+        "req-1"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:empty-management-no-tracker",
+      "role": "preserved",
+      "clauses": [
+        "req-2"
+      ],
+      "overlap": true,
+      "note": "the starter never creates a tracker"
+    },
+    {
+      "id": "case:no-holder-no-tracker",
+      "role": "preserved",
+      "clauses": [
+        "req-2"
+      ],
+      "overlap": true,
+      "note": "the starter never creates a tracker"
+    },
+    {
+      "id": "case:managed-ability-added",
+      "role": "target",
+      "clauses": [
+        "req-1",
+        "req-3"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:duplicate-props-deduplicated",
+      "role": "target",
+      "clauses": [
+        "req-1",
+        "req-5"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:unrelated-ability-preserved",
+      "role": "preserved",
+      "clauses": [
+        "req-3"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:removed-managed-ability-pruned",
+      "role": "preserved",
+      "clauses": [
+        "req-5"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:unequip-captures-state",
+      "role": "preserved",
+      "clauses": [
+        "req-4"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:reequip-restores-charges",
+      "role": "preserved",
+      "clauses": [
+        "req-4"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:reequip-restores-cooldown",
+      "role": "preserved",
+      "clauses": [
+        "req-4"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:postload-restores-state",
+      "role": "preserved",
+      "clauses": [
+        "req-4"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:stale-state-pruned",
+      "role": "preserved",
+      "clauses": [
+        "req-5"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:null-properties-tolerated",
+      "role": "preserved",
+      "clauses": [
+        "req-5"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:reload-path-preserved",
+      "role": "preserved",
+      "clauses": [
+        "req-3",
+        "req-5"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:postload-managed-cleared",
+      "role": "preserved",
+      "clauses": [
+        "req-4"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:holder-update-adds-ability",
+      "role": "target",
+      "clauses": [
+        "req-1"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:fixture-state-restored",
+      "role": "setup",
+      "clauses": [],
+      "overlap": false,
+      "note": "terminal fixture-restoration gate"
+    }
+  ],
+  "clauses": [
+    {
+      "id": "req-1",
+      "anchor": "Required behavior, bullet 1: create Pawn_AbilityTracker lazily when an equipped pawn has none and a managed ability must be synchronized",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "req-2",
+      "anchor": "Required behavior, bullet 2: no tracker without a current holder or a managed ability definition",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "req-3",
+      "anchor": "Required behavior, bullet 3: add each managed ability once, update reloadable properties, preserve unrelated abilities",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "req-4",
+      "anchor": "Required behavior, bullet 4: capture cooldown and charge state before unequip or replacement and restore it after reequip or post-load",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "req-5",
+      "anchor": "Required behavior, bullet 5: remove abilities no longer managed, prune stale state, tolerate null or duplicate properties, preserve reload behavior",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "delivery",
+      "anchor": "closing paragraph: do not add RimWorld, Unity or Harmony binaries, generated output, test results, credentials, Workshop content, assets, saves or logs",
+      "status": "weak",
+      "note": "the snapshot gate rejects binaries, links and harness markers; the other listed artefacts are not checked"
+    }
+  ],
+  "excluded_clauses": [],
+  "known_issues": []
+}

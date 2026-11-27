@@ -1,0 +1,10 @@
+# Git blob IDs from Terraria Overhaul revision 55c23fbde42f6fcb9eb266992475a040d14c2b84
+17c3c519c60627a91440070b5a82b93f8ed9d394  Core/Chunks/Chunks.cs
+5bc64060be21d21bf31b96b5cbe690385348f805  Core/Data/DataStorage.cs
+43082c9cbca5bbe7e8279a33006fe939c235b9b3  Core/Data/Entities.cs
+e4f4c4c5d204a4bc43686abfb2b4294d809c84b0  Core/Data/SparseSet.cs
+80b76a983e8e6476a4da5c9a279b2acaa6c238f8  Utilities/BitMasks.cs
+496acdb2ae812f69b9ef60a610f505fbab35aca0  LICENSE.md
+966f4c8ff9b3a0d88d08a73b25a069fc90399c8b  build.txt
+
+# The retained starter production files are byte-identical to these blobs.

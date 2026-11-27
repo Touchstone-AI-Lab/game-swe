@@ -1,0 +1,11 @@
+diff -u a/advdupe2/lua/advdupe2/sv_clipboard.lua b/advdupe2/lua/advdupe2/sv_clipboard.lua
+--- a/advdupe2/lua/advdupe2/sv_clipboard.lua
++++ b/advdupe2/lua/advdupe2/sv_clipboard.lua
+@@ -529,7 +529,6 @@
+ 
+ 	-- Unfortunately we cannot distinguish here if this is a ropeconstraint or not
+ 	if Player and not Player:CheckLimit( "constraints" ) then return end
+-	if Player and not Player:CheckLimit( "ropeconstraints" ) then return end
+ 
+ 	local first, firstindex -- Ent1 or Ent in the constraint's table
+ 	local second, secondindex -- Any other Ent that is not Ent1 or Ent

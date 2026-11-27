@@ -1,0 +1,39 @@
+schema_version = "1.1"
+
+[task]
+name = "gamecodebench/adaptive-storage-slot-limit-restore"
+description = "Force the CurrentSlotLimit setter transition after initialization while preserving the logical unlimited sentinel and completing initialization."
+authors = []
+keywords = ["rimworld", "csharp", "mod", "debugging", "real-game"]
+
+[metadata]
+category = "programming"
+difficulty = "hard"
+tags = ["game-modding", "csharp", "rimworld", "bug-fix"]
+source_repo = "https://github.com/bbradson/Adaptive-Storage-Framework"
+source_license = "MIT"
+base_commit = "2d0aef23f7b8592f9eedaaf8c8fc47b4dd1f0f5a"
+target_commit = "6c403b09e22508fa929673caaec2877aa56ac9b5"
+gold_patch_origin = "fixed-1.6-descendant-with-single-line-historical-base-reconstruction"
+source_baseline_commit = "31ee88b46651cfbe37da3f89620bc0b907165cc0"
+catalog_version = "0.4.1"
+authoring_revision = 6
+private_protocol = "rhenium-rimworld-private-v3"
+assertion_count = 15
+scored_scope = "ThingClass.PostInitialize slot-limit transition"
+
+[verifier]
+network_mode = "no-network"
+timeout_sec = 900.0
+[agent]
+network_mode = "no-network"
+allowed_hosts = []
+timeout_sec = 3600.0
+[environment]
+network_mode = "no-network"
+build_timeout_sec = 7200.0
+cpus = 6
+memory_mb = 16384
+storage_mb = 20480
+gpus = 0
+mcp_servers = []

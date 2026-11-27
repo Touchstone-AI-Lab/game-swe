@@ -1,0 +1,10 @@
+{"cases":[
+  {"name":"shortage sheds deterministically","category":"core","maximum":10},
+  {"name":"hysteresis prevents oscillation","category":"core","maximum":8},
+  {"name":"minimum off time boundary","category":"core","maximum":7},
+  {"name":"split merge preserves locks","category":"topology","maximum":10},
+  {"name":"invalid and stale samples are inert","category":"validation","maximum":5},
+  {"name":"save reload next action","category":"persistence","maximum":10},
+  {"name":"real consumer enabled state","category":"integration","maximum":15},
+  {"name":"active plugin and headless world","category":"integration","maximum":5}
+]}

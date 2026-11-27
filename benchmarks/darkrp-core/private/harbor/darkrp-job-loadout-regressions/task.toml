@@ -1,0 +1,108 @@
+schema_version = "1.1"
+
+[task]
+name = "gamecodebench/darkrp-job-loadout-regressions"
+description = "A DarkRP branch carrying five independent regressions across the checks a job or category definition must pass and the settings an accepted definition then applies to a player, reported only as user-visible symptoms."
+authors = []
+keywords = ["garrysmod", "glua", "lua", "darkrp", "multi-defect", "regression"]
+
+[metadata]
+category = "programming"
+difficulty = "hard"
+tags = ["game-modding", "glua", "gmod", "darkrp", "bug-fix", "composite"]
+source_repo = "https://github.com/FPtje/DarkRP"
+source_license = "MIT"
+base_commit = "5abcf7abab9e489b2d882a55d95f84c206d9d05c"
+reverted_fixes = ""
+gold_patch_origin = "hand-injected"
+
+# SUBSYSTEM COVERAGE. Disjoint from the other DarkRP tasks in this pack. Two subsystems:
+# base/sh_checkitems.lua, the schemas a definition is judged against, and base/sv_util.lua,
+# which applies an accepted definition's settings to a player.
+#   A  validateJob (model)      - the emptiness wrapper goes, so a job listing no models
+#                                 at all passes
+#   B  validateJob (description)- a required field becomes one more optional one
+#   C  validateCategory         - same, on whether a category starts open
+#   D  applyPlayerClassVars     - a walking speed of zero stops counting as a speed and
+#                                 falls through to the server default
+#   E  applyPlayerClassVars     - a player is started on the class's ceiling instead of
+#                                 the health it declares to begin on
+#   F  applyPlayerClassVars     - the two configured sprint speeds are read the wrong way
+#                                 round, so each side runs at the other's figure
+#   G  applyPlayerClassVars     - a declared health ceiling of zero stops counting as a
+#                                 ceiling and falls through to the server default
+#
+# VERIFIER COVERAGE. 7 reports / 7 defect groups / 7 assertions + 1 load sentinel +
+# 2 positive controls = 10 expected passes.
+#   #9101 A   #9104 B   #9107 C   #9110 D   #9113 E   #9116 F   #9119 G
+# The controls accept a well-formed job and refuse one whose name is not text. Both hold
+# on BOTH trees, so neither a checker that refuses everything nor one that accepts
+# everything can score.
+#
+# DESIGNED AGAINST EARLIER DRAFTS. Earlier drafts (police, map-state, persistence v1)
+# were built and thrown away rather than shipped. This task combines two properties:
+# defects must not be recognisable as defects from their SHAPE, and they must be spread
+# across subsystems. Defect COUNT is deliberately not a variable here.
+#
+# THIS TASK'S SECOND REVISION IS A CONTROLLED EXPERIMENT ON THAT LAST POINT. The first
+# revision shipped 5 groups over these same two subsystems. The persistence task changed
+# group count (6 -> 9) AND subsystem spread together, so it could not separate them.
+# Groups F and G here are added to the subsystem that already holds D and E, leaving the
+# spread untouched, so the difference between the two revisions of this task isolates
+# COUNT ACROSS AN ALREADY-SPREAD TASK.
+#
+# D AND E ARE KNOWLEDGE TRAPS OF THE SAME FAMILY: ZERO IS A VALUE, NOT AN ABSENCE.
+# `playerClass.WalkSpeed >= 0 and playerClass.WalkSpeed or Config.walkspeed` is the
+# idiom DarkRP uses to mean "use what the class declared, unless it declared nothing".
+# Tightening it to `> 0` reads as the more careful bound and is wrong only for a job
+# that deliberately declares zero. E is the sibling: StartHealth and MaxHealth are two
+# different numbers, and reading the ceiling where the starting value belongs is
+# invisible on any class that happens to set them equal -- which every default class does.
+# A, B and C are schema relaxations whose hint strings say nothing about the property
+# being removed, so no text beside them contradicts the code.
+#
+# VALIDATED PER DEFECT, not just base vs reference.
+#   base (all seven broken)   3 PASS /  7 FAIL  -- sentinel + both controls
+#   reference (all fixed)    10 PASS /  0 FAIL
+#   fix A..G, each alone:     4 PASS /  6 FAIL  -- sentinel + controls + that group only
+# Each single-fix tree flips exactly its own group: no defect masks another.
+#
+# A SIXTH DEFECT WAS BUILT AND REMOVED BECAUSE IT COULD NOT FAIL. It flipped the value
+# filled in for `allowPurchaseWhileDead` from false to true. The per-defect matrix showed
+# it passing on the base tree, and reading tablecheck explains why: `addHint` collects its
+# wrapped function's results with `local res = {f(...)}` and returns `unpack(res)`, so when
+# a field declares no hints the table has a hole, `#res` truncates, and the `replace` /
+# `replaceWith` values `tc.default` relies on are dropped before `checkTable` can act on
+# them. That default can therefore never apply, on any tree, and an assertion about it can
+# never fail. Base-versus-reference alone would have shipped it.
+#
+# THE SUITE MUST SCORE A WRONG ANSWER, NOT DIE ON IT. A sibling task turned an ordinary
+# Lua error raised inside an async callback into entrypoint_exit=124 with passed=0
+# failed=0 -- a run that never scored. Every case here is synchronous and needs no player
+# data, database or timer, which removes that failure mode by construction.
+# READ entrypoint_exit BEFORE READING reward.
+
+[verifier]
+network_mode = "no-network"
+timeout_sec = 1200.0
+
+[agent]
+# The agent harness runs INSIDE the container and calls the model API from there, so a
+# blanket no-network kills it before it does any work. Everything else it needs (uv,
+# mini-swe-agent, build tools) is baked into the image, so only model endpoints need to
+# be reachable. github.com and raw.githubusercontent.com are deliberately absent: DarkRP
+# is public and fetching the upstream tree is the leak this isolates against.
+# A Harbor job must pass the exact model endpoint hostname through
+# `agents[].extra_allowed_hosts`; do not edit the canonical task for each provider.
+network_mode = "allowlist"
+allowed_hosts = []
+timeout_sec = 5400.0
+
+[environment]
+network_mode = "no-network"
+build_timeout_sec = 2400.0
+cpus = 6
+memory_mb = 16384
+storage_mb = 20480
+gpus = 0
+mcp_servers = []

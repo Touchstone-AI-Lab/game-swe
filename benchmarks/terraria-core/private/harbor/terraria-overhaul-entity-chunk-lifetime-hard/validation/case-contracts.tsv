@@ -1,0 +1,79 @@
+case	group	prompt_clause	production_path
+component_handles_reserve_invalid_zero	component-mask-growth	Zero remains the reserved invalid handle	Core/Data/DataStorage.cs
+component_handles_are_stable_and_unique	component-mask-growth	Registered handles are nonzero stable and unique	Core/Data/DataStorage.cs
+entity_masks_survive_first_growth	component-mask-growth	Entity bits survive the 64-component boundary	Core/Data/DataStorage.cs
+entity_masks_survive_second_growth	component-mask-growth	Entity bits survive the 128-component boundary	Core/Data/DataStorage.cs
+include_query_survives_mask_growth	component-mask-growth	With filters retain meaning after growth	Core/Data/DataStorage.cs
+exclude_query_survives_mask_growth	component-mask-growth	Without filters retain meaning after growth	Core/Data/DataStorage.cs
+preallocation_registration_advances_mask_width	component-preallocation	Registration advances mask width before any entity allocation	Core/Data/DataStorage.cs
+preallocation_high_component_roundtrips	component-preallocation	A high preallocated component round-trips through a later entity	Core/Data/DataStorage.cs
+preallocation_include_query_survives_growth	component-preallocation	A preallocation include filter survives a later mask boundary	Core/Data/DataStorage.cs
+preallocation_exclude_query_survives_growth	component-preallocation	A preallocation exclude filter survives a later mask boundary	Core/Data/DataStorage.cs
+unique_component_name_resolves_stably	component-name-registry	A unique simple type name resolves repeatedly to its typed handle	Core/Data/DataStorage.cs
+ambiguous_component_name_is_rejected	component-name-registry	An ambiguous simple type name resolves to no usable handle	Core/Data/DataStorage.cs
+sparse_remove_first_preserves_second	sparse-removal	Removal preserves every other index/value mapping	Core/Data/SparseSet.cs
+sparse_remove_middle_preserves_neighbors	sparse-removal	Middle removal preserves both neighbors	Core/Data/SparseSet.cs
+sparse_remove_clears_membership	sparse-removal	Removal clears membership and returns the value	Core/Data/SparseSet.cs
+sparse_reinsert_reuses_dense_capacity	sparse-removal	Remove/insert cycles reuse dense capacity	Core/Data/SparseSet.cs
+sparse_overwrite_keeps_count	sparse-removal	Putting an existing index does not increase Count	Core/Data/SparseSet.cs
+default_entity_is_safely_invalid	entity-lifetime	Default and out-of-range handles are safely invalid	Core/Data/DataStorage.cs
+out_of_range_entity_is_safely_invalid	entity-lifetime	Out-of-range handles are safely invalid	Core/Data/DataStorage.cs
+destroy_clears_owned_components	entity-lifetime	Destroy clears all owned components first	Core/Data/DataStorage.cs;Core/Data/SparseSet.cs
+destroy_is_idempotent	entity-lifetime	Destroying a stale entity is a no-op	Core/Data/DataStorage.cs
+stale_entity_has_no_components	entity-lifetime	Stale handles report no membership	Core/Data/DataStorage.cs
+stale_entity_cannot_add	entity-lifetime	Stale handles cannot add components	Core/Data/DataStorage.cs
+stale_entity_cannot_get	entity-lifetime	Stale handles cannot get old components	Core/Data/DataStorage.cs
+remove_missing_component_is_noop	component-operations	Removing an absent component from a live entity is a no-op	Core/Data/DataStorage.cs;Core/Data/SparseSet.cs
+get_missing_component_is_rejected	component-operations	Getting a missing component rejects with InvalidOperationException	Core/Data/DataStorage.cs
+clear_removes_components_but_preserves_entity	component-operations	Clear removes component and query membership but preserves entity lifetime	Core/Data/DataStorage.cs;Core/Data/SparseSet.cs
+stale_entity_cannot_clear	component-operations	Clearing a stale entity rejects with InvalidOperationException	Core/Data/DataStorage.cs
+invalid_component_handle_is_rejected	component-operations	Component.Invalid rejects with ArgumentException without entity damage	Core/Data/DataStorage.cs
+destroyed_slot_is_reused_before_growth	generational-slot-reuse	Released entity slots are consumed before extending the index domain	Core/Data/DataStorage.cs
+reused_slot_advances_generation	generational-slot-reuse	A replacement uses a new nonzero generation and cannot revive stale handles	Core/Data/DataStorage.cs
+generation_wrap_retires_exhausted_slot	generational-slot-reuse	Generation exhaustion retires the slot instead of aliasing an older handle	Core/Data/DataStorage.cs
+reused_slot_has_no_component_or_query_leak	generational-slot-reuse	Reused slots inherit no sparse values mask bits or query membership	Core/Data/DataStorage.cs;Core/Data/SparseSet.cs
+multiple_released_slots_precede_high_water_growth	generational-slot-reuse	Every released slot is consumed before EntityCount advances	Core/Data/DataStorage.cs
+repeated_destroy_publishes_slot_once	generational-slot-reuse	Idempotent destruction publishes a reusable slot exactly once	Core/Data/DataStorage.cs
+clear_does_not_release_live_slot	generational-slot-reuse	Clear removes components without releasing the live entity index	Core/Data/DataStorage.cs
+reused_entity_joins_existing_query	generational-slot-reuse	A replacement generation participates normally in preexisting queries	Core/Data/DataStorage.cs
+entity_churn_keeps_high_water_stable	generational-slot-reuse	Historical create-destroy churn does not grow the entity index domain	Core/Data/DataStorage.cs
+chunk_recreation_reuses_slot_with_fresh_state	generational-slot-reuse	Normal chunk recreation may reuse an index only with a fresh generation and ChunkInfo	Core/Chunks/Chunks.cs;Core/Data/DataStorage.cs
+idle_observer_defers_old_slot_reuse	generational-slot-reuse	An observer cannot reuse an old chunk slot until its destruction event finishes	Core/Chunks/Chunks.cs;Core/Data/DataStorage.cs
+query_includes_only_matching_entities	query-iteration	Queries honor every include mask	Core/Data/DataStorage.cs
+query_without_excludes_matching_entities	query-iteration	Queries honor every exclude mask	Core/Data/DataStorage.cs
+query_skips_destroyed_entities	query-iteration	Queries skip destroyed entities	Core/Data/DataStorage.cs
+query_crosses_empty_presence_word	query-iteration	Iteration continues across empty presence words	Core/Data/DataStorage.cs;Utilities/BitMasks.cs
+query_yields_each_entity_once	query-iteration	Each live match is yielded exactly once	Core/Data/DataStorage.cs;Utilities/BitMasks.cs
+destroyed_generation_without_presence_is_invalid	query-snapshot	A matching generation without presence is still invalid	Core/Data/DataStorage.cs
+active_query_survives_component_growth	query-snapshot	An active iterator keeps safe filter masks across component growth	Core/Data/DataStorage.cs
+active_query_freezes_filters	query-snapshot	Filter changes affect later enumerators but not an active pass	Core/Data/DataStorage.cs
+active_query_omits_later_entity	query-snapshot	An active pass omits entities created after GetEnumerator	Core/Data/DataStorage.cs
+active_query_omits_reused_generation	query-snapshot	An active pass never substitutes a reused slot generation	Core/Data/DataStorage.cs
+empty_query_skips_destroyed_cached_candidate	query-snapshot	A captured candidate destroyed before visitation is skipped	Core/Data/DataStorage.cs
+negative_world_coordinates_floor	chunk-coordinates	World conversion uses floor semantics	Core/Chunks/Chunks.cs
+negative_tile_coordinates_floor	chunk-coordinates	Tile conversion uses floor semantics	Core/Chunks/Chunks.cs
+chunk_creation_rejects_world_bounds	chunk-coordinates	Creation rejects negative and past-world coordinates	Core/Chunks/Chunks.cs
+chunk_creation_is_canonical	chunk-coordinates	Repeated coordinates return one canonical chunk	Core/Chunks/Chunks.cs
+chunk_keepalive_refreshes_tick	chunk-coordinates	Creation and KeepAlive record the current tick	Core/Chunks/Chunks.cs
+world_creation_maps_positive_x_once	chunk-entrypoints	World X creation converts to tile and chunk coordinates once	Core/Chunks/Chunks.cs
+world_creation_maps_positive_y_once	chunk-entrypoints	World Y creation converts to tile and chunk coordinates once	Core/Chunks/Chunks.cs
+world_tile_chunk_entrypoints_are_canonical	chunk-entrypoints	World tile and chunk creation converge on one canonical entity	Core/Chunks/Chunks.cs
+creation_observer_failure_is_isolated	chunk-creation-transaction	Creation subscriber failure is isolated from later subscribers	Core/Chunks/Chunks.cs
+creation_observer_unload_invalidates_result	chunk-creation-transaction	Observer unload makes the pending creation return false	Core/Chunks/Chunks.cs;Core/Data/DataStorage.cs
+creation_observer_destroy_invalidates_result	chunk-creation-transaction	Observer destruction cannot publish a stale successful output	Core/Chunks/Chunks.cs;Core/Data/DataStorage.cs
+stale_canonical_mapping_is_rebuilt	chunk-creation-transaction	Stale mappings are pruned so a fresh canonical generation can be built	Core/Chunks/Chunks.cs;Core/Data/DataStorage.cs
+idle_cleanup_destroys_expired_chunk	idle-cleanup	Expired valueless chunks are destroyed	Core/Chunks/Chunks.cs;Core/Data/DataStorage.cs
+idle_cleanup_preserves_valuable_chunk	idle-cleanup	Valuable chunks survive idle cleanup	Core/Chunks/Chunks.cs
+idle_cleanup_preserves_recent_chunk	idle-cleanup	Recent chunks survive idle cleanup	Core/Chunks/Chunks.cs
+idle_cleanup_handles_tick_wrap	idle-cleanup	Unsigned elapsed time works across counter wrap	Core/Chunks/Chunks.cs
+unload_destroys_every_chunk_once	chunk-teardown	Unload destroys and notifies every chunk exactly once	Core/Chunks/Chunks.cs;Core/Data/DataStorage.cs
+destroy_event_observes_removed_mapping	chunk-teardown	Dictionary removal precedes destruction notification	Core/Chunks/Chunks.cs
+idle_observer_failure_does_not_strand_entities	chunk-teardown	Isolate subscribers and finish all idle entity destruction	Core/Chunks/Chunks.cs
+unload_observer_failure_finishes_all_chunks	chunk-teardown	Observer exception cannot abort world teardown	Core/Chunks/Chunks.cs
+unload_reentrant_creation_is_rejected	chunk-teardown	World unload rejects reentrant chunk creation until reload	Core/Chunks/Chunks.cs
+idle_reentrant_replacement_survives_old_teardown	chunk-teardown	Idle observer may create a distinct canonical replacement	Core/Chunks/Chunks.cs
+visible_iteration_uses_screen_y_for_bottom	chunk-iteration	Visible view bottom uses screenPosition.Y plus screenHeight	Core/Chunks/Chunks.cs
+creation_event_observes_initialized_canonical_chunk	chunk-iteration	Creation notification follows canonical insertion metadata and keep-alive	Core/Chunks/Chunks.cs;Core/Data/DataStorage.cs
+edge_chunk_rectangles_are_clamped_to_world	chunk-iteration	Partial edge chunk rectangles stop at the world bounds	Core/Chunks/Chunks.cs
+all_chunk_iteration_ignores_later_creation	chunk-enumeration	A captured all-chunk pass omits later creations	Core/Chunks/Chunks.cs
+all_chunk_iteration_survives_unload	chunk-enumeration	Unload does not mutate an already captured all-chunk pass	Core/Chunks/Chunks.cs

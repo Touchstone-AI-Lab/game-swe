@@ -1,0 +1,10 @@
+--- a/lua/rhenium_prop_alignment/server.lua
++++ b/lua/rhenium_prop_alignment/server.lua
+@@ -42,6 +42,6 @@
+  progress[p]=nil;p.RheniumAlignmentEntity=nil;data.created=made;return true,"executed",data
+ end
+ function Server.Save()return core and core:save()end
+-function Server.Shutdown()if installed then hook.Remove("CanTool",Server.HookPrefix..".CanTool");hook.Remove("PlayerDisconnected",Server.HookPrefix..".Disconnect");hook.Remove("EntityRemoved",Server.HookPrefix..".Removed");timer.Remove(Server.TimerName);installed=false end;if core then core:shutdown()end;players={};entities={};progress={};request_serial=0;return true,"shutdown"end
++function Server.Shutdown()if installed then hook.Remove("CanTool",Server.HookPrefix..".CanTool");hook.Remove("PlayerDisconnected",Server.HookPrefix..".Disconnect");hook.Remove("EntityRemoved",Server.HookPrefix..".Removed");installed=false end;if core then core:shutdown()end;players={};entities={};progress={};request_serial=0;return true,"shutdown"end
+ _G.RheniumPropAlignmentServer=Server
+ return Server

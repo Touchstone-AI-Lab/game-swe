@@ -1,0 +1,170 @@
+{
+  "task": "palworld/core/damage-attribution-arbiter",
+  "task_version": "1.2.0",
+  "exam": "benchmarks/palworld/exams/damage-attribution-arbiter.md",
+  "cases": [
+    {
+      "id": "check:required-files",
+      "role": "static"
+    },
+    {
+      "id": "check:lua-syntax",
+      "role": "static"
+    },
+    {
+      "id": "hidden:malformed reports are rejected before any state change",
+      "role": "target",
+      "clauses": [
+        "request"
+      ]
+    },
+    {
+      "id": "hidden:duplicate and replayed sequences never inflate a total",
+      "role": "target",
+      "clauses": [
+        "request"
+      ]
+    },
+    {
+      "id": "hidden:totals are identical for every arrival permutation",
+      "role": "target",
+      "clauses": [
+        "request"
+      ]
+    },
+    {
+      "id": "hidden:claims are single-owner and expire without an explicit release",
+      "role": "target",
+      "clauses": [
+        "request"
+      ]
+    },
+    {
+      "id": "hidden:resolution is deterministic and final",
+      "role": "target",
+      "clauses": [
+        "request"
+      ]
+    },
+    {
+      "id": "hidden:snapshots are fresh, ordered and free of private structures",
+      "role": "target",
+      "clauses": [
+        "request"
+      ]
+    },
+    {
+      "id": "hidden:save and load round-trip sequences, claims and resolutions",
+      "role": "target",
+      "clauses": [
+        "request"
+      ]
+    },
+    {
+      "id": "check:implementation-depth",
+      "role": "static"
+    },
+    {
+      "id": "check:arbiter-authority",
+      "role": "target",
+      "clauses": [
+        "integration:arbiter-authority"
+      ],
+      "note": "regular-expression gate over the submitted source, not an execution"
+    },
+    {
+      "id": "check:arbiter-observation",
+      "role": "target",
+      "clauses": [
+        "integration:arbiter-observation"
+      ],
+      "note": "regular-expression gate over the submitted source, not an execution"
+    },
+    {
+      "id": "check:arbiter-ordering",
+      "role": "target",
+      "clauses": [
+        "integration:arbiter-ordering"
+      ],
+      "note": "regular-expression gate over the submitted source, not an execution"
+    },
+    {
+      "id": "check:arbiter-lifecycle",
+      "role": "target",
+      "clauses": [
+        "integration:arbiter-lifecycle"
+      ],
+      "note": "regular-expression gate over the submitted source, not an execution"
+    },
+    {
+      "id": "check:arbiter-manifest",
+      "role": "target",
+      "clauses": [
+        "integration:arbiter-manifest"
+      ],
+      "note": "regular-expression gate over the submitted source, not an execution"
+    },
+    {
+      "id": "server:dedicated server context is available",
+      "role": "target",
+      "clauses": [
+        "request"
+      ]
+    },
+    {
+      "id": "server:damage arbiter service is published",
+      "role": "target",
+      "clauses": [
+        "request"
+      ]
+    },
+    {
+      "id": "server:out-of-order reports resolve deterministically on the server",
+      "role": "target",
+      "clauses": [
+        "request"
+      ]
+    },
+    {
+      "id": "server:arbiter state reloads",
+      "role": "target",
+      "clauses": [
+        "request"
+      ]
+    }
+  ],
+  "clauses": [
+    {
+      "id": "request",
+      "anchor": "exam body; split into individual clauses during review",
+      "status": "asserted"
+    },
+    {
+      "id": "integration:arbiter-authority",
+      "anchor": "host-integration section; source-pattern gate arbiter-authority",
+      "status": "weak"
+    },
+    {
+      "id": "integration:arbiter-observation",
+      "anchor": "host-integration section; source-pattern gate arbiter-observation",
+      "status": "weak"
+    },
+    {
+      "id": "integration:arbiter-ordering",
+      "anchor": "host-integration section; source-pattern gate arbiter-ordering",
+      "status": "weak"
+    },
+    {
+      "id": "integration:arbiter-lifecycle",
+      "anchor": "host-integration section; source-pattern gate arbiter-lifecycle",
+      "status": "weak"
+    },
+    {
+      "id": "integration:arbiter-manifest",
+      "anchor": "host-integration section; source-pattern gate arbiter-manifest",
+      "status": "weak"
+    }
+  ],
+  "excluded_clauses": [],
+  "known_issues": []
+}

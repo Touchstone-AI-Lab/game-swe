@@ -1,0 +1,10 @@
+--- a/scripts/components/tradeescrow.lua
++++ b/scripts/components/tradeescrow.lua
+@@ -340,7 +340,6 @@
+         self.on_player_left = nil
+     end
+     if self.expiry_task ~= nil then
+-        self.expiry_task:Cancel()
+         self.expiry_task = nil
+     end
+     self.players = {}

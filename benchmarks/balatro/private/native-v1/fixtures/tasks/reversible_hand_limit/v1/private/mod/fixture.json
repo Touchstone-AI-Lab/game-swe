@@ -1,0 +1,17 @@
+{
+  "id": "poc_handlimit_fixture",
+  "name": "Hand limit fixture v1",
+  "author": [
+    "Balatro PoC"
+  ],
+  "description": "Declared one-time starting scene and read-only observer",
+  "prefix": "hlfixture",
+  "main_file": "fixture.lua",
+  "version": "1.0.0",
+  "priority": 100006,
+  "dependencies": [
+    "Steamodded (>=1.~)",
+    "balatrobot",
+    "reversible_hand_limit"
+  ]
+}

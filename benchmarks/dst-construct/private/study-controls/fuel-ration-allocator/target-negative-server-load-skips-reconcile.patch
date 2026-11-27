@@ -1,0 +1,16 @@
+--- a/scripts/components/fuelration.lua
++++ b/scripts/components/fuelration.lua
+@@ -248,11 +248,8 @@
+         end
+     end
+     for consumer_id, record in pairs(self.tracked) do
+-        if usable(record.entity) then
+-            local capacity, level = measure(record.entity.components.fueled)
+-            if not known[consumer_id] then
+-                self.allocator:register(consumer_id, record.priority, capacity, now)
+-            end
++        if usable(record.entity) and known[consumer_id] then
++            local _, level = measure(record.entity.components.fueled)
+             self.allocator:report(consumer_id, level, now)
+         end
+     end

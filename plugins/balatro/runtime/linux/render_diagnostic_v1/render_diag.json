@@ -1,0 +1,1 @@
+{"id":"poc_render_diag_v1","name":"Read-only render diagnostic","author":["Balatro PoC"],"description":"Bounded read-only renderer observations","prefix":"pocrd1","main_file":"diagnostic.lua","priority":100010,"version":"1.0.0","dependencies":["Steamodded (>=1.~)","balatrobot","poc_control"]}

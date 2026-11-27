@@ -1,0 +1,198 @@
+--- a/main.lua
++++ b/main.lua
+@@ -741,6 +741,16 @@
+     if player:HasCollectible(ItemId.RITUAL_CANDLE) then
+         ItemVariables.RITUAL_CANDLE.LitCandles = 0
+         
++        -- The aura pulses once per rounded-up third of the tear delay, and never less often than it can be counted.
++        local pulseInterval = math.max(1, math.ceil(player.MaxFireDelay / 3))
++        local frame = game:GetFrameCount()
++        local lastPulse = ItemVariables.RITUAL_CANDLE.LastPulseFrame
++        local auraPulse = lastPulse == nil or frame < lastPulse or frame - lastPulse >= pulseInterval
++        
++        if auraPulse then
++            ItemVariables.RITUAL_CANDLE.LastPulseFrame = frame
++        end
++        
+         for i, entity in pairs(Isaac.GetRoomEntities()) do 
+             local data = entity:GetData()
+             local sprite = entity:GetSprite()
+@@ -755,7 +765,7 @@
+                 range = 150
+             end
+             
+-            if ItemVariables.RITUAL_CANDLE.HasBonus and entity.Position:Distance(player.Position) <= range and entity:IsVulnerableEnemy() and entity:IsActiveEnemy() and game:GetFrameCount() % math.floor(player.MaxFireDelay / 3) == 0 then
++            if ItemVariables.RITUAL_CANDLE.HasBonus and entity.Position:Distance(player.Position) <= range and entity:IsVulnerableEnemy() and entity:IsActiveEnemy() and auraPulse then
+                 entity:TakeDamage((player.Damage / 4) * (player:GetCollectibleNum(CollectibleType.COLLECTIBLE_BFFS) + 1), 0, EntityRef(player), 0)
+             end
+             
+@@ -899,6 +909,31 @@
+ 
+ Exodus:AddCallback(ModCallbacks.MC_POST_RENDER, Exodus.ritualCandleRender)
+ 
++--<<<FAMILIAR OWNERSHIP>>>--
++local FamiliarOwners = {
++    [Entities.CANDLE.variant] = ItemId.RITUAL_CANDLE,
++    [Entities.SUN.variant] = ItemId.SUNDIAL,
++    [Entities.SHADOW.variant] = ItemId.SUNDIAL,
++    [Entities.ASTRO_BABY.variant] = ItemId.ASTRO_BABY,
++    [Entities.LIL_RUNE.variant] = ItemId.LIL_RUNE
++}
++
++function Exodus:familiarOwnershipUpdate()
++    local player = Isaac.GetPlayer(0)
++    
++    for i, entity in pairs(Isaac.GetRoomEntities()) do
++        if entity.Type == EntityType.ENTITY_FAMILIAR then
++            local owner = FamiliarOwners[entity.Variant]
++            
++            if owner ~= nil and not player:HasCollectible(owner) then
++                entity:Remove()
++            end
++        end
++    end
++end
++
++Exodus:AddCallback(ModCallbacks.MC_POST_UPDATE, Exodus.familiarOwnershipUpdate)
++
+ --<<<SCARED HEART>>>--
+ function Exodus:newScaredHeartLogic()
+     local player = Isaac.GetPlayer(0)
+@@ -1220,37 +1255,35 @@
+         end
+     end
+ 
+-    local entities = Isaac.GetRoomEntities()
+-
+-    for i, gas in pairs(entities) do
+-        if gas.Type == Entities.IRON_LUNG_GAS.id and gas.Variant == Entities.IRON_LUNG_GAS.variant then
+-            local gasSprite = gas:GetSprite()
+-
+-            if gasSprite:IsFinished("Appear") then
+-                gasSprite:Play("Pyroclastic Flow", false)
+-            end
++end
+ 
+-            if gasSprite:IsFinished("Pyroclastic Flow") then
+-                gasSprite:Play("Fade", false)
+-            end
++Exodus:AddCallback(ModCallbacks.MC_NPC_UPDATE, Exodus.ironLungEntityUpdate, Entities.IRON_LUNG.id)
+ 
+-            for v, tear in pairs(entities) do
+-                if tear:ToTear() then
+-                    if tear.Position:Distance(gas.Position) < gas.Size + tear.Size then
+-                        tear.Velocity = tear.Velocity * 0.8
+-                    end
+-                end
+-            end
++function Exodus:ironLungGasUpdate(gas)
++    if gas.Type ~= Entities.IRON_LUNG_GAS.id then
++        return
++    end
+ 
+-            if gasSprite:IsFinished("Fade") then
+-                gas:Remove()
+-                gas.Visible = false
+-            end
++    local gasSprite = gas:GetSprite()
++    
++    if gasSprite:IsFinished("Appear") then
++        gasSprite:Play("Pyroclastic Flow", false)
++    elseif gasSprite:IsFinished("Pyroclastic Flow") then
++        gasSprite:Play("Fade", false)
++    elseif gasSprite:IsFinished("Fade") then
++        gas.Visible = false
++        gas:Remove()
++        return
++    end
++    
++    for i, tear in pairs(Isaac.GetRoomEntities()) do
++        if tear:ToTear() and tear.Position:Distance(gas.Position) < gas.Size + tear.Size then
++            tear.Velocity = tear.Velocity * 0.8
+         end
+     end
+ end
+ 
+-Exodus:AddCallback(ModCallbacks.MC_NPC_UPDATE, Exodus.ironLungEntityUpdate, Entities.IRON_LUNG.id)
++Exodus:AddCallback(ModCallbacks.MC_POST_EFFECT_UPDATE, Exodus.ironLungGasUpdate, Entities.IRON_LUNG_GAS.variant)
+ 
+ ---<<FLYERBALL>>---
+ function Exodus:flyerballFires()
+@@ -2500,17 +2533,27 @@
+ Exodus:AddCallback(ModCallbacks.MC_USE_ITEM, Exodus.ominousLanternUse, ItemId.OMINOUS_LANTERN)
+ 
+ --<<<BASEBALL MITT>>>--
+-function Exodus:baseballMittUpdate()
+-    local player = Isaac.GetPlayer(0)
+-    
++function Exodus:baseballImpactUpdate()
++    -- Baseballs are only released when the stance ends, so their impact cannot depend on the stance.
+     for i, entity in pairs(Isaac.GetRoomEntities()) do
+-        if entity.Type == EntityType.ENTITY_TEAR and entity.Variant == Entities.BASEBALL.variant and entity:IsDead()
+-            and ItemVariables.BASEBALL_MITT.Used and player:HasCollectible(ItemId.BASEBALL_MITT) then
+-            local hit = Isaac.Spawn(Entities.BASEBALL_HIT.id, Entities.BASEBALL_HIT.variant, 0, entity.Position, NullVector, nil)
+-            hit:ToEffect():SetTimeout(20)
+-            hit.SpriteRotation = rng:RandomInt(360)
++        if entity.Type == EntityType.ENTITY_TEAR and entity.Variant == Entities.BASEBALL.variant and entity:IsDead() then
++            local data = entity:GetData()
++            
++            if not data.BaseballHitSpawned then
++                data.BaseballHitSpawned = true
++                
++                local hit = Isaac.Spawn(Entities.BASEBALL_HIT.id, Entities.BASEBALL_HIT.variant, 0, entity.Position, NullVector, nil)
++                hit:ToEffect():SetTimeout(20)
++                hit.SpriteRotation = rng:RandomInt(360)
++            end
+         end
+     end
++end
++
++Exodus:AddCallback(ModCallbacks.MC_POST_UPDATE, Exodus.baseballImpactUpdate)
++
++function Exodus:baseballMittUpdate()
++    local player = Isaac.GetPlayer(0)
+     
+     if ItemVariables.BASEBALL_MITT.Used and player:HasCollectible(ItemId.BASEBALL_MITT) then
+         player:AddEntityFlags(EntityFlag.FLAG_NO_PHYSICS_KNOCKBACK)
+@@ -6583,23 +6626,30 @@
+             entity.State = 0
+         end
+     end
++end
+ 
+-    if EntityVariables.HEADCASE.DoLobbed then
+-        for i, lobbed in pairs(Isaac.GetRoomEntities()) do
+-            if lobbed.Type == EntityType.ENTITY_TEAR and lobbed:GetData().IsExodusLobbed == true then
+-                if lobbed.Position:DistanceSquared(player.Position) < 18^2 and lobbed:ToTear().Height < 5 then
+-                    lobbed:Die()
+-                    player:TakeDamage(1, 0, EntityRef(lobbed), 0)
+-                end
+-                if lobbed:ToTear().Height < 1 then
+-                    EntityVariables.HEADCASE.DoLobbed = false
+-                end
++Exodus:AddCallback(ModCallbacks.MC_NPC_UPDATE, Exodus.headcaseEntityUpdate, Entities.HEADCASE.id)
++
++function Exodus:headcaseLobUpdate()
++    -- A lob in flight is resolved on its own; whether the Headcase that threw it still exists does not matter.
++    local player = Isaac.GetPlayer(0)
++    local airborne = false
++    
++    for i, lobbed in pairs(Isaac.GetRoomEntities()) do
++        if lobbed.Type == EntityType.ENTITY_TEAR and lobbed:GetData().IsExodusLobbed == true and not lobbed:IsDead() then
++            airborne = true
++            
++            if lobbed.Position:DistanceSquared(player.Position) < 18^2 and lobbed:ToTear().Height < 5 then
++                lobbed:Die()
++                player:TakeDamage(1, 0, EntityRef(lobbed), 0)
+             end
+         end
+     end
++    
++    EntityVariables.HEADCASE.DoLobbed = airborne
+ end
+ 
+-Exodus:AddCallback(ModCallbacks.MC_NPC_UPDATE, Exodus.headcaseEntityUpdate, Entities.HEADCASE.id)
++Exodus:AddCallback(ModCallbacks.MC_POST_UPDATE, Exodus.headcaseLobUpdate)
+ 
+ --<<<HOLLOWHEAD>>>--
+ function Exodus:hollowheadEntityUpdate(entity)

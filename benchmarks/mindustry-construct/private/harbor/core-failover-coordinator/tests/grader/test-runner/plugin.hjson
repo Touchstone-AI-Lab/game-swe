@@ -1,0 +1,6 @@
+name: "core-failover-coordinator-tests"
+displayName: "Core Failover Coordinator Tests"
+main: "ContractTestRunner"
+version: "1.0.0"
+minGameVersion: 159
+dependencies: [core-continuity-manager]

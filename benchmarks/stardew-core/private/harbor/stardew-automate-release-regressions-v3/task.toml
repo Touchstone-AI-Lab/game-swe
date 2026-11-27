@@ -1,0 +1,70 @@
+schema_version = "1.1"
+
+[task]
+name = "gamecodebench/stardew-automate-release-regressions-v3"
+description = "Four defect groups in one Automate tree, every one at missing-edge-case-branch difficulty or above: a zero-size output wedge, an initial-scan publishing gap, a stale-reference crash after a world mutation, and a self-consistent location-key mutation pair."
+authors = ["Jiaxuan Luo"]
+keywords = ["stardew-valley", "smapi", "csharp", "game-modding", "composite", "symptom-only"]
+
+[metadata]
+category = "programming"
+difficulty = "hard"
+tags = ["game-modding", "smapi", "stardew-valley", "csharp", "bug-fix", "composite"]
+source_repo = "https://github.com/Pathoschild/StardewMods"
+source_license = "MIT"
+source_mod = "Automate"
+base_ref = "automate/2.6.1 with upstream fixes 19b32715, f1a3b840, 001e64aa reverted"
+fix_commit = "19b32715+f1a3b840+001e64aa + engineered location-key pair; 001e64aa is reported but unasserted"
+task_kind = "composite-symptom-only"
+game_version = "1.6.15"
+smapi_version = "4.1.10"
+
+# Composite construction, mirroring darkrp-release-regressions: the base tree is
+# the latest release with a batch of real upstream fixes reverted; the reference
+# solution restores them. Each defect group is independently observable in-game
+# and its symptom report describes user-visible behavior only.
+
+[verifier]
+network_mode = "no-network"
+timeout_sec = 2400.0
+
+[agent]
+# mini-swe-agent runs INSIDE the container and calls the model API from there, so a
+# blanket no-network kills it before it does any work. Everything else it needs is
+# baked into the image; github.com / nuget.org are deliberately NOT listed because
+# the reference fixes are upstream commits.
+network_mode = "allowlist"
+allowed_hosts = ["api.anthropic.com"]
+timeout_sec = 7200.0
+
+[environment]
+network_mode = "no-network"
+build_timeout_sec = 3600.0
+cpus = 6
+memory_mb = 16384
+storage_mb = 30720
+gpus = 0
+mcp_servers = []
+
+# Same isolation and responsible-release posture as the rest of the Stardew suite:
+# game files staged locally from the operator's own copy, never committed; images
+# stay private; pretraining contamination is not addressed by isolation.
+
+# V3 DESIGN — raise the per-group difficulty floor, do not add more groups.
+# Identifier-level defects (a missing "216", a wrong config field) grep straight to
+# the defect site and are therefore excluded here. All four groups are
+# edge-case-branch class or above:
+#   G1 19b32715  zero-size output wedges the machine forever
+#   G2 f1a3b840  API publishes nothing from the initial save-load scan
+#   G3 001e64aa  no null-Location guard on a removed bush — REVERTED AND REPORTED
+#                (#246) BUT UNASSERTED: the setup could not be made to automate a
+#                bush-adjacent furnace on either tree, so the group did not
+#                discriminate (base and oracle both failed those two cases). Kept as
+#                haystack rather than shipped as a broken discriminator; the gold
+#                patch still restores the guard.
+#   G4 engineered SSHOM: GetLocationKey drops the unique name AND
+#      GameLocationNameComparer compares bare Name. Self-consistent, so single
+#      instances of every location work and the tree looks healthy; only duplicate
+#      building interiors collide. Four-tree validated on v2: base fails, reference
+#      passes, and BOTH half-fixes fail (reward 0 each).
+# The instruction never states the defect count; #248 and #249 share one root cause.

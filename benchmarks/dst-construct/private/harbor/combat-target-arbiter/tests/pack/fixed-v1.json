@@ -1,0 +1,229 @@
+{
+  "id": "rhenium-dst-v2",
+  "version": "2.1.0",
+  "game": "dst",
+  "name": {
+    "en": "Rhenium: Original Don't Starve Together Systems Tasks",
+    "zh": "Rhenium：《饥荒联机版》原创系统工程题"
+  },
+  "description": {
+    "en": "Ten independently authored hard engineering tasks built only around base-game Don't Starve Together APIs, prefabs, components, and assets.",
+    "zh": "十道独立设计的高难度工程题，仅使用《饥荒联机版》原版 API、prefab、组件与资源。"
+  },
+  "tasks": [
+    {
+      "id": "combat-target-arbiter",
+      "difficulty": "hard",
+      "title": {
+        "en": "Deterministic Combat Target Arbiter",
+        "zh": "确定性战斗目标仲裁器"
+      },
+      "summary": {
+        "en": "Choose combat targets from ordered threat events with decay, taunt leases, invalidation, deterministic ties, and reload-safe state.",
+        "zh": "根据有序威胁事件、衰减、嘲讽租约、目标失效、确定性平局和可重载状态选择战斗目标。"
+      },
+      "brief": {
+        "en": "Implement a pure threat arbiter and a master-simulation component. Damage events carry per-source monotonic sequence numbers. Threat decays from event time, taunt leases temporarily override normal ranking, invalid or dead targets disappear immediately, and stable target IDs break ties. Integrate attacked/death/onremove events and the base-game health and combat components.",
+        "zh": "实现纯威胁仲裁器和主模拟组件。伤害事件携带按攻击源单调递增的序号；威胁从事件时间开始衰减，嘲讽租约暂时覆盖普通排名，非法或死亡目标立即移除，并用稳定目标 ID 处理平局。接入 attacked/death/onremove 事件及原版 health、combat 组件。"
+      },
+      "requirements": {
+        "en": [
+          "Export Arbiter.new(options), Arbiter.load(data, options, now), observe(entity, now), add_threat(source_id, target_id, amount, seq, now), taunt(request_id, source_id, target_id, duration, now), remove(target_id, now), choose(source_id, now), tick(now), snapshot(now), and save(now).",
+          "Validate identifiers, finite non-negative time, positive finite threat, strictly increasing integer sequence per source/target stream, and known live entities.",
+          "Each source/target entry decays linearly on its own from its last accepted threat event: max(0, value - decay_per_second * (now - updated_at)); a new event first decays that entry to the event time, then adds the amount. Remove zero-threat rows without depending on tick frequency.",
+          "Choose highest current threat, then oldest first-seen time, then lexical target ID; return fresh values.",
+          "A valid taunt lease overrides ranking until its exact expiry boundary; duplicate request IDs are stable and stale leases cannot revive removed targets.",
+          "Removing or marking an entity dead clears its threat and taunt participation immediately while preserving sequence anti-replay state.",
+          "Save/load at a supplied now value preserves effective threat, leases, first-seen ordering, request history, and anti-replay state.",
+          "The server component derives attacker/target identity, listens and unsubscribes from attacked/death/onremove, periodically reconciles targets, validates health/combat, and calls combat:SetTarget only on the master simulation."
+        ],
+        "zh": [
+          "导出 Arbiter.new/options、load、observe、add_threat、taunt、remove、choose、tick、snapshot 与 save。",
+          "校验标识、有限非负时间、正有限威胁、按源/目标流严格递增的整数序号以及已知存活实体。",
+          "每个 source/target 条目从其最近一次被接受的威胁事件起独立线性衰减：max(0, value - decay_per_second * (now - updated_at))；新事件先把该条目衰减到事件时刻再累加；以与 tick 频率无关的方式移除零威胁项。",
+          "按当前最高威胁、最早首次出现时间、目标 ID 字典序选择，并返回新值。",
+          "有效嘲讽租约在精确到期边界前覆盖排名；重复 request ID 稳定，旧租约不能复活已移除目标。",
+          "移除或死亡会立即清除威胁与嘲讽参与，同时保留序号防重放状态。",
+          "按给定 now 保存加载时保留有效威胁、租约、首次出现顺序、请求历史和防重放状态。",
+          "服务端推导攻击者/目标身份，监听并注销 attacked/death/onremove，周期性协调目标，验证 health/combat，并仅在主模拟调用 combat:SetTarget。"
+        ]
+      },
+      "api_usage": {
+        "en": [
+          "The attacked callback receives data.attacker, data.damage, data.weapon, and data.stimuli; attacker may be nil.",
+          "Validate target.components.health and not health:IsDead() before source.components.combat:SetTarget(target), then inspect combat.target because SetTarget performs base-game validation.",
+          "Listen for attacked/death/onremove with saved callbacks and remove each callback using the same function object.",
+          "DoPeriodicTask(period, fn, initialdelay) returns a task that must be canceled during component removal.",
+          "The server component exposes Track(entity, stable_id), ObserveDamage(source, target, amount, seq), Taunt, Reconcile(source), and OnSave/OnLoad."
+        ],
+        "zh": [
+          "attacked callback 的 data 含 attacker、damage、weapon、stimuli；attacker 可能为 nil。",
+          "调用 source.components.combat:SetTarget(target) 前检查 target.components.health 且未死亡；调用后核对 combat.target，因为原版仍会校验目标。",
+          "保存 attacked/death/onremove 的 callback，并以相同函数对象逐一注销。",
+          "DoPeriodicTask(period, fn, initialdelay) 返回 task，组件移除时必须取消。",
+          "服务端组件公开 Track(entity, stable_id)、ObserveDamage(source, target, amount, seq)、Taunt、Reconcile(source) 和 OnSave/OnLoad。"
+        ]
+      },
+      "acceptance": {
+        "en": [
+          "Duplicate and out-of-order damage is ignored.",
+          "Decay and tie-breaking are independent of table iteration and tick frequency.",
+          "Taunts expire at the exact boundary.",
+          "Death/removal cannot be undone by delayed events.",
+          "The dedicated server verifies real combat events, SetTarget, expiry, cleanup, and reload."
+        ],
+        "zh": [
+          "重复与乱序伤害被忽略。",
+          "衰减和平局不依赖表遍历或 tick 频率。",
+          "嘲讽在精确边界到期。",
+          "死亡/移除不能被延迟事件撤销。",
+          "专服验证真实战斗事件、SetTarget、过期、清理与重载。"
+        ]
+      },
+      "domains": [
+        "combat",
+        "event-ordering",
+        "leases",
+        "determinism"
+      ],
+      "estimated_minutes": 390,
+      "core_module": "scripts/combatarbiter/arbiter.lua",
+      "hidden_test": "hidden/combat-target-arbiter.lua",
+      "server_test": "server/combat-target-arbiter.lua",
+      "hidden_cases": [
+        "duplicate and out of order threat is rejected",
+        "decay is independent of tick frequency",
+        "ties use first seen then lexical id",
+        "taunt overrides until exact expiry",
+        "death blocks delayed resurrection",
+        "save load preserves effective threat and defensive state"
+      ],
+      "server_cases": [
+        "server combat arbiter is attached",
+        "real combat component receives chosen target",
+        "arbiter state persists"
+      ],
+      "required_files": [
+        "modinfo.lua",
+        "modmain.lua",
+        "scripts/combatarbiter/arbiter.lua",
+        "scripts/components/combattargetarbiter.lua"
+      ],
+      "minimum_lua_lines": 240,
+      "integration_checks": [
+        {
+          "id": "combat-authority",
+          "label": {
+            "en": "Master authority",
+            "zh": "主模拟权威"
+          },
+          "weight": 4,
+          "groups": [
+            {
+              "name": "guard",
+              "any_of": [
+                "TheWorld\\.ismastersim",
+                "inst\\.ismastersim"
+              ]
+            },
+            {
+              "name": "component",
+              "any_of": [
+                "AddComponent\\s*\\(\\s*[\\\"']combattargetarbiter[\\\"']"
+              ]
+            }
+          ],
+          "none_of": [
+            "TODO",
+            "IMPLEMENT\\s+ME"
+          ]
+        },
+        {
+          "id": "combat-components",
+          "label": {
+            "en": "Health and combat integration",
+            "zh": "生命与战斗集成"
+          },
+          "weight": 4,
+          "groups": [
+            {
+              "name": "health",
+              "any_of": [
+                "components\\.health"
+              ]
+            },
+            {
+              "name": "combat",
+              "any_of": [
+                "components\\.combat"
+              ]
+            },
+            {
+              "name": "target",
+              "any_of": [
+                "SetTarget\\s*\\("
+              ]
+            }
+          ]
+        },
+        {
+          "id": "combat-events",
+          "label": {
+            "en": "Combat event lifecycle",
+            "zh": "战斗事件生命周期"
+          },
+          "weight": 4,
+          "groups": [
+            {
+              "name": "attacked",
+              "any_of": [
+                "attacked"
+              ]
+            },
+            {
+              "name": "death/remove",
+              "any_of": [
+                "death",
+                "onremove"
+              ]
+            },
+            {
+              "name": "unsubscribe",
+              "any_of": [
+                "RemoveEventCallback\\s*\\("
+              ]
+            }
+          ]
+        },
+        {
+          "id": "combat-persistence",
+          "label": {
+            "en": "Reconciliation and persistence",
+            "zh": "协调与持久化"
+          },
+          "weight": 3,
+          "groups": [
+            {
+              "name": "periodic",
+              "any_of": [
+                "DoPeriodicTask\\s*\\("
+              ]
+            },
+            {
+              "name": "save",
+              "any_of": [
+                ":OnSave\\s*\\("
+              ]
+            },
+            {
+              "name": "load",
+              "any_of": [
+                ":OnLoad\\s*\\("
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

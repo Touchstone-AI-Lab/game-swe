@@ -1,0 +1,194 @@
+{
+  "id": "rhenium-gmod-v2",
+  "version": "2.2.0",
+  "game": "garrys-mod",
+  "runtime": {
+    "app_id": 4020,
+    "branch": "stable",
+    "build_id": "23150012",
+    "platform": "windows-x86_64",
+    "linux_build_id": "23150012"
+  },
+  "contract_traceability_required": true,
+  "name": {
+    "en": "Rhenium Garry's Mod Server Systems",
+    "zh": "Rhenium Garry's Mod 服务端系统题（五题正式版）"
+  },
+  "description": {
+    "en": "Five server-authoritative clean-room GMod tasks for Sandbox on gm_flatgrass.",
+    "zh": "面向 Sandbox/gm_flatgrass 的服务端权威 clean-room GMod 五题。"
+  },
+  "tasks": [
+    {
+      "id": "prop-ownership-quota-registry",
+      "difficulty": "medium",
+      "task_version": "2.2.0",
+      "title": {
+        "en": "Prop Ownership and Quota Manager",
+        "zh": "Prop 所有权与配额管理器"
+      },
+      "summary": {
+        "en": "Build a deterministic ownership registry and authoritative adapter.",
+        "zh": "实现确定性所有权 Registry 与服务端 adapter。"
+      },
+      "brief": {
+        "en": "Own at most two Props and clean disconnected owners after five seconds.",
+        "zh": "每名玩家最多两个 Prop，断线五秒后确定清理。"
+      },
+      "requirements": {
+        "en": [
+          "[T1-SEM-01] Track authoritative ownership for each entity generation.",
+          "[T1-SEM-02] Enforce a two-Prop quota without replacing prior state on rejection.",
+          "[T1-SEM-03] Reject stale entity revisions and EntIndex reuse.",
+          "[T1-SEM-05] Deduplicate register and remove requests globally.",
+          "[T1-TIME-02] Clean disconnected owners exactly at the five-second boundary.",
+          "[T1-PERSIST-01] Return sorted detached snapshots.",
+          "[T1-PERSIST-03] Persist configuration, generations, cleanup, and replay state.",
+          "[T1-LIFE-01] Remove every owned Hook and Timer on idempotent shutdown."
+        ],
+        "zh": [
+          "[T1-SEM-01] 按实体 generation 记录服务端权威所有权。",
+          "[T1-SEM-02] 强制每人两个 Prop 的配额，拒绝时不替换旧状态。",
+          "[T1-SEM-03] 拒绝旧实体 revision 与 EntIndex 复用。",
+          "[T1-SEM-05] 在全局范围去重 register/remove 请求。",
+          "[T1-TIME-02] 在断线后恰好五秒边界清理 owner。",
+          "[T1-PERSIST-01] 返回排序且 detached 的快照。",
+          "[T1-PERSIST-03] 持久化配置、generation、清理与重放状态。",
+          "[T1-LIFE-01] 幂等关闭时移除全部自有 Hook 与 Timer。"
+        ]
+      },
+      "api_usage": {
+        "en": [
+          "[T1-NATIVE-01] Register paired ownership and lifecycle Hooks.",
+          "[T1-NATIVE-04] Advance cleanup with one named repeating Timer.",
+          "[T1-NATIVE-02] Gate PhysgunPickup, CanTool, CanProperty remover, and delete.",
+          "[T1-NATIVE-03] Allocate stable server entity IDs for new Props.",
+          "[T1-TRUST-01] Derive owners only from trusted Player bindings."
+        ],
+        "zh": [
+          "[T1-NATIVE-01] 成对注册所有权与生命周期 Hook。",
+          "[T1-NATIVE-04] 用一个具名重复 Timer 推进清理。",
+          "[T1-NATIVE-02] 检查 PhysgunPickup、CanTool、CanProperty remover 与 delete。",
+          "[T1-NATIVE-03] 为新 Prop 分配稳定的服务端实体 ID。",
+          "[T1-TRUST-01] owner 只能来自可信 Player 绑定。"
+        ]
+      },
+      "acceptance": {
+        "en": [
+          "Owners alone can use all four protected modification paths.",
+          "Quota and removal retries change counts exactly once.",
+          "Entity generations prevent stale authority after index reuse.",
+          "Disconnect cleanup and reconnect obey the exact five-second boundary.",
+          "Persistence and shutdown preserve behavior and leave no lifecycle residue."
+        ],
+        "zh": [
+          "只有 owner 能使用四个受保护的修改入口。",
+          "配额与删除重试只改变一次计数。",
+          "实体 generation 防止索引复用后的旧权限。",
+          "断线清理与重连遵守精确五秒边界。",
+          "持久化与关闭保持行为且不留下生命周期残留。"
+        ]
+      },
+      "domains": [
+        "server-authority",
+        "entity-lifecycle",
+        "idempotency"
+      ],
+      "estimated_minutes": 180,
+      "public_exam": {
+        "path": "exams/prop-ownership-quota-registry.md",
+        "sha256": "c0cbd407de4b1670cc20a590939b11cafb76df7c67d294cf409f331269ddfc24",
+        "interfaces": [
+          "Registry.new(options)",
+          "registry:register(request_id, player_id, entity_id, revision)",
+          "registry:can_modify(player_id, entity_id, revision, operation)",
+          "adapter.HandleDeleteRequest(player, entity, request_id)",
+          "adapter.Shutdown()"
+        ],
+        "contract_evidence": [
+          "T1-DATA-01",
+          "T1-ERR-01",
+          "T1-TIME-02",
+          "T1-PERSIST-03",
+          "T1-TRUST-01"
+        ],
+        "acceptance_evidence": [
+          "T1-ACC-01",
+          "T1-ACC-02",
+          "T1-ACC-03",
+          "T1-ACC-04",
+          "T1-ACC-05"
+        ]
+      },
+      "required_files": [
+        "addon.json",
+        "lua/rhenium_prop_registry/registry.lua",
+        "lua/rhenium_prop_registry/server.lua"
+      ],
+      "core_module": "lua/rhenium_prop_registry/registry.lua",
+      "server_module": "lua/rhenium_prop_registry/server.lua",
+      "evaluation": {
+        "hidden_suite": "private/tasks/prop-ownership-quota-registry/hidden/prop-ownership-registry.lua",
+        "hidden_cases": [
+          "first registration increments quota",
+          "third prop is rejected without replacing state",
+          "register retries are exact and request conflicts fail",
+          "remove retries release quota exactly once",
+          "revision replacement rejects stale authority",
+          "operations and ownership are enforced",
+          "disconnect waits strictly below five seconds and cleans at boundary",
+          "reconnect before boundary cancels cleanup",
+          "time reversal is clamped",
+          "snapshot is deterministic and detached",
+          "save load round trip preserves request idempotency",
+          "shutdown is idempotent and freezes mutations",
+          "only the exact public two prop five second options are accepted",
+          "malformed saved state is rejected completely"
+        ],
+        "integration_suite": "private/tasks/prop-ownership-quota-registry/integration/prop-ownership-integration.lua",
+        "integration_cases": [
+          "adapter installs required hooks and timer",
+          "entity bindings reject malformed logical identity and revision",
+          "trusted player binding owns the prop",
+          "benchmark identity is independent of EntIndex",
+          "all modification entry points reject non-owner",
+          "client owner payload cannot override server player",
+          "quota rejects and removes third prop",
+          "entity removal releases once and revision blocks EntIndex reuse",
+          "disconnect cleanup and reconnect use real hooks"
+        ],
+        "lifecycle_cases": [
+          "shutdown removes hooks and timer"
+        ],
+        "traceability": "private/tasks/prop-ownership-quota-registry/contract-traceability.json",
+        "mutations": "private/tasks/prop-ownership-quota-registry/mutations.json",
+        "suite_timeout_seconds": 8
+      },
+      "server_runtime": {
+        "task_version": "2.2.0",
+        "addon_manifest": "private/tasks/prop-ownership-quota-registry/server/addon.json",
+        "lua_entry": "private/tasks/prop-ownership-quota-registry/server/prop-ownership-suite.lua",
+        "suite_id": "rhenium-gmod-prop-ownership-v3",
+        "runtime_namespace": "prop-ownership-quota-v3",
+        "submission_addon_name": "rhenium_prop_ownership_submission",
+        "private_suite_addon_name": "zz_rhenium_prop_ownership_private_suite",
+        "expected_cases": [
+          "persistence",
+          "authority",
+          "quota",
+          "lifecycle",
+          "cleanup"
+        ],
+        "phases": [
+          "A",
+          "B"
+        ],
+        "timeout_seconds": 120
+      },
+      "source": {
+        "path": "sources/prop-ownership-quota-registry.json",
+        "sha256": "29dc8e42ad5359d718411ec9f7f0c048c41cf3f173eb3bd0d82a1a1b1a6bb675"
+      }
+    }
+  ]
+}

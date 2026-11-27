@@ -1,0 +1,4 @@
+control	kind	base	overlay	root	note
+target-negative-pause-off-toggles	target-negative	reference	patch:target-negative-pause-off-toggles.patch	mindustry	reference, but pause off still toggles the state
+compat-negative-pause-without-game	compat-negative	reference	patch:compat-negative-pause-without-game.patch	mindustry	reference plus a pause command that no longer requires a running game
+alternative-a	alternative	starter	tree:alternative-a	mindustry	own repair: host refuses with an error when shuffling yields no map, pause only changes a differing state, pardon forgives every recorded address, PlayerInfo marked serializable

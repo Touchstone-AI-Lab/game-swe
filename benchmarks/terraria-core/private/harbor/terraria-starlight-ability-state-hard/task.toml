@@ -1,0 +1,63 @@
+schema_version = "1.4"
+
+artifacts = ["/workspace/starlight-river"]
+
+[task]
+name = "gamecodebench/terraria-starlight-ability-state-hard"
+version = "0.1.0"
+description = "Repair transactional Starlight River ability persistence and authority."
+authors = [{ name = "PrinsYin" }]
+keywords = ["terraria", "tmodloader", "starlight-river", "csharp", "state-machine", "networking"]
+
+[metadata]
+category = "programming"
+difficulty = "hard"
+tags = ["game-modding", "terraria", "tmodloader", "repository-debugging", "state-machine", "network-authority"]
+task_kind = "repository-debugging"
+game = "Terraria"
+game_build = "1.4.4.9"
+tmodloader_api = "1.4.4 stable API"
+source_repo = "https://github.com/ProjectStarlight/StarlightRiver"
+source_license = "GPL-3.0"
+base_commit = "d367416dcadfe68a541a5821a0c4be86b42db219"
+source_mod_version = "0.2.9.4"
+evaluation_boundary = "layered offline .NET 8 source projection plus pinned real tModLoader 2026.7.3.0 dedicated-server assertions against Terraria 1.4.4.9; disclosed client-only behavior remains source-projection-only"
+expected_private_cases = 84
+independent_defect_groups = 11
+public_smoke_command = "python tools/smoke.py"
+validation_status = "revision-3 oracle 84/84 and starter 14/84 controls passed"
+
+[verifier]
+environment_mode = "separate"
+network_mode = "no-network"
+timeout_sec = 900.0
+user = "root"
+
+[verifier.environment]
+network_mode = "no-network"
+cpus = 4
+memory_mb = 4096
+storage_mb = 8192
+gpus = 0
+mcp_servers = []
+
+[agent]
+user = "root"
+network_mode = "allowlist"
+allowed_hosts = ["api.openai.com"]
+timeout_sec = 7200.0
+
+[environment]
+network_mode = "no-network"
+build_timeout_sec = 1200.0
+cpus = 4
+memory_mb = 4096
+storage_mb = 8192
+gpus = 0
+mcp_servers = []
+
+[verifier.env]
+
+[environment.env]
+
+[solution.env]

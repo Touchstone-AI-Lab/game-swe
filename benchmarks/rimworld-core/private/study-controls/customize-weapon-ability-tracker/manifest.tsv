@@ -1,0 +1,4 @@
+control	kind	base	overlay	root	note
+target-negative-tracker-never-created	target-negative	reference	patch:target-negative-tracker-never-created.patch	.	reference without lazy tracker creation
+compat-negative-tracker-created-eagerly	compat-negative	starter	patch:compat-negative-tracker-created-eagerly.patch	.	starter whose tracker lookup always creates a tracker, even with nothing to manage
+alternative-a	alternative	starter	tree:alternative-a	.	own EnsureAbilityTracker used only when SyncAbilities has something to manage

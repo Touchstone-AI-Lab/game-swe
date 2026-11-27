@@ -1,0 +1,258 @@
+{
+  "task": "balatro/core/reversible-hand-limit-v1",
+  "task_version": "0.2.0",
+  "exam": "benchmarks/balatro/public/v02/reversible-hand-limit-v1/CONTRACT.md",
+  "cases": [
+    {
+      "id": "position:1",
+      "role": "setup",
+      "clauses": [
+        "rhl-registration-identity"
+      ],
+      "overlap": false,
+      "note": "prepared"
+    },
+    {
+      "id": "position:2",
+      "role": "preserved",
+      "clauses": [
+        "rhl-buy-adds-two",
+        "rhl-once-per-lifecycle"
+      ],
+      "overlap": true,
+      "note": "solo.buy"
+    },
+    {
+      "id": "position:3",
+      "role": "preserved",
+      "clauses": [
+        "rhl-sale-removes-own-two",
+        "rhl-once-per-lifecycle"
+      ],
+      "overlap": true,
+      "note": "solo.sell"
+    },
+    {
+      "id": "position:4",
+      "role": "preserved",
+      "clauses": [
+        "rhl-buy-adds-two",
+        "rhl-repeat-after-removal"
+      ],
+      "overlap": true,
+      "note": "before.buy"
+    },
+    {
+      "id": "position:5",
+      "role": "preserved",
+      "clauses": [
+        "rhl-preserve-other-contributions",
+        "rhl-native-juggler-independent"
+      ],
+      "overlap": true,
+      "note": "background.buy"
+    },
+    {
+      "id": "position:6",
+      "role": "target",
+      "clauses": [
+        "rhl-sale-removes-own-two",
+        "rhl-preserve-other-contributions",
+        "rhl-no-reset-to-default-or-snapshot",
+        "rhl-native-juggler-independent"
+      ],
+      "overlap": false,
+      "note": "before.sell"
+    },
+    {
+      "id": "position:7",
+      "role": "target",
+      "clauses": [
+        "rhl-buy-adds-two",
+        "rhl-once-per-lifecycle",
+        "rhl-repeat-after-removal"
+      ],
+      "overlap": false,
+      "note": "after.buy"
+    },
+    {
+      "id": "position:8",
+      "role": "target",
+      "clauses": [
+        "rhl-buy-adds-two",
+        "rhl-independent-instances",
+        "rhl-once-per-lifecycle",
+        "rhl-repeat-after-removal"
+      ],
+      "overlap": false,
+      "note": "second.buy"
+    },
+    {
+      "id": "position:9",
+      "role": "target",
+      "clauses": [
+        "rhl-sale-removes-own-two",
+        "rhl-preserve-other-contributions",
+        "rhl-independent-instances",
+        "rhl-once-per-lifecycle",
+        "rhl-repeat-after-removal",
+        "rhl-no-reset-to-default-or-snapshot"
+      ],
+      "overlap": false,
+      "note": "after.sell"
+    },
+    {
+      "id": "position:10",
+      "role": "target",
+      "clauses": [
+        "rhl-sale-removes-own-two",
+        "rhl-preserve-other-contributions",
+        "rhl-independent-instances",
+        "rhl-once-per-lifecycle",
+        "rhl-repeat-after-removal",
+        "rhl-no-reset-to-default-or-snapshot"
+      ],
+      "overlap": false,
+      "note": "second.sell"
+    },
+    {
+      "id": "position:11",
+      "role": "target",
+      "clauses": [
+        "rhl-no-reapply-on-incidental-events"
+      ],
+      "overlap": false,
+      "note": "observation_stable"
+    },
+    {
+      "id": "position:12",
+      "role": "target",
+      "clauses": [
+        "rhl-refill-obeys-remaining-limit",
+        "rhl-no-reapply-on-incidental-events"
+      ],
+      "overlap": false,
+      "note": "real_draw"
+    },
+    {
+      "id": "position:13",
+      "role": "target",
+      "clauses": [
+        "rhl-native-juggler-independent"
+      ],
+      "overlap": false,
+      "note": "background.sell"
+    },
+    {
+      "id": "position:14",
+      "role": "target",
+      "clauses": [
+        "rhl-refill-obeys-remaining-limit",
+        "rhl-no-reapply-on-incidental-events"
+      ],
+      "overlap": false,
+      "note": "real_play"
+    },
+    {
+      "id": "position:15",
+      "role": "runtime-sentinel",
+      "clauses": [],
+      "overlap": false,
+      "note": "identities"
+    },
+    {
+      "id": "position:16",
+      "role": "runtime-sentinel",
+      "clauses": [],
+      "overlap": false,
+      "note": "no_fixture_after_seal"
+    },
+    {
+      "id": "position:17",
+      "role": "runtime-sentinel",
+      "clauses": [],
+      "overlap": false,
+      "note": "configuration"
+    }
+  ],
+  "clauses": [
+    {
+      "id": "rhl-buy-adds-two",
+      "anchor": "CONTRACT.md paragraph 2: \"An ordinary Joker acquired by a normal shop Buy contributes +2 to the player's hand limit while owned.\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "rhl-sale-removes-own-two",
+      "anchor": "CONTRACT.md paragraph 2: \"Ordinary sale removes exactly its own +2.\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "rhl-preserve-other-contributions",
+      "anchor": "CONTRACT.md paragraph 2: \"Preserve all other active hand-limit contributions, including those acquired before or after it.\"",
+      "status": "asserted",
+      "note": "before.sell keeps a Juggler bought later; after.sell keeps an earlier Juggler and a later target; second.sell keeps an earlier Juggler."
+    },
+    {
+      "id": "rhl-independent-instances",
+      "anchor": "CONTRACT.md paragraph 2: \"More than one ordinary physical instance contributes independently; removing one cannot remove another's contribution.\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "rhl-refill-obeys-remaining-limit",
+      "anchor": "CONTRACT.md paragraph 2: \"After a sale the next actual refill/deal obeys the remaining limit.\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "rhl-once-per-lifecycle",
+      "anchor": "CONTRACT.md paragraph 3: \"Acquisition/removal must happen exactly once per actual instance lifecycle.\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "rhl-no-reapply-on-incidental-events",
+      "anchor": "CONTRACT.md paragraph 3: \"Merely displaying the card, scoring a hand, changing rounds, or observing the shop does not reapply the effect.\"",
+      "status": "weak",
+      "note": "No target is owned at observation_stable, real_draw or real_play, so scoring a hand or changing rounds with a target owned is never exercised. While a target is owned, only the eight quiet frames before each transaction snapshot cover shop observation."
+    },
+    {
+      "id": "rhl-repeat-after-removal",
+      "anchor": "CONTRACT.md paragraph 3: \"After a normal removal a subsequent legal acquisition and removal must still work.\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "rhl-no-reset-to-default-or-snapshot",
+      "anchor": "CONTRACT.md paragraph 3: \"Do not reset the whole limit to a default or to a snapshot taken before other owners changed it.\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "rhl-registration-identity",
+      "anchor": "CONTRACT.md paragraph 4: \"Target registration is mod reversible_hand_limit, prefix rhl, center j_rhl_spacer.\"",
+      "status": "asserted",
+      "note": "The prepared shop stock must hold j_rhl_spacer; read by the setup case prepared."
+    },
+    {
+      "id": "rhl-native-juggler-independent",
+      "anchor": "CONTRACT.md paragraph 4: \"Native ordinary Juggler may be another independent hand-limit contributor.\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "rhl-edit-scope",
+      "anchor": "CONTRACT.md paragraph 5: \"Do not edit runtime/fixture/observer/tests/dependencies or external files.\"",
+      "status": "unasserted",
+      "note": "Enforced when the submission is sealed (plugins/balatro/src/rhenium_balatro/submission.py:32-47), not by a case."
+    }
+  ],
+  "excluded_clauses": [
+    "rhl-edit-scope"
+  ],
+  "known_issues": [
+    "Cascading failures: each transaction compares the absolute hand limit (tasks/reversible_hand_limit/v1/private/scenario.py:68-72), so one wrong sale at before.sell also fails the eight later target cases. The starter and M03-snapshot-restore have the same failure vector, so the number of failed target cases does not count defects."
+  ]
+}

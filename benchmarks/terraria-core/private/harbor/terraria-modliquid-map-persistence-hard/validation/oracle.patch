@@ -1,0 +1,1521 @@
+diff --git a/benchmarks/terraria-core/private/harbor/terraria-modliquid-map-persistence-hard/environment/mod-liquid-lib/Hooks/MapHelperHooks.cs b/benchmarks/terraria-core/private/harbor/terraria-modliquid-map-persistence-hard/solution/after/Hooks/MapHelperHooks.cs
+index 7c5fd1af..3c4cde50 100644
+--- a/benchmarks/terraria-core/private/harbor/terraria-modliquid-map-persistence-hard/environment/mod-liquid-lib/Hooks/MapHelperHooks.cs
++++ b/benchmarks/terraria-core/private/harbor/terraria-modliquid-map-persistence-hard/solution/after/Hooks/MapHelperHooks.cs
+@@ -1,3 +1,4 @@
++using System;
+ using Microsoft.Xna.Framework;
+ using ModLiquidLib.IO;
+ using ModLiquidLib.ModLoader;
+@@ -10,36 +11,73 @@ namespace ModLiquidLib.Hooks
+ 	{
+ 		internal static void SaveTLMap(ILContext il)
+ 		{
+-			ILCursor c = new(il);
+-			int text_varNum = -1;
+-			int cloudSave_varNum = -1;
+-			c.GotoNext(MoveType.After, i => i.MatchLdloc(out text_varNum), i => i.MatchLdloc(out cloudSave_varNum), i => i.MatchCall("Terraria.ModLoader.IO.MapIO", "WriteModFile"));
+-			c.EmitLdloc(text_varNum);
+-			c.EmitLdloc(cloudSave_varNum);
+-			c.EmitDelegate((string text, bool isCloudSave) =>
++			(int textVar, int cloudSaveVar) = FindUniqueWriteAnchor(il);
++			ILCursor cursor = new(il);
++			cursor.GotoNext(MoveType.After,
++				i => i.MatchLdloc(textVar),
++				i => i.MatchLdloc(cloudSaveVar),
++				i => i.MatchCall("Terraria.ModLoader.IO.MapIO", "WriteModFile"));
++			cursor.EmitLdloc(textVar);
++			cursor.EmitLdloc(cloudSaveVar);
++			cursor.EmitDelegate((string text, bool isCloudSave) =>
+ 			{
+ 				MapLiquidIO.WriteModFile(text, isCloudSave);
+ 			});
+ 		}
+ 
++		private static (int TextVar, int CloudSaveVar) FindUniqueWriteAnchor(ILContext il)
++		{
++			ILCursor probe = new(il);
++			int count = 0;
++			int textVar = -1;
++			int cloudSaveVar = -1;
++			while (true)
++			{
++				int candidateText = -1;
++				int candidateCloud = -1;
++				if (!probe.TryGotoNext(MoveType.After,
++					i => i.MatchLdloc(out candidateText),
++					i => i.MatchLdloc(out candidateCloud),
++					i => i.MatchCall("Terraria.ModLoader.IO.MapIO", "WriteModFile")))
++					break;
++
++				count++;
++				textVar = candidateText;
++				cloudSaveVar = candidateCloud;
++			}
++
++			if (count != 1)
++				throw new InvalidOperationException($"Expected exactly one MapIO.WriteModFile anchor, found {count}.");
++			return (textVar, cloudSaveVar);
++		}
++
+ 		internal static void AddLiquidMapEntrys(ILContext il)
+ 		{
+-			ILCursor c = new(il);
+-			int mapTile_varNum = -1;
+-			int mapIndex_varNum = -1;
+-			int mapType_varNum = -1;
+-			c.GotoNext(MoveType.After, i => i.MatchLdsfld("Terraria.Map.MapHelper", "liquidPosition"), i => i.MatchLdloc(out mapIndex_varNum), i => i.MatchAdd(), i => i.MatchStloc(out mapTile_varNum));
+-			c.EmitLdloca(mapTile_varNum);
+-			c.EmitLdloc(mapIndex_varNum);
+-			c.EmitDelegate((ref int num5, int num7) =>
++			(int mapTileLocal, int mapIndexLocal) = FindUniqueLiquidLookupAnchor(il);
++			int mapTypeLocal = FindUniqueModMapOptionAnchor(il);
++			EnsureLiquidLookupAnchorsOrdered(il, mapTileLocal, mapIndexLocal, mapTypeLocal);
++
++			ILCursor cursor = new(il);
++			cursor.GotoNext(MoveType.After,
++				i => i.MatchLdsfld("Terraria.Map.MapHelper", "liquidPosition"),
++				i => i.MatchLdloc(mapIndexLocal),
++				i => i.MatchAdd(),
++				i => i.MatchStloc(out _));
++			cursor.EmitLdloca(mapTileLocal);
++			cursor.EmitLdloc(mapIndexLocal);
++			cursor.EmitDelegate((ref int num5, int num7) =>
+ 			{
+ 				num5 = MapLiquidLoader.liquidLookup[num7];
+ 			});
+-			c.GotoNext(MoveType.After, i => i.MatchLdloca(out mapType_varNum), i => i.MatchLdarg(0), i => i.MatchLdarg(1), i => i.MatchCall("Terraria.ModLoader.MapLoader", "ModMapOption"));
+-			c.EmitLdloca(mapType_varNum);
+-			c.EmitLdarg(0);
+-			c.EmitLdarg(1);
+-			c.EmitDelegate((ref ushort mapType, int i, int j) =>
++			cursor.GotoNext(MoveType.After,
++				i => i.MatchLdloca(out _),
++				i => i.MatchLdarg(0),
++				i => i.MatchLdarg(1),
++				i => i.MatchCall("Terraria.ModLoader.MapLoader", "ModMapOption"));
++			cursor.EmitLdloca(mapTypeLocal);
++			cursor.EmitLdarg(0);
++			cursor.EmitLdarg(1);
++			cursor.EmitDelegate((ref ushort mapType, int i, int j) =>
+ 			{
+ 				MapLiquidLoader.ModMapOption(ref mapType, i, j);
+ 			});
+@@ -47,26 +85,171 @@ namespace ModLiquidLib.Hooks
+ 
+ 		internal static void IncrimentLiquidMapEntries(ILContext il)
+ 		{
+-			ILCursor c = new(il);
+-			int mapChoiceIndex_varNum = -1;
+-			int mapChoice_varNum = -1;
+-			c.GotoNext(MoveType.After, i => i.MatchLdloc(out mapChoiceIndex_varNum), i => i.MatchStsfld("Terraria.Map.MapHelper", "liquidPosition"));
+-			c.EmitDelegate(() =>
++			int mapChoiceIndexLocal = FindUniqueLiquidPositionAnchor(il);
++			int mapChoiceLocal = FindUniqueColorCopyAnchor(il);
++			FindUniqueVanillaLiquidCountAnchor(il, mapChoiceLocal);
++			EnsureLiquidCountAnchorsOrdered(il, mapChoiceIndexLocal, mapChoiceLocal);
++
++			ILCursor cursor = new(il);
++			cursor.GotoNext(MoveType.After,
++				i => i.MatchLdloc(mapChoiceIndexLocal),
++				i => i.MatchStsfld("Terraria.Map.MapHelper", "liquidPosition"));
++			cursor.EmitDelegate(() =>
+ 			{
+ 				MapLiquidLoader.liquidLookup = new ushort[LiquidID.Count];
+ 			});
+-			c.GotoNext(MoveType.After, i => i.MatchLdloc(out mapChoice_varNum), i => i.MatchLdelemAny<Color>(), i => i.MatchStelemAny<Color>());
+-			c.EmitLdloc(mapChoice_varNum);
+-			c.EmitLdloc(mapChoiceIndex_varNum);
+-			c.EmitDelegate((int num18, ushort num13) =>
++			cursor.GotoNext(MoveType.After,
++				i => i.MatchLdloc(mapChoiceLocal),
++				i => i.MatchLdelemAny<Color>(),
++				i => i.MatchStelemAny<Color>());
++			cursor.EmitLdloc(mapChoiceLocal);
++			cursor.EmitLdloc(mapChoiceIndexLocal);
++			cursor.EmitDelegate((int num18, ushort num13) =>
+ 			{
+ 				MapLiquidLoader.liquidLookup[num18] = num13;
+ 			});
+-			c.GotoNext(MoveType.After, i => i.MatchLdloc(mapChoice_varNum), i => i.MatchLdcI4(4));
+-			c.EmitDelegate((int four) =>
++			cursor.GotoNext(MoveType.After,
++				i => i.MatchLdloc(mapChoiceLocal),
++				i => i.MatchLdcI4(4));
++			cursor.EmitDelegate((int four) =>
+ 			{
+ 				return LiquidID.Count;
+ 			});
+ 		}
++
++		private static (int MapTileLocal, int MapIndexLocal) FindUniqueLiquidLookupAnchor(ILContext il)
++		{
++			ILCursor probe = new(il);
++			int count = 0;
++			int mapTileLocal = -1;
++			int mapIndexLocal = -1;
++			while (true)
++			{
++				int candidateTile = -1;
++				int candidateIndex = -1;
++				if (!probe.TryGotoNext(MoveType.After,
++					i => i.MatchLdsfld("Terraria.Map.MapHelper", "liquidPosition"),
++					i => i.MatchLdloc(out candidateIndex),
++					i => i.MatchAdd(),
++					i => i.MatchStloc(out candidateTile)))
++					break;
++				count++;
++				mapTileLocal = candidateTile;
++				mapIndexLocal = candidateIndex;
++			}
++			RequireUnique("liquid lookup", count);
++			return (mapTileLocal, mapIndexLocal);
++		}
++
++		private static int FindUniqueModMapOptionAnchor(ILContext il)
++		{
++			ILCursor probe = new(il);
++			int count = 0;
++			int mapTypeLocal = -1;
++			while (true)
++			{
++				int candidate = -1;
++				if (!probe.TryGotoNext(MoveType.After,
++					i => i.MatchLdloca(out candidate),
++					i => i.MatchLdarg(0),
++					i => i.MatchLdarg(1),
++					i => i.MatchCall("Terraria.ModLoader.MapLoader", "ModMapOption")))
++					break;
++				count++;
++				mapTypeLocal = candidate;
++			}
++			RequireUnique("MapLoader.ModMapOption", count);
++			return mapTypeLocal;
++		}
++
++		private static int FindUniqueLiquidPositionAnchor(ILContext il)
++		{
++			ILCursor probe = new(il);
++			int count = 0;
++			int local = -1;
++			while (true)
++			{
++				int candidate = -1;
++				if (!probe.TryGotoNext(MoveType.After,
++					i => i.MatchLdloc(out candidate),
++					i => i.MatchStsfld("Terraria.Map.MapHelper", "liquidPosition")))
++					break;
++				count++;
++				local = candidate;
++			}
++			RequireUnique("liquidPosition", count);
++			return local;
++		}
++
++		private static int FindUniqueColorCopyAnchor(ILContext il)
++		{
++			ILCursor probe = new(il);
++			int count = 0;
++			int local = -1;
++			while (true)
++			{
++				int candidate = -1;
++				if (!probe.TryGotoNext(MoveType.After,
++					i => i.MatchLdloc(out candidate),
++					i => i.MatchLdelemAny<Color>(),
++					i => i.MatchStelemAny<Color>()))
++					break;
++				count++;
++				local = candidate;
++			}
++			RequireUnique("liquid color copy", count);
++			return local;
++		}
++
++		private static void FindUniqueVanillaLiquidCountAnchor(ILContext il, int mapChoiceLocal)
++		{
++			ILCursor probe = new(il);
++			int count = 0;
++			while (probe.TryGotoNext(MoveType.After,
++				i => i.MatchLdloc(mapChoiceLocal),
++				i => i.MatchLdcI4(4)))
++				count++;
++			RequireUnique("vanilla liquid count", count);
++		}
++
++		private static void RequireUnique(string anchor, int count)
++		{
++			if (count != 1)
++				throw new InvalidOperationException($"Expected exactly one {anchor} anchor, found {count}.");
++		}
++
++		private static void EnsureLiquidLookupAnchorsOrdered(ILContext il, int mapTileLocal, int mapIndexLocal, int mapTypeLocal)
++		{
++			ILCursor probe = new(il);
++			bool ordered = probe.TryGotoNext(MoveType.After,
++				i => i.MatchLdsfld("Terraria.Map.MapHelper", "liquidPosition"),
++				i => i.MatchLdloc(mapIndexLocal),
++				i => i.MatchAdd(),
++				i => i.MatchStloc(out int foundTile) && foundTile == mapTileLocal) &&
++				probe.TryGotoNext(MoveType.After,
++					i => i.MatchLdloca(out int foundType) && foundType == mapTypeLocal,
++					i => i.MatchLdarg(0),
++					i => i.MatchLdarg(1),
++					i => i.MatchCall("Terraria.ModLoader.MapLoader", "ModMapOption"));
++			if (!ordered)
++				throw new InvalidOperationException("The liquid lookup anchors are not in the required order.");
++		}
++
++		private static void EnsureLiquidCountAnchorsOrdered(ILContext il, int mapChoiceIndexLocal, int mapChoiceLocal)
++		{
++			ILCursor probe = new(il);
++			bool ordered = probe.TryGotoNext(MoveType.After,
++				i => i.MatchLdloc(mapChoiceIndexLocal),
++				i => i.MatchStsfld("Terraria.Map.MapHelper", "liquidPosition")) &&
++				probe.TryGotoNext(MoveType.After,
++					i => i.MatchLdloc(mapChoiceLocal),
++					i => i.MatchLdelemAny<Color>(),
++					i => i.MatchStelemAny<Color>()) &&
++				probe.TryGotoNext(MoveType.After,
++					i => i.MatchLdloc(mapChoiceLocal),
++					i => i.MatchLdcI4(4));
++			if (!ordered)
++				throw new InvalidOperationException("The liquid count anchors are not in the required order.");
++		}
+ 	}
+ }
+diff --git a/benchmarks/terraria-core/private/harbor/terraria-modliquid-map-persistence-hard/environment/mod-liquid-lib/Hooks/MapLoaderHooks.cs b/benchmarks/terraria-core/private/harbor/terraria-modliquid-map-persistence-hard/solution/after/Hooks/MapLoaderHooks.cs
+index ec8cf807..8cd8c901 100644
+--- a/benchmarks/terraria-core/private/harbor/terraria-modliquid-map-persistence-hard/environment/mod-liquid-lib/Hooks/MapLoaderHooks.cs
++++ b/benchmarks/terraria-core/private/harbor/terraria-modliquid-map-persistence-hard/solution/after/Hooks/MapLoaderHooks.cs
+@@ -1,11 +1,9 @@
++using System;
++using System.Collections.Generic;
+ using Microsoft.Xna.Framework;
+ using ModLiquidLib.ModLoader;
+ using MonoMod.Cil;
+-using System;
+-using System.Collections.Generic;
+ using Terraria.Localization;
+-using Terraria.Map;
+-using Terraria.ModLoader;
+ 
+ namespace ModLiquidLib.Hooks
+ {
+@@ -13,16 +11,42 @@ namespace ModLiquidLib.Hooks
+ 	{
+ 		internal static void AddLiquidToFinishSetup(ILContext il)
+ 		{
+-			ILCursor c = new(il);
+-			int colorArr_numVar = -1;
+-			int nameArr_numVar = -1;
+-			c.GotoNext(MoveType.After, i => i.MatchStloc(out colorArr_numVar), i => i.MatchNewobj<List<LocalizedText>>(".ctor"), i => i.MatchStloc(out nameArr_numVar));
+-			c.EmitLdloca(colorArr_numVar);
+-			c.EmitLdloca(nameArr_numVar);
+-			c.EmitDelegate((ref IList<Color> colors, ref IList<LocalizedText> names) =>
++			(int colorLocal, int nameLocal) = FindUniqueFinishSetupAnchor(il);
++			ILCursor cursor = new ILCursor(il);
++			cursor.GotoNext(MoveType.After,
++				i => i.MatchStloc(out _),
++				i => i.MatchNewobj<List<LocalizedText>>(".ctor"),
++				i => i.MatchStloc(out _));
++			cursor.EmitLdloca(colorLocal);
++			cursor.EmitLdloca(nameLocal);
++			cursor.EmitDelegate((ref IList<Color> colors, ref IList<LocalizedText> names) =>
+ 			{
+ 				MapLiquidLoader.PublishEntries(ref colors, ref names);
+ 			});
+ 		}
++
++		private static (int ColorLocal, int NameLocal) FindUniqueFinishSetupAnchor(ILContext il)
++		{
++			ILCursor probe = new ILCursor(il);
++			int count = 0;
++			int colorLocal = -1;
++			int nameLocal = -1;
++			while (true)
++			{
++				int candidateColor = -1;
++				int candidateName = -1;
++				if (!probe.TryGotoNext(MoveType.After,
++					i => i.MatchStloc(out candidateColor),
++					i => i.MatchNewobj<List<LocalizedText>>(".ctor"),
++					i => i.MatchStloc(out candidateName)))
++					break;
++				count++;
++				colorLocal = candidateColor;
++				nameLocal = candidateName;
++			}
++			if (count != 1)
++				throw new InvalidOperationException($"Expected exactly one map FinishSetup table anchor, found {count}.");
++			return (colorLocal, nameLocal);
++		}
+ 	}
+ }
+diff --git a/benchmarks/terraria-core/private/harbor/terraria-modliquid-map-persistence-hard/environment/mod-liquid-lib/Hooks/WorldMapHooks.cs b/benchmarks/terraria-core/private/harbor/terraria-modliquid-map-persistence-hard/solution/after/Hooks/WorldMapHooks.cs
+index 5ce5fea5..a02d5380 100644
+--- a/benchmarks/terraria-core/private/harbor/terraria-modliquid-map-persistence-hard/environment/mod-liquid-lib/Hooks/WorldMapHooks.cs
++++ b/benchmarks/terraria-core/private/harbor/terraria-modliquid-map-persistence-hard/solution/after/Hooks/WorldMapHooks.cs
+@@ -1,3 +1,4 @@
++using System;
+ using ModLiquidLib.IO;
+ using MonoMod.Cil;
+ 
+@@ -7,16 +8,44 @@ namespace ModLiquidLib.Hooks
+ 	{
+ 		internal static void InitaliseTLMap(ILContext il)
+ 		{
+-			ILCursor c = new(il);
+-			int text_varNum = -1;
+-			int cloudSave_varNum = -1;
+-			c.GotoNext(MoveType.After, i => i.MatchLdloc(out text_varNum), i => i.MatchLdloc(out cloudSave_varNum), i => i.MatchCall("Terraria.ModLoader.IO.MapIO", "ReadModFile"));
+-			c.EmitLdloc(text_varNum);
+-			c.EmitLdloc(cloudSave_varNum);
+-			c.EmitDelegate((string text, bool isCloudSave) =>
++			(int textVar, int cloudSaveVar) = FindUniqueReadAnchor(il);
++			ILCursor cursor = new(il);
++			cursor.GotoNext(MoveType.After,
++				i => i.MatchLdloc(textVar),
++				i => i.MatchLdloc(cloudSaveVar),
++				i => i.MatchCall("Terraria.ModLoader.IO.MapIO", "ReadModFile"));
++			cursor.EmitLdloc(textVar);
++			cursor.EmitLdloc(cloudSaveVar);
++			cursor.EmitDelegate((string text, bool isCloudSave) =>
+ 			{
+ 				MapLiquidIO.ReadModFile(text, isCloudSave);
+ 			});
+ 		}
++
++		private static (int TextVar, int CloudSaveVar) FindUniqueReadAnchor(ILContext il)
++		{
++			ILCursor probe = new(il);
++			int count = 0;
++			int textVar = -1;
++			int cloudSaveVar = -1;
++			while (true)
++			{
++				int candidateText = -1;
++				int candidateCloud = -1;
++				if (!probe.TryGotoNext(MoveType.After,
++					i => i.MatchLdloc(out candidateText),
++					i => i.MatchLdloc(out candidateCloud),
++					i => i.MatchCall("Terraria.ModLoader.IO.MapIO", "ReadModFile")))
++					break;
++
++				count++;
++				textVar = candidateText;
++				cloudSaveVar = candidateCloud;
++			}
++
++			if (count != 1)
++				throw new InvalidOperationException($"Expected exactly one MapIO.ReadModFile anchor, found {count}.");
++			return (textVar, cloudSaveVar);
++		}
+ 	}
+ }
+diff --git a/benchmarks/terraria-core/private/harbor/terraria-modliquid-map-persistence-hard/environment/mod-liquid-lib/IO/MapLiquidIO.cs b/benchmarks/terraria-core/private/harbor/terraria-modliquid-map-persistence-hard/solution/after/IO/MapLiquidIO.cs
+index 4760cf61..d934327b 100644
+--- a/benchmarks/terraria-core/private/harbor/terraria-modliquid-map-persistence-hard/environment/mod-liquid-lib/IO/MapLiquidIO.cs
++++ b/benchmarks/terraria-core/private/harbor/terraria-modliquid-map-persistence-hard/solution/after/IO/MapLiquidIO.cs
+@@ -1,9 +1,7 @@
+-﻿using System;
++using System;
+ using System.Collections.Generic;
+ using System.IO;
+-using System.Linq;
+ using System.Text;
+-using System.Threading.Tasks;
+ using Terraria.Map;
+ using Terraria.ModLoader;
+ using Terraria.Social;
+@@ -16,6 +14,74 @@ namespace ModLiquidLib.IO
+ {
+ 	internal class MapLiquidIO
+ 	{
++		private const byte LightFlag = 0x01;
++		private const byte ColorFlag = 0x02;
++		private const byte RunFlag = 0x04;
++		private const byte Run16Flag = 0x08;
++		private const byte Run32Flag = 0x10;
++		private const byte ContinuationFlag = 0x20;
++		private const byte KnownFlags = LightFlag | ColorFlag | RunFlag | Run16Flag | Run32Flag | ContinuationFlag;
++
++		private readonly struct MapSnapshot
++		{
++			internal readonly int Width;
++			internal readonly int Height;
++			internal readonly MapTile[] Cells;
++
++			internal MapSnapshot(int width, int height, MapTile[] cells)
++			{
++				Width = width;
++				Height = height;
++				Cells = cells;
++			}
++		}
++
++		private readonly struct HeaderEntry
++		{
++			internal readonly ushort OldType;
++			internal readonly bool IsTile;
++			internal readonly string ModName;
++			internal readonly string Name;
++			internal readonly ushort Option;
++
++			internal HeaderEntry(ushort oldType, bool isTile, string modName, string name, ushort option)
++			{
++				OldType = oldType;
++				IsTile = isTile;
++				ModName = modName;
++				Name = name;
++				Option = option;
++			}
++		}
++
++		private readonly struct PendingCell
++		{
++			internal readonly int X;
++			internal readonly int Y;
++			internal readonly MapTile Tile;
++
++			internal PendingCell(int x, int y, MapTile tile)
++			{
++				X = x;
++				Y = y;
++				Tile = tile;
++			}
++		}
++
++		private readonly struct ParsedTile
++		{
++			internal readonly MapTile Tile;
++			internal readonly uint RepeatedCells;
++			internal readonly bool HasContinuation;
++
++			internal ParsedTile(MapTile tile, uint repeatedCells, bool hasContinuation)
++			{
++				Tile = tile;
++				RepeatedCells = repeatedCells;
++				HasContinuation = hasContinuation;
++			}
++		}
++
+ 		internal static void WriteModFile(string path, bool isCloudSave)
+ 		{
+ 			path = Path.ChangeExtension(path, ".tlmap");
+@@ -32,229 +98,481 @@ namespace ModLiquidLib.IO
+ 			{
+ 				FileUtilities.WriteAllBytes(path, data, isCloudSave);
+ 			}
+-			else if (isCloudSave && SocialAPI.Cloud != null)
+-			{
+-				SocialAPI.Cloud.Delete(path);
+-			}
++			else if (isCloudSave)
++				SocialAPI.Cloud?.Delete(path);
+ 			else
+-			{
+ 				File.Delete(path);
+-			}
+ 		}
+ 
+ 		internal static void ReadModFile(string path, bool isCloudSave)
+ 		{
+ 			path = Path.ChangeExtension(path, ".tlmap");
+-			if (FileUtilities.Exists(path, isCloudSave))
+-			{
+-				ReadModMap(new BinaryReader(FileUtilities.ReadAllBytes(path, isCloudSave).ToMemoryStream()));
+-			}
++			if (!FileUtilities.Exists(path, isCloudSave))
++				return;
++
++			using MemoryStream stream = new MemoryStream(FileUtilities.ReadAllBytes(path, isCloudSave), writable: false);
++			using BinaryReader reader = new BinaryReader(stream);
++			ReadModMap(reader);
+ 		}
+ 
+ 		internal static bool WriteModMap(BinaryWriter writer)
+ 		{
+-			ISet<ushort> types = new HashSet<ushort>();
+-			for (int i = 0; i < Main.maxTilesX; i++)
++			try
+ 			{
+-				for (int j = 0; j < Main.maxTilesY; j++)
++				uint registryGeneration = MapLiquidLoader.Generation;
++				MapSnapshot snapshot = CaptureSnapshot();
++				SortedSet<ushort> types = new SortedSet<ushort>();
++				foreach (MapTile tile in snapshot.Cells)
++				{
++					if (IsVisibleModTile(tile))
++						types.Add(tile.Type);
++				}
++
++				if (types.Count == 0)
++				{
++					EnsureRegistryGeneration(registryGeneration);
++					return false;
++				}
++				if (types.Count > ushort.MaxValue)
++					throw new InvalidDataException("The map contains too many mod map types.");
++
++				var tileEntries = new Dictionary<ushort, ushort>(MapLoader.entryToTile);
++				var liquidEntries = new Dictionary<ushort, ushort>();
++				foreach (KeyValuePair<ushort, ushort> pair in MapLiquidLoader.entryToLiquid)
++					liquidEntries.Add(pair.Key, pair.Value);
++				var wallEntries = new Dictionary<ushort, ushort>(MapLoader.entryToWall);
++				var entries = new List<HeaderEntry>(types.Count);
++				foreach (ushort type in types)
++					entries.Add(DescribeHeader(type, tileEntries, liquidEntries, wallEntries));
++
++				byte[] prepared;
++				using (MemoryStream buffer = new MemoryStream())
+ 				{
+-					ushort type2 = Main.Map[i, j].Type;
+-					if (type2 >= MapHelper.modPosition)
++					using BinaryWriter staged = new BinaryWriter(buffer);
++					staged.Write((ushort)entries.Count);
++					foreach (HeaderEntry entry in entries)
+ 					{
+-						types.Add(type2);
++						staged.Write(entry.OldType);
++						staged.Write(entry.IsTile);
++						staged.Write(entry.ModName);
++						staged.Write(entry.Name);
++						staged.Write(entry.Option);
+ 					}
++					WriteSnapshotData(staged, snapshot);
++					staged.Flush();
++					prepared = buffer.ToArray();
+ 				}
++
++				EnsureRegistryGeneration(registryGeneration);
++				writer.Write(prepared);
++				return true;
+ 			}
+-			if (types.Count == 0)
++			catch (Exception error) when (ShouldWrapAsInvalidData(error))
+ 			{
+-				return false;
++				throw new InvalidDataException("The mod map could not be serialized coherently.", error);
+ 			}
+-			writer.Write((ushort)types.Count);
+-			foreach (ushort type in types)
++		}
++
++		private static MapSnapshot CaptureSnapshot()
++		{
++			int width = Main.maxTilesX;
++			int height = Main.maxTilesY;
++			WorldMap map = Main.Map;
++			if (width < 0 || height < 0)
++				throw new InvalidDataException("The map dimensions are invalid.");
++
++			long total = (long)width * height;
++			if (total > int.MaxValue)
++				throw new InvalidDataException("The map is too large to snapshot.");
++			MapTile[] cells = new MapTile[(int)total];
++			int index = 0;
++			for (int x = 0; x < width; x++)
++				for (int y = 0; y < height; y++)
++					cells[index++] = map[x, y];
++
++			if (!ReferenceEquals(map, Main.Map) || width != Main.maxTilesX || height != Main.maxTilesY)
++				throw new InvalidDataException("The map changed while its persistence snapshot was captured.");
++			return new MapSnapshot(width, height, cells);
++		}
++
++		private static HeaderEntry DescribeHeader(
++			ushort type,
++			IDictionary<ushort, ushort> tileEntries,
++			IDictionary<ushort, ushort> liquidEntries,
++			IDictionary<ushort, ushort> wallEntries)
++		{
++			bool hasTile = tileEntries.TryGetValue(type, out ushort tileType);
++			bool hasLiquid = liquidEntries.TryGetValue(type, out ushort liquidType);
++			bool hasWall = wallEntries.TryGetValue(type, out ushort wallType);
++			int matches = (hasTile ? 1 : 0) + (hasLiquid ? 1 : 0) + (hasWall ? 1 : 0);
++			if (matches > 1)
++				throw new InvalidDataException($"Map type {type} belongs to multiple content registries.");
++			if (matches == 0)
++				return new HeaderEntry(type, true, string.Empty, string.Empty, 0);
++
++			if (hasTile)
+ 			{
+-				writer.Write(type);
+-				if (MapLoader.entryToTile.ContainsKey(type))
+-				{
+-					ModTile tile = TileLoader.GetTile(MapLoader.entryToTile[type]);
+-					writer.Write(value: true);
+-					writer.Write(tile.Mod.Name);
+-					writer.Write(tile.Name);
+-					writer.Write((ushort)(type - MapHelper.tileLookup[tile.Type]));
+-				}
+-				else if (MapLiquidLoader.entryToLiquid.ContainsKey(type))
+-				{
+-					ModLiquid liquid = LiquidLoader.GetLiquid(MapLiquidLoader.entryToLiquid[type]);
+-					writer.Write(value: false);
+-					writer.Write(liquid.Mod.Name);
+-					writer.Write(liquid.Name);
+-					writer.Write((ushort)(type - MapLiquidLoader.liquidLookup[liquid.Type]));
+-				}
+-				else if (MapLoader.entryToWall.ContainsKey(type))
+-				{
+-					ModWall wall = WallLoader.GetWall(MapLoader.entryToWall[type]);
+-					writer.Write(value: false);
+-					writer.Write(wall.Mod.Name);
+-					writer.Write(wall.Name);
+-					writer.Write((ushort)(type - MapHelper.wallLookup[wall.Type]));
+-				}
+-				else
++				ModTile tile = TileLoader.GetTile(tileType);
++				ushort option = ValidateWriterIdentity(type, MapHelper.tileLookup[tile.Type], MapLiquidLoader.modTileOptions(tile.Type));
++				return new HeaderEntry(type, true, RequireName(tile.Mod?.Name), RequireName(tile.Name), option);
++			}
++			if (hasLiquid)
++			{
++				ModLiquid liquid = LiquidLoader.GetLiquid(liquidType);
++				ushort option = ValidateWriterIdentity(type, MapLiquidLoader.liquidLookup[liquid.Type], MapLiquidLoader.modLiquidOptions(liquid.Type));
++				return new HeaderEntry(type, false, RequireName(liquid.Mod?.Name), RequireName(liquid.Name), option);
++			}
++
++			ModWall wall = WallLoader.GetWall(wallType);
++			ushort wallOption = ValidateWriterIdentity(type, MapHelper.wallLookup[wall.Type], MapLiquidLoader.modWallOptions(wall.Type));
++			return new HeaderEntry(type, false, RequireName(wall.Mod?.Name), RequireName(wall.Name), wallOption);
++		}
++
++		private static string RequireName(string value)
++		{
++			if (string.IsNullOrEmpty(value))
++				throw new InvalidDataException("Registered map content must have a nonempty identity.");
++			return value;
++		}
++
++		private static ushort ValidateWriterIdentity(ushort oldType, int baseLookup, int optionCount)
++		{
++			long option = (long)oldType - baseLookup;
++			if (baseLookup < MapHelper.modPosition || optionCount <= 0 || option < 0 || option >= optionCount || option > ushort.MaxValue)
++				throw new InvalidDataException($"Map type {oldType} has an invalid lookup base or option range.");
++			return (ushort)option;
++		}
++
++		internal static void ReadModMap(BinaryReader reader)
++		{
++			WorldMap targetMap = Main.Map;
++			int width = Main.maxTilesX;
++			int height = Main.maxTilesY;
++			uint registryGeneration = MapLiquidLoader.Generation;
++			try
++			{
++				IDictionary<ushort, ushort> table = ReadHeader(reader);
++				if (table.Count == 0)
+ 				{
+-					writer.Write(value: true);
+-					writer.Write("");
+-					writer.Write("");
+-					writer.Write((ushort)0);
++					EnsureEndOfStream(reader);
++					EnsureRegistryGeneration(registryGeneration);
++					return;
+ 				}
++
++				List<PendingCell> pending = ParseMapData(reader, table, width, height);
++				EnsureDestination(targetMap, width, height);
++				EnsureRegistryGeneration(registryGeneration);
++				CommitPending(targetMap, pending);
++			}
++			catch (Exception error) when (ShouldWrapAsInvalidData(error))
++			{
++				throw new InvalidDataException("The mod map stream is malformed.", error);
+ 			}
+-			WriteMapData(writer);
+-			return true;
+ 		}
+ 
+-		internal static void ReadModMap(BinaryReader reader)
++		private static IDictionary<ushort, ushort> ReadHeader(BinaryReader reader)
+ 		{
+-			IDictionary<ushort, ushort> table = new Dictionary<ushort, ushort>();
++			var table = new Dictionary<ushort, ushort>();
+ 			ushort count = reader.ReadUInt16();
+-			for (ushort i = 0; i < count; i++)
++			ushort previousType = 0;
++			for (int index = 0; index < count; index++)
+ 			{
+-				ushort type = reader.ReadUInt16();
+-				bool num = reader.ReadBoolean();
++				ushort oldType = reader.ReadUInt16();
++				if (oldType < MapHelper.modPosition || index > 0 && oldType <= previousType)
++					throw new InvalidDataException("Map type definitions must be strictly ascending and in the mod range.");
++
++				byte discriminator = reader.ReadByte();
++				if (discriminator > 1)
++					throw new InvalidDataException("The map entry discriminator is invalid.");
+ 				string modName = reader.ReadString();
+ 				string name = reader.ReadString();
+ 				ushort option = reader.ReadUInt16();
+-				ushort newType = 0;
+-				ModWall wall;
+-				if (num)
+-				{
+-					if (ModContent.TryFind<ModTile>(modName, name, out var tile))
+-					{
+-						if (option >= MapLiquidLoader.modTileOptions(tile.Type))
+-						{
+-							option = 0;
+-						}
+-						newType = (ushort)MapHelper.TileToLookup(tile.Type, option);
+-					}
+-				}
+-				else if (ModContent.TryFind<ModLiquid>(modName, name, out var liquid))
+-				{
+-					if (option >= MapLiquidLoader.modLiquidOptions(liquid.Type))
+-					{
+-						option = 0;
+-					}
+-					newType = (ushort)(MapLiquidLoader.liquidLookup[liquid.Type] + option);
+-				}
+-				else if (ModContent.TryFind<ModWall>(modName, name, out wall))
+-				{
+-					if (option >= MapLiquidLoader.modWallOptions(wall.Type))
+-					{
+-						option = 0;
+-					}
+-					newType = (ushort)(MapHelper.wallLookup[wall.Type] + option);
+-				}
+-				table[type] = newType;
++				table.Add(oldType, ResolveType(discriminator == 1, modName, name, option));
++				previousType = oldType;
+ 			}
+-			ReadMapData(reader, table);
++			return table;
++		}
++
++		private static ushort ResolveType(bool isTile, string modName, string name, ushort option)
++		{
++			if (isTile)
++			{
++				if (!ModContent.TryFind<ModTile>(modName, name, out var tile))
++					return 0;
++				return ResolveRegisteredType(MapHelper.tileLookup[tile.Type], MapLiquidLoader.modTileOptions(tile.Type), option);
++			}
++
++			bool hasLiquid = ModContent.TryFind<ModLiquid>(modName, name, out var liquid);
++			bool hasWall = ModContent.TryFind<ModWall>(modName, name, out var wall);
++			if (hasLiquid && hasWall)
++				throw new InvalidDataException($"Nontile identity {modName}/{name} is ambiguous.");
++			if (hasLiquid)
++				return ResolveRegisteredType(MapLiquidLoader.liquidLookup[liquid.Type], MapLiquidLoader.modLiquidOptions(liquid.Type), option);
++			if (hasWall)
++				return ResolveRegisteredType(MapHelper.wallLookup[wall.Type], MapLiquidLoader.modWallOptions(wall.Type), option);
++			return 0;
++		}
++
++		private static ushort ResolveRegisteredType(int baseLookup, int optionCount, ushort option)
++		{
++			if (optionCount <= 0)
++				throw new InvalidDataException("Resolved map content has no map options.");
++			if (option >= optionCount)
++				option = 0;
++			long result = (long)baseLookup + option;
++			if (baseLookup < MapHelper.modPosition || result > ushort.MaxValue)
++				throw new InvalidDataException("Resolved map content has an invalid lookup range.");
++			return (ushort)result;
+ 		}
+ 
+ 		internal static void WriteMapData(BinaryWriter writer)
+ 		{
+-			byte skip = 0;
+-			bool nextModTile = false;
+-			int i = 0;
+-			int j = 0;
+-			do
+-			{
+-				MapTile tile = Main.Map[i, j];
+-				if (tile.Type >= MapHelper.modPosition && tile.Light > 18)
++			WriteSnapshotData(writer, CaptureSnapshot());
++		}
++
++		private static void WriteSnapshotData(BinaryWriter writer, MapSnapshot snapshot)
++		{
++			int position = 0;
++			bool continuation = false;
++			while (position < snapshot.Cells.Length)
++			{
++				if (!continuation)
+ 				{
+-					if (!nextModTile)
++					byte skip = 0;
++					while (position < snapshot.Cells.Length && !IsVisibleModTile(snapshot.Cells[position]) && skip < byte.MaxValue)
+ 					{
+-						writer.Write(skip);
+-						skip = 0;
++						skip++;
++						position++;
+ 					}
+-					else
+-					{
+-						nextModTile = false;
+-					}
+-					WriteMapTile(ref i, ref j, writer, ref nextModTile);
++					writer.Write(skip);
++					if (position == snapshot.Cells.Length)
++						return;
++					if (skip == byte.MaxValue)
++						continue;
+ 				}
+ 				else
++					continuation = false;
++
++				continuation = WriteSnapshotTile(writer, snapshot.Cells, ref position);
++			}
++		}
++
++		private static bool WriteSnapshotTile(BinaryWriter writer, MapTile[] cells, ref int position)
++		{
++			MapTile tile = cells[position];
++			uint sameCount = 0;
++			while (position + 1 < cells.Length && tile.Equals(cells[position + 1]) && sameCount < uint.MaxValue)
++			{
++				sameCount++;
++				position++;
++			}
++
++			bool continuation = position + 1 < cells.Length && IsVisibleModTile(cells[position + 1]);
++			WriteTileRecord(writer, tile, sameCount, continuation);
++			position++;
++			return continuation;
++		}
++
++		private static void WriteTileRecord(BinaryWriter writer, MapTile tile, uint sameCount, bool continuation)
++		{
++			byte flags = 0;
++			if (tile.Light < byte.MaxValue)
++				flags |= LightFlag;
++			if (tile.Color > 0)
++				flags |= ColorFlag;
++			if (sameCount > 0)
++			{
++				flags |= RunFlag;
++				if (sameCount > byte.MaxValue)
+ 				{
+-					skip++;
+-					if (skip == byte.MaxValue)
+-					{
+-						writer.Write(skip);
+-						skip = 0;
+-					}
++					flags |= Run16Flag;
++					if (sameCount > ushort.MaxValue)
++						flags |= Run32Flag;
+ 				}
+ 			}
+-			while (NextTile(ref i, ref j));
+-			if (skip > 0)
++			if (continuation)
++				flags |= ContinuationFlag;
++
++			writer.Write(flags);
++			writer.Write(tile.Type);
++			if ((flags & LightFlag) != 0)
++				writer.Write(tile.Light);
++			if ((flags & ColorFlag) != 0)
++				writer.Write(tile.Color);
++			if ((flags & Run32Flag) != 0)
++				writer.Write(sameCount);
++			else if ((flags & Run16Flag) != 0)
++				writer.Write((ushort)sameCount);
++			else if ((flags & RunFlag) != 0)
++				writer.Write((byte)sameCount);
++		}
++
++		internal static void ReadMapData(BinaryReader reader, IDictionary<ushort, ushort> table)
++		{
++			WorldMap targetMap = Main.Map;
++			int width = Main.maxTilesX;
++			int height = Main.maxTilesY;
++			try
++			{
++				List<PendingCell> pending = ParseMapData(reader, table, width, height);
++				EnsureDestination(targetMap, width, height);
++				CommitPending(targetMap, pending);
++			}
++			catch (Exception error) when (ShouldWrapAsInvalidData(error))
+ 			{
+-				writer.Write(skip);
++				throw new InvalidDataException("The mod map payload is malformed.", error);
+ 			}
+ 		}
+ 
+-		internal static void ReadMapData(BinaryReader reader, IDictionary<ushort, ushort> table)
++		private static List<PendingCell> ParseMapData(BinaryReader reader, IDictionary<ushort, ushort> table, int width, int height)
+ 		{
+-			int i = 0;
+-			int j = 0;
+-			bool nextModTile = false;
+-			do
++			if (table == null)
++				throw new InvalidDataException("The mod map type table is missing.");
++			if (width < 0 || height < 0)
++				throw new InvalidDataException("The map dimensions are invalid.");
++
++			long totalCells = (long)width * height;
++			var pending = new List<PendingCell>();
++			long position = 0;
++			bool continuation = false;
++			if (totalCells == 0)
++			{
++				EnsureEndOfStream(reader);
++				return pending;
++			}
++
++			while (position < totalCells)
+ 			{
+-				if (!nextModTile)
++				if (!continuation)
+ 				{
+ 					byte skip;
+-					for (skip = reader.ReadByte(); skip == byte.MaxValue; skip = reader.ReadByte())
++					do
+ 					{
+-						for (byte l = 0; l < byte.MaxValue; l++)
++						skip = reader.ReadByte();
++						if (skip > totalCells - position)
++							throw new InvalidDataException("A sparse skip exceeds the map bounds.");
++						position += skip;
++						if (position == totalCells)
+ 						{
+-							if (!NextTile(ref i, ref j))
+-							{
+-								return;
+-							}
+-						}
+-					}
+-					for (byte k = 0; k < skip; k++)
+-					{
+-						if (!NextTile(ref i, ref j))
+-						{
+-							return;
++							EnsureEndOfStream(reader);
++							return pending;
+ 						}
+ 					}
++					while (skip == byte.MaxValue);
+ 				}
+-				else
++
++				ParsedTile parsed = ParseMapTile(reader, table);
++				long runLength = 1L + parsed.RepeatedCells;
++				if (runLength > totalCells - position)
++					throw new InvalidDataException("A map tile run exceeds the map bounds.");
++				for (long offset = 0; offset < runLength; offset++)
+ 				{
+-					nextModTile = false;
++					long cell = position + offset;
++					pending.Add(new PendingCell((int)(cell / height), (int)(cell % height), parsed.Tile));
+ 				}
+-				ReadMapTile(ref i, ref j, table, reader, ref nextModTile);
++				position += runLength;
++				continuation = parsed.HasContinuation;
++				if (continuation && position == totalCells)
++					throw new InvalidDataException("A continuation flag points beyond the map.");
+ 			}
+-			while (NextTile(ref i, ref j));
++
++			EnsureEndOfStream(reader);
++			return pending;
+ 		}
+ 
+-		internal static void WriteMapTile(ref int i, ref int j, BinaryWriter writer, ref bool nextModTile)
++		private static ParsedTile ParseMapTile(BinaryReader reader, IDictionary<ushort, ushort> table)
+ 		{
+-			MapTile tile = Main.Map[i, j];
+-			byte flags = 0;
+-			byte[] data = new byte[9];
+-			int index = 1;
+-			data[index] = (byte)tile.Type;
+-			index++;
+-			data[index] = (byte)(tile.Type >> 8);
+-			index++;
+-			if (tile.Light < byte.MaxValue)
++			byte flags = reader.ReadByte();
++			bool hasRun = (flags & RunFlag) != 0;
++			bool hasRun16 = (flags & Run16Flag) != 0;
++			bool hasRun32 = (flags & Run32Flag) != 0;
++			if ((flags & ~KnownFlags) != 0 || !hasRun && (hasRun16 || hasRun32) || hasRun32 && !hasRun16)
++				throw new InvalidDataException("The map tile contains invalid flags.");
++
++			ushort oldType = reader.ReadUInt16();
++			if (!table.TryGetValue(oldType, out ushort type))
++				throw new InvalidDataException($"Map type {oldType} is not present in the header.");
++			byte light = (flags & LightFlag) != 0 ? reader.ReadByte() : byte.MaxValue;
++			byte color = (flags & ColorFlag) != 0 ? reader.ReadByte() : (byte)0;
++
++			uint sameCount = 0;
++			if (hasRun32)
+ 			{
+-				flags = (byte)(flags | 1u);
+-				data[index] = tile.Light;
+-				index++;
++				sameCount = reader.ReadUInt32();
++				if (sameCount <= ushort.MaxValue)
++					throw new InvalidDataException("The map tile run uses a non-canonical length.");
+ 			}
+-			if (tile.Color > 0)
++			else if (hasRun16)
++			{
++				sameCount = reader.ReadUInt16();
++				if (sameCount <= byte.MaxValue)
++					throw new InvalidDataException("The map tile run uses a non-canonical length.");
++			}
++			else if (hasRun)
++			{
++				sameCount = reader.ReadByte();
++				if (sameCount == 0)
++					throw new InvalidDataException("The map tile run cannot be empty.");
++			}
++
++			return new ParsedTile(MapTile.Create(type, light, color), sameCount, (flags & ContinuationFlag) != 0);
++		}
++
++		private static void EnsureDestination(WorldMap targetMap, int width, int height)
++		{
++			if (!ReferenceEquals(targetMap, Main.Map) || width != Main.maxTilesX || height != Main.maxTilesY)
++				throw new InvalidDataException("The destination map changed while the sidecar was being decoded.");
++		}
++
++		private static void EnsureRegistryGeneration(uint generation)
++		{
++			if (generation != MapLiquidLoader.Generation)
++				throw new InvalidDataException("The liquid map registry changed during sidecar processing.");
++		}
++
++		private static void CommitPending(WorldMap targetMap, List<PendingCell> pending)
++		{
++			var previous = new List<MapTile>(pending.Count);
++			foreach (PendingCell cell in pending)
++				previous.Add(targetMap[cell.X, cell.Y]);
++
++			int committed = 0;
++			try
++			{
++				for (; committed < pending.Count; committed++)
++				{
++					PendingCell cell = pending[committed];
++					MapTile tile = cell.Tile;
++					targetMap.SetTile(cell.X, cell.Y, ref tile);
++				}
++			}
++			catch (Exception commitError)
+ 			{
+-				flags = (byte)(flags | 2u);
+-				data[index] = tile.Color;
+-				index++;
++				Exception rollbackError = null;
++				for (int index = Math.Min(committed, pending.Count - 1); index >= 0; index--)
++				{
++					try
++					{
++						PendingCell cell = pending[index];
++						MapTile tile = previous[index];
++						targetMap.SetTile(cell.X, cell.Y, ref tile);
++					}
++					catch (Exception error)
++					{
++						rollbackError ??= error;
++					}
++				}
++				Exception inner = rollbackError == null ? commitError : new AggregateException(commitError, rollbackError);
++				throw new InvalidDataException("The map commit failed and was rolled back.", inner);
+ 			}
++		}
++
++		internal static void WriteMapTile(ref int i, ref int j, BinaryWriter writer, ref bool nextModTile)
++		{
++			MapTile tile = Main.Map[i, j];
+ 			int nextI = i;
+ 			int nextJ = j;
+-			uint sameCount = 0u;
++			uint sameCount = 0;
+ 			while (NextTile(ref nextI, ref nextJ))
+ 			{
+ 				MapTile nextTile = Main.Map[nextI, nextJ];
+@@ -265,61 +583,78 @@ namespace ModLiquidLib.IO
+ 					j = nextJ;
+ 					continue;
+ 				}
+-				if (nextTile.Type >= MapHelper.modPosition && nextTile.Light > 18)
+-				{
+-					flags = (byte)(flags | 0x20u);
+-					nextModTile = true;
+-				}
+ 				break;
+ 			}
+-			if (sameCount != 0)
++
++			bool continuation = nextI >= 0 && nextI < Main.maxTilesX && nextJ >= 0 && nextJ < Main.maxTilesY &&
++				IsVisibleModTile(Main.Map[nextI, nextJ]);
++			WriteTileRecord(writer, tile, sameCount, continuation);
++			nextModTile = continuation;
++		}
++
++		internal static void ReadMapTile(ref int i, ref int j, IDictionary<ushort, ushort> table, BinaryReader reader, ref bool nextModTile)
++		{
++			if (table == null)
++				throw new InvalidDataException("The mod map type table is missing.");
++			if (i < 0 || i >= Main.maxTilesX || j < 0 || j >= Main.maxTilesY)
++				throw new InvalidDataException("The map tile position is outside the map.");
++
++			ParsedTile parsed;
++			try
+ 			{
+-				flags = (byte)(flags | 4u);
+-				data[index] = (byte)sameCount;
+-				index++;
+-				if (sameCount > 255)
+-				{
+-					flags = (byte)(flags | 8u);
+-					data[index] = (byte)(sameCount >> 8);
+-					index++;
+-					if (sameCount > 65535)
+-					{
+-						flags = (byte)(flags | 0x10u);
+-						data[index] = (byte)(sameCount >> 16);
+-						index++;
+-						data[index] = (byte)(sameCount >> 24);
+-						index++;
+-					}
+-				}
++				parsed = ParseMapTile(reader, table);
++			}
++			catch (Exception error) when (ShouldWrapAsInvalidData(error))
++			{
++				throw new InvalidDataException("The map tile record is malformed.", error);
++			}
++
++			long start = (long)i * Main.maxTilesY + j;
++			long total = (long)Main.maxTilesX * Main.maxTilesY;
++			long length = 1L + parsed.RepeatedCells;
++			if (length > total - start || parsed.HasContinuation && start + length == total)
++				throw new InvalidDataException("The map tile record exceeds the map.");
++			var pending = new List<PendingCell>((int)length);
++			for (long offset = 0; offset < length; offset++)
++			{
++				long cell = start + offset;
++				pending.Add(new PendingCell((int)(cell / Main.maxTilesY), (int)(cell % Main.maxTilesY), parsed.Tile));
+ 			}
+-			data[0] = flags;
+-			writer.Write(data, 0, index);
++			CommitPending(Main.Map, pending);
++			long last = start + parsed.RepeatedCells;
++			i = (int)(last / Main.maxTilesY);
++			j = (int)(last % Main.maxTilesY);
++			nextModTile = parsed.HasContinuation;
+ 		}
+ 
+-		internal static void ReadMapTile(ref int i, ref int j, IDictionary<ushort, ushort> table, BinaryReader reader, ref bool nextModTile)
++		private static bool IsVisibleModTile(MapTile tile)
++			=> tile.Type >= MapHelper.modPosition && tile.Light > 18;
++
++		private static void EnsureEndOfStream(BinaryReader reader)
+ 		{
+-			byte flags = reader.ReadByte();
+-			ushort type = table[reader.ReadUInt16()];
+-			byte light = (((flags & 1) == 1) ? reader.ReadByte() : byte.MaxValue);
+-			byte color = (byte)(((flags & 2) == 2) ? reader.ReadByte() : 0);
+-			MapTile tile = MapTile.Create(type, light, color);
+-			Main.Map.SetTile(i, j, ref tile);
+-			if ((flags & 4) == 4)
+-			{
+-				uint sameCount = (((flags & 0x10) == 16) ? reader.ReadUInt32() : (((flags & 8) != 8) ? reader.ReadByte() : reader.ReadUInt16()));
+-				for (uint k = 0u; k < sameCount; k++)
+-				{
+-					NextTile(ref i, ref j);
+-					tile = MapTile.Create(type, light, color);
+-					Main.Map.SetTile(i, j, ref tile);
+-				}
++			try
++			{
++				reader.ReadByte();
+ 			}
+-			if ((flags & 0x20) == 32)
++			catch (EndOfStreamException)
+ 			{
+-				nextModTile = true;
++				return;
+ 			}
++			throw new InvalidDataException("The mod map stream has trailing bytes.");
+ 		}
+ 
++		private static bool ShouldWrapAsInvalidData(Exception error)
++			=> error is not InvalidDataException &&
++				(error is IOException ||
++				 error is FormatException ||
++				 error is ArgumentException ||
++				 error is KeyNotFoundException ||
++				 error is IndexOutOfRangeException ||
++				 error is InvalidOperationException ||
++				 error is NullReferenceException ||
++				 error is OverflowException ||
++				 error is DecoderFallbackException);
++
+ 		private static bool NextTile(ref int i, ref int j)
+ 		{
+ 			j++;
+@@ -328,9 +663,7 @@ namespace ModLiquidLib.IO
+ 				j = 0;
+ 				i++;
+ 				if (i >= Main.maxTilesX)
+-				{
+ 					return false;
+-				}
+ 			}
+ 			return true;
+ 		}
+diff --git a/benchmarks/terraria-core/private/harbor/terraria-modliquid-map-persistence-hard/environment/mod-liquid-lib/ModLoader/MapLiquidLoader.cs b/benchmarks/terraria-core/private/harbor/terraria-modliquid-map-persistence-hard/solution/after/ModLoader/MapLiquidLoader.cs
+index a2aed222..54835bbe 100644
+--- a/benchmarks/terraria-core/private/harbor/terraria-modliquid-map-persistence-hard/environment/mod-liquid-lib/ModLoader/MapLiquidLoader.cs
++++ b/benchmarks/terraria-core/private/harbor/terraria-modliquid-map-persistence-hard/solution/after/ModLoader/MapLiquidLoader.cs
+@@ -1,90 +1,195 @@
+ using System;
+ using System.Collections.Generic;
+-using Terraria.ID;
++using Microsoft.Xna.Framework;
+ using Terraria;
++using Terraria.ID;
++using Terraria.Localization;
++using Terraria.Map;
+ using Terraria.ModLoader;
+ 
+ namespace ModLiquidLib.ModLoader
+ {
+ 	internal static class MapLiquidLoader
+ 	{
+-		internal static bool initialized = false;
+-
++		internal static bool initialized;
+ 		internal static readonly IDictionary<ushort, IList<MapEntry>> liquidEntries = new Dictionary<ushort, IList<MapEntry>>();
+-
+ 		internal static readonly IDictionary<ushort, ushort> entryToLiquid = new Dictionary<ushort, ushort>();
++		public static ushort[] liquidLookup = new ushort[LiquidID.Count];
+ 
+-		public static ushort[] liquidLookup;
++		private static readonly HashSet<ushort> publishedMapTypes = new HashSet<ushort>();
+ 
+ 		internal static uint Generation { get; private set; }
+ 
+-		internal static int modTileOptions(ushort type)
+-		{
+-			return MapLoader.tileEntries[type].Count;
+-		}
++		internal static int modTileOptions(ushort type) => MapLoader.tileEntries[type].Count;
++		internal static int modWallOptions(ushort type) => MapLoader.wallEntries[type].Count;
++		internal static int modLiquidOptions(ushort type) => liquidEntries[type].Count;
+ 
+-		internal static int modWallOptions(ushort type)
++		internal static void FinishSetup()
+ 		{
+-			return MapLoader.wallEntries[type].Count;
++			if (!Main.dedServ)
++				initialized = true;
+ 		}
+ 
+-		internal static int modLiquidOptions(ushort type)
++		internal static void PublishEntries(ref IList<Color> colors, ref IList<LocalizedText> names)
+ 		{
+-			return liquidEntries[type].Count;
+-		}
++			if (colors == null || names == null)
++				throw new InvalidOperationException("The map color and name tables are required.");
++			if (colors.Count != names.Count)
++				throw new InvalidOperationException("The map color and name tables are misaligned.");
++			if (LiquidLoader.LiquidCount < LiquidID.Count)
++				throw new InvalidOperationException("The liquid registry count is below the vanilla range.");
+ 
+-		internal static void FinishSetup()
+-		{
+-			if (Main.dedServ)
++			var stagedEntries = new List<KeyValuePair<ushort, IList<MapEntry>>>(liquidEntries.Count);
++			foreach (KeyValuePair<ushort, IList<MapEntry>> pair in liquidEntries)
+ 			{
+-				return;
++				if (pair.Key < LiquidID.Count || pair.Key >= LiquidLoader.LiquidCount)
++					throw new InvalidOperationException($"Liquid type {pair.Key} is outside the registered custom range.");
++				if (pair.Value == null || pair.Value.Count == 0)
++					throw new InvalidOperationException($"Liquid type {pair.Key} has no map entries.");
++
++				var entries = new List<MapEntry>(pair.Value.Count);
++				foreach (MapEntry entry in pair.Value)
++				{
++					if (entry.name == null || entry.getName == null)
++						throw new InvalidOperationException($"Liquid type {pair.Key} has an incomplete map entry.");
++					entries.Add(entry);
++				}
++				stagedEntries.Add(new KeyValuePair<ushort, IList<MapEntry>>(pair.Key, entries));
+ 			}
+-			initialized = true;
+-		}
++			stagedEntries.Sort((left, right) => left.Key.CompareTo(right.Key));
+ 
+-		internal static void PublishEntries(ref IList<Microsoft.Xna.Framework.Color> colors, ref IList<Terraria.Localization.LocalizedText> names)
+-		{
+-			Array.Resize(ref liquidLookup, LiquidLoader.LiquidCount);
+-			foreach (ushort type in liquidEntries.Keys)
++			var stagedColors = new List<Color>(colors);
++			var stagedNames = new List<LocalizedText>(names);
++			var stagedLookup = new ushort[LiquidLoader.LiquidCount];
++			if (liquidLookup != null)
++				Array.Copy(liquidLookup, stagedLookup, Math.Min(LiquidID.Count, Math.Min(liquidLookup.Length, stagedLookup.Length)));
++			var stagedEntryToLiquid = new Dictionary<ushort, ushort>();
++			var stagedNameFuncs = new Dictionary<ushort, Func<string, int, int, string>>(MapLoader.nameFuncs);
++			foreach (ushort mapType in publishedMapTypes)
++				stagedNameFuncs.Remove(mapType);
++			var stagedPublished = new HashSet<ushort>();
++
++			long nextMapType = (long)MapHelper.modPosition + stagedColors.Count;
++			foreach (KeyValuePair<ushort, IList<MapEntry>> pair in stagedEntries)
+ 			{
+-				liquidLookup[type] = (ushort)(Terraria.Map.MapHelper.modPosition + colors.Count);
+-				foreach (MapEntry entry in liquidEntries[type])
++				if (nextMapType > ushort.MaxValue)
++					throw new InvalidOperationException("The custom liquid map range exceeds UInt16.");
++				stagedLookup[pair.Key] = (ushort)nextMapType;
++
++				foreach (MapEntry entry in pair.Value)
+ 				{
+-					ushort mapType = (ushort)(Terraria.Map.MapHelper.modPosition + colors.Count);
+-					entryToLiquid[mapType] = type;
+-					MapLoader.nameFuncs[mapType] = entry.getName;
+-					colors.Add(entry.color);
+-					if (entry.name == null)
+-						throw new Exception("How did this happen?");
+-					names.Add(entry.name);
++					if (nextMapType > ushort.MaxValue)
++						throw new InvalidOperationException("The custom liquid map range exceeds UInt16.");
++					ushort mapType = (ushort)nextMapType;
++					if (MapLoader.entryToTile.ContainsKey(mapType) ||
++						MapLoader.entryToWall.ContainsKey(mapType) ||
++						stagedNameFuncs.ContainsKey(mapType) ||
++						!stagedEntryToLiquid.TryAdd(mapType, pair.Key))
++						throw new InvalidOperationException($"Map type {mapType} collides with an existing map registration.");
++
++					stagedNameFuncs.Add(mapType, entry.getName);
++					stagedPublished.Add(mapType);
++					stagedColors.Add(entry.color);
++					stagedNames.Add(entry.name);
++					nextMapType++;
+ 				}
+ 			}
+-			Generation++;
++
++			colors = stagedColors;
++			names = stagedNames;
++			liquidLookup = stagedLookup;
++			Replace(entryToLiquid, stagedEntryToLiquid);
++			Replace(MapLoader.nameFuncs, stagedNameFuncs);
++			publishedMapTypes.Clear();
++			foreach (ushort mapType in stagedPublished)
++				publishedMapTypes.Add(mapType);
++			unchecked { Generation++; }
+ 		}
+ 
+ 		internal static void UnloadModMap()
+ 		{
+ 			liquidEntries.Clear();
+-			if (!Main.dedServ)
+-			{
+-				entryToLiquid.Clear();
+-				Array.Resize(ref liquidLookup, LiquidID.Count);
+-				initialized = false;
+-			}
++			entryToLiquid.Clear();
++			foreach (ushort mapType in publishedMapTypes)
++				MapLoader.nameFuncs.Remove(mapType);
++			publishedMapTypes.Clear();
++			var vanillaLookup = new ushort[LiquidID.Count];
++			if (liquidLookup != null)
++				Array.Copy(liquidLookup, vanillaLookup, Math.Min(liquidLookup.Length, vanillaLookup.Length));
++			liquidLookup = vanillaLookup;
++			initialized = false;
++			unchecked { Generation++; }
+ 		}
+ 
+ 		internal static void ModMapOption(ref ushort mapType, int i, int j)
+ 		{
+-			if (entryToLiquid.ContainsKey(mapType))
++			ushort original = mapType;
++			if (!entryToLiquid.TryGetValue(original, out ushort liquidType))
++				return;
++
++			uint generation = Generation;
++			if (!liquidEntries.TryGetValue(liquidType, out IList<MapEntry> entries) || entries == null)
++				throw new InvalidOperationException("The selected liquid has no published option table.");
++			int optionCount = entries.Count;
++			ushort baseLookup = ValidatePublishedTopology(liquidType, entries, optionCount);
++			if (original < baseLookup || (long)original >= (long)baseLookup + optionCount)
++				throw new InvalidOperationException("The selected map type is outside its owner's published option range.");
++
++			ModLiquid liquid = LiquidLoader.GetLiquid(liquidType);
++			if (liquid == null || liquid.Type != liquidType)
++				throw new InvalidOperationException("The selected liquid registration changed.");
++			EnsureStableSelection(original, liquidType, entries, optionCount, baseLookup, generation);
++			ushort option = liquid.GetMapOption(i, j);
++
++			EnsureStableSelection(original, liquidType, entries, optionCount, baseLookup, generation);
++
++			if (option >= optionCount)
++				throw new ArgumentOutOfRangeException(nameof(option), "The liquid returned an invalid map option.");
++			long resolved = (long)baseLookup + option;
++			if (resolved > ushort.MaxValue)
++				throw new InvalidOperationException("The selected liquid map option exceeds UInt16.");
++			mapType = (ushort)resolved;
++		}
++
++		private static void EnsureStableSelection(
++			ushort original,
++			ushort liquidType,
++			IList<MapEntry> entries,
++			int optionCount,
++			ushort baseLookup,
++			uint generation)
++		{
++			if (generation != Generation ||
++				!entryToLiquid.TryGetValue(original, out ushort currentLiquid) || currentLiquid != liquidType ||
++				!liquidEntries.TryGetValue(liquidType, out IList<MapEntry> currentEntries) ||
++				!ReferenceEquals(entries, currentEntries) || currentEntries.Count != optionCount ||
++				liquidLookup == null || liquidType >= liquidLookup.Length || liquidLookup[liquidType] != baseLookup)
++				throw new InvalidOperationException("The liquid map registry changed during option selection.");
++			ValidatePublishedTopology(liquidType, currentEntries, optionCount);
++		}
++
++		private static ushort ValidatePublishedTopology(ushort liquidType, IList<MapEntry> entries, int optionCount)
++		{
++			if (optionCount <= 0 || liquidLookup == null || liquidType >= liquidLookup.Length)
++				throw new InvalidOperationException("The selected liquid has no published map range.");
++			ushort baseLookup = liquidLookup[liquidType];
++			long end = (long)baseLookup + optionCount - 1;
++			if (baseLookup < MapHelper.modPosition || end > ushort.MaxValue)
++				throw new InvalidOperationException("The selected liquid has an invalid published map range.");
++			for (int option = 0; option < optionCount; option++)
+ 			{
+-				ModLiquid liquid = LiquidLoader.GetLiquid(entryToLiquid[mapType]);
+-				ushort option = liquid.GetMapOption(i, j);
+-				if (option < 0 || option >= modLiquidOptions(liquid.Type))
+-				{
+-					throw new ArgumentOutOfRangeException("Bad map option for liquid " + liquid.Name + " from mod " + liquid.Mod.Name);
+-				}
+-				mapType += option;
++				ushort mapType = (ushort)(baseLookup + option);
++				if (!entryToLiquid.TryGetValue(mapType, out ushort owner) || owner != liquidType)
++					throw new InvalidOperationException("The selected liquid map range is not contiguous.");
+ 			}
++			return baseLookup;
++		}
++
++		private static void Replace<TKey, TValue>(IDictionary<TKey, TValue> destination, IDictionary<TKey, TValue> source)
++		{
++			destination.Clear();
++			foreach (KeyValuePair<TKey, TValue> pair in source)
++				destination.Add(pair);
+ 		}
+ 	}
+ }

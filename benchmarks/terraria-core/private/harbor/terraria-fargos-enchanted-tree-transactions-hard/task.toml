@@ -1,0 +1,63 @@
+schema_version = "1.4"
+
+artifacts = ["/workspace/fargos-mutant"]
+
+[task]
+name = "gamecodebench/terraria-fargos-enchanted-tree-transactions-hard"
+version = "0.1.0"
+description = "Repair Enchanted Tree insertion, graph compaction, network snapshot, paid-duplication, recipe, persistence, and update-loop regressions in Fargo's Mutant Mod."
+authors = [{ name = "PrinsYin" }]
+keywords = ["terraria", "tmodloader", "fargos-mutant-mod", "csharp", "tile-entity", "networking", "debugging"]
+
+[metadata]
+category = "programming"
+difficulty = "hard"
+tags = ["game-modding", "terraria", "tmodloader", "repository-debugging", "tile-entity", "lifecycle", "networking"]
+task_kind = "repository-debugging"
+game = "Terraria"
+game_build = "1.4.4.9"
+tmodloader_api = "1.4.4 stable API"
+source_repo = "https://github.com/Fargowilta/Fargowiltas"
+source_license = "MIT"
+base_commit = "85246bb5e4d3b225028b1bf73cd6d99b81674307"
+source_mod_version = "3.4"
+evaluation_boundary = "layered offline .NET 8 source projection plus pinned real tModLoader 2026.7.3.0 dedicated-server assertions against Terraria 1.4.4.9; disclosed client-only behavior remains source-projection-only"
+expected_private_cases = 78
+independent_defect_groups = 15
+public_smoke_command = "python tools/smoke.py"
+validation_status = "revision-4 local controls passed"
+
+[verifier]
+environment_mode = "separate"
+network_mode = "no-network"
+timeout_sec = 900.0
+user = "root"
+
+[verifier.environment]
+network_mode = "no-network"
+cpus = 4
+memory_mb = 4096
+storage_mb = 8192
+gpus = 0
+mcp_servers = []
+
+[agent]
+user = "root"
+network_mode = "allowlist"
+allowed_hosts = ["api.openai.com"]
+timeout_sec = 7200.0
+
+[environment]
+network_mode = "no-network"
+build_timeout_sec = 1200.0
+cpus = 4
+memory_mb = 4096
+storage_mb = 8192
+gpus = 0
+mcp_servers = []
+
+[verifier.env]
+
+[environment.env]
+
+[solution.env]

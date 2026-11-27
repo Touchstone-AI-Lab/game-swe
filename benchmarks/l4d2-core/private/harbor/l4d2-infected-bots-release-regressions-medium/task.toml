@@ -1,0 +1,64 @@
+schema_version = "1.4"
+
+artifacts = ["/app/l4d1_2_plugins"]
+
+[task]
+name = "gamecodebench/l4d2-infected-bots-release-regressions-medium"
+version = "1.1.0"
+description = "Repair four capacity, configuration, spawn-timing, and round-cleanup regressions in L4D Infected Bots."
+authors = [{ name = "PrinsYin" }]
+keywords = ["left4dead2", "sourcemod", "sourcepawn", "infected-bots", "debugging", "regression"]
+
+[metadata]
+category = "programming"
+difficulty = "medium"
+tags = ["game-modding", "l4d2", "sourcepawn", "bug-fix", "server-lifecycle", "multi-defect"]
+source_repo = "https://github.com/fbef0102/L4D1_2-Plugins"
+source_license = "GPL-3.0-only"
+base_commit = "b570e9efd9534ea8822f6fc7909704b4ee8fcdf2"
+reference_revisions = "0faf30d,61f4d59,39904e4,f5a09c4,d4f874e"
+gold_solution_origin = "four-release-regressions-seeded-into-frozen-upstream-snapshot-and-repaired from upstream behavior"
+task_kind = "repository-debugging"
+game = "Left 4 Dead 2 Dedicated Server"
+game_app_id = "222860"
+game_build = "23990100; depots 222861/4827977561765481436 and 222863/868244163643826330"
+expected_private_cases = 18
+expected_server_cases = 16
+independent_defect_groups = 4
+public_smoke_command = "python3 tools/smoke.py"
+agent_toolchain = "SourceMod/spcomp64 1.12.0.7246; mini-swe-agent 2.4.6; litellm 1.95.0"
+
+[verifier]
+environment_mode = "separate"
+network_mode = "no-network"
+timeout_sec = 480.0
+user = "root"
+
+[verifier.environment]
+network_mode = "no-network"
+cpus = 4
+memory_mb = 12288
+storage_mb = 32768
+gpus = 0
+mcp_servers = []
+
+[agent]
+user = "agent"
+network_mode = "allowlist"
+allowed_hosts = ["api.openai.com"]
+timeout_sec = 5400.0
+
+[environment]
+network_mode = "no-network"
+build_timeout_sec = 1800.0
+cpus = 4
+memory_mb = 8192
+storage_mb = 20480
+gpus = 0
+mcp_servers = []
+
+[verifier.env]
+
+[environment.env]
+
+[solution.env]

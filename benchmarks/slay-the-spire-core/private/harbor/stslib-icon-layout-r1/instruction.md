@@ -1,0 +1,7 @@
+Tooltips containing mod-added pictures sometimes reserve room for the hidden text code instead of the picture. Changing only the spelling's letter case can change the measured width even though the same picture is displayed. The width should agree with the picture's normal advance, retaining the ordinary spacing and final-line conventions used by surrounding text.
+
+In narrow columns the tooltip background can be too short for the displayed lines. With languages that wrap by character, some pictures even move upward at an automatic line break, although explicit newlines move them down. Height measurement and downward wrapping must remain consistent when pictures are repeated, mixed with ordinary or colored text, or placed alongside the game's energy symbols. Changing the requested line spacing must change the distance between lines normally.
+
+A label containing one of these pictures can look correct once and then lose the picture when the same tooltip is displayed again. Reusing a tooltip must keep its original label and show the same pictures on subsequent renders.
+
+Repair these behaviors while preserving ordinary text, explicit line breaks, unknown markers and the existing card and picture drawing paths. Existing registrations and public APIs must continue to work. No particular implementation or internal representation is required. The project is in `/app/stslib`; build offline with `mvn -B -o clean test package`.

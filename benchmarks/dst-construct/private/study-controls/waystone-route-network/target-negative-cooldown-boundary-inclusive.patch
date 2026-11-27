@@ -1,0 +1,12 @@
+diff -ruN a/scripts/waystones/network.lua b/scripts/waystones/network.lua
+--- a/scripts/waystones/network.lua	2026-09-22 01:12:00.350213763 +0800
++++ b/scripts/waystones/network.lua	2026-09-22 01:12:00.382899746 +0800
+@@ -352,7 +352,7 @@
+         return { ok = true, duplicate = true, ticket = ticket_view(self.tickets[seen.ticket_id]) }
+     end
+     local cooldown_until = self.cooldowns[traveler_id]
+-    if cooldown_until ~= nil and now < cooldown_until then
++    if cooldown_until ~= nil and now <= cooldown_until then
+         return fail("cooldown", { retry_at = cooldown_until })
+     end
+     if self.live[traveler_id] ~= nil then

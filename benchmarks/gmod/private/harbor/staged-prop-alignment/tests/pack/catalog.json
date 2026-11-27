@@ -1,0 +1,197 @@
+{
+  "id": "rhenium-gmod-v2",
+  "version": "2.2.0",
+  "game": "garrys-mod",
+  "runtime": {
+    "app_id": 4020,
+    "branch": "stable",
+    "build_id": "23150012",
+    "platform": "windows-x86_64",
+    "linux_build_id": "23150012"
+  },
+  "contract_traceability_required": true,
+  "name": {
+    "en": "Rhenium Garry's Mod Server Systems",
+    "zh": "Rhenium Garry's Mod 服务端系统题（五题正式版）"
+  },
+  "description": {
+    "en": "Five server-authoritative clean-room GMod tasks for Sandbox on gm_flatgrass.",
+    "zh": "面向 Sandbox/gm_flatgrass 的服务端权威 clean-room GMod 五题。"
+  },
+  "tasks": [
+    {
+      "id": "staged-prop-alignment",
+      "difficulty": "hard",
+      "task_version": "2.2.0",
+      "title": {
+        "en": "Staged Three-Point Prop Alignment",
+        "zh": "分阶段三点 Prop 对齐工具"
+      },
+      "summary": {
+        "en": "Align a constrained Prop graph from staged three-point frames.",
+        "zh": "用分阶段三点坐标系对齐带约束的 Prop 图。"
+      },
+      "brief": {
+        "en": "A clientless Toolgun workflow with canonical geometry, rollback and Undo.",
+        "zh": "实现 clientless Toolgun、规范几何、回滚与 Undo。"
+      },
+      "requirements": {
+        "en": [
+          "[T2-SEM-02] Capture six anchors in the exact public stage order.",
+          "[T2-GEO-01] Reject degenerate and collinear three-point frames atomically.",
+          "[T2-GEO-02] Map probes through source and target orthonormal frames.",
+          "[T2-SEM-04] Deduplicate every staged operation in one request namespace.",
+          "[T2-SEM-05] Bind sessions to player, entity generation, and a two-operation budget.",
+          "[T2-PERSIST-01] Preserve sessions, spent budget, and replay across save/load.",
+          "[T2-ROLLBACK-01] Roll back all objects on constraint or Undo failure.",
+          "[T2-LIFE-01] Clean all adapter lifecycle state on shutdown."
+        ],
+        "zh": [
+          "[T2-SEM-02] 严格按公开的六步顺序采集锚点。",
+          "[T2-GEO-01] 原子拒绝退化与共线三点坐标系。",
+          "[T2-GEO-02] 通过源和目标正交坐标系映射 probe。",
+          "[T2-SEM-04] 在统一 request 命名空间去重所有阶段操作。",
+          "[T2-SEM-05] session 绑定玩家、实体 generation 与两次操作预算。",
+          "[T2-PERSIST-01] save/load 保留 session、已用预算和重放。",
+          "[T2-ROLLBACK-01] constraint 或 Undo 失败时回滚全部本次对象。",
+          "[T2-LIFE-01] Shutdown 清理全部 adapter 生命周期状态。"
+        ]
+      },
+      "api_usage": {
+        "en": [
+          "[T2-NATIVE-01] Gate every stage through the CanTool Hook.",
+          "[T2-NATIVE-02] Convert real traces to plain numeric points.",
+          "[T2-NATIVE-03] Create Props and Welds with public APIs.",
+          "[T2-NATIVE-05] Register one Undo unit for the whole operation.",
+          "[T2-NATIVE-04] Drive LeftClick through real gmod_tool PrimaryAttack and util.TraceLine."
+        ],
+        "zh": [
+          "[T2-NATIVE-01] 每个阶段都通过 CanTool Hook 检查。",
+          "[T2-NATIVE-02] 把真实 trace 转换为纯数值 point。",
+          "[T2-NATIVE-03] 用公开 API 创建 Prop 与 Weld。",
+          "[T2-NATIVE-05] 把整个操作登记为一个 Undo 单元。",
+          "[T2-NATIVE-04] 通过真实 gmod_tool PrimaryAttack 与 util.TraceLine 驱动 LeftClick。"
+        ]
+      },
+      "acceptance": {
+        "en": [
+          "Ordered anchors and quantized geometry produce the required transform.",
+          "Authority and entity generations cannot be forged.",
+          "Replay, clear, budget, and persistence remain deterministic.",
+          "Real Toolgun, trace, constraint, and Undo integration completes one copy.",
+          "All failures roll back and shutdown leaves no lifecycle residue."
+        ],
+        "zh": [
+          "顺序锚点与量化几何产生规定的变换。",
+          "权限与实体 generation 不可伪造。",
+          "重放、clear、预算和持久化保持确定。",
+          "真实 Toolgun、trace、constraint 和 Undo 完成一次复制。",
+          "所有失败均回滚，关闭后无生命周期残留。"
+        ]
+      },
+      "domains": [
+        "toolgun-authority",
+        "geometry",
+        "transactions"
+      ],
+      "estimated_minutes": 360,
+      "public_exam": {
+        "path": "exams/staged-prop-alignment.md",
+        "sha256": "9619f434221ee62c66f47f570cae744a2e2ab840973d55f2445c497a9d6c5c18",
+        "interfaces": [
+          "Alignment.new(options)",
+          "alignment:stage(request_id, player_id, entity_id, revision, frame, slot, point)",
+          "alignment:solve(request_id, player_id, entity_id, revision, probe)",
+          "adapter.HandleTrace(player, trace)",
+          "adapter.Execute(player, entity, request_id, mode)"
+        ],
+        "contract_evidence": [
+          "T2-SEM-02",
+          "T2-GEO-01",
+          "T2-SEM-05",
+          "T2-ROLLBACK-01",
+          "T2-NATIVE-04"
+        ],
+        "acceptance_evidence": [
+          "T2-ACC-01",
+          "T2-ACC-02",
+          "T2-ACC-03",
+          "T2-ACC-04",
+          "T2-ACC-05"
+        ]
+      },
+      "required_files": [
+        "addon.json",
+        "lua/rhenium_prop_alignment/alignment.lua",
+        "lua/rhenium_prop_alignment/server.lua",
+        "lua/weapons/gmod_tool/stools/rhenium_align.lua"
+      ],
+      "core_module": "lua/rhenium_prop_alignment/alignment.lua",
+      "server_module": "lua/rhenium_prop_alignment/server.lua",
+      "evaluation": {
+        "hidden_suite": "private/tasks/staged-prop-alignment/hidden/staged-prop-alignment.lua",
+        "hidden_cases": [
+          "six anchors must follow the public stage order",
+          "three point frames map origin axes and probe",
+          "collinear and zero length frames are rejected",
+          "canonical output is quantized and detached",
+          "player entity and revision bind one staging session",
+          "exact request replay is idempotent and conflicts fail",
+          "solve requires a complete current generation",
+          "operation budget is consumed once per solve",
+          "clear discards only the named player session",
+          "save load preserves stages budget and replay",
+          "invalid numbers and identifiers never mutate",
+          "shutdown is idempotent and freezes alignment",
+          "malformed sessions requests and budgets are rejected"
+        ],
+        "integration_suite": "private/tasks/staged-prop-alignment/integration/staged-prop-alignment-integration.lua",
+        "integration_cases": [
+          "adapter installs CanTool lifecycle hooks and timer",
+          "trusted player and entity bindings drive six traces",
+          "unbound and forged trace identity are rejected",
+          "CanTool denial blocks staging before mutation",
+          "execute creates one constrained copy and one undo unit",
+          "move changes original without clone and undo restores transform",
+          "unknown execution mode is rejected before core mutation",
+          "constraint failure rolls back created entities",
+          "disconnect clears adapter staging identity"
+        ],
+        "lifecycle_cases": [
+          "shutdown removes every hook and timer"
+        ],
+        "traceability": "private/tasks/staged-prop-alignment/contract-traceability.json",
+        "mutations": "private/tasks/staged-prop-alignment/mutations.json",
+        "suite_timeout_seconds": 8
+      },
+      "server_runtime": {
+        "task_version": "2.2.0",
+        "addon_manifest": "private/tasks/staged-prop-alignment/server/addon.json",
+        "lua_entry": "private/tasks/staged-prop-alignment/server/staged-prop-alignment-suite.lua",
+        "suite_id": "rhenium-gmod-staged-alignment-v3",
+        "runtime_namespace": "staged-prop-alignment-v3",
+        "submission_addon_name": "rhenium_staged_alignment_submission",
+        "private_suite_addon_name": "zz_rhenium_staged_alignment_private",
+        "expected_cases": [
+          "toolgun",
+          "geometry",
+          "constraint",
+          "move",
+          "authority",
+          "rollback",
+          "persistence",
+          "cleanup"
+        ],
+        "phases": [
+          "A",
+          "B"
+        ],
+        "timeout_seconds": 180
+      },
+      "source": {
+        "path": "sources/staged-prop-alignment.json",
+        "sha256": "6647f62ba41aab7afeb34bfd7743318f9e1918d81a2a6a97ce7d08264da5cfbf"
+      }
+    }
+  ]
+}

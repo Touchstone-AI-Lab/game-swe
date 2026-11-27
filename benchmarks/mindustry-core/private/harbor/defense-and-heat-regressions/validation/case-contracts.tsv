@@ -1,0 +1,10 @@
+case	layer	role	public_report
+defense blocks load and update on the pinned server	server	sentinel	a duo takes copper ammunition and idles without firing
+an engaged turret fires at its reload interval	server	preserved	an engaged duo fires every 20 ticks
+an idle turret keeps its reload interval when it engages	server	target	after idling, the first shots of a duo are at least its reload time apart
+a turret with faster ammunition keeps its average fire rate	server	preserved	a duo firing silicon fires every 13 1/3 ticks on average
+a loaded idle turret does not use its coolant	server	preserved	an idle, loaded duo does not consume its water
+an enabled heat redirector passes heat on	server	preserved	enabled heat redirectors pass the source's heat along
+a disabled heat redirector passes no heat	server	target	a disabled heat redirector holds no heat and passes none on
+a shockwave tower destroys enemy bullets inside its range	server	preserved	an enemy bullet 100 units from a shockwave tower is destroyed
+a shockwave tower spares bullets outside its circular range	server	target	an enemy bullet 212 units from a range-170 shockwave tower survives

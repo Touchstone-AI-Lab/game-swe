@@ -1,0 +1,2 @@
+import mindustry.mod.Plugin;
+public final class CoreFailoverCoordinatorPlugin extends Plugin { private static CoreFailoverCoordinatorPlugin INSTANCE; private final CoreFailoverCoordinator core=new CoreFailoverCoordinator(new CoreFailoverCoordinator.Policy(0.35, 30)); public CoreFailoverCoordinatorPlugin(){INSTANCE=this;} public static CoreFailoverCoordinatorPlugin instance(){return INSTANCE;} public CoreFailoverCoordinator core(){return core;} public Object exportState(){return core.save();} }

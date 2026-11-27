@@ -1,0 +1,2 @@
+ablation	patch	expected_failed_case
+responder-capability	responder-capability.patch	real enemy and responder assignment

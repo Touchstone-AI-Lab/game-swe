@@ -1,0 +1,144 @@
+diff -ruN a/darkrp/gamemode/modules/base/sh_createitems.lua b/darkrp/gamemode/modules/base/sh_createitems.lua
+--- a/darkrp/gamemode/modules/base/sh_createitems.lua	2026-09-21 05:04:15.320551299 +0800
++++ b/darkrp/gamemode/modules/base/sh_createitems.lua	2026-09-21 05:47:49.885767930 +0800
+@@ -639,7 +639,17 @@
+ end
+ AddEntity = DarkRP.createEntity
+ 
+-DarkRP.removeEntity = fp{removeCustomItem, DarkRPEntities, "entities", "onEntityRemoved", true}
++function DarkRP.removeEntity(i)
++    local entity = DarkRPEntities[i]
++
++    -- Buy-menu entities keep their chat command in "cmd", not in "command" like jobs
++    -- do, so removeCustomItem does not find it.
++    if istable(entity) and isstring(entity.cmd) then
++        DarkRP.removeChatCommand(entity.cmd)
++    end
++
++    removeCustomItem(DarkRPEntities, "entities", "onEntityRemoved", true, i)
++end
+ 
+ -- here for backwards compatibility
+ DarkRPAgendas = {}
+@@ -658,7 +668,13 @@
+ function DarkRP.createAgenda(Title, Manager, Listeners)
+     if DarkRP.DARKRP_LOADING and DarkRP.disabledDefaults["agendas"][Title] then return end
+ 
+-    local agenda = {Manager = Manager, Title = Title, Listeners = Listeners, ManagersByKey = {}}
++    -- Set of the managing job(s); the agenda commands check it to see who may write.
++    local managersByKey = {}
++    for _, managerTeam in pairs(istable(Manager) and Manager or {Manager}) do
++        managersByKey[managerTeam] = true
++    end
++
++    local agenda = {Manager = Manager, Title = Title, Listeners = Listeners, ManagersByKey = managersByKey}
+     agenda.default = DarkRP.DARKRP_LOADING
+ 
+     local valid, err, hints = DarkRP.validateAgenda(agenda)
+@@ -710,8 +726,11 @@
+     if isfunction(funcOrTeam) then
+         table.insert(gm.DarkRPGroupChats, fp{DarkRP.simplerrRun, funcOrTeam})
+     else
+-        local teams = {...}
+-        table.insert(gm.DarkRPGroupChats, function(ply) return table.HasValue(teams, ply:Team()) end)
++        -- Every team that was passed takes part, the first argument included.
++        local inGroup = {[funcOrTeam] = true}
++        for _, teamNr in ipairs({...}) do inGroup[teamNr] = true end
++
++        table.insert(gm.DarkRPGroupChats, function(ply) return inGroup[ply:Team()] == true end)
+     end
+ end
+ GM.AddGroupChat = function(_, ...) DarkRP.createGroupChat(...) end
+diff -ruN a/darkrp/gamemode/modules/chat/sh_chatcommands.lua b/darkrp/gamemode/modules/chat/sh_chatcommands.lua
+--- a/darkrp/gamemode/modules/chat/sh_chatcommands.lua	2026-09-21 05:04:15.321728873 +0800
++++ b/darkrp/gamemode/modules/chat/sh_chatcommands.lua	2026-09-21 05:47:49.885317477 +0800
+@@ -24,9 +24,15 @@
+         DarkRP.error("Incorrect chat command! " .. element .. " is invalid!", 2)
+     end
+ 
+-    DarkRP.chatCommands[tbl.command] = DarkRP.chatCommands[tbl.command] or tbl
++    -- Commands are looked up, removed and aliased in lower case, so that is how they
++    -- have to be stored as well.
++    local command = string.lower(tbl.command)
++    tbl.command = command
++
++    local stored = DarkRP.chatCommands[command] or tbl
++    DarkRP.chatCommands[command] = stored
+     for k, v in pairs(tbl) do
+-        DarkRP.chatCommands[tbl.command][k] = v
++        stored[k] = v
+     end
+ end
+ 
+diff -ruN a/darkrp/gamemode/modules/doorsystem/sh_doors.lua b/darkrp/gamemode/modules/doorsystem/sh_doors.lua
+--- a/darkrp/gamemode/modules/doorsystem/sh_doors.lua	2026-09-21 05:04:15.322606561 +0800
++++ b/darkrp/gamemode/modules/doorsystem/sh_doors.lua	2026-09-21 05:47:49.885267354 +0800
+@@ -54,15 +54,21 @@
+ end
+ 
+ function meta:isKeysOwnedBy(ply)
++    -- The player who bought the door owns it, without having to be a co-owner too.
++    local owner = self:getDoorOwner()
++    if owner ~= nil and owner == ply then return true end
++
+     local coOwners = self:getKeysCoOwners()
+     return coOwners and coOwners[ply:UserID()] or false
+ end
+ 
+ function meta:isKeysAllowedToOwn(ply)
+-    local doorData = self:getDoorData()
+-    if not doorData then return false end
++    -- The allow list is keyed by UserID, like the co-owner list
++    -- (see addKeysAllowedToOwn in sv_doorvars.lua).
++    local allowed = self:getKeysAllowedToOwn()
++    if not allowed then return false end
+ 
+-    return doorData.allowedToOwn and doorData.allowedToOwn[ply:EntIndex()] or false
++    return allowed[ply:UserID()] or false
+ end
+ 
+ function meta:getKeysNonOwnable()
+@@ -108,12 +114,20 @@
+ end
+ 
+ local function canLockUnlock(ply, ent)
++    -- (co-)owners
++    if ent:isKeysOwnedBy(ply) then return true end
++
+     local Team = ply:Team()
++
++    -- the door belongs to a door group the player's job is part of
+     local group = ent:getKeysDoorGroup()
++    if group and table.HasValue(RPExtraTeamDoors[group] or {}, Team) then return true end
++
++    -- the door has been set aside for the player's job
+     local teamOwn = ent:getKeysDoorTeams()
++    if teamOwn and teamOwn[Team] then return true end
+ 
+-    return ent:isKeysOwnedBy(ply)                                         or
+-        (group   and table.HasValue(RPExtraTeamDoors[group] or {}, Team))
++    return false
+ end
+ 
+ function plyMeta:canKeysLock(ent)
+diff -ruN a/darkrp/gamemode/modules/money/sh_money.lua b/darkrp/gamemode/modules/money/sh_money.lua
+--- a/darkrp/gamemode/modules/money/sh_money.lua	2026-09-21 05:04:15.330725702 +0800
++++ b/darkrp/gamemode/modules/money/sh_money.lua	2026-09-21 05:47:49.885138862 +0800
+@@ -3,9 +3,17 @@
+ 
+ function pMeta:canAfford(amount)
+     if not amount or self.DarkRPUnInitialized then return false end
++
++    -- A price below zero is not a price: "paying" it would add money to the wallet.
++    if amount < 0 then return false end
++
+     return (self:getDarkRPVar("money") or 0) - math.ceil(amount) >= 0
+ end
+ 
+ function entMeta:isMoneyBag()
++    -- Money that was dropped or spawned in the world is a spawned_money entity (or a
++    -- derivative of it), whatever class the config names for bought money.
++    if self.IsSpawnedMoney then return true end
++
+     return self:GetClass() == GAMEMODE.Config.MoneyClass
+ end

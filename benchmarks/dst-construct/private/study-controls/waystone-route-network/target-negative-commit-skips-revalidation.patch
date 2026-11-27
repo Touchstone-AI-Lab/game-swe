@@ -1,0 +1,14 @@
+diff -ruN a/scripts/waystones/network.lua b/scripts/waystones/network.lua
+--- a/scripts/waystones/network.lua	2026-09-22 01:12:00.449674798 +0800
++++ b/scripts/waystones/network.lua	2026-09-22 01:12:00.478677195 +0800
+@@ -430,10 +430,6 @@
+     if ticket.status ~= "reserved" then
+         return fail("ticket_closed", { status = ticket.status })
+     end
+-    if not self:_still_valid(ticket) then
+-        self:_close(ticket, "invalidated")
+-        return fail("route_changed")
+-    end
+     self:_close(ticket, "committed")
+     ticket.cooldown_until = now + self.cooldown
+     self.cooldowns[ticket.traveler_id] = ticket.cooldown_until

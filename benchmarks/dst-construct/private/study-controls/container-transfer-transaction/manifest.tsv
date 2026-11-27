@@ -1,0 +1,5 @@
+control	kind	base	overlay	root	note
+target-negative-compensation-order	target-negative	reference	patch:target-negative-compensation-order.patch	.	core compensation restores the source before the destination
+target-negative-destination-loss	target-negative	reference	patch:target-negative-destination-loss.patch	.	component adapter add destroys the removed stacks instead of giving them to the destination container
+alternative-a	alternative	starter	tree:alternative-a	.	closure-based journal core with undo stack; descriptor-based chest adapter in its own module
+target-negative-drops-slot	target-negative	starter	tree:target-negative-drops-slot	.	alternative-a handing adapter:add rows without the source slot, which the exam now forbids

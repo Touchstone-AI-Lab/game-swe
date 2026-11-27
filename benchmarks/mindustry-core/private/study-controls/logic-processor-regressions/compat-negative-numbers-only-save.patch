@@ -1,0 +1,22 @@
+--- a/core/src/mindustry/world/blocks/logic/LogicBlock.java
++++ b/core/src/mindustry/world/blocks/logic/LogicBlock.java
+@@ -792,7 +792,7 @@
+             boolean writeUnit = executor.unit != null && executor.unit.objval != null;
+ 
+             //only write non-null values; constants cannot be contained in executor.vars
+-            int count = Structs.count(executor.vars, v -> !(v.isobj && v.objval == null)) + (writeUnit ? 1 : 0);
++            int count = Structs.count(executor.vars, v -> !v.isobj) + (writeUnit ? 1 : 0);
+ 
+             write.i(count);
+ 
+@@ -805,8 +805,8 @@
+             for(int i = 0; i < executor.vars.length; i++){
+                 LVar v = executor.vars[i];
+ 
+-                //null is the default variable value, so waste no time serializing that
+-                if(v.isobj && v.objval == null) continue;
++                //only numbers are saved; object values are rebuilt by the running code
++                if(v.isobj) continue;
+ 
+                 //write the name and the object value
+                 write.str(v.name);

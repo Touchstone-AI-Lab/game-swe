@@ -1,0 +1,198 @@
+{
+  "validated": true,
+  "matrix_audit_sha256": "d443097ce3312d4fcfb4516c34e95db6ca6b361df7608a0ccf2ee49dcc6c4993",
+  "matrix_results": [
+    {
+      "variant": "base",
+      "passed": 19,
+      "expected": 43,
+      "failed_case_ids": [
+        "cn-height-colored",
+        "cn-height-five",
+        "cn-height-lowercase",
+        "cn-height-mixed",
+        "cn-height-orb",
+        "cn-height-three",
+        "cn-wrap-five",
+        "cn-wrap-lowercase",
+        "cn-wrap-newline",
+        "cn-wrap-three",
+        "en-height-five",
+        "en-height-newline",
+        "en-height-spacing",
+        "en-height-three",
+        "header-lowercase",
+        "header-multiple",
+        "header-one",
+        "width-after-newline",
+        "width-cn",
+        "width-lowercase",
+        "width-narrow",
+        "width-one",
+        "width-short-code",
+        "width-wide"
+      ]
+    },
+    {
+      "variant": "gold",
+      "passed": 43,
+      "expected": 43,
+      "failed_case_ids": []
+    },
+    {
+      "variant": "alternative",
+      "passed": 43,
+      "expected": 43,
+      "failed_case_ids": []
+    },
+    {
+      "variant": "header-only",
+      "passed": 22,
+      "expected": 43,
+      "failed_case_ids": [
+        "cn-height-colored",
+        "cn-height-five",
+        "cn-height-lowercase",
+        "cn-height-mixed",
+        "cn-height-orb",
+        "cn-height-three",
+        "cn-wrap-five",
+        "cn-wrap-lowercase",
+        "cn-wrap-newline",
+        "cn-wrap-three",
+        "en-height-five",
+        "en-height-newline",
+        "en-height-spacing",
+        "en-height-three",
+        "width-after-newline",
+        "width-cn",
+        "width-lowercase",
+        "width-narrow",
+        "width-one",
+        "width-short-code",
+        "width-wide"
+      ]
+    },
+    {
+      "variant": "width-only",
+      "passed": 26,
+      "expected": 43,
+      "failed_case_ids": [
+        "cn-height-colored",
+        "cn-height-five",
+        "cn-height-lowercase",
+        "cn-height-mixed",
+        "cn-height-orb",
+        "cn-height-three",
+        "cn-wrap-five",
+        "cn-wrap-lowercase",
+        "cn-wrap-newline",
+        "cn-wrap-three",
+        "en-height-five",
+        "en-height-newline",
+        "en-height-spacing",
+        "en-height-three",
+        "header-lowercase",
+        "header-multiple",
+        "header-one"
+      ]
+    },
+    {
+      "variant": "en-height-only",
+      "passed": 23,
+      "expected": 43,
+      "failed_case_ids": [
+        "cn-height-colored",
+        "cn-height-five",
+        "cn-height-lowercase",
+        "cn-height-mixed",
+        "cn-height-orb",
+        "cn-height-three",
+        "cn-wrap-five",
+        "cn-wrap-lowercase",
+        "cn-wrap-newline",
+        "cn-wrap-three",
+        "header-lowercase",
+        "header-multiple",
+        "header-one",
+        "width-after-newline",
+        "width-cn",
+        "width-lowercase",
+        "width-narrow",
+        "width-one",
+        "width-short-code",
+        "width-wide"
+      ]
+    },
+    {
+      "variant": "cn-height-only",
+      "passed": 25,
+      "expected": 43,
+      "failed_case_ids": [
+        "cn-wrap-five",
+        "cn-wrap-lowercase",
+        "cn-wrap-newline",
+        "cn-wrap-three",
+        "en-height-five",
+        "en-height-newline",
+        "en-height-spacing",
+        "en-height-three",
+        "header-lowercase",
+        "header-multiple",
+        "header-one",
+        "width-after-newline",
+        "width-cn",
+        "width-lowercase",
+        "width-narrow",
+        "width-one",
+        "width-short-code",
+        "width-wide"
+      ]
+    },
+    {
+      "variant": "cn-wrap-only",
+      "passed": 23,
+      "expected": 43,
+      "failed_case_ids": [
+        "cn-height-colored",
+        "cn-height-five",
+        "cn-height-lowercase",
+        "cn-height-mixed",
+        "cn-height-orb",
+        "cn-height-three",
+        "en-height-five",
+        "en-height-newline",
+        "en-height-spacing",
+        "en-height-three",
+        "header-lowercase",
+        "header-multiple",
+        "header-one",
+        "width-after-newline",
+        "width-cn",
+        "width-lowercase",
+        "width-narrow",
+        "width-one",
+        "width-short-code",
+        "width-wide"
+      ]
+    }
+  ],
+  "formal_audit_sha256": "c349083810626917a293b55c1e5c53b53d7044ee9027f0352693fb7515b7b8f9",
+  "formal_controls": [
+    {
+      "agent": "nop",
+      "trial": "stslib-icon-layout-r1__tmg5e32",
+      "passed": 19,
+      "expected": 43,
+      "reward": 0
+    },
+    {
+      "agent": "oracle",
+      "trial": "stslib-icon-layout-r1__NXTx26F",
+      "passed": 43,
+      "expected": 43,
+      "reward": 1
+    }
+  ],
+  "scope": "Historical complete native-runtime controls, including an independently different passing repair. Raw runtime logs remain local; source and receipt hashes identify the frozen evidence."
+}

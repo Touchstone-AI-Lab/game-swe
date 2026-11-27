@@ -1,0 +1,14 @@
+diff -ruN a/addons/sourcemod/scripting/l4d2lib/tanks.sp b/addons/sourcemod/scripting/l4d2lib/tanks.sp
+--- a/addons/sourcemod/scripting/l4d2lib/tanks.sp
++++ b/addons/sourcemod/scripting/l4d2lib/tanks.sp
+@@ -76,8 +76,8 @@
+ void Tanks_PlayerDeath(Event event)
+ {
+     int client = GetClientOfUserId(event.GetInt("userid"));
+-    if (!g_bIsTankActive || client != g_iTankClient || GetClientFromSerial(g_TankSerial) != client
+-        || g_hTankDeathTimer != null) return;
++    if (!g_bIsTankActive || client != g_iTankClient || GetClientFromSerial(g_TankSerial) != client) return;
++    delete g_hTankDeathTimer;
+     g_hTankDeathTimer = CreateTimer(0.5, TankDeath_Timer, g_TankSerial, TIMER_FLAG_NO_MAPCHANGE);
+ }
+ 

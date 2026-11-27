@@ -1,0 +1,173 @@
+case	layer	role	public_report
+org.mvplugins.multiverse.core.MockBukkitTest.MockBukkit loads the plugin()	unit	preserved	upstream unit test must keep passing
+org.mvplugins.multiverse.core.anchor.AnchorManagerTest.Set new location for existing anchor()	unit	preserved	upstream unit test must keep passing
+org.mvplugins.multiverse.core.anchor.AnchorManagerTest.Delete anchor()	unit	preserved	upstream unit test must keep passing
+org.mvplugins.multiverse.core.anchor.AnchorManagerTest.Loaded correct Anchors from file()	unit	preserved	upstream unit test must keep passing
+org.mvplugins.multiverse.core.anchor.AnchorManagerTest.Create new anchor()	unit	preserved	upstream unit test must keep passing
+org.mvplugins.multiverse.core.api.MultiverseCoreApiTest.Get MultiverseCoreApi from bukkit service()	unit	preserved	upstream unit test must keep passing
+org.mvplugins.multiverse.core.api.MultiverseCoreApiTest.MultiverseCoreApi is available()	unit	preserved	upstream unit test must keep passing
+org.mvplugins.multiverse.core.command.LocalizationTest$BasicMessage$WithCommandSender.Sending the issuer the message should send the formatted message to the sender()	unit	preserved	upstream unit test must keep passing
+org.mvplugins.multiverse.core.command.LocalizationTest$BasicMessage.The raw message should be the same as the original()	unit	preserved	upstream unit test must keep passing
+org.mvplugins.multiverse.core.command.LocalizationTest$BasicMessage.The formatted message should be the same as the original()	unit	preserved	upstream unit test must keep passing
+org.mvplugins.multiverse.core.command.LocalizationTest$BasicMessage.The formatted message with PluginLocales for a CommandIssuer should be the same as the original()	unit	preserved	upstream unit test must keep passing
+org.mvplugins.multiverse.core.command.LocalizationTest$BasicMessage.The formatted message with PluginLocales should be the same as the original()	unit	preserved	upstream unit test must keep passing
+org.mvplugins.multiverse.core.command.LocalizationTest$LocaleConfiguration.Change default locale to chinese without per player locale should get chinese message()	unit	preserved	upstream unit test must keep passing
+org.mvplugins.multiverse.core.command.LocalizationTest$LocaleConfiguration.PerPlayerLocale disabled - Player with chinese locale should get default english message()	unit	preserved	upstream unit test must keep passing
+org.mvplugins.multiverse.core.command.LocalizationTest$LocaleConfiguration.Change default locale to chinese with per player locale should get default english message()	unit	preserved	upstream unit test must keep passing
+org.mvplugins.multiverse.core.command.LocalizationTest$LocaleConfiguration.PerPlayerLocale enabled - Player with chinese locale should get chinese message()	unit	preserved	upstream unit test must keep passing
+org.mvplugins.multiverse.core.command.LocalizationTest$LocalizedMessage$WithCommandSender.Sending the issuer the message should send the formatted message to the sender()	unit	preserved	upstream unit test must keep passing
+org.mvplugins.multiverse.core.command.LocalizationTest$LocalizedMessage.The formatted message with PluginLocales should be different from the replaced original string()	unit	preserved	upstream unit test must keep passing
+org.mvplugins.multiverse.core.command.LocalizationTest$LocalizedMessage.The raw message should be the same as the original()	unit	preserved	upstream unit test must keep passing
+org.mvplugins.multiverse.core.command.LocalizationTest$LocalizedMessage.The formatted message with PluginLocales should have performed replacement()	unit	preserved	upstream unit test must keep passing
+org.mvplugins.multiverse.core.command.LocalizationTest$LocalizedMessage.The formatted message should be the replaced original string()	unit	preserved	upstream unit test must keep passing
+org.mvplugins.multiverse.core.command.LocalizationTest$MessageWithOneReplacement$WithCommandSender.Sending the issuer the message should send the formatted message to the sender()	unit	preserved	upstream unit test must keep passing
+org.mvplugins.multiverse.core.command.LocalizationTest$MessageWithOneReplacement.The formatted message with PluginLocales should be the replaced message string()	unit	preserved	upstream unit test must keep passing
+org.mvplugins.multiverse.core.command.LocalizationTest$MessageWithOneReplacement.The raw message should be the same as the original()	unit	preserved	upstream unit test must keep passing
+org.mvplugins.multiverse.core.command.LocalizationTest$MessageWithOneReplacement.The formatted message should be the replaced message string()	unit	preserved	upstream unit test must keep passing
+org.mvplugins.multiverse.core.command.LocalizationTest$MessageWithOneReplacement.The formatted message with PluginLocales for a CommandIssuer should be the replaced message string()	unit	preserved	upstream unit test must keep passing
+org.mvplugins.multiverse.core.command.LocalizationTest$MessageWithTwoReplacements$WithCommandSender.Sending the issuer the message should send the formatted message to the sender()	unit	preserved	upstream unit test must keep passing
+org.mvplugins.multiverse.core.command.LocalizationTest$MessageWithTwoReplacements.The formatted message with PluginLocales should be the replaced message string()	unit	preserved	upstream unit test must keep passing
+org.mvplugins.multiverse.core.command.LocalizationTest$MessageWithTwoReplacements.The raw message should be the same as the original()	unit	preserved	upstream unit test must keep passing
+org.mvplugins.multiverse.core.command.LocalizationTest$MessageWithTwoReplacements.The formatted message should be the replaced message string()	unit	preserved	upstream unit test must keep passing
+org.mvplugins.multiverse.core.command.LocalizationTest$MessageWithTwoReplacements.The formatted message with PluginLocales for a CommandIssuer should be the replaced message string()	unit	preserved	upstream unit test must keep passing
+org.mvplugins.multiverse.core.command.LocalizationTest$WithMessagesAsReplacement$WithCommandSender.Sending the issuer the message should send the formatted message to the sender()	unit	preserved	upstream unit test must keep passing
+org.mvplugins.multiverse.core.command.LocalizationTest$WithMessagesAsReplacement.The formatted message with PluginLocales should be different from the replaced original string()	unit	preserved	upstream unit test must keep passing
+org.mvplugins.multiverse.core.command.LocalizationTest$WithMessagesAsReplacement.The raw message should be the same as the original()	unit	preserved	upstream unit test must keep passing
+org.mvplugins.multiverse.core.command.LocalizationTest$WithMessagesAsReplacement.The formatted message with PluginLocales should have performed replacement()	unit	preserved	upstream unit test must keep passing
+org.mvplugins.multiverse.core.command.LocalizationTest$WithMessagesAsReplacement.The formatted message should be the replaced original string()	unit	preserved	upstream unit test must keep passing
+org.mvplugins.multiverse.core.commands.ConfigCommandTest.Modify config global-debug player no permission()	unit	preserved	upstream unit test must keep passing
+org.mvplugins.multiverse.core.commands.ConfigCommandTest.Modify config global-debug()	unit	preserved	upstream unit test must keep passing
+org.mvplugins.multiverse.core.commands.ConfigCommandTest.Modify config global-debug invalid type()	unit	preserved	upstream unit test must keep passing
+org.mvplugins.multiverse.core.commands.ConfigCommandTest.Modify non-existing config property()	unit	preserved	upstream unit test must keep passing
+org.mvplugins.multiverse.core.commands.CreateCommandTest.Create normal world with specific seed and flat world type without structures()	unit	preserved	upstream unit test must keep passing
+org.mvplugins.multiverse.core.commands.CreateCommandTest.Create nether world with default options()	unit	preserved	upstream unit test must keep passing
+org.mvplugins.multiverse.core.commands.DeleteCommandTest.Delete unloaded world()	unit	preserved	upstream unit test must keep passing
+org.mvplugins.multiverse.core.commands.DeleteCommandTest.Delete loaded world()	unit	preserved	upstream unit test must keep passing
+org.mvplugins.multiverse.core.commands.ModifyCommandTest.Modify alias name with space()	unit	preserved	upstream unit test must keep passing
+org.mvplugins.multiverse.core.commands.RegenCommandTest.Regen world()	unit	preserved	upstream unit test must keep passing
+org.mvplugins.multiverse.core.commands.RegenCommandTest.Regen world with random seed()	unit	preserved	upstream unit test must keep passing
+org.mvplugins.multiverse.core.commands.RegenCommandTest.Regen world with specific seed()	unit	preserved	upstream unit test must keep passing
+org.mvplugins.multiverse.core.commands.RegenCommandTest.Regen world and reset world border()	unit	preserved	upstream unit test must keep passing
+org.mvplugins.multiverse.core.commands.RegenCommandTest.Regen world and reset world config()	unit	preserved	upstream unit test must keep passing
+org.mvplugins.multiverse.core.commands.RegenCommandTest.Regen world and reset gamerules()	unit	preserved	upstream unit test must keep passing
+org.mvplugins.multiverse.core.commands.SpawnCommandTest.Teleport multiple players to spawn location()	unit	preserved	upstream unit test must keep passing
+org.mvplugins.multiverse.core.commands.SpawnCommandTest.No permission to teleport to spawn()	unit	preserved	upstream unit test must keep passing
+org.mvplugins.multiverse.core.commands.SpawnCommandTest.Self permission to teleport to spawn()	unit	preserved	upstream unit test must keep passing
+org.mvplugins.multiverse.core.commands.SpawnCommandTest.Teleport player to spawn location()	unit	preserved	upstream unit test must keep passing
+org.mvplugins.multiverse.core.commands.SpawnCommandTest.Other permission to teleport to spawn()	unit	preserved	upstream unit test must keep passing
+org.mvplugins.multiverse.core.commands.SpawnCommandTest.Teleport others to spawn but not self()	unit	preserved	upstream unit test must keep passing
+org.mvplugins.multiverse.core.commands.TeleportCommandTest.Player permission to teleport self()	unit	preserved	upstream unit test must keep passing
+org.mvplugins.multiverse.core.commands.TeleportCommandTest.Player permission to teleport others cannot teleport self()	unit	preserved	upstream unit test must keep passing
+org.mvplugins.multiverse.core.commands.TeleportCommandTest.Player permission to teleport others()	unit	preserved	upstream unit test must keep passing
+org.mvplugins.multiverse.core.commands.TeleportCommandTest.Player no permission to teleport()	unit	preserved	upstream unit test must keep passing
+org.mvplugins.multiverse.core.commands.TeleportCommandTest.Player permission to teleport others without finer permission()	unit	preserved	upstream unit test must keep passing
+org.mvplugins.multiverse.core.commands.TeleportCommandTest.Player permission to teleport self without finer permission()	unit	preserved	upstream unit test must keep passing
+org.mvplugins.multiverse.core.commands.TeleportCommandTest.Teleport multiple players to other world()	unit	preserved	upstream unit test must keep passing
+org.mvplugins.multiverse.core.commands.TeleportCommandTest.Teleport multiple players to invalid world()	unit	preserved	upstream unit test must keep passing
+org.mvplugins.multiverse.core.commands.TeleportCommandTest.Teleport a player to other world()	unit	preserved	upstream unit test must keep passing
+org.mvplugins.multiverse.core.commands.VersionCommandTest.Run version command as console()	unit	preserved	upstream unit test must keep passing
+org.mvplugins.multiverse.core.commands.VersionCommandTest.Run version command as player()	unit	preserved	upstream unit test must keep passing
+org.mvplugins.multiverse.core.commands.VersionCommandTest.Run version command as player - no permission()	unit	preserved	upstream unit test must keep passing
+org.mvplugins.multiverse.core.config.ConfigTeleportInterceptTest.Generic teleport with teleport intercept enabled()	unit	preserved	upstream unit test must keep passing
+org.mvplugins.multiverse.core.config.ConfigTeleportInterceptTest.Multiverse API teleport with teleport intercept disabled()	unit	preserved	upstream unit test must keep passing
+org.mvplugins.multiverse.core.config.ConfigTeleportInterceptTest.Generic teleport with teleport intercept disabled - no access checking()	unit	preserved	upstream unit test must keep passing
+org.mvplugins.multiverse.core.config.ConfigTest.Config is loaded()	unit	preserved	upstream unit test must keep passing
+org.mvplugins.multiverse.core.config.ConfigTest.Broken config should regen fresh config()	unit	preserved	upstream unit test must keep passing
+org.mvplugins.multiverse.core.config.ConfigTest.Getting existing config property with getProperty returns expected value()	unit	preserved	upstream unit test must keep passing
+org.mvplugins.multiverse.core.config.ConfigTest.Updating a non-existing property with setProperty returns false()	unit	preserved	upstream unit test must keep passing
+org.mvplugins.multiverse.core.config.ConfigTest.Updating an existing config property with setPropertyString reflects the changes in getProperty()	unit	preserved	upstream unit test must keep passing
+org.mvplugins.multiverse.core.config.ConfigTest.Updating an existing config property with setProperty reflects the changes in getProperty()	unit	preserved	upstream unit test must keep passing
+org.mvplugins.multiverse.core.config.ConfigTest.Getting existing config property by getter returns expected value()	unit	preserved	upstream unit test must keep passing
+org.mvplugins.multiverse.core.config.ConfigTest.Old config is migrated()	unit	preserved	upstream unit test must keep passing
+org.mvplugins.multiverse.core.config.ConfigTest.Getting non-existing config property with getProperty returns null()	unit	preserved	upstream unit test must keep passing
+org.mvplugins.multiverse.core.config.ConfigTest.Config is fresh()	unit	preserved	upstream unit test must keep passing
+org.mvplugins.multiverse.core.destination.DestinationTest.World destination instance from alias name()	unit	preserved	upstream unit test must keep passing
+org.mvplugins.multiverse.core.destination.DestinationTest.Exact destination instance from location()	unit	preserved	upstream unit test must keep passing
+org.mvplugins.multiverse.core.destination.DestinationTest.World destination instance without identifier()	unit	preserved	upstream unit test must keep passing
+org.mvplugins.multiverse.core.destination.DestinationTest.Invalid destination instance()	unit	preserved	upstream unit test must keep passing
+org.mvplugins.multiverse.core.destination.DestinationTest.Bed destination instance own player()	unit	preserved	upstream unit test must keep passing
+org.mvplugins.multiverse.core.destination.DestinationTest.Exact destination instance()	unit	preserved	upstream unit test must keep passing
+org.mvplugins.multiverse.core.destination.DestinationTest.Exact destination instance with relative position()	unit	preserved	upstream unit test must keep passing
+org.mvplugins.multiverse.core.destination.DestinationTest.Cannon destination instance()	unit	preserved	upstream unit test must keep passing
+org.mvplugins.multiverse.core.destination.DestinationTest.Bed destination instance()	unit	preserved	upstream unit test must keep passing
+org.mvplugins.multiverse.core.destination.DestinationTest.World destination instance()	unit	preserved	upstream unit test must keep passing
+org.mvplugins.multiverse.core.destination.DestinationTest.Player destination instance()	unit	preserved	upstream unit test must keep passing
+org.mvplugins.multiverse.core.inject.InjectionTest.AsyncSafetyTeleporter is available as a service()	unit	preserved	upstream unit test must keep passing
+org.mvplugins.multiverse.core.inject.InjectionTest.CoreConfig is available as a service()	unit	preserved	upstream unit test must keep passing
+org.mvplugins.multiverse.core.inject.InjectionTest.MVCommandManager is available as a service()	unit	preserved	upstream unit test must keep passing
+org.mvplugins.multiverse.core.inject.InjectionTest.MVWorldManager is available as a service()	unit	preserved	upstream unit test must keep passing
+org.mvplugins.multiverse.core.inject.InjectionTest.LocationManipulation is available as a service()	unit	preserved	upstream unit test must keep passing
+org.mvplugins.multiverse.core.inject.InjectionTest.AnchorManager is available as a service()	unit	preserved	upstream unit test must keep passing
+org.mvplugins.multiverse.core.inject.InjectionTest.CoreListener(s) is available as a service()	unit	preserved	upstream unit test must keep passing
+org.mvplugins.multiverse.core.inject.InjectionTest.Destinations are available as services()	unit	preserved	upstream unit test must keep passing
+org.mvplugins.multiverse.core.inject.InjectionTest.TeleportQueue is available as a service()	unit	preserved	upstream unit test must keep passing
+org.mvplugins.multiverse.core.inject.InjectionTest.Commands are available as services()	unit	preserved	upstream unit test must keep passing
+org.mvplugins.multiverse.core.inject.InjectionTest.BlockSafety is available as a service()	unit	preserved	upstream unit test must keep passing
+org.mvplugins.multiverse.core.inject.InjectionTest.MVEconomist is available as a service()	unit	preserved	upstream unit test must keep passing
+org.mvplugins.multiverse.core.utils.MaterialConverterTest.Convert Oak Sapling item id to material()	unit	preserved	upstream unit test must keep passing
+org.mvplugins.multiverse.core.utils.MaterialConverterTest.Convert invalid string to material()	unit	preserved	upstream unit test must keep passing
+org.mvplugins.multiverse.core.utils.MaterialConverterTest.Convert Spruce Planks numerical id to material()	unit	preserved	upstream unit test must keep passing
+org.mvplugins.multiverse.core.utils.MaterialConverterTest.Convert dirt name to material()	unit	preserved	upstream unit test must keep passing
+org.mvplugins.multiverse.core.utils.StringFormatterTest.StringFormatter quoteMultiWordString()	unit	preserved	upstream unit test must keep passing
+org.mvplugins.multiverse.core.utils.StringFormatterTest.StringFormatter parseQuotesInArgs()	unit	preserved	upstream unit test must keep passing
+org.mvplugins.multiverse.core.utils.StringMatcherTest.exact string matcher - multiple strings()	unit	preserved	upstream unit test must keep passing
+org.mvplugins.multiverse.core.utils.StringMatcherTest.regex string matcher()	unit	preserved	upstream unit test must keep passing
+org.mvplugins.multiverse.core.utils.StringMatcherTest.exact string matcher - single string()	unit	preserved	upstream unit test must keep passing
+org.mvplugins.multiverse.core.utils.StringMatcherTest.wildcard string matcher - single()	unit	preserved	upstream unit test must keep passing
+org.mvplugins.multiverse.core.utils.StringMatcherTest.wildcard string matcher - multiple()	unit	preserved	upstream unit test must keep passing
+org.mvplugins.multiverse.core.world.WorldConfigMangerTest.Add a new world to config()	unit	preserved	upstream unit test must keep passing
+org.mvplugins.multiverse.core.world.WorldConfigMangerTest.Edge case parsing tests for world config()	unit	preserved	upstream unit test must keep passing
+org.mvplugins.multiverse.core.world.WorldConfigMangerTest.Old world config is migrated()	unit	preserved	upstream unit test must keep passing
+org.mvplugins.multiverse.core.world.WorldConfigMangerTest.Delete world section from config()	unit	preserved	upstream unit test must keep passing
+org.mvplugins.multiverse.core.world.WorldConfigMangerTest.Updating existing world properties()	unit	preserved	upstream unit test must keep passing
+org.mvplugins.multiverse.core.world.WorldConfigTest.Getting existing world property with getProperty returns expected value()	unit	preserved	upstream unit test must keep passing
+org.mvplugins.multiverse.core.world.WorldConfigTest.Getting existing world property by getter returns expected value()	unit	preserved	upstream unit test must keep passing
+org.mvplugins.multiverse.core.world.WorldConfigTest.Updating a non-existing property with setProperty returns false()	unit	preserved	upstream unit test must keep passing
+org.mvplugins.multiverse.core.world.WorldConfigTest.Getting non-existing world property with getProperty returns null()	unit	preserved	upstream unit test must keep passing
+org.mvplugins.multiverse.core.world.WorldConfigTest.Updating an existing world property with setPropertyString reflects the changes in getProperty()	unit	preserved	upstream unit test must keep passing
+org.mvplugins.multiverse.core.world.WorldConfigTest.Updating an existing world property with setProperty reflects the changes in getProperty()	unit	preserved	upstream unit test must keep passing
+org.mvplugins.multiverse.core.world.WorldManagerTest.Remove world()	unit	preserved	upstream unit test must keep passing
+org.mvplugins.multiverse.core.world.WorldManagerTest.Delete world()	unit	preserved	upstream unit test must keep passing
+org.mvplugins.multiverse.core.world.WorldManagerTest.Regen world()	unit	preserved	upstream unit test must keep passing
+org.mvplugins.multiverse.core.world.WorldManagerTest.Clone world failed - target world exists and loaded()	unit	preserved	upstream unit test must keep passing
+org.mvplugins.multiverse.core.world.WorldManagerTest.Load world failed - non-existent world()	unit	preserved	upstream unit test must keep passing
+org.mvplugins.multiverse.core.world.WorldManagerTest.Create world failed - world exists and loaded (case insensitive)()	unit	preserved	upstream unit test must keep passing
+org.mvplugins.multiverse.core.world.WorldManagerTest.Get world is case insensitive()	unit	preserved	upstream unit test must keep passing
+org.mvplugins.multiverse.core.world.WorldManagerTest.Clone world failed - invalid world name()	unit	preserved	upstream unit test must keep passing
+org.mvplugins.multiverse.core.world.WorldManagerTest.Create world failed - world folder exists()	unit	preserved	upstream unit test must keep passing
+org.mvplugins.multiverse.core.world.WorldManagerTest.Create world failed - world exists and loaded()	unit	preserved	upstream unit test must keep passing
+org.mvplugins.multiverse.core.world.WorldManagerTest.Set equal value - MVWorldPropertyChangedEvent event is not fired()	unit	preserved	upstream unit test must keep passing
+org.mvplugins.multiverse.core.world.WorldManagerTest.Create world with custom options()	unit	preserved	upstream unit test must keep passing
+org.mvplugins.multiverse.core.world.WorldManagerTest.Create world failed - world exists but unloaded()	unit	preserved	upstream unit test must keep passing
+org.mvplugins.multiverse.core.world.WorldManagerTest.Unload and load world()	unit	preserved	upstream unit test must keep passing
+org.mvplugins.multiverse.core.world.WorldManagerTest.Load world failed - world folder exists but not imported()	unit	preserved	upstream unit test must keep passing
+org.mvplugins.multiverse.core.world.WorldManagerTest.Get potential worlds()	unit	preserved	upstream unit test must keep passing
+org.mvplugins.multiverse.core.world.WorldManagerTest.Clone world()	unit	preserved	upstream unit test must keep passing
+org.mvplugins.multiverse.core.world.WorldManagerTest.Clone world failed - target world exists but unloaded()	unit	preserved	upstream unit test must keep passing
+org.mvplugins.multiverse.core.world.WorldManagerTest.Clone world failed - target world folder exists()	unit	preserved	upstream unit test must keep passing
+org.mvplugins.multiverse.core.world.WorldManagerTest.Load world failed - invalid world folder()	unit	preserved	upstream unit test must keep passing
+org.mvplugins.multiverse.core.world.WorldManagerTest.Set different value - MVWorldPropertyChangedEvent event is fired()	unit	preserved	upstream unit test must keep passing
+org.mvplugins.multiverse.core.world.WorldManagerTest.Get world()	unit	preserved	upstream unit test must keep passing
+org.mvplugins.multiverse.core.world.WorldManagerTest.Get world with alias()	unit	preserved	upstream unit test must keep passing
+org.mvplugins.multiverse.core.world.WorldManagerTest.Create world failed - invalid worldname()	unit	preserved	upstream unit test must keep passing
+org.mvplugins.multiverse.core.world.WorldNameCheckerTest.Blacklisted world name()	unit	preserved	upstream unit test must keep passing
+org.mvplugins.multiverse.core.world.WorldNameCheckerTest.Not a valid world folder()	unit	preserved	upstream unit test must keep passing
+org.mvplugins.multiverse.core.world.WorldNameCheckerTest.Valid world name()	unit	preserved	upstream unit test must keep passing
+org.mvplugins.multiverse.core.world.WorldNameCheckerTest.World folder does not exist()	unit	preserved	upstream unit test must keep passing
+org.mvplugins.multiverse.core.world.WorldNameCheckerTest.Valid world folder()	unit	preserved	upstream unit test must keep passing
+org.mvplugins.multiverse.core.world.WorldNameCheckerTest.Empty world name()	unit	preserved	upstream unit test must keep passing
+org.mvplugins.multiverse.core.world.WorldNameCheckerTest.Invalid characters in world name()	unit	preserved	upstream unit test must keep passing
+org.mvplugins.multiverse.core.world.helper.DimensionFormatTest.Test invalid DimensionFormat()	unit	preserved	upstream unit test must keep passing
+org.mvplugins.multiverse.core.world.helper.DimensionFormatTest.Test DimensionFormat replace()	unit	preserved	upstream unit test must keep passing
+org.mvplugins.multiverse.core.world.helper.DimensionFormatTest.Test DimensionFormat does not match()	unit	preserved	upstream unit test must keep passing
+org.mvplugins.multiverse.core.world.helper.DimensionFormatTest.Test DimensionFormat get overworld()	unit	preserved	upstream unit test must keep passing
+plugin is enabled	server	sentinel	Multiverse-Core loads on Paper 1.21.11
+world lookups ignore case	server	preserved	world lookups by any casing keep resolving
+worlds keep the name they were created with	server	preserved	a created world keeps its original spelling in Multiverse, Bukkit, the folder and worlds.yml
+lower-case world goes through its whole lifecycle	server	preserved	lower-case world unload, load, remove and delete keep working
+mixed-case world can be unloaded	server	target	unloading a world whose name has upper-case letters
+mixed-case world can be loaded again	server	target	loading an unloaded world whose name has upper-case letters
+loaded mixed-case world can be removed	server	target	removing a loaded world whose name has upper-case letters
+unloaded mixed-case world can be removed	server	target	removing an unloaded world whose name has upper-case letters
+mixed-case world can be deleted	server	target	deleting a world whose name has upper-case letters
+mixed-case world can be regenerated	server	target	regenerating a world whose name has upper-case letters

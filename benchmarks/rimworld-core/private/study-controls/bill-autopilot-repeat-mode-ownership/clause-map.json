@@ -1,0 +1,208 @@
+{
+  "task": "rimworld/core/bill-autopilot-repeat-mode-ownership",
+  "task_version": "0.3.3",
+  "exam": "benchmarks/rimworld-core/exams/bill-autopilot-repeat-mode-ownership.md",
+  "cases": [
+    {
+      "id": "check:submission-shape",
+      "role": "static",
+      "clauses": [
+        "delivery"
+      ],
+      "overlap": false,
+      "note": "required C# sources present as a safe snapshot; rejects binaries, links and private-harness markers"
+    },
+    {
+      "id": "case:runtime-defs-ready",
+      "role": "runtime-sentinel",
+      "clauses": [],
+      "overlap": false,
+      "note": "Core, Bill Autopilot slice and verifier loaded"
+    },
+    {
+      "id": "case:foreign-mode-recognized",
+      "role": "target",
+      "clauses": [
+        "req-1"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:target-count-owned",
+      "role": "preserved",
+      "clauses": [
+        "req-1"
+      ],
+      "overlap": true,
+      "note": ""
+    },
+    {
+      "id": "case:forever-owned",
+      "role": "preserved",
+      "clauses": [
+        "req-1"
+      ],
+      "overlap": true,
+      "note": ""
+    },
+    {
+      "id": "case:repeat-count-preserved",
+      "role": "preserved",
+      "clauses": [
+        "req-5"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:foreign-drift-not-flattened",
+      "role": "target",
+      "clauses": [
+        "req-2"
+      ],
+      "overlap": false,
+      "note": "passes on the starter: its fixture changes neither the stamp mode nor the counts"
+    },
+    {
+      "id": "case:foreign-mode-remembered",
+      "role": "target",
+      "clauses": [
+        "req-3"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:foreign-mode-restored",
+      "role": "target",
+      "clauses": [
+        "req-4"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:foreign-should-do-now-true",
+      "role": "target",
+      "clauses": [
+        "req-4"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:foreign-should-do-now-false",
+      "role": "target",
+      "clauses": [
+        "req-4"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:unresolved-mode-falls-back",
+      "role": "preserved",
+      "clauses": [
+        "req-5"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:busy-bill-not-retired",
+      "role": "preserved",
+      "clauses": [
+        "req-5"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:bill-name-persisted",
+      "role": "preserved",
+      "clauses": [
+        "req-5"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:linked-group-persisted",
+      "role": "preserved",
+      "clauses": [
+        "req-5"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:memory-roundtrip",
+      "role": "target",
+      "clauses": [
+        "req-3"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:missing-fields-default",
+      "role": "preserved",
+      "clauses": [
+        "req-5"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:fixture-state-restored",
+      "role": "setup",
+      "clauses": [],
+      "overlap": false,
+      "note": "terminal fixture-restoration gate"
+    }
+  ],
+  "clauses": [
+    {
+      "id": "req-1",
+      "anchor": "Required behavior, bullet 1: every non-null repeat mode other than TargetCount, Forever and RepeatCount is foreign-owned",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "req-2",
+      "anchor": "Required behavior, bullet 2: do not flatten a foreign mode into an Autopilot mode when capturing UI drift",
+      "status": "weak",
+      "note": "foreign-drift-not-flattened already passes on the starter, so no case can fail when the drift guard is missing"
+    },
+    {
+      "id": "req-3",
+      "anchor": "Required behavior, bullet 3: before deleting an owned bill, remember its foreign repeat-mode defName with external bill memory",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "req-4",
+      "anchor": "Required behavior, bullet 4: restore a resolvable remembered mode when recreating and let its ShouldDoNow decide",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "req-5",
+      "anchor": "Required behavior, bullet 5: preserve TargetCount, Forever, RepeatCount, unresolved-mode, busy-bill, name, linked-group, serialization and target/floor behavior",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "delivery",
+      "anchor": "closing paragraph: do not add RimWorld, Unity or Harmony binaries, generated output, test results, credentials, Workshop content, assets, saves or logs",
+      "status": "weak",
+      "note": "the snapshot gate rejects binaries, links and harness markers; the other listed artefacts are not checked"
+    }
+  ],
+  "excluded_clauses": [],
+  "known_issues": [
+    "The suite reaches production code by name: AutoBillSync.IsForeignMode, Create, Remove, CaptureDrift and ShouldRetire, BillMemory.repeatModeDefName saved under the Scribe label \"repeatMode\", and RecipeProbe.TryShouldDoNow(table, recipe, memory, mode, target, floor, out due). The exam names none of these, so an otherwise correct fix with other names fails target cases.",
+    "busy-bill-not-retired never makes the bill busy (the fixture map has no pawns); it observes that a non-foreign bill below target is not retired."
+  ]
+}

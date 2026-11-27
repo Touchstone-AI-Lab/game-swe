@@ -1,0 +1,103 @@
+{
+  "schemaVersion": 3,
+  "catalogVersion": "0.3.2",
+  "privateProtocol": "rhenium-rimworld-private-v3",
+  "assertionManifestSha256": "07b336138155d77eda9100de15e98a59d54d3bae0006914de360f5b815a0eb56",
+  "runtime": "rimworld/rimworld-1.6.4871-linux-x64",
+  "engineAssertionsRan": true,
+  "evidenceGeneration": {
+    "status": "run",
+    "date": "2026-09-24",
+    "host": "Linux x86_64 Docker host (NixOS), networkless evaluation",
+    "path": "rhenium run and rhenium-study e0 run through the Hub",
+    "note": "verifier repairs of 2026-09-24 first; see docs/games/rimworld.md#engine-validation-2026-09-24"
+  },
+  "plannedMatrix": {
+    "oracle": {
+      "expectedPassed": 19,
+      "expectedFailed": 0
+    },
+    "base": {
+      "expectedPassed": 11,
+      "expectedFailed": 8
+    },
+    "nop": {
+      "expectedPassed": 11,
+      "expectedFailed": 8
+    }
+  },
+  "plannedOutcomesAreAuthoringExpectations": true,
+  "referenceCompile": {
+    "status": "passed",
+    "date": "2026-09-24"
+  },
+  "containerBuild": {
+    "status": "passed",
+    "date": "2026-09-24"
+  },
+  "realEngine": {
+    "status": "passed",
+    "date": "2026-09-24"
+  },
+  "reusablePriorEvidence": false,
+  "oracle": {
+    "status": "passed",
+    "evidenceProtocol": "rhenium-rimworld-private-v3",
+    "runs": [
+      "run-af954a4216224655",
+      "run-ecbfa55fc6e34445",
+      "run-a7954f5d90494544"
+    ],
+    "score": 100.0,
+    "passed": 19,
+    "failed": 0,
+    "identicalCaseOutcomes": true
+  },
+  "base": {
+    "status": "failed-targets-only",
+    "evidenceProtocol": "rhenium-rimworld-private-v3",
+    "run": "run-1a6a6b0e04394aad",
+    "score": 10.0,
+    "passed": 13,
+    "failed": 6,
+    "failedCases": [
+      "food-benefit-preserved",
+      "infected-capacity-above-one",
+      "need-max-change-observed",
+      "need-max-fractional",
+      "rest-benefit-preserved",
+      "symbiant-capacity-above-one"
+    ]
+  },
+  "nop": {
+    "status": "failed-targets-only",
+    "evidenceProtocol": "rhenium-rimworld-private-v3",
+    "run": "run-7e2800c9188f4d99",
+    "score": 10.0,
+    "passed": 13,
+    "failed": 6,
+    "failedCases": [
+      "food-benefit-preserved",
+      "infected-capacity-above-one",
+      "need-max-change-observed",
+      "need-max-fractional",
+      "rest-benefit-preserved",
+      "symbiant-capacity-above-one"
+    ],
+    "materialization": "rhenium-study e0 starter control (Hub workspace copy)"
+  },
+  "authoringRevision": 3,
+  "negativeControls": {
+    "status": "not-run",
+    "kind": "authoring expectations",
+    "mutations": [
+      "omit one started resource restoration registration while another same-name registration remains",
+      "leave a task field or collection changed",
+      "throw during restoration",
+      "leave an extra Rand push",
+      "candidate operation throws: complete failed if fixture integrity remains healthy"
+    ],
+    "studyControls": "private/study-controls/zombieland-dynamic-needs-capacities/NOTES.md"
+  },
+  "plannedCountsNeedEngineReconciliation": false
+}

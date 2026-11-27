@@ -1,0 +1,56 @@
+{
+  "schema_version": 1,
+  "runtimes": [
+    {
+      "id": "dst-dedicated-24700372-construct",
+      "name": "Don't Starve Together dedicated server (construct pack)",
+      "version": "Steam App 343050 build 24700372",
+      "provider": "container",
+      "restricted": false,
+      "host_platforms": [
+        "linux-x64",
+        "darwin-x64",
+        "darwin-arm64"
+      ],
+      "source": {
+        "kind": "container-image",
+        "image": "ubuntu:24.04@sha256:008173c23f95b170204355c12626cb5a965d779a7e1283b09e9cffbb1bf33ca3",
+        "expectedFiles": [
+          "usr/bin/bash"
+        ]
+      }
+    }
+  ],
+  "task_bindings": {
+    "camp-supply-ledger": [
+      "dst-dedicated-24700372-construct"
+    ],
+    "container-transfer-transaction": [
+      "dst-dedicated-24700372-construct"
+    ],
+    "rescue-dispatch-queue": [
+      "dst-dedicated-24700372-construct"
+    ],
+    "world-rule-ballot": [
+      "dst-dedicated-24700372-construct"
+    ],
+    "combat-target-arbiter": [
+      "dst-dedicated-24700372-construct"
+    ],
+    "waystone-route-network": [
+      "dst-dedicated-24700372-construct"
+    ],
+    "status-effect-stack": [
+      "dst-dedicated-24700372-construct"
+    ],
+    "fuel-ration-allocator": [
+      "dst-dedicated-24700372-construct"
+    ],
+    "trade-escrow-exchange": [
+      "dst-dedicated-24700372-construct"
+    ],
+    "loot-roll-arbiter": [
+      "dst-dedicated-24700372-construct"
+    ]
+  }
+}

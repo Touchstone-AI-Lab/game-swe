@@ -1,0 +1,200 @@
+{
+  "id": "rhenium-gmod-v2",
+  "version": "2.2.0",
+  "game": "garrys-mod",
+  "runtime": {
+    "app_id": 4020,
+    "branch": "stable",
+    "build_id": "23150012",
+    "platform": "windows-x86_64",
+    "linux_build_id": "23150012"
+  },
+  "contract_traceability_required": true,
+  "name": {
+    "en": "Rhenium Garry's Mod Server Systems",
+    "zh": "Rhenium Garry's Mod 服务端系统题（五题正式版）"
+  },
+  "description": {
+    "en": "Five server-authoritative clean-room GMod tasks for Sandbox on gm_flatgrass.",
+    "zh": "面向 Sandbox/gm_flatgrass 的服务端权威 clean-room GMod 五题。"
+  },
+  "tasks": [
+    {
+      "id": "contraption-blueprint-duplicator",
+      "difficulty": "expert",
+      "task_version": "2.2.0",
+      "title": {
+        "en": "Contraption Blueprint Duplicator",
+        "zh": "Contraption Blueprint 复制与恢复"
+      },
+      "summary": {
+        "en": "Canonicalize, persist and restore an entity/constraint graph.",
+        "zh": "规范化、持久化并恢复实体/约束图。"
+      },
+      "brief": {
+        "en": "Use public duplicator, constraint and Undo APIs with full rollback.",
+        "zh": "用公开 duplicator、constraint、Undo API 实现全回滚。"
+      },
+      "requirements": {
+        "en": [
+          "[T5-DATA-02] Enforce the closed entity class and model allowlists.",
+          "[T5-DATA-03] Enforce the Weld/NoCollide constraint allowlist and valid endpoints.",
+          "[T5-DATA-04] Enforce budgets of 8 blueprints, 16 entities, and 24 constraints.",
+          "[T5-SEM-01] Assign stable local entity IDs independently of input order.",
+          "[T5-HASH-01] Produce a behavioral canonical hash from normalized fields.",
+          "[T5-SEM-07] Deduplicate capture and paste-plan requests with revisions.",
+          "[T5-PERSIST-01] Preserve schemas, requests, and paste results across restart.",
+          "[T5-ROLLBACK-01] Roll back every object on partial Paste or Undo failure."
+        ],
+        "zh": [
+          "[T5-DATA-02] 强制封闭的实体 class/model allowlist。",
+          "[T5-DATA-03] 强制 Weld/NoCollide constraint allowlist 与有效端点。",
+          "[T5-DATA-04] 强制 8 blueprint、16 entity、24 constraint 预算。",
+          "[T5-SEM-01] 独立于输入顺序分配稳定 local entity ID。",
+          "[T5-HASH-01] 从规范字段生成行为定义的 canonical hash。",
+          "[T5-SEM-07] 结合 revision 去重 capture 与 paste-plan 请求。",
+          "[T5-PERSIST-01] 跨重启保留 schema、request 与 paste 结果。",
+          "[T5-ROLLBACK-01] 部分 Paste 或 Undo 失败时回滚全部对象。"
+        ]
+      },
+      "api_usage": {
+        "en": [
+          "[T5-NATIVE-01] Capture with public duplicator.Copy.",
+          "[T5-NATIVE-02] Inspect constraints with public constraint.GetTable.",
+          "[T5-NATIVE-03] Restore with public duplicator.Paste.",
+          "[T5-NATIVE-04] Register all restored objects in one Undo unit.",
+          "[T5-NATIVE-05] Assign restored Props with cleanup.Add without internal APIs."
+        ],
+        "zh": [
+          "[T5-NATIVE-01] 使用公开 duplicator.Copy 捕获。",
+          "[T5-NATIVE-02] 使用公开 constraint.GetTable 检查约束。",
+          "[T5-NATIVE-03] 使用公开 duplicator.Paste 恢复。",
+          "[T5-NATIVE-04] 将全部恢复对象登记为一个 Undo 单元。",
+          "[T5-NATIVE-05] 用 cleanup.Add 归属恢复 Prop，不调用内部 API。"
+        ]
+      },
+      "acceptance": {
+        "en": [
+          "A real three-node two-edge graph canonicalizes within exact allowlists and budgets.",
+          "Malformed graphs fail before mutation and owner views remain detached.",
+          "Replay, revisions, paste records, and two-process persistence remain stable.",
+          "Public Copy/GetTable/Paste plus one Undo restore and remove the graph.",
+          "Partial failures fully roll back and shutdown leaves no lifecycle residue."
+        ],
+        "zh": [
+          "真实三节点两边图在精确 allowlist 与预算内完成规范化。",
+          "恶意图在修改前失败，owner 视图保持 detached。",
+          "重放、revision、paste 记录与两进程持久化保持稳定。",
+          "公开 Copy/GetTable/Paste 与一个 Undo 可恢复并移除图。",
+          "部分失败完全回滚，关闭后无生命周期残留。"
+        ]
+      },
+      "domains": [
+        "graph-serialization",
+        "persistence",
+        "rollback"
+      ],
+      "estimated_minutes": 420,
+      "public_exam": {
+        "path": "exams/contraption-blueprint-duplicator.md",
+        "sha256": "8298ebee90d34e730d672cc04f4125dbb31eb161ed8066020a0c5c1a18aecf6e",
+        "interfaces": [
+          "Blueprints.new(options)",
+          "blueprints:capture(request_id, owner_id, name, revision, graph)",
+          "blueprints:plan(request_id, owner_id, name, revision, target)",
+          "adapter.Capture(player, root, name, request_id, revision)",
+          "adapter.Paste(player, name, target, request_id, revision)"
+        ],
+        "contract_evidence": [
+          "T5-DATA-02",
+          "T5-DATA-04",
+          "T5-HASH-01",
+          "T5-ROLLBACK-01",
+          "T5-SCOPE-02"
+        ],
+        "acceptance_evidence": [
+          "T5-ACC-01",
+          "T5-ACC-02",
+          "T5-ACC-03",
+          "T5-ACC-04",
+          "T5-ACC-05"
+        ]
+      },
+      "required_files": [
+        "addon.json",
+        "lua/rhenium_contraption_blueprints/blueprints.lua",
+        "lua/rhenium_contraption_blueprints/server.lua"
+      ],
+      "core_module": "lua/rhenium_contraption_blueprints/blueprints.lua",
+      "server_module": "lua/rhenium_contraption_blueprints/server.lua",
+      "evaluation": {
+        "hidden_suite": "private/tasks/contraption-blueprint-duplicator/hidden/contraption-blueprint-duplicator.lua",
+        "hidden_cases": [
+          "capture canonicalizes three nodes and two edges",
+          "canonical hash ignores input table order",
+          "unsupported classes models and constraints fail",
+          "bad endpoints and self edges are rejected",
+          "nonfinite transforms are rejected before mutation",
+          "entity constraint and blueprint budgets are enforced",
+          "capture request replay and conflict are exact",
+          "blueprint revision rejects stale replacement",
+          "list and get are sorted detached owner views",
+          "paste plan applies target transform to every node",
+          "paste request replay revision and result are idempotent",
+          "save load preserves schema hash requests and paste results",
+          "shutdown is idempotent and freezes capture",
+          "source identifiers require raw unique nonempty strings",
+          "malformed entity and constraint rows return stable errors",
+          "constraint params are validated detached and included in hash",
+          "invalid plan identity name revision and target return stable public errors",
+          "malformed persisted graphs hashes requests and paste rows are rejected"
+        ],
+        "integration_suite": "private/tasks/contraption-blueprint-duplicator/integration/contraption-blueprint-duplicator-integration.lua",
+        "integration_cases": [
+          "adapter installs lifecycle hooks and timer",
+          "trusted owner and root bindings authorize capture",
+          "public duplicator Copy and constraint table become canonical graph",
+          "constraint GetTable mismatch rejects capture atomically",
+          "unbound player and entity cannot capture or paste",
+          "public Paste restores three entities and two constraints",
+          "partial Paste failure rolls back every live object",
+          "saved state restores a pasteable canonical schema",
+          "Install is idempotent"
+        ],
+        "lifecycle_cases": [
+          "shutdown removes hooks and timer"
+        ],
+        "traceability": "private/tasks/contraption-blueprint-duplicator/contract-traceability.json",
+        "mutations": "private/tasks/contraption-blueprint-duplicator/mutations.json",
+        "suite_timeout_seconds": 8
+      },
+      "server_runtime": {
+        "task_version": "2.2.0",
+        "addon_manifest": "private/tasks/contraption-blueprint-duplicator/server/addon.json",
+        "lua_entry": "private/tasks/contraption-blueprint-duplicator/server/contraption-blueprint-duplicator-suite.lua",
+        "suite_id": "rhenium-gmod-blueprint-duplicator-v3",
+        "runtime_namespace": "contraption-blueprints-v3",
+        "submission_addon_name": "rhenium_blueprints_submission",
+        "private_suite_addon_name": "zz_rhenium_blueprints_private",
+        "expected_cases": [
+          "copy",
+          "canonical",
+          "persistence",
+          "paste",
+          "graph",
+          "undo",
+          "cleanup"
+        ],
+        "phases": [
+          "A",
+          "B"
+        ],
+        "timeout_seconds": 240
+      },
+      "source": {
+        "path": "sources/contraption-blueprint-duplicator.json",
+        "sha256": "5b6313092854a4b8070c3279e012c1859fdabfecbb7a8b9742e9cf3b4c842405"
+      }
+    }
+  ]
+}

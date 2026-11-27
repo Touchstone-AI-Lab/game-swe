@@ -1,0 +1,650 @@
+{
+  "task": "garrys-mod/addons/hot-object-round-controller",
+  "task_version": "2.2.0",
+  "exam": "benchmarks/gmod/exams/hot-object-round-controller.md",
+  "cases": [
+    {
+      "id": "check:required-files",
+      "role": "static",
+      "clauses": [
+        "T4-FILE-01"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "check:lua-syntax",
+      "role": "static",
+      "clauses": [
+        "T4-FILE-01"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "hidden:round starts with three stable players and frozen deadline",
+      "role": "target",
+      "clauses": [
+        "T4-API-01",
+        "T4-API-02",
+        "T4-SEM-02",
+        "T4-SEM-03",
+        "T4-API-03",
+        "T4-GOAL-01",
+        "T4-SCOPE-01",
+        "T4-PERSIST-01",
+        "T4-ACC-01"
+      ],
+      "overlap": false,
+      "note": "Carries the implicit sandbox evidence for SCOPE-01."
+    },
+    {
+      "id": "hidden:monotonic touch sequence transfers holder",
+      "role": "target",
+      "clauses": [
+        "T4-SEM-05",
+        "T4-SEM-06",
+        "T4-ERR-01",
+        "T4-ACC-02"
+      ],
+      "overlap": false,
+      "note": "Traceability also lists T4-DATA-01; no malformed value is passed, dropped (clause is unasserted)."
+    },
+    {
+      "id": "hidden:event replay is exact and conflicts fail",
+      "role": "target",
+      "clauses": [
+        "T4-SEM-04",
+        "T4-ERR-01",
+        "T4-ACC-02"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "hidden:wrong object generation and dead player never transfer",
+      "role": "target",
+      "clauses": [
+        "T4-SEM-05",
+        "T4-SEM-06",
+        "T4-ERR-01",
+        "T4-ACC-02"
+      ],
+      "overlap": false,
+      "note": "Traceability also lists T4-FILE-01; nominal."
+    },
+    {
+      "id": "hidden:holder death and disconnect choose stable successor",
+      "role": "target",
+      "clauses": [
+        "T4-LIFE-01",
+        "T4-ACC-03"
+      ],
+      "overlap": false,
+      "note": "T4-GOAL-01 re-cited from the start/variant cases."
+    },
+    {
+      "id": "hidden:respawn creates a new player revision",
+      "role": "target",
+      "clauses": [
+        "T4-LIFE-02",
+        "T4-SEM-05",
+        "T4-ACC-03"
+      ],
+      "overlap": false,
+      "note": "Traceability also lists T4-GOAL-02; nominal."
+    },
+    {
+      "id": "hidden:deadline settles exploding round exactly once",
+      "role": "target",
+      "clauses": [
+        "T4-TIME-02",
+        "T4-SEM-08",
+        "T4-GOAL-01",
+        "T4-SEM-01",
+        "T4-ACC-03"
+      ],
+      "overlap": false,
+      "note": "Traceability also lists T4-PERSIST-03; nominal."
+    },
+    {
+      "id": "hidden:infectious variant excludes every infected survivor from winners",
+      "role": "target",
+      "clauses": [
+        "T4-SEM-09",
+        "T4-GOAL-01",
+        "T4-SEM-06",
+        "T4-ACC-01"
+      ],
+      "overlap": false,
+      "note": "Traceability also lists T4-SCOPE-01; nominal. Reads player flags through `players.B` or `player_rows[2]` only (hidden:10).",
+      "over_constrained": true
+    },
+    {
+      "id": "hidden:time reversal cannot reopen or delay settlement",
+      "role": "target",
+      "clauses": [
+        "T4-TIME-01",
+        "T4-ACC-02"
+      ],
+      "overlap": false,
+      "note": "Traceability also lists T4-SCOPE-02; nominal."
+    },
+    {
+      "id": "hidden:finished transitions to cleanup without second consequence",
+      "role": "target",
+      "clauses": [
+        "T4-TIME-03",
+        "T4-SEM-01",
+        "T4-ACC-01"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "hidden:save load preserves audit result and deduplication",
+      "role": "target",
+      "clauses": [
+        "T4-PERSIST-02",
+        "T4-SEM-04",
+        "T4-ACC-05"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "hidden:same tick ordering is sequence then stable identity",
+      "role": "target",
+      "clauses": [
+        "T4-SEM-07"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "hidden:shutdown is idempotent and freezes events",
+      "role": "target",
+      "clauses": [
+        "T4-LIFE-03",
+        "T4-API-03",
+        "T4-ERR-01"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "hidden:malformed players events audit result and revisions are rejected",
+      "role": "target",
+      "clauses": [
+        "T4-PERSIST-04",
+        "T4-API-02",
+        "T4-ERR-01"
+      ],
+      "overlap": false,
+      "note": "Variants index `players.A`/`seen` or `player_rows`/`event_rows` (hidden:16).",
+      "over_constrained": true
+    },
+    {
+      "id": "integration:adapter installs lifecycle hooks and one timer",
+      "role": "target",
+      "clauses": [
+        "T4-NATIVE-01",
+        "T4-API-04"
+      ],
+      "overlap": false,
+      "note": "Uses undisclosed S.HookPrefix/S.TimerName and the suffixes .Death/.Spawn/.Disconnect/.Removed.",
+      "over_constrained": true
+    },
+    {
+      "id": "integration:trusted bindings start a three player round",
+      "role": "target",
+      "clauses": [
+        "T4-TRUST-01",
+        "T4-API-04"
+      ],
+      "overlap": false,
+      "note": "StartRound receives Player objects for players/holder."
+    },
+    {
+      "id": "integration:object binding is single use and removal restores original callbacks",
+      "role": "target",
+      "clauses": [
+        "T4-NATIVE-02",
+        "T4-LIFE-03"
+      ],
+      "overlap": false,
+      "note": "Traceability lists T4-LIFE-01 (death/disconnect successor); the callback restoration obligation is T4-NATIVE-02/T4-LIFE-03.",
+      "over_constrained": true
+    },
+    {
+      "id": "integration:entity StartTouch and Touch share deterministic dispatch",
+      "role": "target",
+      "clauses": [
+        "T4-API-04",
+        "T4-NATIVE-02",
+        "T4-SEM-07",
+        "T4-GOAL-02"
+      ],
+      "overlap": false,
+      "note": "Dispatch is reached only through the wrapped callbacks; T4-ADAPTER-01's own obligations are carried by the next case."
+    },
+    {
+      "id": "integration:unbound physical touch cannot impersonate a player",
+      "role": "target",
+      "clauses": [
+        "T4-TRUST-01",
+        "T4-ADAPTER-01"
+      ],
+      "overlap": false,
+      "note": "The only direct Dispatch call; event shape {kind,object,player} is undisclosed."
+    },
+    {
+      "id": "integration:PlayerDeath hook changes holder once",
+      "role": "target",
+      "clauses": [
+        "T4-NATIVE-03",
+        "T4-LIFE-01"
+      ],
+      "overlap": false,
+      "note": "",
+      "over_constrained": true
+    },
+    {
+      "id": "integration:PlayerSpawn rebinds a new revision",
+      "role": "target",
+      "clauses": [
+        "T4-NATIVE-03",
+        "T4-LIFE-02"
+      ],
+      "overlap": false,
+      "note": "",
+      "over_constrained": true
+    },
+    {
+      "id": "integration:timer reaches fixed deadline exactly once",
+      "role": "target",
+      "clauses": [
+        "T4-NATIVE-01",
+        "T4-TIME-02"
+      ],
+      "overlap": false,
+      "note": "",
+      "over_constrained": true
+    },
+    {
+      "id": "integration:Save exposes deterministic audit for restart",
+      "role": "target",
+      "clauses": [
+        "T4-PERSIST-01",
+        "T4-PERSIST-02",
+        "T4-SEM-01"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "lifecycle:shutdown removes hooks timer restores callbacks and freezes adapter",
+      "role": "target",
+      "clauses": [
+        "T4-LIFE-03",
+        "T4-ACC-05"
+      ],
+      "overlap": false,
+      "note": "Traceability lists T4-LIFE-01; the Shutdown obligation is T4-LIFE-03."
+    },
+    {
+      "id": "server:physical-touch",
+      "role": "target",
+      "clauses": [
+        "T4-NATIVE-02",
+        "T4-ACC-04",
+        "T4-ACC-01",
+        "T4-SCOPE-02",
+        "T4-GOAL-02"
+      ],
+      "overlap": false,
+      "note": "Phase B (recorded verdict) is `check(true)`; the engine StartTouch/Touch evidence is Phase A only.",
+      "over_constrained": true
+    },
+    {
+      "id": "server:three-bot",
+      "role": "target",
+      "clauses": [
+        "T4-TRUST-01",
+        "T4-ACC-04"
+      ],
+      "overlap": false,
+      "note": "Three real NextBot players are created and bound in both phases.",
+      "over_constrained": true
+    },
+    {
+      "id": "server:lifecycle",
+      "role": "target",
+      "clauses": [
+        "T4-LIFE-01",
+        "T4-LIFE-02",
+        "T4-ACC-03",
+        "T4-NATIVE-03"
+      ],
+      "overlap": false,
+      "note": "Phase B asserts the restored audit has >= 6 entries; real Kill/Spawn/Kick are Phase A only.",
+      "over_constrained": true
+    },
+    {
+      "id": "server:variants",
+      "role": "target",
+      "clauses": [
+        "T4-SEM-09",
+        "T4-ACC-05",
+        "T4-SEM-08",
+        "T4-GOAL-01"
+      ],
+      "overlap": false,
+      "note": "Phase B runs a fresh exploding round on the real timer (variant + two winners); the infectious assertions are Phase A only.",
+      "over_constrained": true
+    },
+    {
+      "id": "server:deadline",
+      "role": "target",
+      "clauses": [
+        "T4-TIME-02",
+        "T4-ACC-02",
+        "T4-NATIVE-01"
+      ],
+      "overlap": false,
+      "note": "Phase B: a real timer-driven round reaches finished at its deadline.",
+      "over_constrained": true
+    },
+    {
+      "id": "server:exactly-once",
+      "role": "target",
+      "clauses": [
+        "T4-TIME-02",
+        "T4-ACC-03",
+        "T4-PERSIST-02"
+      ],
+      "overlap": false,
+      "note": "Phase B: restored settlements == 1.",
+      "over_constrained": true
+    },
+    {
+      "id": "server:persistence",
+      "role": "target",
+      "clauses": [
+        "T4-PERSIST-02",
+        "T4-ACC-05",
+        "T4-PERSIST-03"
+      ],
+      "overlap": false,
+      "note": "Carries the implicit JSON round-trip evidence for T4-PERSIST-03.",
+      "over_constrained": true
+    },
+    {
+      "id": "server:cleanup",
+      "role": "target",
+      "clauses": [
+        "T4-LIFE-03",
+        "T4-ACC-05"
+      ],
+      "overlap": false,
+      "note": "",
+      "over_constrained": true
+    }
+  ],
+  "clauses": [
+    {
+      "id": "T4-GOAL-01",
+      "anchor": "§1. Background and goals / item 1: “Implement a server-authoritative three-player Ho…”",
+      "status": "asserted",
+      "note": "Summary clause; both variants, touch, death, respawn, disconnect, deadline and cleanup are driven in the core and on the real server. Traceability's citation (successor case) is one facet only; re-cited."
+    },
+    {
+      "id": "T4-GOAL-02",
+      "anchor": "§1. Background and goals / item 2: “The plain Lua core is responsible for event orde…”",
+      "status": "asserted",
+      "note": "Adapter half is asserted: Dispatch-backed wrapped StartTouch/Touch in the stub, real physical touch, real player hooks and the real timer on the server. The pure-core half is only implicit (core runs in a sandbox without GMod globals). Traceability's citation (respawn case) is nominal; re-cited."
+    },
+    {
+      "id": "T4-FILE-01",
+      "anchor": "§2. Required files / item 1: “You must submit:”",
+      "status": "asserted",
+      "note": "check:required-files and check:lua-syntax. The dependency prohibition is enforced only by the verifier environment. Traceability's citation (wrong-object case) is nominal."
+    },
+    {
+      "id": "T4-API-01",
+      "anchor": "§3. Core public interface / item 1: “`lua/rhenium_hot_object_round/controller.lua` re…”",
+      "status": "asserted",
+      "note": "All ten methods are called by the hidden suite."
+    },
+    {
+      "id": "T4-API-02",
+      "anchor": "§3. Core public interface / item 2: “`Controller.new(options)` accepts `object_id`, `…”",
+      "status": "asserted",
+      "note": "new() with explicit object id/revision and optional state; nil,\"invalid_state\" for malformed states. The defaults (hot:1 / 1), invalid_options and a bad schema_version specifically are not exercised."
+    },
+    {
+      "id": "T4-API-03",
+      "anchor": "§3. Core public interface / item 3: “Mutating interfaces return `ok:boolean,code:stri…”",
+      "status": "asserted",
+      "note": "ok/code pairs are read throughout and shutdown() is checked for truthiness. Detachment of snapshot/save and fresh data tables are never checked."
+    },
+    {
+      "id": "T4-DATA-01",
+      "anchor": "§4. Identifiers, time and stable error codes / item 1: “event/round/object/player IDs have length `1..12…”",
+      "status": "unasserted",
+      "note": "No case passes a malformed event/round/object/player ID, a non-integer revision/sequence or an invalid now/deadline. Traceability cites the monotonic-touch case, which only uses well-formed values (its stale sequence is T4-SEM-05); excluded."
+    },
+    {
+      "id": "T4-TIME-01",
+      "anchor": "§4. Identifiers, time and stable error codes / item 2: “Every call that carries a time uses `effective_n…”",
+      "status": "asserted",
+      "note": "tick(10) then tick(1): still finished and last_now stays 10 (hidden:11)."
+    },
+    {
+      "id": "T4-ERR-01",
+      "anchor": "§4. Identifiers, time and stable error codes / item 3: “Stably distinguish: `invalid_options`, `invalid_…”",
+      "status": "weak",
+      "note": "6 of 15 codes are compared literally (invalid_state, event_conflict, wrong_object, invalid_player, stale_sequence, shutdown). Never produced or never compared: invalid_options, invalid_event, invalid_round, invalid_players, invalid_holder, invalid_time, round_closed, and the adapter codes unbound (only `not ok`, integration:8) and invalid_kind."
+    },
+    {
+      "id": "T4-SEM-01",
+      "anchor": "§5. State machine and start contract / item 1: “The only state sequence is `waiting → active → r…”",
+      "status": "asserted",
+      "note": "active, finished and cleanup are observed in order; audit length is bounded below (>=3 core, >=4 stub, >=6 Phase B). That `resolving` is written to the audit and the `waiting` start state are not inspected."
+    },
+    {
+      "id": "T4-SEM-02",
+      "anchor": "§5. State machine and start contract / item 2: “start can succeed only in waiting; it must recei…”",
+      "status": "weak",
+      "note": "Only the happy path: one valid start. No rejection is exercised (start outside waiting, not exactly three players, duplicates, holder not a participant, bad variant, deadline not after last_now) and the initial player flags are not read."
+    },
+    {
+      "id": "T4-SEM-03",
+      "anchor": "§5. State machine and start contract / item 3: “start freezes round_id, variant, object logical …”",
+      "status": "asserted",
+      "note": "status active, holder A, deadline 10 after start. The `started` code, data.holder and immutability of the frozen fields are not compared."
+    },
+    {
+      "id": "T4-SEM-04",
+      "anchor": "§6. Touch, event replay and generation / item 1: “All start/touch/death/disconnect/respawn share a…”",
+      "status": "asserted",
+      "note": "Exact touch replay and a same-id different-arguments conflict; replay after save/load. The shared namespace across the five methods is not exercised."
+    },
+    {
+      "id": "T4-SEM-05",
+      "anchor": "§6. Touch, event replay and generation / item 2: “When active and `effective_now < deadline`, touc…”",
+      "status": "asserted",
+      "note": "wrong_object for a wrong object revision, invalid_player for a dead player and for an old player revision (no code there), stale_sequence for a non-increasing sequence. The `effective_now < deadline` condition (round_closed) is not exercised."
+    },
+    {
+      "id": "T4-SEM-06",
+      "anchor": "§6. Touch, event replay and generation / item 3: “A successful touch changes holder to that player…”",
+      "status": "asserted",
+      "note": "Holder changes and infected is recorded for the toucher. The {from,to,sequence} record and last_sequence value are not read."
+    },
+    {
+      "id": "T4-SEM-07",
+      "anchor": "§6. Touch, event replay and generation / item 4: “For events produced by the adapter at the same i…”",
+      "status": "asserted",
+      "note": "Core: acceptance follows sequence, not event-id order (hidden:14). Stub adapter: StartTouch(b) then Touch(c) in one instant leaves C as holder."
+    },
+    {
+      "id": "T4-LIFE-01",
+      "anchor": "§7. Death, disconnect and respawn / item 1: “death marks the player with the matching revisio…”",
+      "status": "asserted",
+      "note": "Holder death -> B, holder disconnect -> C in the core; stored PlayerDeath callback in the stub; real Kill and real Kick successors in Phase A. Immediate settlement without a candidate is not exercised."
+    },
+    {
+      "id": "T4-LIFE-02",
+      "anchor": "§7. Death, disconnect and respawn / item 2: “`respawn(event_id,player_id,old_revision,new_rev…”",
+      "status": "asserted",
+      "note": "Respawn to revision 2 invalidates revision-1 touches and accepts revision 2. The `respawned` code/data and rejection of new<=old are not compared."
+    },
+    {
+      "id": "T4-TIME-02",
+      "anchor": "§8. Deadline, variants and cleanup boundary / item 1: “When `effective_now >= deadline`, an active roun…”",
+      "status": "asserted",
+      "note": "Settlement happens at tick(10) and stays at settlements == 1 on a second tick, in core, stub timer and real timer (Phase B exploding round). A touch exactly at the deadline (round_closed) is not exercised."
+    },
+    {
+      "id": "T4-SEM-08",
+      "anchor": "§8. Deadline, variants and cleanup boundary / item 2: “The exploding result records `reason`, the curre…”",
+      "status": "asserted",
+      "note": "result.holder and settlements in the core; variant and two winners in Phase B. reason, eliminated, winner ordering and settled_at are not read."
+    },
+    {
+      "id": "T4-SEM-09",
+      "anchor": "§8. Deadline, variants and cleanup boundary / item 3: “infectious permanently records the player as inf…”",
+      "status": "asserted",
+      "note": "Infectious winners are exactly {A} and B is flagged infected (hidden:10). Phase A records the infection flag after a real touch, but its winners check is non-discriminating because B has been kicked by then (known_issues)."
+    },
+    {
+      "id": "T4-TIME-03",
+      "anchor": "§8. Deadline, variants and cleanup boundary / item 4: “finished enters cleanup when `effective_now >= d…”",
+      "status": "asserted",
+      "note": "cleanup at deadline+1 with settlements still 1. The single cleanup audit entry is not inspected."
+    },
+    {
+      "id": "T4-PERSIST-01",
+      "anchor": "§9. Snapshot and persistence schema / item 1: “snapshot exposes at least `schema_version=1,stat…”",
+      "status": "asserted",
+      "note": "status, holder, deadline, last_now, settlements, result, audit and player flags are read; Save().schema_version == 1. round_id, object_id/revision, last_sequence, ordering and detachment are not checked, and player state is read through two private layouts only (known_issues)."
+    },
+    {
+      "id": "T4-PERSIST-02",
+      "anchor": "§9. Snapshot and persistence schema / item 2: “save stores, on top of the snapshot, the complet…”",
+      "status": "asserted",
+      "note": "Replay of a recorded touch after reload without a second settlement; Phase B restores result/audit from the hash-pinned Phase A state."
+    },
+    {
+      "id": "T4-PERSIST-03",
+      "anchor": "§9. Snapshot and persistence schema / item 3: “Saved state must not contain Player, Entity, fun…”",
+      "status": "weak",
+      "note": "No assertion inspects the saved state for Player/Entity/function values. The only evidence is implicit: Phase A serializes Save() with util.TableToJSON and Phase B must rebuild from it. Traceability's citation (deadline case) is nominal."
+    },
+    {
+      "id": "T4-PERSIST-04",
+      "anchor": "§9. Snapshot and persistence schema / item 4: “The constructor must fully validate the types, u…”",
+      "status": "asserted",
+      "note": "Five malformed variants must return invalid_state; the variants only work on two private layouts (known_issues)."
+    },
+    {
+      "id": "T4-API-04",
+      "anchor": "§10. Server-side adapter and real APIs / item 1: “`lua/rhenium_hot_object_round/server.lua` return…”",
+      "status": "asserted",
+      "note": "All eight adapter functions are called by the stub suite."
+    },
+    {
+      "id": "T4-NATIVE-01",
+      "anchor": "§10. Server-side adapter and real APIs / item 2: “Install registers named `PlayerDeath`, `PlayerSp…”",
+      "status": "asserted",
+      "note": "Four hooks and the timer must exist under private names (known_issues); the timer callback drives the deadline in the stub and the real timer does in Phase B. The .05 s interval and uniqueness are not inspected."
+    },
+    {
+      "id": "T4-NATIVE-02",
+      "anchor": "§10. Server-side adapter and real APIs / item 3: “BindObject stores the logical generation and wra…”",
+      "status": "asserted",
+      "note": "Stub: second BindObject is refused, original callbacks run once each, StartTouch and Touch both transfer, EntityRemoved restores the originals. Phase A: a real bot moved into a real trigger entity fires engine StartTouch/Touch and changes the holder. The engine-backed evidence is in Phase A only and therefore acts as a gate: if it fails, every server case is unobserved instead of one named case failing (known_issues)."
+    },
+    {
+      "id": "T4-NATIVE-03",
+      "anchor": "§10. Server-side adapter and real APIs / item 4: “PlayerDeath/Disconnected send the corresponding …”",
+      "status": "asserted",
+      "note": "Stub: stored PlayerDeath callback changes the holder; two PlayerSpawn calls lead to an accepted touch at the new revision. Phase A: real Kill, Spawn (revision == 2) and Kick. The engine-backed evidence is in Phase A only and therefore acts as a gate: if it fails, every server case is unobserved instead of one named case failing (known_issues)."
+    },
+    {
+      "id": "T4-TRUST-01",
+      "anchor": "§11. Authority boundary and adapter Dispatch / item 1: “Player, object identity, revision, the default s…”",
+      "status": "asserted",
+      "note": "A Dispatch naming an unbound player is refused and leaves the holder unchanged (code not compared). Server-generated sequence/time are only implicit."
+    },
+    {
+      "id": "T4-ADAPTER-01",
+      "anchor": "§11. Authority boundary and adapter Dispatch / item 2: “Dispatch supports at least `kind=\"touch\"`, using…”",
+      "status": "weak",
+      "note": "Dispatch is called directly once, with an unbound player, and only `not ok` is asserted (integration:8). A successful direct Dispatch, the optional event_id/sequence/now fields and invalid_kind are never exercised; successful touches reach Dispatch only through the wrapped callbacks."
+    },
+    {
+      "id": "T4-LIFE-03",
+      "anchor": "§12. Shutdown, out-of-scope items and prohibitions / item 1: “Install/Shutdown are idempotent. Shutdown remove…”",
+      "status": "asserted",
+      "note": "Double Shutdown, no hook/timer left, entity callbacks restored (stub and real), core events frozen. Double Install and cleanup of addon-created temporary objects are not exercised."
+    },
+    {
+      "id": "T4-SCOPE-01",
+      "anchor": "§12. Shutdown, out-of-scope items and prohibitions / item 2: “This task does not cover client HUD, network pre…”",
+      "status": "weak",
+      "note": "Disclaimer plus the core-isolation rule, for which the only evidence is the implicit sandbox load. Traceability's citation (infectious case) is nominal."
+    },
+    {
+      "id": "T4-SCOPE-02",
+      "anchor": "§12. Shutdown, out-of-scope items and prohibitions / item 3: “You must not implement only the deterministic ad…”",
+      "status": "asserted",
+      "note": "A submission without real StartTouch/Touch wiring cannot pass Phase A (engine callbacks must fire and move the holder). The no-TODO sentence has no dedicated check. The engine-backed evidence is in Phase A only and therefore acts as a gate: if it fails, every server case is unobserved instead of one named case failing (known_issues). Traceability's citation (time-reversal case) is nominal; re-cited."
+    },
+    {
+      "id": "T4-ACC-01",
+      "anchor": "§13. Acceptance criteria / item 1: “Three stable players, both variants, and the ful…”",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "T4-ACC-02",
+      "anchor": "§13. Acceptance criteria / item 2: “touch sequence, event replay, object/player gene…”",
+      "status": "asserted",
+      "note": "The deadline-boundary touch (round_closed) is not exercised."
+    },
+    {
+      "id": "T4-ACC-03",
+      "anchor": "§13. Acceptance criteria / item 3: “The holder's death, disconnect, and the new revi…”",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "T4-ACC-04",
+      "anchor": "§13. Acceptance criteria / item 4: “The StartTouch/Touch paths with three real Bots …”",
+      "status": "asserted",
+      "note": "Three real bots are created in both phases; the physical touch path is Phase A only and the Phase B `physical-touch` group is `check(true)`. The engine-backed evidence is in Phase A only and therefore acts as a gate: if it fails, every server case is unobserved instead of one named case failing (known_issues)."
+    },
+    {
+      "id": "T4-ACC-05",
+      "anchor": "§13. Acceptance criteria / item 5: “save/load across two processes preserves audit/r…”",
+      "status": "asserted",
+      "note": ""
+    }
+  ],
+  "excluded_clauses": [
+    "T4-DATA-01"
+  ],
+  "known_issues": [
+    "Undisclosed adapter fields and hook names: suites use `S.HookPrefix`, `S.TimerName` and the suffixes `.Death`/`.Spawn`/`.Disconnect`/`.Removed` (benchmarks/gmod/private/tasks/hot-object-round-controller/integration/hot-object-round-controller-integration.lua:4,6,9,10,11,13; benchmarks/gmod/private/tasks/hot-object-round-controller/server/hot-object-round-controller-suite.lua clean(): `server.TimerName`, `server.HookPrefix .. \".Death\"`). The exam (T4-NATIVE-01) requires named hooks and a timer but publishes no name or field. Measured by control alternative-strict-reading.",
+    "Private snapshot/save layout: player state is read as `snapshot.players.<ID>` or `snapshot.player_rows[i]`, and events as `seen` or `event_rows` (benchmarks/gmod/private/tasks/hot-object-round-controller/hidden/hot-object-round-controller.lua:10,16; benchmarks/gmod/private/tasks/hot-object-round-controller/server/hot-object-round-controller-suite.lua Phase A `variants`/`lifecycle` checks). T4-PERSIST-01 asks for all player state with stably sorted lists; a sorted `players` LIST, a natural reading, makes `s.players.B` nil and errors. Measured by control alternative-strict-reading-layout (only the list keys renamed to `players`/`events`): it fails the hidden infectious and malformed-state cases, and Phase A never emits a result (the suite indexes `players.B` on a list), leaving all eight server cases unobserved (55.71).",
+    "Undisclosed Dispatch event shape `{kind=\"touch\", object=<Entity>, player=<Player>}` (benchmarks/gmod/private/tasks/hot-object-round-controller/integration/hot-object-round-controller-integration.lua:8); T4-ADAPTER-01 names only kind, event_id, sequence and now. StartRound is likewise called with Player objects for `players`/`holder` (benchmarks/gmod/private/tasks/hot-object-round-controller/integration/hot-object-round-controller-integration.lua:5; benchmarks/gmod/private/tasks/hot-object-round-controller/server/hot-object-round-controller-suite.lua Phase A/B) although the exam does not say whether these are Players or logical IDs.",
+    "Fixture trap: the stub adapter environment has only include, hook (Add/Remove), timer (Create/Remove), IsValid and CurTime (benchmarks/gmod/private/tasks/hot-object-round-controller/integration/hot-object-round-controller-integration.lua:2-3); stub entities are bare tables. Any other GMod global or Entity method on an exercised path errors only in this layer.",
+    "Non-discriminating native assertion: Phase A's `infectious excludes infected B from winners` (benchmarks/gmod/private/tasks/hot-object-round-controller/server/hot-object-round-controller-suite.lua, Phase A final block) is evaluated after B has been kicked, so B is absent from winners for being disconnected whether or not infection is honoured. Control infected-survivors-can-win passes both server phases; only the hidden case detects it.",
+    "Vacuous assertion: Phase B `physical-touch` is `check(..., true)` (benchmarks/gmod/private/tasks/hot-object-round-controller/server/hot-object-round-controller-suite.lua, Phase B branch).",
+    "Shared stub state: integration cases 2-10 run one round on one adapter in sequence (benchmarks/gmod/private/tasks/hot-object-round-controller/integration/hot-object-round-controller-integration.lua:5-13); an early defect fails later cases.",
+    "Server-layer case granularity: the five-to-eight `server:` cases are the group verdicts of the FINAL phase (B) only (plugins/garrys-mod/src/rhenium_garrys_mod/addons/evaluator.py:255-276 reads `final_payload['cases']`). A failed Phase A assertion stops the run before Phase B (server_runner.py:631-640), so it is never recorded as `F` on its group: every `server:` case becomes unobserved (`U`), `complete` is false and the dedicated-server check scores 0/40. The Phase A group verdicts do exist in the raw execution record (`result.runtime.phase_a.payload.cases`) but are not part of the case table. Phase-A-only evidence therefore acts as a gate, not as a named failing case. Here Phase A holds the real physical touch, infection, Kill/Spawn/Kick lifecycle and the infectious deadline; Phase B holds restore (audit/result/settlements), a fresh timer-driven exploding round and Shutdown residue.",
+    "contract-traceability.json contains nominal or mis-pointed links (T4-FILE-01, T4-GOAL-01, T4-GOAL-02, T4-PERSIST-03, T4-SCOPE-01, T4-SCOPE-02, T4-DATA-01; T4-LIFE-01 where T4-LIFE-03 is meant on the binding and shutdown cases); dropped or re-cited, see case notes."
+  ]
+}

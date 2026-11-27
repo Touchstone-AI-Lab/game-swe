@@ -1,0 +1,30 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net472</TargetFramework><OutputType>Library</OutputType>
+    <AssemblyName>ResearchOrganized</AssemblyName><RootNamespace>ResearchOrganized</RootNamespace>
+    <EnableDefaultCompileItems>false</EnableDefaultCompileItems><GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+    <DebugType>none</DebugType><DebugSymbols>false</DebugSymbols><Optimize>true</Optimize>
+    <LangVersion>12.0</LangVersion><RestorePackagesWithLockFile>true</RestorePackagesWithLockFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Krafs.Rimworld.Ref" Version="1.6.4871" PrivateAssets="all" />
+    <PackageReference Include="Lib.Harmony" Version="2.4.2" PrivateAssets="all" />
+    <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies.net472" Version="1.0.3" PrivateAssets="all" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="$(SubmissionRoot)/Source/Layout/CrossingCounter.cs" />
+    <Compile Include="$(SubmissionRoot)/Source/Layout/CycleBreaker.cs" />
+    <Compile Include="$(SubmissionRoot)/Source/Layout/EpochLayout.cs" />
+    <Compile Include="$(SubmissionRoot)/Source/Layout/EraPromotion.cs" />
+    <Compile Include="$(SubmissionRoot)/Source/Layout/LayoutGraph.cs" />
+    <Compile Include="$(SubmissionRoot)/Source/Layout/RowOptimizer.cs" />
+    <Compile Include="$(SubmissionRoot)/Source/Layout/TabLayout.cs" />
+    <Compile Include="$(SubmissionRoot)/Source/Layout/TabRoutingPolicy.cs" />
+    <Compile Include="$(SubmissionRoot)/Source/Properties/AssemblyInfo.cs" />
+    <Compile Include="$(SubmissionRoot)/Source/ResearchOrganizedConfig.cs" />
+    <Compile Include="$(SubmissionRoot)/Source/ResearchOrganizedLayout.cs" />
+    <Compile Include="$(SubmissionRoot)/Source/ResearchOrganizedMain.cs" />
+    <Compile Include="$(SubmissionRoot)/Source/ResearchOrganizedMod.cs" />
+  </ItemGroup>
+</Project>

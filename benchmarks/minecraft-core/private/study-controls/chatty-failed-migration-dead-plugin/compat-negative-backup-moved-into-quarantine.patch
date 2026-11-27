@@ -1,0 +1,122 @@
+--- a/spigot/src/main/java/ru/brikster/chatty/Chatty.java
++++ b/spigot/src/main/java/ru/brikster/chatty/Chatty.java
+@@ -89,8 +89,9 @@
+         Path dataFolderPath = Chatty.this.getDataFolder().toPath();
+ 
+         Map<String, Object> legacyConfig = null;
++        String backupFolderName = null;
+         if (Files.exists(dataFolderPath.resolve("config.yml"))) {
+-            String backupFolderName = "Chatty_old_" + System.currentTimeMillis();
++            backupFolderName = "Chatty_old_" + System.currentTimeMillis();
+             Path backupFolder = dataFolderPath.resolveSibling(backupFolderName);
+             Files.move(dataFolderPath, backupFolder);
+             getLogger().log(Level.WARNING, "Found legacy \"config.yml\" file in plugin directory. \"Chatty\" folder was renamed to \"{0}\".", backupFolderName);
+@@ -109,13 +110,46 @@
+                 closeResources();
+                 initialize();
+             } catch (Throwable t) {
+-                getLogger().log(Level.SEVERE, "Failed to migrate legacy configuration — using defaults", t);
++                recoverFromFailedMigration(dataFolderPath, backupFolderName, t);
+             }
+         }
+ 
+         registerChattyCommand();
+     }
+ 
++    /**
++     * The migrated files could not be loaded: keep the operator informed and bring the plugin up
++     * on a default configuration instead of leaving an enabled plugin that handles nothing.
++     */
++    private void recoverFromFailedMigration(Path dataFolderPath, String backupFolderName, Throwable failure)
++            throws Exception {
++        getLogger().log(Level.SEVERE, "Failed to migrate the legacy configuration. Your v2 files are kept in \""
++                + backupFolderName + "\": fix the problem reported below, move its config.yml back into the"
++                + " plugin folder and restart the server.", failure);
++        tearDownQuietly();
++        if (Files.isDirectory(dataFolderPath)) {
++            Path quarantine = dataFolderPath.resolveSibling("Chatty_failed_migration_" + System.currentTimeMillis());
++            Files.move(dataFolderPath, quarantine);
++            getLogger().log(Level.WARNING, "The half-migrated files were moved to \"{0}\" for inspection.",
++                    quarantine.getFileName());
++            Path backup = dataFolderPath.resolveSibling(backupFolderName);
++            if (Files.isDirectory(backup)) {
++                Files.move(backup, quarantine.resolve("v2"));
++            }
++        }
++        initialize();
++        getLogger().warning("Chatty started with a default configuration instead.");
++    }
++
++    /** Releases whatever the failed initialisation left behind; errors here must not stop the recovery. */
++    private void tearDownQuietly() {
++        try {
++            closeResources();
++        } catch (Throwable t) {
++            getLogger().log(Level.WARNING, "Ignoring an error while releasing the failed configuration", t);
++        }
++    }
++
+     private void registerChattyCommand() throws Exception {
+         this.syncCommandManager = new BukkitCommandManager<>(this,
+                 CommandExecutionCoordinator.simpleCoordinator(),
+@@ -249,13 +283,19 @@
+         if (!isUseNativeAdventurePlatform()) {
+             BukkitAudiences.create(this).close();
+         }
+-        injector.getInstance(PlayerDataRepository.class).close();
+-        injector.getInstance(ProxyService.class).close();
++        Injector current = injector;
++        if (current != null) {
++            current.getInstance(PlayerDataRepository.class).close();
++            current.getInstance(ProxyService.class).close();
++        }
+         EventUtil.unregisterListeners(PlayerJoinEvent.class, this);
+         EventUtil.unregisterListeners(PlayerQuitEvent.class, this);
+         EventUtil.unregisterListeners(PlayerDeathEvent.class, this);
+         EventUtil.unregisterListeners(AsyncPlayerChatEvent.class, this);
+-        notificationTicker.cancelTicking();
++        NotificationTicker ticker = notificationTicker;
++        if (ticker != null) {
++            ticker.cancelTicking();
++        }
+     }
+ 
+     private void initAsyncCommandManager() throws Exception {
+--- a/spigot/src/main/java/ru/brikster/chatty/config/migration/V2ConfigMigrator.java
++++ b/spigot/src/main/java/ru/brikster/chatty/config/migration/V2ConfigMigrator.java
+@@ -277,8 +277,8 @@
+             Map<String, Object> v3caps = asMap(root.get("caps"));
+             if (caps != null && v3caps != null) {
+                 copyBool(caps, "enable", v3caps, "enable");
+-                copyInt(caps, "length", v3caps, "length");
+-                copyInt(caps, "percent", v3caps, "percent");
++                copyClampedInt(caps, "length", v3caps, "length", 1, Integer.MAX_VALUE, "caps.length");
++                copyClampedInt(caps, "percent", v3caps, "percent", 0, 100, "caps.percent");
+                 copyBool(caps, "block", v3caps, "block");
+             }
+ 
+@@ -404,11 +404,19 @@
+         }
+     }
+ 
+-    private static void copyInt(Map<String, Object> from, String fromKey,
+-                                Map<String, Object> to, String toKey) {
+-        if (from.get(fromKey) instanceof Number) {
+-            to.put(toKey, ((Number) from.get(fromKey)).intValue());
+-        }
++    private void copyClampedInt(Map<String, Object> from, String fromKey,
++                                Map<String, Object> to, String toKey,
++                                int min, int max, String label) {
++        if (!(from.get(fromKey) instanceof Number)) {
++            return;
++        }
++        int value = ((Number) from.get(fromKey)).intValue();
++        int clamped = Math.min(Math.max(value, min), max);
++        if (clamped != value) {
++            notes.add(label + " " + value + " is outside the range v3 accepts"
++                    + " and was clamped to " + clamped + ".");
++        }
++        to.put(toKey, clamped);
+     }
+ 
+     private static void copyStr(Map<String, Object> from, String fromKey,

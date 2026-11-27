@@ -1,0 +1,58 @@
+case	public_report	oracle	kind
+score_normal_budget	1	full upright roster earns ordinary health and damage budgets	real-engine
+score_dead_excluded	1	dead survivor does not count as upright	real-engine
+score_incap_excluded	1	incap survivor excluded from damage multiplier	real-engine
+score_falling_excluded	1	falling survivor contributes neither health nor multiplier	real-engine
+score_revived_health_policy	1	existing zero permanent-health contribution after incap preserved	real-engine
+score_upright_pills	1	actual carried pills earn normal per-player bonus	real-engine
+score_ledge_pills_excluded	1	ledge hanging player cannot contribute pills	real-engine
+score_falling_pills_excluded	1	falling player cannot contribute pills	real-engine
+live_multiplier_preserves_loss	2	multiplier update reprices existing loss without clearing ledger	real-engine
+live_proportion_reprices	2	p=.5 uses 400 temporary-health units and retains 20 lost units	real-engine
+live_pill_factor	2	live factor update recalculates nearest-five minimum	real-engine
+live_pill_cap	2	live cap below five is itself the cap	real-engine
+live_team_size	2	live team-size update recalculates all coefficients	real-engine
+score_roster_limit	1	dead player still occupies first-two roster slot; extra survivors do not replace it	real-engine
+bounds_zero_proportion	3	all-damage endpoint has 100 temporary-health units per player	real-engine
+bounds_one_proportion	3	all-health endpoint has finite zero damage budget	real-engine
+bounds_endpoint_events	3	incap and death callbacks do not divide by zero at all-health endpoint	real-engine
+bounds_high_proportion	3	proportions above one clamp to one	real-engine
+bounds_negative_proportion	3	negative proportions clamp to zero	real-engine
+bounds_zero_factor	3	zero pills factor disables pills	real-engine
+bounds_negative_factor	3	negative pills factor disables pills	real-engine
+bounds_zero_cap	3	zero cap disables pills	real-engine
+bounds_negative_cap	3	negative cap disables pills	real-engine
+bounds_zero_budget	3	zero map bonus cannot manufacture a pills minimum	real-engine
+bounds_negative_multiplier	3	negative multiplier normalizes to zero	real-engine
+bounds_zero_team	3	nonpositive team size uses one-player effective roster	real-engine
+adm_positive_loss	4	valid forward debits the positive difference	real-engine
+adm_healing_ignored	4	healing/equal values cannot credit damage ledger	real-engine
+adm_negative_after_clamped	4	negative new health clamps to zero before subtracting	real-engine
+adm_negative_both_ignored	4	two negative inputs do not create loss	real-engine
+adm_invalid_client	4	invalid client indices are rejected safely	real-engine
+adm_ineligible_client	4	dead/incap/ledge/falling/non-survivor forwards do not enter ledger	real-engine
+round_restart_clears_current	6	same-half round_start resets current-half accumulated loss	real-engine
+round_preserves_other_half	6	starting second half retains first-half ledger	real-engine
+round_independent_half	6	second-half losses remain independent	real-engine
+round_finalized_ledger_frozen	6	late damage and incap/death events cannot mutate finalized loss	real-engine
+round_end_idempotent	6	duplicate end-round forward preserves published result	real-engine
+round_tiebreak_ledgers	6	round reset clears current tiebreak ledger while completed first half survives second-half start	real-engine
+adm_tiebreak_compatibility	4	valid alternate-damage losses still drive established depleted-bonus tiebreak	real-engine
+round_finalized_sdk_damage	6	real damage removes temporary health through SDKHooks while finalized score ledger remains frozen	real-engine
+round_finalized_plasma_event	6	late manipulated-shotgun hurt event cannot debit finalized ledger	real-engine
+ledge_zero_debit_episode	5	zero debit still establishes an outstanding episode and duplicate grab cannot charge it	real-engine
+ledge_negative_debit_episode	5	negative pre-incap value normalizes to zero without losing episode identity	real-engine
+ledge_duplicate_grab	5	one outstanding episode debits pre-incap buffer exactly once	real-engine
+ledge_duplicate_revive	5	duplicate revive has one quantized 20-unit refund	real-engine
+ledge_refund_capped	5	large restored buffer cannot refund unrelated losses	real-engine
+ledge_ground_revive	5	ground revive does not settle a ledge refund	real-engine
+ledge_round_epoch	5	queued refund cannot credit a restarted round	real-engine
+ledge_half_binding	5	queued first-half refund cannot modify second-half losses	real-engine
+ledge_new_episode	5	later ledge episode invalidates old pending work even if currently upright	real-engine
+ledge_team_transition	5	leaving survivor team invalidates refund even after return	real-engine
+ledge_death_transition	5	death invalidates pending refund even after restoration to an alive fixture	real-engine
+ledge_finalization	5	end-round invalidates queued refund	real-engine
+ledge_client_disconnect	5	initiated client disconnect cancels pending refund while replacement connects	real-engine
+ledge_zero_buffer	5	zero restored buffer does not create negative refund	real-engine
+unload_restores_startup_values	7	unload restores values captured by this instance, including non-default startup values	real-engine
+unload_new_instance_snapshot	7	next plugin instance captures its own baseline	real-engine

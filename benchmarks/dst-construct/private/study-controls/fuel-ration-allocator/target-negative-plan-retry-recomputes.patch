@@ -1,0 +1,22 @@
+--- a/scripts/fuelration/allocator.lua
++++ b/scripts/fuelration/allocator.lua
+@@ -283,10 +283,16 @@
+     end
+     self:_advance(now)
+     if self.round ~= nil then
+-        if self.round.id == round_id then
+-            return plan_result(self.round, true)
++        if self.round.id ~= round_id then
++            return fail("round_open")
+         end
+-        return fail("round_open")
++        for _, consumer_id in ipairs(self.round.order) do
++            local share = self.round.shares[consumer_id]
++            if share.status == "pending" then
++                self:_settle(share, "aborted", 0)
++            end
++        end
++        self.round = nil
+     end
+     if self.closed[round_id] ~= nil then
+         return fail("round_closed")

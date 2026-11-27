@@ -1,0 +1,13 @@
+diff -ruN a/darkrp/gamemode/modules/doorsystem/sh_doors.lua b/darkrp/gamemode/modules/doorsystem/sh_doors.lua
+--- a/darkrp/gamemode/modules/doorsystem/sh_doors.lua	2026-09-21 05:04:15.332463038 +0800
++++ b/darkrp/gamemode/modules/doorsystem/sh_doors.lua	2026-09-21 05:48:18.195708610 +0800
+@@ -115,8 +115,7 @@
+     local teamOwn = ent:getKeysDoorTeams()
+ 
+     return ent:isKeysOwnedBy(ply)                                         or
+-        (group   and table.HasValue(RPExtraTeamDoors[group] or {}, Team)) or
+-        (teamOwn and teamOwn[Team])
++        (group   and table.HasValue(RPExtraTeamDoors[group] or {}, Team))
+ end
+ 
+ function plyMeta:canKeysLock(ent)

@@ -1,0 +1,664 @@
+{
+  "task": "terraria/core/terraria-calamity-overhaul-time-replication-hard",
+  "task_version": "0.1.0",
+  "exam": "benchmarks/terraria-core/exams/terraria-calamity-overhaul-time-replication-hard.md",
+  "cases": [
+    {
+      "id": "check:submission-shape",
+      "role": "static"
+    },
+    {
+      "id": "projection:npc_identity_rejects_wire_sentinel_index",
+      "role": "runtime-sentinel"
+    },
+    {
+      "id": "projection:npc_capture_assigns_generation",
+      "role": "preserved",
+      "clauses": [
+        "preserve:npc-identity"
+      ]
+    },
+    {
+      "id": "projection:npc_capture_rejects_inactive",
+      "role": "preserved",
+      "clauses": [
+        "preserve:npc-identity"
+      ]
+    },
+    {
+      "id": "projection:npc_capture_rejects_unencodable_index",
+      "role": "target",
+      "clauses": [
+        "npc-identity"
+      ]
+    },
+    {
+      "id": "projection:npc_resolve_requires_generation",
+      "role": "preserved",
+      "clauses": [
+        "preserve:npc-identity"
+      ]
+    },
+    {
+      "id": "projection:npc_resolve_handles_short_array",
+      "role": "target",
+      "clauses": [
+        "npc-identity"
+      ]
+    },
+    {
+      "id": "projection:npc_invalid_write_is_canonical",
+      "role": "target",
+      "clauses": [
+        "npc-identity"
+      ]
+    },
+    {
+      "id": "projection:npc_codec_roundtrips",
+      "role": "preserved",
+      "clauses": [
+        "preserve:npc-identity"
+      ]
+    },
+    {
+      "id": "projection:npc_codec_truncation_is_safe",
+      "role": "preserved",
+      "clauses": [
+        "preserve:npc-identity"
+      ]
+    },
+    {
+      "id": "projection:npc_codec_unreadable_is_safe",
+      "role": "target",
+      "clauses": [
+        "npc-identity"
+      ]
+    },
+    {
+      "id": "projection:projectile_owner_upper_bound_is_exclusive",
+      "role": "target",
+      "clauses": [
+        "projectile-identity"
+      ]
+    },
+    {
+      "id": "projection:projectile_capture_rejects_inactive",
+      "role": "preserved",
+      "clauses": [
+        "preserve:projectile-identity"
+      ]
+    },
+    {
+      "id": "projection:projectile_capture_rejects_unencodable_owner",
+      "role": "target",
+      "clauses": [
+        "projectile-identity"
+      ]
+    },
+    {
+      "id": "projection:projectile_resolve_matches_exact_identity",
+      "role": "preserved",
+      "clauses": [
+        "preserve:projectile-identity"
+      ]
+    },
+    {
+      "id": "projection:projectile_resolve_rejects_ambiguity",
+      "role": "preserved",
+      "clauses": [
+        "preserve:projectile-identity"
+      ]
+    },
+    {
+      "id": "projection:projectile_resolve_handles_short_array",
+      "role": "target",
+      "clauses": [
+        "projectile-identity"
+      ]
+    },
+    {
+      "id": "projection:projectile_invalid_write_is_canonical",
+      "role": "target",
+      "clauses": [
+        "projectile-identity"
+      ]
+    },
+    {
+      "id": "projection:projectile_codec_roundtrips",
+      "role": "preserved",
+      "clauses": [
+        "preserve:projectile-identity"
+      ]
+    },
+    {
+      "id": "projection:projectile_codec_truncation_is_safe",
+      "role": "preserved",
+      "clauses": [
+        "preserve:projectile-identity"
+      ]
+    },
+    {
+      "id": "projection:projectile_codec_unreadable_is_safe",
+      "role": "target",
+      "clauses": [
+        "projectile-identity"
+      ]
+    },
+    {
+      "id": "projection:npc_queue_rejects_nonpositive_activation",
+      "role": "target",
+      "clauses": [
+        "npc-deferred-binding"
+      ]
+    },
+    {
+      "id": "projection:npc_queue_rejects_nonpositive_lifetime",
+      "role": "preserved",
+      "clauses": [
+        "preserve:npc-deferred-binding"
+      ]
+    },
+    {
+      "id": "projection:npc_queue_rejects_null_callback",
+      "role": "preserved",
+      "clauses": [
+        "preserve:npc-deferred-binding"
+      ]
+    },
+    {
+      "id": "projection:npc_queue_applies_resolved_entity_immediately",
+      "role": "preserved",
+      "clauses": [
+        "preserve:npc-deferred-binding"
+      ]
+    },
+    {
+      "id": "projection:npc_queue_contains_immediate_callback_failure",
+      "role": "target",
+      "clauses": [
+        "npc-deferred-binding"
+      ]
+    },
+    {
+      "id": "projection:npc_queue_applies_late_entity_once",
+      "role": "preserved",
+      "clauses": [
+        "preserve:npc-deferred-binding"
+      ]
+    },
+    {
+      "id": "projection:npc_queue_duplicate_refreshes_latest_work",
+      "role": "target",
+      "clauses": [
+        "npc-deferred-binding"
+      ]
+    },
+    {
+      "id": "projection:npc_immediate_request_consumes_older_pending",
+      "role": "target",
+      "clauses": [
+        "npc-deferred-binding"
+      ]
+    },
+    {
+      "id": "projection:npc_throwing_immediate_request_consumes_older_pending",
+      "role": "target",
+      "clauses": [
+        "npc-deferred-binding"
+      ]
+    },
+    {
+      "id": "projection:npc_late_callback_preserves_reentrant_refresh",
+      "role": "target",
+      "clauses": [
+        "npc-deferred-binding"
+      ]
+    },
+    {
+      "id": "projection:projectile_queue_applies_resolved_entity_immediately",
+      "role": "preserved",
+      "clauses": [
+        "preserve:projectile-deferred-binding"
+      ]
+    },
+    {
+      "id": "projection:projectile_queue_contains_immediate_callback_failure",
+      "role": "target",
+      "clauses": [
+        "projectile-deferred-binding"
+      ]
+    },
+    {
+      "id": "projection:projectile_queue_applies_late_entity_once",
+      "role": "preserved",
+      "clauses": [
+        "preserve:projectile-deferred-binding"
+      ]
+    },
+    {
+      "id": "projection:projectile_queue_waits_for_unique_match",
+      "role": "preserved",
+      "clauses": [
+        "preserve:projectile-deferred-binding"
+      ]
+    },
+    {
+      "id": "projection:projectile_immediate_request_consumes_older_pending",
+      "role": "target",
+      "clauses": [
+        "projectile-deferred-binding"
+      ]
+    },
+    {
+      "id": "projection:pending_keys_isolate_source_and_activation",
+      "role": "preserved",
+      "clauses": [
+        "preserve:projectile-deferred-binding"
+      ]
+    },
+    {
+      "id": "projection:projectile_throwing_late_callback_preserves_reentrant_refresh",
+      "role": "target",
+      "clauses": [
+        "projectile-deferred-binding"
+      ]
+    },
+    {
+      "id": "projection:pending_capacity_is_shared_across_entity_kinds",
+      "role": "preserved",
+      "clauses": [
+        "preserve:pending-lifecycle"
+      ]
+    },
+    {
+      "id": "projection:pending_entry_expires_at_boundary",
+      "role": "preserved",
+      "clauses": [
+        "preserve:pending-lifecycle"
+      ]
+    },
+    {
+      "id": "projection:pending_expiry_saturates_at_ulong_max",
+      "role": "target",
+      "clauses": [
+        "pending-lifecycle"
+      ]
+    },
+    {
+      "id": "projection:pending_drop_throttle_saturates_at_ulong_max",
+      "role": "target",
+      "clauses": [
+        "pending-lifecycle"
+      ]
+    },
+    {
+      "id": "projection:cancel_activation_removes_both_entity_kinds",
+      "role": "preserved",
+      "clauses": [
+        "preserve:pending-lifecycle"
+      ]
+    },
+    {
+      "id": "projection:cancel_npc_removes_only_exact_identity",
+      "role": "preserved",
+      "clauses": [
+        "preserve:pending-lifecycle"
+      ]
+    },
+    {
+      "id": "projection:cancel_projectile_removes_only_exact_identity",
+      "role": "preserved",
+      "clauses": [
+        "preserve:pending-lifecycle"
+      ]
+    },
+    {
+      "id": "projection:cancel_all_is_scoped_to_source_type",
+      "role": "preserved",
+      "clauses": [
+        "preserve:pending-lifecycle"
+      ]
+    },
+    {
+      "id": "projection:world_clear_and_unload_drop_pending_work",
+      "role": "preserved",
+      "clauses": [
+        "preserve:pending-lifecycle"
+      ]
+    },
+    {
+      "id": "projection:world_clear_resets_diagnostic_throttles",
+      "role": "target",
+      "clauses": [
+        "pending-lifecycle"
+      ]
+    },
+    {
+      "id": "projection:pending_tick_preserves_global_enqueue_order",
+      "role": "target",
+      "clauses": [
+        "pending-tick-transaction"
+      ]
+    },
+    {
+      "id": "projection:pending_tick_defers_cross_kind_reentrant_work",
+      "role": "target",
+      "clauses": [
+        "pending-tick-transaction"
+      ]
+    },
+    {
+      "id": "projection:pending_tick_defers_refreshed_later_key",
+      "role": "target",
+      "clauses": [
+        "pending-tick-transaction"
+      ]
+    },
+    {
+      "id": "projection:pending_tick_defers_cancelled_and_requeued_key",
+      "role": "target",
+      "clauses": [
+        "pending-tick-transaction"
+      ]
+    },
+    {
+      "id": "projection:pending_tick_reresolves_each_entity",
+      "role": "preserved",
+      "clauses": [
+        "preserve:pending-tick-transaction"
+      ]
+    },
+    {
+      "id": "projection:pending_tick_reentry_is_noop",
+      "role": "target",
+      "clauses": [
+        "pending-tick-transaction"
+      ]
+    },
+    {
+      "id": "projection:world_clear_aborts_batch_and_defers_requeued_work",
+      "role": "target",
+      "clauses": [
+        "pending-tick-transaction"
+      ]
+    },
+    {
+      "id": "projection:pending_tick_uses_one_frame_for_both_entity_kinds",
+      "role": "target",
+      "clauses": [
+        "pending-tick-transaction"
+      ]
+    },
+    {
+      "id": "projection:snapshot_send_is_server_only",
+      "role": "preserved",
+      "clauses": [
+        "preserve:snapshot-send"
+      ]
+    },
+    {
+      "id": "projection:snapshot_send_writes_versioned_header",
+      "role": "preserved",
+      "clauses": [
+        "preserve:snapshot-send"
+      ]
+    },
+    {
+      "id": "projection:snapshot_send_uses_deterministic_section_ids",
+      "role": "preserved",
+      "clauses": [
+        "preserve:snapshot-send"
+      ]
+    },
+    {
+      "id": "projection:snapshot_send_omits_false_section",
+      "role": "target",
+      "clauses": [
+        "snapshot-send"
+      ]
+    },
+    {
+      "id": "projection:snapshot_send_omits_throwing_section",
+      "role": "target",
+      "clauses": [
+        "snapshot-send"
+      ]
+    },
+    {
+      "id": "projection:snapshot_send_omits_unencodable_section",
+      "role": "target",
+      "clauses": [
+        "snapshot-send"
+      ]
+    },
+    {
+      "id": "projection:snapshot_send_accepts_max_ushort_payload",
+      "role": "preserved",
+      "clauses": [
+        "preserve:snapshot-send"
+      ]
+    },
+    {
+      "id": "projection:snapshot_failure_throttle_saturates_at_ulong_max",
+      "role": "target",
+      "clauses": [
+        "snapshot-send"
+      ]
+    },
+    {
+      "id": "projection:snapshot_send_reentrant_call_is_noop",
+      "role": "target",
+      "clauses": [
+        "snapshot-send"
+      ]
+    },
+    {
+      "id": "projection:snapshot_send_world_transition_discards_frame",
+      "role": "target",
+      "clauses": [
+        "snapshot-send"
+      ]
+    },
+    {
+      "id": "projection:snapshot_send_mode_change_discards_frame",
+      "role": "target",
+      "clauses": [
+        "snapshot-send"
+      ]
+    },
+    {
+      "id": "projection:snapshot_receive_is_client_only",
+      "role": "preserved",
+      "clauses": [
+        "preserve:snapshot-receive"
+      ]
+    },
+    {
+      "id": "projection:snapshot_receive_rejects_bad_header",
+      "role": "preserved",
+      "clauses": [
+        "preserve:snapshot-receive"
+      ]
+    },
+    {
+      "id": "projection:snapshot_receive_truncation_has_no_partial_apply",
+      "role": "target",
+      "clauses": [
+        "snapshot-receive"
+      ]
+    },
+    {
+      "id": "projection:snapshot_receive_duplicate_has_no_partial_apply",
+      "role": "target",
+      "clauses": [
+        "snapshot-receive"
+      ]
+    },
+    {
+      "id": "projection:snapshot_receive_skips_unknown_section",
+      "role": "preserved",
+      "clauses": [
+        "preserve:snapshot-receive"
+      ]
+    },
+    {
+      "id": "projection:snapshot_receive_applies_known_sections",
+      "role": "preserved",
+      "clauses": [
+        "preserve:snapshot-receive"
+      ]
+    },
+    {
+      "id": "projection:snapshot_receive_false_section_logs_and_continues",
+      "role": "target",
+      "clauses": [
+        "snapshot-receive"
+      ]
+    },
+    {
+      "id": "projection:snapshot_receive_exception_logs_and_continues",
+      "role": "preserved",
+      "clauses": [
+        "preserve:snapshot-receive"
+      ]
+    },
+    {
+      "id": "projection:snapshot_receive_applies_in_canonical_id_order",
+      "role": "target",
+      "clauses": [
+        "snapshot-receive"
+      ]
+    },
+    {
+      "id": "projection:snapshot_receive_reentrant_call_is_noop",
+      "role": "target",
+      "clauses": [
+        "snapshot-receive"
+      ]
+    },
+    {
+      "id": "projection:snapshot_receive_world_transition_stops_later_sections",
+      "role": "target",
+      "clauses": [
+        "snapshot-receive"
+      ]
+    },
+    {
+      "id": "projection:snapshot_receive_mode_change_stops_later_sections",
+      "role": "target",
+      "clauses": [
+        "snapshot-receive"
+      ]
+    },
+    {
+      "id": "server:real_engine_projectile_owner_wire_bound",
+      "role": "target",
+      "clauses": [
+        "request"
+      ]
+    },
+    {
+      "id": "server:real_engine_rejected_identity_is_canonical",
+      "role": "target",
+      "clauses": [
+        "request"
+      ]
+    },
+    {
+      "id": "server:real_server_snapshot_failure_is_omitted",
+      "role": "target",
+      "clauses": [
+        "request"
+      ]
+    }
+  ],
+  "clauses": [
+    {
+      "id": "preserve:npc-identity",
+      "anchor": "behavior the unchanged starter already provides",
+      "status": "asserted"
+    },
+    {
+      "id": "npc-identity",
+      "anchor": "exam report npc-identity",
+      "status": "asserted"
+    },
+    {
+      "id": "projectile-identity",
+      "anchor": "exam report projectile-identity",
+      "status": "asserted"
+    },
+    {
+      "id": "preserve:projectile-identity",
+      "anchor": "behavior the unchanged starter already provides",
+      "status": "asserted"
+    },
+    {
+      "id": "npc-deferred-binding",
+      "anchor": "exam report npc-deferred-binding",
+      "status": "asserted"
+    },
+    {
+      "id": "preserve:npc-deferred-binding",
+      "anchor": "behavior the unchanged starter already provides",
+      "status": "asserted"
+    },
+    {
+      "id": "preserve:projectile-deferred-binding",
+      "anchor": "behavior the unchanged starter already provides",
+      "status": "asserted"
+    },
+    {
+      "id": "projectile-deferred-binding",
+      "anchor": "exam report projectile-deferred-binding",
+      "status": "asserted"
+    },
+    {
+      "id": "preserve:pending-lifecycle",
+      "anchor": "behavior the unchanged starter already provides",
+      "status": "asserted"
+    },
+    {
+      "id": "pending-lifecycle",
+      "anchor": "exam report pending-lifecycle",
+      "status": "asserted"
+    },
+    {
+      "id": "pending-tick-transaction",
+      "anchor": "exam report pending-tick-transaction",
+      "status": "asserted"
+    },
+    {
+      "id": "preserve:pending-tick-transaction",
+      "anchor": "behavior the unchanged starter already provides",
+      "status": "asserted"
+    },
+    {
+      "id": "preserve:snapshot-send",
+      "anchor": "behavior the unchanged starter already provides",
+      "status": "asserted"
+    },
+    {
+      "id": "snapshot-send",
+      "anchor": "exam report snapshot-send",
+      "status": "asserted"
+    },
+    {
+      "id": "preserve:snapshot-receive",
+      "anchor": "behavior the unchanged starter already provides",
+      "status": "asserted"
+    },
+    {
+      "id": "snapshot-receive",
+      "anchor": "exam report snapshot-receive",
+      "status": "asserted"
+    },
+    {
+      "id": "request",
+      "anchor": "exam body; split into individual clauses during review",
+      "status": "asserted"
+    }
+  ],
+  "excluded_clauses": [],
+  "known_issues": []
+}

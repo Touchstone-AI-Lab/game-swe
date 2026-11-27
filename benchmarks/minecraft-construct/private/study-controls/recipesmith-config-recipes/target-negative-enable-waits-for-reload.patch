@@ -1,0 +1,20 @@
+diff -ru a/src/main/java/com/example/recipesmith/RecipeBook.java b/src/main/java/com/example/recipesmith/RecipeBook.java
+--- a/src/main/java/com/example/recipesmith/RecipeBook.java
++++ b/src/main/java/com/example/recipesmith/RecipeBook.java
+@@ -108,14 +108,9 @@
+         return true;
+     }
+ 
+-    /** Puts a removed vanilla recipe back; false when it was not removed by the plugin. */
++    /** Marks a removed vanilla recipe as enabled; it comes back with the next reload. */
+     public boolean enableVanilla(NamespacedKey key) {
+-        Recipe recipe = removedVanilla.remove(key);
+-        if (recipe == null) {
+-            return false;
+-        }
+-        Bukkit.addRecipe(recipe);
+-        return true;
++        return removedVanilla.containsKey(key);
+     }
+ 
+     /** Rewrites disabled-vanilla, keeping every other key of recipes.yml. */

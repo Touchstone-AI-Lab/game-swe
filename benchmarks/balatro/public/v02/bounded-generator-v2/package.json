@@ -1,0 +1,40 @@
+{
+  "protocol": "v2",
+  "task": "bounded-generator-v2",
+  "slot": "M1",
+  "target_difficulty": "medium",
+  "calibration_status": "unmeasured",
+  "calibration_model": null,
+  "calibration_evidence": [],
+  "formal_integration_status": "not_implemented",
+  "files": {
+    "CONTRACT.md": {
+      "size": 4153,
+      "sha256": "535d5dfaf2ced61f2103d496a31255bb4053e95206b9ab8ff7217787ba773cfd"
+    },
+    "README.md": {
+      "size": 1373,
+      "sha256": "62521eff01c1fa4aecc8b7a68225b9bace38e592b9e0a70ad384bd2e2bb1259d"
+    },
+    "starter/main.lua": {
+      "size": 543,
+      "sha256": "d07a001732e80766405a27940ca4da46b1da74e95a904c15e85a1c093f4d2a3c"
+    },
+    "starter/lib/generation.lua": {
+      "size": 768,
+      "sha256": "18b0a98686a158f0880fd8fc11bfa9435c0e980a2131e11b5ccf418818c34fe5"
+    },
+    "starter/bounded_generator_v2.json": {
+      "size": 326,
+      "sha256": "4adc86d82892810a6286ebda91221abb887a1be49b719ae3351a76beb53d86f6"
+    }
+  },
+  "content_sha256": "ace080278fa58bf3af65c030552fe2bfe434df9c38215281655d5ddb03db1bb4",
+  "editable_files": [
+    "starter/main.lua",
+    "starter/lib/generation.lua"
+  ],
+  "immutable_files": [
+    "starter/bounded_generator_v2.json"
+  ]
+}

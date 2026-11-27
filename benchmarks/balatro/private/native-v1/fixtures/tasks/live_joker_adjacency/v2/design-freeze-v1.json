@@ -1,0 +1,24 @@
+{
+  "version": "M3-v2-design-1",
+  "created_at": "2026-09-20T03:18:43+0800",
+  "status": "specified before candidate authoring",
+  "files": {
+    "CONTRACT.md": "eacae849e509aa507acfe1824f602f419d086b8db224399cd0c3925749faa2ab",
+    "CASE-MUTATION-MATRIX.md": "ce3ec817854955c9ad0dcc154b312eb308cbffc2e24232eea558b40e6cdd6de7",
+    "INDEPENDENCE.md": "ed42c1befaa36dc2c80ffa0054131ff53cae013dbdf1d02a4cbc39a0951d5622"
+  },
+  "prerequisite": {
+    "path": "validation-adjacency-prerequisite-v2-dev2.json",
+    "sha256": "6c7a0040ffaaa336e7951353455798cab21919680adb29bda005b64a7495cad2"
+  },
+  "editable_files": [
+    "main.lua",
+    "lib/adjacency.lua"
+  ],
+  "immutable_files": [
+    "live_joker_adjacency_v2.json"
+  ],
+  "fixed_source": {
+    "smods/lovely/better_calc.toml": "131f7105837a65da724e561451c82a25ee5e8b108c9c45216ce77e878a0915e8"
+  }
+}

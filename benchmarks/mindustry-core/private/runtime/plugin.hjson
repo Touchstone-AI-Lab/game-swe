@@ -1,0 +1,11 @@
+{
+  name: rhenium-harness
+  displayName: Rhenium harness
+  author: Rhenium
+  description: Trusted benchmark harness that runs one task's frozen grader cases.
+  version: "1.0"
+  main: rhenium.mindustry.harness.HarnessPlugin
+  minGameVersion: "159"
+  hidden: true
+  java: true
+}

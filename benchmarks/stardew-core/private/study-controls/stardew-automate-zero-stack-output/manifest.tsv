@@ -1,0 +1,4 @@
+control	kind	base	overlay	root	note
+target-negative-warns-without-discard	target-negative	reference	patch:target-negative-warns-without-discard.patch	StardewMods	Fix partially reverted: the zero-size stack is detected and logged and the push is reported as done, but the output is never taken, so the machine stays ready forever.
+compat-negative-discards-single-item-output	compat-negative	reference	patch:compat-negative-discards-single-item-output.patch	StardewMods	Over-eager discard: the broken-stack branch runs before the push with stackSize <= 1, so every normal single-item output (a copper bar) is thrown away instead of stored.
+alternative-machine-layer-discard	alternative	starter	patch:alternative-machine-layer-discard.patch	StardewMods	MachineGroup is untouched; BaseMachine.GetTracked drops a held item with Stack < 1 through the machine own reset callback and reports no output, so the group feeds the machine again.

@@ -1,0 +1,31 @@
+schema_version = "1.4"
+# r2 of mts-load-order-regressions: the unchanged r1 exam, starter, reference and private
+# JUnit suite. The submitted ModTheSpire launches the licensed game, and the suite runs
+# inside that game instead of in a loader-only Maven JVM. See the r2 revision review.
+artifacts = [{source = "/app/modthespire/src/main/java"}]
+[metadata]
+source_repository = "https://github.com/kiooeht/ModTheSpire"
+source_commit = "master"
+license = "MIT"
+difficulty = "hard"
+construction = "Unchanged r1 starter, reference and private JUnit suite; the suite runs inside the launched game"
+[agent]
+timeout_sec = 5400
+# Preparation replaces the environment image with the locally built agent image.
+[environment]
+docker_image = "sha256:233e1d8f96e8368fa753bdcb6730de724f482e865beb2241a05b412fcfe6c350"
+workdir = "/app/modthespire"
+network_mode = "no-network"
+cpus = 2
+memory_mb = 4608
+storage_mb = 10240
+[verifier]
+timeout_sec = 1200
+environment_mode = "separate"
+[verifier.environment]
+docker_image = "sha256:233e1d8f96e8368fa753bdcb6730de724f482e865beb2241a05b412fcfe6c350"
+workdir = "/tests"
+network_mode = "no-network"
+cpus = 2
+memory_mb = 4608
+storage_mb = 10240

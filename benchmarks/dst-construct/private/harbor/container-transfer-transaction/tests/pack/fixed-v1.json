@@ -1,0 +1,230 @@
+{
+  "id": "rhenium-dst-v2",
+  "version": "2.1.0",
+  "game": "dst",
+  "name": {
+    "en": "Rhenium: Original Don't Starve Together Systems Tasks",
+    "zh": "Rhenium：《饥荒联机版》原创系统工程题"
+  },
+  "description": {
+    "en": "Ten independently authored hard engineering tasks built only around base-game Don't Starve Together APIs, prefabs, components, and assets.",
+    "zh": "十道独立设计的高难度工程题，仅使用《饥荒联机版》原版 API、prefab、组件与资源。"
+  },
+  "tasks": [
+    {
+      "id": "container-transfer-transaction",
+      "difficulty": "hard",
+      "title": {
+        "en": "Crash-safe Container Transfer",
+        "zh": "崩溃安全的容器转移事务"
+      },
+      "summary": {
+        "en": "Move stacks between base-game containers atomically despite capacity failures, partial adapter failures, retries, and reloads.",
+        "zh": "在容量不足、适配器部分失败、重试及重载下，原子地转移原版容器物品堆。"
+      },
+      "brief": {
+        "en": "Implement a plain-Lua transfer transaction with an injected adapter and a server world component that operates on base-game container components. Persist intent before removal, use deterministic source slots, preflight destination capacity, compensate in reverse order, recover unfinished transactions after load, and expose a validated Action and Mod RPC.",
+        "zh": "实现带注入 adapter 的纯 Lua 转移事务，以及操作原版 container 组件的服务端世界组件。移除物品前持久化意图，稳定选择来源槽位，预检目标容量，失败时反向补偿，加载后恢复未完成事务，并公开经校验的 Action 与 Mod RPC。"
+      },
+      "requirements": {
+        "en": [
+          "Export Transaction.new(adapter, persisted), Transaction.load(adapter, data), transfer(request), recover(), status(request_id), and save().",
+          "Requests contain request_id, source_id, destination_id, prefab, and positive integer count; reject identical containers and malformed values before adapter calls.",
+          "Use adapter.snapshot(id), capacity(id, prefab), remove(id, prefab, count), add(id, items), and restore(id, snapshot); no DST globals may appear in the core.",
+          "Preflight source count and destination capacity, persist a prepared intent, remove from source, add to destination, then mark committed.",
+          "If add fails, restore the destination snapshot before restoring the source; record a recoverable error if compensation itself fails.",
+          "Deduplicate request_id across success, failure, and reload; a committed request never invokes adapter operations again.",
+          "Select source stacks by ascending slot and preserve prefab, stack count, perish percentage, and finite uses metadata.",
+          "The server integration resolves container entities itself, listens to itemget/itemlose/onremove with cleanup, and never trusts client entity data beyond identifiers."
+        ],
+        "zh": [
+          "导出 Transaction.new(adapter, persisted)、Transaction.load(adapter, data)、transfer(request)、recover()、status(request_id) 与 save()。",
+          "请求包含 request_id、source_id、destination_id、prefab 和正整数 count；相同容器或非法值必须在调用 adapter 前拒绝。",
+          "使用 adapter.snapshot、capacity、remove、add、restore；核心模块不得出现 DST 全局对象。",
+          "预检来源数量和目标容量，持久化 prepared 意图，再从来源移除、加入目标并标记 committed。",
+          "add 失败时先恢复目标快照，再恢复来源；补偿失败必须记录可恢复错误。",
+          "成功、失败和重载均按 request_id 去重；已提交请求不得再次调用 adapter。",
+          "按槽位升序选择来源物品，并保留 prefab、堆叠数、腐烂比例和有限耐久元数据。",
+          "服务端自行解析容器实体，监听并清理 itemget/itemlose/onremove，除标识符外不信任客户端实体数据。"
+        ]
+      },
+      "api_usage": {
+        "en": [
+          "Read container:GetItemInSlot(slot), remove with RemoveItemBySlot(slot), and insert with container:GiveItem(item, slot, src_pos, false); false disables drop-on-failure.",
+          "itemget supplies data.item/data.slot/data.src_pos and itemlose supplies data.prev_item/data.slot; unregister both with the same callback.",
+          "Use stackable:StackSize()/SetStackSize(), perishable:GetPercent()/SetPercent(), and finiteuses:GetPercent()/SetPercent() for metadata.",
+          "Create actions with AddAction, AddComponentAction, AddStategraphActionHandler for wilson and wilson_client, and AddModRPCHandler.",
+          "The world component exposes Track(entity, stable_id), Transfer(request), and Recover(), and implements OnSave/OnLoad."
+        ],
+        "zh": [
+          "用 container:GetItemInSlot(slot) 读取、RemoveItemBySlot(slot) 移除、container:GiveItem(item, slot, src_pos, false) 放入；false 禁止失败掉落。",
+          "itemget 的 data 含 item/slot/src_pos，itemlose 含 prev_item/slot；必须用相同 callback 注销。",
+          "堆叠、腐烂、耐久分别使用 stackable:StackSize/SetStackSize、perishable:GetPercent/SetPercent、finiteuses:GetPercent/SetPercent。",
+          "使用 AddAction、AddComponentAction、AddStategraphActionHandler（wilson 与 wilson_client）和 AddModRPCHandler 接线。",
+          "世界组件公开 Track(entity, stable_id)、Transfer(request) 与 Recover()，并实现 OnSave/OnLoad。"
+        ]
+      },
+      "acceptance": {
+        "en": [
+          "Capacity failures do not mutate either container.",
+          "Partial failures compensate in reverse order.",
+          "Recovery finishes or safely compensates every persisted phase.",
+          "Retries are idempotent.",
+          "The dedicated server transfers real base-game stacks and verifies rollback and reload."
+        ],
+        "zh": [
+          "容量失败不修改任一容器。",
+          "部分失败按反向顺序补偿。",
+          "恢复流程完成或安全补偿每个持久阶段。",
+          "重试具有幂等性。",
+          "专服使用真实原版堆叠验证转移、回滚与重载。"
+        ]
+      },
+      "domains": [
+        "transactions",
+        "containers",
+        "recovery",
+        "actions"
+      ],
+      "estimated_minutes": 420,
+      "core_module": "scripts/containertransfer/transaction.lua",
+      "hidden_test": "hidden/container-transfer-transaction.lua",
+      "server_test": "server/container-transfer-transaction.lua",
+      "hidden_cases": [
+        "successful transfer uses deterministic source slots",
+        "capacity preflight prevents destructive calls",
+        "add failure restores destination before source",
+        "committed retry invokes no adapter operations",
+        "malformed request is rejected before adapter",
+        "save load preserves committed idempotency"
+      ],
+      "server_cases": [
+        "world transfer component is attached",
+        "real container stacks transfer without loss",
+        "transaction state reloads"
+      ],
+      "required_files": [
+        "modinfo.lua",
+        "modmain.lua",
+        "scripts/containertransfer/transaction.lua",
+        "scripts/components/containertransfer.lua"
+      ],
+      "minimum_lua_lines": 260,
+      "integration_checks": [
+        {
+          "id": "transfer-authority",
+          "label": {
+            "en": "Server authority",
+            "zh": "服务端权威"
+          },
+          "weight": 4,
+          "groups": [
+            {
+              "name": "guard",
+              "any_of": [
+                "TheWorld\\.ismastersim",
+                "inst\\.ismastersim"
+              ]
+            },
+            {
+              "name": "component",
+              "any_of": [
+                "AddComponent\\s*\\(\\s*[\\\"']containertransfer[\\\"']"
+              ]
+            }
+          ],
+          "none_of": [
+            "TODO",
+            "IMPLEMENT\\s+ME"
+          ]
+        },
+        {
+          "id": "transfer-containers",
+          "label": {
+            "en": "Container operations",
+            "zh": "容器操作"
+          },
+          "weight": 4,
+          "groups": [
+            {
+              "name": "container",
+              "any_of": [
+                "components\\.container"
+              ]
+            },
+            {
+              "name": "remove",
+              "any_of": [
+                "RemoveItem",
+                "RemoveItemBySlot"
+              ]
+            },
+            {
+              "name": "give",
+              "any_of": [
+                "GiveItem\\s*\\("
+              ]
+            }
+          ]
+        },
+        {
+          "id": "transfer-action-rpc",
+          "label": {
+            "en": "Action and RPC",
+            "zh": "动作与 RPC"
+          },
+          "weight": 4,
+          "groups": [
+            {
+              "name": "action",
+              "any_of": [
+                "AddAction\\s*\\("
+              ]
+            },
+            {
+              "name": "component action",
+              "any_of": [
+                "AddComponentAction\\s*\\("
+              ]
+            },
+            {
+              "name": "RPC",
+              "any_of": [
+                "AddModRPCHandler\\s*\\("
+              ]
+            }
+          ]
+        },
+        {
+          "id": "transfer-lifecycle",
+          "label": {
+            "en": "Persistence and cleanup",
+            "zh": "持久化与清理"
+          },
+          "weight": 3,
+          "groups": [
+            {
+              "name": "save/load",
+              "any_of": [
+                ":OnSave\\s*\\("
+              ]
+            },
+            {
+              "name": "events",
+              "any_of": [
+                "itemget",
+                "itemlose"
+              ]
+            },
+            {
+              "name": "cleanup",
+              "any_of": [
+                "RemoveEventCallback\\s*\\("
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

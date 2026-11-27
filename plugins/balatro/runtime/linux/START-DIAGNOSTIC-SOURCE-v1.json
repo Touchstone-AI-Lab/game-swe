@@ -1,0 +1,10 @@
+{
+  "derived_from": "benchmarks/balatro/private/native-v1/fixtures/tasks/durable_charge/load_diag_v1/mod/diagnostic.lua",
+  "source_sha256": "39c47e3ed01208450d1d3d61a0343eee6d0641fef7ade7f64134dd9c46f076e7",
+  "changes": [
+    "target start endpoint",
+    "observe actual start completion predicate",
+    "record read-only renderer/frame facts"
+  ],
+  "original_calls_parameters_returns_and_exceptions_preserved": true
+}

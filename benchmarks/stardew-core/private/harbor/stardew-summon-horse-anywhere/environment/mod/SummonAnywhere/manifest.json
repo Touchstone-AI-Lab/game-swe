@@ -1,0 +1,9 @@
+{
+  "Name": "Summon Anywhere",
+  "Author": "you",
+  "Version": "1.0.0",
+  "Description": "Summon your horse anywhere.",
+  "UniqueID": "gcb.SummonAnywhere",
+  "EntryDll": "SummonAnywhere.dll",
+  "MinimumApiVersion": "4.0.0"
+}

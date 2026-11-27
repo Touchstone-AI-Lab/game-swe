@@ -1,0 +1,12 @@
+--- a/scripts/components/lootrollarbiter.lua
++++ b/scripts/components/lootrollarbiter.lua
+@@ -236,9 +236,6 @@
+ end
+ 
+ function LootRollArbiter:OnRemoveFromEntity()
+-    for roll_id in pairs(self.tasks) do
+-        self:_cancel_task(roll_id)
+-    end
+     self.pending = {}
+     self.inst:RemoveEventCallback("ms_playerleft", self._on_player_left)
+ end

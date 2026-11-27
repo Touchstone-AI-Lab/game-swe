@@ -1,0 +1,11 @@
+# BaseMod event-transition candidate fairness review
+
+This new candidate concerns phased-event navigation, dialog state and combat continuation configuration. It is distinct from BaseMod description expansion and the earlier retired subscriber-channel task. Its starting source is the pinned, unmodified BaseMod source; no defects were injected.
+
+All 31 behavior scenes plus the engine sentinel were observed in the native game before expectations were selected. Each case creates its own event, phases, native room, player and action manager. A small public TextPhase extension makes finite requests in normal hide/reset/transition/reopen callbacks. It calls the real TextPhase implementation and observes the real GenericEventDialog option text. The map observer delegates to the real superclass operation. No event's private phase map, active phase, dispatch state or save flag is assigned by the fixture. Combat continuation cases invoke real CombatPhase.transition, including native combat preparation, and observe EventCombatSave.noSave.
+
+The public contract explicitly defines pending navigation, stale reopen results (including a return to the same object), cancellation via null continuation setters, rejection before mutating an invalid destination, and exception propagation with recovery. Assertions compare settled destinations, actual dialog choices, public callback effects, map invocations and the actual combat save flag. They do not prescribe helper names, fields, loop/recursion choices, exact traces, rollback of callback side effects, or a particular in-flight current phase after an exception.
+
+The complete seven-row native matrix passes its predictions: base 13/32; reference 32/32; alternate 32/32; navigation-only 24/32; reopen-only 15/32; continuation-only 17/32; invalid-input-only 15/32. All 13 controls hold in every row. The reference uses a coalesced pending target and iterative dispatch; the alternate uses a deque and recursive delivery, with independent continuation-setter repairs. The failed first author compile is retained in phase-transition-repairs-build-r1; the nested-branch generator error was corrected in author code without changing expectations.
+
+Formal isolated Harbor controls and source/image audits remain required. This report is an internal author review, not an external independent audit.

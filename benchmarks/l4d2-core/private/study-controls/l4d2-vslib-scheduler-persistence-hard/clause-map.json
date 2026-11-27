@@ -1,0 +1,703 @@
+{
+  "task": "left-4-dead-2/core/l4d2-vslib-scheduler-persistence-hard",
+  "task_version": "1.1.0",
+  "exam": "benchmarks/l4d2-core/exams/l4d2-vslib-scheduler-persistence-hard.md",
+  "cases": [
+    {
+      "id": "case:data-control-characters",
+      "role": "target",
+      "clauses": [
+        "R5.1"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:data-literal-legacy-markers",
+      "role": "target",
+      "clauses": [
+        "R5.1",
+        "R7.2"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:data-arbitrary-string-keys",
+      "role": "target",
+      "clauses": [
+        "R5.2"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:data-key-type-separation",
+      "role": "target",
+      "clauses": [
+        "R5.2",
+        "R7.2"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:data-nested-array-order",
+      "role": "target",
+      "clauses": [
+        "R6.1"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:data-null-bool-integer",
+      "role": "target",
+      "clauses": [
+        "R6.1"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:data-float-precision",
+      "role": "target",
+      "clauses": [
+        "R6.1"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:data-shared-noncyclic",
+      "role": "preserved",
+      "clauses": [
+        "R6.2",
+        "R6.4"
+      ],
+      "overlap": true,
+      "note": "Holds in the starter; boundary of the requested cycle rejection (repeated noncyclic references must still save)."
+    },
+    {
+      "id": "case:data-save-input-purity",
+      "role": "target",
+      "clauses": [
+        "R6.2"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:data-function-atomic-rejection",
+      "role": "target",
+      "clauses": [
+        "R6.3"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:data-instance-atomic-rejection",
+      "role": "target",
+      "clauses": [
+        "R6.3"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:data-cycle-atomic-rejection",
+      "role": "target",
+      "clauses": [
+        "R6.3"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:data-invalid-key-rejection",
+      "role": "target",
+      "clauses": [
+        "R6.3"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:legacy-clean-data",
+      "role": "preserved",
+      "clauses": [
+        "R7.1"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:legacy-recursive-numeric-keys",
+      "role": "target",
+      "clauses": [
+        "R7.1"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:legacy-recursive-markers",
+      "role": "target",
+      "clauses": [
+        "R7.1"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:legacy-prefix-not-substring",
+      "role": "target",
+      "clauses": [
+        "R7.2"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:data-missing-file",
+      "role": "preserved",
+      "clauses": [
+        "R8.1"
+      ],
+      "overlap": true,
+      "note": "Holds in the starter; the malformed/executable inputs of R8.1 are the target."
+    },
+    {
+      "id": "case:data-malformed-input",
+      "role": "target",
+      "clauses": [
+        "R8.1"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:data-trailing-garbage",
+      "role": "target",
+      "clauses": [
+        "R8.1"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:data-no-expression-execution",
+      "role": "target",
+      "clauses": [
+        "R8.1"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:data-wrapper-roundtrip",
+      "role": "target",
+      "clauses": [
+        "R8.2"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:data-configmanager-integration",
+      "role": "target",
+      "clauses": [
+        "R8.2"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:timer-count-isolation",
+      "role": "target",
+      "clauses": [
+        "R3.1",
+        "R3.2"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:timer-options-input-purity",
+      "role": "target",
+      "clauses": [
+        "R3.1"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:timer-duration-count",
+      "role": "preserved",
+      "clauses": [
+        "R3.2"
+      ],
+      "overlap": true,
+      "note": "Holds in the starter for an unshared options table; sharing is the target (timer-count-isolation, timer-options-input-purity)."
+    },
+    {
+      "id": "case:timer-subinterval-duration",
+      "role": "target",
+      "clauses": [
+        "R3.2"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:timer-once-and-retirement",
+      "role": "target",
+      "clauses": [
+        "R2.2"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:timer-exception-once",
+      "role": "target",
+      "clauses": [
+        "R2.1",
+        "R2.2"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:timer-exception-peer-survives",
+      "role": "preserved",
+      "clauses": [
+        "R2.1"
+      ],
+      "overlap": true,
+      "note": "Holds in the starter; the once-only/retirement half of R2.1 is the target."
+    },
+    {
+      "id": "case:timer-self-replacement",
+      "role": "target",
+      "clauses": [
+        "R1.2"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:timer-explicit-removal",
+      "role": "target",
+      "clauses": [
+        "R2.2"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:timer-invalid-replace-atomic",
+      "role": "target",
+      "clauses": [
+        "R3.3"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:timer-shared-params-preserved",
+      "role": "preserved",
+      "clauses": [
+        "R3.4"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:timer-false-stops-repeat",
+      "role": "preserved",
+      "clauses": [
+        "R1.3"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:timer-remove-due-peer",
+      "role": "preserved",
+      "clauses": [
+        "R1.1"
+      ],
+      "overlap": true,
+      "note": "Holds in the starter for this pair of peers."
+    },
+    {
+      "id": "case:timer-new-work-own-delay",
+      "role": "preserved",
+      "clauses": [
+        "R1.1"
+      ],
+      "overlap": true,
+      "note": "Holds in the starter."
+    },
+    {
+      "id": "case:timer-reject-invalid-options",
+      "role": "target",
+      "clauses": [
+        "R3.3"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:clock-current-read",
+      "role": "target",
+      "clauses": [
+        "R4.4"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:clock-nonnegative-clamp",
+      "role": "target",
+      "clauses": [
+        "R4.3"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:clock-negative-allowed",
+      "role": "preserved",
+      "clauses": [
+        "R4.3"
+      ],
+      "overlap": true,
+      "note": "Holds in the starter; the clamp half of R4.3 is the target."
+    },
+    {
+      "id": "case:clock-unknown-null",
+      "role": "preserved",
+      "clauses": [
+        "R4.5"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:clock-pause-settles",
+      "role": "target",
+      "clauses": [
+        "R4.1"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:clock-resume-no-paused-time",
+      "role": "target",
+      "clauses": [
+        "R4.1"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:clock-explicit-reset",
+      "role": "preserved",
+      "clauses": [
+        "R4.2"
+      ],
+      "overlap": true,
+      "note": "Holds in the starter."
+    },
+    {
+      "id": "case:timer-round-name-retirement",
+      "role": "target",
+      "clauses": [
+        "R2.2",
+        "R2.3"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:timer-round-keepalive",
+      "role": "target",
+      "clauses": [
+        "R2.3"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:timer-opaque-scalar-payloads",
+      "role": "preserved",
+      "clauses": [
+        "R3.5"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:timer-array-payload-identity",
+      "role": "preserved",
+      "clauses": [
+        "R3.5",
+        "R3.4"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:timer-countdown-payload-atomic-rejection",
+      "role": "target",
+      "clauses": [
+        "R3.6"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:timer-base-delayed-array-event",
+      "role": "preserved",
+      "clauses": [
+        "R3.7",
+        "Task-preserve-unrelated"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:timer-moresi-team-refresh",
+      "role": "target",
+      "clauses": [
+        "R3.7",
+        "Task-preserve-unrelated"
+      ],
+      "overlap": false,
+      "note": "Stated in the exam as behaviour that must keep working, but it fails in the unchanged starter (the starter scheduler does not deliver MoreSI's integer payload), so it is a target by observation."
+    },
+    {
+      "id": "check:submission-shape",
+      "role": "static",
+      "clauses": [
+        "Task-source-only"
+      ],
+      "overlap": false,
+      "note": "Evaluator gate (plugin evaluator.py _static_check); verify.py adds its own package checks before the server starts."
+    }
+  ],
+  "clauses": [
+    {
+      "id": "R1.1",
+      "anchor": "Report 1 s1-4: only timers present at an update's start run; removed work does not run later in that update; new work waits for a later update and its own delay",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "R1.2",
+      "anchor": "Report 1 s5: \"A named timer that replaces itself must survive cleanup of the old callback.\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "R1.3",
+      "anchor": "Report 1 s6: each due timer runs at most once per update; preserve ordinary repeat and callback-returning-false behaviour",
+      "status": "asserted",
+      "note": "The late-update half is not exercised separately."
+    },
+    {
+      "id": "R2.1",
+      "anchor": "Report 2 s1: a throwing callback is invoked once, retired and reported without stopping unrelated callbacks or clock updates",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "R2.2",
+      "anchor": "Report 2 s3: completing, removing, failing or round-ending a named timer removes its `TimersID` mapping",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "R2.3",
+      "anchor": "Report 2 s4: round end preserves KEEPALIVE timers and their usable names; removing a retired timer stays harmless",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "R3.1",
+      "anchor": "Report 3 s1-2: countdown/duration bookkeeping belongs to each timer; a shared options table is not consumed or modified",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "R3.2",
+      "anchor": "Report 3 s3-4: COUNTDOWN reports its remaining count through `TimerCount`; DURATION runs floor(duration/delay) times, zero for a shorter duration",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "R3.3",
+      "anchor": "Report 3 s5-6: invalid counts, negative durations, nonnumeric delay/duration, nonfunction callbacks or incompatible flags return -1; an invalid AddTimerByName replacement keeps the previous timer",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "R3.4",
+      "anchor": "Report 3 s7: callback parameter tables keep their shared identity",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "R3.5",
+      "anchor": "Report 3 s8-9: preserve opaque non-null payloads (integers, arrays) for ordinary and DURATION_VARIANT callbacks; do not wrap, clone or reject them",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "R3.6",
+      "anchor": "Report 3 s10: COUNTDOWN and DURATION reject non-table payloads atomically with -1",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "R3.7",
+      "anchor": "Report 3 s11: \"Existing MoreSI team-change refresh and delayed LinGe event delivery must still work.\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "R3.8",
+      "anchor": "Report 3: \"Keep the minimum delay of 0.1 seconds.\"",
+      "status": "unasserted",
+      "note": "No case uses a delay below 0.1 s."
+    },
+    {
+      "id": "R4.1",
+      "anchor": "Report 4 s1-2: ManageTimer pause/count-up/count-down settle the old mode at transition; paused time never counts later",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "R4.2",
+      "anchor": "Report 4 s3: a non-null explicit value resets value and baseline",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "R4.3",
+      "anchor": "Report 4 s4: countdowns that disallow negatives clamp at zero across a long update; allowing negatives crosses zero",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "R4.4",
+      "anchor": "Report 4 s5: ReadTimer reports the value at read time",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "R4.5",
+      "anchor": "Report 4 s6: independent named clocks; null for an unknown name",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "R5.1",
+      "anchor": "Report 5 s1: new saves preserve quotes, backslashes, tabs, CR, LF and literal `{VSQUOTE}`/`{VSSLASH}`",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "R5.2",
+      "anchor": "Report 5 s2: arbitrary string keys and signed integer keys round-trip without key-type collisions",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "R6.1",
+      "anchor": "Report 6 s1: nested tables, ordered arrays, empty containers, null, booleans, integers and finite floats persist",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "R6.2",
+      "anchor": "Report 6 s2: saving does not mutate its input or reject repeated noncyclic references",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "R6.3",
+      "anchor": "Report 6 s3-4: functions, instances, unsupported key types and cycles are rejected with false, leaving an existing file unchanged",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "R6.4",
+      "anchor": "Report 6 s5: loading returns independent containers",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "R7.1",
+      "anchor": "Report 7 s1-2: legacy `.tbl` data remains readable, recursively decoding markers and canonical `_vslInt_` keys",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "R7.2",
+      "anchor": "Report 7 s3: only an entire `_vslInt_<canonical unsigned>` key is an encoded key",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "R8.1",
+      "anchor": "Report 8 s1-2: LoadTable parses data, never executes expressions; missing, malformed, truncated, trailing-garbage or executable input returns null without exception or side effect",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "R8.2",
+      "anchor": "Report 8 s3-4: valid data still loads; SaveTableFileName/LoadTableFileName and LinGe configuration persistence keep working",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "Task-preserve-unrelated",
+      "anchor": "Preamble: do not change unrelated HUD, event, Director, hint or reward behaviour",
+      "status": "weak",
+      "note": "Only the MoreSI refresh and delayed Base event paths are observed (R3.7)."
+    },
+    {
+      "id": "Task-source-only",
+      "anchor": "Closing paragraph: keep source only; no binary/archive artifacts, symlinks, Git metadata or game files",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "Task-preserve-mit",
+      "anchor": "Closing paragraph: preserve the MIT notices and public VSLib entry points",
+      "status": "unasserted",
+      "note": "Pre-case verify.py license gate; no named case."
+    },
+    {
+      "id": "Task-no-tests-edit",
+      "anchor": "Closing paragraph: do not modify `/tests`",
+      "status": "unasserted",
+      "note": "Process rule."
+    }
+  ],
+  "excluded_clauses": [
+    "R3.8",
+    "Task-preserve-mit",
+    "Task-no-tests-edit"
+  ],
+  "known_issues": [
+    "benchmarks/l4d2-core/private/harbor/l4d2-vslib-scheduler-persistence-hard/tests/verify.py:parse_results: the suite is one server boot. A missing or non-unique FINAL marker, or conflicting duplicate case markers, raises SubmissionFailure before any case line is printed, so every case is unobserved and the evaluator reports an incomplete (not a failing) result.",
+    "benchmarks/l4d2-core/private/harbor/l4d2-vslib-scheduler-persistence-hard/tests/suite.nut: the clock cases compare engine Time() readings with a 0.006 s tolerance inside one tick; they are deterministic in engine time but depend on the scheduler being driven by the trusted Tick driver.",
+    "The alternative control is reference-derived (reversed due-timer order, exponent float encoding, space-separated arrays); it is evidence that the suite does not pin those representation choices, not an independent implementation."
+  ]
+}

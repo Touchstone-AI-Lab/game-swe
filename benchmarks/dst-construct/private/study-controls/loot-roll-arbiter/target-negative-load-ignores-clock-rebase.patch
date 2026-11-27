@@ -1,0 +1,11 @@
+--- a/scripts/lootroll/arbiter.lua
++++ b/scripts/lootroll/arbiter.lua
+@@ -601,7 +601,7 @@
+     -- new clock every stored absolute time keeps its distance from `saved_at`.
+     local shift = 0
+     if type(options) == "table" and is_finite(options.now) and is_finite(data.saved_at) then
+-        shift = options.now - data.saved_at
++        shift = 0
+     end
+     for index = 1, #data.rolls do
+         local roll = load_roll(data.rolls[index], shift)

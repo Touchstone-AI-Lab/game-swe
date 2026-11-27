@@ -1,0 +1,19 @@
+--- a/scripts/fuelration/allocator.lua
++++ b/scripts/fuelration/allocator.lua
+@@ -364,9 +364,15 @@
+     if share == nil then
+         return fail("unknown_share")
+     end
+-    if share.status ~= "pending" then
++    if share.status == "aborted" then
+         return share_result(share, true)
+     end
++    if share.status == "committed" then
++        self.reserved = self.reserved + share.units
++        self.available = self.available - share.returned
++        self.delivered_total = self.delivered_total - share.delivered
++        self.round.delivered = self.round.delivered - share.delivered
++    end
+     if delivered == nil then
+         self:_settle(share, "aborted", 0)
+         return share_result(share, false)

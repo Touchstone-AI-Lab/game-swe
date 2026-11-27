@@ -1,0 +1,159 @@
+{
+  "version": 1,
+  "base": "references/frame-map",
+  "mutations": [
+    {
+      "id": "stage-order-skipped",
+      "file": "lua/rhenium_prop_alignment/alignment.lua",
+      "old": "if order[which][slot]~=count+1 then",
+      "new": "if false and order[which][slot]~=count+1 then",
+      "check": "hidden-behavior",
+      "case": "six anchors must follow the public stage order",
+      "expectedLayer": "plain-lua"
+    },
+    {
+      "id": "collinear-accepted",
+      "file": "lua/rhenium_prop_alignment/alignment.lua",
+      "old": "if not z then return nil,\"collinear_frame\" end",
+      "new": "if not z then z={x=0,y=0,z=1} end",
+      "check": "hidden-behavior",
+      "case": "collinear and zero length frames are rejected",
+      "expectedLayer": "plain-lua"
+    },
+    {
+      "id": "probe-z-dropped",
+      "file": "lua/rhenium_prop_alignment/alignment.lua",
+      "old": "mul(tf.z,dot(d,sf.z))",
+      "new": "mul(tf.z,0)",
+      "check": "hidden-behavior",
+      "case": "three point frames map origin axes and probe",
+      "expectedLayer": "plain-lua"
+    },
+    {
+      "id": "request-replay-disabled",
+      "file": "lua/rhenium_prop_alignment/alignment.lua",
+      "old": "local old=self.requests[id]; if not old then return nil end",
+      "new": "local old=nil; if not old then return nil end",
+      "check": "hidden-behavior",
+      "case": "exact request replay is idempotent and conflicts fail",
+      "expectedLayer": "plain-lua"
+    },
+    {
+      "id": "revision-ignored",
+      "file": "lua/rhenium_prop_alignment/alignment.lua",
+      "old": "if s.entity_id~=entity_id or s.revision~=revision then",
+      "new": "if s.entity_id~=entity_id then",
+      "check": "hidden-behavior",
+      "case": "player entity and revision bind one staging session",
+      "expectedLayer": "plain-lua"
+    },
+    {
+      "id": "budget-not-counted",
+      "file": "lua/rhenium_prop_alignment/alignment.lua",
+      "old": "self.spent[player_id]=(self.spent[player_id] or 0)+1",
+      "new": "self.spent[player_id]=(self.spent[player_id] or 0)",
+      "check": "hidden-behavior",
+      "case": "operation budget is consumed once per solve",
+      "expectedLayer": "plain-lua"
+    },
+    {
+      "id": "save-drops-requests",
+      "file": "lua/rhenium_prop_alignment/alignment.lua",
+      "old": "requests=copy(self.requests)",
+      "new": "requests={}",
+      "check": "hidden-behavior",
+      "case": "save load preserves stages budget and replay",
+      "expectedLayer": "plain-lua"
+    },
+    {
+      "id": "shutdown-does-not-freeze",
+      "file": "lua/rhenium_prop_alignment/alignment.lua",
+      "old": "self.stopped=true;return true,\"shutdown\"",
+      "new": "self.stopped=false;return true,\"shutdown\"",
+      "check": "hidden-behavior",
+      "case": "shutdown is idempotent and freezes alignment",
+      "expectedLayer": "plain-lua"
+    },
+    {
+      "id": "cantool-bypassed",
+      "file": "lua/rhenium_prop_alignment/server.lua",
+      "old": "if allowed==false then return false,\"permission_denied\",{}end",
+      "new": "if false and allowed==false then return false,\"permission_denied\",{}end",
+      "check": "gmod-integration",
+      "case": "CanTool denial blocks staging before mutation",
+      "expectedLayer": "integration"
+    },
+    {
+      "id": "constraint-failure-not-rolled-back",
+      "file": "lua/rhenium_prop_alignment/server.lua",
+      "old": "if not IsValid(weld)then clone:Remove();return false,\"constraint_failed\",{}end",
+      "new": "if not IsValid(weld)then return false,\"constraint_failed\",{}end",
+      "check": "gmod-integration",
+      "case": "constraint failure rolls back created entities",
+      "expectedLayer": "integration"
+    },
+    {
+      "id": "unbound-player-trusted",
+      "file": "lua/rhenium_prop_alignment/server.lua",
+      "old": "not valid_player(p)or players[p]==nil or type(trace)",
+      "new": "not valid_player(p)or false or type(trace)",
+      "check": "gmod-integration",
+      "case": "unbound and forged trace identity are rejected",
+      "expectedLayer": "integration"
+    },
+    {
+      "id": "shutdown-leaks-timer",
+      "file": "lua/rhenium_prop_alignment/server.lua",
+      "old": "timer.Remove(Server.TimerName);installed=false",
+      "new": "installed=false",
+      "check": "lifecycle-cleanup",
+      "case": "shutdown removes every hook and timer",
+      "expectedLayer": "integration"
+    },
+    {
+      "id": "unknown-mode-falls-back-to-copy",
+      "file": "lua/rhenium_prop_alignment/server.lua",
+      "old": "if mode~=\"copy\"and mode~=\"move\"then return false,\"invalid_mode\",{}end",
+      "new": "if false then return false,\"invalid_mode\",{}end",
+      "check": "gmod-integration",
+      "case": "unknown execution mode is rejected before core mutation",
+      "expectedLayer": "gmod-integration"
+    },
+    {
+      "id": "move-falls-through-to-copy",
+      "file": "lua/rhenium_prop_alignment/server.lua",
+      "old": "if mode==\"move\"then",
+      "new": "if false and mode==\"move\"then",
+      "check": "gmod-integration",
+      "case": "move changes original without clone and undo restores transform",
+      "expectedLayer": "gmod-integration"
+    },
+    {
+      "id": "malformed-alignment-state-accepted",
+      "file": "lua/rhenium_prop_alignment/alignment.lua",
+      "old": "if state ~= nil and not restore(self, state) then return nil,\"invalid_state\" end",
+      "new": "if false and state ~= nil and not restore(self, state) then return nil,\"invalid_state\" end",
+      "check": "hidden-behavior",
+      "case": "malformed sessions requests and budgets are rejected",
+      "expectedLayer": "hidden-behavior"
+    },
+    {
+      "id": "adapter-stage-request-id-reused",
+      "file": "lua/rhenium_prop_alignment/server.lua",
+      "old": "request_serial=request_serial+1\n local ok,code,data=core:stage(\"adapter-stage:\"..request_serial",
+      "new": "request_serial=request_serial+1\n local ok,code,data=core:stage(\"stage:\"..players[p]..\":\"..(n+1)",
+      "check": "gmod-integration",
+      "case": "move changes original without clone and undo restores transform",
+      "expectedLayer": "gmod-integration"
+    },
+    {
+      "id": "move-undo-misreads-framework-argument",
+      "file": "lua/rhenium_prop_alignment/server.lua",
+      "old": "undo.AddFunction(function(_,entity,restore_pos,restore_ang)",
+      "new": "undo.AddFunction(function(entity,restore_pos,restore_ang)",
+      "check": "gmod-integration",
+      "case": "move changes original without clone and undo restores transform",
+      "expectedLayer": "gmod-integration"
+    }
+  ]
+}

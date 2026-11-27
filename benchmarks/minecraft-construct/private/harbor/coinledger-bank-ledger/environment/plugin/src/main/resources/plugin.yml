@@ -1,0 +1,5 @@
+name: CoinLedger
+version: 1.0.0
+main: com.example.coinledger.CoinLedgerPlugin
+api-version: '1.21'
+description: Server bank ledger with transfers and an audit log

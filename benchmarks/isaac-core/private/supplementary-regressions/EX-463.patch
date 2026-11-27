@@ -1,0 +1,12 @@
+diff --git a/main.lua b/main.lua
+--- a/main.lua
++++ b/main.lua
+@@ -5386,7 +5386,7 @@
+             
+             for i, entity in pairs(Isaac.GetRoomEntities()) do
+                 if entity:IsVulnerableEnemy() then
+-                    entity:TakeDamage(math.ceil(100 * (game:GetLevel():GetAbsoluteStage()^0.7)), 0, EntityRef(player), 3)
++                    entity:TakeDamage(math.ceil(100 * math.pow(game:GetLevel():GetAbsoluteStage(), 0.7)), 0, EntityRef(player), 3)
+                 end
+             end
+             

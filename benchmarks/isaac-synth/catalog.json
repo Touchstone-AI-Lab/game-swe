@@ -1,0 +1,511 @@
+{
+  "id": "isaac-synth",
+  "version": "0.1.1",
+  "game": "isaac-rebirth",
+  "name": {
+    "en": "The Binding of Isaac clean-room construct tasks",
+    "zh": "以撒的结合洁净室构建任务"
+  },
+  "description": {
+    "en": "Construct tasks written from an empty Afterbirth+ mod starter and evaluated in the pinned native runtime.",
+    "zh": "从空白胎衣+模组起始写起、在固定原生运行时中评测的构建任务。"
+  },
+  "tasks": [
+    {
+      "id": "construct-room-rng",
+      "difficulty": "hard",
+      "title": {
+        "en": "Build deterministic per-room random streams",
+        "zh": "构建逐房间的确定性随机流"
+      },
+      "summary": {
+        "en": "Implement an isolated Park–Miller integer stream per (run start seed, room spawn seed) that resumes exactly after room changes and save/continue without consuming or reseeding the game's RNG.",
+        "zh": "为每个（运行起始种子，房间生成种子）实现独立的 Park–Miller 整数流，在房间切换与保存/继续后精确恢复，且不消耗或重设游戏自身的随机数。"
+      },
+      "brief": {
+        "en": "Write the mod from the empty starter so that the public contract and every acceptance case hold in the real game.",
+        "zh": "从空白起始模组写起，使公开契约与全部验收用例在真实游戏中成立。"
+      },
+      "requirements": {
+        "en": [
+          "Keep one stream state and draw count per room key; each MC_POST_UPDATE draws exactly one value and no other callback draws.",
+          "Persist and restore schema-version-1 JSON on the exit callbacks, dropping only invalid entries and mismatched run seeds.",
+          "Export IsaacConstructRoomRng with StartRun, SelectRoom, DrawCurrentRoom, SaveNow, and Snapshot sharing the callback transitions."
+        ],
+        "zh": [
+          "每个房间键保留一份流状态与抽取计数；每次 MC_POST_UPDATE 恰好抽取一个值，其他回调不抽取。",
+          "在退出回调中保存并恢复 schema 版本 1 的 JSON，只丢弃无效条目与运行种子不匹配的数据。",
+          "导出 IsaacConstructRoomRng，其 StartRun、SelectRoom、DrawCurrentRoom、SaveNow、Snapshot 与回调共用同一套状态转换。"
+        ]
+      },
+      "api_usage": {
+        "en": [
+          "Use only Lua and mod APIs available in the pinned Afterbirth+ v1.06.T1 runtime; do not add third-party code or assets."
+        ],
+        "zh": [
+          "仅使用固定胎衣+ v1.06.T1 运行时提供的 Lua 与模组 API，不得添加第三方代码与资源。"
+        ]
+      },
+      "acceptance": {
+        "en": [
+          "All 35 private real-game assertions must complete exactly once without network access."
+        ],
+        "zh": [
+          "全部 35 项私有真实游戏断言必须在无网络环境中各完成一次。"
+        ]
+      },
+      "domains": [
+        "lua",
+        "afterbirth-plus",
+        "construct",
+        "rng",
+        "persistence",
+        "real-game-runtime"
+      ],
+      "estimated_minutes": 90,
+      "required_files": [
+        "mod/main.lua",
+        "mod/metadata.xml"
+      ],
+      "source_mod": "Clean-room synthetic",
+      "game_version": "Afterbirth+ v1.06.T1",
+      "game_build": "Steam App 250900 build 22878971",
+      "expected_cases": 35,
+      "clean_room_synthetic": true
+    },
+    {
+      "id": "construct-config-navigation",
+      "difficulty": "hard",
+      "title": {
+        "en": "Build the config-menu input state machine",
+        "zh": "构建配置菜单输入状态机"
+      },
+      "summary": {
+        "en": "Implement a three-pane configuration menu driven by menu actions, F-keys, and analog input with rebinding, key capture, repeat timing, and analog hysteresis.",
+        "zh": "实现由菜单动作、F 键与摇杆输入驱动的三层配置菜单，包含改键、按键捕获、重复计时与摇杆滞回。"
+      },
+      "brief": {
+        "en": "Write the mod from the empty starter so that the public contract and every acceptance case hold in the real game.",
+        "zh": "从空白起始模组写起，使公开契约与全部验收用例在真实游戏中成立。"
+      },
+      "requirements": {
+        "en": [
+          "Model the category, subcategory, and options panes with wraparound navigation, slider steps, boolean toggles, and keybind capture exactly as specified.",
+          "Apply press, repeat (12th then every 5th held frame), release, priority, and analog thresholds identically for keyboard, d-pad, and analog input.",
+          "Export IsaacConstructNavigation with Step(frameInput) and Snapshot; MC_POST_RENDER draws only the active pane through Font:DrawString."
+        ],
+        "zh": [
+          "按规范实现分类、子分类与选项三层面板的环绕导航、滑块步进、布尔切换与改键捕获。",
+          "对键盘、方向键与摇杆输入统一应用按下、重复（第 12 帧起每 5 帧）、释放、优先级与摇杆阈值规则。",
+          "导出 IsaacConstructNavigation 的 Step(frameInput) 与 Snapshot；MC_POST_RENDER 仅通过 Font:DrawString 绘制当前面板。"
+        ]
+      },
+      "api_usage": {
+        "en": [
+          "Use only Lua and mod APIs available in the pinned Afterbirth+ v1.06.T1 runtime; do not add third-party code or assets."
+        ],
+        "zh": [
+          "仅使用固定胎衣+ v1.06.T1 运行时提供的 Lua 与模组 API，不得添加第三方代码与资源。"
+        ]
+      },
+      "acceptance": {
+        "en": [
+          "All 35 private real-game assertions must complete exactly once without network access."
+        ],
+        "zh": [
+          "全部 35 项私有真实游戏断言必须在无网络环境中各完成一次。"
+        ]
+      },
+      "domains": [
+        "lua",
+        "afterbirth-plus",
+        "construct",
+        "input",
+        "state-machine",
+        "real-game-runtime"
+      ],
+      "estimated_minutes": 120,
+      "required_files": [
+        "mod/main.lua",
+        "mod/metadata.xml"
+      ],
+      "source_mod": "Clean-room synthetic",
+      "game_version": "Afterbirth+ v1.06.T1",
+      "game_build": "Steam App 250900 build 22878971",
+      "expected_cases": 35,
+      "clean_room_synthetic": true
+    },
+    {
+      "id": "construct-config-persistence",
+      "difficulty": "hard",
+      "title": {
+        "en": "Build versioned configuration persistence",
+        "zh": "构建带版本迁移的配置持久化"
+      },
+      "summary": {
+        "en": "Implement a configuration loader/saver that normalizes defaults, merges version-2 saves, migrates flat version-1 data, rejects malformed payloads safely, and synchronizes the HUD offset exactly once per load.",
+        "zh": "实现配置加载/保存：归一化默认值、合并版本 2 存档、迁移扁平的版本 1 数据、安全拒绝畸形数据，并在每次加载后恰好同步一次 HUD 偏移。"
+      },
+      "brief": {
+        "en": "Write the mod from the empty starter so that the public contract and every acceptance case hold in the real game.",
+        "zh": "从空白起始模组写起，使公开契约与全部验收用例在真实游戏中成立。"
+      },
+      "requirements": {
+        "en": [
+          "Merge known keys per category, fall back to defaults for invalid types or an out-of-range hud_offset, and ignore unknown keys.",
+          "Never abort the game-start callback on absent, empty, malformed, or non-table data; rebuild from defaults plus the live pre-load configuration.",
+          "Export IsaacConstructConfig with LoadRaw, SaveNow, and Snapshot; both exit callbacks and the constructcfg command use SaveNow."
+        ],
+        "zh": [
+          "按分类合并已知键，类型无效或 hud_offset 越界时回退默认值，忽略未知键。",
+          "数据缺失、为空、畸形或非表时绝不中断游戏开始回调；用默认值加加载前的实时配置重建。",
+          "导出 IsaacConstructConfig 的 LoadRaw、SaveNow 与 Snapshot；两个退出回调与 constructcfg 命令都走 SaveNow。"
+        ]
+      },
+      "api_usage": {
+        "en": [
+          "Use only Lua and mod APIs available in the pinned Afterbirth+ v1.06.T1 runtime; do not add third-party code or assets."
+        ],
+        "zh": [
+          "仅使用固定胎衣+ v1.06.T1 运行时提供的 Lua 与模组 API，不得添加第三方代码与资源。"
+        ]
+      },
+      "acceptance": {
+        "en": [
+          "All 35 private real-game assertions must complete exactly once without network access."
+        ],
+        "zh": [
+          "全部 35 项私有真实游戏断言必须在无网络环境中各完成一次。"
+        ]
+      },
+      "domains": [
+        "lua",
+        "afterbirth-plus",
+        "construct",
+        "persistence",
+        "migration",
+        "real-game-runtime"
+      ],
+      "estimated_minutes": 90,
+      "required_files": [
+        "mod/main.lua",
+        "mod/metadata.xml"
+      ],
+      "source_mod": "Clean-room synthetic",
+      "game_version": "Afterbirth+ v1.06.T1",
+      "game_build": "Steam App 250900 build 22878971",
+      "expected_cases": 35,
+      "clean_room_synthetic": true
+    },
+    {
+      "id": "construct-hud-compositor",
+      "difficulty": "hard",
+      "title": {
+        "en": "Build the fractional HUD notification compositor",
+        "zh": "构建带小数坐标的 HUD 通知合成器"
+      },
+      "summary": {
+        "en": "Implement a right-aligned startup hint with a 900-frame fade and a pending-restart warning, composed from the room's bottom-right screen point with integer draw widths and a live HUD offset.",
+        "zh": "实现右对齐的开局提示（900 帧渐隐）与待重启警告，基于房间右下角屏幕坐标、整数绘制宽度与实时 HUD 偏移进行合成。"
+      },
+      "brief": {
+        "en": "Write the mod from the empty starter so that the public contract and every acceptance case hold in the real game.",
+        "zh": "从空白起始模组写起，使公开契约与全部验收用例在真实游戏中成立。"
+      },
+      "requirements": {
+        "en": [
+          "Compute the hint alpha and the message slots exactly as specified; floor and room changes must not restart the hint timer.",
+          "Use Isaac.WorldToScreen and Font:DrawString with truncated integer box widths; fractional corners must not raise a draw error.",
+          "Export IsaacConstructHUD with SetWarning, SetOffset, RenderFrame, and Snapshot sharing the MC_POST_RENDER compositor."
+        ],
+        "zh": [
+          "按规范精确计算提示透明度与消息槽位；楼层与房间切换不得重启提示计时。",
+          "使用 Isaac.WorldToScreen 与 Font:DrawString，绘制宽度向零截断为整数；小数角坐标不得引发绘制错误。",
+          "导出 IsaacConstructHUD 的 SetWarning、SetOffset、RenderFrame 与 Snapshot，与 MC_POST_RENDER 共用同一合成器。"
+        ]
+      },
+      "api_usage": {
+        "en": [
+          "Use only Lua and mod APIs available in the pinned Afterbirth+ v1.06.T1 runtime; do not add third-party code or assets."
+        ],
+        "zh": [
+          "仅使用固定胎衣+ v1.06.T1 运行时提供的 Lua 与模组 API，不得添加第三方代码与资源。"
+        ]
+      },
+      "acceptance": {
+        "en": [
+          "All 35 private real-game assertions must complete exactly once without network access."
+        ],
+        "zh": [
+          "全部 35 项私有真实游戏断言必须在无网络环境中各完成一次。"
+        ]
+      },
+      "domains": [
+        "lua",
+        "afterbirth-plus",
+        "construct",
+        "rendering",
+        "hud",
+        "real-game-runtime"
+      ],
+      "estimated_minutes": 90,
+      "required_files": [
+        "mod/main.lua",
+        "mod/metadata.xml"
+      ],
+      "source_mod": "Clean-room synthetic",
+      "game_version": "Afterbirth+ v1.06.T1",
+      "game_build": "Steam App 250900 build 22878971",
+      "expected_cases": 35,
+      "clean_room_synthetic": true
+    },
+    {
+      "id": "construct-legacy-hud-lifecycle",
+      "difficulty": "hard",
+      "title": {
+        "en": "Build the configuration and HUD-effect lifecycle",
+        "zh": "构建配置与 HUD 效果生命周期"
+      },
+      "summary": {
+        "en": "Implement configuration persistence with legacy migration and a menu that hides the HUD through SEED_NO_HUD without claiming or removing a seed effect owned by another source.",
+        "zh": "实现带旧版迁移的配置持久化，并让菜单通过 SEED_NO_HUD 隐藏 HUD，同时不占有或移除其他来源拥有的种子效果。"
+      },
+      "brief": {
+        "en": "Write the mod from the empty starter so that the public contract and every acceptance case hold in the real game.",
+        "zh": "从空白起始模组写起，使公开契约与全部验收用例在真实游戏中成立。"
+      },
+      "requirements": {
+        "en": [
+          "Normalize the version-2 configuration, migrate flat version-1 menu settings, and resolve the HUD offset default from Options.HUDOffset clamped to [0,10].",
+          "Track whether SEED_NO_HUD was present before opening; closing removes it only if this mod added it, and repeated transitions are idempotent.",
+          "Export IsaacConstructLegacyHUD with OpenMenu, CloseMenu, ResolveOffset, LoadRaw, SaveNow, and Snapshot using the production transitions."
+        ],
+        "zh": [
+          "归一化版本 2 配置，迁移扁平的版本 1 菜单设置，并由 Options.HUDOffset 解析默认偏移并钳制到 [0,10]。",
+          "记录打开前 SEED_NO_HUD 是否已存在；关闭时仅移除本模组添加的效果，重复转换保持幂等。",
+          "导出 IsaacConstructLegacyHUD 的 OpenMenu、CloseMenu、ResolveOffset、LoadRaw、SaveNow 与 Snapshot，均使用生产环境的状态转换。"
+        ]
+      },
+      "api_usage": {
+        "en": [
+          "Use only Lua and mod APIs available in the pinned Afterbirth+ v1.06.T1 runtime; do not add third-party code or assets."
+        ],
+        "zh": [
+          "仅使用固定胎衣+ v1.06.T1 运行时提供的 Lua 与模组 API，不得添加第三方代码与资源。"
+        ]
+      },
+      "acceptance": {
+        "en": [
+          "All 35 private real-game assertions must complete exactly once without network access."
+        ],
+        "zh": [
+          "全部 35 项私有真实游戏断言必须在无网络环境中各完成一次。"
+        ]
+      },
+      "domains": [
+        "lua",
+        "afterbirth-plus",
+        "construct",
+        "persistence",
+        "seed-effects",
+        "real-game-runtime"
+      ],
+      "estimated_minutes": 100,
+      "required_files": [
+        "mod/main.lua",
+        "mod/metadata.xml"
+      ],
+      "source_mod": "Clean-room synthetic",
+      "game_version": "Afterbirth+ v1.06.T1",
+      "game_build": "Steam App 250900 build 22878971",
+      "expected_cases": 35,
+      "clean_room_synthetic": true
+    },
+    {
+      "id": "construct-option-rendering",
+      "difficulty": "hard",
+      "title": {
+        "en": "Build identity-keyed option palette rendering",
+        "zh": "构建按稳定标识着色的选项渲染"
+      },
+      "summary": {
+        "en": "Implement per-option custom colors keyed by stable option identity that replace only RGB, preserve the exact normal alpha from KColor.Alpha, follow reordering, and never mutate shared font or sprite colors.",
+        "zh": "实现按稳定选项标识存储的自定义颜色：只替换 RGB，保留 KColor.Alpha 给出的正常透明度，随重排移动，且绝不修改共享的字体或精灵颜色。"
+      },
+      "brief": {
+        "en": "Write the mod from the empty starter so that the public contract and every acceptance case hold in the real game.",
+        "zh": "从空白起始模组写起，使公开契约与全部验收用例在真实游戏中成立。"
+      },
+      "requirements": {
+        "en": [
+          "Apply the focused, unfocused, and disabled alpha rules to text and slider colors and zero the slider offsets for custom colors.",
+          "Reject nil, partial, non-finite, or out-of-range RGB atomically and keep the last valid color; clearing restores the exact normal colors.",
+          "Export IsaacConstructPalette with UpsertOption, RemoveOption, SetOptionOrder, SetOptionColor, ClearOptionColor, SetRenderContext, RenderNow, and Snapshot."
+        ],
+        "zh": [
+          "对文本与滑块颜色应用聚焦、未聚焦与禁用的透明度规则，自定义颜色下滑块偏移归零。",
+          "原子性拒绝 nil、不完整、非有限或越界的 RGB 并保留最后有效颜色；清除后精确恢复正常颜色。",
+          "导出 IsaacConstructPalette 的 UpsertOption、RemoveOption、SetOptionOrder、SetOptionColor、ClearOptionColor、SetRenderContext、RenderNow 与 Snapshot。"
+        ]
+      },
+      "api_usage": {
+        "en": [
+          "Use only Lua and mod APIs available in the pinned Afterbirth+ v1.06.T1 runtime; do not add third-party code or assets."
+        ],
+        "zh": [
+          "仅使用固定胎衣+ v1.06.T1 运行时提供的 Lua 与模组 API，不得添加第三方代码与资源。"
+        ]
+      },
+      "acceptance": {
+        "en": [
+          "All 35 private real-game assertions must complete exactly once without network access."
+        ],
+        "zh": [
+          "全部 35 项私有真实游戏断言必须在无网络环境中各完成一次。"
+        ]
+      },
+      "domains": [
+        "lua",
+        "afterbirth-plus",
+        "construct",
+        "rendering",
+        "colors",
+        "real-game-runtime"
+      ],
+      "estimated_minutes": 90,
+      "required_files": [
+        "mod/main.lua",
+        "mod/metadata.xml"
+      ],
+      "source_mod": "Clean-room synthetic",
+      "game_version": "Afterbirth+ v1.06.T1",
+      "game_build": "Steam App 250900 build 22878971",
+      "expected_cases": 35,
+      "clean_room_synthetic": true
+    },
+    {
+      "id": "construct-entity-cleanup",
+      "difficulty": "hard",
+      "title": {
+        "en": "Build owned-entity lifecycle cleanup",
+        "zh": "构建受管实体的生命周期清理"
+      },
+      "summary": {
+        "en": "Implement tracked owner and effect spawn wrappers whose registry uses InitSeed-based tokens, sweeps dead or missing owners each update, and cleans room-scoped entities without adopting foreign entities or reused indices.",
+        "zh": "实现受管的宿主与效果生成封装：注册表使用基于 InitSeed 的令牌，每次更新清扫死亡或缺失的宿主，按房间清理实体，且不接管外来实体或复用的索引。"
+      },
+      "brief": {
+        "en": "Write the mod from the empty starter so that the public contract and every acceptance case hold in the real game.",
+        "zh": "从空白起始模组写起，使公开契约与全部验收用例在真实游戏中成立。"
+      },
+      "requirements": {
+        "en": [
+          "Only entities spawned through the wrappers are tracked; a nil, dead, foreign, or untracked owner never claims an effect.",
+          "MC_POST_UPDATE, MC_POST_ENTITY_REMOVE, and MC_POST_NEW_ROOM cleanups are idempotent, order-safe, and never skip entries while removing.",
+          "Export IsaacConstructEntities with SpawnTrackedOwner, SpawnTrackedEffect, and Snapshot only."
+        ],
+        "zh": [
+          "只跟踪通过封装生成的实体；nil、死亡、外来或未跟踪的宿主绝不占有效果。",
+          "MC_POST_UPDATE、MC_POST_ENTITY_REMOVE 与 MC_POST_NEW_ROOM 的清理保持幂等、顺序无关，移除过程中不跳过条目。",
+          "仅导出 IsaacConstructEntities 的 SpawnTrackedOwner、SpawnTrackedEffect 与 Snapshot。"
+        ]
+      },
+      "api_usage": {
+        "en": [
+          "Use only Lua and mod APIs available in the pinned Afterbirth+ v1.06.T1 runtime; do not add third-party code or assets."
+        ],
+        "zh": [
+          "仅使用固定胎衣+ v1.06.T1 运行时提供的 Lua 与模组 API，不得添加第三方代码与资源。"
+        ]
+      },
+      "acceptance": {
+        "en": [
+          "All 35 private real-game assertions must complete exactly once without network access."
+        ],
+        "zh": [
+          "全部 35 项私有真实游戏断言必须在无网络环境中各完成一次。"
+        ]
+      },
+      "domains": [
+        "lua",
+        "afterbirth-plus",
+        "construct",
+        "entities",
+        "lifecycle",
+        "real-game-runtime"
+      ],
+      "estimated_minutes": 110,
+      "required_files": [
+        "mod/main.lua",
+        "mod/metadata.xml"
+      ],
+      "source_mod": "Clean-room synthetic",
+      "game_version": "Afterbirth+ v1.06.T1",
+      "game_build": "Steam App 250900 build 22878971",
+      "expected_cases": 35,
+      "clean_room_synthetic": true
+    },
+    {
+      "id": "construct-callback-transaction",
+      "difficulty": "hard",
+      "title": {
+        "en": "Build the cross-callback transaction ledger",
+        "zh": "构建跨回调的事务账本"
+      },
+      "summary": {
+        "en": "Implement an atomic transaction ledger across MC_USE_ITEM, MC_POST_UPDATE, MC_POST_NEW_ROOM, and the save callbacks, with staged commits, exact rollback on injected faults, and continue-only restoration of committed progress.",
+        "zh": "实现跨 MC_USE_ITEM、MC_POST_UPDATE、MC_POST_NEW_ROOM 与保存回调的原子事务账本：分阶段提交、注入故障时精确回滚、继续游戏时仅恢复已提交进度。"
+      },
+      "brief": {
+        "en": "Write the mod from the empty starter so that the public contract and every acceptance case hold in the real game.",
+        "zh": "从空白起始模组写起，使公开契约与全部验收用例在真实游戏中成立。"
+      },
+      "requirements": {
+        "en": [
+          "Keep at most one pending transaction; update stages exactly one unit and room entry commits only an applied transaction.",
+          "Every transition computes the complete next state before publishing it and restores the exact prior snapshot on error without throwing.",
+          "Export IsaacConstructTransaction with UseItem, Update, NewRoom, LoadRaw, SaveNow, ArmFault, and Snapshot; the callbacks call these methods."
+        ],
+        "zh": [
+          "最多保留一个待处理事务；更新恰好暂存一个单位，进入房间只提交已应用的事务。",
+          "每次转换先算出完整的下一状态再发布，出错时恢复精确的先前快照且不向游戏抛出异常。",
+          "导出 IsaacConstructTransaction 的 UseItem、Update、NewRoom、LoadRaw、SaveNow、ArmFault 与 Snapshot；回调即调用这些方法。"
+        ]
+      },
+      "api_usage": {
+        "en": [
+          "Use only Lua and mod APIs available in the pinned Afterbirth+ v1.06.T1 runtime; do not add third-party code or assets."
+        ],
+        "zh": [
+          "仅使用固定胎衣+ v1.06.T1 运行时提供的 Lua 与模组 API，不得添加第三方代码与资源。"
+        ]
+      },
+      "acceptance": {
+        "en": [
+          "All 35 private real-game assertions must complete exactly once without network access."
+        ],
+        "zh": [
+          "全部 35 项私有真实游戏断言必须在无网络环境中各完成一次。"
+        ]
+      },
+      "domains": [
+        "lua",
+        "afterbirth-plus",
+        "construct",
+        "transactions",
+        "persistence",
+        "real-game-runtime"
+      ],
+      "estimated_minutes": 110,
+      "required_files": [
+        "mod/main.lua",
+        "mod/metadata.xml"
+      ],
+      "source_mod": "Clean-room synthetic",
+      "game_version": "Afterbirth+ v1.06.T1",
+      "game_build": "Steam App 250900 build 22878971",
+      "expected_cases": 35,
+      "clean_room_synthetic": true
+    }
+  ]
+}

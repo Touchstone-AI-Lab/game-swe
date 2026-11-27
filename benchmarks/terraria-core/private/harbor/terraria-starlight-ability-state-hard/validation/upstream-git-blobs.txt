@@ -1,0 +1,10 @@
+d367416dcadfe68a541a5821a0c4be86b42db219
+3b934df39d8cf4c5c59695efcc705b35946ec974  Content/Abilities/Ability.cs
+aa4a1dac45334494d4fcce12c647f288e2969240  Content/Abilities/AbilityHandler.cs
+1e157a59ba213e80b355ff4b742d50b4815d4afd  Content/Abilities/InfusionItem.cs
+876651d19d5b46f93594cfc7efe0682465269238  Content/Abilities/InfusionTier.cs
+6919414eba01e6ce280a309c3424e3137ab0f59d  Content/Abilities/ShardSet.cs
+93435a8011c260a2c07518f8b3624e9ba6694c4f  Content/Packets/AbilityProgress.cs
+f77e1056fe4aa271667aece20b5f9e02d2b0432d  Content/Packets/StartAbility.cs
+e13d299e24f7224c65586beef6f6e17d5dff10cb  LICENSE.txt
+a109f4b34439bb03fcf62d22729dfcbb0aa481bb  build.txt

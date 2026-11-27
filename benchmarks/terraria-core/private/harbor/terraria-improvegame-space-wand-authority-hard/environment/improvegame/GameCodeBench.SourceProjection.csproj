@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <LangVersion>latest</LangVersion>
+    <ImplicitUsings>disable</ImplicitUsings>
+    <Nullable>disable</Nullable>
+    <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
+    <AssemblyName>ImproveGame.SpaceWand.SourceProjection</AssemblyName>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="Content/Items/SpaceWand.Shapes.cs" />
+    <Compile Include="Content/Items/SpaceWand.Operations.cs" />
+    <Compile Include="Content/Packets/SpaceWandOperation.cs" />
+    <Compile Include="GameCodeBench/ProjectionStubs.cs" />
+  </ItemGroup>
+</Project>

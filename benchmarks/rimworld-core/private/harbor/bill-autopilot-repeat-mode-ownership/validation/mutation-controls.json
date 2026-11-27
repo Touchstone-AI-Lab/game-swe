@@ -1,0 +1,41 @@
+{
+  "schemaVersion": 1,
+  "source": "BillAutopilot/Source/Runtime/BillMemory.cs",
+  "oracleSha256": "953229961b462843805db6761b948eb50a9afe0d3ede8bfe53f3644c002e8f6e",
+  "authoringExpectationsOnly": true,
+  "mutations": [
+    {
+      "id": "omit-repeat-mode",
+      "replaceOnce": "Scribe_Values.Look(ref repeatModeDefName, \"repeatMode\");",
+      "with": "",
+      "mutatedSha256": "7a3b273cece064a4dc9000ad90847f9c0f973c7e4f1abdb2bc4773294d264b15",
+      "mustFailCases": [
+        "memory-roundtrip"
+      ],
+      "expectedComplete": true,
+      "status": "not-run"
+    },
+    {
+      "id": "omit-name",
+      "replaceOnce": "Scribe_Values.Look(ref name, \"name\");",
+      "with": "",
+      "mutatedSha256": "78b755a5bf2c6879af0427be8fbba22bc8e9684ce23f2cdd5c184745744b2ccf",
+      "mustFailCases": [
+        "bill-name-persisted"
+      ],
+      "expectedComplete": true,
+      "status": "not-run"
+    },
+    {
+      "id": "omit-linked-group",
+      "replaceOnce": "Scribe_Collections.Look(ref linkedTo, \"linkedTo\", LookMode.Value);",
+      "with": "",
+      "mutatedSha256": "52f4c3575c41467e20f7d66caaf268a980e928e9b35c89261c887d214a64fe9c",
+      "mustFailCases": [
+        "linked-group-persisted"
+      ],
+      "expectedComplete": true,
+      "status": "not-run"
+    }
+  ]
+}

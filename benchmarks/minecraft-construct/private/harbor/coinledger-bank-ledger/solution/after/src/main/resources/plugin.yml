@@ -1,0 +1,19 @@
+name: CoinLedger
+version: 1.0.0
+main: com.example.coinledger.CoinLedgerPlugin
+api-version: '1.21'
+description: Server bank ledger with transfers and an audit log
+commands:
+  ledger:
+    description: Manage bank accounts, transfers and the audit log.
+    usage: /ledger <open|balance|deposit|withdraw|transfer|pay|freeze|unfreeze|history|top|reload>
+permissions:
+  coinledger.admin:
+    description: Open accounts, move money, freeze accounts, read any history and reload.
+    default: op
+  coinledger.view:
+    description: Read the balance of any account.
+    default: op
+  coinledger.pay:
+    description: Pay from your own account.
+    default: true

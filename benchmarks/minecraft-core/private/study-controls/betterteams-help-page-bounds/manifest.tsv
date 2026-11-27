@@ -1,0 +1,5 @@
+control	kind	base	overlay	root	note
+target-negative-overflow-unclamped	target-negative	starter	patch:target-negative-overflow-unclamped.patch	plugin	prefix and lower bound fixed, page numbers past the end still overflow
+target-negative-prefix-in-help-only	target-negative	starter	patch:target-negative-prefix-in-help-only.patch	plugin	pages clamped and the help line built from prefixFormat directly; the chest-claim broadcasts still start with null
+compat-negative-prefix-on-single-help	compat-negative	starter	patch:compat-negative-prefix-on-single-help.patch	plugin	reference plus the prefix also applied to /team help <command>; breaks the single-command help line
+alternative-a	alternative	starter	tree:alternative-a	plugin	independent fix written from the 0.2.0 exam: own page clamp, getPrefix returns prefixFormat, broadcasts rendered with section codes

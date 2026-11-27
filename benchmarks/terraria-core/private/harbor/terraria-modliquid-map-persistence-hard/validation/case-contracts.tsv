@@ -1,0 +1,104 @@
+case	group	prompt_clause	production_path
+empty_map_writes_no_header	header-discovery	No visible mod data writes no bytes	IO/MapLiquidIO.cs
+hidden_mod_entries_do_not_create_sidecar	header-discovery	Light at or below 18 is excluded	IO/MapLiquidIO.cs
+header_types_are_unique_and_ascending	header-discovery	Header old types are unique and ascending	IO/MapLiquidIO.cs
+visible_threshold_is_strictly_above_eighteen	header-discovery	Visibility threshold is strictly above 18	IO/MapLiquidIO.cs
+unrepresentable_header_count_is_rejected	header-discovery	Reject count above ushort before output	IO/MapLiquidIO.cs
+tile_header_preserves_identity_and_option	entry-resolution	Preserve tile identity and style option	IO/MapLiquidIO.cs
+liquid_header_preserves_identity_and_option	entry-resolution	Preserve liquid identity and style option	IO/MapLiquidIO.cs
+wall_header_preserves_identity_and_option	entry-resolution	Preserve wall identity and style option	IO/MapLiquidIO.cs
+unknown_header_entry_uses_missing_sentinel	entry-resolution	Unknown type retains missing-content sentinel	IO/MapLiquidIO.cs
+tile_option_out_of_range_falls_back_to_zero	entry-resolution	Invalid tile option falls back to zero	IO/MapLiquidIO.cs
+liquid_option_out_of_range_falls_back_to_zero	entry-resolution	Invalid liquid option falls back to zero	IO/MapLiquidIO.cs
+wall_option_out_of_range_falls_back_to_zero	entry-resolution	Invalid wall option falls back to zero	IO/MapLiquidIO.cs
+duplicate_old_type_is_rejected	entry-resolution	Duplicate old type is malformed	IO/MapLiquidIO.cs
+header_discriminator_must_be_boolean	canonical-header-validation	Header discriminator must be exactly zero or one	IO/MapLiquidIO.cs
+header_old_types_must_be_strictly_ascending	canonical-header-validation	Decoded header definitions are strictly ascending	IO/MapLiquidIO.cs
+header_rejects_vanilla_old_type	canonical-header-validation	Header definitions stay in the mod map range	IO/MapLiquidIO.cs
+zero_entry_header_rejects_payload	canonical-header-validation	A zero-entry header cannot carry tile payload	IO/MapLiquidIO.cs
+malformed_header_string_is_invaliddata	canonical-header-validation	Malformed string framing surfaces as InvalidDataException	IO/MapLiquidIO.cs
+sparse_stream_preserves_first_cell	sparse-scan	Sparse scan preserves tile zero	IO/MapLiquidIO.cs
+sparse_stream_preserves_interior_cell	sparse-scan	Sparse scan preserves interior position	IO/MapLiquidIO.cs
+sparse_stream_crosses_column_boundary	sparse-scan	Scan order crosses X-major column boundary	IO/MapLiquidIO.cs
+sparse_skip_splits_at_255	sparse-scan	Skip runs split at byte 255	IO/MapLiquidIO.cs
+sparse_stream_preserves_final_cell	sparse-scan	Final cell record is preserved	IO/MapLiquidIO.cs
+trailing_skip_does_not_invent_record	sparse-scan	Trailing skip does not create a tile	IO/MapLiquidIO.cs
+sparse_skip_past_world_is_rejected	sparse-scan	Skip beyond world is malformed	IO/MapLiquidIO.cs
+rle_uses_one_byte_at_255	rle-continuation	Run 255 uses one count byte	IO/MapLiquidIO.cs
+rle_uses_two_bytes_at_256	rle-continuation	Run 256 uses two count bytes	IO/MapLiquidIO.cs
+rle_uses_two_bytes_at_65535	rle-continuation	Run 65535 remains two bytes	IO/MapLiquidIO.cs
+rle_uses_four_bytes_at_65536	rle-continuation	Run 65536 uses four bytes	IO/MapLiquidIO.cs
+rle_preserves_light_and_color	rle-continuation	RLE preserves light and color	IO/MapLiquidIO.cs
+adjacent_distinct_records_use_continuation	rle-continuation	Distinct adjacency uses continuation	IO/MapLiquidIO.cs
+rle_crosses_column_boundary_in_scan_order	rle-continuation	RLE follows X-major/Y-minor order	IO/MapLiquidIO.cs
+run_past_world_end_is_rejected	rle-continuation	Run beyond world is rejected	IO/MapLiquidIO.cs
+continuation_at_world_end_is_rejected	rle-continuation	Continuation beyond final cell is rejected	IO/MapLiquidIO.cs
+noncanonical_run_width_is_rejected	rle-continuation	Nonminimal run width is rejected	IO/MapLiquidIO.cs
+reserved_tile_flags_are_rejected_transactionally	malformed-records	Reserved flags reject without mutation	IO/MapLiquidIO.cs
+missing_type_table_reference_is_rejected	malformed-records	Unknown old type rejects without mutation	IO/MapLiquidIO.cs
+null_type_table_is_rejected	malformed-records	A missing type table rejects without mutation	IO/MapLiquidIO.cs
+truncated_tile_record_is_rejected	malformed-records	Truncated fields raise InvalidDataException	IO/MapLiquidIO.cs
+zero_rle_count_is_rejected	malformed-records	A flagged RLE record cannot encode zero repeats	IO/MapLiquidIO.cs
+run_width_without_rle_is_rejected	malformed-records	Run-width bits require the RLE-present flag	IO/MapLiquidIO.cs
+uint_run_requires_ushort_width_flag	malformed-records	The 32-bit run flag requires the 16-bit width flag	IO/MapLiquidIO.cs
+malformed_second_record_rolls_back_first	malformed-records	Later failure rolls back earlier decoded record	IO/MapLiquidIO.cs
+trailing_bytes_roll_back_payload	transactional-commit	Trailing bytes reject and roll back	IO/MapLiquidIO.cs
+valid_payload_commits_each_decoded_cell_once	transactional-commit	Commit each decoded cell once after validation	IO/MapLiquidIO.cs
+missing_content_maps_to_type_zero	transactional-commit	Missing content maps to zero	IO/MapLiquidIO.cs
+skipped_vanilla_cells_remain_untouched	transactional-commit	Skipped cells are untouched	IO/MapLiquidIO.cs
+file_write_uses_tlmap_extension	file-lifecycle	Writer changes extension and writes once	IO/MapLiquidIO.cs
+local_empty_write_deletes_local_sidecar	file-lifecycle	Empty local data deletes local sidecar	IO/MapLiquidIO.cs
+cloud_empty_write_deletes_cloud_sidecar	file-lifecycle	Empty cloud data uses cloud delete	IO/MapLiquidIO.cs
+missing_cloud_provider_never_deletes_local_file	file-lifecycle	Missing cloud provider cannot delete local path	IO/MapLiquidIO.cs
+missing_read_target_performs_no_read	file-lifecycle	Missing target performs no byte read	IO/MapLiquidIO.cs
+file_read_uses_tlmap_and_applies_valid_payload	file-lifecycle	File read uses sidecar and applies valid data	IO/MapLiquidIO.cs
+malformed_file_read_rolls_back_map	file-lifecycle	Malformed file load is transactional	IO/MapLiquidIO.cs
+writer_failure_preserves_existing_stream	coherent-save-snapshot	Preparation failure preserves writer bytes and position	IO/MapLiquidIO.cs
+writer_uses_one_map_snapshot	coherent-save-snapshot	Header and payload use one captured map generation	IO/MapLiquidIO.cs
+writer_rejects_ambiguous_registry_membership	coherent-save-snapshot	One old type cannot belong to multiple content registries	IO/MapLiquidIO.cs
+writer_rejects_lookup_below_mod_range	coherent-save-snapshot	Registered lookup bases stay in the mod-map range	IO/MapLiquidIO.cs
+writer_rejects_unrepresentable_option	coherent-save-snapshot	Writer options must fit the registered option count	IO/MapLiquidIO.cs
+file_write_preparation_failure_performs_no_io	coherent-save-snapshot	Failed sidecar preparation performs no file write or delete	IO/MapLiquidIO.cs
+nontile_identity_ambiguity_is_rejected	resolved-identity	A nontile identity cannot resolve as both liquid and wall	IO/MapLiquidIO.cs
+resolved_lookup_below_mod_range_is_rejected	resolved-identity	Decoded content lookup stays in the mod-map range	IO/MapLiquidIO.cs
+resolved_lookup_overflow_is_rejected	resolved-identity	Decoded lookup plus option stays within ushort	IO/MapLiquidIO.cs
+resolved_content_requires_an_option	resolved-identity	Resolved content exposes at least one option	IO/MapLiquidIO.cs
+world_swap_during_resolution_is_rejected	destination-generation	A load cannot commit into a replacement world	IO/MapLiquidIO.cs
+dimension_change_during_resolution_is_rejected	destination-generation	A load cannot commit after geometry changes	IO/MapLiquidIO.cs
+commit_failure_rolls_back_written_prefix	destination-generation	SetTile failure restores the committed prefix and partially mutated target	IO/MapLiquidIO.cs
+file_commit_failure_rolls_back_written_prefix	destination-generation	File loads roll back partially mutating SetTile failures	IO/MapLiquidIO.cs
+save_hook_forwards_unique_anchor	hook-integration	The unique save anchor forwards path and cloud locals	Hooks/MapHelperHooks.cs
+save_hook_rejects_missing_anchor	hook-integration	A missing save anchor emits no IL	Hooks/MapHelperHooks.cs
+save_hook_rejects_duplicate_anchor	hook-integration	Duplicate save anchors emit no IL	Hooks/MapHelperHooks.cs
+load_hook_forwards_unique_anchor	hook-integration	The unique load anchor forwards path and cloud locals	Hooks/WorldMapHooks.cs
+load_hook_rejects_missing_anchor	hook-integration	A missing load anchor emits no IL	Hooks/WorldMapHooks.cs
+load_hook_rejects_duplicate_anchor	hook-integration	Duplicate load anchors emit no IL	Hooks/WorldMapHooks.cs
+registry_publication_is_atomic_deterministic_and_coherent	registry-publication	Publish sorted liquid types and ordered options as one coherent generation	ModLoader/MapLiquidLoader.cs
+registry_rejects_out_of_range_type_without_mutation	registry-publication	Reject liquid types outside the registered custom range atomically	ModLoader/MapLiquidLoader.cs
+registry_rejects_map_type_collision_without_mutation	registry-publication	Reject collisions with existing map ownership atomically	ModLoader/MapLiquidLoader.cs
+registry_rejects_ushort_overflow_without_mutation	registry-publication	Reject unrepresentable map ranges atomically	ModLoader/MapLiquidLoader.cs
+registry_rejects_null_localized_name_without_mutation	registry-publication	Every published option requires a localized name	ModLoader/MapLiquidLoader.cs
+registry_rejects_null_name_callback_without_mutation	registry-publication	Every published option requires a name callback	ModLoader/MapLiquidLoader.cs
+client_unload_clears_all_published_state	registry-lifecycle	Client unload clears liquid-owned state and advances the generation	ModLoader/MapLiquidLoader.cs
+dedicated_server_unload_clears_all_published_state	registry-lifecycle	Dedicated-server unload cannot retain stale liquid-owned state	ModLoader/MapLiquidLoader.cs
+map_option_resolves_from_published_base_once	map-option-transaction	Resolve one callback result from the published base and forward coordinates	ModLoader/MapLiquidLoader.cs
+invalid_map_option_preserves_input	map-option-transaction	An invalid selected option leaves the caller map type unchanged	ModLoader/MapLiquidLoader.cs
+map_option_rejects_generation_change	map-option-transaction	Callback-driven publication rejects a stale option transaction	ModLoader/MapLiquidLoader.cs
+map_option_rejects_loader_generation_change_before_callback	map-option-transaction	Loader-driven publication rejects before invoking the selected callback	ModLoader/MapLiquidLoader.cs
+map_option_rejects_direct_topology_change	map-option-transaction	Direct owner topology changes reject before assigning the map type	ModLoader/MapLiquidLoader.cs
+map_option_rejects_owner_alias_outside_range	map-option-transaction	An owner alias outside its contiguous published range is invalid	ModLoader/MapLiquidLoader.cs
+writer_rejects_registry_republication_before_output	registry-generation-persistence	A save cannot emit bytes from two registry generations	IO/MapLiquidIO.cs
+reader_rejects_registry_republication_before_commit	registry-generation-persistence	A load cannot commit cells resolved across registry generations	IO/MapLiquidIO.cs
+file_writer_republication_failure_performs_no_io	registry-generation-persistence	File save performs no output after registry republication	IO/MapLiquidIO.cs
+file_reader_republication_failure_preserves_map	registry-generation-persistence	File load preserves the map after registry republication	IO/MapLiquidIO.cs
+finish_setup_hook_forwards_unique_anchor	liquid-hook-preflight	The unique finish-setup anchor forwards both table locals	Hooks/MapLoaderHooks.cs
+finish_setup_hook_rejects_missing_anchor	liquid-hook-preflight	A missing finish-setup anchor emits no IL	Hooks/MapLoaderHooks.cs
+finish_setup_hook_rejects_duplicate_anchor	liquid-hook-preflight	Duplicate finish-setup anchors emit no IL	Hooks/MapLoaderHooks.cs
+liquid_lookup_hook_forwards_both_unique_anchors	liquid-hook-preflight	Both ordered runtime lookup anchors preserve their locals and arguments	Hooks/MapHelperHooks.cs
+liquid_lookup_hook_rejects_missing_second_anchor	liquid-hook-preflight	An incomplete runtime lookup anchor set emits no IL	Hooks/MapHelperHooks.cs
+liquid_lookup_hook_rejects_duplicate_first_anchor	liquid-hook-preflight	A duplicated runtime lookup anchor emits no IL	Hooks/MapHelperHooks.cs
+liquid_lookup_hook_rejects_reversed_anchors	liquid-hook-preflight	Reversed runtime lookup anchors emit no IL	Hooks/MapHelperHooks.cs
+liquid_count_hook_forwards_all_unique_anchors	liquid-hook-preflight	All three ordered setup anchors preserve their locals and behavior	Hooks/MapHelperHooks.cs
+liquid_count_hook_rejects_missing_third_anchor	liquid-hook-preflight	An incomplete setup anchor set emits no IL	Hooks/MapHelperHooks.cs
+liquid_count_hook_rejects_duplicate_middle_anchor	liquid-hook-preflight	A duplicated setup anchor emits no IL	Hooks/MapHelperHooks.cs
+liquid_count_hook_rejects_reversed_anchors	liquid-hook-preflight	Reversed setup anchors emit no IL	Hooks/MapHelperHooks.cs

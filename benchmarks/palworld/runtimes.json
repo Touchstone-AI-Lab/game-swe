@@ -1,0 +1,71 @@
+{
+  "schema_version": 1,
+  "runtimes": [
+    {
+      "id": "palworld-linux-25247047-native-2397c7b",
+      "name": "Native Linux Palworld dedicated-server evaluator",
+      "version": "Steam 25247047; native UE4SS 2397c7b1ce2841fd6526b8d8110cd008c90a6316",
+      "provider": "steam",
+      "restricted": true,
+      "host_platforms": [
+        "linux-x64"
+      ],
+      "source": {
+        "kind": "steam-depots",
+        "appId": 2394010,
+        "os": "linux",
+        "depots": [
+          {
+            "id": 1006,
+            "manifest": "4559160656493359681"
+          },
+          {
+            "id": 2394012,
+            "manifest": "7031055933861146620"
+          }
+        ],
+        "expectedFiles": [
+          "Pal/Binaries/Linux/PalServer-Linux-Shipping",
+          "linux64/steamclient.so",
+          "Pal/Content/Paks"
+        ],
+        "sha256": {
+          "Pal/Binaries/Linux/PalServer-Linux-Shipping": "8d5c5cb6277a46713df2ad329d7b6887068b39fa98fcf84b8a5dfa3a00caa666",
+          "linux64/steamclient.so": "1a99f39637a505ce2dbfec697dafa118c2d1b8df7dea1412557e2d5ad0a2c7d4"
+        }
+      }
+    }
+  ],
+  "task_bindings": {
+    "guild-storage-ledger": [
+      "palworld-linux-25247047-native-2397c7b"
+    ],
+    "base-containment-mincut": [
+      "palworld-linux-25247047-native-2397c7b"
+    ],
+    "raid-dispatch-queue": [
+      "palworld-linux-25247047-native-2397c7b"
+    ],
+    "server-rule-ballot": [
+      "palworld-linux-25247047-native-2397c7b"
+    ],
+    "guild-draft-canonical-order": [
+      "palworld-linux-25247047-native-2397c7b"
+    ],
+    "outbox-receipt-recovery": [
+      "palworld-linux-25247047-native-2397c7b"
+    ],
+    "pal-workforce-optimal-matching": [
+      "palworld-linux-25247047-native-2397c7b"
+    ],
+    "raid-event-watermark": [
+      "palworld-linux-25247047-native-2397c7b"
+    ],
+    "guild-consistent-checkpoint": [
+      "palworld-linux-25247047-native-2397c7b"
+    ],
+    "world-epoch-fenced-timers": [
+      "palworld-linux-25247047-native-2397c7b"
+    ]
+  }
+}

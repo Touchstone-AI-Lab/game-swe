@@ -1,0 +1,14 @@
+diff --git a/ContentPatcher/Framework/Patches/EditDataPatch.cs b/ContentPatcher/Framework/Patches/EditDataPatch.cs
+index 1ad3f32..c164839 100644
+--- a/ContentPatcher/Framework/Patches/EditDataPatch.cs
++++ b/ContentPatcher/Framework/Patches/EditDataPatch.cs
+@@ -578,6 +578,9 @@ internal class EditDataPatch : Patch
+                     Type? entryType = editor.GetEntryType(key);
+                     if (entryType != typeof(string))
+                         return this.Fail($"can't apply text operation to the '{operation.Target[1].Value}' entry because it's not a string value.", out error);
++                    // nothing to edit if the entry doesn't exist
++                    if (!editor.HasEntry(key))
++                        break;
+                     string? value = (string?)editor.GetEntry(key);
+ 
+                     // set value

@@ -1,0 +1,31 @@
+case	layer	role	public_report
+CoinLedger is enabled	server	sentinel	the plugin enables on the real server
+default config.yml is written on first enable	server	target	requirement 3
+plugin.yml declares the ledger command and permissions	server	target	requirement 16
+the fee account is created on enable	server	target	requirement 4; requirement 12; requirement 14
+open creates an account with the starting balance	server	target	requirement 5; requirement 2; requirement 12; requirement 14
+account names are case-insensitive and validated	server	target	requirement 2; requirement 5
+deposit and withdraw report the new balance	server	target	requirement 6; requirement 1
+invalid amounts are rejected	server	target	requirement 1
+withdrawals cannot overdraw an account	server	target	requirement 6
+transfers move money and pay the fee	server	target	requirement 7; requirement 14
+fees are rounded down to the cent	server	target	requirement 7; requirement 1
+transfers need funds for the amount plus the fee	server	target	requirement 7
+transfers are validated from left to right	server	target	requirement 10; requirement 7
+frozen accounts can neither send nor receive	server	target	requirement 9; requirement 10
+freeze and unfreeze report the state change	server	target	requirement 9; requirement 16; requirement 12; requirement 14
+the maximum balance caps deposits and transfers	server	target	requirement 8
+accounts.yml holds balances in cents	server	target	requirement 14
+audit.log records each change as one line	server	target	requirement 11; requirement 12
+rejected commands change nothing	server	target	requirement 10; requirement 11
+history pages entries newest first	server	target	requirement 13
+history rejects pages that do not exist	server	target	requirement 13
+top ranks accounts by balance then name	server	target	requirement 17; requirement 15
+reload re-reads accounts, history and configuration	server	target	requirement 15; requirement 3; requirement 13
+reload applies a new fee account	server	target	requirement 15; requirement 4; requirement 7
+players pay from their own account	server	target	requirement 18; requirement 7
+players see their own balance and history	server	target	requirement 18
+permissions are enforced	server	target	requirement 16; requirement 18
+case-variant self-transfer is rejected before frozen checks	server	target	requirements 2, 7, 9, 10, 11, 12 and 14
+malformed commands show usage	server	target	requirement 16; requirement 10
+fee account as recipient checks the combined credit before mutation	server	target	requirement 8; requirement 7; requirement 10

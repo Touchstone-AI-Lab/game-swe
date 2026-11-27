@@ -1,0 +1,12 @@
+diff -ruN a/SummonAnywhere/ModEntry.cs b/SummonAnywhere/ModEntry.cs
+--- a/SummonAnywhere/ModEntry.cs
++++ b/SummonAnywhere/ModEntry.cs
+@@ -21,7 +21,7 @@
+ 
+         public static void AfterGetHorseWarpRestrictions(ref Utility.HorseWarpRestrictions __result)
+         {
+-            __result &= ~Utility.HorseWarpRestrictions.Indoors;
++            __result &= ~Utility.HorseWarpRestrictions.NoRoom;
+         }
+     }
+ }

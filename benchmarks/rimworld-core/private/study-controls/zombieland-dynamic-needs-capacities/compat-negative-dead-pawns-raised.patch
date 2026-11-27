@@ -1,0 +1,11 @@
+--- a/Zombieland/Source/Patches.cs
++++ b/Zombieland/Source/Patches.cs
+@@ -67,7 +67,7 @@
+ 		{
+ 			static bool ShouldHaveFullCapacity(Pawn pawn)
+ 			{
+-				return pawn?.health?.Dead == false
++				return pawn != null
+ 					&& (pawn is ZombieSymbiant || Need_CurLevel_Patch.infectedColonists.Contains(pawn));
+ 			}
+ 

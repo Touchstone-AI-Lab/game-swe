@@ -1,0 +1,11 @@
+--- a/scripts/components/lootrollarbiter.lua
++++ b/scripts/components/lootrollarbiter.lua
+@@ -32,7 +32,7 @@
+     -- entity is forgotten so a later delivery resolves the userid again.
+     self._on_player_left = function(_, player)
+         if type(player) == "table" and type(player.userid) == "string" then
+-            self.players[player.userid] = nil
++            self.left = (self.left or 0) + 1
+         end
+     end
+     inst:ListenForEvent("ms_playerleft", self._on_player_left)

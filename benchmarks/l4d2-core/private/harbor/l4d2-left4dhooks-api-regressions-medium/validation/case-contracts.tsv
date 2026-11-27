@@ -1,0 +1,72 @@
+case	group	role	public_contract
+spawn_timer_public_include_abi_matches_runtime	spawn_timer	target	Submitted public include declares L4D2Direct_GetSpawnTimer as float and compiles a float consumer.
+runtime_ammo_library_loaded	ammo	guard	Submitted Left4DHooks library loads in pinned SourceMod.
+ammo_index_range_is_engine_valid	ammo	guard	AmmoDef exposes a bounded engine index range.
+ammo_names_are_nonempty	ammo	target	Every valid Ammo_t has a non-empty name.
+ammo_name_roundtrips_to_index	ammo	target	AmmoDef.Index(GetName()) recovers the source index.
+ammo_names_are_stable_and_unique	ammo	target	Repeated names agree and valid entries are distinct.
+ammo_getname_preserves_other_fields	ammo	guard	GetName does not modify nDamageType.
+runtime_vomit_library_loaded	vomit	guard	Submitted Left4DHooks library loads for projectile checks.
+vomit_pre_forward_once	vomit	target	One bile creation dispatches one documented pre forward.
+vomit_post_forward_once	vomit	target	One unblocked bile creation dispatches one documented post forward.
+vomit_projectile_result_and_arguments	vomit	target	Non-zero owner and all four vector parameters match the entity and post forward.
+vomit_changed_vectors_reach_creation_and_post	vomit	target	Plugin_Changed copyback reaches the engine entity and post forward.
+vomit_handled_path_is_preserved	vomit	target	Plugin_Handled blocks creation and PostHandled keeps owner/vector semantics.
+molotov_forward_family_remains_functional	vomit	guard	Normal Molotov creation retains its own pre/post forward contract.
+vomit_creation_never_dispatches_molotov_family	vomit	guard	Bile creation never dispatches Molotov callbacks.
+runtime_spawn_library_loaded	spawn_timer	guard	Submitted Left4DHooks library loads for spawn-time checks.
+spawn_timer_invalid_zero	spawn_timer	target	Client zero returns -1.0.
+spawn_timer_invalid_above_max	spawn_timer	target	Client index above MaxClients returns -1.0.
+spawn_timer_returns_absolute_field	spawn_timer	target	Direct API returns absolute m_flBecomeGhostAt.
+spawn_timer_updates_and_relative_api_remains_distinct	spawn_timer	target	Updated direct absolute value remains distinct from relative API duration.
+spawn_timer_read_preserves_adjacent_state	spawn_timer	guard	Direct reads leave client membership and team unchanged.
+runtime_weaponattr_library_loaded	weapon_attributes	guard	Submitted Left4DHooks library and a real engine rifle definition are available.
+ordinary_float_weapon_attribute_roundtrips	weapon_attributes	guard	An ordinary decimal float weapon attribute round-trips unchanged.
+penetration_layers_store_integral_count	weapon_attributes	target	Setting penetration layers to 3.75 stores and reads the engine integral count 3.0.
+penetration_layers_preserve_adjacent_power	weapon_attributes	guard	Writing penetration layers does not alter adjacent penetration power.
+missing_float_weapon_attribute_returns_negative_one	weapon_attributes	target	A nonexistent weapon returns the numeric sentinel -1.0.
+runtime_animhook_library_loaded	animation_lifecycle	guard	Left4DHooks accepts the same consumer callbacks for two real client slots.
+two_client_animation_hooks_fire	animation_lifecycle	guard	Both client hooks receive real animation selection callbacks.
+reenabled_animation_hook_not_duplicated	animation_lifecycle	target	Disabling and re-enabling one client leaves exactly one callback registration.
+peer_animation_hook_survives_other_client_cycle	animation_lifecycle	guard	The peer client's hook remains active during another client's cycle.
+final_disable_removes_selected_client_callback	animation_lifecycle	guard	Final disable stops the selected client without disabling its peer.
+runtime_pipebomb_library_loaded	pipebomb	guard	Submitted Left4DHooks library loads for pipe-bomb and breakable-prop checks.
+real_pipebomb_creation_forwards_once	pipebomb	guard	One real pipe-bomb creation dispatches exactly one matching creation pre/post pair.
+real_pipebomb_detonation_forwards_once	pipebomb	guard	One real pipe-bomb detonation dispatches exactly one matching detonation pre/post pair.
+breakable_prop_real_break_path_completes	pipebomb	guard	A real propane physics prop reaches its engine break lifecycle.
+breakable_prop_never_dispatches_pipebomb_creation	pipebomb	target	Breaking a non-pipe-bomb prop never dispatches pipe-bomb creation forwards.
+breakable_prop_never_dispatches_pipebomb_detonation	pipebomb	target	Breaking a non-pipe-bomb prop never dispatches pipe-bomb detonation forwards.
+runtime_campaign_scores_library_loaded	campaignscores	guard	Submitted Left4DHooks library loads for campaign-score checks.
+campaign_scores_pre_forward_once	campaignscores	guard	One engine score update dispatches one pre forward.
+campaign_scores_pre_receives_original_values	campaignscores	guard	The pre forward receives original scores 120 and 340.
+campaign_scores_post_forward_once	campaignscores	target	One engine score update dispatches one post forward without a parameter-type error.
+campaign_scores_changed_values_reach_post	campaignscores	target	Plugin_Changed values 131 and 362 reach the post forward as ordinary values.
+runtime_melee_info_library_loaded	meleeinfo	guard	Submitted Left4DHooks and the map's fireaxe definition are available.
+melee_float_attribute_is_readable	meleeinfo	target	The real fireaxe float damage attribute is readable and bounded.
+melee_int_attribute_is_readable	meleeinfo	target	The real fireaxe integer damage flags are readable.
+melee_bool_attribute_is_stable	meleeinfo	target	Repeated reads of the real fireaxe decapitation flag agree.
+melee_float_attribute_roundtrips_and_restores	meleeinfo	target	A temporary fireaxe damage update round-trips and restores the original value.
+runtime_stagger_library_and_clients_ready	stagger	guard	The library loads with one live survivor and one live Special Infected for public-native checks.
+initial_stagger_becomes_active	stagger	guard	An ordinary real stagger becomes active before any cancellation.
+same_frame_restagger_survives_cancel_window	stagger	target	A same-frame re-stagger stays active and its animation is not forced to completion during cleanup.
+next_frame_restagger_survives_cancel_window	stagger	target	A next-frame re-stagger stays active and its animation is not forced to completion during cleanup.
+completed_cancel_still_allows_later_stagger	stagger	guard	A later ordinary stagger works after the cancellation window has completed.
+runtime_unpicked_gascan_fixture_ready	gascan	guard	The library, survivor attacker, and an unpicked physical gas can are available.
+unpicked_gascan_pre_forward_once	gascan	target	Damaging one never-picked-up physical gas can dispatches exactly one pre forward.
+unpicked_gascan_pre_forward_arguments	gascan	target	The pre forward identifies the gas can and its real inflictor and attacker.
+unpicked_gascan_post_forward_once	gascan	target	The same gas-can damage dispatches exactly one matching post forward.
+unpicked_gascan_post_forward_arguments	gascan	target	The post forward preserves the matching gas can, inflictor, and attacker.
+weapon_gascan_path_dispatches_once	gascan	guard	The existing weapon-gas-can class path dispatches one pre/post pair without duplication.
+weapon_gascan_path_preserves_arguments	gascan	guard	The existing weapon-gas-can class path preserves its real inflictor and attacker.
+ordinary_physics_prop_never_dispatches_gascan_family	gascan	guard	Damaging an ordinary physics prop does not dispatch gas-can forwards.
+runtime_entity_address_library_loaded	entityaddress	guard	The published entity-address native is available after a normal load.
+entity_address_fixture_covers_engine_entities	entityaddress	guard	The live server exposes valid engine entities outside the networked-edict subset.
+entity_addresses_roundtrip_for_all_live_entities	entityaddress	target	Every live engine entity address maps back to the same entity index.
+non_edict_entity_addresses_roundtrip	entityaddress	target	Valid non-edict entity addresses map back to their engine indices.
+entity_address_lookup_is_stable	entityaddress	guard	Repeated lookups of every live engine entity address agree.
+null_entity_address_returns_negative_one	entityaddress	guard	A null entity address remains the documented invalid lookup.
+runtime_lobby_reservation_library_loaded	lobbyreservation	guard	The published lobby reservation natives are available.
+short_lobby_cookie_call_survives	lobbyreservation	target	A one-digit hexadecimal cookie returns normally without a native error.
+short_lobby_cookie_preserves_word_placement	lobbyreservation	target	The one-digit cookie retains the established high-word representation.
+full_lobby_cookie_roundtrips	lobbyreservation	guard	A full 64-bit hexadecimal cookie round-trips exactly.
+lobby_cookie_can_be_restored	lobbyreservation	guard	The original reservation cookie can be restored after the checks.

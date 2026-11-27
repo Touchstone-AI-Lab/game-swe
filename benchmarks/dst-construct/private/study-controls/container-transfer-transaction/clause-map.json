@@ -1,0 +1,389 @@
+{
+  "task": "dst/construct/container-transfer-transaction",
+  "task_version": "2.1.0",
+  "exam": "benchmarks/dst-construct/exams/container-transfer-transaction.md",
+  "cases": [
+    {
+      "id": "check:required-files",
+      "role": "static",
+      "clauses": [
+        "deliver-1"
+      ],
+      "overlap": false,
+      "note": "file presence gate"
+    },
+    {
+      "id": "check:lua-syntax",
+      "role": "static",
+      "clauses": [],
+      "overlap": false,
+      "note": "parse gate"
+    },
+    {
+      "id": "hidden:successful transfer uses deterministic source slots",
+      "role": "target",
+      "clauses": [
+        "deliver-2",
+        "deliver-3",
+        "core-2",
+        "core-3",
+        "core-4b",
+        "shape-1",
+        "shape-2",
+        "shape-4"
+      ],
+      "overlap": false,
+      "note": "Observes slot order only through the `slot` field of the first row the fake adapter received in add (hidden/container-transfer-transaction.lua:52,73). Resolved in catalog 2.1.0.",
+      "over_constrained": false
+    },
+    {
+      "id": "hidden:capacity preflight prevents destructive calls",
+      "role": "target",
+      "clauses": [
+        "core-3",
+        "accept-1"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "hidden:add failure restores destination before source",
+      "role": "target",
+      "clauses": [
+        "deliver-3",
+        "core-5a",
+        "accept-2"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "hidden:committed retry invokes no adapter operations",
+      "role": "target",
+      "clauses": [
+        "core-7",
+        "accept-4",
+        "shape-1"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "hidden:malformed request is rejected before adapter",
+      "role": "target",
+      "clauses": [
+        "core-1"
+      ],
+      "overlap": false,
+      "note": "One request with two defects at once (same container and count=-1)."
+    },
+    {
+      "id": "hidden:save load preserves committed idempotency",
+      "role": "target",
+      "clauses": [
+        "deliver-2",
+        "core-7",
+        "core-8",
+        "accept-4"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "check:implementation-depth",
+      "role": "static",
+      "clauses": [
+        "constraint-1"
+      ],
+      "overlap": false,
+      "note": "non-comment line count gate"
+    },
+    {
+      "id": "check:transfer-authority",
+      "role": "target",
+      "clauses": [
+        "dst-1",
+        "constraint-1"
+      ],
+      "overlap": false,
+      "note": "regular-expression gate over the submitted source, not an execution; its none_of also rejects TODO / IMPLEMENT ME"
+    },
+    {
+      "id": "check:transfer-containers",
+      "role": "target",
+      "clauses": [
+        "dst-3a"
+      ],
+      "overlap": false,
+      "note": "regular-expression gate over the submitted source, not an execution"
+    },
+    {
+      "id": "check:transfer-action-rpc",
+      "role": "target",
+      "clauses": [
+        "dst-2b",
+        "dst-4",
+        "api-2"
+      ],
+      "overlap": false,
+      "note": "regular-expression gate over the submitted source, not an execution; AddStategraphActionHandler is not in the pattern set"
+    },
+    {
+      "id": "check:transfer-lifecycle",
+      "role": "target",
+      "clauses": [
+        "dst-5",
+        "dst-6"
+      ],
+      "overlap": false,
+      "note": "regular-expression gate over the submitted source, not an execution"
+    },
+    {
+      "id": "server:world transfer component is attached",
+      "role": "target",
+      "clauses": [
+        "dst-1",
+        "accept-5"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "server:real container stacks transfer without loss",
+      "role": "target",
+      "clauses": [
+        "dst-2a",
+        "dst-3a",
+        "api-3",
+        "accept-5"
+      ],
+      "overlap": false,
+      "note": "two real treasurechest entities, a 5-stack of twigs, transfer of 4"
+    },
+    {
+      "id": "server:transaction state reloads",
+      "role": "target",
+      "clauses": [
+        "dst-6",
+        "core-6",
+        "api-3",
+        "accept-3",
+        "accept-5"
+      ],
+      "overlap": false,
+      "note": "OnSave returns a table, OnLoad(data) and Recover() do not error; no interrupted phase exists at that point"
+    }
+  ],
+  "clauses": [
+    {
+      "id": "deliver-1",
+      "anchor": "Required deliverables item 1 (file list): \"scripts/components/containertransfer.lua\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "deliver-2",
+      "anchor": "Required deliverables item 2 (pure module exports): \"The pure module exports:\"",
+      "status": "weak",
+      "note": "new, load, transfer and save are exercised by the hidden cases; the pure module's recover() and status() are never called by any case."
+    },
+    {
+      "id": "deliver-3",
+      "anchor": "Required deliverables item 3 (adapter contract): \"The adapter contract is:\"",
+      "status": "asserted",
+      "note": "The fake adapter in the hidden suite implements exactly this contract and records the calls."
+    },
+    {
+      "id": "core-1",
+      "anchor": "Core semantics item 1: \"Validate all fields and reject an identical source and destination before any adapter call\"",
+      "status": "weak",
+      "note": "A single malformed request carries two defects at once (source==destination and count=-1); checking either one passes. Identifier format and missing-field validation are never exercised."
+    },
+    {
+      "id": "core-2",
+      "anchor": "Core semantics item 2: \"source items are selected in ascending slot order\"",
+      "status": "asserted",
+      "note": "Slot-ascending selection is asserted (unsorted fake snapshot, slots 3 then 1). Metadata pass-through is not checked. See known_issues for how the order is observed."
+    },
+    {
+      "id": "core-3",
+      "anchor": "Core semantics item 3: \"Obtain the source and destination snapshots first, then preflight the source total and the destination capacity\"",
+      "status": "asserted",
+      "note": "Snapshot order (calls[1], calls[2]) and the capacity failure path are asserted; the insufficient-source-total path is not."
+    },
+    {
+      "id": "core-4a",
+      "anchor": "Core semantics item 4 (first half): \"Before the first destructive call, write a `prepared` intent containing both snapshots and the selected items into the saveable state\"",
+      "status": "unasserted",
+      "note": "No case calls save() from inside an adapter call or inspects a saved non-final record, so write-ahead ordering is never observed."
+    },
+    {
+      "id": "core-4b",
+      "anchor": "Core semantics item 4 (second half): \"the phases are, in order,\"",
+      "status": "weak",
+      "note": "Only the terminal status string \"committed\" is observed; intermediate phase names and their order are not."
+    },
+    {
+      "id": "core-5a",
+      "anchor": "Core semantics item 5 (first sentence): \"restore the destination snapshot first, then restore the source snapshot\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "core-5b",
+      "anchor": "Core semantics item 5 (second sentence): \"keep an explicit recoverable phase; completion must not be falsely reported\"",
+      "status": "unasserted",
+      "note": "The fake adapter has a restore_fail option (hidden/container-transfer-transaction.lua:57) but no case sets it."
+    },
+    {
+      "id": "core-6",
+      "anchor": "Core semantics item 6: \"completes the commit or compensates in reverse order, depending on the saved phase; repeated recovery must be idempotent\"",
+      "status": "weak",
+      "note": "Only the component's Recover() is called once, with no interrupted record, and only for not raising. The pure recover() is never called."
+    },
+    {
+      "id": "core-7",
+      "anchor": "Core semantics item 7: \"A retry of an already committed request must not call the adapter again\"",
+      "status": "asserted",
+      "note": "Asserted for committed requests, in memory and after save/load. Stability of failed and pending results is not exercised."
+    },
+    {
+      "id": "core-8",
+      "anchor": "Core semantics item 8: \"must not expose the adapter, functions or mutable internal tables to the caller\"",
+      "status": "weak",
+      "note": "save() output is only fed back into Transaction.load; nothing inspects or mutates it."
+    },
+    {
+      "id": "dst-1",
+      "anchor": "DST integration item 1: \"world component only on the master simulation\"",
+      "status": "asserted",
+      "note": "The server case asserts presence on the master simulation; absence on clients cannot be observed on a headless server. check:transfer-authority is an additional source-pattern gate."
+    },
+    {
+      "id": "dst-2a",
+      "anchor": "DST integration item 2 (first half): \"The server looks up entities by stable ID\"",
+      "status": "asserted",
+      "note": "Track(entity, id) followed by Transfer with ids only."
+    },
+    {
+      "id": "dst-2b",
+      "anchor": "DST integration item 2 (second half): \"the client may only send the source ID, destination ID, prefab, count and request ID\"",
+      "status": "weak",
+      "note": "Only the presence of AddModRPCHandler( is matched; the RPC handler is never invoked."
+    },
+    {
+      "id": "dst-3a",
+      "anchor": "DST integration item 3 (first half): \"The adapter uses the slots of the base-game\"",
+      "status": "asserted",
+      "note": "Real chest stacks are counted before/after (5 -> 1 + 4)."
+    },
+    {
+      "id": "dst-3b",
+      "anchor": "DST integration item 3 (second half): \"perish percentage and finite-use durability\"",
+      "status": "unasserted",
+      "note": "The server suite moves twigs only; no perishable or finiteuses item is used and no pattern mentions them."
+    },
+    {
+      "id": "dst-4",
+      "anchor": "DST integration item 4: \"Register a custom Action, a Component Action, a stategraph Action Handler and a server-side Mod RPC\"",
+      "status": "weak",
+      "note": "Source patterns for AddAction(, AddComponentAction( and AddModRPCHandler( only; the stategraph handler is not matched and nothing is executed."
+    },
+    {
+      "id": "dst-5",
+      "anchor": "DST integration item 5: \"every listener registration must be paired with its removal\"",
+      "status": "weak",
+      "note": "Pattern needs one of itemget/itemlose plus RemoveEventCallback( anywhere in the source."
+    },
+    {
+      "id": "dst-6",
+      "anchor": "DST integration item 6: \"The world component saves its state through\"",
+      "status": "weak",
+      "note": "OnSave must return a table and OnLoad(data) must not raise; persisted content and the recover-after-load call are not checked (the suite calls Recover itself)."
+    },
+    {
+      "id": "api-1",
+      "anchor": "Base-game API contract item 1 (GiveItem paragraph): \"otherwise a capacity failure may drop the item into the world\"",
+      "status": "unasserted",
+      "note": "check:transfer-containers matches GiveItem( with any arguments; no case makes a real GiveItem fail."
+    },
+    {
+      "id": "api-2",
+      "anchor": "Base-game API contract item 2 (Action wiring): \"The Action wiring uses the base-game signatures\"",
+      "status": "weak",
+      "note": "Same source patterns as dst-4; names, namespaces and both stategraphs are not checked."
+    },
+    {
+      "id": "api-3",
+      "anchor": "Base-game API contract item 3 (last paragraph): \"The world component must expose\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "accept-1",
+      "anchor": "Acceptance item 1: \"Insufficient capacity does not change either container\"",
+      "status": "asserted",
+      "note": "Asserted against the fake adapter only (no remove/add call); not repeated with real chests."
+    },
+    {
+      "id": "accept-2",
+      "anchor": "Acceptance item 2: \"A partial failure is restored in the order destination first, then source, and the total item count is unchanged\"",
+      "status": "asserted",
+      "note": "Fake adapter only."
+    },
+    {
+      "id": "accept-3",
+      "anchor": "Acceptance item 3: \"Any persisted phase can be completed or safely rolled back after a reload\"",
+      "status": "weak",
+      "note": "The only reload in either suite happens with every record final."
+    },
+    {
+      "id": "accept-4",
+      "anchor": "Acceptance item 4: \"A retry does not transfer again\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "accept-5",
+      "anchor": "Acceptance item 5: \"The headless dedicated server test creates two base-game chests and real item stacks\"",
+      "status": "weak",
+      "note": "The server suite covers the success path and a no-error save/load only; capacity failure, compensation and event cleanup are not exercised on the server."
+    },
+    {
+      "id": "constraint-1",
+      "anchor": "Acceptance, closing line: \"placeholder implementations and hard-coding against test names are forbidden\"",
+      "status": "weak",
+      "note": "Only a line-count gate and a TODO / IMPLEMENT ME source pattern."
+    },
+    {
+      "id": "shape-1",
+      "anchor": "Return values and data shapes item 1: \"returns a new table containing a boolean\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "shape-2",
+      "anchor": "Return values and data shapes item 2: \"The core must pass these entries to\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "shape-4",
+      "anchor": "Return values and data shapes item 4: \"The first two adapter calls of a transfer are, in order, the source snapshot and the destination snapshot\"",
+      "status": "asserted",
+      "note": ""
+    }
+  ],
+  "excluded_clauses": [
+    "core-4a",
+    "core-5b",
+    "dst-3b",
+    "api-1"
+  ],
+  "known_issues": [
+    "hidden/container-transfer-transaction.lua:57 defines a restore_fail adapter option that no case uses, so clause core-5b (failed compensation must stay recoverable) has no evidence.",
+    "No case ever calls the pure module's recover() or status(); server/container-transfer-transaction.lua:44-48 only calls the component's OnSave/OnLoad/Recover with every record final and checks that nothing raises. Recovery semantics (core-6, accept-3) and write-ahead intent (core-4a) are effectively unmeasured.",
+    "The starter is an empty workspace: every case fails in the starter, so the task has no preserved case and no compat-negative.",
+    "Catalog 2.1.0: the exam now states that the rows returned by adapter:remove, including the source slot, are handed to adapter:add unchanged and in ascending slot order, which is what the first hidden case observes; control strict-reading-drops-slot therefore violates a published rule and is a target-negative. recover()/status() and failed compensation remain unmeasured."
+  ]
+}

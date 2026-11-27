@@ -1,0 +1,21 @@
+{
+  "version": "M4-v2-design-1",
+  "created_at": "2026-09-20T03:33:55+0800",
+  "status": "specified before candidate authoring",
+  "files": {
+    "CONTRACT.md": "41237b1afd578cc72b335bcd9d665cbd6de55f4413c91b34283b6c7469e9a41a",
+    "CASE-MUTATION-MATRIX.md": "db47bcbe0661b1e81f14bca407a6f3c48ca9f75b8ca2a986f45cf03a2d5e8ac2",
+    "INDEPENDENCE.md": "c17ad69e064736c640f316b8dbdb7455580874e84b433a7c00fb9cb2e4d8c60c"
+  },
+  "prerequisite": {
+    "path": "validation-wear-prerequisite-v2-dev1.json",
+    "sha256": "81161f30d301bb1d11105ca1c9c92b22fc5ff625be59bb4284a6b8c45717c42d"
+  },
+  "editable_files": [
+    "main.lua",
+    "lib/wear.lua"
+  ],
+  "immutable_files": [
+    "isolated_card_wear_v2.json"
+  ]
+}

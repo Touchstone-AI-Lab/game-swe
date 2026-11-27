@@ -1,0 +1,40 @@
+{
+  "protocol": "v2",
+  "task": "isolated-card-wear-v2",
+  "slot": "M4",
+  "target_difficulty": "medium",
+  "calibration_status": "unmeasured",
+  "calibration_model": null,
+  "calibration_evidence": [],
+  "formal_integration_status": "not_implemented",
+  "files": {
+    "CONTRACT.md": {
+      "size": 2590,
+      "sha256": "41237b1afd578cc72b335bcd9d665cbd6de55f4413c91b34283b6c7469e9a41a"
+    },
+    "README.md": {
+      "size": 1373,
+      "sha256": "62521eff01c1fa4aecc8b7a68225b9bace38e592b9e0a70ad384bd2e2bb1259d"
+    },
+    "starter/main.lua": {
+      "size": 981,
+      "sha256": "41c143cbe6c1e6d0e12522a1480c136248e6c51b73f2fa8f3c17abe5a3512ba8"
+    },
+    "starter/lib/wear.lua": {
+      "size": 645,
+      "sha256": "afb725856e7eb8609ca29f0f9fc154dc4c9e7249eaab797d184369b8a5aa15d7"
+    },
+    "starter/isolated_card_wear_v2.json": {
+      "size": 302,
+      "sha256": "ffcb3e1e431cb15b528ade520efa12d102febb1537bdf3b02874dc59e154e2e8"
+    }
+  },
+  "content_sha256": "6fdbf176863b39b432fad030735c8ea35b30de8abc3d87658ce3fc32e48cbbe9",
+  "editable_files": [
+    "starter/main.lua",
+    "starter/lib/wear.lua"
+  ],
+  "immutable_files": [
+    "starter/isolated_card_wear_v2.json"
+  ]
+}

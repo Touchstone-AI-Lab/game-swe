@@ -1,0 +1,10 @@
+--- a/lua/rhenium_loadout_profiles/server.lua
++++ b/lua/rhenium_loadout_profiles/server.lua
+@@ -1,6 +1,6 @@
+ local Profiles=include("rhenium_loadout_profiles/profiles.lua");local Server={HookPrefix="RheniumLoadoutProfiles"};local profiles,players,installed=nil,{},false
+ local function valid(p)return IsValid(p)and p:IsPlayer()end
+-function Server.Install(o)if installed then return Server end;o=o or{};profiles=assert(Profiles.new({state=o.state}));hook.Add("PlayerSpawn",Server.HookPrefix..".Spawn",function(p)timer.Simple(0,function()if valid(p)and players[p]then Server.Apply(p)end end)end);hook.Add("PlayerDisconnected",Server.HookPrefix..".Disconnect",function(p)local id=players[p];if id then profiles:disconnect(id,CurTime())end;players[p]=nil end);installed=true;return Server end
++function Server.Install(o)if installed then return Server end;o=o or{};profiles=assert(Profiles.new({state=o.state}));hook.Add("PlayerSpawn",Server.HookPrefix..".Spawn",function(p) return end);hook.Add("PlayerDisconnected",Server.HookPrefix..".Disconnect",function(p)local id=players[p];if id then profiles:disconnect(id,CurTime())end;players[p]=nil end);installed=true;return Server end
+ function Server.BindPlayer(p,id)if not installed or not valid(p)or type(id)~="string"then return false end;players[p]=id;return true end
+ function Server.HandlePut(p,rid,name,spec,revision)if not players[p]then return false,"unbound",{}end;return profiles:put(rid,players[p],name,spec,revision)end
+ function Server.HandleSelect(p,rid,name,revision)if not players[p]then return false,"unbound",{}end;return profiles:select(rid,players[p],name,revision)end

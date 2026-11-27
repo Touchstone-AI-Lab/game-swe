@@ -1,0 +1,11 @@
+--- a/scripts/fuelration/allocator.lua
++++ b/scripts/fuelration/allocator.lua
+@@ -128,7 +128,7 @@
+         return copy_request(history[request_id], true)
+     end
+ 
+-    local free = self.depot_capacity - self.available - self.reserved
++    local free = self.depot_capacity - self.available
+     local record
+     if free <= 0 then
+         record = { ok = false, code = "depot_full", accepted = 0 }

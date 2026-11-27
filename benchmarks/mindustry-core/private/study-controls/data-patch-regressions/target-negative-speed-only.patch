@@ -1,0 +1,10 @@
+--- a/core/src/mindustry/world/blocks/defense/BuildTurret.java
++++ b/core/src/mindustry/world/blocks/defense/BuildTurret.java
+@@ -73,7 +73,6 @@
+         super.afterPatch();
+         unitType.rotateSpeed = rotateSpeed;
+         unitType.buildBeamOffset = buildBeamOffset;
+-        unitType.buildRange = range;
+         unitType.buildSpeed = buildSpeed;
+     }
+ 

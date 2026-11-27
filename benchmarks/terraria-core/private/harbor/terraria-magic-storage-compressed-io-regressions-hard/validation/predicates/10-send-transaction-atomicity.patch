@@ -1,0 +1,103 @@
+diff --git a/Common/IO/NetCompression.NetIO.cs b/Common/IO/NetCompression.NetIO.cs
+--- a/Common/IO/NetCompression.NetIO.cs
++++ b/Common/IO/NetCompression.NetIO.cs
+@@ -31,6 +31,10 @@ namespace MagicStorage.Common.IO {
+ 		}
+ 
+ 		public static void SendItem(Item item, ValueWriter writer, bool writeStack, bool writeFavorite) {
++			writer.WriteAtomically(stagedWriter => SendItemCore(item, stagedWriter, writeStack, writeFavorite));
++		}
++
++		private static void SendItemCore(Item item, ValueWriter writer, bool writeStack, bool writeFavorite) {
+ 			using (writer.CreateScope(lengthTiers, optimizeForBytes: false)) {
+ 				ModContent.GetInstance<ItemTypeTracker>().Send(item, writer);
+ 				ModContent.GetInstance<ItemPrefixTracker>().Send(item, writer);
+@@ -65,10 +69,14 @@ namespace MagicStorage.Common.IO {
+ 		}
+ 
+ 		public static void SendItems(List<Item> items, ValueWriter writer, bool writeStacks = true, bool writeFavorites = true, int? listCountBitSizeOverride = null) {
++			writer.WriteAtomically(stagedWriter => SendItemsCore(items, stagedWriter, writeStacks, writeFavorites, listCountBitSizeOverride));
++		}
++
++		private static void SendItemsCore(List<Item> items, ValueWriter writer, bool writeStacks, bool writeFavorites, int? listCountBitSizeOverride) {
+ 			writer.Write((uint)items.Count, listCountBitSizeOverride ?? BitBuffer128.MAX_INT);
+ 			foreach (Item item in items) {
+ 				using (writer.CreateScope(lengthTiers, optimizeForBytes: false))
+-					SendItem(item, writer, writeStacks, writeFavorites);
++					SendItemCore(item, writer, writeStacks, writeFavorites);
+ 			}
+ 		}
+ 
+diff --git a/Common/IO/ValueWriter.cs b/Common/IO/ValueWriter.cs
+--- a/Common/IO/ValueWriter.cs
++++ b/Common/IO/ValueWriter.cs
+@@ -9,6 +9,7 @@ namespace MagicStorage.Common.IO {
+ 	public class ValueWriter {
+ 		private BitBuffer128 _bits;
+ 		private int _head;
++		private ulong _writtenBitCount;
+ 		private readonly Stream _stream;
+ 		private readonly LengthCompressor<uint> _globalArrayLengthWriter;
+ 
+@@ -44,6 +45,7 @@ namespace MagicStorage.Common.IO {
+ 			}
+ 
+ 			_bits.Set(value, ref _head);
++			_writtenBitCount++;
+ 
+ 			CheckBits();
+ 		}
+@@ -81,6 +83,7 @@ namespace MagicStorage.Common.IO {
+ 			}
+ 
+ 			_bits.SetVariant(value, ref _head, (byte)numBits);
++			_writtenBitCount += (uint)numBits;
+ 
+ 			CheckBits();
+ 		}
+@@ -126,6 +129,8 @@ namespace MagicStorage.Common.IO {
+ 			else if (typeof(T) == typeof(long))
+ 				_bits.SetVariant((ulong)Unsafe.As<T, long>(ref value), ref _head, (byte)numBits);
+ 
++			_writtenBitCount += (uint)numBits;
++
+ 			CheckBits();
+ 		}
+ 
+@@ -174,6 +179,35 @@ namespace MagicStorage.Common.IO {
+ 			for (int i = 0; i < bytes.Length; i++)
+ 				Write(bytes[i], BitBuffer128.MAX_BYTE);
+ 		}
+ 
++		internal void WriteAtomically(Action<ValueWriter> write) {
++			ArgumentNullException.ThrowIfNull(write);
++
++			using MemoryStream stream = new();
++			ValueWriter stagedWriter = _globalArrayLengthWriter is null
++				? new ValueWriter(stream)
++				: new ValueWriter(stream, _globalArrayLengthWriter);
++
++			write(stagedWriter);
++			if (stagedWriter._activeScope is not null)
++				throw new InvalidOperationException("A staged write left a scope open.");
++
++			stagedWriter.Flush();
++			WriteContents(stream.ToArray(), stagedWriter._writtenBitCount);
++		}
++
++		private void WriteContents(byte[] bytes, ulong bitCount) {
++			if (bitCount > (ulong)bytes.LongLength * BitBuffer128.MAX_BYTE)
++				throw new ArgumentOutOfRangeException(nameof(bitCount));
++
++			int wholeBytes = checked((int)(bitCount / BitBuffer128.MAX_BYTE));
++			for (int i = 0; i < wholeBytes; i++)
++				Write(bytes[i], BitBuffer128.MAX_BYTE);
++
++			int remainingBits = (int)(bitCount % BitBuffer128.MAX_BYTE);
++			if (remainingBits > 0)
++				Write(bytes[wholeBytes], remainingBits);
++		}
++
+ 		public void Write7BitEncodedInt(int value) {
+ 			uint num = (uint)value;
+ 

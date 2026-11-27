@@ -1,0 +1,1 @@
+{"modid": "suiteobserver", "name": "Private suite game observer", "version": "0.0.1", "author_list": ["Benchmark development"], "description": "Runs the private suite inside the launched game", "sts_version": "12-18-2022", "mts_version": "3.30.0", "dependencies": []}

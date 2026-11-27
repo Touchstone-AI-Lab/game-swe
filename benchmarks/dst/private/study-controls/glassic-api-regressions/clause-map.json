@@ -1,0 +1,276 @@
+{
+  "task": "dst/core/glassic-api-regressions",
+  "task_version": "2.0.0",
+  "exam": "benchmarks/dst/exams/glassic-api-regressions.md",
+  "cases": [
+    {
+      "id": "check:submission-shape",
+      "role": "static",
+      "clauses": [
+        "context-tree"
+      ],
+      "overlap": false,
+      "note": "mod/ tree with the required files, no symbolic links or native modules, parseable Lua"
+    },
+    {
+      "id": "case:sentinel: Glassic API is loaded",
+      "role": "runtime-sentinel",
+      "clauses": [],
+      "overlap": false,
+      "note": "GlassicAPI, RecipeSortAfter and SkinHandler exist and the TOOLS filter has recipes."
+    },
+    {
+      "id": "case:sorting the last recipe of a filter after the first keeps the filter intact",
+      "role": "preserved",
+      "clauses": [
+        "expect-sort-order",
+        "expect-sort-intact"
+      ],
+      "overlap": false,
+      "note": "The one move the broken sort already handles; guards against a rewrite that breaks it."
+    },
+    {
+      "id": "case:sorting a recipe after a later one keeps every recipe of the filter listed",
+      "role": "target",
+      "clauses": [
+        "report-sort",
+        "expect-sort-order",
+        "expect-sort-intact"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:sorting a recipe before an earlier one keeps every recipe of the filter listed",
+      "role": "target",
+      "clauses": [
+        "report-sort",
+        "expect-sort-order",
+        "expect-sort-intact"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:sorting a recipe to the end of a filter keeps every recipe listed",
+      "role": "target",
+      "clauses": [
+        "report-sort",
+        "expect-sort-order",
+        "expect-sort-intact"
+      ],
+      "overlap": false,
+      "note": "RecipeSortAfter with no anchor."
+    },
+    {
+      "id": "case:a spawn request for a vanilla character is accepted",
+      "role": "preserved",
+      "clauses": [
+        "report-still-fine",
+        "expect-plain-spawn"
+      ],
+      "overlap": false,
+      "note": "Runs before any mod skins are added."
+    },
+    {
+      "id": "case:a vanilla character that receives mod skins stays selectable",
+      "role": "target",
+      "clauses": [
+        "report-character",
+        "expect-vanilla-kept"
+      ],
+      "overlap": false,
+      "note": "Two spawn requests for Wilson after AddModSkins."
+    },
+    {
+      "id": "case:a mod character that receives mod skins is only borrowed into the base character list",
+      "role": "preserved",
+      "clauses": [
+        "report-still-fine",
+        "expect-mod-borrowed"
+      ],
+      "overlap": false,
+      "note": "Guards against dropping the list clean-up to keep Wilson listed."
+    },
+    {
+      "id": "case:an item without a skin reports an empty skin build",
+      "role": "target",
+      "clauses": [
+        "report-skin-build",
+        "expect-skin-build"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:an item with a mod skin reports the mod skin's build",
+      "role": "preserved",
+      "clauses": [
+        "report-skin-build-fine",
+        "expect-skin-build"
+      ],
+      "overlap": false,
+      "note": "Guards against dropping the fallback to the entity's skin build."
+    },
+    {
+      "id": "case:an item's skin build can be read while the item is removed",
+      "role": "target",
+      "clauses": [
+        "report-skin-build",
+        "expect-skin-build"
+      ],
+      "overlap": false,
+      "note": "Read from an onremove listener added after the library's own."
+    },
+    {
+      "id": "case:a mod skin that anyone may use is listed in the inventory",
+      "role": "preserved",
+      "clauses": [
+        "report-skin-test-fine",
+        "expect-skin-inventory"
+      ],
+      "overlap": false,
+      "note": "Guards against listing no mod skins at all."
+    },
+    {
+      "id": "case:a mod skin that its test refuses is left out of the inventory",
+      "role": "target",
+      "clauses": [
+        "report-skin-test",
+        "expect-skin-inventory"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:a character-exclusive skin is offered to its character",
+      "role": "preserved",
+      "clauses": [
+        "expect-exclusive"
+      ],
+      "overlap": false,
+      "note": "Guards against never offering exclusive skins."
+    },
+    {
+      "id": "case:a character-exclusive skin is not offered to another character",
+      "role": "target",
+      "clauses": [
+        "report-exclusive",
+        "expect-exclusive"
+      ],
+      "overlap": false,
+      "note": ""
+    }
+  ],
+  "clauses": [
+    {
+      "id": "context-tree",
+      "anchor": "Context: \"`/app/mod` is **Glassic API** (Apache-2.0)\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "report-sort",
+      "anchor": "Reports: \"players say\n> base-game recipes are missing from that filter\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "report-character",
+      "anchor": "Reports: \"Wilson disappears from the character selection as soon as anyone has\n> spawned.\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "report-still-fine",
+      "anchor": "Reports: \"Spawning as a base-game character that no mod has given skins to works as\n> before\"",
+      "status": "asserted",
+      "note": "Both halves (plain base-game character, mod character with skins) have a preserved case."
+    },
+    {
+      "id": "expect-sort-order",
+      "anchor": "Expected behaviour 1: \"`GlassicAPI.RecipeSortAfter(a, b, filter)` leaves recipe `a` directly after\n  recipe `b`\"",
+      "status": "weak",
+      "note": "Asserted for RecipeSortAfter and RecipeSortBefore with an explicit filter on TOOLS; sorting across all filters (no filter argument) is not exercised."
+    },
+    {
+      "id": "expect-sort-intact",
+      "anchor": "Expected behaviour 2: \"After any sort, the filter still lists every recipe it had, each exactly\n  once.\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "expect-vanilla-kept",
+      "anchor": "Expected behaviour 3: \"Adding mod skins for a base-game character never removes that character\n  from `DST_CHARACTERLIST`\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "expect-plain-spawn",
+      "anchor": "Expected behaviour 4: \"A spawn request for a base-game character without mod skins still spawns\n  the requested character.\"",
+      "status": "weak",
+      "note": "Asserted before any mod skins are registered."
+    },
+    {
+      "id": "expect-mod-borrowed",
+      "anchor": "Expected behaviour 5: \"A mod character that has mod skins is added to `DST_CHARACTERLIST` only\n  while its spawn request is being checked\"",
+      "status": "weak",
+      "note": "The request's result and the list afterwards are asserted; membership during the request is not observed."
+    },
+    {
+      "id": "report-skin-build",
+      "anchor": "Reports: \"Since we added Glassic API, `AnimState:GetSkinBuild()` returns `nil`\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "report-skin-build-fine",
+      "anchor": "Reports: \"Items with our mod skins still report the mod skin's build.\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "report-skin-test",
+      "anchor": "Reports: \"Every player still finds those skins in their skin inventory\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "report-skin-test-fine",
+      "anchor": "Reports: \"Skins without a test should be available to\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "report-exclusive",
+      "anchor": "Reports: \"offers it to every character, not only to Wendy\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "expect-skin-build",
+      "anchor": "Expected behaviour 6: \"`AnimState:GetSkinBuild()` returns an empty string for an entity without a\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "expect-skin-inventory",
+      "anchor": "Expected behaviour 7: \"The skin inventory (`TheInventory:GetFullInventory()`) lists a mod skin\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "expect-exclusive",
+      "anchor": "Expected behaviour 8: \"The default skin selection offers a character-exclusive mod skin only to\"",
+      "status": "weak",
+      "note": "Checked for one item (the axe) and two characters (Wendy and Wilson)."
+    }
+  ],
+  "excluded_clauses": [],
+  "known_issues": [
+    "The mod character is a name inserted into MODCHARACTERLIST for the duration of one case; no prefab is registered for it, which is enough for ValidateSpawnPrefabRequest and GetActiveCharacterList.",
+    "Filter checks compare the number of entries pairs() sees with the number ipairs() sees, so a filter with a gap fails even if every name is still stored somewhere in the table.",
+    "The default skin selection is exercised by calling GetSkinsList on a stand-in table that has the popup class as its metatable and a `character` field; no popup screen is constructed on the dedicated server.",
+    "The mod-skin build case names the entity's mod skin by setting `skinname`, as the library's SpawnPrefab does, instead of spawning a registered skin prefab."
+  ]
+}

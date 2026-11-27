@@ -1,0 +1,26 @@
+diff -ruN a/Automate/Framework/BaseMachine.cs b/Automate/Framework/BaseMachine.cs
+--- a/Automate/Framework/BaseMachine.cs
++++ b/Automate/Framework/BaseMachine.cs
+@@ -109,11 +109,19 @@
+     /// <summary>Get a tracked stack for an item, if it's not null.</summary>
+     /// <param name="item">The item to track.</param>
+     /// <param name="onEmpty">The callback invoked when the stack is empty.</param>
++    /// <remarks>An item with no stack size can never be stored, so it would keep the machine in its ready state forever. That only happens when something else broke the machine's output, so this handles it like the game does when the player empties such a machine by hand: the broken item is dropped, the machine is reset through <paramref name="onEmpty"/>, and the machine reports no output.</remarks>
+     protected ITrackedStack? GetTracked(Item? item, Action<Item>? onEmpty = null)
+     {
+-        return item != null
+-            ? new TrackedItem(item, onEmpty: onEmpty)
+-            : null;
++        if (item is null)
++            return null;
++
++        if (item.Stack < 1)
++        {
++            onEmpty?.Invoke(item);
++            return null;
++        }
++
++        return new TrackedItem(item, onEmpty: onEmpty);
+     }
+ 
+     /// <summary>Get the default ID for the machine type.</summary>

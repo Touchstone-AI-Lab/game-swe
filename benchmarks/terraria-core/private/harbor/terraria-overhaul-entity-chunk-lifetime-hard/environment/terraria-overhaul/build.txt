@@ -1,0 +1,11 @@
+﻿author = Mirsario
+version = 5.0.0.38
+displayName = Terraria Overhaul (Configuration Update!)
+homepage = https://github.com/Mirsario/TerrariaOverhaul
+hideCode = false
+hideResources = false
+includeSource = false
+buildIgnore = vs/*, BuildTools/*, *.csproj, *.sln, *.pidb, *.userprefs, *.user, *.bat, obj/*, bin/*, *.db, *.ignored, *Ignored/*, *ignored/*, *Old/*, */_Unused/*
+includePDB = false
+noCompile = false
+dllReferences = Tomlyn

@@ -1,0 +1,6 @@
+*.it
+*.dat
+!save1.dat
+!save2.dat
+*.bak
+*.db

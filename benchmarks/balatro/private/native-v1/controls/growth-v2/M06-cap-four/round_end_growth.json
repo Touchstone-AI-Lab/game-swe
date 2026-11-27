@@ -1,0 +1,1 @@
+{"id":"round_end_growth","name":"Round End Growth","author":["Balatro PoC"],"description":"Adds two Mult per completed blind","prefix":"poc","main_file":"joker.lua","version":"0.1.0","priority":10,"dependencies":["Steamodded (>=1.~)"]}

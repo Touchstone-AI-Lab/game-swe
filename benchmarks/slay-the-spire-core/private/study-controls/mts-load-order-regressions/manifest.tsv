@@ -1,0 +1,4 @@
+control	kind	base	overlay	root	note
+target-negative-byref-unboxed	target-negative	reference	patch:target-negative-byref-unboxed.patch	modthespire	reference with the by-reference boxing fix left out
+compat-negative-reversed-initial-order	compat-negative	reference	patch:compat-negative-reversed-initial-order.patch	modthespire	reference plus a sort that starts from the reversed declaration order; unconstrained mods get reordered
+alternative-a	alternative	starter	tree:alternative-a	modthespire	own requirement relation with a breadth-first walk and conditional ($w) boxing; the inert accessor distractor is left as shipped

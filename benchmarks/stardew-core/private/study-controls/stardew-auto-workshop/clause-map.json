@@ -1,0 +1,182 @@
+{
+  "task": "stardew-valley/core/stardew-auto-workshop",
+  "task_version": "1.1.0",
+  "exam": "benchmarks/stardew-core/exams/stardew-auto-workshop.md",
+  "cases": [
+    {
+      "id": "check:submission-shape",
+      "role": "static",
+      "clauses": [],
+      "overlap": false,
+      "note": "file-existence gate: mod/AutoWorkshop/ModEntry.cs exists and the tree has no symlink; the starter already satisfies it"
+    },
+    {
+      "id": "case:setup: a chest against a furnace, a far chest, and a lone furnace",
+      "role": "setup",
+      "clauses": [],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:the furnace is fed from the adjacent chest",
+      "role": "target",
+      "clauses": [
+        "Req-0-sides",
+        "Req-1"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:the finished bar is collected into the chest",
+      "role": "target",
+      "clauses": [
+        "Req-2"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:a zero-quantity product is cleared away",
+      "role": "target",
+      "clauses": [
+        "Req-4"
+      ],
+      "overlap": false,
+      "note": "",
+      "over_constrained": true
+    },
+    {
+      "id": "case:the machine carries on with the next batch",
+      "role": "target",
+      "clauses": [
+        "Req-4",
+        "Req-2"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:a full chest never costs the product",
+      "role": "target",
+      "clauses": [
+        "Req-3"
+      ],
+      "overlap": false,
+      "note": "",
+      "over_constrained": true
+    },
+    {
+      "id": "case:the product is delivered once space opens",
+      "role": "target",
+      "clauses": [
+        "Req-3"
+      ],
+      "overlap": false,
+      "note": "",
+      "over_constrained": true
+    },
+    {
+      "id": "case:the far chest and the lone furnace stay untouched",
+      "role": "target",
+      "clauses": [
+        "Req-6"
+      ],
+      "overlap": true,
+      "note": "negative guard that passes on the unchanged `// TODO` starter (P in starter.execution.json) because an empty mod touches nothing. It is a boundary condition of the requested feature (requirement 6), so it stays in the target set; it is also the only behaviour of this task that already holds before the change, hence overlap. It is weaker than its name: see clause Req-6 (a fully overreaching mod passes it, a feed-only overreach fails it)."
+    },
+    {
+      "id": "case:setup: two coops of the same type, chest and furnace inside each",
+      "role": "setup",
+      "clauses": [],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:machines in the first coop run",
+      "role": "target",
+      "clauses": [
+        "Req-5"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:machines in the second coop run too",
+      "role": "target",
+      "clauses": [
+        "Req-5"
+      ],
+      "overlap": false,
+      "note": ""
+    }
+  ],
+  "clauses": [
+    {
+      "id": "Req-0-sides",
+      "anchor": "Requirement, lead sentence: 'Placing a chest directly against a machine (any of the four sides) should make the chest act as that machine's storage, with no player interaction'",
+      "status": "weak",
+      "note": "every fixture puts the chest on the machine's west side (SuiteWorkshop.cs:52-53, :167-169); the other three sides are never exercised"
+    },
+    {
+      "id": "Req-1",
+      "anchor": "Requirement 1, Feeding: 'the machine starts processing automatically, consuming the input (and any extra items the recipe needs, e.g. coal for a furnace) from the chest'",
+      "status": "asserted",
+      "note": "asserts that the furnace holds an object; the chest's ore and coal counts are never read"
+    },
+    {
+      "id": "Req-2",
+      "anchor": "Requirement 2, Collecting: 'the product is moved into the same chest automatically and the machine moves on'",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "Req-3",
+      "anchor": "Requirement 3, No item may ever be lost: 'If the chest is completely full when the machine finishes, the product must stay safely in the machine and be delivered as soon as space opens up'",
+      "status": "weak",
+      "note": "SuiteWorkshop.cs:107-124 fills the remaining SLOTS with stone, but the chest still holds the copper-bar stack collected by the earlier case, so the finished bar merges into that stack and the 'full chest' branch of a mod is never reached. The two assertions after the 360-tick wait (heldObject is not null, Stack > 0) are then satisfied by the NEXT batch that the mod has already loaded. Control tn-full-chest-destroys-product (reference that destroys whatever does not fit) passes 11/11."
+    },
+    {
+      "id": "Req-4",
+      "anchor": "Requirement 4, Glitch tolerance: a product 'with a quantity of zero ... must be cleared away and the machine must carry on with the next batch'",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "Req-5",
+      "anchor": "Requirement 5, Everywhere: 'outdoors and inside farm buildings ... including when the player has several buildings of the same type: each building's machines use the chest in that same building'",
+      "status": "asserted",
+      "note": "the farm and two coops; sheds and barns are not built, and nothing checks that a coop's furnace was fed from its own chest rather than the other coop's"
+    },
+    {
+      "id": "Req-6",
+      "anchor": "Requirement 6, No overreach: 'A chest two tiles away must do nothing, and machines with no adjacent chest must never be touched'",
+      "status": "weak",
+      "note": "SuiteWorkshop.cs:146-151 only reads the END state of one furnace (heldObject is null), 300 ticks after every other farm case; the far chest's contents are never read. The far chest holds 20 ore (:58-59), i.e. exactly four batches. A mod that fully automates the lone furnace from the chest two tiles away burns them during the three AdvanceClock(4) calls of the earlier cases (:75, :89, :116) plus the natural-clock wait of 'the product is delivered once space opens', so the furnace is empty again when it is inspected. Probe tn-overreach-two-tiles (reference that also accepts a chest two tiles away, feeding AND collecting) passes 11/11; only the feed-only variant tn-overreach-feeds-lone-machine, which leaves its product in the lone furnace, is caught."
+    },
+    {
+      "id": "Notes-manifest",
+      "anchor": "Notes, bullet 3: 'Keep the manifest's UniqueID and EntryDll as they are'",
+      "status": "unasserted",
+      "note": "delivery constraint with no case of its own; a changed EntryDll only shows up as the mod not loading, UniqueID is never read"
+    },
+    {
+      "id": "Notes-tests",
+      "anchor": "Notes, bullet 4: 'Do not modify anything under /tests.'",
+      "status": "unasserted",
+      "note": "no case; the evaluator mounts /tests read-only"
+    }
+  ],
+  "excluded_clauses": [
+    "Notes-manifest",
+    "Notes-tests"
+  ],
+  "known_issues": [
+    "Observation-window over-constraint: two cases need to SEE the furnace in the ready state before the mod reacts. 'a zero-quantity product is cleared away' waits without a deadline for readyForHarvest (benchmarks/stardew-core/private/harbor/stardew-auto-workshop/tests/SuiteWorkshop.cs:90) so that it can corrupt the product, and 'a full chest never costs the product' asserts readyForHarvest one tick after advancing the clock (:117-119). A mod that services machines on every tick (or on SMAPI's TimeChanged) collects the product in the same tick it finishes; the harness then never observes the ready state and both cases fail, although the exam sets no minimum dwell time. Control alternative-strict-reading (the reference with its 30-tick throttle removed) demonstrates this: it fails 'a full chest never costs the product' with 'expected: the batch finished while the chest was full', plus 'hung: exceeded 3000 ticks' on the zero-quantity case.",
+    "Full-chest fixture trap: SuiteWorkshop.cs:107-124 fills the remaining SLOTS with stone, but the chest still holds the copper-bar stack collected by the earlier case, so the finished bar merges into that stack and the 'full chest' branch of a mod is never reached. The two assertions after the 360-tick wait (heldObject is not null, Stack > 0) are then satisfied by the NEXT batch that the mod has already loaded. Control tn-full-chest-destroys-product (reference that destroys whatever does not fit) passes 11/11.",
+    "No-overreach fixture trap: SuiteWorkshop.cs:146-151 only reads the END state of one furnace (heldObject is null), 300 ticks after every other farm case; the far chest's contents are never read. The far chest holds 20 ore (:58-59), i.e. exactly four batches. A mod that fully automates the lone furnace from the chest two tiles away burns them during the three AdvanceClock(4) calls of the earlier cases (:75, :89, :116) plus the natural-clock wait of 'the product is delivered once space opens', so the furnace is empty again when it is inspected. Probe tn-overreach-two-tiles (reference that also accepts a chest two tiles away, feeding AND collecting) passes 11/11; only the feed-only variant tn-overreach-feeds-lone-machine, which leaves its product in the lone furnace, is caught.",
+    "No `sentinel:` case and no preserved contract: the starter is an empty Entry(). The only case that passes on the starter is the negative guard, which is a boundary of the requested feature. The task therefore enters general completion only; no compat-negative exists.",
+    "'the product is delivered once space opens' depends on the in-game clock advancing by itself: the case never calls AdvanceClock, so when the finished bar was already merged (see the fixture trap) it waits up to 2400 ticks for the NEXT batch to finish on the natural clock (SuiteWorkshop.cs:127-143).",
+    "The prepared evaluator image used for the E0 runs (sha256:1709c26f9c45) bakes /opt/gcb/harness with the SuiteRunner that predates commit 276a070: there a throwing wait predicate is treated as SATISFIED instead of failing the case (repo version: benchmarks/stardew-core/private/harbor/harness/GcbHarness/Framework/SuiteRunner.cs:80-95). Predicates that can throw in this suite: `_furnace!` (SuiteWorkshop.cs:69, :86, :101, :118; null when the setup case failed), `_coopAFurnace!`/`_coopBFurnace!` (:185, :192). In each of them the statement after the wait dereferences the same null object, so the case still fails under the old runner; no spurious pass was found."
+  ]
+}

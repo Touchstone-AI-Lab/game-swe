@@ -1,0 +1,5 @@
+control	kind	base	overlay	root	note
+M01-per-card	target-negative	starter	pack:private/native-v1/controls/seeded-effect-stream-v1/M01-per-card	starter	frozen mutant: fails only requested-change cases
+M02-repeat-first	target-negative	starter	pack:private/native-v1/controls/seeded-effect-stream-v1/M02-repeat-first	starter	frozen mutant: fails only requested-change cases
+M03-score-advances	target-negative	starter	pack:private/native-v1/controls/seeded-effect-stream-v1/M03-score-advances	starter	frozen mutant: fails only requested-change cases
+alternative-public	alternative	starter	tree:alternative-public	starter	authored from the public contract: reward returned as an effect table through an explicit seed; reviewed seal c014400c

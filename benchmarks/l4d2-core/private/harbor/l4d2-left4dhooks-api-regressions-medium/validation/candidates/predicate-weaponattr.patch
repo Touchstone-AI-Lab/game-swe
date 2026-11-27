@@ -1,0 +1,86 @@
+diff --git a/sourcemod/scripting/l4dd/l4dd_natives.sp b/sourcemod/scripting/l4dd/l4dd_natives.sp
+--- a/sourcemod/scripting/l4dd/l4dd_natives.sp
++++ b/sourcemod/scripting/l4dd/l4dd_natives.sp
+@@ -3175,11 +3182,21 @@
+ 	int ptr = GetWeaponPointer();
+ 	if( ptr != -1 )
+ 	{
+-		attr = L4D2FloatWeapon_Offsets[attr]; // Offset
+-		ptr = LoadFromAddress(view_as<Address>(ptr + attr), NumberType_Int32);
+-	}
+-
+-	return view_as<float>(ptr);
++		if( attr == view_as<int>(L4D2FWA_PenetrationNumLayers) )
++		{
++			attr = L4D2FloatWeapon_Offsets[attr]; // Offset
++			ptr = LoadFromAddress(view_as<Address>(ptr + attr), NumberType_Int32);
++			return float(ptr);
++		}
++		else
++		{
++			attr = L4D2FloatWeapon_Offsets[attr]; // Offset
++			ptr = LoadFromAddress(view_as<Address>(ptr + attr), NumberType_Int32);
++			return view_as<float>(ptr);
++		}
++	}
++
++	return -1.0;
+ }
+ 
+ int Native_SetIntWeaponAttribute(Handle plugin, int numParams) // Native "L4D2_SetIntWeaponAttribute"
+diff --git a/sourcemod/scripting/l4dd/l4dd_natives.sp b/sourcemod/scripting/l4dd/l4dd_natives.sp
+--- a/sourcemod/scripting/l4dd/l4dd_natives.sp
++++ b/sourcemod/scripting/l4dd/l4dd_natives.sp
+@@ -3194,32 +3211,32 @@
+ 	int ptr = GetWeaponPointer();
+ 	if( ptr != -1 )
+ 	{
+-		if( !g_bLeft4Dead2 && attr == view_as<int>(L4D2FWA_PenetrationNumLayers) )
++		attr = L4D2IntWeapon_Offsets[attr]; // Offset
++		StoreToAddress(view_as<Address>(ptr + attr), GetNativeCell(3), NumberType_Int32, false);
++	}
++
++	return ptr;
++}
++
++int Native_SetFloatWeaponAttribute(Handle plugin, int numParams) // Native "L4D2_SetFloatWeaponAttribute"
++{
++	int attr = GetNativeCell(2);
++	if( attr >= view_as<int>(MAX_SIZE_L4D2FloatWeaponAttributes) ) // view_as to avoid tag mismatch from enum "type"
++		ThrowNativeError(SP_ERROR_PARAM, "Invalid attribute id");
++
++	int ptr = GetWeaponPointer();
++	if( ptr != -1 )
++	{
++		if( attr == view_as<int>(L4D2FWA_PenetrationNumLayers) )
+ 		{
+-			attr = L4D2IntWeapon_Offsets[attr]; // Offset
+-			StoreToAddress(view_as<Address>(ptr + attr), RoundToCeil(GetNativeCell(3)), NumberType_Int32, false);
++			attr = L4D2FloatWeapon_Offsets[attr]; // Offset
++			StoreToAddress(view_as<Address>(ptr + attr), RoundToFloor(GetNativeCell(3)), NumberType_Int32, false);
+ 		}
+ 		else
+ 		{
+-			attr = L4D2IntWeapon_Offsets[attr]; // Offset
++			attr = L4D2FloatWeapon_Offsets[attr]; // Offset
+ 			StoreToAddress(view_as<Address>(ptr + attr), GetNativeCell(3), NumberType_Int32, false);
+ 		}
+-	}
+-
+-	return ptr;
+-}
+-
+-int Native_SetFloatWeaponAttribute(Handle plugin, int numParams) // Native "L4D2_SetFloatWeaponAttribute"
+-{
+-	int attr = GetNativeCell(2);
+-	if( attr >= view_as<int>(MAX_SIZE_L4D2FloatWeaponAttributes) ) // view_as to avoid tag mismatch from enum "type"
+-		ThrowNativeError(SP_ERROR_PARAM, "Invalid attribute id");
+-
+-	int ptr = GetWeaponPointer();
+-	if( ptr != -1 )
+-	{
+-		attr = L4D2FloatWeapon_Offsets[attr]; // Offset
+-		StoreToAddress(view_as<Address>(ptr + attr), GetNativeCell(3), NumberType_Int32, false);
+ 	}
+ 
+ 	return ptr;

@@ -1,0 +1,141 @@
+diff --git a/main.lua b/main.lua
+--- a/main.lua
++++ b/main.lua
+@@ -304,7 +304,7 @@
+             FORBIDDEN_FRUIT = { UseCount = 0 },
+             BASEBALL_MITT = { Used = false, Lifted = true, BallsCaught = 0, UseDelay = 0 },
+             PSEUDOBULBAR_AFFECT = { Icon = Sprite() },
+-            OMINOUS_LANTERN = { Fired = true, Lifted = false, LastEnemyHit = nil, FrameModifier = 300 },
++            OMINOUS_LANTERN = { Fired = true, Lifted = false, Hid = false, LastEnemyHit = nil, FrameModifier = 300 },
+             HURDLE_HEELS = { JumpState = 0, FrameUsed = 0, Icon = Sprite() },
+             FULLERS_CLUB = { CollectibleList = {}, ClubDamage = 0, ClubTearDelay = 0, ClubSpeed = 0, ClubLuck = 0, ClubShotSpeed = 0, ClubRange = 0 },
+             WRATH_OF_THE_LAMB = { 
+@@ -755,7 +755,7 @@
+                 range = 150
+             end
+             
+-            if ItemVariables.RITUAL_CANDLE.HasBonus and entity.Position:Distance(player.Position) <= range and entity:IsVulnerableEnemy() and entity:IsActiveEnemy() and game:GetFrameCount() % math.floor(player.MaxFireDelay / 3) == 0 then
++            if ItemVariables.RITUAL_CANDLE.HasBonus and entity.Position:Distance(player.Position) <= range and entity:IsVulnerableEnemy() and entity:IsActiveEnemy() and game:GetFrameCount() % math.ceil(player.MaxFireDelay / 3) == 0 then
+                 entity:TakeDamage((player.Damage / 4) * (player:GetCollectibleNum(CollectibleType.COLLECTIBLE_BFFS) + 1), 0, EntityRef(player), 0)
+             end
+             
+@@ -1983,6 +1983,7 @@
+             if entity.Type == EntityType.ENTITY_TEAR and entity.SpawnerType == EntityType.ENTITY_PLAYER then
+                 if entity:CollidesWithGrid() then
+                     entity.Velocity = entity.Velocity * -1
++                    entity.Position = entity.Position + entity.Velocity
+                 elseif entity.FrameCount % 10 == 1 and entity.FrameCount > 20 then
+                     local signX = 10
+                     local signY = 10
+@@ -2011,6 +2012,21 @@
+                     end
+                     
+                     entity.Velocity = Vector(player.ShotSpeed * signX, player.ShotSpeed * signY)
++                elseif entity.FrameCount <= 1 then
++                    local signX = 10
++                    local signY = 10
++                    if player:GetHeadDirection() == Direction.DOWN then
++                        signX = 0
++                    elseif player:GetHeadDirection() == Direction.LEFT then
++                        signX = -signX
++                        signY = 0
++                    elseif player:GetHeadDirection() == Direction.RIGHT then
++                        signY = 0
++                    elseif player:GetHeadDirection() == Direction.UP then
++                        signX = 0
++                        signY = -signY
++                    end
++                    entity.Velocity = Vector(player.ShotSpeed * signX, player.ShotSpeed * signY)
+                 end
+             end
+         end
+@@ -2293,6 +2309,11 @@
+             end
+         end
+         
++        if ItemVariables.OMINOUS_LANTERN.Hid then
++            ItemVariables.OMINOUS_LANTERN.Hid = false
++            player:FullCharge()
++        end
++        
+         for i, entity in pairs(Isaac.GetRoomEntities()) do
+             if entity.Type == EntityType.ENTITY_TEAR and entity.Variant == Entities.LANTERN_TEAR.variant then
+                 if entity:IsDead() then
+@@ -2471,7 +2492,7 @@
+         if ItemVariables.OMINOUS_LANTERN.Fired == false then
+             ItemVariables.OMINOUS_LANTERN.Fired = true
+             ItemVariables.OMINOUS_LANTERN.Lifted = true
+-            player:FullCharge()
++            ItemVariables.OMINOUS_LANTERN.Hid = true
+             player:AnimateCollectible(ItemId.OMINOUS_LANTERN, "HideItem", "PlayerPickupSparkle")
+         else
+             ItemVariables.OMINOUS_LANTERN.Fired = false
+@@ -2491,8 +2512,7 @@
+     local player = Isaac.GetPlayer(0)
+     
+     for i, entity in pairs(Isaac.GetRoomEntities()) do
+-        if entity.Type == EntityType.ENTITY_TEAR and entity.Variant == Entities.BASEBALL.variant and entity:IsDead()
+-            and ItemVariables.BASEBALL_MITT.Used and player:HasCollectible(ItemId.BASEBALL_MITT) then
++        if entity.Type == EntityType.ENTITY_TEAR and entity.Variant == Entities.BASEBALL.variant and entity:IsDead() then
+             local hit = Isaac.Spawn(Entities.BASEBALL_HIT.id, Entities.BASEBALL_HIT.variant, 0, entity.Position, NullVector, nil)
+             hit:ToEffect():SetTimeout(20)
+             hit.SpriteRotation = rng:RandomInt(360)
+@@ -2533,7 +2553,8 @@
+                 repeat
+                     local tear = player:FireTear(player.Position, Vector(10, 0):Rotated(rng:RandomInt(360)), false, true, false)
+                     tear:ChangeVariant(Entities.BASEBALL.variant)
+-                    tear:AddTearFlags(TearFlags.TEAR_BOUNCE | TearFlags.TEAR_CONFUSION)
++                    tear.TearFlags = tear.TearFlags | TearFlags.TEAR_BOUNCE 
++                    tear.TearFlags = tear.TearFlags | TearFlags.TEAR_CONFUSION
+                     tear.CollisionDamage = player.Damage * 3
+                             
+                     ItemVariables.BASEBALL_MITT.BallsCaught = ItemVariables.BASEBALL_MITT.BallsCaught  - 1
+@@ -3450,7 +3471,7 @@
+     local player = Isaac.GetPlayer(0)
+     
+     if ItemVariables.BIG_SCISSORS.Triggered and rng:RandomInt(3) == 0 then
+-        Isaac.Spawn(EntityType.ENTITY_EFFECT, EffectVariant.PLAYER_CREEP_RED, 3, player.Position, Vector.Zero, player)
++        Isaac.Spawn(EntityType.ENTITY_EFFECT, EffectVariant.PLAYER_CREEP_RED, 3, player.Position, Vector(0, 0), player)
+     end
+ end
+ 
+@@ -3754,7 +3775,7 @@
+     if player:HasCollectible(ItemId.DEJA_VU) then
+         for i, entity in pairs(Isaac.GetRoomEntities()) do
+             if entity.Type == EntityType.ENTITY_TEAR and entity:GetData().ReturnChance == nil and entity:IsDead() then
+-                if entity:ToTear().TearFlags & TearFlags.TEAR_BONE == 0 and entity:ToTear().TearFlags & TearFlags.TEAR_QUADSPLIT == 0 and entity.Variant ~= Entities.FIREBALL_2.variant then
++                if entity:ToTear().TearFlags & TearFlags.TEAR_BONE == 0 and entity:ToTear().TearFlags & TearFlags.TEAR_SPLIT == 0 and entity:ToTear().TearFlags & TearFlags.TEAR_QUADSPLIT == 0 and entity.Variant ~= Entities.FIREBALL_2.variant then
+                     entity:GetData().ReturnChance = 50 + player.Luck
+                     if rng:RandomInt(100) < entity:GetData().ReturnChance then
+                         local tear = player:FireTear(player.Position, entity.Velocity, true, true, true)
+@@ -3767,7 +3788,7 @@
+                     end
+                 end
+             elseif entity.Type == EntityType.ENTITY_TEAR and entity:GetData().ReturnChance ~= nil and entity:IsDead() then
+-                if entity:ToTear().TearFlags & TearFlags.TEAR_BONE == 0 and entity:ToTear().TearFlags & TearFlags.TEAR_QUADSPLIT == 0 and entity.Variant ~= Entities.FIREBALL_2.variant then
++                if entity:ToTear().TearFlags & TearFlags.TEAR_BONE == 0 and entity:ToTear().TearFlags & TearFlags.TEAR_SPLIT == 0 and entity:ToTear().TearFlags & TearFlags.TEAR_QUADSPLIT == 0 and entity.Variant ~= Entities.FIREBALL_2.variant then
+                     if rng:RandomInt(100) < entity:GetData().ReturnChance then
+                         local tear = player:FireTear(player.Position, entity.Velocity, true, true, true)
+                         tear:GetData().ReturnChance = entity:GetData().ReturnChance // 2
+@@ -4825,7 +4846,11 @@
+                 if entity.SpawnerType == EntityType.ENTITY_PLAYER or entity.SpawnerType == EntityType.ENTITY_FAMILIAR then
+                     if entity.SpawnerType == EntityType.ENTITY_PLAYER or entity.SpawnerVariant == 120 or entity.SpawnerVariant == 80 then
+                         entity.Color = player.TearColor
+-                        entity.Velocity = entity.Velocity - RandomVector()
++                        if entity.FrameCount > 20 then
++                            entity.Velocity = entity.Velocity - RandomVector()
++                        else
++                            entity.Velocity = entity.Velocity - (RandomVector() / 2)
++                        end
+                         
+                         if entity.FrameCount == 1 and player:HasCollectible(CollectibleType.COLLECTIBLE_HIVE_MIND) then
+                             entity.CollisionDamage = entity.CollisionDamage * 2
+@@ -7140,7 +7165,7 @@
+             local checkDist = math.huge
+             
+             for i, entity in pairs(Isaac.GetRoomEntities()) do
+-                if entity:IsVulnerableEnemy() and entity.Index ~= fly.Index and entity.InitSeed ~= fly.InitSeed then
++                if entity:IsActiveEnemy(false) and entity.Index ~= fly.Index and entity.InitSeed ~= fly.InitSeed then
+                     local newDist = fly.Position:DistanceSquared(entity.Position)
+                     local entityData = entity:GetData()
+                     

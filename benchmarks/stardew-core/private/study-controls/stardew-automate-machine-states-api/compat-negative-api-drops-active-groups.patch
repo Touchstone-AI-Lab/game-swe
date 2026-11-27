@@ -1,0 +1,13 @@
+diff -ruN a/Automate/Framework/MachineManager.cs b/Automate/Framework/MachineManager.cs
+--- a/Automate/Framework/MachineManager.cs
++++ b/Automate/Framework/MachineManager.cs
+@@ -96,8 +96,7 @@
+         string locationKey = this.Factory.GetLocationKey(location);
+ 
+         return this
+-            .ActiveMachineGroups
+-            .Concat(this.DisabledMachineGroups)
++            .DisabledMachineGroups
+             .Concat(this.JunimoMachineGroup.GetAll())
+             .Where(p => p.LocationKey == locationKey);
+     }

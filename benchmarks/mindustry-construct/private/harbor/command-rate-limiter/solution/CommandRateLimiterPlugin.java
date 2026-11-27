@@ -1,0 +1,2 @@
+import mindustry.mod.Plugin;
+public final class CommandRateLimiterPlugin extends Plugin { private static CommandRateLimiterPlugin INSTANCE; private final CommandRateLimiter core=new CommandRateLimiter(new CommandRateLimiter.Policy(4, 2, 60, 120)); public CommandRateLimiterPlugin(){INSTANCE=this;} public static CommandRateLimiterPlugin instance(){return INSTANCE;} public CommandRateLimiter core(){return core;} public Object exportState(){return core.save();} }

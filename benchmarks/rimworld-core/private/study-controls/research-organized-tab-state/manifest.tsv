@@ -1,0 +1,6 @@
+control	kind	base	overlay	root	note
+target-negative-no-resize	target-negative	reference	patch:target-negative-no-resize.patch	.	reference that never rebuilds the native per-tab flag storage after re-indexing
+target-negative-stale-view	target-negative	reference	patch:target-negative-stale-view.patch	.	reference that keeps the window's stale cached view width
+target-negative-open-window-only	target-negative	reference	patch:target-negative-open-window-only.patch	.	reference that refreshes only a research window open on the window stack
+compat-negative-eager-flag-map	compat-negative	reference	patch:compat-negative-eager-flag-map.patch	.	reference that creates the native flag map itself, all hidden, before the game does
+alternative-a	alternative	starter	tree:alternative-a	.	own fix: defName-keyed snapshot, freshly sized native map, window from the Research main button

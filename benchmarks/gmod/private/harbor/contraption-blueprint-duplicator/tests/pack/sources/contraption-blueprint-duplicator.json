@@ -1,0 +1,17 @@
+{
+  "schemaVersion": 1,
+  "taskId": "contraption-blueprint-duplicator",
+  "taskVersion": "2.2.0",
+  "originType": "workshop-functional-evidence",
+  "workshopId": "773402917",
+  "url": "https://steamcommunity.com/sharedfiles/filedetails/?id=773402917",
+  "title": "Advanced Duplicator 2",
+  "author": "WireTeam and contributors",
+  "accessedAt": "2026-08-02",
+  "license": "Apache-2.0",
+  "licenseHandling": "functional provenance recorded; benchmark implementation authored independently",
+  "codeCopied": false,
+  "assetsCopied": false,
+  "capabilitiesObserved": ["contraption graph copy", "constraints", "persistent duplication", "Undo"],
+  "benchmarkCapabilities": ["canonical entity/constraint graph", "stable local IDs", "two-process restore", "full rollback and single Undo"]
+}

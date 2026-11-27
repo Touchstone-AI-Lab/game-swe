@@ -1,0 +1,271 @@
+diff --git a/addons/sourcemod/scripting/mutant_tanks/abilities/mt_acid.sp b/addons/sourcemod/scripting/mutant_tanks/abilities/mt_acid.sp
+--- a/addons/sourcemod/scripting/mutant_tanks/abilities/mt_acid.sp
++++ b/addons/sourcemod/scripting/mutant_tanks/abilities/mt_acid.sp
+@@ -1284,6 +1284,10 @@
+ 	{
+ 		return;
+ 	}
++	if (((flags & MT_ATTACK_CLAW) || (flags & MT_ATTACK_MELEE)) && g_esAcidPlayer[tank].g_iCooldown != -1 && g_esAcidPlayer[tank].g_iCooldown >= iTime)
++	{
++		return;
++	}
+ 
+ 	if (enabled == 1 && bIsSurvivor(survivor))
+ 	{
+diff --git a/addons/sourcemod/scripting/mutant_tanks/abilities/mt_ammo.sp b/addons/sourcemod/scripting/mutant_tanks/abilities/mt_ammo.sp
+--- a/addons/sourcemod/scripting/mutant_tanks/abilities/mt_ammo.sp
++++ b/addons/sourcemod/scripting/mutant_tanks/abilities/mt_ammo.sp
+@@ -1032,6 +1032,10 @@
+ 	{
+ 		return;
+ 	}
++	if (((flags & MT_ATTACK_CLAW) || (flags & MT_ATTACK_MELEE)) && g_esAmmoPlayer[tank].g_iCooldown != -1 && g_esAmmoPlayer[tank].g_iCooldown >= iTime)
++	{
++		return;
++	}
+ 
+ 	if (enabled == 1 && bIsSurvivor(survivor) && !MT_DoesSurvivorHaveRewardType(survivor, MT_REWARD_GODMODE) && iSlot > MaxClients && (GetEntProp(survivor, Prop_Send, "m_iAmmo", .element = iGetWeaponOffset(iSlot)) > 0 || GetEntProp(iSlot, Prop_Send, "m_iClip1") > 0))
+ 	{
+diff --git a/addons/sourcemod/scripting/mutant_tanks/abilities/mt_hypno.sp b/addons/sourcemod/scripting/mutant_tanks/abilities/mt_hypno.sp
+--- a/addons/sourcemod/scripting/mutant_tanks/abilities/mt_hypno.sp
++++ b/addons/sourcemod/scripting/mutant_tanks/abilities/mt_hypno.sp
+@@ -307,7 +307,7 @@
+ #endif
+ {
+ 	SDKHook(client, SDKHook_OnTakeDamage, OnHypnoTakeDamage);
+-	vHypnoReset2(client);
++	vRemoveHypno(client);
+ }
+ 
+ #if defined MT_ABILITIES_MAIN
+@@ -1269,7 +1269,7 @@
+ 
+ void vHypno(int tank)
+ {
+-	if (!g_esHypnoPlayer[tank].g_bActivated)
++	if (g_esHypnoCache[tank].g_iHypnoView == 1 && !bIsValidEntRef(g_esHypnoPlayer[tank].g_iShield))
+ 	{
+ 		g_esHypnoPlayer[tank].g_bActivated = true;
+ 
+@@ -1549,7 +1549,7 @@
+ 	{
+ 		if (bIsValidClient(iPlayer, MT_CHECK_INGAME))
+ 		{
+-			vHypnoReset2(iPlayer);
++			vRemoveHypno(iPlayer);
+ 
+ 			g_esHypnoPlayer[iPlayer].g_iOwner = -1;
+ 		}
+diff --git a/addons/sourcemod/scripting/mutant_tanks/abilities2/mt_panic.sp b/addons/sourcemod/scripting/mutant_tanks/abilities2/mt_panic.sp
+--- a/addons/sourcemod/scripting/mutant_tanks/abilities2/mt_panic.sp
++++ b/addons/sourcemod/scripting/mutant_tanks/abilities2/mt_panic.sp
+@@ -1132,31 +1132,31 @@
+ 						iTypeCount++;
+ 					}
+ 
+-					if (iTypeCount > 0)
++					if (iTypeCount == 0)
+ 					{
+-						switch (iTypes[MT_GetRandomInt(0, (iTypeCount - 1))])
++						switch (MT_GetRandomInt(1, (sizeof iTypes)))
+ 						{
+ 							case 1: vSpawnUncommon(tank, MODEL_CEDA);
+ 							case 2: vSpawnUncommon(tank, MODEL_JIMMY);
+-							case 4: vSpawnUncommon(tank, MODEL_FALLEN);
+-							case 8: vSpawnUncommon(tank, MODEL_CLOWN);
+-							case 16: vSpawnUncommon(tank, MODEL_MUDMAN);
+-							case 32: vSpawnUncommon(tank, MODEL_ROADCREW);
+-							case 64: vSpawnUncommon(tank, MODEL_RIOTCOP);
+-							default:
+-							{
+-								switch (MT_GetRandomInt(1, (sizeof iTypes)))
+-								{
+-									case 1: vSpawnUncommon(tank, MODEL_CEDA);
+-									case 2: vSpawnUncommon(tank, MODEL_JIMMY);
+-									case 3: vSpawnUncommon(tank, MODEL_FALLEN);
+-									case 4: vSpawnUncommon(tank, MODEL_CLOWN);
+-									case 5: vSpawnUncommon(tank, MODEL_MUDMAN);
+-									case 6: vSpawnUncommon(tank, MODEL_ROADCREW);
+-									case 7: vSpawnUncommon(tank, MODEL_RIOTCOP);
+-								}
+-							}
++							case 3: vSpawnUncommon(tank, MODEL_FALLEN);
++							case 4: vSpawnUncommon(tank, MODEL_CLOWN);
++							case 5: vSpawnUncommon(tank, MODEL_MUDMAN);
++							case 6: vSpawnUncommon(tank, MODEL_ROADCREW);
++							case 7: vSpawnUncommon(tank, MODEL_RIOTCOP);
+ 						}
++
++						return;
++					}
++
++					switch (iTypes[MT_GetRandomInt(0, (iTypeCount - 1))])
++					{
++						case 1: vSpawnUncommon(tank, MODEL_CEDA);
++						case 2: vSpawnUncommon(tank, MODEL_JIMMY);
++						case 4: vSpawnUncommon(tank, MODEL_FALLEN);
++						case 8: vSpawnUncommon(tank, MODEL_CLOWN);
++						case 16: vSpawnUncommon(tank, MODEL_MUDMAN);
++						case 32: vSpawnUncommon(tank, MODEL_ROADCREW);
++						case 64: vSpawnUncommon(tank, MODEL_RIOTCOP);
+ 					}
+ 				}
+ 				case false: vSpawnZombie(tank, false);
+diff --git a/addons/sourcemod/scripting/mutant_tanks/abilities2/mt_warp.sp b/addons/sourcemod/scripting/mutant_tanks/abilities2/mt_warp.sp
+--- a/addons/sourcemod/scripting/mutant_tanks/abilities2/mt_warp.sp
++++ b/addons/sourcemod/scripting/mutant_tanks/abilities2/mt_warp.sp
+@@ -1586,7 +1586,12 @@
+ 		return;
+ 	}
+ 
+-	if ((enabled == 1 || enabled == 3) && bIsSurvivor(survivor) && !bIsSurvivorDisabled(survivor))
++	if (bIsSurvivorCaught(survivor) || bIsSurvivorDisabled(survivor))
++	{
++		return;
++	}
++
++	if ((enabled == 1 || enabled == 3) && bIsSurvivor(survivor))
+ 	{
+ 		if (!bIsInfected(tank, MT_CHECK_FAKECLIENT) || (flags & MT_ATTACK_CLAW) || (flags & MT_ATTACK_MELEE) || (g_esWarpPlayer[tank].g_iAmmoCount2 < g_esWarpCache[tank].g_iHumanAmmo && g_esWarpCache[tank].g_iHumanAmmo > 0))
+ 		{
+diff --git a/addons/sourcemod/scripting/mutant_tanks/mt_abilities.sp b/addons/sourcemod/scripting/mutant_tanks/mt_abilities.sp
+--- a/addons/sourcemod/scripting/mutant_tanks/mt_abilities.sp
++++ b/addons/sourcemod/scripting/mutant_tanks/mt_abilities.sp
+@@ -448,6 +448,11 @@
+ public void OnMapEnd()
+ {
+ 	vAbilitySetup(2);
++}
++
++public void OnPluginEnd()
++{
++	vAbilitySetup(3);
+ }
+ 
+ public void MT_OnPluginEnd()
+@@ -1902,6 +1907,9 @@
+ 
+ public void MT_OnPostTankSpawn(int tank)
+ {
++#if defined MT_MENU_HYPNO
++	vHypnoPostTankSpawn(tank);
++#endif
+ 	vAbilityPlayer(4, tank);
+ }
+ 
+diff --git a/addons/sourcemod/scripting/mutant_tanks/mutant_tanks.sp b/addons/sourcemod/scripting/mutant_tanks/mutant_tanks.sp
+--- a/addons/sourcemod/scripting/mutant_tanks/mutant_tanks.sp
++++ b/addons/sourcemod/scripting/mutant_tanks/mutant_tanks.sp
+@@ -9448,6 +9448,12 @@
+ 					vCopyInfectionStats(iBot, iPlayer);
+ 					vRemoveInfection(iBot);
+ 					vCopySurvivorStats(iBot, iPlayer);
++					if (g_esPlayer[iBot].g_bRainbowColor)
++					{
++						SDKUnhook(iBot, SDKHook_PreThinkPost, OnTankRainbowPreThinkPost);
++						g_esPlayer[iBot].g_bRainbowColor = false;
++						g_esPlayer[iPlayer].g_bRainbowColor = SDKHookEx(iPlayer, SDKHook_PreThinkPost, OnTankRainbowPreThinkPost);
++					}
+ 					vResetSurvivorStats(iBot, false);
+ 					vToggleSurvivorEffects(iPlayer);
+ 				}
+@@ -9726,6 +9732,12 @@
+ 					vCopyInfectionStats(iPlayer, iBot);
+ 					vRemoveInfection(iPlayer);
+ 					vCopySurvivorStats(iPlayer, iBot);
++					if (g_esPlayer[iPlayer].g_bRainbowColor)
++					{
++						SDKUnhook(iPlayer, SDKHook_PreThinkPost, OnTankRainbowPreThinkPost);
++						g_esPlayer[iPlayer].g_bRainbowColor = false;
++						g_esPlayer[iBot].g_bRainbowColor = SDKHookEx(iBot, SDKHook_PreThinkPost, OnTankRainbowPreThinkPost);
++					}
+ 					vResetSurvivorStats(iPlayer, false);
+ 					vToggleSurvivorEffects(iBot);
+ 				}
+@@ -13583,8 +13595,15 @@
+ 			}
+ 			else if ((g_esTankCache[tank].g_iStackRewards[priority] & type) && (g_esPlayer[survivor].g_iRewardTypes & type) && g_esTankCache[tank].g_iStackLimits[2] > 0 && g_esPlayer[survivor].g_iRewardStack[2] < g_esTankCache[tank].g_iStackLimits[2])
+ 			{
+-				g_esPlayer[survivor].g_flDamageBoost += g_esTankCache[tank].g_flDamageBoostReward[priority];
+-				g_esPlayer[survivor].g_flDamageBoost = flClamp(g_esPlayer[survivor].g_flDamageBoost, 0.0, 99999.0);
++				float incomingDamage = g_esTankCache[tank].g_flDamageBoostReward[priority];
++				if (0.0 < incomingDamage <= g_esPlayer[survivor].g_flDamageBoost)
++				{
++					g_esPlayer[survivor].g_flDamageBoost = flClamp(g_esPlayer[survivor].g_flDamageBoost + incomingDamage, 0.0, 99999.0);
++				}
++				else if (g_esPlayer[survivor].g_flDamageBoost <= 0.0 && incomingDamage > 0.0)
++				{
++					g_esPlayer[survivor].g_flDamageBoost = flClamp(incomingDamage, 0.0, 99999.0);
++				}
+ 				g_esPlayer[survivor].g_flDamageResistance -= g_esTankCache[tank].g_flDamageResistanceReward[priority] / 2.0;
+ 				g_esPlayer[survivor].g_flDamageResistance = flClamp(g_esPlayer[survivor].g_flDamageResistance, 0.0, 1.0);
+ 				g_esPlayer[survivor].g_flHollowpointAmmo += g_esTankCache[tank].g_flHollowpointAmmoReward[priority];
+@@ -13672,8 +13691,15 @@
+ 				g_esPlayer[survivor].g_flSupplier = flClamp(g_esPlayer[survivor].g_flSupplier, 0.0, 99999.0);
+ 				g_esPlayer[survivor].g_iAmmoBoost = g_esTankCache[tank].g_iAmmoBoostReward[priority];
+ 				g_esPlayer[survivor].g_iAmmoRefill = g_esTankCache[tank].g_iAmmoRefillReward[priority];
+-				g_esPlayer[survivor].g_iAmmoRegen += g_esTankCache[tank].g_iAmmoRegenReward[priority];
+-				g_esPlayer[survivor].g_iAmmoRegen = iClamp(g_esPlayer[survivor].g_iAmmoRegen, 0, 99999);
++				int incomingRegen = g_esTankCache[tank].g_iAmmoRegenReward[priority];
++				if (0 < incomingRegen <= g_esPlayer[survivor].g_iAmmoRegen)
++				{
++					g_esPlayer[survivor].g_iAmmoRegen = iClamp(g_esPlayer[survivor].g_iAmmoRegen + incomingRegen, 0, 99999);
++				}
++				else if (g_esPlayer[survivor].g_iAmmoRegen <= 0 && incomingRegen > 0)
++				{
++					g_esPlayer[survivor].g_iAmmoRegen = iClamp(incomingRegen, 0, 99999);
++				}
+ 				g_esPlayer[survivor].g_iClusterBombs += g_esTankCache[tank].g_iClusterBombsReward[priority];
+ 				g_esPlayer[survivor].g_iClusterBombs = iClamp(g_esPlayer[survivor].g_iClusterBombs, 0, 5);
+ 				g_esPlayer[survivor].g_iSpecialAmmo |= g_esTankCache[tank].g_iSpecialAmmoReward[priority];
+@@ -19098,9 +19124,9 @@
+ 					g_esTankCache[tank].g_iArrivalSound = iGetSubSettingValue(bAccess, bHuman, g_esTeammate[tank].g_iArrivalSound, g_esPlayer[tank].g_iArrivalSound, g_esTankCache[tank].g_iArrivalSound, g_esTankCache[tank].g_iArrivalSound, 1);
+ 					g_esTankCache[tank].g_iAutoHop = iGetSubSettingValue(bAccess, true, g_esSpecial[iType].g_iAutoHop, g_esTank[iType].g_iAutoHop, g_esSpecific.g_iAutoHop, g_esGeneral.g_iAutoHop, 1);
+ 					g_esTankCache[tank].g_iAutoHop = iGetSubSettingValue(bAccess, bHuman, g_esTeammate[tank].g_iAutoHop, g_esPlayer[tank].g_iAutoHop, g_esTankCache[tank].g_iAutoHop, g_esTankCache[tank].g_iAutoHop, 1);
+-					g_esTankCache[tank].g_iBaseHealth = iGetSubSettingValue(bAccess, true, g_esTank[iType].g_iBaseHealth, g_esSpecific.g_iBaseHealth[0], g_esSpecific.g_iBaseHealth[iSpecType + 1], g_esGeneral.g_iBaseHealth, 1);
+-					g_esTankCache[tank].g_iBaseHealth = iGetSubSettingValue(bAccess, bHuman, g_esTeammate[tank].g_iBaseHealth[iSpecType + 1], g_esPlayer[tank].g_iBaseHealth, g_esSpecial[iType].g_iBaseHealth[0], g_esSpecial[iType].g_iBaseHealth[iSpecType + 1], 1);
+-					g_esTankCache[tank].g_iBaseHealth = iGetSubSettingValue(bAccess, bHuman, g_esTeammate[tank].g_iBaseHealth[0], g_esTankCache[tank].g_iBaseHealth, g_esTankCache[tank].g_iBaseHealth, g_esTankCache[tank].g_iBaseHealth, 1);
++					int iResolvedBase = iGetSubSettingValue(bAccess, true, g_esTank[iType].g_iBaseHealth, g_esSpecific.g_iBaseHealth[0], g_esSpecific.g_iBaseHealth[iSpecType + 1], g_esGeneral.g_iBaseHealth, 1);
++					iResolvedBase = iGetSubSettingValue(bAccess, bHuman, g_esPlayer[tank].g_iBaseHealth, g_esSpecial[iType].g_iBaseHealth[0], g_esSpecial[iType].g_iBaseHealth[iSpecType + 1], iResolvedBase, 1);
++					g_esTankCache[tank].g_iBaseHealth = iGetSubSettingValue(bAccess, bHuman, g_esTeammate[tank].g_iBaseHealth[0], g_esTeammate[tank].g_iBaseHealth[iSpecType + 1], iResolvedBase, iResolvedBase, 1);
+ 					g_esTankCache[tank].g_iBossEffects = iGetSubSettingValue(bAccess, bHuman, g_esTeammate[tank].g_iBossEffects, g_esPlayer[tank].g_iBossEffects, g_esSpecial[iType].g_iBossEffects, g_esTank[iType].g_iBossEffects, 1);
+ 					g_esTankCache[tank].g_iBossStages = iGetSubSettingValue(bAccess, bHuman, g_esTeammate[tank].g_iBossStages, g_esPlayer[tank].g_iBossStages, g_esSpecial[iType].g_iBossStages, g_esTank[iType].g_iBossStages, 1);
+ 					g_esTankCache[tank].g_iBulletImmunity = iGetSubSettingValue(bAccess, true, g_esSpecial[iType].g_iBulletImmunity, g_esTank[iType].g_iBulletImmunity, g_esSpecific.g_iBulletImmunity, g_esGeneral.g_iBulletImmunity, 1);
+@@ -19119,9 +19145,9 @@
+ 					g_esTankCache[tank].g_iDisplayHealthType = iGetSubSettingValue(bAccess, bHuman, g_esTeammate[tank].g_iDisplayHealthType, g_esPlayer[tank].g_iDisplayHealthType, g_esTankCache[tank].g_iDisplayHealthType, g_esTankCache[tank].g_iDisplayHealthType, 1);
+ 					g_esTankCache[tank].g_iExplosiveImmunity = iGetSubSettingValue(bAccess, true, g_esSpecial[iType].g_iExplosiveImmunity, g_esTank[iType].g_iExplosiveImmunity, g_esSpecific.g_iExplosiveImmunity, g_esGeneral.g_iExplosiveImmunity, 1);
+ 					g_esTankCache[tank].g_iExplosiveImmunity = iGetSubSettingValue(bAccess, bHuman, g_esTeammate[tank].g_iExplosiveImmunity, g_esPlayer[tank].g_iExplosiveImmunity, g_esTankCache[tank].g_iExplosiveImmunity, g_esTankCache[tank].g_iExplosiveImmunity, 1);
+-					g_esTankCache[tank].g_iExtraHealth = iGetSubSettingValue(bAccess, true, g_esTank[iType].g_iExtraHealth, g_esSpecific.g_iExtraHealth[0], g_esSpecific.g_iExtraHealth[iSpecType + 1], g_esGeneral.g_iExtraHealth, 2, -1);
+-					g_esTankCache[tank].g_iExtraHealth = iGetSubSettingValue(bAccess, bHuman, g_esTeammate[tank].g_iExtraHealth[iSpecType + 1], g_esPlayer[tank].g_iExtraHealth, g_esSpecial[iType].g_iExtraHealth[0], g_esSpecial[iType].g_iExtraHealth[iSpecType + 1], 2, -1);
+-					g_esTankCache[tank].g_iExtraHealth = iGetSubSettingValue(bAccess, bHuman, g_esTeammate[tank].g_iExtraHealth[0], g_esTankCache[tank].g_iExtraHealth, g_esTankCache[tank].g_iExtraHealth, g_esTankCache[tank].g_iExtraHealth, 2, -1);
++					int iResolvedExtra = iGetSubSettingValue(bAccess, true, g_esTank[iType].g_iExtraHealth, g_esSpecific.g_iExtraHealth[0], g_esSpecific.g_iExtraHealth[iSpecType + 1], g_esGeneral.g_iExtraHealth, 2, -1);
++					iResolvedExtra = iGetSubSettingValue(bAccess, bHuman, g_esPlayer[tank].g_iExtraHealth, g_esSpecial[iType].g_iExtraHealth[0], g_esSpecial[iType].g_iExtraHealth[iSpecType + 1], iResolvedExtra, 2, -1);
++					g_esTankCache[tank].g_iExtraHealth = iGetSubSettingValue(bAccess, bHuman, g_esTeammate[tank].g_iExtraHealth[0], g_esTeammate[tank].g_iExtraHealth[iSpecType + 1], iResolvedExtra, iResolvedExtra, 2, -1);
+ 					g_esTankCache[tank].g_iFireImmunity = iGetSubSettingValue(bAccess, true, g_esSpecial[iType].g_iFireImmunity, g_esTank[iType].g_iFireImmunity, g_esSpecific.g_iFireImmunity, g_esGeneral.g_iFireImmunity, 1);
+ 					g_esTankCache[tank].g_iFireImmunity = iGetSubSettingValue(bAccess, bHuman, g_esTeammate[tank].g_iFireImmunity, g_esPlayer[tank].g_iFireImmunity, g_esTankCache[tank].g_iFireImmunity, g_esTankCache[tank].g_iFireImmunity, 1);
+ 					g_esTankCache[tank].g_iHittableImmunity = iGetSubSettingValue(bAccess, true, g_esSpecial[iType].g_iHittableImmunity, g_esTank[iType].g_iHittableImmunity, g_esSpecific.g_iHittableImmunity, g_esGeneral.g_iHittableImmunity, 1);
+@@ -24993,8 +25019,11 @@
+ 	Call_PushCell(type);
+ 	Call_PushCell(admin);
+ 	Call_PushCell(mode);
+-	Call_PushCell(false);
+-	Call_PushString("");
++	bool bNestedContext = special;
++	char sSpecialSection[64];
++	strcopy(sSpecialSection, sizeof sSpecialSection, specsection);
++	Call_PushCell(bNestedContext);
++	Call_PushString(sSpecialSection);
+ 	Call_Finish();
+ }
+ 
+@@ -37100,6 +37129,10 @@
+ 		iBossStages = pack.ReadCell(), iBossHealthValues[4] = {0, 0, 0, 0}, iTypes[4] = {0, 0, 0, 0};
+ 	pack.ReadCellArray(iBossHealthValues, sizeof iBossHealthValues);
+ 	pack.ReadCellArray(iTypes, sizeof iTypes);
++	if (iBossStageCount >= sizeof iBossHealthValues)
++	{
++		return Plugin_Stop;
++	}
+ 
+ 	vEvolveBoss(iTank, iBossHealthValues[iBossStageCount], iBossStages, iTypes[iBossStageCount], (iBossStageCount + 1));
+ 

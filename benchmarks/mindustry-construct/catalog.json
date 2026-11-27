@@ -1,0 +1,564 @@
+{
+  "id": "rhenium-mindustry-v1",
+  "version": "1.2.1",
+  "game": "mindustry",
+  "name": {
+    "en": "Rhenium Mindustry Tasks",
+    "zh": "Rhenium Mindustry 工程题"
+  },
+  "description": {
+    "en": "Hard server-side Mindustry engineering tasks.",
+    "zh": "高难度 Mindustry 服务端工程题。"
+  },
+  "tasks": [
+    {
+      "id": "transactional-core-router",
+      "difficulty": "hard",
+      "title": {
+        "en": "Transactional Core Stockpile Router",
+        "zh": "事务型核心物资路由器"
+      },
+      "summary": {
+        "en": "Crash-safe item transfers between storage buildings.",
+        "zh": "在存储建筑之间进行崩溃安全的物资转移。"
+      },
+      "brief": {
+        "en": "Implement the complete server plugin described by the public exam.",
+        "zh": "按公开题面实现完整服务端插件。"
+      },
+      "requirements": {
+        "en": [
+          "Implement every fixed public API and transaction rule."
+        ],
+        "zh": [
+          "实现所有固定公开 API 与事务规则。"
+        ]
+      },
+      "api_usage": {
+        "en": [
+          "Use base-game Building item modules and server events."
+        ],
+        "zh": [
+          "使用原版 Building 物品模块与服务端事件。"
+        ]
+      },
+      "acceptance": {
+        "en": [
+          "All private headless assertions pass."
+        ],
+        "zh": [
+          "全部私有无头专服断言通过。"
+        ]
+      },
+      "domains": [
+        "transactions",
+        "inventory",
+        "persistence",
+        "recovery"
+      ],
+      "estimated_minutes": 420,
+      "required_files": [
+        "plugin.hjson",
+        "src/TransferEngine.java",
+        "src/TransactionalCoreRouterPlugin.java"
+      ],
+      "server_test_dir": "graders/transactional-core-router",
+      "map_name": "Fortress"
+    },
+    {
+      "id": "build-quota-auditor",
+      "difficulty": "hard",
+      "title": {
+        "en": "Server-authoritative Build Quota Auditor",
+        "zh": "服务端权威建造配额审计器"
+      },
+      "summary": {
+        "en": "Rolling build quotas with exact cancellation and refund accounting.",
+        "zh": "带精确取消与退款记账的滚动建造配额。"
+      },
+      "brief": {
+        "en": "Implement the complete Java core and server plugin in the public exam.",
+        "zh": "实现题面规定的 Java 核心与服务端插件。"
+      },
+      "requirements": {
+        "en": [
+          "Implement every fixed API, quota transition, persistence and recovery rule."
+        ],
+        "zh": [
+          "实现全部固定 API、配额状态转换、持久化与恢复规则。"
+        ]
+      },
+      "api_usage": {
+        "en": [
+          "Use server-derived build, player, team and block events only."
+        ],
+        "zh": [
+          "仅使用服务端派生的建造、玩家、队伍与方块事件。"
+        ]
+      },
+      "acceptance": {
+        "en": [
+          "All private pure-Java and headless assertions pass."
+        ],
+        "zh": [
+          "通过全部私有纯 Java 与无头专服断言。"
+        ]
+      },
+      "domains": [
+        "security",
+        "quotas",
+        "building",
+        "persistence"
+      ],
+      "estimated_minutes": 420,
+      "required_files": [
+        "plugin.hjson",
+        "build-reference.sh",
+        "src/BuildQuotaEngine.java",
+        "src/BuildQuotaAuditorPlugin.java"
+      ],
+      "server_test_dir": "graders/build-quota-auditor",
+      "map_name": "Fortress"
+    },
+    {
+      "id": "unit-lease-scheduler",
+      "difficulty": "hard",
+      "title": {
+        "en": "Lease-based Unit Task Scheduler",
+        "zh": "基于租约的单位任务调度器"
+      },
+      "summary": {
+        "en": "Deterministic starvation-resistant leasing for real support units.",
+        "zh": "面向真实支援单位的确定性无饥饿租约调度。"
+      },
+      "brief": {
+        "en": "Implement the complete Java scheduler and server plugin in the public exam.",
+        "zh": "实现题面规定的 Java 调度器与服务端插件。"
+      },
+      "requirements": {
+        "en": [
+          "Implement leases, aging, heartbeat, death, replacement and reload semantics."
+        ],
+        "zh": [
+          "实现租约、老化、心跳、死亡、替换与重载语义。"
+        ]
+      },
+      "api_usage": {
+        "en": [
+          "Resolve and control only real server-side Mono, Poly and Mega units."
+        ],
+        "zh": [
+          "仅解析并控制真实服务端 Mono、Poly 与 Mega 单位。"
+        ]
+      },
+      "acceptance": {
+        "en": [
+          "All private pure-Java and headless assertions pass."
+        ],
+        "zh": [
+          "通过全部私有纯 Java 与无头专服断言。"
+        ]
+      },
+      "domains": [
+        "scheduling",
+        "leases",
+        "units",
+        "fairness"
+      ],
+      "estimated_minutes": 480,
+      "required_files": [
+        "plugin.hjson",
+        "build-reference.sh",
+        "src/LeaseScheduler.java",
+        "src/UnitLeaseSchedulerPlugin.java"
+      ],
+      "server_test_dir": "graders/unit-lease-scheduler",
+      "map_name": "Fortress"
+    },
+    {
+      "id": "power-grid-controller",
+      "difficulty": "hard",
+      "title": {
+        "en": "Power-grid Fault Isolation Controller",
+        "zh": "电网故障隔离与负载削减控制器"
+      },
+      "summary": {
+        "en": "Hysteretic deterministic load shedding across grid topology changes.",
+        "zh": "跨电网拓扑变化的滞回确定性负载削减。"
+      },
+      "brief": {
+        "en": "Implement the complete Java controller and server plugin in the public exam.",
+        "zh": "实现题面规定的 Java 控制器与服务端插件。"
+      },
+      "requirements": {
+        "en": [
+          "Implement hysteresis, minimum switching time, split, merge and reload behavior."
+        ],
+        "zh": [
+          "实现滞回、最短切换时间、分裂、合并与重载行为。"
+        ]
+      },
+      "api_usage": {
+        "en": [
+          "Read real power graphs and toggle only configured base-game consumers."
+        ],
+        "zh": [
+          "读取真实电网且仅切换配置的原版耗电建筑。"
+        ]
+      },
+      "acceptance": {
+        "en": [
+          "All private pure-Java and headless assertions pass."
+        ],
+        "zh": [
+          "通过全部私有纯 Java 与无头专服断言。"
+        ]
+      },
+      "domains": [
+        "control",
+        "power",
+        "topology",
+        "hysteresis"
+      ],
+      "estimated_minutes": 480,
+      "required_files": [
+        "plugin.hjson",
+        "build-reference.sh",
+        "src/GridController.java",
+        "src/PowerGridControllerPlugin.java"
+      ],
+      "server_test_dir": "graders/power-grid-controller",
+      "map_name": "Fortress"
+    },
+    {
+      "id": "wave-threat-arbiter",
+      "difficulty": "hard",
+      "title": {
+        "en": "Wave Threat Response and Repair Arbiter",
+        "zh": "波次威胁响应与维修仲裁器"
+      },
+      "summary": {
+        "en": "Deterministic single-owner defense and repair assignments.",
+        "zh": "确定性单负责人防御与维修任务分配。"
+      },
+      "brief": {
+        "en": "Implement the complete Java arbiter and server plugin in the public exam.",
+        "zh": "实现题面规定的 Java 仲裁器与服务端插件。"
+      },
+      "requirements": {
+        "en": [
+          "Implement deduplication, aging, ownership, death, wave cleanup and reload behavior."
+        ],
+        "zh": [
+          "实现去重、老化、所有权、死亡、波次清理与重载行为。"
+        ]
+      },
+      "api_usage": {
+        "en": [
+          "Use real wave, unit and building lifecycle events on the server."
+        ],
+        "zh": [
+          "使用真实服务端波次、单位与建筑生命周期事件。"
+        ]
+      },
+      "acceptance": {
+        "en": [
+          "All private pure-Java and headless assertions pass."
+        ],
+        "zh": [
+          "通过全部私有纯 Java 与无头专服断言。"
+        ]
+      },
+      "domains": [
+        "arbitration",
+        "waves",
+        "repair",
+        "events"
+      ],
+      "estimated_minutes": 480,
+      "required_files": [
+        "plugin.hjson",
+        "build-reference.sh",
+        "src/ThreatArbiter.java",
+        "src/WaveThreatArbiterPlugin.java"
+      ],
+      "server_test_dir": "graders/wave-threat-arbiter",
+      "map_name": "Fortress"
+    },
+    {
+      "id": "item-reservation-ledger",
+      "difficulty": "hard",
+      "title": {
+        "en": "Transactional Item Reservation Ledger",
+        "zh": "事务型物资预留账本"
+      },
+      "summary": {
+        "en": "Deterministic server-side transactional item reservation ledger.",
+        "zh": "事务型物资预留账本。"
+      },
+      "brief": {
+        "en": "Implement the complete Java core and server plugin in the public exam.",
+        "zh": "实现公开题面规定的 Java 核心与服务端插件。"
+      },
+      "requirements": {
+        "en": [
+          "Implement deterministic transitions, validation, persistence and recovery semantics."
+        ],
+        "zh": [
+          "实现确定性状态转换、校验、持久化与恢复语义。"
+        ]
+      },
+      "api_usage": {
+        "en": [
+          "Use only server-authoritative Mindustry state in the adapter."
+        ],
+        "zh": [
+          "适配层仅使用服务端权威 Mindustry 状态。"
+        ]
+      },
+      "acceptance": {
+        "en": [
+          "All private pure-Java and headless assertions pass."
+        ],
+        "zh": [
+          "通过全部私有纯 Java 与无头专服断言。"
+        ]
+      },
+      "domains": [
+        "inventory",
+        "reservations",
+        "transactions",
+        "persistence"
+      ],
+      "estimated_minutes": 360,
+      "required_files": [
+        "plugin.hjson",
+        "build-reference.sh",
+        "src/ReservationLedger.java",
+        "src/ItemReservationLedgerPlugin.java"
+      ],
+      "server_test_dir": "graders/item-reservation-ledger",
+      "map_name": "Fortress"
+    },
+    {
+      "id": "wave-budget-planner",
+      "difficulty": "hard",
+      "title": {
+        "en": "Deterministic Wave Budget Planner",
+        "zh": "确定性波次预算规划器"
+      },
+      "summary": {
+        "en": "Deterministic server-side deterministic wave budget planner.",
+        "zh": "确定性波次预算规划器。"
+      },
+      "brief": {
+        "en": "Implement the complete Java core and server plugin in the public exam.",
+        "zh": "实现公开题面规定的 Java 核心与服务端插件。"
+      },
+      "requirements": {
+        "en": [
+          "Implement deterministic transitions, validation, persistence and recovery semantics."
+        ],
+        "zh": [
+          "实现确定性状态转换、校验、持久化与恢复语义。"
+        ]
+      },
+      "api_usage": {
+        "en": [
+          "Use only server-authoritative Mindustry state in the adapter."
+        ],
+        "zh": [
+          "适配层仅使用服务端权威 Mindustry 状态。"
+        ]
+      },
+      "acceptance": {
+        "en": [
+          "All private pure-Java and headless assertions pass."
+        ],
+        "zh": [
+          "通过全部私有纯 Java 与无头专服断言。"
+        ]
+      },
+      "domains": [
+        "waves",
+        "budgeting",
+        "determinism",
+        "persistence"
+      ],
+      "estimated_minutes": 360,
+      "required_files": [
+        "plugin.hjson",
+        "build-reference.sh",
+        "src/WaveBudgetPlanner.java",
+        "src/WaveBudgetPlannerPlugin.java"
+      ],
+      "server_test_dir": "graders/wave-budget-planner",
+      "map_name": "Fortress"
+    },
+    {
+      "id": "logic-link-registry",
+      "difficulty": "hard",
+      "title": {
+        "en": "Logic Link Lease Registry",
+        "zh": "逻辑链接租约注册表"
+      },
+      "summary": {
+        "en": "Deterministic server-side logic link lease registry.",
+        "zh": "逻辑链接租约注册表。"
+      },
+      "brief": {
+        "en": "Implement the complete Java core and server plugin in the public exam.",
+        "zh": "实现公开题面规定的 Java 核心与服务端插件。"
+      },
+      "requirements": {
+        "en": [
+          "Implement deterministic transitions, validation, persistence and recovery semantics."
+        ],
+        "zh": [
+          "实现确定性状态转换、校验、持久化与恢复语义。"
+        ]
+      },
+      "api_usage": {
+        "en": [
+          "Use only server-authoritative Mindustry state in the adapter."
+        ],
+        "zh": [
+          "适配层仅使用服务端权威 Mindustry 状态。"
+        ]
+      },
+      "acceptance": {
+        "en": [
+          "All private pure-Java and headless assertions pass."
+        ],
+        "zh": [
+          "通过全部私有纯 Java 与无头专服断言。"
+        ]
+      },
+      "domains": [
+        "logic",
+        "leases",
+        "ownership",
+        "persistence"
+      ],
+      "estimated_minutes": 360,
+      "required_files": [
+        "plugin.hjson",
+        "build-reference.sh",
+        "src/LogicLinkRegistry.java",
+        "src/LogicLinkRegistryPlugin.java"
+      ],
+      "server_test_dir": "graders/logic-link-registry",
+      "map_name": "Fortress"
+    },
+    {
+      "id": "core-failover-coordinator",
+      "difficulty": "hard",
+      "title": {
+        "en": "Core Failover Coordinator",
+        "zh": "核心故障转移协调器"
+      },
+      "summary": {
+        "en": "Deterministic server-side core failover coordinator.",
+        "zh": "核心故障转移协调器。"
+      },
+      "brief": {
+        "en": "Implement the complete Java core and server plugin in the public exam.",
+        "zh": "实现公开题面规定的 Java 核心与服务端插件。"
+      },
+      "requirements": {
+        "en": [
+          "Implement deterministic transitions, validation, persistence and recovery semantics."
+        ],
+        "zh": [
+          "实现确定性状态转换、校验、持久化与恢复语义。"
+        ]
+      },
+      "api_usage": {
+        "en": [
+          "Use only server-authoritative Mindustry state in the adapter."
+        ],
+        "zh": [
+          "适配层仅使用服务端权威 Mindustry 状态。"
+        ]
+      },
+      "acceptance": {
+        "en": [
+          "All private pure-Java and headless assertions pass."
+        ],
+        "zh": [
+          "通过全部私有纯 Java 与无头专服断言。"
+        ]
+      },
+      "domains": [
+        "core",
+        "failover",
+        "selection",
+        "persistence"
+      ],
+      "estimated_minutes": 360,
+      "required_files": [
+        "plugin.hjson",
+        "build-reference.sh",
+        "src/CoreFailoverCoordinator.java",
+        "src/CoreFailoverCoordinatorPlugin.java"
+      ],
+      "server_test_dir": "graders/core-failover-coordinator",
+      "map_name": "Fortress"
+    },
+    {
+      "id": "blueprint-layout-reconciler",
+      "difficulty": "hard",
+      "title": {
+        "en": "Blueprint Layout Reconciler",
+        "zh": "蓝图布局协调器"
+      },
+      "summary": {
+        "en": "Deterministic planner that reconciles observed buildings with a desired layout, plus a server adapter that observes and edits the real world.",
+        "zh": "将实际建筑与目标布局对齐的确定性规划器，以及观测并修改真实世界的服务端适配层。"
+      },
+      "brief": {
+        "en": "Implement the complete Java core and server plugin in the public exam.",
+        "zh": "实现公开题面规定的 Java 核心与服务端插件。"
+      },
+      "requirements": {
+        "en": [
+          "Implement footprint geometry, matching, conflict removal, budgeted placement, replay and checkpoints deterministically."
+        ],
+        "zh": [
+          "确定性地实现占地几何、匹配、冲突拆除、预算内放置、重放与检查点。"
+        ]
+      },
+      "api_usage": {
+        "en": [
+          "Observe and edit only the server's world tiles and buildings in the adapter."
+        ],
+        "zh": [
+          "适配层只观测并修改服务端世界中的地块与建筑。"
+        ]
+      },
+      "acceptance": {
+        "en": [
+          "All private pure-Java and headless assertions pass."
+        ],
+        "zh": [
+          "通过全部私有纯 Java 与无头专服断言。"
+        ]
+      },
+      "domains": [
+        "world",
+        "layout",
+        "planning",
+        "budget"
+      ],
+      "estimated_minutes": 420,
+      "required_files": [
+        "plugin.hjson",
+        "build-reference.sh",
+        "src/LayoutReconciler.java",
+        "src/BlueprintReconcilerPlugin.java"
+      ],
+      "server_test_dir": "graders/blueprint-layout-reconciler",
+      "map_name": "Fortress"
+    }
+  ]
+}

@@ -1,0 +1,12 @@
+diff -ruN a/darkrp/gamemode/modules/hitmenu/sh_init.lua b/darkrp/gamemode/modules/hitmenu/sh_init.lua
+--- a/darkrp/gamemode/modules/hitmenu/sh_init.lua	2026-09-21 05:04:15.394091278 +0800
++++ b/darkrp/gamemode/modules/hitmenu/sh_init.lua	2026-09-21 05:45:18.440604116 +0800
+@@ -19,7 +19,7 @@
+ end
+ 
+ function DarkRP.addHitmanTeam(job)
+-    if not job or not RPExtraTeams[job] then return end
++    if not job or not RPExtraTeams[job] or not DarkRP.DARKRP_LOADING then return end
+     if DarkRP.DARKRP_LOADING and DarkRP.disabledDefaults["hitmen"][RPExtraTeams[job].command] then return end
+ 
+     hitmanTeams[job] = true

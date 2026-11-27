@@ -1,0 +1,5 @@
+name: TownCrier
+version: 1.0.0
+main: com.example.towncrier.TownCrierPlugin
+api-version: '1.21'
+description: Timed server announcements

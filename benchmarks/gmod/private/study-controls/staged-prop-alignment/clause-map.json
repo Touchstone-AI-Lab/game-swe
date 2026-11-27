@@ -1,0 +1,629 @@
+{
+  "task": "garrys-mod/addons/staged-prop-alignment",
+  "task_version": "2.2.0",
+  "exam": "benchmarks/gmod/exams/staged-prop-alignment.md",
+  "cases": [
+    {
+      "id": "check:required-files",
+      "role": "static",
+      "clauses": [
+        "T2-FILE-01"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "check:lua-syntax",
+      "role": "static",
+      "clauses": [
+        "T2-FILE-01"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "hidden:six anchors must follow the public stage order",
+      "role": "target",
+      "clauses": [
+        "T2-API-01",
+        "T2-SEM-02",
+        "T2-API-02",
+        "T2-GOAL-02",
+        "T2-SCOPE-02",
+        "T2-ERR-01",
+        "T2-ACC-01"
+      ],
+      "overlap": false,
+      "note": "Carries the implicit sandbox evidence for GOAL-02/SCOPE-02."
+    },
+    {
+      "id": "hidden:three point frames map origin axes and probe",
+      "role": "target",
+      "clauses": [
+        "T2-GEO-01",
+        "T2-GEO-02",
+        "T2-API-03",
+        "T2-ACC-01"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "hidden:collinear and zero length frames are rejected",
+      "role": "target",
+      "clauses": [
+        "T2-GEO-01",
+        "T2-ERR-01",
+        "T2-ACC-01"
+      ],
+      "overlap": false,
+      "note": "Traceability also lists T2-API-04; nominal. No zero-length frame is actually passed."
+    },
+    {
+      "id": "hidden:canonical output is quantized and detached",
+      "role": "target",
+      "clauses": [
+        "T2-GEO-03",
+        "T2-SEM-07",
+        "T2-API-04"
+      ],
+      "overlap": false,
+      "note": "Vacuous for quantization and detachment (hidden:13): `x` is read before `d.position.x=9`, so `x~=9` always holds; the only live assertion is save().schema_version==1. Traceability also lists T2-FILE-01; nominal."
+    },
+    {
+      "id": "hidden:player entity and revision bind one staging session",
+      "role": "target",
+      "clauses": [
+        "T2-SEM-01",
+        "T2-ERR-01"
+      ],
+      "overlap": false,
+      "note": "Traceability also lists T2-GOAL-01; nominal."
+    },
+    {
+      "id": "hidden:exact request replay is idempotent and conflicts fail",
+      "role": "target",
+      "clauses": [
+        "T2-SEM-04",
+        "T2-API-03",
+        "T2-ERR-01",
+        "T2-ACC-03"
+      ],
+      "overlap": false,
+      "note": "Traceability also lists T2-GOAL-02; nominal. Reads undisclosed `data.stage` (hidden:15)."
+    },
+    {
+      "id": "hidden:solve requires a complete current generation",
+      "role": "target",
+      "clauses": [
+        "T2-SEM-05",
+        "T2-ERR-01"
+      ],
+      "overlap": false,
+      "note": "Traceability also lists T2-SCOPE-01; nominal."
+    },
+    {
+      "id": "hidden:operation budget is consumed once per solve",
+      "role": "target",
+      "clauses": [
+        "T2-SEM-05",
+        "T2-SEM-06",
+        "T2-ERR-01",
+        "T2-ACC-03"
+      ],
+      "overlap": false,
+      "note": "Traceability also lists T2-SCOPE-02; nominal."
+    },
+    {
+      "id": "hidden:clear discards only the named player session",
+      "role": "target",
+      "clauses": [
+        "T2-SEM-03",
+        "T2-ACC-02"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "hidden:save load preserves stages budget and replay",
+      "role": "target",
+      "clauses": [
+        "T2-PERSIST-01",
+        "T2-ACC-03"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "hidden:invalid numbers and identifiers never mutate",
+      "role": "target",
+      "clauses": [
+        "T2-DATA-01",
+        "T2-ERR-01"
+      ],
+      "overlap": false,
+      "note": "No code compared; mutation check is `#sessions`, vacuous for a keyed table."
+    },
+    {
+      "id": "hidden:shutdown is idempotent and freezes alignment",
+      "role": "target",
+      "clauses": [
+        "T2-LIFE-01",
+        "T2-API-04",
+        "T2-ERR-01",
+        "T2-ACC-05"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "hidden:malformed sessions requests and budgets are rejected",
+      "role": "target",
+      "clauses": [
+        "T2-PERSIST-02",
+        "T2-API-02",
+        "T2-ERR-01"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "integration:adapter installs CanTool lifecycle hooks and timer",
+      "role": "target",
+      "clauses": [
+        "T2-API-05",
+        "T2-NATIVE-01",
+        "T2-LIFE-01"
+      ],
+      "overlap": false,
+      "note": "Uses undisclosed S.HookPrefix/S.TimerName and the private suffixes .CanTool/.Disconnect. Traceability also lists T2-ADAPTER-02; nominal.",
+      "over_constrained": true
+    },
+    {
+      "id": "integration:trusted player and entity bindings drive six traces",
+      "role": "target",
+      "clauses": [
+        "T2-NATIVE-02",
+        "T2-TRUST-01",
+        "T2-API-05"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "integration:unbound and forged trace identity are rejected",
+      "role": "target",
+      "clauses": [
+        "T2-NATIVE-02",
+        "T2-TRUST-01",
+        "T2-ADAPTER-02",
+        "T2-ACC-02"
+      ],
+      "overlap": false,
+      "note": "Only an unbound player is tried; nothing is forged. Requires the code invalid_trace for an unbound player (known_issues)."
+    },
+    {
+      "id": "integration:CanTool denial blocks staging before mutation",
+      "role": "target",
+      "clauses": [
+        "T2-NATIVE-01",
+        "T2-ADAPTER-02",
+        "T2-ACC-02"
+      ],
+      "overlap": false,
+      "note": "",
+      "over_constrained": true
+    },
+    {
+      "id": "integration:execute creates one constrained copy and one undo unit",
+      "role": "target",
+      "clauses": [
+        "T2-ADAPTER-01",
+        "T2-NATIVE-03",
+        "T2-GOAL-01",
+        "T2-NATIVE-05"
+      ],
+      "overlap": false,
+      "note": "Reads undisclosed `data.created` (integration:14). The undo stub records nothing for copy, so \"one undo unit\" is not observed here.",
+      "over_constrained": true
+    },
+    {
+      "id": "integration:move changes original without clone and undo restores transform",
+      "role": "target",
+      "clauses": [
+        "T2-NATIVE-03",
+        "T2-NATIVE-05",
+        "T2-ACC-04",
+        "T2-ADAPTER-01"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "integration:unknown execution mode is rejected before core mutation",
+      "role": "target",
+      "clauses": [
+        "T2-NATIVE-03",
+        "T2-ADAPTER-01",
+        "T2-ADAPTER-02"
+      ],
+      "overlap": false,
+      "note": "invalid_mode is an adapter code (T2-ADAPTER-02), not a core code; T2-ERR-01 link re-pointed."
+    },
+    {
+      "id": "integration:constraint failure rolls back created entities",
+      "role": "target",
+      "clauses": [
+        "T2-ROLLBACK-01",
+        "T2-ADAPTER-02"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "integration:disconnect clears adapter staging identity",
+      "role": "target",
+      "clauses": [
+        "T2-LIFE-01",
+        "T2-NATIVE-01"
+      ],
+      "overlap": false,
+      "note": "Asserts only `true` after calling the stored PlayerDisconnected callback (integration:18): it proves the hook exists under the private name and does not error.",
+      "over_constrained": true
+    },
+    {
+      "id": "lifecycle:shutdown removes every hook and timer",
+      "role": "target",
+      "clauses": [
+        "T2-LIFE-01",
+        "T2-ACC-05"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "server:toolgun",
+      "role": "target",
+      "clauses": [
+        "T2-NATIVE-04",
+        "T2-ACC-04",
+        "T2-GOAL-01",
+        "T2-FILE-01"
+      ],
+      "overlap": false,
+      "note": "Phase B (the recorded verdict): bot created and STOOL loaded. PrimaryAttack/TraceLine evidence is Phase A only.",
+      "over_constrained": true
+    },
+    {
+      "id": "server:geometry",
+      "role": "target",
+      "clauses": [
+        "T2-GEO-02",
+        "T2-ACC-01"
+      ],
+      "overlap": false,
+      "note": "Phase B: prop exists and restored state has `spent`. The deterministic copy position is Phase A only.",
+      "over_constrained": true
+    },
+    {
+      "id": "server:constraint",
+      "role": "target",
+      "clauses": [
+        "T2-NATIVE-03",
+        "T2-ACC-04",
+        "T2-NATIVE-05"
+      ],
+      "overlap": false,
+      "note": "Phase B asserts only that a fresh prop has no constraints (trivially true). Weld/Undo evidence is Phase A only.",
+      "over_constrained": true
+    },
+    {
+      "id": "server:move",
+      "role": "target",
+      "clauses": [
+        "T2-NATIVE-03",
+        "T2-NATIVE-05",
+        "T2-ACC-04",
+        "T2-ADAPTER-01",
+        "T2-ADAPTER-02",
+        "T2-PERSIST-01"
+      ],
+      "overlap": false,
+      "note": "Phase B: persisted budget equals 2 in one of two private layouts (server:12). Real move/undo evidence is Phase A only.",
+      "over_constrained": true
+    },
+    {
+      "id": "server:authority",
+      "role": "target",
+      "clauses": [
+        "T2-TRUST-01",
+        "T2-ACC-02"
+      ],
+      "overlap": false,
+      "note": "Asserts IsValid(created) (Phase A) and IsValid(bot) (Phase B); no untrusted identity is supplied.",
+      "over_constrained": true
+    },
+    {
+      "id": "server:rollback",
+      "role": "target",
+      "clauses": [
+        "T2-ROLLBACK-01",
+        "T2-ACC-04"
+      ],
+      "overlap": false,
+      "note": "Phase A: Execute with Entity(-1) creates nothing. Phase B: exactly one prop exists (trivially true).",
+      "over_constrained": true
+    },
+    {
+      "id": "server:persistence",
+      "role": "target",
+      "clauses": [
+        "T2-PERSIST-01",
+        "T2-ACC-03"
+      ],
+      "overlap": false,
+      "note": "",
+      "over_constrained": true
+    },
+    {
+      "id": "server:cleanup",
+      "role": "target",
+      "clauses": [
+        "T2-LIFE-01",
+        "T2-ACC-05"
+      ],
+      "overlap": false,
+      "note": "",
+      "over_constrained": true
+    }
+  ],
+  "clauses": [
+    {
+      "id": "T2-GOAL-01",
+      "anchor": "§1. Background and goals / item 1: “Implement a server-authoritative Sandbox Toolgun…”",
+      "status": "asserted",
+      "note": "Summary clause; evidenced by the staged copy in the stub adapter and by the real toolgun copy + Weld in Phase A. Traceability's citation (session-binding case) is nominal; re-cited. Native evidence is in Phase A only, so at case level it is a gate (a Phase A failure leaves all server cases unobserved; known_issues)."
+    },
+    {
+      "id": "T2-GOAL-02",
+      "anchor": "§1. Background and goals / item 2: “Geometry, stages, replay, budget and persistence…”",
+      "status": "weak",
+      "note": "Only implicit: the core runs in a sandbox without GMod globals. Nothing checks that geometry/budget logic lives in the core. Traceability's citation (replay case) is nominal."
+    },
+    {
+      "id": "T2-FILE-01",
+      "anchor": "§2. Required files / item 1: “The submission must contain, and may depend only…”",
+      "status": "asserted",
+      "note": "check:required-files and check:lua-syntax; Phase A/B additionally require the STOOL to load through the real gmod_tool (`GetToolObject`). The dependency prohibition is enforced only by the verifier environment. Traceability's citation (quantized/detached case) is nominal."
+    },
+    {
+      "id": "T2-API-01",
+      "anchor": "§3. Core module and constructor parameters / item 1: “`lua/rhenium_prop_alignment/alignment.lua` retur…”",
+      "status": "asserted",
+      "note": "new({max_operations=2[,state]}) is used by every case. A max_operations other than 2 and a non-table options value are never passed."
+    },
+    {
+      "id": "T2-API-02",
+      "anchor": "§3. Core module and constructor parameters / item 2: “Construction returns an instance on success and …”",
+      "status": "asserted",
+      "note": "nil,\"invalid_state\" for six malformed states. invalid_options is never exercised."
+    },
+    {
+      "id": "T2-API-03",
+      "anchor": "§4. Inputs, return values and stable error codes / item 1: “`stage`, `solve`, `clear` return `ok:boolean, co…”",
+      "status": "asserted",
+      "note": "ok/code/data triples are read throughout and hidden:15 tampers the first data table and checks the replayed copy is fresh. That check reads an undisclosed `data.stage` field (known_issues)."
+    },
+    {
+      "id": "T2-API-04",
+      "anchor": "§4. Inputs, return values and stable error codes / item 2: “`snapshot()` returns a detached state table; `sa…”",
+      "status": "weak",
+      "note": "shutdown() is only checked for truthiness, save() only for schema_version==1. No case checks that snapshot()/save() are detached: the case named \"canonical output is quantized and detached\" compares a number captured BEFORE the mutation with 9 (hidden:13), which is vacuous. Traceability's citation (collinear case) is nominal."
+    },
+    {
+      "id": "T2-DATA-01",
+      "anchor": "§4. Inputs, return values and stable error codes / item 3: “`request_id`, `player_id`, `entity_id` are strin…”",
+      "status": "weak",
+      "note": "Two probes only (empty request id, NaN point; hidden:20), neither compares a code, and the no-mutation check compares `#sessions`, which is 0 on both sides for a keyed sessions table. Player/entity ids, the 128 bound and revision typing are never exercised."
+    },
+    {
+      "id": "T2-ERR-01",
+      "anchor": "§4. Inputs, return values and stable error codes / item 4: “Must stably distinguish: `invalid_options`, `inv…”",
+      "status": "asserted",
+      "note": "8 of 12 codes compared literally (invalid_state, bad_stage_order, collinear_frame, stage_identity_mismatch, request_conflict, incomplete_stage, budget_exceeded, shutdown). Never exercised: invalid_options, invalid_stage, invalid_request, degenerate_frame."
+    },
+    {
+      "id": "T2-SEM-01",
+      "anchor": "§5. Stage state and identity / item 1: “Each player has at most one staging session, bou…”",
+      "status": "asserted",
+      "note": "Changing the revision inside a session returns stage_identity_mismatch. That the state is unchanged afterwards is not checked."
+    },
+    {
+      "id": "T2-SEM-02",
+      "anchor": "§5. Stage state and identity / item 2: “The six-step order is strictly `source/origin`, …”",
+      "status": "asserted",
+      "note": "A skipped step returns bad_stage_order and the full six-step order is accepted. Reverse order and a repeated slot are not exercised."
+    },
+    {
+      "id": "T2-SEM-03",
+      "anchor": "§5. Stage state and identity / item 3: “`clear(request_id, player_id)` deletes only the …”",
+      "status": "weak",
+      "note": "hidden:18 only checks that player B's session still exists after clear(A). It does not check that A's session is gone, the `cleared` code, the empty data table, or that budget/request history are untouched."
+    },
+    {
+      "id": "T2-GEO-01",
+      "anchor": "§6. Three-point geometry contract / item 1: “For each set of three points, X is the unit vect…”",
+      "status": "asserted",
+      "note": "collinear_frame is compared and the axis construction is pinned by the probe mapping (93,24,33). Despite the case name no zero-length axis (degenerate_frame) is passed, and non-retention of the failed third point is not checked."
+    },
+    {
+      "id": "T2-GEO-02",
+      "anchor": "§6. Three-point geometry contract / item 2: “`solve` expresses probe in local coordinates of …”",
+      "status": "asserted",
+      "note": "data.position is compared exactly. data.basis is never read by the hidden suite; it is only consumed indirectly by the adapter when it builds the clone/move angle."
+    },
+    {
+      "id": "T2-GEO-03",
+      "anchor": "§6. Three-point geometry contract / item 3: “All public position/basis components are quantiz…”",
+      "status": "weak",
+      "note": "Quantization is never observed: hidden:13 solves a 1/3,2/3 probe but compares nothing to a quantized value (see T2-API-04). Exact integer equality in hidden:11 would tolerate or reject float noise independent of the 1e-6 rule."
+    },
+    {
+      "id": "T2-SEM-04",
+      "anchor": "§7. Replay, budget, revision and ordering / item 1: “`stage`, `solve`, `clear` share a global request…”",
+      "status": "asserted",
+      "note": "Exact stage replay and a same-id different-arguments conflict. The shared namespace across stage/solve/clear is not exercised."
+    },
+    {
+      "id": "T2-SEM-05",
+      "anchor": "§7. Replay, budget, revision and ordering / item 2: “`solve` accepts only a session that is complete …”",
+      "status": "asserted",
+      "note": "incomplete_stage, a wrong-generation solve fails (code not compared), one budget unit per successful solve, replay does not consume, session removed after solve (re-staging succeeds)."
+    },
+    {
+      "id": "T2-SEM-06",
+      "anchor": "§7. Replay, budget, revision and ordering / item 3: “Each player can solve successfully at most twice…”",
+      "status": "asserted",
+      "note": "Third new solve returns budget_exceeded. \"A new revision does not inherit the old session\" is not exercised."
+    },
+    {
+      "id": "T2-SEM-07",
+      "anchor": "§7. Replay, budget, revision and ordering / item 4: “Player sessions and budget in snapshot/save must…”",
+      "status": "weak",
+      "note": "No case checks stable player-ID expression, ordering or detachment of snapshot/save; hidden:18 and Phase B (server:12) merely tolerate two private layouts. Cited by the quantized/detached case, which is vacuous (hidden:13)."
+    },
+    {
+      "id": "T2-PERSIST-01",
+      "anchor": "§8. Persistence schema / item 1: “`save()` returns `schema_version=1`, plus comple…”",
+      "status": "asserted",
+      "note": "Replay, re-staging and budget after new({state=save()}); Phase B reads the hash-pinned Phase A state in a new process."
+    },
+    {
+      "id": "T2-PERSIST-02",
+      "anchor": "§8. Persistence schema / item 2: “Saved state must not contain Player, Entity, Vec…”",
+      "status": "asserted",
+      "note": "Six malformed variants must return invalid_state. The no-process-local-reference sentence is covered only implicitly by the JSON round trip of Save() between Phase A and B."
+    },
+    {
+      "id": "T2-API-05",
+      "anchor": "§9. Server-side adapter public interface / item 1: “`lua/rhenium_prop_alignment/server.lua` returns …”",
+      "status": "asserted",
+      "note": "Install/BindPlayer/BindEntity/HandleTrace/Execute/Shutdown in the stub adapter, Save in Phase A."
+    },
+    {
+      "id": "T2-ADAPTER-01",
+      "anchor": "§9. Server-side adapter public interface / item 2: “`mode` can only be `copy` or `move`; any other v…”",
+      "status": "asserted",
+      "note": "invalid_mode; copy creates clone + Weld (stub counts 2 created objects; real Weld in Phase A); move creates nothing and its undo restores the transform (stub and Phase A); STOOL RightClick copies in Phase A."
+    },
+    {
+      "id": "T2-ADAPTER-02",
+      "anchor": "§9. Server-side adapter public interface / item 3: “The adapter stably returns `invalid_trace`, `unb…”",
+      "status": "weak",
+      "note": "5 of 10 codes compared (invalid_trace, permission_denied, invalid_mode, constraint_failed, executed). Never exercised: unbound_entity, invalid_context, create_failed, undo_failed, shutdown, and forwarding of core errors. Traceability's citation (install case) is nominal; re-cited."
+    },
+    {
+      "id": "T2-NATIVE-01",
+      "anchor": "§10. GMod native API and STOOL / item 1: “`Install` registers named `CanTool`, `PlayerDisc…”",
+      "status": "asserted",
+      "note": "CanTool and PlayerDisconnected hooks and the timer must exist under private names (known_issues); an explicit false from hook.Run yields permission_denied. Not checked: the EntityRemoved hook, that the addon's own CanTool hook returns nil rather than true when allowing, that the core is unchanged after the denial."
+    },
+    {
+      "id": "T2-NATIVE-02",
+      "anchor": "§10. GMod native API and STOOL / item 2: “`HandleTrace` accepts only a bound player, a rea…”",
+      "status": "asserted",
+      "note": "Six Hit traces on a bound prop are accepted and an unbound player is rejected. Hit=false, an unbound entity, a non-prop_physics entity and the numbers-not-Vector rule are not exercised."
+    },
+    {
+      "id": "T2-NATIVE-03",
+      "anchor": "§10. GMod native API and STOOL / item 3: “copy's `Execute` uses `ents.Create`, the source …”",
+      "status": "asserted",
+      "note": "Stub: copy calls ents.Create + constraint.Weld once each, move calls neither. Phase A: the real clone sits at the solved position with a real Weld; move creates no prop/Weld and lands on the solved position. Class/model of the clone and its angle are not compared."
+    },
+    {
+      "id": "T2-NATIVE-05",
+      "anchor": "§10. GMod native API and STOOL / item 4: “copy uses `undo.Create/AddEntity/SetPlayer/Finis…”",
+      "status": "asserted",
+      "note": "Stub: the AddFunction callback restores the position. Phase A: one real gmod_undo removes the copied graph, a second one restores the moved transform."
+    },
+    {
+      "id": "T2-NATIVE-04",
+      "anchor": "§10. GMod native API and STOOL / item 5: “The STOOL's `LeftClick(trace)` calls `HandleTrac…”",
+      "status": "asserted",
+      "note": "Phase A drives the real gmod_tool SWEP: six PrimaryAttack() calls and one SecondaryAttack(). The six stage traces are injected by overriding `w.DoToolTrace` with fixed HitPos values; a real util.TraceLine result is only used for the RightClick trace and a hit sanity check (server:10). Native evidence is in Phase A only, so at case level it is a gate (a Phase A failure leaves all server cases unobserved; known_issues)."
+    },
+    {
+      "id": "T2-TRUST-01",
+      "anchor": "§11. Authority, transactions and rollback / item 1: “Logical player ID, entity ID, revision and budge…”",
+      "status": "weak",
+      "note": "No forged owner/entity/revision payload is ever supplied. The only related probe is an unbound player (integration:12); the server `authority` group asserts IsValid(created) in Phase A and IsValid(bot) in Phase B (server:11-12)."
+    },
+    {
+      "id": "T2-ROLLBACK-01",
+      "anchor": "§11. Authority, transactions and rollback / item 2: “Invalid mode/context, permission failures and co…”",
+      "status": "weak",
+      "note": "One of the listed failure paths is exercised: a failing Weld removes the clone (stub, integration:17). The real-server `rollback` group only passes an invalid Entity to Execute (Phase A) and counts props (Phase B). create_failed, undo_failed, move restore, unchanged entity on mode/permission/core failure and the budget-consumed rule are never exercised."
+    },
+    {
+      "id": "T2-LIFE-01",
+      "anchor": "§12. Lifecycle, out-of-scope and prohibitions / item 1: “`Install` and `Shutdown` are idempotent. Shutdow…”",
+      "status": "asserted",
+      "note": "Double Shutdown, hooks/timer removed (stub + real timer.Exists/hook table), core frozen after shutdown. Double Install, cleared bindings/progress are not checked; the disconnect case asserts only `true` (integration:18)."
+    },
+    {
+      "id": "T2-SCOPE-01",
+      "anchor": "§12. Lifecycle, out-of-scope and prohibitions / item 2: “This task does not cover real client input, pred…”",
+      "status": "unasserted",
+      "note": "Scope disclaimer; states no testable obligation. Traceability's citation (incomplete-solve case) is nominal."
+    },
+    {
+      "id": "T2-SCOPE-02",
+      "anchor": "§12. Lifecycle, out-of-scope and prohibitions / item 3: “The plain-Lua core must not reference `hook`, `t…”",
+      "status": "weak",
+      "note": "Same implicit sandbox evidence as T2-GOAL-02; no source scan, nothing detects TODO/stub bodies. Traceability's citation (budget case) is nominal."
+    },
+    {
+      "id": "T2-ACC-01",
+      "anchor": "§13. Acceptance criteria / item 1: “The six anchors work strictly in the public orde…”",
+      "status": "asserted",
+      "note": "Order, collinear rejection and probe mapping; quantization itself is not observed (T2-GEO-03)."
+    },
+    {
+      "id": "T2-ACC-02",
+      "anchor": "§13. Acceptance criteria / item 2: “Player, entity generation, CanTool and server-si…”",
+      "status": "weak",
+      "note": "No forging attempt exists (T2-TRUST-01); CanTool denial is checked; two-player isolation is only the clear case."
+    },
+    {
+      "id": "T2-ACC-03",
+      "anchor": "§13. Acceptance criteria / item 3: “The two-solve budget, exact replay, conflicts, c…”",
+      "status": "asserted",
+      "note": "Budget, replay, conflict, save/load in the core and across two processes; clear and detachment are weak (T2-SEM-03, T2-API-04)."
+    },
+    {
+      "id": "T2-ACC-04",
+      "anchor": "§13. Acceptance criteria / item 4: “Real Toolgun PrimaryAttack, `util.TraceLine`, Pr…”",
+      "status": "asserted",
+      "note": "Phase A performs the real toolgun copy, Weld, single undo, server-side move and its undo. The \"all failures roll back\" part is weak (T2-ROLLBACK-01). Native evidence is in Phase A only, so at case level it is a gate (a Phase A failure leaves all server cases unobserved; known_issues)."
+    },
+    {
+      "id": "T2-ACC-05",
+      "anchor": "§13. Acceptance criteria / item 5: “After Shutdown, no Hook, Timer or temporary obje…”",
+      "status": "asserted",
+      "note": "Timer/hook residue after Shutdown (stub, Phase A and B) and the core shutdown code."
+    }
+  ],
+  "excluded_clauses": [
+    "T2-SCOPE-01"
+  ],
+  "known_issues": [
+    "Undisclosed adapter fields and hook names: suites use `S.HookPrefix`, `S.TimerName` and the suffixes `.CanTool`/`.Disconnect` (benchmarks/gmod/private/tasks/staged-prop-alignment/integration/staged-prop-alignment-integration.lua:10,13,18,19; benchmarks/gmod/private/tasks/staged-prop-alignment/server/staged-prop-alignment-suite.lua:11,12), and the stub `hook.Run` only consults the hook literally named `RheniumPropAlignment.CanTool` (benchmarks/gmod/private/tasks/staged-prop-alignment/integration/staged-prop-alignment-integration.lua:2). The exam (T2-NATIVE-01) requires named hooks but publishes no name or field. A valid adapter with its own names fails the integration cases that index the hook table (install, CanTool denial, disconnect) and cannot complete Phase A, whose cleanup assertion concatenates the nil `S.HookPrefix`; the lifecycle case then passes vacuously because its leak scan only looks for the private name fragment and `timers[nil]` is nil. Measured by control alternative-strict-reading.",
+    "Undisclosed result fields: `data.stage` of stage() (benchmarks/gmod/private/tasks/staged-prop-alignment/hidden/staged-prop-alignment.lua:15) and `data.created` of Execute (benchmarks/gmod/private/tasks/staged-prop-alignment/integration/staged-prop-alignment-integration.lua:14). The exam defines neither.",
+    "Unbound player must return `invalid_trace` (benchmarks/gmod/private/tasks/staged-prop-alignment/integration/staged-prop-alignment-integration.lua:12). T2-ADAPTER-02 lists invalid_trace, unbound_entity and invalid_context without mapping them to conditions; invalid_context is an equally valid reading.",
+    "Vacuous assertions: benchmarks/gmod/private/tasks/staged-prop-alignment/hidden/staged-prop-alignment.lua:13 (quantization/detachment never observed), benchmarks/gmod/private/tasks/staged-prop-alignment/hidden/staged-prop-alignment.lua:20 (`#sessions` comparison is 0==0 for keyed tables, no code compared), benchmarks/gmod/private/tasks/staged-prop-alignment/integration/staged-prop-alignment-integration.lua:18 (`assert(true)`), benchmarks/gmod/private/tasks/staged-prop-alignment/server/staged-prop-alignment-suite.lua:11-12 `authority` group (IsValid only), Phase B `constraint`/`rollback` groups (fresh-process trivia).",
+    "Fixture trap: the stub adapter environment has only include, hook, timer, IsValid, ents, constraint, undo and a `Vector` whose instances carry x/y/z and `AngleEx` (benchmarks/gmod/private/tasks/staged-prop-alignment/integration/staged-prop-alignment-integration.lua:4,8). Angle(), Vector arithmetic, Vector:Angle(), CurTime, SERVER, util or isnumber are absent, so an adapter that builds the clone angle any other way than `Vector:AngleEx`, or touches those globals on the exercised path, errors in the integration layer while working on the real server.",
+    "Private save layout in Phase B: the persisted budget must be readable as `state.spent.A == 2` or `state.spent[1].count == 2` (benchmarks/gmod/private/tasks/staged-prop-alignment/server/staged-prop-alignment-suite.lua:12). T2-PERSIST-01 only requires a complete `spent`; e.g. rows shaped {player_id, spent} fail.",
+    "Server-layer case granularity: the five-to-eight `server:` cases are the group verdicts of the FINAL phase (B) only (plugins/garrys-mod/src/rhenium_garrys_mod/addons/evaluator.py:255-276 reads `final_payload['cases']`). A failed Phase A assertion stops the run before Phase B (server_runner.py:631-640), so it is never recorded as `F` on its group: every `server:` case becomes unobserved (`U`), `complete` is false and the dedicated-server check scores 0/40. The Phase A group verdicts do exist in the raw execution record (`result.runtime.phase_a.payload.cases`) but are not part of the case table. Phase-A-only evidence therefore acts as a gate, not as a named failing case. For this task almost all engine-backed evidence (real PrimaryAttack, copy position, Weld, both undos, move) is in Phase A (benchmarks/gmod/private/tasks/staged-prop-alignment/server/staged-prop-alignment-suite.lua:10-11); the Phase B groups toolgun/geometry/constraint/move/authority/rollback only re-check bot/prop/STOOL presence and the persisted budget.",
+    "contract-traceability.json contains nominal links (T2-GOAL-01, T2-GOAL-02, T2-FILE-01, T2-API-04, T2-SCOPE-01, T2-SCOPE-02, T2-ADAPTER-02 on the install case); dropped or re-cited, see case notes."
+  ]
+}

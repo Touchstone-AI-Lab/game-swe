@@ -1,0 +1,132 @@
+{
+  "schema_version": 1,
+  "validated": true,
+  "catalog_version": "1.5.0",
+  "task": "mts-enum-identity-r3",
+  "harness": "Rhenium Hub full profile; real Steam game launched once per case by the submitted ModTheSpire in networkless Linux containers",
+  "fairness_review_sha256": "a253ac4a314d850697e5a8735bfa6292d2b046e4852594277e13a7b28647f902",
+  "task_files_sha256": "374b504cc8740032805a545ef24a1645e7a1e69291571ab87c15885fa799e05f",
+  "runtime_fingerprint": "a3c8298f277dcbc43369445b95d2b865bf79f02aae906241fa82933eaf7f2842",
+  "runtime_identity": "sha256:6a60328f7e7cad7620753375a19e09e5645051e7836fc98c7bf6410c2d7456eb",
+  "matrix_results": [
+    {
+      "variant": "base",
+      "passed": 5,
+      "expected": 15,
+      "complete": true,
+      "failed_case_ids": [
+        "alias-existing",
+        "alias-new",
+        "game-color",
+        "late-switch",
+        "switch-add",
+        "switch-delete",
+        "warm-add",
+        "warm-delete",
+        "warm-replace",
+        "warm-undo"
+      ],
+      "matches_prediction": true,
+      "run_id": "run-73137249c2d84622",
+      "status": "failed",
+      "score": 10.0,
+      "receipt_sha256": "8f5e3354388c4860ba5bb0007b8cd8b83bc451045fee93f7422d1c8e71454469"
+    },
+    {
+      "variant": "gold",
+      "passed": 15,
+      "expected": 15,
+      "complete": true,
+      "failed_case_ids": [],
+      "matches_prediction": true,
+      "run_id": "run-822c3233f88e4abb",
+      "status": "passed",
+      "score": 100.0,
+      "receipt_sha256": "0beceed9f0613aa59a4d0733f255c8400c859f53736a4b9e98d6d3293e2fadd5"
+    },
+    {
+      "variant": "gold-repeat",
+      "passed": 15,
+      "expected": 15,
+      "complete": true,
+      "failed_case_ids": [],
+      "matches_prediction": true,
+      "run_id": "run-08876779c348421c",
+      "status": "passed",
+      "score": 100.0,
+      "receipt_sha256": "18905ee9b048afbd1bf62bb0bb733fc1ab433d809a0350b73271c8322f8ee966"
+    },
+    {
+      "variant": "alternative",
+      "passed": 15,
+      "expected": 15,
+      "complete": true,
+      "failed_case_ids": [],
+      "matches_prediction": true,
+      "run_id": "run-286dca46ac864711",
+      "status": "passed",
+      "score": 100.0,
+      "receipt_sha256": "715557560d21ef88cb4c775afd28ec084f9b874d30e0789f39c7a424cb536e1f"
+    },
+    {
+      "variant": "alias-only",
+      "passed": 7,
+      "expected": 15,
+      "complete": true,
+      "failed_case_ids": [
+        "game-color",
+        "late-switch",
+        "switch-add",
+        "switch-delete",
+        "warm-add",
+        "warm-delete",
+        "warm-replace",
+        "warm-undo"
+      ],
+      "matches_prediction": true,
+      "run_id": "run-c7d3a15494f9406d",
+      "status": "failed",
+      "score": 10.0,
+      "receipt_sha256": "2e0b1c236feee6c2bd0e76eeec9b9c7bf5528623843c2d75abc6527be3ac52ee"
+    },
+    {
+      "variant": "cache-only",
+      "passed": 10,
+      "expected": 15,
+      "complete": true,
+      "failed_case_ids": [
+        "alias-existing",
+        "alias-new",
+        "late-switch",
+        "switch-add",
+        "switch-delete"
+      ],
+      "matches_prediction": true,
+      "run_id": "run-03c0e5dde1c04e00",
+      "status": "failed",
+      "score": 10.0,
+      "receipt_sha256": "27c44346aabe3c873e14b1ddbf9c588108ad2e8101161b4f5f7c6e95b9a13652"
+    },
+    {
+      "variant": "switch-only",
+      "passed": 8,
+      "expected": 15,
+      "complete": true,
+      "failed_case_ids": [
+        "alias-existing",
+        "alias-new",
+        "game-color",
+        "warm-add",
+        "warm-delete",
+        "warm-replace",
+        "warm-undo"
+      ],
+      "matches_prediction": true,
+      "run_id": "run-b28f3d4a01d04961",
+      "status": "failed",
+      "score": 10.0,
+      "receipt_sha256": "9b134ca7d6d192b9177e2e71e42b3c731409f9cab55f25553827e9715c5ba528"
+    }
+  ],
+  "historical_records": "r2 source, JVM-probe controls and author repairs are preserved; r3 inherits no historical result"
+}

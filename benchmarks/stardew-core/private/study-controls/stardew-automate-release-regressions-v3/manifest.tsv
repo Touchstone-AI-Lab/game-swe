@@ -1,0 +1,6 @@
+control	kind	base	overlay	root	note
+tn-241-zero-size-output	target-negative	reference	patch:tn-241-zero-size-output.patch	StardewMods	reference with only the #241 fix reverted
+tn-243-api-initial-scan	target-negative	reference	patch:tn-243-api-initial-scan.patch	StardewMods	reference with only the #243 fix reverted
+tn-248-249-location-identity	target-negative	reference	patch:tn-248-249-location-identity.patch	StardewMods	reference with both halves of the location-key pair reverted (#248/#249)
+cn-discard-single-item-output	compat-negative	reference	patch:cn-discard-single-item-output.patch	StardewMods	over-broad #241 fix: outputs of size <= 1 are discarded before storage is tried, so ordinary single bars vanish
+alternative	alternative	starter	patch:alternative.patch	StardewMods	independent repair of every report including the unasserted #246

@@ -1,0 +1,127 @@
+{
+  "schema_version": 1,
+  "version": "balatro-platform-entry-v1",
+  "generated_utc": "2026-09-20T17:04:31.518981+00:00",
+  "maintainers": [
+    {
+      "name": "Sangyu Pan"
+    }
+  ],
+  "status": "incomplete_runtime_decision_pending",
+  "source_sha256": "d623cf905d258e10733341ae68145ac6393782fca4a2d91ff8443c34fc576e48",
+  "source_files": {
+    "benchmarks/balatro/benchmark.json": "2c0b551036c6749ef5f6aedc7651f57182d8746f4f40cfe057b9a755e03a165a",
+    "benchmarks/balatro/catalog.json": "f0532b52c557a8cf202ee21a77be21ceaaba50f2e4276b8e73cf7535d1cd5cb9",
+    "benchmarks/balatro/OWNERSHIP.json": "e8c07f154874d0d19c4a6d65ffa94a05a14aae08fabd63990204d87525339bce",
+    "plugins/balatro/pyproject.toml": "cb271ba23992ac389f91fce2c5173be4580b469aa58fb2d2aeadb5a53a27f98a",
+    "plugins/balatro/src/rhenium_balatro/__init__.py": "44e7ae5e92a20f863bddf2a8f1622f198a0ad0d6bd17f683ebbc569778fd5c3a",
+    "plugins/balatro/src/rhenium_balatro/catalog.py": "7c9242982970ab0400ea1fb27e9d0136ce258da9292a5dd6f2e33c1a9317cf15",
+    "plugins/balatro/src/rhenium_balatro/evaluator.py": "661ec0b28ef7e86c87998992707e5a010c5e6bad0490d1672648df9ca935bedc",
+    "plugins/balatro/src/rhenium_balatro/files.py": "b5c59b9388177df1d41e24b1f02df2c377e7692567e9bb0b435363cb8d33b4f0",
+    "plugins/balatro/src/rhenium_balatro/plugin.py": "7245b03020c3bf9cf0ae976537540f5673fbd5a856effe40473d356211702f89",
+    "plugins/balatro/src/rhenium_balatro/protocol.py": "7397c437f35e42ec9bb7192155349297cf81f9bc1696b8c809af14336396cdcb",
+    "plugins/balatro/src/rhenium_balatro/results.py": "bcc9bf0de46f571b0652df03e7ee8ea2ad3c4cc936f81e202dbb54ac48aee56c",
+    "plugins/balatro/src/rhenium_balatro/submission.py": "dd4ceaf034b6397139dd37d9bca6555e6d28e33a288138e6797924f2766a2658",
+    "plugins/balatro/tests/test_balatro_plugin.py": "dd5ddff3898a3a50612d0ad10029a5e25860d502e70a75513d9f611cf76a90f8",
+    "plugins/balatro/tests/test_balatro_protocol.py": "a9d673674aed8db1f1a462f9eeb027b1158f3056afcddab543e2c02d39bc1616",
+    "pyproject.toml": "cf3ba045cc368d8da6def32c2cb49b6f3a8a770ce85cc7b79ce16c84d1396a97",
+    "uv.lock": "e3f4c85006c0e7d008d5ff9889ba69c8054c860646e6adee70324492875e57f4"
+  },
+  "source_fingerprint_scope": "adapter code/tests/packaging and catalog, not historical PoC runtime",
+  "historical_preservation": {
+    "staged_files": 76,
+    "frozen_poc_files": 501,
+    "unchanged": true,
+    "dependency_lock_existing_entries_unchanged": true
+  },
+  "platform_checks": {
+    "related_regression": {
+      "tests": 135,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "full_mypy": {
+      "status": "failed",
+      "errors": 45,
+      "affected_unchanged_files": 10
+    },
+    "full_pytest": {
+      "status": "failed_collection",
+      "errors": 7,
+      "cause": "Windows has no fcntl; required collection did not finish"
+    },
+    "ruff": "passed",
+    "balatro_mypy": "passed",
+    "web_lint": "passed",
+    "web_test": {
+      "passed": 1
+    },
+    "web_build": "passed",
+    "git_diff_check": "passed",
+    "git_cached_diff_check": "passed",
+    "devenv": "unavailable",
+    "shellcheck": "unrun_unavailable"
+  },
+  "installed_wheel_cli": {
+    "tasks_exit": 0,
+    "prepare_exit": 0,
+    "full_exit": 1,
+    "full_complete": false,
+    "full_passed": false,
+    "reason": "runtime_action_required"
+  },
+  "counts": {
+    "catalog_tasks": 10,
+    "anonymous_materials_tested": 10,
+    "platform_engine_validated_tasks": 0,
+    "platform_game_processes": 0,
+    "model_attempts": 0
+  },
+  "native_runtime_status": "not_implemented; policy decision pending",
+  "sidecar_execution_and_cancellation": "not_implemented_or_validated",
+  "protection": {
+    "protected_unchanged": true,
+    "fixed_dependency_bytes_match": true,
+    "dependency_groups": 6,
+    "environment": "c2e4a2811da31ff11f4951639cc083e678c2329307d47c89ce0338b7745c3f9f",
+    "harness": "febd6bb1afda2c8e82008a6e4817dd23222392aabe6e4c9fbc53a85a0615702e",
+    "game_started": false
+  },
+  "wheels": [
+    {
+      "file": "rhenium-0.6.0-py3-none-any.whl",
+      "sha256": "41ead81358ebab07aff44fe0e5e4578768d1650b46728c0ac9b23b9e1cc7d27d",
+      "members": 41
+    },
+    {
+      "file": "rhenium_balatro_plugin-0.2.0-py3-none-any.whl",
+      "sha256": "f38242ac321d2071ae810163a56ec065083885f13d7849053c9c3598e05e0de0",
+      "members": 12
+    },
+    {
+      "file": "rhenium_contract_plugin-0.6.0-py3-none-any.whl",
+      "sha256": "9226490603e450adccff29e96a0fc64aaa22ca1f09f5cef4839203eab1fcff5d",
+      "members": 6
+    }
+  ],
+  "evidence": {
+    "preflight.json": "e218de8c0b5f4ec2e7de23c89c26d1a838aad7bbe45b51278e05f4ea32937eca",
+    "targeted-v3.xml": "9b86a8548b7c0de09f5c8101bdb05ea13a287a25baeb9a00a3650e0889c975ab",
+    "platform-regression.xml": "f143daa62baf17125cd9445e75e87c5ad0d2b1c8a22df4c261197700b5fe13a0",
+    "repository-checks.json": "3ceda718cbcde3ffc874d99bba27aa272b8bde6a7e0dade4816293de10b4ba2e",
+    "cli-entry-evidence-final-v2.json": "d603ba05d00a80cb114ac19c77234b4997000f86024b2879880eaf918a2a7ed7",
+    "protection-dependencies-final-v1.json": "6cf21cd28d397a7d5474e05bd4834933aa50632aba820e1c8e7f37daa6f5d9f7",
+    "wheel-inspection-final-v1.json": "5c9b499b8f0a336eac0fd17427df8de5facee28a72524b3eaca36325bfaf8680"
+  },
+  "remaining": [
+    "licensed native maintenance decision",
+    "pack-local private asset binding",
+    "Python 3.13 sidecar/runtime-state adapter",
+    "owned-process timeout and cancellation verification",
+    "new matching smoke",
+    "60 full platform gold/base workflows and targeted mutants",
+    "full repository check compatibility"
+  ],
+  "next_step": "Resolve RUNTIME-DECISION-REQUEST-v1.md before implementing/launching the native path"
+}

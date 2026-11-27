@@ -1,0 +1,252 @@
+{
+  "schemaVersion": 3,
+  "protocol": "rhenium-rimworld-private-v3",
+  "adapter": "rhenium-rimworld-observer-v3",
+  "taskKey": "rimworld/core/combat-readiness-colony-wealth",
+  "weights": {
+    "submissionShape": 10,
+    "engineAssertions": 90
+  },
+  "cases": [
+    {
+      "id": "runtime-defs-ready",
+      "fixture": "RuntimeDefsReady",
+      "gate": true,
+      "scalars": [],
+      "expected": {
+        "facts": [
+          {
+            "name": "result",
+            "value": "ready"
+          }
+        ],
+        "outputs": []
+      }
+    },
+    {
+      "id": "home-map-overrides-vanilla",
+      "fixture": "HomeMapOverridesVanilla",
+      "gate": false,
+      "scalars": [],
+      "expected": {
+        "facts": [
+          {
+            "name": "result",
+            "value": "override"
+          }
+        ],
+        "outputs": []
+      }
+    },
+    {
+      "id": "home-map-queries-armoury-once",
+      "fixture": "HomeMapQueriesArmouryOnce",
+      "gate": false,
+      "scalars": [],
+      "expected": {
+        "facts": [
+          {
+            "name": "result",
+            "value": "1"
+          }
+        ],
+        "outputs": []
+      }
+    },
+    {
+      "id": "nonhome-map-passes-through",
+      "fixture": "NonhomeMapPassesThrough",
+      "gate": false,
+      "scalars": [],
+      "expected": {
+        "facts": [
+          {
+            "name": "result",
+            "value": "pass:731.25"
+          }
+        ],
+        "outputs": []
+      }
+    },
+    {
+      "id": "nonhome-map-skips-armoury",
+      "fixture": "NonhomeMapSkipsArmoury",
+      "gate": false,
+      "scalars": [],
+      "expected": {
+        "facts": [
+          {
+            "name": "result",
+            "value": "0"
+          }
+        ],
+        "outputs": []
+      }
+    },
+    {
+      "id": "fixed-wealth-passes-through",
+      "fixture": "FixedWealthPassesThrough",
+      "gate": false,
+      "scalars": [],
+      "expected": {
+        "facts": [
+          {
+            "name": "result",
+            "value": "pass:882"
+          }
+        ],
+        "outputs": []
+      }
+    },
+    {
+      "id": "fixed-wealth-skips-armoury",
+      "fixture": "FixedWealthSkipsArmoury",
+      "gate": false,
+      "scalars": [],
+      "expected": {
+        "facts": [
+          {
+            "name": "result",
+            "value": "0"
+          }
+        ],
+        "outputs": []
+      }
+    },
+    {
+      "id": "zero-components-remain-zero",
+      "fixture": "ZeroComponentsRemainZero",
+      "gate": false,
+      "scalars": [],
+      "expected": {
+        "facts": [
+          {
+            "name": "result",
+            "value": "override:0:curve=0"
+          }
+        ],
+        "outputs": []
+      }
+    },
+    {
+      "id": "armoury-wealth-stays-raw",
+      "fixture": "ArmouryWealthStaysRaw",
+      "gate": false,
+      "scalars": [],
+      "expected": {
+        "facts": [
+          {
+            "name": "result",
+            "value": "override:125:curve=0"
+          }
+        ],
+        "outputs": []
+      }
+    },
+    {
+      "id": "building-percentage-stays-raw",
+      "fixture": "BuildingPercentageStaysRaw",
+      "gate": false,
+      "scalars": [],
+      "expected": {
+        "facts": [
+          {
+            "name": "result",
+            "value": "override:60:curve=0"
+          }
+        ],
+        "outputs": []
+      }
+    },
+    {
+      "id": "wealth-components-add",
+      "fixture": "WealthComponentsAdd",
+      "gate": false,
+      "scalars": [],
+      "expected": {
+        "facts": [
+          {
+            "name": "result",
+            "value": "override:185:curve=0"
+          }
+        ],
+        "outputs": []
+      }
+    },
+    {
+      "id": "zero-building-percentage",
+      "fixture": "ZeroBuildingPercentage",
+      "gate": false,
+      "scalars": [],
+      "expected": {
+        "facts": [
+          {
+            "name": "result",
+            "value": "override:125:curve=0"
+          }
+        ],
+        "outputs": []
+      }
+    },
+    {
+      "id": "full-building-percentage",
+      "fixture": "FullBuildingPercentage",
+      "gate": false,
+      "scalars": [],
+      "expected": {
+        "facts": [
+          {
+            "name": "result",
+            "value": "override:365:curve=0"
+          }
+        ],
+        "outputs": []
+      }
+    },
+    {
+      "id": "fractional-building-percentage",
+      "fixture": "FractionalBuildingPercentage",
+      "gate": false,
+      "scalars": [],
+      "expected": {
+        "facts": [
+          {
+            "name": "result",
+            "value": "override:16.625:curve=0"
+          }
+        ],
+        "outputs": []
+      }
+    },
+    {
+      "id": "above-full-percentage-preserved",
+      "fixture": "AboveFullPercentagePreserved",
+      "gate": false,
+      "scalars": [],
+      "expected": {
+        "facts": [
+          {
+            "name": "result",
+            "value": "override:425:curve=0"
+          }
+        ],
+        "outputs": []
+      }
+    },
+    {
+      "id": "fixture-state-restored",
+      "fixture": "FixtureStateRestored",
+      "gate": true,
+      "scalars": [],
+      "expected": {
+        "facts": [
+          {
+            "name": "result",
+            "value": "restored"
+          }
+        ],
+        "outputs": []
+      }
+    }
+  ]
+}

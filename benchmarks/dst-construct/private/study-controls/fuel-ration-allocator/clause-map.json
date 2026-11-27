@@ -1,0 +1,446 @@
+{
+  "task": "dst/construct/fuel-ration-allocator",
+  "task_version": "2.1.0",
+  "exam": "benchmarks/dst-construct/exams/fuel-ration-allocator.md",
+  "cases": [
+    {
+      "id": "check:required-files",
+      "role": "static",
+      "clauses": [
+        "deliver-1"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "check:lua-syntax",
+      "role": "static",
+      "clauses": [],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "hidden:quantities and time are validated before any state change",
+      "role": "target",
+      "clauses": [
+        "deliver-2",
+        "deliver-3",
+        "core-1",
+        "core-2",
+        "core-3",
+        "core-4",
+        "core-8",
+        "core-18"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "hidden:deposits deduplicate and respect depot capacity",
+      "role": "target",
+      "clauses": [
+        "deliver-2",
+        "core-1",
+        "core-5",
+        "core-6",
+        "core-7",
+        "core-18"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "hidden:plan is priority ordered max-min fair with cap and floor",
+      "role": "target",
+      "clauses": [
+        "deliver-2",
+        "core-1",
+        "core-9",
+        "core-12",
+        "core-13",
+        "core-18"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "hidden:plan retries are identical and only one round is open",
+      "role": "target",
+      "clauses": [
+        "deliver-2",
+        "core-1",
+        "core-11",
+        "core-13",
+        "core-14",
+        "core-15",
+        "core-16",
+        "core-17",
+        "core-18",
+        "core-19"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "hidden:shares settle exactly once and rollback returns units",
+      "role": "target",
+      "clauses": [
+        "deliver-2",
+        "core-1",
+        "core-8",
+        "core-10",
+        "core-15",
+        "core-16",
+        "core-17",
+        "core-18",
+        "core-19"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "hidden:snapshots are fresh and save load preserves an open round",
+      "role": "target",
+      "clauses": [
+        "deliver-2",
+        "deliver-3",
+        "core-1",
+        "core-4",
+        "core-6",
+        "core-9",
+        "core-11",
+        "core-14",
+        "core-17",
+        "core-18",
+        "core-19",
+        "core-20"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "check:implementation-depth",
+      "role": "static",
+      "clauses": [],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "check:fuel-authority",
+      "role": "target",
+      "clauses": [
+        "dst-2",
+        "accept-1"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "check:fuel-real-components",
+      "role": "target",
+      "clauses": [
+        "dst-7",
+        "dst-8"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "check:fuel-rpc-identity",
+      "role": "target",
+      "clauses": [
+        "dst-10"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "check:fuel-lifecycle",
+      "role": "target",
+      "clauses": [
+        "dst-6",
+        "dst-9",
+        "dst-12"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "server:fuelration is attached with server authority",
+      "role": "target",
+      "clauses": [
+        "deliver-1",
+        "dst-2",
+        "dst-3",
+        "dst-5",
+        "dst-7"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "server:deposit removes real items and credits the depot once",
+      "role": "target",
+      "clauses": [
+        "core-5",
+        "core-7",
+        "core-18",
+        "dst-1",
+        "dst-3",
+        "dst-7",
+        "dst-10"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "server:round fuels real fires by priority and fairness",
+      "role": "target",
+      "clauses": [
+        "core-12",
+        "core-18",
+        "dst-1",
+        "dst-5",
+        "dst-8"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "server:removed fires are released and state survives reload",
+      "role": "target",
+      "clauses": [
+        "core-12",
+        "core-18",
+        "dst-4",
+        "dst-6",
+        "dst-8",
+        "dst-9",
+        "dst-11",
+        "dst-12"
+      ],
+      "overlap": false,
+      "note": ""
+    }
+  ],
+  "clauses": [
+    {
+      "id": "deliver-1",
+      "anchor": "Required deliverables item 1 (file list): \"scripts/components/fuelration.lua\"",
+      "status": "asserted",
+      "note": "Evaluator required-files check plus the component being loadable on the server."
+    },
+    {
+      "id": "deliver-2",
+      "anchor": "Required deliverables item 2: \"must be able to run in a plain Lua environment without `GLOBAL`, `TheWorld`, `GetTime`, `require`, `os`\"",
+      "status": "asserted",
+      "note": "The sandbox has none of these globals; every hidden case loads the module there and calls each exported function."
+    },
+    {
+      "id": "deliver-3",
+      "anchor": "Required deliverables item 3: \"The core must not read any clock; all times come from the `now` parameter\"",
+      "status": "asserted",
+      "note": "os is absent in the sandbox and results depend only on the passed times."
+    },
+    {
+      "id": "core-1",
+      "anchor": "Core semantics section 1 item 1: \"every method returns a new table containing a boolean field `ok`\"",
+      "status": "asserted",
+      "note": "ok/code/status are compared on every call; freshness of result tables is checked by mutating a plan result in case 4."
+    },
+    {
+      "id": "core-2",
+      "anchor": "Core semantics section 1 item 2: \"Validation proceeds in a fixed order, and the first failure decides `code`\"",
+      "status": "asserted",
+      "note": "invalid_time (NaN, inf, negative, string, nil), time_regressed vs equal time, invalid_id (empty, non-string, 65 vs 64 chars), invalid_units, invalid_priority, and the time > id > quantity precedence."
+    },
+    {
+      "id": "core-3",
+      "anchor": "Core semantics section 1 item 3: \"must not change any state, must not advance the clock, and must not write to the request history\"",
+      "status": "asserted",
+      "note": "A rejected call at t=500 does not block t=11; a validated but failing unregister at t=100 blocks t=50; a request that failed validation is processed fresh on retry."
+    },
+    {
+      "id": "core-4",
+      "anchor": "Core semantics section 1 item 4: \"`snapshot(now)` and `save(now)` are read-only operations\"",
+      "status": "asserted",
+      "note": "snapshot(0) is called after the clock moved in every case; clock stays 6 after save(7)."
+    },
+    {
+      "id": "core-5",
+      "anchor": "Core semantics section 2 item 5: \"uses the pair `(player_id, request_id)` as its idempotency key\"",
+      "status": "asserted",
+      "note": "accepted / partial (exactly free) / depot_full with accepted = 0, reserved units counting against capacity, per-player key scope, contribution totals."
+    },
+    {
+      "id": "core-6",
+      "anchor": "Core semantics section 2 item 6: \"a recorded `depot_full` is still replayed as `depot_full`\"",
+      "status": "asserted",
+      "note": "Retries replay accepted, partial and depot_full with duplicate = true, also after load."
+    },
+    {
+      "id": "core-7",
+      "anchor": "Core semantics section 2 item 7: \"`lookup(request_id, player_id)` is read-only\"",
+      "status": "asserted",
+      "note": "Recorded result and nil for unknown request; nil for malformed ids is not asserted separately."
+    },
+    {
+      "id": "core-8",
+      "anchor": "Core semantics section 3 item 8: \"the new consumer's `level` equals `capacity`\"",
+      "status": "asserted",
+      "note": "duplicate_consumer in case 1; a re-registered consumer shows level = capacity, demand 0, received 0 in case 5."
+    },
+    {
+      "id": "core-9",
+      "anchor": "Core semantics section 3 item 9: \"it is not compared with the core clock and does not advance the core clock\"",
+      "status": "asserted",
+      "note": "Older-than-clock accepted, strictly older than last report stale, equal accepted, clamp to capacity, unknown_consumer, no clock advance by a report at t=1000, report times survive load."
+    },
+    {
+      "id": "core-10",
+      "anchor": "Core semantics section 3 item 10: \"that share immediately becomes `aborted`, all of its units go back to `available`\"",
+      "status": "asserted",
+      "note": "returned = 3, snapshot row aborted, later commit replays aborted, second unregister unknown_consumer, re-register allowed."
+    },
+    {
+      "id": "core-11",
+      "anchor": "Core semantics section 4 item 11: \"There is at most one open round at any time; even when there are no shares at all, the new round is still created\"",
+      "status": "asserted",
+      "note": "round_open, round_closed and the empty round are asserted. Not asserted: plan(<closed id>) while a different round is open (published answer: round_open)."
+    },
+    {
+      "id": "core-12",
+      "anchor": "Core semantics section 4 item 12: \"currently has the fewest allocated units and has not yet reached `want`\"",
+      "status": "asserted",
+      "note": "Hand-worked: budget 11 -> pit 3, f10 4, f2 1, f3 3 (string order f10 < f2), lower class starved; second plan shows the per-round cap 5 and the floor."
+    },
+    {
+      "id": "core-13",
+      "anchor": "Core semantics section 4 item 13: \"it contains only shares with `units >= 1`, ordered by ascending `priority` and then by ascending `consumer_id`\"",
+      "status": "asserted",
+      "note": "Share order, omitted zero-want consumers, total, round_id, available -> reserved."
+    },
+    {
+      "id": "core-14",
+      "anchor": "Core semantics section 4 item 14: \"do not recompute and do not reserve again\"",
+      "status": "asserted",
+      "note": "Retry after a commit and a deposit returns the original shares with duplicate = true and leaves available/reserved untouched; also after load."
+    },
+    {
+      "id": "core-15",
+      "anchor": "Core semantics section 5 item 15: \"After passing validation, `commit` and `abort` decide in order\"",
+      "status": "asserted",
+      "note": "round_closed vs unknown_round (also while another round is open), unknown_share, settled replay before over_delivery, over_delivery keeps the share pending."
+    },
+    {
+      "id": "core-16",
+      "anchor": "Core semantics section 5 item 16: \"On settlement `reserved` decreases by `units`, `available` increases by `returned`\"",
+      "status": "asserted",
+      "note": "Partial delivery 2 of 3, zero delivery, abort, level clamp min(capacity, level + delivered), received."
+    },
+    {
+      "id": "core-17",
+      "anchor": "Core semantics section 5 item 17: \"settle all `pending` shares as `abort` and then close it\"",
+      "status": "asserted",
+      "note": "total/delivered/returned, duplicate close, unknown_round, closed ids unusable for plan/commit/abort."
+    },
+    {
+      "id": "core-18",
+      "anchor": "Core semantics section 5 item 18: \"`deposited_total == available + reserved + delivered_total`\"",
+      "status": "asserted",
+      "note": "Checked by the depot() helper after nearly every step; the server helper checks available >= 0 and free."
+    },
+    {
+      "id": "core-19",
+      "anchor": "Core semantics section 6 item 19: \"`snapshot` returns a brand-new table\"",
+      "status": "asserted",
+      "note": "All published fields, ordering of consumers/contributors/round shares, pending rows with zero delivered/returned, mutation safety. 'The snapshot does not expose request history' is not asserted (no field name is published for it)."
+    },
+    {
+      "id": "core-20",
+      "anchor": "Core semantics section 6 item 20: \"`load` must not keep a reference to any table inside `data`\"",
+      "status": "asserted",
+      "note": "Plain-data walk of save(), wipe of data after load, clock/report times/history/closed ids/contributions/open round with a settled share all survive; load(nil) equals new."
+    },
+    {
+      "id": "dst-1",
+      "anchor": "DST integration configuration block: \"local FUEL_UNITS = { log = 3, twigs = 1, cutgrass = 1 }\"",
+      "status": "asserted",
+      "note": "unit_size 15, depot_capacity 60, max_units_per_round 6, reserve_floor 2, log = 3, twigs = 1 are visible in exact numbers. cutgrass = 1 and ROUND_PERIOD = 30 are not asserted."
+    },
+    {
+      "id": "dst-2",
+      "anchor": "DST integration item 1: \"on the master simulation only\"",
+      "status": "asserted",
+      "note": "Presence on the master world is asserted; the client-side early return is only a regex."
+    },
+    {
+      "id": "dst-3",
+      "anchor": "DST integration item 2: \"`Snapshot()` returns the result of the core `snapshot`\"",
+      "status": "asserted",
+      "note": "All eight methods must be functions; Snapshot fields are read throughout."
+    },
+    {
+      "id": "dst-4",
+      "anchor": "DST integration item 3 (Time): \"the component must guarantee that the time passed to the core after `OnLoad` is not less than the restored `snapshot().clock`\"",
+      "status": "asserted",
+      "note": "The suite replaces the global GetTime with a function returning 0 around OnLoad and the following deposits (restored afterwards). An implementation that caches GetTime in a local is not discriminated but still passes."
+    },
+    {
+      "id": "dst-5",
+      "anchor": "DST integration item 4 (Track): \"capacity rounds down and level rounds up\"",
+      "status": "asserted",
+      "note": "not_fueled, already_tracked, duplicate_consumer, invalid_priority without a leftover listener, capacity 24/18 and levels 20/4/17. 'capacity < 1' and an invalid consumer id are not asserted."
+    },
+    {
+      "id": "dst-6",
+      "anchor": "DST integration item 5 (Untrack): \"When a tracked entity fires `onremove`, the same Untrack must be performed\"",
+      "status": "asserted",
+      "note": "Listener count on the real entity rises on Track and returns to the baseline on Untrack; a removed fire disappears from consumers and the survivor gets the whole budget."
+    },
+    {
+      "id": "dst-7",
+      "anchor": "DST integration item 6 (Deposit): \"only after the removal has succeeded, call the core `deposit(request_id, player.userid, units, now)`\"",
+      "status": "asserted",
+      "note": "Every rejection code except removal_failed is asserted together with unchanged real inventory; removal_failed is unasserted (cannot be provoked with the real inventory). Credit-after-removal ordering itself is only observable as 'items gone and depot credited'."
+    },
+    {
+      "id": "dst-8",
+      "anchor": "DST integration item 7 (RunRound): \"call `fueled:DoDelta(units * unit_size)`\"",
+      "status": "asserted",
+      "note": "Fresh level reports, plan failure pass-through (round_closed), exact currentfuel increases, the result shape, and measured partial acceptance (real maxfuel lowered after Track: 4 of 6 units committed, 2 returned) are asserted. The abort branch for an unusable entity cannot be reached on the real server because onremove unregisters first; its core side is asserted in hidden case 5."
+    },
+    {
+      "id": "dst-9",
+      "anchor": "DST integration item 8 (periodic task): \"to periodically execute `RunRound` with\"",
+      "status": "weak",
+      "note": "The suite cannot wait for timers: only the existence of a cancellable world task is observed; the auto-<n> id format and the persisted counter are unasserted."
+    },
+    {
+      "id": "dst-10",
+      "anchor": "DST integration item 9 (RPC): \"the RPC payload consists only of the request ID, the prefab name and the count\"",
+      "status": "asserted",
+      "note": "The handler registered in MOD_RPC_HANDLERS is invoked directly: a real deposit, a retry and four forged payloads."
+    },
+    {
+      "id": "dst-11",
+      "anchor": "DST integration item 10 (OnSave / OnLoad): \"a consumer that exists in the core but for which the component currently tracks no entity must be removed with `unregister`\"",
+      "status": "asserted",
+      "note": "Steps 2 and 3 (drop a consumer without entity, re-register a tracked entity missing from the restored state, fresh levels), history, contributions and closed ids are asserted. Step 1 (closing a restored open round) is unasserted: the component API cannot produce a saved open round."
+    },
+    {
+      "id": "dst-12",
+      "anchor": "DST integration item 11 (OnRemoveFromEntity): \"cancel the periodic task (`task:Cancel()`)\"",
+      "status": "asserted",
+      "note": "TheWorld:RemoveComponent is called: the world's pending task count drops and the fire's onremove listeners return to the baseline; the component is re-added afterwards."
+    },
+    {
+      "id": "accept-1",
+      "anchor": "Acceptance closing sentence: \"The submission must not leave behind `TODO`, `IMPLEMENT ME`\"",
+      "status": "weak",
+      "note": "none_of regex only."
+    }
+  ],
+  "excluded_clauses": [],
+  "known_issues": []
+}

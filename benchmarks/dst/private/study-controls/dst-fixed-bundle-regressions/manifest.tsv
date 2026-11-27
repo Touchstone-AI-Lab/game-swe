@@ -1,0 +1,7 @@
+control	kind	base	overlay	root	note
+target-negative-preview-left-broken	target-negative	reference	patch:target-negative-preview-left-broken.patch	mod	Reference with Show Bundle's preview fix reverted: prefab-name bundles and blank saved previews stay broken.
+target-negative-surprises-still-held	target-negative	starter	patch:target-negative-surprises-still-held.patch	mod	Starter plus the preview fixes and both unwrap events, but surprise gifts are still given to the inventory.
+compat-negative-drops-unpickable-items	compat-negative	reference	patch:compat-negative-drops-unpickable-items.patch	mod	Reference with the upstream intermediate predicate of e71c729: every item that cannot be picked up and is not alive is dropped, which also drops Moongleam.
+alternative-a	alternative	starter	tree:alternative-a	mod	Independent fix: surprises detected by their SetCreatureSurprise method and events pushed after placement; prefab names resolved in a separate pass; stale previews found by missing prefabs; show_spoiled copied from the tag in one assignment.
+target-negative-rot-background-dropped	target-negative	reference	patch:target-negative-rot-background-dropped.patch	mod	Reference with the show_spoiled part of b982089 reverted: preview entries never ask for the spoiled background.
+compat-negative-every-slot-spoiled	compat-negative	reference	patch:compat-negative-every-slot-spoiled.patch	mod	Reference that marks every preview entry as spoiled, which also puts ordinary items on the spoiled background.

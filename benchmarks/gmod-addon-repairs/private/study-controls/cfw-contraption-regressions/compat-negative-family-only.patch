@@ -1,0 +1,13 @@
+diff -u a/cfw/lua/cfw/extensions/mass_sv.lua b/cfw/lua/cfw/extensions/mass_sv.lua
+--- a/cfw/lua/cfw/extensions/mass_sv.lua
++++ b/cfw/lua/cfw/extensions/mass_sv.lua
+@@ -14,9 +14,6 @@
+ 
+     local con = ent:CFW_GetContraption()
+ 
+-    if con then
+-        con.totalMass = con.totalMass + massDelta
+-    end
+ 
+     local family = ent.GetFamily and ent:GetFamily()
+ 

@@ -1,0 +1,14 @@
+--- a/scripts/components/fuelration.lua
++++ b/scripts/components/fuelration.lua
+@@ -259,10 +259,7 @@
+ end
+ 
+ function FuelRation:OnRemoveFromEntity()
+-    if self.task ~= nil then
+-        self.task:Cancel()
+-        self.task = nil
+-    end
++    self.task = nil
+     local ids = {}
+     for consumer_id in pairs(self.tracked) do
+         ids[#ids + 1] = consumer_id

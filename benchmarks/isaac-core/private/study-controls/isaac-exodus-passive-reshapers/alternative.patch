@@ -1,0 +1,100 @@
+--- a/main.lua
++++ b/main.lua
+@@ -1896,6 +1896,13 @@
+ Exodus:AddCallback(ModCallbacks.MC_POST_ENTITY_KILL, Exodus.loopKeeperBoom, Entities.CLOCK_KEEPER.id)
+ 
+ --<<<TRINKETS>>>--
++local GridWormAxes = {
++    [Direction.LEFT] = Vector(-1, 0),
++    [Direction.UP] = Vector(0, -1),
++    [Direction.RIGHT] = Vector(1, 0),
++    [Direction.DOWN] = Vector(0, 1)
++}
++
+ function Exodus:trinketUpdate()
+     local player = Isaac.GetPlayer(0)
+     local playerData = player:GetData()
+@@ -1924,6 +1931,10 @@
+     ---<<BROKEN GLASSES>>---
+     if player:HasTrinket(ItemId.BROKEN_GLASSES) then
+         ItemVariables.BROKEN_GLASSES.Broke = true
++    end
++    
++    -- Once the world has broken it stays broken for the rest of the floor (trinketNewFloor clears it).
++    if ItemVariables.BROKEN_GLASSES.Broke then
+         for i, entity in pairs(Isaac.GetRoomEntities()) do
+             if entity:IsActiveEnemy() or entity.Type == EntityType.ENTITY_PICKUP then
+                 entity:GetSprite().Color = Color(0, 0, 0, 1, 0, 0, 0)
+@@ -1981,8 +1992,34 @@
+             local rand = rng:RandomInt(4) + 1
+             
+             if entity.Type == EntityType.ENTITY_TEAR and entity.SpawnerType == EntityType.ENTITY_PLAYER then
+-                if entity:CollidesWithGrid() then
+-                    entity.Velocity = entity.Velocity * -1
++                local tearData = entity:GetData()
++                
++                if not tearData.GridWormAligned then
++                    tearData.GridWormAligned = true
++                    
++                    -- A tear that is first seen while it is brand new starts on the axis the character is facing.
++                    if entity.FrameCount <= 1 then
++                        local axis = GridWormAxes[player:GetHeadDirection()]
++                        
++                        if axis == nil and entity.Velocity:Length() > 0.01 then
++                            if math.abs(entity.Velocity.X) >= math.abs(entity.Velocity.Y) then
++                                axis = Vector(entity.Velocity.X < 0 and -1 or 1, 0)
++                            else
++                                axis = Vector(0, entity.Velocity.Y < 0 and -1 or 1)
++                            end
++                        end
++                        
++                        if axis ~= nil then
++                            entity.Velocity = axis * (player.ShotSpeed * 10)
++                        end
++                    end
++                elseif entity:CollidesWithGrid() then
++                    if tearData.GridWormBounceFrame == nil or entity.FrameCount - tearData.GridWormBounceFrame > 3 then
++                        -- One reversal per impact, and the tear is put back inside the room instead of staying in the tile it struck.
++                        tearData.GridWormBounceFrame = entity.FrameCount
++                        entity.Velocity = entity.Velocity * -1
++                        entity.Position = game:GetRoom():GetClampedPosition(entity.Position, entity.Size)
++                    end
+                 elseif entity.FrameCount % 10 == 1 and entity.FrameCount > 20 then
+                     local signX = 10
+                     local signY = 10
+@@ -2174,12 +2211,17 @@
+     ---<<BLUE MOON>>---
+     if player:HasTrinket(ItemId.BLUE_MOON) then
+         if room:GetType() == RoomType.ROOM_SECRET then
+-            for i = 1, room:GetGridSize() do
+-                local gridEnt = room:GetGridEntity(i)
+-                
+-                if gridEnt then
+-                    if not gridEnt:ToDoor() then
+-                        room:RemoveGridEntity(i, 0, true)
++            local gridWidth = room:GetGridWidth()
++            local gridHeight = room:GetGridHeight()
++            
++            -- The outermost ring of the grid is the room boundary (walls and doors); only the floor inside it is cleared.
++            for row = 1, gridHeight - 2 do
++                for column = 1, gridWidth - 2 do
++                    local index = row * gridWidth + column
++                    local gridEnt = room:GetGridEntity(index)
++                    
++                    if gridEnt and not gridEnt:ToDoor() and gridEnt:GetType() ~= GridEntityType.GRID_WALL then
++                        room:RemoveGridEntity(index, 0, true)
+                     end
+                 end
+             end
+@@ -4830,7 +4872,10 @@
+                 if entity.SpawnerType == EntityType.ENTITY_PLAYER or entity.SpawnerType == EntityType.ENTITY_FAMILIAR then
+                     if entity.SpawnerType == EntityType.ENTITY_PLAYER or entity.SpawnerVariant == 120 or entity.SpawnerVariant == 80 then
+                         entity.Color = player.TearColor
+-                        entity.Velocity = entity.Velocity - RandomVector()
++                        
++                        -- Young tears only drift at half strength; the usual wobble starts after about twenty frames.
++                        local wobble = entity.FrameCount <= 20 and 0.5 or 1
++                        entity.Velocity = entity.Velocity - RandomVector() * wobble
+                         
+                         if entity.FrameCount == 1 and player:HasCollectible(CollectibleType.COLLECTIBLE_HIVE_MIND) then
+                             entity.CollisionDamage = entity.CollisionDamage * 2

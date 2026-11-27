@@ -1,0 +1,387 @@
+{
+  "task": "dst/construct/combat-target-arbiter",
+  "task_version": "2.1.0",
+  "exam": "benchmarks/dst-construct/exams/combat-target-arbiter.md",
+  "cases": [
+    {
+      "id": "check:required-files",
+      "role": "static",
+      "clauses": [
+        "deliver-1"
+      ],
+      "overlap": false,
+      "note": "file-presence gate"
+    },
+    {
+      "id": "check:lua-syntax",
+      "role": "static",
+      "clauses": [],
+      "overlap": false,
+      "note": "parse gate over every submitted Lua file"
+    },
+    {
+      "id": "hidden:duplicate and out of order threat is rejected",
+      "role": "target",
+      "clauses": [
+        "deliver-2",
+        "core-1b",
+        "core-3",
+        "accept-1",
+        "shape-2"
+      ],
+      "overlap": false,
+      "note": "benchmarks/dst/hidden/combat-target-arbiter.lua:14-20; also reads threat==9 one second after a 10-point event (decay_per_second=1)"
+    },
+    {
+      "id": "hidden:decay is independent of tick frequency",
+      "role": "target",
+      "clauses": [
+        "core-3",
+        "accept-2"
+      ],
+      "overlap": false,
+      "note": "benchmarks/dst/hidden/combat-target-arbiter.lua:22-27; compares an instance ticked at 3 and 7 with an unticked one at now=10"
+    },
+    {
+      "id": "hidden:ties use first seen then lexical id",
+      "role": "target",
+      "clauses": [
+        "core-4",
+        "accept-2"
+      ],
+      "overlap": false,
+      "note": "benchmarks/dst/hidden/combat-target-arbiter.lua:29-34; the first half (lines 30-31) over-constrains the decay model, see known_issues Resolved in catalog 2.1.0.",
+      "over_constrained": false
+    },
+    {
+      "id": "hidden:taunt overrides until exact expiry",
+      "role": "target",
+      "clauses": [
+        "core-5",
+        "accept-3",
+        "shape-2"
+      ],
+      "overlap": false,
+      "note": "benchmarks/dst/hidden/combat-target-arbiter.lua:36-42; boundary at 5.999 / 6 and request_id retry returning the original expires_at"
+    },
+    {
+      "id": "hidden:death blocks delayed resurrection",
+      "role": "target",
+      "clauses": [
+        "core-2",
+        "core-6a",
+        "core-6c",
+        "accept-4",
+        "shape-2"
+      ],
+      "overlap": false,
+      "note": "benchmarks/dst/hidden/combat-target-arbiter.lua:44-50; death arrives through observe(alive=false); remove() is never called"
+    },
+    {
+      "id": "hidden:save load preserves effective threat and defensive state",
+      "role": "target",
+      "clauses": [
+        "deliver-2",
+        "core-7a",
+        "core-7b"
+      ],
+      "overlap": false,
+      "note": "benchmarks/dst/hidden/combat-target-arbiter.lua:52-59; mutates snapshot(3)[1].threat (guarded by `if snap[1]`), then checks threat 16 and target a after load"
+    },
+    {
+      "id": "check:implementation-depth",
+      "role": "static",
+      "clauses": [],
+      "overlap": false,
+      "note": "non-comment line-count gate (minimum 240)"
+    },
+    {
+      "id": "check:combat-authority",
+      "role": "target",
+      "clauses": [
+        "dst-1",
+        "constraint-1"
+      ],
+      "overlap": false,
+      "note": "regular-expression gate: ismastersim guard + AddComponent(\"combattargetarbiter\"), and none_of TODO / IMPLEMENT ME; not an execution"
+    },
+    {
+      "id": "check:combat-components",
+      "role": "target",
+      "clauses": [
+        "dst-3a",
+        "dst-4b"
+      ],
+      "overlap": false,
+      "note": "regular-expression gate: components.health, components.combat, SetTarget( ; not an execution"
+    },
+    {
+      "id": "check:combat-events",
+      "role": "target",
+      "clauses": [
+        "dst-2",
+        "dst-3a",
+        "dst-3b"
+      ],
+      "overlap": false,
+      "note": "regular-expression gate: attacked, death|onremove, RemoveEventCallback( ; not an execution"
+    },
+    {
+      "id": "check:combat-persistence",
+      "role": "target",
+      "clauses": [
+        "dst-4a",
+        "dst-5a"
+      ],
+      "overlap": false,
+      "note": "regular-expression gate: DoPeriodicTask(, :OnSave(, :OnLoad( ; not an execution"
+    },
+    {
+      "id": "server:server combat arbiter is attached",
+      "role": "target",
+      "clauses": [
+        "dst-1",
+        "accept-5"
+      ],
+      "overlap": false,
+      "note": "benchmarks/dst/server/combat-target-arbiter.lua:13-16"
+    },
+    {
+      "id": "server:real combat component receives chosen target",
+      "role": "target",
+      "clauses": [
+        "api-3",
+        "dst-3a",
+        "dst-4b",
+        "accept-5"
+      ],
+      "overlap": false,
+      "note": "benchmarks/dst/server/combat-target-arbiter.lua:18-33; drives ObserveDamage/Reconcile directly, pushes a bare `death` event (health stays at 100), never pushes `attacked`"
+    },
+    {
+      "id": "server:arbiter state persists",
+      "role": "target",
+      "clauses": [
+        "dst-5a",
+        "accept-5"
+      ],
+      "overlap": false,
+      "note": "benchmarks/dst/server/combat-target-arbiter.lua:35-40; OnSave/OnLoad are called with a receiver; only the type of the OnSave result is checked"
+    }
+  ],
+  "clauses": [
+    {
+      "id": "deliver-1",
+      "anchor": "Required deliverables, file list: \"scripts/combatarbiter/arbiter.lua\" (modinfo.lua, modmain.lua, scripts/combatarbiter/arbiter.lua, scripts/components/combattargetarbiter.lua)",
+      "status": "asserted",
+      "note": "check:required-files"
+    },
+    {
+      "id": "deliver-2",
+      "anchor": "Required deliverables, API block after \"The pure module exports\" (Arbiter.new/load, observe, add_threat, taunt, remove, choose, tick, snapshot, save) + Background and goal: \"a DST-independent threat arbiter\"",
+      "status": "asserted",
+      "note": "The hidden harness loads the core in a sandbox without engine globals and without `require`. Every exported function is called except `remove` (see core-6b)."
+    },
+    {
+      "id": "core-1a",
+      "anchor": "Core semantics item 1, first half: \"Validate all identifiers, finite non-negative times, positive and finite threat amounts, positive duration\"",
+      "status": "unasserted",
+      "note": "No case passes an invalid identifier, time, amount or duration."
+    },
+    {
+      "id": "core-1b",
+      "anchor": "Core semantics item 1, second half: \"a strictly increasing integer seq for each source/target stream\"",
+      "status": "asserted",
+      "note": "Duplicate and lower seq are rejected; non-integer seq is not tried."
+    },
+    {
+      "id": "core-2",
+      "anchor": "Core semantics item 2: \"An old revision must not change the life state\"",
+      "status": "asserted",
+      "note": "hidden death case line 49 checks that a stale revision returns false; the life state is not re-read afterwards and an equal revision is not tried."
+    },
+    {
+      "id": "core-3",
+      "anchor": "Core semantics item 3: \"Each source->target threat entry decays independently\" ... \"The result must not depend on how often\"",
+      "status": "asserted",
+      "note": "Linear values (9 after 1 s, 16 after load) and tick independence are checked. The clamp at zero is never reached. Which timestamp is the \"last update time\" is decided only indirectly by the tie case, see known_issues."
+    },
+    {
+      "id": "core-4",
+      "anchor": "Core semantics item 4: \"Normal selection orders by current threat descending, then first-seen time ascending, then target ID in lexical order\"",
+      "status": "asserted",
+      "note": "Lexical tie-break is checked cleanly (same time, same amount). The first-seen tie-break is checked only through a scenario that is a tie solely under the reference's decay model."
+    },
+    {
+      "id": "core-5",
+      "anchor": "Core semantics item 5: \"A valid taunt overrides normal selection while\" ... \"it lapses as soon as the boundary is reached\" ... \"must return the original result\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "core-6a",
+      "anchor": "Core semantics item 6: \"immediately clears the threat and taunts that the target takes part in\" ... \"delayed old events must not resurrect the target\" (death path)",
+      "status": "asserted",
+      "note": "choose returns nil immediately after observe(alive=false); a late lower-seq event and a stale revision are rejected."
+    },
+    {
+      "id": "core-6b",
+      "anchor": "Core semantics item 6: \"Death or `remove` immediately clears\" (remove(target_id, now) path)",
+      "status": "unasserted",
+      "note": "No hidden case calls remove(). The server suite removes its two entities at the end of a case without asserting anything afterwards."
+    },
+    {
+      "id": "core-6c",
+      "anchor": "Core semantics item 6: \"but keeps the seq anti-replay state\" (clearing of taunts, keeping of seq state)",
+      "status": "weak",
+      "note": "The late event in the death case (seq 4 < 5, target dead) is rejected whether or not seq state was kept, and no taunt exists in that case; nothing isolates either obligation."
+    },
+    {
+      "id": "core-7a",
+      "anchor": "Core semantics item 7, first sentence: \"return new tables with a stable ordering\"",
+      "status": "weak",
+      "note": "Only snapshot(3)[1].threat is overwritten (and only if the snapshot is array-shaped); choose results are never mutated and ordering of snapshot is not inspected."
+    },
+    {
+      "id": "core-7b",
+      "anchor": "Core semantics item 7: \"as of the given now, the effective threat\"",
+      "status": "asserted",
+      "note": "threat 16 at now=4 after save(3)/load(...,3)."
+    },
+    {
+      "id": "core-7c",
+      "anchor": "Core semantics item 7: \"the first-seen order, leases, request history and anti-replay state\"",
+      "status": "unasserted",
+      "note": "After load only one target exists, the taunted target equals the top-threat target, no retry and no replay is attempted."
+    },
+    {
+      "id": "dst-1",
+      "anchor": "DST integration item 1: \"only on the master simulation\"",
+      "status": "asserted",
+      "note": "Presence on the master world is executed; absence on a client cannot be observed on a dedicated server and is covered by the regex gate only."
+    },
+    {
+      "id": "dst-2",
+      "anchor": "DST integration item 2: \"Derive the attacker, the target and the damage from the real\" ... \"must not be trusted\"",
+      "status": "weak",
+      "note": "Only the word `attacked` is required by check:combat-events; no case pushes an attacked event."
+    },
+    {
+      "id": "dst-3a",
+      "anchor": "DST integration item 3: \"Track the entity's `health` and `combat` components, listen for `attacked`, `death` and `onremove`\"",
+      "status": "asserted",
+      "note": "The server case proves Track plus the `death` listener (dead target is deselected). attacked/onremove listeners are regex-only."
+    },
+    {
+      "id": "dst-3b",
+      "anchor": "DST integration item 3: \"unregister them in matching pairs\" + Base-game API contract last paragraph: \"must store the corresponding callback for every tracked entity so that it can unregister with the same function object\"",
+      "status": "weak",
+      "note": "Only `RemoveEventCallback(` must appear in the source."
+    },
+    {
+      "id": "dst-4a",
+      "anchor": "DST integration item 4: \"to reconcile targets\" + Base-game API contract: \"inst:DoPeriodicTask(period, fn, initialdelay)\"",
+      "status": "weak",
+      "note": "Only `DoPeriodicTask(` must appear; the server case calls Reconcile itself."
+    },
+    {
+      "id": "dst-4b",
+      "anchor": "DST integration item 4: \"only when the target is alive and can be attacked\"",
+      "status": "asserted",
+      "note": "combat.target is the live target after Reconcile and is no longer the target after `death`."
+    },
+    {
+      "id": "dst-5a",
+      "anchor": "DST integration item 5: \"The component saves its state through\"",
+      "status": "weak",
+      "note": "OnSave must return a table before and after OnLoad; content is not inspected."
+    },
+    {
+      "id": "dst-5b",
+      "anchor": "DST integration item 5: \"on removal it cancels the periodic task and all callbacks\" + Base-game API contract: \"with `task:Cancel()` on removal\"",
+      "status": "unasserted",
+      "note": "The component is never removed and this task has no `:Cancel(` regex."
+    },
+    {
+      "id": "dst-6",
+      "anchor": "DST integration item 6: \"only the server may construct the request, from the real player and the distance\"",
+      "status": "unasserted",
+      "note": "Conditional clause; no case or regex touches RPC."
+    },
+    {
+      "id": "api-1",
+      "anchor": "Base-game API contract: \"you must not assume that an attacker is always present\"",
+      "status": "unasserted",
+      "note": "No attacked event is pushed."
+    },
+    {
+      "id": "api-2",
+      "anchor": "Base-game API contract: \"must not treat a single call as success in itself\"",
+      "status": "unasserted",
+      "note": "The suite reads combat.target itself; whether the component checks it is not observable."
+    },
+    {
+      "id": "api-3",
+      "anchor": "Base-game API contract: \"The server-side component must expose\"",
+      "status": "asserted",
+      "note": "Track, ObserveDamage and Reconcile are called; Taunt is never referenced."
+    },
+    {
+      "id": "accept-1",
+      "anchor": "Acceptance item 1: \"Duplicate and out-of-order damage does not change threat\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "accept-2",
+      "anchor": "Acceptance item 2: \"Decay, ties and first-seen order do not depend on table traversal or on tick frequency\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "accept-3",
+      "anchor": "Acceptance item 3: \"A taunt lapses at the exact boundary\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "accept-4",
+      "anchor": "Acceptance item 4: \"A dead or removed target is not resurrected by old events\"",
+      "status": "asserted",
+      "note": "Death only; removal is core-6b."
+    },
+    {
+      "id": "accept-5",
+      "anchor": "Acceptance item 5: \"The headless dedicated server tests create entities with the base-game health/combat components\"",
+      "status": "weak",
+      "note": "The server suite loads the mod and checks attach, SetTarget/death and an OnSave/OnLoad round trip. It never triggers attacked, never checks lease expiry and asserts nothing about cleanup."
+    },
+    {
+      "id": "constraint-1",
+      "anchor": "Closing line: \"Only base-game APIs, components, prefabs and assets may be used; placeholders and client-authoritative implementations are forbidden\"",
+      "status": "weak",
+      "note": "Only the none_of TODO / IMPLEMENT ME patterns of check:combat-authority touch it."
+    },
+    {
+      "id": "shape-2",
+      "anchor": "Return values and data shapes items 1-3: \"return `false` when rejected\" ... \"returns `nil` when there is no selectable target\" ... \"returns a new table containing a boolean `ok` and `expires_at = now + duration`\"",
+      "status": "asserted",
+      "note": ""
+    }
+  ],
+  "excluded_clauses": [
+    "core-1a",
+    "core-6b",
+    "core-7c",
+    "dst-5b",
+    "dst-6",
+    "api-1",
+    "api-2"
+  ],
+  "known_issues": [
+    "benchmarks/dst/server/combat-target-arbiter.lua:37-39 calls service:OnSave()/service:OnLoad(data) WITH a receiver (colon). Unlike camp-supply-ledger and rescue-dispatch-queue there is no receiver-less OnSave call in this task.",
+    "benchmarks/dst/server/combat-target-arbiter.lua:29 pushes a bare `death` event while the target's health component still reports alive (100 hp). An implementation that re-derives liveness from health:IsDead() inside Reconcile instead of trusting the death event would keep the target and fail line 31; the exam asks to listen for `death`, so this is a fixture trait rather than an over-constraint, but readers should know.",
+    "The empty starter never loads as a mod: starter.execution.json has no server:* observations (they are U, not F) and the result is incomplete. No case passes in the starter, so the task has no preserved case and no compat-negative.",
+    "Catalog 2.1.0: core-3 now states per-entry linear decay with its formula. The tie case adds 9 (not 10) threat to the later target, so both entries are 8 at the time of the choice and first-seen ordering decides; the reference was changed to per-entry decay. The exam also says a death event alone marks the entity dead, which is what the server fixture relies on."
+  ]
+}

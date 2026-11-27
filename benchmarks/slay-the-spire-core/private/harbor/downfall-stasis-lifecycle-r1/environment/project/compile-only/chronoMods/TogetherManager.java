@@ -1,0 +1,1 @@
+package chronoMods; public class TogetherManager {public enum mode {Coop} public static mode gameMode;}

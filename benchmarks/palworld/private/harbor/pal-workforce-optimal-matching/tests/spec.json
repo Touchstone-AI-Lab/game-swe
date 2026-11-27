@@ -1,0 +1,129 @@
+{
+  "task_id": "pal-workforce-optimal-matching",
+  "required_files": [
+    "Info.json",
+    "scripts/main.lua",
+    "scripts/workforce/core.lua",
+    "scripts/services/workforce_service.lua"
+  ],
+  "minimum_lua_lines": 100,
+  "integration_checks": [
+    {
+      "id": "workforce-authority",
+      "label": {
+        "en": "Dedicated server mount",
+        "zh": "专服挂载"
+      },
+      "weight": 4,
+      "groups": [
+        {
+          "name": "guard",
+          "any_of": [
+            "IsDedicatedServer\\s*\\("
+          ]
+        },
+        {
+          "name": "service",
+          "any_of": [
+            "workforce_service"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "workforce-thread",
+      "label": {
+        "en": "Game thread boundary",
+        "zh": "游戏线程边界"
+      },
+      "weight": 4,
+      "groups": [
+        {
+          "name": "dispatch",
+          "any_of": [
+            "ExecuteInGameThread\\s*\\("
+          ]
+        },
+        {
+          "name": "console",
+          "any_of": [
+            "RegisterConsoleCommandGlobalHandler\\s*\\("
+          ]
+        }
+      ]
+    },
+    {
+      "id": "workforce-persistence",
+      "label": {
+        "en": "Persistence interface",
+        "zh": "持久化接口"
+      },
+      "weight": 3,
+      "groups": [
+        {
+          "name": "save",
+          "any_of": [
+            "[:.]Save\\s*\\("
+          ]
+        },
+        {
+          "name": "load",
+          "any_of": [
+            "[:.]Load\\s*\\("
+          ]
+        }
+      ]
+    },
+    {
+      "id": "workforce-lifecycle",
+      "label": {
+        "en": "Paired hooks",
+        "zh": "成对钩子"
+      },
+      "weight": 2,
+      "groups": [
+        {
+          "name": "register",
+          "any_of": [
+            "RegisterHook\\s*\\("
+          ]
+        },
+        {
+          "name": "unregister",
+          "any_of": [
+            "UnregisterHook\\s*\\("
+          ]
+        }
+      ]
+    },
+    {
+      "id": "workforce-manifest",
+      "label": {
+        "en": "Server manifest",
+        "zh": "专服清单"
+      },
+      "weight": 2,
+      "glob": "Info.json",
+      "groups": [
+        {
+          "name": "package",
+          "any_of": [
+            "\"PackageName\""
+          ]
+        },
+        {
+          "name": "lua",
+          "any_of": [
+            "\"Type\"\\s*:\\s*\"Lua\""
+          ]
+        },
+        {
+          "name": "server",
+          "any_of": [
+            "\"IsServer\"\\s*:\\s*true"
+          ]
+        }
+      ]
+    }
+  ]
+}

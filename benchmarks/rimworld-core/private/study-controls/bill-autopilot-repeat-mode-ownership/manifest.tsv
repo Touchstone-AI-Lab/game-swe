@@ -1,0 +1,4 @@
+control	kind	base	overlay	root	note
+target-negative-mode-not-saved	target-negative	reference	patch:target-negative-mode-not-saved.patch	.	reference whose BillMemory does not save the remembered repeat mode
+compat-negative-name-not-saved	compat-negative	reference	patch:compat-negative-name-not-saved.patch	.	reference whose BillMemory no longer saves the bill name
+alternative-a	alternative	starter	tree:alternative-a	.	own helpers (IsForeignMode, RememberedMode) and a generic attached-probe runner behind TryShouldDoNow

@@ -1,0 +1,17 @@
+{
+  "schemaVersion": 1,
+  "taskId": "hot-object-round-controller",
+  "taskVersion": "2.2.0",
+  "originType": "workshop-functional-evidence",
+  "workshopId": "447829341",
+  "url": "https://steamcommunity.com/sharedfiles/filedetails/?id=447829341",
+  "title": "You Touched it Last",
+  "author": "Zet0r",
+  "accessedAt": "2026-08-02",
+  "license": "unknown",
+  "licenseHandling": "clean-room behavior abstraction only",
+  "codeCopied": false,
+  "assetsCopied": false,
+  "capabilitiesObserved": ["touch-driven hot object", "round consequence", "multiplayer lifecycle"],
+  "benchmarkCapabilities": ["deterministic touch ordering", "real StartTouch/Touch", "three-Bot lifecycle", "exactly-once deadline settlement"]
+}

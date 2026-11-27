@@ -1,0 +1,184 @@
+{
+  "task": "palworld/core/guild-consistent-checkpoint",
+  "task_version": "1.2.0",
+  "exam": "benchmarks/palworld/exams/guild-consistent-checkpoint.md",
+  "cases": [
+    {
+      "id": "check:required-files",
+      "role": "static"
+    },
+    {
+      "id": "check:lua-syntax",
+      "role": "static"
+    },
+    {
+      "id": "hidden:cascading rollback must reach a fixed point then recover after filling a hole",
+      "role": "target",
+      "clauses": [
+        "request"
+      ]
+    },
+    {
+      "id": "hidden:mutual dependencies form a valid cut when both events exist",
+      "role": "target",
+      "clauses": [
+        "request"
+      ]
+    },
+    {
+      "id": "hidden:every selected prefix event matters not only its last event",
+      "role": "target",
+      "clauses": [
+        "request"
+      ]
+    },
+    {
+      "id": "hidden:holes are not silently skipped and count is not prefix length",
+      "role": "target",
+      "clauses": [
+        "request"
+      ]
+    },
+    {
+      "id": "hidden:mapping equality duplicate conflict and exact shard validation",
+      "role": "target",
+      "clauses": [
+        "request"
+      ]
+    },
+    {
+      "id": "hidden:independent exhaustive vector oracle checks maximality on generated graphs",
+      "role": "target",
+      "clauses": [
+        "request"
+      ]
+    },
+    {
+      "id": "hidden:maximum 16-shard chains preserve complete cut",
+      "role": "target",
+      "clauses": [
+        "request"
+      ]
+    },
+    {
+      "id": "hidden:invalid configuration and hostile aliases cannot change log dependencies",
+      "role": "target",
+      "clauses": [
+        "request"
+      ]
+    },
+    {
+      "id": "hidden:save version is explicit and unsupported versions fail closed",
+      "role": "target",
+      "clauses": [
+        "request"
+      ]
+    },
+    {
+      "id": "check:implementation-depth",
+      "role": "static"
+    },
+    {
+      "id": "check:checkpoint-authority",
+      "role": "target",
+      "clauses": [
+        "integration:checkpoint-authority"
+      ],
+      "note": "regular-expression gate over the submitted source, not an execution"
+    },
+    {
+      "id": "check:checkpoint-thread",
+      "role": "target",
+      "clauses": [
+        "integration:checkpoint-thread"
+      ],
+      "note": "regular-expression gate over the submitted source, not an execution"
+    },
+    {
+      "id": "check:checkpoint-persistence",
+      "role": "target",
+      "clauses": [
+        "integration:checkpoint-persistence"
+      ],
+      "note": "regular-expression gate over the submitted source, not an execution"
+    },
+    {
+      "id": "check:checkpoint-lifecycle",
+      "role": "target",
+      "clauses": [
+        "integration:checkpoint-lifecycle"
+      ],
+      "note": "regular-expression gate over the submitted source, not an execution"
+    },
+    {
+      "id": "check:checkpoint-manifest",
+      "role": "target",
+      "clauses": [
+        "integration:checkpoint-manifest"
+      ],
+      "note": "regular-expression gate over the submitted source, not an execution"
+    },
+    {
+      "id": "server:dedicated server world and documented API are available",
+      "role": "target",
+      "clauses": [
+        "request"
+      ]
+    },
+    {
+      "id": "server:service exposes complete trusted protocol",
+      "role": "target",
+      "clauses": [
+        "request"
+      ]
+    },
+    {
+      "id": "server:server executes distinguishing protocol sequence",
+      "role": "target",
+      "clauses": [
+        "request"
+      ]
+    },
+    {
+      "id": "server:server saves and restores the protocol without silent reset",
+      "role": "target",
+      "clauses": [
+        "request"
+      ]
+    }
+  ],
+  "clauses": [
+    {
+      "id": "request",
+      "anchor": "exam body; split into individual clauses during review",
+      "status": "asserted"
+    },
+    {
+      "id": "integration:checkpoint-authority",
+      "anchor": "host-integration section; source-pattern gate checkpoint-authority",
+      "status": "weak"
+    },
+    {
+      "id": "integration:checkpoint-thread",
+      "anchor": "host-integration section; source-pattern gate checkpoint-thread",
+      "status": "weak"
+    },
+    {
+      "id": "integration:checkpoint-persistence",
+      "anchor": "host-integration section; source-pattern gate checkpoint-persistence",
+      "status": "weak"
+    },
+    {
+      "id": "integration:checkpoint-lifecycle",
+      "anchor": "host-integration section; source-pattern gate checkpoint-lifecycle",
+      "status": "weak"
+    },
+    {
+      "id": "integration:checkpoint-manifest",
+      "anchor": "host-integration section; source-pattern gate checkpoint-manifest",
+      "status": "weak"
+    }
+  ],
+  "excluded_clauses": [],
+  "known_issues": []
+}

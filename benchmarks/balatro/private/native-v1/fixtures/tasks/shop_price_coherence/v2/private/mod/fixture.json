@@ -1,0 +1,16 @@
+{
+  "id": "poc_spc2_fixture",
+  "name": "Cooperative checkout private fixture",
+  "author": [
+    "Balatro PoC"
+  ],
+  "description": "Initial sealed inventory and read-only observation",
+  "prefix": "spc2fixture",
+  "main_file": "fixture.lua",
+  "version": "2.0.0",
+  "priority": 100007,
+  "dependencies": [
+    "Steamodded (>=1.~)",
+    "balatrobot"
+  ]
+}

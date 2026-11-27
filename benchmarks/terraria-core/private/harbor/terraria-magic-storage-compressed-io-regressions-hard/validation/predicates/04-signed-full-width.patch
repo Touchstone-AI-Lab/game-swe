@@ -1,0 +1,17 @@
+diff --git a/Common/IO/ValueReader.cs b/Common/IO/ValueReader.cs
+--- a/Common/IO/ValueReader.cs
++++ b/Common/IO/ValueReader.cs
+@@ -122,10 +122,9 @@ namespace MagicStorage.Common.IO {
+ 			T read = _bits.GetVariant<T>(ref _head, (byte)numBits);
+ 			bool negative = (read & (T.One << (numBits - 1))) != T.Zero;
+ 
+-			if (negative) {
+-				long mask = -1 << numBits;
+-				read = Unsafe.As<long, T>(ref mask) | read; // Sign extend
+-			}
++			int destinationBits = Unsafe.SizeOf<T>() * BitBuffer128.MAX_BYTE;
++			if (negative && numBits < destinationBits)
++				read |= ~((T.One << numBits) - T.One); // Sign extend within the destination type
+ 
+ 			return read;
+ 		}

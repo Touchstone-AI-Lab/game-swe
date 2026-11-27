@@ -1,0 +1,306 @@
+{
+  "schema_version": 1,
+  "scope": "Imported historical PoC controls; not Rhenium integration validation",
+  "recorded_date": "2026-09-20",
+  "release": "Balatro-10 v0.2",
+  "authored_distribution": {
+    "easy": 3,
+    "medium": 4,
+    "hard": 3
+  },
+  "calibration_status": "unmeasured",
+  "counts": {
+    "poc_engine_validated_count": 10,
+    "public_packaged_count": 10,
+    "calibrated_count": 0,
+    "formal_integration_status": "not_implemented"
+  },
+  "submission_count": 108,
+  "native_process_count": 309,
+  "recovery": {
+    "retained_complete_flows": 88,
+    "retained_native_processes": 249,
+    "new_complete_flows": 20,
+    "new_native_processes": 60,
+    "excluded_incomplete_flows": 1,
+    "excluded_incomplete_native_processes": 2,
+    "headset_causality_proven": false,
+    "continuous_device_observation": false
+  },
+  "environment_fingerprint": "c2e4a2811da31ff11f4951639cc083e678c2329307d47c89ce0338b7745c3f9f",
+  "harness_fingerprint": "febd6bb1afda2c8e82008a6e4817dd23222392aabe6e4c9fbc53a85a0615702e",
+  "original_archive_sha256": "a26813f28ce72ed5bcc1f0f54f856f505d60f65092e7e19cf4a14976a4e3c854",
+  "source_evidence": [
+    {
+      "name": "SCALE10-RELEASE-v02.json",
+      "sha256": "9e82f7f3fef2354ed0c05cb5f269fd1255a3acad4c0b704783acadb2e322fddc",
+      "included": false
+    },
+    {
+      "name": "SCALE10-RECOVERY-RELEASE-v02-v1.json",
+      "sha256": "122c971c2235866837c6c9aa34b962fc0fbc441bffaabbe718a30e00cc2ab83f",
+      "included": false
+    },
+    {
+      "name": "validation-scale10-final-v02.json",
+      "sha256": "412a6183a24fb492457610e5d46b20369535559e86b32b2043a497a758315e71",
+      "included": false
+    },
+    {
+      "name": "validation-scale10-recovery-v02-v1.json",
+      "sha256": "155a4e659c6cf251bf9d38e4ce79b723f88ccccfd5f33edc28be657870c5b0af",
+      "included": false
+    },
+    {
+      "name": "runtime-manifest-scale10-final-v02.json",
+      "sha256": "13d56dc6011624d3bae0523959dfda32683b7e84bdf0b1af3e8f20459190329d",
+      "included": false
+    },
+    {
+      "name": "scale10-final-freeze-v02-v1.json",
+      "sha256": "0a329c56fa5175a6afa56ca5177c8779cb71ecbffbf0e871943d697c8b763039",
+      "included": false
+    }
+  ],
+  "tasks": [
+    {
+      "slot": "E1",
+      "task": "growth-v2",
+      "authored_difficulty": "easy",
+      "calibration_status": "unmeasured",
+      "public_package": "public/v02/growth-v2/package.json",
+      "package_sha256": "4f2dffce0d3407746c952906b070d52b85ebe71a6092e57f732dc766797b5256",
+      "content_sha256": "aa632ee02c478140300ec25bde107d14ed638c19f90a02869646229cab994914",
+      "source_task_fingerprint": "2393348aad9e4ad7df49f6e361a11892c8c11279a43d774b5f78fe69b7a805ea",
+      "source_qualification_sha256": "8b45b970cb4ce839ca7222577322b6a4dd6969eda775e3e14410abb55f181ae7",
+      "gold": {
+        "complete_flows": 3,
+        "passed_flows": 3
+      },
+      "base": {
+        "complete_flows": 3,
+        "rejected_flows": 3
+      },
+      "other_correct_flows": 1,
+      "complete_rejected_mutant_flows": 3,
+      "submission_count": 10,
+      "native_process_count": 10
+    },
+    {
+      "slot": "E2",
+      "task": "reversible-hand-limit-v1",
+      "authored_difficulty": "easy",
+      "calibration_status": "unmeasured",
+      "public_package": "public/v02/reversible-hand-limit-v1/package.json",
+      "package_sha256": "fcd081034aa09461cd0abe2af454694f867b73ea2758feed4148e45913329b85",
+      "content_sha256": "15b0c1e23da13e3bfab92f73e3dd5a1fbfe73cb7578830493f8e3c25601d1af4",
+      "source_task_fingerprint": "b56f8f07e203d2bfca6e84a9a31cb217cdc23e0746b47ac7cf7dc260c326c7db",
+      "source_qualification_sha256": "02e4d52fb8f23c080a3b2d76faa6604689f4507011b6d739fe06498c0f1f2863",
+      "gold": {
+        "complete_flows": 3,
+        "passed_flows": 3
+      },
+      "base": {
+        "complete_flows": 3,
+        "rejected_flows": 3
+      },
+      "other_correct_flows": 0,
+      "complete_rejected_mutant_flows": 3,
+      "submission_count": 9,
+      "native_process_count": 9
+    },
+    {
+      "slot": "E3",
+      "task": "seeded-effect-stream-v1",
+      "authored_difficulty": "easy",
+      "calibration_status": "unmeasured",
+      "public_package": "public/v02/seeded-effect-stream-v1/package.json",
+      "package_sha256": "dd66bce1a460042d2e55527366cd9134b51218becddebdfabc820913ce427731",
+      "content_sha256": "3489e7de51bf3877131400781705b94f93cb0730b1d0c3da88e062c9c26f4bdc",
+      "source_task_fingerprint": "c6f36ac3012a01356a7d673f95e78cecbf5bda70b9511ab5abf2d6c95fd83905",
+      "source_qualification_sha256": "0d2c7e70010ef260faff9587f3c971850a5986d03a7bf3a3ad528be38777153e",
+      "gold": {
+        "complete_flows": 3,
+        "passed_flows": 3
+      },
+      "base": {
+        "complete_flows": 3,
+        "rejected_flows": 3
+      },
+      "other_correct_flows": 0,
+      "complete_rejected_mutant_flows": 3,
+      "submission_count": 9,
+      "native_process_count": 36
+    },
+    {
+      "slot": "M1",
+      "task": "bounded-generator-v2",
+      "authored_difficulty": "medium",
+      "calibration_status": "unmeasured",
+      "public_package": "public/v02/bounded-generator-v2/package.json",
+      "package_sha256": "6a28d019b4262a023d2ff9f783ab0067b4dcfaf8752f2d212c4a2a9eb3729e2c",
+      "content_sha256": "ace080278fa58bf3af65c030552fe2bfe434df9c38215281655d5ddb03db1bb4",
+      "source_task_fingerprint": "753546f3b9ffad3967c55ef3af36232a2023b42419440d2cc86cc1af0e0279d3",
+      "source_qualification_sha256": "fd2955e405d28969da71db07899204ab6029dcd82175936462b350e05ca50dfa",
+      "gold": {
+        "complete_flows": 3,
+        "passed_flows": 3
+      },
+      "base": {
+        "complete_flows": 3,
+        "rejected_flows": 3
+      },
+      "other_correct_flows": 0,
+      "complete_rejected_mutant_flows": 3,
+      "submission_count": 9,
+      "native_process_count": 45
+    },
+    {
+      "slot": "M2",
+      "task": "deck-removal-consistency-v2",
+      "authored_difficulty": "medium",
+      "calibration_status": "unmeasured",
+      "public_package": "public/v02/deck-removal-consistency-v2/package.json",
+      "package_sha256": "b07937ad6d3f8f07f5c3f164d46fb0e5f8019ca4d4fe50bc6fdbeb7885b6fce7",
+      "content_sha256": "cd24bfca58c3c8ed75f731c36a3ac9c42839dae05e7b27fcccca56742573edef",
+      "source_task_fingerprint": "098e90d53617e6c2368df02dcd582cfdccda865dc2deef78cacca93bd0d57062",
+      "source_qualification_sha256": "b7b4e0fd2a421f23c8c52b59320999b357e9548e95093f3bc6adb2010af29e43",
+      "gold": {
+        "complete_flows": 3,
+        "passed_flows": 3
+      },
+      "base": {
+        "complete_flows": 3,
+        "rejected_flows": 3
+      },
+      "other_correct_flows": 0,
+      "complete_rejected_mutant_flows": 3,
+      "submission_count": 9,
+      "native_process_count": 27
+    },
+    {
+      "slot": "M3",
+      "task": "live-joker-adjacency-v2",
+      "authored_difficulty": "medium",
+      "calibration_status": "unmeasured",
+      "public_package": "public/v02/live-joker-adjacency-v2/package.json",
+      "package_sha256": "4d1baa0f8aedad15acd0bbae41d46e1ef3f2d98d69cf75c1134d30eeec672caa",
+      "content_sha256": "6329d9dfe3de031f75ff6c8968f88a9121894086eae5d162ce9f9d478cc2275a",
+      "source_task_fingerprint": "d1dfa25aa3dbf948b08cc5cfef2385ca9e947d59ff37e975125374f3cf395d2f",
+      "source_qualification_sha256": "40e40cd5291328570eeedf77c64d754bb743ea2cd494c39bf0d89b264b25639a",
+      "gold": {
+        "complete_flows": 3,
+        "passed_flows": 3
+      },
+      "base": {
+        "complete_flows": 3,
+        "rejected_flows": 3
+      },
+      "other_correct_flows": 0,
+      "complete_rejected_mutant_flows": 4,
+      "submission_count": 10,
+      "native_process_count": 20
+    },
+    {
+      "slot": "M4",
+      "task": "isolated-card-wear-v2",
+      "authored_difficulty": "medium",
+      "calibration_status": "unmeasured",
+      "public_package": "public/v02/isolated-card-wear-v2/package.json",
+      "package_sha256": "9b2d4254c0d5877f8a25a1a7a18e2268fc08963fcee9eb52dd751f0bed56b2d6",
+      "content_sha256": "6fdbf176863b39b432fad030735c8ea35b30de8abc3d87658ce3fc32e48cbbe9",
+      "source_task_fingerprint": "6a25b4e22a6979bf5cefb50e77e1a8258c767ceb7420cb9be83f2ff1c61e1af1",
+      "source_qualification_sha256": "7ad9d9c56347dc46c2e126feaacb97918c2270e786a5ca4fcd1bde4c94da2b4a",
+      "gold": {
+        "complete_flows": 3,
+        "passed_flows": 3
+      },
+      "base": {
+        "complete_flows": 3,
+        "rejected_flows": 3
+      },
+      "other_correct_flows": 0,
+      "complete_rejected_mutant_flows": 4,
+      "submission_count": 10,
+      "native_process_count": 10
+    },
+    {
+      "slot": "H1",
+      "task": "durable-charge-v2",
+      "authored_difficulty": "hard",
+      "calibration_status": "unmeasured",
+      "public_package": "public/v02/durable-charge-v2/package.json",
+      "package_sha256": "513871e95d99b646b23231c92aac84cb7624b7e9078cbfadf96f8ba0e3074fd9",
+      "content_sha256": "92d3f8ae288cb404236f11b74cab2b103563e921f418f429477c891b4b72926f",
+      "source_task_fingerprint": "9b3c545fe9a1244503a2d4c24d69ab7a53a8305a7e8e62e7c584d010f8a1431c",
+      "source_qualification_sha256": "8d5e12e75d097be1dafe53c53546f271ad8b23e0c62ba17a3bcbf4b6c116e482",
+      "gold": {
+        "complete_flows": 3,
+        "passed_flows": 3
+      },
+      "base": {
+        "complete_flows": 3,
+        "rejected_flows": 3
+      },
+      "other_correct_flows": 1,
+      "complete_rejected_mutant_flows": 6,
+      "submission_count": 13,
+      "native_process_count": 65
+    },
+    {
+      "slot": "H2",
+      "task": "shop-price-coherence-v2",
+      "authored_difficulty": "hard",
+      "calibration_status": "unmeasured",
+      "public_package": "public/v02/shop-price-coherence-v2/package.json",
+      "package_sha256": "c84d358612418273a43c3c377fd4ce8c259940162c11c663d894bf1266fcbb39",
+      "content_sha256": "e7d51c97a23054e0ac004f302d59b05d3a303834e6c30b643ad9036a9eb0ec5f",
+      "source_task_fingerprint": "36852d08bbc8c25e2569ca1720bfe4b5befc8e7e0c52a450277198e8db9347e9",
+      "source_qualification_sha256": "501e9dd6447f6fc08859ae91f40458a28004ef52f81f4e237cddcfcace23b14c",
+      "gold": {
+        "complete_flows": 3,
+        "passed_flows": 3
+      },
+      "base": {
+        "complete_flows": 3,
+        "rejected_flows": 3
+      },
+      "other_correct_flows": 1,
+      "complete_rejected_mutant_flows": 8,
+      "submission_count": 15,
+      "native_process_count": 45
+    },
+    {
+      "slot": "H3",
+      "task": "pack-choice-commit-v2",
+      "authored_difficulty": "hard",
+      "calibration_status": "unmeasured",
+      "public_package": "public/v02/pack-choice-commit-v2/package.json",
+      "package_sha256": "3d13f8cdf856564e3c4dafb8187a473706a7fc21bec18a5bc64be87f17f76058",
+      "content_sha256": "35fdc9935cf2912f1e276d88de24aa0ac228ef6753905801a05a9afa929aee55",
+      "source_task_fingerprint": "c6be0a20c0ad05d0ac30da64bf6631ec2ad15124bfcd32788a01235d276346ed",
+      "source_qualification_sha256": "e37720303b7106488acbcbdac6a16ed0cb00cee12d262a3460b1e4e6322833be",
+      "gold": {
+        "complete_flows": 3,
+        "passed_flows": 3
+      },
+      "base": {
+        "complete_flows": 3,
+        "rejected_flows": 3
+      },
+      "other_correct_flows": 1,
+      "complete_rejected_mutant_flows": 7,
+      "submission_count": 14,
+      "native_process_count": 42
+    }
+  ],
+  "limitations": [
+    "Single controlled Windows host; visible serial gamespeed=1, FAST=0, HEADLESS=0.",
+    "Only reviewed authored candidates; no hostile-code sandbox or evaluation-host attestation.",
+    "A historical summary cannot reconstruct omitted raw evidence or replace a new engine run.",
+    "Core protocol cases and native gameplay cases are distinct evidence categories.",
+    "Loading requires seeded initialization first; blank MENU loading is not repaired.",
+    "No per-process headset checks in recovery; no causal or permanent startup-fix claim.",
+    "No model attempt, calibration, Rhenium plugin, managed runtime, or Harbor execution in this change."
+  ]
+}

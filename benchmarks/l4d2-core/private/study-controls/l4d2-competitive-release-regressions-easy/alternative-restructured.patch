@@ -1,0 +1,139 @@
+diff -ruN a/addons/sourcemod/scripting/l4d2_fix_changelevel.sp b/addons/sourcemod/scripting/l4d2_fix_changelevel.sp
+--- a/addons/sourcemod/scripting/l4d2_fix_changelevel.sp	2026-09-21 05:40:05.639421042 +0800
++++ b/addons/sourcemod/scripting/l4d2_fix_changelevel.sp	2026-09-21 05:40:05.643265816 +0800
+@@ -160,8 +160,19 @@
+ 	// if (!hParams.IsNull(2))
+ 	//	hParams.GetString(2, reason, sizeof(reason));
+ 
++	// Callers such as sm_map hand the engine a unique partial name. Resolve it
++	// first so the engine and the Director work below agree on one full name.
++	char installed[64];
++	MRESReturn result = MRES_Ignored;
++	if (ResolveInstalledMap(map, installed, sizeof(installed)))
++	{
++		hParams.SetString(1, installed);
++		strcopy(map, sizeof(map), installed);
++		result = MRES_ChangedHandled;
++	}
++
+ 	if (TheDirector.IsTransitioning())
+-		return MRES_Ignored;
++		return result;
+ 
+ 	TheDirector.ClearTeamScores(true);
+ 
+@@ -173,7 +184,29 @@
+ 	TheDirector.OnBeginTransition(false);
+ 	GameRules__OnBeginChangeLevel(map);
+ 
+-	return MRES_Ignored;
++	return result;
++}
++
++/**
++ * Looks the requested name up in the installed maps.
++ *
++ * @return true only when the lookup produced a different, installed full name.
++ */
++bool ResolveInstalledMap(const char[] requested, char[] installed, int maxlength)
++{
++	switch (FindMap(requested, installed, maxlength))
++	{
++		case FindMap_NotFound, FindMap_PossiblyAvailable:
++		{
++			return false;
++		}
++		case FindMap_Found, FindMap_NonCanonical, FindMap_FuzzyMatch:
++		{
++			return installed[0] != '\0' && strcmp(requested, installed) != 0;
++		}
++	}
++
++	return false;
+ }
+ 
+ void GameRules__OnBeginChangeLevel(const char[] map)
+diff -ruN a/addons/sourcemod/scripting/l4d2_incap_fire_fix.sp b/addons/sourcemod/scripting/l4d2_incap_fire_fix.sp
+--- a/addons/sourcemod/scripting/l4d2_incap_fire_fix.sp	2026-09-21 05:40:05.639334091 +0800
++++ b/addons/sourcemod/scripting/l4d2_incap_fire_fix.sp	2026-09-21 05:40:05.643184099 +0800
+@@ -21,22 +21,36 @@
+ 	if (!IsClientInGame(client) || GetClientTeam(client) != 2)
+ 		return Plugin_Continue;
+ 
+-	if (GetEntProp(client, Prop_Send, "m_isIncapacitated", 1) > 0)
+-	{
+-		int wep = GetEntPropEnt(client, Prop_Send, "m_hActiveWeapon");
+-		if (wep != -1)
+-			SetEntPropFloat(wep, Prop_Send, "m_flNextSecondaryAttack", GetGameTime() + BUFFER_TIME);
++	int wep = GetEntPropEnt(client, Prop_Send, "m_hActiveWeapon");
+ 
+-		g_bBlocked[client] = true;
+-	}
+-	else if (g_bBlocked[client])
++	if (GetEntProp(client, Prop_Send, "m_isIncapacitated", 1) <= 0)
+ 	{
+-		int wep = GetEntPropEnt(client, Prop_Send, "m_hActiveWeapon");
+-		if (wep != -1)
+-			SetEntPropFloat(wep, Prop_Send, "m_flNextSecondaryAttack", GetGameTime());
+-
+-		g_bBlocked[client] = false;
++		// Not incapacitated: hand back a delay we own, then stay out of the way.
++		ReleaseOwnedDelay(client, wep);
++		return Plugin_Continue;
+ 	}
+ 
++	// No weapon, or nothing left in the clip: the engine needs the secondary
++	// attack timestamp untouched so its automatic reload can start.
++	if (wep == -1 || !WeaponHasLoadedClip(wep))
++		return Plugin_Continue;
++
++	SetEntPropFloat(wep, Prop_Send, "m_flNextSecondaryAttack", GetGameTime() + BUFFER_TIME);
++	g_bBlocked[client] = true;
+ 	return Plugin_Continue;
+ }
++
++bool WeaponHasLoadedClip(int wep)
++{
++	return HasEntProp(wep, Prop_Send, "m_iClip1") && GetEntProp(wep, Prop_Send, "m_iClip1") > 0;
++}
++
++void ReleaseOwnedDelay(int client, int wep)
++{
++	if (!g_bBlocked[client])
++		return;
++
++	g_bBlocked[client] = false;
++	if (wep != -1)
++		SetEntPropFloat(wep, Prop_Send, "m_flNextSecondaryAttack", GetGameTime());
++}
+diff -ruN a/addons/sourcemod/scripting/l4d2_weapon_attributes.sp b/addons/sourcemod/scripting/l4d2_weapon_attributes.sp
+--- a/addons/sourcemod/scripting/l4d2_weapon_attributes.sp	2026-09-21 05:40:05.639366704 +0800
++++ b/addons/sourcemod/scripting/l4d2_weapon_attributes.sp	2026-09-21 05:40:05.643216391 +0800
+@@ -276,6 +276,27 @@
+     ResetMeleeAttributes(false);
+ }
+ 
++// Confogl announces the end of a matchmode while left4dhooks is still loaded.
++// Everything this plugin owns goes back to the saved pre-mode state here.
++public void LGO_OnMatchModeUnloaded()
++{
++    RestoreOwnedState();
++}
++
++void RestoreOwnedState()
++{
++    // plugin-managed multipliers: drop the values first, then the hooks
++    hTankDamageAttri.Clear();
++    OnTankDamageEnableAttriChanged(false);
++
++    hReloadDurationAttri.Clear();
++    OnReloadDurationEnableAttriChanged(false);
++
++    // ordinary engine attributes: write the saved defaults back and forget them
++    ResetWeaponAttributes(true);
++    ResetMeleeAttributes(true);
++}
++
+ void OnTankDamageEnableAttriChanged(bool newValue)
+ {
+     if (bTankDamageEnableAttri != newValue) {

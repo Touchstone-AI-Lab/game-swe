@@ -1,0 +1,65 @@
+schema_version = "1.4"
+
+artifacts = ["/app/mod"]
+
+[task]
+name = "gamecodebench/dst-composting-together-regressions"
+version = "1.0.0"
+description = "Repair the Composting Together compost pile: recipe cost, composting time, inspection, dedicated-server crashes, bonus carry-over and save/load state."
+authors = [{ name = "GameCodeBench" }]
+keywords = ["dst", "dont-starve-together", "lua", "game-modding", "repository-debugging", "structures", "containers", "timers", "persistence", "crashes"]
+
+[metadata]
+category = "programming"
+difficulty = "hard"
+tags = ["game-modding", "dst", "lua", "repository-debugging", "bug-fix", "composite"]
+task_kind = "repository-debugging"
+game = "Don't Starve Together Dedicated Server"
+game_version = "Steam app 343050 build 24700372"
+mod_loader = "DST Mod API 10"
+language = "Lua 5.1"
+source_mod = "Composting Together"
+source_repo = "https://github.com/dont-starve-modding/composting-together"
+source_license = "MIT"
+base_commit = "16c995051d60b67ec77d796392abde98a7754810"
+reverted_fix_commits = ["c6256239b9c33f141c7656aa0487e5c15ec33e2d", "d3bbe2b2db857da6bd9c27bb778c89d769b4862a", "0bd23c83a9da3610d86c7b01510fb641971975c8", "4a197508ed1e24566fa4dce152bb87b552bb01f4", "2115763c53c83dd90566fb88b8a738c5fc2598ec", "b846487ad677ceeed108c3de2eb8c18c3df45389"]
+gold_patch_origin = "upstream"
+expected_server_cases = 13
+content_reference = "benchmarks/dst/exams/composting-together-regressions.md"
+content_reference_pack = "dst-core"
+harbor_reference_repository = "https://github.com/harbor-framework/harbor"
+harbor_reference_revision = "9a2e3b135cc8fb1e41131020f83370cb2f12ae93"
+verification_profile = "rhenium-dst-full"
+real_server_validation = "in-verifier; Steam app 343050 build 24700372"
+
+[verifier]
+network_mode = "no-network"
+timeout_sec = 900.0
+user = "root"
+environment_mode = "separate"
+
+[verifier.environment]
+network_mode = "no-network"
+
+[agent]
+# The image already contains Codex CLI and mini-swe-agent. A Harbor job supplies
+# only the model endpoint hostname through agents[].extra_allowed_hosts.
+network_mode = "allowlist"
+allowed_hosts = []
+timeout_sec = 9000.0
+user = "agent"
+
+[environment]
+network_mode = "no-network"
+build_timeout_sec = 1800.0
+cpus = 4
+memory_mb = 8192
+storage_mb = 10240
+gpus = 0
+mcp_servers = []
+
+[verifier.env]
+
+[environment.env]
+
+[solution.env]

@@ -1,0 +1,16 @@
+diff --git a/sourcemod/scripting/l4dd/l4dd_natives.sp b/sourcemod/scripting/l4dd/l4dd_natives.sp
+--- a/sourcemod/scripting/l4dd/l4dd_natives.sp
++++ b/sourcemod/scripting/l4dd/l4dd_natives.sp
+@@ -2984,9 +2991,9 @@
+ 	if( length > 8 )
+ 	{
+ 		val2 = HexStrToInt(sTemp[length - 8]);
+-	}
+-
+-	sTemp[length - 8] = 0;
++		sTemp[length - 8] = 0;
++	}
++
+ 	val1 = HexStrToInt(sTemp);
+ 
+ 	StoreToAddress(g_pServer + view_as<Address>(g_iOff_LobbyReservation + 4), val1, NumberType_Int32, false);

@@ -1,0 +1,25 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net472</TargetFramework><OutputType>Library</OutputType>
+    <AssemblyName>BillAutopilot</AssemblyName><RootNamespace>BillAutopilot</RootNamespace>
+    <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+    <DebugType>none</DebugType><DebugSymbols>false</DebugSymbols><Optimize>true</Optimize>
+    <LangVersion>latest</LangVersion><RestorePackagesWithLockFile>true</RestorePackagesWithLockFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Krafs.Rimworld.Ref" Version="1.6.4871" PrivateAssets="all" />
+    <PackageReference Include="Lib.Harmony" Version="2.4.2" PrivateAssets="all" />
+    <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies.net472" Version="1.0.3" PrivateAssets="all" />
+    <PackageReference Include="Krafs.Publicizer" Version="2.3.0" PrivateAssets="all" />
+  </ItemGroup>
+  <ItemGroup>
+    <Publicize Include="Assembly-CSharp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="$(SubmissionRoot)/Source/Runtime/AutoBillSync.cs" />
+    <Compile Include="$(SubmissionRoot)/Source/Runtime/BillMemory.cs" />
+    <Compile Include="$(SubmissionRoot)/Source/Runtime/RecipeProbe.cs" />
+    <Compile Include="Support.cs" />
+  </ItemGroup>
+</Project>

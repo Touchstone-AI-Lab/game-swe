@@ -1,0 +1,62 @@
+schema_version = "1.4"
+
+artifacts = ["/app/plugin"]
+
+[task]
+name = "gamecodebench/minecraft-coinledger-bank-ledger"
+version = "1.1.0"
+description = "Write a Paper bank plugin with whole-cent accounts, frozen-state validation, persistent audit history and transfer limits that remain correct when the recipient is also the fee account."
+authors = [{ name = "GameCodeBench" }]
+keywords = ["minecraft", "paper", "java", "game-modding", "construct", "commands", "persistence", "economy", "audit-log", "transaction-preflight"]
+
+[metadata]
+category = "programming"
+difficulty = "hard"
+tags = ["game-modding", "minecraft", "java", "construct"]
+task_kind = "construct"
+from_scratch = true
+game = "Minecraft (Paper dedicated server)"
+game_version = "Paper 1.21.11 build 132"
+language = "Java 21"
+build_tool = "maven"
+plugin_name = "CoinLedger"
+expected_unit_cases = 0
+expected_server_cases = 30
+content_reference = "benchmarks/minecraft-construct/exams/coinledger-bank-ledger.md"
+content_reference_pack = "rhenium-minecraft-construct-v1"
+harbor_reference_repository = "https://github.com/harbor-framework/harbor"
+harbor_reference_revision = "9a2e3b135cc8fb1e41131020f83370cb2f12ae93"
+verification_profile = "rhenium-minecraft-construct-full"
+real_server_validation = "in-verifier; Paper 1.21.11 build 132"
+
+[verifier]
+network_mode = "no-network"
+timeout_sec = 2400.0
+user = "root"
+environment_mode = "separate"
+
+[verifier.environment]
+network_mode = "no-network"
+
+[agent]
+# The image contains mini-swe-agent. A Harbor job supplies only the model
+# endpoint hostname through agents[].extra_allowed_hosts.
+network_mode = "allowlist"
+allowed_hosts = []
+timeout_sec = 19800.0
+user = "agent"
+
+[environment]
+network_mode = "no-network"
+build_timeout_sec = 3600.0
+cpus = 4
+memory_mb = 8192
+storage_mb = 16384
+gpus = 0
+mcp_servers = []
+
+[verifier.env]
+
+[environment.env]
+
+[solution.env]

@@ -1,0 +1,710 @@
+{
+  "task": "terraria/core/terraria-fargos-toggle-presets-hard",
+  "task_version": "0.1.0",
+  "exam": "benchmarks/terraria-core/exams/terraria-fargos-toggle-presets-hard.md",
+  "cases": [
+    {
+      "id": "check:submission-shape",
+      "role": "static"
+    },
+    {
+      "id": "projection:registry_load_replaces_toggle_map",
+      "role": "target",
+      "clauses": [
+        "registry-lifecycle"
+      ]
+    },
+    {
+      "id": "projection:registry_load_replaces_header_set",
+      "role": "target",
+      "clauses": [
+        "registry-lifecycle"
+      ]
+    },
+    {
+      "id": "projection:registry_unload_releases_maps",
+      "role": "target",
+      "clauses": [
+        "registry-lifecycle"
+      ]
+    },
+    {
+      "id": "projection:registry_rejects_null_toggle",
+      "role": "target",
+      "clauses": [
+        "registry-lifecycle"
+      ]
+    },
+    {
+      "id": "projection:registry_rejects_null_effect",
+      "role": "target",
+      "clauses": [
+        "registry-lifecycle"
+      ]
+    },
+    {
+      "id": "projection:registry_rejects_missing_header",
+      "role": "target",
+      "clauses": [
+        "registry-lifecycle"
+      ]
+    },
+    {
+      "id": "projection:registry_rejects_duplicate_effect",
+      "role": "preserved",
+      "clauses": [
+        "preserve:registry-lifecycle"
+      ]
+    },
+    {
+      "id": "projection:registry_rejects_duplicate_full_name",
+      "role": "target",
+      "clauses": [
+        "registry-lifecycle"
+      ]
+    },
+    {
+      "id": "projection:registry_failed_add_is_atomic",
+      "role": "target",
+      "clauses": [
+        "registry-lifecycle"
+      ]
+    },
+    {
+      "id": "projection:registry_rejects_null_header",
+      "role": "target",
+      "clauses": [
+        "registry-lifecycle"
+      ]
+    },
+    {
+      "id": "projection:backend_clones_registry_dictionary",
+      "role": "target",
+      "clauses": [
+        "backend-isolation"
+      ]
+    },
+    {
+      "id": "projection:backend_clones_toggle_objects",
+      "role": "target",
+      "clauses": [
+        "backend-isolation"
+      ]
+    },
+    {
+      "id": "projection:backend_preserves_effect_defaults",
+      "role": "preserved",
+      "clauses": [
+        "preserve:backend-isolation"
+      ]
+    },
+    {
+      "id": "projection:backend_instances_are_isolated",
+      "role": "target",
+      "clauses": [
+        "backend-isolation"
+      ]
+    },
+    {
+      "id": "projection:backend_tryload_is_idempotent",
+      "role": "preserved",
+      "clauses": [
+        "preserve:backend-isolation"
+      ]
+    },
+    {
+      "id": "projection:backend_accepts_empty_registry",
+      "role": "target",
+      "clauses": [
+        "backend-isolation"
+      ]
+    },
+    {
+      "id": "projection:backend_dedicated_server_skips_disk_save",
+      "role": "preserved",
+      "clauses": [
+        "preserve:backend-isolation"
+      ]
+    },
+    {
+      "id": "projection:config_load_uses_full_identity",
+      "role": "target",
+      "clauses": [
+        "preference-load"
+      ]
+    },
+    {
+      "id": "projection:config_load_disambiguates_same_short_name",
+      "role": "target",
+      "clauses": [
+        "preference-load"
+      ]
+    },
+    {
+      "id": "projection:config_load_skips_unknown_identity",
+      "role": "preserved",
+      "clauses": [
+        "preserve:preference-load"
+      ]
+    },
+    {
+      "id": "projection:config_load_keeps_slots_independent",
+      "role": "target",
+      "clauses": [
+        "preference-load"
+      ]
+    },
+    {
+      "id": "projection:config_malformed_slot_does_not_block_later_slot",
+      "role": "target",
+      "clauses": [
+        "preference-load"
+      ]
+    },
+    {
+      "id": "projection:config_load_canonicalizes_effect_order",
+      "role": "target",
+      "clauses": [
+        "preference-load"
+      ]
+    },
+    {
+      "id": "projection:config_save_writes_every_slot",
+      "role": "target",
+      "clauses": [
+        "preference-save"
+      ]
+    },
+    {
+      "id": "projection:config_save_uses_full_identity",
+      "role": "target",
+      "clauses": [
+        "preference-save"
+      ]
+    },
+    {
+      "id": "projection:config_save_is_deterministic",
+      "role": "target",
+      "clauses": [
+        "preference-save"
+      ]
+    },
+    {
+      "id": "projection:config_save_deduplicates_effects",
+      "role": "target",
+      "clauses": [
+        "preference-save"
+      ]
+    },
+    {
+      "id": "projection:config_save_clears_stale_null_slot",
+      "role": "target",
+      "clauses": [
+        "preference-save"
+      ]
+    },
+    {
+      "id": "projection:config_save_flushes_once",
+      "role": "preserved",
+      "clauses": [
+        "preserve:preference-save"
+      ]
+    },
+    {
+      "id": "projection:config_save_is_server_noop",
+      "role": "preserved",
+      "clauses": [
+        "preserve:preference-save"
+      ]
+    },
+    {
+      "id": "projection:player_load_restores_registered_defaults",
+      "role": "preserved",
+      "clauses": [
+        "preserve:player-restore"
+      ]
+    },
+    {
+      "id": "projection:player_load_targets_argument_not_local_player",
+      "role": "target",
+      "clauses": [
+        "player-restore"
+      ]
+    },
+    {
+      "id": "projection:player_load_matches_full_identity",
+      "role": "target",
+      "clauses": [
+        "player-restore"
+      ]
+    },
+    {
+      "id": "projection:player_load_ignores_unknown_disabled_effect",
+      "role": "preserved",
+      "clauses": [
+        "preserve:player-restore"
+      ]
+    },
+    {
+      "id": "projection:player_load_replaces_sync_snapshot",
+      "role": "target",
+      "clauses": [
+        "player-restore"
+      ]
+    },
+    {
+      "id": "projection:set_all_mutates_only_backend",
+      "role": "target",
+      "clauses": [
+        "player-restore"
+      ]
+    },
+    {
+      "id": "projection:some_effects_targets_receiving_backend",
+      "role": "target",
+      "clauses": [
+        "built-in-presets"
+      ]
+    },
+    {
+      "id": "projection:minimal_effects_targets_receiving_backend",
+      "role": "target",
+      "clauses": [
+        "built-in-presets"
+      ]
+    },
+    {
+      "id": "projection:some_effects_disables_registered_pet_family",
+      "role": "target",
+      "clauses": [
+        "built-in-presets"
+      ]
+    },
+    {
+      "id": "projection:built_in_presets_ignore_absent_registry_entries",
+      "role": "target",
+      "clauses": [
+        "built-in-presets"
+      ]
+    },
+    {
+      "id": "projection:built_in_presets_leave_custom_storage_untouched",
+      "role": "preserved",
+      "clauses": [
+        "preserve:built-in-presets"
+      ]
+    },
+    {
+      "id": "projection:uninitialized_player_load_is_noop",
+      "role": "preserved",
+      "clauses": [
+        "preserve:player-restore"
+      ]
+    },
+    {
+      "id": "projection:preset_save_captures_disabled_effects",
+      "role": "preserved",
+      "clauses": [
+        "preserve:custom-preset-actions"
+      ]
+    },
+    {
+      "id": "projection:preset_save_is_sorted_and_unique",
+      "role": "target",
+      "clauses": [
+        "custom-preset-actions"
+      ]
+    },
+    {
+      "id": "projection:preset_save_is_a_snapshot",
+      "role": "target",
+      "clauses": [
+        "custom-preset-actions"
+      ]
+    },
+    {
+      "id": "projection:preset_save_rejects_invalid_slots",
+      "role": "target",
+      "clauses": [
+        "custom-preset-actions"
+      ]
+    },
+    {
+      "id": "projection:preset_save_is_server_noop",
+      "role": "preserved",
+      "clauses": [
+        "preserve:custom-preset-actions"
+      ]
+    },
+    {
+      "id": "projection:preset_load_applies_to_local_backend",
+      "role": "preserved",
+      "clauses": [
+        "preserve:custom-preset-actions"
+      ]
+    },
+    {
+      "id": "projection:preset_load_does_not_consume_preset",
+      "role": "preserved",
+      "clauses": [
+        "preserve:custom-preset-actions"
+      ]
+    },
+    {
+      "id": "projection:preset_load_restores_persistence_list",
+      "role": "target",
+      "clauses": [
+        "custom-preset-actions"
+      ]
+    },
+    {
+      "id": "projection:preset_load_reports_missing_without_mutation",
+      "role": "preserved",
+      "clauses": [
+        "preserve:custom-preset-actions"
+      ]
+    },
+    {
+      "id": "projection:preset_load_rejects_invalid_slots",
+      "role": "target",
+      "clauses": [
+        "custom-preset-actions"
+      ]
+    },
+    {
+      "id": "projection:lookup_missing_toggle_is_null",
+      "role": "target",
+      "clauses": [
+        "runtime-lookup"
+      ]
+    },
+    {
+      "id": "projection:lookup_missing_bool_is_false",
+      "role": "target",
+      "clauses": [
+        "runtime-lookup"
+      ]
+    },
+    {
+      "id": "projection:set_missing_toggle_warns_without_throwing",
+      "role": "target",
+      "clauses": [
+        "runtime-lookup"
+      ]
+    },
+    {
+      "id": "projection:set_registered_toggle_changes_value",
+      "role": "target",
+      "clauses": [
+        "runtime-lookup"
+      ]
+    },
+    {
+      "id": "projection:mutant_presence_suppresses_affected_effect",
+      "role": "preserved",
+      "clauses": [
+        "preserve:runtime-lookup"
+      ]
+    },
+    {
+      "id": "projection:mutant_presence_suppresses_minion_effect",
+      "role": "preserved",
+      "clauses": [
+        "preserve:runtime-lookup"
+      ]
+    },
+    {
+      "id": "projection:skip_checks_bypasses_mutant_suppression",
+      "role": "preserved",
+      "clauses": [
+        "preserve:runtime-lookup"
+      ]
+    },
+    {
+      "id": "projection:mutant_presence_keeps_unaffected_effect",
+      "role": "preserved",
+      "clauses": [
+        "preserve:runtime-lookup"
+      ]
+    },
+    {
+      "id": "projection:definition_snapshots_identity_and_default",
+      "role": "target",
+      "clauses": [
+        "definition-snapshots"
+      ]
+    },
+    {
+      "id": "projection:definition_snapshots_presence_policy",
+      "role": "target",
+      "clauses": [
+        "definition-snapshots"
+      ]
+    },
+    {
+      "id": "projection:definition_materialization_ignores_source_toggle_mutation",
+      "role": "target",
+      "clauses": [
+        "definition-snapshots"
+      ]
+    },
+    {
+      "id": "projection:registry_rejects_empty_stable_identity",
+      "role": "target",
+      "clauses": [
+        "definition-snapshots"
+      ]
+    },
+    {
+      "id": "projection:lookup_throwing_foreign_identity_is_safe",
+      "role": "target",
+      "clauses": [
+        "definition-snapshots"
+      ]
+    },
+    {
+      "id": "projection:canonical_presence_policy_ignores_alias_flags",
+      "role": "target",
+      "clauses": [
+        "definition-snapshots"
+      ]
+    },
+    {
+      "id": "projection:rebase_preserves_value_by_identity",
+      "role": "target",
+      "clauses": [
+        "live-registry-rebase"
+      ]
+    },
+    {
+      "id": "projection:rebase_adds_new_effect_at_registered_default",
+      "role": "preserved",
+      "clauses": [
+        "preserve:live-registry-rebase"
+      ]
+    },
+    {
+      "id": "projection:rebase_drops_removed_effect",
+      "role": "target",
+      "clauses": [
+        "live-registry-rebase"
+      ]
+    },
+    {
+      "id": "projection:rebase_rebinds_preset_instances",
+      "role": "target",
+      "clauses": [
+        "live-registry-rebase"
+      ]
+    },
+    {
+      "id": "projection:rebase_canonicalizes_preset_identities",
+      "role": "target",
+      "clauses": [
+        "live-registry-rebase"
+      ]
+    },
+    {
+      "id": "projection:rebase_keeps_player_backends_isolated",
+      "role": "target",
+      "clauses": [
+        "live-registry-rebase"
+      ]
+    },
+    {
+      "id": "projection:rebase_does_not_reload_preferences",
+      "role": "preserved",
+      "clauses": [
+        "preserve:live-registry-rebase"
+      ]
+    },
+    {
+      "id": "projection:lookup_reconciles_before_resolution",
+      "role": "target",
+      "clauses": [
+        "live-registry-rebase"
+      ]
+    },
+    {
+      "id": "projection:set_all_reconciles_before_mutation",
+      "role": "target",
+      "clauses": [
+        "live-registry-rebase"
+      ]
+    },
+    {
+      "id": "projection:player_load_sync_uses_rebased_instances",
+      "role": "target",
+      "clauses": [
+        "live-registry-rebase"
+      ]
+    },
+    {
+      "id": "projection:rebase_preserves_disabled_list_reference",
+      "role": "preserved",
+      "clauses": [
+        "preserve:live-registry-rebase"
+      ]
+    },
+    {
+      "id": "projection:rebase_discards_candidate_on_registry_reentrancy",
+      "role": "target",
+      "clauses": [
+        "live-registry-rebase"
+      ]
+    },
+    {
+      "id": "projection:rebase_retries_new_generation_on_next_entry",
+      "role": "target",
+      "clauses": [
+        "live-registry-rebase"
+      ]
+    },
+    {
+      "id": "projection:unload_rebases_initialized_backend_to_empty",
+      "role": "target",
+      "clauses": [
+        "live-registry-rebase"
+      ]
+    },
+    {
+      "id": "projection:live_registration_rebases_without_reload",
+      "role": "preserved",
+      "clauses": [
+        "preserve:live-registry-rebase"
+      ]
+    },
+    {
+      "id": "projection:failed_registration_does_not_rebase_backend",
+      "role": "preserved",
+      "clauses": [
+        "preserve:live-registry-rebase"
+      ]
+    },
+    {
+      "id": "server:real_engine_toggle_metadata_snapshot",
+      "role": "target",
+      "clauses": [
+        "request"
+      ]
+    },
+    {
+      "id": "server:real_engine_registry_load_is_fresh",
+      "role": "target",
+      "clauses": [
+        "request"
+      ]
+    },
+    {
+      "id": "server:real_engine_duplicate_identity_is_rejected",
+      "role": "target",
+      "clauses": [
+        "request"
+      ]
+    }
+  ],
+  "clauses": [
+    {
+      "id": "registry-lifecycle",
+      "anchor": "exam report registry-lifecycle",
+      "status": "asserted"
+    },
+    {
+      "id": "preserve:registry-lifecycle",
+      "anchor": "behavior the unchanged starter already provides",
+      "status": "asserted"
+    },
+    {
+      "id": "backend-isolation",
+      "anchor": "exam report backend-isolation",
+      "status": "asserted"
+    },
+    {
+      "id": "preserve:backend-isolation",
+      "anchor": "behavior the unchanged starter already provides",
+      "status": "asserted"
+    },
+    {
+      "id": "preference-load",
+      "anchor": "exam report preference-load",
+      "status": "asserted"
+    },
+    {
+      "id": "preserve:preference-load",
+      "anchor": "behavior the unchanged starter already provides",
+      "status": "asserted"
+    },
+    {
+      "id": "preference-save",
+      "anchor": "exam report preference-save",
+      "status": "asserted"
+    },
+    {
+      "id": "preserve:preference-save",
+      "anchor": "behavior the unchanged starter already provides",
+      "status": "asserted"
+    },
+    {
+      "id": "preserve:player-restore",
+      "anchor": "behavior the unchanged starter already provides",
+      "status": "asserted"
+    },
+    {
+      "id": "player-restore",
+      "anchor": "exam report player-restore",
+      "status": "asserted"
+    },
+    {
+      "id": "built-in-presets",
+      "anchor": "exam report built-in-presets",
+      "status": "asserted"
+    },
+    {
+      "id": "preserve:built-in-presets",
+      "anchor": "behavior the unchanged starter already provides",
+      "status": "asserted"
+    },
+    {
+      "id": "preserve:custom-preset-actions",
+      "anchor": "behavior the unchanged starter already provides",
+      "status": "asserted"
+    },
+    {
+      "id": "custom-preset-actions",
+      "anchor": "exam report custom-preset-actions",
+      "status": "asserted"
+    },
+    {
+      "id": "runtime-lookup",
+      "anchor": "exam report runtime-lookup",
+      "status": "asserted"
+    },
+    {
+      "id": "preserve:runtime-lookup",
+      "anchor": "behavior the unchanged starter already provides",
+      "status": "asserted"
+    },
+    {
+      "id": "definition-snapshots",
+      "anchor": "exam report definition-snapshots",
+      "status": "asserted"
+    },
+    {
+      "id": "live-registry-rebase",
+      "anchor": "exam report live-registry-rebase",
+      "status": "asserted"
+    },
+    {
+      "id": "preserve:live-registry-rebase",
+      "anchor": "behavior the unchanged starter already provides",
+      "status": "asserted"
+    },
+    {
+      "id": "request",
+      "anchor": "exam body; split into individual clauses during review",
+      "status": "asserted"
+    }
+  ],
+  "excluded_clauses": [],
+  "known_issues": []
+}

@@ -1,0 +1,21 @@
+diff -ruN a/Automate/Framework/Machines/DataBasedObjectMachine.cs b/Automate/Framework/Machines/DataBasedObjectMachine.cs
+--- a/Automate/Framework/Machines/DataBasedObjectMachine.cs
++++ b/Automate/Framework/Machines/DataBasedObjectMachine.cs
+@@ -37,8 +37,6 @@
+     {
+         MachineState state = this.GetGenericState();
+ 
+-        if (state == MachineState.Done && this.Machine.GetMachineData()?.IsIncubator is true)
+-            state = MachineState.Processing; // don't grab incubating egg before it hatches
+ 
+         return state;
+     }
+@@ -77,8 +75,6 @@
+         SObject machine = this.Machine;
+         MachineData? machineData = machine.GetMachineData();
+ 
+-        if (machineData?.IsIncubator is true)
+-            return null; // don't grab incubating egg before it hatches
+ 
+         // recalculate output if needed (e.g. bee house honey)
+         if (machine.lastOutputRuleId.Value != null && machineData != null)

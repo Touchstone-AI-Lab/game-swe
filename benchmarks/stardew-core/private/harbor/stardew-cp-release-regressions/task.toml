@@ -1,0 +1,68 @@
+schema_version = "1.1"
+
+[task]
+name = "gamecodebench/stardew-cp-release-regressions"
+description = "Five upstream Content Patcher defects in one real release tree, reported as symptoms only: numeric PathPart positions, tokenised nested keys losing their values, data-model positions and lists deserialized without SMAPI's JSON settings, and text operations creating empty entries or map properties."
+authors = ["Rhenium maintainers"]
+keywords = ["stardew-valley", "smapi", "csharp", "game-modding", "content-patcher", "composite", "symptom-only"]
+
+[metadata]
+category = "programming"
+difficulty = "hard"
+tags = ["game-modding", "smapi", "stardew-valley", "csharp", "bug-fix", "composite"]
+source_repo = "https://github.com/Pathoschild/StardewMods"
+source_license = "MIT"
+source_mod = "ContentPatcher"
+# The starter is the unmodified content-patcher/2.6.1 release tree (commit
+# 2e40a38874c3d7f5f19d409f342244fcaf3d28bb) trimmed to ContentPatcher/, Common/ and the
+# repository build files. Every defect is genuine in that release; nothing was reverted
+# or injected, and the release notes predate every fix.
+base_ref = "content-patcher/2.6.1"
+base_commit = "2e40a38874c3d7f5f19d409f342244fcaf3d28bb"
+# The reference is the five upstream commits applied in this order (only line offsets
+# differ from upstream): 4a12c9af7 and 56613e8a1 (content-patcher/2.7.0, EditData
+# conversion through SMAPI's JSON serializer), 601912236 (2.7.0, tokens in nested JSON
+# property names), e451ffdcb (2.9.0, text operations that produce no value), and
+# f70cd17e4 (after 2.9.1, numeric PathPart positions).
+fix_commit = "4a12c9af7f024f775efac4adb3dc11f5c154b15a+56613e8a1176805a65a0dfc455bf4c087934466d+601912236e440ebd83e4f307d2293e2ff044209b+e451ffdcb96a238c0606c5a40f34e9cedac54c3b+f70cd17e44e033c0ae9ae318d7f28b444cf9a231"
+gold_patch_origin = "upstream"
+task_kind = "composite-symptom-only"
+game_version = "1.6.15"
+smapi_version = "4.1.10"
+
+# Defect groups and their target cases (tests/SuiteCpReleaseRegressions.cs):
+# - PathPart numeric positions (f70cd17e4): positive and negative index cases.
+# - Tokenised nested property names (601912236): one nested-key case.
+# - EditData conversion (4a12c9af7 entries, 56613e8a1 field edits): {X, Y} positions in
+#   a new entry and in a field edit, and a new entry's list field replacing the model's
+#   default list.
+# - Text operations with no result (e451ffdcb): a missing data entry and a missing map
+#   property.
+# Six preserved cases guard behavior that already works in the starter, plus a load
+# sentinel.
+
+[verifier]
+network_mode = "no-network"
+timeout_sec = 2400.0
+
+[agent]
+# mini-swe-agent runs INSIDE the container and calls the model API from there, so a
+# blanket no-network kills it before it does any work. Everything else it needs is
+# baked into the image; github.com / nuget.org are deliberately NOT listed because
+# the reference fix is an upstream commit.
+network_mode = "allowlist"
+allowed_hosts = ["api.anthropic.com"]
+timeout_sec = 3600.0
+
+[environment]
+network_mode = "no-network"
+build_timeout_sec = 3600.0
+cpus = 6
+memory_mb = 16384
+storage_mb = 30720
+gpus = 0
+mcp_servers = []
+
+# Same isolation and responsible-release posture as the rest of the Stardew suite:
+# game files staged locally from the operator's own copy, never committed; images
+# stay private; pretraining contamination is not addressed by isolation.

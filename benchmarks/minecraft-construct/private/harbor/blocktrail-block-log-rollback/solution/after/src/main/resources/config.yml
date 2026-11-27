@@ -1,0 +1,11 @@
+# Materials that are never recorded (Bukkit Material names).
+ignored-materials:
+  - SHORT_GRASS
+  - TALL_GRASS
+  - FIRE
+# Worlds to record; an empty list records every world.
+worlds: []
+# Lines per page of /trail player.
+page-size: 5
+# Largest radius /trail rollback accepts.
+max-radius: 32

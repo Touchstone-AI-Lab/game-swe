@@ -1,0 +1,11 @@
+--- a/solution/ThreatArbiter.java
++++ b/solution/ThreatArbiter.java
+@@ -160,7 +160,7 @@
+             if(best!=null){ String id="assignment-"+(nextAssignmentId++); Assignment a=new Assignment(id,e.eventId(),best.unitId(),tick,tick,safeAdd(tick,policy.leaseTicks())); assignments.put(id,a);byEvent.put(e.eventId(),id);byUnit.put(best.unitId(),id);events.put(e.eventId(),with(e,EventStatus.ASSIGNED,tick,e.wave())); }
+         }
+     }
+-    private boolean compatible(Event e,Responder r){ return (e.kind()==EventKind.DEFEND&&r.kind()==ResponderKind.COMBAT)||(e.kind()==EventKind.REPAIR&&r.kind()==ResponderKind.REPAIR); }
++    private boolean compatible(Event e,Responder r){ return e.kind()==EventKind.DEFEND&&r.kind()==ResponderKind.COMBAT; }
+     private static long distance(int a,int b){ int ax=(short)(a>>>16), ay=(short)a, bx=(short)(b>>>16), by=(short)b; return Math.abs((long)ax-bx)+Math.abs((long)ay-by); }
+     private Comparator<Event> eventComparator(long tick){ return Comparator.<Event>comparingLong(e->effective(e,tick)).reversed().thenComparingLong(Event::createdTick).thenComparing(Event::eventId); }
+     private long effective(Event e,long tick){return (long)e.priority()+Math.max(0,tick-e.createdTick())/policy.agingTicks();}

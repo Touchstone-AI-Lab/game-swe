@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "mode": "dedicated-server",
+  "cases": [
+    "real_engine_projectile_owner_wire_bound",
+    "real_engine_rejected_identity_is_canonical",
+    "real_server_snapshot_failure_is_omitted"
+  ],
+  "client_only_exclusions": [
+    "Snapshot receive application requires a multiplayer client and remains covered by the source-projection layer."
+  ]
+}

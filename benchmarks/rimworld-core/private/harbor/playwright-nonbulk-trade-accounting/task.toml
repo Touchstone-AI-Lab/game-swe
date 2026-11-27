@@ -1,0 +1,38 @@
+schema_version = "1.1"
+
+[task]
+name = "gamecodebench/playwright-nonbulk-trade-accounting"
+description = "Capture sold item identity before ResolveTrade removes colony-side non-bulk things, then notify Core win conditions exactly once."
+authors = []
+keywords = ["rimworld", "csharp", "mod", "debugging", "real-game"]
+
+[metadata]
+category = "programming"
+difficulty = "hard"
+tags = ["game-modding", "csharp", "rimworld", "bug-fix"]
+source_repo = "https://github.com/morerokk/Rimworld-Playwright"
+source_license = "MIT"
+base_commit = "11fa563967cf368e00f5011d79c9f9476019edb2"
+target_commit = "f518aed8a2f2899c4e3c38a942685b7947eaeea7"
+gold_patch_origin = "upstream-single-parent-fix"
+catalog_version = "0.3.2"
+authoring_revision = 3
+private_protocol = "rhenium-rimworld-private-v3"
+assertion_count = 14
+scored_scope = "Tradeable_ResolveTradePatches Prefix/Postfix"
+
+[verifier]
+network_mode = "no-network"
+timeout_sec = 900.0
+[agent]
+network_mode = "no-network"
+allowed_hosts = []
+timeout_sec = 3600.0
+[environment]
+network_mode = "no-network"
+build_timeout_sec = 7200.0
+cpus = 6
+memory_mb = 16384
+storage_mb = 20480
+gpus = 0
+mcp_servers = []

@@ -1,0 +1,13 @@
+diff --git a/Automate/Framework/AutomationFactory.cs b/Automate/Framework/AutomationFactory.cs
+index 3ebe9d2f..f8051133 100644
+--- a/Automate/Framework/AutomationFactory.cs
++++ b/Automate/Framework/AutomationFactory.cs
+@@ -157,7 +157,7 @@ internal class AutomationFactory : IAutomationFactory
+                     if (fertilizerBehavior is JunimoHutBehavior.AutoDetect)
+                         fertilizerBehavior = this.IsBetterJunimosLoaded ? JunimoHutBehavior.Ignore : JunimoHutBehavior.MoveIntoChests;
+ 
+-                    JunimoHutBehavior seedBehavior = config.JunimoHutBehaviorForFertilizer;
++                    JunimoHutBehavior seedBehavior = config.JunimoHutBehaviorForSeeds;
+                     if (seedBehavior is JunimoHutBehavior.AutoDetect)
+                         seedBehavior = this.IsBetterJunimosLoaded ? JunimoHutBehavior.Ignore : JunimoHutBehavior.MoveIntoChests;
+ 

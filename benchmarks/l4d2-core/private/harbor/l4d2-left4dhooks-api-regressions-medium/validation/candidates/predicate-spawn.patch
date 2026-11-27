@@ -1,0 +1,46 @@
+diff --git a/sourcemod/scripting/include/left4dhooks.inc b/sourcemod/scripting/include/left4dhooks.inc
+--- a/sourcemod/scripting/include/left4dhooks.inc
++++ b/sourcemod/scripting/include/left4dhooks.inc
+@@ -6766,17 +6766,16 @@
+ /* CTerrorPlayer Variable access */
+ 
+ /**
+- * Get the value of "CTerrorPlayer::m_flBecomeGhostAt", which tracks the next time the SI player will spawn
++ * Get the absolute engine-time value stored in "CTerrorPlayer::m_flBecomeGhostAt"
+  * @note The duration of this timer is controlled by the cvars z_ghost_delay_min and z_ghost_delay_max
+  * @remarks It is advised to use the "L4D_GetPlayerSpawnTime" native instead of this
+  *
+  * @param client		Client id to get the spawn timer for
+  *
+- * @return				CountdownTimer reference to the timer, or CTimer_Null on lookup failure
+- * @error				Invalid client
+- */
+-// L4D2 only
+-native CountdownTimer L4D2Direct_GetSpawnTimer(int client);
++ * @return				Absolute engine time stored in m_flBecomeGhostAt, or -1.0 for an invalid client index
++ */
++// L4D2 only
++native float L4D2Direct_GetSpawnTimer(int client);
+ 
+ /**
+  * Get a reference to a CountdownTimer that tracks when an survivor player is invulnerable due to "godframes"
+diff --git a/sourcemod/scripting/l4dd/l4dd_natives.sp b/sourcemod/scripting/l4dd/l4dd_natives.sp
+--- a/sourcemod/scripting/l4dd/l4dd_natives.sp
++++ b/sourcemod/scripting/l4dd/l4dd_natives.sp
+@@ -4268,13 +4285,9 @@
+ 
+ 	int client = GetNativeCell(1);
+ 	if( client < 1 || client > MaxClients )
+-		return CTimer_Null;
+-
+-	Address pEntity = GetEntityAddress(client);
+-	if( pEntity == Address_Null )
+-		return CTimer_Null;
+-
+-	return view_as<CountdownTimer>(pEntity + view_as<Address>(g_iOff_m_flBecomeGhostAt - 8));
++		return -1.0;
++
++	return view_as<float>(GetEntDataFloat(client, g_iOff_m_flBecomeGhostAt));
+ }
+ 
+ any Direct_GetInvulnerabilityTimer(Handle plugin, int numParams) // Native "L4D2Direct_GetInvulnerabilityTimer"

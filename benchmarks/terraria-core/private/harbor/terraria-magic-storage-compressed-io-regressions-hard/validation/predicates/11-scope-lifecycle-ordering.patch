@@ -1,0 +1,12 @@
+diff --git a/Common/IO/ValueWriter.cs b/Common/IO/ValueWriter.cs
+--- a/Common/IO/ValueWriter.cs
++++ b/Common/IO/ValueWriter.cs
+@@ -256,6 +256,8 @@ namespace MagicStorage.Common.IO {
+ 			public void Dispose() {
+ 				if (disposed)
+ 					throw new ObjectDisposedException(nameof(Scope), "Scope has already been closed.");
++				if (_baseWriter._activeScope != this)
++					throw new InvalidOperationException("Scopes must be closed in reverse creation order.");
+ 
+ 				disposed = true;
+ 

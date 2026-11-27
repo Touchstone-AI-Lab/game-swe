@@ -1,0 +1,787 @@
+{
+  "task": "left-4-dead-2/core/l4d2-competitive-score-lifecycle-hard",
+  "task_version": "1.0.0",
+  "exam": "benchmarks/l4d2-core/exams/l4d2-competitive-score-lifecycle-hard.md",
+  "cases": [
+    {
+      "id": "case:score_normal_budget",
+      "role": "preserved",
+      "clauses": [
+        "R1.4",
+        "R2.3",
+        "Task-preserve-natives",
+        "Task-preserve-integration"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:score_dead_excluded",
+      "role": "target",
+      "clauses": [
+        "R1.1"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:score_incap_excluded",
+      "role": "preserved",
+      "clauses": [
+        "R1.1"
+      ],
+      "overlap": true,
+      "note": "Holds in the starter (incapacitated Survivors were already excluded); dead/hanging/falling are the target half of R1.1."
+    },
+    {
+      "id": "case:score_falling_excluded",
+      "role": "preserved",
+      "clauses": [
+        "R1.1"
+      ],
+      "overlap": true,
+      "note": "Holds in the starter for the health bonus; falling pills are the target (score_falling_pills_excluded)."
+    },
+    {
+      "id": "case:score_revived_health_policy",
+      "role": "preserved",
+      "clauses": [
+        "R1.3"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:score_upright_pills",
+      "role": "preserved",
+      "clauses": [
+        "R1.4"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:score_ledge_pills_excluded",
+      "role": "target",
+      "clauses": [
+        "R1.1"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:score_falling_pills_excluded",
+      "role": "target",
+      "clauses": [
+        "R1.1"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:live_multiplier_preserves_loss",
+      "role": "preserved",
+      "clauses": [
+        "R2.1",
+        "R2.2"
+      ],
+      "overlap": true,
+      "note": "Holds in the starter: the multiplier was already live; the other four settings are the target."
+    },
+    {
+      "id": "case:live_proportion_reprices",
+      "role": "preserved",
+      "clauses": [
+        "R2.1",
+        "R2.2"
+      ],
+      "overlap": true,
+      "note": "Holds in the starter for p=.5."
+    },
+    {
+      "id": "case:live_pill_factor",
+      "role": "target",
+      "clauses": [
+        "R2.1",
+        "R3.9"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:live_pill_cap",
+      "role": "target",
+      "clauses": [
+        "R2.1",
+        "R3.7"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:live_team_size",
+      "role": "target",
+      "clauses": [
+        "R2.1"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:score_roster_limit",
+      "role": "preserved",
+      "clauses": [
+        "R1.2",
+        "R3.5"
+      ],
+      "overlap": false,
+      "note": "Preservation clause of report 1 (explicit in the exam); broken by cn-dead-survivor-frees-roster-slot."
+    },
+    {
+      "id": "case:bounds_zero_proportion",
+      "role": "target",
+      "clauses": [
+        "R3.1",
+        "R3.10"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:bounds_one_proportion",
+      "role": "preserved",
+      "clauses": [
+        "R3.2",
+        "R3.10"
+      ],
+      "overlap": true,
+      "note": "Holds in the starter; the p=0 and out-of-range endpoints are the target."
+    },
+    {
+      "id": "case:bounds_endpoint_events",
+      "role": "preserved",
+      "clauses": [
+        "R3.2"
+      ],
+      "overlap": true,
+      "note": "Holds in the starter."
+    },
+    {
+      "id": "case:bounds_high_proportion",
+      "role": "target",
+      "clauses": [
+        "R3.3"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:bounds_negative_proportion",
+      "role": "target",
+      "clauses": [
+        "R3.3"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:bounds_zero_factor",
+      "role": "target",
+      "clauses": [
+        "R3.6"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:bounds_negative_factor",
+      "role": "target",
+      "clauses": [
+        "R3.6"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:bounds_zero_cap",
+      "role": "target",
+      "clauses": [
+        "R3.6"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:bounds_negative_cap",
+      "role": "target",
+      "clauses": [
+        "R3.6"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:bounds_zero_budget",
+      "role": "target",
+      "clauses": [
+        "R3.8"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:bounds_negative_multiplier",
+      "role": "target",
+      "clauses": [
+        "R3.4"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:bounds_zero_team",
+      "role": "target",
+      "clauses": [
+        "R3.5"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:adm_positive_loss",
+      "role": "preserved",
+      "clauses": [
+        "R4.3"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:adm_healing_ignored",
+      "role": "target",
+      "clauses": [
+        "R4.2"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:adm_negative_after_clamped",
+      "role": "preserved",
+      "clauses": [
+        "R4.2"
+      ],
+      "overlap": true,
+      "note": "Holds in the starter for this input; healing and double-negative inputs are the target."
+    },
+    {
+      "id": "case:adm_negative_both_ignored",
+      "role": "target",
+      "clauses": [
+        "R4.2"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:adm_invalid_client",
+      "role": "target",
+      "clauses": [
+        "R4.1"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:adm_ineligible_client",
+      "role": "target",
+      "clauses": [
+        "R4.1"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:round_restart_clears_current",
+      "role": "target",
+      "clauses": [
+        "R6.1"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:round_preserves_other_half",
+      "role": "target",
+      "clauses": [
+        "R6.1"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:round_independent_half",
+      "role": "preserved",
+      "clauses": [
+        "R6.1"
+      ],
+      "overlap": true,
+      "note": "Holds in the starter; restart/other-half retention are the target."
+    },
+    {
+      "id": "case:round_finalized_ledger_frozen",
+      "role": "target",
+      "clauses": [
+        "R6.3"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:round_end_idempotent",
+      "role": "preserved",
+      "clauses": [
+        "R6.4"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:round_tiebreak_ledgers",
+      "role": "target",
+      "clauses": [
+        "R6.1",
+        "R4.3"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:adm_tiebreak_compatibility",
+      "role": "preserved",
+      "clauses": [
+        "R4.3"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:round_finalized_sdk_damage",
+      "role": "preserved",
+      "clauses": [
+        "R6.3"
+      ],
+      "overlap": true,
+      "note": "Holds in the starter, which did not debit this finalized-round damage; the reference must keep it (see cn-finalized-damage-guards-removed)."
+    },
+    {
+      "id": "case:round_finalized_plasma_event",
+      "role": "preserved",
+      "clauses": [
+        "R6.3"
+      ],
+      "overlap": true,
+      "note": "Holds in the starter; see round_finalized_sdk_damage."
+    },
+    {
+      "id": "case:ledge_zero_debit_episode",
+      "role": "target",
+      "clauses": [
+        "R5.1"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:ledge_negative_debit_episode",
+      "role": "target",
+      "clauses": [
+        "R5.1"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:ledge_duplicate_grab",
+      "role": "target",
+      "clauses": [
+        "R5.1"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:ledge_duplicate_revive",
+      "role": "target",
+      "clauses": [
+        "R5.2",
+        "R5.5"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:ledge_refund_capped",
+      "role": "target",
+      "clauses": [
+        "R5.2"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:ledge_ground_revive",
+      "role": "target",
+      "clauses": [
+        "R5.3"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:ledge_round_epoch",
+      "role": "target",
+      "clauses": [
+        "R5.4"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:ledge_half_binding",
+      "role": "target",
+      "clauses": [
+        "R5.4"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:ledge_new_episode",
+      "role": "target",
+      "clauses": [
+        "R5.4"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:ledge_team_transition",
+      "role": "target",
+      "clauses": [
+        "R5.4"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:ledge_death_transition",
+      "role": "target",
+      "clauses": [
+        "R5.4"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:ledge_finalization",
+      "role": "target",
+      "clauses": [
+        "R5.4",
+        "R6.3"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:ledge_client_disconnect",
+      "role": "target",
+      "clauses": [
+        "R5.4"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:ledge_zero_buffer",
+      "role": "target",
+      "clauses": [
+        "R5.2"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:unload_restores_startup_values",
+      "role": "target",
+      "clauses": [
+        "R7.1",
+        "Task-preserve-identity"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:unload_new_instance_snapshot",
+      "role": "target",
+      "clauses": [
+        "R7.2",
+        "Task-preserve-identity"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "check:submission-shape",
+      "role": "static",
+      "clauses": [
+        "Task-source-only"
+      ],
+      "overlap": false,
+      "note": "Evaluator gate (plugin evaluator.py _static_check); verify.py adds its own package checks before any case."
+    }
+  ],
+  "clauses": [
+    {
+      "id": "R1.1",
+      "anchor": "Report 1 s3: \"Health, damage and pills bonuses must consistently exclude dead, incapacitated, hanging and falling Survivors.\"",
+      "status": "asserted",
+      "note": "Dead/incap/falling are checked for health or damage; hanging and falling are checked for pills. Not every bonus x state combination is exercised."
+    },
+    {
+      "id": "R1.2",
+      "anchor": "Report 1 s4a: \"Preserve the existing first `survivor_limit` roster selection\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "R1.3",
+      "anchor": "Report 1 s4b: preserve the \"permanent-health treatment after an incapacitation\"",
+      "status": "asserted",
+      "note": "suite_scoring.sp sets m_currentReviveCount=1 and expects the existing zero permanent-health contribution."
+    },
+    {
+      "id": "R1.4",
+      "anchor": "Report 1 s4c: preserve \"ordinary living/upright scoring\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "R2.1",
+      "anchor": "Report 2 s1: changes to the bonus multiplier, permanent-health proportion, pills factor, pills maximum and survivor limit \"must all take effect without a map reload\"; dependent maxima/unit values/pill values are recalculated together",
+      "status": "asserted",
+      "note": "Each ConVar is changed once in sequence within one boot."
+    },
+    {
+      "id": "R2.2",
+      "anchor": "Report 2 s2b: \"do not erase already incurred temporary-health losses\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "R2.3",
+      "anchor": "Report 2 s3: \"Preserve the existing ordinary formula and final integer flooring exposed by `SMPlus_*`\"",
+      "status": "weak",
+      "note": "Ordinary values are compared against the suite's own copy of the public formula (DamageAfterLoss) at p=.75; flooring is observed only through those comparisons."
+    },
+    {
+      "id": "R3.1",
+      "anchor": "Report 3 s1+s5: proportion `0` means all damage bonus, using 100 temporary-health units per configured Survivor",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "R3.2",
+      "anchor": "Report 3 s1+s2+s6: proportion `1` means all permanent-health bonus with zero damage pool; no divide by zero during config, incapacitation, death or score reporting",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "R3.3",
+      "anchor": "Report 3 s3a: \"Clamp the effective proportion to `[0,1]`\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "R3.4",
+      "anchor": "Report 3 s3b: \"use a nonnegative effective map multiplier\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "R3.5",
+      "anchor": "Report 3 s3c: effective survivor limit `max(1, configured survivor_limit)` for roster selection, maxima and divisors",
+      "status": "asserted",
+      "note": "Only survivor_limit=0 is exercised."
+    },
+    {
+      "id": "R3.6",
+      "anchor": "Report 3 s7a: \"A nonpositive pills factor or maximum disables carried-pill bonus\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "R3.7",
+      "anchor": "Report 3 s7b: \"a positive maximum below five is itself the cap\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "R3.8",
+      "anchor": "Report 3 s8: \"A zero map bonus gives zero carried-pill bonus.\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "R3.9",
+      "anchor": "Report 3 s9: normal pill rounding to the nearest multiple of five with the usual minimum five when the positive cap permits it",
+      "status": "asserted",
+      "note": "Observed through the live factor update (factor 1000 gives the minimum five per Survivor)."
+    },
+    {
+      "id": "R3.10",
+      "anchor": "Report 3 s10: \"All public maxima and live bonuses must be finite, nonnegative integers.\"",
+      "status": "weak",
+      "note": "Observed only through the specific boundary settings of suite_limits.sp."
+    },
+    {
+      "id": "R4.1",
+      "anchor": "Report 4 s2: accept only a living upright Survivor in an open round; invalid/disconnected clients, other teams and terminal states must not change the ledger",
+      "status": "asserted",
+      "note": "Disconnected clients are not exercised separately; client 0 and MaxClients+1 are."
+    },
+    {
+      "id": "R4.2",
+      "anchor": "Report 4 s2b-s3: only a positive decrease after clamping each reported health to at least zero; healing and equal values do not change the ledger",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "R4.3",
+      "anchor": "Report 4 s4: \"Keep valid ordinary deductions and the existing tiebreak accounting; do not remove compatibility.\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "R5.1",
+      "anchor": "Report 5 s1+s3: a ledge grab debits its nonnegative pre-incap temporary health once per outstanding ledge episode; duplicate grabs create no extra debit",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "R5.2",
+      "anchor": "Report 5 s2+s3: a `revive_success` with `ledge_hang=true` refunds at most the episode's debit and at most the currently quantized temporary health; duplicate revives create no extra refund",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "R5.3",
+      "anchor": "Report 5 s4: \"Ordinary ground revives never refund a ledge episode.\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "R5.4",
+      "anchor": "Report 5 s5: the deferred refund belongs to the same connected client, team/round half and round generation; disconnect, team switch, death, new round or later ledge invalidate it",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "R5.5",
+      "anchor": "Report 5 s6-7: keep deferring until the frame after revival and preserve the quantization `max(0, ceil(buffer - elapsed * pain_pills_decay_rate) - 1)`",
+      "status": "weak",
+      "note": "pain_pills_decay_rate is 0 in the fixture, so only the ceil(buffer)-1 part (21 -> 20) is observed."
+    },
+    {
+      "id": "R6.1",
+      "anchor": "Report 6 s1: a new round starts with zero loss and tiebreak ledger for its own half and retains the other half's completed state",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "R6.2",
+      "anchor": "Report 6 s2: \"Client disconnect must clear that client's snapshots.\"",
+      "status": "unasserted",
+      "note": "No case observes per-client health snapshots after a disconnect; ledge_client_disconnect covers only the pending ledge refund (R5.4)."
+    },
+    {
+      "id": "R6.3",
+      "anchor": "Report 6 s3: after the end-round forward finalized a round, later damage, incapacitation, death, ledge or alternate-damage callbacks must not alter its scoring state",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "R6.4",
+      "anchor": "Report 6 s4: \"Config refreshes remain independent of round reset. Keep the existing one-shot finalization.\"",
+      "status": "weak",
+      "note": "Only the one-shot half (duplicate end-round forward) is observed."
+    },
+    {
+      "id": "R7.1",
+      "anchor": "Report 7 s2-3: on unload restore the exact `vs_survival_bonus`/`vs_tiebreak_bonus` values present when this plugin instance started, not engine defaults",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "R7.2",
+      "anchor": "Report 7 s4: \"A later reload must capture that new instance's own baseline\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "Task-preserve-natives",
+      "anchor": "Preamble: preserve \"the public `SMPlus_*` natives\"",
+      "status": "asserted",
+      "note": "Every scoring case reads the six SMPlus_* natives."
+    },
+    {
+      "id": "Task-preserve-identity",
+      "anchor": "Preamble: preserve \"plugin identity\"",
+      "status": "weak",
+      "note": "The unload suite loads/unloads the plugin by its file name; myinfo is not compared."
+    },
+    {
+      "id": "Task-preserve-integration",
+      "anchor": "Preamble: preserve \"Left4DHooks/L4D2Lib integration\"",
+      "status": "weak",
+      "note": "The submitted L4D2Lib is compiled and loaded beside the plugin and the map distance comes from its mapinfo; no case isolates the integration."
+    },
+    {
+      "id": "Task-preserve-other",
+      "anchor": "Preamble + closing paragraph: avoid changing unrelated score policy, the other scoremod variants, plugin APIs and other plugins",
+      "status": "unasserted",
+      "note": "Only this plugin and L4D2Lib are compiled."
+    },
+    {
+      "id": "Task-source-only",
+      "anchor": "Closing paragraph: \"Keep GPL attribution and source only; no compiled plugins, game binaries, archives, symlinks or Git metadata.\"",
+      "status": "asserted",
+      "note": "Evaluator submission-shape gate plus verify.py package checks."
+    },
+    {
+      "id": "Task-preserve-gpl",
+      "anchor": "Closing paragraph: \"Keep GPL attribution\"",
+      "status": "unasserted",
+      "note": "verify.py requires LICENSE to contain the GPL header before any case runs; no named case."
+    },
+    {
+      "id": "Task-no-tests-edit",
+      "anchor": "Closing paragraph: \"Do not modify `/tests`.\"",
+      "status": "unasserted",
+      "note": "Process rule."
+    }
+  ],
+  "excluded_clauses": [
+    "Task-preserve-other",
+    "Task-preserve-gpl",
+    "Task-no-tests-edit",
+    "R6.2"
+  ],
+  "known_issues": [
+    "benchmarks/l4d2-core/private/harbor/l4d2-competitive-score-lifecycle-hard/tests/verify.py:parse_suite: a suite boot is all-or-nothing. Any \"[SM] Exception reported\", \"Native is not bound\" or \"Plugin ... failed to load\" line, a missing FINAL marker or a duplicate case turns EVERY case of that boot into a failure, including cases that would otherwise pass; read per-case outcomes of a failing boot with that in mind.",
+    "benchmarks/l4d2-core/private/harbor/l4d2-competitive-score-lifecycle-hard/tests/verify.py:stage_in_load_order (2026-09-24): SourceMod autoloads raw directory order. The verifier creates the plugins in numbered order and returns INVALID_ENVIRONMENT (an incomplete run, never a verdict) if the directory still enumerates them differently. Creation-ordered filesystems (this host's btrfs-backed overlay) satisfy it; a hash-ordered filesystem such as ext4 may not, and that case has not been exercised.",
+    "benchmarks/l4d2-core/private/harbor/l4d2-competitive-score-lifecycle-hard/tests/common.inc: fixtures set engine properties (life state, incap/ledge flags, health buffer) on fake clients and replay events/forwards; the cases are focused contract checks, not a simulated competitive match (task NOTES.md).",
+    "benchmarks/l4d2-core/private/harbor/l4d2-competitive-score-lifecycle-hard/tests/common.inc: pain_pills_decay_rate is forced to 0, so only the ceil(buffer)-1 half of the report 5 quantization formula is observed.",
+    "The alternative control is reference-derived (connection user ids, an explicit bounded minimum and independently clamped ADM inputs); it shows the suite does not pin those choices, not that an independent implementation passes."
+  ]
+}

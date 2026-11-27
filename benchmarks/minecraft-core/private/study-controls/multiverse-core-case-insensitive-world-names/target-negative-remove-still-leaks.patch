@@ -1,0 +1,15 @@
+--- a/src/main/java/org/mvplugins/multiverse/core/world/WorldManager.java
++++ b/src/main/java/org/mvplugins/multiverse/core/world/WorldManager.java
+@@ -536,10 +536,10 @@
+     }
+ 
+     private Attempt<MultiverseWorld, UnloadFailureReason> removeLoadedMultiverseWorld(@NotNull LoadedMultiverseWorld world) {
+-        MultiverseWorld mvWorld = Objects.requireNonNull(loadedWorldsMap.remove(world.getName()),
++        MultiverseWorld mvWorld = Objects.requireNonNull(loadedWorldsMap.remove(world.getName().toLowerCase(Locale.ENGLISH)),
+                 "For some reason, the loaded world isn't in the map... BUGGG");
+         Logging.fine("Removed MultiverseWorld from map: " + world.getName());
+-        var unloadedWorld = Objects.requireNonNull(worldsMap.get(world.getName()),
++        var unloadedWorld = Objects.requireNonNull(worldsMap.get(world.getName().toLowerCase(Locale.ENGLISH)),
+                 "For some reason, the unloaded world isn't in the map... BUGGG");
+         mvWorld.getWorldConfig().setMVWorld(unloadedWorld);
+         pluginManager.callEvent(new MVWorldUnloadedEvent(mvWorld));

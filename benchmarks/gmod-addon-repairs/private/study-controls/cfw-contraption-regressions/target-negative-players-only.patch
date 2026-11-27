@@ -1,0 +1,12 @@
+diff -u a/cfw/lua/cfw/core/parenting_sv.lua b/cfw/lua/cfw/core/parenting_sv.lua
+--- a/cfw/lua/cfw/core/parenting_sv.lua
++++ b/cfw/lua/cfw/core/parenting_sv.lua
+@@ -105,8 +105,6 @@
+             if self._cfwRemoved then return end -- Removed by an undo
+             if oldParent == newParent then return end
+             if (validOldParent and oldParent:IsPlayer()) or (validNewParent and newParent:IsPlayer()) then return end
+-            if (validOldParent and oldParent:IsNPC()) or (validNewParent and newParent:IsNPC()) then return end
+-            if (validOldParent and oldParent:IsNextBot()) or (validNewParent and newParent:IsNextBot()) then return end
+ 
+             local entClass = self:GetClass()
+             if filter[entClass] then return end

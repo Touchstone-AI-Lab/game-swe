@@ -1,0 +1,40 @@
+{
+  "protocol": "v2",
+  "task": "live-joker-adjacency-v2",
+  "slot": "M3",
+  "target_difficulty": "medium",
+  "calibration_status": "unmeasured",
+  "calibration_model": null,
+  "calibration_evidence": [],
+  "formal_integration_status": "not_implemented",
+  "files": {
+    "CONTRACT.md": {
+      "size": 2112,
+      "sha256": "eacae849e509aa507acfe1824f602f419d086b8db224399cd0c3925749faa2ab"
+    },
+    "README.md": {
+      "size": 1373,
+      "sha256": "62521eff01c1fa4aecc8b7a68225b9bace38e592b9e0a70ad384bd2e2bb1259d"
+    },
+    "starter/main.lua": {
+      "size": 451,
+      "sha256": "dc6c11c5d4691dd44e08b2e09b2c661d9029b3d4fe47ff348ce4bfe46f47c8d1"
+    },
+    "starter/lib/adjacency.lua": {
+      "size": 632,
+      "sha256": "d5af27b6dd3e716c1f3b0c857e8777bcfe20b243d26db3f1a9f501eafcc553b3"
+    },
+    "starter/live_joker_adjacency_v2.json": {
+      "size": 313,
+      "sha256": "ab3f5fb8699f434cb7b8d79328e197dc564bb7fbe55e9c9f5699eea30bb671e6"
+    }
+  },
+  "content_sha256": "6329d9dfe3de031f75ff6c8968f88a9121894086eae5d162ce9f9d478cc2275a",
+  "editable_files": [
+    "starter/main.lua",
+    "starter/lib/adjacency.lua"
+  ],
+  "immutable_files": [
+    "starter/live_joker_adjacency_v2.json"
+  ]
+}

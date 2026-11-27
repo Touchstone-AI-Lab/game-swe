@@ -1,0 +1,24 @@
+[project]
+name = "rhenium-garrys-mod"
+version = "0.6.0"
+description = "Unified Garry's Mod benchmark plugin for Rhenium"
+requires-python = ">=3.12"
+dependencies = [
+  "lupa>=2.4",
+  "rhenium==0.6.0",
+  "tree-sitter>=0.24.0",
+  "tree-sitter-lua>=0.2.0",
+]
+
+[project.entry-points."rhenium.benchmarks"]
+garrys-mod = "rhenium_garrys_mod.plugin:GarrysModBenchmarkPlugin"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/rhenium_garrys_mod"]
+
+[tool.uv.sources]
+rhenium = { workspace = true }

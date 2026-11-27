@@ -1,0 +1,170 @@
+{
+  "task": "palworld/core/server-rule-ballot",
+  "task_version": "1.2.0",
+  "exam": "benchmarks/palworld/exams/server-rule-ballot.md",
+  "cases": [
+    {
+      "id": "check:required-files",
+      "role": "static"
+    },
+    {
+      "id": "check:lua-syntax",
+      "role": "static"
+    },
+    {
+      "id": "hidden:electorate and choices are frozen at open",
+      "role": "target",
+      "clauses": [
+        "request"
+      ]
+    },
+    {
+      "id": "hidden:proposals are validated before any state changes",
+      "role": "target",
+      "clauses": [
+        "request"
+      ]
+    },
+    {
+      "id": "hidden:newer vote revisions replace older ones",
+      "role": "target",
+      "clauses": [
+        "request"
+      ]
+    },
+    {
+      "id": "hidden:quorum, ties and count ordering are deterministic",
+      "role": "target",
+      "clauses": [
+        "request"
+      ]
+    },
+    {
+      "id": "hidden:deadline boundary and close are idempotent",
+      "role": "target",
+      "clauses": [
+        "request"
+      ]
+    },
+    {
+      "id": "hidden:cancel is final and identifiers can never be reused",
+      "role": "target",
+      "clauses": [
+        "request"
+      ]
+    },
+    {
+      "id": "hidden:snapshot hides individual ballots and save/load keeps the result",
+      "role": "target",
+      "clauses": [
+        "request"
+      ]
+    },
+    {
+      "id": "check:implementation-depth",
+      "role": "static"
+    },
+    {
+      "id": "check:ballot-authority",
+      "role": "target",
+      "clauses": [
+        "integration:ballot-authority"
+      ],
+      "note": "regular-expression gate over the submitted source, not an execution"
+    },
+    {
+      "id": "check:ballot-identity",
+      "role": "target",
+      "clauses": [
+        "integration:ballot-identity"
+      ],
+      "note": "regular-expression gate over the submitted source, not an execution"
+    },
+    {
+      "id": "check:ballot-timers",
+      "role": "target",
+      "clauses": [
+        "integration:ballot-timers"
+      ],
+      "note": "regular-expression gate over the submitted source, not an execution"
+    },
+    {
+      "id": "check:ballot-lifecycle",
+      "role": "target",
+      "clauses": [
+        "integration:ballot-lifecycle"
+      ],
+      "note": "regular-expression gate over the submitted source, not an execution"
+    },
+    {
+      "id": "check:ballot-manifest",
+      "role": "target",
+      "clauses": [
+        "integration:ballot-manifest"
+      ],
+      "note": "regular-expression gate over the submitted source, not an execution"
+    },
+    {
+      "id": "server:dedicated server context is available",
+      "role": "target",
+      "clauses": [
+        "request"
+      ]
+    },
+    {
+      "id": "server:rule ballot service is published",
+      "role": "target",
+      "clauses": [
+        "request"
+      ]
+    },
+    {
+      "id": "server:the server derives voter identity and settles a ballot",
+      "role": "target",
+      "clauses": [
+        "request"
+      ]
+    },
+    {
+      "id": "server:ballot state reloads",
+      "role": "target",
+      "clauses": [
+        "request"
+      ]
+    }
+  ],
+  "clauses": [
+    {
+      "id": "request",
+      "anchor": "exam body; split into individual clauses during review",
+      "status": "asserted"
+    },
+    {
+      "id": "integration:ballot-authority",
+      "anchor": "host-integration section; source-pattern gate ballot-authority",
+      "status": "weak"
+    },
+    {
+      "id": "integration:ballot-identity",
+      "anchor": "host-integration section; source-pattern gate ballot-identity",
+      "status": "weak"
+    },
+    {
+      "id": "integration:ballot-timers",
+      "anchor": "host-integration section; source-pattern gate ballot-timers",
+      "status": "weak"
+    },
+    {
+      "id": "integration:ballot-lifecycle",
+      "anchor": "host-integration section; source-pattern gate ballot-lifecycle",
+      "status": "weak"
+    },
+    {
+      "id": "integration:ballot-manifest",
+      "anchor": "host-integration section; source-pattern gate ballot-manifest",
+      "status": "weak"
+    }
+  ],
+  "excluded_clauses": [],
+  "known_issues": []
+}

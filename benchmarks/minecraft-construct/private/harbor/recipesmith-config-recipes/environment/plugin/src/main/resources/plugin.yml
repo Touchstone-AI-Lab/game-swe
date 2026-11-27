@@ -1,0 +1,5 @@
+name: Recipesmith
+version: 1.0.0
+main: com.example.recipesmith.RecipesmithPlugin
+api-version: '1.21'
+description: Custom recipes from a configuration file

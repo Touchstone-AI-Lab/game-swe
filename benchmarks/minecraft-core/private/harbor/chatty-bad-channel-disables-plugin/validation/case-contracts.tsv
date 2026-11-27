@@ -1,0 +1,150 @@
+case	layer	role	public_report
+ru.brikster.chatty.ConstantsTest.matchesLowercaseReplacementKey()	unit	preserved	upstream unit test must keep passing
+ru.brikster.chatty.ConstantsTest.doesNotMatchUnrelatedPlaceholders()	unit	preserved	upstream unit test must keep passing
+ru.brikster.chatty.ConstantsTest.findsReplacementKeyInsideText()	unit	preserved	upstream unit test must keep passing
+ru.brikster.chatty.ConstantsTest.matchesUppercaseReplacementKey()	unit	preserved	upstream unit test must keep passing
+ru.brikster.chatty.adventure.NativeAudienceAdapterTest.serializesClickAndHoverInLegacyCompatibleSchema()	unit	preserved	upstream unit test must keep passing
+ru.brikster.chatty.chat.PlaceholderMatchedChatTest.deliversToEveryoneWhenNoPlaceholderIsConfigured()	unit	preserved	upstream unit test must keep passing
+ru.brikster.chatty.chat.PlaceholderMatchedChatTest.deliversOnlyToPlayersSharingTheSendersValue()	unit	preserved	upstream unit test must keep passing
+ru.brikster.chatty.chat.PlaceholderMatchedChatTest.alwaysDeliversToTheSenderThemselves()	unit	preserved	upstream unit test must keep passing
+ru.brikster.chatty.chat.SenderFormatTest.aRankWithoutItsOwnStylesDoesNotFallBackToTheChatStyles()	unit	preserved	upstream unit test must keep passing
+ru.brikster.chatty.chat.SenderFormatTest.picksTheHighestPriorityRankTheSenderHolds()	unit	preserved	upstream unit test must keep passing
+ru.brikster.chatty.chat.SenderFormatTest.ignoresARankGrantedForAnotherChat()	unit	preserved	upstream unit test must keep passing
+ru.brikster.chatty.chat.SenderFormatTest.viewerStylesComeFromTheSelectedRank()	unit	preserved	upstream unit test must keep passing
+ru.brikster.chatty.chat.SenderFormatTest.usesTheRankFormatWhenTheSenderHoldsIt()	unit	preserved	upstream unit test must keep passing
+ru.brikster.chatty.chat.SenderFormatTest.usesTheChatFormatForASenderWithNoRank()	unit	preserved	upstream unit test must keep passing
+ru.brikster.chatty.chat.SenderFormatTest.acceptsAPerChatGrant()	unit	preserved	upstream unit test must keep passing
+ru.brikster.chatty.chat.construct.ComponentFromContextConstructorImplTest.resolvesPlaceholdersInsideMessageFormat()	unit	preserved	upstream unit test must keep passing
+ru.brikster.chatty.chat.construct.ComponentFromContextConstructorImplTest.doesNotResolvePlaceholdersTypedByThePlayer()	unit	preserved	upstream unit test must keep passing
+ru.brikster.chatty.chat.message.context.MessageContextKeysTest.whatIsPutInComesBackOut()	unit	preserved	upstream unit test must keep passing
+ru.brikster.chatty.chat.message.context.MessageContextKeysTest.anySetOrListIsAccepted()	unit	preserved	upstream unit test must keep passing
+ru.brikster.chatty.chat.message.context.MessageContextKeysTest.anAddonPuttingSomethingElseUnderTheKeyCannotBreakDelivery()	unit	preserved	upstream unit test must keep passing
+ru.brikster.chatty.chat.message.context.MessageContextKeysTest.aMissingKeyReadsAsEmptyRatherThanThrowing()	unit	preserved	upstream unit test must keep passing
+ru.brikster.chatty.chat.message.context.MessageContextKeysTest.nonPlayersAreFilteredOutOfAMixedCollection()	unit	preserved	upstream unit test must keep passing
+ru.brikster.chatty.chat.message.context.MessageContextKeysTest.bothKeysAreSpelledTheSameWay()	unit	preserved	upstream unit test must keep passing
+ru.brikster.chatty.chat.message.transform.decorations.ChatScopedDecorationsTest.appliesAColourOnlyInTheChatItWasGrantedFor()	unit	preserved	upstream unit test must keep passing
+ru.brikster.chatty.chat.message.transform.decorations.ChatScopedDecorationsTest.aServerWideGrantStillAppliesEverywhere()	unit	preserved	upstream unit test must keep passing
+ru.brikster.chatty.chat.message.transform.decorations.ChatScopedDecorationsTest.keepsWorkingForPrivateMessagesWhereThereIsNoChat()	unit	preserved	upstream unit test must keep passing
+ru.brikster.chatty.chat.message.transform.decorations.ChatScopedDecorationsTest.appliesASingleDecorationScopedToOneChat()	unit	preserved	upstream unit test must keep passing
+ru.brikster.chatty.chat.message.transform.decorations.PlayerDecorationsFormatterTest.stripsSectionCodesForPlayerWithoutPermission()	unit	preserved	upstream unit test must keep passing
+ru.brikster.chatty.chat.message.transform.decorations.PlayerDecorationsFormatterTest.keepsAmpersandCodesLiteralWithoutPermission()	unit	preserved	upstream unit test must keep passing
+ru.brikster.chatty.chat.message.transform.decorations.PlayerDecorationsFormatterTest.stripsSectionCodesEvenForPlayerWithDecorationPermission()	unit	preserved	upstream unit test must keep passing
+ru.brikster.chatty.chat.message.transform.decorations.PlayerDecorationsFormatterTest.appliesAmpersandColorsWithPermission()	unit	preserved	upstream unit test must keep passing
+ru.brikster.chatty.chat.message.transform.stage.early.moderation.ModerationReplacementTest.treatsABackslashInTheReplacementAsText()	unit	preserved	upstream unit test must keep passing
+ru.brikster.chatty.chat.message.transform.stage.early.moderation.ModerationReplacementTest.treatsADollarSignInTheReplacementAsText()	unit	preserved	upstream unit test must keep passing
+ru.brikster.chatty.chat.message.transform.stage.early.moderation.ModerationReplacementTest.survivesAReplacementEndingInADollarSign()	unit	preserved	upstream unit test must keep passing
+ru.brikster.chatty.chat.selection.ChatSelectorImplTest.picksTheLongestMatchingSymbol()	unit	preserved	upstream unit test must keep passing
+ru.brikster.chatty.chat.selection.ChatSelectorImplTest.letsAnExplicitSymbolOverrideTheSwitchedChat()	unit	preserved	upstream unit test must keep passing
+ru.brikster.chatty.chat.selection.ChatSelectorImplTest.picksTheLongestMatchingSymbolWhateverTheRegistrationOrder()	unit	preserved	upstream unit test must keep passing
+ru.brikster.chatty.chat.selection.ChatSelectorImplTest.sendsTheNextMessageIntoTheChatTheCommandRequested()	unit	preserved	upstream unit test must keep passing
+ru.brikster.chatty.chat.selection.ChatSelectorImplTest.skipsChatsTheSenderMayNotUse()	unit	preserved	upstream unit test must keep passing
+ru.brikster.chatty.chat.selection.ChatSelectorImplTest.returnsNothingWhenNoChatMatches()	unit	preserved	upstream unit test must keep passing
+ru.brikster.chatty.chat.selection.ChatSelectorImplTest.ignoresASwitchedChatTheSenderMayNoLongerUse()	unit	preserved	upstream unit test must keep passing
+ru.brikster.chatty.chat.selection.ChatSelectorImplTest.usesTheSwitchedChatWhenNoSymbolIsGiven()	unit	preserved	upstream unit test must keep passing
+ru.brikster.chatty.config.file.ConfigCommentTranslationsTest.everyTranslatedCommentHasBothLanguages()	unit	preserved	upstream unit test must keep passing
+ru.brikster.chatty.config.file.ConfigCommentTranslationsTest.noCommentIsLeftUntranslated()	unit	preserved	upstream unit test must keep passing
+ru.brikster.chatty.config.file.ConfigGenerationTest.[1] class ru.brikster.chatty.config.file.SettingsConfig	unit	preserved	upstream unit test must keep passing
+ru.brikster.chatty.config.file.ConfigGenerationTest.[2] class ru.brikster.chatty.config.file.ChatsConfig	unit	preserved	upstream unit test must keep passing
+ru.brikster.chatty.config.file.ConfigGenerationTest.[3] class ru.brikster.chatty.config.file.PmConfig	unit	preserved	upstream unit test must keep passing
+ru.brikster.chatty.config.file.ConfigGenerationTest.[4] class ru.brikster.chatty.config.file.MessagesConfig	unit	preserved	upstream unit test must keep passing
+ru.brikster.chatty.config.file.ConfigGenerationTest.[5] class ru.brikster.chatty.config.file.VanillaConfig	unit	preserved	upstream unit test must keep passing
+ru.brikster.chatty.config.file.ConfigGenerationTest.[6] class ru.brikster.chatty.config.file.ModerationConfig	unit	preserved	upstream unit test must keep passing
+ru.brikster.chatty.config.file.ConfigGenerationTest.[7] class ru.brikster.chatty.config.file.NotificationsConfig	unit	preserved	upstream unit test must keep passing
+ru.brikster.chatty.config.file.ConfigGenerationTest.[8] class ru.brikster.chatty.config.file.ReplacementsConfig	unit	preserved	upstream unit test must keep passing
+ru.brikster.chatty.config.file.ConfigGenerationTest.[9] class ru.brikster.chatty.config.file.ProxyConfig	unit	preserved	upstream unit test must keep passing
+ru.brikster.chatty.config.file.CrossServerRangeTest.loadsAChatConfiguredForCrossServerChat()	unit	preserved	upstream unit test must keep passing
+ru.brikster.chatty.config.file.DeathCausesTest.everyShippedCauseNamesARealDamageCause()	unit	preserved	upstream unit test must keep passing
+ru.brikster.chatty.config.file.DeathCausesTest.theCommonWaysToDieAreCovered()	unit	preserved	upstream unit test must keep passing
+ru.brikster.chatty.config.file.DeathCausesTest.thereIsAlwaysSomethingToFallBackOn()	unit	preserved	upstream unit test must keep passing
+ru.brikster.chatty.config.file.DeathCausesTest.[1] ru-RU	unit	preserved	upstream unit test must keep passing
+ru.brikster.chatty.config.file.DeathCausesTest.[2] de-DE	unit	preserved	upstream unit test must keep passing
+ru.brikster.chatty.config.file.DeathCausesTest.[3] es-ES	unit	preserved	upstream unit test must keep passing
+ru.brikster.chatty.config.file.DeathCausesTest.[4] zh-CN	unit	preserved	upstream unit test must keep passing
+ru.brikster.chatty.config.file.LanguageFilesTest.[1] ru-RU	unit	preserved	upstream unit test must keep passing
+ru.brikster.chatty.config.file.LanguageFilesTest.[2] de-DE	unit	preserved	upstream unit test must keep passing
+ru.brikster.chatty.config.file.LanguageFilesTest.[3] es-ES	unit	preserved	upstream unit test must keep passing
+ru.brikster.chatty.config.file.LanguageFilesTest.[4] zh-CN	unit	preserved	upstream unit test must keep passing
+ru.brikster.chatty.config.file.ShippedSenderFormatPermissionsTest.theShippedDefaultsActuallyCarryExamples()	unit	preserved	upstream unit test must keep passing
+ru.brikster.chatty.config.file.ShippedSenderFormatPermissionsTest.everyShippedSenderFormatIsDeniedByDefault()	unit	preserved	upstream unit test must keep passing
+ru.brikster.chatty.config.file.UserEditedConfigTest.reloadsAfterMessagesAreAddedToANotificationList()	unit	preserved	upstream unit test must keep passing
+ru.brikster.chatty.config.file.UserEditedConfigTest.reloadsAfterAWholeNotificationListIsAdded()	unit	preserved	upstream unit test must keep passing
+ru.brikster.chatty.config.migration.V2ConfigMigratorTest.migratesVanillaMessages()	unit	preserved	upstream unit test must keep passing
+ru.brikster.chatty.config.migration.V2ConfigMigratorTest.migratesSettingsAndMentions()	unit	preserved	upstream unit test must keep passing
+ru.brikster.chatty.config.migration.V2ConfigMigratorTest.clampsCapsValuesV3WouldReject()	unit	preserved	upstream unit test must keep passing
+ru.brikster.chatty.config.migration.V2ConfigMigratorTest.leavesTheLanguageAloneForAnUnknownLocale()	unit	preserved	upstream unit test must keep passing
+ru.brikster.chatty.config.migration.V2ConfigMigratorTest.skipsChatsDisabledInV2()	unit	preserved	upstream unit test must keep passing
+ru.brikster.chatty.config.migration.V2ConfigMigratorTest.migratesPmWithTranslatedPlaceholders()	unit	preserved	upstream unit test must keep passing
+ru.brikster.chatty.config.migration.V2ConfigMigratorTest.migratesModeration()	unit	preserved	upstream unit test must keep passing
+ru.brikster.chatty.config.migration.V2ConfigMigratorTest.migratesChatsPreservingRangeAndClampingCooldown()	unit	preserved	upstream unit test must keep passing
+ru.brikster.chatty.config.migration.V2ConfigMigratorTest.migratesTheChatCommandAndItsAliases()	unit	preserved	upstream unit test must keep passing
+ru.brikster.chatty.config.migration.V2ConfigMigratorTest.expandsSpyFormatPlaceholder()	unit	preserved	upstream unit test must keep passing
+ru.brikster.chatty.config.migration.V2ConfigMigratorTest.migratesUnderscoredAndBareLocales()	unit	preserved	upstream unit test must keep passing
+ru.brikster.chatty.config.migration.V2ConfigMigratorTest.migratesLocaleToTheV3LanguageCode()	unit	preserved	upstream unit test must keep passing
+ru.brikster.chatty.config.migration.V2ConfigMigratorTest.writesASpyFormatEvenWhenV2HadNoSpySection()	unit	preserved	upstream unit test must keep passing
+ru.brikster.chatty.convert.ColourSpellingMatrixTest.gradientIsSupported()	unit	preserved	upstream unit test must keep passing
+ru.brikster.chatty.convert.ColourSpellingMatrixTest.miniMessageNamedColourIsSupported()	unit	preserved	upstream unit test must keep passing
+ru.brikster.chatty.convert.ColourSpellingMatrixTest.ampersandHexIsSupported()	unit	preserved	upstream unit test must keep passing
+ru.brikster.chatty.convert.ColourSpellingMatrixTest.bareHashHexIsNotAColourCode()	unit	preserved	upstream unit test must keep passing
+ru.brikster.chatty.convert.ColourSpellingMatrixTest.spigotSpreadHexIsSupported()	unit	preserved	upstream unit test must keep passing
+ru.brikster.chatty.convert.ColourSpellingMatrixTest.sectionSignColourIsSupported()	unit	preserved	upstream unit test must keep passing
+ru.brikster.chatty.convert.ColourSpellingMatrixTest.miniMessageHexIsSupported()	unit	preserved	upstream unit test must keep passing
+ru.brikster.chatty.convert.ColourSpellingMatrixTest.rainbowIsSupported()	unit	preserved	upstream unit test must keep passing
+ru.brikster.chatty.convert.ColourSpellingMatrixTest.legacyAmpersandColourIsSupported()	unit	preserved	upstream unit test must keep passing
+ru.brikster.chatty.convert.ColourSpellingMatrixTest.legacyDecorationIsSupported()	unit	preserved	upstream unit test must keep passing
+ru.brikster.chatty.convert.message.LegacyToMiniMessageConverterTest.convertSectionCodesIsCaseInsensitive()	unit	preserved	upstream unit test must keep passing
+ru.brikster.chatty.convert.message.LegacyToMiniMessageConverterTest.convertSectionCodesLeavesPlainTextUntouched()	unit	preserved	upstream unit test must keep passing
+ru.brikster.chatty.convert.message.LegacyToMiniMessageConverterTest.convertSectionCodesIgnoresAmpersandCodes()	unit	preserved	upstream unit test must keep passing
+ru.brikster.chatty.convert.message.LegacyToMiniMessageConverterTest.convertSectionCodesConvertsResetCode()	unit	preserved	upstream unit test must keep passing
+ru.brikster.chatty.convert.message.LegacyToMiniMessageConverterTest.convertsAmpersandColorCode()	unit	preserved	upstream unit test must keep passing
+ru.brikster.chatty.convert.message.LegacyToMiniMessageConverterTest.convertSectionCodesStripsStraySectionSigns()	unit	preserved	upstream unit test must keep passing
+ru.brikster.chatty.convert.message.LegacyToMiniMessageConverterTest.convertsDecorationCode()	unit	preserved	upstream unit test must keep passing
+ru.brikster.chatty.convert.message.LegacyToMiniMessageConverterTest.messageWithLegacyCodesSurvivesTheConstructPipeline()	unit	preserved	upstream unit test must keep passing
+ru.brikster.chatty.convert.message.LegacyToMiniMessageConverterTest.convertsSectionColorCode()	unit	preserved	upstream unit test must keep passing
+ru.brikster.chatty.convert.message.LegacyToMiniMessageConverterTest.convertSectionCodesMakesBotMessageSafeForStrictMiniMessage()	unit	preserved	upstream unit test must keep passing
+ru.brikster.chatty.convert.message.LegacyToMiniMessageConverterTest.convertsHexColorCode()	unit	preserved	upstream unit test must keep passing
+ru.brikster.chatty.convert.message.LegacyToMiniMessageConverterTest.leavesPlainTextUntouched()	unit	preserved	upstream unit test must keep passing
+ru.brikster.chatty.convert.message.LegacyToMiniMessageConverterTest.convertSectionCodesConvertsSectionColorCode()	unit	preserved	upstream unit test must keep passing
+ru.brikster.chatty.notification.ActionbarNotificationSoundTest.playsTheSoundOncePerMessageRatherThanEveryTick()	unit	preserved	upstream unit test must keep passing
+ru.brikster.chatty.notification.ActionbarNotificationSoundTest.playsNoSoundWhenNoneIsConfigured()	unit	preserved	upstream unit test must keep passing
+ru.brikster.chatty.notification.advancement.AdvancementJsonTest.theToastHangsOffTheGivenParent()	unit	preserved	upstream unit test must keep passing
+ru.brikster.chatty.notification.advancement.AdvancementJsonTest.theFingerprintIsStableForTheSameLook()	unit	preserved	upstream unit test must keep passing
+ru.brikster.chatty.notification.advancement.AdvancementJsonTest.theToastAsksForAPopUpAndNothingElse()	unit	preserved	upstream unit test must keep passing
+ru.brikster.chatty.notification.advancement.AdvancementJsonTest.aSubtitleIsFoldedIntoTheTitleBehindANewline()	unit	preserved	upstream unit test must keep passing
+ru.brikster.chatty.notification.advancement.AdvancementJsonTest.aChannelIdBecomesAUsableKey()	unit	preserved	upstream unit test must keep passing
+ru.brikster.chatty.notification.advancement.AdvancementJsonTest.everyCriterionIsRequired()	unit	preserved	upstream unit test must keep passing
+ru.brikster.chatty.notification.advancement.AdvancementJsonTest.theRootCarriesNoDisplay()	unit	preserved	upstream unit test must keep passing
+ru.brikster.chatty.notification.advancement.AdvancementJsonTest.theFingerprintSeesColour()	unit	preserved	upstream unit test must keep passing
+ru.brikster.chatty.notification.advancement.AdvancementJsonTest.theIconFieldFollowsTheServerGeneration()	unit	preserved	upstream unit test must keep passing
+ru.brikster.chatty.notification.advancement.AdvancementJsonTest.aBlankSubtitleCountsAsAbsent()	unit	preserved	upstream unit test must keep passing
+ru.brikster.chatty.notification.advancement.AdvancementJsonTest.theFrameIsWrittenAsTheGameSpellsIt()	unit	preserved	upstream unit test must keep passing
+ru.brikster.chatty.notification.advancement.AdvancementJsonTest.aToastWithoutASubtitleKeepsASingleLineTitle()	unit	preserved	upstream unit test must keep passing
+ru.brikster.chatty.notification.advancement.AdvancementJsonTest.theFingerprintFollowsEveryVisibleDetail()	unit	preserved	upstream unit test must keep passing
+ru.brikster.chatty.pm.targets.RemotePmMessageTargetTest.resolvesByNameWhenTheProxyDoesNotKnowTheUuid()	unit	preserved	upstream unit test must keep passing
+ru.brikster.chatty.pm.targets.RemotePmMessageTargetTest.resolvesByUuidWhenTheProxyKnowsIt()	unit	preserved	upstream unit test must keep passing
+ru.brikster.chatty.util.AdventureUtilTest.leavesTextWithoutMatchesUnchanged()	unit	preserved	upstream unit test must keep passing
+ru.brikster.chatty.util.AdventureUtilTest.preservesClickEventOfReplacementComponent()	unit	preserved	upstream unit test must keep passing
+ru.brikster.chatty.util.AdventureUtilTest.replacesPlaceholderWithComponent()	unit	preserved	upstream unit test must keep passing
+ru.brikster.chatty.util.AdventureUtilTest.keepsTextWhenReplacementFunctionReturnsNull()	unit	preserved	upstream unit test must keep passing
+ru.brikster.chatty.util.MuteFormatterTest.aPermanentMuteReadsFromTheLangFile()	unit	preserved	upstream unit test must keep passing
+ru.brikster.chatty.util.MuteFormatterTest.everyPlaceholderIsFilledIn()	unit	preserved	upstream unit test must keep passing
+ru.brikster.chatty.util.MuteFormatterTest.anExpiredMuteCountsDownToZeroInsteadOfGoingNegative()	unit	preserved	upstream unit test must keep passing
+ru.brikster.chatty.util.MuteFormatterTest.readsEveryUnitItOffers()	unit	preserved	upstream unit test must keep passing
+ru.brikster.chatty.util.MuteFormatterTest.everyUnitPairComesFromTheLangFile()	unit	preserved	upstream unit test must keep passing
+ru.brikster.chatty.util.MuteFormatterTest.refusesAnythingItCannotReadRatherThanGuessing()	unit	preserved	upstream unit test must keep passing
+ru.brikster.chatty.util.MuteFormatterTest.aTranslatedLangFileChangesTheWording()	unit	preserved	upstream unit test must keep passing
+ru.brikster.chatty.util.MuteFormatterTest.acceptsTheUnitInEitherCaseAndIgnoresPadding()	unit	preserved	upstream unit test must keep passing
+ru.brikster.chatty.util.RichComponentSurvivalTest.keepsPlainTextAndColoursIntact()	unit	preserved	upstream unit test must keep passing
+ru.brikster.chatty.util.RichComponentSurvivalTest.keepsASpriteInTheFormat()	unit	preserved	upstream unit test must keep passing
+ru.brikster.chatty.util.RichComponentSurvivalTest.keepsATranslatableComponentInTheFormat()	unit	preserved	upstream unit test must keep passing
+ru.brikster.chatty.util.RichComponentSurvivalTest.keepsAShadowColourInTheFormat()	unit	preserved	upstream unit test must keep passing
+plugin is enabled	server	sentinel	Chatty loads on Paper 1.21.11 with its notification ticker
+default configuration reloads cleanly	server	preserved	a missing notifications.yml is regenerated with the shipped channels
+valid notifications.yml loads every channel	server	preserved	a valid file, including stay equal to period, registers every channel
+chats stay registered after a reload	server	preserved	the chat registry keeps the shipped chats across a reload
+info command answers from the console	server	preserved	/chatty keeps answering a console sender
+notifications tick after a clean reload	server	preserved	notifications keep advancing after a successful reload
+reload survives an action bar channel whose stay exceeds its period	server	target	a reload with an offending channel succeeds and registers every other channel
+skipped channel is reported by name	server	target	the skipped channel is named in a WARNING-or-higher console record
+every offending channel is skipped and reported	server	target	several offending channels are each skipped and named
+chat keeps being handled after a reload with an offending channel	server	target	chat and join listeners stay registered after such a reload
+notifications keep ticking after a reload with an offending channel	server	target	notifications keep advancing after such a reload

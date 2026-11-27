@@ -1,0 +1,12 @@
+diff --git a/main.lua b/main.lua
+--- a/main.lua
++++ b/main.lua
+@@ -2696,7 +2696,7 @@
+     end
+ end
+ 
+-Exodus:AddCallback(ModCallbacks.MC_ENTITY_TAKE_DMG, Exodus.hurdleHeelsDamage, EntityType.ENTITY_PLAYER)
++Exodus:AddCallback(ModCallbacks.MC_ENTITY_TAKE_DMG, Exodus.hurdleHeelsDamage)
+ 
+ function Exodus:hurdleHeelsCollision(player, entity)
+     if ItemVariables.HURDLE_HEELS.JumpState > 0 then

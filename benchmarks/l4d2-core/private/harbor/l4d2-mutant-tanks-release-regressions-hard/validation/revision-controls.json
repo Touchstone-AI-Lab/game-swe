@@ -1,0 +1,810 @@
+{
+  "scope": "2026-09-21 maintainer controls, not model calibration",
+  "records": [
+    {
+      "task": "l4d2-mutant-tanks-release-regressions-hard",
+      "candidate": "gold",
+      "profile": "full",
+      "expected_full_cases": 57,
+      "complete_full_case_set": true,
+      "timed_out": false,
+      "group": null,
+      "exit_code": 0,
+      "component_hashes": {
+        "instruction.md": "bc844fbe72419b8bec73b6c508dd89097a3e781f07215501147c07d3f3729f79",
+        "task.toml": "f47d79e7959e5fac1a40bc5adb60da20c5de4f2dc598176c1f2683d0a3b93452",
+        "environment": "bd7a7d721eae0e02bb087eca553f205959b9c393048079da6c5ba740133b94ed",
+        "tests": "09ae408c391c4d1376e4c53ccbffb4f4e1f06b9bc270cae9badd0259478311cc",
+        "solution": "5931e1d3ca6f5a3df14cb8bf71d4691d6cf60fba699e35128f6b22b0ed031db1",
+        "validation/case-contracts.tsv": "dede8d0add9e3b08a8643ba8f26cb8173e9eeb5d94b2cf0c9c71bc06da57e887"
+      },
+      "hash_algorithm": "sha256-relpath-nul-content-nul-posix-lexical-v1",
+      "contract": "39235f9f38f6e591982b5fa662ba4df029dab1b77da6e7e469f014e825a11d44",
+      "runtime_image_id": "sha256:af58da986d0f3187d359d86a45e405adc658f368e671ae8f3ae1deded0125dc1",
+      "source_hash": "3e14ee0e9b1defd550820de0606e64bcc8a9efa693a7ad4e48d32645d4d6ff04",
+      "tests_hash": "09ae408c391c4d1376e4c53ccbffb4f4e1f06b9bc270cae9badd0259478311cc",
+      "input_transport": "readonly-linux-volume",
+      "cases": [
+        {
+          "case": "runtime_core_loaded",
+          "status": "PASS",
+          "detail": "the frozen core loads with its upstream metadata"
+        },
+        {
+          "case": "runtime_primary_ability_module_loaded",
+          "status": "PASS",
+          "detail": "the source-built Hypno ability aggregate loads"
+        },
+        {
+          "case": "runtime_warp_module_loaded",
+          "status": "PASS",
+          "detail": "the source-built secondary ability aggregate loads"
+        },
+        {
+          "case": "config_reload_dispatches_callbacks",
+          "status": "PASS",
+          "detail": "initial load and sm_mt_reload each dispatch at least twenty observable public callbacks"
+        },
+        {
+          "case": "config_forward_preserves_basic_arguments",
+          "status": "PASS",
+          "detail": "initial load and reload both preserve ordinary subsection, key, value, type, admin and mode context"
+        },
+        {
+          "case": "config_forward_preserves_special_context",
+          "status": "PASS",
+          "detail": "initial load and reload preserve exact type-level and plugin-level nested context"
+        },
+        {
+          "case": "health_smoker_mutation_completes",
+          "status": "PASS",
+          "detail": "the public MT_SpawnTank native completes a mutant Smoker spawn"
+        },
+        {
+          "case": "health_type_explicit_si_override_remains",
+          "status": "PASS",
+          "detail": "an explicit type-level Smoker base 777 plus extra 111 remains authoritative"
+        },
+        {
+          "case": "health_plugin_si_fallback_beats_generic_defaults",
+          "status": "PASS",
+          "detail": "an omitted type health block selects plugin Smoker 606 plus 6 for live and maximum health"
+        },
+        {
+          "case": "warp_unpinned_survivor_still_moves",
+          "status": "PASS",
+          "detail": "the initialized Warp mutant relocates an eligible unpinned survivor through SDKHooks damage"
+        },
+        {
+          "case": "warp_smoker_pin_is_preserved",
+          "status": "PASS",
+          "detail": "the same initialized attacker warps its paired control but preserves the class-matched pinned survivor"
+        },
+        {
+          "case": "warp_hunter_pin_is_preserved",
+          "status": "PASS",
+          "detail": "the same initialized attacker warps its paired control but preserves the class-matched pinned survivor"
+        },
+        {
+          "case": "warp_jockey_pin_is_preserved",
+          "status": "PASS",
+          "detail": "the same initialized attacker warps its paired control but preserves the class-matched pinned survivor"
+        },
+        {
+          "case": "warp_charger_pin_is_preserved",
+          "status": "PASS",
+          "detail": "the same initialized attacker warps its paired control but preserves the class-matched pinned survivor"
+        },
+        {
+          "case": "boss_four_stage_evolution_completes",
+          "status": "PASS",
+          "detail": "engine health thresholds advance the live Boss through all four configured public types"
+        },
+        {
+          "case": "boss_final_stage_timer_remains_healthy",
+          "status": "PASS",
+          "detail": "the final Boss form remains valid beyond multiple repeating-timer ticks"
+        },
+        {
+          "case": "reward_ab_two_real_tank_rewards_observed",
+          "status": "PASS",
+          "detail": "both configured Tank deaths credit the same survivor through the public apply forward"
+        },
+        {
+          "case": "reward_ab_stacked_damage_before_replacement",
+          "status": "PASS",
+          "detail": "a real bullet hit exposes the exact order-dependent stacked damage multiplier"
+        },
+        {
+          "case": "reward_ab_stacked_ammo_before_replacement",
+          "status": "PASS",
+          "detail": "the first real SMG regeneration tick exposes the exact order-dependent stack value"
+        },
+        {
+          "case": "reward_ab_replacement_target_keeps_damage",
+          "status": "PASS",
+          "detail": "the incoming survivor keeps the live stacked damage reward after public takeover"
+        },
+        {
+          "case": "reward_ab_replacement_old_owner_loses_damage",
+          "status": "PASS",
+          "detail": "the replaced survivor returns to baseline damage instead of retaining a duplicate reward"
+        },
+        {
+          "case": "reward_ab_replacement_target_keeps_ammo",
+          "status": "PASS",
+          "detail": "the incoming survivor's real SMG receives the migrated stack's first regeneration tick"
+        },
+        {
+          "case": "reward_ab_replacement_old_owner_loses_ammo",
+          "status": "PASS",
+          "detail": "the replaced survivor's real SMG receives no regeneration from stale copied state"
+        },
+        {
+          "case": "reward_ab_public_expiry_forward_observed",
+          "status": "PASS",
+          "detail": "the migrated reward ends exactly once through the public apply=false reward forward"
+        },
+        {
+          "case": "reward_ab_expiry_restores_baseline_damage",
+          "status": "PASS",
+          "detail": "after expiry, a real bullet hit returns to its unmodified ten damage"
+        },
+        {
+          "case": "reward_ab_expiry_stops_ammo_regeneration",
+          "status": "PASS",
+          "detail": "after expiry, a real SMG remains empty across a full regeneration interval"
+        },
+        {
+          "case": "reward_ba_two_real_tank_rewards_observed",
+          "status": "PASS",
+          "detail": "both configured Tank deaths credit the same survivor through the public apply forward"
+        },
+        {
+          "case": "reward_ba_stacked_damage_before_replacement",
+          "status": "PASS",
+          "detail": "a real bullet hit exposes the exact order-dependent stacked damage multiplier"
+        },
+        {
+          "case": "reward_ba_stacked_ammo_before_replacement",
+          "status": "PASS",
+          "detail": "the first real SMG regeneration tick exposes the exact order-dependent stack value"
+        },
+        {
+          "case": "reward_ba_replacement_target_keeps_damage",
+          "status": "PASS",
+          "detail": "the incoming survivor keeps the live stacked damage reward after public takeover"
+        },
+        {
+          "case": "reward_ba_replacement_old_owner_loses_damage",
+          "status": "PASS",
+          "detail": "the replaced survivor returns to baseline damage instead of retaining a duplicate reward"
+        },
+        {
+          "case": "reward_ba_replacement_target_keeps_ammo",
+          "status": "PASS",
+          "detail": "the incoming survivor's real SMG receives the migrated stack's first regeneration tick"
+        },
+        {
+          "case": "reward_ba_replacement_old_owner_loses_ammo",
+          "status": "PASS",
+          "detail": "the replaced survivor's real SMG receives no regeneration from stale copied state"
+        },
+        {
+          "case": "reward_ba_public_expiry_forward_observed",
+          "status": "PASS",
+          "detail": "the migrated reward ends exactly once through the public apply=false reward forward"
+        },
+        {
+          "case": "reward_ba_expiry_restores_baseline_damage",
+          "status": "PASS",
+          "detail": "after expiry, a real bullet hit returns to its unmodified ten damage"
+        },
+        {
+          "case": "reward_ba_expiry_stops_ammo_regeneration",
+          "status": "PASS",
+          "detail": "after expiry, a real SMG remains empty across a full regeneration interval"
+        },
+        {
+          "case": "hypno_view1_disabled_spawns_one_shield",
+          "status": "PASS",
+          "detail": "View 1 creates exactly one owner-parented shield at post-spawn even when gameplay activation is disabled"
+        },
+        {
+          "case": "hypno_tank_removal_cleans_shield",
+          "status": "PASS",
+          "detail": "removing the owning Tank removes its shield entity and invalidates the old entref"
+        },
+        {
+          "case": "hypno_respawn_uses_new_shield_entref",
+          "status": "PASS",
+          "detail": "a later Tank lifecycle owns one new shield and never reuses the removed entity reference"
+        },
+        {
+          "case": "hypno_view0_never_spawns_shield",
+          "status": "PASS",
+          "detail": "View 0 produces no shield at spawn or after normal ability-activation ticks"
+        },
+        {
+          "case": "hypno_view0_gameplay_hit_still_applies",
+          "status": "PASS",
+          "detail": "a guaranteed View 0 hit remains gameplay-active and reflects the divided bullet damage to the affected survivor"
+        },
+        {
+          "case": "hypno_view1_enabled_activation_does_not_duplicate",
+          "status": "PASS",
+          "detail": "View 1 has the same single owner-parented shield before and after normal ability activation"
+        },
+        {
+          "case": "hypno_round_and_plugin_cleanup_leave_no_orphans",
+          "status": "PASS",
+          "detail": "round reset and aggregate unload each remove all shield entities without leaving an orphan"
+        },
+        {
+          "case": "panic_explicit_uncommon_type_guard_works",
+          "status": "PASS",
+          "detail": "the explicit Panic Type=8 control creates exactly one real clown uncommon infected"
+        },
+        {
+          "case": "panic_empty_type_spawns_one_uncommon",
+          "status": "PASS",
+          "detail": "an empty Panic Type mask still creates exactly the configured one real uncommon infected"
+        },
+        {
+          "case": "panic_fallback_uncommon_uses_allowed_model",
+          "status": "PASS",
+          "detail": "the fallback uncommon uses one of the seven documented uncommon-infected models"
+        },
+        {
+          "case": "rainbow_reward_animates_before_takeover",
+          "status": "PASS",
+          "detail": "a real Tank death emits the public reward forward and starts a changing rainbow body color"
+        },
+        {
+          "case": "rainbow_bot_to_player_migrates_animation",
+          "status": "PASS",
+          "detail": "bot_player_replace migrates the live reward animation to the replacement survivor"
+        },
+        {
+          "case": "rainbow_old_bot_stops_after_takeover",
+          "status": "PASS",
+          "detail": "the replaced bot is reset to a stable neutral render color after takeover"
+        },
+        {
+          "case": "rainbow_player_to_bot_migrates_animation",
+          "status": "PASS",
+          "detail": "player_bot_replace migrates the live reward animation back to the idle bot"
+        },
+        {
+          "case": "rainbow_old_player_stops_after_idle",
+          "status": "PASS",
+          "detail": "the idled survivor is reset to a stable neutral render color after replacement"
+        },
+        {
+          "case": "acid_melee_cooldown_blocks_window_repeat",
+          "status": "PASS",
+          "detail": "two successful claw hits inside Cooldown=2 create only one real spitter projectile"
+        },
+        {
+          "case": "ammo_melee_cooldown_blocks_window_repeat",
+          "status": "PASS",
+          "detail": "two successful claw hits inside Cooldown=2 drain magazine and reserve exactly once"
+        },
+        {
+          "case": "acid_melee_cooldown_recovers_after_expiry",
+          "status": "PASS",
+          "detail": "a later claw hit after Cooldown=2 expires creates the second real spitter projectile"
+        },
+        {
+          "case": "ammo_melee_cooldown_recovers_after_expiry",
+          "status": "PASS",
+          "detail": "a later claw hit after Cooldown=2 expires performs the second magazine and reserve drain"
+        },
+        {
+          "case": "acid_zero_cooldown_allows_cross_second_repeat",
+          "status": "PASS",
+          "detail": "Cooldown=0 allows both cross-second claw hits to create real spitter projectiles"
+        },
+        {
+          "case": "ammo_zero_cooldown_allows_cross_second_repeat",
+          "status": "PASS",
+          "detail": "Cooldown=0 allows both cross-second claw hits to drain magazine and reserve"
+        }
+      ],
+      "passed": 57,
+      "total": 57,
+      "verifier_log_sha256": "2a5554c7ac2432dc35c44198e9610109d6f78533ad282d67bec521a5433365ba",
+      "logs_copied": true,
+      "server_log_hashes": {
+        "server-boss.log": "4dc6f5830064cdea93ec6833dcad05841169c746a0958094fa3823f4de787a9c",
+        "server-config.log": "d6c701e2c94ccd212c83a4e547e5d769193b2b50c8379bd83d84e2568152ad94",
+        "server-cooldown.log": "c498c3fd5f1d5786a4d2abf07cc2277875e5e8d6f6b48797ab0801026a6903f8",
+        "server-health.log": "48e9ffa1f79e58294baf937de4e40ac03680a7077a5bec63c5a3f26dfb15d502",
+        "server-hypno.log": "c48ecc8c401ac70d0ced519a7d1031f46be342592c6fe7964a2fbf876d9027e4",
+        "server-panic_fallback.log": "8b19c750e747b740b4bb4b64954c1f50411619ebf5d408dae339e52a5b5c531e",
+        "server-rainbow_transfer.log": "50230af77af8dfe89bd3edc75511bbced5fe913e01415a899ba6bc45a764f5bd",
+        "server-reward_ab.log": "d0400271466586debb9498ac87e9df0b10abba66d861a733c6263991019b55d0",
+        "server-reward_ba.log": "ead28e0154e7f57bebaec6ff52e35fa1c1794c8aa891d5de02d49f1ea7691510",
+        "server-warp.log": "42555ebf190a059cea3cecae0b6208c66af793281b7e126a1881ddeeeb79521f"
+      },
+      "retained_server_log_hashes_verified": true,
+      "evidence_directory": "l4d2-mutant-tanks-release-regressions-hard-gold-1789961950575048500",
+      "expected_outcome_confirmed": true,
+      "expected_cases_in_selected_scope": 57,
+      "emitted_exact_verdict_count": true
+    },
+    {
+      "task": "l4d2-mutant-tanks-release-regressions-hard",
+      "candidate": "nop",
+      "profile": "full",
+      "expected_full_cases": 57,
+      "complete_full_case_set": true,
+      "timed_out": false,
+      "group": null,
+      "exit_code": 1,
+      "component_hashes": {
+        "instruction.md": "bc844fbe72419b8bec73b6c508dd89097a3e781f07215501147c07d3f3729f79",
+        "task.toml": "f47d79e7959e5fac1a40bc5adb60da20c5de4f2dc598176c1f2683d0a3b93452",
+        "environment": "bd7a7d721eae0e02bb087eca553f205959b9c393048079da6c5ba740133b94ed",
+        "tests": "09ae408c391c4d1376e4c53ccbffb4f4e1f06b9bc270cae9badd0259478311cc",
+        "solution": "5931e1d3ca6f5a3df14cb8bf71d4691d6cf60fba699e35128f6b22b0ed031db1",
+        "validation/case-contracts.tsv": "dede8d0add9e3b08a8643ba8f26cb8173e9eeb5d94b2cf0c9c71bc06da57e887"
+      },
+      "hash_algorithm": "sha256-relpath-nul-content-nul-posix-lexical-v1",
+      "contract": "39235f9f38f6e591982b5fa662ba4df029dab1b77da6e7e469f014e825a11d44",
+      "runtime_image_id": "sha256:af58da986d0f3187d359d86a45e405adc658f368e671ae8f3ae1deded0125dc1",
+      "source_hash": "7decdfc4b1a4010831054c55035963ea0684e2fc56b6a5e34d958c934f18442d",
+      "tests_hash": "09ae408c391c4d1376e4c53ccbffb4f4e1f06b9bc270cae9badd0259478311cc",
+      "input_transport": "readonly-linux-volume",
+      "cases": [
+        {
+          "case": "runtime_core_loaded",
+          "status": "PASS",
+          "detail": "the frozen core loads with its upstream metadata"
+        },
+        {
+          "case": "runtime_primary_ability_module_loaded",
+          "status": "PASS",
+          "detail": "the source-built Hypno ability aggregate loads"
+        },
+        {
+          "case": "runtime_warp_module_loaded",
+          "status": "PASS",
+          "detail": "the source-built secondary ability aggregate loads"
+        },
+        {
+          "case": "config_reload_dispatches_callbacks",
+          "status": "PASS",
+          "detail": "initial load and sm_mt_reload each dispatch at least twenty observable public callbacks"
+        },
+        {
+          "case": "config_forward_preserves_basic_arguments",
+          "status": "PASS",
+          "detail": "initial load and reload both preserve ordinary subsection, key, value, type, admin and mode context"
+        },
+        {
+          "case": "config_forward_preserves_special_context",
+          "status": "FAIL",
+          "detail": "initial load and reload preserve exact type-level and plugin-level nested context"
+        },
+        {
+          "case": "health_smoker_mutation_completes",
+          "status": "PASS",
+          "detail": "the public MT_SpawnTank native completes a mutant Smoker spawn"
+        },
+        {
+          "case": "health_type_explicit_si_override_remains",
+          "status": "PASS",
+          "detail": "an explicit type-level Smoker base 777 plus extra 111 remains authoritative"
+        },
+        {
+          "case": "health_plugin_si_fallback_beats_generic_defaults",
+          "status": "FAIL",
+          "detail": "an omitted type health block selects plugin Smoker 606 plus 6 for live and maximum health"
+        },
+        {
+          "case": "warp_unpinned_survivor_still_moves",
+          "status": "PASS",
+          "detail": "the initialized Warp mutant relocates an eligible unpinned survivor through SDKHooks damage"
+        },
+        {
+          "case": "warp_smoker_pin_is_preserved",
+          "status": "FAIL",
+          "detail": "the same initialized attacker warps its paired control but preserves the class-matched pinned survivor"
+        },
+        {
+          "case": "warp_hunter_pin_is_preserved",
+          "status": "FAIL",
+          "detail": "the same initialized attacker warps its paired control but preserves the class-matched pinned survivor"
+        },
+        {
+          "case": "warp_jockey_pin_is_preserved",
+          "status": "FAIL",
+          "detail": "the same initialized attacker warps its paired control but preserves the class-matched pinned survivor"
+        },
+        {
+          "case": "warp_charger_pin_is_preserved",
+          "status": "FAIL",
+          "detail": "the same initialized attacker warps its paired control but preserves the class-matched pinned survivor"
+        },
+        {
+          "case": "boss_four_stage_evolution_completes",
+          "status": "FAIL",
+          "detail": "L 09/21/2026 - 03:42:49: [SM] Exception reported: Array index out-of-bounds (index 4, limit 4)"
+        },
+        {
+          "case": "boss_final_stage_timer_remains_healthy",
+          "status": "FAIL",
+          "detail": "L 09/21/2026 - 03:42:49: [SM] Exception reported: Array index out-of-bounds (index 4, limit 4)"
+        },
+        {
+          "case": "reward_ab_two_real_tank_rewards_observed",
+          "status": "PASS",
+          "detail": "both configured Tank deaths credit the same survivor through the public apply forward"
+        },
+        {
+          "case": "reward_ab_stacked_damage_before_replacement",
+          "status": "FAIL",
+          "detail": "a real bullet hit exposes the exact order-dependent stacked damage multiplier"
+        },
+        {
+          "case": "reward_ab_stacked_ammo_before_replacement",
+          "status": "FAIL",
+          "detail": "the first real SMG regeneration tick exposes the exact order-dependent stack value"
+        },
+        {
+          "case": "reward_ab_replacement_target_keeps_damage",
+          "status": "FAIL",
+          "detail": "the incoming survivor keeps the live stacked damage reward after public takeover"
+        },
+        {
+          "case": "reward_ab_replacement_old_owner_loses_damage",
+          "status": "PASS",
+          "detail": "the replaced survivor returns to baseline damage instead of retaining a duplicate reward"
+        },
+        {
+          "case": "reward_ab_replacement_target_keeps_ammo",
+          "status": "FAIL",
+          "detail": "the incoming survivor's real SMG receives the migrated stack's first regeneration tick"
+        },
+        {
+          "case": "reward_ab_replacement_old_owner_loses_ammo",
+          "status": "PASS",
+          "detail": "the replaced survivor's real SMG receives no regeneration from stale copied state"
+        },
+        {
+          "case": "reward_ab_public_expiry_forward_observed",
+          "status": "PASS",
+          "detail": "the migrated reward ends exactly once through the public apply=false reward forward"
+        },
+        {
+          "case": "reward_ab_expiry_restores_baseline_damage",
+          "status": "PASS",
+          "detail": "after expiry, a real bullet hit returns to its unmodified ten damage"
+        },
+        {
+          "case": "reward_ab_expiry_stops_ammo_regeneration",
+          "status": "PASS",
+          "detail": "after expiry, a real SMG remains empty across a full regeneration interval"
+        },
+        {
+          "case": "reward_ba_two_real_tank_rewards_observed",
+          "status": "PASS",
+          "detail": "both configured Tank deaths credit the same survivor through the public apply forward"
+        },
+        {
+          "case": "reward_ba_stacked_damage_before_replacement",
+          "status": "PASS",
+          "detail": "a real bullet hit exposes the exact order-dependent stacked damage multiplier"
+        },
+        {
+          "case": "reward_ba_stacked_ammo_before_replacement",
+          "status": "PASS",
+          "detail": "the first real SMG regeneration tick exposes the exact order-dependent stack value"
+        },
+        {
+          "case": "reward_ba_replacement_target_keeps_damage",
+          "status": "PASS",
+          "detail": "the incoming survivor keeps the live stacked damage reward after public takeover"
+        },
+        {
+          "case": "reward_ba_replacement_old_owner_loses_damage",
+          "status": "PASS",
+          "detail": "the replaced survivor returns to baseline damage instead of retaining a duplicate reward"
+        },
+        {
+          "case": "reward_ba_replacement_target_keeps_ammo",
+          "status": "PASS",
+          "detail": "the incoming survivor's real SMG receives the migrated stack's first regeneration tick"
+        },
+        {
+          "case": "reward_ba_replacement_old_owner_loses_ammo",
+          "status": "PASS",
+          "detail": "the replaced survivor's real SMG receives no regeneration from stale copied state"
+        },
+        {
+          "case": "reward_ba_public_expiry_forward_observed",
+          "status": "PASS",
+          "detail": "the migrated reward ends exactly once through the public apply=false reward forward"
+        },
+        {
+          "case": "reward_ba_expiry_restores_baseline_damage",
+          "status": "PASS",
+          "detail": "after expiry, a real bullet hit returns to its unmodified ten damage"
+        },
+        {
+          "case": "reward_ba_expiry_stops_ammo_regeneration",
+          "status": "PASS",
+          "detail": "after expiry, a real SMG remains empty across a full regeneration interval"
+        },
+        {
+          "case": "hypno_view1_disabled_spawns_one_shield",
+          "status": "FAIL",
+          "detail": "View 1 creates exactly one owner-parented shield at post-spawn even when gameplay activation is disabled"
+        },
+        {
+          "case": "hypno_tank_removal_cleans_shield",
+          "status": "PASS",
+          "detail": "removing the owning Tank removes its shield entity and invalidates the old entref"
+        },
+        {
+          "case": "hypno_respawn_uses_new_shield_entref",
+          "status": "FAIL",
+          "detail": "a later Tank lifecycle owns one new shield and never reuses the removed entity reference"
+        },
+        {
+          "case": "hypno_view0_never_spawns_shield",
+          "status": "FAIL",
+          "detail": "View 0 produces no shield at spawn or after normal ability-activation ticks"
+        },
+        {
+          "case": "hypno_view0_gameplay_hit_still_applies",
+          "status": "PASS",
+          "detail": "a guaranteed View 0 hit remains gameplay-active and reflects the divided bullet damage to the affected survivor"
+        },
+        {
+          "case": "hypno_view1_enabled_activation_does_not_duplicate",
+          "status": "FAIL",
+          "detail": "View 1 has the same single owner-parented shield before and after normal ability activation"
+        },
+        {
+          "case": "hypno_round_and_plugin_cleanup_leave_no_orphans",
+          "status": "FAIL",
+          "detail": "round reset and aggregate unload each remove all shield entities without leaving an orphan"
+        },
+        {
+          "case": "panic_explicit_uncommon_type_guard_works",
+          "status": "PASS",
+          "detail": "the explicit Panic Type=8 control creates exactly one real clown uncommon infected"
+        },
+        {
+          "case": "panic_empty_type_spawns_one_uncommon",
+          "status": "FAIL",
+          "detail": "an empty Panic Type mask still creates exactly the configured one real uncommon infected"
+        },
+        {
+          "case": "panic_fallback_uncommon_uses_allowed_model",
+          "status": "FAIL",
+          "detail": "the fallback uncommon uses one of the seven documented uncommon-infected models"
+        },
+        {
+          "case": "rainbow_reward_animates_before_takeover",
+          "status": "PASS",
+          "detail": "a real Tank death emits the public reward forward and starts a changing rainbow body color"
+        },
+        {
+          "case": "rainbow_bot_to_player_migrates_animation",
+          "status": "FAIL",
+          "detail": "bot_player_replace migrates the live reward animation to the replacement survivor"
+        },
+        {
+          "case": "rainbow_old_bot_stops_after_takeover",
+          "status": "PASS",
+          "detail": "the replaced bot is reset to a stable neutral render color after takeover"
+        },
+        {
+          "case": "rainbow_player_to_bot_migrates_animation",
+          "status": "FAIL",
+          "detail": "player_bot_replace migrates the live reward animation back to the idle bot"
+        },
+        {
+          "case": "rainbow_old_player_stops_after_idle",
+          "status": "PASS",
+          "detail": "the idled survivor is reset to a stable neutral render color after replacement"
+        },
+        {
+          "case": "acid_melee_cooldown_blocks_window_repeat",
+          "status": "FAIL",
+          "detail": "two successful claw hits inside Cooldown=2 create only one real spitter projectile"
+        },
+        {
+          "case": "ammo_melee_cooldown_blocks_window_repeat",
+          "status": "FAIL",
+          "detail": "two successful claw hits inside Cooldown=2 drain magazine and reserve exactly once"
+        },
+        {
+          "case": "acid_melee_cooldown_recovers_after_expiry",
+          "status": "FAIL",
+          "detail": "a later claw hit after Cooldown=2 expires creates the second real spitter projectile"
+        },
+        {
+          "case": "ammo_melee_cooldown_recovers_after_expiry",
+          "status": "FAIL",
+          "detail": "a later claw hit after Cooldown=2 expires performs the second magazine and reserve drain"
+        },
+        {
+          "case": "acid_zero_cooldown_allows_cross_second_repeat",
+          "status": "PASS",
+          "detail": "Cooldown=0 allows both cross-second claw hits to create real spitter projectiles"
+        },
+        {
+          "case": "ammo_zero_cooldown_allows_cross_second_repeat",
+          "status": "PASS",
+          "detail": "Cooldown=0 allows both cross-second claw hits to drain magazine and reserve"
+        }
+      ],
+      "passed": 32,
+      "total": 57,
+      "verifier_log_sha256": "4ac7c8df294ee541a7f15bc0856529e7adca612ac9dd47abdfa9be06a2c0f4e8",
+      "logs_copied": true,
+      "server_log_hashes": {
+        "server-boss.log": "7c2a5bda4ccea1b0b9804cc0076e38409fe8c812c0f49e95c8908e98264e709f",
+        "server-config.log": "945d3d28062f8dbfb6514cd06bf485c7dfad008cfa462d6b2a01cddd38c68d80",
+        "server-cooldown.log": "137673a187a4fa04c4ac484d6f495548157b5f7450a11f68f86c5c4407b85ae6",
+        "server-health.log": "83f9e9ced02aa5efca07327ac65c7958ff6bb5662be7915bac96cd0dfd285b95",
+        "server-hypno.log": "ea84d1a53edd5448816477fb97d7ea4abbc1065ea30f8ef6ffb280a4546c0032",
+        "server-panic_fallback.log": "9178c7b0babebf4bd6cf83b3173911ae277735274d90db14a6f83f9cd68bf48a",
+        "server-rainbow_transfer.log": "de9a89995813065f2b3ceb37a416ba8696d68deb2fec4f7be3f7424a5fcf7258",
+        "server-reward_ab.log": "eaec71ad5e91106723ef1a77d6b58a51329846e94e67246a872223ab0bcf2e1a",
+        "server-reward_ba.log": "e009266dbef06d72d9ef25a3da439b11254e6f8e9208680f61d5d89165eb937f",
+        "server-warp.log": "0cdd411b8b0acdd2efcf577d2806389fa06615c1d9aa95d72e1e82893f835497"
+      },
+      "retained_server_log_hashes_verified": true,
+      "evidence_directory": "l4d2-mutant-tanks-release-regressions-hard-nop-1789962108644939100",
+      "expected_outcome_confirmed": true,
+      "expected_cases_in_selected_scope": 57,
+      "emitted_exact_verdict_count": true
+    },
+    {
+      "task": "l4d2-mutant-tanks-release-regressions-hard",
+      "candidate": "deferred-half-second",
+      "profile": "focused",
+      "group": "hypno",
+      "exit_code": 0,
+      "component_hashes": {
+        "instruction.md": "bc844fbe72419b8bec73b6c508dd89097a3e781f07215501147c07d3f3729f79",
+        "task.toml": "f47d79e7959e5fac1a40bc5adb60da20c5de4f2dc598176c1f2683d0a3b93452",
+        "environment": "bd7a7d721eae0e02bb087eca553f205959b9c393048079da6c5ba740133b94ed",
+        "tests": "09ae408c391c4d1376e4c53ccbffb4f4e1f06b9bc270cae9badd0259478311cc",
+        "solution": "5931e1d3ca6f5a3df14cb8bf71d4691d6cf60fba699e35128f6b22b0ed031db1",
+        "validation/case-contracts.tsv": "dede8d0add9e3b08a8643ba8f26cb8173e9eeb5d94b2cf0c9c71bc06da57e887"
+      },
+      "hash_algorithm": "sha256-relpath-nul-content-nul-posix-lexical-v1",
+      "contract": "39235f9f38f6e591982b5fa662ba4df029dab1b77da6e7e469f014e825a11d44",
+      "runtime_image_id": "sha256:af58da986d0f3187d359d86a45e405adc658f368e671ae8f3ae1deded0125dc1",
+      "source_hash": "00c31b758d3e4550ad681086e643eac86a2008cbb74411f03de6a2a6ca80ae13",
+      "tests_hash": "09ae408c391c4d1376e4c53ccbffb4f4e1f06b9bc270cae9badd0259478311cc",
+      "cases": [
+        {
+          "case": "hypno_view1_disabled_spawns_one_shield",
+          "status": "PASS",
+          "detail": "View 1 creates exactly one owner-parented shield at post-spawn even when gameplay activation is disabled"
+        },
+        {
+          "case": "hypno_tank_removal_cleans_shield",
+          "status": "PASS",
+          "detail": "removing the owning Tank removes its shield entity and invalidates the old entref"
+        },
+        {
+          "case": "hypno_respawn_uses_new_shield_entref",
+          "status": "PASS",
+          "detail": "a later Tank lifecycle owns one new shield and never reuses the removed entity reference"
+        },
+        {
+          "case": "hypno_view0_never_spawns_shield",
+          "status": "PASS",
+          "detail": "View 0 produces no shield at spawn or after normal ability-activation ticks"
+        },
+        {
+          "case": "hypno_view0_gameplay_hit_still_applies",
+          "status": "PASS",
+          "detail": "a guaranteed View 0 hit remains gameplay-active and reflects the divided bullet damage to the affected survivor"
+        },
+        {
+          "case": "hypno_view1_enabled_activation_does_not_duplicate",
+          "status": "PASS",
+          "detail": "View 1 has the same single owner-parented shield before and after normal ability activation"
+        },
+        {
+          "case": "hypno_round_and_plugin_cleanup_leave_no_orphans",
+          "status": "PASS",
+          "detail": "round reset and aggregate unload each remove all shield entities without leaving an orphan"
+        }
+      ],
+      "passed": 7,
+      "total": 7,
+      "verifier_log_sha256": "c59d2b120a3b443da6a54ed1587620cad555365f429137d452794f4c2e5a2704",
+      "logs_copied": true,
+      "server_log_hashes": {
+        "server-hypno.log": "ed03512258bd72358e5e6ef3f46564ad40bcca6c948e0e5902b0107c2fa4a006"
+      },
+      "retained_server_log_hashes_verified": true,
+      "evidence_directory": "l4d2-mutant-tanks-release-regressions-hard-deferred-half-second-1789959972022220300",
+      "expected_outcome_confirmed": true,
+      "expected_cases_in_selected_scope": 7,
+      "emitted_exact_verdict_count": true
+    },
+    {
+      "task": "l4d2-mutant-tanks-release-regressions-hard",
+      "candidate": "deferred-too-late",
+      "profile": "focused",
+      "expected_full_cases": 57,
+      "complete_full_case_set": false,
+      "timed_out": false,
+      "group": "hypno",
+      "exit_code": 1,
+      "component_hashes": {
+        "instruction.md": "bc844fbe72419b8bec73b6c508dd89097a3e781f07215501147c07d3f3729f79",
+        "task.toml": "f47d79e7959e5fac1a40bc5adb60da20c5de4f2dc598176c1f2683d0a3b93452",
+        "environment": "bd7a7d721eae0e02bb087eca553f205959b9c393048079da6c5ba740133b94ed",
+        "tests": "09ae408c391c4d1376e4c53ccbffb4f4e1f06b9bc270cae9badd0259478311cc",
+        "solution": "5931e1d3ca6f5a3df14cb8bf71d4691d6cf60fba699e35128f6b22b0ed031db1",
+        "validation/case-contracts.tsv": "dede8d0add9e3b08a8643ba8f26cb8173e9eeb5d94b2cf0c9c71bc06da57e887"
+      },
+      "hash_algorithm": "sha256-relpath-nul-content-nul-posix-lexical-v1",
+      "contract": "39235f9f38f6e591982b5fa662ba4df029dab1b77da6e7e469f014e825a11d44",
+      "runtime_image_id": "sha256:af58da986d0f3187d359d86a45e405adc658f368e671ae8f3ae1deded0125dc1",
+      "source_hash": "e2b1ed2c67d9315f1b1b68e0d9a11d0a85151197eb7ec9abcc375a734eff5d1a",
+      "tests_hash": "09ae408c391c4d1376e4c53ccbffb4f4e1f06b9bc270cae9badd0259478311cc",
+      "cases": [
+        {
+          "case": "hypno_view1_disabled_spawns_one_shield",
+          "status": "FAIL",
+          "detail": "View 1 creates exactly one owner-parented shield at post-spawn even when gameplay activation is disabled"
+        },
+        {
+          "case": "hypno_tank_removal_cleans_shield",
+          "status": "PASS",
+          "detail": "removing the owning Tank removes its shield entity and invalidates the old entref"
+        },
+        {
+          "case": "hypno_respawn_uses_new_shield_entref",
+          "status": "FAIL",
+          "detail": "a later Tank lifecycle owns one new shield and never reuses the removed entity reference"
+        },
+        {
+          "case": "hypno_view0_never_spawns_shield",
+          "status": "PASS",
+          "detail": "View 0 produces no shield at spawn or after normal ability-activation ticks"
+        },
+        {
+          "case": "hypno_view0_gameplay_hit_still_applies",
+          "status": "PASS",
+          "detail": "a guaranteed View 0 hit remains gameplay-active and reflects the divided bullet damage to the affected survivor"
+        },
+        {
+          "case": "hypno_view1_enabled_activation_does_not_duplicate",
+          "status": "FAIL",
+          "detail": "View 1 has the same single owner-parented shield before and after normal ability activation"
+        },
+        {
+          "case": "hypno_round_and_plugin_cleanup_leave_no_orphans",
+          "status": "FAIL",
+          "detail": "round reset and aggregate unload each remove all shield entities without leaving an orphan"
+        }
+      ],
+      "passed": 3,
+      "total": 7,
+      "verifier_log_sha256": "b1fd9237922b12b79e2bdaa882aff770e7568db85905e7c08d76921f325cab90",
+      "logs_copied": true,
+      "server_log_hashes": {
+        "server-hypno.log": "e95af4b78998d467a70090d9fc1abc21b035d22021ee12af56dab129e97f20f1"
+      },
+      "retained_server_log_hashes_verified": true,
+      "evidence_directory": "l4d2-mutant-tanks-release-regressions-hard-deferred-too-late-1789960239829301700",
+      "expected_outcome_confirmed": true,
+      "expected_cases_in_selected_scope": 7,
+      "emitted_exact_verdict_count": true
+    }
+  ]
+}

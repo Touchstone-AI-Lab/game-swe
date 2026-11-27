@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "mode": "dedicated-server",
+  "cases": [
+    "real_engine_branch_constructor_snapshots_input",
+    "real_engine_branch_rejects_null_child",
+    "real_engine_branch_frame_roundtrip"
+  ],
+  "client_only_exclusions": [
+    "HUD rendering and client quest packet application remain covered by the source-projection layer."
+  ]
+}

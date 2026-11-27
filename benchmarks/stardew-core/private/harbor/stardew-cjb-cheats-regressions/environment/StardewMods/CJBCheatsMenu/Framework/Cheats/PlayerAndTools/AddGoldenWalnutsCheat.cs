@@ -1,0 +1,36 @@
+using System.Collections.Generic;
+using CJBCheatsMenu.Framework.Components;
+using StardewValley;
+
+namespace CJBCheatsMenu.Framework.Cheats.PlayerAndTools;
+
+/// <summary>A cheat which adds various numbers of golden walnuts to the player.</summary>
+internal class AddGoldenWalnutsCheat : BaseCheat
+{
+    /*********
+    ** Public methods
+    *********/
+    /// <inheritdoc />
+    public override IEnumerable<CheatElement> GetFields(CheatContext context)
+    {
+        foreach (int amount in new[] { 1, 10, 100 })
+        {
+            yield return new CheatButton(
+                label: I18n.Add_AmountOther(amount: Utility.getNumberWithCommas(amount)),
+                slotWidth: context.SlotWidth,
+                toggle: () => this.AddGems(amount)
+            );
+        }
+    }
+
+
+    /*********
+    ** Private methods
+    *********/
+    /// <summary>Add an amount to the player's golden walnuts balance.</summary>
+    /// <param name="amount">The amount to add.</param>
+    private void AddGems(int amount)
+    {
+        Game1.player.addItemToInventoryBool(new Object("73", amount));
+    }
+}

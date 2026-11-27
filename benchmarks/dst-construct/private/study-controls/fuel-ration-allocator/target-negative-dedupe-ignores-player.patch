@@ -1,0 +1,15 @@
+--- a/scripts/fuelration/allocator.lua
++++ b/scripts/fuelration/allocator.lua
+@@ -119,10 +119,10 @@
+     self:_advance(now)
+     units = math.floor(units)
+ 
+-    local history = self.requests[player_id]
++    local history = self.requests["*"]
+     if history == nil then
+         history = {}
+-        self.requests[player_id] = history
++        self.requests["*"] = history
+     end
+     if history[request_id] ~= nil then
+         return copy_request(history[request_id], true)

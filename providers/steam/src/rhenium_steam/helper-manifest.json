@@ -1,0 +1,22 @@
+{
+  "schemaVersion": 1,
+  "version": "0.1.0",
+  "artifacts": {
+    "linux-x64": {
+      "url": "https://github.com/Touchstone-AI-Lab/GameCodeBench/releases/download/steam-helper-v0.1.0/rhenium-steam-helper-linux-x64",
+      "sha256": "50a9c25eef5c955e0d81ab05d5d022c57da1033ff107becdb1eda7823b2c5840"
+    },
+    "osx-arm64": {
+      "url": "https://github.com/Touchstone-AI-Lab/GameCodeBench/releases/download/steam-helper-v0.1.0/rhenium-steam-helper-osx-arm64",
+      "sha256": "fb6708abead062d2d2c668788dfd1d3e20e89da26db11ce7939a61eb73360b34"
+    },
+    "osx-x64": {
+      "url": "https://github.com/Touchstone-AI-Lab/GameCodeBench/releases/download/steam-helper-v0.1.0/rhenium-steam-helper-osx-x64",
+      "sha256": "3aef657e13371dcb909b998465814893d882eec9de1613628615013056a5d27e"
+    },
+    "win-x64": {
+      "url": "https://github.com/Touchstone-AI-Lab/GameCodeBench/releases/download/steam-helper-v0.1.0/rhenium-steam-helper-win-x64.exe",
+      "sha256": "163276ed9b84c188a5d4e42e174bf129cebb2bfc70d6c9ca63af515cadda680c"
+    }
+  }
+}

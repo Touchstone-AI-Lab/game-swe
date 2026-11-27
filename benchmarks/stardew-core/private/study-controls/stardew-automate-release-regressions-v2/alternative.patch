@@ -1,0 +1,199 @@
+diff -ruN a/Automate/Framework/AutomationFactory.cs b/Automate/Framework/AutomationFactory.cs
+--- a/Automate/Framework/AutomationFactory.cs
++++ b/Automate/Framework/AutomationFactory.cs
+@@ -73,7 +73,8 @@
+                     return new MiniShippingBinMachine(chest, location);
+ 
+                 default:
+-                    if (chest.HasContextTag(AutomateConstants.StorageTag))
++                    // a mini-fridge is a player chest flagged as a fridge; it stores items like any other chest
++                    if (chest.HasContextTag(AutomateConstants.StorageTag) || chest.fridge.Value)
+                         return new ChestContainer(chest, location, tile, isTakeOnly: chest.HasContextTag(AutomateConstants.StorageTakeOnlyTag));
+                     break;
+             }
+@@ -149,19 +150,22 @@
+                 {
+                     ModConfig config = this.Config();
+ 
+-                    JunimoHutBehavior gemBehavior = config.JunimoHutBehaviorForGems;
+-                    if (gemBehavior is JunimoHutBehavior.AutoDetect)
+-                        gemBehavior = JunimoHutBehavior.Ignore;
+-
+-                    JunimoHutBehavior fertilizerBehavior = config.JunimoHutBehaviorForFertilizer;
+-                    if (fertilizerBehavior is JunimoHutBehavior.AutoDetect)
+-                        fertilizerBehavior = this.IsBetterJunimosLoaded ? JunimoHutBehavior.Ignore : JunimoHutBehavior.MoveIntoChests;
+-
+-                    JunimoHutBehavior seedBehavior = config.JunimoHutBehaviorForFertilizer;
+-                    if (seedBehavior is JunimoHutBehavior.AutoDetect)
+-                        seedBehavior = this.IsBetterJunimosLoaded ? JunimoHutBehavior.Ignore : JunimoHutBehavior.MoveIntoChests;
+-
+-                    return new JunimoHutMachine(hut, location, gemBehavior, fertilizerBehavior, seedBehavior, config.JunimoHutBehaviors);
++                    // each item type reads its own option; only the auto-detect fallback differs
++                    static JunimoHutBehavior Resolve(JunimoHutBehavior configured, JunimoHutBehavior whenAutoDetect)
++                    {
++                        return configured is JunimoHutBehavior.AutoDetect ? whenAutoDetect : configured;
++                    }
++
++                    JunimoHutBehavior replantingDefault = this.IsBetterJunimosLoaded ? JunimoHutBehavior.Ignore : JunimoHutBehavior.MoveIntoChests;
++
++                    return new JunimoHutMachine(
++                        hut,
++                        location,
++                        gemBehavior: Resolve(config.JunimoHutBehaviorForGems, JunimoHutBehavior.Ignore),
++                        fertilizerBehavior: Resolve(config.JunimoHutBehaviorForFertilizer, replantingDefault),
++                        seedBehavior: Resolve(config.JunimoHutBehaviorForSeeds, replantingDefault),
++                        itemBehavior: config.JunimoHutBehaviors
++                    );
+                 }
+ 
+             case ShippingBin bin:
+diff -ruN a/Automate/Framework/GameLocationNameComparer.cs b/Automate/Framework/GameLocationNameComparer.cs
+--- a/Automate/Framework/GameLocationNameComparer.cs
++++ b/Automate/Framework/GameLocationNameComparer.cs
+@@ -12,21 +12,25 @@
+     /// <inheritdoc />
+     public bool Equals(GameLocation? left, GameLocation? right)
+     {
+-        string? leftName = left?.Name;
+-        string? rightName = right?.Name;
+-
+-        if (leftName is null)
+-            return rightName is null;
+-
+-        if (rightName is null)
+-            return false;
+-
+-        return leftName == rightName;
++        return GameLocationNameComparer.GetIdentity(left) == GameLocationNameComparer.GetIdentity(right);
+     }
+ 
+     /// <inheritdoc />
+     public int GetHashCode(GameLocation obj)
+     {
+-        return (obj.Name ?? string.Empty).GetHashCode();
++        return (GameLocationNameComparer.GetIdentity(obj) ?? string.Empty).GetHashCode();
++    }
++
++    /// <summary>Get the name which identifies one location instance. Building interiors of the same type share a <see cref="GameLocation.Name"/>, so their per-instance unique name is used when they have one.</summary>
++    /// <param name="location">The location instance.</param>
++    public static string? GetIdentity(GameLocation? location)
++    {
++        if (location is null)
++            return null;
++
++        string? uniqueName = location.uniqueName.Value;
++        return string.IsNullOrWhiteSpace(uniqueName)
++            ? location.Name
++            : uniqueName;
+     }
+ }
+diff -ruN a/Automate/Framework/GenericObjectMachine.cs b/Automate/Framework/GenericObjectMachine.cs
+--- a/Automate/Framework/GenericObjectMachine.cs
++++ b/Automate/Framework/GenericObjectMachine.cs
+@@ -37,6 +37,9 @@
+     /// <inheritdoc />
+     public override ITrackedStack? GetOutput()
+     {
++        if (this.TryDiscardEmptyOutput())
++            return null;
++
+         return this.GetTracked(this.Machine.heldObject.Value, onEmpty: this.GenericReset);
+     }
+ 
+@@ -64,6 +67,21 @@
+             : MachineState.Processing;
+     }
+ 
++    /// <summary>Discard a finished output which has no quantity, the same way the game does when the player empties such a machine by hand.</summary>
++    /// <returns>Returns whether an empty output was discarded.</returns>
++    protected bool TryDiscardEmptyOutput()
++    {
++        SObject? held = this.Machine.heldObject.Value;
++        if (held is null || held.Stack > 0 || !this.Machine.readyForHarvest.Value)
++            return false;
++
++        this.Machine.heldObject.Value = null;
++        this.Machine.readyForHarvest.Value = false;
++        this.Machine.showNextIndex.Value = false;
++        this.Machine.ResetParentSheetIndex();
++        return true;
++    }
++
+     /// <summary>Reset the machine so it's ready to accept a new input.</summary>
+     /// <param name="trackedStack">The tracked item stack that was reduced.</param>
+     /// <param name="item">The output item that was taken.</param>
+diff -ruN a/Automate/Framework/MachineGroupFactory.cs b/Automate/Framework/MachineGroupFactory.cs
+--- a/Automate/Framework/MachineGroupFactory.cs
++++ b/Automate/Framework/MachineGroupFactory.cs
+@@ -70,7 +70,7 @@
+     /// <param name="location">The location instance.</param>
+     public string GetLocationKey(GameLocation location)
+     {
+-        return location.Name;
++        return GameLocationNameComparer.GetIdentity(location) ?? string.Empty;
+     }
+ 
+     /// <summary>Sort machines by priority.</summary>
+diff -ruN a/Automate/Framework/MachineManager.cs b/Automate/Framework/MachineManager.cs
+--- a/Automate/Framework/MachineManager.cs
++++ b/Automate/Framework/MachineManager.cs
+@@ -95,11 +95,15 @@
+     {
+         string locationKey = this.Factory.GetLocationKey(location);
+ 
+-        return this
+-            .ActiveMachineGroups
+-            .Concat(this.DisabledMachineGroups)
+-            .Concat(this.JunimoMachineGroup.GetAll())
+-            .Where(p => p.LocationKey == locationKey);
++        // read the per-location scan result directly instead of the flattened caches, which are only
++        // rebuilt when an automated group changes and so can lag behind the last scan
++        IEnumerable<IMachineGroup> scanned = this.MachineData.TryGetValue(locationKey, out MachineDataForLocation? data)
++            ? data.ActiveMachineGroups.Concat(data.DisabledMachineGroups)
++            : Enumerable.Empty<IMachineGroup>();
++
++        return scanned.Concat(
++            this.JunimoMachineGroup.GetAll().Where(p => p.LocationKey == locationKey)
++        );
+     }
+ 
+     /// <summary>Get the registered override settings.</summary>
+diff -ruN a/Automate/Framework/Machines/DataBasedObjectMachine.cs b/Automate/Framework/Machines/DataBasedObjectMachine.cs
+--- a/Automate/Framework/Machines/DataBasedObjectMachine.cs
++++ b/Automate/Framework/Machines/DataBasedObjectMachine.cs
+@@ -37,6 +37,9 @@
+     {
+         MachineState state = this.GetGenericState();
+ 
++        // an incubator's held egg is the animal being hatched, not a product to collect
++        if (state is MachineState.Done && this.IsIncubator())
++            return MachineState.Processing;
+ 
+         return state;
+     }
+@@ -75,6 +78,12 @@
+         SObject machine = this.Machine;
+         MachineData? machineData = machine.GetMachineData();
+ 
++        if (this.IsIncubator())
++            return null;
++
++        // a broken output with no quantity can never be stored, so drop it instead of retrying forever
++        if (this.TryDiscardEmptyOutput())
++            return null;
+ 
+         // recalculate output if needed (e.g. bee house honey)
+         if (machine.lastOutputRuleId.Value != null && machineData != null)
+@@ -99,6 +108,12 @@
+     /*********
+     ** Private methods
+     *********/
++    /// <summary>Get whether the machine hatches its held item instead of producing a collectable output.</summary>
++    private bool IsIncubator()
++    {
++        return this.Machine.GetMachineData()?.IsIncubator is true;
++    }
++
+     /// <summary>Reset the machine, so it's ready to accept a new input.</summary>
+     /// <param name="trackedStack">The tracked item stack which was reduced.</param>
+     /// <param name="item">The item that was taken.</param>

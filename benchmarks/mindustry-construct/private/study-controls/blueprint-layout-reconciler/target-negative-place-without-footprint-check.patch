@@ -1,0 +1,11 @@
+--- a/src/BlueprintReconcilerPlugin.java
++++ b/src/BlueprintReconcilerPlugin.java
+@@ -63,7 +63,7 @@
+             for (int dy = 0; dy < op.size(); dy++) {
+                 for (int dx = 0; dx < op.size(); dx++) {
+                     Tile tile = Vars.world.tile(left + dx, bottom + dy);
+-                    if (tile == null || tile.build != null || tile.block() != Blocks.air) return false;
++                    if (tile == null) return false;
+                 }
+             }
+             origin.setBlock(block, team, op.rotation());

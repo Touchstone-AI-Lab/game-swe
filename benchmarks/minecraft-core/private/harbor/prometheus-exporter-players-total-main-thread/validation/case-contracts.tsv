@@ -1,0 +1,35 @@
+case	layer	role	public_report
+de.sldk.mc.exporter.PrometheusExporterTest.metrics_server_should_return_404_on_unknown_paths	unit	preserved	upstream unit test must keep passing
+de.sldk.mc.exporter.PrometheusExporterTest.metrics_server_should_return_valid_prometheus_response	unit	preserved	upstream unit test must keep passing
+de.sldk.mc.metrics.EntitiesTest.expectArmorStandAliveToBeFalse	unit	preserved	upstream unit test must keep passing
+de.sldk.mc.metrics.EntitiesTest.givenTypedEntitiesExpectCorrectCount	unit	preserved	upstream unit test must keep passing
+de.sldk.mc.metrics.EntitiesTest.givenUnknownTypeExpectNoError	unit	preserved	upstream unit test must keep passing
+de.sldk.mc.metrics.PlayerStatisticLoaderFromFileTest.get_custom_world	unit	preserved	upstream unit test must keep passing
+de.sldk.mc.metrics.PlayerStatisticLoaderFromFileTest.get_default_world	unit	preserved	upstream unit test must keep passing
+de.sldk.mc.metrics.PlayerStatisticLoaderFromFileTest.use_world_as_fallback_world	unit	preserved	upstream unit test must keep passing
+de.sldk.mc.metrics.PlayerStatisticsTest.bukkit_api_statistics_should_be_loaded_if_available	unit	preserved	upstream unit test must keep passing
+de.sldk.mc.metrics.PlayerStatisticsTest.file_statistics_should_be_used_as_fallback	unit	preserved	upstream unit test must keep passing
+de.sldk.mc.metrics.PlayerStatisticsTest.constructor_does_not_load_statistics_from_file	unit	preserved	upstream unit test must keep passing
+de.sldk.mc.metrics.VillagersTest.givenVillagersExpectCorrectCount	unit	preserved	upstream unit test must keep passing
+de.sldk.mc.metrics.WorldSizeTest.setsMetricWithCorrectNameAndLabel	unit	preserved	upstream unit test must keep passing
+de.sldk.mc.metrics.WorldSizeTest.doesNotThrowIfFileDoesNotExist	unit	preserved	upstream unit test must keep passing
+de.sldk.mc.metrics.WorldSizeTest.setsCorrectWorldSizeValue	unit	preserved	upstream unit test must keep passing
+de.sldk.mc.metrics.WorldSizeTest.doesNotPopulateMetricIfFileDoesNotExist	unit	preserved	upstream unit test must keep passing
+de.sldk.mc.tps.TpsCollectorTest.test_optimal_ticks	unit	preserved	upstream unit test must keep passing
+de.sldk.mc.tps.TpsCollectorTest.test_invalid_ticks_should_be_ignored	unit	preserved	upstream unit test must keep passing
+de.sldk.mc.tps.TpsCollectorTest.test_slow_ticks	unit	preserved	upstream unit test must keep passing
+de.sldk.mc.tps.TpsCollectorTest.test_default_value_before_first_poll	unit	preserved	upstream unit test must keep passing
+de.sldk.mc.utils.PathFileSizeTest$WhenPathDoesNotExist.returnsSizeZero	unit	preserved	upstream unit test must keep passing
+de.sldk.mc.utils.PathFileSizeTest$WhenPathIsDirectory.returnsSizeOfMultipleFiles	unit	preserved	upstream unit test must keep passing
+de.sldk.mc.utils.PathFileSizeTest$WhenPathIsDirectory.returnsSizeOfSingleFile	unit	preserved	upstream unit test must keep passing
+de.sldk.mc.utils.PathFileSizeTest$WhenPathIsDirectory.returnSizeOfNestedDirectories	unit	preserved	upstream unit test must keep passing
+de.sldk.mc.utils.PathFileSizeTest$WhenPathIsDirectory.returnsZeroIfDirectoryIsEmpty	unit	preserved	upstream unit test must keep passing
+de.sldk.mc.utils.PathFileSizeTest$WhenPathIsFile.returnsZeroIfFileIsEmpty	unit	preserved	upstream unit test must keep passing
+de.sldk.mc.utils.PathFileSizeTest$WhenPathIsNull.shouldThrowException	unit	preserved	upstream unit test must keep passing
+plugin is enabled	server	sentinel	PrometheusExporter loads on Paper 1.21.11 with players_total enabled
+scrape returns the expected metric families	server	preserved	a normal /metrics scrape keeps returning the default metric families
+players_total reports every known player	server	preserved	mc_players_total equals the number of players known to the server
+players_total is collected without the main thread	server	target	PlayersTotal.collect() completes without a main-thread task
+scrape completes while the main thread is busy	server	target	a scrape with only players_total enabled completes while the main thread is busy
+world-state metrics are still collected on the main thread	server	preserved	metrics that read world, chunk or entity state wait for the main thread
+a disabled metric is left out of the scrape	server	preserved	Metric.disable() and enable() keep removing and restoring a family

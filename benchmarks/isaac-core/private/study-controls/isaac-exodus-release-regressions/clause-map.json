@@ -1,0 +1,553 @@
+{
+  "task": "isaac-rebirth/core/isaac-exodus-release-regressions",
+  "task_version": "4.1.0",
+  "exam": "benchmarks/isaac-core/exams/isaac-exodus-release-regressions.md",
+  "cases": [
+    {
+      "id": "case:runtime_sentinel_secret",
+      "role": "runtime-sentinel",
+      "clauses": [],
+      "overlap": false,
+      "note": "Secret-room process started and the verifier mod resolved the Exodus item ids."
+    },
+    {
+      "id": "case:blue_moon",
+      "role": "target",
+      "clauses": [
+        "EX-239"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:apocryphon_stats",
+      "role": "target",
+      "clauses": [
+        "EX-266"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:runtime_sentinel_james",
+      "role": "runtime-sentinel",
+      "clauses": [],
+      "overlap": false,
+      "note": "James process restarted as the custom character."
+    },
+    {
+      "id": "case:james_book_of_secrets_positive",
+      "role": "preserved",
+      "clauses": [
+        "EX-296-preserve",
+        "EX-296",
+        "Task-preserve"
+      ],
+      "overlap": true,
+      "note": "Existing James behaviour (P in the starter). The same public sentence scopes the target (\"James's floor setup only\"), so an over-broad removal of the Book of Secrets use is caught here."
+    },
+    {
+      "id": "case:runtime_sentinel_main",
+      "role": "runtime-sentinel",
+      "clauses": [],
+      "overlap": false,
+      "note": "Main process started; every Exodus item, trinket and entity id used by the suite resolved."
+    },
+    {
+      "id": "case:forbidden_fruit",
+      "role": "target",
+      "clauses": [
+        "EX-184"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:tragic_mushroom",
+      "role": "target",
+      "clauses": [
+        "EX-191-three-containers"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:tragic_mushroom_last_container",
+      "role": "target",
+      "clauses": [
+        "EX-191-last-container"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:tragic_mushroom_repeat",
+      "role": "target",
+      "clauses": [
+        "EX-303"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:tragic_mushroom_diminishing",
+      "role": "target",
+      "clauses": [
+        "EX-303"
+      ],
+      "overlap": false,
+      "note": "Labelled guard in validation/case-contracts.tsv, but F in the unchanged starter (gains 0,0): it is evidence for the requested change, not a preserved contract."
+    },
+    {
+      "id": "case:mutant_clover_stack",
+      "role": "target",
+      "clauses": [
+        "EX-311"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:anamnesis_charge",
+      "role": "target",
+      "clauses": [
+        "EX-318-fresh"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:anamnesis_charge_persistence",
+      "role": "target",
+      "clauses": [
+        "EX-318-persist"
+      ],
+      "overlap": false,
+      "note": "Labelled guard in validation/case-contracts.tsv, but F in the unchanged starter (restored=0): target evidence."
+    },
+    {
+      "id": "case:baseball_mitt_delayed_hit",
+      "role": "target",
+      "clauses": [
+        "EX-327"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:iron_lung_orphan_gas",
+      "role": "target",
+      "clauses": [
+        "EX-335"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:headcase_orphan_lob",
+      "role": "target",
+      "clauses": [
+        "EX-342"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:ritual_candle",
+      "role": "target",
+      "clauses": [
+        "EX-203-delay-2"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:ritual_candle_cadence",
+      "role": "target",
+      "clauses": [
+        "EX-203-cadence"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:familiar_cleanup",
+      "role": "target",
+      "clauses": [
+        "EX-247"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:beehive_early_wobble",
+      "role": "target",
+      "clauses": [
+        "EX-258"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:beehive_mature_wobble",
+      "role": "preserved",
+      "clauses": [
+        "EX-258-preserve",
+        "EX-258",
+        "Task-preserve"
+      ],
+      "overlap": true,
+      "note": "Existing full-strength wobble (P in the starter). It is also the upper boundary of the requested half-strength window, stated in the same public sentence."
+    },
+    {
+      "id": "case:deja_vu_split_guard",
+      "role": "target",
+      "clauses": [
+        "EX-274"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:deja_vu_normal_return",
+      "role": "preserved",
+      "clauses": [
+        "EX-274-preserve",
+        "Task-preserve"
+      ],
+      "overlap": false,
+      "note": "Existing return mechanic, stated as its own public sentence. P in the starter."
+    },
+    {
+      "id": "case:lil_rune_jera_health",
+      "role": "target",
+      "clauses": [
+        "EX-281"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:lovely_fly_target",
+      "role": "target",
+      "clauses": [
+        "EX-289"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:cursed_metronome",
+      "role": "target",
+      "clauses": [
+        "EX-217"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:broken_glasses",
+      "role": "target",
+      "clauses": [
+        "EX-251"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:james_book_of_secrets_scope",
+      "role": "target",
+      "clauses": [
+        "EX-296"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:mutant_clover_room_reset",
+      "role": "preserved",
+      "clauses": [
+        "EX-311-preserve",
+        "Task-preserve"
+      ],
+      "overlap": false,
+      "note": "P in the starter, but non-discriminating: see clause EX-311-preserve."
+    },
+    {
+      "id": "case:broken_glasses_floor_reset",
+      "role": "preserved",
+      "clauses": [
+        "EX-251-preserve",
+        "EX-251",
+        "Task-preserve"
+      ],
+      "overlap": true,
+      "note": "P in the starter. The same public sentence states the requested persistence and its end at the next floor, so the case is also the lifecycle bound of the target."
+    },
+    {
+      "id": "case:grid_worm",
+      "role": "target",
+      "clauses": [
+        "EX-226-immediate"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:grid_worm_heading",
+      "role": "target",
+      "clauses": [
+        "EX-226-heading"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:grid_worm_cadence_regression",
+      "role": "preserved",
+      "clauses": [
+        "EX-226-preserve",
+        "Task-preserve"
+      ],
+      "overlap": false,
+      "note": "Existing later random-turn cadence, stated as its own public sentence. P in the starter."
+    },
+    {
+      "id": "case:grid_worm_bounce",
+      "role": "target",
+      "clauses": [
+        "EX-226-bounce"
+      ],
+      "overlap": false,
+      "note": "",
+      "over_constrained": true
+    },
+    {
+      "id": "check:submission-shape",
+      "role": "static",
+      "clauses": [],
+      "overlap": false,
+      "note": "exodus/main.lua and exodus/metadata.xml exist; no symbolic links."
+    }
+  ],
+  "clauses": [
+    {
+      "id": "EX-184",
+      "anchor": "Problem, report [#EX-184]: \"The Forbidden Fruit's earned damage disappears if the item is removed or rerolled.\"",
+      "status": "asserted",
+      "note": "benchmarks/isaac-core/private/harbor/isaac-exodus-release-regressions/tests/suite/main.lua:267-284 uses the item once, removes it with RemoveCollectible, re-evaluates the damage cache and requires the damage to stay within 0.05 of the held value. Only the removal path is exercised; a reroll is not."
+    },
+    {
+      "id": "EX-191-three-containers",
+      "anchor": "Problem, report [#EX-191], sentence 2: \"three red-heart containers and only half a red heart ... the item is supposed to leave one full red heart after reducing the containers\"",
+      "status": "asserted",
+      "note": "benchmarks/isaac-core/private/harbor/isaac-exodus-release-regressions/tests/suite/main.lua:285-296 requires max=2, red=2, soul=0 and a living player."
+    },
+    {
+      "id": "EX-191-last-container",
+      "anchor": "Problem, report [#EX-191], sentence 3: \"only one red-heart container: using the item on half a heart kills them instead of filling that final container\"",
+      "status": "asserted",
+      "note": "benchmarks/isaac-core/private/harbor/isaac-exodus-release-regressions/tests/suite/main.lua:302-312 requires max=2, red=2, soul=0 and not IsDead() in the same frame as the use."
+    },
+    {
+      "id": "EX-203-delay-2",
+      "anchor": "Problem, report [#EX-203], sentence 2: \"With all five candle flames lit and a tear delay of 2, an active vulnerable enemy standing next to the player can remain completely undamaged.\"",
+      "status": "asserted",
+      "note": "benchmarks/isaac-core/private/harbor/isaac-exodus-release-regressions/tests/suite/main.lua:503-544 lights the five candles through their GetData().IsLit/LitTimer fields, forces MaxFireDelay=2 every frame and requires at least one MC_ENTITY_TAKE_DMG hit and HP < 99 within 8 frames."
+    },
+    {
+      "id": "EX-203-cadence",
+      "anchor": "Problem, report [#EX-203], sentence 3: \"At a tear delay of 4 ... the aura pulses every frame, roughly twice as often as the intended rounded interval.\"",
+      "status": "asserted",
+      "note": "benchmarks/isaac-core/private/harbor/isaac-exodus-release-regressions/tests/suite/main.lua:545-549 requires exactly 4 damage callbacks in an 8-frame window at MaxFireDelay=4 (the unchanged starter produces 8). The intended interval of 2 frames is only implied publicly by \"roughly twice as often\"."
+    },
+    {
+      "id": "EX-217",
+      "anchor": "Problem, report [#EX-217]: \"A wounded player with six red-heart containers and two filled hearts is left with one filled heart, while the conversion should empty the red hearts consistently for that capacity.\"",
+      "status": "asserted",
+      "note": "benchmarks/isaac-core/private/harbor/isaac-exodus-release-regressions/tests/suite/main.lua:994-1002 checks the single reported data point (max=12, red=4 -> red=0, max still 12). It does not probe a second fill level, so capacity-based and empty-everything readings both pass."
+    },
+    {
+      "id": "EX-226-immediate",
+      "anchor": "Problem, report [#EX-226], sentences 1-2: \"Grid Worm does not constrain a newly fired tear immediately.\"",
+      "status": "asserted",
+      "note": "benchmarks/isaac-core/private/harbor/isaac-exodus-release-regressions/tests/suite/main.lua:812-828 fires a (3,4) tear and requires an axis-locked velocity two update frames later."
+    },
+    {
+      "id": "EX-226-heading",
+      "anchor": "Problem, report [#EX-226], sentence 3: \"its first direction can disagree with the direction the character is facing\"",
+      "status": "asserted",
+      "note": "benchmarks/isaac-core/private/harbor/isaac-exodus-release-regressions/tests/suite/main.lua:821-831 compares the velocity with player:GetHeadDirection(). Only the idle DOWN heading is exercised (head=3 in both baseline logs)."
+    },
+    {
+      "id": "EX-226-bounce",
+      "anchor": "Problem, report [#EX-226], sentence 4: \"Tears that hit a wall also invert their velocity without leaving the collision tile, so they can oscillate in place instead of rebounding cleanly.\"",
+      "status": "asserted",
+      "note": "benchmarks/isaac-core/private/harbor/isaac-exodus-release-regressions/tests/suite/main.lua:889-941. Asserted, but with an implementation-shaped threshold: see known_issues[0]."
+    },
+    {
+      "id": "EX-226-preserve",
+      "anchor": "Problem, report [#EX-226], last sentence: \"Keep the existing later random-turn cadence; fixing the opening direction must not make those periodic turns start sooner.\" (also catalog requirement 2)",
+      "status": "asserted",
+      "note": "benchmarks/isaac-core/private/harbor/isaac-exodus-release-regressions/tests/suite/main.lua:836-888 follows twelve tears for about twelve frames and requires every direction to stay unchanged (dot > 0.99). Passes in the unchanged starter."
+    },
+    {
+      "id": "EX-239",
+      "anchor": "Problem, report [#EX-239]: \"The trinket may clear room obstacles, but the room boundary and its door must remain intact.\"",
+      "status": "weak",
+      "note": "benchmarks/isaac-core/private/harbor/isaac-exodus-release-regressions/tests/secret-suite/main.lua:104-120 only requires walls >= 10 and doors >= 1 in s.secret.1. The reference keeps 43 wall tiles and the starter 1, so a repair that still deletes three quarters of the boundary would pass."
+    },
+    {
+      "id": "EX-247",
+      "anchor": "Problem, report [#EX-247]: \"Ritual Candle's five flames, both Sundial orbitals, Astro Baby, and Lil Rune. Every companion should disappear promptly once its owning collectible is no longer held.\"",
+      "status": "asserted",
+      "note": "benchmarks/isaac-core/private/harbor/isaac-exodus-release-regressions/tests/suite/main.lua:552-580 requires all nine familiars to exist while held and none of the five variants five frames after RemoveCollectible plus a CACHE_ALL evaluation. The reroll path is not exercised."
+    },
+    {
+      "id": "EX-251",
+      "anchor": "Problem, report [#EX-251]: \"Enemies or pickups that appear later on that same floor render normally, even though the broken-world effect is meant to persist until the next floor\"",
+      "status": "asserted",
+      "note": "benchmarks/isaac-core/private/harbor/isaac-exodus-release-regressions/tests/suite/main.lua:942-961 drops the trinket, spawns a Gaper and requires its sprite colour to be black four frames later. Pickups and the tear-doubling half of the effect are not checked."
+    },
+    {
+      "id": "EX-251-preserve",
+      "anchor": "Problem, report [#EX-251], same sentence: \"... meant to persist until the next floor and reset there.\"",
+      "status": "asserted",
+      "note": "benchmarks/isaac-core/private/harbor/isaac-exodus-release-regressions/tests/suite/main.lua:979-993 spawns a Gaper after `stage 1` and requires it NOT to be black. It passes trivially in the starter (the effect already ends at the drop) and becomes discriminating once EX-251 is repaired; control compat-negative-broken-glasses-floor-reset shows that."
+    },
+    {
+      "id": "EX-258",
+      "anchor": "Problem, report [#EX-258]: \"young tears should use the gentler half-strength drift before the normal wobble takes over\"",
+      "status": "asserted",
+      "note": "benchmarks/isaac-core/private/harbor/isaac-exodus-release-regressions/tests/suite/main.lua:581-611 measures one per-frame velocity change at about tear frame 4 and requires 0.35 <= delta <= 0.65. A single sample; the twenty-frame boundary itself is only bracketed by this case and the mature one."
+    },
+    {
+      "id": "EX-258-preserve",
+      "anchor": "Problem, report [#EX-258], same sentence: \"... before the normal wobble takes over\" (full-strength wobble of mature tears)",
+      "status": "asserted",
+      "note": "benchmarks/isaac-core/private/harbor/isaac-exodus-release-regressions/tests/suite/main.lua:614-642 measures a tear at frame >= 22 and requires 0.85 <= delta <= 1.15. Passes in the unchanged starter."
+    },
+    {
+      "id": "EX-266",
+      "anchor": "Problem, report [#EX-266]: \"none of damage, tear delay, speed, shot speed, luck, or range changes, even though at least one of those stats should increase\"",
+      "status": "weak",
+      "note": "benchmarks/isaac-core/private/harbor/isaac-exodus-release-regressions/tests/secret-suite/main.lua:60-78,122-126 (statsDiffer) accepts ANY change larger than 0.01 in any of the six stats, in either direction; it does not require an increase."
+    },
+    {
+      "id": "EX-274",
+      "anchor": "Problem, report [#EX-274]: \"Split tears should be excluded from that mechanic.\"",
+      "status": "asserted",
+      "note": "benchmarks/isaac-core/private/harbor/isaac-exodus-release-regressions/tests/suite/main.lua:655-683,1040-1044 kills a TEAR_SPLIT tear at Luck=100 and requires that no tear in the room carries the mod-internal GetData().ReturnChance field. See known_issues[2]."
+    },
+    {
+      "id": "EX-274-preserve",
+      "anchor": "Problem, report [#EX-274], last sentence: \"Ordinary eligible, non-split tears must continue to return normally.\" (also catalog requirement 2)",
+      "status": "asserted",
+      "note": "benchmarks/isaac-core/private/harbor/isaac-exodus-release-regressions/tests/suite/main.lua:681-699,1045-1048 kills an ordinary tear at Luck=100 and requires a living tear carrying ReturnChance. Passes in the unchanged starter."
+    },
+    {
+      "id": "EX-281",
+      "anchor": "Problem, report [#EX-281]: \"each copy keeps the original current health while its maximum is halved, leaving current health above the displayed maximum\"",
+      "status": "asserted",
+      "note": "benchmarks/isaac-core/private/harbor/isaac-exodus-release-regressions/tests/suite/main.lua:705-759 retries up to 16 rounds of eight killed Horfs and requires >= 2 shrunken copies, none with HitPoints > MaxHitPoints + 0.01."
+    },
+    {
+      "id": "EX-289",
+      "anchor": "Problem, report [#EX-289]: \"non-active room decorations must not be eligible parents\"",
+      "status": "asserted",
+      "note": "benchmarks/isaac-core/private/harbor/isaac-exodus-release-regressions/tests/suite/main.lua:760-802 places a shopkeeper at 25 units and a frozen Horf at 120 units and requires the fly's mod-internal GetData().parentEnemy to be the Horf."
+    },
+    {
+      "id": "EX-296",
+      "anchor": "Problem, report [#EX-296]: \"a normal Isaac run without the item should not gain map, compass, or blue-map information\"",
+      "status": "asserted",
+      "note": "benchmarks/isaac-core/private/harbor/isaac-exodus-release-regressions/tests/suite/main.lua:962-971 runs `stage 1` as Isaac and requires none of the three level state flags."
+    },
+    {
+      "id": "EX-296-preserve",
+      "anchor": "Problem, report [#EX-296], sentence 2: \"That automatic use belongs to James's floor setup only\"",
+      "status": "asserted",
+      "note": "benchmarks/isaac-core/private/harbor/isaac-exodus-release-regressions/tests/james-suite/main.lua:88-97 restarts as James, runs `stage 2` and requires at least one of the three mapping flags. Passes in the unchanged starter."
+    },
+    {
+      "id": "EX-303",
+      "anchor": "Problem, report [#EX-303]: \"Each later use is meant to add a smaller, diminishing stat increase rather than no increase at all.\"",
+      "status": "asserted",
+      "note": "benchmarks/isaac-core/private/harbor/isaac-exodus-release-regressions/tests/suite/main.lua:315-358. tragic_mushroom_repeat requires the second use to raise damage, speed and range by > 0.05; tragic_mushroom_diminishing requires the third gain to be > 0.05 and smaller than the second for all three stats. See known_issues[1] for the speed cap."
+    },
+    {
+      "id": "EX-311",
+      "anchor": "Problem, report [#EX-311]: \"each activation in the current room should add another ten\"",
+      "status": "asserted",
+      "note": "benchmarks/isaac-core/private/harbor/isaac-exodus-release-regressions/tests/suite/main.lua:360-381 requires +10 after the first and +20 after the second activation."
+    },
+    {
+      "id": "EX-311-preserve",
+      "anchor": "Problem, report [#EX-311], last sentence: \"The whole temporary stack should continue to reset on entering another room.\"",
+      "status": "weak",
+      "note": "benchmarks/isaac-core/private/harbor/isaac-exodus-release-regressions/tests/suite/main.lua:972-975 compares Luck with the baseline only after Anamnesis has replaced Mutant Clover in the active slot (benchmarks/isaac-core/private/harbor/isaac-exodus-release-regressions/tests/suite/main.lua:383-385) and after a whole floor change. Exodus gates the bonus on HasCollectible, so Luck returns to the baseline even if the room reset is deleted; the case cannot detect a broken reset."
+    },
+    {
+      "id": "EX-318-fresh",
+      "anchor": "Problem, report [#EX-318]: \"a fresh copy must not inherit a full foreign charge\"",
+      "status": "asserted",
+      "note": "benchmarks/isaac-core/private/harbor/isaac-exodus-release-regressions/tests/suite/main.lua:383-390. The foreign charge is simulated by AddCollectible(Anamnesis, 6) plus SetActiveCharge(6) on Anamnesis itself; the case requires charge 0 four frames later."
+    },
+    {
+      "id": "EX-318-persist",
+      "anchor": "Problem, report [#EX-318]: \"dropping and later recovering it can likewise forget the charge it had earned. Its charge must belong to Anamnesis itself across active-item swaps\"",
+      "status": "asserted",
+      "note": "benchmarks/isaac-core/private/harbor/isaac-exodus-release-regressions/tests/suite/main.lua:391-409 sets charge 3, swaps to a fully charged Book of Belial and back (re-added with charge 0) and requires charge 3. Fails in the unchanged starter, so it is target evidence although validation/case-contracts.tsv calls it a guard."
+    },
+    {
+      "id": "EX-327",
+      "anchor": "Problem, report [#EX-327]: \"A released ball must create that effect whenever it dies, even though the mitt is no longer raised.\"",
+      "status": "asserted",
+      "note": "benchmarks/isaac-core/private/harbor/isaac-exodus-release-regressions/tests/suite/main.lua:412-460,1049-1052 catches a projectile, waits for the release, kills the baseball and requires >= 1 Baseball Hit effect two frames later."
+    },
+    {
+      "id": "EX-335",
+      "anchor": "Problem, report [#EX-335]: \"Existing gas must finish its own animation and cleanup without requiring an Iron Lung to remain alive.\"",
+      "status": "asserted",
+      "note": "benchmarks/isaac-core/private/harbor/isaac-exodus-release-regressions/tests/suite/main.lua:461-474 spawns a gas cloud with no Iron Lung in the room, starts \"Pyroclastic Flow\" and requires the entity to be gone after 240 frames. Only removal is observed, not the Fade animation."
+    },
+    {
+      "id": "EX-342",
+      "anchor": "Problem, report [#EX-342]: \"Their collision must continue to be processed after the firing Headcase is gone.\"",
+      "status": "asserted",
+      "note": "benchmarks/isaac-core/private/harbor/isaac-exodus-release-regressions/tests/suite/main.lua:475-502,1020-1064 finds a lob through the mod-internal GetData().IsExodusLobbed marker, moves it onto the player with Height=4, removes the Headcase and requires red hearts to drop within three frames."
+    },
+    {
+      "id": "Task-preserve",
+      "anchor": "Task, sentence 2: \"Preserve behaviour outside the reported paths.\"",
+      "status": "weak",
+      "note": "The six preserved cases only cover behaviour directly adjacent to six of the repaired reports. Nothing observes any other item, trinket, enemy or character of the mod."
+    },
+    {
+      "id": "Notes-api",
+      "anchor": "Notes, bullet 2: \"This is an Afterbirth+ Lua mod, not a Repentance mod. Use APIs available in that runtime.\"",
+      "status": "unasserted",
+      "note": "No case checks API usage. A Repentance-only call shows up only indirectly, as a failure of whatever behaviour it breaks in the pinned v1.06.T1 process."
+    },
+    {
+      "id": "Notes-no-wholesale-replacement",
+      "anchor": "Notes, bullet 3: \"Do not replace the mod wholesale or add third-party code/assets.\"",
+      "status": "unasserted",
+      "note": "check:submission-shape (plugins/isaac-rebirth/src/rhenium_isaac_rebirth/evaluator.py:164-188) only requires exodus/main.lua and exodus/metadata.xml to exist and rejects symbolic links. Nothing compares the submission with the starter."
+    }
+  ],
+  "excluded_clauses": [
+    "Notes-api",
+    "Notes-no-wholesale-replacement"
+  ],
+  "known_issues": [
+    "Over-constraining: grid_worm_bounce (benchmarks/isaac-core/private/harbor/isaac-exodus-release-regressions/tests/suite/main.lua:929-932) requires the tear to be >= 35 units from the struck wall tile on the FIRST frame on which its velocity is seen reversed. Both baselines reverse on the same frame (age=2); the starter is then at 30.0 and the reference at 40.0, only because gold adds `Position = Position + Velocity` in the reversal frame. A repair that reverses once per impact and lets the tear fly clear on the following frames (30, 40, 50 ...) rebounds cleanly and never oscillates, yet is measured at 30 and rejected. Control alternative-strict-reading demonstrates this.",
+    "Fixture trap: tragic_mushroom_diminishing (benchmarks/isaac-core/private/harbor/isaac-exodus-release-regressions/tests/suite/main.lua:343-351) requires the third speed gain to be > 0.05 while the engine clamps MoveSpeed at 2.0. Isaac starts at 1.0 and the first use adds 0.6, so only 0.4 of headroom is left for uses two and three; any valid diminishing series whose second speed gain is >= 0.35 (decay ratio >= ~0.58) reports a third gain <= 0.05 and fails. The reference itself only shows 0.10 instead of its nominal 0.15.",
+    "Internal-name coupling: several cases read or write mod-internal GetData() fields that exist in the starter but are not public contracts: ReturnChance (benchmarks/isaac-core/private/harbor/isaac-exodus-release-regressions/tests/suite/main.lua:671,691; a repair that marks an excluded split tear with ReturnChance=0 instead of leaving it nil fails deja_vu_split_guard although nothing returns), parentEnemy (benchmarks/isaac-core/private/harbor/isaac-exodus-release-regressions/tests/suite/main.lua:774), IsExodusLobbed (benchmarks/isaac-core/private/harbor/isaac-exodus-release-regressions/tests/suite/main.lua:1024,1053) and the candle fields IsLit/LitTimer (benchmarks/isaac-core/private/harbor/isaac-exodus-release-regressions/tests/suite/main.lua:513-514,530-531). A repair that renames or restructures these fields is rejected or cannot be driven by the fixture.",
+    "ritual_candle_cadence (benchmarks/isaac-core/private/harbor/isaac-exodus-release-regressions/tests/suite/main.lua:548) requires exactly 4 damage callbacks in 8 frames. The 2-frame interval is only implied publicly (\"roughly twice as often as the intended rounded interval\"); nearest-integer rounding of 4/3 gives 1 and keeps 8 hits, so only a ceil-like reading passes.",
+    "Order dependence: the thirty main-suite cases share one run and one player (benchmarks/isaac-core/private/harbor/isaac-exodus-release-regressions/tests/suite/main.lua:264-1009). State leaks forward (Forbidden Fruit's +0.99 damage is part of every later damage figure; Mutant Clover is silently replaced by Anamnesis before its reset guard; a pcall failure in any step emits GCB_FATAL and leaves every later case unobserved).",
+    "Shared game-log markers (private NOTES.md, Verifier design): results are parsed from unauthenticated `[GCB_CASE]` lines written through Isaac.DebugString into the same log the submission can write to, so outcomes are only meaningful under the honest-code assumption.",
+    "Process coupling: the secret-room process runs with continued=true as player_type=18 (James), inheriting the James process's run from Steam's in-memory cache (benchmarks/isaac-core/private/harbor/isaac-exodus-release-regressions/tests/test.sh:85-108). apocryphon_stats and blue_moon are therefore measured on James, who already owns The Apocryphon.",
+    "validation/case-contracts.tsv labels eight cases `guard`; two of them (tragic_mushroom_diminishing, anamnesis_charge_persistence) fail in the unchanged starter and are mapped as target here. validation/predicate-matrix.tsv agrees: the EX-303 and EX-318 single-report candidates newly pass them."
+  ]
+}

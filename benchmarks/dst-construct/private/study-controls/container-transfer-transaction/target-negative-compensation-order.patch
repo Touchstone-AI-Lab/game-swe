@@ -1,0 +1,28 @@
+--- a/scripts/containertransfer/transaction.lua
++++ b/scripts/containertransfer/transaction.lua
+@@ -142,19 +142,19 @@
+     record.reason = record.reason or reason
+     record.pending_restore = record.pending_restore or { destination = true, source = true }
+     record.phase = COMPENSATING
+-    if record.pending_restore.destination then
+-        local restored = self.adapter:restore(record.request.destination_id, copy_items(record.destination_snapshot))
++    if record.pending_restore.source then
++        local restored = self.adapter:restore(record.request.source_id, copy_items(record.source_snapshot))
+         if not restored then
+             return public_result(record)
+         end
+-        record.pending_restore.destination = false
++        record.pending_restore.source = false
+     end
+-    if record.pending_restore.source then
+-        local restored = self.adapter:restore(record.request.source_id, copy_items(record.source_snapshot))
++    if record.pending_restore.destination then
++        local restored = self.adapter:restore(record.request.destination_id, copy_items(record.destination_snapshot))
+         if not restored then
+             return public_result(record)
+         end
+-        record.pending_restore.source = false
++        record.pending_restore.destination = false
+     end
+     record.pending_restore = nil
+     record.phase = ROLLED_BACK

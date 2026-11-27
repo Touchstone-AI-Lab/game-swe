@@ -1,0 +1,3 @@
+control	kind	base	overlay	root	note
+target-negative-rollback-oldest-first	target-negative	reference	patch:target-negative-rollback-oldest-first.patch	plugin	reference whose rollback walks the qualifying changes oldest first instead of newest first
+alternative	alternative	starter	tree:alternative	plugin	independently written from the exam alone: TabExecutor with a subcommand table, two-pass undo loading, one timestamp and one write per explosion

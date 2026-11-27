@@ -1,0 +1,563 @@
+{
+  "id": "rhenium-minecraft-construct-v1",
+  "version": "1.3.0",
+  "game": "minecraft",
+  "name": {
+    "en": "Minecraft Paper plugin construct tasks",
+    "zh": "Minecraft Paper 插件构建题"
+  },
+  "description": {
+    "en": "Construct tasks: write a whole Paper server plugin from a frozen Maven skeleton, verified by hidden cases on a real Paper 1.21.11 dedicated server.",
+    "zh": "构建题：在冻结的 Maven 骨架中从零编写完整的 Paper 服务器插件，由真实 Paper 1.21.11 专用服务器上的隐藏用例验证。"
+  },
+  "tasks": [
+    {
+      "id": "coinledger-bank-ledger",
+      "difficulty": "hard",
+      "title": {
+        "en": "CoinLedger: build a transaction-safe bank ledger with transfer fees and audit history",
+        "zh": "CoinLedger：实现具有交易安全、手续费与审计历史的银行账本"
+      },
+      "summary": {
+        "en": "Write a Paper bank plugin with whole-cent accounts, frozen-state validation, persistent audit history and transfer limits that remain correct when the recipient is also the fee account.",
+        "zh": "编写 Paper 银行插件：实现整分账户、冻结状态校验、持久审计历史，并在收款账户与手续费账户别名相同时仍正确执行余额上限与原子拒绝。"
+      },
+      "brief": {
+        "en": "Starting from an empty plugin class, implement the full /ledger plugin, file formats, paging and player payments. Preflight all transfer destinations before mutation, including the aliased case where principal and fee credit the same account.",
+        "zh": "从空插件类开始实现完整 /ledger 插件、文件格式、分页与玩家付款。必须在改动前校验所有转账入账目标，包括本金和手续费落入同一账户的别名场景。"
+      },
+      "requirements": {
+        "en": [
+          "money is kept in whole cents and displayed with two decimals and the currency",
+          "transfer fees are rounded down and paid into the fee account",
+          "frozen accounts, the maximum balance and the validation order reject commands without side effects; account normalization precedes frozen checks for self-transfers",
+          "accounts.yml and audit.log follow the specified formats and reload restores them",
+          "history pages, the top list, player payments and permissions answer with the exact replies",
+          "the recipient and fee-account alias is checked against its combined final credit before any balance, file or audit sequence changes"
+        ],
+        "zh": [
+          "金额以整分保存，显示为两位小数加货币名",
+          "转账手续费向下取整并计入手续费账户",
+          "冻结账户、余额上限与校验顺序拒绝命令且无副作用；大小写规范化后的同账户检查先于冻结状态检查",
+          "accounts.yml 与 audit.log 符合规定格式，重载可恢复",
+          "历史分页、排行、玩家付款与权限返回精确回复",
+          "收款账户与手续费账户相同时，必须按合并后的最终入账金额校验余额上限，且拒绝前不得改动余额、文件或审计序号"
+        ]
+      },
+      "api_usage": {
+        "en": [
+          "org.bukkit.command.CommandExecutor",
+          "org.bukkit.configuration.file.YamlConfiguration",
+          "org.bukkit.plugin.java.JavaPlugin#saveDefaultConfig"
+        ],
+        "zh": [
+          "CommandExecutor",
+          "YamlConfiguration",
+          "JavaPlugin#saveDefaultConfig"
+        ]
+      },
+      "acceptance": {
+        "en": [
+          "offline Maven package build succeeds",
+          "every live-server case passes on Paper 1.21.11"
+        ],
+        "zh": [
+          "离线 Maven package 构建成功",
+          "Paper 1.21.11 上全部真实服务器用例通过"
+        ]
+      },
+      "domains": [
+        "commands",
+        "persistence",
+        "economy",
+        "audit-log",
+        "transaction-preflight"
+      ],
+      "estimated_minutes": 330,
+      "required_files": [
+        "plugin/pom.xml",
+        "plugin/src/main/resources/plugin.yml",
+        "plugin/src/main/java/com/example/coinledger/CoinLedgerPlugin.java"
+      ],
+      "task_kind": "construct",
+      "plugin_name": "CoinLedger",
+      "build": {
+        "tool": "maven",
+        "wrapper": false,
+        "tool_version": "3.9.11",
+        "assemble": "package",
+        "test": null,
+        "artifact": "target/CoinLedger.jar",
+        "java_release": 21
+      },
+      "unit_cases": [],
+      "server_cases": [
+        "CoinLedger is enabled",
+        "default config.yml is written on first enable",
+        "plugin.yml declares the ledger command and permissions",
+        "the fee account is created on enable",
+        "open creates an account with the starting balance",
+        "account names are case-insensitive and validated",
+        "deposit and withdraw report the new balance",
+        "invalid amounts are rejected",
+        "withdrawals cannot overdraw an account",
+        "transfers move money and pay the fee",
+        "fees are rounded down to the cent",
+        "transfers need funds for the amount plus the fee",
+        "transfers are validated from left to right",
+        "frozen accounts can neither send nor receive",
+        "freeze and unfreeze report the state change",
+        "the maximum balance caps deposits and transfers",
+        "accounts.yml holds balances in cents",
+        "audit.log records each change as one line",
+        "rejected commands change nothing",
+        "history pages entries newest first",
+        "history rejects pages that do not exist",
+        "top ranks accounts by balance then name",
+        "reload re-reads accounts, history and configuration",
+        "reload applies a new fee account",
+        "players pay from their own account",
+        "players see their own balance and history",
+        "permissions are enforced",
+        "case-variant self-transfer is rejected before frozen checks",
+        "malformed commands show usage",
+        "fee account as recipient checks the combined credit before mutation"
+      ],
+      "clean_room_synthetic": false
+    },
+    {
+      "id": "blocktrail-block-log-rollback",
+      "difficulty": "hard",
+      "title": {
+        "en": "BlockTrail: build a persistent block-state journal with safe filtered rollback",
+        "zh": "BlockTrail：实现持久化方块状态日志与安全筛选回滚"
+      },
+      "summary": {
+        "en": "Write a Paper plugin that records and filters block changes, preserves complete Bukkit BlockData snapshots in an append-only journal, reads legacy entries and rolls back only blocks that still match the recorded post-state.",
+        "zh": "编写 Paper 插件：记录并筛选方块变化，在只追加日志中保存完整 Bukkit BlockData，读取旧格式记录，并仅回滚仍匹配日志后态的方块。"
+      },
+      "brief": {
+        "en": "Implement the listeners, append-only journal, lookups and rollback commands. Serialize full block states, keep ten-field legacy lines readable, and refuse to overwrite a later data-only block change.",
+        "zh": "实现监听器、只追加日志、查询与回滚命令。序列化完整方块状态，继续读取十字段旧日志，并拒绝覆盖之后只改变了方块数据的状态。"
+      },
+      "requirements": {
+        "en": [
+          "only uncancelled breaks, places and explosions are recorded, with filters for ignored materials and worlds",
+          "changes.log follows the specified line format and reload restores changes and rollback marks",
+          "lookup and player list changes newest first with paging",
+          "rollback restores real blocks newest first within actor, radius and time, skipping blocks changed since; rollback applies actor, world, radius, age and prior-rollback filters together",
+          "purge rewrites the log; permissions and usage lines answer exactly",
+          "new journal entries preserve full BlockData; rollback restores the prior snapshot only if both material and current BlockData still match, while legacy lines remain readable"
+        ],
+        "zh": [
+          "仅记录未取消的破坏、放置与爆炸，并按忽略材料与世界过滤",
+          "changes.log 符合规定行格式，重载可恢复变更与回滚标记",
+          "lookup 与 player 按最新优先分页列出变更",
+          "rollback 按操作者、半径与时间从新到旧恢复真实方块，并跳过此后被改动的方块；回滚必须同时应用操作者、世界、半径、时间和已回滚筛选条件",
+          "purge 重写日志；权限与用法提示精确回复",
+          "新日志保存完整 BlockData；只有材料和当前 BlockData 都匹配时才恢复旧快照，同时保持旧格式日志可读"
+        ]
+      },
+      "api_usage": {
+        "en": [
+          "org.bukkit.event.block.BlockBreakEvent",
+          "org.bukkit.event.block.BlockPlaceEvent",
+          "org.bukkit.event.entity.EntityExplodeEvent",
+          "org.bukkit.block.Block#setType"
+        ],
+        "zh": [
+          "BlockBreakEvent",
+          "BlockPlaceEvent",
+          "EntityExplodeEvent",
+          "Block#setType"
+        ]
+      },
+      "acceptance": {
+        "en": [
+          "offline Maven package build succeeds",
+          "every live-server case passes on Paper 1.21.11"
+        ],
+        "zh": [
+          "离线 Maven package 构建成功",
+          "Paper 1.21.11 上全部真实服务器用例通过"
+        ]
+      },
+      "domains": [
+        "events",
+        "world-state",
+        "persistence",
+        "rollback",
+        "block-state-snapshots"
+      ],
+      "estimated_minutes": 360,
+      "required_files": [
+        "plugin/pom.xml",
+        "plugin/src/main/resources/plugin.yml",
+        "plugin/src/main/java/com/example/blocktrail/BlockTrailPlugin.java"
+      ],
+      "task_kind": "construct",
+      "plugin_name": "BlockTrail",
+      "build": {
+        "tool": "maven",
+        "wrapper": false,
+        "tool_version": "3.9.11",
+        "assemble": "package",
+        "test": null,
+        "artifact": "target/BlockTrail.jar",
+        "java_release": 21
+      },
+      "unit_cases": [],
+      "server_cases": [
+        "BlockTrail is enabled",
+        "default config.yml is written on first enable",
+        "plugin.yml declares the trail command and permissions",
+        "a broken block is recorded and shown by lookup",
+        "a placed block records the material it replaced",
+        "lookup lists every change at a block newest first",
+        "cancelled changes are not recorded",
+        "ignored materials are not recorded",
+        "only the configured worlds are recorded",
+        "each exploded block is recorded",
+        "changes.log uses the documented line format",
+        "player lists an actor's changes with paging",
+        "lookup and player validate their arguments",
+        "rollback restores broken and placed blocks",
+        "rollback undoes changes newest first",
+        "rollback only touches the actor's changes inside the radius",
+        "rollback skips blocks that changed since",
+        "rolled back changes are marked and never rolled back twice",
+        "rollback validates radius and time",
+        "a real TNT explosion is recorded and rolled back",
+        "rollback honours the time window",
+        "purge removes old changes and rewrites the log",
+        "reload reads changes and rollback marks from disk",
+        "permissions are enforced",
+        "rollback combines actor, radius and time filters",
+        "malformed commands show usage",
+        "rollback restores directional block data and skips stale states"
+      ],
+      "clean_room_synthetic": false
+    },
+    {
+      "id": "towncrier-timed-announcements",
+      "difficulty": "hard",
+      "title": {
+        "en": "TownCrier: build independent announcement state machines with tick-accurate pause",
+        "zh": "TownCrier：实现独立公告状态机与刻级暂停恢复"
+      },
+      "summary": {
+        "en": "Write a Paper announcement plugin with per-group timers, message cycles and permissions; pausing a group must preserve its exact remaining tick delay without disturbing other groups.",
+        "zh": "编写 Paper 公告插件，实现按组计时、消息循环与权限控制；暂停后必须精确保留剩余服务器刻，且不干扰其他组。"
+      },
+      "brief": {
+        "en": "Implement the complete command and YAML-driven scheduler. Track each group’s timer phase and message position so pause/resume restores the remaining ticks exactly while other timers continue.",
+        "zh": "实现完整命令和 YAML 调度器。分别跟踪各组计时相位与消息位置，暂停恢复时精确保留剩余刻数，其他计时器继续运行。"
+      },
+      "requirements": {
+        "en": [
+          "each enabled group announces after every interval measured in server ticks, keeps an independent timer, and never duplicates a timer after reload or another group’s pause/resume",
+          "sequential and shuffle orders, positions, now, pause and resume behave as specified",
+          "announcements render placeholders and MiniMessage and reach only holders of the group permission",
+          "invalid groups are reported and skipped; add, remove and interval rewrite the file",
+          "permissions and usage lines answer exactly",
+          "pause/resume freezes and restores the exact remaining ticks once, then returns to the configured period without shifting other group schedules"
+        ],
+        "zh": [
+          "每个启用组按服务器刻计时广播，计时器独立运行，重载或其他组暂停/恢复时不得重复或重置",
+          "顺序与打乱、位置、now、暂停与恢复符合规定",
+          "公告正确渲染占位符和 MiniMessage，并仅发送给持有组权限的接收者",
+          "无效分组被报告并跳过；add、remove、interval 重写文件",
+          "权限与用法提示精确回复",
+          "暂停/恢复精确保留并恢复一次剩余刻数，随后回到配置周期，且不得平移其他组的调度"
+        ]
+      },
+      "api_usage": {
+        "en": [
+          "org.bukkit.scheduler.BukkitScheduler#runTaskTimer",
+          "org.bukkit.Server#broadcast(Component, String)",
+          "net.kyori.adventure.text.minimessage.MiniMessage"
+        ],
+        "zh": [
+          "BukkitScheduler#runTaskTimer",
+          "Server#broadcast",
+          "MiniMessage"
+        ]
+      },
+      "acceptance": {
+        "en": [
+          "offline Maven package build succeeds",
+          "every live-server case passes on Paper 1.21.11"
+        ],
+        "zh": [
+          "离线 Maven package 构建成功",
+          "Paper 1.21.11 上全部真实服务器用例通过"
+        ]
+      },
+      "domains": [
+        "scheduler",
+        "broadcasting",
+        "configuration",
+        "commands",
+        "scheduler-phase"
+      ],
+      "estimated_minutes": 300,
+      "required_files": [
+        "plugin/pom.xml",
+        "plugin/src/main/resources/plugin.yml",
+        "plugin/src/main/java/com/example/towncrier/TownCrierPlugin.java"
+      ],
+      "task_kind": "construct",
+      "plugin_name": "TownCrier",
+      "build": {
+        "tool": "maven",
+        "wrapper": false,
+        "tool_version": "3.9.11",
+        "assemble": "package",
+        "test": null,
+        "artifact": "target/TownCrier.jar",
+        "java_release": 21
+      },
+      "unit_cases": [],
+      "server_cases": [
+        "TownCrier is enabled",
+        "default announcements.yml is written on first enable",
+        "plugin.yml declares the crier command and permissions",
+        "list shows the default group",
+        "preview renders placeholders and MiniMessage",
+        "a sequential group announces at every interval and wraps",
+        "groups keep separate timers",
+        "announcements reach only receivers with the group permission",
+        "disabled groups never announce on their own",
+        "shuffle announces every message once per cycle",
+        "now announces the next message immediately",
+        "pause stops a group and resume restarts its timer",
+        "reload restarts timers without leaving old ones",
+        "reload reports invalid groups",
+        "add appends a message and saves the file",
+        "remove deletes a message and saves the file",
+        "interval changes the period and is saved",
+        "unknown groups are reported",
+        "permissions are enforced",
+        "malformed commands show usage"
+      ],
+      "clean_room_synthetic": false
+    },
+    {
+      "id": "wardstone-region-protection",
+      "difficulty": "hard",
+      "title": {
+        "en": "Wardstone: build a priority-resolved region protection plugin for block and fluid events",
+        "zh": "Wardstone：实现支持方块与流体事件的优先级区域保护插件"
+      },
+      "summary": {
+        "en": "Write a Paper region plugin with inclusive cuboids, priority-resolved flags, membership exemptions and event listeners; fluid flow decisions use the destination block’s block-place policy.",
+        "zh": "编写 Paper 区域插件，实现闭合长方体、优先级标记解析、成员豁免和事件监听；流体流动按目标方块的 block-place 策略裁决。"
+      },
+      "brief": {
+        "en": "Implement the full region registry, persistence, commands and event enforcement. Resolve overlaps for break/place/explosion/fire and stop fluid from entering a protected destination while allowing flow out to an unprotected block.",
+        "zh": "实现完整区域注册表、持久化、命令和事件保护。处理破坏/放置/爆炸/火焰的重叠区域，并阻止流体进入受保护目标，同时允许流出到未保护方块。"
+      },
+      "requirements": {
+        "en": [
+          "region bounds are inclusive and the highest priority decides, with deny winning ties and a named deciding region",
+          "denied breaks and places are cancelled with the exact message unless the player is exempt from the deciding region",
+          "explosion block lists and fire events follow the explosion and fire flags",
+          "regions.yml stores normalised regions and reload restores them",
+          "define, flag, owner, member, info, at, list, delete, permissions and usage answer exactly",
+          "BlockFromToEvent evaluates the destination using block-place priority and cancels only when that destination is denied"
+        ],
+        "zh": [
+          "区域边界包含端点，最高优先级决定，同级拒绝优先并指明决定区域",
+          "除非玩家属于最终裁决区域的豁免对象，否则拒绝的破坏和放置事件会取消并返回精确消息",
+          "爆炸方块列表与火焰事件遵循 explosion 与 fire 标志",
+          "regions.yml 保存规范化区域，重载可恢复",
+          "define、flag、所有者、成员、info、at、list、delete、权限与用法精确回复",
+          "BlockFromToEvent 必须按目标方块的 block-place 优先级裁决，且仅在目标被拒绝时取消事件"
+        ]
+      },
+      "api_usage": {
+        "en": [
+          "org.bukkit.event.block.BlockBreakEvent",
+          "org.bukkit.event.block.BlockPlaceEvent",
+          "org.bukkit.event.entity.EntityExplodeEvent#blockList",
+          "org.bukkit.event.block.BlockIgniteEvent"
+        ],
+        "zh": [
+          "BlockBreakEvent",
+          "BlockPlaceEvent",
+          "EntityExplodeEvent#blockList",
+          "BlockIgniteEvent"
+        ]
+      },
+      "acceptance": {
+        "en": [
+          "offline Maven package build succeeds",
+          "every live-server case passes on Paper 1.21.11"
+        ],
+        "zh": [
+          "离线 Maven package 构建成功",
+          "Paper 1.21.11 上全部真实服务器用例通过"
+        ]
+      },
+      "domains": [
+        "events",
+        "protection",
+        "spatial-queries",
+        "persistence",
+        "fluid-event-resolution"
+      ],
+      "estimated_minutes": 330,
+      "required_files": [
+        "plugin/pom.xml",
+        "plugin/src/main/resources/plugin.yml",
+        "plugin/src/main/java/com/example/wardstone/WardstonePlugin.java"
+      ],
+      "task_kind": "construct",
+      "plugin_name": "Wardstone",
+      "build": {
+        "tool": "maven",
+        "wrapper": false,
+        "tool_version": "3.9.11",
+        "assemble": "package",
+        "test": null,
+        "artifact": "target/Wardstone.jar",
+        "java_release": 21
+      },
+      "unit_cases": [],
+      "server_cases": [
+        "Wardstone is enabled",
+        "default config.yml is written on first enable",
+        "plugin.yml declares the ward command and permissions",
+        "define creates a region and reports its size",
+        "define validates its arguments",
+        "define rejects regions above the maximum volume",
+        "regions.yml stores normalised corners and sorted lists",
+        "denied breaks are cancelled with a message",
+        "bounds are inclusive on every axis",
+        "denied places are cancelled with a message",
+        "owners and members build in their own region",
+        "the bypass permission builds everywhere",
+        "the highest priority region decides",
+        "deny wins between equal priorities and the first name decides",
+        "explosions keep blocks in protected regions",
+        "fire is blocked where the fire flag is denied",
+        "flags can be changed and cleared",
+        "flag validates the flag and the value",
+        "owners and members are managed by name",
+        "info describes a region",
+        "at lists the regions at a block by priority",
+        "delete removes a region and its protection",
+        "reload reads regions from disk",
+        "permissions are enforced",
+        "malformed commands show usage",
+        "membership in a lower-priority region does not override a higher denial",
+        "liquid flow respects the destination block-place flag"
+      ],
+      "clean_room_synthetic": false
+    },
+    {
+      "id": "recipesmith-config-recipes",
+      "difficulty": "hard",
+      "title": {
+        "en": "Recipesmith: build a reloadable recipe registry with per-player craft permissions",
+        "zh": "Recipesmith：实现可重载配方注册表与逐玩家合成权限"
+      },
+      "summary": {
+        "en": "Write a Paper plugin that validates and reloads custom recipe types, restores disabled vanilla recipes, and enforces permission-gated crafting per player without globally unregistering the recipe.",
+        "zh": "编写 Paper 插件：校验并重载自定义配方、恢复被禁用的原版配方，并按玩家执行合成权限，而不全局注销受限配方。"
+      },
+      "brief": {
+        "en": "Implement the YAML parser, recipe registry, validation and vanilla-recipe lifecycle. Add per-player permission checks during craft preparation, ensuring authorized viewers retain the result while unauthorized viewers cannot preview or take it.",
+        "zh": "实现 YAML 解析器、配方注册表、校验和原版配方生命周期。合成准备阶段按玩家检查权限，确保有权玩家保留结果，无权玩家既看不到也无法取得结果。"
+      },
+      "requirements": {
+        "en": [
+          "every recipe type registers under recipesmith:<id> and crafts or cooks on the real server",
+          "ingredients accept materials, material lists and item tags; results carry the correct amount, MiniMessage name and lore",
+          "invalid entries are skipped with the first reason in the specified order",
+          "reload removes deleted recipes and restores vanilla recipes no longer disabled",
+          "disable, enable, list, permissions and usage answer exactly and edit the file",
+          "a permission-gated shaped or shapeless recipe remains globally registered but hides and blocks its result per unauthorized player, with mappings replaced on reload"
+        ],
+        "zh": [
+          "各类配方以 recipesmith:<id> 注册，并在真实服务器上合成或烹饪",
+          "材料、材料列表和物品标签都可用作原料；成品保留正确数量、MiniMessage 名称和说明",
+          "无效条目按指定顺序报告第一个原因并跳过",
+          "重载移除已删除的配方并恢复不再禁用的原版配方",
+          "disable、enable、list、权限与用法精确回复并编辑文件",
+          "受权限限制的有序或无序配方仍全局注册，但逐玩家隐藏并阻止无权玩家取得结果，且重载替换权限映射"
+        ]
+      },
+      "api_usage": {
+        "en": [
+          "org.bukkit.Bukkit#addRecipe",
+          "org.bukkit.Bukkit#removeRecipe",
+          "org.bukkit.inventory.RecipeChoice.MaterialChoice",
+          "org.bukkit.Tag#REGISTRY_ITEMS"
+        ],
+        "zh": [
+          "Bukkit#addRecipe",
+          "Bukkit#removeRecipe",
+          "RecipeChoice.MaterialChoice",
+          "Tag#REGISTRY_ITEMS"
+        ]
+      },
+      "acceptance": {
+        "en": [
+          "offline Maven package build succeeds",
+          "every live-server case passes on Paper 1.21.11"
+        ],
+        "zh": [
+          "离线 Maven package 构建成功",
+          "Paper 1.21.11 上全部真实服务器用例通过"
+        ]
+      },
+      "domains": [
+        "recipes",
+        "configuration",
+        "validation",
+        "server-registry",
+        "per-player-recipe-policy"
+      ],
+      "estimated_minutes": 360,
+      "required_files": [
+        "plugin/pom.xml",
+        "plugin/src/main/resources/plugin.yml",
+        "plugin/src/main/java/com/example/recipesmith/RecipesmithPlugin.java"
+      ],
+      "task_kind": "construct",
+      "plugin_name": "Recipesmith",
+      "build": {
+        "tool": "maven",
+        "wrapper": false,
+        "tool_version": "3.9.11",
+        "assemble": "package",
+        "test": null,
+        "artifact": "target/Recipesmith.jar",
+        "java_release": 21
+      },
+      "unit_cases": [],
+      "server_cases": [
+        "Recipesmith is enabled",
+        "the default recipe file is written and loaded",
+        "plugin.yml declares the recipes command and permission",
+        "shaped recipes craft their result anywhere in the grid",
+        "ingredient lists and tags accept any listed material",
+        "shapeless recipes ignore positions but count items",
+        "cooking and stonecutting recipes carry their settings",
+        "a smelting recipe cooks in a real furnace",
+        "recipes are registered under the plugin namespace",
+        "invalid recipes are skipped with the first reason",
+        "reload removes recipes deleted from the file",
+        "disabled vanilla recipes cannot be crafted",
+        "reload restores vanilla recipes that are no longer disabled",
+        "disable and enable edit the file",
+        "list shows the loaded recipes",
+        "permissions are enforced",
+        "malformed commands show usage",
+        "tagged ingredients craft a MiniMessage-named item with lore"
+      ],
+      "clean_room_synthetic": false
+    }
+  ]
+}

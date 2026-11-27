@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "mode": "dedicated-server",
+  "cases": [
+    "real_engine_dedicated_server_unload_clears_registry",
+    "real_engine_registry_collision_is_atomic",
+    "real_engine_map_decode_is_transactional"
+  ],
+  "client_only_exclusions": [
+    "World-map rendering and MonoMod IL-anchor execution require the Terraria client and remain source-projection assertions."
+  ]
+}

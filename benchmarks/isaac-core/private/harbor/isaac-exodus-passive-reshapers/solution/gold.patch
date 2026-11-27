@@ -1,0 +1,177 @@
+diff --git a/main.lua b/main.lua
+--- a/main.lua
++++ b/main.lua
+@@ -304,7 +304,7 @@
+             FORBIDDEN_FRUIT = { UseCount = 0 },
+             BASEBALL_MITT = { Used = false, Lifted = true, BallsCaught = 0, UseDelay = 0 },
+             PSEUDOBULBAR_AFFECT = { Icon = Sprite() },
+-            OMINOUS_LANTERN = { Fired = true, Lifted = false, LastEnemyHit = nil, FrameModifier = 300 },
++            OMINOUS_LANTERN = { Fired = true, Lifted = false, Hid = false, LastEnemyHit = nil, FrameModifier = 300 },
+             HURDLE_HEELS = { JumpState = 0, FrameUsed = 0, Icon = Sprite() },
+             FULLERS_CLUB = { CollectibleList = {}, ClubDamage = 0, ClubTearDelay = 0, ClubSpeed = 0, ClubLuck = 0, ClubShotSpeed = 0, ClubRange = 0 },
+             WRATH_OF_THE_LAMB = { 
+@@ -701,16 +701,6 @@
+     end
+ end
+ 
+-function Exodus:ApplyChildsLeash(familiar)
+-    local player = Isaac.GetPlayer(0)
+-    
+-    if player:HasTrinket(TrinketType.TRINKET_CHILD_LEASH) then
+-        local distance = familiar.OrbitDistance
+-        distance.X = distance.X / 2
+-        distance.Y = distance.Y / 2
+-    end
+-end
+-
+ local function getEntityFromRef(entityRef)
+     for i, ent in pairs(Isaac.GetRoomEntities()) do
+         if ent.Index == entityRef.Entity.Index and ent.InitSeed == entityRef.Entity.InitSeed then
+@@ -1932,7 +1922,7 @@
+     end
+     
+     ---<<BROKEN GLASSES>>---
+-    if player:HasTrinket(ItemId.BROKEN_GLASSES) then
++    if player:HasTrinket(ItemId.BROKEN_GLASSES) or ItemVariables.BROKEN_GLASSES.Broke then
+         ItemVariables.BROKEN_GLASSES.Broke = true
+         for i, entity in pairs(Isaac.GetRoomEntities()) do
+             if entity:IsActiveEnemy() or entity.Type == EntityType.ENTITY_PICKUP then
+@@ -1993,6 +1983,7 @@
+             if entity.Type == EntityType.ENTITY_TEAR and entity.SpawnerType == EntityType.ENTITY_PLAYER then
+                 if entity:CollidesWithGrid() then
+                     entity.Velocity = entity.Velocity * -1
++                    entity.Position = entity.Position + entity.Velocity
+                 elseif entity.FrameCount % 10 == 1 and entity.FrameCount > 20 then
+                     local signX = 10
+                     local signY = 10
+@@ -2021,6 +2012,21 @@
+                     end
+                     
+                     entity.Velocity = Vector(player.ShotSpeed * signX, player.ShotSpeed * signY)
++                elseif entity.FrameCount <= 1 then
++                    local signX = 10
++                    local signY = 10
++                    if player:GetHeadDirection() == Direction.DOWN then
++                        signX = 0
++                    elseif player:GetHeadDirection() == Direction.LEFT then
++                        signX = -signX
++                        signY = 0
++                    elseif player:GetHeadDirection() == Direction.RIGHT then
++                        signY = 0
++                    elseif player:GetHeadDirection() == Direction.UP then
++                        signX = 0
++                        signY = -signY
++                    end
++                    entity.Velocity = Vector(player.ShotSpeed * signX, player.ShotSpeed * signY)
+                 end
+             end
+         end
+@@ -2188,7 +2194,7 @@
+                 local gridEnt = room:GetGridEntity(i)
+                 
+                 if gridEnt then
+-                    if not gridEnt:ToDoor() then
++                    if gridEnt:GetType() ~= GridEntityType.GRID_WALL and gridEnt:GetType() ~= GridEntityType.GRID_DOOR then
+                         room:RemoveGridEntity(i, 0, true)
+                     end
+                 end
+@@ -2303,6 +2309,11 @@
+             end
+         end
+         
++        if ItemVariables.OMINOUS_LANTERN.Hid then
++            ItemVariables.OMINOUS_LANTERN.Hid = false
++            player:FullCharge()
++        end
++        
+         for i, entity in pairs(Isaac.GetRoomEntities()) do
+             if entity.Type == EntityType.ENTITY_TEAR and entity.Variant == Entities.LANTERN_TEAR.variant then
+                 if entity:IsDead() then
+@@ -2481,7 +2492,7 @@
+         if ItemVariables.OMINOUS_LANTERN.Fired == false then
+             ItemVariables.OMINOUS_LANTERN.Fired = true
+             ItemVariables.OMINOUS_LANTERN.Lifted = true
+-            player:FullCharge()
++            ItemVariables.OMINOUS_LANTERN.Hid = true
+             player:AnimateCollectible(ItemId.OMINOUS_LANTERN, "HideItem", "PlayerPickupSparkle")
+         else
+             ItemVariables.OMINOUS_LANTERN.Fired = false
+@@ -2893,7 +2904,7 @@
+ 
+ --<<<THE FORBIDDEN FRUIT>>>--
+ function Exodus:forbiddenFruitCache(player, flag)
+-    if player:HasCollectible(ItemId.FORBIDDEN_FRUIT) and flag == CacheFlag.CACHE_DAMAGE then
++    if flag == CacheFlag.CACHE_DAMAGE then
+         player.Damage = player.Damage + (math.floor((ItemVariables.FORBIDDEN_FRUIT.UseCount^0.7) * 100)) / 101
+     end
+ end
+@@ -3460,7 +3471,7 @@
+     local player = Isaac.GetPlayer(0)
+     
+     if ItemVariables.BIG_SCISSORS.Triggered and rng:RandomInt(3) == 0 then
+-        Isaac.Spawn(EntityType.ENTITY_EFFECT, EffectVariant.PLAYER_CREEP_RED, 3, player.Position, Vector.Zero, player)
++        Isaac.Spawn(EntityType.ENTITY_EFFECT, EffectVariant.PLAYER_CREEP_RED, 3, player.Position, Vector(0, 0), player)
+     end
+ end
+ 
+@@ -3832,7 +3843,10 @@
+     
+     hippo.EntityCollisionClass = EntityCollisionClass.ENTCOLL_ENEMIES
+     hippo.OrbitDistance = Vector(35 + (hippo.State * 15), 35 + (hippo.State * 15))
+-    Exodus:ApplyChildsLeash(hippo)
++    
++    if player:HasTrinket(TrinketType.TRINKET_CHILD_LEASH) then
++        hippo.OrbitDistance = hippo.OrbitDistance / 2
++    end
+     
+     hippo.OrbitSpeed = 0.03
+     hippo.FireCooldown = 32
+@@ -3988,7 +4002,10 @@
+     end
+ 
+     sun.OrbitDistance = Vector(64, 64)
+-    Exodus:ApplyChildsLeash(sun)
++    
++    if player:HasTrinket(TrinketType.TRINKET_CHILD_LEASH) then
++        sun.OrbitDistance = sun.OrbitDistance / 2
++    end
+     
+     sun.OrbitSpeed = 0.02
+ 
+@@ -4034,7 +4051,10 @@
+     end
+ 
+     shadow.OrbitDistance = Vector(64, 64)
+-    Exodus:ApplyChildsLeash(shadow)
++    
++    if player:HasTrinket(TrinketType.TRINKET_CHILD_LEASH) then
++        shadow.OrbitDistance = shadow.OrbitDistance / 2
++    end
+     
+     shadow.OrbitSpeed = 0.02
+ 
+@@ -4231,7 +4251,10 @@
+     end
+ 
+     robo.OrbitDistance = Vector(64, 64)
+-    Exodus:ApplyChildsLeash(robo)
++    
++    if player:HasTrinket(TrinketType.TRINKET_CHILD_LEASH) then
++        robo.OrbitDistance = robo.OrbitDistance / 2
++    end
+     
+     robo.OrbitSpeed = 0.03
+ 
+@@ -4823,7 +4846,11 @@
+                 if entity.SpawnerType == EntityType.ENTITY_PLAYER or entity.SpawnerType == EntityType.ENTITY_FAMILIAR then
+                     if entity.SpawnerType == EntityType.ENTITY_PLAYER or entity.SpawnerVariant == 120 or entity.SpawnerVariant == 80 then
+                         entity.Color = player.TearColor
+-                        entity.Velocity = entity.Velocity - RandomVector()
++                        if entity.FrameCount > 20 then
++                            entity.Velocity = entity.Velocity - RandomVector()
++                        else
++                            entity.Velocity = entity.Velocity - (RandomVector() / 2)
++                        end
+                         
+                         if entity.FrameCount == 1 and player:HasCollectible(CollectibleType.COLLECTIBLE_HIVE_MIND) then
+                             entity.CollisionDamage = entity.CollisionDamage * 2

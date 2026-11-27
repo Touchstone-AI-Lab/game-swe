@@ -1,0 +1,140 @@
+{
+  "version": 1,
+  "base": "references/table-registry",
+  "mutations": [
+    {
+      "id": "delete-permission-removed",
+      "file": "lua/rhenium_prop_registry/server.lua",
+      "old": "if not can_modify(ply, entity, \"delete\") then return false, \"not_owner\", {} end",
+      "new": "if false and not can_modify(ply, entity, \"delete\") then return false, \"not_owner\", {} end",
+      "check": "gmod-integration",
+      "case": "all modification entry points reject non-owner",
+      "expectedLayer": "gmod-integration"
+    },
+    {
+      "id": "client-owner-trusted",
+      "file": "lua/rhenium_prop_registry/server.lua",
+      "old": "if not can_modify(ply, entity, \"delete\") then return false, \"not_owner\", {} end",
+      "new": "if _untrusted_owner_id == nil and not can_modify(ply, entity, \"delete\") then return false, \"not_owner\", {} end",
+      "check": "gmod-integration",
+      "case": "client owner payload cannot override server player",
+      "expectedLayer": "gmod-integration"
+    },
+    {
+      "id": "register-not-deduplicated",
+      "file": "lua/rhenium_prop_registry/registry.lua",
+      "old": "local prior = self:_request(request_id, \"register\", arguments)",
+      "new": "local prior = nil",
+      "check": "hidden-behavior",
+      "case": "register retries are exact and request conflicts fail",
+      "expectedLayer": "hidden-behavior"
+    },
+    {
+      "id": "remove-repeats",
+      "file": "lua/rhenium_prop_registry/registry.lua",
+      "old": "local prior = self:_request(request_id, \"remove\", arguments)",
+      "new": "local prior = nil",
+      "check": "hidden-behavior",
+      "case": "remove retries release quota exactly once",
+      "expectedLayer": "hidden-behavior"
+    },
+    {
+      "id": "entity-removed-not-cleaned",
+      "file": "lua/rhenium_prop_registry/server.lua",
+      "old": "hook.Add(\"EntityRemoved\", hook_prefix .. \".EntityRemoved\", function(entity)\n        local value = entities[entity]",
+      "new": "hook.Add(\"EntityRemoved\", hook_prefix .. \".EntityRemoved\", function(entity)\n        if entity ~= nil then return end\n        local value = entities[entity]",
+      "check": "gmod-integration",
+      "case": "entity removal releases once and revision blocks EntIndex reuse",
+      "expectedLayer": "gmod-integration"
+    },
+    {
+      "id": "disconnect-cleans-immediately",
+      "file": "lua/rhenium_prop_registry/server.lua",
+      "old": "if owner ~= nil then registry:disconnect(owner, CurTime()) end",
+      "new": "if owner ~= nil then registry:disconnect(owner, CurTime()); registry:tick(CurTime() + 5) end",
+      "check": "gmod-integration",
+      "case": "disconnect cleanup and reconnect use real hooks",
+      "expectedLayer": "gmod-integration"
+    },
+    {
+      "id": "reconnect-does-not-cancel",
+      "file": "lua/rhenium_prop_registry/server.lua",
+      "replacements": [
+        {
+          "old": "return registry:reconnect(logical_id, CurTime())",
+          "new": "return true, \"bound\""
+        },
+        {
+          "old": "if owner ~= nil then registry:reconnect(owner, CurTime()) end",
+          "new": "if owner ~= nil then return end"
+        }
+      ],
+      "check": "gmod-integration",
+      "case": "disconnect cleanup and reconnect use real hooks",
+      "expectedLayer": "gmod-integration"
+    },
+    {
+      "id": "shutdown-leaks-hook",
+      "file": "lua/rhenium_prop_registry/server.lua",
+      "old": "    remove_hooks()\n    timer.Remove(timer_name)",
+      "new": "    -- mutation: hooks intentionally retained\n    timer.Remove(timer_name)",
+      "check": "lifecycle-cleanup",
+      "case": "shutdown removes hooks and timer",
+      "expectedLayer": "lifecycle-cleanup"
+    },
+    {
+      "id": "shutdown-leaks-timer",
+      "file": "lua/rhenium_prop_registry/server.lua",
+      "old": "    remove_hooks()\n    timer.Remove(timer_name)",
+      "new": "    remove_hooks()\n    -- mutation: timer intentionally retained",
+      "check": "lifecycle-cleanup",
+      "case": "shutdown removes hooks and timer",
+      "expectedLayer": "lifecycle-cleanup"
+    },
+    {
+      "id": "entindex-is-permanent-identity",
+      "file": "lua/rhenium_prop_registry/server.lua",
+      "old": "local value = { entity_id = entity_id, revision = revision }",
+      "new": "local value = { entity_id = \"entindex:\" .. entity:EntIndex(), revision = revision }",
+      "check": "gmod-integration",
+      "case": "benchmark identity is independent of EntIndex",
+      "expectedLayer": "gmod-integration"
+    },
+    {
+      "id": "quota-not-enforced",
+      "file": "lua/rhenium_prop_registry/registry.lua",
+      "old": "if prospective >= self.max_props then",
+      "new": "if false and prospective >= self.max_props then",
+      "check": "hidden-behavior",
+      "case": "third prop is rejected without replacing state",
+      "expectedLayer": "hidden-behavior"
+    },
+    {
+      "id": "non-public-options-accepted",
+      "file": "lua/rhenium_prop_registry/registry.lua",
+      "old": "if type(options) ~= \"table\" or options.max_props ~= 2 or options.cleanup_delay ~= 5 then",
+      "new": "if type(options) ~= \"table\" or type(options.max_props) ~= \"number\" or type(options.cleanup_delay) ~= \"number\" then",
+      "check": "hidden-behavior",
+      "case": "only the exact public two prop five second options are accepted",
+      "expectedLayer": "hidden-behavior"
+    },
+    {
+      "id": "malformed-state-shape-accepted",
+      "file": "lua/rhenium_prop_registry/registry.lua",
+      "old": "or pending[item.player_id] ~= nil then",
+      "new": "or false then",
+      "check": "hidden-behavior",
+      "case": "malformed saved state is rejected completely",
+      "expectedLayer": "hidden-behavior"
+    },
+    {
+      "id": "invalid-bind-generation-accepted",
+      "file": "lua/rhenium_prop_registry/server.lua",
+      "old": "if not installed or not valid_entity(entity) or not valid_id(entity_id)\n        or not valid_revision(revision) then",
+      "new": "if not installed or not valid_entity(entity) then",
+      "check": "gmod-integration",
+      "case": "entity bindings reject malformed logical identity and revision",
+      "expectedLayer": "gmod-integration"
+    }
+  ]
+}

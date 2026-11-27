@@ -1,0 +1,46 @@
+# Preserve recorded bytes of these versioned Balatro evidence files.
+# Do not normalize history or rewrite historical hashes. Other files retain root rules.
+BRANCH-READINESS-REPORT-v2.md -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
+branch-checks-v2.json -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
+branch-checks-v4.json -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
+branch-orchestration-freeze-v3.json -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
+branch-source-freeze-v2.json -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
+branch-source-freeze-v4.json -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
+delivery-manifest-branch-v2.json -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
+delivery-manifest-native-v1.json -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
+metrics-branch-v2.json -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
+native-source-freeze-v1.json -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
+preservation-branch-v2.json -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
+preservation-native-v1.json -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
+regression-scope-branch-v2.json -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
+runtime-manifest-branch-v2.json -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
+scope-checks-v3.json -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
+source-change-scope-v3.json -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
+validation-branch-v2.json -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
+validation-entry-v1.json -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
+validation-native-v1.json -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
+
+# Linux evidence and pinned resources also retain their validated CRLF bytes.
+# These exact paths keep the normal blank/tab checks; CR is a line terminator.
+runtime/linux/START-DIAGNOSTIC-SOURCE-v1.json -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
+runtime/linux/play_diagnostic_v1/unit.lua -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
+runtime/linux/play_diagnostic_v2/diagnostic.lua -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
+runtime/linux/play_diagnostic_v2/play_diag.json -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
+runtime/linux/play_diagnostic_v2/unit.lua -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
+runtime/linux/save_capability_v1/fixtures/tasks/durable_charge/save_probe_v3/probe.py -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
+runtime/linux/save_capability_v1/provenance.json -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
+runtime/linux/start_diagnostic_v1/start_diag.json -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
+runtime/linux/start_diagnostic_v2/start_diag.json -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
+runtime/linux/start_diagnostic_v3/start_diag.json -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
+runtime/linux/start_diagnostic_v4/start_diag.json -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
+runtime/linux/transport-change-v1/LICENSE-BalatroBot -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
+runtime/linux/transport-change-v1/proposal.json -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
+runtime/linux/transport-change-v1/send-raw-partial-write.patch -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
+runtime/linux/window_profile_unit_v2.lua -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
+runtime/linux/window_profile_v2/window.json -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
+runtime/linux/window_profile_v2/window.lua -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
+src/rhenium_balatro/linux_assets/.gitattributes -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
+src/rhenium_balatro/linux_assets/dependencies-v1.json -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
+src/rhenium_balatro/linux_transport_v1/LICENSE-BalatroBot -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
+src/rhenium_balatro/linux_window_v2/window.json -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
+src/rhenium_balatro/linux_window_v2/window.lua -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol

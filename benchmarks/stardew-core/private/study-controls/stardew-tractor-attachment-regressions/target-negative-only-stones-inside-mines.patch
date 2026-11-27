@@ -1,0 +1,17 @@
+diff --git a/TractorMod/Framework/Attachments/PickaxeAttachment.cs b/TractorMod/Framework/Attachments/PickaxeAttachment.cs
+index c882056..510cd15 100644
+--- a/TractorMod/Framework/Attachments/PickaxeAttachment.cs
++++ b/TractorMod/Framework/Attachments/PickaxeAttachment.cs
+@@ -69,9 +69,10 @@ internal class PickaxeAttachment : BaseAttachment
+         if (this.Config.ClearFlooring && tileFeature is Flooring)
+             return this.UseToolOnTile(tool, tile, player, location);
+ 
+-        // break objects
++        // break objects (stones in the mines are governed by the mine-stones option)
+         bool isMineSpawn = location is MineShaft && tileObj?.IsSpawnedObject == true;
+-        if (this.Config.ClearObjects && tileObj != null && !isMineSpawn && !isBreakableStone)
++        bool isMineStone = location is MineShaft && isBreakableStone;
++        if (this.Config.ClearObjects && tileObj != null && !isMineSpawn && !isMineStone)
+             return this.UseToolOnTile(tool, tile, player, location);
+ 
+         // break mine containers

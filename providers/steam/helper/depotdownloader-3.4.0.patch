@@ -1,0 +1,34 @@
+diff --git a/DepotDownloader/Program.cs b/DepotDownloader/Program.cs
+index 71d2cf0..dba72b3 100644
+--- a/DepotDownloader/Program.cs
++++ b/DepotDownloader/Program.cs
+@@ -36,6 +36,11 @@ namespace DepotDownloader
+ 
+             AccountSettingsStore.LoadFromFile("account.config");
+ 
++            if (args.Length == 1 && args[0] == "jsonl")
++            {
++                return await RheniumProtocol.Run().ConfigureAwait(false);
++            }
++
+             #region Common Options
+ 
+             // Not using HasParameter because it is case insensitive
+diff --git a/DepotDownloader/Steam3Session.cs b/DepotDownloader/Steam3Session.cs
+index 1ca25ea..9a58f2d 100644
+--- a/DepotDownloader/Steam3Session.cs
++++ b/DepotDownloader/Steam3Session.cs
+@@ -702,6 +702,12 @@ namespace DepotDownloader
+ 
+         private static void DisplayQrCode(string challengeUrl)
+         {
++            if (RheniumProtocol.Enabled)
++            {
++                RheniumProtocol.EmitChallenge(challengeUrl);
++                return;
++            }
++
+             // Encode the link as a QR code
+             using var qrGenerator = new QRCodeGenerator();
+             var qrCodeData = qrGenerator.CreateQrCode(challengeUrl, QRCodeGenerator.ECCLevel.L);
+

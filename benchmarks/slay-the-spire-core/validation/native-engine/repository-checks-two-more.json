@@ -1,0 +1,198 @@
+{
+  "tree": "0b226443661dcc5f16c32c846ae66980925fa2ac",
+  "archive_sha256": "0c974f1a06aabe3e93c4403a5c4050f963115cfae6ebf4e30f4f7a57ffa23c00",
+  "lfs_payload_archive_sha256": "84ff92691f909a05b224e1c56abb4864f01b4f8e3c854e4bb4c7baf1d3f6d652",
+  "lfs_hydration": {},
+  "scope": "Git archive automatically hydrated the 24 unchanged LFS image pointers; every native task payload was verified against its frozen manifest.",
+  "canonical_files": 8938,
+  "checks": [
+    {
+      "name": "targeted",
+      "command": [
+        "/var/tmp/codex-sts-01a0c533/two-more-check-venv/bin/pytest",
+        "-q",
+        "tests/test_slay_the_spire_native_assets.py",
+        "tests/test_slay_the_spire_runtime_preparation.py",
+        "plugins/slay-the-spire/tests/test_slay_the_spire_catalog.py::test_real_pack_binds_its_container_tasks_and_lists_the_native_ones"
+      ],
+      "exit": 0,
+      "log_sha256": "0caf379acbcb845c31b98bf4efeffb865a66d527d27d5bb4f34018bea0099078"
+    },
+    {
+      "name": "ruff",
+      "command": [
+        "/var/tmp/codex-sts-01a0c533/two-more-check-venv/bin/ruff",
+        "check",
+        "src",
+        "plugins",
+        "providers",
+        "tests",
+        "tools/authoring",
+        "tools/study",
+        "benchmarks/slay-the-spire-core/private/native-runtime"
+      ],
+      "exit": 0,
+      "log_sha256": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18"
+    },
+    {
+      "name": "mypy",
+      "command": [
+        "/var/tmp/codex-sts-01a0c533/two-more-check-venv/bin/mypy",
+        "src",
+        "plugins",
+        "providers",
+        "tests",
+        "benchmarks/slay-the-spire-core/private/native-runtime"
+      ],
+      "exit": 0,
+      "log_sha256": "2ca750b2e4c411a0619986f3bea93e1d208d2ea1980cf8d32fc0994cfb6a2417"
+    },
+    {
+      "name": "pytest",
+      "command": [
+        "/var/tmp/codex-sts-01a0c533/two-more-check-venv/bin/pytest",
+        "-q",
+        "-rs"
+      ],
+      "exit": 0,
+      "log_sha256": "a69f77220ae6771e189cf3a528dc6e79655e97681d961a4eb1b2fa953410eb0e"
+    }
+  ],
+  "passed": 1537,
+  "skipped": 15,
+  "collected": 1552,
+  "shells": 23,
+  "build_shells": {
+    "validated": true,
+    "rows": [
+      {
+        "script": "benchmarks/slay-the-spire-core/private/harbor/downfall-stasis-lifecycle-r1/environment/project/build.sh",
+        "sha256": "84b5c632da1af36a0ac0813e991b54295f3f478de0b0a970b489dccb3a1bc13f",
+        "bash_exit": 0,
+        "shellcheck_exit": 0,
+        "diagnostics": ""
+      },
+      {
+        "script": "benchmarks/slay-the-spire-core/private/harbor/downfall-socket-flow-r2/environment/project/build.sh",
+        "sha256": "84b5c632da1af36a0ac0813e991b54295f3f478de0b0a970b489dccb3a1bc13f",
+        "bash_exit": 0,
+        "shellcheck_exit": 0,
+        "diagnostics": ""
+      }
+    ]
+  },
+  "fresh_checkout_files": 8938,
+  "web": {
+    "validated": true,
+    "node_version": "v25.2.1",
+    "package_lock_sha256": "81deb996da643310371920aa9613a28cf8ed62d9bfa295c74c02f946fafa392c",
+    "checks": [
+      {
+        "check": "install",
+        "exit": 0,
+        "log_sha256": "278327aa1b7a426c0c667bd84104501c72b3625babfd963ded7fd27960e769c0"
+      },
+      {
+        "check": "lint",
+        "exit": 0,
+        "log_sha256": "810c53224ff4b3bd4e1a7264681f2f852aee55473347b171a08e7cfde48563a0"
+      },
+      {
+        "check": "test",
+        "exit": 0,
+        "log_sha256": "943c563e3ecbdc494f487545047ca3ea955a8cf0fce80e7d0e31ef155f5702ec"
+      },
+      {
+        "check": "build",
+        "exit": 0,
+        "log_sha256": "acc9af9d32e74b2f15dae85cc0f2cebe5bb73a2e867b649113f7adebc83e3bb6"
+      }
+    ],
+    "scope": "Unchanged Web source copied to disposable Windows workspace; npm ci uses the existing lock. No source, dependency lock or repository build output changed."
+  },
+  "wheels": {
+    "validated": true,
+    "wheels": [
+      {
+        "package": "core",
+        "wheel_sha256": "f4f968ae00eae81abb0cd526f496bd83ef4dc9f5da7a468e8ecc283b9abe72f5",
+        "files": 40,
+        "command": [
+          "/mnt/c/Users/11835/Documents/Codex/2026-09-21/new-chat/work/deps/model-harness/uv",
+          "build",
+          "--wheel",
+          "--no-sources",
+          "--python",
+          "/var/tmp/codex-sts-01a0c533/pr14-cpython-3.12.14/bin/python3.12",
+          "--out-dir",
+          "/var/tmp/codex-sts-01a0c533/two-more-wheel-build-r2/dist-core",
+          "/var/tmp/codex-sts-01a0c533/two-more-wheel-build-r2/core"
+        ],
+        "log_sha256": "ed572e1cdcc27943b1616ecb805b79d164f76b21be7900e052f67c7a75d8a0f8"
+      },
+      {
+        "package": "slay-the-spire",
+        "wheel_sha256": "2c8326a48762f00bb2f5ce78f1ba9b0796e15f5a35864779e790b8df05cd2568",
+        "files": 10,
+        "command": [
+          "/mnt/c/Users/11835/Documents/Codex/2026-09-21/new-chat/work/deps/model-harness/uv",
+          "build",
+          "--wheel",
+          "--no-sources",
+          "--python",
+          "/var/tmp/codex-sts-01a0c533/pr14-cpython-3.12.14/bin/python3.12",
+          "--out-dir",
+          "/var/tmp/codex-sts-01a0c533/two-more-wheel-build-r2/dist-slay-the-spire",
+          "/var/tmp/codex-sts-01a0c533/two-more-wheel-build-r2/plugin"
+        ],
+        "log_sha256": "977c537669ffadfe7f37d3d178a9933a64615f9b3ede94029b264a54cc792a8e"
+      }
+    ],
+    "scope": "Clean disposable core and Slay the Spire plugin wheel builds. Source, production Web payloads, entry points, updated core README metadata and absence of private benchmark/runtime payloads verified. Wheels remain local."
+  },
+  "remote_lfs": {
+    "validated": true,
+    "git_paths": 24,
+    "unique_objects": 12,
+    "objects": {
+      "67676f710e243df428ed1cd03a948b6f98642f984775b781c515c749550d5fba": 1593,
+      "8ddc6c584579ad49cd2941f9980f1d26e46eba5bc1ec66c74ae9070e043b6dd3": 667,
+      "fa62f37ca4eb55a72caa2918e10a683a74e4ee306caee554e17a9c9237b3f965": 642,
+      "e78089432cbd1aa2a25bfea8eccaa4c5abfd45568c05d71fcfb792183aaa0b2a": 4051,
+      "cdefe3fb0c93a40fcd489358a5e494ae57879ed6a5694b92cad28e3a9da3e2da": 3612,
+      "e0e14e62d995fcc916ee0bf676edd81659f562a6eeee8b50bcd6f14207b0accc": 3797,
+      "063da4d73fe2cf8ae230e90edde33fdaf1e414a79ab65a25469acc97cad2d637": 3826,
+      "5d5be18f2cde5c2dbbecd4e94d756b9e99f489a7c3e072c1961cedb19e400edd": 3792,
+      "0555b89f458e8ff74c3877d1e78c97c8a583b61fac822ffa1a82eeff1c0f7dbc": 3964,
+      "93b5b8c9de5d0cb9ef6862a74f76d0bae52cdbe7bff28654160824ce4c05294d": 2995,
+      "2710ddefb2ccf665d4e1b3b08d41106a58a0f48c2fe4e30c7d2e2e9961104ec3": 1354,
+      "c8524a7559f41c922588a8c61b2559c2ba0494783f2b8137b1e1d6de825123cf": 4994
+    },
+    "scope": "Fetched unchanged merged LFS objects from origin/main into an empty local cache; every payload matches the Git pointer and measured manifest."
+  },
+  "old_task_assets": {
+    "validated": true,
+    "base": "c944028fd2450b6daf4bbfa888cb6a0295867170",
+    "reviewed_index_tree": "0b226443661dcc5f16c32c846ae66980925fa2ac",
+    "unchanged_old_task_count": 8,
+    "unchanged_git_objects": {
+      "benchmarks/slay-the-spire-core/private/harbor/mts-load-order-regressions": "34a6a3ebc2451807c45226b1d1d5fe06e3161164",
+      "benchmarks/slay-the-spire-core/exams/mts-load-order-regressions.md": "ec59cfd94730569aa9b85335776e23dcfcd62439",
+      "benchmarks/slay-the-spire-core/private/harbor/mts-mod-identity-regressions": "a81960be143296c667b10d01b516673b01a29933",
+      "benchmarks/slay-the-spire-core/exams/mts-mod-identity-regressions.md": "6a8bb54b9bfb56791c16714b49c3bc328754e606",
+      "benchmarks/slay-the-spire-core/private/harbor/mts-loader-internals-regressions": "d6038deeae46681c9d8c76f7307545e6dbfdbf1e",
+      "benchmarks/slay-the-spire-core/exams/mts-loader-internals-regressions.md": "07d024ad7fd1110416299f4041368a131b26dab3",
+      "benchmarks/slay-the-spire-core/private/harbor/basemod-dynamic-descriptions-r2": "636f0803a57927a4f14156b2474111589051325f",
+      "benchmarks/slay-the-spire-core/exams/basemod-dynamic-descriptions-r2.md": "3cac27cf5c67c5dea039ffb877ea0c43431a81bb",
+      "benchmarks/slay-the-spire-core/private/harbor/stslib-block-ledger-r1": "6fe5135ba8830d5a8e8d8564b7a68d8fceb0d3c1",
+      "benchmarks/slay-the-spire-core/exams/stslib-block-ledger-r1.md": "c54073a362c218543c9f2dcf33b7073ee2c85e9c",
+      "benchmarks/slay-the-spire-core/private/harbor/mts-enum-identity-r2": "8c53c7ad1c89b789e5a04e825249fb5b5bdd04bf",
+      "benchmarks/slay-the-spire-core/exams/mts-enum-identity-r2.md": "5dc71cab6fd914b4de9a5943784c53a899baa2e2",
+      "benchmarks/slay-the-spire-core/private/harbor/stslib-icon-layout-r1": "834c708da1626ada6da4cf0eeaf4a87204891c19",
+      "benchmarks/slay-the-spire-core/exams/stslib-icon-layout-r1.md": "96e88750a1d2801f872686a0ded0c6626a790e39",
+      "benchmarks/slay-the-spire-core/private/harbor/downfall-stasis-lifecycle-r1": "a73c339a3162e073eef5af4482abc46c39574bc7",
+      "benchmarks/slay-the-spire-core/exams/downfall-stasis-lifecycle-r1.md": "2f5e5201e182d391cc2a621db72ff2777ebf9b55"
+    }
+  },
+  "source_content_audit_sha256": "2faaaec2a4b5834a6f6500942734b6e2b797d7a6496d79f23901cb49467b41e4"
+}

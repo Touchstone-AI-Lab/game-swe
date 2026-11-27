@@ -1,0 +1,188 @@
+{
+  "task": "slay-the-spire/core/mts-enum-identity-r3",
+  "task_version": "1.8.0",
+  "exam": "benchmarks/slay-the-spire-core/exams/mts-enum-identity-r3.md",
+  "cases": [
+    {
+      "id": "check:submission-shape",
+      "role": "static",
+      "clauses": [],
+      "overlap": false,
+      "note": "source tree present, no symlinks, VCS metadata or compiled artifacts outside build output"
+    },
+    {
+      "id": "case:plain",
+      "role": "preserved",
+      "clauses": [
+        "preserve"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:alias-new",
+      "role": "target",
+      "clauses": [
+        "aliases"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:alias-existing",
+      "role": "target",
+      "clauses": [
+        "aliases"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:cold-add",
+      "role": "preserved",
+      "clauses": [
+        "preserve",
+        "queries"
+      ],
+      "overlap": true,
+      "note": "already passes on the starter; also exercises queries"
+    },
+    {
+      "id": "case:warm-add",
+      "role": "target",
+      "clauses": [
+        "queries"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:warm-replace",
+      "role": "target",
+      "clauses": [
+        "queries"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:warm-delete",
+      "role": "target",
+      "clauses": [
+        "queries"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:warm-undo",
+      "role": "target",
+      "clauses": [
+        "queries"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:game-color",
+      "role": "target",
+      "clauses": [
+        "queries"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:switch-plain",
+      "role": "preserved",
+      "clauses": [
+        "preserve"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:switch-add",
+      "role": "target",
+      "clauses": [
+        "dispatch"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:switch-delete",
+      "role": "target",
+      "clauses": [
+        "dispatch"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:switch-undo",
+      "role": "preserved",
+      "clauses": [
+        "preserve",
+        "dispatch"
+      ],
+      "overlap": true,
+      "note": "already passes on the starter; also exercises dispatch"
+    },
+    {
+      "id": "case:late-switch",
+      "role": "target",
+      "clauses": [
+        "dispatch"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:annotation-copy",
+      "role": "preserved",
+      "clauses": [
+        "preserve"
+      ],
+      "overlap": false,
+      "note": ""
+    }
+  ],
+  "clauses": [
+    {
+      "id": "aliases",
+      "status": "asserted",
+      "note": "",
+      "anchor": "paragraph 1: declarations of the same type and name refer to its one current value and keep an existing native object"
+    },
+    {
+      "id": "queries",
+      "status": "asserted",
+      "note": "",
+      "anchor": "paragraph 2: after an add, replacement, deletion or undo, name lookup, reflective enumeration and new complete enum sets observe the current values, even after earlier use"
+    },
+    {
+      "id": "dispatch",
+      "status": "asserted",
+      "note": "",
+      "anchor": "paragraph 3: switches keep ordinary branches for surviving values and take the default branch for new values, across later edits and undo and for a switch first used after an extension"
+    },
+    {
+      "id": "preserve",
+      "status": "asserted",
+      "note": "",
+      "anchor": "paragraph 3, last sentence: ordinary loading, extension annotations and their metadata, public APIs and unchanged enumeration behavior keep working"
+    },
+    {
+      "id": "no-design",
+      "status": "unasserted",
+      "note": "a freedom, not a requirement; no case depends on a design",
+      "anchor": "paragraph 4: no particular cache, metadata-discovery or state-management design is required"
+    }
+  ],
+  "excluded_clauses": [],
+  "known_issues": [
+    "`check:native-engine` is left out: it is the evaluator's all-or-nothing verdict over the same per-case outcomes, so mapping it would count a preserved-case failure as a target failure.",
+    "Roles come from the 2026-11-02 E0 baseline on the real game: a case the unchanged starter already passes is preserved, every other case is a target. Each case cites the exam paragraph of its private group (aliases, queries, dispatch; controls are preserved)."
+  ]
+}

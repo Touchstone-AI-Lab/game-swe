@@ -1,0 +1,111 @@
+{
+  "validated": true,
+  "matrix_audit_sha256": "49e27a10eda171ec8af6b5a061ed3d4239de125cbf3db3568600bc358c75a05e",
+  "fairness_review_sha256": "4e3a196afa9215d52fd0817ab4fa0abcef0b6455eb84397680c435554dc487a2",
+  "matrix_results": [
+    {
+      "variant": "base",
+      "passed": 6,
+      "expected": 13,
+      "complete": true,
+      "entrypoint_exit": 0,
+      "failed_case_ids": [
+        "back-reselect-escape",
+        "back-reselect-mouse",
+        "cancel-gem-smith-escape",
+        "cancel-gem-smith-guardian",
+        "cancel-gem-smith-mouse",
+        "cancel-socket-escape",
+        "cancel-socket-mouse"
+      ],
+      "matches_prediction": true
+    },
+    {
+      "variant": "gold",
+      "passed": 13,
+      "expected": 13,
+      "complete": true,
+      "entrypoint_exit": 0,
+      "failed_case_ids": [],
+      "matches_prediction": true
+    },
+    {
+      "variant": "alternative",
+      "passed": 13,
+      "expected": 13,
+      "complete": true,
+      "entrypoint_exit": 0,
+      "failed_case_ids": [],
+      "matches_prediction": true
+    },
+    {
+      "variant": "back-only",
+      "passed": 10,
+      "expected": 13,
+      "complete": true,
+      "entrypoint_exit": 0,
+      "failed_case_ids": [
+        "cancel-gem-smith-escape",
+        "cancel-gem-smith-guardian",
+        "cancel-gem-smith-mouse"
+      ],
+      "matches_prediction": true
+    },
+    {
+      "variant": "retirement-only",
+      "passed": 9,
+      "expected": 13,
+      "complete": true,
+      "entrypoint_exit": 0,
+      "failed_case_ids": [
+        "back-reselect-escape",
+        "back-reselect-mouse",
+        "cancel-socket-escape",
+        "cancel-socket-mouse"
+      ],
+      "matches_prediction": true
+    }
+  ],
+  "formal_audit_sha256": "9effeeaca8c2813722a718cf066b3a9ce05c7f89369a00bd9a008870cfb85a92",
+  "formal_controls": [
+    {
+      "agent": "nop",
+      "trial": "downfall-socket-flow-r2__3DimVf5",
+      "passed": 6,
+      "expected": 13,
+      "reward": 0,
+      "verifier_fingerprints": {
+        "test-stdout.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "nonce.txt": "342de21dde21be57fd5749aad8c2483352076a539bc88fe598a3553aace273ae",
+        "engine.log": "d4e8e2b3f85f78ffbc3280e934104946b42c2bb4e44a85a3ddf1e8758e2353ce",
+        "reward.txt": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+        "result.json": "455327a40ff48f0dfc1fda9a8e98584d06efe6f0c833c67ab73f5c5a64826aa8",
+        "probe.txt": "c96ea525b0974b112929f6ff6c56a119e90053b8f71198dda89fbe6520668550",
+        "probe-build.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "entrypoint-exit.txt": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+        "build.log": "026608506dd3be326bd8dc47d72ea9acf6d9405f700007102157db26750c97ca",
+        "build-exit.txt": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+      }
+    },
+    {
+      "agent": "oracle",
+      "trial": "downfall-socket-flow-r2__atKpTKw",
+      "passed": 13,
+      "expected": 13,
+      "reward": 1,
+      "verifier_fingerprints": {
+        "test-stdout.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "nonce.txt": "f196f92732d2f1fb3a82b65fc9157be0e30822605f591f67c79fe4c3762c895a",
+        "engine.log": "68ed6c1e83b8d297d86c2aad18ddc1512b28cc276ca6a9b7d4f8c1be118cfc9a",
+        "reward.txt": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865",
+        "result.json": "3052808655769fdb91bed7fe41285c2b6aa2c115d9e142bf18427ce807c660f6",
+        "probe.txt": "ab650317e8c576ff4b4b09fda24a1c983161e551916f83a47a6e9c165b6a552f",
+        "probe-build.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "entrypoint-exit.txt": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+        "build.log": "026608506dd3be326bd8dc47d72ea9acf6d9405f700007102157db26750c97ca",
+        "build-exit.txt": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+      }
+    }
+  ],
+  "scope": "Historical complete native-runtime controls, including an independently different passing repair. Raw runtime logs remain local; source and receipt hashes identify the frozen evidence."
+}

@@ -1,0 +1,21 @@
+diff -ruN a/vscripts/LinGe/VSLib/timer.nut b/vscripts/LinGe/VSLib/timer.nut
+--- a/vscripts/LinGe/VSLib/timer.nut
++++ b/vscripts/LinGe/VSLib/timer.nut
+@@ -183,7 +183,7 @@
+     foreach (entry in snapshot)
+     {
+         local id = entry[0], timer = entry[1];
+-        if (!(id in timers.TimersList) || timers.TimersList[id] != timer) continue;
++        // omitted stale-entry check
+         if (now - timer._startTime < timer._delay) continue;
+         if (((timer._flags & 4) && timer._opval.count <= 0)
+             || ((timer._flags & 16) && now - timer._baseTime > timer._opval.duration))
+@@ -200,7 +200,7 @@
+             timers.RemoveTimer(id);
+             continue;
+         }
+-        if (!(id in timers.TimersList) || timers.TimersList[id] != timer) continue;
++        // omitted stale-entry check
+         if (timer._repeat) timer._startTime = now;
+         else timers.RemoveTimer(id);
+     }

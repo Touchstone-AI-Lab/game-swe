@@ -1,0 +1,18 @@
+--- a/scripts/components/tradeescrow.lua
++++ b/scripts/components/tradeescrow.lua
+@@ -168,14 +168,7 @@
+     for item, amount in pairs(inventory:GetItemByName(prefab, count)) do
+         local stackable = item.components.stackable
+         local piece
+-        if stackable ~= nil and amount < stackable:StackSize() then
+-            piece = stackable:Get(amount)
+-            if piece.components.inventoryitem ~= nil then
+-                piece.components.inventoryitem:OnRemoved()
+-            end
+-        else
+-            piece = inventory:RemoveItem(item, true)
+-        end
++        piece = inventory:RemoveItem(item, true)
+         if piece ~= nil then
+             pieces[#pieces + 1] = piece
+             taken = taken + amount

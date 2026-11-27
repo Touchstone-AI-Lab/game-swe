@@ -1,0 +1,5 @@
+control	kind	base	overlay	root	note
+tn-incap-unfixed	target-negative	reference	patch:tn-incap-unfixed.patch	l4d2-competitive	reference with the CR-101 repair reverted to the starter code; CR-118 and CR-126 stay repaired
+tn-transition-early-return	target-negative	reference	patch:tn-transition-early-return.patch	l4d2-competitive	reference with map-name resolution moved below the Director IsTransitioning early return (CR-126.5 boundary missed)
+cn-config-reload-resets-managed	compat-negative	reference	patch:cn-config-reload-resets-managed.patch	l4d2-competitive	reference whose OnConfigsExecuted performs the full owned-state reset, discarding managed multipliers and ordinary values on a normal config reload
+alternative-restructured	alternative	starter	patch:alternative-restructured.patch	l4d2-competitive	guard-clause incap flow with explicit release helper; ResolveInstalledMap switch helper; dedicated RestoreOwnedState for the unload forward

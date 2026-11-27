@@ -1,0 +1,489 @@
+{
+  "schema_version": 1,
+  "date_utc": "2026-09-26",
+  "publication_status": "public_and_anonymously_verified",
+  "package_visibility": {
+    "visibility": "public",
+    "checked_at_utc": "2026-09-26T20:06:06.1102771+00:00"
+  },
+  "scope": "Publish the tools-only base and validate explicit local reconstruction of seven frozen native tasks. No benchmark semantics or prior model measurements changed.",
+  "public_tools": {
+    "image": "ghcr.io/changyiyang/swe-game-sts-tools@sha256:5e13b09ceebaf7e61b2bdc50f1080abd014b079a2fbbdea6e902148add9c374e",
+    "image_id": "sha256:fdb61663d93627b8ac534f6b239eb4fd0216666b4dbb982d2756c33812f364f3",
+    "platform": "linux/amd64",
+    "published_tag": "ghcr.io/changyiyang/swe-game-sts-tools:2026-09-26-fdb61663d936",
+    "upstream_base": "maven@sha256:e20e4fc05fb5480c884a1f750c362ed0e91aca15cec5736e12796713710ec9b3",
+    "recipe": "deps/portable/Dockerfile",
+    "contents": "Java 8, Maven, Xvfb and pinned Ubuntu graphics/runtime packages only",
+    "excluded": [
+      "licensed game",
+      "compiled mod SDKs",
+      "task sources",
+      "verifiers",
+      "solutions",
+      "credentials"
+    ],
+    "audit": {
+      "image_id": "sha256:fdb61663d93627b8ac534f6b239eb4fd0216666b4dbb982d2756c33812f364f3",
+      "upstream_base": "maven@sha256:e20e4fc05fb5480c884a1f750c362ed0e91aca15cec5736e12796713710ec9b3",
+      "platform": "linux/amd64",
+      "context_sha256": "a2083d11fe2a846f20ba8387ddaa02d2f9306f3dcc51da0345237d46f939200d",
+      "context_files": 133,
+      "layers_checked": 13,
+      "layer_entries_checked": 16504,
+      "contains_licensed_game": false,
+      "contains_benchmark_or_sdk_payloads": false,
+      "scope": "Built from the pinned public Maven base and checksum-verified Ubuntu package closure. All historical image layers checked, not only the merged filesystem."
+    },
+    "initial_private_anonymous_access_attempt": {
+      "account_credentials_used": false,
+      "http_status": 401,
+      "status": "denied"
+    },
+    "anonymous_download": {
+      "image": "ghcr.io/changyiyang/swe-game-sts-tools@sha256:5e13b09ceebaf7e61b2bdc50f1080abd014b079a2fbbdea6e902148add9c374e",
+      "authentication": "anonymous registry token; no account credentials",
+      "used_local_docker_cache": false,
+      "manifest_sha256_verified": true,
+      "blobs": [
+        {
+          "digest": "sha256:fdb61663d93627b8ac534f6b239eb4fd0216666b4dbb982d2756c33812f364f3",
+          "bytes": 12470
+        },
+        {
+          "digest": "sha256:f90c8eb4724ca5d2a796a06b736e16a72dae1ebb467ed19663c84d7d762d0a91",
+          "bytes": 30586555
+        },
+        {
+          "digest": "sha256:ced9f6a6a78db418463f4b4676ae7de40c0f6ae0b04f795c13869a4e3c839a9c",
+          "bytes": 16969576
+        },
+        {
+          "digest": "sha256:e736d88fb0a15991a9783cf111345608b20d8c5b4a8245db0c577b88085725bc",
+          "bytes": 54721250
+        },
+        {
+          "digest": "sha256:db3bed063255930525fa83fb9863b101a6f85643272d11bbc3eb0fd8ba793047",
+          "bytes": 126
+        },
+        {
+          "digest": "sha256:fde0f084c0fbafc0988e11d8a81a0e5caf2b1a2d7723862aa2a8e3e227830585",
+          "bytes": 2306
+        },
+        {
+          "digest": "sha256:3e6d6db1241c7caa935dadb7f853bd4c3155e60a780adcb9bdc5edc8508c393d",
+          "bytes": 22533681
+        },
+        {
+          "digest": "sha256:04ecbf5554935c2dc61b09dc10e1a42694f00f16cd88fd200ba8fd7a310ba014",
+          "bytes": 9170439
+        },
+        {
+          "digest": "sha256:afc38625ccffd7d8ffb6fe14fc0672b56e56251627be4ba65b87e53c8f016cfe",
+          "bytes": 849
+        },
+        {
+          "digest": "sha256:4f4fb700ef54461cfa02571ae0db9a0dc1e0cdb5577484a6d75e68dc38e8acc1",
+          "bytes": 32
+        },
+        {
+          "digest": "sha256:be23d9ab32c633dc51f033a5bf6eaae4c09a8fc93ef730d2eba4f1e5d81da29b",
+          "bytes": 154
+        },
+        {
+          "digest": "sha256:dc6354b8451d2c545ebfa328d893c0ef35fb99406ee5409983aec1b7bdab7f94",
+          "bytes": 145232865
+        },
+        {
+          "digest": "sha256:a2609f197827efbe7b624b51857c6a146bdb410eae9bb8d1d6ff9f7f6a1b7580",
+          "bytes": 2822
+        },
+        {
+          "digest": "sha256:1a60f9435b14855478185f7de927a50a78e8e9fa3f78bf5ce9271079d798fa66",
+          "bytes": 195911634
+        }
+      ],
+      "total_downloaded_bytes": 475144759
+    },
+    "anonymous_docker_pull": {
+      "image": "ghcr.io/changyiyang/swe-game-sts-tools@sha256:5e13b09ceebaf7e61b2bdc50f1080abd014b079a2fbbdea6e902148add9c374e",
+      "image_id": "sha256:fdb61663d93627b8ac534f6b239eb4fd0216666b4dbb982d2756c33812f364f3",
+      "exit": 0,
+      "account_credentials_used": false,
+      "docker_config_initially_empty": true,
+      "note": "Docker layers may already exist; separate anonymous-download evidence streams every blob from GHCR without a local cache."
+    }
+  },
+  "recipe_manifest_sha256": "2b541e023d3e8688b9e805998914baa5f7f09e0044d016549c71374ff5de7f37",
+  "post_preparation_changes": {
+    "recipe_files": [
+      "README.md"
+    ],
+    "scope": "Documentation only: clarify package visibility and the existing --build-tools fallback. All preparation code and input locks are unchanged from the exercised recipe."
+  },
+  "fresh_preparation": {
+    "command": "python3 benchmarks/slay-the-spire-core/private/native-runtime/prepare.py --game-jar <licensed-jar> --output <fresh-scratch>",
+    "environment": "Python 3.12.14, WSL Ubuntu, Linux amd64 Docker 28.0.4",
+    "recipe_manifest_sha256": "b3c01583fd9cfc98a19b3a3ef04f7ab09245490b7bfe6168cee50af1727938d7",
+    "authenticated_registry_pull_during_preparation": true,
+    "note": "Full preparation ran while the package was private. Public availability is tracked separately by the anonymous download and Docker pull results; it is not inferred from authenticated preparation.",
+    "game_sha256": "cfad868ac8d65a88e71a0bf096fb09f78811e553effe0787c5309a655e081673",
+    "task_count": 7,
+    "local_only_images": [
+      {
+        "task": "basemod-dynamic-descriptions-r2",
+        "agent_image": "sha256:6499014ebcfe8b9ac5b0fa2474555259c6f08064620e421228f616fdccf8088d",
+        "verifier_image": "sha256:405987500a392a1f80f8d1a5f9469404dbadf44e13e97bd1f5fd92792fa7c673"
+      },
+      {
+        "task": "basemod-phase-transitions-r1",
+        "agent_image": "sha256:6499014ebcfe8b9ac5b0fa2474555259c6f08064620e421228f616fdccf8088d",
+        "verifier_image": "sha256:405987500a392a1f80f8d1a5f9469404dbadf44e13e97bd1f5fd92792fa7c673"
+      },
+      {
+        "task": "downfall-socket-flow-r2",
+        "agent_image": "sha256:e54f75c52343d3fc8f72aba91d2891a13c90f30055364ea174a2096835bc2148",
+        "verifier_image": "sha256:21d632d7ebc169099e1af31326b1a6e734e00ec62320c93b70446bc05066a6d5"
+      },
+      {
+        "task": "downfall-stasis-lifecycle-r1",
+        "agent_image": "sha256:e54f75c52343d3fc8f72aba91d2891a13c90f30055364ea174a2096835bc2148",
+        "verifier_image": "sha256:21d632d7ebc169099e1af31326b1a6e734e00ec62320c93b70446bc05066a6d5"
+      },
+      {
+        "task": "mts-enum-identity-r2",
+        "agent_image": "sha256:e7ed1bf0104446f8ee990a3cf9d623deb731ab66537eba22a15c786cce7d5e63",
+        "verifier_image": "sha256:405987500a392a1f80f8d1a5f9469404dbadf44e13e97bd1f5fd92792fa7c673"
+      },
+      {
+        "task": "stslib-block-ledger-r1",
+        "agent_image": "sha256:9150b8dd4aa1119dc562aaa71ed7146999db78c2baab2ca04e93b023f305116d",
+        "verifier_image": "sha256:405987500a392a1f80f8d1a5f9469404dbadf44e13e97bd1f5fd92792fa7c673"
+      },
+      {
+        "task": "stslib-icon-layout-r1",
+        "agent_image": "sha256:9150b8dd4aa1119dc562aaa71ed7146999db78c2baab2ca04e93b023f305116d",
+        "verifier_image": "sha256:405987500a392a1f80f8d1a5f9469404dbadf44e13e97bd1f5fd92792fa7c673"
+      }
+    ]
+  },
+  "source_rebuild_tools_stage": {
+    "snapshot_utc": "20260922T000000Z",
+    "fresh_verified_packages": 130,
+    "downloaded_bytes": 145620608,
+    "package_receipt_sha256": "1e08e5f20914b5231250a62f79bde8a55dff9ec217898e0c258980dbc83ca524",
+    "built_tools_image_id": "sha256:d55bde1a07cdfc35e1fdf54194ca3151054323e3063ee36a0e189a4571a148b1",
+    "scope": "Fresh locked-package downloads and tools-image build passed. Real-engine controls are bound to the GHCR-derived runtime identities recorded separately."
+  },
+  "staged_git_archive": {
+    "staged_tree": "b24898dd4a4693b6dd7da3edaad47c345a154dba",
+    "recipe_manifest_sha256": "b3c01583fd9cfc98a19b3a3ef04f7ab09245490b7bfe6168cee50af1727938d7",
+    "frozen_tasks_verified": [
+      "basemod-dynamic-descriptions-r2",
+      "stslib-block-ledger-r1",
+      "mts-enum-identity-r2",
+      "stslib-icon-layout-r1",
+      "downfall-stasis-lifecycle-r1",
+      "basemod-phase-transitions-r1",
+      "downfall-socket-flow-r2"
+    ],
+    "all_recipe_and_frozen_task_bytes_verified": true
+  },
+  "final_staged_recipe": {
+    "recipe_files_verified_from_index": 27,
+    "recipe_manifest_sha256": "2b541e023d3e8688b9e805998914baa5f7f09e0044d016549c71374ff5de7f37",
+    "frozen_task_and_measurement_files_changed": false,
+    "diff_check": "passed",
+    "changed_file_credential_pattern_check": "passed"
+  },
+  "real_engine_controls": {
+    "harbor_version": "0.23.0",
+    "trials": 14,
+    "errors": 0,
+    "oracle_assertions_passed": 214,
+    "all_nop_failure_sets_match_frozen_controls": true,
+    "all_nonce_bound_probes_rescored": true,
+    "rows": [
+      {
+        "task": "basemod-dynamic-descriptions-r2",
+        "agent": "oracle",
+        "passed": 46,
+        "expected": 46,
+        "reward": 1,
+        "complete": true,
+        "build_exit": 0,
+        "entrypoint_exit": 0,
+        "matches_frozen_expected_failure_set": true,
+        "nonce_bound_probe_sha256": "4cd64a00691d21a49514fef447cdab820bff1f2e595a8ce47c2031a09c48d178",
+        "scored_result_sha256": "98ce5260e72252dedb37a21a923407762eebae2665eef0a38248e94aadcda032"
+      },
+      {
+        "task": "basemod-dynamic-descriptions-r2",
+        "agent": "nop",
+        "passed": 15,
+        "expected": 46,
+        "reward": 0,
+        "complete": true,
+        "build_exit": 0,
+        "entrypoint_exit": 0,
+        "matches_frozen_expected_failure_set": true,
+        "nonce_bound_probe_sha256": "43fe66e1948c7376720a5b0b2646b74a1a58a9ff7846d4aa2edce0f95ff0229b",
+        "scored_result_sha256": "5726d30677d1c18e64e39dc98b9ed3f819fbb1e63cb3dee31cc60d29900b8907"
+      },
+      {
+        "task": "basemod-phase-transitions-r1",
+        "agent": "oracle",
+        "passed": 32,
+        "expected": 32,
+        "reward": 1,
+        "complete": true,
+        "build_exit": 0,
+        "entrypoint_exit": 0,
+        "matches_frozen_expected_failure_set": true,
+        "nonce_bound_probe_sha256": "3cca2c8c2f47ef0900f3e53985cb4868839079ed8c426df0d7fbcd637b7fb9a7",
+        "scored_result_sha256": "69aac98ed285ed7fa5faf33ae8c722b9af9077ade83acfcd693c1c75b306ac7e"
+      },
+      {
+        "task": "basemod-phase-transitions-r1",
+        "agent": "nop",
+        "passed": 13,
+        "expected": 32,
+        "reward": 0,
+        "complete": true,
+        "build_exit": 0,
+        "entrypoint_exit": 0,
+        "matches_frozen_expected_failure_set": true,
+        "nonce_bound_probe_sha256": "a98a7d67fc3128e11cbf7b6e031692dd256174301b1d34726357ae40a655e268",
+        "scored_result_sha256": "9b7de61fc9dd89164e12fd3dffcc42b99d47dc0a88a0ad6e042cc586ee33dede"
+      },
+      {
+        "task": "downfall-socket-flow-r2",
+        "agent": "oracle",
+        "passed": 13,
+        "expected": 13,
+        "reward": 1,
+        "complete": true,
+        "build_exit": 0,
+        "entrypoint_exit": 0,
+        "matches_frozen_expected_failure_set": true,
+        "nonce_bound_probe_sha256": "3836e99ab9e42829ad3c40d5590d6dad97986577b787e0c6dc0e12c989d97828",
+        "scored_result_sha256": "3052808655769fdb91bed7fe41285c2b6aa2c115d9e142bf18427ce807c660f6"
+      },
+      {
+        "task": "downfall-socket-flow-r2",
+        "agent": "nop",
+        "passed": 6,
+        "expected": 13,
+        "reward": 0,
+        "complete": true,
+        "build_exit": 0,
+        "entrypoint_exit": 0,
+        "matches_frozen_expected_failure_set": true,
+        "nonce_bound_probe_sha256": "d35e222d98b9a78f4a0f124ac9ae180b4dc080334c8f3ff2418ccd05cd32c712",
+        "scored_result_sha256": "455327a40ff48f0dfc1fda9a8e98584d06efe6f0c833c67ab73f5c5a64826aa8"
+      },
+      {
+        "task": "downfall-stasis-lifecycle-r1",
+        "agent": "nop",
+        "passed": 19,
+        "expected": 38,
+        "reward": 0,
+        "complete": true,
+        "build_exit": 0,
+        "entrypoint_exit": 0,
+        "matches_frozen_expected_failure_set": true,
+        "nonce_bound_probe_sha256": "649c6de1138c8102281c75671dad1c2bf8a31f8f97b3eb95ae875f02803d7673",
+        "scored_result_sha256": "940cb67cd1aa3244422a97c5d7b733b09a7801a536192310119266bedb614cbc"
+      },
+      {
+        "task": "downfall-stasis-lifecycle-r1",
+        "agent": "oracle",
+        "passed": 38,
+        "expected": 38,
+        "reward": 1,
+        "complete": true,
+        "build_exit": 0,
+        "entrypoint_exit": 0,
+        "matches_frozen_expected_failure_set": true,
+        "nonce_bound_probe_sha256": "92fa0de0f47972326ab367445377e50fa6b4dc561f7cdf677ae39b00c56e43d1",
+        "scored_result_sha256": "dcd886a916d490033962f1c4eb50a3cb368760675f5eac116ef4f35a695f346b"
+      },
+      {
+        "task": "mts-enum-identity-r2",
+        "agent": "oracle",
+        "passed": 15,
+        "expected": 15,
+        "reward": 1,
+        "complete": true,
+        "build_exit": 0,
+        "entrypoint_exit": 0,
+        "matches_frozen_expected_failure_set": true,
+        "nonce_bound_probe_sha256": "bab060a157d414a19b7d2be06d251b9ca47dd709ca9c92be969d806b088718ef",
+        "scored_result_sha256": "165d7672296861b1405f78c187cb1e00c839d98219983a7824548d3d9fd708e5"
+      },
+      {
+        "task": "mts-enum-identity-r2",
+        "agent": "nop",
+        "passed": 5,
+        "expected": 15,
+        "reward": 0,
+        "complete": true,
+        "build_exit": 0,
+        "entrypoint_exit": 0,
+        "matches_frozen_expected_failure_set": true,
+        "nonce_bound_probe_sha256": "be3f7cd95d55828762fdff7ace5f754333cbb487f31b099d114f534697236bef",
+        "scored_result_sha256": "0c718e5e80b428e99dae5ced67d125513c8db41e7fd0c6b29f19600fec6e1bfb"
+      },
+      {
+        "task": "stslib-block-ledger-r1",
+        "agent": "oracle",
+        "passed": 27,
+        "expected": 27,
+        "reward": 1,
+        "complete": true,
+        "build_exit": 0,
+        "entrypoint_exit": 0,
+        "matches_frozen_expected_failure_set": true,
+        "nonce_bound_probe_sha256": "0cb47200ef88ab9b5d5b76610fb1883e21eba14728a3c0b170d86a10b9b15f66",
+        "scored_result_sha256": "bf3066cd3a8432d09423dfe8992a2534fd760c4898811ec5b82e2393f1a31e1e"
+      },
+      {
+        "task": "stslib-block-ledger-r1",
+        "agent": "nop",
+        "passed": 7,
+        "expected": 27,
+        "reward": 0,
+        "complete": true,
+        "build_exit": 0,
+        "entrypoint_exit": 0,
+        "matches_frozen_expected_failure_set": true,
+        "nonce_bound_probe_sha256": "72acbc314123c10427c70cb0cb0474b9baf204bd2b6d0c91fa7c7bd88bcfc088",
+        "scored_result_sha256": "7533ed577e8ed67a3eb372229084c7e784e62512f21b0724b5ceda77075be57e"
+      },
+      {
+        "task": "stslib-icon-layout-r1",
+        "agent": "nop",
+        "passed": 19,
+        "expected": 43,
+        "reward": 0,
+        "complete": true,
+        "build_exit": 0,
+        "entrypoint_exit": 0,
+        "matches_frozen_expected_failure_set": true,
+        "nonce_bound_probe_sha256": "360f6643d24c5678c46c3766a33a831041c86c2bab23cf2c960af6c78056c839",
+        "scored_result_sha256": "3c3ac9e1b1f3297f9ef10db155f7d7afcd2687dd364ca64a20e8b68a7ebcd74c"
+      },
+      {
+        "task": "stslib-icon-layout-r1",
+        "agent": "oracle",
+        "passed": 43,
+        "expected": 43,
+        "reward": 1,
+        "complete": true,
+        "build_exit": 0,
+        "entrypoint_exit": 0,
+        "matches_frozen_expected_failure_set": true,
+        "nonce_bound_probe_sha256": "248804352ce95c8eeb5720adbe3e6c246d52e1f44a8081cff39ff4866f51cbce",
+        "scored_result_sha256": "8d28d486ed9ef060add461264c93f5fe2ce8f983111b06b210ac22f55b68b7e4"
+      }
+    ]
+  },
+  "repository_checks": {
+    "pytest": {
+      "passed": 1944,
+      "skipped": 16,
+      "warnings": 1,
+      "skips": {
+        "unavailable_dst_runtime": 3,
+        "native_windows_balatro_on_linux": 7,
+        "macos_sandbox_on_linux": 1,
+        "unavailable_native_gmod_and_audit_gates": 4,
+        "unavailable_palworld_runtime": 1
+      },
+      "warning": "Existing Starlette httpx deprecation",
+      "log_sha256": "5b105ed67ac853e10eb857b160bb851ccde57b916135bd065043b955742d360a"
+    },
+    "ruff": "passed; core, plugins, providers, tests, authoring/study tools and native-runtime scripts",
+    "mypy": "passed; 334 source files, including authoring/study source and native-runtime scripts",
+    "web": [
+      {
+        "name": "lint",
+        "exit": 0
+      },
+      {
+        "name": "test",
+        "exit": 0
+      },
+      {
+        "name": "build",
+        "exit": 0
+      }
+    ],
+    "shellcheck_and_bash_syntax": "passed; all eight shell entrypoints required by AGENTS.md",
+    "git_diff_check": "passed",
+    "post_documentation_targeted_pytest": {
+      "passed": 31,
+      "failed": 0,
+      "skipped": 0
+    }
+  },
+  "source_rebuild_preparation": {
+    "exit": 0,
+    "used_ghcr": false,
+    "registry_account_credentials_used": false,
+    "docker_config_initially_empty": true,
+    "prepared_tasks": [
+      "basemod-dynamic-descriptions-r2",
+      "basemod-phase-transitions-r1",
+      "downfall-socket-flow-r2",
+      "downfall-stasis-lifecycle-r1",
+      "mts-enum-identity-r2",
+      "stslib-block-ledger-r1",
+      "stslib-icon-layout-r1"
+    ],
+    "tools_image_id": "sha256:d55bde1a07cdfc35e1fdf54194ca3151054323e3063ee36a0e189a4571a148b1",
+    "recipe_manifest_sha256": "2b541e023d3e8688b9e805998914baa5f7f09e0044d016549c71374ff5de7f37",
+    "command": "python3 benchmarks/slay-the-spire-core/private/native-runtime/prepare.py --game-jar <licensed-jar> --output <fresh-scratch> --build-tools",
+    "fresh_verified_packages": 130,
+    "downloaded_package_bytes": 145620608,
+    "game_sha256": "cfad868ac8d65a88e71a0bf096fb09f78811e553effe0787c5309a655e081673",
+    "local_only_images": [
+      {
+        "task": "basemod-dynamic-descriptions-r2",
+        "agent_image": "sha256:2883c4a93036104ee757e5f36641176fbf4f275ffd39b175c60dc207eb464a30",
+        "verifier_image": "sha256:3906f3f73e4bad7ca93433a846b94f1fd21ef38cecf60aba0c59faf35f576bf8"
+      },
+      {
+        "task": "basemod-phase-transitions-r1",
+        "agent_image": "sha256:2883c4a93036104ee757e5f36641176fbf4f275ffd39b175c60dc207eb464a30",
+        "verifier_image": "sha256:3906f3f73e4bad7ca93433a846b94f1fd21ef38cecf60aba0c59faf35f576bf8"
+      },
+      {
+        "task": "downfall-socket-flow-r2",
+        "agent_image": "sha256:727f06c68d3e76de3f45ba0cebac10d7833e51766cea09efa3eab2e684e4c2b1",
+        "verifier_image": "sha256:764e43cf5412d6408f0c5defcde78c12fffcc4273133efec8d8a0a4a3e20636f"
+      },
+      {
+        "task": "downfall-stasis-lifecycle-r1",
+        "agent_image": "sha256:727f06c68d3e76de3f45ba0cebac10d7833e51766cea09efa3eab2e684e4c2b1",
+        "verifier_image": "sha256:764e43cf5412d6408f0c5defcde78c12fffcc4273133efec8d8a0a4a3e20636f"
+      },
+      {
+        "task": "mts-enum-identity-r2",
+        "agent_image": "sha256:9f35674fdef71864074924b2419ce4769bb0efe393c55ceb68b030fd37bc13cb",
+        "verifier_image": "sha256:3906f3f73e4bad7ca93433a846b94f1fd21ef38cecf60aba0c59faf35f576bf8"
+      },
+      {
+        "task": "stslib-block-ledger-r1",
+        "agent_image": "sha256:2072de401dc1c8a127acabbef5926e8d5d663a75cbbe5c743c5d92459ea5f8fc",
+        "verifier_image": "sha256:3906f3f73e4bad7ca93433a846b94f1fd21ef38cecf60aba0c59faf35f576bf8"
+      },
+      {
+        "task": "stslib-icon-layout-r1",
+        "agent_image": "sha256:2072de401dc1c8a127acabbef5926e8d5d663a75cbbe5c743c5d92459ea5f8fc",
+        "verifier_image": "sha256:3906f3f73e4bad7ca93433a846b94f1fd21ef38cecf60aba0c59faf35f576bf8"
+      }
+    ],
+    "scope": "Complete source-rebuild preparation produced all seven execution copies without GHCR access. The fourteen real-engine controls in this report used the GHCR-derived runtimes; they were not repeated for these newly built local identities."
+  }
+}

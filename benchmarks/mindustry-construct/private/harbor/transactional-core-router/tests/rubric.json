@@ -1,0 +1,15 @@
+{"cases":[
+  {"name":"checkpoint precedes mutation","category":"core","maximum":5},
+  {"name":"add failure compensates destination first","category":"fault-injection","maximum":5},
+  {"name":"compensation failure remains recoverable","category":"fault-injection","maximum":5},
+  {"name":"duplicate request performs no operations","category":"core","maximum":5},
+  {"name":"source-removed state recovers once","category":"recovery","maximum":5},
+  {"name":"malformed request does not mutate","category":"validation","maximum":5},
+  {"name":"real building transfer","category":"integration","maximum":8},
+  {"name":"duplicate request is idempotent","category":"integration","maximum":5},
+  {"name":"insufficient stock is rejected","category":"integration","maximum":3},
+  {"name":"different teams are rejected","category":"integration","maximum":3},
+  {"name":"unknown item is rejected","category":"integration","maximum":3},
+  {"name":"destroyed storage is rejected","category":"integration","maximum":3},
+  {"name":"custom save chunk reload","category":"persistence","maximum":15}
+]}

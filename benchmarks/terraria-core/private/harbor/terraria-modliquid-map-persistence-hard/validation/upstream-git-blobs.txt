@@ -1,0 +1,11 @@
+# Git blob IDs from ModLiquid Library revision 282498893150b53d2e52efe26be0813aa8c8e193
+4f0b5ad57389828564def699a278b67339d88d94  Hooks/MapHelperHooks.cs
+7206ea94e6d24f4ac41fdf10aaa0f98dba1bc7e4  Hooks/MapLoaderHooks.cs
+ffbad2d1ca8547910a10709d4a16cdb7aab815cd  Hooks/WorldMapHooks.cs
+4760cf619e08f348e716ef5f07f6b65dc92d9882  IO/MapLiquidIO.cs
+7c0afcae590c25786957e1255c21bff4afc024ec  ModLoader/MapEntry.cs
+4ff1e67d0ca4bf6b0292ecb52a9f90538166338b  ModLoader/MapLiquidLoader.cs
+56fe9d01e9b14865f9703a9c96a9672e91b80aff  LICENSE.md
+2572a181ffbdb8f4e4262e34a2d862525b5c11f1  build.txt
+
+# Starter content is preserved with repository-required LF normalization.

@@ -1,0 +1,302 @@
+diff -ruN a/addons/sourcemod/scripting/l4d2_hybrid_scoremod_zone.sp b/addons/sourcemod/scripting/l4d2_hybrid_scoremod_zone.sp
+--- a/addons/sourcemod/scripting/l4d2_hybrid_scoremod_zone.sp
++++ b/addons/sourcemod/scripting/l4d2_hybrid_scoremod_zone.sp
+@@ -44,6 +44,11 @@
+ new iSiDamage[2];
+ 
+ new String:sSurvivorState[2][32];
++
++new iOriginalSurvivalBonus, iOriginalTieBonus;
++new iLedgeDebt[MAXPLAYERS + 1], iLedgeEpisode[MAXPLAYERS + 1];
++new bool:iLedgeActive[MAXPLAYERS + 1];
++new iRoundEpoch;
+ 
+ new bool:bLateLoad;
+ new bool:bRoundOver;
+@@ -81,9 +86,14 @@
+ 	
+ 	hCvarValveSurvivalBonus = FindConVar("vs_survival_bonus");
+ 	hCvarValveTieBreaker = FindConVar("vs_tiebreak_bonus");
++    iOriginalSurvivalBonus = GetConVarInt(hCvarValveSurvivalBonus);
++    iOriginalTieBonus = GetConVarInt(hCvarValveTieBreaker);
+ 
+ 	HookConVarChange(hCvarBonusPerSurvivorMultiplier, CvarChanged);
+ 	HookConVarChange(hCvarPermanentHealthProportion, CvarChanged);
++    HookConVarChange(hCvarPillsHpFactor, CvarChanged);
++    HookConVarChange(hCvarPillsMaxBonus, CvarChanged);
++    HookConVarChange(FindConVar("survivor_limit"), CvarChanged);
+ 
+ 	HookEvent("round_start", RoundStartEvent, EventHookMode_PostNoCopy);
+ 	HookEvent("player_ledge_grab", OnPlayerLedgeGrab);
+@@ -91,6 +101,7 @@
+ 	HookEvent("player_hurt", OnPlayerHurt);
+ 	HookEvent("revive_success", OnPlayerRevived, EventHookMode_Post);
+ 	HookEvent("player_death", OnPlayerDeath);
++    HookEvent("player_team", OnPlayerTeam);
+ 
+ 	RegConsoleCmd("sm_health", CmdBonus);
+ 	RegConsoleCmd("sm_damage", CmdBonus);
+@@ -111,27 +122,42 @@
+ 
+ public OnPluginEnd()
+ {
+-	ResetConVar(hCvarValveSurvivalBonus);
+-	ResetConVar(hCvarValveTieBreaker);
++	SetConVarInt(hCvarValveSurvivalBonus, iOriginalSurvivalBonus);
++	SetConVarInt(hCvarValveTieBreaker, iOriginalTieBonus);
+ }
+ 
+ public OnConfigsExecuted()
+ {
+ 	iTeamSize = GetConVarInt(FindConVar("survivor_limit"));
++    if (iTeamSize < 1) iTeamSize = 1;
+ 	SetConVarInt(hCvarValveTieBreaker, 0);
+ 
+ 	iMapDistance = L4D2_GetMapValueInt("max_distance", L4D_GetVersusMaxCompletionScore());
+ 	L4D_SetVersusMaxCompletionScore(iMapDistance);
+ 
+-	new Float:fPermHealthProportion = GetConVarFloat(hCvarPermanentHealthProportion);
+-	new Float:fTempHealthProportion = 1.0 - fPermHealthProportion;
+-	fMapBonus = iMapDistance * (GetConVarFloat(hCvarBonusPerSurvivorMultiplier) * iTeamSize);
+-	fMapHealthBonus = fMapBonus * fPermHealthProportion;
+-	fMapDamageBonus = fMapBonus * fTempHealthProportion;
+-	fMapTempHealthBonus = iTeamSize * 100/* HP */ / fPermHealthProportion * fTempHealthProportion;
+-	fPermHpWorth = fMapBonus / iTeamSize / 100 * fPermHealthProportion;
+-	fTempHpWorth = fMapBonus * fTempHealthProportion / fMapTempHealthBonus; // this should be almost equal to the perm hp worth, but for accuracy we'll keep it separate
+-	iPillWorth = L4D2Util_Clamp(RoundToNearest(50 * (fPermHpWorth / GetConVarFloat(hCvarPillsHpFactor)) / 5) * 5, 5, GetConVarInt(hCvarPillsMaxBonus)); // make it pretty
++    new Float:fPermHealthProportion = GetConVarFloat(hCvarPermanentHealthProportion);
++    if (fPermHealthProportion < 0.0) fPermHealthProportion = 0.0;
++    if (fPermHealthProportion > 1.0) fPermHealthProportion = 1.0;
++    new Float:fTempHealthProportion = 1.0 - fPermHealthProportion;
++    new Float:multiplier = GetConVarFloat(hCvarBonusPerSurvivorMultiplier);
++    if (multiplier < 0.0) multiplier = 0.0;
++    fMapBonus = iMapDistance * multiplier * iTeamSize;
++    if (fMapBonus < 0.0) fMapBonus = 0.0;
++    fMapHealthBonus = fMapBonus * fPermHealthProportion;
++    fMapDamageBonus = fMapBonus * fTempHealthProportion;
++    fMapTempHealthBonus = fPermHealthProportion == 0.0 ? float(iTeamSize * 100)
++        : iTeamSize * 100.0 / fPermHealthProportion * fTempHealthProportion;
++    fPermHpWorth = fMapHealthBonus / iTeamSize / 100.0;
++    fTempHpWorth = fMapTempHealthBonus > 0.0 ? fMapDamageBonus / fMapTempHealthBonus : 0.0;
++    new Float:factor = GetConVarFloat(hCvarPillsHpFactor);
++    new cap = GetConVarInt(hCvarPillsMaxBonus);
++    iPillWorth = 0;
++    if (factor > 0.0 && cap > 0 && fMapBonus > 0.0)
++    {
++        iPillWorth = RoundToNearest(50.0 * (fPermHpWorth / factor) / 5.0) * 5;
++        if (iPillWorth < 5) iPillWorth = 5;
++        if (iPillWorth > cap) iPillWorth = cap;
++    }
+ #if SM2_DEBUG
+ 	PrintToChatAll("\x01Map health bonus: \x05%.1f\x01, temp health bonus: \x05%.1f\x01, perm hp worth: \x03%.1f\x01, temp hp worth: \x03%.1f\x01, pill worth: \x03%i\x01", fMapBonus, fMapTempHealthBonus, fPermHpWorth, fTempHpWorth, iPillWorth);
+ #endif
+@@ -162,6 +188,10 @@
+ 
+ public OnClientDisconnect(client)
+ {
++    iTempHealth[client] = 0;
++    iLedgeDebt[client] = 0;
++    iLedgeActive[client] = false;
++    iLedgeEpisode[client]++;
+ 	SDKUnhook(client, SDKHook_OnTakeDamage, OnTakeDamage);
+ 	SDKUnhook(client, SDKHook_OnTakeDamagePost, OnTakeDamagePost);
+ }
+@@ -170,9 +200,17 @@
+ {
+ 	for (new i = 0; i <= MAXPLAYERS; i++)
+ 	{
+-		iTempHealth[i] = 0;
+-	}
+-	bRoundOver = false;
++        iTempHealth[i] = 0;
++        iLedgeDebt[i] = 0;
++        iLedgeActive[i] = false;
++        iLedgeEpisode[i]++;
++    }
++    iRoundEpoch++;
++    int half = InSecondHalfOfRound();
++    iLostTempHealth[half] = 0;
++    iSiDamage[half] = 0;
++    bTiebreakerEligibility[half] = false;
++    bRoundOver = false;
+ }
+ 
+ int Native_GetHealthBonus(Handle:plugin, numParams)
+@@ -267,7 +305,7 @@
+ 
+ Action:OnTakeDamage(victim, &attacker, &inflictor, &Float:damage, &damagetype)
+ {
+-	if (!IsSurvivor(victim) || IsPlayerIncap(victim)) return Plugin_Continue;
++	if (bRoundOver || !IsSurvivor(victim) || IsPlayerIncap(victim)) return Plugin_Continue;
+ 
+ #if SM2_DEBUG
+ 	if (GetSurvivorTemporaryHealth(victim) > 0) PrintToChatAll("\x04%N\x01 has \x05%d\x01 temp HP now(damage: \x03%.1f\x01)", victim, GetSurvivorTemporaryHealth(victim), damage);
+@@ -282,17 +320,42 @@
+ 
+ void OnPlayerLedgeGrab(Handle:event, const String:name[], bool:dontBroadcast)
+ {
+-	new client = GetClientOfUserId(GetEventInt(event, "userid"));
+-	iLostTempHealth[InSecondHalfOfRound()] += L4D2Direct_GetPreIncapHealthBuffer(client);
++    int client = GetClientOfUserId(GetEventInt(event, "userid"));
++    if (bRoundOver || !IsSurvivor(client) || !IsPlayerAlive(client) || !IsPlayerLedged(client)) return;
++    if (iLedgeActive[client]) return;
++    iLedgeActive[client] = true;
++    int debit = L4D2Direct_GetPreIncapHealthBuffer(client);
++    if (debit < 0) debit = 0;
++    iLedgeDebt[client] = debit;
++    iLedgeEpisode[client]++;
++    iLostTempHealth[InSecondHalfOfRound()] += debit;
++}
++
++void OnPlayerTeam(Event event, const char[] name, bool dontBroadcast)
++{
++    int client = GetClientOfUserId(event.GetInt("userid"));
++    if (client > 0 && event.GetInt("team") != event.GetInt("oldteam"))
++    {
++        iLedgeEpisode[client]++;
++        iLedgeDebt[client] = 0;
++        iLedgeActive[client] = false;
++        iTempHealth[client] = 0;
++    }
+ }
+ 
+ void OnPlayerDeath(Event hEvent, const char[] sEventName, bool bDontBroadcast)
+ {
+ 	int victim = GetClientOfUserId(hEvent.GetInt("userid"));
++    if (victim > 0)
++    {
++        iLedgeEpisode[victim]++;
++        iLedgeDebt[victim] = 0;
++        iLedgeActive[victim] = false;
++    }
+ 	if (IsSurvivor(victim) && !bRoundOver)
+ 	{
+ 		int incaps = GetEntProp(victim, Prop_Send, "m_currentReviveCount");
+-		int standardPenalty = RoundToFloor((fMapDamageBonus / 100.0) * 5.0 / fTempHpWorth);
++		int standardPenalty = (fTempHpWorth > 0.0 ? RoundToFloor((fMapDamageBonus / 100.0) * 5.0 / fTempHpWorth) : 0);
+ 		int penalty = 0;
+ 
+ 		for (int loops = 2 - incaps; loops > 0; loops--)
+@@ -311,30 +374,44 @@
+ void OnPlayerIncapped(Handle:event, const String:name[], bool:dontBroadcast)
+ {
+ 	new client = GetClientOfUserId(GetEventInt(event, "userid"));
+-	if (IsSurvivor(client))
+-	{
+-		iLostTempHealth[InSecondHalfOfRound()] += RoundToFloor((fMapDamageBonus / 100.0) * 5.0 / fTempHpWorth);
++	if (!bRoundOver && IsSurvivor(client))
++	{
++		iLostTempHealth[InSecondHalfOfRound()] += (fTempHpWorth > 0.0 ? RoundToFloor((fMapDamageBonus / 100.0) * 5.0 / fTempHpWorth) : 0);
+ 	} 
+ }
+ 
+ void OnPlayerRevived(Handle:event, const String:name[], bool:dontBroadcast)
+ {
+-	bool bLedge = GetEventBool(event, "ledge_hang");
+-	if (!bLedge) {
+-		return;
+-	}
+-	
+-	int client = GetClientOfUserId(GetEventInt(event, "subject"));
+-	if (!IsSurvivor(client)) {
+-		return;
+-	}
+-	
+-	RequestFrame(Revival, client);
+-}
+-
+-void Revival(int client)
+-{
+-	iLostTempHealth[InSecondHalfOfRound()] -= GetSurvivorTemporaryHealth(client);
++    if (bRoundOver || !GetEventBool(event, "ledge_hang")) return;
++    int client = GetClientOfUserId(GetEventInt(event, "subject"));
++    if (!IsSurvivor(client) || !iLedgeActive[client]) return;
++    iLedgeActive[client] = false;
++    if (iLedgeDebt[client] <= 0) return;
++    DataPack pending = new DataPack();
++    pending.WriteCell(GetClientUserId(client));
++    pending.WriteCell(iRoundEpoch);
++    pending.WriteCell(InSecondHalfOfRound());
++    pending.WriteCell(iLedgeEpisode[client]);
++    pending.WriteCell(iLedgeDebt[client]);
++    iLedgeDebt[client] = 0;
++    RequestFrame(Revival, pending);
++}
++
++void Revival(any data)
++{
++    DataPack pending = view_as<DataPack>(data);
++    pending.Reset();
++    int client = GetClientOfUserId(pending.ReadCell());
++    int epoch = pending.ReadCell(), half = pending.ReadCell();
++    int episode = pending.ReadCell(), debit = pending.ReadCell();
++    delete pending;
++    if (bRoundOver || epoch != iRoundEpoch || half != InSecondHalfOfRound()
++        || !IsSurvivor(client) || IsClientInKickQueue(client) || !IsPlayerAlive(client) || IsPlayerIncap(client)
++        || IsPlayerLedged(client) || episode != iLedgeEpisode[client]) return;
++    int available = GetSurvivorTemporaryHealth(client);
++    int ceiling = debit < iLostTempHealth[half] ? debit : iLostTempHealth[half];
++    int refund = available < ceiling ? available : ceiling;
++    iLostTempHealth[half] -= refund;
+ }
+ 
+ Action:OnPlayerHurt(Handle:event, const String:name[], bool:dontBroadcast) 
+@@ -351,7 +428,7 @@
+ 	// Player can't be Incapped.
+ 	// Damage has to be from manipulated Shotgun FF. (Plasma)
+ 	// Damage has to be higher than the Survivor's permanent health.
+-	if (!IsSurvivor(victim) || !IsSurvivor(attacker) || IsPlayerIncap(victim) || damagetype != DMG_PLASMA || fFakeDamage < GetSurvivorPermanentHealth(victim)) return Plugin_Continue;
++	if (bRoundOver || !IsSurvivor(victim) || !IsSurvivor(attacker) || IsPlayerIncap(victim) || damagetype != DMG_PLASMA || fFakeDamage < GetSurvivorPermanentHealth(victim)) return Plugin_Continue;
+ 
+ 	iTempHealth[victim] = GetSurvivorTemporaryHealth(victim);
+ 	if (fFakeDamage > iTempHealth[victim]) fFakeDamage = iTempHealth[victim];
+@@ -364,7 +441,7 @@
+ 
+ void OnTakeDamagePost(victim, attacker, inflictor, Float:damage, damagetype)
+ {
+-	if (!IsSurvivor(victim)) return;
++	if (bRoundOver || !IsSurvivor(victim)) return;
+ 		
+ #if SM2_DEBUG
+ 	PrintToChatAll("\x03%N\x01\x05 lost %i\x01 temp HP after being attacked(arg damage: \x03%.1f\x01)", victim, iTempHealth[victim] - (IsPlayerAlive(victim) ? GetSurvivorTemporaryHealth(victim) : 0), damage);
+@@ -384,8 +461,10 @@
+ // This plugin(i.e. Scoremod2) will work ideally fine with or without the aforementioned plugin
+ public L4D2_ADM_OnTemporaryHealthSubtracted(client, oldHealth, newHealth)
+ {
+-	new healthLost = oldHealth - newHealth;
+-	iTempHealth[client] = newHealth;
++    if (bRoundOver || !IsSurvivor(client) || !IsPlayerAlive(client) || IsPlayerIncap(client) || IsPlayerLedged(client)) return;
++    int healthLost = (oldHealth > 0 ? oldHealth : 0) - (newHealth > 0 ? newHealth : 0);
++    if (healthLost <= 0) return;
++    iTempHealth[client] = newHealth > 0 ? newHealth : 0;
+ 	iLostTempHealth[InSecondHalfOfRound()] += healthLost;
+ 	iSiDamage[InSecondHalfOfRound()] += healthLost; // this forward doesn't fire for ledged/incapped survivors so we're good
+ }
+@@ -501,7 +580,7 @@
+ 		if (IsSurvivor(i))
+ 		{
+ 			survivorCount++;
+-			if (IsPlayerAlive(i) && !IsPlayerIncap(i) && HasPills(i))
++			if (IsPlayerAlive(i) && !IsPlayerIncap(i) && !IsPlayerLedged(i) && HasPills(i))
+ 			{
+ 				pillsBonus += iPillWorth;
+ 			#if SM2_DEBUG
+@@ -515,7 +594,8 @@
+ 
+ Float:CalculateBonusPercent(Float:score, Float:maxbonus = -1.0)
+ {
+-	return score / (maxbonus == -1.0 ? (fMapBonus + float(iPillWorth * iTeamSize)) : maxbonus) * 100;
++	new Float:denominator = maxbonus == -1.0 ? (fMapBonus + float(iPillWorth * iTeamSize)) : maxbonus;
++    return denominator > 0.0 ? score / denominator * 100.0 : 0.0;
+ }
+ 
+ /************/
+@@ -573,7 +653,7 @@
+ 			if (IsPlayerAlive(i))
+ 				aliveCount++;
+ 
+-			if (!IsPlayerIncap(i) && !IsPlayerLedged(i))
++			if (IsPlayerAlive(i) && !IsPlayerIncap(i) && !IsPlayerLedged(i))
+ 				uprightCount++;
+ 		}
+ 	}

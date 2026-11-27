@@ -1,0 +1,774 @@
+{
+  "task": "left-4-dead-2/core/l4d2-mutant-tanks-release-regressions-hard",
+  "task_version": "1.0.0",
+  "exam": "benchmarks/l4d2-core/exams/l4d2-mutant-tanks-release-regressions-hard.md",
+  "cases": [
+    {
+      "id": "case:runtime_core_loaded",
+      "role": "runtime-sentinel",
+      "clauses": [
+        "Task-preserve-identity"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:runtime_primary_ability_module_loaded",
+      "role": "runtime-sentinel",
+      "clauses": [
+        "Task-preserve-identity"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:runtime_warp_module_loaded",
+      "role": "runtime-sentinel",
+      "clauses": [
+        "Task-preserve-identity"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:config_reload_dispatches_callbacks",
+      "role": "preserved",
+      "clauses": [
+        "R1.1"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:config_forward_preserves_basic_arguments",
+      "role": "preserved",
+      "clauses": [
+        "R1.2",
+        "R1.4",
+        "Task-preserve-api"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:config_forward_preserves_special_context",
+      "role": "target",
+      "clauses": [
+        "R1.3"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:health_smoker_mutation_completes",
+      "role": "setup",
+      "clauses": [],
+      "overlap": false,
+      "note": "Fixture: MT_SpawnTank produced the requested custom mutant Smoker."
+    },
+    {
+      "id": "case:health_type_explicit_si_override_remains",
+      "role": "preserved",
+      "clauses": [
+        "R2.2",
+        "R2.3"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:health_plugin_si_fallback_beats_generic_defaults",
+      "role": "target",
+      "clauses": [
+        "R2.1",
+        "R2.3"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:warp_unpinned_survivor_still_moves",
+      "role": "preserved",
+      "clauses": [
+        "R3.2"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:warp_smoker_pin_is_preserved",
+      "role": "target",
+      "clauses": [
+        "R3.1"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:warp_hunter_pin_is_preserved",
+      "role": "target",
+      "clauses": [
+        "R3.1"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:warp_jockey_pin_is_preserved",
+      "role": "target",
+      "clauses": [
+        "R3.1"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:warp_charger_pin_is_preserved",
+      "role": "target",
+      "clauses": [
+        "R3.1"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:boss_four_stage_evolution_completes",
+      "role": "target",
+      "clauses": [
+        "R4.1"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:boss_final_stage_timer_remains_healthy",
+      "role": "target",
+      "clauses": [
+        "R4.2"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:reward_ab_two_real_tank_rewards_observed",
+      "role": "preserved",
+      "clauses": [
+        "R5.5"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:reward_ab_stacked_damage_before_replacement",
+      "role": "target",
+      "clauses": [
+        "R5.1"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:reward_ab_stacked_ammo_before_replacement",
+      "role": "target",
+      "clauses": [
+        "R5.1"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:reward_ab_replacement_target_keeps_damage",
+      "role": "target",
+      "clauses": [
+        "R5.3",
+        "R5.1"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:reward_ab_replacement_old_owner_loses_damage",
+      "role": "preserved",
+      "clauses": [
+        "R5.3"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:reward_ab_replacement_target_keeps_ammo",
+      "role": "target",
+      "clauses": [
+        "R5.3",
+        "R5.1"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:reward_ab_replacement_old_owner_loses_ammo",
+      "role": "preserved",
+      "clauses": [
+        "R5.3"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:reward_ab_public_expiry_forward_observed",
+      "role": "preserved",
+      "clauses": [
+        "R5.4"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:reward_ab_expiry_restores_baseline_damage",
+      "role": "preserved",
+      "clauses": [
+        "R5.4"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:reward_ab_expiry_stops_ammo_regeneration",
+      "role": "preserved",
+      "clauses": [
+        "R5.4"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:reward_ba_two_real_tank_rewards_observed",
+      "role": "preserved",
+      "clauses": [
+        "R5.5"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:reward_ba_stacked_damage_before_replacement",
+      "role": "preserved",
+      "clauses": [
+        "R5.2"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:reward_ba_stacked_ammo_before_replacement",
+      "role": "preserved",
+      "clauses": [
+        "R5.2"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:reward_ba_replacement_target_keeps_damage",
+      "role": "preserved",
+      "clauses": [
+        "R5.3",
+        "R5.2"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:reward_ba_replacement_old_owner_loses_damage",
+      "role": "preserved",
+      "clauses": [
+        "R5.3"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:reward_ba_replacement_target_keeps_ammo",
+      "role": "preserved",
+      "clauses": [
+        "R5.3",
+        "R5.2"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:reward_ba_replacement_old_owner_loses_ammo",
+      "role": "preserved",
+      "clauses": [
+        "R5.3"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:reward_ba_public_expiry_forward_observed",
+      "role": "preserved",
+      "clauses": [
+        "R5.4"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:reward_ba_expiry_restores_baseline_damage",
+      "role": "preserved",
+      "clauses": [
+        "R5.4"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:reward_ba_expiry_stops_ammo_regeneration",
+      "role": "preserved",
+      "clauses": [
+        "R5.4"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:hypno_view1_disabled_spawns_one_shield",
+      "role": "target",
+      "clauses": [
+        "R6.1"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:hypno_tank_removal_cleans_shield",
+      "role": "target",
+      "clauses": [
+        "R6.5"
+      ],
+      "overlap": true,
+      "note": "Labelled target by the pack but already passes in the unchanged starter; kept as target-boundary evidence (the state must also hold after the repaired transfer)."
+    },
+    {
+      "id": "case:hypno_respawn_uses_new_shield_entref",
+      "role": "target",
+      "clauses": [
+        "R6.5"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:hypno_view0_never_spawns_shield",
+      "role": "target",
+      "clauses": [
+        "R6.3"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:hypno_view0_gameplay_hit_still_applies",
+      "role": "preserved",
+      "clauses": [
+        "R6.4"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:hypno_view1_enabled_activation_does_not_duplicate",
+      "role": "target",
+      "clauses": [
+        "R6.2"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:hypno_round_and_plugin_cleanup_leave_no_orphans",
+      "role": "target",
+      "clauses": [
+        "R6.6"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:panic_explicit_uncommon_type_guard_works",
+      "role": "preserved",
+      "clauses": [
+        "R7.2"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:panic_empty_type_spawns_one_uncommon",
+      "role": "target",
+      "clauses": [
+        "R7.1"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:panic_fallback_uncommon_uses_allowed_model",
+      "role": "target",
+      "clauses": [
+        "R7.1"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:rainbow_reward_animates_before_takeover",
+      "role": "preserved",
+      "clauses": [
+        "R8.1"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:rainbow_bot_to_player_migrates_animation",
+      "role": "target",
+      "clauses": [
+        "R8.2"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:rainbow_old_bot_stops_after_takeover",
+      "role": "target",
+      "clauses": [
+        "R8.2"
+      ],
+      "overlap": true,
+      "note": "Labelled target by the pack but already passes in the unchanged starter; kept as target-boundary evidence (the state must also hold after the repaired transfer)."
+    },
+    {
+      "id": "case:rainbow_player_to_bot_migrates_animation",
+      "role": "target",
+      "clauses": [
+        "R8.3"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:rainbow_old_player_stops_after_idle",
+      "role": "target",
+      "clauses": [
+        "R8.3"
+      ],
+      "overlap": true,
+      "note": "Labelled target by the pack but already passes in the unchanged starter; kept as target-boundary evidence (the state must also hold after the repaired transfer)."
+    },
+    {
+      "id": "case:acid_melee_cooldown_blocks_window_repeat",
+      "role": "target",
+      "clauses": [
+        "R9.1"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:ammo_melee_cooldown_blocks_window_repeat",
+      "role": "target",
+      "clauses": [
+        "R9.1",
+        "R9.4"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:acid_melee_cooldown_recovers_after_expiry",
+      "role": "target",
+      "clauses": [
+        "R9.2"
+      ],
+      "overlap": true,
+      "note": "Labelled guard in validation/case-contracts.tsv but FAILS in the unchanged starter, so it cannot be preserved evidence; it is evidence that the repaired path reaches this state."
+    },
+    {
+      "id": "case:ammo_melee_cooldown_recovers_after_expiry",
+      "role": "target",
+      "clauses": [
+        "R9.2",
+        "R9.4"
+      ],
+      "overlap": true,
+      "note": "Labelled guard in validation/case-contracts.tsv but FAILS in the unchanged starter, so it cannot be preserved evidence; it is evidence that the repaired path reaches this state."
+    },
+    {
+      "id": "case:acid_zero_cooldown_allows_cross_second_repeat",
+      "role": "preserved",
+      "clauses": [
+        "R9.3"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "case:ammo_zero_cooldown_allows_cross_second_repeat",
+      "role": "preserved",
+      "clauses": [
+        "R9.3",
+        "R9.4"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "check:submission-shape",
+      "role": "static",
+      "clauses": [
+        "Task-source-only"
+      ],
+      "overlap": false,
+      "note": ""
+    }
+  ],
+  "clauses": [
+    {
+      "id": "R1.1",
+      "anchor": "Report 1 s2 + s3: the MT_OnConfigsLoaded callback stream arrives on initial load and on sm_mt_reload",
+      "status": "weak",
+      "note": "suite.sp:332 only requires >= 20 callbacks per phase."
+    },
+    {
+      "id": "R1.2",
+      "anchor": "Report 1 s3-4: the ordinary General/Type Range entry keeps all eight arguments, with a false special flag and an empty special-section name",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "R1.3",
+      "anchor": "Report 1 s3-4: plugin-level and Tank-type Health/Smoker Base Health entries nested under Special carry special=true and the exact section name \"Special\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "R1.4",
+      "anchor": "Report 1 s5: \"Keep the current eight-argument API; do not restore an old ten-argument API\"",
+      "status": "weak",
+      "note": "The suites subscribe with the eight-argument signature and verify.py:321-325 compiles a consumer against the submitted include; a failure there aborts the run before any case instead of failing a named case."
+    },
+    {
+      "id": "R2.1",
+      "anchor": "Report 2 s2-3: with no Tank-type Health block, plugin-level Smoker-specific Base/Extra Health must win over generic/global defaults",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "R2.2",
+      "anchor": "Report 2 s4: \"An explicit Tank-type SI-specific base and extra value must remain authoritative when present.\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "R2.3",
+      "anchor": "Report 2 s5: live m_iHealth and m_iMaxHealth both reflect resolved base plus extra",
+      "status": "asserted",
+      "note": "Smoker only."
+    },
+    {
+      "id": "R3.1",
+      "anchor": "Report 3 s2: the Warp-hit survivor must not be relocated while grabbed by a Smoker, pounced by a Hunter, ridden by a Jockey or pummelled by a Charger",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "R3.2",
+      "anchor": "Report 3 s3: \"An otherwise eligible unpinned hit victim must still be warped to a different living survivor\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "R4.1",
+      "anchor": "Report 4 s2: with stages 800,600,400,200 and types 2,3,4,5 a type-1 Boss advances in order through 2, 3, 4, 5",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "R4.2",
+      "anchor": "Report 4 s3: the final type-5 form stays alive and valid across later timer ticks without a SourceMod exception",
+      "status": "asserted",
+      "note": "One sample 0.5 s after reaching type 5 plus the boot-level fatal-line scan."
+    },
+    {
+      "id": "R5.1",
+      "anchor": "Report 5 paragraph 2 s1-2: A-then-B keeps the smaller active values (15 damage, exactly 10 rounds to magazine and reserve)",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "R5.2",
+      "anchor": "Report 5 paragraph 2 s3-4: B-then-A is additive (35 damage, exactly 30 rounds); \"do not make all repeated rewards simply keep the first value\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "R5.3",
+      "anchor": "Report 5 paragraph 3 s1-2: the combined reward survives a bot_player_replace handoff exactly once; the incoming survivor keeps it, the replaced survivor returns to 10 damage and gets no regeneration",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "R5.4",
+      "anchor": "Report 5 paragraph 3 s3: at expiry one public MT_OnRewardSurvivor(apply=false) callback, damage back to 10, regeneration stops",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "R5.5",
+      "anchor": "Report 5 paragraph 3 s4: \"Preserve normal first-reward, replacement, and expiry behavior\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "R6.1",
+      "anchor": "Report 6 paragraph 1 s1: Hypno View=1 creates exactly one owner-parented shield at spawn even with Ability Enabled=0",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "R6.2",
+      "anchor": "Report 6 paragraph 1 s2: \"Normal ability activation must not create a second shield.\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "R6.3",
+      "anchor": "Report 6 paragraph 1 s3a: \"Hypno View=0 must never create a shield\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "R6.4",
+      "anchor": "Report 6 paragraph 1 s3b: \"an enabled guaranteed Hypno hit must still apply its gameplay effect\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "R6.5",
+      "anchor": "Report 6 paragraph 2 s2: removing a Tank removes its shield and invalidates the old reference; respawning creates one new shield",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "R6.6",
+      "anchor": "Report 6 paragraph 2 s3: round reset and unloading the primary ability aggregate leave no orphan shields or SourceMod exceptions",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "R7.1",
+      "anchor": "Report 7 s1-2: Panic mode 2 with Panic Type=0 creates exactly one real infected whose model is one of the seven uncommon models",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "R7.2",
+      "anchor": "Report 7 s3: explicit Panic Type=8 still creates exactly one Clown; \"explicit masks must retain their existing behavior\"",
+      "status": "weak",
+      "note": "Only the single-bit mask 8 is exercised; multi-bit masks are not."
+    },
+    {
+      "id": "R8.1",
+      "anchor": "Report 8 s2: the rainbow body-color reward changes render color continuously before a handoff",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "R8.2",
+      "anchor": "Report 8 s3: after bot_player_replace the replacement continues the animation and the old bot returns to (255,255,255)",
+      "status": "asserted",
+      "note": "Two samples 0.4 s apart."
+    },
+    {
+      "id": "R8.3",
+      "anchor": "Report 8 s4-5: after player_bot_replace the animation moves back to the idle bot and the replaced player is white; never frozen, never active on both",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "R9.1",
+      "anchor": "Report 9 s2-3a: a successful claw hit starts the melee cooldown; further hits inside the window must not create another Acid projectile or Ammo drain",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "R9.2",
+      "anchor": "Report 9 s3b: \"after the window expires, both effects must apply again\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "R9.3",
+      "anchor": "Report 9 s4: \"A configured cooldown of zero must not suppress a later cross-second hit.\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "R9.4",
+      "anchor": "Report 9 s5: Ammo Type 3 / Ammo Count 10 drains exactly 10 from both magazine and reserve per accepted hit",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "Task-preserve-api",
+      "anchor": "Task paragraph 1: \"Preserve the current public API\"",
+      "status": "weak",
+      "note": "A verifier consumer is compiled against the submitted include (verify.py:321-325) but this is not a named case; natives used by the suites are exercised incidentally."
+    },
+    {
+      "id": "Task-preserve-identity",
+      "anchor": "Task paragraph 1: preserve \"plugin identity, ability aggregate loading\"",
+      "status": "asserted",
+      "note": "The three runtime_* sentinels compare the myinfo names of the core and both aggregates."
+    },
+    {
+      "id": "Task-preserve-gpl",
+      "anchor": "Task paragraph 1: preserve \"GPL attribution\"",
+      "status": "unasserted",
+      "note": "verify.py:116-253 checks a frozen LICENSE hash and per-file GPL notices. Enforced only by a verify.py package gate that runs before any case; it has no named case, and a violation aborts verification with every case unobserved instead of failing one. check:submission-shape (plugin evaluator.py:176-205) covers only required files, symlinks, .git and forbidden suffixes."
+    },
+    {
+      "id": "Task-no-unrelated",
+      "anchor": "Task paragraph 1: \"avoid unrelated changes\"",
+      "status": "unasserted",
+      "note": "Not measurable from case outcomes; scoring does not compare a diff."
+    },
+    {
+      "id": "Task-source-only",
+      "anchor": "Task paragraph 2: source-only submission (no .smx, libraries, archives, symlinks, Git metadata, game files, credentials, network helpers)",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "Task-no-tests-edit",
+      "anchor": "Task paragraph 2: \"Do not modify /tests.\"",
+      "status": "unasserted",
+      "note": "Process rule; /tests is not part of the submitted tree."
+    }
+  ],
+  "excluded_clauses": [
+    "Task-preserve-gpl",
+    "Task-no-unrelated",
+    "Task-no-tests-edit"
+  ],
+  "known_issues": [
+    "benchmarks/l4d2-core/private/harbor/l4d2-mutant-tanks-release-regressions-hard/tests/verify.py:482-505: every one of the ten server boots is all-or-nothing. \"Exception reported:\", an unbound native, a plugin load failure or a crash marker before FINAL, a duplicate/missing case or a FINAL mismatch fails every case of that boot, preserved guards included. The starter itself logs SourceMod exceptions (Boss array index), which is why whole boots fail there.",
+    "benchmarks/l4d2-core/private/harbor/l4d2-mutant-tanks-release-regressions-hard/tests/verify.py:321-325 and :116-253: the public-API consumer compile and the package/GPL checks are not named cases; if they fail, verification aborts before any case is printed and all 57 cases are unobserved.",
+    "benchmarks/l4d2-core/private/harbor/l4d2-mutant-tanks-release-regressions-hard/tests/suite.sp:1376-1413: the rainbow \"old owner\" checks require the exact neutral color (255,255,255) at two samples; they already pass in the starter because nothing is transferred there, so on their own they cannot distinguish \"reset\" from \"never owned\".",
+    "benchmarks/l4d2-core/private/harbor/l4d2-mutant-tanks-release-regressions-hard/tests/suite.sp:1159, 1184-1186: Panic cases count entities captured by the verifier hook; only mask 0 and the single-bit mask 8 are exercised.",
+    "The three runtime_* sentinels run only in the config boot; the other nine boots have no load sentinel of their own and rely on their first behavioral case."
+  ]
+}

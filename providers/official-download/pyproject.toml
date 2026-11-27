@@ -1,0 +1,19 @@
+[project]
+name = "rhenium-official-download"
+version = "0.1.0"
+description = "Pinned official HTTPS download provider for Rhenium runtimes not distributed on Steam"
+requires-python = ">=3.12"
+dependencies = ["rhenium==0.6.0", "httpx>=0.28.1"]
+
+[project.entry-points."rhenium.auth_providers"]
+official-download = "rhenium_official_download.provider:OfficialDownloadProvider"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/rhenium_official_download"]
+
+[tool.uv.sources]
+rhenium = { workspace = true }

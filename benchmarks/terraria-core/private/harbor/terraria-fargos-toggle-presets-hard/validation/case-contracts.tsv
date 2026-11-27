@@ -1,0 +1,83 @@
+case	group	prompt_clause	production_path
+registry_load_replaces_toggle_map	registry-lifecycle	registry load replaces toggle map	Core/Toggler/ToggleLoader.cs
+registry_load_replaces_header_set	registry-lifecycle	registry load replaces header set	Core/Toggler/ToggleLoader.cs
+registry_unload_releases_maps	registry-lifecycle	registry unload releases maps	Core/Toggler/ToggleLoader.cs
+registry_rejects_null_toggle	registry-lifecycle	registry rejects null toggle	Core/Toggler/ToggleLoader.cs
+registry_rejects_null_effect	registry-lifecycle	registry rejects null effect	Core/Toggler/ToggleLoader.cs
+registry_rejects_missing_header	registry-lifecycle	registry rejects missing header	Core/Toggler/ToggleLoader.cs
+registry_rejects_duplicate_effect	registry-lifecycle	registry rejects duplicate effect	Core/Toggler/ToggleLoader.cs
+registry_rejects_duplicate_full_name	registry-lifecycle	registry rejects duplicate full name	Core/Toggler/ToggleLoader.cs
+registry_failed_add_is_atomic	registry-lifecycle	registry failed add is atomic	Core/Toggler/ToggleLoader.cs
+registry_rejects_null_header	registry-lifecycle	registry rejects null header	Core/Toggler/ToggleLoader.cs
+backend_clones_registry_dictionary	backend-isolation	backend clones registry dictionary	Core/Toggler/ToggleBackend.cs
+backend_clones_toggle_objects	backend-isolation	backend clones toggle objects	Core/Toggler/ToggleBackend.cs
+backend_preserves_effect_defaults	backend-isolation	backend preserves effect defaults	Core/Toggler/ToggleBackend.cs
+backend_instances_are_isolated	backend-isolation	backend instances are isolated	Core/Toggler/ToggleBackend.cs
+backend_tryload_is_idempotent	backend-isolation	backend tryload is idempotent	Core/Toggler/ToggleBackend.cs
+backend_accepts_empty_registry	backend-isolation	backend accepts empty registry	Core/Toggler/ToggleBackend.cs
+backend_dedicated_server_skips_disk_save	backend-isolation	backend dedicated server skips disk save	Core/Toggler/ToggleBackend.cs
+config_load_uses_full_identity	preference-load	config load uses full identity	Core/Toggler/ToggleBackend.cs
+config_load_disambiguates_same_short_name	preference-load	config load disambiguates same short name	Core/Toggler/ToggleBackend.cs
+config_load_skips_unknown_identity	preference-load	config load skips unknown identity	Core/Toggler/ToggleBackend.cs
+config_load_keeps_slots_independent	preference-load	config load keeps slots independent	Core/Toggler/ToggleBackend.cs
+config_malformed_slot_does_not_block_later_slot	preference-load	config malformed slot does not block later slot	Core/Toggler/ToggleBackend.cs
+config_load_canonicalizes_effect_order	preference-load	config load canonicalizes effect order	Core/Toggler/ToggleBackend.cs
+config_save_writes_every_slot	preference-save	config save writes every slot	Core/Toggler/ToggleBackend.cs
+config_save_uses_full_identity	preference-save	config save uses full identity	Core/Toggler/ToggleBackend.cs
+config_save_is_deterministic	preference-save	config save is deterministic	Core/Toggler/ToggleBackend.cs
+config_save_deduplicates_effects	preference-save	config save deduplicates effects	Core/Toggler/ToggleBackend.cs
+config_save_clears_stale_null_slot	preference-save	config save clears stale null slot	Core/Toggler/ToggleBackend.cs
+config_save_flushes_once	preference-save	config save flushes once	Core/Toggler/ToggleBackend.cs
+config_save_is_server_noop	preference-save	config save is server noop	Core/Toggler/ToggleBackend.cs
+player_load_restores_registered_defaults	player-restore	player load restores registered defaults	Core/Toggler/ToggleBackend.cs
+player_load_targets_argument_not_local_player	player-restore	player load targets argument not local player	Core/Toggler/ToggleBackend.cs
+player_load_matches_full_identity	player-restore	player load matches full identity	Core/Toggler/ToggleBackend.cs
+player_load_ignores_unknown_disabled_effect	player-restore	player load ignores unknown disabled effect	Core/Toggler/ToggleBackend.cs
+player_load_replaces_sync_snapshot	player-restore	player load replaces sync snapshot	Core/Toggler/ToggleBackend.cs
+set_all_mutates_only_backend	player-restore	set all mutates only backend	Core/Toggler/ToggleBackend.cs
+some_effects_targets_receiving_backend	built-in-presets	SomeEffects applies visible named choices to this backend	Core/Toggler/ToggleBackend.cs
+minimal_effects_targets_receiving_backend	built-in-presets	MinimalEffects applies visible named choices to this backend	Core/Toggler/ToggleBackend.cs
+some_effects_disables_registered_pet_family	built-in-presets	SomeEffects disables registered Pet family on this backend	Core/Toggler/ToggleBackend.cs
+built_in_presets_ignore_absent_registry_entries	built-in-presets	Absent built-in choice does not warn or insert	Core/Toggler/ToggleBackend.cs
+built_in_presets_leave_custom_storage_untouched	built-in-presets	Built-in presets leave custom and disabled storage unchanged	Core/Toggler/ToggleBackend.cs
+uninitialized_player_load_is_noop	player-restore	uninitialized player load is noop	Core/Toggler/ToggleBackend.cs
+preset_save_captures_disabled_effects	custom-preset-actions	preset save captures disabled effects	Core/Toggler/ToggleBackend.cs
+preset_save_is_sorted_and_unique	custom-preset-actions	preset save is sorted and unique	Core/Toggler/ToggleBackend.cs
+preset_save_is_a_snapshot	custom-preset-actions	preset save is a snapshot	Core/Toggler/ToggleBackend.cs
+preset_save_rejects_invalid_slots	custom-preset-actions	preset save rejects invalid slots	Core/Toggler/ToggleBackend.cs
+preset_save_is_server_noop	custom-preset-actions	preset save is server noop	Core/Toggler/ToggleBackend.cs
+preset_load_applies_to_local_backend	custom-preset-actions	preset load applies to local backend	Core/Toggler/ToggleBackend.cs
+preset_load_does_not_consume_preset	custom-preset-actions	preset load does not consume preset	Core/Toggler/ToggleBackend.cs
+preset_load_restores_persistence_list	custom-preset-actions	preset load restores persistence list	Core/Toggler/ToggleBackend.cs
+preset_load_reports_missing_without_mutation	custom-preset-actions	preset load reports missing without mutation	Core/Toggler/ToggleBackend.cs
+preset_load_rejects_invalid_slots	custom-preset-actions	preset load rejects invalid slots	Core/Toggler/ToggleBackend.cs
+lookup_missing_toggle_is_null	runtime-lookup	lookup missing toggle is null	Core/Toggler/SoulCheck.cs
+lookup_missing_bool_is_false	runtime-lookup	lookup missing bool is false	Core/Toggler/SoulCheck.cs
+set_missing_toggle_warns_without_throwing	runtime-lookup	set missing toggle warns without throwing	Core/Toggler/SoulCheck.cs
+set_registered_toggle_changes_value	runtime-lookup	set registered toggle changes value	Core/Toggler/SoulCheck.cs
+mutant_presence_suppresses_affected_effect	runtime-lookup	mutant presence suppresses affected effect	Core/Toggler/SoulCheck.cs
+mutant_presence_suppresses_minion_effect	runtime-lookup	mutant presence suppresses minion effect	Core/Toggler/SoulCheck.cs
+skip_checks_bypasses_mutant_suppression	runtime-lookup	skip checks bypasses mutant suppression	Core/Toggler/SoulCheck.cs
+mutant_presence_keeps_unaffected_effect	runtime-lookup	mutant presence keeps unaffected effect	Core/Toggler/SoulCheck.cs
+definition_snapshots_identity_and_default	definition-snapshots	registered identity and default are immutable definition metadata	Core/Toggler/Toggle.cs; Core/Toggler/ToggleBackend.cs
+definition_snapshots_presence_policy	definition-snapshots	registered suppression flags are immutable definition metadata	Core/Toggler/Toggle.cs; Core/Toggler/SoulCheck.cs
+definition_materialization_ignores_source_toggle_mutation	definition-snapshots	backend materialization uses the registered key and metadata snapshot	Core/Toggler/Toggle.cs; Core/Toggler/ToggleBackend.cs
+registry_rejects_empty_stable_identity	definition-snapshots	empty stable identities are rejected atomically	Core/Toggler/ToggleLoader.cs
+lookup_throwing_foreign_identity_is_safe	definition-snapshots	malformed foreign identity getters cannot escape runtime boundaries	Core/Toggler/SoulCheck.cs
+canonical_presence_policy_ignores_alias_flags	definition-snapshots	suppression policy comes from the canonical registered definition	Core/Toggler/SoulCheck.cs
+rebase_preserves_value_by_identity	live-registry-rebase	replacement generations preserve values by exact stable identity	Core/Toggler/ToggleLoader.cs; Core/Toggler/ToggleBackend.cs
+rebase_adds_new_effect_at_registered_default	live-registry-rebase	new generation entries start at their registered defaults	Core/Toggler/ToggleBackend.cs
+rebase_drops_removed_effect	live-registry-rebase	removed definitions leave player-local state	Core/Toggler/ToggleBackend.cs
+rebase_rebinds_preset_instances	live-registry-rebase	preset identities rebind to replacement generation objects	Core/Toggler/ToggleBackend.cs
+rebase_canonicalizes_preset_identities	live-registry-rebase	rebased presets are filtered unique ordered snapshots	Core/Toggler/ToggleBackend.cs
+rebase_keeps_player_backends_isolated	live-registry-rebase	rebase preserves per-player value and object isolation	Core/Toggler/ToggleBackend.cs
+rebase_does_not_reload_preferences	live-registry-rebase	live definition rebase performs no preference I/O	Core/Toggler/ToggleBackend.cs
+lookup_reconciles_before_resolution	live-registry-rebase	runtime lookup reconciles an initialized stale backend first	Core/Toggler/ToggleBackend.cs; Core/Toggler/SoulCheck.cs
+set_all_reconciles_before_mutation	live-registry-rebase	bulk mutation targets the complete current generation	Core/Toggler/ToggleBackend.cs
+player_load_sync_uses_rebased_instances	live-registry-rebase	player restore publishes only current-generation keys	Core/Toggler/ToggleBackend.cs
+rebase_preserves_disabled_list_reference	live-registry-rebase	rebase does not rewrite persistent player input lists	Core/Toggler/ToggleBackend.cs
+rebase_discards_candidate_on_registry_reentrancy	live-registry-rebase	generation changes during rebase discard the entire candidate	Core/Toggler/ToggleBackend.cs
+rebase_retries_new_generation_on_next_entry	live-registry-rebase	the next operation retries and converges on the newer generation	Core/Toggler/ToggleBackend.cs
+unload_rebases_initialized_backend_to_empty	live-registry-rebase	registry unload produces an empty player generation without preference I/O	Core/Toggler/ToggleLoader.cs; Core/Toggler/ToggleBackend.cs
+live_registration_rebases_without_reload	live-registry-rebase	successful direct registration advances and rebases the live generation	Core/Toggler/ToggleLoader.cs; Core/Toggler/ToggleBackend.cs
+failed_registration_does_not_rebase_backend	live-registry-rebase	rejected registration leaves the visible generation unchanged	Core/Toggler/ToggleLoader.cs; Core/Toggler/ToggleBackend.cs

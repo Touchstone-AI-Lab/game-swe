@@ -1,0 +1,252 @@
+{
+  "schemaVersion": 3,
+  "protocol": "rhenium-rimworld-private-v3",
+  "adapter": "rhenium-rimworld-observer-v3",
+  "taskKey": "rimworld/core/r4-small-bench-ingredient-consumption",
+  "weights": {
+    "submissionShape": 10,
+    "engineAssertions": 90
+  },
+  "cases": [
+    {
+      "id": "runtime-defs-ready",
+      "fixture": "RuntimeDefsReady",
+      "gate": true,
+      "scalars": [],
+      "expected": {
+        "facts": [
+          {
+            "name": "result",
+            "value": "ready"
+          }
+        ],
+        "outputs": []
+      }
+    },
+    {
+      "id": "empty-cost-noop",
+      "fixture": "EmptyCostNoop",
+      "gate": false,
+      "scalars": [],
+      "expected": {
+        "facts": [
+          {
+            "name": "result",
+            "value": "4"
+          }
+        ],
+        "outputs": []
+      }
+    },
+    {
+      "id": "null-cost-noop",
+      "fixture": "NullCostNoop",
+      "gate": false,
+      "scalars": [],
+      "expected": {
+        "facts": [
+          {
+            "name": "result",
+            "value": "4"
+          }
+        ],
+        "outputs": []
+      }
+    },
+    {
+      "id": "stack-cell-first",
+      "fixture": "StackCellFirst",
+      "gate": false,
+      "scalars": [],
+      "expected": {
+        "facts": [
+          {
+            "name": "result",
+            "value": "True:False"
+          }
+        ],
+        "outputs": []
+      }
+    },
+    {
+      "id": "small-bench-adjacent",
+      "fixture": "SmallBenchAdjacent",
+      "gate": false,
+      "scalars": [],
+      "expected": {
+        "facts": [
+          {
+            "name": "result",
+            "value": "True"
+          }
+        ],
+        "outputs": []
+      }
+    },
+    {
+      "id": "interaction-cell-origin",
+      "fixture": "InteractionCellOrigin",
+      "gate": false,
+      "scalars": [],
+      "expected": {
+        "facts": [
+          {
+            "name": "result",
+            "value": "True"
+          }
+        ],
+        "outputs": []
+      }
+    },
+    {
+      "id": "duplicate-costs-aggregate",
+      "fixture": "DuplicateCostsAggregate",
+      "gate": false,
+      "scalars": [],
+      "expected": {
+        "facts": [
+          {
+            "name": "result",
+            "value": "True"
+          }
+        ],
+        "outputs": []
+      }
+    },
+    {
+      "id": "partial-stack-preserved",
+      "fixture": "PartialStackPreserved",
+      "gate": false,
+      "scalars": [],
+      "expected": {
+        "facts": [
+          {
+            "name": "result",
+            "value": "4"
+          }
+        ],
+        "outputs": []
+      }
+    },
+    {
+      "id": "multiple-stacks-exact",
+      "fixture": "MultipleStacksExact",
+      "gate": false,
+      "scalars": [],
+      "expected": {
+        "facts": [
+          {
+            "name": "result",
+            "value": "1"
+          }
+        ],
+        "outputs": []
+      }
+    },
+    {
+      "id": "unrelated-def-preserved",
+      "fixture": "UnrelatedDefPreserved",
+      "gate": false,
+      "scalars": [],
+      "expected": {
+        "facts": [
+          {
+            "name": "result",
+            "value": "2"
+          }
+        ],
+        "outputs": []
+      }
+    },
+    {
+      "id": "non-item-preserved",
+      "fixture": "NonItemPreserved",
+      "gate": false,
+      "scalars": [],
+      "expected": {
+        "facts": [
+          {
+            "name": "result",
+            "value": "False"
+          }
+        ],
+        "outputs": []
+      }
+    },
+    {
+      "id": "impassable-cell-skipped",
+      "fixture": "ImpassableCellSkipped",
+      "gate": false,
+      "scalars": [],
+      "expected": {
+        "facts": [
+          {
+            "name": "result",
+            "value": "False"
+          }
+        ],
+        "outputs": []
+      }
+    },
+    {
+      "id": "already-visited-not-recounted",
+      "fixture": "AlreadyVisitedNotRecounted",
+      "gate": false,
+      "scalars": [],
+      "expected": {
+        "facts": [
+          {
+            "name": "result",
+            "value": "True"
+          }
+        ],
+        "outputs": []
+      }
+    },
+    {
+      "id": "radius-boundary-included",
+      "fixture": "RadiusBoundaryIncluded",
+      "gate": false,
+      "scalars": [],
+      "expected": {
+        "facts": [
+          {
+            "name": "result",
+            "value": "True"
+          }
+        ],
+        "outputs": []
+      }
+    },
+    {
+      "id": "outside-radius-preserved",
+      "fixture": "OutsideRadiusPreserved",
+      "gate": false,
+      "scalars": [],
+      "expected": {
+        "facts": [
+          {
+            "name": "result",
+            "value": "False"
+          }
+        ],
+        "outputs": []
+      }
+    },
+    {
+      "id": "fixture-state-restored",
+      "fixture": "FixtureStateRestored",
+      "gate": true,
+      "scalars": [],
+      "expected": {
+        "facts": [
+          {
+            "name": "result",
+            "value": "restored"
+          }
+        ],
+        "outputs": []
+      }
+    }
+  ]
+}

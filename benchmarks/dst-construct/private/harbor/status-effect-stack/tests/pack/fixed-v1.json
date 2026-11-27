@@ -1,0 +1,306 @@
+{
+  "id": "rhenium-dst-v2",
+  "version": "2.1.0",
+  "game": "dst",
+  "name": {
+    "en": "Rhenium: Original Don't Starve Together Systems Tasks",
+    "zh": "Rhenium：《饥荒联机版》原创系统工程题"
+  },
+  "description": {
+    "en": "Ten independently authored hard engineering tasks built only around base-game Don't Starve Together APIs, prefabs, components, and assets.",
+    "zh": "十道独立设计的高难度工程题，仅使用《饥荒联机版》原版 API、prefab、组件与资源。"
+  },
+  "tasks": [
+    {
+      "id": "status-effect-stack",
+      "difficulty": "hard",
+      "title": {
+        "en": "Server-authoritative Status Effect Stack",
+        "zh": "服务端权威状态效果堆叠管理器"
+      },
+      "summary": {
+        "en": "Manage timed buffs and debuffs with stacking policies, exact expiry, frequency-independent health accrual, prioritized dispel, and reload-safe state, applied to real locomotor, combat, and health components.",
+        "zh": "管理限时增益与减益：叠加策略、精确到期、与 tick 频率无关的生命结算、按优先级驱散和可重载状态，并作用于真实的 locomotor、combat 与 health 组件。"
+      },
+      "brief": {
+        "en": "Implement a plain-Lua status-effect manager driven only by explicit now arguments, plus a master-simulation world component. Requests are idempotent by request_id, refresh/extend/independent policies have exact caps and an inclusive expiry boundary, modifiers aggregate live stacks without a prior tick, health-over-time is the exact integral clipped to each instance lifetime, dispel follows a published total order, and save/load rebases every timestamp. The component pushes the aggregate through SetExternalSpeedMultiplier and externaldamagemultipliers, applies health deltas with DoDelta without touching dead entities, cleans up on death and onremove, and exposes only a whitelisted self-cleanse RPC.",
+        "zh": "实现只由显式 now 参数驱动的纯 Lua 状态效果管理器，以及主模拟世界组件。请求按 request_id 幂等；refresh/extend/independent 三种策略有精确上限和包含边界的到期规则；聚合无需事先 tick；持续生命变化是裁剪到实例寿命的精确积分；驱散遵循公开的全序；存档重载平移全部时间戳。组件通过 SetExternalSpeedMultiplier 与 externaldamagemultipliers 写入聚合，用 DoDelta 结算生命且不触碰死亡实体，在 death 与 onremove 时清理，并且只暴露白名单内的自我净化 RPC。"
+      },
+      "requirements": {
+        "en": [
+          "Export Stack.new(options), Stack.load(data, options, now), add_target, remove_target, apply(request_id, target_id, effect_id, source_id, now), dispel(target_id, tag, max_count, now), tick, modifiers, snapshot, and save.",
+          "Validate time first (invalid_time, stale_time), then identifiers (invalid_argument), unknown_effect, and unknown_target; a call that passes the time check advances the clock, and rejected calls change nothing else.",
+          "Deduplicate apply by request_id: once a valid request_id reaches the dedupe step its success or failure is recorded, and every retry returns a fresh copy of the first result with no side effects, even after remove_target or reload.",
+          "refresh resets expiry to now + duration and adds a stack up to max_stacks; extend adds duration to the remaining time capped at extend_cap * duration; independent creates separate instances and replaces the lowest seq at max_stacks.",
+          "An instance is expired exactly when now >= expires_at; modifiers multiplies speed_mult ^ stacks and damage_mult ^ stacks and sums tick_health * stacks over live instances without requiring a tick.",
+          "tick returns, ordered by target id then effect id, the exact integral of tick_health * stacks since the previous tick clipped to each instance lifetime, so totals never depend on call frequency; remove_target discards unreported amounts.",
+          "dispel removes matching live instances by priority descending, applied_at ascending, effect id ascending, then seq ascending, limited by a positive integer max_count or unlimited when nil.",
+          "save returns plain data; load rebases all timestamps to the supplied now and keeps remaining durations, stacks, seq counter, targets, request history, and unreported health changes, dropping effects that are no longer configured. The world component runs only on the master simulation and persists this state through OnSave/OnLoad."
+        ],
+        "zh": [
+          "导出 Stack.new(options)、Stack.load(data, options, now)、add_target、remove_target、apply(request_id, target_id, effect_id, source_id, now)、dispel(target_id, tag, max_count, now)、tick、modifiers、snapshot 与 save。",
+          "先校验时间（invalid_time、stale_time），再校验标识符（invalid_argument）、unknown_effect 与 unknown_target；通过时间校验的调用推进时钟，被拒绝的调用不改变其他任何状态。",
+          "apply 按 request_id 去重：合法 request_id 一旦到达去重步骤，其成功或失败结果即被记录；每次重试返回首次结果的新副本且无副作用，remove_target 或重载之后依然如此。",
+          "refresh 把到期时间重置为 now + duration 并加一层（不超过 max_stacks）；extend 把 duration 加到剩余时间上并以 extend_cap * duration 封顶；independent 建立独立实例，达到 max_stacks 时替换 seq 最小者。",
+          "实例当且仅当 now >= expires_at 时到期；modifiers 对存活实例连乘 speed_mult ^ stacks 与 damage_mult ^ stacks，并累加 tick_health * stacks，无需事先 tick。",
+          "tick 按目标 ID、效果 ID 顺序返回自上次 tick 以来 tick_health * stacks 的精确积分，并裁剪到每个实例的寿命，总量与调用频率无关；remove_target 丢弃尚未取走的变化。",
+          "dispel 按 priority 降序、applied_at 升序、效果 ID 升序、seq 升序移除匹配的存活实例，数量受正整数 max_count 限制，nil 表示不限。",
+          "save 返回普通数据；load 把全部时间戳平移到给定 now，保留剩余时间、层数、seq 计数器、目标、请求历史与未取走的生命变化，并丢弃已不在配置中的效果。世界组件仅在主模拟运行，并通过 OnSave/OnLoad 持久化该状态。"
+        ]
+      },
+      "api_usage": {
+        "en": [
+          "Attach the statuseffects world component from AddPrefabPostInit(\"world\") only when inst.ismastersim, and use the published EFFECTS table with extend_cap = 3.",
+          "Reconcile writes locomotor:SetExternalSpeedMultiplier(source, key, mult) or RemoveExternalSpeedMultiplier(source, key), and combat.externaldamagemultipliers:SetModifier(source, mult, key) or RemoveModifier(source, key); source must be an entity.",
+          "Tick applies each delta with health:DoDelta(amount, true, effect_id) only while the entity is tracked, valid, and not health:IsDead(), then reconciles every tracked entity; a rejected time returns false.",
+          "Listen for death and onremove on every tracked entity, clear the target, remove both modifiers, and unregister with the same callbacks; run Tick from DoPeriodicTask and cancel it in OnRemoveFromEntity.",
+          "Optional now arguments default to math.max(GetTime(), largest accepted time); OnLoad rebases onto GetTime(); Cleanse(player, tag, now) and the rhenium_statuseffects/cleanse RPC derive identity from player.userid and accept only whitelisted tags."
+        ],
+        "zh": [
+          "在 AddPrefabPostInit(\"world\") 中仅当 inst.ismastersim 时挂载 statuseffects 世界组件，并使用公开的 EFFECTS 表与 extend_cap = 3。",
+          "Reconcile 调用 locomotor:SetExternalSpeedMultiplier(source, key, mult) 或 RemoveExternalSpeedMultiplier(source, key)，以及 combat.externaldamagemultipliers:SetModifier(source, mult, key) 或 RemoveModifier(source, key)；source 必须是实体。",
+          "Tick 仅当实体仍被跟踪、有效且 health:IsDead() 为假时，用 health:DoDelta(amount, true, effect_id) 结算每条变化，然后对全部被跟踪实体 Reconcile；时间被拒绝时返回 false。",
+          "对每个被跟踪实体监听 death 与 onremove，清除目标、移除两种修正并用同一 callback 注销；用 DoPeriodicTask 驱动 Tick，并在 OnRemoveFromEntity 中取消。",
+          "可选 now 缺省为 math.max(GetTime(), 已接受的最大时间)；OnLoad 平移到 GetTime()；Cleanse(player, tag, now) 与 rhenium_statuseffects/cleanse RPC 只从 player.userid 取得身份且只接受白名单 tag。"
+        ]
+      },
+      "acceptance": {
+        "en": [
+          "Retries, malformed arguments, and stale times cause no side effects.",
+          "Stacking caps and the now >= expires_at boundary hold exactly for all three policies.",
+          "Aggregation and health accrual do not depend on tick frequency or table iteration order, and dispel order is deterministic.",
+          "Reload keeps remaining durations, stacks, sequence numbers, request history, and unreported health changes.",
+          "The dedicated server observes real locomotor speed, combat damage, and health changes, cleanup on real death and removal, and OnSave/OnLoad continuity."
+        ],
+        "zh": [
+          "重试、畸形参数与过期时间不产生副作用。",
+          "三种策略的层数上限与 now >= expires_at 到期边界精确成立。",
+          "聚合与生命结算不依赖 tick 频率或表遍历顺序，驱散顺序确定。",
+          "重载后保留剩余时间、层数、序号、请求历史与未取走的生命变化。",
+          "专服观测真实的 locomotor 速度、combat 伤害与 health 变化，真实死亡与移除后的清理，以及 OnSave/OnLoad 的连续性。"
+        ]
+      },
+      "domains": [
+        "status-effects",
+        "timers",
+        "combat",
+        "persistence"
+      ],
+      "estimated_minutes": 390,
+      "core_module": "scripts/statuseffects/stack.lua",
+      "hidden_test": "hidden/status-effect-stack.lua",
+      "server_test": "server/status-effect-stack.lua",
+      "hidden_cases": [
+        "validation and request dedupe leave no side effects",
+        "stacking policies honor caps and the exact expiry boundary",
+        "modifiers aggregate live stacks without any tick",
+        "tick accrual is exact and independent of tick frequency",
+        "dispel orders by priority age effect id and sequence",
+        "save load rebases time and keeps history and accrual cursor"
+      ],
+      "server_cases": [
+        "status effect component is attached and authoritative",
+        "real locomotor and combat modifiers follow stacks dispel and expiry",
+        "damage over time changes real health and death clears everything",
+        "effects survive OnSave and OnLoad and component removal cleans up"
+      ],
+      "required_files": [
+        "modinfo.lua",
+        "modmain.lua",
+        "scripts/statuseffects/stack.lua",
+        "scripts/components/statuseffects.lua"
+      ],
+      "minimum_lua_lines": 260,
+      "integration_checks": [
+        {
+          "id": "effects-authority",
+          "label": {
+            "en": "Master-simulation authority",
+            "zh": "主模拟权威"
+          },
+          "weight": 3,
+          "groups": [
+            {
+              "name": "guard",
+              "any_of": [
+                "TheWorld\\.ismastersim",
+                "inst\\.ismastersim",
+                "world\\.ismastersim"
+              ]
+            },
+            {
+              "name": "world post init",
+              "any_of": [
+                "AddPrefabPostInit\\s*\\(\\s*[\\\"']world[\\\"']"
+              ]
+            },
+            {
+              "name": "component",
+              "any_of": [
+                "AddComponent\\s*\\(\\s*[\\\"']statuseffects[\\\"']"
+              ]
+            }
+          ],
+          "none_of": [
+            "TODO",
+            "IMPLEMENT\\s+ME"
+          ]
+        },
+        {
+          "id": "effects-engine-modifiers",
+          "label": {
+            "en": "Locomotor and combat modifiers",
+            "zh": "移动与战斗修正"
+          },
+          "weight": 3,
+          "groups": [
+            {
+              "name": "set speed",
+              "any_of": [
+                "SetExternalSpeedMultiplier\\s*\\("
+              ]
+            },
+            {
+              "name": "remove speed",
+              "any_of": [
+                "RemoveExternalSpeedMultiplier\\s*\\("
+              ]
+            },
+            {
+              "name": "damage list",
+              "any_of": [
+                "externaldamagemultipliers"
+              ]
+            },
+            {
+              "name": "set damage",
+              "any_of": [
+                ":\\s*SetModifier\\s*\\("
+              ]
+            },
+            {
+              "name": "remove damage",
+              "any_of": [
+                ":\\s*RemoveModifier\\s*\\("
+              ]
+            }
+          ]
+        },
+        {
+          "id": "effects-health",
+          "label": {
+            "en": "Guarded health deltas",
+            "zh": "受保护的生命结算"
+          },
+          "weight": 3,
+          "groups": [
+            {
+              "name": "health component",
+              "any_of": [
+                "components\\.health"
+              ]
+            },
+            {
+              "name": "dead guard",
+              "any_of": [
+                ":\\s*IsDead\\s*\\("
+              ]
+            },
+            {
+              "name": "delta",
+              "any_of": [
+                ":\\s*DoDelta\\s*\\("
+              ]
+            }
+          ]
+        },
+        {
+          "id": "effects-lifecycle",
+          "label": {
+            "en": "Listeners, task, and persistence",
+            "zh": "监听、任务与持久化"
+          },
+          "weight": 3,
+          "groups": [
+            {
+              "name": "death",
+              "any_of": [
+                "ListenForEvent\\s*\\(\\s*[\\\"']death[\\\"']"
+              ]
+            },
+            {
+              "name": "onremove",
+              "any_of": [
+                "ListenForEvent\\s*\\(\\s*[\\\"']onremove[\\\"']"
+              ]
+            },
+            {
+              "name": "unregister",
+              "any_of": [
+                "RemoveEventCallback\\s*\\("
+              ]
+            },
+            {
+              "name": "periodic task",
+              "any_of": [
+                "DoPeriodicTask\\s*\\("
+              ]
+            },
+            {
+              "name": "cancel",
+              "any_of": [
+                ":\\s*Cancel\\s*\\("
+              ]
+            },
+            {
+              "name": "component removal",
+              "any_of": [
+                ":OnRemoveFromEntity\\s*\\("
+              ]
+            },
+            {
+              "name": "save",
+              "any_of": [
+                ":OnSave\\s*\\("
+              ]
+            },
+            {
+              "name": "load",
+              "any_of": [
+                ":OnLoad\\s*\\("
+              ]
+            }
+          ]
+        },
+        {
+          "id": "effects-self-cleanse-rpc",
+          "label": {
+            "en": "Whitelisted self-cleanse RPC",
+            "zh": "白名单自我净化 RPC"
+          },
+          "weight": 3,
+          "groups": [
+            {
+              "name": "RPC",
+              "any_of": [
+                "AddModRPCHandler\\s*\\(\\s*[\\\"']rhenium_statuseffects[\\\"']\\s*,\\s*[\\\"']cleanse[\\\"']"
+              ]
+            },
+            {
+              "name": "identity",
+              "any_of": [
+                "\\.userid"
+              ]
+            },
+            {
+              "name": "player join",
+              "any_of": [
+                "ms_playerjoined"
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

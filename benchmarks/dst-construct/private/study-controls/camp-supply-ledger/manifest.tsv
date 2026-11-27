@@ -1,0 +1,4 @@
+control	kind	base	overlay	root	note
+target-negative-rollback-keeps-quota	target-negative	reference	patch:target-negative-rollback-keeps-quota.patch	.	Ledger:rollback marks the token rolled_back but no longer releases the reserved quota
+alternative-a	alternative	starter	tree:alternative-a	.	closure-based journal ledger and staged delivery; OnSave/OnLoad tolerate a missing receiver
+alternative-b	alternative	starter	tree:alternative-b	.	alternative-a with plain class-method OnSave/OnLoad, as the exam prescribes; accepted since the server suite calls them with a receiver

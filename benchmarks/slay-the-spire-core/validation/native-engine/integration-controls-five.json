@@ -1,0 +1,2931 @@
+{
+  "validated": true,
+  "job": "qualified-set-gates-r1",
+  "rows": [
+    {
+      "task": "basemod-dynamic-descriptions-r2",
+      "agent": "nop",
+      "trial": "basemod-dynamic-descriptions-r2__3dtpZwL",
+      "passed": 15,
+      "expected": 46,
+      "reward": 0,
+      "failed_case_ids": [
+        "cn-nested",
+        "cn-suffix",
+        "coherent-initialization",
+        "decimal-leading-zero",
+        "escaped-braces",
+        "escaped-open",
+        "escaped-pipe",
+        "fraction-operand",
+        "generated-refresh",
+        "generated-rewrite",
+        "inactive-lazy",
+        "large-operand",
+        "literal-backslash",
+        "literal-dollar",
+        "nested-card",
+        "nested-fallback",
+        "nested-repeat",
+        "nested-selected",
+        "overridden-lazy",
+        "payload-equals",
+        "raw-refresh",
+        "repeated-key",
+        "subscriber-refresh",
+        "suffix-minimum",
+        "suffix-two",
+        "suffix-width",
+        "ticking-render",
+        "unmark",
+        "zero-divisor",
+        "zero-repeat-lazy",
+        "zero-zero-divisor"
+      ],
+      "build_exit": 0,
+      "entrypoint_exit": 0,
+      "verifier": {
+        "complete": true,
+        "passed": 15,
+        "failed": 31,
+        "expected": 46,
+        "reward": 0,
+        "entrypoint_exit": 0,
+        "cases": [
+          {
+            "id": "engine",
+            "group": "control",
+            "passed": true
+          },
+          {
+            "id": "direct-control",
+            "group": "control",
+            "passed": true
+          },
+          {
+            "id": "rightmost-control",
+            "group": "control",
+            "passed": true
+          },
+          {
+            "id": "divisible-control",
+            "group": "control",
+            "passed": true
+          },
+          {
+            "id": "suffix-negative-control",
+            "group": "control",
+            "passed": true
+          },
+          {
+            "id": "empty-control",
+            "group": "control",
+            "passed": true
+          },
+          {
+            "id": "repeat-control",
+            "group": "control",
+            "passed": true
+          },
+          {
+            "id": "zero-repeat-control",
+            "group": "control",
+            "passed": true
+          },
+          {
+            "id": "negative-control",
+            "group": "control",
+            "passed": true
+          },
+          {
+            "id": "unmarked-control",
+            "group": "control",
+            "passed": true
+          },
+          {
+            "id": "unknown-control",
+            "group": "control",
+            "passed": true
+          },
+          {
+            "id": "suffix-two",
+            "group": "numeric",
+            "passed": false
+          },
+          {
+            "id": "suffix-width",
+            "group": "numeric",
+            "passed": false
+          },
+          {
+            "id": "suffix-leading-width",
+            "group": "control",
+            "passed": true
+          },
+          {
+            "id": "suffix-minimum",
+            "group": "numeric",
+            "passed": false
+          },
+          {
+            "id": "zero-divisor",
+            "group": "numeric",
+            "passed": false
+          },
+          {
+            "id": "zero-zero-divisor",
+            "group": "numeric",
+            "passed": false
+          },
+          {
+            "id": "fraction-operand",
+            "group": "numeric",
+            "passed": false
+          },
+          {
+            "id": "large-operand",
+            "group": "numeric",
+            "passed": false
+          },
+          {
+            "id": "decimal-leading-zero",
+            "group": "numeric",
+            "passed": false
+          },
+          {
+            "id": "literal-dollar",
+            "group": "literal",
+            "passed": false
+          },
+          {
+            "id": "literal-backslash",
+            "group": "literal",
+            "passed": false
+          },
+          {
+            "id": "payload-equals",
+            "group": "literal",
+            "passed": false
+          },
+          {
+            "id": "escaped-pipe",
+            "group": "literal",
+            "passed": false
+          },
+          {
+            "id": "escaped-braces",
+            "group": "literal",
+            "passed": false
+          },
+          {
+            "id": "escaped-backslash",
+            "group": "literal",
+            "passed": true
+          },
+          {
+            "id": "escaped-open",
+            "group": "literal",
+            "passed": false
+          },
+          {
+            "id": "nested-selected",
+            "group": "nested",
+            "passed": false
+          },
+          {
+            "id": "nested-fallback",
+            "group": "nested",
+            "passed": false
+          },
+          {
+            "id": "nested-repeat",
+            "group": "nested",
+            "passed": false
+          },
+          {
+            "id": "inactive-lazy",
+            "group": "nested",
+            "passed": false
+          },
+          {
+            "id": "overridden-lazy",
+            "group": "nested",
+            "passed": false
+          },
+          {
+            "id": "zero-repeat-lazy",
+            "group": "nested",
+            "passed": false
+          },
+          {
+            "id": "repeated-key",
+            "group": "snapshot",
+            "passed": false
+          },
+          {
+            "id": "cn-direct-control",
+            "group": "control",
+            "passed": true
+          },
+          {
+            "id": "cn-nested",
+            "group": "nested",
+            "passed": false
+          },
+          {
+            "id": "cn-suffix",
+            "group": "numeric",
+            "passed": false
+          },
+          {
+            "id": "raw-refresh",
+            "group": "snapshot",
+            "passed": false
+          },
+          {
+            "id": "generated-refresh",
+            "group": "refresh",
+            "passed": false
+          },
+          {
+            "id": "unmark",
+            "group": "refresh",
+            "passed": false
+          },
+          {
+            "id": "coherent-initialization",
+            "group": "snapshot",
+            "passed": false
+          },
+          {
+            "id": "ticking-render",
+            "group": "snapshot",
+            "passed": false
+          },
+          {
+            "id": "independent-cards",
+            "group": "control",
+            "passed": true
+          },
+          {
+            "id": "nested-card",
+            "group": "snapshot",
+            "passed": false
+          },
+          {
+            "id": "generated-rewrite",
+            "group": "refresh",
+            "passed": false
+          },
+          {
+            "id": "subscriber-refresh",
+            "group": "refresh",
+            "passed": false
+          }
+        ]
+      },
+      "raw_sha256": {
+        "probe.txt": "a0f854f92ad1905bd7f2134d0ce8b859a3fbac24b31d76bb31bf6f13f75e2340",
+        "nonce.txt": "bc3c8c25371f2c596d8380dd935daf3fa6a4bc1c5645283794f2b7a4158a2502",
+        "result.json": "5726d30677d1c18e64e39dc98b9ed3f819fbb1e63cb3dee31cc60d29900b8907",
+        "build-exit.txt": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+        "entrypoint-exit.txt": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+      }
+    },
+    {
+      "task": "mts-enum-identity-r2",
+      "agent": "nop",
+      "trial": "mts-enum-identity-r2__v5ajxuo",
+      "passed": 5,
+      "expected": 15,
+      "reward": 0,
+      "failed_case_ids": [
+        "alias-existing",
+        "alias-new",
+        "game-color",
+        "late-switch",
+        "switch-add",
+        "switch-delete",
+        "warm-add",
+        "warm-delete",
+        "warm-replace",
+        "warm-undo"
+      ],
+      "build_exit": 0,
+      "entrypoint_exit": 0,
+      "verifier": {
+        "complete": true,
+        "expected": 15,
+        "passed": 5,
+        "failed": 10,
+        "reward": 0,
+        "entrypoint_exit": 0,
+        "cases": [
+          {
+            "id": "plain",
+            "group": "control",
+            "passed": true
+          },
+          {
+            "id": "alias-new",
+            "group": "aliases",
+            "passed": false
+          },
+          {
+            "id": "alias-existing",
+            "group": "aliases",
+            "passed": false
+          },
+          {
+            "id": "cold-add",
+            "group": "control",
+            "passed": true
+          },
+          {
+            "id": "warm-add",
+            "group": "queries",
+            "passed": false
+          },
+          {
+            "id": "warm-replace",
+            "group": "queries",
+            "passed": false
+          },
+          {
+            "id": "warm-delete",
+            "group": "queries",
+            "passed": false
+          },
+          {
+            "id": "warm-undo",
+            "group": "queries",
+            "passed": false
+          },
+          {
+            "id": "game-color",
+            "group": "queries",
+            "passed": false
+          },
+          {
+            "id": "switch-plain",
+            "group": "control",
+            "passed": true
+          },
+          {
+            "id": "switch-add",
+            "group": "dispatch",
+            "passed": false
+          },
+          {
+            "id": "switch-delete",
+            "group": "dispatch",
+            "passed": false
+          },
+          {
+            "id": "switch-undo",
+            "group": "control",
+            "passed": true
+          },
+          {
+            "id": "late-switch",
+            "group": "dispatch",
+            "passed": false
+          },
+          {
+            "id": "annotation-copy",
+            "group": "control",
+            "passed": true
+          }
+        ]
+      },
+      "raw_sha256": {
+        "probe.txt": "cb55bb2958b848c78692e11294cb4bb8dd8f0b90fe0be17bf9f5e179df8e106f",
+        "nonce.txt": "18ba910bacf4fb5e9550e15da60b7fb49275506b06d7f087eea07d94759cbd4a",
+        "result.json": "0c718e5e80b428e99dae5ced67d125513c8db41e7fd0c6b29f19600fec6e1bfb",
+        "build-exit.txt": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+        "entrypoint-exit.txt": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+      }
+    },
+    {
+      "task": "downfall-stasis-lifecycle-r1",
+      "agent": "nop",
+      "trial": "downfall-stasis-lifecycle-r1__AiW5jtu",
+      "passed": 19,
+      "expected": 38,
+      "reward": 0,
+      "failed_case_ids": [
+        "generated-existing",
+        "generated-mixed",
+        "generated-overflow",
+        "native-dualcast-hook",
+        "native-dualcast-volatile",
+        "native-recursion-hook",
+        "native-recursion-normal",
+        "native-recursion-upgraded",
+        "native-recursion-volatile",
+        "placement-already-held",
+        "placement-duplicate",
+        "placement-moved",
+        "placement-moved-retained",
+        "placement-moved-unretained",
+        "random-zero",
+        "return-queued-twice",
+        "stale-return",
+        "stale-volatile",
+        "volatile-queued-twice"
+      ],
+      "build_exit": 0,
+      "entrypoint_exit": 0,
+      "verifier": {
+        "complete": true,
+        "passed": 19,
+        "failed": 19,
+        "expected": 38,
+        "reward": 0,
+        "entrypoint_exit": 0,
+        "cases": [
+          {
+            "id": "engine",
+            "group": "control",
+            "passed": true
+          },
+          {
+            "id": "normal-return",
+            "group": "control",
+            "passed": true
+          },
+          {
+            "id": "stale-return",
+            "group": "stale",
+            "passed": false
+          },
+          {
+            "id": "normal-volatile",
+            "group": "control",
+            "passed": true
+          },
+          {
+            "id": "stale-volatile",
+            "group": "stale",
+            "passed": false
+          },
+          {
+            "id": "full-hand",
+            "group": "control",
+            "passed": true
+          },
+          {
+            "id": "placement-normal",
+            "group": "control",
+            "passed": true
+          },
+          {
+            "id": "placement-moved",
+            "group": "ownership",
+            "passed": false
+          },
+          {
+            "id": "placement-already-held",
+            "group": "ownership",
+            "passed": false
+          },
+          {
+            "id": "random-one",
+            "group": "control",
+            "passed": true
+          },
+          {
+            "id": "random-zero",
+            "group": "zero",
+            "passed": false
+          },
+          {
+            "id": "random-empty",
+            "group": "control",
+            "passed": true
+          },
+          {
+            "id": "return-queued-twice",
+            "group": "stale",
+            "passed": false
+          },
+          {
+            "id": "volatile-queued-twice",
+            "group": "stale",
+            "passed": false
+          },
+          {
+            "id": "placement-duplicate",
+            "group": "ownership",
+            "passed": false
+          },
+          {
+            "id": "placement-discard",
+            "group": "control",
+            "passed": true
+          },
+          {
+            "id": "placement-blocked-unretained",
+            "group": "control",
+            "passed": true
+          },
+          {
+            "id": "placement-blocked-retained",
+            "group": "control",
+            "passed": true
+          },
+          {
+            "id": "placement-moved-unretained",
+            "group": "ownership",
+            "passed": false
+          },
+          {
+            "id": "placement-moved-retained",
+            "group": "ownership",
+            "passed": false
+          },
+          {
+            "id": "placement-generated",
+            "group": "control",
+            "passed": true
+          },
+          {
+            "id": "generated-zero",
+            "group": "control",
+            "passed": true
+          },
+          {
+            "id": "generated-one",
+            "group": "control",
+            "passed": true
+          },
+          {
+            "id": "generated-two",
+            "group": "control",
+            "passed": true
+          },
+          {
+            "id": "generated-overflow",
+            "group": "batch",
+            "passed": false
+          },
+          {
+            "id": "generated-existing",
+            "group": "batch",
+            "passed": false
+          },
+          {
+            "id": "generated-mixed",
+            "group": "batch",
+            "passed": false
+          },
+          {
+            "id": "generated-blocked",
+            "group": "control",
+            "passed": true
+          },
+          {
+            "id": "random-three-draw",
+            "group": "control",
+            "passed": true
+          },
+          {
+            "id": "random-three-discard",
+            "group": "control",
+            "passed": true
+          },
+          {
+            "id": "native-dualcast-normal",
+            "group": "control",
+            "passed": true
+          },
+          {
+            "id": "native-dualcast-volatile",
+            "group": "retirement",
+            "passed": false
+          },
+          {
+            "id": "native-dualcast-hook",
+            "group": "retirement",
+            "passed": false
+          },
+          {
+            "id": "native-recursion-normal",
+            "group": "rechannel",
+            "passed": false
+          },
+          {
+            "id": "native-recursion-volatile",
+            "group": "rechannel",
+            "passed": false
+          },
+          {
+            "id": "native-recursion-hook",
+            "group": "rechannel",
+            "passed": false
+          },
+          {
+            "id": "native-recursion-upgraded",
+            "group": "rechannel",
+            "passed": false
+          },
+          {
+            "id": "native-dualcast-lightning",
+            "group": "control",
+            "passed": true
+          }
+        ]
+      },
+      "raw_sha256": {
+        "probe.txt": "0db2c34e847e466269b63e9e7d7cf86ceed819541816bd162a7284eb082dd0c9",
+        "nonce.txt": "cb7702223578273981ac0ad5f5fa7a927ec37dc108e495510f986333cbb19096",
+        "result.json": "940cb67cd1aa3244422a97c5d7b733b09a7801a536192310119266bedb614cbc",
+        "build-exit.txt": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+        "entrypoint-exit.txt": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+      }
+    },
+    {
+      "task": "stslib-block-ledger-r1",
+      "agent": "oracle",
+      "trial": "stslib-block-ledger-r1__3jPTiKK",
+      "passed": 27,
+      "expected": 27,
+      "reward": 1,
+      "failed_case_ids": [],
+      "build_exit": 0,
+      "entrypoint_exit": 0,
+      "verifier": {
+        "complete": true,
+        "passed": 27,
+        "failed": 0,
+        "expected": 27,
+        "reward": 1,
+        "entrypoint_exit": 0,
+        "cases": [
+          {
+            "id": "engine",
+            "group": "control",
+            "passed": true
+          },
+          {
+            "id": "player-plain",
+            "group": "control",
+            "passed": true
+          },
+          {
+            "id": "player-specific",
+            "group": "control",
+            "passed": true
+          },
+          {
+            "id": "player-zero-specific",
+            "group": "targeting",
+            "passed": true
+          },
+          {
+            "id": "player-refund",
+            "group": "settlement",
+            "passed": true
+          },
+          {
+            "id": "player-nested-loss",
+            "group": "settlement",
+            "passed": true
+          },
+          {
+            "id": "player-nested-specific",
+            "group": "settlement",
+            "passed": true
+          },
+          {
+            "id": "player-cross-owner",
+            "group": "settlement",
+            "passed": true
+          },
+          {
+            "id": "player-attenuate",
+            "group": "control",
+            "passed": true
+          },
+          {
+            "id": "player-cap-multiple",
+            "group": "capacity",
+            "passed": true
+          },
+          {
+            "id": "player-cap-full",
+            "group": "capacity",
+            "passed": true
+          },
+          {
+            "id": "player-cap-plain",
+            "group": "capacity",
+            "passed": true
+          },
+          {
+            "id": "player-cap-loss",
+            "group": "capacity",
+            "passed": true
+          },
+          {
+            "id": "player-zero-gain",
+            "group": "capacity",
+            "passed": true
+          },
+          {
+            "id": "monster-plain",
+            "group": "control",
+            "passed": true
+          },
+          {
+            "id": "monster-specific",
+            "group": "control",
+            "passed": true
+          },
+          {
+            "id": "monster-zero-specific",
+            "group": "targeting",
+            "passed": true
+          },
+          {
+            "id": "monster-refund",
+            "group": "settlement",
+            "passed": true
+          },
+          {
+            "id": "monster-nested-loss",
+            "group": "settlement",
+            "passed": true
+          },
+          {
+            "id": "monster-nested-specific",
+            "group": "settlement",
+            "passed": true
+          },
+          {
+            "id": "monster-cross-owner",
+            "group": "settlement",
+            "passed": true
+          },
+          {
+            "id": "monster-attenuate",
+            "group": "control",
+            "passed": true
+          },
+          {
+            "id": "monster-cap-multiple",
+            "group": "capacity",
+            "passed": true
+          },
+          {
+            "id": "monster-cap-full",
+            "group": "capacity",
+            "passed": true
+          },
+          {
+            "id": "monster-cap-plain",
+            "group": "capacity",
+            "passed": true
+          },
+          {
+            "id": "monster-cap-loss",
+            "group": "capacity",
+            "passed": true
+          },
+          {
+            "id": "monster-zero-gain",
+            "group": "capacity",
+            "passed": true
+          }
+        ]
+      },
+      "raw_sha256": {
+        "probe.txt": "a7a80865c281f53c6878d8b46044b03a641b2f289ce3fcb91d0fdc11a5d5fdd0",
+        "nonce.txt": "b5002286c7f835fd8fda519a595fb30499c785f6d2f525d70a86204410636021",
+        "result.json": "bf3066cd3a8432d09423dfe8992a2534fd760c4898811ec5b82e2393f1a31e1e",
+        "build-exit.txt": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+        "entrypoint-exit.txt": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+      }
+    },
+    {
+      "task": "stslib-block-ledger-r1",
+      "agent": "nop",
+      "trial": "stslib-block-ledger-r1__QSQEzgL",
+      "passed": 7,
+      "expected": 27,
+      "reward": 0,
+      "failed_case_ids": [
+        "monster-cap-full",
+        "monster-cap-loss",
+        "monster-cap-multiple",
+        "monster-cap-plain",
+        "monster-cross-owner",
+        "monster-nested-loss",
+        "monster-nested-specific",
+        "monster-refund",
+        "monster-zero-gain",
+        "monster-zero-specific",
+        "player-cap-full",
+        "player-cap-loss",
+        "player-cap-multiple",
+        "player-cap-plain",
+        "player-cross-owner",
+        "player-nested-loss",
+        "player-nested-specific",
+        "player-refund",
+        "player-zero-gain",
+        "player-zero-specific"
+      ],
+      "build_exit": 0,
+      "entrypoint_exit": 0,
+      "verifier": {
+        "complete": true,
+        "passed": 7,
+        "failed": 20,
+        "expected": 27,
+        "reward": 0,
+        "entrypoint_exit": 0,
+        "cases": [
+          {
+            "id": "engine",
+            "group": "control",
+            "passed": true
+          },
+          {
+            "id": "player-plain",
+            "group": "control",
+            "passed": true
+          },
+          {
+            "id": "player-specific",
+            "group": "control",
+            "passed": true
+          },
+          {
+            "id": "player-zero-specific",
+            "group": "targeting",
+            "passed": false
+          },
+          {
+            "id": "player-refund",
+            "group": "settlement",
+            "passed": false
+          },
+          {
+            "id": "player-nested-loss",
+            "group": "settlement",
+            "passed": false
+          },
+          {
+            "id": "player-nested-specific",
+            "group": "settlement",
+            "passed": false
+          },
+          {
+            "id": "player-cross-owner",
+            "group": "settlement",
+            "passed": false
+          },
+          {
+            "id": "player-attenuate",
+            "group": "control",
+            "passed": true
+          },
+          {
+            "id": "player-cap-multiple",
+            "group": "capacity",
+            "passed": false
+          },
+          {
+            "id": "player-cap-full",
+            "group": "capacity",
+            "passed": false
+          },
+          {
+            "id": "player-cap-plain",
+            "group": "capacity",
+            "passed": false
+          },
+          {
+            "id": "player-cap-loss",
+            "group": "capacity",
+            "passed": false
+          },
+          {
+            "id": "player-zero-gain",
+            "group": "capacity",
+            "passed": false
+          },
+          {
+            "id": "monster-plain",
+            "group": "control",
+            "passed": true
+          },
+          {
+            "id": "monster-specific",
+            "group": "control",
+            "passed": true
+          },
+          {
+            "id": "monster-zero-specific",
+            "group": "targeting",
+            "passed": false
+          },
+          {
+            "id": "monster-refund",
+            "group": "settlement",
+            "passed": false
+          },
+          {
+            "id": "monster-nested-loss",
+            "group": "settlement",
+            "passed": false
+          },
+          {
+            "id": "monster-nested-specific",
+            "group": "settlement",
+            "passed": false
+          },
+          {
+            "id": "monster-cross-owner",
+            "group": "settlement",
+            "passed": false
+          },
+          {
+            "id": "monster-attenuate",
+            "group": "control",
+            "passed": true
+          },
+          {
+            "id": "monster-cap-multiple",
+            "group": "capacity",
+            "passed": false
+          },
+          {
+            "id": "monster-cap-full",
+            "group": "capacity",
+            "passed": false
+          },
+          {
+            "id": "monster-cap-plain",
+            "group": "capacity",
+            "passed": false
+          },
+          {
+            "id": "monster-cap-loss",
+            "group": "capacity",
+            "passed": false
+          },
+          {
+            "id": "monster-zero-gain",
+            "group": "capacity",
+            "passed": false
+          }
+        ]
+      },
+      "raw_sha256": {
+        "probe.txt": "80fd24f5c2329365032a1b71572165e0bfc74d74dc9f72d8a9597c300529995c",
+        "nonce.txt": "0c1d626f6a75f9ea122dfca77fd28584fbab0f057e1962326ab4959cd250178d",
+        "result.json": "7533ed577e8ed67a3eb372229084c7e784e62512f21b0724b5ceda77075be57e",
+        "build-exit.txt": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+        "entrypoint-exit.txt": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+      }
+    },
+    {
+      "task": "stslib-icon-layout-r1",
+      "agent": "oracle",
+      "trial": "stslib-icon-layout-r1__JasxUgH",
+      "passed": 43,
+      "expected": 43,
+      "reward": 1,
+      "failed_case_ids": [],
+      "build_exit": 0,
+      "entrypoint_exit": 0,
+      "verifier": {
+        "complete": true,
+        "expected": 43,
+        "passed": 43,
+        "failed": 0,
+        "reward": 1,
+        "entrypoint_exit": 0,
+        "cases": [
+          {
+            "id": "engine",
+            "group": "control",
+            "passed": true,
+            "actual": {
+              "id": "engine",
+              "error": "none",
+              "value": "true"
+            },
+            "expected_value": true
+          },
+          {
+            "id": "width-one",
+            "group": "width",
+            "passed": true,
+            "actual": {
+              "id": "width-one",
+              "error": "none",
+              "value": "24.000",
+              "measured": "20.000",
+              "space": "4.000"
+            },
+            "expected_value": 24
+          },
+          {
+            "id": "width-wide",
+            "group": "width",
+            "passed": true,
+            "actual": {
+              "id": "width-wide",
+              "error": "none",
+              "value": "72.000",
+              "measured": "60.000",
+              "space": "4.000"
+            },
+            "expected_value": 72
+          },
+          {
+            "id": "width-narrow",
+            "group": "width",
+            "passed": true,
+            "actual": {
+              "id": "width-narrow",
+              "error": "none",
+              "value": "24.000",
+              "measured": "20.000",
+              "space": "4.000"
+            },
+            "expected_value": 24
+          },
+          {
+            "id": "width-after-newline",
+            "group": "width",
+            "passed": true,
+            "actual": {
+              "id": "width-after-newline",
+              "error": "none",
+              "value": "24.000",
+              "measured": "20.000",
+              "space": "4.000"
+            },
+            "expected_value": 24
+          },
+          {
+            "id": "width-lowercase",
+            "group": "width",
+            "passed": true,
+            "actual": {
+              "id": "width-lowercase",
+              "error": "none",
+              "value": "24.000",
+              "measured": "20.000",
+              "space": "4.000"
+            },
+            "expected_value": 24
+          },
+          {
+            "id": "width-short-code",
+            "group": "width",
+            "passed": true,
+            "actual": {
+              "id": "width-short-code",
+              "error": "none",
+              "value": "24.000",
+              "measured": "20.000",
+              "space": "4.000"
+            },
+            "expected_value": 24
+          },
+          {
+            "id": "width-cn",
+            "group": "width",
+            "passed": true,
+            "actual": {
+              "id": "width-cn",
+              "error": "none",
+              "value": "24.000",
+              "measured": "20.000",
+              "space": "4.000"
+            },
+            "expected_value": 24
+          },
+          {
+            "id": "en-height-three",
+            "group": "en-height",
+            "passed": true,
+            "actual": {
+              "id": "en-height-three",
+              "error": "none",
+              "value": "-60.000"
+            },
+            "expected_value": -60
+          },
+          {
+            "id": "en-height-five",
+            "group": "en-height",
+            "passed": true,
+            "actual": {
+              "id": "en-height-five",
+              "error": "none",
+              "value": "-60.000"
+            },
+            "expected_value": -60
+          },
+          {
+            "id": "en-height-spacing",
+            "group": "en-height",
+            "passed": true,
+            "actual": {
+              "id": "en-height-spacing",
+              "error": "none",
+              "value": "-88.000"
+            },
+            "expected_value": -88
+          },
+          {
+            "id": "en-height-newline",
+            "group": "en-height",
+            "passed": true,
+            "actual": {
+              "id": "en-height-newline",
+              "error": "none",
+              "value": "-90.000"
+            },
+            "expected_value": -90
+          },
+          {
+            "id": "cn-height-three",
+            "group": "cn-height",
+            "passed": true,
+            "actual": {
+              "id": "cn-height-three",
+              "error": "none",
+              "value": "-60.000"
+            },
+            "expected_value": -60
+          },
+          {
+            "id": "cn-height-five",
+            "group": "cn-height",
+            "passed": true,
+            "actual": {
+              "id": "cn-height-five",
+              "error": "none",
+              "value": "-60.000"
+            },
+            "expected_value": -60
+          },
+          {
+            "id": "cn-height-lowercase",
+            "group": "cn-height",
+            "passed": true,
+            "actual": {
+              "id": "cn-height-lowercase",
+              "error": "none",
+              "value": "-88.000"
+            },
+            "expected_value": -88
+          },
+          {
+            "id": "cn-height-mixed",
+            "group": "cn-height",
+            "passed": true,
+            "actual": {
+              "id": "cn-height-mixed",
+              "error": "none",
+              "value": "-30.000"
+            },
+            "expected_value": -30
+          },
+          {
+            "id": "cn-height-orb",
+            "group": "cn-height",
+            "passed": true,
+            "actual": {
+              "id": "cn-height-orb",
+              "error": "none",
+              "value": "-30.000"
+            },
+            "expected_value": -30
+          },
+          {
+            "id": "cn-height-colored",
+            "group": "cn-height",
+            "passed": true,
+            "actual": {
+              "id": "cn-height-colored",
+              "error": "none",
+              "value": "-30.000"
+            },
+            "expected_value": -30
+          },
+          {
+            "id": "cn-wrap-three",
+            "group": "cn-wrap",
+            "passed": true,
+            "actual": {
+              "id": "cn-wrap-three",
+              "error": "none",
+              "value": "0.000:0.000;0.000:-30.000;0.000:-60.000;"
+            },
+            "expected_value": [
+              [
+                0,
+                0
+              ],
+              [
+                0,
+                -30
+              ],
+              [
+                0,
+                -60
+              ]
+            ]
+          },
+          {
+            "id": "cn-wrap-five",
+            "group": "cn-wrap",
+            "passed": true,
+            "actual": {
+              "id": "cn-wrap-five",
+              "error": "none",
+              "value": "0.000:0.000;24.000:0.000;0.000:-30.000;24.000:-30.000;0.000:-60.000;"
+            },
+            "expected_value": [
+              [
+                0,
+                0
+              ],
+              [
+                24,
+                0
+              ],
+              [
+                0,
+                -30
+              ],
+              [
+                24,
+                -30
+              ],
+              [
+                0,
+                -60
+              ]
+            ]
+          },
+          {
+            "id": "cn-wrap-lowercase",
+            "group": "cn-wrap",
+            "passed": true,
+            "actual": {
+              "id": "cn-wrap-lowercase",
+              "error": "none",
+              "value": "0.000:0.000;0.000:-44.000;0.000:-88.000;"
+            },
+            "expected_value": [
+              [
+                0,
+                0
+              ],
+              [
+                0,
+                -44
+              ],
+              [
+                0,
+                -88
+              ]
+            ]
+          },
+          {
+            "id": "cn-wrap-newline",
+            "group": "cn-wrap",
+            "passed": true,
+            "actual": {
+              "id": "cn-wrap-newline",
+              "error": "none",
+              "value": "0.000:0.000;0.000:-30.000;0.000:-60.000;"
+            },
+            "expected_value": [
+              [
+                0,
+                0
+              ],
+              [
+                0,
+                -30
+              ],
+              [
+                0,
+                -60
+              ]
+            ]
+          },
+          {
+            "id": "header-one",
+            "group": "header",
+            "passed": true,
+            "actual": {
+              "id": "header-one",
+              "error": "none",
+              "value": "true",
+              "first": "1",
+              "second": "1",
+              "original": "TGFiZWwgW1Byb2JlREJNSWNvbl0gVGFpbA==",
+              "firstHeader": "TGFiZWwgW1Byb2JlREJNSWNvbl0gVGFpbA==",
+              "secondHeader": "TGFiZWwgW1Byb2JlREJNSWNvbl0gVGFpbA=="
+            },
+            "expected_value": true
+          },
+          {
+            "id": "header-multiple",
+            "group": "header",
+            "passed": true,
+            "actual": {
+              "id": "header-multiple",
+              "error": "none",
+              "value": "true",
+              "first": "3",
+              "second": "3",
+              "original": "TGFiZWwgW1Byb2JlREJNSWNvbl0gW1FJY29uXSBbUHJvYmVEQk1JY29uXSBUYWls",
+              "firstHeader": "TGFiZWwgW1Byb2JlREJNSWNvbl0gW1FJY29uXSBbUHJvYmVEQk1JY29uXSBUYWls",
+              "secondHeader": "TGFiZWwgW1Byb2JlREJNSWNvbl0gW1FJY29uXSBbUHJvYmVEQk1JY29uXSBUYWls"
+            },
+            "expected_value": true
+          },
+          {
+            "id": "header-lowercase",
+            "group": "header",
+            "passed": true,
+            "actual": {
+              "id": "header-lowercase",
+              "error": "none",
+              "value": "true",
+              "first": "1",
+              "second": "1",
+              "original": "TGFiZWwgW3Byb2JlZGJtaWNvbl0gVGFpbA==",
+              "firstHeader": "TGFiZWwgW3Byb2JlZGJtaWNvbl0gVGFpbA==",
+              "secondHeader": "TGFiZWwgW3Byb2JlZGJtaWNvbl0gVGFpbA=="
+            },
+            "expected_value": true
+          },
+          {
+            "id": "tint-0",
+            "group": "control",
+            "passed": true,
+            "actual": {
+              "id": "tint-0",
+              "error": "none",
+              "value": "true",
+              "before": "336699cc",
+              "after": "336699cc"
+            },
+            "expected_value": true
+          },
+          {
+            "id": "tint-1",
+            "group": "control",
+            "passed": true,
+            "actual": {
+              "id": "tint-1",
+              "error": "none",
+              "value": "true",
+              "before": "336699cc",
+              "after": "336699cc"
+            },
+            "expected_value": true
+          },
+          {
+            "id": "tint-2",
+            "group": "control",
+            "passed": true,
+            "actual": {
+              "id": "tint-2",
+              "error": "none",
+              "value": "true",
+              "before": "336699cc",
+              "after": "336699cc"
+            },
+            "expected_value": true
+          },
+          {
+            "id": "card-en-1",
+            "group": "control",
+            "passed": true,
+            "actual": {
+              "id": "card-en-1",
+              "error": "none",
+              "value": "true",
+              "draws": "1"
+            },
+            "expected_value": true
+          },
+          {
+            "id": "card-en-6",
+            "group": "control",
+            "passed": true,
+            "actual": {
+              "id": "card-en-6",
+              "error": "none",
+              "value": "true",
+              "draws": "6"
+            },
+            "expected_value": true
+          },
+          {
+            "id": "card-en-14",
+            "group": "control",
+            "passed": true,
+            "actual": {
+              "id": "card-en-14",
+              "error": "none",
+              "value": "true",
+              "draws": "14"
+            },
+            "expected_value": true
+          },
+          {
+            "id": "newline-en",
+            "group": "control",
+            "passed": true,
+            "actual": {
+              "id": "newline-en",
+              "error": "none",
+              "value": "0.000:0.000;0.000:-30.000;"
+            },
+            "expected_value": [
+              [
+                0,
+                0
+              ],
+              [
+                0,
+                -30
+              ]
+            ]
+          },
+          {
+            "id": "wide-en",
+            "group": "control",
+            "passed": true,
+            "actual": {
+              "id": "wide-en",
+              "error": "none",
+              "value": "0.000:0.000;30.000:0.000;60.000:0.000;"
+            },
+            "expected_value": [
+              [
+                0,
+                0
+              ],
+              [
+                30,
+                0
+              ],
+              [
+                60,
+                0
+              ]
+            ]
+          },
+          {
+            "id": "ordinary-height-en",
+            "group": "control",
+            "passed": true,
+            "actual": {
+              "id": "ordinary-height-en",
+              "error": "none",
+              "value": "-30.000"
+            },
+            "expected_value": -30
+          },
+          {
+            "id": "unknown-render-en",
+            "group": "control",
+            "passed": true,
+            "actual": {
+              "id": "unknown-render-en",
+              "error": "none",
+              "value": ""
+            },
+            "expected_value": []
+          },
+          {
+            "id": "card-cn-1",
+            "group": "control",
+            "passed": true,
+            "actual": {
+              "id": "card-cn-1",
+              "error": "none",
+              "value": "true",
+              "draws": "1"
+            },
+            "expected_value": true
+          },
+          {
+            "id": "card-cn-6",
+            "group": "control",
+            "passed": true,
+            "actual": {
+              "id": "card-cn-6",
+              "error": "none",
+              "value": "true",
+              "draws": "6"
+            },
+            "expected_value": true
+          },
+          {
+            "id": "card-cn-14",
+            "group": "control",
+            "passed": true,
+            "actual": {
+              "id": "card-cn-14",
+              "error": "none",
+              "value": "true",
+              "draws": "14"
+            },
+            "expected_value": true
+          },
+          {
+            "id": "newline-cn",
+            "group": "control",
+            "passed": true,
+            "actual": {
+              "id": "newline-cn",
+              "error": "none",
+              "value": "0.000:0.000;0.000:-30.000;"
+            },
+            "expected_value": [
+              [
+                0,
+                0
+              ],
+              [
+                0,
+                -30
+              ]
+            ]
+          },
+          {
+            "id": "wide-cn",
+            "group": "control",
+            "passed": true,
+            "actual": {
+              "id": "wide-cn",
+              "error": "none",
+              "value": "0.000:0.000;24.000:0.000;48.000:0.000;"
+            },
+            "expected_value": [
+              [
+                0,
+                0
+              ],
+              [
+                24,
+                0
+              ],
+              [
+                48,
+                0
+              ]
+            ]
+          },
+          {
+            "id": "ordinary-height-cn",
+            "group": "control",
+            "passed": true,
+            "actual": {
+              "id": "ordinary-height-cn",
+              "error": "none",
+              "value": "-30.000"
+            },
+            "expected_value": -30
+          },
+          {
+            "id": "unknown-render-cn",
+            "group": "control",
+            "passed": true,
+            "actual": {
+              "id": "unknown-render-cn",
+              "error": "none",
+              "value": ""
+            },
+            "expected_value": []
+          },
+          {
+            "id": "ordinary-header",
+            "group": "control",
+            "passed": true,
+            "actual": {
+              "id": "ordinary-header",
+              "error": "none",
+              "value": "true",
+              "first": "0",
+              "second": "0",
+              "original": "TGFiZWwgVGFpbA==",
+              "firstHeader": "TGFiZWwgVGFpbA==",
+              "secondHeader": "TGFiZWwgVGFpbA=="
+            },
+            "expected_value": true
+          }
+        ]
+      },
+      "raw_sha256": {
+        "probe.txt": "974393a298fcfd52d7cb6de8f6e8b3ed70c2a8c81c75ff6ebd5dfda545826d3f",
+        "nonce.txt": "22b46d2869e800c3acb0c269fba509d1a9a46c50e876c3b1e3266c190fb41c6c",
+        "result.json": "8d28d486ed9ef060add461264c93f5fe2ce8f983111b06b210ac22f55b68b7e4",
+        "build-exit.txt": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+        "entrypoint-exit.txt": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+      }
+    },
+    {
+      "task": "basemod-dynamic-descriptions-r2",
+      "agent": "oracle",
+      "trial": "basemod-dynamic-descriptions-r2__riEodqR",
+      "passed": 46,
+      "expected": 46,
+      "reward": 1,
+      "failed_case_ids": [],
+      "build_exit": 0,
+      "entrypoint_exit": 0,
+      "verifier": {
+        "complete": true,
+        "passed": 46,
+        "failed": 0,
+        "expected": 46,
+        "reward": 1,
+        "entrypoint_exit": 0,
+        "cases": [
+          {
+            "id": "engine",
+            "group": "control",
+            "passed": true
+          },
+          {
+            "id": "direct-control",
+            "group": "control",
+            "passed": true
+          },
+          {
+            "id": "rightmost-control",
+            "group": "control",
+            "passed": true
+          },
+          {
+            "id": "divisible-control",
+            "group": "control",
+            "passed": true
+          },
+          {
+            "id": "suffix-negative-control",
+            "group": "control",
+            "passed": true
+          },
+          {
+            "id": "empty-control",
+            "group": "control",
+            "passed": true
+          },
+          {
+            "id": "repeat-control",
+            "group": "control",
+            "passed": true
+          },
+          {
+            "id": "zero-repeat-control",
+            "group": "control",
+            "passed": true
+          },
+          {
+            "id": "negative-control",
+            "group": "control",
+            "passed": true
+          },
+          {
+            "id": "unmarked-control",
+            "group": "control",
+            "passed": true
+          },
+          {
+            "id": "unknown-control",
+            "group": "control",
+            "passed": true
+          },
+          {
+            "id": "suffix-two",
+            "group": "numeric",
+            "passed": true
+          },
+          {
+            "id": "suffix-width",
+            "group": "numeric",
+            "passed": true
+          },
+          {
+            "id": "suffix-leading-width",
+            "group": "control",
+            "passed": true
+          },
+          {
+            "id": "suffix-minimum",
+            "group": "numeric",
+            "passed": true
+          },
+          {
+            "id": "zero-divisor",
+            "group": "numeric",
+            "passed": true
+          },
+          {
+            "id": "zero-zero-divisor",
+            "group": "numeric",
+            "passed": true
+          },
+          {
+            "id": "fraction-operand",
+            "group": "numeric",
+            "passed": true
+          },
+          {
+            "id": "large-operand",
+            "group": "numeric",
+            "passed": true
+          },
+          {
+            "id": "decimal-leading-zero",
+            "group": "numeric",
+            "passed": true
+          },
+          {
+            "id": "literal-dollar",
+            "group": "literal",
+            "passed": true
+          },
+          {
+            "id": "literal-backslash",
+            "group": "literal",
+            "passed": true
+          },
+          {
+            "id": "payload-equals",
+            "group": "literal",
+            "passed": true
+          },
+          {
+            "id": "escaped-pipe",
+            "group": "literal",
+            "passed": true
+          },
+          {
+            "id": "escaped-braces",
+            "group": "literal",
+            "passed": true
+          },
+          {
+            "id": "escaped-backslash",
+            "group": "literal",
+            "passed": true
+          },
+          {
+            "id": "escaped-open",
+            "group": "literal",
+            "passed": true
+          },
+          {
+            "id": "nested-selected",
+            "group": "nested",
+            "passed": true
+          },
+          {
+            "id": "nested-fallback",
+            "group": "nested",
+            "passed": true
+          },
+          {
+            "id": "nested-repeat",
+            "group": "nested",
+            "passed": true
+          },
+          {
+            "id": "inactive-lazy",
+            "group": "nested",
+            "passed": true
+          },
+          {
+            "id": "overridden-lazy",
+            "group": "nested",
+            "passed": true
+          },
+          {
+            "id": "zero-repeat-lazy",
+            "group": "nested",
+            "passed": true
+          },
+          {
+            "id": "repeated-key",
+            "group": "snapshot",
+            "passed": true
+          },
+          {
+            "id": "cn-direct-control",
+            "group": "control",
+            "passed": true
+          },
+          {
+            "id": "cn-nested",
+            "group": "nested",
+            "passed": true
+          },
+          {
+            "id": "cn-suffix",
+            "group": "numeric",
+            "passed": true
+          },
+          {
+            "id": "raw-refresh",
+            "group": "snapshot",
+            "passed": true
+          },
+          {
+            "id": "generated-refresh",
+            "group": "refresh",
+            "passed": true
+          },
+          {
+            "id": "unmark",
+            "group": "refresh",
+            "passed": true
+          },
+          {
+            "id": "coherent-initialization",
+            "group": "snapshot",
+            "passed": true
+          },
+          {
+            "id": "ticking-render",
+            "group": "snapshot",
+            "passed": true
+          },
+          {
+            "id": "independent-cards",
+            "group": "control",
+            "passed": true
+          },
+          {
+            "id": "nested-card",
+            "group": "snapshot",
+            "passed": true
+          },
+          {
+            "id": "generated-rewrite",
+            "group": "refresh",
+            "passed": true
+          },
+          {
+            "id": "subscriber-refresh",
+            "group": "refresh",
+            "passed": true
+          }
+        ]
+      },
+      "raw_sha256": {
+        "probe.txt": "3d56d2e7756f488666c01efe4842cc6c4140a066b4e6ec50ee68f4c896536cd8",
+        "nonce.txt": "a1f2e45dfa45f039b3af5def9804314fa98a51ffefc600eed33859c2db191ba1",
+        "result.json": "98ce5260e72252dedb37a21a923407762eebae2665eef0a38248e94aadcda032",
+        "build-exit.txt": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+        "entrypoint-exit.txt": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+      }
+    },
+    {
+      "task": "mts-enum-identity-r2",
+      "agent": "oracle",
+      "trial": "mts-enum-identity-r2__G2cG6Vm",
+      "passed": 15,
+      "expected": 15,
+      "reward": 1,
+      "failed_case_ids": [],
+      "build_exit": 0,
+      "entrypoint_exit": 0,
+      "verifier": {
+        "complete": true,
+        "expected": 15,
+        "passed": 15,
+        "failed": 0,
+        "reward": 1,
+        "entrypoint_exit": 0,
+        "cases": [
+          {
+            "id": "plain",
+            "group": "control",
+            "passed": true
+          },
+          {
+            "id": "alias-new",
+            "group": "aliases",
+            "passed": true
+          },
+          {
+            "id": "alias-existing",
+            "group": "aliases",
+            "passed": true
+          },
+          {
+            "id": "cold-add",
+            "group": "control",
+            "passed": true
+          },
+          {
+            "id": "warm-add",
+            "group": "queries",
+            "passed": true
+          },
+          {
+            "id": "warm-replace",
+            "group": "queries",
+            "passed": true
+          },
+          {
+            "id": "warm-delete",
+            "group": "queries",
+            "passed": true
+          },
+          {
+            "id": "warm-undo",
+            "group": "queries",
+            "passed": true
+          },
+          {
+            "id": "game-color",
+            "group": "queries",
+            "passed": true
+          },
+          {
+            "id": "switch-plain",
+            "group": "control",
+            "passed": true
+          },
+          {
+            "id": "switch-add",
+            "group": "dispatch",
+            "passed": true
+          },
+          {
+            "id": "switch-delete",
+            "group": "dispatch",
+            "passed": true
+          },
+          {
+            "id": "switch-undo",
+            "group": "control",
+            "passed": true
+          },
+          {
+            "id": "late-switch",
+            "group": "dispatch",
+            "passed": true
+          },
+          {
+            "id": "annotation-copy",
+            "group": "control",
+            "passed": true
+          }
+        ]
+      },
+      "raw_sha256": {
+        "probe.txt": "5e6ab787063de66f4ae5d044d25d0f51056819472704a6717f099662a70e81e9",
+        "nonce.txt": "6d6f3dd9c21cf1fe64ae31f8bf442a96168a02e69922ff0df1252d8a12f24877",
+        "result.json": "165d7672296861b1405f78c187cb1e00c839d98219983a7824548d3d9fd708e5",
+        "build-exit.txt": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+        "entrypoint-exit.txt": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+      }
+    },
+    {
+      "task": "stslib-icon-layout-r1",
+      "agent": "nop",
+      "trial": "stslib-icon-layout-r1__HLpyUPX",
+      "passed": 19,
+      "expected": 43,
+      "reward": 0,
+      "failed_case_ids": [
+        "cn-height-colored",
+        "cn-height-five",
+        "cn-height-lowercase",
+        "cn-height-mixed",
+        "cn-height-orb",
+        "cn-height-three",
+        "cn-wrap-five",
+        "cn-wrap-lowercase",
+        "cn-wrap-newline",
+        "cn-wrap-three",
+        "en-height-five",
+        "en-height-newline",
+        "en-height-spacing",
+        "en-height-three",
+        "header-lowercase",
+        "header-multiple",
+        "header-one",
+        "width-after-newline",
+        "width-cn",
+        "width-lowercase",
+        "width-narrow",
+        "width-one",
+        "width-short-code",
+        "width-wide"
+      ],
+      "build_exit": 0,
+      "entrypoint_exit": 0,
+      "verifier": {
+        "complete": true,
+        "expected": 43,
+        "passed": 19,
+        "failed": 24,
+        "reward": 0,
+        "entrypoint_exit": 0,
+        "cases": [
+          {
+            "id": "engine",
+            "group": "control",
+            "passed": true,
+            "actual": {
+              "id": "engine",
+              "error": "none",
+              "value": "true"
+            },
+            "expected_value": true
+          },
+          {
+            "id": "width-one",
+            "group": "width",
+            "passed": false,
+            "actual": {
+              "id": "width-one",
+              "error": "none",
+              "value": "157.500",
+              "measured": "109.000",
+              "space": "4.000"
+            },
+            "expected_value": 24
+          },
+          {
+            "id": "width-wide",
+            "group": "width",
+            "passed": false,
+            "actual": {
+              "id": "width-wide",
+              "error": "none",
+              "value": "472.500",
+              "measured": "327.000",
+              "space": "4.000"
+            },
+            "expected_value": 72
+          },
+          {
+            "id": "width-narrow",
+            "group": "width",
+            "passed": false,
+            "actual": {
+              "id": "width-narrow",
+              "error": "none",
+              "value": "157.500",
+              "measured": "109.000",
+              "space": "4.000"
+            },
+            "expected_value": 24
+          },
+          {
+            "id": "width-after-newline",
+            "group": "width",
+            "passed": false,
+            "actual": {
+              "id": "width-after-newline",
+              "error": "none",
+              "value": "157.500",
+              "measured": "109.000",
+              "space": "4.000"
+            },
+            "expected_value": 24
+          },
+          {
+            "id": "width-lowercase",
+            "group": "width",
+            "passed": false,
+            "actual": {
+              "id": "width-lowercase",
+              "error": "none",
+              "value": "144.000",
+              "measured": "100.000",
+              "space": "4.000"
+            },
+            "expected_value": 24
+          },
+          {
+            "id": "width-short-code",
+            "group": "width",
+            "passed": false,
+            "actual": {
+              "id": "width-short-code",
+              "error": "none",
+              "value": "69.000",
+              "measured": "50.000",
+              "space": "4.000"
+            },
+            "expected_value": 24
+          },
+          {
+            "id": "width-cn",
+            "group": "width",
+            "passed": false,
+            "actual": {
+              "id": "width-cn",
+              "error": "none",
+              "value": "157.500",
+              "measured": "109.000",
+              "space": "4.000"
+            },
+            "expected_value": 24
+          },
+          {
+            "id": "en-height-three",
+            "group": "en-height",
+            "passed": false,
+            "actual": {
+              "id": "en-height-three",
+              "error": "none",
+              "value": "-30.000"
+            },
+            "expected_value": -60
+          },
+          {
+            "id": "en-height-five",
+            "group": "en-height",
+            "passed": false,
+            "actual": {
+              "id": "en-height-five",
+              "error": "none",
+              "value": "-30.000"
+            },
+            "expected_value": -60
+          },
+          {
+            "id": "en-height-spacing",
+            "group": "en-height",
+            "passed": false,
+            "actual": {
+              "id": "en-height-spacing",
+              "error": "none",
+              "value": "-44.000"
+            },
+            "expected_value": -88
+          },
+          {
+            "id": "en-height-newline",
+            "group": "en-height",
+            "passed": false,
+            "actual": {
+              "id": "en-height-newline",
+              "error": "none",
+              "value": "-60.000"
+            },
+            "expected_value": -90
+          },
+          {
+            "id": "cn-height-three",
+            "group": "cn-height",
+            "passed": false,
+            "actual": {
+              "id": "cn-height-three",
+              "error": "none",
+              "value": "-0.000"
+            },
+            "expected_value": -60
+          },
+          {
+            "id": "cn-height-five",
+            "group": "cn-height",
+            "passed": false,
+            "actual": {
+              "id": "cn-height-five",
+              "error": "none",
+              "value": "-0.000"
+            },
+            "expected_value": -60
+          },
+          {
+            "id": "cn-height-lowercase",
+            "group": "cn-height",
+            "passed": false,
+            "actual": {
+              "id": "cn-height-lowercase",
+              "error": "none",
+              "value": "-0.000"
+            },
+            "expected_value": -88
+          },
+          {
+            "id": "cn-height-mixed",
+            "group": "cn-height",
+            "passed": false,
+            "actual": {
+              "id": "cn-height-mixed",
+              "error": "none",
+              "value": "-0.000"
+            },
+            "expected_value": -30
+          },
+          {
+            "id": "cn-height-orb",
+            "group": "cn-height",
+            "passed": false,
+            "actual": {
+              "id": "cn-height-orb",
+              "error": "none",
+              "value": "-0.000"
+            },
+            "expected_value": -30
+          },
+          {
+            "id": "cn-height-colored",
+            "group": "cn-height",
+            "passed": false,
+            "actual": {
+              "id": "cn-height-colored",
+              "error": "none",
+              "value": "-0.000"
+            },
+            "expected_value": -30
+          },
+          {
+            "id": "cn-wrap-three",
+            "group": "cn-wrap",
+            "passed": false,
+            "actual": {
+              "id": "cn-wrap-three",
+              "error": "none",
+              "value": "0.000:0.000;0.000:30.000;0.000:60.000;"
+            },
+            "expected_value": [
+              [
+                0,
+                0
+              ],
+              [
+                0,
+                -30
+              ],
+              [
+                0,
+                -60
+              ]
+            ]
+          },
+          {
+            "id": "cn-wrap-five",
+            "group": "cn-wrap",
+            "passed": false,
+            "actual": {
+              "id": "cn-wrap-five",
+              "error": "none",
+              "value": "0.000:0.000;24.000:0.000;0.000:30.000;24.000:30.000;0.000:60.000;"
+            },
+            "expected_value": [
+              [
+                0,
+                0
+              ],
+              [
+                24,
+                0
+              ],
+              [
+                0,
+                -30
+              ],
+              [
+                24,
+                -30
+              ],
+              [
+                0,
+                -60
+              ]
+            ]
+          },
+          {
+            "id": "cn-wrap-lowercase",
+            "group": "cn-wrap",
+            "passed": false,
+            "actual": {
+              "id": "cn-wrap-lowercase",
+              "error": "none",
+              "value": "0.000:0.000;0.000:44.000;0.000:88.000;"
+            },
+            "expected_value": [
+              [
+                0,
+                0
+              ],
+              [
+                0,
+                -44
+              ],
+              [
+                0,
+                -88
+              ]
+            ]
+          },
+          {
+            "id": "cn-wrap-newline",
+            "group": "cn-wrap",
+            "passed": false,
+            "actual": {
+              "id": "cn-wrap-newline",
+              "error": "none",
+              "value": "0.000:0.000;0.000:-30.000;0.000:0.000;"
+            },
+            "expected_value": [
+              [
+                0,
+                0
+              ],
+              [
+                0,
+                -30
+              ],
+              [
+                0,
+                -60
+              ]
+            ]
+          },
+          {
+            "id": "header-one",
+            "group": "header",
+            "passed": false,
+            "actual": {
+              "id": "header-one",
+              "error": "none",
+              "value": "false",
+              "first": "1",
+              "second": "0",
+              "original": "TGFiZWwgW1Byb2JlREJNSWNvbl0gVGFpbA==",
+              "firstHeader": "TGFiZWwgICAgIFRhaWw=",
+              "secondHeader": "TGFiZWwgICAgIFRhaWw="
+            },
+            "expected_value": true
+          },
+          {
+            "id": "header-multiple",
+            "group": "header",
+            "passed": false,
+            "actual": {
+              "id": "header-multiple",
+              "error": "none",
+              "value": "false",
+              "first": "3",
+              "second": "0",
+              "original": "TGFiZWwgW1Byb2JlREJNSWNvbl0gW1FJY29uXSBbUHJvYmVEQk1JY29uXSBUYWls",
+              "firstHeader": "TGFiZWwgICAgICAgICAgICAgVGFpbA==",
+              "secondHeader": "TGFiZWwgICAgICAgICAgICAgVGFpbA=="
+            },
+            "expected_value": true
+          },
+          {
+            "id": "header-lowercase",
+            "group": "header",
+            "passed": false,
+            "actual": {
+              "id": "header-lowercase",
+              "error": "none",
+              "value": "false",
+              "first": "1",
+              "second": "0",
+              "original": "TGFiZWwgW3Byb2JlZGJtaWNvbl0gVGFpbA==",
+              "firstHeader": "TGFiZWwgICAgIFRhaWw=",
+              "secondHeader": "TGFiZWwgICAgIFRhaWw="
+            },
+            "expected_value": true
+          },
+          {
+            "id": "tint-0",
+            "group": "control",
+            "passed": true,
+            "actual": {
+              "id": "tint-0",
+              "error": "none",
+              "value": "true",
+              "before": "336699cc",
+              "after": "336699cc"
+            },
+            "expected_value": true
+          },
+          {
+            "id": "tint-1",
+            "group": "control",
+            "passed": true,
+            "actual": {
+              "id": "tint-1",
+              "error": "none",
+              "value": "true",
+              "before": "336699cc",
+              "after": "336699cc"
+            },
+            "expected_value": true
+          },
+          {
+            "id": "tint-2",
+            "group": "control",
+            "passed": true,
+            "actual": {
+              "id": "tint-2",
+              "error": "none",
+              "value": "true",
+              "before": "336699cc",
+              "after": "336699cc"
+            },
+            "expected_value": true
+          },
+          {
+            "id": "card-en-1",
+            "group": "control",
+            "passed": true,
+            "actual": {
+              "id": "card-en-1",
+              "error": "none",
+              "value": "true",
+              "draws": "1"
+            },
+            "expected_value": true
+          },
+          {
+            "id": "card-en-6",
+            "group": "control",
+            "passed": true,
+            "actual": {
+              "id": "card-en-6",
+              "error": "none",
+              "value": "true",
+              "draws": "6"
+            },
+            "expected_value": true
+          },
+          {
+            "id": "card-en-14",
+            "group": "control",
+            "passed": true,
+            "actual": {
+              "id": "card-en-14",
+              "error": "none",
+              "value": "true",
+              "draws": "14"
+            },
+            "expected_value": true
+          },
+          {
+            "id": "newline-en",
+            "group": "control",
+            "passed": true,
+            "actual": {
+              "id": "newline-en",
+              "error": "none",
+              "value": "0.000:0.000;0.000:-30.000;"
+            },
+            "expected_value": [
+              [
+                0,
+                0
+              ],
+              [
+                0,
+                -30
+              ]
+            ]
+          },
+          {
+            "id": "wide-en",
+            "group": "control",
+            "passed": true,
+            "actual": {
+              "id": "wide-en",
+              "error": "none",
+              "value": "0.000:0.000;30.000:0.000;60.000:0.000;"
+            },
+            "expected_value": [
+              [
+                0,
+                0
+              ],
+              [
+                30,
+                0
+              ],
+              [
+                60,
+                0
+              ]
+            ]
+          },
+          {
+            "id": "ordinary-height-en",
+            "group": "control",
+            "passed": true,
+            "actual": {
+              "id": "ordinary-height-en",
+              "error": "none",
+              "value": "-30.000"
+            },
+            "expected_value": -30
+          },
+          {
+            "id": "unknown-render-en",
+            "group": "control",
+            "passed": true,
+            "actual": {
+              "id": "unknown-render-en",
+              "error": "none",
+              "value": ""
+            },
+            "expected_value": []
+          },
+          {
+            "id": "card-cn-1",
+            "group": "control",
+            "passed": true,
+            "actual": {
+              "id": "card-cn-1",
+              "error": "none",
+              "value": "true",
+              "draws": "1"
+            },
+            "expected_value": true
+          },
+          {
+            "id": "card-cn-6",
+            "group": "control",
+            "passed": true,
+            "actual": {
+              "id": "card-cn-6",
+              "error": "none",
+              "value": "true",
+              "draws": "6"
+            },
+            "expected_value": true
+          },
+          {
+            "id": "card-cn-14",
+            "group": "control",
+            "passed": true,
+            "actual": {
+              "id": "card-cn-14",
+              "error": "none",
+              "value": "true",
+              "draws": "14"
+            },
+            "expected_value": true
+          },
+          {
+            "id": "newline-cn",
+            "group": "control",
+            "passed": true,
+            "actual": {
+              "id": "newline-cn",
+              "error": "none",
+              "value": "0.000:0.000;0.000:-30.000;"
+            },
+            "expected_value": [
+              [
+                0,
+                0
+              ],
+              [
+                0,
+                -30
+              ]
+            ]
+          },
+          {
+            "id": "wide-cn",
+            "group": "control",
+            "passed": true,
+            "actual": {
+              "id": "wide-cn",
+              "error": "none",
+              "value": "0.000:0.000;24.000:0.000;48.000:0.000;"
+            },
+            "expected_value": [
+              [
+                0,
+                0
+              ],
+              [
+                24,
+                0
+              ],
+              [
+                48,
+                0
+              ]
+            ]
+          },
+          {
+            "id": "ordinary-height-cn",
+            "group": "control",
+            "passed": true,
+            "actual": {
+              "id": "ordinary-height-cn",
+              "error": "none",
+              "value": "-30.000"
+            },
+            "expected_value": -30
+          },
+          {
+            "id": "unknown-render-cn",
+            "group": "control",
+            "passed": true,
+            "actual": {
+              "id": "unknown-render-cn",
+              "error": "none",
+              "value": ""
+            },
+            "expected_value": []
+          },
+          {
+            "id": "ordinary-header",
+            "group": "control",
+            "passed": true,
+            "actual": {
+              "id": "ordinary-header",
+              "error": "none",
+              "value": "true",
+              "first": "0",
+              "second": "0",
+              "original": "TGFiZWwgVGFpbA==",
+              "firstHeader": "TGFiZWwgVGFpbA==",
+              "secondHeader": "TGFiZWwgVGFpbA=="
+            },
+            "expected_value": true
+          }
+        ]
+      },
+      "raw_sha256": {
+        "probe.txt": "11fdfb4df701fa876b46fa5fcbc985a6202974617c5c0818ef061ed56a0d96ee",
+        "nonce.txt": "3db0b152754d8ee0eebf49d0389d41dc07c1c5a601c77cb3aefbb3d26e7f0d2c",
+        "result.json": "3c3ac9e1b1f3297f9ef10db155f7d7afcd2687dd364ca64a20e8b68a7ebcd74c",
+        "build-exit.txt": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+        "entrypoint-exit.txt": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+      }
+    },
+    {
+      "task": "downfall-stasis-lifecycle-r1",
+      "agent": "oracle",
+      "trial": "downfall-stasis-lifecycle-r1__UX7Q7ic",
+      "passed": 38,
+      "expected": 38,
+      "reward": 1,
+      "failed_case_ids": [],
+      "build_exit": 0,
+      "entrypoint_exit": 0,
+      "verifier": {
+        "complete": true,
+        "passed": 38,
+        "failed": 0,
+        "expected": 38,
+        "reward": 1,
+        "entrypoint_exit": 0,
+        "cases": [
+          {
+            "id": "engine",
+            "group": "control",
+            "passed": true
+          },
+          {
+            "id": "normal-return",
+            "group": "control",
+            "passed": true
+          },
+          {
+            "id": "stale-return",
+            "group": "stale",
+            "passed": true
+          },
+          {
+            "id": "normal-volatile",
+            "group": "control",
+            "passed": true
+          },
+          {
+            "id": "stale-volatile",
+            "group": "stale",
+            "passed": true
+          },
+          {
+            "id": "full-hand",
+            "group": "control",
+            "passed": true
+          },
+          {
+            "id": "placement-normal",
+            "group": "control",
+            "passed": true
+          },
+          {
+            "id": "placement-moved",
+            "group": "ownership",
+            "passed": true
+          },
+          {
+            "id": "placement-already-held",
+            "group": "ownership",
+            "passed": true
+          },
+          {
+            "id": "random-one",
+            "group": "control",
+            "passed": true
+          },
+          {
+            "id": "random-zero",
+            "group": "zero",
+            "passed": true
+          },
+          {
+            "id": "random-empty",
+            "group": "control",
+            "passed": true
+          },
+          {
+            "id": "return-queued-twice",
+            "group": "stale",
+            "passed": true
+          },
+          {
+            "id": "volatile-queued-twice",
+            "group": "stale",
+            "passed": true
+          },
+          {
+            "id": "placement-duplicate",
+            "group": "ownership",
+            "passed": true
+          },
+          {
+            "id": "placement-discard",
+            "group": "control",
+            "passed": true
+          },
+          {
+            "id": "placement-blocked-unretained",
+            "group": "control",
+            "passed": true
+          },
+          {
+            "id": "placement-blocked-retained",
+            "group": "control",
+            "passed": true
+          },
+          {
+            "id": "placement-moved-unretained",
+            "group": "ownership",
+            "passed": true
+          },
+          {
+            "id": "placement-moved-retained",
+            "group": "ownership",
+            "passed": true
+          },
+          {
+            "id": "placement-generated",
+            "group": "control",
+            "passed": true
+          },
+          {
+            "id": "generated-zero",
+            "group": "control",
+            "passed": true
+          },
+          {
+            "id": "generated-one",
+            "group": "control",
+            "passed": true
+          },
+          {
+            "id": "generated-two",
+            "group": "control",
+            "passed": true
+          },
+          {
+            "id": "generated-overflow",
+            "group": "batch",
+            "passed": true
+          },
+          {
+            "id": "generated-existing",
+            "group": "batch",
+            "passed": true
+          },
+          {
+            "id": "generated-mixed",
+            "group": "batch",
+            "passed": true
+          },
+          {
+            "id": "generated-blocked",
+            "group": "control",
+            "passed": true
+          },
+          {
+            "id": "random-three-draw",
+            "group": "control",
+            "passed": true
+          },
+          {
+            "id": "random-three-discard",
+            "group": "control",
+            "passed": true
+          },
+          {
+            "id": "native-dualcast-normal",
+            "group": "control",
+            "passed": true
+          },
+          {
+            "id": "native-dualcast-volatile",
+            "group": "retirement",
+            "passed": true
+          },
+          {
+            "id": "native-dualcast-hook",
+            "group": "retirement",
+            "passed": true
+          },
+          {
+            "id": "native-recursion-normal",
+            "group": "rechannel",
+            "passed": true
+          },
+          {
+            "id": "native-recursion-volatile",
+            "group": "rechannel",
+            "passed": true
+          },
+          {
+            "id": "native-recursion-hook",
+            "group": "rechannel",
+            "passed": true
+          },
+          {
+            "id": "native-recursion-upgraded",
+            "group": "rechannel",
+            "passed": true
+          },
+          {
+            "id": "native-dualcast-lightning",
+            "group": "control",
+            "passed": true
+          }
+        ]
+      },
+      "raw_sha256": {
+        "probe.txt": "0f46b94615dd85cb58fe50c3562308f85556d82701d6d4f0df6da84f763aa5c2",
+        "nonce.txt": "51ef3d41cf8d8b3e757e041e69ba49443aefa1cfb311f8f962d8f801cf2b78e7",
+        "result.json": "dcd886a916d490033962f1c4eb50a3cb368760675f5eac116ef4f35a695f346b",
+        "build-exit.txt": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+        "entrypoint-exit.txt": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+      }
+    }
+  ],
+  "task_images": [
+    {
+      "task": "basemod-dynamic-descriptions-r2",
+      "agent_image": "sha256:4c62f7980b46347af547f338e3ee6087537ce09a3d7e4a09eae6dff0164715f1",
+      "verifier_image": "sha256:a72a38f407ab604ffd4679cb8afdcb8b1724cfaf25abcb8f0f280fba81985ebe"
+    },
+    {
+      "task": "downfall-stasis-lifecycle-r1",
+      "agent_image": "sha256:3ee30a7ab93c39d47fb0714f5b7eb2e771ba709bd3c30c58387ece920c8fd79e",
+      "verifier_image": "sha256:9af55aa11bd3320e096e482a0a00b3bd9e881aeece79514ac0aba0aaa07dcef4"
+    },
+    {
+      "task": "mts-enum-identity-r2",
+      "agent_image": "sha256:c8e7b0bcecb50b50cacfb5566e93958e0766b9278be6b6d2027b17cbe604a4ef",
+      "verifier_image": "sha256:a72a38f407ab604ffd4679cb8afdcb8b1724cfaf25abcb8f0f280fba81985ebe"
+    },
+    {
+      "task": "stslib-block-ledger-r1",
+      "agent_image": "sha256:e8fc089e5584f768a995c6e19356b1ea0f97f14f9cc9c71abbfb93330be0a85e",
+      "verifier_image": "sha256:a72a38f407ab604ffd4679cb8afdcb8b1724cfaf25abcb8f0f280fba81985ebe"
+    },
+    {
+      "task": "stslib-icon-layout-r1",
+      "agent_image": "sha256:e8fc089e5584f768a995c6e19356b1ea0f97f14f9cc9c71abbfb93330be0a85e",
+      "verifier_image": "sha256:a72a38f407ab604ffd4679cb8afdcb8b1724cfaf25abcb8f0f280fba81985ebe"
+    }
+  ],
+  "recipe_equivalence_sha256": "a98621d11026274c03ddc3a837d7e5ee427b4586d8f713c3b69fdee935dd40b1",
+  "control_audit_sha256": "810e789ce634a19e91b31156712fbc88b650f06217482c718cce2a9250285e15",
+  "scope": "Ten fresh source-reproduction controls on the independently reconstructed local runtime. The repository entry point separately rebuilt byte-identical execution files and image IDs. Exact baseline failed sets and all reference assertions pass."
+}

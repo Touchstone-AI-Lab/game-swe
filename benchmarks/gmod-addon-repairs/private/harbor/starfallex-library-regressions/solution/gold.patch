@@ -1,0 +1,120 @@
+diff --git a/lua/starfall/libs_sh/bit.lua b/lua/starfall/libs_sh/bit.lua
+index 0d5bffee..7bbf25f4 100644
+--- a/lua/starfall/libs_sh/bit.lua
++++ b/lua/starfall/libs_sh/bit.lua
+@@ -255,7 +255,7 @@ end
+ -- @param number pos Position to seek to
+ function ss_methods:seek(pos)
+ 	if pos < 1 then error("Index must be 1 or greater", 2) end
+-	self.index = #self+1
++	self.index = #self + 1
+ 	self.subindex = 1
+ 
+ 	local length = 0
+@@ -269,7 +269,7 @@ function ss_methods:seek(pos)
+ 	end
+ end
+ 
+---- Move the internal pointer by amount i
++--- Move the internal pointer by amount i. The position will be clamped to [1, buffersize+1]
+ -- @param number length The offset
+ function ss_methods:skip(length)
+ 	while length>0 do
+@@ -283,7 +283,7 @@ function ss_methods:skip(length)
+ 				self.subindex = 1
+ 			end
+ 		else
+-			self.index = self.index + 1
++			self.index = #self + 1
+ 			self.subindex = 1
+ 			break
+ 		end
+diff --git a/lua/starfall/libs_sh/builtins.lua b/lua/starfall/libs_sh/builtins.lua
+index e167864a..da598665 100644
+--- a/lua/starfall/libs_sh/builtins.lua
++++ b/lua/starfall/libs_sh/builtins.lua
+@@ -955,24 +955,20 @@ function builtins_library.dodir(path, loadpriority)
+ 	return returns
+ end
+ 
+---- Like Lua 5.2 or LuaJIT's load/loadstring, except it has no mode parameter and, of course, the resulting function is in your instance's environment by default.
+--- For compatibility with older versions of Starfall, loadstring is NOT an alias of this function like it is in vanilla Lua 5.2/LuaJIT.
++--- Similar to LuaJIT/5.2's `loadstring`/`load` functions, except it has no `mode` parameter and, of course, the resulting function is in your instance's environment by default.
++-- For compatibility with older versions of Starfall, `loadstring` is NOT an alias of this function like it is in vanilla LuaJIT/5.2.
+ -- @param string code String to compile
+ -- @param string? identifier Name of compiled function
+ -- @param table? env Environment of compiled function
+ -- @return function? Compiled function, or nil if failed to compile
+ -- @return string? Error string, or nil if successfully compiled
+-function builtins_library.loadstring(ld, source)
+-	checkluatype(ld, TYPE_STRING)
+-	if source == nil then
+-		source = "=(load)"
+-	else
+-		checkluatype(source, TYPE_STRING)
+-	end
+-	source = "SF:"..source
+-	local retval = SF.CompileString(ld, source, false)
++function builtins_library.loadstring(code, identifier, env)
++	checkluatype(code, TYPE_STRING)
++	if identifier ~= nil then checkluatype(identifier, TYPE_STRING) else identifier = "=(load)" end
++	if env ~= nil then checkluatype(env, TYPE_TABLE) end
++	local retval = SF.CompileString(code, "SF:" .. identifier, false)
+ 	if isfunction(retval) then
+-		return setfenv(retval, instance.env)
++		return setfenv(retval, env or instance.env)
+ 	end
+ 	return nil, tostring(retval)
+ end
+diff --git a/lua/starfall/libs_sh/entities.lua b/lua/starfall/libs_sh/entities.lua
+index c2d441c8..e4d063b1 100644
+--- a/lua/starfall/libs_sh/entities.lua
++++ b/lua/starfall/libs_sh/entities.lua
+@@ -87,7 +87,7 @@ ent_meta.GetEntity = ent_meta.Unwrap -- Backwards compat
+ --- Gets the string representation of the entity
+ -- @return string String representation of the entity
+ function ent_meta:__tostring()
+-	local ent = eunwrap(self)
++	local ent = ent_meta.sf2sensitive[self]
+ 	return Ent_IsValid(ent) and tostring(ent) or "(null entity)"
+ end
+ 
+diff --git a/lua/starfall/libs_sh/quaternion.lua b/lua/starfall/libs_sh/quaternion.lua
+index c99ed4b0..ba90a0b5 100644
+--- a/lua/starfall/libs_sh/quaternion.lua
++++ b/lua/starfall/libs_sh/quaternion.lua
+@@ -865,7 +865,6 @@ function math_library.slerpQuaternion(quat1, quat2, t)
+ 
+ 		local out = clone(quat1)
+ 		quatInv(out)
+-		quatConj(out)
+ 		out = getQuatMul(out, new)
+ 		quatLog(out)
+ 		quatMulNum(out, t)
+diff --git a/lua/starfall/libs_sv/players.lua b/lua/starfall/libs_sv/players.lua
+index 805da4f0..79d6881d 100644
+--- a/lua/starfall/libs_sv/players.lua
++++ b/lua/starfall/libs_sv/players.lua
+@@ -119,8 +119,7 @@ local PlayerPVSManager = PVSManager()
+ return function(instance)
+ local checkpermission = instance.player ~= SF.Superuser and SF.Permissions.check or function() end
+ local Ent_Extinguish,Ent_Ignite,Ent_OBBMaxs,Ent_OBBMins,Ent_SetFriction,Ent_SetGravity,Ent_SetModelScale,Ent_SetPos,Ent_SetVelocity = ENT_META.Extinguish,ENT_META.Ignite,ENT_META.OBBMaxs,ENT_META.OBBMins,ENT_META.SetFriction,ENT_META.SetGravity,ENT_META.SetModelScale,ENT_META.SetPos,ENT_META.SetVelocity
+-local Ply_Alive,Ply_DropNamedWeapon,Ply_DropWeapon,Ply_EnterVehicle,Ply_ExitVehicle,Ply_GetTimeoutSeconds,Ply_HasGodMode,Ply_IsConnected,Ply_IsTimingOut,Ply_Kill,Ply_LastHitGroup,Ply_PacketLoss,Ply_SetAmmo,Ply_SetArmor,Ply_SetCrouchedWalkSpeed,Ply_SetDuckSpeed,Ply_SetEyeAngles,Ply_SetJumpPower,Ply_SetLadderClimbSpeed,Ply_SetMaxArmor,Ply_SetMaxSpeed,Ply_SetRunSpeed,Ply_SetSlowWalkSpeed,Ply_SetStepSize,Ply_SetUnDuckSpeed,Ply_SetViewEntity,Ply_SetWalkSpeed,Ply_SetWeaponColor,Ply_StripAmmo,Ply_StripWeapon,Ply_StripWeapons,Ply_TimeConnected,Ply_Say = PLY_META.Alive,PLY_META.DropNamedWeapon,PLY_META.DropWeapon,PLY_META.EnterVehicle,PLY_META.ExitVehicle,PLY_META.GetTimeoutSeconds,PLY_META.HasGodMode,PLY_META.IsConnected,PLY_META.IsTimingOut,PLY_META.Kill,PLY_META.LastHitGroup,PLY_META.PacketLoss,PLY_META.SetAmmo,PLY_META.SetArmor,PLY_META.SetCrouchedWalkSpeed,PLY_META.SetDuckSpeed,PLY_META.SetEyeAngles,PLY_META.SetJumpPower,PLY_META.SetLadderClimbSpeed,PLY_META.SetMaxArmor,PLY_META.SetMaxSpeed,PLY_META.SetRunSpeed,PLY_META.SetSlowWalkSpeed,PLY_META.SetStepSize,PLY_META.SetUnDuckSpeed,PLY_META.SetViewEntity,PLY_META.SetWalkSpeed,PLY_META.SetWeaponColor,PLY_META.StripAmmo,PLY_META.StripWeapon,PLY_META.StripWeapons,PLY_META.TimeConnected,PLY_META.Say
+-
++local Ply_Alive,Ply_DropNamedWeapon,Ply_DropWeapon,Ply_EnterVehicle,Ply_ExitVehicle,Ply_GetTimeoutSeconds,Ply_Give,Ply_HasGodMode,Ply_IsConnected,Ply_IsTimingOut,Ply_Kill,Ply_LastHitGroup,Ply_PacketLoss,Ply_SetAmmo,Ply_SetArmor,Ply_SetCrouchedWalkSpeed,Ply_SetDuckSpeed,Ply_SetEyeAngles,Ply_SetJumpPower,Ply_SetLadderClimbSpeed,Ply_SetMaxArmor,Ply_SetMaxSpeed,Ply_SetRunSpeed,Ply_SetSlowWalkSpeed,Ply_SetStepSize,Ply_SetUnDuckSpeed,Ply_SetViewEntity,Ply_SetWalkSpeed,Ply_SetWeaponColor,Ply_StripAmmo,Ply_StripWeapon,Ply_StripWeapons,Ply_TimeConnected,Ply_Say = PLY_META.Alive,PLY_META.DropNamedWeapon,PLY_META.DropWeapon,PLY_META.EnterVehicle,PLY_META.ExitVehicle,PLY_META.GetTimeoutSeconds,PLY_META.Give,PLY_META.HasGodMode,PLY_META.IsConnected,PLY_META.IsTimingOut,PLY_META.Kill,PLY_META.LastHitGroup,PLY_META.PacketLoss,PLY_META.SetAmmo,PLY_META.SetArmor,PLY_META.SetCrouchedWalkSpeed,PLY_META.SetDuckSpeed,PLY_META.SetEyeAngles,PLY_META.SetJumpPower,PLY_META.SetLadderClimbSpeed,PLY_META.SetMaxArmor,PLY_META.SetMaxSpeed,PLY_META.SetRunSpeed,PLY_META.SetSlowWalkSpeed,PLY_META.SetStepSize,PLY_META.SetUnDuckSpeed,PLY_META.SetViewEntity,PLY_META.SetWalkSpeed,PLY_META.SetWeaponColor,PLY_META.StripAmmo,PLY_META.StripWeapon,PLY_META.StripWeapons,PLY_META.TimeConnected,PLY_META.Say
+ local player_methods, player_meta, wrap, unwrap = instance.Types.Player.Methods, instance.Types.Player, instance.Types.Player.Wrap, instance.Types.Player.Unwrap
+ local owrap, ounwrap = instance.WrapObject, instance.UnwrapObject
+ local ent_meta, ewrap, eunwrap = instance.Types.Entity, instance.Types.Entity.Wrap, instance.Types.Entity.Unwrap
+diff --git a/lua/starfall/preprocessor.lua b/lua/starfall/preprocessor.lua
+index cd62ab0d..011f3f34 100644
+--- a/lua/starfall/preprocessor.lua
++++ b/lua/starfall/preprocessor.lua
+@@ -21,7 +21,7 @@ SF.PreprocessData = {
+ 		includedata = function(self, args)
+ 			if #args == 0 then return "Empty includedata directive" end
+ 			self.includesdata[#self.includesdata + 1] = args
+-			SF.PreprocessData.directives.include.process(self, args)
++			SF.PreprocessData.directives.include(self, args)
+ 		end,
+ 		
+ 		includedir = function(self, args)

@@ -1,0 +1,3 @@
+control	kind	base	overlay	root	note
+target-negative-trust-any-region	target-negative	reference	patch:target-negative-trust-any-region.patch	plugin	reference that exempts owners and members of any region at the block instead of the deciding region only
+alternative	alternative	starter	tree:alternative	plugin	independently written from the exam alone: EnumMap flags, RegionRegistry resolution, hand-written regions.yml with flow maps and atomic moves

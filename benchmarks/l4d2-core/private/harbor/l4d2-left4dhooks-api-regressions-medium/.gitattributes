@@ -1,0 +1,13 @@
+*.sh text eol=lf
+*.py text eol=lf
+*.sp text eol=lf
+*.inc text eol=lf
+*.md text eol=lf
+*.toml text eol=lf
+*.tsv text eol=lf
+Dockerfile text eol=lf
+
+# Preserve the frozen upstream snapshot, including its historical formatting.
+environment/left4dhooks/** whitespace=-trailing-space,-space-before-tab
+tests/include/** whitespace=-trailing-space,-space-before-tab
+solution/after/** whitespace=-trailing-space,-space-before-tab

@@ -1,0 +1,184 @@
+{
+  "task": "palworld/core/world-epoch-fenced-timers",
+  "task_version": "1.2.0",
+  "exam": "benchmarks/palworld/exams/world-epoch-fenced-timers.md",
+  "cases": [
+    {
+      "id": "check:required-files",
+      "role": "static"
+    },
+    {
+      "id": "check:lua-syntax",
+      "role": "static"
+    },
+    {
+      "id": "hidden:not mounted and invalid calls do not reserve identifiers",
+      "role": "target",
+      "clauses": [
+        "request"
+      ]
+    },
+    {
+      "id": "hidden:due boundary and deterministic ordering include all ready tasks",
+      "role": "target",
+      "clauses": [
+        "request"
+      ]
+    },
+    {
+      "id": "hidden:same-world retry fences the previous delivery generation",
+      "role": "target",
+      "clauses": [
+        "request"
+      ]
+    },
+    {
+      "id": "hidden:restart and new epoch fence old callbacks without resurrecting terminal tasks",
+      "role": "target",
+      "clauses": [
+        "request"
+      ]
+    },
+    {
+      "id": "hidden:old epoch with future time cannot poison live clock",
+      "role": "target",
+      "clauses": [
+        "request"
+      ]
+    },
+    {
+      "id": "hidden:cancel wins over delayed ack and never releases an ID for reuse",
+      "role": "target",
+      "clauses": [
+        "request"
+      ]
+    },
+    {
+      "id": "hidden:validation precedes fencing and done cancellation is refused",
+      "role": "target",
+      "clauses": [
+        "request"
+      ]
+    },
+    {
+      "id": "hidden:snapshot save and deliveries are detached from state",
+      "role": "target",
+      "clauses": [
+        "request"
+      ]
+    },
+    {
+      "id": "hidden:save version is explicit and unsupported versions fail closed",
+      "role": "target",
+      "clauses": [
+        "request"
+      ]
+    },
+    {
+      "id": "check:implementation-depth",
+      "role": "static"
+    },
+    {
+      "id": "check:epoch-authority",
+      "role": "target",
+      "clauses": [
+        "integration:epoch-authority"
+      ],
+      "note": "regular-expression gate over the submitted source, not an execution"
+    },
+    {
+      "id": "check:epoch-thread",
+      "role": "target",
+      "clauses": [
+        "integration:epoch-thread"
+      ],
+      "note": "regular-expression gate over the submitted source, not an execution"
+    },
+    {
+      "id": "check:epoch-persistence",
+      "role": "target",
+      "clauses": [
+        "integration:epoch-persistence"
+      ],
+      "note": "regular-expression gate over the submitted source, not an execution"
+    },
+    {
+      "id": "check:epoch-lifecycle",
+      "role": "target",
+      "clauses": [
+        "integration:epoch-lifecycle"
+      ],
+      "note": "regular-expression gate over the submitted source, not an execution"
+    },
+    {
+      "id": "check:epoch-manifest",
+      "role": "target",
+      "clauses": [
+        "integration:epoch-manifest"
+      ],
+      "note": "regular-expression gate over the submitted source, not an execution"
+    },
+    {
+      "id": "server:dedicated server world and documented API are available",
+      "role": "target",
+      "clauses": [
+        "request"
+      ]
+    },
+    {
+      "id": "server:service exposes complete trusted protocol",
+      "role": "target",
+      "clauses": [
+        "request"
+      ]
+    },
+    {
+      "id": "server:server executes distinguishing protocol sequence",
+      "role": "target",
+      "clauses": [
+        "request"
+      ]
+    },
+    {
+      "id": "server:server saves and restores the protocol without silent reset",
+      "role": "target",
+      "clauses": [
+        "request"
+      ]
+    }
+  ],
+  "clauses": [
+    {
+      "id": "request",
+      "anchor": "exam body; split into individual clauses during review",
+      "status": "asserted"
+    },
+    {
+      "id": "integration:epoch-authority",
+      "anchor": "host-integration section; source-pattern gate epoch-authority",
+      "status": "weak"
+    },
+    {
+      "id": "integration:epoch-thread",
+      "anchor": "host-integration section; source-pattern gate epoch-thread",
+      "status": "weak"
+    },
+    {
+      "id": "integration:epoch-persistence",
+      "anchor": "host-integration section; source-pattern gate epoch-persistence",
+      "status": "weak"
+    },
+    {
+      "id": "integration:epoch-lifecycle",
+      "anchor": "host-integration section; source-pattern gate epoch-lifecycle",
+      "status": "weak"
+    },
+    {
+      "id": "integration:epoch-manifest",
+      "anchor": "host-integration section; source-pattern gate epoch-manifest",
+      "status": "weak"
+    }
+  ],
+  "excluded_clauses": [],
+  "known_issues": []
+}

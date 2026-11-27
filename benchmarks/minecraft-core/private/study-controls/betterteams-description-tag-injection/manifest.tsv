@@ -1,0 +1,4 @@
+control	kind	base	overlay	root	note
+target-negative-click-only	target-negative	starter	patch:target-negative-click-only.patch	plugin	escapes only <click ...> tags; the hover target still fails
+compat-negative-escape-everything	compat-negative	starter	patch:compat-negative-escape-everything.patch	plugin	MiniMessage.escapeTags on the whole description; fails only the colour-tag preserved case
+alternative-a	alternative	starter	tree:alternative-a	plugin	independent fix written from the 0.2.0 exam: the description is parsed on its own with the legacy formatter and inserted into the parsed template

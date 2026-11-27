@@ -1,0 +1,139 @@
+# Keep this policy file stable under Windows checkouts too.
+.gitattributes text eol=lf
+
+# Keep every detected text file checkout-stable across host platforms.
+* text=auto eol=lf
+
+# Shell entry points must retain Unix line endings on every checkout.
+*.sh text eol=lf
+run-benchmark text eol=lf
+scripts/prepare-exam text eol=lf
+scripts/score-exam text eol=lf
+scripts/* text eol=lf
+benchmarks/isaac-core/exams/isaac-exodus-release-regressions.md text eol=lf
+
+# The private Harbor snapshots preserve upstream source and patch formatting.
+benchmarks/stardew-core/private/harbor/** whitespace=-trailing-space
+# The CJB Cheats Menu and Tractor Mod snapshots keep upstream bytes (some i18n files use CRLF).
+benchmarks/stardew-core/private/harbor/stardew-cjb-cheats-regressions/environment/StardewMods/** -text
+benchmarks/stardew-core/private/harbor/stardew-tractor-attachment-regressions/environment/StardewMods/** -text
+# Ignore upstream whitespace in the vendored Exodus release tree.
+benchmarks/isaac-core/private/harbor/isaac-exodus-release-regressions/environment/exodus/** -whitespace
+# Preserve the exact frozen Isaac baseline bytes on every checkout.
+benchmarks/isaac-core/private/harbor/isaac-exodus-release-regressions/** -text
+# Derived Isaac tasks carry byte-identical copies of that tree (only main.lua differs)
+# and gold patches whose context lines reproduce upstream whitespace verbatim.
+benchmarks/isaac-core/private/harbor/isaac-exodus-*/environment/exodus/** -text -whitespace
+benchmarks/isaac-core/private/harbor/isaac-exodus-*/solution/gold.patch -text -whitespace
+# Their control matrices keep empty trailing columns, so rows end in tab characters.
+benchmarks/isaac-core/private/harbor/isaac-exodus-*/validation/controls.tsv whitespace=-trailing-space
+# Supplementary regression patches reproduce the reference tree's whitespace verbatim.
+benchmarks/isaac-core/private/supplementary-regressions/*.patch -text -whitespace
+# Ignore upstream whitespace in the vendored DarkRP trees.
+benchmarks/darkrp-core/private/harbor/*/environment/darkrp/** -whitespace
+# Gold patches reproduce upstream context lines verbatim, including their whitespace.
+benchmarks/darkrp-core/private/harbor/*/solution/gold.patch -whitespace
+# Garry's Mod addon repair tasks vendor upstream addon trees (some files use CRLF) and
+# reproduce their bytes verbatim in the starter, reference overlay, patches and controls.
+benchmarks/gmod-addon-repairs/private/harbor/*/environment/*/** -text -whitespace
+benchmarks/gmod-addon-repairs/private/harbor/*/solution/after/** -text -whitespace
+benchmarks/gmod-addon-repairs/private/harbor/*/solution/gold.patch -text -whitespace
+benchmarks/gmod-addon-repairs/private/study-controls/** -text -whitespace
+# DST repair tasks vendor upstream mod trees (DsMMO uses CRLF) and reproduce their
+# bytes verbatim in the starter, reference, gold patch and controls.
+# DsMMO's README underlines a heading with seven '=' signs, which the default
+# conflict-marker check would flag; a longer marker size keeps upstream bytes as-is.
+benchmarks/dst/private/harbor/*/environment/mod/** -text -whitespace conflict-marker-size=32
+benchmarks/dst/private/harbor/*/solution/after/** -text -whitespace conflict-marker-size=32
+benchmarks/dst/private/harbor/*/solution/gold.patch -text -whitespace
+benchmarks/dst/private/study-controls/** -text -whitespace
+# Harbor executes these task entrypoints inside Linux containers.
+benchmarks/palworld/private/harbor/**/*.sh text eol=lf
+# Preserve blank context markers in the recorded native-loader source patch.
+plugins/palworld/runtime/linux/uehelpers-world.patch -whitespace
+plugins/palworld/src/rhenium_palworld/native/uehelpers-world.patch -whitespace
+
+# L4D2 task snapshots and serialized patches preserve upstream formatting.
+benchmarks/l4d2-core/private/harbor/*/environment/** -whitespace
+benchmarks/l4d2-core/private/harbor/*/solution/** -whitespace
+benchmarks/l4d2-core/private/harbor/**/*.patch -whitespace
+
+# Preserve audited Terraria upstream/oracle whitespace while normalizing text to LF.
+benchmarks/terraria-core/private/harbor/*/environment/** -whitespace
+benchmarks/terraria-core/private/harbor/*/solution/after/** -whitespace
+# Gold predicate patches preserve upstream context whitespace.
+benchmarks/terraria-core/private/harbor/**/*.patch -whitespace
+
+# Preserve audited RimWorld base/oracle source bytes, including upstream spacing.
+benchmarks/rimworld-core/private/harbor/*/environment/*/Source/** -text -whitespace
+benchmarks/rimworld-core/private/harbor/*/solution/after/*/Source/** -text -whitespace
+# Upstream Research: Organized definition XML and audited non-code files, byte-exact.
+benchmarks/rimworld-core/private/harbor/research-organized-tab-state/tests/ModMetadata/ResearchOrganized/Defs/** -text -whitespace
+benchmarks/rimworld-core/private/harbor/research-organized-tab-state/validation/audit/** -text -whitespace
+# Study controls reproduce those bytes (CRLF, trailing spaces) in patches and trees.
+benchmarks/rimworld-core/private/study-controls/** -text -whitespace
+
+# Keep the verified upstream MPL license bytes, including its original trailing space.
+benchmarks/rimworld-core/private/harbor/adaptive-storage-slot-limit-restore/environment/AdaptiveStorage/LICENSES/MPL-2.0.txt -text -whitespace
+benchmarks/rimworld-core/private/harbor/adaptive-storage-slot-limit-restore/solution/after/AdaptiveStorage/LICENSES/MPL-2.0.txt -text -whitespace
+
+# Study control patches and trees reproduce upstream context lines verbatim.
+benchmarks/*/private/study-controls/** -whitespace
+# Minecraft repair tasks vendor upstream Paper plugin trees at a fixed commit, keep
+# a mirror of the starter under tests/starter, and carry the upstream
+# fix as solution/after; upstream whitespace is preserved verbatim.
+benchmarks/minecraft-core/private/harbor/*/environment/plugin/** -text -whitespace
+benchmarks/minecraft-core/private/harbor/*/tests/starter/** -text -whitespace
+benchmarks/minecraft-core/private/harbor/*/tests/unit/** -text -whitespace
+benchmarks/minecraft-core/private/harbor/*/solution/after/** -text -whitespace
+benchmarks/minecraft-core/private/harbor/**/*.patch -text -whitespace
+# Mindustry repair tasks vendor the v159.7 game sources and carry the upstream fixes
+# as solution/after; upstream whitespace is preserved verbatim.
+benchmarks/mindustry-core/private/harbor/*/environment/mindustry/** -text -whitespace
+benchmarks/mindustry-core/private/harbor/*/solution/after/** -text -whitespace
+
+# The vendored ModTheSpire snapshot ships its own .gitattributes (`* text=auto`,
+# `*.cmd eol=crlf`, `*.sh eol=lf`). Being deeper it governs `text` and `eol` inside that
+# tree, which is what we want: it is why `mvnw.cmd` keeps its upstream CRLF instead of
+# being rewritten by the repo-wide `* text=auto eol=lf` policy. Upstream sets no
+# whitespace policy, so that part is supplied here, and the reference files - which must
+# stay byte-compatible with the snapshot they are copied over - are covered explicitly
+# because nothing deeper applies to them.
+benchmarks/slay-the-spire-core/private/harbor/*/environment/modthespire/** -whitespace
+benchmarks/slay-the-spire-core/private/harbor/*/solution/after/** -text -whitespace
+
+# Keep the three newly measured native task snapshots byte-identical.
+benchmarks/slay-the-spire-core/private/harbor/basemod-dynamic-descriptions-r2/** -text -whitespace
+benchmarks/slay-the-spire-core/private/harbor/stslib-block-ledger-r1/** -text -whitespace
+benchmarks/slay-the-spire-core/private/harbor/mts-enum-identity-r2/** -text -whitespace
+benchmarks/slay-the-spire-core/validation/native-engine/**/author-repairs/** -text -whitespace
+benchmarks/slay-the-spire-core/validation/native-engine/**/*.diff -text -whitespace
+benchmarks/slay-the-spire-core/exams/basemod-dynamic-descriptions-r2.md -text -whitespace
+benchmarks/slay-the-spire-core/exams/stslib-block-ledger-r1.md -text -whitespace
+benchmarks/slay-the-spire-core/exams/mts-enum-identity-r2.md -text -whitespace
+# Hash-bound validation records and runtime recipes also retain their exact bytes.
+benchmarks/slay-the-spire-core/validation/native-engine/** -text -whitespace
+benchmarks/slay-the-spire-core/private/native-runtime/** -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
+
+# Preserve the two additional measured native task snapshots.
+benchmarks/slay-the-spire-core/private/harbor/stslib-icon-layout-r1/** -text -whitespace
+benchmarks/slay-the-spire-core/exams/stslib-icon-layout-r1.md -text -whitespace
+benchmarks/slay-the-spire-core/private/harbor/downfall-stasis-lifecycle-r1/** -text -whitespace
+benchmarks/slay-the-spire-core/exams/downfall-stasis-lifecycle-r1.md -text -whitespace
+
+# Preserve the two additional measured native task snapshots.
+benchmarks/slay-the-spire-core/private/harbor/basemod-phase-transitions-r1/** -text -whitespace
+benchmarks/slay-the-spire-core/exams/basemod-phase-transitions-r1.md -text -whitespace
+benchmarks/slay-the-spire-core/private/harbor/downfall-socket-flow-r2/** -text -whitespace
+benchmarks/slay-the-spire-core/exams/downfall-socket-flow-r2.md -text -whitespace
+# Preserve the authorized r3 baseline and its byte-identical upstream snapshot.
+benchmarks/slay-the-spire-core/private/harbor/downfall-socket-flow-r3/** -text -whitespace
+benchmarks/slay-the-spire-core/exams/downfall-socket-flow-r3.md -text -whitespace
+# Preserve the authorized enum r3 baseline and its byte-identical upstream snapshot.
+benchmarks/slay-the-spire-core/private/harbor/mts-enum-identity-r3/** -text -whitespace
+benchmarks/slay-the-spire-core/exams/mts-enum-identity-r3.md -text -whitespace
+# Preserve the authorized real-game r2 revisions of the standalone tasks byte-identical.
+benchmarks/slay-the-spire-core/private/harbor/mts-load-order-regressions-r2/** -text -whitespace
+benchmarks/slay-the-spire-core/exams/mts-load-order-regressions-r2.md -text -whitespace
+benchmarks/slay-the-spire-core/private/harbor/mts-mod-identity-regressions-r2/** -text -whitespace
+benchmarks/slay-the-spire-core/exams/mts-mod-identity-regressions-r2.md -text -whitespace

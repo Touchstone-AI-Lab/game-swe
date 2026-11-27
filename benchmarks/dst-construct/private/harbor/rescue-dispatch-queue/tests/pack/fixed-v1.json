@@ -1,0 +1,233 @@
+{
+  "id": "rhenium-dst-v2",
+  "version": "2.1.0",
+  "game": "dst",
+  "name": {
+    "en": "Rhenium: Original Don't Starve Together Systems Tasks",
+    "zh": "Rhenium：《饥荒联机版》原创系统工程题"
+  },
+  "description": {
+    "en": "Ten independently authored hard engineering tasks built only around base-game Don't Starve Together APIs, prefabs, components, and assets.",
+    "zh": "十道独立设计的高难度工程题，仅使用《饥荒联机版》原版 API、prefab、组件与资源。"
+  },
+  "tasks": [
+    {
+      "id": "rescue-dispatch-queue",
+      "difficulty": "hard",
+      "title": {
+        "en": "Lease-based Rescue Dispatch Queue",
+        "zh": "基于租约的救援调度队列"
+      },
+      "summary": {
+        "en": "Prioritize endangered players and lease rescue assignments without duplicate helpers, starvation, stale heartbeats, or client authority.",
+        "zh": "为濒危玩家确定优先级并租赁救援任务，避免重复救援者、饥饿、过期心跳与客户端越权。"
+      },
+      "brief": {
+        "en": "Create a pure dispatch scheduler plus server and replica components. The server derives player health and position, accepts only intent identifiers from RPC, assigns helpers deterministically, expires stale leases, requeues unresolved incidents, persists state, and replicates presentation-safe assignments through net variables.",
+        "zh": "创建纯调度器及服务端/replica 组件。服务端读取玩家生命和位置，RPC 只接受意图标识，确定性分配救援者，使过期租约失效并重排未解决事件，持久化状态，并通过 net variables 复制安全的任务展示。"
+      },
+      "requirements": {
+        "en": [
+          "Export Dispatch.new(options), Dispatch.load(data, options), update_player(record, now), request(request_id, target_id, severity, now), volunteer(request_id, helper_id, now), heartbeat(lease_id, helper_id, now), complete(lease_id, helper_id, now), cancel(target_id, now), tick(now), snapshot(now), and save(now).",
+          "Validate finite monotonic time, identifiers, severity, and player state; stale player updates and duplicate request IDs are harmless.",
+          "Order incidents by descending severity, then creation time, then target ID; aging raises effective severity without making results iteration-dependent.",
+          "A helper owns at most one live lease and a target has at most one helper; lease IDs are unique and stable across retries.",
+          "Heartbeats extend only a matching live lease; expiry releases the helper and requeues the unresolved target exactly once.",
+          "Disconnecting, dying, recovering, completing, and canceling have explicit idempotent transitions.",
+          "Snapshots are fresh, deterministically ordered, and exclude private request history while save/load preserves it.",
+          "The master component derives health/position from entities, listens for player lifecycle events, validates RPC ownership, publishes net state, and cleans up callbacks/tasks."
+        ],
+        "zh": [
+          "导出 Dispatch.new/options、load、update_player、request、volunteer、heartbeat、complete、cancel、tick、snapshot 与 save。",
+          "校验有限且单调的时间、标识、严重度和玩家状态；旧玩家更新与重复请求无副作用。",
+          "按严重度降序、创建时间、目标 ID 排序；老化提高有效严重度且不得依赖 pairs 顺序。",
+          "一名救援者最多持有一个活租约，一个目标最多有一名救援者；租约 ID 唯一且重试稳定。",
+          "心跳只能延长匹配的活租约；过期恰好一次释放救援者并重排未解决目标。",
+          "断线、死亡、恢复、完成和取消必须具有明确且幂等的迁移。",
+          "快照新建、稳定排序且不泄漏私有请求历史；保存加载保留完整语义。",
+          "服务端主模拟组件从实体读取生命/位置，监听玩家生命周期，验证 RPC 归属，发布网络状态并清理回调和任务。"
+        ]
+      },
+      "api_usage": {
+        "en": [
+          "Read health with player.components.health:GetPercent() and position with player.Transform:GetWorldPosition().",
+          "Listen for ms_playerjoined/ms_playerleft on TheWorld and healthdelta/death/respawnfromghost/onremove on each player; healthdelta provides oldpercent/newpercent.",
+          "DoPeriodicTask(period, fn, initialdelay) returns a task that must be canceled with task:Cancel().",
+          "Create net_string(inst.GUID, \"rescuedispatch.state\", \"rescuedispatchdirty\") before the client return and register AddReplicableComponent(\"rescuedispatch\").",
+          "The server component exposes UpdatePlayer, Request, Volunteer, Heartbeat, and Tick, implements OnSave/OnLoad, and derives RPC identity from player.userid."
+        ],
+        "zh": [
+          "用 player.components.health:GetPercent() 读取生命，以 player.Transform:GetWorldPosition() 读取位置。",
+          "在 TheWorld 监听 ms_playerjoined/ms_playerleft，在玩家监听 healthdelta/death/respawnfromghost/onremove；healthdelta 含 oldpercent/newpercent。",
+          "DoPeriodicTask(period, fn, initialdelay) 返回 task，清理时调用 task:Cancel()。",
+          "在客户端提前返回前创建 net_string(inst.GUID, \"rescuedispatch.state\", \"rescuedispatchdirty\") 并调用 AddReplicableComponent(\"rescuedispatch\")。",
+          "服务端组件公开 UpdatePlayer、Request、Volunteer、Heartbeat、Tick，实现 OnSave/OnLoad；RPC 身份读取 player.userid。"
+        ]
+      },
+      "acceptance": {
+        "en": [
+          "Assignments are deterministic.",
+          "No helper or target has two live leases.",
+          "Stale heartbeats cannot revive leases.",
+          "Disconnect and recovery cleanly release assignments.",
+          "The dedicated server verifies health events, expiry, net state, cleanup, and reload."
+        ],
+        "zh": [
+          "分配结果确定。",
+          "救援者或目标不会有两个活租约。",
+          "过期心跳不能复活租约。",
+          "断线与康复会正确释放任务。",
+          "专服验证生命事件、过期、网络状态、清理与重载。"
+        ]
+      },
+      "domains": [
+        "scheduling",
+        "leases",
+        "player-lifecycle",
+        "replication"
+      ],
+      "estimated_minutes": 390,
+      "core_module": "scripts/rescuedispatch/dispatch.lua",
+      "hidden_test": "hidden/rescue-dispatch-queue.lua",
+      "server_test": "server/rescue-dispatch-queue.lua",
+      "hidden_cases": [
+        "priority ordering is severity then time then id",
+        "one helper and target own at most one lease",
+        "lease expiry requeues unresolved target",
+        "request and volunteer retries are stable",
+        "disconnect releases helper and recovery closes target",
+        "save load preserves active lease and defensive snapshot"
+      ],
+      "server_cases": [
+        "server dispatch component is attached",
+        "health-backed entities receive a deterministic lease",
+        "dispatch state persists"
+      ],
+      "required_files": [
+        "modinfo.lua",
+        "modmain.lua",
+        "scripts/rescuedispatch/dispatch.lua",
+        "scripts/components/rescuedispatch.lua",
+        "scripts/components/rescuedispatch_replica.lua"
+      ],
+      "minimum_lua_lines": 260,
+      "integration_checks": [
+        {
+          "id": "rescue-authority",
+          "label": {
+            "en": "Master authority",
+            "zh": "主模拟权威"
+          },
+          "weight": 4,
+          "groups": [
+            {
+              "name": "guard",
+              "any_of": [
+                "TheWorld\\.ismastersim",
+                "inst\\.ismastersim"
+              ]
+            },
+            {
+              "name": "server component",
+              "any_of": [
+                "AddComponent\\s*\\(\\s*[\\\"']rescuedispatch[\\\"']"
+              ]
+            }
+          ],
+          "none_of": [
+            "TODO",
+            "IMPLEMENT\\s+ME"
+          ]
+        },
+        {
+          "id": "rescue-player-events",
+          "label": {
+            "en": "Player lifecycle",
+            "zh": "玩家生命周期"
+          },
+          "weight": 4,
+          "groups": [
+            {
+              "name": "health",
+              "any_of": [
+                "healthdelta",
+                "death",
+                "respawnfromghost"
+              ]
+            },
+            {
+              "name": "join/leave",
+              "any_of": [
+                "ms_playerjoined",
+                "ms_playerleft"
+              ]
+            },
+            {
+              "name": "position",
+              "any_of": [
+                "Transform:GetWorldPosition"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "rescue-network",
+          "label": {
+            "en": "Validated RPC and replication",
+            "zh": "经校验的 RPC 与复制"
+          },
+          "weight": 4,
+          "groups": [
+            {
+              "name": "RPC",
+              "any_of": [
+                "AddModRPCHandler\\s*\\("
+              ]
+            },
+            {
+              "name": "replica",
+              "any_of": [
+                "AddReplicableComponent\\s*\\("
+              ]
+            },
+            {
+              "name": "netvar",
+              "any_of": [
+                "net_string\\s*\\(",
+                "net_byte\\s*\\("
+              ]
+            }
+          ]
+        },
+        {
+          "id": "rescue-cleanup",
+          "label": {
+            "en": "Persistence and cleanup",
+            "zh": "持久化与清理"
+          },
+          "weight": 3,
+          "groups": [
+            {
+              "name": "save/load",
+              "any_of": [
+                ":OnSave\\s*\\("
+              ]
+            },
+            {
+              "name": "remove callbacks",
+              "any_of": [
+                "RemoveEventCallback\\s*\\("
+              ]
+            },
+            {
+              "name": "cancel task",
+              "any_of": [
+                ":Cancel\\s*\\("
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+# Separate verifier image for one Minecraft (Paper plugin) repair task.
+#
+# Harbor builds this file from the task's tests/ directory after the agent
+# environment has stopped, so the private suites never enter the agent image.
+# The base is the locally built, pinned Paper runtime; it is never published.
+# The dependency cache is warmed here (network available at build time) from the
+# frozen build files, so the verifier itself runs with no network.
+FROM gcb-minecraft-paper-verifier:1.21.11-132
+
+USER root
+COPY starter /opt/gcb/starter
+__WARM__
+COPY --chmod=755 test.sh /tests/test.sh
+COPY verify.py task.json /tests/
+__SUITE__
+RUN mkdir -p /app/plugin /logs
+WORKDIR /app
+ENTRYPOINT []
+CMD ["sleep", "infinity"]

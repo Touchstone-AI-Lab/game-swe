@@ -1,0 +1,28 @@
+{
+  "schemaVersion": 1,
+  "taskId": "server-console-regressions",
+  "starter": "mindustry",
+  "build": {
+    "tool": "mindustry-source",
+    "sourceRoots": [
+      "core/src",
+      "server/src"
+    ],
+    "extraSources": [
+      "annotations/src/main/java/mindustry/annotations/Annotations.java"
+    ],
+    "javaRelease": 17
+  },
+  "serverCases": [
+    "the server console answers status",
+    "host with a map name starts that map",
+    "pause refuses to run without a game",
+    "pause on and pause off set the requested state",
+    "shuffle reports the selected mode",
+    "host without a map while shuffling is off keeps the console working",
+    "pardon of an unknown ID reports an error",
+    "pardon lets a kicked player connect again",
+    "bans can be listed and lifted in one session",
+    "player records survive a server restart"
+  ]
+}

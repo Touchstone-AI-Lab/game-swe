@@ -1,0 +1,334 @@
+diff --git a/benchmarks/terraria-core/private/harbor/terraria-magic-storage-compressed-io-regressions-hard/environment/magic-storage/Common/IO/BitBuffer128.cs b/benchmarks/terraria-core/private/harbor/terraria-magic-storage-compressed-io-regressions-hard/solution/after/Common/IO/BitBuffer128.cs
+index 786c78c2..c83b2051 100644
+--- a/benchmarks/terraria-core/private/harbor/terraria-magic-storage-compressed-io-regressions-hard/environment/magic-storage/Common/IO/BitBuffer128.cs
++++ b/benchmarks/terraria-core/private/harbor/terraria-magic-storage-compressed-io-regressions-hard/solution/after/Common/IO/BitBuffer128.cs
+@@ -98,10 +98,17 @@ namespace MagicStorage.Common.IO {
+ 			if (head < numBits)
+ 				throw new InvalidOperationException($"Expected {numBits} bits, found only {head}");
+ 
+-			ulong mask = (1uL << numBits) - 1;
+-			ulong shiftOut = _qword0 & mask;
+-			_qword0 = (_qword0 >> numBits) | ((_qword1 & mask) << (MAX_LONG - numBits));
+-			_qword1 >>= numBits;
++			ulong shiftOut;
++			if (numBits == MAX_LONG) {
++				shiftOut = _qword0;
++				_qword0 = _qword1;
++				_qword1 = 0;
++			} else {
++				ulong mask = (1uL << numBits) - 1;
++				shiftOut = _qword0 & mask;
++				_qword0 = (_qword0 >> numBits) | ((_qword1 & mask) << (MAX_LONG - numBits));
++				_qword1 >>= numBits;
++			}
+ 			head -= numBits;
+ 
+ 			if (typeof(T) == typeof(byte)) {
+@@ -140,6 +147,25 @@ namespace MagicStorage.Common.IO {
+ 			if (numBits == 0)
+ 				return;
+ 
++			if (typeof(T) == typeof(ulong) && numBits == MAX_LONG) {
++				if (head < 0 || head > MAX_LONG)
++					throw new ArgumentOutOfRangeException(nameof(head), $"Expected {MAX_LONG} bits of space, only {2 * MAX_LONG - head} were present");
++
++				ulong raw = Unsafe.As<T, ulong>(ref value);
++				if (head == 0)
++					_qword0 = raw;
++				else if (head == MAX_LONG)
++					_qword1 = raw;
++				else {
++					ulong preservedLowBits = (1uL << head) - 1;
++					_qword0 = (_qword0 & preservedLowBits) | (raw << head);
++					_qword1 = (_qword1 & ~preservedLowBits) | (raw >> (MAX_LONG - head));
++				}
++
++				head += MAX_LONG;
++				return;
++			}
++
+ 			int localHead = head;
+ 			GetDataAndHead(out var dataRef, ref localHead, numBits);
+ 
+diff --git a/benchmarks/terraria-core/private/harbor/terraria-magic-storage-compressed-io-regressions-hard/environment/magic-storage/Common/IO/NetCompression.NetIO.cs b/benchmarks/terraria-core/private/harbor/terraria-magic-storage-compressed-io-regressions-hard/solution/after/Common/IO/NetCompression.NetIO.cs
+index 16c2307d..02135006 100644
+--- a/benchmarks/terraria-core/private/harbor/terraria-magic-storage-compressed-io-regressions-hard/environment/magic-storage/Common/IO/NetCompression.NetIO.cs
++++ b/benchmarks/terraria-core/private/harbor/terraria-magic-storage-compressed-io-regressions-hard/solution/after/Common/IO/NetCompression.NetIO.cs
+@@ -31,6 +31,10 @@ namespace MagicStorage.Common.IO {
+ 		}
+ 
+ 		public static void SendItem(Item item, ValueWriter writer, bool writeStack, bool writeFavorite) {
++			writer.WriteAtomically(stagedWriter => SendItemCore(item, stagedWriter, writeStack, writeFavorite));
++		}
++
++		private static void SendItemCore(Item item, ValueWriter writer, bool writeStack, bool writeFavorite) {
+ 			using (writer.CreateScope(lengthTiers, optimizeForBytes: false)) {
+ 				ModContent.GetInstance<ItemTypeTracker>().Send(item, writer);
+ 				ModContent.GetInstance<ItemPrefixTracker>().Send(item, writer);
+@@ -65,10 +69,14 @@ namespace MagicStorage.Common.IO {
+ 		}
+ 
+ 		public static void SendItems(List<Item> items, ValueWriter writer, bool writeStacks = true, bool writeFavorites = true, int? listCountBitSizeOverride = null) {
++			writer.WriteAtomically(stagedWriter => SendItemsCore(items, stagedWriter, writeStacks, writeFavorites, listCountBitSizeOverride));
++		}
++
++		private static void SendItemsCore(List<Item> items, ValueWriter writer, bool writeStacks, bool writeFavorites, int? listCountBitSizeOverride) {
+ 			writer.Write((uint)items.Count, listCountBitSizeOverride ?? BitBuffer128.MAX_INT);
+ 			foreach (Item item in items) {
+ 				using (writer.CreateScope(lengthTiers, optimizeForBytes: false))
+-					SendItem(item, writer, writeStacks, writeFavorites);
++					SendItemCore(item, writer, writeStacks, writeFavorites);
+ 			}
+ 		}
+ 
+@@ -186,13 +194,19 @@ namespace MagicStorage.Common.IO {
+ 			if (readStack && item.maxStack > 1) {
+ 				bool partialOrFull = reader.ReadBoolean();
+ 
+-				int overflow = 0;
++				int fullStacks = 0;
+ 				if (!partialOrFull) {
+-					int fullStacks = reader.Read7BitEncodedInt();
+-					overflow = fullStacks * item.maxStack;
++					fullStacks = reader.Read7BitEncodedInt();
++					if (fullStacks <= 0)
++						throw new FormatException("Overflow stack quotient must be positive");
+ 				}
+ 
+-				readData.stack = overflow + (int)reader.ReadUInt32(GetBitSize(item.maxStack));
++				int remainder = (int)reader.ReadUInt32(GetBitSize(item.maxStack));
++				int stack = partialOrFull
++					? remainder
++					: checked(fullStacks * item.maxStack + remainder);
++
++				item.stack = readData.stack = stack;
+ 			}
+ 
+ 			if (readFavorite)
+diff --git a/benchmarks/terraria-core/private/harbor/terraria-magic-storage-compressed-io-regressions-hard/environment/magic-storage/Common/IO/StringCompressor.cs b/benchmarks/terraria-core/private/harbor/terraria-magic-storage-compressed-io-regressions-hard/solution/after/Common/IO/StringCompressor.cs
+index 34f111a7..d6d89cdf 100644
+--- a/benchmarks/terraria-core/private/harbor/terraria-magic-storage-compressed-io-regressions-hard/environment/magic-storage/Common/IO/StringCompressor.cs
++++ b/benchmarks/terraria-core/private/harbor/terraria-magic-storage-compressed-io-regressions-hard/solution/after/Common/IO/StringCompressor.cs
+@@ -19,6 +19,9 @@ namespace MagicStorage.Common.IO {
+ 		/// This method is optimized for short (length &lt; 32) ASCII strings
+ 		/// </summary>
+ 		public static void WriteTo(ValueWriter writer, string value) {
++			if (value.Length > ushort.MaxValue)
++				throw new ArgumentOutOfRangeException(nameof(value), $"String length must be at most {ushort.MaxValue} UTF-16 code units");
++
+ 			// Metadata for the string is included in a prefix of bits
+ 			// Metadata is optimized for short ASCII strings
+ 
+@@ -53,7 +56,7 @@ namespace MagicStorage.Common.IO {
+ 			if (strLength == 0)
+ 				return string.Empty;
+ 
+-			Span<char> chars = strLength < 2048 ? stackalloc char[strLength] : new char[2048];
++			Span<char> chars = strLength < 2048 ? stackalloc char[strLength] : new char[strLength];
+ 			ref char c = ref chars[0];
+ 
+ 			if (ascii) {
+diff --git a/benchmarks/terraria-core/private/harbor/terraria-magic-storage-compressed-io-regressions-hard/environment/magic-storage/Common/IO/ValueReader.cs b/benchmarks/terraria-core/private/harbor/terraria-magic-storage-compressed-io-regressions-hard/solution/after/Common/IO/ValueReader.cs
+index 1ecb3d16..ea5057a3 100644
+--- a/benchmarks/terraria-core/private/harbor/terraria-magic-storage-compressed-io-regressions-hard/environment/magic-storage/Common/IO/ValueReader.cs
++++ b/benchmarks/terraria-core/private/harbor/terraria-magic-storage-compressed-io-regressions-hard/solution/after/Common/IO/ValueReader.cs
+@@ -122,10 +122,9 @@ namespace MagicStorage.Common.IO {
+ 			T read = _bits.GetVariant<T>(ref _head, (byte)numBits);
+ 			bool negative = (read & (T.One << (numBits - 1))) != T.Zero;
+ 
+-			if (negative) {
+-				long mask = -1 << numBits;
+-				read = Unsafe.As<long, T>(ref mask) | read; // Sign extend
+-			}
++			int destinationBits = Unsafe.SizeOf<T>() * BitBuffer128.MAX_BYTE;
++			if (negative && numBits < destinationBits)
++				read |= ~((T.One << numBits) - T.One); // Sign extend within the destination type
+ 
+ 			return read;
+ 		}
+@@ -166,39 +165,41 @@ namespace MagicStorage.Common.IO {
+ 
+ 		public int Read7BitEncodedInt() {
+ 			int read = 0;
+-			int shift = 0;
+-
+-			while (shift < BitBuffer128.MAX_INT) {
+-				byte b;
+-				bool more;
+ 
+-				b = ReadByte(BitBuffer128.MAX_BYTE - 1);
+-				read |= (b & 0x7F) << shift;
+-				shift += BitBuffer128.MAX_BYTE - 1;
+-				
+-				more = ReadBoolean();
++			for (int shift = 0; shift < 28; shift += BitBuffer128.MAX_BYTE - 1) {
++				byte value = ReadByte(BitBuffer128.MAX_BYTE - 1);
++				read |= value << shift;
+ 
+-				if (!more)
++				if (!ReadBoolean())
+ 					return read;
+ 			}
+ 
+-			throw new FormatException("Invalid 7-bit encoded integer");
++			byte finalValue = ReadByte(BitBuffer128.MAX_BYTE - 1);
++			bool finalContinuation = ReadBoolean();
++			if (finalContinuation || finalValue > 0x0F)
++				throw new FormatException("Invalid 7-bit encoded integer");
++
++			return read | (finalValue << 28);
+ 		}
+ 
+ 		// Specialized methods for handling item data
+ 
+ 		internal void ReadModData(Item item, LengthCompressor<uint> lengthReader) {
+-			if (ReadBoolean() && item.ModItem is { } modItem) {
+-				using (ReadScope(lengthReader, optimizeForBytes: true)) {
+-					uint byteCount = _activeScope.ExpectedBitCount / 8;
+-					byte[] bytes = ReadBytes((int)byteCount);
++			if (!ReadBoolean())
++				return;
+ 
+-					var ms = new MemoryStream(bytes, 0, bytes.Length, writable: false, publiclyVisible: true);
+-					modItem.NetReceive(new BinaryReader(ms));
++			using (ReadScope(lengthReader, optimizeForBytes: true)) {
++				uint byteCount = _activeScope.ExpectedBitCount / 8;
++				byte[] bytes = ReadBytes((int)byteCount);
+ 
+-					if ((uint)ms.Position != byteCount)
+-						throw new InvalidOperationException($"Read underflow {ms.Position} of {byteCount} bytes caused by {modItem.Name} from the {modItem.Mod.Name} mod.");
+-				}
++				if (item.ModItem is not { } modItem)
++					throw new InvalidOperationException("Received ModItem data for an item without a ModItem instance");
++
++				var ms = new MemoryStream(bytes, 0, bytes.Length, writable: false, publiclyVisible: true);
++				modItem.NetReceive(new BinaryReader(ms));
++
++				if ((uint)ms.Position != byteCount)
++					throw new InvalidOperationException($"Read underflow {ms.Position} of {byteCount} bytes caused by {modItem.Name} from the {modItem.Mod.Name} mod.");
+ 			}
+ 		}
+ 
+diff --git a/benchmarks/terraria-core/private/harbor/terraria-magic-storage-compressed-io-regressions-hard/environment/magic-storage/Common/IO/ValueWriter.cs b/benchmarks/terraria-core/private/harbor/terraria-magic-storage-compressed-io-regressions-hard/solution/after/Common/IO/ValueWriter.cs
+index 7d06e402..2fa3f5b4 100644
+--- a/benchmarks/terraria-core/private/harbor/terraria-magic-storage-compressed-io-regressions-hard/environment/magic-storage/Common/IO/ValueWriter.cs
++++ b/benchmarks/terraria-core/private/harbor/terraria-magic-storage-compressed-io-regressions-hard/solution/after/Common/IO/ValueWriter.cs
+@@ -9,6 +9,7 @@ namespace MagicStorage.Common.IO {
+ 	public class ValueWriter {
+ 		private BitBuffer128 _bits;
+ 		private int _head;
++		private ulong _writtenBitCount;
+ 		private readonly Stream _stream;
+ 		private readonly LengthCompressor<uint> _globalArrayLengthWriter;
+ 
+@@ -44,6 +45,7 @@ namespace MagicStorage.Common.IO {
+ 			}
+ 
+ 			_bits.Set(value, ref _head);
++			_writtenBitCount++;
+ 
+ 			CheckBits();
+ 		}
+@@ -81,6 +83,7 @@ namespace MagicStorage.Common.IO {
+ 			}
+ 
+ 			_bits.SetVariant(value, ref _head, (byte)numBits);
++			_writtenBitCount += (uint)numBits;
+ 
+ 			CheckBits();
+ 		}
+@@ -126,6 +129,8 @@ namespace MagicStorage.Common.IO {
+ 			else if (typeof(T) == typeof(long))
+ 				_bits.SetVariant((ulong)Unsafe.As<T, long>(ref value), ref _head, (byte)numBits);
+ 
++			_writtenBitCount += (uint)numBits;
++
+ 			CheckBits();
+ 		}
+ 
+@@ -174,6 +179,35 @@ namespace MagicStorage.Common.IO {
+ 				Write(bytes[i], BitBuffer128.MAX_BYTE);
+ 		}
+ 
++		internal void WriteAtomically(Action<ValueWriter> write) {
++			ArgumentNullException.ThrowIfNull(write);
++
++			using MemoryStream stream = new();
++			ValueWriter stagedWriter = _globalArrayLengthWriter is null
++				? new ValueWriter(stream)
++				: new ValueWriter(stream, _globalArrayLengthWriter);
++
++			write(stagedWriter);
++			if (stagedWriter._activeScope is not null)
++				throw new InvalidOperationException("A staged write left a scope open.");
++
++			stagedWriter.Flush();
++			WriteContents(stream.ToArray(), stagedWriter._writtenBitCount);
++		}
++
++		private void WriteContents(byte[] bytes, ulong bitCount) {
++			if (bitCount > (ulong)bytes.LongLength * BitBuffer128.MAX_BYTE)
++				throw new ArgumentOutOfRangeException(nameof(bitCount));
++
++			int wholeBytes = checked((int)(bitCount / BitBuffer128.MAX_BYTE));
++			for (int i = 0; i < wholeBytes; i++)
++				Write(bytes[i], BitBuffer128.MAX_BYTE);
++
++			int remainingBits = (int)(bitCount % BitBuffer128.MAX_BYTE);
++			if (remainingBits > 0)
++				Write(bytes[wholeBytes], remainingBits);
++		}
++
+ 		public void Write7BitEncodedInt(int value) {
+ 			uint num = (uint)value;
+ 
+@@ -256,6 +290,8 @@ namespace MagicStorage.Common.IO {
+ 			public void Dispose() {
+ 				if (disposed)
+ 					throw new ObjectDisposedException(nameof(Scope), "Scope has already been closed.");
++				if (_baseWriter._activeScope != this)
++					throw new InvalidOperationException("Scopes must be closed in reverse creation order.");
+ 
+ 				disposed = true;
+ 
+@@ -268,16 +304,21 @@ namespace MagicStorage.Common.IO {
+ 				// If there's no data, save bits by only writing a flag
+ 				// This will be the case for e.g. ModItems and GlobalItems that don't send data
+ 				if (bytes.Length == 0 || writtenBitCount == 0) {
+-					enclosingWriter.Write(true);
++					enclosingWriter.Write(false);
++					if (_enclosingScope is { } emptyParent)
++						emptyParent.writtenBitCount++;
++					_baseWriter._activeScope = _enclosingScope;
+ 					return;
+ 				}
+ 
+-				enclosingWriter.Write(false);
++				enclosingWriter.Write(true);
+ 
+ 				uint bitCount;
++				uint encodedLength;
+ 				if (_encodeByteLength) {
+ 					bitCount = Utility.CeilingMultiple(writtenBitCount, 8u);
+ 					uint byteCount = bitCount / 8;
++					encodedLength = byteCount;
+ 
+ 					_lengthWriter.WriteTo(enclosingWriter, byteCount);
+ 
+@@ -285,6 +326,7 @@ namespace MagicStorage.Common.IO {
+ 						enclosingWriter.Write(bytes[i], 8);
+ 				} else {
+ 					bitCount = writtenBitCount;
++					encodedLength = bitCount;
+ 					uint remaningBits = bitCount;
+ 					int i;
+ 
+@@ -298,7 +340,7 @@ namespace MagicStorage.Common.IO {
+ 				}
+ 
+ 				if (_enclosingScope is { } scope)
+-					scope.writtenBitCount += bitCount;
++					scope.writtenBitCount += 1u + (uint)_lengthWriter.GetBitCost(encodedLength) + bitCount;
+ 
+ 				_baseWriter._activeScope = _enclosingScope;
+ 			}

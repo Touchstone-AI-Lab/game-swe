@@ -1,0 +1,293 @@
+{
+  "schemaVersion": 1,
+  "taskId": "prop-ownership-quota-registry",
+  "taskVersion": "2.2.0",
+  "caseMappings": {
+    "hidden-behavior": [
+      {
+        "name": "first registration increments quota",
+        "classification": "B",
+        "clauses": [
+          "T1-API-01",
+          "T1-SEM-01",
+          "T1-API-02"
+        ]
+      },
+      {
+        "name": "third prop is rejected without replacing state",
+        "classification": "A",
+        "clauses": [
+          "T1-SEM-02",
+          "T1-ERR-01"
+        ]
+      },
+      {
+        "name": "register retries are exact and request conflicts fail",
+        "classification": "A",
+        "clauses": [
+          "T1-SEM-05",
+          "T1-ERR-02"
+        ]
+      },
+      {
+        "name": "remove retries release quota exactly once",
+        "classification": "A",
+        "clauses": [
+          "T1-SEM-06",
+          "T1-FILE-01"
+        ]
+      },
+      {
+        "name": "revision replacement rejects stale authority",
+        "classification": "A",
+        "clauses": [
+          "T1-SEM-03",
+          "T1-GOAL-01"
+        ]
+      },
+      {
+        "name": "operations and ownership are enforced",
+        "classification": "A",
+        "clauses": [
+          "T1-DATA-03",
+          "T1-SEM-04",
+          "T1-GOAL-02"
+        ]
+      },
+      {
+        "name": "disconnect waits strictly below five seconds and cleans at boundary",
+        "classification": "A",
+        "clauses": [
+          "T1-TIME-02",
+          "T1-SCOPE-01"
+        ]
+      },
+      {
+        "name": "reconnect before boundary cancels cleanup",
+        "classification": "A",
+        "clauses": [
+          "T1-TIME-03",
+          "T1-SCOPE-02"
+        ]
+      },
+      {
+        "name": "time reversal is clamped",
+        "classification": "A",
+        "clauses": [
+          "T1-TIME-01"
+        ]
+      },
+      {
+        "name": "snapshot is deterministic and detached",
+        "classification": "A",
+        "clauses": [
+          "T1-PERSIST-01",
+          "T1-PERSIST-02"
+        ]
+      },
+      {
+        "name": "save load round trip preserves request idempotency",
+        "classification": "A",
+        "clauses": [
+          "T1-PERSIST-03",
+          "T1-PERSIST-04"
+        ]
+      },
+      {
+        "name": "shutdown is idempotent and freezes mutations",
+        "classification": "A",
+        "clauses": [
+          "T1-LIFE-01"
+        ]
+      },
+      {
+        "name": "only the exact public two prop five second options are accepted",
+        "classification": "A",
+        "clauses": [
+          "T1-DATA-01"
+        ]
+      },
+      {
+        "name": "malformed saved state is rejected completely",
+        "classification": "A",
+        "clauses": [
+          "T1-PERSIST-04"
+        ]
+      }
+    ],
+    "gmod-integration": [
+      {
+        "name": "adapter installs required hooks and timer",
+        "classification": "A",
+        "clauses": [
+          "T1-API-03",
+          "T1-NATIVE-01"
+        ]
+      },
+      {
+        "name": "entity bindings reject malformed logical identity and revision",
+        "classification": "B",
+        "clauses": [
+          "T1-DATA-02",
+          "T1-TRUST-01"
+        ]
+      },
+      {
+        "name": "trusted player binding owns the prop",
+        "classification": "B",
+        "clauses": [
+          "T1-TRUST-01"
+        ]
+      },
+      {
+        "name": "benchmark identity is independent of EntIndex",
+        "classification": "A",
+        "clauses": [
+          "T1-SEM-03",
+          "T1-TRUST-01"
+        ]
+      },
+      {
+        "name": "all modification entry points reject non-owner",
+        "classification": "A",
+        "clauses": [
+          "T1-NATIVE-02"
+        ]
+      },
+      {
+        "name": "client owner payload cannot override server player",
+        "classification": "A",
+        "clauses": [
+          "T1-TRUST-01"
+        ]
+      },
+      {
+        "name": "quota rejects and removes third prop",
+        "classification": "B",
+        "clauses": [
+          "T1-SEM-02",
+          "T1-NATIVE-03"
+        ]
+      },
+      {
+        "name": "entity removal releases once and revision blocks EntIndex reuse",
+        "classification": "B",
+        "clauses": [
+          "T1-SEM-03",
+          "T1-SEM-06"
+        ]
+      },
+      {
+        "name": "disconnect cleanup and reconnect use real hooks",
+        "classification": "B",
+        "clauses": [
+          "T1-NATIVE-01",
+          "T1-TIME-02",
+          "T1-TIME-03"
+        ]
+      }
+    ],
+    "lifecycle-cleanup": [
+      {
+        "name": "shutdown removes hooks and timer",
+        "classification": "A",
+        "clauses": [
+          "T1-LIFE-01"
+        ]
+      }
+    ],
+    "dedicated-server": [
+      {
+        "name": "persistence",
+        "classification": "B",
+        "clauses": [
+          "T1-PERSIST-04",
+          "T1-ACC-05",
+          "T1-ACC-03"
+        ]
+      },
+      {
+        "name": "authority",
+        "classification": "B",
+        "clauses": [
+          "T1-TRUST-01",
+          "T1-ACC-01"
+        ]
+      },
+      {
+        "name": "quota",
+        "classification": "B",
+        "clauses": [
+          "T1-SEM-02",
+          "T1-ACC-02"
+        ]
+      },
+      {
+        "name": "lifecycle",
+        "classification": "B",
+        "clauses": [
+          "T1-TIME-02",
+          "T1-ACC-04"
+        ]
+      },
+      {
+        "name": "cleanup",
+        "classification": "B",
+        "clauses": [
+          "T1-LIFE-01",
+          "T1-ACC-05"
+        ]
+      }
+    ]
+  },
+  "apiCoverage": {
+    "Registry.new(options)": [
+      "T1-API-01",
+      "T1-DATA-01"
+    ],
+    "registry:register(request_id, player_id, entity_id, revision)": [
+      "T1-API-01",
+      "T1-SEM-01"
+    ],
+    "registry:can_modify(player_id, entity_id, revision, operation)": [
+      "T1-API-01",
+      "T1-SEM-04"
+    ],
+    "adapter.HandleDeleteRequest(player, entity, request_id)": [
+      "T1-API-03",
+      "T1-NATIVE-02"
+    ],
+    "adapter.Shutdown()": [
+      "T1-API-03",
+      "T1-LIFE-01"
+    ]
+  },
+  "acceptanceCoverage": {
+    "T1-ACC-01": [
+      "gmod-integration:all modification entry points reject non-owner"
+    ],
+    "T1-ACC-02": [
+      "hidden-behavior:remove retries release quota exactly once"
+    ],
+    "T1-ACC-03": [
+      "hidden-behavior:revision replacement rejects stale authority"
+    ],
+    "T1-ACC-04": [
+      "hidden-behavior:disconnect waits strictly below five seconds and cleans at boundary"
+    ],
+    "T1-ACC-05": [
+      "dedicated-server:persistence",
+      "lifecycle-cleanup:shutdown removes hooks and timer"
+    ]
+  },
+  "requiredPublicTokens": [
+    "max_props=2",
+    "cleanup_delay=5",
+    "invalid_options",
+    "invalid_state",
+    "BindEntity",
+    "EntityRemoved",
+    "PlayerDisconnected",
+    "PlayerInitialSpawn"
+  ]
+}

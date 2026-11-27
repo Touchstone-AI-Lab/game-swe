@@ -1,0 +1,27 @@
+{
+  "schemaVersion": 1,
+  "taskId": "defense-and-heat-regressions",
+  "starter": "mindustry",
+  "build": {
+    "tool": "mindustry-source",
+    "sourceRoots": [
+      "core/src",
+      "server/src"
+    ],
+    "extraSources": [
+      "annotations/src/main/java/mindustry/annotations/Annotations.java"
+    ],
+    "javaRelease": 17
+  },
+  "serverCases": [
+    "defense blocks load and update on the pinned server",
+    "an engaged turret fires at its reload interval",
+    "an idle turret keeps its reload interval when it engages",
+    "a turret with faster ammunition keeps its average fire rate",
+    "a loaded idle turret does not use its coolant",
+    "an enabled heat redirector passes heat on",
+    "a disabled heat redirector passes no heat",
+    "a shockwave tower destroys enemy bullets inside its range",
+    "a shockwave tower spares bullets outside its circular range"
+  ]
+}

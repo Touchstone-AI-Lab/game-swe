@@ -1,0 +1,54 @@
+schema_version = "1.4"
+
+artifacts = ["/app/mod"]
+
+[task]
+name = "gamecodebench/palworld-pal-workforce-optimal-matching"
+version = "1.0.0"
+description = "Compute exact Pal workforce assignments under four lexicographic optimization objectives."
+authors = [{ name = "Rui Hu" }]
+keywords = ["palworld", "ue4ss", "lua", "game-modding", "generation", "optimization", "matching", "determinism", "persistence"]
+
+[metadata]
+category = "programming"
+difficulty = "hard"
+tags = ["game-modding", "palworld", "ue4ss", "lua", "generation", "composite"]
+task_kind = "generation-composite"
+game = "Palworld Dedicated Server"
+mod_loader = "RE-UE4SS"
+language = "Lua 5.4"
+content_reference = "benchmarks/palworld/exams/pal-workforce-optimal-matching.md"
+content_reference_pack = "rhenium-palworld-v1"
+harbor_reference_repository = "https://github.com/harbor-framework/harbor"
+harbor_reference_revision = "9a2e3b135cc8fb1e41131020f83370cb2f12ae93"
+verification_profile = "portable-lua-5.4-plus-simulated-ue4ss"
+real_server_validation = "external; not executed by this Harbor task"
+
+[verifier]
+network_mode = "no-network"
+timeout_sec = 180.0
+user = "root"
+environment_mode = "separate"
+
+[agent]
+# The image already contains Codex CLI and mini-swe-agent. A Harbor job supplies
+# only the model endpoint hostname through agents[].extra_allowed_hosts.
+network_mode = "allowlist"
+allowed_hosts = []
+timeout_sec = 43200.0
+user = "agent"
+
+[environment]
+network_mode = "no-network"
+build_timeout_sec = 1800.0
+cpus = 4
+memory_mb = 8192
+storage_mb = 10240
+gpus = 0
+mcp_servers = []
+
+[verifier.env]
+
+[environment.env]
+
+[solution.env]

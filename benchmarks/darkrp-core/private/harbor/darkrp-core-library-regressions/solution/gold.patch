@@ -1,0 +1,74 @@
+--- a/gamemode/libraries/fn.lua	2026-09-17 15:41:28.467399824 +0000
++++ b/gamemode/libraries/fn.lua
+@@ -218,7 +218,7 @@
+ Filter = function(f, xs)
+     local res = {}
+     for k,v in pairs(xs) do
+-        if f(v) then res[#res + 1] = v end
++        if f(v) then res[k] = v end
+     end
+     return res
+ end
+@@ -239,12 +239,12 @@
+ end
+ 
+ Tail = function(xs)
+-    table.remove(xs)
++    table.remove(xs, 1)
+     return xs
+ end
+ 
+ Init = function(xs)
+-    xs[1] = nil
++    xs[#xs] = nil
+     return xs
+ end
+ 
+@@ -253,7 +253,10 @@
+ end
+ 
+ Null = function(xs)
+-    return #xs == 0
++    for k, v in pairs(xs) do
++        return false
++    end
++    return true
+ end
+ 
+ Length = function(xs)
+@@ -276,7 +279,7 @@
+ Folds
+ ---------------------------------------------------------------------------*/
+ Foldr = function(func, val, xs)
+-    for i = 1, #xs do
++    for i = #xs, 1, -1 do
+         val = func(xs[i], val)
+     end
+ 
+--- a/gamemode/libraries/tablecheck.lua	2026-09-17 15:39:26.935558659 +0000
++++ b/gamemode/libraries/tablecheck.lua
+@@ -113,7 +113,7 @@
+ server = function() return SERVER end
+ 
+ -- Optional value, when filled in it must meet the conditions
+-optional = function(...) return function() return true end end
++optional = function(...) return fn.FOr{isnil, ...} end
+ 
+ -- Default value, implies optional. Only works in combination with tc.checkTable
+ -- Note that the tc.addHint is to be the second parameter of default.
+@@ -154,13 +154,13 @@
+ -- example: tc.nonEmpty(tc.tableOf(isnumber))
+ -- example: tc.nonEmpty() -- just checks that the table is non-empty
+ nonEmpty = function(f) return function(tbl, parentTbl)
+-    if not istable(tbl) then return false end
++    if not istable(tbl) or table.IsEmpty(tbl) then return false end
+     if not f then return true end
+     return f(tbl, parentTbl)
+ end end
+ 
+ -- Number check: minimum
+-min = function(n) return fn.FAnd{isnumber, fp{fn.Gte, n}} end
++min = function(n) return fn.FAnd{isnumber, fp{fn.Lte, n}} end
+ 
+ -- Number check: maximum
+ max = function(n) return fn.FAnd{isnumber, fp{fn.Gte, n}} end

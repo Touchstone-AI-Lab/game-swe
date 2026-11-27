@@ -1,0 +1,63 @@
+schema_version = "1.4"
+
+artifacts = ["/workspace/fargos-souls"]
+
+[task]
+name = "gamecodebench/terraria-fargos-toggle-presets-hard"
+version = "0.1.0"
+description = "Repair isolated and durable Fargo's Souls toggle presets."
+authors = [{ name = "PrinsYin" }]
+keywords = ["terraria", "tmodloader", "fargos-souls", "csharp", "persistence", "state-isolation"]
+
+[metadata]
+category = "programming"
+difficulty = "hard"
+tags = ["game-modding", "terraria", "tmodloader", "repository-debugging", "persistence", "state-isolation"]
+task_kind = "repository-debugging"
+game = "Terraria"
+game_build = "1.4.4.9"
+tmodloader_api = "1.4.4 stable API"
+source_repo = "https://github.com/Fargowilta/FargowiltasSouls"
+source_license = "MIT"
+base_commit = "226fadeadbe3422785a7708ba2cdf53bd8548c00"
+source_mod_version = "1.7.3.7"
+evaluation_boundary = "layered offline .NET 8 source projection plus pinned real tModLoader 2026.7.3.0 dedicated-server assertions against Terraria 1.4.4.9; disclosed client-only behavior remains source-projection-only"
+expected_private_cases = 82
+independent_defect_groups = 10
+public_smoke_command = "python tools/smoke.py"
+validation_status = "revision-2 oracle 82/82 and starter 25/82 controls passed"
+
+[verifier]
+environment_mode = "separate"
+network_mode = "no-network"
+timeout_sec = 900.0
+user = "root"
+
+[verifier.environment]
+network_mode = "no-network"
+cpus = 4
+memory_mb = 4096
+storage_mb = 8192
+gpus = 0
+mcp_servers = []
+
+[agent]
+user = "root"
+network_mode = "allowlist"
+allowed_hosts = ["api.openai.com"]
+timeout_sec = 7200.0
+
+[environment]
+network_mode = "no-network"
+build_timeout_sec = 1200.0
+cpus = 4
+memory_mb = 4096
+storage_mb = 8192
+gpus = 0
+mcp_servers = []
+
+[verifier.env]
+
+[environment.env]
+
+[solution.env]

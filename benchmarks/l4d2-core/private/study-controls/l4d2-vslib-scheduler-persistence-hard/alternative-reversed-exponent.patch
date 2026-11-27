@@ -1,0 +1,758 @@
+diff -ruN a/vscripts/LinGe/Base.nut b/vscripts/LinGe/Base.nut
+--- a/vscripts/LinGe/Base.nut
++++ b/vscripts/LinGe/Base.nut
+@@ -638,76 +638,10 @@
+ 		return IsPlayerABot(_ent);
+ }
+ 
+-// 改良原函数，使其输出的文件带有缩进
++// Keep LinGe's public overload consistent with VSLib's versioned data codec.
+ function VSLib::FileIO::SerializeTable(object, predicateStart = "{\n", predicateEnd = "}\n", indice = true, indent=1)
+ {
+-	local indstr = "";
+-	for (local i=0; i<indent; i++)
+-		indstr += "\t";
+-
+-	local baseString = predicateStart;
+-
+-	foreach (idx, val in object)
+-	{
+-		local idxType = typeof idx;
+-
+-		if (idxType == "instance" || idxType == "class" || idxType == "function")
+-			continue;
+-
+-		// Check for invalid characters
+-		local idxStr = idx.tostring();
+-		local reg = regexp("^[a-zA-Z0-9_]*$");
+-
+-		if (!reg.match(idxStr))
+-		{
+-			printf("VSLib Warning: Index '%s' is invalid (invalid characters found), skipping...", idxStr);
+-			continue;
+-		}
+-
+-		// Check for numeric fields and prefix them so system can compile
+-		reg = regexp("^[0-9]+$");
+-		if (reg.match(idxStr))
+-			idxStr = "_vslInt_" + idxStr;
+-
+-
+-		local preCompileString = indstr + ((indice) ? (idxStr + " = ") : "");
+-
+-		switch (typeof val)
+-		{
+-			case "table":
+-				baseString += preCompileString + ::VSLib.FileIO.SerializeTable(val, "{\n", "}\n", true, indent+1);
+-				break;
+-
+-			case "string":
+-				baseString += preCompileString + "\"" + ::VSLib.Utils.StringReplace(::VSLib.Utils.StringReplace(val, "\"", "{VSQUOTE}"), @"\\", "{VSSLASH}") + "\"\n"; // "
+-				break;
+-
+-			case "integer":
+-				baseString += preCompileString + val + "\n";
+-				break;
+-
+-			case "float":
+-				baseString += preCompileString + val + "\n";
+-				break;
+-
+-			case "array":
+-				baseString += preCompileString + ::VSLib.FileIO.SerializeTable(val, "[\n", "]\n", false, indent+1);
+-				break;
+-
+-			case "bool":
+-				baseString += preCompileString + ((val) ? "true" : "false") + "\n";
+-				break;
+-		}
+-	}
+-
+-	// 末尾括号的缩进与上一级同级
+-	indstr = "";
+-	for (local i=0; i<indent-1; i++)
+-		indstr += "\t";
+-
+-	baseString += indstr + predicateEnd;
+-
+-	return baseString;
++    return "// VSLib2\n" + ::VSLib.FileIO._Encode(object, []);
+ }
+ 
+ // -------------------------------VSLib-------------------------------------------------
+diff -ruN a/vscripts/LinGe/VSLib/easylogic.nut b/vscripts/LinGe/VSLib/easylogic.nut
+--- a/vscripts/LinGe/VSLib/easylogic.nut
++++ b/vscripts/LinGe/VSLib/easylogic.nut
+@@ -1225,11 +1225,10 @@
+ 	{
+ 		if ("TimersList" in ::VSLib.Timers)
+ 		{
+-			foreach (idx, timer in ::VSLib.Timers.TimersList)
+-			{
+-				if ( !(timer._flags & TIMER_FLAG_KEEPALIVE) )
+-					delete ::VSLib.Timers.TimersList[idx];
+-			}
++			local retired = [];
++            foreach (idx, timer in ::VSLib.Timers.TimersList)
++                if (!(timer._flags & TIMER_FLAG_KEEPALIVE)) retired.append(idx);
++            foreach (idx in retired) ::VSLib.Timers.RemoveTimer(idx);
+ 		}
+ 	}
+ }
+diff -ruN a/vscripts/LinGe/VSLib/fileio.nut b/vscripts/LinGe/VSLib/fileio.nut
+--- a/vscripts/LinGe/VSLib/fileio.nut
++++ b/vscripts/LinGe/VSLib/fileio.nut
+@@ -25,132 +25,221 @@
+ ::VSLib.FileIO <- {};
+ 
+ 
+-/**
+- * Recursively serializes a table and returns the string. This command ignores all functions within
+- * the table, saving only the primitive types (i.e. integers, floats, strings, etc with definite values).
+- * The indexes that you use for your table need to be programmatically "clean," meaning that the index
+- * cannot contain invalid characters like +-=!@#$%^&*() etc. Indexes that contain any kind of
+- * invalid character is completely ignored. If you are trying to store player information,
+- * use Player::GetUniqueID() instead of Player::GetSteamID() for the index ID.
+- *
+- * You probably won't need to use this function by itself. @see VSLib::FileIO::SaveTable()
+- */
++// Data-only persistence; never evaluate the input as Squirrel code.
++::VSLib.FileIO._Quote <- function(text)
++{
++    local out = "\"";
++    for (local i = 0; i < text.len(); i++)
++    {
++        local ch = text.slice(i, i + 1);
++        if (ch == "\"") out += "\\\"";
++        else if (ch == "\\") out += "\\\\";
++        else if (ch == "\n") out += "\\n";
++        else if (ch == "\r") out += "\\r";
++        else if (ch == "\t") out += "\\t";
++        else out += ch;
++    }
++    return out + "\"";
++}
++
++::VSLib.FileIO._Encode <- function(value, ancestors)
++{
++    local kind = typeof value;
++    if (value == null) return "null";
++    if (kind == "bool") return value ? "true" : "false";
++    if (kind == "integer") return value.tostring();
++    if (kind == "string") return ::VSLib.FileIO._Quote(value);
++    if (kind == "float")
++    {
++        if (value != value || value > 3.402823466e38 || value < -3.402823466e38) throw "nonfinite number";
++        local out = format("%.9e", value);
++        if (out.find(".") == null && out.find("e") == null && out.find("E") == null) out += ".0";
++        return out;
++    }
++    if (kind != "table" && kind != "array") throw "unsupported persistent value";
++    foreach (ancestor in ancestors) if (ancestor == value) throw "cyclic persistent value";
++    ancestors.append(value);
++    local out = kind == "table" ? "{\n" : "[\n";
++    foreach (key, item in value)
++    {
++        if (kind == "table")
++        {
++            if (typeof key != "string" && typeof key != "integer") throw "unsupported persistent key";
++            out += "[" + ::VSLib.FileIO._Encode(key, ancestors) + "] = ";
++        }
++        out += ::VSLib.FileIO._Encode(item, ancestors) + " ";
++    }
++    ancestors.pop();
++    return out + (kind == "table" ? "}" : "]");
++}
++
++::VSLib.FileIO._DataReader <- class
++{
++    text = null;
++    pos = 0;
++    constructor(input) { text = input; }
++    function Peek() { return pos < text.len() ? text.slice(pos, pos + 1) : ""; }
++    function Space()
++    {
++        while (pos < text.len() && (Peek() == " " || Peek() == "\n" || Peek() == "\t" || Peek() == "\r")) pos++;
++    }
++    function Take(wanted)
++    {
++        Space();
++        if (Peek() != wanted) throw "unexpected data token";
++        pos++;
++    }
++    function String()
++    {
++        Take("\"");
++        local out = "";
++        while (pos < text.len())
++        {
++            local ch = Peek(); pos++;
++            if (ch == "\"") return out;
++            if (ch == "\\")
++            {
++                if (pos == text.len()) throw "truncated string";
++                ch = Peek(); pos++;
++                if (ch == "n") out += "\n";
++                else if (ch == "r") out += "\r";
++                else if (ch == "t") out += "\t";
++                else if (ch == "\\" || ch == "\"") out += ch;
++                else throw "invalid escape";
++            }
++            else if (ch == "\n" || ch == "\r") throw "unescaped newline";
++            else out += ch;
++        }
++        throw "unterminated string";
++    }
++    function Word()
++    {
++        Space();
++        local start = pos;
++        while (pos < text.len())
++        {
++            local ch = Peek();
++            if (ch == " " || ch == "\n" || ch == "\t" || ch == "\r" || ch == "," || ch == "=" || ch == "}" || ch == "]") break;
++            pos++;
++        }
++        if (pos == start) throw "missing token";
++        return text.slice(start, pos);
++    }
++    function Value()
++    {
++        Space();
++        local ch = Peek();
++        if (ch == "\"") return String();
++        if (ch == "{")
++        {
++            pos++;
++            local result = {};
++            Space();
++            while (Peek() != "}")
++            {
++                local key;
++                if (Peek() == "[")
++                {
++                    pos++; key = Value(); Take("]");
++                    if (typeof key != "string" && typeof key != "integer") throw "invalid key";
++                }
++                else
++                {
++                    key = Word();
++                    if (!regexp("^[a-zA-Z_][a-zA-Z0-9_]*$").match(key)) throw "invalid legacy key";
++                }
++                Take("=");
++                if (key in result) throw "duplicate key";
++                result[key] <- Value();
++                Space();
++                if (Peek() == ",") { pos++; Space(); }
++                if (pos >= text.len()) throw "truncated table";
++            }
++            pos++;
++            return result;
++        }
++        if (ch == "[")
++        {
++            pos++;
++            local result = [];
++            Space();
++            while (Peek() != "]")
++            {
++                result.append(Value());
++                Space();
++                if (Peek() == ",") { pos++; Space(); }
++                if (pos >= text.len()) throw "truncated array";
++            }
++            pos++;
++            return result;
++        }
++        local token = Word();
++        if (token == "true") return true;
++        if (token == "false") return false;
++        if (token == "null") return null;
++        if (!regexp("^-?(0|[1-9][0-9]*)([.][0-9]+)?([eE][+-]?[0-9]+)?$").match(token)) throw "invalid scalar";
++        if (token.find(".") != null || token.find("e") != null || token.find("E") != null)
++        {
++            local number = token.tofloat();
++            if (number != number || number > 3.402823466e38 || number < -3.402823466e38) throw "nonfinite number";
++            return number;
++        }
++        return token.tointeger();
++    }
++}
++
+ function VSLib::FileIO::SerializeTable(object, predicateStart = "{\n", predicateEnd = "}\n", indice = true)
+ {
+-	local baseString = predicateStart;
+-	
+-	foreach (idx, val in object)
+-	{
+-		local idxType = typeof idx;
+-		
+-		if (idxType == "instance" || idxType == "class" || idxType == "function")
+-			continue;
+-		
+-		// Check for invalid characters
+-		local idxStr = idx.tostring();
+-		local reg = regexp("^[a-zA-Z0-9_]*$");
+-		
+-		if (!reg.match(idxStr))
+-		{
+-			printf("VSLib Warning: Index '%s' is invalid (invalid characters found), skipping...", idxStr);
+-			continue;
+-		}
+-		
+-		// Check for numeric fields and prefix them so system can compile
+-		reg = regexp("^[0-9]+$");
+-		if (reg.match(idxStr))
+-			idxStr = "_vslInt_" + idxStr;
+-		
+-		
+-		local preCompileString = ((indice) ? (idxStr + " = ") : "");
+-		
+-		switch (typeof val)
+-		{
+-			case "table":
+-				baseString += preCompileString + ::VSLib.FileIO.SerializeTable(val);
+-				break;
+-			
+-			case "string":
+-				baseString += preCompileString + "\"" + ::VSLib.Utils.StringReplace(::VSLib.Utils.StringReplace(val, "\"", "{VSQUOTE}"), @"\\", "{VSSLASH}") + "\"\n"; // "
+-				break;
+-			
+-			case "integer":
+-				baseString += preCompileString + val + "\n";
+-				break;
+-			
+-			case "float":
+-				baseString += preCompileString + val + "\n";
+-				break;
+-			
+-			case "array":
+-				baseString += preCompileString + ::VSLib.FileIO.SerializeTable(val, "[\n", "]\n", false);
+-				break;
+-				
+-			case "bool":
+-				baseString += preCompileString + ((val) ? "true" : "false") + "\n";
+-				break;
+-		}
+-	}
+-	
+-	baseString += predicateEnd;
+-	
+-	return baseString;
+-}
+-
+-/**
+- * This function will serialize and save a table to the hard disk; useful for storing stats,
+- * round times, and other important information.
+- */
+-function VSLib::FileIO::SaveTable(fileName, table)
+-{
+-	fileName += ".tbl";
+-	return StringToFile(fileName, ::VSLib.FileIO.SerializeTable(table));
+-}
+-
+-/**
+- * This function will clean table input.
+- */
+-function VSLib::FileIO::DeserializeReviseTable(t)
+-{
+-	foreach (idx, val in t)
+-	{
+-		if (typeof val == "string")
+-			t[idx] = ::VSLib.Utils.StringReplace(::VSLib.Utils.StringReplace(val, "{VSQUOTE}", "\""), "{VSSLASH}", @"\"); // "
+-		else if (typeof val == "table")
+-			t[idx] = DeserializeReviseTable(val);
+-	}
+-	
+-	return t;
+-}
+-
+-/**
+- * This function will deserialize and return the compiled table.
+- * If the table does not exist, null is returned.
+- */
++    return "// VSLib2\n" + ::VSLib.FileIO._Encode(object, []);
++}
++
++function VSLib::FileIO::SaveTable(fileName, object)
++{
++    try
++    {
++        if (typeof object != "table" && typeof object != "array") return false;
++        local encoded = ::VSLib.FileIO.SerializeTable(object);
++        return StringToFile(fileName + ".tbl", encoded);
++    }
++    catch (error) { return false; }
++}
++
++function VSLib::FileIO::DeserializeReviseTable(object)
++{
++    local kind = typeof object;
++    if (kind == "string")
++        return ::VSLib.Utils.StringReplace(::VSLib.Utils.StringReplace(object, "{VSQUOTE}", "\""), "{VSSLASH}", "\\");
++    if (kind != "table" && kind != "array") return object;
++    local result = kind == "table" ? {} : [];
++    foreach (key, value in object)
++    {
++        local decoded = ::VSLib.FileIO.DeserializeReviseTable(value);
++        if (kind == "array") result.append(decoded);
++        else
++        {
++            if (typeof key == "string" && regexp("^_vslInt_(0|[1-9][0-9]*)$").match(key)) key = key.slice(8).tointeger();
++            if (key in result) throw "colliding legacy key";
++            result[key] <- decoded;
++        }
++    }
++    return result;
++}
++
+ function VSLib::FileIO::LoadTable(fileName)
+ {
+-	local contents = FileToString(fileName + ".tbl");
+-	
+-	if (!contents)
+-		return null;
+-	
+-	local t = compilestring( "return " + contents )();
+-	
+-	foreach (idx, val in t)
+-	{
+-		local idxStr = idx.tostring();
+-		
+-		if (idxStr.find("_vslInt_") != null)
+-		{
+-			idxStr = Utils.StringReplace(idxStr, "_vslInt_", "");
+-			t[idxStr.tointeger()] <- val;
+-			delete t[idx];
+-		}
+-	}
+-	
+-	t = DeserializeReviseTable(t);
+-	
+-	return t;
++    try
++    {
++        local text = FileToString(fileName + ".tbl");
++        if (text == null || text.len() == 0) return null;
++        local modern = text.len() >= 10 && text.slice(0, 10) == "// VSLib2\n";
++        if (modern) text = text.slice(10);
++        local reader = ::VSLib.FileIO._DataReader(text);
++        local result = reader.Value();
++        reader.Space();
++        if (reader.pos != text.len() || (typeof result != "table" && typeof result != "array")) return null;
++        return modern ? result : ::VSLib.FileIO.DeserializeReviseTable(result);
++    }
++    catch (error) { return null; }
+ }
+ 
+ 
+diff -ruN a/vscripts/LinGe/VSLib/timer.nut b/vscripts/LinGe/VSLib/timer.nut
+--- a/vscripts/LinGe/VSLib/timer.nut
++++ b/vscripts/LinGe/VSLib/timer.nut
+@@ -60,9 +60,11 @@
+  */
+ function VSLib::Timers::AddTimerByName(strName, delay, repeat, func, paramTable = null, flags = 0, value = {})
+ {
+-	::VSLib.Timers.RemoveTimerByName(strName);
+-	::VSLib.Timers.TimersID[strName] <- ::VSLib.Timers.AddTimer(delay, repeat, func, paramTable, flags, value);
+-	return strName;
++    local id = ::VSLib.Timers.AddTimer(delay, repeat, func, paramTable, flags, value);
++    if (id == -1) return -1;
++    ::VSLib.Timers.RemoveTimerByName(strName);
++    ::VSLib.Timers.TimersID[strName] <- id;
++    return strName;
+ }
+ 
+ /**
+@@ -70,11 +72,8 @@
+  */
+ function VSLib::Timers::RemoveTimerByName(strName)
+ {
+-	if (strName in ::VSLib.Timers.TimersID)
+-	{
+-		::VSLib.Timers.RemoveTimer(::VSLib.Timers.TimersID[strName]);
+-		delete ::VSLib.Timers.TimersID[strName];
+-	}
++    if (strName in ::VSLib.Timers.TimersID)
++        ::VSLib.Timers.RemoveTimer(::VSLib.Timers.TimersID[strName]);
+ }
+ 
+ /**
+@@ -82,63 +81,33 @@
+  */
+ function VSLib::Timers::AddTimer(delay, repeat, func, paramTable = null, flags = 0, value = {})
+ {
+-	local TIMER_FLAG_COUNTDOWN = (1 << 2);
+-	local TIMER_FLAG_DURATION = (1 << 3);
+-	local TIMER_FLAG_DURATION_VARIANT = (1 << 4);
+-	
+-	delay = delay.tofloat();
+-	repeat = repeat.tointeger();
+-	
+-	local rep = (repeat > 0) ? true : false;
+-	
+-	if (delay < UPDATE_RATE)
+-	{
+-		printl("VSLib Warning: Timer delay cannot be less than " + UPDATE_RATE + " second(s). Delay has been reset to " + UPDATE_RATE + ".");
+-		delay = UPDATE_RATE;
+-	}
+-	
+-	if (paramTable == null)
+-		paramTable = {};
+-	
+-	if (typeof value != "table")
+-	{
+-		printf("VSLib Timer Error: Illegal parameter: 'value' parameter needs to be a table.");
+-		return -1;
+-	}
+-	else if (flags & TIMER_FLAG_COUNTDOWN && !("count" in value))
+-	{
+-		printf("VSLib Timer Error: Could not create the countdown timer because the 'count' field is missing from 'value'.");
+-		return -1;
+-	}
+-	else if ((flags & TIMER_FLAG_DURATION || flags & TIMER_FLAG_DURATION_VARIANT) && !("duration" in value))
+-	{
+-		printf("VSLib Timer Error: Could not create the duration timer because the 'duration' field is missing from 'value'.");
+-		return -1;
+-	}
+-	
+-	// Convert the flag into countdown
+-	if (flags & TIMER_FLAG_DURATION)
+-	{
+-		flags = flags & ~TIMER_FLAG_DURATION;
+-		flags = flags | TIMER_FLAG_COUNTDOWN;
+-		
+-		value["count"] <- floor(value["duration"].tofloat() / delay);
+-	}
+-	
+-	++count;
+-	TimersList[count] <-
+-	{
+-		_delay = delay
+-		_func = func
+-		_params = paramTable
+-		_startTime = Time()
+-		_baseTime = Time()
+-		_repeat = rep
+-		_flags = flags
+-		_opval = value
+-	}
+-	
+-	return count;
++    local numeric = function(v) { return typeof v == "integer" || typeof v == "float"; };
++    if (!numeric(delay) || typeof func != "function" || typeof value != "table"
++        || (typeof repeat != "bool" && typeof repeat != "integer") || typeof flags != "integer") return -1;
++    // Ordinary callbacks accept opaque payloads used by MoreSI and LinGe events.
++    // Only modes that write TimerCount require a table (null creates one).
++    if ((flags & (4 | 8)) && paramTable != null && typeof paramTable != "table") return -1;
++    local modes = 0;
++    foreach (flag in [4, 8, 16]) if (flags & flag) modes++;
++    if (modes > 1) return -1;
++    if ((flags & 4) && (!("count" in value) || typeof value.count != "integer" || value.count <= 0)) return -1;
++    if ((flags & (8 | 16)) && (!("duration" in value) || !numeric(value.duration) || value.duration < 0)) return -1;
++    delay = delay.tofloat();
++    if (delay < UPDATE_RATE) delay = UPDATE_RATE;
++    local options = clone value;
++    if (flags & 8)
++    {
++        flags = (flags & ~8) | 4;
++        options.count <- floor(options.duration / delay).tointeger();
++    }
++    if (paramTable == null) paramTable = {};
++    ++count;
++    TimersList[count] <- {
++        _delay = delay, _func = func, _params = paramTable,
++        _startTime = Time(), _baseTime = Time(), _repeat = repeat.tointeger() > 0,
++        _flags = flags, _opval = options
++    };
++    return count;
+ }
+ 
+ /**
+@@ -146,34 +115,42 @@
+  */
+ function VSLib::Timers::RemoveTimer(idx)
+ {
+-	if (idx in TimersList)
+-		delete ::VSLib.Timers.TimersList[idx];
++    if (idx in TimersList) delete TimersList[idx];
++    local names = [];
++    foreach (name, id in TimersID) if (id == idx) names.append(name);
++    foreach (name in names) delete TimersID[name];
+ }
+ 
+ /**
+  * Manages VSLib timers.
+  */
++function VSLib::Timers::_SettleClock(timer, now)
++{
++    local elapsed = now - timer._lastUpdateTime;
++    if (elapsed > 0)
++    {
++        if (timer._command == 1) timer._value += elapsed;
++        else if (timer._command == 2)
++        {
++            timer._value -= elapsed;
++            if (!timer._allowNegTimer && timer._value < 0) timer._value = 0;
++        }
++        timer._lastUpdateTime = now;
++    }
++}
++
+ function VSLib::Timers::ManageTimer(idx, command, value = null, allowNegTimer = false)
+ {
+-	if ( idx in ::VSLib.Timers.ClockList && value == null )
+-	{
+-		::VSLib.Timers.ClockList[idx]._command <- command;
+-		::VSLib.Timers.ClockList[idx]._allowNegTimer <- allowNegTimer;
+-	}
+-	else
+-	{
+-		if ( value == null )
+-			value = 0;
+-		
+-		::VSLib.Timers.ClockList[idx] <-
+-		{
+-			_value = value
+-			_startTime = Time()
+-			_lastUpdateTime = Time()
+-			_command = command
+-			_allowNegTimer = allowNegTimer
+-		}
+-	}
++    local now = Time();
++    if (idx in ClockList && value == null)
++    {
++        _SettleClock(ClockList[idx], now);
++        ClockList[idx]._command = command;
++        ClockList[idx]._allowNegTimer = allowNegTimer;
++    }
++    else
++        ClockList[idx] <- { _value = value == null ? 0 : value, _startTime = now,
++            _lastUpdateTime = now, _command = command, _allowNegTimer = allowNegTimer };
+ }
+ 
+ /**
+@@ -181,10 +158,9 @@
+  */
+ function VSLib::Timers::ReadTimer(idx)
+ {
+-	if ( idx in ::VSLib.Timers.ClockList )
+-		return ::VSLib.Timers.ClockList[idx]._value;
+-	
+-	return null;
++    if (!(idx in ClockList)) return null;
++    _SettleClock(ClockList[idx], Time());
++    return ClockList[idx]._value;
+ }
+ 
+ /**
+@@ -200,78 +176,36 @@
+  */
+ ::VSLib.Timers._thinkFunc <- function()
+ {
+-	if (!("VSLib" in getroottable()))
+-		return;
+-	
+-	local TIMER_FLAG_COUNTDOWN = (1 << 2);
+-	local TIMER_FLAG_DURATION_VARIANT = (1 << 4);
+-	
+-	// current time
+-	local curtime = Time();
+-	
+-	// Execute timers as needed
+-	foreach (idx, timer in ::VSLib.Timers.TimersList)
+-	{
+-		if ((curtime - timer._startTime) >= timer._delay)
+-		{
+-			if (timer._flags & TIMER_FLAG_COUNTDOWN)
+-			{
+-				timer._params["TimerCount"] <- timer._opval["count"];
+-				
+-				if ((--timer._opval["count"]) <= 0)
+-					timer._repeat = false;
+-			}
+-			
+-			if (timer._flags & TIMER_FLAG_DURATION_VARIANT && (curtime - timer._baseTime) > timer._opval["duration"])
+-			{
+-				delete ::VSLib.Timers.TimersList[idx];
+-				continue;
+-			}
+-			
+-			try
+-			{
+-				if (timer._func(timer._params) == false)
+-					timer._repeat = false;
+-			}
+-			catch (id)
+-			{
+-				printf("VSLib Timer caught exception; closing timer %d. Error was: %s", idx, id.tostring());
+-				local deadFunc = timer._func;
+-				local params = timer._params;
+-				delete ::VSLib.Timers.TimersList[idx];
+-				deadFunc(params); // this will most likely throw
+-				continue;
+-			}
+-			
+-			if (timer._repeat)
+-				timer._startTime = curtime;
+-			else
+-				if (idx in ::VSLib.Timers.TimersList) // recheck-- timer may have been removed by timer callback
+-					delete ::VSLib.Timers.TimersList[idx];
+-		}
+-	}
+-	foreach (idx, timer in ::VSLib.Timers.ClockList)
+-	{
+-		if ( Time() > timer._lastUpdateTime )
+-		{
+-			local newTime = Time() - timer._lastUpdateTime;
+-			
+-			if ( timer._command == 1 )
+-				timer._value += newTime;
+-			else if ( timer._command == 2 )
+-			{
+-				if ( timer._allowNegTimer )
+-					timer._value -= newTime;
+-				else
+-				{
+-					if ( timer._value > 0 )
+-						timer._value -= newTime;
+-				}
+-			}
+-			
+-			timer._lastUpdateTime <- Time();
+-		}
+-	}
++    if (!("VSLib" in getroottable())) return;
++    local timers = ::VSLib.Timers;
++    local now = Time(), snapshot = [];
++    foreach (id, timer in timers.TimersList) snapshot.append([id, timer]);
++    snapshot.reverse();
++    foreach (entry in snapshot)
++    {
++        local id = entry[0], timer = entry[1];
++        if (!(id in timers.TimersList) || timers.TimersList[id] != timer) continue;
++        if (now - timer._startTime < timer._delay) continue;
++        if (((timer._flags & 4) && timer._opval.count <= 0)
++            || ((timer._flags & 16) && now - timer._baseTime > timer._opval.duration))
++        { timers.RemoveTimer(id); continue; }
++        if (timer._flags & 4)
++        {
++            timer._params.TimerCount <- timer._opval.count;
++            if (--timer._opval.count <= 0) timer._repeat = false;
++        }
++        try { if (timer._func(timer._params) == false) timer._repeat = false; }
++        catch (error)
++        {
++            printl("VSLib timer retired after callback failure: " + error);
++            timers.RemoveTimer(id);
++            continue;
++        }
++        if (!(id in timers.TimersList) || timers.TimersList[id] != timer) continue;
++        if (timer._repeat) timer._startTime = now;
++        else timers.RemoveTimer(id);
++    }
++    foreach (name, clock in timers.ClockList) timers._SettleClock(clock, now);
+ }
+ 
+ /*

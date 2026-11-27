@@ -1,0 +1,290 @@
+{
+  "date": "2026-10-26",
+  "scope": "Hub-managed Steam runtime for the seven native tasks: rhenium runtime prepare downloaded the pinned depot with an owning account, built the verifier images with private/native-runtime/prepare.py, and rhenium run evaluated the unmodified starter (nop) and the reference repair (oracle) of every task. Task bytes, verifiers and recipe files are unchanged.",
+  "runtime": {
+    "key": "slay-the-spire/sts-native-646570-build10180494",
+    "identity": "sha256:17048704818be1806de840067abbe36e35d83888b415bb2cbe151b63910642c9",
+    "gameSha256": "cfad868ac8d65a88e71a0bf096fb09f78811e553effe0787c5309a655e081673",
+    "recipeManifestSha256": "2b541e023d3e8688b9e805998914baa5f7f09e0044d016549c71374ff5de7f37",
+    "steamSource": {
+      "appId": 646570,
+      "depots": [
+        {
+          "id": 646571,
+          "manifest": "9072802409324604124"
+        }
+      ]
+    },
+    "observedBuildId": "10180494",
+    "verifierImages": {
+      "basemod-dynamic-descriptions-r2": "sha256:e4994a81ae42f43faaf3584e496b8c75bef9cdd4682da5d431a130e45ac5ceaf",
+      "basemod-phase-transitions-r1": "sha256:e4994a81ae42f43faaf3584e496b8c75bef9cdd4682da5d431a130e45ac5ceaf",
+      "downfall-socket-flow-r2": "sha256:ab0b81f8c8e96e4b62598941ae2d56086aaac8e7f49a462df9cd4c814b663646",
+      "downfall-stasis-lifecycle-r1": "sha256:ab0b81f8c8e96e4b62598941ae2d56086aaac8e7f49a462df9cd4c814b663646",
+      "mts-enum-identity-r2": "sha256:e4994a81ae42f43faaf3584e496b8c75bef9cdd4682da5d431a130e45ac5ceaf",
+      "stslib-block-ledger-r1": "sha256:e4994a81ae42f43faaf3584e496b8c75bef9cdd4682da5d431a130e45ac5ceaf",
+      "stslib-icon-layout-r1": "sha256:e4994a81ae42f43faaf3584e496b8c75bef9cdd4682da5d431a130e45ac5ceaf"
+    }
+  },
+  "host": {
+    "platform": "Linux x86_64 (Slurm CPU node)",
+    "docker": "29.7.2, rootful",
+    "note": "the recipe builds FROM local image IDs, so the runtime builder runs it with DOCKER_BUILDKIT=0"
+  },
+  "results": [
+    {
+      "task": "basemod-dynamic-descriptions-r2",
+      "nop": {
+        "complete": true,
+        "passed": 15,
+        "expected": 46,
+        "failed_case_ids": [
+          "cn-nested",
+          "cn-suffix",
+          "coherent-initialization",
+          "decimal-leading-zero",
+          "escaped-braces",
+          "escaped-open",
+          "escaped-pipe",
+          "fraction-operand",
+          "generated-refresh",
+          "generated-rewrite",
+          "inactive-lazy",
+          "large-operand",
+          "literal-backslash",
+          "literal-dollar",
+          "nested-card",
+          "nested-fallback",
+          "nested-repeat",
+          "nested-selected",
+          "overridden-lazy",
+          "payload-equals",
+          "raw-refresh",
+          "repeated-key",
+          "subscriber-refresh",
+          "suffix-minimum",
+          "suffix-two",
+          "suffix-width",
+          "ticking-render",
+          "unmark",
+          "zero-divisor",
+          "zero-repeat-lazy",
+          "zero-zero-divisor"
+        ]
+      },
+      "oracle": {
+        "complete": true,
+        "passed": 46,
+        "expected": 46,
+        "score": 100.0
+      },
+      "matches_frozen_controls": true
+    },
+    {
+      "task": "stslib-block-ledger-r1",
+      "nop": {
+        "complete": true,
+        "passed": 7,
+        "expected": 27,
+        "failed_case_ids": [
+          "monster-cap-full",
+          "monster-cap-loss",
+          "monster-cap-multiple",
+          "monster-cap-plain",
+          "monster-cross-owner",
+          "monster-nested-loss",
+          "monster-nested-specific",
+          "monster-refund",
+          "monster-zero-gain",
+          "monster-zero-specific",
+          "player-cap-full",
+          "player-cap-loss",
+          "player-cap-multiple",
+          "player-cap-plain",
+          "player-cross-owner",
+          "player-nested-loss",
+          "player-nested-specific",
+          "player-refund",
+          "player-zero-gain",
+          "player-zero-specific"
+        ]
+      },
+      "oracle": {
+        "complete": true,
+        "passed": 27,
+        "expected": 27,
+        "score": 100.0
+      },
+      "matches_frozen_controls": true
+    },
+    {
+      "task": "mts-enum-identity-r2",
+      "nop": {
+        "complete": true,
+        "passed": 5,
+        "expected": 15,
+        "failed_case_ids": [
+          "alias-existing",
+          "alias-new",
+          "game-color",
+          "late-switch",
+          "switch-add",
+          "switch-delete",
+          "warm-add",
+          "warm-delete",
+          "warm-replace",
+          "warm-undo"
+        ]
+      },
+      "oracle": {
+        "complete": true,
+        "passed": 15,
+        "expected": 15,
+        "score": 100.0
+      },
+      "matches_frozen_controls": true
+    },
+    {
+      "task": "stslib-icon-layout-r1",
+      "nop": {
+        "complete": true,
+        "passed": 19,
+        "expected": 43,
+        "failed_case_ids": [
+          "cn-height-colored",
+          "cn-height-five",
+          "cn-height-lowercase",
+          "cn-height-mixed",
+          "cn-height-orb",
+          "cn-height-three",
+          "cn-wrap-five",
+          "cn-wrap-lowercase",
+          "cn-wrap-newline",
+          "cn-wrap-three",
+          "en-height-five",
+          "en-height-newline",
+          "en-height-spacing",
+          "en-height-three",
+          "header-lowercase",
+          "header-multiple",
+          "header-one",
+          "width-after-newline",
+          "width-cn",
+          "width-lowercase",
+          "width-narrow",
+          "width-one",
+          "width-short-code",
+          "width-wide"
+        ]
+      },
+      "oracle": {
+        "complete": true,
+        "passed": 43,
+        "expected": 43,
+        "score": 100.0
+      },
+      "matches_frozen_controls": true
+    },
+    {
+      "task": "downfall-stasis-lifecycle-r1",
+      "nop": {
+        "complete": true,
+        "passed": 19,
+        "expected": 38,
+        "failed_case_ids": [
+          "generated-existing",
+          "generated-mixed",
+          "generated-overflow",
+          "native-dualcast-hook",
+          "native-dualcast-volatile",
+          "native-recursion-hook",
+          "native-recursion-normal",
+          "native-recursion-upgraded",
+          "native-recursion-volatile",
+          "placement-already-held",
+          "placement-duplicate",
+          "placement-moved",
+          "placement-moved-retained",
+          "placement-moved-unretained",
+          "random-zero",
+          "return-queued-twice",
+          "stale-return",
+          "stale-volatile",
+          "volatile-queued-twice"
+        ]
+      },
+      "oracle": {
+        "complete": true,
+        "passed": 38,
+        "expected": 38,
+        "score": 100.0
+      },
+      "matches_frozen_controls": true
+    },
+    {
+      "task": "basemod-phase-transitions-r1",
+      "nop": {
+        "complete": true,
+        "passed": 13,
+        "expected": 32,
+        "failed_case_ids": [
+          "chain",
+          "enter-direct",
+          "enter-key",
+          "enter-throw-true",
+          "followup-key-clear",
+          "followup-key-phase-clear",
+          "followup-phase-clear",
+          "followup-phase-key-clear",
+          "hide-direct",
+          "hide-key",
+          "hide-throw-true",
+          "invalid-direct",
+          "invalid-key",
+          "latest-request",
+          "reopen-cycle",
+          "reopen-true-false",
+          "reset-direct",
+          "reset-key",
+          "reset-throw-true"
+        ]
+      },
+      "oracle": {
+        "complete": true,
+        "passed": 32,
+        "expected": 32,
+        "score": 100.0
+      },
+      "matches_frozen_controls": true
+    },
+    {
+      "task": "downfall-socket-flow-r2",
+      "nop": {
+        "complete": true,
+        "passed": 6,
+        "expected": 13,
+        "failed_case_ids": [
+          "back-reselect-escape",
+          "back-reselect-mouse",
+          "cancel-gem-smith-escape",
+          "cancel-gem-smith-guardian",
+          "cancel-gem-smith-mouse",
+          "cancel-socket-escape",
+          "cancel-socket-mouse"
+        ]
+      },
+      "oracle": {
+        "complete": true,
+        "passed": 13,
+        "expected": 13,
+        "score": 100.0
+      },
+      "matches_frozen_controls": true
+    }
+  ],
+  "summary": {
+    "all_match_frozen_controls": true,
+    "oracle_passed": 214,
+    "oracle_expected": 214
+  }
+}

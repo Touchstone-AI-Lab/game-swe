@@ -1,0 +1,6 @@
+name: "wave-threat-arbiter-tests"
+displayName: "Wave Threat Arbiter Tests"
+main: "ContractTestRunner"
+version: "1.0.0"
+minGameVersion: 159
+dependencies: [threat-response-arbiter]

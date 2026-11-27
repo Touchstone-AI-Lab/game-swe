@@ -1,0 +1,5 @@
+control	kind	base	overlay	root	note
+target-negative-wipe-instead-of-quarantine	target-negative	starter	patch:target-negative-wipe-instead-of-quarantine.patch	plugin	recovers by wiping the half-migrated folder instead of quarantining it; fails only the quarantine target
+target-negative-no-clamp	target-negative	reference	patch:target-negative-no-clamp.patch	plugin	reference recovery, but caps limits are copied unclamped; fails only the clamp target
+compat-negative-backup-moved-into-quarantine	compat-negative	starter	patch:compat-negative-backup-moved-into-quarantine.patch	plugin	moves the Chatty_old_* backup into the quarantine; fails only the preserved move-aside case
+alternative-a	alternative	starter	tree:alternative-a	plugin	independent fix written from the 0.2.0 exam: best-effort teardown, whole data folder quarantined, restart with defaults, clamped caps with named notes

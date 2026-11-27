@@ -1,0 +1,67 @@
+{
+  "schema_version": 1,
+  "runtimes": [
+    {
+      "id": "afterbirth-plus-1.06.t1-synth",
+      "name": "The Binding of Isaac: Afterbirth+ native Linux runtime (construct pack)",
+      "version": "Steam build 22878971",
+      "provider": "steam",
+      "restricted": true,
+      "host_platforms": [
+        "linux-x64"
+      ],
+      "source": {
+        "kind": "steam-depots",
+        "appId": 250900,
+        "os": "linux",
+        "officialClient": true,
+        "depots": [
+          {
+            "id": 250903,
+            "manifest": "367036646469636831"
+          },
+          {
+            "id": 250906,
+            "manifest": "274330258716671855"
+          },
+          {
+            "id": 250909,
+            "manifest": "5041024818858406088"
+          }
+        ],
+        "expectedFiles": [
+          "isaac.x64"
+        ],
+        "sha256": {
+          "isaac.x64": "4cf33d83b79338bf4b302a3d8b554d88a96c017c0a7bec0deb625bbaac1f0f15"
+        }
+      }
+    }
+  ],
+  "task_bindings": {
+    "construct-room-rng": [
+      "afterbirth-plus-1.06.t1-synth"
+    ],
+    "construct-config-navigation": [
+      "afterbirth-plus-1.06.t1-synth"
+    ],
+    "construct-config-persistence": [
+      "afterbirth-plus-1.06.t1-synth"
+    ],
+    "construct-hud-compositor": [
+      "afterbirth-plus-1.06.t1-synth"
+    ],
+    "construct-legacy-hud-lifecycle": [
+      "afterbirth-plus-1.06.t1-synth"
+    ],
+    "construct-option-rendering": [
+      "afterbirth-plus-1.06.t1-synth"
+    ],
+    "construct-entity-cleanup": [
+      "afterbirth-plus-1.06.t1-synth"
+    ],
+    "construct-callback-transaction": [
+      "afterbirth-plus-1.06.t1-synth"
+    ]
+  }
+}

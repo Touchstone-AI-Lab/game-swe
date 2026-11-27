@@ -1,0 +1,15 @@
+{
+  "status": "Author prototypes for the fully observed 38 native cases; complete matrix still required before task staging.",
+  "supersedes": "R2 copy-only hypothesis cannot affect native Recursion because it reuses the original orb. No R1/R2 repair was measured by a model.",
+  "gold": "Queue ownership/admission fixes plus per-orb physical transfer guard; reset the retired card identity inside the public channel hook while preserving the existing countdown.",
+  "alternative": "Independent transaction/index/recursive producer fixes plus retained departure action; public channel prefix substitutes a fresh copied orb/card instead of resetting the old orb.",
+  "isolations": [
+    "stale-only",
+    "ownership-only",
+    "zero-only",
+    "batch-only",
+    "retirement-only",
+    "rechannel-only"
+  ],
+  "contract": "Native physical card ownership and per-evoke callbacks; no preference for orb identity or hook/helper architecture."
+}

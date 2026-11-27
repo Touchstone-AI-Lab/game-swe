@@ -1,0 +1,199 @@
+{
+  "validated": true,
+  "matrix_audit_sha256": "1bd2b40aaf6f9638778c4735c7b838bba23d45aefb7722442580e4921135b381",
+  "matrix_results": [
+    {
+      "variant": "base",
+      "passed": 19,
+      "expected": 38,
+      "failed_case_ids": [
+        "generated-existing",
+        "generated-mixed",
+        "generated-overflow",
+        "native-dualcast-hook",
+        "native-dualcast-volatile",
+        "native-recursion-hook",
+        "native-recursion-normal",
+        "native-recursion-upgraded",
+        "native-recursion-volatile",
+        "placement-already-held",
+        "placement-duplicate",
+        "placement-moved",
+        "placement-moved-retained",
+        "placement-moved-unretained",
+        "random-zero",
+        "return-queued-twice",
+        "stale-return",
+        "stale-volatile",
+        "volatile-queued-twice"
+      ]
+    },
+    {
+      "variant": "gold",
+      "passed": 38,
+      "expected": 38,
+      "failed_case_ids": []
+    },
+    {
+      "variant": "alternative",
+      "passed": 38,
+      "expected": 38,
+      "failed_case_ids": []
+    },
+    {
+      "variant": "stale-only",
+      "passed": 23,
+      "expected": 38,
+      "failed_case_ids": [
+        "generated-existing",
+        "generated-mixed",
+        "generated-overflow",
+        "native-dualcast-hook",
+        "native-dualcast-volatile",
+        "native-recursion-hook",
+        "native-recursion-normal",
+        "native-recursion-upgraded",
+        "native-recursion-volatile",
+        "placement-already-held",
+        "placement-duplicate",
+        "placement-moved",
+        "placement-moved-retained",
+        "placement-moved-unretained",
+        "random-zero"
+      ]
+    },
+    {
+      "variant": "ownership-only",
+      "passed": 24,
+      "expected": 38,
+      "failed_case_ids": [
+        "generated-existing",
+        "generated-mixed",
+        "generated-overflow",
+        "native-dualcast-hook",
+        "native-dualcast-volatile",
+        "native-recursion-hook",
+        "native-recursion-normal",
+        "native-recursion-upgraded",
+        "native-recursion-volatile",
+        "random-zero",
+        "return-queued-twice",
+        "stale-return",
+        "stale-volatile",
+        "volatile-queued-twice"
+      ]
+    },
+    {
+      "variant": "zero-only",
+      "passed": 20,
+      "expected": 38,
+      "failed_case_ids": [
+        "generated-existing",
+        "generated-mixed",
+        "generated-overflow",
+        "native-dualcast-hook",
+        "native-dualcast-volatile",
+        "native-recursion-hook",
+        "native-recursion-normal",
+        "native-recursion-upgraded",
+        "native-recursion-volatile",
+        "placement-already-held",
+        "placement-duplicate",
+        "placement-moved",
+        "placement-moved-retained",
+        "placement-moved-unretained",
+        "return-queued-twice",
+        "stale-return",
+        "stale-volatile",
+        "volatile-queued-twice"
+      ]
+    },
+    {
+      "variant": "batch-only",
+      "passed": 22,
+      "expected": 38,
+      "failed_case_ids": [
+        "native-dualcast-hook",
+        "native-dualcast-volatile",
+        "native-recursion-hook",
+        "native-recursion-normal",
+        "native-recursion-upgraded",
+        "native-recursion-volatile",
+        "placement-already-held",
+        "placement-duplicate",
+        "placement-moved",
+        "placement-moved-retained",
+        "placement-moved-unretained",
+        "random-zero",
+        "return-queued-twice",
+        "stale-return",
+        "stale-volatile",
+        "volatile-queued-twice"
+      ]
+    },
+    {
+      "variant": "retirement-only",
+      "passed": 21,
+      "expected": 38,
+      "failed_case_ids": [
+        "generated-existing",
+        "generated-mixed",
+        "generated-overflow",
+        "native-recursion-hook",
+        "native-recursion-normal",
+        "native-recursion-upgraded",
+        "native-recursion-volatile",
+        "placement-already-held",
+        "placement-duplicate",
+        "placement-moved",
+        "placement-moved-retained",
+        "placement-moved-unretained",
+        "random-zero",
+        "return-queued-twice",
+        "stale-return",
+        "stale-volatile",
+        "volatile-queued-twice"
+      ]
+    },
+    {
+      "variant": "rechannel-only",
+      "passed": 23,
+      "expected": 38,
+      "failed_case_ids": [
+        "generated-existing",
+        "generated-mixed",
+        "generated-overflow",
+        "native-dualcast-hook",
+        "native-dualcast-volatile",
+        "placement-already-held",
+        "placement-duplicate",
+        "placement-moved",
+        "placement-moved-retained",
+        "placement-moved-unretained",
+        "random-zero",
+        "return-queued-twice",
+        "stale-return",
+        "stale-volatile",
+        "volatile-queued-twice"
+      ]
+    }
+  ],
+  "formal_audit_sha256": "d044e967885de7e498c7e7384ca5572fe4b9535a53f59c24b35635795fe64f9a",
+  "formal_controls": [
+    {
+      "agent": "nop",
+      "trial": "downfall-stasis-lifecycle-r1__tCLbTr8",
+      "passed": 19,
+      "expected": 38,
+      "reward": 0
+    },
+    {
+      "agent": "oracle",
+      "trial": "downfall-stasis-lifecycle-r1__n7t5bBd",
+      "passed": 38,
+      "expected": 38,
+      "reward": 1
+    }
+  ],
+  "scope": "Historical complete native-runtime controls, including an independently different passing repair. Raw runtime logs remain local; source and receipt hashes identify the frozen evidence."
+}

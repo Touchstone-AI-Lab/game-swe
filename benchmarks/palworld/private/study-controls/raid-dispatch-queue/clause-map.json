@@ -1,0 +1,170 @@
+{
+  "task": "palworld/core/raid-dispatch-queue",
+  "task_version": "1.2.0",
+  "exam": "benchmarks/palworld/exams/raid-dispatch-queue.md",
+  "cases": [
+    {
+      "id": "check:required-files",
+      "role": "static"
+    },
+    {
+      "id": "check:lua-syntax",
+      "role": "static"
+    },
+    {
+      "id": "hidden:identifiers, priorities and timestamps are validated",
+      "role": "target",
+      "clauses": [
+        "request"
+      ]
+    },
+    {
+      "id": "hidden:ready order is priority then sequence and never table order",
+      "role": "target",
+      "clauses": [
+        "request"
+      ]
+    },
+    {
+      "id": "hidden:a request is leased to at most one worker",
+      "role": "target",
+      "clauses": [
+        "request"
+      ]
+    },
+    {
+      "id": "hidden:renew, complete and release consume tokens exactly once",
+      "role": "target",
+      "clauses": [
+        "request"
+      ]
+    },
+    {
+      "id": "hidden:expiry returns work with its original position and attempt history",
+      "role": "target",
+      "clauses": [
+        "request"
+      ]
+    },
+    {
+      "id": "hidden:snapshots are fresh and never expose worker or member identity",
+      "role": "target",
+      "clauses": [
+        "request"
+      ]
+    },
+    {
+      "id": "hidden:save and load round-trip order, leases and token sequencing",
+      "role": "target",
+      "clauses": [
+        "request"
+      ]
+    },
+    {
+      "id": "check:implementation-depth",
+      "role": "static"
+    },
+    {
+      "id": "check:dispatch-authority",
+      "role": "target",
+      "clauses": [
+        "integration:dispatch-authority"
+      ],
+      "note": "regular-expression gate over the submitted source, not an execution"
+    },
+    {
+      "id": "check:dispatch-lifecycle",
+      "role": "target",
+      "clauses": [
+        "integration:dispatch-lifecycle"
+      ],
+      "note": "regular-expression gate over the submitted source, not an execution"
+    },
+    {
+      "id": "check:dispatch-scheduling",
+      "role": "target",
+      "clauses": [
+        "integration:dispatch-scheduling"
+      ],
+      "note": "regular-expression gate over the submitted source, not an execution"
+    },
+    {
+      "id": "check:dispatch-command",
+      "role": "target",
+      "clauses": [
+        "integration:dispatch-command"
+      ],
+      "note": "regular-expression gate over the submitted source, not an execution"
+    },
+    {
+      "id": "check:dispatch-manifest",
+      "role": "target",
+      "clauses": [
+        "integration:dispatch-manifest"
+      ],
+      "note": "regular-expression gate over the submitted source, not an execution"
+    },
+    {
+      "id": "server:dedicated server context is available",
+      "role": "target",
+      "clauses": [
+        "request"
+      ]
+    },
+    {
+      "id": "server:raid dispatch service is published",
+      "role": "target",
+      "clauses": [
+        "request"
+      ]
+    },
+    {
+      "id": "server:leases are handed out and swept on the server",
+      "role": "target",
+      "clauses": [
+        "request"
+      ]
+    },
+    {
+      "id": "server:dispatch state reloads",
+      "role": "target",
+      "clauses": [
+        "request"
+      ]
+    }
+  ],
+  "clauses": [
+    {
+      "id": "request",
+      "anchor": "exam body; split into individual clauses during review",
+      "status": "asserted"
+    },
+    {
+      "id": "integration:dispatch-authority",
+      "anchor": "host-integration section; source-pattern gate dispatch-authority",
+      "status": "weak"
+    },
+    {
+      "id": "integration:dispatch-lifecycle",
+      "anchor": "host-integration section; source-pattern gate dispatch-lifecycle",
+      "status": "weak"
+    },
+    {
+      "id": "integration:dispatch-scheduling",
+      "anchor": "host-integration section; source-pattern gate dispatch-scheduling",
+      "status": "weak"
+    },
+    {
+      "id": "integration:dispatch-command",
+      "anchor": "host-integration section; source-pattern gate dispatch-command",
+      "status": "weak"
+    },
+    {
+      "id": "integration:dispatch-manifest",
+      "anchor": "host-integration section; source-pattern gate dispatch-manifest",
+      "status": "weak"
+    }
+  ],
+  "excluded_clauses": [],
+  "known_issues": []
+}

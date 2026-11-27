@@ -1,0 +1,18 @@
+{
+  "id": "poc_bg2_fixture",
+  "name": "Configured generator private fixture",
+  "author": [
+    "Balatro PoC"
+  ],
+  "description": "One initial scene and read-only configuration",
+  "prefix": "bg2f",
+  "main_file": "fixture.lua",
+  "version": "2.0.0",
+  "priority": 100006,
+  "dependencies": [
+    "Steamodded (>=1.~)",
+    "balatrobot",
+    "poc_bg_observer",
+    "bounded_generator_v2"
+  ]
+}

@@ -1,0 +1,281 @@
+{
+  "task": "stardew-valley/core/stardew-cp-release-regressions",
+  "task_version": "1.2.0",
+  "exam": "benchmarks/stardew-core/exams/stardew-cp-release-regressions.md",
+  "cases": [
+    {
+      "id": "check:submission-shape",
+      "role": "static",
+      "clauses": [],
+      "overlap": false,
+      "note": "Evaluator file gate: StardewMods/ exists, required files present, no symlinks."
+    },
+    {
+      "id": "case:sentinel: the probe pack loads and plain entries apply",
+      "role": "runtime-sentinel",
+      "clauses": [],
+      "overlap": false,
+      "note": "The fixture pack's Load patches and a dynamic-token entry apply; passes on every tree."
+    },
+    {
+      "id": "case:PathPart: a positive index returns that segment from the left",
+      "role": "target",
+      "clauses": [
+        "Report-path-positions-left"
+      ],
+      "overlap": false,
+      "note": "{{PathPart: assets/portraits/Abigail.png, N}} for N = 0, 1, 2 must be assets, portraits, Abigail.png (author-guide/tokens.md PathPart table)."
+    },
+    {
+      "id": "case:PathPart: a negative index returns that segment from the right",
+      "role": "target",
+      "clauses": [
+        "Report-path-positions-negative"
+      ],
+      "overlap": false,
+      "note": "-1 and -2 must be Abigail.png and portraits; the starter rejects the patch."
+    },
+    {
+      "id": "case:PathPart: fragment names return the file and directory parts",
+      "role": "preserved",
+      "clauses": [
+        "Report-path-positions-named",
+        "Task-preserve-named-fragments"
+      ],
+      "overlap": false,
+      "note": "FileName, DirectoryPath, FileNameWithoutExtension and the guide's own 'Filename' example."
+    },
+    {
+      "id": "case:nested data: a tokenised nested key keeps its tokenised value resolved",
+      "role": "target",
+      "clauses": [
+        "Report-nested-token-key"
+      ],
+      "overlap": false,
+      "note": "Extra['tokenised_key'] built from dynamic tokens must be 'resolved-value', not the literal token text."
+    },
+    {
+      "id": "case:nested data: a plain nested key with a tokenised value resolves",
+      "role": "preserved",
+      "clauses": [
+        "Report-nested-plain-key",
+        "Task-preserve-plain-nested-keys"
+      ],
+      "overlap": false,
+      "note": "Extra['plain_key'] resolves in the starter."
+    },
+    {
+      "id": "case:positions: the {X, Y} object form is accepted in a new entry",
+      "role": "target",
+      "clauses": [
+        "Report-positions-object-entry"
+      ],
+      "overlap": false,
+      "note": "On the pinned Linux build the default Json.NET conversion only accepts the text form for Vector2."
+    },
+    {
+      "id": "case:positions: the {X, Y} object form is accepted in a field edit",
+      "role": "target",
+      "clauses": [
+        "Report-positions-object-fields"
+      ],
+      "overlap": false,
+      "note": "Fields edits go through a separate Populate path; fixing only entry conversion leaves this failing."
+    },
+    {
+      "id": "case:positions: the \"X, Y\" text form is accepted in a new entry",
+      "role": "preserved",
+      "clauses": [
+        "Report-positions-text-form",
+        "Task-preserve-text-positions"
+      ],
+      "overlap": false,
+      "note": "Passes in the starter; a fix that only accepts the object form fails it."
+    },
+    {
+      "id": "case:positions: the \"X, Y\" text form is accepted in a field edit",
+      "role": "preserved",
+      "clauses": [
+        "Report-positions-text-form",
+        "Task-preserve-text-positions"
+      ],
+      "overlap": false,
+      "note": "Passes in the starter."
+    },
+    {
+      "id": "case:lists: a new entry's list field holds exactly the listed values",
+      "role": "target",
+      "clauses": [
+        "Report-lists"
+      ],
+      "overlap": false,
+      "note": "Tags must be [alpha, beta]; the starter appends to the model's default [default]."
+    },
+    {
+      "id": "case:text operations: removing from a missing entry leaves it missing",
+      "role": "target",
+      "clauses": [
+        "Report-text-ops-missing-entry"
+      ],
+      "overlap": false,
+      "note": "RemoveDelimited on Entries/absent must not create a null entry."
+    },
+    {
+      "id": "case:text operations: removing from a missing map property leaves it missing",
+      "role": "target",
+      "clauses": [
+        "Report-text-ops-missing-map-property"
+      ],
+      "overlap": false,
+      "note": "RemoveDelimited on MapProperties/GcbAbsent of Maps/Town-EggFestival must not create a null property."
+    },
+    {
+      "id": "case:text operations: removing from an existing entry removes only that value",
+      "role": "preserved",
+      "clauses": [
+        "Task-preserve-existing-text-ops"
+      ],
+      "overlap": false,
+      "note": "A/B/C minus B is A/C."
+    },
+    {
+      "id": "case:text operations: appending to a missing entry creates it",
+      "role": "preserved",
+      "clauses": [
+        "Report-text-ops-append-creates",
+        "Task-preserve-append-creates"
+      ],
+      "overlap": false,
+      "note": "Append on a missing entry yields 'fresh'; an over-broad 'skip missing targets' fix fails it."
+    },
+    {
+      "id": "case:text operations: appending to a missing map property creates it",
+      "role": "preserved",
+      "clauses": [
+        "Report-text-ops-append-creates",
+        "Task-preserve-append-creates"
+      ],
+      "overlap": false,
+      "note": "Append on a missing map property yields 'hello'."
+    }
+  ],
+  "clauses": [
+    {
+      "id": "Report-path-positions-left",
+      "anchor": "Problem, report 'Path positions', sentence 2: position 0 gives assets/portraits instead of assets, position 1 gives Abigail.png instead of portraits; sentence 4 points to the author guide's PathPart tables",
+      "status": "asserted",
+      "note": "Positions 0-2 asserted."
+    },
+    {
+      "id": "Report-path-positions-negative",
+      "anchor": "Problem, report 'Path positions', sentence 2: a negative position like -1 makes Content Patcher ignore the whole patch",
+      "status": "asserted",
+      "note": "-1 and -2 asserted; past-the-end positions (documented as an empty value) are not probed."
+    },
+    {
+      "id": "Report-path-positions-named",
+      "anchor": "Problem, report 'Path positions', sentence 3: the named parts (FileName, DirectoryPath, FileNameWithoutExtension) are fine",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "Report-nested-token-key",
+      "anchor": "Problem, report 'Tokens in nested keys', sentences 2-3: a nested key built from dynamic tokens gets the literal token text as its value",
+      "status": "asserted",
+      "note": "Only dynamic tokens are probed (as in the report)."
+    },
+    {
+      "id": "Report-nested-plain-key",
+      "anchor": "Problem, report 'Tokens in nested keys', sentence 4: the key with no token gets the right value",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "Report-positions-object-entry",
+      "anchor": "Problem, report 'Positions in data models', sentence 1: an entry with Offset {X, Y} is skipped",
+      "status": "asserted",
+      "note": "Vector2 only; Point, Rectangle and Color are not probed."
+    },
+    {
+      "id": "Report-positions-object-fields",
+      "anchor": "Problem, report 'Positions in data models', sentence 2: setting the same field through Fields fails as well",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "Report-positions-text-form",
+      "anchor": "Problem, report 'Positions in data models', sentences 3-4: the text form works on this server; both forms should work",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "Report-lists",
+      "anchor": "Problem, report 'Lists in new entries': an entry the pack writes should contain exactly the list it wrote",
+      "status": "asserted",
+      "note": "List fields only; dictionary fields with defaults are not probed."
+    },
+    {
+      "id": "Report-text-ops-missing-entry",
+      "anchor": "Problem, report 'Text operations on things that don't exist', sentences 1-2: RemoveDelimited on a missing entry should do nothing",
+      "status": "asserted",
+      "note": "RemoveDelimited only; ReplaceDelimited and data-model Fields targets are not probed."
+    },
+    {
+      "id": "Report-text-ops-missing-map-property",
+      "anchor": "Problem, report 'Text operations on things that don't exist', sentence 3: the same operation on a missing map property adds a property with no value",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "Report-text-ops-append-creates",
+      "anchor": "Problem, report 'Text operations on things that don't exist', last sentence: Append on a missing target should keep creating it",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "Task-preserve-named-fragments",
+      "anchor": "Task, sentence 2: named PathPart fragments",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "Task-preserve-plain-nested-keys",
+      "anchor": "Task, sentence 2: nested keys without tokens",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "Task-preserve-text-positions",
+      "anchor": "Task, sentence 2: positions written as \"X, Y\" text",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "Task-preserve-existing-text-ops",
+      "anchor": "Task, sentence 2: text operations on entries and map properties that exist",
+      "status": "weak",
+      "note": "Only an existing data entry is probed; an existing map property is not."
+    },
+    {
+      "id": "Task-preserve-append-creates",
+      "anchor": "Task, sentence 2: appends that create a missing entry or map property",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "Notes-3",
+      "anchor": "Notes, bullet 3: Do not modify anything under /tests",
+      "status": "unasserted",
+      "note": "Enforced by construction (tests are mounted read-only), not by a case."
+    }
+  ],
+  "excluded_clauses": [
+    "Notes-3"
+  ],
+  "known_issues": [
+    "All cases read assets patched in one boot by one fixture pack (tests/probe-pack); the patches are independent (one change each), so a failing group does not stop the others from applying.",
+    "The tokenised-key probe uses dynamic tokens only; immutable tokens in nested keys are resolved at parse time and work in the starter, so they are not a discriminating probe.",
+    "The position group probes Vector2 only. The reference routes conversion through SMAPI's own JSON serializer, which also covers Point, Rectangle and Color; an implementation that handles only Vector2 passes the suite.",
+    "The reference (upstream 4a12c9af7) reads SMAPI's internal toolkit through reflection; the alternative control shows an implementation without internal access also satisfies every case."
+  ]
+}

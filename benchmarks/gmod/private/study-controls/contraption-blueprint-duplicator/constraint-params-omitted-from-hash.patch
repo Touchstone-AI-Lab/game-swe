@@ -1,0 +1,11 @@
+--- a/lua/rhenium_contraption_blueprints/blueprints.lua
++++ b/lua/rhenium_contraption_blueprints/blueprints.lua
+@@ -108,7 +108,7 @@
+         parts[#parts + 1] = encode(entity)
+     end
+     for _, constraint in ipairs(constraints) do
+-        parts[#parts + 1] = encode(constraint)
++        parts[#parts + 1] = encode({ id=constraint.id, type=constraint.type, a=constraint.a, b=constraint.b })
+     end
+     return digest(table.concat(parts, "|"))
+ end

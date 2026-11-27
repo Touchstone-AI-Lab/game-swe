@@ -1,0 +1,125 @@
+{
+  "schemaVersion": 2,
+  "catalogVersion": "0.2.0",
+  "privateProtocol": "rhenium-rimworld-private-v2",
+  "assertionManifestSha256": "ab0f4ca774ce0a626ac0e83849c2eec177f898b32170da0bb85d2320ca0c1be7",
+  "runtime": "rimworld/rimworld-1.6.4871-linux-x64",
+  "engineAssertionsRan": true,
+  "evidenceGeneration": {
+    "status": "run",
+    "date": "2026-09-24",
+    "host": "Linux x86_64 Docker host (NixOS), networkless evaluation",
+    "path": "rhenium run and rhenium-study e0 run through the Hub",
+    "note": "verifier repairs of 2026-09-24 first; see docs/games/rimworld.md#engine-validation-2026-09-24"
+  },
+  "plannedMatrix": {
+    "oracle": {
+      "expectedPassed": 38,
+      "expectedFailed": 0
+    },
+    "base": {
+      "expectedPassed": 7,
+      "expectedFailed": 31
+    },
+    "nop": {
+      "expectedPassed": 7,
+      "expectedFailed": 31
+    }
+  },
+  "oracle": {
+    "status": "passed",
+    "evidenceProtocol": "rhenium-rimworld-private-v2",
+    "runs": [
+      "run-49c6888766274629",
+      "run-38724cc02f5e4353",
+      "run-452d4451b886430f"
+    ],
+    "score": 100.0,
+    "passed": 38,
+    "failed": 0,
+    "identicalCaseOutcomes": true
+  },
+  "base": {
+    "status": "failed-targets-only",
+    "evidenceProtocol": "rhenium-rimworld-private-v2",
+    "run": "run-1eaeba110d2f43b8",
+    "score": 10.0,
+    "passed": 7,
+    "failed": 31,
+    "failedCases": [
+      "animal-basis",
+      "archotech-basis",
+      "authored-extension-used",
+      "clean-default",
+      "clean-ignores-repair-settings",
+      "clean-settings",
+      "definition-market-value",
+      "empty-cost-list-fallback",
+      "empty-extension-materials-fallback",
+      "industrial-components-stay-two",
+      "medieval-basis",
+      "negative-market-value",
+      "neolithic-basis",
+      "null-cost-list-fallback",
+      "null-extension-materials-fallback",
+      "positive-minimum-bulk",
+      "public-resolver-contract",
+      "repair-default",
+      "repair-ignores-clean-settings",
+      "repair-settings",
+      "round-even-above",
+      "round-even-below",
+      "round-even-half",
+      "round-odd-above",
+      "round-odd-below",
+      "round-odd-half",
+      "spacer-basis",
+      "spacer-components-stay-two",
+      "ultra-basis",
+      "undefined-basis",
+      "zero-market-value"
+    ]
+  },
+  "nop": {
+    "status": "failed-targets-only",
+    "evidenceProtocol": "rhenium-rimworld-private-v2",
+    "run": "run-70bd2683f585425d",
+    "score": 10.0,
+    "passed": 7,
+    "failed": 31,
+    "failedCases": [
+      "animal-basis",
+      "archotech-basis",
+      "authored-extension-used",
+      "clean-default",
+      "clean-ignores-repair-settings",
+      "clean-settings",
+      "definition-market-value",
+      "empty-cost-list-fallback",
+      "empty-extension-materials-fallback",
+      "industrial-components-stay-two",
+      "medieval-basis",
+      "negative-market-value",
+      "neolithic-basis",
+      "null-cost-list-fallback",
+      "null-extension-materials-fallback",
+      "positive-minimum-bulk",
+      "public-resolver-contract",
+      "repair-default",
+      "repair-ignores-clean-settings",
+      "repair-settings",
+      "round-even-above",
+      "round-even-below",
+      "round-even-half",
+      "round-odd-above",
+      "round-odd-below",
+      "round-odd-half",
+      "spacer-basis",
+      "spacer-components-stay-two",
+      "ultra-basis",
+      "undefined-basis",
+      "zero-market-value"
+    ],
+    "materialization": "rhenium-study e0 starter control (Hub workspace copy)"
+  }
+}

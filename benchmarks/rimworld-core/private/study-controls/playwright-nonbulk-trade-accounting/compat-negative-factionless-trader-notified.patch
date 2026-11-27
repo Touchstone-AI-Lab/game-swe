@@ -1,0 +1,18 @@
+--- a/Playwright/Source/Playwright/Patches/TradeablePatches.cs
++++ b/Playwright/Source/Playwright/Patches/TradeablePatches.cs
+@@ -65,14 +65,9 @@
+                 part.NotifyThingSoldToTrader(__state.Def, __state.Count);
+             }
+ 
+-            if (TradeSession.trader?.Faction == null)
+-            {
+-                return;
+-            }
+-
+             foreach (WinCondition_SellItemsToFaction part in scenario.AllParts.OfType<WinCondition_SellItemsToFaction>())
+             {
+-                part.NotifyThingSoldToTrader(__state.Def, __state.Count, TradeSession.trader.Faction);
++                part.NotifyThingSoldToTrader(__state.Def, __state.Count, TradeSession.trader?.Faction);
+             }
+         }
+     }

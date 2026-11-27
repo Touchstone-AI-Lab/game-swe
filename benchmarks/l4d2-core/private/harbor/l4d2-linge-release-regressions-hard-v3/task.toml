@@ -1,0 +1,63 @@
+schema_version = "1.4"
+
+artifacts = ["/app/linge-hud"]
+
+[task]
+name = "gamecodebench/l4d2-linge-release-regressions-hard-v3"
+version = "1.0.0"
+description = "Repair an audited composite batch of HUD, cache, hint, Tank, flame-damage, and RewardHP regressions in a real L4D2 VScript project."
+authors = [{ name = "PrinsYin" }]
+keywords = ["left4dead2", "squirrel", "vscript", "game-modding", "debugging", "regression"]
+
+[metadata]
+category = "programming"
+difficulty = "hard"
+tags = ["game-modding", "l4d2", "squirrel-vscript", "bug-fix", "multi-defect", "release-regression"]
+source_repo = "https://github.com/Lin515/L4D2_LinGe_VScripts"
+source_license = "MIT"
+base_commit = "c27c22d792902193b468bd059a6749a3e71198a0"
+reference_revisions = "c27c22d,322e1ec,9d2529e,955a9bf,f2344fd,93dc807,57189da,4478d86"
+gold_solution_origin = "composed-from-upstream-fixes-plus-documented-release-seeds-and-one-config-semantics-repair"
+task_kind = "repository-debugging"
+game = "Left 4 Dead 2 Dedicated Server"
+game_app_id = "222860"
+game_build = "23990100; depots 222861/4827977561765481436 and 222863/868244163643826330"
+expected_server_cases = 42
+independent_defect_groups = 9
+public_smoke_command = "python3 tools/smoke.py"
+agent_toolchain = "mini-swe-agent 2.4.6; litellm 1.95.0"
+
+[verifier]
+environment_mode = "separate"
+network_mode = "no-network"
+timeout_sec = 300.0
+user = "root"
+
+[verifier.environment]
+network_mode = "no-network"
+cpus = 4
+memory_mb = 12288
+storage_mb = 32768
+gpus = 0
+mcp_servers = []
+
+[agent]
+user = "agent"
+network_mode = "allowlist"
+allowed_hosts = ["api.openai.com"]
+timeout_sec = 5400.0
+
+[environment]
+network_mode = "no-network"
+build_timeout_sec = 1800.0
+cpus = 4
+memory_mb = 8192
+storage_mb = 20480
+gpus = 0
+mcp_servers = []
+
+[verifier.env]
+
+[environment.env]
+
+[solution.env]

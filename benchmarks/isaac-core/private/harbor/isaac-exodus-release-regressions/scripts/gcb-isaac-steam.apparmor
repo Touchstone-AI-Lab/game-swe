@@ -1,0 +1,10 @@
+# Steam's Chromium helper needs an unprivileged user namespace on Ubuntu 24.04.
+# This profile grants only that mediation permission and is applied only to the
+# private verifier container through tests/docker-compose.yaml.
+
+abi <abi/4.0>,
+include <tunables/global>
+
+profile gcb-isaac-steam flags=(unconfined) {
+  userns,
+}

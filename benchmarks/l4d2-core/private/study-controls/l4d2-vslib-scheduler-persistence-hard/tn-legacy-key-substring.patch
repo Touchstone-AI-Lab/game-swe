@@ -1,0 +1,12 @@
+diff -ruN a/vscripts/LinGe/VSLib/fileio.nut b/vscripts/LinGe/VSLib/fileio.nut
+--- a/vscripts/LinGe/VSLib/fileio.nut
++++ b/vscripts/LinGe/VSLib/fileio.nut
+@@ -217,7 +217,7 @@
+         if (kind == "array") result.append(decoded);
+         else
+         {
+-            if (typeof key == "string" && regexp("^_vslInt_(0|[1-9][0-9]*)$").match(key)) key = key.slice(8).tointeger();
++            if (typeof key == "string" && key.find("_vslInt_") != null) key = key.slice(8).tointeger();
+             if (key in result) throw "colliding legacy key";
+             result[key] <- decoded;
+         }

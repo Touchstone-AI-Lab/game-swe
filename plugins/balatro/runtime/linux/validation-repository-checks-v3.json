@@ -1,0 +1,237 @@
+{
+  "schema_version": 1,
+  "batch": "repository-checks-v3",
+  "date": "2026-11-01",
+  "mode": "repository-maintenance",
+  "local_check_suites": "passed_with_documented_conditional_skips_and_warnings",
+  "ruff": {
+    "status": "passed",
+    "includes_authoring_and_study": true,
+    "frozen_exception_files": 6
+  },
+  "mypy": {
+    "status": "passed",
+    "source_files": 386
+  },
+  "linux_pytest": {
+    "tests": 2322,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 22,
+    "passed": 2300
+  },
+  "windows_helpers": {
+    "tests": 14,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "passed": 14
+  },
+  "frontend": {
+    "lint_exit_code": 0,
+    "lint_errors": 0,
+    "existing_lint_warnings": 8,
+    "tests_passed": 1,
+    "tests_failed": 0,
+    "workers": 1,
+    "build_exit_code": 0,
+    "node": "22.22.2",
+    "source_and_lock_preserved": true
+  },
+  "shell": {
+    "bash_syntax_scripts": 349,
+    "shellcheck_scripts": 328,
+    "passed": true,
+    "new_suppressions": false
+  },
+  "powershell_syntax": {
+    "scripts": 2,
+    "errors": 0
+  },
+  "steam_javascript_units": {
+    "programs": 2,
+    "passed": true,
+    "real_client": false
+  },
+  "protection": {
+    "schema_version": 1,
+    "protected_unchanged": true,
+    "frozen_controller_files": 16,
+    "frozen_pack_files": 350,
+    "dependency_groups": {
+      "game": "d48fd7f95d798f2ba71e6e367517eedefb2d1a7bacb59f6bd6be2d8a611beeaa",
+      "steamodded": "bd6e57565bddb6a34c2a7307eff9d9cbb14e9e2da1daef285b0d1337edf8afa9",
+      "python_runtime": "1175cd1159cbabada4d0a886586a7ce255ecdaba77abf68a01ef9d89fe084ba4",
+      "python_environment": "b6d90824994aab0dbfd2193ca735e1b52c65ed85ade5565b414630683f298e37",
+      "balatrobot_lua": "8630889bd92b727f59cf3aa7c1f18e087dc27d19ea68a3a8a03435859380b7bd",
+      "requirements_lock": "5e02c21ad4fe3a4c555e522d61dfc65d974854d51087cebc2dc9dff3bb53321b"
+    },
+    "errors": [],
+    "elapsed_seconds": 8.162,
+    "copied_personal_or_game_content": false
+  },
+  "versions": {
+    "python": "3.12.3",
+    "ruff": "0.15.21",
+    "mypy": "2.2.0",
+    "pytest": "9.1.1"
+  },
+  "linux_skip_categories": {
+    "windows_specific_separately_passed": 7,
+    "other_game_native_or_opt_in": 8,
+    "actual_macos": 1,
+    "javac_21_missing": 6
+  },
+  "retained_failures": {
+    "first_mount_pytest": {
+      "tests": 147,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "passed": 147
+    },
+    "first_complete_copy_pytest": {
+      "tests": 2322,
+      "failures": 108,
+      "errors": 0,
+      "skipped": 26,
+      "passed": 2188
+    },
+    "classification": "check-environment/control failures, not candidate outcomes",
+    "operator_control_records": [
+      "frontend-preparation-order-failures-v1.json",
+      "frontend-output-marker-diagnosis.json",
+      "git-audit-v2-failure.json"
+    ],
+    "initial_collection_and_mypy_mapping_diagnostics_retained": true
+  },
+  "maintained_source_changes_from_baseline": [
+    "pyproject.toml",
+    "plugins/balatro/runtime/linux/run_control_v1.py",
+    "providers/steam/tests/test_cef_stdio.py",
+    "providers/steam/tests/test_official_console.py",
+    "docs/games/balatro-linux-v1.md",
+    "plugins/balatro/README.md",
+    "providers/steam/CONTROLLED-CONSOLE.md",
+    "plugins/balatro/runtime/linux/README.md"
+  ],
+  "tested_code_and_config_match_current": true,
+  "retained_wheel_source_reverification": [
+    {
+      "wheel": "rhenium_balatro_plugin-0.2.2-py3-none-any.whl",
+      "sha256": "a5ed1cedbd6e3f17c3f58bc0476d907c7d8613b228d22102ebe7c30aa12482e9",
+      "current_packaged_source_files_verified": 40
+    },
+    {
+      "wheel": "rhenium_steam-0.1.0-py3-none-any.whl",
+      "sha256": "69269cbbe840da118d8970266058d8c11f70ecd1392c80e5d0c8bd54a230a2ad",
+      "current_packaged_source_files_verified": 10
+    }
+  ],
+  "new_engine_runs": 0,
+  "retained_engine_batch": "linux-runtime-v2; old fingerprints not rewritten",
+  "not_executed": [
+    "Nix/devenv invocation",
+    "stock shell scorer full engine path",
+    "remote CI",
+    "fresh core-only installation",
+    "unrelated CI compiler jobs",
+    "new installed-wheel full engine evaluations",
+    "other-host and hostile-code validation",
+    "model calibration"
+  ],
+  "git_delivery": {
+    "work_branch_staged": false,
+    "committed": false,
+    "pushed": false,
+    "pr_created": false,
+    "final_scope_blob_whitespace_record": "operator-private git-audit-v3.json; independent index"
+  },
+  "private_evidence_sha256": {
+    "check-versions.json": "598196ec27eea121557c4ddccd70680e75e22f74e401ed1d11663f6d6eeea743",
+    "collect.json": "fc323ed2dbed457812c8141fde2f1fdc175d9325a12dabdb047f131ff88fe794",
+    "collect.log": "9e5e5c17a46f5f8cc14204fa3a10e6df2967e0655bf4cd5aa8fef0ea43e9863b",
+    "depot-observer-input-v3.json": "38136c9338b07f26a752881d14cb4fbd03668132b840899fff2b4795b036acff",
+    "depot-observer-v3.log": "590054c86a58c32d3304243260fab5f7e76e8e20feb1c558af66428880aa44b1",
+    "frontend-input-v1.json": "c278b8b96bb0f3649ffaf3bd9512493cda0db59b888890e5db64c7bc450295cd",
+    "frontend-output-marker-diagnosis.json": "6aee47d1f46acbe91dffd12e3f797b5b73a4889b7e2fe60b186db993111c600e",
+    "frontend-preparation-order-failures-v1.json": "f62db13d208e7fead7a5c41ed04be8861f780eaff5aaa5f7a9e3baf86b1393e9",
+    "frozen-static-scope.json": "bbb6a3a818f91a6ba175c5633cd5bbaf3860d56fae03500e5008aa1948ad8de7",
+    "git-audit-v2-failure.json": "c964dbad7f00570c0f1eeca13d8df81b4c3895a23f75071212229658c8a5e232",
+    "git-audit-v2-failure.log": "97c4f68b27513ddec467bd55a3fd809cbd480d00f26ed35955c5a7790714f7e5",
+    "lua-dependencies.json": "558f562adf5522a0911e7e77749a11ba2e5b75e2ca0f84ba7407384f112f0e8f",
+    "managed-observer-input-v3.json": "4d66d993471695707cff5e0a12cd5375db00f2c78ae48ced156957cbba063f61",
+    "managed-observer-v3.log": "922301a2390a596c45d8202fd6bbcc2614a0d9a1b24ab97ee675ec9ec993623a",
+    "mypy-complete.json": "a9641798a3349a59d4f4dbbedd806e9bc95e408b643ee4ad8c2f8ac860ff7044",
+    "mypy-complete.log": "c17d55b3415df1538ee4c96db73b4719899dd85833185aa53355865f3e291ed0",
+    "mypy-mapping.json": "07451da9dba32ccd4251d809403237f3c65c8fda12ec9c74ef16490229e58cd1",
+    "mypy-mapping.log": "4c80f42aad1075bd52c1797585763a47244d704a3c1fbaae7bd7b22c0865ea11",
+    "native-input-verified-v1.json": "c0a0da6599c4df0c506b2eaeda0d1eb35380318d577dc715303c0fb3ede6c013",
+    "node-v2-approval.json": "b5d42e7eb6129bf34a0a6067dcd7971e33e45822c4f10f12dd382084f9021741",
+    "node-v2.json": "30e77fd76480d816a0dfdf0ceb827cfffebd5cb30cebfde0110a7c26dc5b1c52",
+    "node-v22.19.0-linux-x64.tar.xz.receipt.json": "303c62abd523b6bc463aa143d086fb7fb714eed056b3d7b4829895874d8dd3a5",
+    "npm-ci-v2.json": "1e4c0cd064233ab64ac100757df41c8b73705998913e694e8a9256a6519f45e0",
+    "npm-ci-v2.log": "8b52743039e7c08e2533d3b70cbdc4ee320db3c1ba3957305f50d388faaa2171",
+    "observer-checks-v3.json": "83e5546bb7674a9d393fdee1f8f02fe92094ce748228e4f05a8a77a5abf8b98a",
+    "parser-dependencies.json": "fd31d270f4036b479bbbf8680ba1ab1da143a34e0cb8069182b802d80b4ebc2d",
+    "powershell-syntax.json": "49cd724fe7c590307b0669060a039dc4e16eff4f3fe9662cc5e3a39423009d33",
+    "protection-audit-v3.json": "5fc4ba01f2525099ed1b66fb6da22a4368730e4e8ac746b58c559f0c82905da7",
+    "pytest-complete.json": "c29d07fa58b9fcb271e0d8629a6d874fb1b706d4d8025d3f17a3bc18d718cbfb",
+    "pytest-complete.log": "525f0f42dee928344a50c7e2e01c62a7a8c42a1ee5da66810162dafcfa7dcd8d",
+    "pytest-complete.xml": "269d8d3a3691f2d235d61d9474d68df0a90dddb02596dc5b55271889726403d4",
+    "pytest-native-v2.json": "c0dcd72cd1a2d0aa8cee3f4a1d390afd10514897fa7d7e183d2a13f4dd68b375",
+    "pytest-native-v2.log": "6f32315552507aa1f2e1a368777967355d62fc8262b1ceccd64cd70ef6f31086",
+    "pytest-native-v2.xml": "6a5b36941c58772ebab2c31e342bd894b57a214d5da897c5ba07edb0bba4d715",
+    "pytest-native.json": "9fc46ed119915f1cc0a9edcd50e5b0145153ac7377fdc60f8293749d51bc294c",
+    "pytest-native.log": "62457e9734056e3bee4d7ea8483c14f6fa3ecf8b763e77eaf44245ddc520413f",
+    "pytest-native.xml": "650d98bca8b8d4c90c19f24daeb46dc087131bbb7725ab4257a68e85cf829c81",
+    "ruff-complete.json": "4c9be345fde72cb1d4e84bfcbfc39d12278e088e005c7012073f08d5c822ee9b",
+    "ruff-complete.log": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18",
+    "ruff.json": "1d113cdfdc5d0b143200830c672f55c6776823e32fd7373b70616d8f0a8f8e5b",
+    "ruff.log": "328fa11e8e743be9f3001227416c4e0a7893dceb3b228d16ad0969ab0f60a8f7",
+    "scope-approval.json": "f0f0f18bf6598b0b5fa9f6bf921547731c50a9ab8107dbb0647178ed3eb797de",
+    "scope-test.json": "839b3cff5d5cd0c21c8f8e0e79158f0c038a26568ebce71d6f1aacc23f72ad9b",
+    "scope-test.log": "1e6b4fbe33d23cc880df779e2dd0330dd0359555faab7d7943e31674e2319fe8",
+    "shell-checks.json": "32f7c9630d9fbf877c6113341b4167a0cb7766fae731763f7bca62037edcf4a9",
+    "shell-checks.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "shellcheck_0.9.0-1_amd64.deb.receipt.json": "fd24627f05039363b155ee3a895b515cb7689a501df06f3b079ec40d86f17e60",
+    "tools-approval.json": "51283443800e7036612b2c6567ac279a623b8422e28c49be8614f26e0e308ec7",
+    "tools-v1.json": "31395865e33bf5d56b2d05786d23aa5600c34d8cd91fd76d68797bb9fe7bd930",
+    "web-build-final-v2.log": "784636d20c8d5c7adb2f290c71e5d621c37a162f0e2bd6519cb200258d9abfef",
+    "web-build-final-v3.json": "88d2bb35710e4710f4852b629a7a99cc3571f51398a93cd8f4c74310ecf65f1f",
+    "web-build-final-v3.log": "ac4d1261252d14d211643b403963ccc6aa4bc135fd77288cf1f43f34e517b2eb",
+    "web-lint-final-v2.json": "9beccc3f1f694a7eba16e6b26e97afde4006e9ccea14917e7dc52a1f19cccd6c",
+    "web-lint-final-v2.log": "c0f4e1740707f09bc9011846b1d0c0b43a078fa8bc228a33567fb7570800655e",
+    "web-lint-final.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "web-test-final-v2.json": "79184adbb42c6325fc4151b5f1ef0d210f1e9c43292379311c35b6d657cdcfe4",
+    "web-test-final-v2.log": "7c9fc31369eae23d66d8c2efb4a1b88c4d97aaf62b1d8c43c6cf102c3c96340a",
+    "web-test-final.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "web-test-results.json": "7c4401e555916edcbfd7356979f397ac0d3ccc7943f7ac9b3dc80a1de6da942f",
+    "windows-helpers.json": "e5638bd691a01cd459da3f70301df1aaa16c55cb1d77fd03a6aa8b5dbc29e5b5",
+    "windows-helpers.log": "bed26e89ce926907ff81f8bf894550030d1350ddc701a9795ff380af82dba174",
+    "windows-helpers.xml": "4b2dca444ccdca7e50f92a359d48d05947228a876f5d58f0f43ceb291ae9e310",
+    "workspace-metadata-v1.log": "39b5a7d6a0c09f6ac5a66a6f45a397910102179372408157aaca3d3ae1db9d04",
+    "workspace-metadata-v2.json": "fa48cc6f9a58abfcb6c2d8b45189b1a69f1ab58e5b06066535c35c71dba694e5",
+    "workspace-wheels-win-v1.json": "671dbdde3826270b9f83b54833c0bed2f7e4e97cf2a8dc3998f199fd0d47aba9"
+  },
+  "original_v2_evidence_sha256": {
+    "final-controls-v2.json": "6eaabcea68afda65dba8079ae9024ad8ecf8c7d094076bab29b34b72110d9954",
+    "final-save-v2.json": "32527ea1905984a5e2c705db5d165386cd4e03115b19f95e4b3f7724115b3faa",
+    "final-code-window-v2.json": "0b869eab3b46f91f13d6bb274a52ffaa3bba9d949be53fc552d6c7fe6fe29ae3",
+    "baseline-audit-pre-controls-v2.json": "69c6f0877a36bf9ba9322a92fe25f82506604b3015b78507fca64cbbaddd51e0",
+    "baseline-audit-post-controls-v2.json": "1e37b2ee3cd70967caa6873e61ea4c5a77e6b52a2cf4eca2f3bacaa23fd8f7ae",
+    "socket-loopback-final-v2.json": "a3ad2bd8988971584a3311809e5a6891ecac2c4ddc40db464bba7125835ada4f",
+    "base-framing-v2.json": "80fd33811554a210bad29b7d4787e57db30bffeb238149578cd3f7504aaa55cc",
+    "wheels-v2/inspection.json": "2cf74d262b8e7275d90301fe686246371f8713462aa5dbce3b5c6475fcb610bd",
+    "wheel-readonly-v2.json": "b3779a2ef0dab84534ddb866d422868498d9d74a6d0f86dbfb42b55032d509d9",
+    "shell-checks-v2.json": "7f311f9b6cc402066e37173b51edf996cd73f3b7ee3fba0f5e1b34a0b78910ea",
+    "final-checks-v2/checks.json": "480443a1b2e5935bf58fb6627ca58bda5f09014e7076d4f074e9b644779a53d8",
+    "final-checks-v2/unit.xml": "2122932d8216189b7a95a04463364fad3c80dadf96048a095a2a558c7585e550",
+    "all-window-v2/result.json": "d43fe0b650db6cfa91f06c23d3f55a0bc4d50a0caf9eeda3abf039ee868b786f",
+    "source-reuse-v1.json": "18cddc7238167a98daa8e0617619df2e70613a7d74d25b0b5136fc397fb7efdc"
+  },
+  "original_public_anchors": {
+    "runtime-manifest-linux-v2.json": "d5a7baf6f417e1dac44c5f3abcfa3cd93932d204652a71c231f8f1a4373f335d",
+    "validation-linux-runtime-v2.json": "59dbe4de073ab25f566457d8e19f6b5c24e56c69da760d3d874240df941305a5"
+  }
+}

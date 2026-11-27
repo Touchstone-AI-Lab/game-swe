@@ -1,0 +1,19 @@
+--- a/scripts/components/lootrollarbiter.lua
++++ b/scripts/components/lootrollarbiter.lua
+@@ -65,7 +65,7 @@
+     local parts = {}
+     for _, entry in ipairs(snapshot.rolls) do
+         if entry.status == "open" then
+-            parts[#parts + 1] = string.format("%s|%s|%d|%d", entry.roll_id, entry.item, entry.chosen, entry.total)
++            parts[#parts + 1] = string.format("%s|%s|%d|%d|%s", entry.roll_id, entry.item, entry.chosen, entry.total, table.concat(self.last_chooser and { self.last_chooser } or {}, ","))
+         end
+     end
+     netvar:set(table.concat(parts, ";"))
+@@ -157,6 +157,7 @@
+         return { ok = false, code = "not_eligible" }
+     end
+     local chosen = self.core:choose(roll_id, userid, choice, revision, GetTime())
++    self.last_chooser = userid
+     if chosen.ok then
+         if chosen.complete then
+             self:Resolve(roll_id)

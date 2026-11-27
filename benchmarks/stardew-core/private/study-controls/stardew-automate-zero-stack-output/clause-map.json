@@ -1,0 +1,91 @@
+{
+  "task": "stardew-valley/core/stardew-automate-zero-stack-output",
+  "task_version": "1.1.0",
+  "exam": "benchmarks/stardew-core/exams/stardew-automate-zero-stack-output.md",
+  "cases": [
+    {
+      "id": "check:submission-shape",
+      "role": "static",
+      "clauses": [],
+      "overlap": false,
+      "note": "Evaluator file gate: StardewMods/ exists, required files present, no symlinks."
+    },
+    {
+      "id": "case:sentinel: a normal furnace cycle lands its bar in the chest",
+      "role": "preserved",
+      "clauses": [
+        "Task-preserve"
+      ],
+      "overlap": false,
+      "note": "P in the unchanged starter. Chest + furnace with 5 copper ore and 1 coal: furnace starts, clock advanced 40 minutes, a copper bar (O)334 must land in the chest."
+    },
+    {
+      "id": "case:a zero-size output is discarded and the machine empties",
+      "role": "target",
+      "clauses": [
+        "Task-discard",
+        "Task-leaves-ready"
+      ],
+      "overlap": false,
+      "note": "Second chest + furnace reaches readyForHarvest through real smelting, then the suite sets heldObject.Stack = 0. Requires readyForHarvest to become false within 1500 ticks and no (O)334 stack with Stack <= 0 in the chest."
+    },
+    {
+      "id": "case:the machine resumes processing input after the discard",
+      "role": "target",
+      "clauses": [
+        "Task-continues"
+      ],
+      "overlap": false,
+      "note": "Same furnace: within 900 ticks it must hold an object and not be ready, i.e. it took the second batch (5 ore + 1 coal remain in the chest). Depends on the previous case's fixture."
+    }
+  ],
+  "clauses": [
+    {
+      "id": "Task-discard",
+      "anchor": "Task, sentence 1, item 1: \"the broken output is discarded (a warning log is fine)\"",
+      "status": "asserted",
+      "note": "Asserted as: the zero-size bar is not pushed into the connected chest, together with the machine no longer holding it as ready output. The parenthetical warning log is permissive, not an obligation, and is not checked."
+    },
+    {
+      "id": "Task-leaves-ready",
+      "anchor": "Task, sentence 1, item 2: \"the machine leaves its ready state\"",
+      "status": "asserted",
+      "note": "readyForHarvest must turn false."
+    },
+    {
+      "id": "Task-continues",
+      "anchor": "Task, sentence 1, item 3: \"it continues processing further input\"",
+      "status": "asserted",
+      "note": "The furnace must start a new batch from the same chest."
+    },
+    {
+      "id": "Task-preserve",
+      "anchor": "Task, sentence 2: \"Machines with normal output must keep behaving exactly as before.\"",
+      "status": "asserted",
+      "note": "One normal furnace cycle (input pull and output push of a stack of 1). Larger stacks, full chests and the existing can't-store pause are not exercised. Discoverable in the starter: Automate/docs/README.md:34 (\"Machines connected to a chest will push their output into it, and pull ingredients\") and Framework/MachineGroup.cs:154-218 implement it."
+    },
+    {
+      "id": "Task-like-manual",
+      "anchor": "Task, sentence 1 (lead-in): \"the same way the game handles emptying it manually\" + Problem, paragraph 2, sentence 2",
+      "status": "unasserted",
+      "note": "Equivalence with the vanilla manual-collection path (stats, experience, OutputCollected rules, tapper updates) is not compared by any case; only the three enumerated outcomes are checked. Excluded; the enumerated items carry the obligation."
+    },
+    {
+      "id": "Notes-3",
+      "anchor": "Notes, bullet 3: \"Do not modify anything under `/tests`\"",
+      "status": "unasserted",
+      "note": "Enforced by construction (pack tests are bind-mounted read-only), not by a case."
+    }
+  ],
+  "excluded_clauses": [
+    "Task-like-manual",
+    "Notes-3"
+  ],
+  "known_issues": [
+    "Possible fixture race (read from code, not observed): private/harbor/stardew-automate-zero-stack-output/tests/SuiteZeroStackOutput.cs:71-73 advances the clock, waits one tick for readyForHarvest, then zeroes the stack. Automate runs an automation pass every 60 ticks (Automate/ModEntry.cs OnUpdateTicked, AutomationInterval default 60). If a pass falls between the clock advance and the zeroing, the good bar is collected and the furnace is refilled; the wait at line 72 has no deadline, so the case ends 'hung: exceeded 2400 ticks' on a correct implementation. Expected frequency about 1 boot in 60. Treat an isolated 'hung' on this case for an otherwise passing tree as a rerun candidate, and check the message before counting it as a target failure.",
+    "SuiteZeroStackOutput.cs:83 checks only copper bars with Stack <= 0 in the chest; it would not notice a zero-size item of another id. Irrelevant for the furnace fixture, noted for completeness.",
+    "Wait predicates: SuiteZeroStackOutput.cs:45,50-51,66,72,80 use locals/fields assigned immediately before and cannot throw. SuiteZeroStackOutput.cs:92-93 dereferences this._brokenFurnace! and throws NullReferenceException if the previous case failed before placing the furnace (GcbWorld.Place throws on a failed placement). With the fixed runner (private/harbor/harness/GcbHarness/Framework/SuiteRunner.cs:80-96) that fails the case as 'wait-until predicate threw'; with the pre-fix runner the wait was treated as satisfied and line 95 throws the same exception in the body. Verdict F under both; only the message differs.",
+    "The prepared evaluator image recorded in runtimeIdentity (sha256:74b5c8b3c5f6...) still bakes the pre-fix SuiteRunner at /opt/gcb/harness; tests/test.sh copies that baked harness, so commit 276a070 is not in effect for executions under this runtime identity until the image is rebuilt.",
+    "Only DataBasedObjectMachine (a furnace) is exercised. The reference handles the zero-size stack for every machine type in MachineGroup; an implementation limited to object machines is indistinguishable."
+  ]
+}

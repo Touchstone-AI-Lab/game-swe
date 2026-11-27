@@ -1,0 +1,6 @@
+name: "wave-budget-planner-tests"
+displayName: "Deterministic Wave Budget Planner Tests"
+main: "ContractTestRunner"
+version: "1.0.0"
+minGameVersion: 159
+dependencies: [wave-resource-allocator]

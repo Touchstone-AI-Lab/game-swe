@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <OutputType>Exe</OutputType>
+    <LangVersion>latest</LangVersion>
+    <ImplicitUsings>disable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
+    <CandidateRoot Condition="'$(CandidateRoot)' == ''">../environment/terraria-overhaul</CandidateRoot>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="$(CandidateRoot)/Core/Data/DataStorage.cs" Link="Production/DataStorage.cs" />
+    <Compile Include="$(CandidateRoot)/Core/Data/SparseSet.cs" Link="Production/SparseSet.cs" />
+    <Compile Include="$(CandidateRoot)/Core/Data/Entities.cs" Link="Production/Entities.cs" />
+    <Compile Include="$(CandidateRoot)/Core/Chunks/Chunks.cs" Link="Production/Chunks.cs" />
+    <Compile Include="$(CandidateRoot)/Utilities/BitMasks.cs" Link="Production/BitMasks.cs" />
+    <Compile Include="VerifierSupport.cs" />
+    <Compile Include="Program.cs" />
+  </ItemGroup>
+</Project>

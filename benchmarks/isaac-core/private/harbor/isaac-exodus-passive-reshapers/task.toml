@@ -1,0 +1,63 @@
+schema_version = "1.4"
+
+artifacts = ["/app/exodus"]
+
+[task]
+name = "gamecodebench/isaac-exodus-passive-reshapers"
+version = "2.0.0"
+description = "Five passive-effect reports with narrow temporal and spatial boundaries: Grid Worm opening versus later cadence, Beehive young versus mature tears, removable obstacles versus room boundaries, floor-scoped persistence, and earned stat state after item removal. Version 2.0.0 adds three supplementary regressions (EX-441, EX-461, EX-436)."
+authors = []
+keywords = ["the-binding-of-isaac", "afterbirth-plus", "lua", "modding", "regression"]
+
+[metadata]
+category = "programming"
+difficulty = "hard"
+tags = ["game-modding", "lua", "isaac", "afterbirth-plus", "bug-fix"]
+source_repo = "https://github.com/EchoGekko/Exodus"
+source_license = "MIT"
+base_commit = "7f88cea2d9549128679017dc1fca438efd044b90"
+# Starter = the fully fixed Exodus tree of isaac-exodus-release-regressions with only these
+# upstream fixes reverted; every other fix from that composite is present in the starter.
+# Version 2.0.0 also applies the supplementary regressions named in reports (EX-4xx,
+# private/supplementary-regressions/); gold.patch repairs them as well.
+reports = "EX-226,EX-258,EX-239,EX-251,EX-184,EX-441,EX-461,EX-436"
+reverted_fixes = "07b50ff1,78800008,406a853,999e32c,0dfd838"
+gold_patch_origin = "subset-of-composite-gold"
+game = "The Binding of Isaac: Rebirth with Afterbirth and Afterbirth+"
+game_build = "Afterbirth+ v1.06.T1; Steam App 250900 build 22878971"
+
+[verifier]
+environment_mode = "separate"
+network_mode = "no-network"
+timeout_sec = 600.0
+user = "root"
+
+[verifier.environment]
+network_mode = "no-network"
+build_timeout_sec = 1800.0
+docker_image = "gcb-isaac-exodus-verifier:abp-v1.06.t1"
+cpus = 4
+memory_mb = 8192
+storage_mb = 20480
+gpus = 0
+mcp_servers = []
+
+[agent]
+network_mode = "allowlist"
+allowed_hosts = ["api.anthropic.com"]
+timeout_sec = 7200.0
+
+[environment]
+network_mode = "no-network"
+build_timeout_sec = 1800.0
+cpus = 4
+memory_mb = 8192
+storage_mb = 20480
+gpus = 0
+mcp_servers = []
+
+[verifier.env]
+
+[environment.env]
+
+[solution.env]

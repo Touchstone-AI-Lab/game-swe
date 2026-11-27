@@ -1,0 +1,9 @@
+control	kind	base	overlay	root	note
+M01-preview-reward	compat-negative	starter	pack:private/native-v1/controls/pack-choice-commit-v2/M01-preview-reward	starter	frozen mutant: every requested-change case passes and a preserved case fails
+M02-shifted-index	target-negative	starter	pack:private/native-v1/controls/pack-choice-commit-v2/M02-shifted-index	starter	frozen mutant: fails only requested-change cases
+M03-close-revocation	target-negative	starter	pack:private/native-v1/controls/pack-choice-commit-v2/M03-close-revocation	starter	frozen mutant: fails only requested-change cases
+M04-global-flags	target-negative	starter	pack:private/native-v1/controls/pack-choice-commit-v2/M04-global-flags	starter	frozen mutant: fails only requested-change cases
+M05-repeat-settle	compat-negative	starter	pack:private/native-v1/controls/pack-choice-commit-v2/M05-repeat-settle	starter	frozen mutant: every requested-change case passes and a preserved case fails
+M06-view-alias	compat-negative	starter	pack:private/native-v1/controls/pack-choice-commit-v2/M06-view-alias	starter	frozen mutant: every requested-change case passes and a preserved case fails
+M07-repeat-commit	compat-negative	starter	pack:private/native-v1/controls/pack-choice-commit-v2/M07-repeat-commit	starter	frozen mutant: every requested-change case passes and a preserved case fails
+gold-journal	alternative	starter	pack:private/native-v1/controls/pack-choice-commit-v2/gold-journal	starter	frozen independent correct implementation

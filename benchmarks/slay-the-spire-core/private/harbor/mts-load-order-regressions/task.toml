@@ -1,0 +1,83 @@
+schema_version = "1.1"
+
+[task]
+name = "gamecodebench/mts-load-order-regressions"
+description = "ModTheSpire carrying several independent regressions in how mod load order is resolved and how patches are generated, reported only as user-visible symptoms."
+authors = []
+keywords = ["slay-the-spire", "modthespire", "java", "javassist", "bytecode", "regression"]
+
+[metadata]
+category = "programming"
+difficulty = "hard"
+tags = ["game-modding", "java", "javassist", "bytecode", "bug-fix", "real-regression"]
+source_repo = "https://github.com/kiooeht/ModTheSpire"
+source_license = "MIT"
+base_commit = "master"
+reverted_fixes = "bed2044 (SpireField type check), b460ad7-equivalent (ByRef boxing)"
+gold_patch_origin = "upstream-fix"
+
+# THIS IS A REAL UPSTREAM REGRESSION, NOT AN INJECTED ONE. The base is the parent of
+# upstream commit b460ad7 ("Fix patch error with ByRef while mixing primitive and wrapper
+# types"), and the reference is that commit. Reverse-applying the fix onto current master
+# does NOT work -- later commits reshaped the same code -- so each task in this family
+# pins its own base to the fix's parent, which is the SWE-bench convention.
+#
+# THE DEFECT. ParameterPatchInfo generates the source that forwards a by-reference
+# parameter into the patched method. When the patch declares the parameter with the
+# wrapper type (which Kotlin always produces) while the patched method takes a primitive,
+# the generated assignment stores an int into an Integer[] element with no boxing, and
+# the read-back omits the matching unboxing. Javassist compiles it, and the JVM then
+# rejects the method with "Bad type on operand stack".
+#
+# IT DOES NOT ADVERTISE ITSELF. The generating code reads as a complete, ordinary string
+# builder; nothing inside it looks wrong, and there is no leftover variable, no comment
+# and no identifier naming the missing conversion. The fault is only visible against the
+# JVM's typing rules, which is the property measured to matter most on the sibling DarkRP
+# pack.
+#
+# VERIFIER COVERAGE. 1 report / 1 defect / 1 assertion. The suite builds a target method
+# taking a primitive and a patch whose parameter is a wrapper array, applies the patch
+# through ModTheSpire's own PrefixPatchInfo.doPatch(), loads the patched class in a fresh
+# javassist.Loader and asserts by reflection that the write reached the method body. It
+# needs no base game, no display and no network.
+#
+# GATE, measured on a real headless build:
+#   base (b460ad7^)   VerifyError "Bad type on operand stack"   BUILD FAILURE   0.187s
+#   reference (b460ad7)  Tests run: 1, Failures: 0, Errors: 0   BUILD SUCCESS   0.176s
+#
+# ENVIRONMENT NOTES, each of which cost a round to find:
+#   - JDK 8 is required; MTSClassLoader and EnumBusterReflect use sun.misc / sun.reflect,
+#     which Java 17 removed. That failure looks like a missing game dependency and is not.
+#   - The Slay the Spire systemPath dependency is stripped and `patches/**` plus
+#     PackageJar.java are excluded from compilation: they are the only parts that truly
+#     need the paid base game. Everything the task touches builds without it.
+#   - `ui/UpdateWindow.java` carried a dead `import javafx.util.Pair` that OpenJDK 8
+#     cannot resolve. It is unused, so the import is removed; no behaviour changes.
+#
+# OPEN QUESTION THIS TASK EXISTS TO ANSWER. A single real defect may simply be too easy:
+# the sibling DarkRP measurements found difficulty comes from several defects whose
+# reports do not share vocabulary with the code. This task is deliberately one defect so
+# that the measurement decides whether this family ships as single-bug tasks or as
+# composites.
+
+[verifier]
+network_mode = "no-network"
+timeout_sec = 900.0
+
+[agent]
+# The agent harness runs inside the container and calls the model API from there, so a
+# blanket no-network stops it before it works. github.com is deliberately absent: the
+# upstream fix is one commit away in a public repository, and that is the leak this
+# isolates against. Maven runs offline against a repository warmed at image build time.
+network_mode = "allowlist"
+allowed_hosts = []
+timeout_sec = 5400.0
+
+[environment]
+network_mode = "no-network"
+build_timeout_sec = 2400.0
+cpus = 4
+memory_mb = 8192
+storage_mb = 12288
+gpus = 0
+mcp_servers = []

@@ -1,0 +1,9 @@
+{
+  "Name": "Auto Workshop",
+  "Author": "you",
+  "Version": "1.0.0",
+  "Description": "Chests feed and empty adjacent machines.",
+  "UniqueID": "gcb.AutoWorkshop",
+  "EntryDll": "AutoWorkshop.dll",
+  "MinimumApiVersion": "4.0.0"
+}

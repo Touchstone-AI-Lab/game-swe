@@ -1,0 +1,197 @@
+{
+  "id": "rhenium-gmod-v2",
+  "version": "2.2.0",
+  "game": "garrys-mod",
+  "runtime": {
+    "app_id": 4020,
+    "branch": "stable",
+    "build_id": "23150012",
+    "platform": "windows-x86_64",
+    "linux_build_id": "23150012"
+  },
+  "contract_traceability_required": true,
+  "name": {
+    "en": "Rhenium Garry's Mod Server Systems",
+    "zh": "Rhenium Garry's Mod 服务端系统题（五题正式版）"
+  },
+  "description": {
+    "en": "Five server-authoritative clean-room GMod tasks for Sandbox on gm_flatgrass.",
+    "zh": "面向 Sandbox/gm_flatgrass 的服务端权威 clean-room GMod 五题。"
+  },
+  "tasks": [
+    {
+      "id": "hot-object-round-controller",
+      "difficulty": "hard",
+      "task_version": "2.2.0",
+      "title": {
+        "en": "Hot Object Round Controller",
+        "zh": "Hot Object 回合控制器"
+      },
+      "summary": {
+        "en": "Order touch events and settle one multiplayer consequence.",
+        "zh": "确定排序触碰事件并只结算一次多人后果。"
+      },
+      "brief": {
+        "en": "Combine a deterministic adapter with real physical StartTouch and Touch.",
+        "zh": "组合确定性 adapter 与真实物理 StartTouch/Touch。"
+      },
+      "requirements": {
+        "en": [
+          "[T4-SEM-01] Implement the complete five-state round lifecycle.",
+          "[T4-SEM-02] Freeze exactly three players, one object generation, variant, and deadline.",
+          "[T4-SEM-04] Deduplicate all lifecycle events in one namespace.",
+          "[T4-SEM-05] Enforce monotonic touch sequence and exact generations.",
+          "[T4-LIFE-01] Reassign a lost holder by stable player identity.",
+          "[T4-LIFE-02] Give each respawn a strictly newer player revision.",
+          "[T4-TIME-02] Settle exactly once at the deadline boundary.",
+          "[T4-PERSIST-02] Persist audit, result, revisions, ordering, and deduplication."
+        ],
+        "zh": [
+          "[T4-SEM-01] 实现完整的五状态回合生命周期。",
+          "[T4-SEM-02] 冻结恰好三名玩家、一个物体 generation、variant 与 deadline。",
+          "[T4-SEM-04] 在统一命名空间去重全部生命周期事件。",
+          "[T4-SEM-05] 强制递增 touch sequence 与精确 generation。",
+          "[T4-LIFE-01] 按稳定玩家 ID 为失效 holder 选择继任者。",
+          "[T4-LIFE-02] 每次 respawn 使用严格更新的玩家 revision。",
+          "[T4-TIME-02] 在 deadline 边界恰好结算一次。",
+          "[T4-PERSIST-02] 持久化 audit、result、revision、顺序与去重。"
+        ]
+      },
+      "api_usage": {
+        "en": [
+          "[T4-NATIVE-01] Register PlayerDeath, PlayerSpawn, PlayerDisconnected, and EntityRemoved Hooks.",
+          "[T4-NATIVE-04] Drive deadlines with one named repeating Timer.",
+          "[T4-NATIVE-02] Route real entity StartTouch through Dispatch.",
+          "[T4-NATIVE-03] Route real entity Touch through the same Dispatch.",
+          "[T4-TRUST-01] Bind three real Bots and the object generation on the server."
+        ],
+        "zh": [
+          "[T4-NATIVE-01] 注册 PlayerDeath、PlayerSpawn、PlayerDisconnected 与 EntityRemoved Hook。",
+          "[T4-NATIVE-04] 用一个具名重复 Timer 推进 deadline。",
+          "[T4-NATIVE-02] 将真实实体 StartTouch 接入 Dispatch。",
+          "[T4-NATIVE-03] 将真实实体 Touch 接入同一 Dispatch。",
+          "[T4-TRUST-01] 在服务端绑定三个真实 Bot 与物体 generation。"
+        ]
+      },
+      "acceptance": {
+        "en": [
+          "Both variants and all five states obey the frozen round contract.",
+          "Event replay, sequence, generations, and time boundaries are deterministic.",
+          "Death, disconnect, respawn, and settlement change authority exactly once.",
+          "Three real Bots and physical StartTouch/Touch use the authoritative path.",
+          "Two-process persistence and shutdown preserve results without residue."
+        ],
+        "zh": [
+          "两种 variant 与五个状态均遵守冻结回合合同。",
+          "事件重放、sequence、generation 与时间边界保持确定。",
+          "死亡、断线、重生与结算都只改变一次权威状态。",
+          "三个真实 Bot 与物理 StartTouch/Touch 使用权威路径。",
+          "两进程持久化与 Shutdown 保留结果且无残留。"
+        ]
+      },
+      "domains": [
+        "event-ordering",
+        "player-lifecycle",
+        "timers"
+      ],
+      "estimated_minutes": 390,
+      "public_exam": {
+        "path": "exams/hot-object-round-controller.md",
+        "sha256": "af4ee96a331c9aa43f9cf660d47310924119609bfe79c240e87393f6042ea76a",
+        "interfaces": [
+          "Controller.new(options)",
+          "controller:touch(event_id, object_id, object_revision, player_id, player_revision, sequence, now)",
+          "controller:respawn(event_id, player_id, old_revision, new_revision, now)",
+          "adapter.Dispatch(event)",
+          "adapter.BindObject(entity, object_id, revision)"
+        ],
+        "contract_evidence": [
+          "T4-SEM-01",
+          "T4-LIFE-02",
+          "T4-TIME-02",
+          "T4-TIME-03",
+          "T4-NATIVE-02"
+        ],
+        "acceptance_evidence": [
+          "T4-ACC-01",
+          "T4-ACC-02",
+          "T4-ACC-03",
+          "T4-ACC-04",
+          "T4-ACC-05"
+        ]
+      },
+      "required_files": [
+        "addon.json",
+        "lua/rhenium_hot_object_round/controller.lua",
+        "lua/rhenium_hot_object_round/server.lua"
+      ],
+      "core_module": "lua/rhenium_hot_object_round/controller.lua",
+      "server_module": "lua/rhenium_hot_object_round/server.lua",
+      "evaluation": {
+        "hidden_suite": "private/tasks/hot-object-round-controller/hidden/hot-object-round-controller.lua",
+        "hidden_cases": [
+          "round starts with three stable players and frozen deadline",
+          "monotonic touch sequence transfers holder",
+          "event replay is exact and conflicts fail",
+          "wrong object generation and dead player never transfer",
+          "holder death and disconnect choose stable successor",
+          "respawn creates a new player revision",
+          "deadline settles exploding round exactly once",
+          "infectious variant excludes every infected survivor from winners",
+          "time reversal cannot reopen or delay settlement",
+          "finished transitions to cleanup without second consequence",
+          "save load preserves audit result and deduplication",
+          "same tick ordering is sequence then stable identity",
+          "shutdown is idempotent and freezes events",
+          "malformed players events audit result and revisions are rejected"
+        ],
+        "integration_suite": "private/tasks/hot-object-round-controller/integration/hot-object-round-controller-integration.lua",
+        "integration_cases": [
+          "adapter installs lifecycle hooks and one timer",
+          "trusted bindings start a three player round",
+          "object binding is single use and removal restores original callbacks",
+          "entity StartTouch and Touch share deterministic dispatch",
+          "unbound physical touch cannot impersonate a player",
+          "PlayerDeath hook changes holder once",
+          "PlayerSpawn rebinds a new revision",
+          "timer reaches fixed deadline exactly once",
+          "Save exposes deterministic audit for restart"
+        ],
+        "lifecycle_cases": [
+          "shutdown removes hooks timer restores callbacks and freezes adapter"
+        ],
+        "traceability": "private/tasks/hot-object-round-controller/contract-traceability.json",
+        "mutations": "private/tasks/hot-object-round-controller/mutations.json",
+        "suite_timeout_seconds": 8
+      },
+      "server_runtime": {
+        "task_version": "2.2.0",
+        "addon_manifest": "private/tasks/hot-object-round-controller/server/addon.json",
+        "lua_entry": "private/tasks/hot-object-round-controller/server/hot-object-round-controller-suite.lua",
+        "suite_id": "rhenium-gmod-hot-object-v3",
+        "runtime_namespace": "hot-object-round-v3",
+        "submission_addon_name": "rhenium_hot_object_submission",
+        "private_suite_addon_name": "zz_rhenium_hot_object_private",
+        "expected_cases": [
+          "physical-touch",
+          "three-bot",
+          "lifecycle",
+          "variants",
+          "deadline",
+          "exactly-once",
+          "persistence",
+          "cleanup"
+        ],
+        "phases": [
+          "A",
+          "B"
+        ],
+        "timeout_seconds": 180
+      },
+      "source": {
+        "path": "sources/hot-object-round-controller.json",
+        "sha256": "793a1a3279a14c76c9b62d39c658255601efca8c4077f7a067b5cde35de11ef1"
+      }
+    }
+  ]
+}

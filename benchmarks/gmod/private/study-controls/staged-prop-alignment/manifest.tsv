@@ -1,0 +1,8 @@
+control	kind	base	overlay	root	note
+alternative-second-reference	alternative	starter	tree:alternative-second-reference	.	second authored reference (frame-rows): row-list core instead of the oracle's keyed frame map
+alternative-strict-reading	alternative	starter	tree:alternative-strict-reading	.	frame-rows with undisclosed conventions replaced: own hook/timer names, no HookPrefix/TimerName export, no created/moved fields in Execute data; expected to show problems
+probe-z-dropped	target-negative	reference	patch:probe-z-dropped.patch	.	mutation: solve drops the probe's local z component
+budget-not-counted	target-negative	reference	patch:budget-not-counted.patch	.	mutation: successful solve does not consume the player's budget
+cantool-bypassed	target-negative	reference	patch:cantool-bypassed.patch	.	mutation: HandleTrace ignores an explicit CanTool false
+move-falls-through-to-copy	target-negative	reference	patch:move-falls-through-to-copy.patch	.	mutation: move mode runs the copy path
+shutdown-leaks-timer	target-negative	reference	patch:shutdown-leaks-timer.patch	.	lifecycle mutation: Shutdown keeps the repeating timer

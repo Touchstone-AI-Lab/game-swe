@@ -1,0 +1,34 @@
+diff -ruN a/AutoWorkshop/ModEntry.cs b/AutoWorkshop/ModEntry.cs
+--- a/AutoWorkshop/ModEntry.cs
++++ b/AutoWorkshop/ModEntry.cs
+@@ -41,7 +41,13 @@
+                     continue;
+                 Chest? chest = FindAdjacentChest(loc, pair.Key);
+                 if (chest is null)
++                {
++                    // overreach: a machine with no adjacent chest is fed from a chest two tiles away
++                    Chest? distant = FindChestTwoTilesAway(loc, pair.Key);
++                    if (distant is not null)
++                        FeedInput(machine, distant);
+                     continue;
++                }
+                 CollectOutput(machine, chest);
+                 FeedInput(machine, chest);
+             }
+@@ -53,6 +59,16 @@
+             {
+                 if (loc.objects.TryGetValue(tile + offset, out SObject obj) && obj is Chest chest)
+                     return chest;
++            }
++            return null;
++        }
++
++        private static Chest? FindChestTwoTilesAway(GameLocation loc, Vector2 tile)
++        {
++            foreach (Vector2 offset in new[] { new Vector2(-2, 0), new Vector2(2, 0), new Vector2(0, -2), new Vector2(0, 2) })
++            {
++                if (loc.objects.TryGetValue(tile + offset, out SObject obj) && obj is Chest chest)
++                    return chest;
+             }
+             return null;
+         }

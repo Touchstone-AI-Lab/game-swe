@@ -1,0 +1,430 @@
+{
+  "task": "dst/construct/world-rule-ballot",
+  "task_version": "2.1.0",
+  "exam": "benchmarks/dst-construct/exams/world-rule-ballot.md",
+  "cases": [
+    {
+      "id": "check:required-files",
+      "role": "static",
+      "clauses": [
+        "deliver-files"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "check:lua-syntax",
+      "role": "static",
+      "clauses": [],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "hidden:electorate and choices are frozen",
+      "role": "target",
+      "clauses": [
+        "deliver-API",
+        "core-1a",
+        "core-2a",
+        "accept-1",
+        "shape-2"
+      ],
+      "overlap": false,
+      "note": "outsider and forged choice are refused, a frozen elector is accepted"
+    },
+    {
+      "id": "hidden:newer vote revision replaces old vote",
+      "role": "target",
+      "clauses": [
+        "core-2b",
+        "core-3a",
+        "core-4",
+        "accept-1",
+        "shape-2"
+      ],
+      "overlap": false,
+      "note": "an older revision is refused and the close result proves it had no side effect Resolved in catalog 2.1.0.",
+      "over_constrained": false
+    },
+    {
+      "id": "hidden:quorum and top ties are deterministic",
+      "role": "target",
+      "clauses": [
+        "core-4",
+        "accept-2",
+        "shape-2"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "hidden:deadline boundary and close are idempotent",
+      "role": "target",
+      "clauses": [
+        "core-2a",
+        "core-4",
+        "core-5b",
+        "accept-1",
+        "accept-3"
+      ],
+      "overlap": false,
+      "note": "cast at now == deadline is refused; two late closes are compared with each other only"
+    },
+    {
+      "id": "hidden:cancel is final and identifier cannot reopen",
+      "role": "target",
+      "clauses": [
+        "core-6",
+        "accept-3",
+        "shape-2"
+      ],
+      "overlap": false,
+      "note": "Resolved in catalog 2.1.0.",
+      "over_constrained": false
+    },
+    {
+      "id": "hidden:snapshot hides votes and save load preserves result",
+      "role": "target",
+      "clauses": [
+        "deliver-API",
+        "core-5a",
+        "core-7a",
+        "core-7b",
+        "shape-4"
+      ],
+      "overlap": false,
+      "note": "saves an OPEN ballot, reloads it and closes it; a finished result is never saved Resolved in catalog 2.1.0.",
+      "over_constrained": false
+    },
+    {
+      "id": "check:implementation-depth",
+      "role": "static",
+      "clauses": [],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "check:ballot-authority",
+      "role": "target",
+      "clauses": [
+        "dst-1a"
+      ],
+      "overlap": false,
+      "note": "regular-expression gate over the submitted source, not an execution"
+    },
+    {
+      "id": "check:ballot-network",
+      "role": "target",
+      "clauses": [
+        "dst-2",
+        "dst-5",
+        "api-1",
+        "api-3"
+      ],
+      "overlap": false,
+      "note": "regular-expression gate over the submitted source, not an execution"
+    },
+    {
+      "id": "check:ballot-timer",
+      "role": "target",
+      "clauses": [
+        "dst-2",
+        "dst-3",
+        "dst-5",
+        "api-2",
+        "api-3"
+      ],
+      "overlap": false,
+      "note": "regular-expression gate over the submitted source, not an execution"
+    },
+    {
+      "id": "check:ballot-persistence",
+      "role": "target",
+      "clauses": [
+        "dst-6",
+        "api-2"
+      ],
+      "overlap": false,
+      "note": "regular-expression gate over the submitted source, not an execution"
+    },
+    {
+      "id": "server:server ballot component is attached",
+      "role": "target",
+      "clauses": [
+        "dst-1a"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "server:component derives voter identity and closes a ballot",
+      "role": "target",
+      "clauses": [
+        "dst-2",
+        "dst-3",
+        "api-5a",
+        "accept-5",
+        "shape-3",
+        "dst-Open"
+      ],
+      "overlap": false,
+      "note": "Open with two entities, Cast through entity.userid, manual Close before the deadline must report passed/on Resolved in catalog 2.1.0.",
+      "over_constrained": false
+    },
+    {
+      "id": "server:ballot state reloads",
+      "role": "target",
+      "clauses": [
+        "dst-6",
+        "accept-5"
+      ],
+      "overlap": false,
+      "note": "OnSave/OnLoad/OnSave only have to return tables without error; the ballot is already closed at that point"
+    }
+  ],
+  "clauses": [
+    {
+      "id": "deliver-files",
+      "anchor": "Required deliverables, file list: \"scripts/ruleballot/ballot.lua\" (modinfo.lua, modmain.lua, scripts/ruleballot/ballot.lua, scripts/components/ruleballot.lua, scripts/components/ruleballot_replica.lua)",
+      "status": "asserted",
+      "note": "static file gate"
+    },
+    {
+      "id": "deliver-API",
+      "anchor": "Required deliverables, code block after \"The pure module exports:\": Ballot.new/load and open/cast/close/cancel/snapshot/save",
+      "status": "asserted",
+      "note": "every exported function is called by the hidden suite, which loads the module in a sandbox without require or engine globals"
+    },
+    {
+      "id": "deliver-proposal",
+      "anchor": "Required deliverables, last sentence: \"a finite `deadline` and a server-configured `quorum`\"",
+      "status": "unasserted",
+      "note": "no case opens a malformed proposal (one choice, duplicate choices, non-finite or past deadline, bad quorum)"
+    },
+    {
+      "id": "core-1a",
+      "anchor": "Core semantics item 1, first half: \"Players who join afterwards cannot vote\"",
+      "status": "asserted",
+      "note": "a voter outside the frozen list is refused"
+    },
+    {
+      "id": "core-1b",
+      "anchor": "Core semantics item 1, remainder: \"original electors who leave still count toward the quorum base\" (and the de-duplicated electorate)",
+      "status": "unasserted",
+      "note": "no case passes a duplicated electorate; quorum is an absolute number in every case so the base is never observable"
+    },
+    {
+      "id": "core-2a",
+      "anchor": "Core semantics item 2, first sentence: \"can be accepted only before the deadline\"",
+      "status": "asserted",
+      "note": "forged choice refused; cast at now == deadline refused"
+    },
+    {
+      "id": "core-2b",
+      "anchor": "Core semantics item 2, second sentence: \"a strictly increasing non-negative integer per elector\"",
+      "status": "asserted",
+      "note": "only a lower revision is tried; an equal, negative or fractional revision is never tried"
+    },
+    {
+      "id": "core-3a",
+      "anchor": "Core semantics item 3, first half: \"Duplicate and old revisions have no side effects\"",
+      "status": "asserted",
+      "note": "old revision only; a duplicate of the current revision is not tried"
+    },
+    {
+      "id": "core-3b",
+      "anchor": "Core semantics item 3, second half: \"must be an explicit whitelisted choice\"",
+      "status": "unasserted",
+      "note": "no case uses an abstain option"
+    },
+    {
+      "id": "core-4",
+      "anchor": "Core semantics item 4: \"only the latest vote of each elector is counted\" (close idempotent, no_quorum, tie)",
+      "status": "asserted",
+      "note": "\"no rule is applied\" belongs to the engine layer and is covered by dst-4"
+    },
+    {
+      "id": "core-5a",
+      "anchor": "Core semantics item 5, first sentence: \"Counts are output in lexicographic order of option ID\"",
+      "status": "weak",
+      "note": "the only access is snapshot(...).counts[1].count ~= 999 (hidden:62); the fixture choices are already sorted and no case reads counts[i].choice_id or an order"
+    },
+    {
+      "id": "core-5b",
+      "anchor": "Core semantics item 5, second sentence: \"must be identical to the result at the deadline instant\"",
+      "status": "weak",
+      "note": "hidden:42-43 compares close(99) with close(100) field by field; two identical error tables would also satisfy it and the result at the deadline itself is not pinned"
+    },
+    {
+      "id": "core-6",
+      "anchor": "Core semantics item 6: \"a closed or canceled proposal ID can never be reused\" (cancel is final)",
+      "status": "asserted",
+      "note": "reuse is tried for a canceled id only, not for a closed one"
+    },
+    {
+      "id": "core-7a",
+      "anchor": "Core semantics item 7, first sentence: \"exposes only aggregate counts, does not leak individual choices, and returns a new table\"",
+      "status": "weak",
+      "note": "only the two key names snap.votes and snap.electorate are tested (hidden:57); the fresh-table check mutates a snapshot of one object and reads a snapshot of another (hidden:58,62)"
+    },
+    {
+      "id": "core-7b",
+      "anchor": "Core semantics item 7, second sentence: \"preserve the electorate, the revisions, the deadline and the final result\"",
+      "status": "weak",
+      "note": "an open ballot with two votes survives a round trip; revisions, the deadline and an already final result are not checked after load"
+    },
+    {
+      "id": "dst-1a",
+      "anchor": "DST integration item 1, first half: \"only on the master simulation\"",
+      "status": "asserted",
+      "note": "presence on the master world is executed; absence on clients is only the ismastersim source pattern"
+    },
+    {
+      "id": "dst-1b",
+      "anchor": "DST integration item 1, second half: \"The whitelist constrains the RPC entry point and the rules that are actually applied\"",
+      "status": "unasserted",
+      "note": "not asserted, and contradicted by the fixture: the server suite opens the undocumented proposal id server-rule (see known_issues)"
+    },
+    {
+      "id": "dst-2",
+      "anchor": "DST integration item 3: \"identity comes from `player.userid`\" (the RPC receives only the proposal ID, the choice ID and the revision)",
+      "status": "asserted",
+      "note": "identity from entity.userid is executed through component:Cast; the RPC handler itself is only a source pattern"
+    },
+    {
+      "id": "dst-3",
+      "anchor": "DST integration item 4: \"schedules settlement with `DoTaskInTime`\" (frozen electorate built from the players currently online)",
+      "status": "weak",
+      "note": "the suite passes explicit entities and closes by hand; the timer is never observed, only the DoTaskInTime source pattern"
+    },
+    {
+      "id": "dst-4",
+      "anchor": "DST integration item 5: \"client-supplied Lua, commands or arbitrary configuration keys must not be executed\" (rule applied only when passed and not tied)",
+      "status": "unasserted",
+      "note": "no case observes a rule being applied or withheld"
+    },
+    {
+      "id": "dst-5",
+      "anchor": "DST integration item 6: \"publish a compact aggregate state through net variables and the replica\" (TheNet:Announce announces the final result)",
+      "status": "weak",
+      "note": "source patterns only; no case reads the net variable or the replica"
+    },
+    {
+      "id": "dst-6",
+      "anchor": "DST integration item 7: \"restore in-progress ballots and reschedule the remaining timers\" (tasks canceled when the component is removed)",
+      "status": "weak",
+      "note": "round trip of an already closed ballot must not error and must return tables; no in-progress ballot, timer or removal is exercised"
+    },
+    {
+      "id": "api-1",
+      "anchor": "Base-game API contract, code block: AddModRPCHandler for namespace rhenium_ballot and name cast, \"function(player, proposal_id, choice_id, revision)\"",
+      "status": "weak",
+      "note": "pattern AddModRPCHandler\\s*\\( only; namespace, name and arguments are not checked"
+    },
+    {
+      "id": "api-2",
+      "anchor": "Base-game API contract, code block: DoTaskInTime task retained and \"close_task:Cancel()\"",
+      "status": "weak",
+      "note": "patterns DoTaskInTime\\s*\\( and :Cancel\\s*\\( only"
+    },
+    {
+      "id": "api-3",
+      "anchor": "Base-game API contract, code block: \"TheNet:Announce(message)\" and the net_string ruleballot.state / ruleballotdirty with \"inst._ballot_state:set(encoded_public_state)\"",
+      "status": "weak",
+      "note": "patterns only; net_bool would also satisfy the gate"
+    },
+    {
+      "id": "api-4",
+      "anchor": "Base-game API contract, paragraph after the code block: \"Net variables should be created before\" the non-master return; the client reads value() in the dirty event; \"Do not JSON-encode the save table that contains individual votes directly into a netvar\"",
+      "status": "unasserted",
+      "note": "no client process and no inspection of the published value"
+    },
+    {
+      "id": "api-5a",
+      "anchor": "Base-game API contract, last paragraph: \"The world component must expose\" Open(proposal, player_entities), Cast(player, ...), Close(proposal_id); \"converted to `userid` values and frozen only on the server\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "api-5b",
+      "anchor": "Base-game API contract, last paragraph, final clause: \"the RPC is not allowed to call `Open`\"",
+      "status": "unasserted",
+      "note": "no case drives the RPC handler"
+    },
+    {
+      "id": "accept-1",
+      "anchor": "Acceptance item 1: \"Non-electors, forged choices, old revisions and late votes are invalid\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "accept-2",
+      "anchor": "Acceptance item 2: \"Quorum, ties and counting order are fully deterministic\"",
+      "status": "asserted",
+      "note": "quorum and tie are executed; counting order is not (see core-5a)"
+    },
+    {
+      "id": "accept-3",
+      "anchor": "Acceptance item 3: \"close/cancel remain idempotent across retries and reloads\"",
+      "status": "weak",
+      "note": "retries are executed; no case saves and reloads a closed or canceled ballot and then retries"
+    },
+    {
+      "id": "accept-4",
+      "anchor": "Acceptance item 4: \"A client cannot decide the electorate, the deadline, the quorum or the rule to execute\"",
+      "status": "unasserted",
+      "note": "no case sends client input through the RPC path"
+    },
+    {
+      "id": "accept-5",
+      "anchor": "Acceptance item 5: \"The headless dedicated server tests, on a real server\" (what the engine suite executes and what static integration checks cover)",
+      "status": "weak",
+      "note": "statement about the suite rather than the mod: identity entry and an error-free save/load are executed, timers, net state and announcements are not"
+    },
+    {
+      "id": "accept-footnote",
+      "anchor": "Acceptance, closing line: \"Use only base-game APIs and assets; copying individual votes to clients is forbidden\"",
+      "status": "unasserted",
+      "note": "no asset scan and no inspection of replicated state"
+    },
+    {
+      "id": "shape-2",
+      "anchor": "Return values and data shapes items 1-2: \"return a table containing a boolean `ok`\" and \"return a new table containing `status`\" (passed/no_quorum/tie/canceled) with choice_id",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "shape-3",
+      "anchor": "Return values and data shapes item 3: \"also settles immediately on the current vote counts when `now < deadline`\"",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "shape-4",
+      "anchor": "Return values and data shapes item 4: \"contains an array `counts`, in lexicographic order of `choice_id`\" with {choice_id,count} rows and no votes/electorate",
+      "status": "asserted",
+      "note": ""
+    },
+    {
+      "id": "dst-Open",
+      "anchor": "DST integration items 1-2: \"must accept any proposal with valid fields that the server passes in\"; \"The component uses `GetTime()` as its clock\"; Close settles immediately",
+      "status": "asserted",
+      "note": ""
+    }
+  ],
+  "excluded_clauses": [
+    "deliver-proposal",
+    "core-1b",
+    "core-3b",
+    "dst-1b",
+    "dst-4",
+    "api-4",
+    "api-5b",
+    "accept-4",
+    "accept-footnote"
+  ],
+  "known_issues": [
+    "The engine suite runs one second after world post-init in a fresh dedicated server with no connected player; timers, announcements, net state and client replication named in accept-5 are never observed.",
+    "Catalog 2.1.0: the exam publishes the result fields and the four status strings, says that Open accepts any well-formed server proposal, that deadlines are on the GetTime() clock and that a server-side Close settles at once. The deadline case now requires the passed/on result instead of any two equal results, and the snapshot case checks the mutated ballot itself. The three former strict-reading alternatives violate published rules and are target-negatives."
+  ]
+}

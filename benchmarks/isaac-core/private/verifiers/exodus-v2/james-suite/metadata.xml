@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<metadata>
+  <name>GameCodeBench Exodus James Verifier</name>
+  <directory>gcb_exodus_suite</directory>
+  <id>gcb_exodus_james_suite</id>
+  <description>Positive James floor behavior guard.</description>
+  <version>1.0.0</version>
+</metadata>

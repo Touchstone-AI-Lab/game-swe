@@ -1,0 +1,71 @@
+# Contract scaffolding after LF/BOM normalization. The eager upstream
+# publication body is moved without repair so the starter exposes the public
+# PublishEntries/Generation seam and remains executable by the expanded tests.
+diff --git a/ModLoader/MapLiquidLoader.cs b/ModLoader/MapLiquidLoader.cs
+--- a/ModLoader/MapLiquidLoader.cs
++++ b/ModLoader/MapLiquidLoader.cs
+@@ -16,6 +16,8 @@ namespace ModLiquidLib.ModLoader
+ 
+ 		public static ushort[] liquidLookup;
+ 
++		internal static uint Generation { get; private set; }
++
+ 		internal static int modTileOptions(ushort type)
+ 		{
+ 			return MapLoader.tileEntries[type].Count;
+@@ -40,6 +42,26 @@ namespace ModLiquidLib.ModLoader
+ 			initialized = true;
+ 		}
+ 
++		internal static void PublishEntries(ref IList<Microsoft.Xna.Framework.Color> colors, ref IList<Terraria.Localization.LocalizedText> names)
++		{
++			Array.Resize(ref liquidLookup, LiquidLoader.LiquidCount);
++			foreach (ushort type in liquidEntries.Keys)
++			{
++				liquidLookup[type] = (ushort)(Terraria.Map.MapHelper.modPosition + colors.Count);
++				foreach (MapEntry entry in liquidEntries[type])
++				{
++					ushort mapType = (ushort)(Terraria.Map.MapHelper.modPosition + colors.Count);
++					entryToLiquid[mapType] = type;
++					MapLoader.nameFuncs[mapType] = entry.getName;
++					colors.Add(entry.color);
++					if (entry.name == null)
++						throw new Exception("How did this happen?");
++					names.Add(entry.name);
++				}
++			}
++			Generation++;
++		}
++
+ 		internal static void UnloadModMap()
+ 		{
+ 			liquidEntries.Clear();
+diff --git a/Hooks/MapLoaderHooks.cs b/Hooks/MapLoaderHooks.cs
+--- a/Hooks/MapLoaderHooks.cs
++++ b/Hooks/MapLoaderHooks.cs
+@@ -21,24 +21,7 @@ namespace ModLiquidLib.Hooks
+ 			c.EmitLdloca(nameArr_numVar);
+ 			c.EmitDelegate((ref IList<Color> colors, ref IList<LocalizedText> names) =>
+ 			{
+-				Array.Resize(ref MapLiquidLoader.liquidLookup, LiquidLoader.LiquidCount);
+-				foreach (ushort type2 in MapLiquidLoader.liquidEntries.Keys)
+-				{
+-					MapLiquidLoader.liquidLookup[type2] = (ushort)(MapHelper.modPosition + colors.Count);
+-					foreach (ModLoader.MapEntry entry2 in MapLiquidLoader.liquidEntries[type2])
+-					{
+-						ushort mapType2 = (ushort)(MapHelper.modPosition + colors.Count);
+-						MapLiquidLoader.entryToLiquid[mapType2] = type2;
+-						MapLoader.nameFuncs[mapType2] = entry2.getName;
+-						colors.Add(entry2.color);
+-						if (entry2.name != null)
+-						{
+-							names.Add(entry2.name);
+-							continue;
+-						}
+-						throw new Exception("How did this happen?");
+-					}
+-				}
++				MapLiquidLoader.PublishEntries(ref colors, ref names);
+ 			});
+ 		}
+ 	}

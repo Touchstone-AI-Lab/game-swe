@@ -1,0 +1,149 @@
+{
+  "schema_version": 1,
+  "runtimes": [
+    {
+      "id": "balatro-linux-17459173-probe-v1",
+      "name": "Balatro Linux capability probe inputs (not an evaluated runtime)",
+      "version": "Steam 17459173; LOVE 11.5; Lovely 0.9.0; SMODS 26.829.0; Bot 1.5.2",
+      "provider": "steam",
+      "restricted": true,
+      "host_platforms": [
+        "linux-x64"
+      ],
+      "source": {
+        "kind": "steam-depots",
+        "appId": 2379780,
+        "buildId": 17459173,
+        "os": "windows",
+        "depots": [
+          {
+            "id": 2379781,
+            "manifest": "3512319404653808464"
+          }
+        ],
+        "expectedFiles": [
+          "Balatro.exe"
+        ],
+        "sha256": {
+          "Balatro.exe": "0d75fe164accf3312734d4b37ac98788dd15f0b8e4f9bb8b7f90c4e59de93f47"
+        }
+      }
+    },
+    {
+      "id": "balatro-linux-17459173-controlled-v1",
+      "name": "Balatro controlled native Linux runtime; source-reviewed honest execution",
+      "version": "Steam 17459173; LOVE 11.5; Lovely 0.9.0; SMODS 26.829.0; Bot 1.5.2; visible null-audio execution profile v1",
+      "provider": "steam",
+      "restricted": true,
+      "host_platforms": [
+        "linux-x64"
+      ],
+      "source": {
+        "kind": "steam-depots",
+        "appId": 2379780,
+        "buildId": 17459173,
+        "os": "windows",
+        "depots": [
+          {
+            "id": 2379781,
+            "manifest": "3512319404653808464"
+          }
+        ],
+        "expectedFiles": [
+          "Balatro.exe"
+        ],
+        "sha256": {
+          "Balatro.exe": "0d75fe164accf3312734d4b37ac98788dd15f0b8e4f9bb8b7f90c4e59de93f47"
+        }
+      }
+    },
+    {
+      "id": "balatro-linux-17459173-controlled-v2",
+      "name": "Balatro controlled Linux runtime with approved partial-write transport",
+      "version": "Steam 17459173; LOVE 11.5; Lovely 0.9.0; SMODS 26.829.0; Bot 1.5.2; visible null-audio execution profile v1; approved send_raw derivation v1; portable recipe v2",
+      "provider": "steam",
+      "restricted": true,
+      "host_platforms": [
+        "linux-x64"
+      ],
+      "source": {
+        "kind": "steam-depots",
+        "appId": 2379780,
+        "buildId": 17459173,
+        "os": "windows",
+        "depots": [
+          {
+            "id": 2379781,
+            "manifest": "3512319404653808464"
+          }
+        ],
+        "expectedFiles": [
+          "Balatro.exe"
+        ],
+        "sha256": {
+          "Balatro.exe": "0d75fe164accf3312734d4b37ac98788dd15f0b8e4f9bb8b7f90c4e59de93f47"
+        }
+      }
+    },
+    {
+      "id": "balatro-linux-17459173-container-v1",
+      "name": "Balatro reviewed Linux container",
+      "version": "Steam build 17459173 / frozen v0.2 / container v1",
+      "provider": "steam",
+      "restricted": true,
+      "host_platforms": [
+        "linux-x64"
+      ],
+      "source": {
+        "kind": "steam-depots",
+        "appId": 2379780,
+        "buildId": 17459173,
+        "os": "windows",
+        "depots": [
+          {
+            "id": 2379781,
+            "manifest": "3512319404653808464"
+          }
+        ],
+        "expectedFiles": [
+          "Balatro.exe"
+        ],
+        "sha256": {
+          "Balatro.exe": "0d75fe164accf3312734d4b37ac98788dd15f0b8e4f9bb8b7f90c4e59de93f47"
+        }
+      }
+    }
+  ],
+  "task_bindings": {
+    "growth-v2": [
+      "balatro-linux-17459173-container-v1"
+    ],
+    "reversible-hand-limit-v1": [
+      "balatro-linux-17459173-container-v1"
+    ],
+    "seeded-effect-stream-v1": [
+      "balatro-linux-17459173-container-v1"
+    ],
+    "bounded-generator-v2": [
+      "balatro-linux-17459173-container-v1"
+    ],
+    "deck-removal-consistency-v2": [
+      "balatro-linux-17459173-container-v1"
+    ],
+    "live-joker-adjacency-v2": [
+      "balatro-linux-17459173-container-v1"
+    ],
+    "isolated-card-wear-v2": [
+      "balatro-linux-17459173-container-v1"
+    ],
+    "durable-charge-v2": [
+      "balatro-linux-17459173-container-v1"
+    ],
+    "shop-price-coherence-v2": [
+      "balatro-linux-17459173-container-v1"
+    ],
+    "pack-choice-commit-v2": [
+      "balatro-linux-17459173-container-v1"
+    ]
+  }
+}

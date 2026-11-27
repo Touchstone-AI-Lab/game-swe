@@ -1,0 +1,541 @@
+{
+  "task": "minecraft/core/betterteams-description-tag-injection",
+  "task_version": "0.2.0",
+  "exam": "benchmarks/minecraft-core/exams/betterteams-description-tag-injection.md",
+  "cases": [
+    {
+      "id": "check:submission-shape",
+      "role": "static",
+      "clauses": [
+        "scope-1"
+      ],
+      "overlap": false,
+      "note": "required files present, no symlinks or compiled artifacts"
+    },
+    {
+      "id": "check:offline-build",
+      "role": "static",
+      "clauses": [
+        "scope-1",
+        "scope-2"
+      ],
+      "overlap": false,
+      "note": "repository builds offline after frozen paths are restored"
+    },
+    {
+      "id": "server:plugin is enabled",
+      "role": "runtime-sentinel",
+      "clauses": [],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "server:a plain description is shown verbatim",
+      "role": "preserved",
+      "clauses": [
+        "task-3"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "server:the info screen keeps its prefix and template formatting",
+      "role": "preserved",
+      "clauses": [
+        "task-4"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "server:a colour tag in a description still colours the text",
+      "role": "preserved",
+      "clauses": [
+        "task-2"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "server:a click tag in a description is shown as text without a click event",
+      "role": "target",
+      "clauses": [
+        "task-1"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "server:a hover tag in a description is shown as text without a hover event",
+      "role": "target",
+      "clauses": [
+        "task-1"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "server:decoration tags and reset still format a description",
+      "role": "preserved",
+      "clauses": [
+        "task-2"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "server:an insertion tag in a description is shown as text",
+      "role": "target",
+      "clauses": [
+        "task-1"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "server:a translatable tag in a description is shown as text",
+      "role": "target",
+      "clauses": [
+        "task-1"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "unit:sort() Tests.testComplexGraph",
+      "role": "preserved",
+      "clauses": [
+        "scope-3"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "unit:sort() Tests.testHardCircularDependency",
+      "role": "preserved",
+      "clauses": [
+        "scope-3"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "unit:sort() Tests.testNoDependencies",
+      "role": "preserved",
+      "clauses": [
+        "scope-3"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "unit:sort() Tests.testTransitiveDependency",
+      "role": "preserved",
+      "clauses": [
+        "scope-3"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "unit:scanExtensions() Tests.testMixedValidAndInvalid",
+      "role": "preserved",
+      "clauses": [
+        "scope-3"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "unit:scanExtensions() Tests.testDuplicateNames",
+      "role": "preserved",
+      "clauses": [
+        "scope-3"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "unit:scanExtensions() Tests.testMultipleValidJars",
+      "role": "preserved",
+      "clauses": [
+        "scope-3"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "unit:ExtensionClassLoader Global Access Tests.testLoadClassFromOtherExtension",
+      "role": "preserved",
+      "clauses": [
+        "scope-3"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "unit:ExtensionClassLoader Global Access Tests.testClassNotFound",
+      "role": "preserved",
+      "clauses": [
+        "scope-3"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "unit:ExtensionClassLoader Global Access Tests.testSelfPriority",
+      "role": "preserved",
+      "clauses": [
+        "scope-3"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "unit:fromYaml() Loading Tests.testDefaultValues",
+      "role": "preserved",
+      "clauses": [
+        "scope-3"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "unit:fromYaml() Loading Tests.testNullFile",
+      "role": "preserved",
+      "clauses": [
+        "scope-3"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "unit:fromYaml() Loading Tests.testMissingYml",
+      "role": "preserved",
+      "clauses": [
+        "scope-3"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "unit:fromYaml() Loading Tests.testMissingMainInYml",
+      "role": "preserved",
+      "clauses": [
+        "scope-3"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "unit:fromYaml() Loading Tests.testMissingMainClassInJar",
+      "role": "preserved",
+      "clauses": [
+        "scope-3"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "unit:fromYaml() Loading Tests.testSuccessfulLoad",
+      "role": "preserved",
+      "clauses": [
+        "scope-3"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "unit:fromYaml() Loading Tests.testNonExistentFile",
+      "role": "preserved",
+      "clauses": [
+        "scope-3"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "unit:unload() Tests.testUnloadSuccess",
+      "role": "preserved",
+      "clauses": [
+        "scope-3"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "unit:enable() Tests.testEnableFailsMissingPluginDep",
+      "role": "preserved",
+      "clauses": [
+        "scope-3"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "unit:enable() Tests.testEnableAlreadyEnabled",
+      "role": "preserved",
+      "clauses": [
+        "scope-3"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "unit:enable() Tests.testEnableSuccess",
+      "role": "preserved",
+      "clauses": [
+        "scope-3"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "unit:disable() Tests.testDisableSuccess",
+      "role": "preserved",
+      "clauses": [
+        "scope-3"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "unit:disable() Tests.testDisableAlreadyDisabled",
+      "role": "preserved",
+      "clauses": [
+        "scope-3"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "unit:load() Tests.testLoadWrongMainClass",
+      "role": "preserved",
+      "clauses": [
+        "scope-3"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "unit:load() Tests.testLoadSuccess",
+      "role": "preserved",
+      "clauses": [
+        "scope-3"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "unit:load() Tests.testLoadNoJar",
+      "role": "preserved",
+      "clauses": [
+        "scope-3"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "unit:Full Lifecycle Integration Test.testFullLifecycle",
+      "role": "preserved",
+      "clauses": [
+        "scope-3"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "unit:Static and Ranked Placeholder Tests.testRankedPlaceholder_RankOutOfBounds",
+      "role": "preserved",
+      "clauses": [
+        "scope-3"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "unit:Static and Ranked Placeholder Tests.testStaticTeamPlaceholder_TeamNotFound",
+      "role": "preserved",
+      "clauses": [
+        "scope-3"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "unit:Static and Ranked Placeholder Tests.testRankedPlaceholder_InvalidRank",
+      "role": "preserved",
+      "clauses": [
+        "scope-3"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "unit:Static and Ranked Placeholder Tests.testRankedPlaceholder_Score",
+      "role": "preserved",
+      "clauses": [
+        "scope-3"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "unit:Static and Ranked Placeholder Tests.testStaticTeamPlaceholder_Success",
+      "role": "preserved",
+      "clauses": [
+        "scope-3"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "unit:Static and Ranked Placeholder Tests.testRankedPlaceholder_Balance",
+      "role": "preserved",
+      "clauses": [
+        "scope-3"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "unit:Static and Ranked Placeholder Tests.testStaticPlayerPlaceholder_PlayerNotFound",
+      "role": "preserved",
+      "clauses": [
+        "scope-3"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "unit:Static and Ranked Placeholder Tests.testStaticPlayerPlaceholder_Success",
+      "role": "preserved",
+      "clauses": [
+        "scope-3"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "unit:onRequest() Player-Specific Tests.testPlayerInTeamForInTeamPlaceholder",
+      "role": "preserved",
+      "clauses": [
+        "scope-3"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "unit:onRequest() Player-Specific Tests.testPlayerNotInTeamForInTeamPlaceholder",
+      "role": "preserved",
+      "clauses": [
+        "scope-3"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "unit:onRequest() Player-Specific Tests.testDataPlaceholderRequest",
+      "role": "preserved",
+      "clauses": [
+        "scope-3"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "unit:onRequest() Player-Specific Tests.testRequestWithNullPlayer",
+      "role": "preserved",
+      "clauses": [
+        "scope-3"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "unit:onRequest() Player-Specific Tests.testStandardPlaceholderRequest",
+      "role": "preserved",
+      "clauses": [
+        "scope-3"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "unit:onRequest() Player-Specific Tests.testPlayerNotInTeamForTeamSpecificPlaceholder",
+      "role": "preserved",
+      "clauses": [
+        "scope-3"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "unit:Cache Logic Tests.testInvalidateCache",
+      "role": "preserved",
+      "clauses": [
+        "scope-3"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "unit:Cache Logic Tests.testPlayerSpecificPlaceholderIsNotCached",
+      "role": "preserved",
+      "clauses": [
+        "scope-3"
+      ],
+      "overlap": false,
+      "note": ""
+    },
+    {
+      "id": "unit:Cache Logic Tests.testStaticPlaceholderIsCached",
+      "role": "preserved",
+      "clauses": [
+        "scope-3"
+      ],
+      "overlap": false,
+      "note": ""
+    }
+  ],
+  "clauses": [
+    {
+      "id": "task-1",
+      "anchor": "Task, first bullet: non-formatting tags in a description are shown literally and attach no click, hover, insertion or non-text content",
+      "status": "asserted"
+    },
+    {
+      "id": "task-2",
+      "anchor": "Task, second bullet: colour, decoration and reset tags and legacy codes keep their effect",
+      "status": "asserted"
+    },
+    {
+      "id": "task-3",
+      "anchor": "Task, third bullet: a description without tags is shown exactly as typed",
+      "status": "asserted"
+    },
+    {
+      "id": "task-4",
+      "anchor": "Task, fourth bullet: the rest of the info screen (prefix, template colours, other fields) is unchanged",
+      "status": "asserted"
+    },
+    {
+      "id": "scope-1",
+      "anchor": "Task, closing paragraph: keep the change inside plugin/BetterTeams/src/main",
+      "status": "weak",
+      "note": "only enforced through the build and the restored frozen paths"
+    },
+    {
+      "id": "scope-2",
+      "anchor": "Task, closing paragraph: pom files and tests are frozen",
+      "status": "asserted"
+    },
+    {
+      "id": "scope-3",
+      "anchor": "Task, closing paragraph: every existing upstream test must keep passing",
+      "status": "asserted"
+    }
+  ],
+  "excluded_clauses": [],
+  "known_issues": []
+}

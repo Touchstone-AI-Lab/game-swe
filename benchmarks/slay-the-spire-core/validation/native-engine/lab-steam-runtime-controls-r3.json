@@ -1,0 +1,356 @@
+{
+  "schema_version": 1,
+  "validated_at": "2026-10-27T08:58:45.369651+00:00",
+  "host": "Lab (Linux x86_64, isolated classic-store Docker)",
+  "catalog_version": "1.4.0",
+  "plugin_version": "0.7.0",
+  "profile": "full",
+  "game": {
+    "provider": "steam",
+    "restricted": true,
+    "source": {
+      "kind": "steam-depots",
+      "appId": 646570,
+      "depots": [
+        {
+          "id": 646571,
+          "manifest": "9072802409324604124"
+        }
+      ],
+      "expectedFiles": [
+        "desktop-1.0.jar"
+      ]
+    },
+    "observed_build_id": "10180494",
+    "expected_sha256": {
+      "desktop-1.0.jar": "cfad868ac8d65a88e71a0bf096fb09f78811e553effe0787c5309a655e081673"
+    },
+    "provenance": "Identifiers read from the installed Steam app manifest; JAR content hash verified. Obtain your own licensed copy."
+  },
+  "runtime": {
+    "key": "slay-the-spire/sts-native-646570-build10180494",
+    "fingerprint": "1b2d903cd4672590bb9a87b25feecbf05f45a69f07b0ee642c80eb4f083aba65",
+    "identity": "sha256:ed51c2ba50827bd14344f85bd65726d0f110db9c97547b0351427ad464ac9d6f",
+    "recipe_manifest_sha256": "8157484d2826f5f553386e510c76e770a40435ca1c1f82556a4a24e6b93cab30",
+    "verifier_images": {
+      "basemod-dynamic-descriptions-r2": "sha256:1101a205421e1aa43d170130427d402b8c1fff46a89809247fa17c35566888a4",
+      "stslib-block-ledger-r1": "sha256:1101a205421e1aa43d170130427d402b8c1fff46a89809247fa17c35566888a4",
+      "stslib-icon-layout-r1": "sha256:1101a205421e1aa43d170130427d402b8c1fff46a89809247fa17c35566888a4",
+      "downfall-stasis-lifecycle-r1": "sha256:312b9f1ac23567bce2393f6d43c9a7d5f540062522eafece401e48cf19c6a37f",
+      "basemod-phase-transitions-r1": "sha256:1101a205421e1aa43d170130427d402b8c1fff46a89809247fa17c35566888a4",
+      "downfall-socket-flow-r3": "sha256:312b9f1ac23567bce2393f6d43c9a7d5f540062522eafece401e48cf19c6a37f"
+    },
+    "task_count": 6,
+    "network": "none"
+  },
+  "socket_task_files_sha256": "181c8db341a24ff946ff57213a01d7a03b4f3ffab7a9f4ef7bbc5d62ca6c7bc8",
+  "controls": [
+    {
+      "task": "basemod-dynamic-descriptions-r2",
+      "control": "nop",
+      "run_id": "run-8486df1f9088494c",
+      "complete": true,
+      "passed_cases": 15,
+      "expected_cases": 46,
+      "failed_case_ids": [
+        "cn-nested",
+        "cn-suffix",
+        "coherent-initialization",
+        "decimal-leading-zero",
+        "escaped-braces",
+        "escaped-open",
+        "escaped-pipe",
+        "fraction-operand",
+        "generated-refresh",
+        "generated-rewrite",
+        "inactive-lazy",
+        "large-operand",
+        "literal-backslash",
+        "literal-dollar",
+        "nested-card",
+        "nested-fallback",
+        "nested-repeat",
+        "nested-selected",
+        "overridden-lazy",
+        "payload-equals",
+        "raw-refresh",
+        "repeated-key",
+        "subscriber-refresh",
+        "suffix-minimum",
+        "suffix-two",
+        "suffix-width",
+        "ticking-render",
+        "unmark",
+        "zero-divisor",
+        "zero-repeat-lazy",
+        "zero-zero-divisor"
+      ],
+      "matches_prediction": true,
+      "receipt_sha256": "4238925b574f960d0488f20aca472ea032e89f303f2777e76a176bbdf46e7eb2"
+    },
+    {
+      "task": "basemod-dynamic-descriptions-r2",
+      "control": "gold",
+      "run_id": "run-45153fe6e1e5408c",
+      "complete": true,
+      "passed_cases": 46,
+      "expected_cases": 46,
+      "failed_case_ids": [],
+      "matches_prediction": true,
+      "receipt_sha256": "8fe68ef18ec840f3d34dc3b346494f281689dac67bb23b075d29d84899dfb73c"
+    },
+    {
+      "task": "basemod-phase-transitions-r1",
+      "control": "nop",
+      "run_id": "run-9c5524561cd54922",
+      "complete": true,
+      "passed_cases": 13,
+      "expected_cases": 32,
+      "failed_case_ids": [
+        "chain",
+        "enter-direct",
+        "enter-key",
+        "enter-throw-true",
+        "followup-key-clear",
+        "followup-key-phase-clear",
+        "followup-phase-clear",
+        "followup-phase-key-clear",
+        "hide-direct",
+        "hide-key",
+        "hide-throw-true",
+        "invalid-direct",
+        "invalid-key",
+        "latest-request",
+        "reopen-cycle",
+        "reopen-true-false",
+        "reset-direct",
+        "reset-key",
+        "reset-throw-true"
+      ],
+      "matches_prediction": true,
+      "receipt_sha256": "186f4f91160eb0720d53ac198314ac07e1eb87f316c3e3cae7eb9d658f69f51f"
+    },
+    {
+      "task": "basemod-phase-transitions-r1",
+      "control": "gold",
+      "run_id": "run-9eabf8954dea4f8b",
+      "complete": true,
+      "passed_cases": 32,
+      "expected_cases": 32,
+      "failed_case_ids": [],
+      "matches_prediction": true,
+      "receipt_sha256": "9811bf2ffb6501587cc8a1ba7517e77f39c1c696324dc81150b709891e6ede50"
+    },
+    {
+      "task": "downfall-socket-flow-r3",
+      "control": "nop",
+      "run_id": "run-c33de43fcf184d9a",
+      "complete": true,
+      "passed_cases": 6,
+      "expected_cases": 13,
+      "failed_case_ids": [
+        "back-reselect-escape",
+        "back-reselect-mouse",
+        "cancel-gem-smith-escape",
+        "cancel-gem-smith-guardian",
+        "cancel-gem-smith-mouse",
+        "cancel-socket-escape",
+        "cancel-socket-mouse"
+      ],
+      "matches_prediction": true,
+      "receipt_sha256": "29b62c4deac0cab0968dee9a92e85278ec3de84323879ad2c368dc72d99f3bd7"
+    },
+    {
+      "task": "downfall-socket-flow-r3",
+      "control": "gold",
+      "run_id": "run-fa8050882363481b",
+      "complete": true,
+      "passed_cases": 13,
+      "expected_cases": 13,
+      "failed_case_ids": [],
+      "matches_prediction": true,
+      "receipt_sha256": "8043b887fb5d7cd328d713ac137ffab3ef1133d567380f53f7128dadf93e1b8d"
+    },
+    {
+      "task": "downfall-stasis-lifecycle-r1",
+      "control": "nop",
+      "run_id": "run-040d3d8b0f354413",
+      "complete": true,
+      "passed_cases": 19,
+      "expected_cases": 38,
+      "failed_case_ids": [
+        "generated-existing",
+        "generated-mixed",
+        "generated-overflow",
+        "native-dualcast-hook",
+        "native-dualcast-volatile",
+        "native-recursion-hook",
+        "native-recursion-normal",
+        "native-recursion-upgraded",
+        "native-recursion-volatile",
+        "placement-already-held",
+        "placement-duplicate",
+        "placement-moved",
+        "placement-moved-retained",
+        "placement-moved-unretained",
+        "random-zero",
+        "return-queued-twice",
+        "stale-return",
+        "stale-volatile",
+        "volatile-queued-twice"
+      ],
+      "matches_prediction": true,
+      "receipt_sha256": "d80a13b8aefc1a9be7a29be5f05daa9ad4dfc2cedca1d8691d944534268f2a80"
+    },
+    {
+      "task": "downfall-stasis-lifecycle-r1",
+      "control": "gold",
+      "run_id": "run-7f9598263fb6471b",
+      "complete": true,
+      "passed_cases": 38,
+      "expected_cases": 38,
+      "failed_case_ids": [],
+      "matches_prediction": true,
+      "receipt_sha256": "0337a869fd9a4ad2e43827524e7d963719413e64395518ce9040ac17d7e00b17"
+    },
+    {
+      "task": "stslib-block-ledger-r1",
+      "control": "nop",
+      "run_id": "run-60d433f198924a32",
+      "complete": true,
+      "passed_cases": 7,
+      "expected_cases": 27,
+      "failed_case_ids": [
+        "monster-cap-full",
+        "monster-cap-loss",
+        "monster-cap-multiple",
+        "monster-cap-plain",
+        "monster-cross-owner",
+        "monster-nested-loss",
+        "monster-nested-specific",
+        "monster-refund",
+        "monster-zero-gain",
+        "monster-zero-specific",
+        "player-cap-full",
+        "player-cap-loss",
+        "player-cap-multiple",
+        "player-cap-plain",
+        "player-cross-owner",
+        "player-nested-loss",
+        "player-nested-specific",
+        "player-refund",
+        "player-zero-gain",
+        "player-zero-specific"
+      ],
+      "matches_prediction": true,
+      "receipt_sha256": "b6ea70f8090a3e733586847617b7b4cae6889c62183729dfdf91c33b38542d28"
+    },
+    {
+      "task": "stslib-block-ledger-r1",
+      "control": "gold",
+      "run_id": "run-9b5ba371af31421b",
+      "complete": true,
+      "passed_cases": 27,
+      "expected_cases": 27,
+      "failed_case_ids": [],
+      "matches_prediction": true,
+      "receipt_sha256": "9a188ce3c9c8bdab21e48a7d6f9c67e74daa47878b55369e121782604d08a1b8"
+    },
+    {
+      "task": "stslib-icon-layout-r1",
+      "control": "nop",
+      "run_id": "run-01e80d815fb740a3",
+      "complete": true,
+      "passed_cases": 19,
+      "expected_cases": 43,
+      "failed_case_ids": [
+        "cn-height-colored",
+        "cn-height-five",
+        "cn-height-lowercase",
+        "cn-height-mixed",
+        "cn-height-orb",
+        "cn-height-three",
+        "cn-wrap-five",
+        "cn-wrap-lowercase",
+        "cn-wrap-newline",
+        "cn-wrap-three",
+        "en-height-five",
+        "en-height-newline",
+        "en-height-spacing",
+        "en-height-three",
+        "header-lowercase",
+        "header-multiple",
+        "header-one",
+        "width-after-newline",
+        "width-cn",
+        "width-lowercase",
+        "width-narrow",
+        "width-one",
+        "width-short-code",
+        "width-wide"
+      ],
+      "matches_prediction": true,
+      "receipt_sha256": "81e978272c8521840b1c43a76a0b4f8952e5cea319ed8c72bfc1099d47a46125"
+    },
+    {
+      "task": "stslib-icon-layout-r1",
+      "control": "gold",
+      "run_id": "run-9988a935b51b469d",
+      "complete": true,
+      "passed_cases": 43,
+      "expected_cases": 43,
+      "failed_case_ids": [],
+      "matches_prediction": true,
+      "receipt_sha256": "e323fc1977d1db00adea45568676fa8363d05a89aa511d063802e4e8a8f74993"
+    }
+  ],
+  "socket_author_variants": [
+    {
+      "variant": "alternative",
+      "runId": "run-db59a32228b74ebf",
+      "score": 100.0,
+      "complete": true,
+      "passedCases": 13,
+      "expectedCases": 13,
+      "failedCaseIds": [],
+      "matchesPrediction": true
+    },
+    {
+      "variant": "back-only",
+      "runId": "run-2c6a116530094d32",
+      "score": 10.0,
+      "complete": true,
+      "passedCases": 10,
+      "expectedCases": 13,
+      "failedCaseIds": [
+        "cancel-gem-smith-escape",
+        "cancel-gem-smith-guardian",
+        "cancel-gem-smith-mouse"
+      ],
+      "matchesPrediction": true
+    },
+    {
+      "variant": "retirement-only",
+      "runId": "run-a881063cdf6146fc",
+      "score": 10.0,
+      "complete": true,
+      "passedCases": 9,
+      "expectedCases": 13,
+      "failedCaseIds": [
+        "back-reselect-escape",
+        "back-reselect-mouse",
+        "cancel-socket-escape",
+        "cancel-socket-mouse"
+      ],
+      "matchesPrediction": true
+    }
+  ],
+  "totals": {
+    "hub_controls": 12,
+    "gold_cases": 199,
+    "gold_passed": 199,
+    "nop_passed": 79,
+    "author_variants": 3
+  },
+  "scope": "All six admitted tasks run the pinned real Steam game. Every gold assertion and exact NOP/isolated-repair failure set is required. Enum and three loader-only tasks remain unavailable for full results. Historical r2 failures and unsuccessful preparation attempts remain preserved separately; no historical model result is relabeled."
+}

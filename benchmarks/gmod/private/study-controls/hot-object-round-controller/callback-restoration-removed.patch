@@ -1,0 +1,11 @@
+--- a/lua/rhenium_hot_object_round/server.lua
++++ b/lua/rhenium_hot_object_round/server.lua
+@@ -3,7 +3,7 @@
+ local function player_binding(p)return players[p]end
+ local function validid(v)return type(v)=="string"and#v>0 and#v<=128 and v:match("^[%w][%w_.:%-]*$")~=nil end
+ local function validrev(v)return type(v)=="number"and v>=1 and v%1==0 and v<math.huge end
+-local function restore(e,b)if b then e.StartTouch=b.old_start;e.Touch=b.old_touch end end
++local function restore(e,b) return end
+ function Server.Install(o)if installed then return Server end;o=o or{};core=assert(Controller.new({object_id=o.object_id or"hot:1",object_revision=o.object_revision or 1,state=o.state}));hook.Add("PlayerDeath",Server.HookPrefix..".Death",function(p)local b=player_binding(p);if b then core:death("death:"..b.id..":"..b.revision,b.id,b.revision,CurTime())end end);hook.Add("PlayerSpawn",Server.HookPrefix..".Spawn",function(p)local b=player_binding(p);if b and b.spawned then local old=b.revision;b.revision=old+1;core:respawn("respawn:"..b.id..":"..b.revision,b.id,old,b.revision,CurTime())elseif b then b.spawned=true end end);hook.Add("PlayerDisconnected",Server.HookPrefix..".Disconnect",function(p)local b=player_binding(p);if b then core:disconnect("disconnect:"..b.id..":"..b.revision,b.id,b.revision,CurTime())end;players[p]=nil end);hook.Add("EntityRemoved",Server.HookPrefix..".Removed",function(e)local b=objects[e];restore(e,b);objects[e]=nil end);timer.Create(Server.TimerName,.05,0,function()if core then core:tick(CurTime())end end);installed=true;return Server end
+ function Server.BindPlayer(p,id,revision)revision=revision or 1;if not installed or not validp(p)or not validid(id)or not validrev(revision)then return false end;players[p]={id=id,revision=revision,spawned=true};return true end
+ function Server.BindObject(e,id,revision)if not installed or not IsValid(e)or not validid(id)or not validrev(revision)or objects[e]then return false end;local b={id=id,revision=revision,old_start=e.StartTouch,old_touch=e.Touch};objects[e]=b;e.StartTouch=function(self,other)if b.old_start then b.old_start(self,other)end;Server.Dispatch({kind="touch",object=self,player=other})end;e.Touch=function(self,other)if b.old_touch then b.old_touch(self,other)end;Server.Dispatch({kind="touch",object=self,player=other})end;return true end

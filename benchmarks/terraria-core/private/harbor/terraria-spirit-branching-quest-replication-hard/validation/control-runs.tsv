@@ -1,0 +1,7 @@
+control	expected	observed	status
+broken-starter	at-least-one-intended-failure	16/97 pass; failures cover nested path identity, transactional rollback, framing, packet authority, and prior groups	pass
+oracle	all-cases-pass	97/97 pass	pass
+empty-submission	rejected-before-build	missing required production source	pass
+unrelated-readme-only	still-fails	behavior remains 16/97	pass
+public-smoke-broken	compiles	zero errors and warnings	pass
+public-smoke-oracle	compiles	zero errors and warnings	pass

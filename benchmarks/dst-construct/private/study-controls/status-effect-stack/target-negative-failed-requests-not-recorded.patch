@@ -1,0 +1,16 @@
+diff -ruN a/scripts/statuseffects/stack.lua b/scripts/statuseffects/stack.lua
+--- a/scripts/statuseffects/stack.lua	2026-09-22 00:59:18.686420789 +0800
++++ b/scripts/statuseffects/stack.lua	2026-09-22 01:14:26.994513678 +0800
+@@ -236,8 +236,10 @@
+         return shallow_copy(recorded)
+     end
+     local result = self:_apply(target_id, effect_id, source_id, now)
+-    self.history[request_id] = result
+-    self.history_order[#self.history_order + 1] = request_id
++    if result.ok then
++        self.history[request_id] = result
++        self.history_order[#self.history_order + 1] = request_id
++    end
+     return shallow_copy(result)
+ end
+ 

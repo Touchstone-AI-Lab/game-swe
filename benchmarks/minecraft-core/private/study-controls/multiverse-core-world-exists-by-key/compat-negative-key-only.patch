@@ -1,0 +1,66 @@
+--- a/src/main/java/org/mvplugins/multiverse/core/world/WorldManager.java
++++ b/src/main/java/org/mvplugins/multiverse/core/world/WorldManager.java
+@@ -263,9 +263,9 @@
+                         keyOrName -> worldActionResult(CreateFailureReason.INVALID_WORLDNAME, keyOrName))
+                 .failIf(keyOrName -> keyOrName.isKey() && !WorldCreatorCompatibility.canCreateWorldWithKey(),
+                         keyOrName -> worldActionResult(CreateFailureReason.NAMESPACEDKEY_UNSUPPORTED, keyOrName))
+-                .failIf(keyOrName -> getLoadedWorld(keyOrName.usableName()).isDefined(),
++                .failIf(this::hasLoadedWorld,
+                         keyOrName -> worldActionResult(CreateFailureReason.WORLD_EXIST_LOADED, keyOrName))
+-                .failIf(keyOrName -> getWorld(keyOrName.usableName()).isDefined(),
++                .failIf(this::hasWorld,
+                         keyOrName -> worldActionResult(CreateFailureReason.WORLD_EXIST_UNLOADED, keyOrName))
+                 .failIf(keyOrName -> options.doFolderCheck() && worldNameChecker.hasWorldFolder(keyOrName),
+                         keyOrName -> worldActionResult(CreateFailureReason.WORLD_EXIST_FOLDER, keyOrName))
+@@ -321,12 +321,12 @@
+                         keyOrName -> worldActionResult(ImportFailureReason.INVALID_WORLDNAME, keyOrName))
+                 .failIf(keyOrName -> keyOrName.isKey() && !WorldCreatorCompatibility.canCreateWorldWithKey(),
+                         keyOrName -> worldActionResult(ImportFailureReason.NAMESPACEDKEY_UNSUPPORTED, keyOrName))
+-                .failIf(keyOrName -> getLoadedWorld(keyOrName.usableName()).isDefined(),
++                .failIf(this::hasLoadedWorld,
+                         keyOrName -> worldActionResult(ImportFailureReason.WORLD_EXIST_LOADED, keyOrName))
+-                .failIf(keyOrName -> getWorld(keyOrName.usableName()).isDefined(),
++                .failIf(this::hasWorld,
+                         keyOrName -> worldActionResult(ImportFailureReason.WORLD_EXIST_UNLOADED, keyOrName))
+                 .map(keyOrName -> new KeyOrNameWithOptions<>(keyOrName, options))
+-                .mapAttempt(pair -> Option.of(Bukkit.getWorld(pair.keyOrName().usableName()))
++                .mapAttempt(pair -> findLoadedBukkitWorld(pair.keyOrName())
+                         .map(bukkitWorld -> doImportBukkitWorld(pair, bukkitWorld))
+                         .getOrElse(() -> validateImportWorldOptions(pair).mapAttempt(this::doImportWorld)));
+     }
+@@ -809,9 +809,9 @@
+                         keyOrName -> worldActionResult(CloneFailureReason.INVALID_WORLDNAME, keyOrName))
+                 .failIf(keyOrName -> keyOrName.isKey() && !WorldCreatorCompatibility.canCreateWorldWithKey(),
+                         keyOrName -> worldActionResult(CloneFailureReason.NAMESPACEDKEY_UNSUPPORTED, keyOrName))
+-                .failIf(keyOrName -> isLoadedWorld(keyOrName.usableName()),
++                .failIf(this::hasLoadedWorld,
+                         keyOrName -> worldActionResult(CloneFailureReason.WORLD_EXIST_LOADED, keyOrName))
+-                .failIf(keyOrName -> isWorld(keyOrName.usableName()),
++                .failIf(this::hasWorld,
+                         keyOrName -> worldActionResult(CloneFailureReason.WORLD_EXIST_UNLOADED, keyOrName))
+                 .failIf(worldNameChecker::hasWorldFolder,
+                         keyOrName -> worldActionResult(CloneFailureReason.WORLD_EXIST_FOLDER, keyOrName))
+@@ -1255,6 +1255,23 @@
+     }
+ 
+     /**
++     * A world is registered under both its legacy name and its key string, while a request may
++     * carry either identity: check both before deciding that the requested world is new.
++     */
++    private boolean hasLoadedWorld(@NotNull WorldKeyOrName keyOrName) {
++        return isLoadedWorld(keyOrName.usableKey().toString());
++    }
++
++    private boolean hasWorld(@NotNull WorldKeyOrName keyOrName) {
++        return isWorld(keyOrName.usableKey().toString());
++    }
++
++    private Option<World> findLoadedBukkitWorld(@NotNull WorldKeyOrName keyOrName) {
++        return Option.of(Bukkit.getWorld(keyOrName.usableName()))
++                .orElse(() -> Option.of(Bukkit.getWorld(keyOrName.usableKey())));
++    }
++
++    /**
+      * A simple pair wrapper for convenience to pass both the world key or name and the options together between methods
+      * when parsing world options.
+      *

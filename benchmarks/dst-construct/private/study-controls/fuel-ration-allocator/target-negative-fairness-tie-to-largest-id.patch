@@ -1,0 +1,11 @@
+--- a/scripts/fuelration/allocator.lua
++++ b/scripts/fuelration/allocator.lua
+@@ -260,7 +260,7 @@
+     while budget > 0 do
+         local chosen
+         for _, id in ipairs(ids) do
+-            if grants[id] < wants[id] and (chosen == nil or grants[id] < grants[chosen]) then
++            if grants[id] < wants[id] and (chosen == nil or grants[id] <= grants[chosen]) then
+                 chosen = id
+             end
+         end

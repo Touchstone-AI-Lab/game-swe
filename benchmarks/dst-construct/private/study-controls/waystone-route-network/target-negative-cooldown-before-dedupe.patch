@@ -1,0 +1,25 @@
+diff -ruN a/scripts/waystones/network.lua b/scripts/waystones/network.lua
+--- a/scripts/waystones/network.lua	2026-09-22 01:12:00.595220962 +0800
++++ b/scripts/waystones/network.lua	2026-09-22 01:12:00.625814916 +0800
+@@ -344,6 +344,10 @@
+     if not (is_id(request_id) and is_id(traveler_id) and is_id(from_id) and is_id(to_id)) then
+         return fail("invalid_id")
+     end
++    local cooldown_until = self.cooldowns[traveler_id]
++    if cooldown_until ~= nil and now < cooldown_until then
++        return fail("cooldown", { retry_at = cooldown_until })
++    end
+     local seen = self.requests[request_id]
+     if seen ~= nil then
+         if seen.traveler_id ~= traveler_id or seen.from_id ~= from_id or seen.to_id ~= to_id then
+@@ -351,10 +355,6 @@
+         end
+         return { ok = true, duplicate = true, ticket = ticket_view(self.tickets[seen.ticket_id]) }
+     end
+-    local cooldown_until = self.cooldowns[traveler_id]
+-    if cooldown_until ~= nil and now < cooldown_until then
+-        return fail("cooldown", { retry_at = cooldown_until })
+-    end
+     if self.live[traveler_id] ~= nil then
+         return fail("traveler_busy")
+     end

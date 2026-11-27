@@ -1,0 +1,42 @@
+package automaton.cards;
+
+import automaton.AutomatonMod;
+import com.megacrit.cardcrawl.actions.AbstractGameAction;
+import com.megacrit.cardcrawl.cards.AbstractCard;
+import com.megacrit.cardcrawl.characters.AbstractPlayer;
+import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
+import com.megacrit.cardcrawl.monsters.AbstractMonster;
+import com.megacrit.cardcrawl.powers.ThornsPower;
+
+import static automaton.AutomatonMod.makeBetaCardPath;
+
+public class Spike extends AbstractBronzeCard {
+    public final static String ID = makeID("Spike");
+
+    public Spike() {
+        super(ID, 0, CardType.ATTACK, CardRarity.SPECIAL, CardTarget.ENEMY, CardColor.COLORLESS);
+        baseDamage = 4;
+        magicNumber = baseMagicNumber = 4;
+        thisEncodes();
+        AutomatonMod.loadJokeCardImage(this, makeBetaCardPath("Spike.png"));
+    }
+
+    @Override
+    public void use(AbstractPlayer p, AbstractMonster m) {
+        dmg(m, AbstractGameAction.AttackEffect.SLASH_HORIZONTAL);
+    }
+
+
+    @Override
+    public void onCompile(AbstractCard function, boolean forGameplay) {
+        if (forGameplay) {
+            applyToSelf(new ThornsPower(AbstractDungeon.player, magicNumber));
+        }
+    }
+
+    @Override
+    public void upp() {
+        upgradeDamage(2);
+        upgradeMagicNumber(2);
+    }
+}

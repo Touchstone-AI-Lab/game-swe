@@ -1,0 +1,253 @@
+schema_version = "1.1"
+
+[task]
+name = "gamecodebench/darkrp-door-economy-regressions"
+description = "A DarkRP branch carrying nine independent regressions across affordability checks, door ownership, access lists and per-job doors, group-chat registration, chat-command registration, agenda managers, dropped-cash identification and buy-menu item removal, reported only as user-visible symptoms."
+authors = []
+keywords = ["garrysmod", "glua", "lua", "darkrp", "multi-defect", "regression"]
+
+[metadata]
+category = "programming"
+difficulty = "hard"
+tags = ["game-modding", "glua", "gmod", "darkrp", "bug-fix", "composite"]
+source_repo = "https://github.com/FPtje/DarkRP"
+source_license = "MIT"
+base_commit = "5abcf7abab9e489b2d882a55d95f84c206d9d05c"
+reverted_fixes = ""
+gold_patch_origin = "hand-injected"
+
+# SUBSYSTEM COVERAGE. Deliberately disjoint from darkrp-release-regressions-v3 (police,
+# entity spawning, voice cleanup, admin restrict, voting, job creation) and largely
+# disjoint from darkrp-live-server-regressions (hitmen, usergroup signalling, vote
+# prompts, demote, job removal, ammo registry, categories, dropped money). This task
+# lives in the door system, the money system, chat-command registration, group chats,
+# agendas and buy-menu item removal.
+#   P  money/sh_money.lua        - canAfford lost its `math.floor(amount) >= 0` guard,
+#                                  so a negative price is "affordable" and paying it
+#                                  CREDITS the player. A real economy-exploit shape.
+#   Q  doorsystem/sh_doors.lua   - isKeysOwnedBy no longer short-circuits on the master
+#                                  owner, so the actual owner is only recognised if they
+#                                  are also in the co-owner list.
+#   R  doorsystem/sh_doors.lua   - the per-door allow list is WRITTEN by ply:UserID()
+#                                  (sv_doorvars.lua) but now READ by ply:EntIndex().
+#                                  Confirmed against the writer before shipping.
+#   S  base/sh_createitems.lua   - createGroupChat builds `local teams = {...}` instead
+#                                  of `{funcOrTeam, ...}`, dropping the first team.
+#   T  chat/sh_chatcommands.lua  - declareChatCommand no longer lower-cases the command
+#                                  it stores, while getChatCommand still lower-cases the
+#                                  lookup, so any non-lowercase command vanishes.
+#   U  base/sh_createitems.lua   - createAgenda stops populating ManagersByKey, so the
+#                                  managing job is rejected by /agenda and /addagenda.
+#   V  money/sh_money.lua        - isMoneyBag dropped its IsSpawnedMoney arm, so cash
+#                                  that spawns on the ground is not identified as cash.
+#   W  doorsystem/sh_doors.lua   - canLockUnlock dropped its per-team clause, so doors
+#                                  set aside for a job cannot be locked by that job.
+#   X  base/sh_createitems.lua   - removeCustomItem only clears item.command, not
+#                                  item.cmd, so removing a buy-menu entry leaves its
+#                                  chat command registered.
+
+# DIFFICULTY MODEL, v1 -> v2.
+# v1 (6 groups) did not reliably clear the difficulty bar.
+# The diagnosis is the same one that came out of darkrp-live-server-regressions v1:
+# report vocabulary that intersects the codebase's vocabulary converts a search into a
+# single grep. v1's reports said door, agenda, command, money -- all literal identifiers.
+# v2 therefore changes two things: 6 groups -> 9, and the vague reports are rewritten so
+# they name the observable area without naming the identifier that lands you on the file
+# ("the notice our crime boss writes up for their crew" rather than agenda; "a handful
+# of things players can type" rather than chat command; "cash that ends up loose on the
+# ground" rather than money bag).
+#   vague, non-identifier:  #6218 (P), #6230 (T), #6233 (U), #6236 (V), #6239 (W),
+#                           #6242 (X)
+#   specific:               #6221 (Q), #6224 (R), #6227 (S)
+# The vague reports remain FINDABLE -- each names an observable area a reader can
+# navigate to. The cost being added is reading, not guessing.
+
+# VERIFIER COVERAGE. Every report maps to at least one assertion and every assertion
+# maps to a report. No unreported distractor edits are carried.
+# 9 reports / 9 defect groups / 10 assertions + 1 load sentinel = 11 expected passes.
+
+# VALIDATED PER DEFECT, not just base vs reference. Two trees cannot detect a masking
+# pair, so every group also gets a tree where only IT is fixed.
+#   base (all nine broken)   2 PASS /  9 FAIL
+#   reference (all fixed)   11 PASS /  0 FAIL
+#   fix P / Q / R / S / T / U / V / W / X, each alone:
+#                            3 PASS /  8 FAIL  -- sentinel + that group only
+# Each single-fix tree flips exactly its own group: no defect masks another and each is
+# independently addressable. (P..U were validated this way at 6 groups / 8 expected;
+# V, W and X were validated the same way after the extension.)
+
+# ASSERTION FAIRNESS. All assertions are behavioural and mechanism-agnostic.
+#   - Eight of the nine groups are driven with STAND-IN TABLES rather than a live
+#     player, because a bot's database record never finishes loading in a headless
+#     container and every gate that consults it would otherwise block the code under
+#     test. The stand-in door resolves any entity method the implementation reaches for
+#     through the real Entity metatable, so an implementation that restructures these
+#     functions cannot fail on an unmodelled stub -- the trap that produced several
+#     earlier false failures.
+#   - The stand-in player deliberately returns DIFFERENT values for UserID and EntIndex,
+#     so group R cannot pass by coincidence.
+#   - P carries a positive control (ordinary prices still work) and V carries a negative
+#     control (an ordinary prop is still not cash), so "accept everything" and "reject
+#     everything" both score zero.
+#   - W compares against `or false` rather than asserting an exact truthy value, because
+#     the upstream expression legitimately yields nil for "not allowed".
+#   - X is async: the buy-menu item's chat command is registered inside
+#     timer.Simple(0, ...) upstream, so a synchronous assertion passed on BOTH trees in
+#     the first draft. Same class of mistake as the vote command in the sibling task.
+#   - The one bot-driven case (U) stubs the public canChatCommand hook rather than
+#     poking ply.DarkRPUnInitialized, and spawns its own bot: state set in one case does
+#     not survive GLuaTest's async boundary.
+
+# FAIRNESS FIX IN v2 (this is a bug I shipped and then caught).
+# Group Q originally asserted `isKeysOwnedBy(door, owner) == true` -- the return value of
+# a predicate, not an observable. A repair can fix the reported symptom by recognising
+# the master owner AT THE CALL SITES (canLockUnlock, and the door-sell path in
+# sv_doors.lua) instead of inside isKeysOwnedBy. That is behaviourally correct for
+# everything report #6221 describes, so failing it was a MECHANISM-CONSTRAINING assertion
+# -- exactly the trap that produced several earlier false failures in this series.
+# Q now asserts the observable instead: the owner can lock AND unlock their own door, and
+# a stranger cannot. Verified against a tree carrying a call-site-shaped fix with
+# isKeysOwnedBy deliberately left broken: Q PASSES. Also re-verified base 2/11,
+# reference 11/11, fix-Q-only and fix-W-only each flipping exactly their own group (Q and
+# W both route through canKeysLock, so their independence was re-checked explicitly).
+#
+# ---------------------------------------------------------------------------
+# REVIEW ROUND 2 (PR #3). Six blocking findings, all reproduced and all real.
+#
+# RESULT CHANNEL WAS FORGEABLE -- the important one, and my bug. The verifier read
+# the LAST "| PASS: n" line out of the server log, but the submission owns gamemode
+# Lua running in the SAME Lua state as the suite, so it could print a second, forged
+# summary after the real one and take full marks. The verifier now never takes "the
+# last" of anything: every trusted marker must occur EXACTLY ONCE, so an injected
+# duplicate breaks a count instead of overriding a value. It also writes result.json
+# recording every marker count, and the plugin evaluator re-checks that record rather
+# than trusting reward.txt. A per-run nonce is generated by the verifier and
+# substituted into the staged suite, so a submission that blind-prints forged markers
+# cannot match the run it is being graded on.
+#
+# COMPLETION IS NOW CHECKED. The run must show GLuaTest's completion callback and
+# banner exactly once, a run-size line naming exactly EXPECTED tests in one group,
+# EMPT: 0 and SKIP: 0 (so no case may be skipped), no failure lines, and the
+# entrypoint's own "No test failures detected" verdict. Timeouts (124) and fatal
+# signals (>128) are rejected outright. Exit status is NOT a pass gate on its own:
+# the entrypoint has been observed exiting 1 on a completely clean run.
+#
+# RUNTIME INPUTS ARE BOUNDED. The dedicated-server, Debian and uv images are pinned
+# by digest; apt reads a dated Debian snapshot; and the Python dependency closure is
+# version-constrained. The Python artifacts are not hash-locked, so the resulting
+# evaluator image ID remains the exact artifact identity.
+#
+# MODEL EGRESS IS A JOB INPUT, not benchmark data. The checked-in allowlist is empty.
+# Harbor 0.20+ merges `agents[].extra_allowed_hosts` from the job configuration into
+# this phase, so the launcher supplies only the hostname derived from that run's model
+# endpoint. This avoids baking a vendor list into the task.
+#
+# WHITESPACE. The vendored upstream tree and the gold patch are exempted from
+# whitespace checks in .gitattributes, matching how the Stardew and Isaac packs
+# handle their vendored sources; `git diff --check main...HEAD` is now clean.
+#
+# HUB INTEGRATION. This pack is no longer inert: benchmark.json, runtimes.json, the
+# rhenium-garrys-mod plugin and the public-image container provider are part of the
+# same change, so `rhenium packs` lists garrys-mod/darkrp and evaluation runs through
+# the plugin evaluator.
+#
+# GROUP R WAS REFRAMED. It asserted what isKeysAllowedToOwn returns -- the same
+# mechanism-constraining shape that group Q was already caught on. It now drives the
+# public door API end to end: grant access with addKeysAllowedToOwn, call keysOwn,
+# then ask whether the grantee owns the door. The door is ALREADY OWNED by someone
+# else, which is what makes the case discriminating -- only the allow-list path can
+# grant ownership of a taken door, so the fall-through path cannot accidentally pass.
+# A solution that honours the allow list anywhere other than inside that predicate is
+# behaviourally correct and now passes.
+# Re-validated: base 2 PASS / 9 FAIL, reference 11 PASS / 0 FAIL, and all eight
+# single-defect trees still flip exactly their own group.
+
+# ---------------------------------------------------------------------------
+# REVIEW ROUND 3. Seven findings, all reproduced.
+#
+# GROUP R GAINED A NEGATIVE-AUTHORISATION CONTROL. It granted access, called keysOwn
+# for the grantee while discarding the pcall result, then read an untouched stranger.
+# An implementation that let EVERYONE take the door still passed. It now makes BOTH
+# attempts, requires both to complete without error, and requires the stranger to end
+# up without ownership. Verified against an over-permissive mutant (the allow-list
+# predicate returning true for everyone): 10 PASS / 1 FAIL, failing exactly R.
+# The stand-in player and door gained Ownedz/EntIndex because keysOwn books ownership
+# into them on the way out -- without those the refused attempt would have errored for
+# an unrelated reason and the control would have been vacuous.
+#
+# THE RESULT CHANNEL WAS STILL FORGEABLE, and by a more direct route than the one
+# round 2 closed. GLuaTest's runner calls the GLuaTest_LogTestResult hook BEFORE a
+# result is stored or printed, so a submission can rewrite a failing result into a
+# passing one; the framework then emits an ordinary, exactly-once passing transcript
+# and no amount of counting its output detects it. Two changes:
+#   - the suite drops any handler already on that hook and refuses further
+#     registrations;
+#   - the suite emits its own per-case marker from INSIDE the case body -- after the
+#     last assertion of a synchronous case, at done() for an asynchronous one. A
+#     failing assertion throws before the marker is reached, so a mutated result
+#     cannot manufacture one. The verifier requires both channels to agree per case.
+# Negative control in validation/result-mutation-probe.md: base tree + that attack
+# scores 0, with framework PASS lines 6 vs collector markers 4.
+# RESIDUAL LIMIT, stated rather than implied: same-state code can read the staged
+# suite and therefore the nonce. This raises the cost of forgery; it does not make it
+# impossible, and no log-parsing verifier can.
+#
+# POST-SUMMARY CRASH IS NO LONGER A MODEL FAILURE. An all-pass summary followed by a
+# non-zero exit without a trusted terminal verdict is now INVALID_NO_TERMINAL_VERDICT
+# (incomplete). An ordinary assertion failure keeps failed > 0 and stays complete.
+#
+# TIMEOUT UNITS. The pinned entrypoint reads TIMEOUT in MINUTES. The verifier used to
+# pass 90/110, i.e. 90/110 minutes, so the inner timeout could never fire before the
+# 20-minute outer one. It is now 10 minutes, comfortably inside timeout_sec = 1200.
+#
+# RUNTIME IS BOUND TO ITS SOURCE. runtime_builder now parses the provider's
+# image.json and requires it to equal spec.source.image, probes every declared
+# expectedFiles inside the pinned image, labels each derived image with the runtime
+# fingerprint, and reuses an image only when that label matches -- a predictable tag
+# is no longer sufficient evidence. verify() re-checks the label.
+#
+# THE PUBLIC CATALOG NO LONGER LEAKS. It used to state the defect count and the
+# subsystem mapping, which collapses exactly the localisation work being measured,
+# and it still said "eight" for a task that is now seven. Both are gone.
+#
+# CI now lints and type-checks providers, builds the rhenium-garrys-mod and
+# rhenium-container wheels, and asserts both are absent from a core-only install.
+#
+# REVIEW ROUND 4 supersedes the round-3 in-body collector. Async expectations do not
+# throw out of a case; GLuaTest records their failure only when its original done()
+# closure runs, so a marker emitted before done() could falsely confirm a failed case.
+# The verifier now patches the pinned private runner before launch, snapshots each
+# result before public hooks, disables mutable extension hooks, hashes the patched
+# harness, and emits short nonce-bound per-case records plus a completion record. The
+# split records avoid the Source console's 1024-byte line limit. Current Linux x86_64
+# Rhenium base/reference and mutation controls are in validation/rhenium-controls.md.
+#
+# Runtime inputs are now bounded by digest-pinned source images, a dated Debian
+# snapshot, exact apt versions and a version-constrained Python closure. Python wheel
+# artifacts are not hash-locked, so the recorded derived image ID remains the exact
+# artifact identity rather than a claim of byte-for-byte source reproducibility.
+
+[verifier]
+network_mode = "no-network"
+timeout_sec = 1200.0
+
+[agent]
+# The agent harness runs INSIDE the container and calls the model API from there, so a
+# blanket no-network kills it before it does any work. Everything else it needs (uv,
+# mini-swe-agent, build tools) is baked into the image, so only model endpoints need to
+# be reachable. github.com and raw.githubusercontent.com are deliberately absent: DarkRP
+# is public and fetching the upstream tree is the leak this isolates against.
+# A Harbor job must pass the exact model endpoint hostname through
+# `agents[].extra_allowed_hosts`; do not edit the canonical task for each provider.
+network_mode = "allowlist"
+allowed_hosts = []
+timeout_sec = 5400.0
+
+[environment]
+network_mode = "no-network"
+build_timeout_sec = 2400.0
+cpus = 6
+memory_mb = 16384
+storage_mb = 20480
+gpus = 0
+mcp_servers = []

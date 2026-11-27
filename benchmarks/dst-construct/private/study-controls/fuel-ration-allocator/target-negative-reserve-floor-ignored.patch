@@ -1,0 +1,11 @@
+--- a/scripts/fuelration/allocator.lua
++++ b/scripts/fuelration/allocator.lua
+@@ -308,7 +308,7 @@
+     end
+ 
+     local round = { id = round_id, total = 0, delivered = 0, order = {}, shares = {} }
+-    local budget = math.max(0, self.available - self.reserve_floor)
++    local budget = math.max(0, self.available)
+     for _, priority in ipairs(sorted_keys(classes)) do
+         local members = classes[priority]
+         local grants

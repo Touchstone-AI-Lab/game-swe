@@ -1,0 +1,21 @@
+case	group	role	public_contract
+incap_runtime_plugin_loaded	incap	guard	Submitted incap-fire plugin loads in pinned SourceMod.
+incap_empty_clip_leaves_reload_unblocked	incap	target	Empty clip preserves the seeded secondary-attack timestamp during real player-command dispatch.
+incap_loaded_clip_delays_secondary_attack	incap	guard	The established loaded-clip shove-suppression delay remains active.
+incap_exit_releases_applied_delay	incap	guard	A delay owned by the plugin is released after leaving incap.
+incap_non_survivor_is_unchanged	incap	guard	A client outside the Survivor path is unchanged.
+incap_missing_active_weapon_is_safe	incap	guard	The callback tolerates no active weapon.
+attributes_runtime_dependencies_loaded	attributes	guard	Weapon-attributes plugin and Left4DHooks load together.
+attributes_outgoing_mode_changes_take_effect	attributes	guard	Outgoing gun, melee, tank-damage and shotgun-reload values affect engine behavior.
+attributes_unload_restores_engine_values	attributes	target	The named Confogl unload forward restores non-stock engine baselines and clears both managed multipliers.
+attributes_second_mode_sees_true_baseline	attributes	target	A second mode does not inherit ordinary values or either managed multiplier.
+attributes_manual_reset_command_remains_functional	attributes	guard	The existing manual reset restores ordinary and plugin-managed values.
+attributes_config_reload_behavior_is_preserved	attributes	guard	OnConfigsExecuted reapplies ordinary values without discarding managed multiplier state.
+changelevel_runtime_plugin_loaded	changelevel	guard	The changelevel detour plugin loads with its engine dependencies.
+changelevel_unique_partial_reaches_full_map	changelevel	target	ForceChangeLevel c1m2 reaches c1m2_streets.
+changelevel_second_unique_partial_reaches_full_map	changelevel	target	A second unique prefix is resolved generically rather than by hard-coding the example.
+changelevel_director_receives_same_full_map	changelevel	target	Director transition work receives the same full map name that reaches the engine.
+changelevel_complete_name_still_works	changelevel	guard	A complete installed map name reaches the engine unchanged.
+changelevel_director_work_is_preserved_for_complete_name	changelevel	guard	Existing Director begin-changelevel work still receives a complete map name.
+changelevel_invalid_name_is_not_rewritten	changelevel	guard	Invalid input does not move to an unrelated map.
+changelevel_partial_is_honored_while_transitioning	changelevel	target	A unique partial is resolved before the Director-transition early return.

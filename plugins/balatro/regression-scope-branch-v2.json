@@ -1,0 +1,148 @@
+{
+  "schema_version": 3,
+  "validation_sha256": "e81763346ac5d95f2a13f698bb17c1ad6795f46eeca10d6ca1db12be2bb2b354",
+  "amendment": "BRANCH-REGRESSION-SCOPE-v3.md",
+  "rationale": "User-authorized affected-scope maintenance: ten gold/base pairs once, original full suites and lifecycle; two additional review admission identities. Frozen task assets and adapter remain unchanged.",
+  "admission_only_flows": 2,
+  "not_rerun": "Second/third gold/base repetitions; all mutations and alternatives",
+  "tasks": [
+    {
+      "task": "growth-v2",
+      "new_native_roles": [
+        "gold",
+        "base"
+      ],
+      "historical_roles_not_rerun": [
+        "M03-per-hand",
+        "M06-cap-four",
+        "M08-four-kind-only",
+        "alternative"
+      ]
+    },
+    {
+      "task": "reversible-hand-limit-v1",
+      "new_native_roles": [
+        "gold",
+        "base"
+      ],
+      "historical_roles_not_rerun": [
+        "M01-double-add",
+        "M02-no-remove",
+        "M03-snapshot-restore"
+      ]
+    },
+    {
+      "task": "seeded-effect-stream-v1",
+      "new_native_roles": [
+        "gold",
+        "base"
+      ],
+      "historical_roles_not_rerun": [
+        "M01-per-card",
+        "M02-repeat-first",
+        "M03-score-advances"
+      ]
+    },
+    {
+      "task": "bounded-generator-v2",
+      "new_native_roles": [
+        "gold",
+        "base"
+      ],
+      "historical_roles_not_rerun": [
+        "M01-min-two-admission",
+        "M02-fixed-release",
+        "M03-truncate-products"
+      ]
+    },
+    {
+      "task": "deck-removal-consistency-v2",
+      "new_native_roles": [
+        "gold",
+        "base"
+      ],
+      "historical_roles_not_rerun": [
+        "M01-prefix-targets",
+        "M02-area-only",
+        "M03-first-two"
+      ]
+    },
+    {
+      "task": "live-joker-adjacency-v2",
+      "new_native_roles": [
+        "gold",
+        "base"
+      ],
+      "historical_roles_not_rerun": [
+        "M01-shared-result",
+        "M02-stale-index",
+        "M03-exclude-target",
+        "M04-wrap"
+      ]
+    },
+    {
+      "task": "isolated-card-wear-v2",
+      "new_native_roles": [
+        "gold",
+        "base"
+      ],
+      "historical_roles_not_rerun": [
+        "M01-stale-cache",
+        "M02-last-reward",
+        "M03-shared-prototype",
+        "M04-additive-refresh"
+      ]
+    },
+    {
+      "task": "durable-charge-v2",
+      "new_native_roles": [
+        "gold",
+        "base"
+      ],
+      "historical_roles_not_rerun": [
+        "M01-duplicate",
+        "M02-snapshot-alias",
+        "M03-zero-restore",
+        "M04-restore-pollution",
+        "M05-row-restore",
+        "M06-display-only",
+        "gold-journal"
+      ]
+    },
+    {
+      "task": "shop-price-coherence-v2",
+      "new_native_roles": [
+        "gold",
+        "base"
+      ],
+      "historical_roles_not_rerun": [
+        "M01-round-each",
+        "M02-remove-all",
+        "M03-query-consumes",
+        "M04-stale-accepted",
+        "M05-never-consume",
+        "M06-view-alias",
+        "M07-no-dedup",
+        "M08-wrong-category",
+        "gold-ledger"
+      ]
+    },
+    {
+      "task": "pack-choice-commit-v2",
+      "new_native_roles": [
+        "gold",
+        "base"
+      ],
+      "historical_roles_not_rerun": [
+        "M01-preview-reward",
+        "M02-shifted-index",
+        "M03-close-revocation",
+        "M04-global-flags",
+        "M05-repeat-settle",
+        "M06-view-alias",
+        "M07-repeat-commit",
+        "gold-journal"
+      ]
+    }
+  ]
+}

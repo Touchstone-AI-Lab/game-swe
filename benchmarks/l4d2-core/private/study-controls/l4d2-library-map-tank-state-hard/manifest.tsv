@@ -1,0 +1,4 @@
+control	kind	base	overlay	root	note
+tn-syntax-validation-missing	target-negative	reference	patch:tn-syntax-validation-missing.patch	l4d2-competitive	reference that trusts ImportFromFile without the full-document syntax check, so a truncated file replaces the last good image (validation/candidates.py minus-syntax-validation)
+tn-death-timer-postponed	target-negative	reference	patch:tn-death-timer-postponed.patch	l4d2-competitive	reference whose repeated owner death deletes and restarts the pending 0.5 s death timer, postponing the single notification (validation/candidates.py minus-death-postponed)
+alternative-squared-geometry	alternative	starter	patch:alternative-squared-geometry.patch	l4d2-competitive	validation/candidates.py alternative: squared-distance saferoom geometry with explicit negative-radius guards and a separately committed pass-count increment; the other repairs are the oracle's

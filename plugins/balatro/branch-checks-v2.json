@@ -1,0 +1,93 @@
+{
+  "schema_version": 2,
+  "version": "branch-checks-v2",
+  "evidence": {
+    "ruff-final2.log": "a4443afdcfb6d7363adb285762515ccf7cf50473b1a05c20c1a50f6bed4d26b0",
+    "mypy-full-windows-final1.log": "53584a1b45e08915d9317a6393a7fed7a4d6ed47dbfe07d79a10614247fde5a6",
+    "mypy-full-linux-final1.log": "5409d6f5cb021cd2035edd1736f9ceb3facf6e5d46eaebbd5fe2ecd1368d5c8c",
+    "pytest-full-final1.log": "77cf8769e3eebb6be5179a80666b39ef5b66e69667a150fcc783ca94f640364e",
+    "related-final1.log": "0393ff1006e69c2650f71c5f145562ef572e58f1d603b7e1e4af4f2002eb02cf",
+    "installed-wheel-final1.log": "364d2060478773f8b684f8d0b46526bd5f8b3047ab682d70a10edb7fc4e4d1b1",
+    "web-lint-final2.log": "9bfb2aa9ebf0c0a0d50953f9ca390df0670867017b61a1c78f0a3c0fde3455bd",
+    "web-test-final2.log": "cae2492d0fc60a2ec469601b94b03f6c3e8b578e46388051eeb2bb990873a050",
+    "web-build-final2.log": "58fd7b828f7401b886c8181f61fe6b58cf09cdeac3ceba4daef49068fb8e6611"
+  },
+  "ruff": {
+    "passed": true,
+    "scope": "src plugins providers tests"
+  },
+  "mypy": {
+    "windows_full": {
+      "passed": false,
+      "error_count": 45,
+      "files": [
+        "plugins/dst/src/rhenium_dst/evaluator.py",
+        "plugins/dst/src/rhenium_dst/lua_runner.py",
+        "plugins/garrys-mod/src/rhenium_garrys_mod/addons/linux_process.py",
+        "plugins/palworld/src/rhenium_palworld/evaluator.py",
+        "plugins/palworld/src/rhenium_palworld/lua_runner.py",
+        "plugins/rimworld/src/rhenium_rimworld/safe_files.py",
+        "plugins/rimworld/tests/test_rimworld_plugin.py",
+        "plugins/stardew-valley/src/rhenium_stardew_valley/native.py",
+        "providers/steam/src/rhenium_steam/official_client.py",
+        "src/rhenium/agent/environment.py"
+      ],
+      "all_error_files_unchanged_from_HEAD": true
+    },
+    "linux_platform_static_full": {
+      "passed": true,
+      "source_files": 186,
+      "not_linux_runtime_evidence": true
+    },
+    "owned_source_and_scripts": {
+      "windows": true,
+      "linux_static": true,
+      "source_files": 21
+    }
+  },
+  "pytest": {
+    "related": {
+      "tests": 186,
+      "errors": 0,
+      "failures": 0,
+      "skipped": 0,
+      "passed": true,
+      "sha256": "759d4b46f750241e84b8f6b5a41bc9f409dc1b8adf3b4d7f8969d602a733b085"
+    },
+    "installed_wheel": {
+      "tests": 80,
+      "errors": 0,
+      "failures": 0,
+      "skipped": 0,
+      "passed": true,
+      "sha256": "3734c901dfdd07ad43f909c8e95906e794e5c03a3438752203397e6f112febd2"
+    },
+    "full": {
+      "tests": 7,
+      "errors": 7,
+      "failures": 0,
+      "skipped": 0,
+      "passed": false,
+      "sha256": "86f6227798dd4442d0e26c17926d1973cdf8af5242818822c2f54494f5721d3f",
+      "reason": "Seven authoring collection errors: fcntl unavailable on Windows; full suite did not execute"
+    }
+  },
+  "web": {
+    "lint": true,
+    "test": true,
+    "build": true,
+    "test_count": 1,
+    "entry": "existing node.exe and npm-cli.js; npm.ps1 returned Unknown command pm before build execution"
+  },
+  "bash_syntax": {
+    "passed": true,
+    "script_count": 7
+  },
+  "unavailable_checks": [
+    "devenv",
+    "ShellCheck"
+  ],
+  "dependency_install_or_upgrade": false,
+  "plugin_wheel_installed_without_dependencies": true,
+  "formal_untrusted_engine_execution": "not_run; no provider implemented"
+}

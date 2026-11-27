@@ -1,0 +1,44 @@
+--- a/spigot/src/main/java/ru/brikster/chatty/config/migration/V2ConfigMigrator.java
++++ b/spigot/src/main/java/ru/brikster/chatty/config/migration/V2ConfigMigrator.java
+@@ -35,6 +35,12 @@
+     private static final Set<String> VALID_PRIORITIES =
+             Set.of("LOWEST", "LOW", "NORMAL", "HIGH", "HIGHEST", "MONITOR");
+ 
++    /** The spy template Chatty v2 shipped by default; a v2 file without spy.format.chat used it. */
++    private static final String V2_DEFAULT_SPY_TEMPLATE = "&6[Spy] &r{format}";
++
++    /** The chat format a migrated chat receives from the v3 defaults when v2 declared none. */
++    private static final String V3_DEFAULT_CHAT_FORMAT = "<{player}>: {message}";
++
+     private final Logger logger;
+     private final List<String> notes = new ArrayList<>();
+ 
+@@ -138,10 +144,7 @@
+ 
+             Map<String, Object> spy = new LinkedHashMap<>();
+             spy.put("enable", boolValue(legacyChat.get("spy"), true));
+-            String format = str(legacyChat.get("format"));
+-            if (legacySpyChatFormat != null && format != null) {
+-                spy.put("format", legacySpyChatFormat.replace("{format}", format));
+-            }
++            spy.put("format", spyFormatFor(legacySpyChatFormat, str(legacyChat.get("format"))));
+             chat.put("spy", spy);
+ 
+             if (legacyChat.get("command") != null || legacyChat.get("aliases") != null) {
+@@ -163,6 +166,16 @@
+         editYaml(dataFolder.resolve("chats.yml"), root -> root.put("chats", newChats));
+     }
+ 
++    /**
++     * v2 always rendered a spy line: a missing template meant the bundled default and a chat
++     * without its own format used the default format, so the migrated value is never absent.
++     */
++    private static String spyFormatFor(@Nullable String template, @Nullable String chatFormat) {
++        String spyTemplate = template == null || template.isBlank() ? V2_DEFAULT_SPY_TEMPLATE : template;
++        String format = chatFormat == null || chatFormat.isBlank() ? V3_DEFAULT_CHAT_FORMAT : chatFormat;
++        return spyTemplate.replace("{format}", format);
++    }
++
+     // ----- settings.yml ----------------------------------------------------
+ 
+     private void migrateSettings(Map<String, Object> legacy, Path dataFolder) throws IOException {

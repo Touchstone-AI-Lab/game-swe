@@ -1,0 +1,237 @@
+{
+  "schemaVersion": 3,
+  "protocol": "rhenium-rimworld-private-v3",
+  "adapter": "rhenium-rimworld-observer-v3",
+  "taskKey": "rimworld/core/adaptive-storage-slot-limit-restore",
+  "weights": {
+    "submissionShape": 10,
+    "engineAssertions": 90
+  },
+  "cases": [
+    {
+      "id": "runtime-defs-ready",
+      "fixture": "RuntimeDefsReady",
+      "gate": true,
+      "scalars": [],
+      "expected": {
+        "facts": [
+          {
+            "name": "result",
+            "value": "ready"
+          }
+        ],
+        "outputs": []
+      }
+    },
+    {
+      "id": "saved-one-restored",
+      "fixture": "SavedOneRestored",
+      "gate": false,
+      "scalars": [],
+      "expected": {
+        "facts": [
+          {
+            "name": "result",
+            "value": "1"
+          }
+        ],
+        "outputs": []
+      }
+    },
+    {
+      "id": "saved-finite-restored",
+      "fixture": "SavedFiniteRestored",
+      "gate": false,
+      "scalars": [],
+      "expected": {
+        "facts": [
+          {
+            "name": "result",
+            "value": "3:3"
+          }
+        ],
+        "outputs": []
+      }
+    },
+    {
+      "id": "saved-unlimited-restored",
+      "fixture": "SavedUnlimitedRestored",
+      "gate": false,
+      "scalars": [],
+      "expected": {
+        "facts": [
+          {
+            "name": "result",
+            "value": "2147483647:1"
+          }
+        ],
+        "outputs": []
+      }
+    },
+    {
+      "id": "per-cell-recomputed",
+      "fixture": "PerCellRecomputed",
+      "gate": false,
+      "scalars": [],
+      "expected": {
+        "facts": [
+          {
+            "name": "result",
+            "value": "1,1,1,1"
+          }
+        ],
+        "outputs": []
+      }
+    },
+    {
+      "id": "multi-cell-ceiling",
+      "fixture": "MultiCellCeiling",
+      "gate": false,
+      "scalars": [],
+      "expected": {
+        "facts": [
+          {
+            "name": "result",
+            "value": "1,1,1,0"
+          }
+        ],
+        "outputs": []
+      }
+    },
+    {
+      "id": "setter-not-skipped",
+      "fixture": "SetterNotSkipped",
+      "gate": false,
+      "scalars": [],
+      "expected": {
+        "facts": [
+          {
+            "name": "result",
+            "value": "1:True:1:1"
+          }
+        ],
+        "outputs": []
+      }
+    },
+    {
+      "id": "unlimited-sentinel-preserved",
+      "fixture": "UnlimitedSentinelPreserved",
+      "gate": false,
+      "scalars": [],
+      "expected": {
+        "facts": [
+          {
+            "name": "result",
+            "value": "2147483647:1"
+          }
+        ],
+        "outputs": []
+      }
+    },
+    {
+      "id": "repeat-initialize-idempotent",
+      "fixture": "RepeatInitializeIdempotent",
+      "gate": false,
+      "scalars": [],
+      "expected": {
+        "facts": [
+          {
+            "name": "result",
+            "value": "1,1,1,1:1,1,1,1"
+          }
+        ],
+        "outputs": []
+      }
+    },
+    {
+      "id": "initialization-bookkeeping-preserved",
+      "fixture": "InitializationBookkeepingPreserved",
+      "gate": false,
+      "scalars": [],
+      "expected": {
+        "facts": [
+          {
+            "name": "result",
+            "value": "2x1:2"
+          }
+        ],
+        "outputs": []
+      }
+    },
+    {
+      "id": "default-limit-preserved",
+      "fixture": "DefaultLimitPreserved",
+      "gate": false,
+      "scalars": [],
+      "expected": {
+        "facts": [
+          {
+            "name": "result",
+            "value": "2147483647"
+          }
+        ],
+        "outputs": []
+      }
+    },
+    {
+      "id": "near-unlimited-finite-restored",
+      "fixture": "NearUnlimitedFiniteRestored",
+      "gate": false,
+      "scalars": [],
+      "expected": {
+        "facts": [
+          {
+            "name": "result",
+            "value": "2147483646:1"
+          }
+        ],
+        "outputs": []
+      }
+    },
+    {
+      "id": "zero-limit-restored",
+      "fixture": "ZeroLimitRestored",
+      "gate": false,
+      "scalars": [],
+      "expected": {
+        "facts": [
+          {
+            "name": "result",
+            "value": "0,0,0,0"
+          }
+        ],
+        "outputs": []
+      }
+    },
+    {
+      "id": "initialization-notifications-preserved",
+      "fixture": "InitializationNotificationsPreserved",
+      "gate": false,
+      "scalars": [],
+      "expected": {
+        "facts": [
+          {
+            "name": "result",
+            "value": "True:True"
+          }
+        ],
+        "outputs": []
+      }
+    },
+    {
+      "id": "fixture-state-restored",
+      "fixture": "FixtureStateRestored",
+      "gate": true,
+      "scalars": [],
+      "expected": {
+        "facts": [
+          {
+            "name": "result",
+            "value": "restored"
+          }
+        ],
+        "outputs": []
+      }
+    }
+  ]
+}

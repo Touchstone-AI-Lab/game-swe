@@ -1,0 +1,274 @@
+{
+  "id": "rhenium-dst-v2",
+  "version": "2.1.0",
+  "game": "dst",
+  "name": {
+    "en": "Rhenium: Original Don't Starve Together Systems Tasks",
+    "zh": "Rhenium：《饥荒联机版》原创系统工程题"
+  },
+  "description": {
+    "en": "Ten independently authored hard engineering tasks built only around base-game Don't Starve Together APIs, prefabs, components, and assets.",
+    "zh": "十道独立设计的高难度工程题，仅使用《饥荒联机版》原版 API、prefab、组件与资源。"
+  },
+  "tasks": [
+    {
+      "id": "trade-escrow-exchange",
+      "difficulty": "hard",
+      "title": {
+        "en": "Server-authoritative Two-player Trade Escrow",
+        "zh": "服务端权威双人交易托管"
+      },
+      "summary": {
+        "en": "Let two players escrow base-game items, confirm each other's exact offer revision, and swap the real inventory stacks atomically despite re-pricing, replays, expiry, shortfalls, full inventories, departures and reloads.",
+        "zh": "让两名玩家托管原版物品、确认对方的确切报价版本，并在改价、重放、过期、库存不足、背包已满、玩家离开与重载下原子地交换真实库存物品堆。"
+      },
+      "brief": {
+        "en": "Implement a plain-Lua escrow state machine and a master-simulation world component that operates on base-game inventory components. Offers are whitelisted prefab/count maps with strictly increasing revisions; any accepted change voids both confirmations; a confirmation must name the counterparty's current revision; trades expire at an exact boundary; settlement runs through a persisted settling phase with a deterministic transfer plan, and the component verifies holdings, moves the real item entities, restores both inventories on any failure, and recovers unfinished settlements after load.",
+        "zh": "实现纯 Lua 托管状态机，以及操作原版 inventory 组件的主模拟世界组件。报价是受白名单约束、revision 严格递增的 prefab/数量表；任何被接受的改动都会让双方确认失效；确认必须指明对方当前 revision；交易在精确边界过期；结算经过可持久化的 settling 阶段并给出确定性的转移计划，组件负责校验库存、移动真实物品实体、在任何失败时恢复双方库存，并在加载后恢复未完成的结算。"
+      },
+      "requirements": {
+        "en": [
+          "Export Escrow.new(options), Escrow.load(data, options), open(trade_id, a_id, b_id, now), offer(trade_id, party_id, items, revision, now), confirm(trade_id, party_id, seen_revision, now), cancel(trade_id, party_id, now), begin_settle(trade_id, now), finish_settle(trade_id, ok, now), tick(now), snapshot(now), and save(now); every result is a fresh table with ok, code and, for an existing trade, phase.",
+          "Validate arguments first (invalid_argument does nothing at all), then apply expiry, then resolve unknown_trade, not_a_party, the published phase table and the method's own rules; failed calls never change state.",
+          "Offers are prefab->positive-integer maps checked against options.allowed_prefabs and options.max_distinct; rejected offers consume no revision and void no confirmation.",
+          "Revisions strictly increase per party; an identical replay of the current revision succeeds without side effects, a different payload is revision_conflict, a lower one is stale_revision; any accepted new revision voids BOTH confirmations.",
+          "confirm must name the counterparty's current revision or fail with stale_confirmation; a party is in at most one in-progress trade (party_busy) and closed ids are never reusable (trade_closed).",
+          "Only open trades expire, exactly when now >= opened_at + ttl; tick reports newly expired ids once, in ascending order, and settling never expires.",
+          "begin_settle requires both live confirmations, moves to settling and returns a fresh plan ordered by giver id then prefab; finish_settle(true) settles, finish_settle(false) reopens with confirmations cleared and the original deadline.",
+          "snapshot returns fresh, deterministically ordered tables including closed trades; save/load round-trips every phase including settling through plain data, and the world component persists it, recovers settling trades after load, and cleans up its listener and periodic task. The world component runs only on the master simulation and persists this state through OnSave/OnLoad."
+        ],
+        "zh": [
+          "导出 Escrow.new(options)、Escrow.load(data, options)、open(trade_id, a_id, b_id, now)、offer(trade_id, party_id, items, revision, now)、confirm(trade_id, party_id, seen_revision, now)、cancel(trade_id, party_id, now)、begin_settle(trade_id, now)、finish_settle(trade_id, ok, now)、tick(now)、snapshot(now) 与 save(now)；每个结果都是含 ok、code（交易存在时还含 phase）的新表。",
+          "先校验参数（invalid_argument 时什么都不做），再做过期处理，然后依次判定 unknown_trade、not_a_party、公开的阶段表和方法自身规则；失败调用不得改变状态。",
+          "报价是 prefab->正整数 的表，受 options.allowed_prefabs 与 options.max_distinct 约束；被拒绝的报价不消耗 revision，也不清除确认。",
+          "revision 对每名参与者严格递增；当前 revision 的相同重放无副作用地成功，内容不同为 revision_conflict，更小为 stale_revision；任何被接受的新 revision 都使双方确认失效。",
+          "confirm 必须指明对方当前 revision，否则为 stale_confirmation；每名参与者同时最多参与一笔进行中的交易（party_busy），已关闭的 id 永不可复用（trade_closed）。",
+          "只有 open 交易会过期，且恰在 now >= opened_at + ttl 时过期；tick 只报告一次新过期的 id 并按升序排列，settling 永不过期。",
+          "begin_settle 要求双方确认有效，进入 settling 并返回按给出方 id、再按 prefab 排序的新计划表；finish_settle(true) 完成交易，finish_settle(false) 回到 open、清除确认并沿用原截止时间。",
+          "snapshot 返回全新且顺序确定的表（含已关闭交易）；save/load 用普通数据完整往返包括 settling 在内的所有阶段，世界组件负责持久化、加载后恢复 settling 交易，并清理监听与周期任务。世界组件仅在主模拟运行，并通过 OnSave/OnLoad 持久化该状态。"
+        ]
+      },
+      "api_usage": {
+        "en": [
+          "Attach the tradeescrow world component inside AddPrefabPostInit(\"world\", ...) behind an ismastersim guard, keep the core in self.escrow, and take identity only from player.userid.",
+          "Check holdings with inventory:Has(prefab, count), which returns (enough, found) and counts the active item; select stacks with inventory:GetItemByName(prefab, count).",
+          "Move real entities: inventory:RemoveItem(item, true) for a whole stack, item.components.stackable:Get(n) to split a partial stack, then the other inventory's GiveItem(item); confirm the outcome with item:IsValid() and inventoryitem:GetGrandOwner().",
+          "Register AddModRPCHandler(\"rhenium_trade\", name, fn) for open, offer, confirm and cancel; payloads contain only strings and numbers and malformed offer pairs drop the whole request.",
+          "Listen for ms_playerleft and run DoPeriodicTask for expiry; remove the same callback with RemoveEventCallback and Cancel() the task in OnRemoveFromEntity; implement OnSave/OnLoad with a clock that continues across restarts."
+        ],
+        "zh": [
+          "在 AddPrefabPostInit(\"world\", ...) 内以 ismastersim 守卫挂载 tradeescrow 世界组件，把核心保存在 self.escrow，身份只来自 player.userid。",
+          "用 inventory:Has(prefab, count) 校验库存，它返回（是否足够, 实际数量）并计入 active item；用 inventory:GetItemByName(prefab, count) 选取物品堆。",
+          "移动真实实体：整堆用 inventory:RemoveItem(item, true)，部分堆用 item.components.stackable:Get(n) 拆分，再调用对方 inventory 的 GiveItem(item)；用 item:IsValid() 与 inventoryitem:GetGrandOwner() 确认结果。",
+          "用 AddModRPCHandler(\"rhenium_trade\", name, fn) 注册 open、offer、confirm、cancel；负载只含字符串和数字，offer 的参数对不合法时丢弃整个请求。",
+          "监听 ms_playerleft 并用 DoPeriodicTask 处理过期；在 OnRemoveFromEntity 中用同一回调 RemoveEventCallback 并 Cancel() 任务；实现 OnSave/OnLoad，且时钟跨重启连续。"
+        ]
+      },
+      "acceptance": {
+        "en": [
+          "Any re-pricing voids both confirmations and only trades whose current revisions were confirmed by both sides settle.",
+          "Expiry is exact at now >= expires_at and replays, stale packets and closed ids behave deterministically without side effects.",
+          "Shortfalls and failed deliveries leave both inventories exactly as before and reopen the trade for re-confirmation.",
+          "The settling phase survives save and load and is recovered without replaying a swap of unknown progress.",
+          "The dedicated server swaps real twigs, cutgrass and flint stacks between two inventory entities and asserts exact counts, rollback, departure, RPC validation and reload."
+        ],
+        "zh": [
+          "任何改价都会让双方确认失效，只有双方都确认了对方当前 revision 的交易才会结算。",
+          "过期边界精确到 now >= expires_at，重放、旧包与已关闭 id 的行为确定且无副作用。",
+          "库存不足与交付失败后双方库存与之前完全一致，交易回到 open 等待重新确认。",
+          "settling 阶段可保存加载，并在不重放进度未知的交换的前提下恢复。",
+          "专服在两个带 inventory 的实体之间交换真实的 twigs、cutgrass、flint 物品堆，并断言精确数量、回滚、离开、RPC 校验与重载。"
+        ]
+      },
+      "domains": [
+        "trading",
+        "transactions",
+        "inventory",
+        "persistence"
+      ],
+      "estimated_minutes": 390,
+      "core_module": "scripts/tradeescrow/escrow.lua",
+      "hidden_test": "hidden/trade-escrow-exchange.lua",
+      "server_test": "server/trade-escrow-exchange.lua",
+      "hidden_cases": [
+        "rejected offers leave revision and confirmations untouched",
+        "any accepted offer change voids both confirmations",
+        "replays are idempotent and revisions strictly increase",
+        "expiry boundary is exact and tick is deterministic",
+        "settlement plan is ordered and settling is exclusive",
+        "snapshot is fresh and save load round-trips settling"
+      ],
+      "server_cases": [
+        "trade escrow component is attached on the master simulation",
+        "confirmed trade swaps real inventory stacks exactly",
+        "failed settlement restores both inventories and reopens",
+        "departure, rpc input and crash recovery keep state consistent"
+      ],
+      "required_files": [
+        "modinfo.lua",
+        "modmain.lua",
+        "scripts/tradeescrow/escrow.lua",
+        "scripts/components/tradeescrow.lua"
+      ],
+      "minimum_lua_lines": 260,
+      "integration_checks": [
+        {
+          "id": "escrow-authority",
+          "label": {
+            "en": "Server authority",
+            "zh": "服务端权威"
+          },
+          "weight": 4,
+          "groups": [
+            {
+              "name": "guard",
+              "any_of": [
+                "TheWorld\\.ismastersim",
+                "inst\\.ismastersim",
+                "world\\.ismastersim"
+              ]
+            },
+            {
+              "name": "world hook",
+              "any_of": [
+                "AddPrefabPostInit\\s*\\(\\s*[\\\"']world[\\\"']"
+              ]
+            },
+            {
+              "name": "component",
+              "any_of": [
+                "AddComponent\\s*\\(\\s*[\\\"']tradeescrow[\\\"']"
+              ]
+            },
+            {
+              "name": "identity",
+              "any_of": [
+                "\\.userid"
+              ]
+            }
+          ],
+          "none_of": [
+            "TODO",
+            "IMPLEMENT\\s+ME"
+          ]
+        },
+        {
+          "id": "escrow-inventory",
+          "label": {
+            "en": "Inventory operations",
+            "zh": "库存操作"
+          },
+          "weight": 4,
+          "groups": [
+            {
+              "name": "inventory",
+              "any_of": [
+                "components\\.inventory"
+              ]
+            },
+            {
+              "name": "holdings",
+              "any_of": [
+                ":Has\\s*\\("
+              ]
+            },
+            {
+              "name": "remove",
+              "any_of": [
+                ":RemoveItem\\s*\\(",
+                ":RemoveItemBySlot\\s*\\(",
+                "stackable:Get\\s*\\("
+              ]
+            },
+            {
+              "name": "give",
+              "any_of": [
+                ":GiveItem\\s*\\("
+              ]
+            }
+          ]
+        },
+        {
+          "id": "escrow-rpc",
+          "label": {
+            "en": "Validated Mod RPC",
+            "zh": "经校验的 Mod RPC"
+          },
+          "weight": 3,
+          "groups": [
+            {
+              "name": "namespace",
+              "any_of": [
+                "AddModRPCHandler\\s*\\(\\s*[\\\"']rhenium_trade[\\\"']"
+              ]
+            },
+            {
+              "name": "offer",
+              "any_of": [
+                "[\\\"']rhenium_trade[\\\"']\\s*,\\s*[\\\"']offer[\\\"']"
+              ]
+            },
+            {
+              "name": "confirm",
+              "any_of": [
+                "[\\\"']rhenium_trade[\\\"']\\s*,\\s*[\\\"']confirm[\\\"']"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "escrow-lifecycle",
+          "label": {
+            "en": "Persistence and cleanup",
+            "zh": "持久化与清理"
+          },
+          "weight": 4,
+          "groups": [
+            {
+              "name": "save/load",
+              "any_of": [
+                ":OnSave\\s*\\("
+              ]
+            },
+            {
+              "name": "load",
+              "any_of": [
+                ":OnLoad\\s*\\("
+              ]
+            },
+            {
+              "name": "departure",
+              "any_of": [
+                "ListenForEvent\\s*\\(\\s*[\\\"']ms_playerleft[\\\"']"
+              ]
+            },
+            {
+              "name": "listener cleanup",
+              "any_of": [
+                "RemoveEventCallback\\s*\\(\\s*[\\\"']ms_playerleft[\\\"']"
+              ]
+            },
+            {
+              "name": "expiry task",
+              "any_of": [
+                "DoPeriodicTask\\s*\\("
+              ]
+            },
+            {
+              "name": "task cleanup",
+              "any_of": [
+                ":Cancel\\s*\\(\\s*\\)"
+              ]
+            },
+            {
+              "name": "removal",
+              "any_of": [
+                ":OnRemoveFromEntity\\s*\\("
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

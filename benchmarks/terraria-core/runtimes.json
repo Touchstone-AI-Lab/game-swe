@@ -1,0 +1,91 @@
+{
+  "schema_version": 1,
+  "runtimes": [
+    {
+      "id": "dotnet-8.0.419-source-projection",
+      "name": "Pinned .NET 8 source-projection runtime",
+      "version": "8.0.419-bookworm-slim",
+      "provider": "container",
+      "restricted": false,
+      "host_platforms": [
+        "linux-x64",
+        "darwin-x64",
+        "darwin-arm64"
+      ],
+      "source": {
+        "kind": "container-image",
+        "image": "mcr.microsoft.com/dotnet/sdk:8.0.419-bookworm-slim@sha256:dd09bcce84d9130e7f3e85c83a8ce9709e1d95e45c48c722a0d7923b38d8024c",
+        "expectedFiles": [
+          "usr/share/dotnet/dotnet"
+        ]
+      }
+    },
+    {
+      "id": "tmodloader-2026.07.3.0-server",
+      "name": "tModLoader v2026.07.3.0 real dedicated server",
+      "version": "Terraria-1.4.4.9-tModLoader-2026.07.3.0",
+      "provider": "local-files",
+      "restricted": false,
+      "host_platforms": [
+        "linux-x64",
+        "darwin-x64",
+        "darwin-arm64"
+      ],
+      "source": {
+        "kind": "local-files",
+        "path": "${RHENIUM_TERRARIA_TML_DIR}",
+        "include": [
+          "tModLoader.zip",
+          "krafs.publicizer.2.2.1.nupkg"
+        ],
+        "expectedFiles": [
+          "tModLoader.zip",
+          "krafs.publicizer.2.2.1.nupkg"
+        ],
+        "sha256": "6f51610f4b0f167d1620d0e8c83264ba14e047421e97d9f8053eb40e3d764e1a"
+      }
+    }
+  ],
+  "task_bindings": {
+    "terraria-magic-storage-compressed-io-regressions-hard": [
+      "dotnet-8.0.419-source-projection",
+      "tmodloader-2026.07.3.0-server"
+    ],
+    "terraria-fargos-enchanted-tree-transactions-hard": [
+      "dotnet-8.0.419-source-projection",
+      "tmodloader-2026.07.3.0-server"
+    ],
+    "terraria-overhaul-entity-chunk-lifetime-hard": [
+      "dotnet-8.0.419-source-projection",
+      "tmodloader-2026.07.3.0-server"
+    ],
+    "terraria-improvegame-space-wand-authority-hard": [
+      "dotnet-8.0.419-source-projection",
+      "tmodloader-2026.07.3.0-server"
+    ],
+    "terraria-spirit-branching-quest-replication-hard": [
+      "dotnet-8.0.419-source-projection",
+      "tmodloader-2026.07.3.0-server"
+    ],
+    "terraria-modliquid-map-persistence-hard": [
+      "dotnet-8.0.419-source-projection",
+      "tmodloader-2026.07.3.0-server"
+    ],
+    "terraria-aequus-carpentry-replication-hard": [
+      "dotnet-8.0.419-source-projection",
+      "tmodloader-2026.07.3.0-server"
+    ],
+    "terraria-starlight-ability-state-hard": [
+      "dotnet-8.0.419-source-projection",
+      "tmodloader-2026.07.3.0-server"
+    ],
+    "terraria-fargos-toggle-presets-hard": [
+      "dotnet-8.0.419-source-projection",
+      "tmodloader-2026.07.3.0-server"
+    ],
+    "terraria-calamity-overhaul-time-replication-hard": [
+      "dotnet-8.0.419-source-projection",
+      "tmodloader-2026.07.3.0-server"
+    ]
+  }
+}
